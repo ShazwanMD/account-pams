@@ -11,8 +11,19 @@ public interface AcReceipt {
     Long getId();
 
     void setId(Long id);
+    
 
-    List<AcReceiptItem> getItems();
+    String getDescription();
+    
+    void setDescription(String description);
+    
+    
+    String getReceiptNumber();
+    
+    void setReceiptNumber(String receiptnumber);
 
-    void setItems(List<AcReceiptItem> items);
+
+/*    List<AcReceiptItem> getItems();
+
+    void setItems(List<AcReceiptItem> items);*/
 }
