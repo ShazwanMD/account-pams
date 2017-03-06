@@ -1,0 +1,130 @@
+**Modules**
+- Common : shared object
+- Study Plan : Curriculum/Structure
+- Offering : Offering
+- Application : Admission and Enrollment 
+- Assessment 
+
+**Naming Convention**
+- AD - Academic
+- SQ - Sequence
+- IX - index
+- UQ - Unique
+- PK - Primary Key
+- FK - Foreign Key
+
+**Module Naming Convention**
+- PLC - POLICY
+- APL - APPLICATION
+- AMS - ADMISSION
+
+**Domain Convention**
+- CRTR = CRITERIA
+- GRDE = GRADE
+- SBJT = SUBJECT
+- CITY = CITY
+- CMCY = COMPETENCY
+- CNTY = COUNTRY
+- DPCY = DEPENDENCY
+- RSCY = RESIDENCY
+- DBLY = DISABILITY
+- EMPT = EMPLOYMENT
+- LEVL = LEVEL
+- SCTR = SECTOR
+- ETNY = ETHNICITY
+- FCTY = FACULTY
+- CLGE = COLLEGE
+- FILD = FIELD
+- GNDR = GENDER
+- INVT = INVOLVEMENT
+- MRTL = MARITAL
+- RACE = RACE
+- SCHL = SCHOOL
+- STTE = STATE
+- PRGM = PROGRAM
+- TTLE = TITLE
+- TYPE = TYPE
+- INST = INSTITUTION
+- SLTN = SELECTION
+- CTGY = CATEGORY
+- MERT = MERIT
+- SESN = SESSION
+- OFRG = OFFERING
+- SBJT = SUBJECT
+- ATMT = ATTACHMENT
+- DPLM = DIPLOMA
+- RSLT = RESULT
+- CHCE = CHOICE
+- MUET = MUET
+- SKM = SKM
+- SPM = SPM
+- STAM = STAM
+- TOFL = TOEFL
+- MTRX = MATRIX
+- INTV = INTERVIEW
+- INVE = INTERVIEWEE
+- INVR = INTERVIEWER
+- LCTN = LOCATION
+- SLOT = SLOT
+- ACTR = ACTOR
+- GROP = GROUP
+- AUDT = AUDIT
+- CNFG = CONFIGURATION
+- PCPL = PRINCIPAL
+- RFRN = REFERENCE
+- STAF = STAFF
+- ROLE = ROLE
+- MODL = MODULE
+- USER = USER
+- SMDL = SUB MODULE
+- ANMT = ANNOUNCEMENT
+- GRDN = GUARDIAN
+- APPL = APPLICATION
+- INTK = INTAKE
+- CTGY = CATEGORY
+- SCRT = SECRETARIAT
+- RLGN = RELIGION
+- RCPT = RECEIPT
+- PYMT = PAYMENT
+- SPSR = SPONSOR
+- STDT = STUDENT
+- STMT = STATEMENT
+- TRSN = TRANSACTION
+- VCHR = VOUCHER
+- RCPN = RECIPIENT
+- ACCT = ACCOUNT
+- BTCH = BATCH
+- ACDM = ACADEMIC
+- SESN = SESSION
+- ACTR = ACTOR
+- MMBR = MEMBER
+- PCPL = PRINCIPAL
+- INVC = INVOICE
+- FCTY = FACULTY
+- ELTN = ELECTRONIC
+- CNTR = COUNTER
+- BRCH = BRANCH
+- BDGT = BUDGET
+- CNTR = CENTER
+- BDHR - BENDAHARI
+- CNDT = CANDIDATE
+- RSPN = RESPONSE
+- SRVY = SURVEY
+- CNTC = CONTACT
+- DETL = DETAIL
+- RGTN = REGISTRATION
+
+
+**Command Line**
+
+    mvn compile
+    mvn package
+    mvn war
+    mvn test
+    mvn -Dtest=<testName> test
+    mvn -Dtest=<testName>#<methodName> test
+    mvn jetty:run
+    mvn javadoc:javadoc
+    mvn cobertura:cobertura
+    mvn schemaspy
+ 
