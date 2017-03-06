@@ -51,6 +51,7 @@ crashlytics-build.properties
 
 # Created by .ignore support plugin (hsz.mobi)
 
+### Eclipse template
 .metadata
 bin/
 tmp/
