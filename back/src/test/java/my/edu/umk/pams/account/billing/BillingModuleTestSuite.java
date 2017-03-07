@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.account;
+package my.edu.umk.pams.account.billing;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -8,7 +8,6 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        US_AC_ACT_0001.class
 })
-public class AccountTestSuite {
+public class BillingModuleTestSuite {
 }

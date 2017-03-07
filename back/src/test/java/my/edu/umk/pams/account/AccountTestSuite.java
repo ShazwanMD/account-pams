@@ -1,15 +1,16 @@
 package my.edu.umk.pams.account;
 
-import my.edu.umk.pams.account.identity.IdentityTestSuite;
-import my.edu.umk.pams.account.billing.BillingTestSuite;
+import my.edu.umk.pams.account.account.AccountModuleTestSuite;
+import my.edu.umk.pams.account.billing.BillingModuleTestSuite;
+import my.edu.umk.pams.account.identity.IdentityModuleTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        BillingTestSuite.class,
-        AccountTestSuite.class,
-        IdentityTestSuite.class,
+        BillingModuleTestSuite.class,
+        AccountModuleTestSuite.class,
+        IdentityModuleTestSuite.class,
 })
 public class AccountTestSuite {
 }

@@ -18,7 +18,7 @@ import org.springframework.context.annotation.PropertySource;
         "my.edu.umk.pams.account.common",
         "my.edu.umk.pams.account.billing",
         "my.edu.umk.pams.account.account",
-        "my.edu.umk.pams.account.enrollment",
+        "my.edu.umk.pams.account.financialaid",
 })
 @Import({
         TestDatasourceConfig.class,
