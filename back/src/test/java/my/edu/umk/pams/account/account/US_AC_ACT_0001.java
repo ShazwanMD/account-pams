@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author PAMS
  *
- * US_AC_ACT_0001 s an example test class
+ * US_AC_ACT_0001 class is an example test class
  * For naming explanation of US_AC_ACT_0001,
  * for more details, see <project>/README.md
  */
