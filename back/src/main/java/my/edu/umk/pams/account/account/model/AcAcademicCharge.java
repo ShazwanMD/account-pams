@@ -5,7 +5,9 @@ package my.edu.umk.pams.account.account.model;
  */
 public interface AcAcademicCharge extends AcAccountCharge {
 
-    Long getId();
+    // todo(uda): confirm
+    AcChargeCode getChargeCode();
 
-    void setId(Long id);
+    void setChargeCode(AcChargeCode chargeCode);
+
 }

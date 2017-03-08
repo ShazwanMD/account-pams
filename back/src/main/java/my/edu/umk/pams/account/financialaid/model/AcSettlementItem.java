@@ -1,22 +1,38 @@
 package my.edu.umk.pams.account.financialaid.model;
 
-import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.core.AcMetaObject;
+import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+
+import java.math.BigDecimal;
 
 /**
  * @author PAMS
  */
-public interface AcSettlementItem extends AcSettlement {
+public interface AcSettlementItem extends AcMetaObject {
 
+    void setStatus(AcSettlementStatus status);
 
-    Long getId();
+    AcSettlementStatus getStatus();
 
-    void setId(Long id);
+    AcActor getAccount();
+
+    void setAccount(AcActor account);
+
+    BigDecimal getBalanceAmount();
+
+    void setBalanceAmount(BigDecimal balanceAmount);
 
     AcSettlement getSettlement();
 
     void setSettlement(AcSettlement settlement);
 
-    AcAccount getAccount();
+    AcStudent getStudent();
 
-    void setAccount(AcAccount account);
+    void setStudent(AcStudent student);
+
+    AcInvoice getInvoice();
+
+    void setInvoice(AcInvoice invoice);
 }
