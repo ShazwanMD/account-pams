@@ -5,7 +5,6 @@ package my.edu.umk.pams.account.billing.model;
  */
 public interface AcReceiptInvoice {
 
-
     Long getId();
 
     void setId(Long id);

@@ -1,8 +1,8 @@
 package my.edu.umk.pams.account.financialaid.model;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.core.AcMetaObject;
-import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 
 import java.math.BigDecimal;
@@ -16,9 +16,9 @@ public interface AcSettlementItem extends AcMetaObject {
 
     AcSettlementStatus getStatus();
 
-    AcActor getAccount();
+    AcAccount getAccount();
 
-    void setAccount(AcActor account);
+    void setAccount(AcAccount account);
 
     BigDecimal getBalanceAmount();
 

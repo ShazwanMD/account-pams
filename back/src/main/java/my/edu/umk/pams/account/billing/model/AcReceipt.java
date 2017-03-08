@@ -1,29 +1,55 @@
 package my.edu.umk.pams.account.billing.model;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.common.model.AcPaymentMethod;
+import my.edu.umk.pams.account.core.model.AcDocument;
+
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author PAMS
  */
-public interface AcReceipt {
+public interface AcReceipt extends AcDocument{
 
+    String getReceiptNo();
 
-    Long getId();
+    void setReceiptNo(String receiptNo);
 
-    void setId(Long id);
-    
+    AcReceiptType getReceiptType();
 
-    String getDescription();
-    
-    void setDescription(String description);
-    
-    
-    String getReceiptNumber();
-    
-    void setReceiptNumber(String receiptnumber);
+    void setReceiptType(AcReceiptType receiptType);
 
+    BigDecimal getTotalApplied();
 
-/*    List<AcReceiptItem> getItems();
+    void setTotalApplied(BigDecimal totalApplied);
 
-    void setItems(List<AcReceiptItem> items);*/
+    BigDecimal getTotalReceived();
+
+    void setTotalReceived(BigDecimal totalReceived);
+
+    BigDecimal getTotalAmountInCurrency();
+
+    void setTotalAmountInCurrency(BigDecimal totalAmountInCurrency);
+
+    BigDecimal getTotalAmount();
+
+    Date getReceiveDate();
+
+    void setReceiveDate(Date receiveDate);
+
+    void setTotalAmount(BigDecimal totalAmount);
+
+    AcPaymentMethod getPaymentMethod();
+
+    void setPaymentMethod(AcPaymentMethod type);
+
+    List<AcReceiptItem> getItems();
+
+    void setItems(List<AcReceiptItem> items);
+
+    AcAccount getAccount();
+
+    void setAccount(AcAccount account);
 }

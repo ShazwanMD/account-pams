@@ -29,8 +29,6 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 
     AcAccountTransaction findAccountTransactionById(Long id);
 
-    List<AcAccount> find();
-
     List<AcAccount> find(String filter, Integer offset, Integer limit);
 
     List<AcAccount> find(String filter, AcActorType actorType, Integer offset, Integer limit);

@@ -1,18 +1,14 @@
 package my.edu.umk.pams.account.billing.model;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.core.AcMetaObject;
 
 import java.util.List;
 
 /**
  * @author PAMS
  */
-public interface AcInvoice {
-
-
-    Long getId();
-
-    void setId(Long id);
+public interface AcInvoice extends AcMetaObject{
 
     AcAccount getAccount();
 
