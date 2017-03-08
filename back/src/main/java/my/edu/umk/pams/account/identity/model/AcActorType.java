@@ -7,4 +7,5 @@ package my.edu.umk.pams.account.identity.model;
 public enum AcActorType {
     STAFF, //0
     STUDENT, //1
+    SPONSOR; //2
 }

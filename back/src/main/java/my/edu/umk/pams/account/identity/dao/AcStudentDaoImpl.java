@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.identity.dao;
 
 import my.edu.umk.pams.account.core.GenericDaoSupport;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import org.hibernate.Query;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 /**
  * @author canang technologies
@@ -42,8 +45,25 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
                 "or upper(s.name) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setString("filter", WILDCARD + filter + WILDCARD);
-        query.setInteger("state", my.edu.umk.pams.account.core.AcMetaState.ACTIVE.ordinal());
+        query.setInteger("state", ACTIVE.ordinal());
         return query.list();
+    }
+
+    @Override
+    public List<AcStudent> find(AcSponsor sponsor) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcStudent s join s.sponsorship sp where " +
+                "sp.sponsor = :sponsor " +
+                "and s.metadata.state = :state ");
+        query.setEntity("sponsor", sponsor);
+        query.setInteger("state", ACTIVE.ordinal());
+        return query.list();
+    }
+
+    // todo(uda): stub
+    @Override
+    public List<AcSponsor> findSponsors(AcStudent student) {
+        return null;
     }
 
     @Override
@@ -54,7 +74,12 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
                 "or upper(s.name) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setString("filter", WILDCARD + filter + WILDCARD);
-        query.setInteger("state", my.edu.umk.pams.account.core.AcMetaState.ACTIVE.ordinal());
+        query.setInteger("state", ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
+    }
+
+    @Override
+    public Integer count(AcSponsor sponsor) {
+        return null;
     }
 }

@@ -1,16 +1,13 @@
 package my.edu.umk.pams.account.identity.model;
 
+import my.edu.umk.pams.account.core.AcMetaObject;
+
 /**
  * ?? todo: coverage
  *
  * @author PAMS
  */
-public interface AcSponsorship {
-
-
-    Long getId();
-
-    void setId(Long id);
+public interface AcSponsorship extends AcMetaObject {
 
     AcSponsor getSponsor();
 

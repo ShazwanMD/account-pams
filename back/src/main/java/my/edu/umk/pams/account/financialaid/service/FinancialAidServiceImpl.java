@@ -5,6 +5,11 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItemImpl;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementStatus;
+import my.edu.umk.pams.account.identity.dao.AcStudentDao;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
 import org.hibernate.SessionFactory;
@@ -27,6 +32,9 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Autowired
     private AcAccountDao accountDao;
+
+    @Autowired
+    private AcStudentDao studentDao;
 
 //    @Autowired
 //    private AcAccountChargeDao accountChargeDao;
@@ -98,7 +106,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
 
     @Override
-    public void executeSettlement(AcSettlement batch, List<AcSettlementItem> items) {
+    public void executeSettlement(AcSettlement settlement, List<AcSettlementItem> items) {
         // TODO: process qualification
 
         // TODO: process invoice
@@ -107,54 +115,56 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     }
 
     @Override
-    public void initSettlement(AcSettlement batch) {
+    public void initSettlement(AcSettlement settlement) {
         String referenceNo = null; // todo(uda): systemService.generateReferenceNo(PROCESS_BATCH_REFERENCE_NO);
-        batch.setReferenceNo(referenceNo);
-        LOG.debug("Processing process batch with refNo {}", new Object[]{referenceNo});
+        settlement.setReferenceNo(referenceNo);
+        LOG.debug("Processing process settlement with refNo {}", new Object[]{referenceNo});
 
         // save
-        settlementDao.save(batch, securityService.getCurrentUser());
+        settlementDao.save(settlement, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
 
-//        // generate item
-//        AcSponsor sponsor = batch.getSponsor();
-//        List<AcSponsorship> sponsorships = sponsorshipDao.find(sponsor);
-//        for (AcSponsorship sponsorship : sponsorships) {
-//            AcSettlementItem item = new AcSettlementItemImpl();
-//            item.setBatch(batch);
-//            item.setAccount(actorAccountDao.findByActor(sponsorship.getStudent()));
-//            item.setBatchStatus(AcSettlementStatus.NEW);
-//            addSettlementItem(batch, item);
-//        }
-    }
-
-    @Override
-    public void saveSettlement(AcSettlement batch) {
-        settlementDao.save(batch, securityService.getCurrentUser());
+        // generate item
+        AcSponsor sponsor = settlement.getSponsor();
+        List<AcStudent> students = studentDao.find(sponsor);
+        for (AcStudent student : students) {
+            AcSettlementItem item = new AcSettlementItemImpl();
+            item.setSettlement(settlement);
+            item.setAccount(accountDao.findByActor(student));
+            item.setStatus(AcSettlementStatus.NEW);
+            item.setSettlement(settlement);
+            addSettlementItem(settlement, item);
+        }
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void updateSettlement(AcSettlement batch) {
-        settlementDao.update(batch, securityService.getCurrentUser());
+    public void saveSettlement(AcSettlement settlement) {
+        settlementDao.save(settlement, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void addSettlementItem(AcSettlement batch, AcSettlementItem item) {
-        settlementDao.addItem(batch, item, securityService.getCurrentUser());
+    public void updateSettlement(AcSettlement settlement) {
+        settlementDao.update(settlement, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void updateSettlementItem(AcSettlement batch, AcSettlementItem item) {
-        settlementDao.updateItem(batch, item, securityService.getCurrentUser());
+    public void addSettlementItem(AcSettlement settlement, AcSettlementItem item) {
+        settlementDao.addItem(settlement, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void deleteSettlementItem(AcSettlement batch, AcSettlementItem item) {
-        settlementDao.deleteItem(batch, item, securityService.getCurrentUser());
+    public void updateSettlementItem(AcSettlement settlement, AcSettlementItem item) {
+        settlementDao.updateItem(settlement, item, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void deleteSettlementItem(AcSettlement settlement, AcSettlementItem item) {
+        settlementDao.deleteItem(settlement, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 }

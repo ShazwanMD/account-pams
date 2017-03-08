@@ -11,6 +11,10 @@ import javax.persistence.Table;
 @Table(name = "AC_APCN")
 public class AcStudentImpl extends AcActorImpl implements AcStudent {
 
+    public AcStudentImpl() {
+        setActorType(AcActorType.STAFF);
+    }
+
     @Override
     public String getApplicationNo() {
         return getIdentityNo();
