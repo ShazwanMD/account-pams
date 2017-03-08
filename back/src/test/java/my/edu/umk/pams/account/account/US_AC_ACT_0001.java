@@ -15,8 +15,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * example
  * @author PAMS
+ *
+ * US_AC_ACT_0001 class is an example test class
+ * For naming explanation of US_AC_ACT_0001,
+ * for more details, see <project>/README.md
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -35,7 +38,7 @@ public class US_AC_ACT_0001 extends TestSupport{
     }
 
     @Test
-    @Rollback(true)
+    @Rollback
     public void testSomething(){
         Assert.notNull(currentUser);
         Assert.notNull("something");

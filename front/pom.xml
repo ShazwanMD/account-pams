@@ -2,6 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>my.edu.umk.pams</groupId>
   <artifactId>account-front</artifactId>
+  <version>0.1.0</version>
   <name>PAMS Account</name>
   <build>
     <finalName>front</finalName>
