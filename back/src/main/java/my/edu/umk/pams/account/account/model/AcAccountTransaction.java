@@ -1,20 +1,40 @@
 package my.edu.umk.pams.account.account.model;
 
+import my.edu.umk.pams.account.core.AcMetaObject;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * @author PAMS
  */
-public interface AcAccountTransaction {
+public interface AcAccountTransaction extends AcMetaObject {
 
+    String getSourceNo();
 
-    Long getId();
+    void setSourceNo(String sourceNo);
 
-    void setId(Long id);
+    BigDecimal getAmount();
+
+    void setAmount(BigDecimal amount);
+
+    Date getPostedDate();
+
+    void setPostedDate(Date postedDate);
+
+    AcAccountTransactionCode getTransactionCode();
+
+    void setTransactionCode(AcAccountTransactionCode transactionCode);
 
     AcAccount getAccount();
 
     void setAccount(AcAccount account);
 
+    AcChargeCode getChargeCode();
+
+    void setChargeCode(AcChargeCode chargeCode);
+
     AcAcademicSession getSession();
 
-    void setSession(AcAcademicSession session);
+    void setSession(AcAcademicSession academicSession);
 }

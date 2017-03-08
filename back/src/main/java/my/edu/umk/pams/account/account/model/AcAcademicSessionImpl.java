@@ -14,7 +14,7 @@ public class AcAcademicSessionImpl implements AcAcademicSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_AC_ACDM_SESN")
-    @SequenceGenerator(name = "SEQ_AC_ACDM_SESN", sequenceName = "SEQ_AC_ACDM_SESN", allocationSize = 1)
+    @SequenceGenerator(name = "SQ_AC_ACDM_SESN", sequenceName = "SQ_AC_ACDM_SESN", allocationSize = 1)
     @Column(name = "ID", nullable = false)
     private Long id;
 
