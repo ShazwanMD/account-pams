@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.dao.AcActorDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcStaffImpl;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +38,9 @@ public class US_AC_ACT_0001 extends TestSupport{
     @Autowired
     private AcActorDao actorDao;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Before
     public void before() {
         super.before();
@@ -63,6 +67,7 @@ public class US_AC_ACT_0001 extends TestSupport{
         actor.setName("Mah Name");
 
         actorDao.save(actor,currentUser);
+        sessionFactory.getCurrentSession().flush();
         actorDao.refresh(actor);
     }
 
@@ -77,6 +82,7 @@ public class US_AC_ACT_0001 extends TestSupport{
         actor.setName("Noah Name");
 
         actorDao.save(actor,currentUser);
+        sessionFactory.getCurrentSession().flush();
         actorDao.refresh(actor);
 
         List<AcActor> acActors = actorDao.find();
