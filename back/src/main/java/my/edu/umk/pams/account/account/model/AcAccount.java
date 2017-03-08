@@ -9,7 +9,6 @@ import java.util.List;
  */
 public interface AcAccount {
 
-
     Long getId();
 
     void setId(Long id);
