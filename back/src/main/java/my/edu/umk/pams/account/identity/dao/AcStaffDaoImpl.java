@@ -5,6 +5,8 @@ import my.edu.umk.pams.account.identity.model.AcStaff;
 import my.edu.umk.pams.account.identity.model.AcStaffImpl;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
  */
 @Repository("staffDao")
 public class AcStaffDaoImpl extends GenericDaoSupport<Long, AcStaff> implements AcStaffDao {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AcStaffDaoImpl.class);
 
     public AcStaffDaoImpl() {
         super(AcStaffImpl.class);

@@ -5,6 +5,8 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,6 +18,8 @@ import java.util.List;
 @SuppressWarnings({"unchecked"})
 @Repository("studentDao")
 public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> implements AcStudentDao {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AcStudentDaoImpl.class);
 
     public AcStudentDaoImpl() {
         super(AcStudentImpl.class);

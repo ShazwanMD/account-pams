@@ -6,6 +6,8 @@ import my.edu.umk.pams.account.identity.model.AcActorImpl;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,6 +21,8 @@ import static my.edu.umk.pams.account.core.AcMetaState.*;
 @SuppressWarnings({"unchecked"})
 @Repository("actorDao")
 public class AcActorDaoImpl extends GenericDaoSupport<Long, AcActor> implements AcActorDao {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AcActorDaoImpl.class);
 
     public AcActorDaoImpl() {
         super(AcActorImpl.class);
