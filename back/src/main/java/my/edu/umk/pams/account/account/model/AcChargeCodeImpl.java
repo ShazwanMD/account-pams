@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 public class AcChargeCodeImpl implements AcChargeCode {
 
     @Id
-    @GeneratedValue(generator = "SEQ_SA_CHRG_CODE")
-    @SequenceGenerator(name = "SEQ_SA_CHRG_CODE", sequenceName = "SEQ_SA_CHRG_CODE", allocationSize = 1)
+    @GeneratedValue(generator = "SQ_AC_CHRG_CODE")
+    @SequenceGenerator(name = "SQ_AC_CHRG_CODE", sequenceName = "SQ_AC_CHRG_CODE", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 

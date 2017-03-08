@@ -14,21 +14,21 @@ public interface AcReceiptItem extends AcMetaObject{
 
     void setDescription(String description);
 
-    BigDecimal getAmountDue();
+    BigDecimal getDueAmount();
 
-    void setAmountDue(BigDecimal amountDue);
-
-    BigDecimal getAmountApplied();
-
-    void setAmountApplied(BigDecimal amountApplied);
-
-    BigDecimal getAdjustmentAmount();
-
-    void setAdjustmentAmount(BigDecimal adjustmentAmount);
+    void setDueAmount(BigDecimal dueAmount);
 
     BigDecimal getTotalAmount();
 
     void setTotalAmount(BigDecimal totalAmount);
+
+    BigDecimal getAppliedAmount();
+
+    void setAppliedAmount(BigDecimal appliedAmount);
+
+    BigDecimal getAdjustedAmount();
+
+    void setAdjustedAmount(BigDecimal adjustedAmount);
 
     BigDecimal getPrice();
 

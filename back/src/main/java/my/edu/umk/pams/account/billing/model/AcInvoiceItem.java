@@ -1,16 +1,26 @@
 package my.edu.umk.pams.account.billing.model;
 
 import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.core.AcMetaObject;
+
+import java.math.BigDecimal;
 
 /**
  * @author PAMS
  */
-public interface AcInvoiceItem {
+public interface AcInvoiceItem extends AcMetaObject{
 
+    String getDescription();
 
-    Long getId();
+    void setDescription(String description);
 
-    void setId(Long id);
+    BigDecimal getAmount();
+
+    void setAmount(BigDecimal amount);
+
+    BigDecimal getBalanceAmount();
+
+    void setBalanceAmount(BigDecimal balanceAmount);
 
     AcChargeCode getChargeCode();
 
@@ -19,4 +29,8 @@ public interface AcInvoiceItem {
     AcInvoice getInvoice();
 
     void setInvoice(AcInvoice invoice);
+
+    // todo(uda): balance
+    // transient 
+    //    boolean hasBalance();
 }

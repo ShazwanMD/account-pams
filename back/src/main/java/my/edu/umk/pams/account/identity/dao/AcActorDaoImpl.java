@@ -18,8 +18,7 @@ import static my.edu.umk.pams.account.core.AcMetaState.*;
  */
 @SuppressWarnings({"unchecked"})
 @Repository("actorDao")
-public final class
-AcActorDaoImpl extends GenericDaoSupport<Long, AcActor> implements AcActorDao {
+public class AcActorDaoImpl extends GenericDaoSupport<Long, AcActor> implements AcActorDao {
 
     public AcActorDaoImpl() {
         super(AcActorImpl.class);

@@ -18,7 +18,7 @@ public class AcAccountImpl implements AcAccount{
 
     @Id
     @Column(name = "ID", nullable = false)
-    @GeneratedValue(generator = "SQ_SA_ACCT")
+    @GeneratedValue(generator = "SQ_AC_ACCT")
     @SequenceGenerator(name = "SQ_AC_ACCT", sequenceName = "SQ_AC_ACCT", allocationSize = 1)
     private Long id;
 

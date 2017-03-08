@@ -63,8 +63,8 @@ public abstract class AcReceiptImpl implements AcReceipt {
 	private BigDecimal totalAmount = new BigDecimal(0.00);
 
 	@NotNull
-	@Column(name = "RECEIVE_DATE")
-	private Date receiveDate;
+	@Column(name = "RECEIVED_DATE")
+	private Date receivedDate;
 
 	@ManyToOne(targetEntity = AcAccountImpl.class)
 	@JoinColumn(name = "ACCOUNT_ID")
@@ -194,14 +194,12 @@ public abstract class AcReceiptImpl implements AcReceipt {
 		this.totalAmount = totalAmount;
 	}
 
-	@Override
-	public Date getReceiveDate() {
-		return receiveDate;
+	public Date getReceivedDate() {
+		return receivedDate;
 	}
 
-	@Override
-	public void setReceiveDate(Date receiveDate) {
-		this.receiveDate = receiveDate;
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
 	}
 
 	public AcAccount getAccount() {

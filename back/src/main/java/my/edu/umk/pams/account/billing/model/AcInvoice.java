@@ -1,14 +1,19 @@
 package my.edu.umk.pams.account.billing.model;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.core.AcMetaObject;
+import my.edu.umk.pams.account.core.model.AcDocument;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author PAMS
  */
-public interface AcInvoice extends AcMetaObject{
+public interface AcInvoice extends AcDocument{
+
+    Date getIssuedDate();
+
+    void setIssuedDate(Date issuedDate);
 
     AcAccount getAccount();
 
@@ -18,11 +23,12 @@ public interface AcInvoice extends AcMetaObject{
 
     void setItems(List<AcInvoiceItem> items);
 
-    List<AcDebitNote> getDebitNotes();
-
-    void setDebitNotes(List<AcDebitNote> notes);
-
-    List<AcCreditNote> getCreditNotes();
-
-    void setCreditNotes(List<AcCreditNote> notes);
+    // todo(uda): todo
+//    List<AcDebitNote> getDebitNotes();
+//
+//    void setDebitNotes(List<AcDebitNote> notes);
+//
+//    List<AcCreditNote> getCreditNotes();
+//
+//    void setCreditNotes(List<AcCreditNote> notes);
 }
