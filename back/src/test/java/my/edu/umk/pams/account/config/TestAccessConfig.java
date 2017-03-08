@@ -1,9 +1,9 @@
 package my.edu.umk.pams.account.config;
 
-import my.edu.umk.pams.account.security.integration.AdAclPermissionEvaluator;
-import my.edu.umk.pams.account.security.integration.AdMutableAclService;
-import my.edu.umk.pams.account.security.integration.AdPermissionFactory;
-import my.edu.umk.pams.account.security.integration.AdSidRetrievalStrategy;
+import my.edu.umk.pams.account.security.integration.AcAclPermissionEvaluator;
+import my.edu.umk.pams.account.security.integration.AcMutableAclService;
+import my.edu.umk.pams.account.security.integration.AcPermissionFactory;
+import my.edu.umk.pams.account.security.integration.AcSidRetrievalStrategy;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class TestAccessConfig {
 
     @Bean
     public MutableAclService mutableAclService(DataSource dataSource, LookupStrategy lookupStrategy, AclCache cache) {
-        return new AdMutableAclService(dataSource, lookupStrategy, cache);
+        return new AcMutableAclService(dataSource, lookupStrategy, cache);
     }
 
     @Bean
@@ -34,8 +34,8 @@ public class TestAccessConfig {
     }
 
     @Bean
-    public AdAclPermissionEvaluator permissionEvaluator(AclService aclService, AdSidRetrievalStrategy sidRetrievalStrategy) {
-        return new AdAclPermissionEvaluator(aclService, sidRetrievalStrategy);
+    public AcAclPermissionEvaluator permissionEvaluator(AclService aclService, AcSidRetrievalStrategy sidRetrievalStrategy) {
+        return new AcAclPermissionEvaluator(aclService, sidRetrievalStrategy);
     }
 
     @Bean
@@ -45,7 +45,7 @@ public class TestAccessConfig {
 
     @Bean
     public PermissionFactory permissionFactory() {
-        return new AdPermissionFactory();
+        return new AcPermissionFactory();
     }
 
     @Bean
@@ -73,7 +73,7 @@ public class TestAccessConfig {
     }
 
     @Bean
-    public AdSidRetrievalStrategy sidRetrievalStrategy() {
-        return new AdSidRetrievalStrategy();
+    public AcSidRetrievalStrategy sidRetrievalStrategy() {
+        return new AcSidRetrievalStrategy();
     }
 }

@@ -24,9 +24,9 @@ import java.util.List;
  * @author canang technologies
  * @since 1/13/14
  */
-public class AdMutableAclService extends AdAclService implements MutableAclService {
+public class AcMutableAclService extends AcAclService implements MutableAclService {
 
-    private Logger log = LoggerFactory.getLogger(AdMutableAclService.class);
+    private Logger log = LoggerFactory.getLogger(AcMutableAclService.class);
 
     // ~ Instance fields
     // ================================================================================================
@@ -58,7 +58,7 @@ public class AdMutableAclService extends AdAclService implements MutableAclServi
     // ~ Constructors
     // ===================================================================================================
 
-    public AdMutableAclService(DataSource dataSource, LookupStrategy lookupStrategy, AclCache aclCache) {
+    public AcMutableAclService(DataSource dataSource, LookupStrategy lookupStrategy, AclCache aclCache) {
         super(dataSource, lookupStrategy);
         Assert.notNull(aclCache, "AclCache required");
         this.aclCache = aclCache;

@@ -31,9 +31,9 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_0001 extends TestSupport{
+public class US_AC_ACT_0002 extends TestSupport{
 
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0001.class);
+    private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0002.class);
 
     @Autowired
     private AcActorDao actorDao;
@@ -44,10 +44,11 @@ public class US_AC_ACT_0001 extends TestSupport{
     @Before
     public void before() {
         super.before();
+
+        // create student
         AcActor actor = new AcStaffImpl();
         actor.setIdentityNo("ABC001");
         actor.setName("Yo Name");
-
         actorDao.save(actor,currentUser);
     }
 

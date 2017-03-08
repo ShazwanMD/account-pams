@@ -1,10 +1,14 @@
 package my.edu.umk.pams.account.account.service;
 
+import my.edu.umk.pams.account.account.dao.AcAcademicSessionDao;
 import my.edu.umk.pams.account.account.dao.AcAccountChargeDao;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
+import my.edu.umk.pams.account.account.dao.AcChargeCodeDao;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
+import my.edu.umk.pams.account.security.service.SecurityService;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +33,140 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AcAccountChargeDao accountChargeDao;
 
+    @Autowired
+    private AcChargeCodeDao chargeCodeDao;
+
+    @Autowired
+    private AcAcademicSessionDao academicSessionDao;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    //====================================================================================================
+    // ACADEMIC SESSION
+    //====================================================================================================
+
+    @Override
+    public AcAcademicSession findCurrentAcademicSession() {
+        return academicSessionDao.findCurrentSession();
+    }
+
+    @Override
+    public AcAcademicSession findAcademicSessionById(Long id) {
+        return academicSessionDao.findById(id);
+    }
+
+    @Override
+    public AcAcademicSession findAcademicSessionByCode(String code) {
+        return academicSessionDao.findByCode(code);
+    }
+
+    @Override
+    public List<AcAcademicSession> findAcademicSessions(Integer offset, Integer limit) {
+        return academicSessionDao.find(offset, limit);
+    }
+
+    @Override
+    public List<AcAcademicSession> findAcademicSessions(String filter, Integer offset, Integer limit) {
+        return academicSessionDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public Integer countAcademicSession() {
+        return academicSessionDao.count();
+    }
+
+    @Override
+    public Integer countAcademicSession(String filter) {
+        return academicSessionDao.count(filter);
+    }
+
+    @Override
+    public boolean isAcademicSessionCodeExists(String code) {
+        return academicSessionDao.isCodeExists(code);
+    }
+
+    @Override
+    public void saveAcademicSession(AcAcademicSession academicSession) {
+        academicSessionDao.save(academicSession, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateAcademicSession(AcAcademicSession academicSession) {
+        academicSessionDao.update(academicSession, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeAcademicSession(AcAcademicSession academicSession) {
+        academicSessionDao.remove(academicSession, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
 
 
+    //====================================================================================================
+    // CHARGE CODE
+    //====================================================================================================
 
+    @Override
+    public AcChargeCode findChargeCodeById(Long id) {
+        return chargeCodeDao.findById(id);
+    }
+
+    @Override
+    public AcChargeCode findChargeCodeByCode(String code) {
+        return chargeCodeDao.findByCode(code);
+    }
+
+    @Override
+    public AcChargeCode findChargeCodeByDescription(String description) {
+        return chargeCodeDao.findByDescription(description);
+    }
+
+    @Override
+    public List<AcChargeCode> findChargeCodes(String filter) {
+        return findChargeCodes(filter, 0, Integer.MAX_VALUE);
+    }
+
+    @Override
+    public List<AcChargeCode> findChargeCodes(String filter, Integer offset, Integer limit) {
+        return chargeCodeDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public Integer countChargeCode() {
+        return chargeCodeDao.count();
+    }
+
+    @Override
+    public Integer countChargeCode(String filter) {
+        return chargeCodeDao.count(filter);
+    }
+
+    @Override
+    public void saveChargeCode(AcChargeCode chargeCode) {
+        chargeCodeDao.save(chargeCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateChargeCode(AcChargeCode chargeCode) {
+        chargeCodeDao.update(chargeCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeChargeCode(AcChargeCode chargeCode) {
+        chargeCodeDao.remove(chargeCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
     // ==================================================================================================== //
-    // STUDENT ACCOUNT
+    // ACCOUNT
     // ==================================================================================================== //
 
     @Override

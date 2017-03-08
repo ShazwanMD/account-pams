@@ -1,13 +1,11 @@
 package my.edu.umk.pams.account.account.dao;
 
-import my.utm.acad.sa.core.cmn.dao.GenericDaoSupport;
-import my.utm.acad.sa.core.cmn.model.SaMetaState;
-import my.utm.acad.sa.core.das.dao.SaChargeCodeDao;
-import my.utm.acad.sa.core.das.model.SaChargeCode;
-import my.utm.acad.sa.core.das.model.impl.SaChargeCodeImpl;
-import my.utm.acad.sa.core.util.QueryUtil;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
+import my.edu.umk.pams.account.core.AcMetaState;
+import my.edu.umk.pams.account.core.GenericDaoSupport;
 import org.hibernate.Query;
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -15,66 +13,65 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author team utmacad
- * @since 9/6/2015.
+ * @author PAMS
  */
-@Repository("SaChargeCodeDao")
-public class SaChargeCodeDaoImpl extends GenericDaoSupport<Long, SaChargeCode> implements SaChargeCodeDao {
+@Repository("acChargeCodeDao")
+public class AcChargeCodeDaoImpl extends GenericDaoSupport<Long, AcChargeCode> implements AcChargeCodeDao {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SaChargeCodeDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcChargeCodeDaoImpl.class);
 
-    public SaChargeCodeDaoImpl() {
-        super(SaChargeCodeImpl.class);
+    public AcChargeCodeDaoImpl() {
+        super(AcChargeCodeImpl.class);
     }
 
     @Override
-    public SaChargeCode findByCode(String code) {
+    public AcChargeCode findByCode(String code) {
         org.hibernate.Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from SaChargeCode s where " +
+        Query query = session.createQuery("select s from AcChargeCode s where " +
                 "s.code = :code " +
                 "and s.metadata.state = :state");
         query.setString("code", code);
         query.setCacheable(true);
-        query.setInteger("state", SaMetaState.ACTIVE.ordinal());
-        return (SaChargeCode) query.uniqueResult();
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return (AcChargeCode) query.uniqueResult();
     }
 
     @Override
-    public SaChargeCode findByDescription(String description) {
+    public AcChargeCode findByDescription(String description) {
         org.hibernate.Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from SaChargeCode s where " +
+        Query query = session.createQuery("select s from AcChargeCode s where " +
                 "s.description = :description " +
                 "and s.metadata.state = :state");
         query.setString("description", description);
         query.setCacheable(true);
-        query.setInteger("state", SaMetaState.ACTIVE.ordinal());
-        return (SaChargeCode) query.uniqueResult();
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return (AcChargeCode) query.uniqueResult();
     }
 
     @Override
-    public List<SaChargeCode> find(String filter, Integer offset, Integer limit) {
+    public List<AcChargeCode> find(String filter, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select i from SaChargeCode i where " +
+        Query query = session.createQuery("select i from AcChargeCode i where " +
                 "(upper(i.code) like upper(:filter) " +
                 "or upper(i.description) like upper(:filter)) " +
                 "and i.metadata.state = :state ");
-        query.setString("filter", QueryUtil.wildCard(filter));
-        query.setInteger("state", SaMetaState.ACTIVE.ordinal());
+        query.setString("filter", WILDCARD + filter + WILDCARD);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
-        return (List<SaChargeCode>) query.list();
+        return (List<AcChargeCode>) query.list();
     }
 
 
     @Override
     public Integer count(String filter) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select count(i) from SaChargeCode i where " +
+        Query query = session.createQuery("select count(i) from AcChargeCode i where " +
                 "(upper(i.code) like upper(:filter) " +
                 "or upper(i.description) like upper(:filter)) " +
                 "and i.metadata.state = :state ");
-        query.setString("filter", QueryUtil.wildCard(filter));
-        query.setInteger("state", SaMetaState.ACTIVE.ordinal());
+        query.setString("filter", WILDCARD + filter + WILDCARD);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
 }

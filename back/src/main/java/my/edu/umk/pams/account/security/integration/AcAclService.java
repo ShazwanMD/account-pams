@@ -20,12 +20,12 @@ import java.util.Map;
  * @author canang technologies
  * @since 1/13/14
  */
-public class AdAclService implements AclService {
+public class AcAclService implements AclService {
 
     // ~ Static fields/initializers
     // =====================================================================================
 
-    private Logger log = LoggerFactory.getLogger(AdAclService.class);
+    private Logger log = LoggerFactory.getLogger(AcAclService.class);
     private static final String selectAclObjectWithParent = "SELECT obj.object_id_identity AS obj_id, "
             + "       class.class AS class " + "  FROM acl_object_identity obj, "
             + "       acl_object_identity parent, " + "       acl_class class "
@@ -42,7 +42,7 @@ public class AdAclService implements AclService {
     // ~ Constructors
     // ===================================================================================================
 
-    public AdAclService(DataSource dataSource, LookupStrategy lookupStrategy) {
+    public AcAclService(DataSource dataSource, LookupStrategy lookupStrategy) {
         Assert.notNull(dataSource, "DataSource required");
         Assert.notNull(lookupStrategy, "LookupStrategy required");
         this.jdbcTemplate = new JdbcTemplate(dataSource);

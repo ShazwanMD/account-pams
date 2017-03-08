@@ -3,7 +3,7 @@ package my.edu.umk.pams.account.security.service;
 import my.edu.umk.pams.account.identity.dao.AcUserDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.security.dao.AclObjectIdentityDao;
-import my.edu.umk.pams.account.security.integration.AdSidRetrievalStrategy;
+import my.edu.umk.pams.account.security.integration.AcSidRetrievalStrategy;
 import my.edu.umk.pams.account.system.service.SystemService;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
@@ -43,7 +43,7 @@ public class SecurityServiceImpl implements SecurityService {
     private AclObjectIdentityDao aclObjectIdentityDao;
 
     @Autowired
-    private AdSidRetrievalStrategy sidRetrievalStrategy;
+    private AcSidRetrievalStrategy sidRetrievalStrategy;
 
     @Autowired
     private SessionFactory sessionFactory;

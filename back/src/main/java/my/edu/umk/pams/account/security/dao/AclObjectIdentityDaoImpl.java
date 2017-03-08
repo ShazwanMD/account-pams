@@ -2,7 +2,7 @@ package my.edu.umk.pams.account.security.dao;
 
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.dao.AcPrincipalDao;
-import my.edu.umk.pams.account.security.integration.AdPermission;
+import my.edu.umk.pams.account.security.integration.AcPermission;
 import my.edu.umk.pams.account.security.model.AclObjectIdentity;
 import my.edu.umk.pams.account.security.model.AclObjectIdentityImpl;
 import org.hibernate.Filter;
@@ -53,7 +53,7 @@ public final class AclObjectIdentityDaoImpl extends GenericDaoSupport<Long, AclO
     }
 
     @Override
-    public Set<my.edu.umk.pams.account.identity.model.AcPrincipal> findGrants(my.edu.umk.pams.account.core.AcMetaObject object, AdPermission permission) {
+    public Set<my.edu.umk.pams.account.identity.model.AcPrincipal> findGrants(my.edu.umk.pams.account.core.AcMetaObject object, AcPermission permission) {
         Set<my.edu.umk.pams.account.identity.model.AcPrincipal> principals = new HashSet<my.edu.umk.pams.account.identity.model.AcPrincipal>();
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("" +

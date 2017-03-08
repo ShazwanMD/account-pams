@@ -1,6 +1,6 @@
 package my.edu.umk.pams.account.config;
 
-import my.edu.umk.pams.account.security.integration.AdAutoLoginAuthenticationProvider;
+import my.edu.umk.pams.account.security.integration.AcAutoLoginAuthenticationProvider;
 import my.edu.umk.pams.account.security.integration.jwt.RestAuthenticationEntryPoint;
 import my.edu.umk.pams.account.security.integration.jwt.filter.JsonUsernamePasswordAuthenticationFilter;
 import my.edu.umk.pams.account.security.integration.jwt.filter.JwtAuthenticationFilter;
@@ -32,12 +32,11 @@ import javax.servlet.ServletException;
 /**
  * http://spring.io/blog/2013/07/03/spring-security-java-config-preview-web-security/
  */
-@EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AdAutoLoginAuthenticationProvider autoLoginAuthenticationProvider;
+    private AcAutoLoginAuthenticationProvider autoLoginAuthenticationProvider;
 
     @Autowired
     private JwtAuthenticationProvider jwtAuthenticationProvider;

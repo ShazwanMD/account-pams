@@ -14,17 +14,17 @@ import java.util.List;
  * @author canang technologies
  * @since 1/15/14
  */
-public class AdAclPermissionEvaluator extends AclPermissionEvaluator {
+public class AcAclPermissionEvaluator extends AclPermissionEvaluator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdAclPermissionEvaluator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcAclPermissionEvaluator.class);
 
     private AclService aclService;
     private ObjectIdentityGenerator objectIdentityGenerator = new ObjectIdentityRetrievalStrategyImpl();
-    private AdDomainRetrievalStrategy retrievalStrategy = new AdDomainRetrievalStrategy();
-    private AdPermissionFactory permissionFactory = new AdPermissionFactory();
-    private AdSidRetrievalStrategy sidRetrievalStrategy = new AdSidRetrievalStrategy();
+    private AcDomainRetrievalStrategy retrievalStrategy = new AcDomainRetrievalStrategy();
+    private AcPermissionFactory permissionFactory = new AcPermissionFactory();
+    private AcSidRetrievalStrategy sidRetrievalStrategy = new AcSidRetrievalStrategy();
 
-    public AdAclPermissionEvaluator(AclService aclService, AdSidRetrievalStrategy sidRetrievalStrategy) {
+    public AcAclPermissionEvaluator(AclService aclService, AcSidRetrievalStrategy sidRetrievalStrategy) {
         super(aclService);
         this.aclService = aclService;
         setObjectIdentityRetrievalStrategy(retrievalStrategy);

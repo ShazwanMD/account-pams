@@ -7,8 +7,8 @@ import javax.persistence.Table;
  * @author canang technologies
  * @since 1/31/14
  */
-@Entity(name = "AcApplication")
-@Table(name = "AC_APCN")
+@Entity(name = "AcStudent")
+@Table(name = "AC_STDN")
 public class AcStudentImpl extends AcActorImpl implements AcStudent {
 
     public AcStudentImpl() {
@@ -16,13 +16,13 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
     }
 
     @Override
-    public String getApplicationNo() {
+    public String getMatricNo() {
         return getIdentityNo();
     }
 
     @Override
-    public void setApplicationNo(String applicationNo) {
-        setIdentityNo(applicationNo);
+    public void setMatricNo(String matricNo) {
+        setIdentityNo(matricNo);
     }
 
     @Override

@@ -3,7 +3,6 @@ package my.edu.umk.pams.account.config;
 import com.google.common.collect.Lists;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.cache.interceptor.*;
@@ -19,7 +18,6 @@ import java.util.List;
  * @since 4/1/2015
  */
 @Configuration
-@EnableCaching
 public class CacheConfig implements CachingConfigurer {
 
     @Bean

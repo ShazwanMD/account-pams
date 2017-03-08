@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
  * @since 1/13/14
  */
 @Service("autoLoginAuthenticationProvider")
-public class AdAutoLoginAuthenticationProvider implements AuthenticationProvider {
+public class AcAutoLoginAuthenticationProvider implements AuthenticationProvider {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdAutoLoginAuthenticationProvider.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcAutoLoginAuthenticationProvider.class);
 
     @Autowired
     private AcPrincipalDao principalDao;
@@ -36,12 +36,12 @@ public class AdAutoLoginAuthenticationProvider implements AuthenticationProvider
         UserDetails userDetail = userDetailService.loadUserByUsername(username);
         if (null == userDetail)
             throw new BadCredentialsException("Bad credentials");
-        return new AdAutoLoginToken(userDetail, null, userDetail.getAuthorities());
+        return new AcAutoLoginToken(userDetail, null, userDetail.getAuthorities());
     }
 
     @Override
     public boolean supports(Class<? extends Object> authentication) {
-        return (AdAutoLoginToken.class.isAssignableFrom(authentication));
+        return (AcAutoLoginToken.class.isAssignableFrom(authentication));
     }
 }
 

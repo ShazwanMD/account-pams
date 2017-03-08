@@ -1,12 +1,10 @@
 package my.edu.umk.pams.account.account.dao;
 
-import my.utm.acad.sa.core.cmn.dao.GenericDaoSupport;
-import my.utm.acad.sa.core.cmn.model.SaMetaState;
-import my.utm.acad.sa.core.das.dao.SaAcademicSessionDao;
-import my.utm.acad.sa.core.das.model.SaAcademicSession;
-import my.utm.acad.sa.core.das.model.impl.SaAcademicSessionImpl;
-import my.utm.acad.sa.core.sys.dao.impl.SaGroupDaoImpl;
-import my.utm.acad.sa.core.util.QueryUtil;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
+import my.edu.umk.pams.account.core.AcMetaState;
+import my.edu.umk.pams.account.core.GenericDaoSupport;
+import my.edu.umk.pams.account.identity.dao.AcGroupDaoImpl;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -16,76 +14,66 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author team utmacad
- * @since 20/4/2015
+ * @author PAMS
  */
-@Repository("saAcademicSessionDao")
-public class SaAcademicSessionDaoImpl extends GenericDaoSupport<Long, SaAcademicSession> implements SaAcademicSessionDao {
+@Repository("acAcademicSessionDao")
+public class AcAcademicSessionDaoImpl extends GenericDaoSupport<Long, AcAcademicSession> implements AcAcademicSessionDao {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SaGroupDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcGroupDaoImpl.class);
 
-    public SaAcademicSessionDaoImpl() {
-        super(SaAcademicSessionImpl.class);
+    public AcAcademicSessionDaoImpl() {
+        super(AcAcademicSessionImpl.class);
     }
 
     @Override
-    public SaAcademicSession findByCode(String code) {
+    public AcAcademicSession findByCode(String code) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from SaAcademicSession s where s.code = :code and " +
+        Query query = session.createQuery("select s from AcAcademicSession s where s.code = :code and " +
                 "s.metadata.state = :state");
         query.setString("code", code);
         query.setCacheable(true);
-        query.setInteger("state", SaMetaState.ACTIVE.ordinal());
-        return (SaAcademicSession) query.uniqueResult();
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return (AcAcademicSession) query.uniqueResult();
     }
 
     @Override
-    public SaAcademicSession findCurrentSession() {
+    public AcAcademicSession findCurrentSession() {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from SaAcademicSession s where " +
+        Query query = session.createQuery("select s from AcAcademicSession s where " +
                 "s.ongoing = :ongoing " +
                 "and s.metadata.state = :state");
         query.setBoolean("ongoing", true);
-        query.setInteger("state", SaMetaState.ACTIVE.ordinal());
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
-        return (SaAcademicSession) query.uniqueResult();
+        return (AcAcademicSession) query.uniqueResult();
     }
 
     @Override
-    public SaAcademicSession findNextSession(SaAcademicSession current) {
-        return null;
-    }
-
-    @Override
-    public SaAcademicSession findPreviousSession() {
-        return null;
-    }
-
-    @Override
-    public List<SaAcademicSession> find(String filter, Integer offset, Integer limit) {
+    public List<AcAcademicSession> find(String filter, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from SaAcademicSession s where " +
+        Query query = session.createQuery("select s from AcAcademicSession s where " +
                 "(upper(s.code) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
-        query.setString("filter", QueryUtil.wildCard(filter));
-        query.setInteger("state", SaMetaState.ACTIVE.ordinal());
+        query.setString("filter", WILDCARD + filter + WILDCARD);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         query.setCacheable(true);
-        return (List<SaAcademicSession>) query.list();
+        return (List<AcAcademicSession>) query.list();
     }
 
     @Override
     public Integer count(String filter) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select count(s) from SaAcademicSession s where " +
+        Query query = session.createQuery("select count(s) from AcAcademicSession s where " +
                 "(upper(s.code) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
-        query.setString("filter", QueryUtil.wildCard(filter));
-        query.setInteger("state", SaMetaState.ACTIVE.ordinal());
+        query.setString("filter", WILDCARD + filter + WILDCARD);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
 
+    // todo:
     @Override
     public boolean isCodeExists(String code) {
         return false;

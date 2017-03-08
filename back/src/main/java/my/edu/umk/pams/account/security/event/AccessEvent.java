@@ -1,6 +1,6 @@
 package my.edu.umk.pams.account.security.event;
 
-import my.edu.umk.pams.account.security.integration.AdPermission;
+import my.edu.umk.pams.account.security.integration.AcPermission;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -11,20 +11,20 @@ public class AccessEvent extends ApplicationEvent {
 
     private my.edu.umk.pams.account.core.AcMetaObject object;
     private my.edu.umk.pams.account.core.AcMetaObject parent;
-    private AdPermission permission;
+    private AcPermission permission;
     private my.edu.umk.pams.account.identity.model.AcPrincipal principal;
     private Command command = Command.GRANT;
 
     public enum Command {GRANT, REVOKE, INHERIT}
 
-    public AccessEvent(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission) {
+    public AccessEvent(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission) {
         super(object);
         this.object = object;
         this.principal = principal;
         this.permission = permission;
     }
 
-    public AccessEvent(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission, Command command) {
+    public AccessEvent(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission, Command command) {
         super(object);
         this.object = object;
         this.principal = principal;
@@ -47,11 +47,11 @@ public class AccessEvent extends ApplicationEvent {
         return parent;
     }
 
-    public AdPermission getPermission() {
+    public AcPermission getPermission() {
         return permission;
     }
 
-    public void setPermission(AdPermission permission) {
+    public void setPermission(AcPermission permission) {
         this.permission = permission;
     }
 

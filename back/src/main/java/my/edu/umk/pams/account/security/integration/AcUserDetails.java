@@ -11,15 +11,15 @@ import java.util.Set;
  * @author canang technologies
  * @since 1/30/14
  */
-public class AdUserDetails implements UserDetails {
+public class AcUserDetails implements UserDetails {
 
     private AcUser user;
     private Set<GrantedAuthority> grantedAuthorities;
 
-    public AdUserDetails() {
+    public AcUserDetails() {
     }
 
-    public AdUserDetails(AcUser user, Set<GrantedAuthority> grantedAuthorities) {
+    public AcUserDetails(AcUser user, Set<GrantedAuthority> grantedAuthorities) {
         this.user = user;
         this.grantedAuthorities = grantedAuthorities;
     }

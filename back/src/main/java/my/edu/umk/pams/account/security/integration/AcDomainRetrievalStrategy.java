@@ -10,9 +10,9 @@ import org.springframework.security.acls.model.ObjectIdentityRetrievalStrategy;
  * @author canang technologies
  * @since 1/15/14
  */
-public class AdDomainRetrievalStrategy implements ObjectIdentityRetrievalStrategy {
+public class AcDomainRetrievalStrategy implements ObjectIdentityRetrievalStrategy {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdDomainRetrievalStrategy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcDomainRetrievalStrategy.class);
 
     public ObjectIdentity getObjectIdentity(Object domainObject) {
         return new ObjectIdentityImpl(

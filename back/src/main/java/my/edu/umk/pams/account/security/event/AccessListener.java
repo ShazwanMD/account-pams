@@ -2,8 +2,8 @@ package my.edu.umk.pams.account.security.event;
 
 import junit.framework.Assert;
 import my.edu.umk.pams.account.identity.dao.AcPrincipalDao;
-import my.edu.umk.pams.account.security.integration.AdAutoLoginToken;
-import my.edu.umk.pams.account.security.integration.AdPermission;
+import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
+import my.edu.umk.pams.account.security.integration.AcPermission;
 import my.edu.umk.pams.account.security.integration.NonSerializableSecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,7 @@ public class AccessListener implements ApplicationListener<AccessEvent> {
 
             // temporarily log in as root
             // NOTE: http://issues.hudson-ci.org/browse/HUDSON-7256
-            AdAutoLoginToken authenticationToken = new AdAutoLoginToken("root");
+            AcAutoLoginToken authenticationToken = new AcAutoLoginToken("root");
             Authentication authed = authenticationManager.authenticate(authenticationToken);
             SecurityContext system = new NonSerializableSecurityContext();
             system.setAuthentication(authed);
@@ -75,7 +75,7 @@ public class AccessListener implements ApplicationListener<AccessEvent> {
             switch (event.getCommand()) {
                 case GRANT:
                     my.edu.umk.pams.account.core.AcMetaObject parent = event.getParent();
-                    AdPermission permission = event.getPermission();
+                    AcPermission permission = event.getPermission();
                     my.edu.umk.pams.account.identity.model.AcPrincipal principal = event.getPrincipal();
                     PrincipalSid sid = new PrincipalSid(principal.getName());
                     log.debug("==================================================");
@@ -115,7 +115,7 @@ public class AccessListener implements ApplicationListener<AccessEvent> {
         }
     }
 
-    private void createAce(AdPermission permission, PrincipalSid sid, ObjectIdentity oid) {
+    private void createAce(AcPermission permission, PrincipalSid sid, ObjectIdentity oid) {
         MutableAcl acl;// read acl, if fail, create
         try {
             acl = (MutableAcl) mutableAclService.readAclById(oid);
@@ -153,7 +153,7 @@ public class AccessListener implements ApplicationListener<AccessEvent> {
         mutableAclService.updateAcl(acl);
     }
 
-    private void deleteAce(AdPermission permission, PrincipalSid sid, ObjectIdentity oid) {
+    private void deleteAce(AcPermission permission, PrincipalSid sid, ObjectIdentity oid) {
         mutableAclService.deleteAcl(oid, true);
     }
 }

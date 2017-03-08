@@ -1,7 +1,9 @@
 package my.edu.umk.pams.account;
 
+import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.model.AcUserImpl;
+import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -13,6 +15,9 @@ import java.sql.Timestamp;
 public class TestSupport {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestSupport.class);
+
+    @Autowired
+    private IdentityService identityService;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -30,9 +35,9 @@ public class TestSupport {
         currentUser.setEmail("root@umk.edu.my");
 
         // prepare metadata
-        my.edu.umk.pams.account.core.AcMetadata metadata = new my.edu.umk.pams.account.core.AcMetadata();
+        AcMetadata metadata = new AcMetadata();
         metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-        metadata.setCreatorId(0L);
+          metadata.setCreatorId(0L);
         metadata.setState(my.edu.umk.pams.account.core.AcMetaState.ACTIVE);
         currentUser.setMetadata(metadata);
 

@@ -1,6 +1,6 @@
 package my.edu.umk.pams.account.security.service;
 
-import my.edu.umk.pams.account.security.integration.AdPermission;
+import my.edu.umk.pams.account.security.integration.AcPermission;
 import org.springframework.security.core.Authentication;
 
 import java.util.Date;
@@ -15,19 +15,19 @@ public interface AccessService {
 
     Set<my.edu.umk.pams.account.identity.model.AcPrincipal> findGrants(my.edu.umk.pams.account.core.AcMetaObject object);
 
-    Set<my.edu.umk.pams.account.identity.model.AcPrincipal> findGrants(my.edu.umk.pams.account.core.AcMetaObject object, AdPermission permission);
+    Set<my.edu.umk.pams.account.identity.model.AcPrincipal> findGrants(my.edu.umk.pams.account.core.AcMetaObject object, AcPermission permission);
 
-    boolean checkPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission);
+    boolean checkPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission);
 
-    void grantPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission);
+    void grantPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission);
 
     void inheritPermission(my.edu.umk.pams.account.core.AcMetaObject parent, my.edu.umk.pams.account.core.AcMetaObject object);
 
-    void revokePermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission);
+    void revokePermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission);
 
-    boolean hasPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission);
+    boolean hasPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission);
 
-    boolean hasPermission(my.edu.umk.pams.account.core.AcMetaObject object, Authentication authentication, AdPermission permission);
+    boolean hasPermission(my.edu.umk.pams.account.core.AcMetaObject object, Authentication authentication, AcPermission permission);
 
     Integer countArchivedRecord(String filter, Date startDate, Date endDate, Class<?> aClass);
 

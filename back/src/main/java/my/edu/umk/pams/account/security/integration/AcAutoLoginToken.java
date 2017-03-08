@@ -9,18 +9,18 @@ import java.util.Collection;
  * @author canang technologies
  * @since 1/13/14
  */
-public class AdAutoLoginToken extends AbstractAuthenticationToken {
+public class AcAutoLoginToken extends AbstractAuthenticationToken {
 
     private final Object principal;
     private Object credentials;
 
-    public AdAutoLoginToken(Object principal) {
+    public AcAutoLoginToken(Object principal) {
         super(null);
         this.principal = principal;
         setAuthenticated(true);
     }
 
-    public AdAutoLoginToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
+    public AcAutoLoginToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         this.credentials = credentials;

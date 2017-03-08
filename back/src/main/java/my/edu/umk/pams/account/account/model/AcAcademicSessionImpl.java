@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @author PAMS
@@ -25,6 +26,12 @@ public class AcAcademicSessionImpl implements AcAcademicSession {
     @NotNull
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
+
+    @Column(name="START_DATE", nullable = false)
+    private Date startDate;
+
+    @Column(name="END_DATE", nullable = false)
+    private Date endDate;
 
     @Column(name = "CURRENT_", nullable = false)
     private Boolean current;
@@ -59,6 +66,26 @@ public class AcAcademicSessionImpl implements AcAcademicSession {
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    @Override
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    @Override
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    @Override
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     @Override

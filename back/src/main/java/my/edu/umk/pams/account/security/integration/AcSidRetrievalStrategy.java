@@ -23,9 +23,9 @@ import java.util.Set;
  * @author canang technologies
  * @since 1/13/14
  */
-public class AdSidRetrievalStrategy extends SidRetrievalStrategyImpl {
+public class AcSidRetrievalStrategy extends SidRetrievalStrategyImpl {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdSidRetrievalStrategy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcSidRetrievalStrategy.class);
 
     @Autowired
     private AcPrincipalDao principalDao;

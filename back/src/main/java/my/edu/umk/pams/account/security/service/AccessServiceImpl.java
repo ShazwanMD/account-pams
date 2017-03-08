@@ -5,8 +5,8 @@ import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.dao.AclObjectIdentityDao;
 import my.edu.umk.pams.account.security.event.AccessEvent;
-import my.edu.umk.pams.account.security.integration.AdAclPermissionEvaluator;
-import my.edu.umk.pams.account.security.integration.AdPermission;
+import my.edu.umk.pams.account.security.integration.AcAclPermissionEvaluator;
+import my.edu.umk.pams.account.security.integration.AcPermission;
 import my.edu.umk.pams.account.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -37,7 +37,7 @@ public class AccessServiceImpl implements AccessService {
     private AclObjectIdentityDao aclObjectIdentityDao;
 
     @Autowired
-    private AdAclPermissionEvaluator aclPermissionEvaluator;
+    private AcAclPermissionEvaluator aclPermissionEvaluator;
 
     public Integer countAuthorizedObject(String filter, Class clazz, AcUser user) {
         return aclObjectIdentityDao.count(filter, clazz, retrieveSids(user));
@@ -53,17 +53,17 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
-    public Set<my.edu.umk.pams.account.identity.model.AcPrincipal> findGrants(my.edu.umk.pams.account.core.AcMetaObject object, AdPermission permission) {
+    public Set<my.edu.umk.pams.account.identity.model.AcPrincipal> findGrants(my.edu.umk.pams.account.core.AcMetaObject object, AcPermission permission) {
         return aclObjectIdentityDao.findGrants(object, permission);
     }
 
     @Override
-    public boolean checkPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission) {
+    public boolean checkPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission) {
         return aclPermissionEvaluator.checkPermissionByProxy(principal, object, permission);
     }
 
     @Override
-    public void grantPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission) {
+    public void grantPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission) {
         context.publishEvent(new AccessEvent(object, principal, permission, AccessEvent.Command.GRANT));
     }
 
@@ -73,12 +73,12 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
-    public void revokePermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission) {
+    public void revokePermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission) {
         context.publishEvent(new AccessEvent(object, principal, permission, AccessEvent.Command.REVOKE));
     }
 
     @Override
-    public boolean hasPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AdPermission permission) {
+    public boolean hasPermission(my.edu.umk.pams.account.core.AcMetaObject object, my.edu.umk.pams.account.identity.model.AcPrincipal principal, AcPermission permission) {
         if (null == object) return false;
         if (null == principal) return false;
         if (null == permission) return false;
@@ -86,7 +86,7 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
-    public boolean hasPermission(my.edu.umk.pams.account.core.AcMetaObject object, Authentication authentication, AdPermission permission) {
+    public boolean hasPermission(my.edu.umk.pams.account.core.AcMetaObject object, Authentication authentication, AcPermission permission) {
         if (null == object) return false;
         if (null == authentication) return false;
         if (null == permission) return false;

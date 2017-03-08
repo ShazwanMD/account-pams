@@ -1,25 +1,24 @@
-package my.utm.acad.sa.core.das.dao;
+package my.edu.umk.pams.account.account.dao;
 
-import my.utm.acad.sa.core.cmn.dao.GenericDao;
-import my.utm.acad.sa.core.das.model.SaChargeCode;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.core.GenericDao;
 
 import java.util.List;
 
 /**
- * @author team utmacad
- * @since 9/6/2015.
+ * @author PAMS
  */
-public interface SaChargeCodeDao extends GenericDao<Long, SaChargeCode> {
+public interface AcChargeCodeDao extends GenericDao<Long, AcChargeCode> {
 
     // ====================================================================================================
     // FINDER
     // ====================================================================================================
 
-    SaChargeCode findByCode(String code);
+    AcChargeCode findByCode(String code);
 
-    SaChargeCode findByDescription(String description);
+    AcChargeCode findByDescription(String description);
 
-    List<SaChargeCode> find(String filter, Integer offset, Integer limit);
+    List<AcChargeCode> find(String filter, Integer offset, Integer limit);
 
     // ====================================================================================================
     // HELPER

@@ -11,6 +11,55 @@ import java.util.List;
  * @author PAMS
  */
 public interface AccountService {
+    //====================================================================================================
+    // ACADEMIC SESSION
+    //====================================================================================================
+
+    AcAcademicSession findAcademicSessionById(Long id);
+
+    AcAcademicSession findAcademicSessionByCode(String code);
+
+    AcAcademicSession findCurrentAcademicSession();
+
+    List<AcAcademicSession> findAcademicSessions(Integer offset, Integer limit);
+
+    List<AcAcademicSession> findAcademicSessions(String filter, Integer offset, Integer limit);
+
+    Integer countAcademicSession();
+
+    Integer countAcademicSession(String filter);
+
+    boolean isAcademicSessionCodeExists(String code);
+
+    void saveAcademicSession(AcAcademicSession academicSession);
+
+    void updateAcademicSession(AcAcademicSession academicSession);
+
+    void removeAcademicSession(AcAcademicSession academicSession);
+
+    //====================================================================================================
+    // CHARGE CODE
+    //====================================================================================================
+
+    AcChargeCode findChargeCodeById(Long id);
+
+    AcChargeCode findChargeCodeByCode(String code);
+
+    AcChargeCode findChargeCodeByDescription(String description);
+
+    List<AcChargeCode> findChargeCodes(String filter);
+
+    List<AcChargeCode> findChargeCodes(String filter, Integer offset, Integer limit);
+
+    Integer countChargeCode();
+
+    Integer countChargeCode(String filter);
+
+    void saveChargeCode(AcChargeCode code);
+
+    void updateChargeCode(AcChargeCode code);
+
+    void removeChargeCode(AcChargeCode code);
 
     // ==================================================================================================== //
     // ACTOR ACCOUNT
@@ -125,5 +174,7 @@ public interface AccountService {
     Integer countDetachedAccountCharge(AcAccount account);
 
     Integer countDetachedAccountCharge(AcAcademicSession academicSession, AcAccount account);
+
+    // add
 
 }

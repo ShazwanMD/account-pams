@@ -8,12 +8,12 @@ import org.springframework.security.acls.domain.DefaultPermissionFactory;
  * @author canang technologies
  * @since 1/13/14
  */
-public class AdPermissionFactory extends DefaultPermissionFactory {
+public class AcPermissionFactory extends DefaultPermissionFactory {
 
-    private static final Logger log = LoggerFactory.getLogger(AdPermissionFactory.class);
+    private static final Logger log = LoggerFactory.getLogger(AcPermissionFactory.class);
 
-    public AdPermissionFactory() {
-        super(AdPermission.class);
-        registerPublicPermissions(AdPermission.class);
+    public AcPermissionFactory() {
+        super(AcPermission.class);
+        registerPublicPermissions(AcPermission.class);
     }
 }

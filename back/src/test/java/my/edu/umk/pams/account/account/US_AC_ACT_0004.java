@@ -1,11 +1,13 @@
 package my.edu.umk.pams.account.account;
 
-import io.jsonwebtoken.lang.Assert;
 import my.edu.umk.pams.account.TestSupport;
+import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.identity.dao.AcActorDao;
-import my.edu.umk.pams.account.identity.model.AcActor;
-import my.edu.umk.pams.account.identity.model.AcStaffImpl;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.model.AcStudentImpl;
+import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -14,84 +16,96 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 /**
- * @author PAMS
+ * As a Bursary, I want to list student charges by account,  so that I can view student's charges
  *
- * US_AC_ACT_0001 class is an example test class
- * For naming explanation of US_AC_ACT_0001,
- * for more details, see <project>/README.md
+ * @author PAMS
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_0002 extends TestSupport{
+public class US_AC_ACT_0004 extends TestSupport {
 
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0002.class);
+    private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0004.class);
 
     @Autowired
-    private AcActorDao actorDao;
+    private IdentityService identityService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private CommonService commonService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    private AcAcademicSession academicSession;
+
     @Before
     public void before() {
-        super.before();
-        AcActor actor = new AcStaffImpl();
-        actor.setIdentityNo("ABC001");
-        actor.setName("Yo Name");
+        // login
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("root", "abc123");
+        Authentication authed = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authed);
 
-        actorDao.save(actor,currentUser);
+        // current academic session
+        academicSession = accountService.findAcademicSessionByCode("201720181");
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
-    @Test
-    @Rollback
-    public void test1(){
-        Assert.notNull(currentUser);
-        Assert.notNull("something");
-        LOG.debug("11111111111111111111");
-
-        AcActor actor = new AcStaffImpl();
-        actor.setIdentityNo("ABC123");
-        actor.setName("Mah Name");
-
-        actorDao.save(actor,currentUser);
-        sessionFactory.getCurrentSession().flush();
-        actorDao.refresh(actor);
-    }
 
     @Test
-    @Rollback
-    public void test2(){
-        Assert.notNull(currentUser);
-        Assert.notNull("something");
-        LOG.debug("2222222222222222");
-        AcActor actor = new AcStaffImpl();
-        actor.setIdentityNo("ABC12345");
-        actor.setName("Noah Name");
+    @Rollback(true)
+    public void findStudentCharges() {
+        // create student
+        AcStudent student = new AcStudentImpl();
+        student.setIdentityNo("ABC001");
+        student.setName("Rafizan Baharum");
+        student.setEmail("rafizan.baharum@umk.edu.my");
+        student.setMobile("123456789");
+        student.setPhone("123456789");
+        student.setFax("123456789");
+        identityService.saveStudent(student);
 
-        actorDao.save(actor,currentUser);
-        sessionFactory.getCurrentSession().flush();
-        actorDao.refresh(actor);
+        // create account
+        AcAccount account = new AcAccountImpl();
+        account.setCode(student.getMatricNo());
+        account.setDescription(student.getMatricNo() + ";" + student.getEmail());
+        account.setActor(student);
+        // todo
+//        accountService.saveAccount(account);
 
-        List<AcActor> acActors = actorDao.find();
-        acActors.forEach(
-                acActor -> {
-                    LOG.debug(acActor.getId() + " <--");
-                    LOG.debug(acActor.getIdentityNo() + " <--");
-                    LOG.debug(acActor.getName() + " <--");
-                });
+        // add charges
+        AcChargeCode chargeCode =  accountService.findChargeCodeByCode("YYYY");
+        AcAcademicCharge charge = new AcAcademicChargeImpl();
+        charge.setReferenceNo("ABC123");
+        charge.setSourceNo("ABC123");
+        charge.setDescription("This is an academic charges");
+        charge.setAmount(BigDecimal.valueOf(200.00));
+        charge.setChargeCode(chargeCode);
+        charge.setAccount(account);
+        charge.setSession(academicSession);
+
+        // todo
+//        accountService.addAccountCharge(account, charge);
     }
 }
 

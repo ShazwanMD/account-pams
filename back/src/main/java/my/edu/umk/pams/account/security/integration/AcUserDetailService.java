@@ -26,9 +26,9 @@ import java.util.Set;
  */
 @Service("userDetailService")
 @Transactional
-public class AdUserDetailService implements UserDetailsService {
+public class AcUserDetailService implements UserDetailsService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdUserDetailService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcUserDetailService.class);
 
     @Autowired
     protected SessionFactory sessionFactory;
@@ -45,7 +45,7 @@ public class AdUserDetailService implements UserDetailsService {
         if (user == null)
             throw new UsernameNotFoundException("No such user");
         LOG.debug("loading #{} {}", user.getId(), user.getUsername());
-        return new AdUserDetails(user, loadGrantedAuthoritiesFor(user));
+        return new AcUserDetails(user, loadGrantedAuthoritiesFor(user));
     }
 
     private Set<GrantedAuthority> loadGrantedAuthoritiesFor(AcUser user) {

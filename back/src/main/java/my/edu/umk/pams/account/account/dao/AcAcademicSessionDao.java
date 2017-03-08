@@ -1,29 +1,25 @@
-package my.utm.acad.sa.core.das.dao;
+package my.edu.umk.pams.account.account.dao;
 
-import my.utm.acad.sa.core.cmn.dao.GenericDao;
-import my.utm.acad.sa.core.das.model.SaAcademicSession;
+
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.core.GenericDao;
 
 import java.util.List;
 
 /**
- * @author team utmacad
- * @since 20/4/2015
+ * @author PAMS
  */
-public interface SaAcademicSessionDao extends GenericDao<Long, SaAcademicSession> {
+public interface AcAcademicSessionDao extends GenericDao<Long, AcAcademicSession> {
 
     // ====================================================================================================
     // FINDER
     // ====================================================================================================
 
-    SaAcademicSession findByCode(String code);
+    AcAcademicSession findByCode(String code);
 
-    SaAcademicSession findCurrentSession();
+    AcAcademicSession findCurrentSession();
 
-    SaAcademicSession findNextSession(SaAcademicSession current);
-
-    SaAcademicSession findPreviousSession();
-
-    List<SaAcademicSession> find(String filter, Integer offset, Integer limit);
+    List<AcAcademicSession> find(String filter, Integer offset, Integer limit);
 
     // ====================================================================================================
     // HELPER

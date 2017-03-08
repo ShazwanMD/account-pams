@@ -6,7 +6,7 @@ package my.edu.umk.pams.account.identity.model;
  */
 public interface AcStudent extends AcActor {
 
-    String getApplicationNo();
+    String getMatricNo();
 
-    void setApplicationNo(String applicationNo);
+    void setMatricNo(String matricNo);
 }

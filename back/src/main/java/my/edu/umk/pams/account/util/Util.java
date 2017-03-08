@@ -2,7 +2,7 @@ package my.edu.umk.pams.account.util;
 
 import my.edu.umk.pams.account.identity.model.AcGroup;
 import my.edu.umk.pams.account.identity.model.AcUser;
-import my.edu.umk.pams.account.security.integration.AdUserDetails;
+import my.edu.umk.pams.account.security.integration.AcUserDetails;
 import org.joda.time.LocalDate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +24,7 @@ public class Util {
     public static AcUser getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getPrincipal() instanceof UserDetails) {
-            return ((AdUserDetails) auth.getPrincipal()).getUser();
+            return ((AcUserDetails) auth.getPrincipal()).getUser();
         } else {
             return null;
         }
