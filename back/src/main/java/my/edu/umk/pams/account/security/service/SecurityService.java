@@ -1,6 +1,8 @@
 package my.edu.umk.pams.account.security.service;
 
 import my.edu.umk.pams.account.identity.model.AcUser;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -16,4 +18,9 @@ public interface SecurityService {
     Integer count(Authentication authentication, Class<?> clazz);
 
     AcUser getCurrentUser();
+
+    SessionFactory getSessionFactory();
+
+    Session getCurrentSession();
+
 }
