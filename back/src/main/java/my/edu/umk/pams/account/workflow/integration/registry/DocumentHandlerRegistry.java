@@ -31,7 +31,7 @@ public class DocumentHandlerRegistry {
     public void initHandlers() {
         Collections.sort(myHandlers, AnnotationAwareOrderComparator.INSTANCE);
         for (DocumentHandler myHandler : myHandlers) {
-            LOG.info("Initing handler {}", myHandler.getClass().getName());
+//            LOG.info("Initing handler {}", myHandler.getClass().getName());
             installHandler(myHandler);
         }
     }
