@@ -36,7 +36,7 @@ public class DatasourceConfig {
     @Bean
     public Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL81Dialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect");
         properties.put("hibernate.show_sql", "false");
         properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.format_sql", "true");
