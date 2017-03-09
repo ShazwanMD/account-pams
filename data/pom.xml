@@ -6,7 +6,7 @@
     <groupId>my.edu.umk.pams</groupId>
     <artifactId>account-data</artifactId>
     <version>1.0-SNAPSHOT</version>
-    
+
     <properties>
         <spring.version>4.3.7.RELEASE</spring.version>
         <spring-batch.version>3.0.0.RC2</spring-batch.version>
@@ -16,7 +16,6 @@
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <hibernate.version>4.2.0.Final</hibernate.version>
         <postgresql.version>42.0.0</postgresql.version>
-        <!--<postgresql.version>9.1-901.jdbc4</postgresql.version>-->
         <slf4j-api.version>1.6.1</slf4j-api.version>
     </properties>
 
@@ -140,11 +139,6 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>postgresql</groupId>-->
-            <!--<artifactId>postgresql</artifactId>-->
-            <!--<version>${postgresql.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -221,6 +215,7 @@
             <url>http://canang.com.my/maven/</url>
         </repository>
     </repositories>
+
     <build>
         <finalName>canang-payroll</finalName>
         <plugins>
@@ -240,32 +235,36 @@
 
                 <dependencies>
                     <dependency>
-                        <groupId>postgresql</groupId>
+                        <groupId>org.postgresql</groupId>
                         <artifactId>postgresql</artifactId>
-                        <version>9.1-901.jdbc4</version>
+                        <version>${postgresql.version}</version>
                     </dependency>
                 </dependencies>
+
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://localhost:5432/account</url>
+                    <username>account</username>
+                    <password>account</password>
+                </configuration>
 
                 <executions>
                     <execution>
                         <id>demo_account</id>
+                        <!--<phase>process-test-resources</phase>-->
                         <goals>
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/account</url>
-                            <username>account</username>
-                            <password>account</password>
-
                             <autocommit>true</autocommit>
                             <srcFiles>
-                                <srcFile>src/test/resources/schema/ddl/DROP.sql</srcFile>
-                                <srcFile>src/test/resources/schema/ddl/CREATE.sql</srcFile>
-                                <srcFile>src/test/resources/schema/ddl/ACL.POSTGRES.sql</srcFile>
-                                <srcFile>src/test/resources/schema/ddl/ACT.POSTGRES.sql</srcFile>
-                                <srcFile>src/test/resources/schema/ddl/BAT.POSTGRES.sql</srcFile>
-                                <srcFile>src/test/resources/schema/data/AC_PCPL.sql</srcFile>
+                                <!--<srcFile>src/test/resources/SCHEMA.sql</srcFile>-->
+                                <srcFile>src/test/resources/ddl/DROP.sql</srcFile>
+                                <srcFile>src/test/resources/ddl/CREATE.sql</srcFile>
+                                <srcFile>src/test/resources/ddl/ACL.POSTGRES.sql</srcFile>
+                                <srcFile>src/test/resources/ddl/ACT.POSTGRES.sql</srcFile>
+                                <srcFile>src/test/resources/ddl/BAT.POSTGRES.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_PCPL.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </execution>
