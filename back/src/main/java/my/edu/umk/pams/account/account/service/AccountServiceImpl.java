@@ -164,7 +164,7 @@ public class AccountServiceImpl implements AccountService {
         chargeCodeDao.remove(chargeCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-    
+
     // ==================================================================================================== //
     // ACCOUNT
     // ==================================================================================================== //
@@ -435,16 +435,31 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void saveAccount(AcAccount account) {
+        accountDao.save(account, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void addAccountCharge(AcAccount account, AcAccountCharge accountCharge) {
+        accountDao.addCharge(account, accountCharge, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeAccountCharge(AcAccount acAccount, AcAccountCharge accountCharge) {
+
+    }
+
+    @Override
     public boolean isAccountChargeExists(String sourceNo) {
-        return false; 
+        return false;
     }
 
     @Override
     public boolean isAccountChargeExists(AcAccount account, AcAccountChargeType chargeType, AcAcademicSession academicSession) {
         return accountChargeDao.isChargeExists(account, academicSession, chargeType);
     }
-
-
 
 
 }

@@ -1,11 +1,10 @@
 package my.edu.umk.pams.account.config;
 
+import com.tngtech.jgiven.integration.spring.EnableJGiven;
+import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableBatchProcessing
 @EnableTransactionManagement
 @EnableCaching
+@EnableJGiven
 @ComponentScan(basePackages = {
 
         // internals
@@ -40,5 +40,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:application.properties")
 public class TestAppConfiguration {
 
+    @Bean
+    public BeanNameAutoProxyCreator jGivenBeanNameAutoProxyCreator(){
+        BeanNameAutoProxyCreator beanNameAutoProxyCreator = new BeanNameAutoProxyCreator();
+        beanNameAutoProxyCreator.setInterceptorNames(new String[]{"springStepMethodInterceptor"});
+        return beanNameAutoProxyCreator;
+    }
 
 }

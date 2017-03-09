@@ -175,6 +175,11 @@ public interface AccountService {
 
     Integer countDetachedAccountCharge(AcAcademicSession academicSession, AcAccount account);
 
-    // add
+    void saveAccount(AcAccount account);
+
+    void addAccountCharge(AcAccount acAccount, AcAccountCharge accountCharge);
+
+    void removeAccountCharge(AcAccount acAccount, AcAccountCharge accountCharge);
+
 
 }

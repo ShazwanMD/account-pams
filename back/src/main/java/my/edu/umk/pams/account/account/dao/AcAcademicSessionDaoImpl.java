@@ -40,9 +40,9 @@ public class AcAcademicSessionDaoImpl extends GenericDaoSupport<Long, AcAcademic
     public AcAcademicSession findCurrentSession() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcAcademicSession s where " +
-                "s.ongoing = :ongoing " +
+                "s.current = :current " +
                 "and s.metadata.state = :state");
-        query.setBoolean("ongoing", true);
+        query.setBoolean("current", true);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
         return (AcAcademicSession) query.uniqueResult();

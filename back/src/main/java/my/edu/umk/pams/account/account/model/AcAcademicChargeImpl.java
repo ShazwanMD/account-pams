@@ -10,6 +10,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "AC_ACDM_CHRG")
 public class AcAcademicChargeImpl extends AcAccountChargeImpl implements AcAcademicCharge {
 
+    public AcAcademicChargeImpl() {
+        setChargeType(AcAccountChargeType.ACADEMIC);
+    }
+
     @NotNull
     @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "CHARGE_CODE_ID")

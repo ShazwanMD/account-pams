@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
  * @author PAMS
  */
 @Entity(name = "AcChargeCode")
-@Table(name = "Ac_CHRG_CODE")
+@Table(name = "AC_CHRG_CODE")
 public class AcChargeCodeImpl implements AcChargeCode {
 
     @Id
