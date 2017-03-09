@@ -24,9 +24,9 @@ import java.util.List;
 /**
  * @author PAMS
  *
- * US_AC_ACT_0001 class is an example test class
- * For naming explanation of US_AC_ACT_0001,
- * for more details, see <project>/README.md
+ * US_AC_ACT_0002 class is an example test class
+ * For naming explanation of US_AC_ACT_0002,
+ * see <project>/README.md
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
