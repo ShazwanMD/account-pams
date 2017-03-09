@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class AcStudentImpl extends AcActorImpl implements AcStudent {
 
     public AcStudentImpl() {
-        setActorType(AcActorType.STAFF);
+        setActorType(AcActorType.STUDENT);
     }
 
     @Override
