@@ -3,12 +3,10 @@ package my.edu.umk.pams.account.account;
 import io.jsonwebtoken.lang.Assert;
 import my.edu.umk.pams.account.TestSupport;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.identity.dao.AcActorDao;
-import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.dao.AcStaffDao;
+import my.edu.umk.pams.account.identity.model.AcStaff;
 import my.edu.umk.pams.account.identity.model.AcStaffImpl;
-import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.security.service.SecurityService;
-import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +36,7 @@ public class US_AC_ACT_0001 extends TestSupport{
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0001.class);
 
     @Autowired
-    private AcActorDao actorDao;
+    private AcStaffDao staffDao;
 
     @Autowired
     private SecurityService securityService;
@@ -54,38 +52,17 @@ public class US_AC_ACT_0001 extends TestSupport{
 
     @Test
     @Rollback
-    public void test1(){
+    public void testScenario1(){
         Assert.notNull(currentUser);
         Assert.notNull("something");
 
-        AcActor actor = new AcStaffImpl();
-        actor.setIdentityNo("ABC_123");
-        actor.setName("Oprah Winfrey");
+        AcStaff staff = new AcStaffImpl();
+        staff.setIdentityNo("ABC_123");
+        staff.setName("Elvis Presley");
 
-        actorDao.save(actor,currentUser);
+        staffDao.save(staff, currentUser);
         securityService.getCurrentSession().flush();
-        actorDao.refresh(actor);
-    }
-
-    @Test
-    @Rollback
-    public void test2(){
-        Assert.notNull(currentUser);
-        Assert.notNull("something");
-        AcActor actor = new AcStaffImpl();
-        actor.setIdentityNo("XYZ_001");
-        actor.setName("Elvis Presley");
-
-        actorDao.save(actor,currentUser);
-        securityService.getCurrentSession().flush();
-        actorDao.refresh(actor);
-
-        List<AcActor> acActors = actorDao.find();
-        acActors.forEach(
-                acActor -> {
-                    LOG.debug(acActor.getId() + " <--");
-                    LOG.debug(acActor.getIdentityNo() + " <--");
-                    LOG.debug(acActor.getName() + " <--");
-                });
+        staffDao.refresh(staff);
+        Assert.notNull(staffDao.findById(staff.getId()));
     }
 }
