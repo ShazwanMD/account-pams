@@ -6,6 +6,8 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.dao.AcActorDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcStaffImpl;
+import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.security.service.SecurityService;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +28,7 @@ import java.util.List;
  *
  * US_AC_ACT_0001 class is an example test class
  * For naming explanation of US_AC_ACT_0001,
- * for more details, see <project>/README.md
+ * see <project>/README.md
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -39,16 +41,11 @@ public class US_AC_ACT_0001 extends TestSupport{
     private AcActorDao actorDao;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private SecurityService securityService;
 
     @Before
     public void before() {
         super.before();
-        AcActor actor = new AcStaffImpl();
-        actor.setIdentityNo("ABC001");
-        actor.setName("Yo Name");
-
-        actorDao.save(actor,currentUser);
     }
 
     @After
@@ -60,14 +57,13 @@ public class US_AC_ACT_0001 extends TestSupport{
     public void test1(){
         Assert.notNull(currentUser);
         Assert.notNull("something");
-        LOG.debug("11111111111111111111");
 
         AcActor actor = new AcStaffImpl();
-        actor.setIdentityNo("ABC123");
-        actor.setName("Mah Name");
+        actor.setIdentityNo("ABC_123");
+        actor.setName("Oprah Winfrey");
 
         actorDao.save(actor,currentUser);
-        sessionFactory.getCurrentSession().flush();
+        securityService.getCurrentSession().flush();
         actorDao.refresh(actor);
     }
 
@@ -76,13 +72,12 @@ public class US_AC_ACT_0001 extends TestSupport{
     public void test2(){
         Assert.notNull(currentUser);
         Assert.notNull("something");
-        LOG.debug("2222222222222222");
         AcActor actor = new AcStaffImpl();
-        actor.setIdentityNo("ABC12345");
-        actor.setName("Noah Name");
+        actor.setIdentityNo("XYZ_001");
+        actor.setName("Elvis Presley");
 
         actorDao.save(actor,currentUser);
-        sessionFactory.getCurrentSession().flush();
+        securityService.getCurrentSession().flush();
         actorDao.refresh(actor);
 
         List<AcActor> acActors = actorDao.find();
@@ -94,4 +89,3 @@ public class US_AC_ACT_0001 extends TestSupport{
                 });
     }
 }
-
