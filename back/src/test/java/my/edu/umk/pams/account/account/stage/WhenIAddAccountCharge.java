@@ -73,4 +73,35 @@ public class WhenIAddAccountCharge {
         charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
         accountService.addAccountCharge(account, charge);
     }
+
+    public void I_create_student_account_and_add_academic_charge() {
+        LOG.debug("when i add account charge on " + academicSession.getCode());
+
+        // create student
+        AcStudent student = new AcStudentImpl();
+        student.setIdentityNo("ABC001");
+        student.setName("Rafizan Baharum");
+        student.setEmail("rafizan.baharum@umk.edu.my");
+        student.setMobile("123456789");
+        student.setPhone("123456789");
+        student.setFax("123456789");
+        identityService.saveStudent(student);
+
+        // create account
+        account = new AcAccountImpl();
+        account.setCode(student.getMatricNo());
+        account.setDescription(student.getMatricNo() + ";" + student.getEmail());
+        account.setActor(student);
+        accountService.saveAccount(account);
+
+        // charge
+        AcAcademicCharge charge = new AcAcademicChargeImpl();
+        charge.setReferenceNo("abc123");
+        charge.setSourceNo("abc123");
+        charge.setAmount(BigDecimal.valueOf(200.00));
+        charge.setDescription("This is a test");
+        charge.setSession(academicSession);
+        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+        accountService.addAccountCharge(account, charge);
+    }
 }

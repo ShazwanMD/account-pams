@@ -1,7 +1,10 @@
 package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +21,23 @@ public class GivenIAmPPSAdministrator extends Stage<GivenIAmPPSAdministrator> {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public void I_am_a_PPS_administrator(){
-        LOG.debug("i'm logging in as pps");
+    @Autowired
+    private AccountService accountService;
+
+    @ProvidedScenarioState
+    AcAcademicSession academicSession;
+
+    public void I_am_a_PPS_administrator_in_$_academic_session(String academicSessionCode){
+        loginAsPPS();
+        academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
+    }
+
+    public void I_am_a_PPS_administrator_in_current_academic_session(){
+        loginAsPPS();
+        academicSession = accountService.findCurrentAcademicSession();
+    }
+
+    private void loginAsPPS() {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("pps", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);

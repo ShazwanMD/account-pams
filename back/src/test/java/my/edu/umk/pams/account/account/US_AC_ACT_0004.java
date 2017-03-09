@@ -37,18 +37,34 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 
     /**
      * As a Bursary in current academic session
-     *  I want to list student charges by account,
-     *      so that I can view student's charges
-     *
+     * I want to list student charges by account,
+     * so that I can view student's charges
+     * <p>
      * As a Bursary in current academic session
-     *  I want to add charges to student
-     *      so that student is charged
+     * I want to add charges to student
+     * so that student is charged
      */
     @Test
     @Rollback(true)
-    public void testUserStory() {
+    public void testScenario1() {
         given().I_am_a_bursary_in_current_academic_session();
         when().I_create_student_account_and_add_account_charge();
+        then().student_account_is_charged();
+    }
+
+    @Test
+    @Rollback(true)
+    public void testScenario2() {
+        given().I_am_a_bursary_in_$_academic_session("201720181");
+        when().I_create_student_account_and_add_account_charge();
+        then().student_account_is_charged();
+    }
+
+    @Test
+    @Rollback(true)
+    public void testScenario3() {
+        given().I_am_a_bursary_in_$_academic_session("201720181");
+        when().I_create_student_account_and_add_academic_charge();
         then().student_account_is_charged();
     }
 }

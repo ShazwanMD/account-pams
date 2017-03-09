@@ -27,13 +27,20 @@ public class GivenIAmBursary extends Stage<GivenIAmBursary> {
     @ProvidedScenarioState
     AcAcademicSession academicSession;
 
+    public void I_am_a_bursary_in_$_academic_session(String academicSessionCode) {
+        loginAsBursary();
+        academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
+    }
+
     public void I_am_a_bursary_in_current_academic_session() {
-        LOG.debug("i'm logging in as bursary");
-        LOG.debug(accountService.getClass().getSimpleName());
+        loginAsBursary();
+        academicSession = accountService.findCurrentAcademicSession();
+    }
+
+    private void loginAsBursary() {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("bursary", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
-
-        academicSession = accountService.findCurrentAcademicSession();
     }
+
 }
