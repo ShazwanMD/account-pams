@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.config;
 
 import com.tngtech.jgiven.integration.spring.EnableJGiven;
-import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
@@ -53,11 +52,5 @@ public class TestAppConfiguration {
         final String key = "jgiven.report.text";
         final String value = env.getProperty(key) == null ? "true" : env.getProperty(key);
         return System.setProperty(key, value);
-    }
-    @Bean
-    public BeanNameAutoProxyCreator jGivenBeanNameAutoProxyCreator(){
-        BeanNameAutoProxyCreator beanNameAutoProxyCreator = new BeanNameAutoProxyCreator();
-        beanNameAutoProxyCreator.setInterceptorNames(new String[]{"springStepMethodInterceptor"});
-        return beanNameAutoProxyCreator;
     }
 }
