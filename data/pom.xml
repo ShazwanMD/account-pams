@@ -241,30 +241,43 @@
                     </dependency>
                 </dependencies>
 
-                <configuration>
-                    <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost:5432/account</url>
-                    <username>account</username>
-                    <password>account</password>
-                </configuration>
-
                 <executions>
                     <execution>
-                        <id>demo_account</id>
-                        <!--<phase>process-test-resources</phase>-->
+                        <!-- Warning: This Drops Everything!!! -->
+                        <id>reset-drop-all</id>
+                        <!-- Warning: This Drops Everything!!! -->
                         <goals>
                             <goal>execute</goal>
                         </goals>
                         <configuration>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>jdbc:postgresql://localhost:5432/postgres</url>
+                            <settingsKey>jdbc:postgresql://localhost:5432/postgres</settingsKey>
                             <autocommit>true</autocommit>
                             <srcFiles>
-                                <!--<srcFile>src/test/resources/SCHEMA.sql</srcFile>-->
+                                <srcFile>src/test/resources/SCHEMA.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-tables-seed</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>jdbc:postgresql://localhost:5432/account</url>
+                            <username>account</username>
+                            <password>account</password>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
                                 <srcFile>src/test/resources/ddl/DROP.sql</srcFile>
                                 <srcFile>src/test/resources/ddl/CREATE.sql</srcFile>
                                 <srcFile>src/test/resources/ddl/ACL.POSTGRES.sql</srcFile>
                                 <srcFile>src/test/resources/ddl/ACT.POSTGRES.sql</srcFile>
                                 <srcFile>src/test/resources/ddl/BAT.POSTGRES.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_PCPL.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_ACDM_SESN.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </execution>
@@ -274,7 +287,7 @@
     </build>
     <scm>
         <connection>
-		
+
         </connection>
     </scm>
 </project>
