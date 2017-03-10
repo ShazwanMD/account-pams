@@ -252,6 +252,7 @@
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
                             <url>jdbc:postgresql://localhost:5432/postgres</url>
+                            <!-- See sample src/test/resources/settings.xml for settingsKey snippet explanation -->
                             <settingsKey>jdbc:postgresql://localhost:5432/postgres</settingsKey>
                             <autocommit>true</autocommit>
                             <srcFiles>
