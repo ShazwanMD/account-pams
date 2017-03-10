@@ -1,8 +1,11 @@
 package my.edu.umk.pams.account.account.stage;
 
+import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
+import io.jsonwebtoken.lang.Assert;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -19,7 +22,7 @@ import java.math.BigDecimal;
  * @author PAMS
  */
 @JGivenStage
-public class WhenIAddAccountCharge {
+public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 
     private static final Logger LOG = LoggerFactory.getLogger(WhenIAddAccountCharge.class);
 
@@ -34,6 +37,12 @@ public class WhenIAddAccountCharge {
 
     @ProvidedScenarioState
     AcAccount account;
+
+    @ProvidedScenarioState
+    AcAccountCharge accountCharge;
+
+    @ProvidedScenarioState
+    AcAcademicCharge academicCharge;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -55,8 +64,8 @@ public class WhenIAddAccountCharge {
         accountService.addAccountCharge(account, charge);
     }
 
-    public void I_create_student_account_and_add_account_charge() {
-        LOG.debug("when i add account charge on " + academicSession.getCode());
+    public void I_create_student_account_and_add_account_charge_of_$(double chargeAmount) {
+        Assert.notNull(academicSession.getCode(), "academic session record is a prerequite");
 
         // create student
         AcStudent student = new AcStudentImpl();
@@ -75,15 +84,16 @@ public class WhenIAddAccountCharge {
         account.setActor(student);
         accountService.saveAccount(account);
 
-        // charge
-        AcAcademicCharge charge = new AcAcademicChargeImpl();
-        charge.setReferenceNo("abc123");
-        charge.setSourceNo("abc123");
-        charge.setAmount(BigDecimal.valueOf(200.00));
-        charge.setDescription("This is a test");
-        charge.setSession(academicSession);
-        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
-        accountService.addAccountCharge(account, charge);
+        // accountCharge
+        accountCharge = new AcAccountChargeImpl();
+        accountCharge.setReferenceNo("abc123");
+        accountCharge.setSourceNo("abc123");
+        accountCharge.setAmount(BigDecimal.valueOf(chargeAmount));
+        accountCharge.setDescription("This is a test");
+        accountCharge.setSession(academicSession);
+        accountCharge.setChargeType(AcAccountChargeType.STUDENT_AFFAIRS);
+//        accountCharge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+        accountService.addAccountCharge(account, accountCharge);
     }
 
     public void I_create_student_account_and_add_academic_charge() {
@@ -115,5 +125,10 @@ public class WhenIAddAccountCharge {
         charge.setSession(academicSession);
         charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
         accountService.addAccountCharge(account, charge);
+    }
+
+    @Pending
+    public void I_show_charges_by_account_for_studentNo_$(String studentNo) {
+
     }
 }

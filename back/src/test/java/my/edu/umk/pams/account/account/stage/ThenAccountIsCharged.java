@@ -1,18 +1,20 @@
 package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.service.AccountService;
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 /**
  * @author PAMS
@@ -31,11 +33,27 @@ public class ThenAccountIsCharged extends Stage<ThenAccountIsCharged> {
     @ExpectedScenarioState
     AcAccount account;
 
-    // todo: use $ placeholder
+    @ExpectedScenarioState
+    AcAccountCharge accountCharge;
+
+    @As("student_account_is_charged")
     public ThenAccountIsCharged student_account_is_charged(){
-        LOG.debug("student account is charged {}");
-        List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
-        Assert.assertTrue(!(charges.isEmpty()));
+        Assert.notNull(academicSession, "academic session is a prerequisite");
+        Assert.notNull(accountCharge, "account charge is a prerequisite");
+
+        accountCharge = accountService.findAccountChargeById(accountCharge.getId());
+
+        final BigDecimal EXPECTED = BigDecimal.valueOf(200.00);
+        BigDecimal amount = accountCharge.getAmount();
+
+        String message = "expected " + EXPECTED + " but found " + amount;
+        Assert.isTrue(amount.compareTo(EXPECTED) == 0, message);
+
         return self();
+    }
+
+    @Pending
+    public void the_charges_for_the_student_are_listed() {
+
     }
 }
