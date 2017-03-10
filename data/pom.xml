@@ -252,8 +252,9 @@
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
                             <url>jdbc:postgresql://localhost:5432/postgres</url>
-                            <!-- See sample src/test/resources/settings.xml for settingsKey snippet explanation -->
-                            <settingsKey>jdbc:postgresql://localhost:5432/postgres</settingsKey>
+                            <!-- <url> value must point to a database owned by [DEV_DB_ADMIN] -->
+                            <!-- See sample src/test/resources/settings.xml for <settingsKey> snippet explanation -->
+                            <settingsKey>postgres-dev</settingsKey>
                             <autocommit>true</autocommit>
                             <srcFiles>
                                 <srcFile>src/test/resources/SCHEMA.sql</srcFile>

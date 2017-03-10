@@ -11,11 +11,10 @@
         <!-- ... Cut and paste this server element and content into your own .m2 settings.xml -->
         <server>
             <!--> Use this server <id> value as your project pom's <settingsKey> value-->
-            <!-- <id> value is just a unique label; "/postgres" is owned by [LOCAL_DB_ADMIN] -->
-            <!-- [LOCAL_DB_ADMIN] should then have the correct privilege to drop other DBs -->
-            <id>jdbc:postgresql://localhost:5432/postgres</id>
-            <username>[LOCAL_DB_ADMIN]</username>
-            <password>LOCAL_DB_PASSWORD]</password>
+            <!-- [DEV_DB_ADMIN] should then have the correct privilege to drop other DBs -->
+            <id>postgres-dev</id>
+            <username>[DEV_DB_ADMIN]</username>
+            <password>[DEV_DB_PASSWORD]</password>
         </server>
     </servers>
 
