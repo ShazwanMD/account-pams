@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.account.stage;
+package my.edu.umk.pams.bdd.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
@@ -14,9 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @JGivenStage
-public class GivenIAmSystem extends Stage<GivenIAmSystem> {
+public class GivenIAmStudent extends Stage<GivenIAmStudent> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmSystem.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmStudent.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -27,17 +27,21 @@ public class GivenIAmSystem extends Stage<GivenIAmSystem> {
     @ProvidedScenarioState
     AcAcademicSession academicSession;
 
-    public void I_am_a_system_in_$_academic_session(String academicSessionCode){
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("system", "abc123");
-        Authentication authed = authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authed);
-
+    public void I_am_a_student_in_$_academic_session(String academicSessionCode){
+        loginAsStudent();
         academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
     }
 
-    public void I_am_a_system_in_current_academic_session(){
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("system", "abc123");
+    public void I_am_a_student_in_current_academic_session(){
+        loginAsStudent();
+        academicSession = accountService.findCurrentAcademicSession();
+    }
+
+    private void loginAsStudent() {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("student1", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
     }
+
+
 }

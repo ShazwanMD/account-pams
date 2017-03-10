@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.account.stage;
+package my.edu.umk.pams.account.billing.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
@@ -18,9 +18,9 @@ import java.util.List;
  * @author PAMS
  */
 @JGivenStage
-public class ThenAccountIsCharged extends Stage<ThenAccountIsCharged> {
+public class ThenAccountIsInvoiced extends Stage<ThenAccountIsInvoiced> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ThenAccountIsCharged.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ThenAccountIsInvoiced.class);
 
     @Autowired
     private AccountService accountService;
@@ -32,7 +32,7 @@ public class ThenAccountIsCharged extends Stage<ThenAccountIsCharged> {
     AcAccount account;
 
     // todo: use $ placeholder
-    public ThenAccountIsCharged student_account_is_charged(){
+    public ThenAccountIsInvoiced student_account_is_invoiced() {
         LOG.debug("student account is charged {}");
         List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
         Assert.assertTrue(!(charges.isEmpty()));

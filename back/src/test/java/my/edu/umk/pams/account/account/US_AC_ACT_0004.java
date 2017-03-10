@@ -1,7 +1,7 @@
 package my.edu.umk.pams.account.account;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-import my.edu.umk.pams.account.account.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.account.account.stage.ThenAccountIsCharged;
 import my.edu.umk.pams.account.account.stage.WhenIAddAccountCharge;
 import my.edu.umk.pams.account.config.TestAppConfiguration;

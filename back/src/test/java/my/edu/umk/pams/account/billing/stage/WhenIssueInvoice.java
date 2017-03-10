@@ -1,5 +1,6 @@
-package my.edu.umk.pams.account.account.stage;
+package my.edu.umk.pams.account.billing.stage;
 
+import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -19,9 +20,9 @@ import java.math.BigDecimal;
  * @author PAMS
  */
 @JGivenStage
-public class WhenIAddAccountCharge {
+public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WhenIAddAccountCharge.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WhenIssueInvoice.class);
 
     @Autowired
     private AccountService accountService;
@@ -38,24 +39,7 @@ public class WhenIAddAccountCharge {
     @Autowired
     private SessionFactory sessionFactory;
 
-    // todo: use $ placeholder
-    public void I_add_account_charge_for_account_$(String code) {
-        LOG.debug("when i add account charge on " + academicSession.getCode());
-
-        account = accountService.findAccountByCode(code);
-
-        // charge
-        AcAcademicCharge charge = new AcAcademicChargeImpl();
-        charge.setReferenceNo("abc123");
-        charge.setSourceNo("abc123");
-        charge.setAmount(BigDecimal.valueOf(200.00));
-        charge.setDescription("This is a test");
-        charge.setSession(academicSession);
-        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
-        accountService.addAccountCharge(account, charge);
-    }
-
-    public void I_create_student_account_and_add_account_charge() {
+    public WhenIssueInvoice I_create_student_account_and_add_academic_charge() {
         LOG.debug("when i add account charge on " + academicSession.getCode());
 
         // create student
@@ -84,9 +68,12 @@ public class WhenIAddAccountCharge {
         charge.setSession(academicSession);
         charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
         accountService.addAccountCharge(account, charge);
+
+        return self();
     }
 
-    public void I_create_student_account_and_add_academic_charge() {
+
+    public WhenIssueInvoice I_issue_invoice_on_student_account() {
         LOG.debug("when i add account charge on " + academicSession.getCode());
 
         // create student
@@ -115,5 +102,7 @@ public class WhenIAddAccountCharge {
         charge.setSession(academicSession);
         charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
         accountService.addAccountCharge(account, charge);
+
+        return self();
     }
 }

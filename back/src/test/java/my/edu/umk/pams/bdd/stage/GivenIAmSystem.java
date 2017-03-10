@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.account.stage;
+package my.edu.umk.pams.bdd.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
@@ -14,9 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @JGivenStage
-public class GivenIAmPPSAdministrator extends Stage<GivenIAmPPSAdministrator> {
+public class GivenIAmSystem extends Stage<GivenIAmSystem> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmPPSAdministrator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmSystem.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -27,18 +27,16 @@ public class GivenIAmPPSAdministrator extends Stage<GivenIAmPPSAdministrator> {
     @ProvidedScenarioState
     AcAcademicSession academicSession;
 
-    public void I_am_a_PPS_administrator_in_$_academic_session(String academicSessionCode){
-        loginAsPPS();
+    public void I_am_a_system_in_$_academic_session(String academicSessionCode){
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("system", "abc123");
+        Authentication authed = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authed);
+
         academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
     }
 
-    public void I_am_a_PPS_administrator_in_current_academic_session(){
-        loginAsPPS();
-        academicSession = accountService.findCurrentAcademicSession();
-    }
-
-    private void loginAsPPS() {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("pps", "abc123");
+    public void I_am_a_system_in_current_academic_session(){
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("system", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
     }

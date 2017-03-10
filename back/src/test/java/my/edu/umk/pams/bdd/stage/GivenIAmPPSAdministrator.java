@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.account.stage;
+package my.edu.umk.pams.bdd.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
@@ -14,9 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @JGivenStage
-public class GivenIAmBursary extends Stage<GivenIAmBursary> {
+public class GivenIAmPPSAdministrator extends Stage<GivenIAmPPSAdministrator> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmBursary.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmPPSAdministrator.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -27,20 +27,19 @@ public class GivenIAmBursary extends Stage<GivenIAmBursary> {
     @ProvidedScenarioState
     AcAcademicSession academicSession;
 
-    public void I_am_a_bursary_in_$_academic_session(String academicSessionCode) {
-        loginAsBursary();
+    public void I_am_a_PPS_administrator_in_$_academic_session(String academicSessionCode){
+        loginAsPPS();
         academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
     }
 
-    public void I_am_a_bursary_in_current_academic_session() {
-        loginAsBursary();
+    public void I_am_a_PPS_administrator_in_current_academic_session(){
+        loginAsPPS();
         academicSession = accountService.findCurrentAcademicSession();
     }
 
-    private void loginAsBursary() {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("bursary", "abc123");
+    private void loginAsPPS() {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("pps", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
     }
-
 }
