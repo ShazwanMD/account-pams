@@ -39,5 +39,7 @@ public class GivenIAmSystem extends Stage<GivenIAmSystem> {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("system", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
+
+        academicSession = accountService.findCurrentAcademicSession();
     }
 }

@@ -1,29 +1,30 @@
 -- USR, PGW, KRN BDR
 -- USER, PEGAWAI, KERANI, BENDAHARI
+-- abc123 = 6367c48dd193d56ea7b0baad25b19455e529f5ee
 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'root', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
-VALUES (currval('SQ_AC_PCPL'), 'Root', 'root@umk.edu.my', '6367c48dd193d56ea7b0baad25b19455e529f5ee');
+VALUES (currval('SQ_AC_PCPL'), 'Root', 'root@umk.edu.my', 'abc123');
 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'admin', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
-VALUES (currval('SQ_AC_PCPL'), 'PAMS Admin', 'admin@umk.edu.my', '6367c48dd193d56ea7b0baad25b19455e529f5ee');
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Admin', 'admin@umk.edu.my', 'abc123');
 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'bursary', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
-VALUES (currval('SQ_AC_PCPL'), 'PAMS Bursary', 'bursary@umk.edu.my', '6367c48dd193d56ea7b0baad25b19455e529f5ee');
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Bursary', 'bursary@umk.edu.my', 'abc123');
 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pps', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
-VALUES (currval('SQ_AC_PCPL'), 'PAMS PPS', 'pps@umk.edu.my', '6367c48dd193d56ea7b0baad25b19455e529f5ee');
+VALUES (currval('SQ_AC_PCPL'), 'PAMS PPS', 'pps@umk.edu.my', 'abc123');
 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'student1', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
-VALUES (currval('SQ_AC_PCPL'), 'PAMS Student1', 'student1@umk.edu.my', '6367c48dd193d56ea7b0baad25b19455e529f5ee');
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Student1', 'student1@umk.edu.my', 'abc123');
 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'student2', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
-VALUES (currval('SQ_AC_PCPL'), 'PAMS Student2', 'student2@umk.edu.my', '6367c48dd193d56ea7b0baad25b19455e529f5ee');
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Student2', 'student2@umk.edu.my', 'abc123');
 
 ---------------------------------------------------------
 -- GROUP START

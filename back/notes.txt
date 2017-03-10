@@ -1,0 +1,2 @@
+better way to generate DDL
+http://stackoverflow.com/questions/30875863/can-hibernate-schema-generation-be-used-to-generate-ddl-without-database-connect
