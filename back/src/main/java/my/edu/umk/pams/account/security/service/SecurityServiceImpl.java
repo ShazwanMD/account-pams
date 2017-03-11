@@ -84,12 +84,4 @@ public class SecurityServiceImpl implements SecurityService {
             return null;
         }
     }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
 }

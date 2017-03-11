@@ -19,8 +19,4 @@ public interface SecurityService {
 
     AcUser getCurrentUser();
 
-    SessionFactory getSessionFactory();
-
-    Session getCurrentSession();
-
 }
