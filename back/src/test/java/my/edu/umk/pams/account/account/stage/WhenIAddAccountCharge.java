@@ -22,6 +22,7 @@ import java.math.BigDecimal;
  * @author PAMS
  */
 @JGivenStage
+@Deprecated
 public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 
     private static final Logger LOG = LoggerFactory.getLogger(WhenIAddAccountCharge.class);
@@ -97,7 +98,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
     }
 
     public void I_create_student_account_and_add_academic_charge() {
-        LOG.debug("when i add account charge on " + academicSession.getCode());
+//        LOG.debug("when i add account charge on " + academicSession.getCode());
 
         // create student
         AcStudent student = new AcStudentImpl();
@@ -125,10 +126,5 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
         charge.setSession(academicSession);
         charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
         accountService.addAccountCharge(account, charge);
-    }
-
-    @Pending
-    public void I_show_charges_by_account_for_studentNo_$(String studentNo) {
-
     }
 }

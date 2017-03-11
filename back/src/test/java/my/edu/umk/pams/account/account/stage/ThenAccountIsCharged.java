@@ -37,7 +37,7 @@ public class ThenAccountIsCharged extends Stage<ThenAccountIsCharged> {
     AcAccountCharge accountCharge;
 
     @As("student_account_is_charged")
-    public ThenAccountIsCharged student_account_is_charged(){
+    public ThenAccountIsCharged student_account_is_charged(double chargeAmount){
         Assert.notNull(academicSession, "academic session is a prerequisite");
         Assert.notNull(accountCharge, "account charge is a prerequisite");
 
@@ -55,5 +55,10 @@ public class ThenAccountIsCharged extends Stage<ThenAccountIsCharged> {
     @Pending
     public void the_charges_for_the_student_are_listed() {
 
+    }
+
+    public ThenAccountIsCharged the_charges_are_misplaced(String message) {
+        Assert.isTrue("WILL_NEVER_MATCH".equals("EVER"), message);
+        return self();
     }
 }
