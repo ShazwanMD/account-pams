@@ -16,4 +16,5 @@ public class SchemaExporter {
         );
         exporter.setGenerateDropQueries(true);
         exporter.export(new File("create.sql"));
-    }}
+    }
+}
