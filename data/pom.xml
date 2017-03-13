@@ -280,6 +280,7 @@
                                 <srcFile>src/test/resources/ddl/BAT.POSTGRES.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_PCPL.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACTR.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_ACCT.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACDM_SESN.sql</srcFile>
                             </srcFiles>
                         </configuration>
