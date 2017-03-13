@@ -19,6 +19,13 @@ import my.edu.umk.pams.account.identity.stage.WhenIAddASponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmAUser;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
+/**
+ * As bursary
+ * 	I want to add sponsor account, 
+ * 		so that sponsor is added
+ * @author PAMS
+ *
+ */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
