@@ -22,9 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
  * For naming explanation of US_AC_ACT_0000,
  * see <project>/README.md
  */
-@Submodule("Account")
-@CoreMVP
-@FeatureMVP("Student")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -34,8 +31,7 @@ public class US_AC_ACT_0000 extends SpringScenarioTest<GivenIAmBusinessAdminUser
 
     @Test
     @Rollback
-    @Story("ACT_0000")
-    public void addStudentByBusinessUser() {
+    public void scenario001() {
         // Given
         given().I_am_a_business_admin_user();
         // When
