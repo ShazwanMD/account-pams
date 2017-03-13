@@ -50,7 +50,7 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
     public void testScenario1() {
         given().I_am_a_bursary_in_current_academic_session();
         when().I_create_student_account_and_add_account_charge_of_$(CHARGE_AMOUNT);
-        then().student_account_is_charged(CHARGE_AMOUNT);
+        then().student_account_is_charged_$(CHARGE_AMOUNT);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
     public void testScenario2() {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);
         when().I_create_student_account_and_add_account_charge_of_$(CHARGE_AMOUNT);
-        then().student_account_is_charged(CHARGE_AMOUNT);
+        then().student_account_is_charged_$(CHARGE_AMOUNT);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
     public void testScenario3() {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);
         when().I_create_student_account_and_add_academic_charge();
-        then().student_account_is_charged(CHARGE_AMOUNT);
+        then().student_account_is_charged_$(CHARGE_AMOUNT);
     }
 
     @Test
