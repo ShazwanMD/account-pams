@@ -32,7 +32,7 @@ public class ThenICanViewStudentCompoundCharges extends Stage<ThenICanViewStuden
 	AcAccountCharge accountCharge;
 
 	@Pending
-	public void I_can_view_student_compound_charges() {
+	public void I_can_view_student_compound_charge() {
 
 	}
 

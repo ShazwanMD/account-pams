@@ -30,12 +30,6 @@ import my.edu.umk.pams.bdd.stage.WhenIAddAStudent;
 public class WhenIListStudentChargesOfTypeCompound extends Stage<WhenIListStudentChargesOfTypeCompound>{
 	 private static final Logger LOG = LoggerFactory.getLogger(WhenIListStudentChargesOfTypeCompound.class);
 	    
-	 @Autowired
-	    private AccountService accountService;
-
-	    @Autowired
-	    private IdentityService identityService;
-
 	    @ExpectedScenarioState
 	    AcAcademicSession academicSession;
 	    

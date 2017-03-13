@@ -36,14 +36,14 @@ public class US_AC_ACT_0008 extends SpringScenarioTest<GivenIAmBursary, WhenILis
     public void after() {
     }
     
-    private static final String MATRIC_NO = "ABC001";
+    private static final String MATRIC_NO = "ABC002";
     
     
     @Test
     public void testScenario0() {
         given().I_am_a_bursary_in_current_academic_session();
         when().I_list_student_charges_of_type_compound_$(MATRIC_NO);
-        then().I_can_view_student_compound_charges();
+        then().I_can_view_student_compound_charge();
     }
 
 }
