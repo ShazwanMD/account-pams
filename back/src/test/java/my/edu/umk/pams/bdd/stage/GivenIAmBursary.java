@@ -3,8 +3,10 @@ package my.edu.umk.pams.bdd.stage;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
+import io.jsonwebtoken.lang.Assert;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.security.integration.AcUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +45,11 @@ public class GivenIAmBursary extends Stage<GivenIAmBursary> {
         SecurityContextHolder.getContext().setAuthentication(authed);
     }
 
+    private void loginAsBusinessAdmin() {
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("pps", "abc123");
+//        Authentication authed = authenticationManager.authenticate(token);
+//        businessAdminUser = ((AcUserDetails) authed.getPrincipal()).getUser();
+//        Assert.notNull(businessAdminUser, "We have no current user");
+//        SecurityContextHolder.getContext().setAuthentication(authed);
+    }
 }
