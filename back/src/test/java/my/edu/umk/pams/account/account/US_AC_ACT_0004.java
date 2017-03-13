@@ -21,9 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author PAMS
  */
-@Submodule("Account")
-@CoreMVP
-@FeatureMVP("Bursary")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAddAccountCharge, ThenAccountIsCharged> {
@@ -65,7 +62,6 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 
     @Test
     @Rollback(true)
-    @Issue("JIRA-0003")
     public void addStudentAddAcademicChargeByBursaryGivenSession() {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);
         when().I_create_student_account_and_add_academic_charge();
@@ -74,8 +70,6 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 
     @Test
     @Rollback
-    @Story("ACT_0004")
-    @Issue("JIRA-0004")
     public  void flawedScenario()
     {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);

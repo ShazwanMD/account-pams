@@ -20,10 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author PAMS
  */
-@Submodule("Account")
-@CoreNext
-@FeatureNext("Charge")
-@Story({"ACT_0801", "ACT_0802"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -51,8 +47,6 @@ public class US_AC_ACT_0002 extends SpringScenarioTest<GivenIAmBusinessAdminUser
 
     @Test
     @Rollback
-    @Story("ACT_00021")
-    @Issue("JIRA-0002")
     public void addStudentAddAccountAddChargeByBusinessAdminUser() {
         // Given
         given().I_am_a_business_admin_user();
