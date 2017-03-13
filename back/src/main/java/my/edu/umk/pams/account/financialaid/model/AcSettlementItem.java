@@ -28,6 +28,7 @@ public interface AcSettlementItem extends AcMetaObject {
 
     void setSettlement(AcSettlement settlement);
 
+    //todo(uda): kenapa ada student bila dah point ke account??
     AcStudent getStudent();
 
     void setStudent(AcStudent student);
