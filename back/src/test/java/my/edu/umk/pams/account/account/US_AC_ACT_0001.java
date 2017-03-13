@@ -17,10 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author PAMS
  */
-@Submodule("Account")
-@CoreNext
-@FeatureNext("Charge")
-@Story("ACT_0001")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -40,5 +36,4 @@ public class US_AC_ACT_0001 extends SpringScenarioTest<GivenIAmBusinessAdminUser
         when().I_show_charges_by_account_for_accountNo_$("0-000-0");
         then().the_charges_for_the_student_are_listed();
     }
-
 }
