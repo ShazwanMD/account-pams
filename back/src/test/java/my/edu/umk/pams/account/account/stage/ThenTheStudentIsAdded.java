@@ -25,9 +25,6 @@ public class ThenTheStudentIsAdded extends Stage<ThenTheStudentIsAdded> {
     @ExpectedScenarioState
     private IdentityService identityService;
 
-//    @ExpectedScenarioState
-//    private AcStudentDao studentDao;
-
     @ExpectedScenarioState
     private String studentNo;
 
