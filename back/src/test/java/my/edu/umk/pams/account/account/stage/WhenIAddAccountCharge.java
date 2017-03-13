@@ -22,7 +22,6 @@ import java.math.BigDecimal;
  * @author PAMS
  */
 @JGivenStage
-@Deprecated
 public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 
     private static final Logger LOG = LoggerFactory.getLogger(WhenIAddAccountCharge.class);
