@@ -1,6 +1,5 @@
 package my.edu.umk.pams.account.identity.model;
 
-
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -15,110 +14,122 @@ import javax.validation.constraints.NotNull;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AcActorImpl implements AcActor {
 
-    @Id
-    @Column(name = "ID", nullable = false)
-    @GeneratedValue(generator = "SQ_AC_ACTR")
-    @SequenceGenerator(name = "SQ_AC_ACTR", sequenceName = "SQ_AC_ACTR", allocationSize = 1)
-    private Long id;
+	@Id
+	@Column(name = "ID", nullable = false)
+	@GeneratedValue(generator = "SQ_AC_ACTR")
+	@SequenceGenerator(name = "SQ_AC_ACTR", sequenceName = "SQ_AC_ACTR", allocationSize = 1)
+	private Long id;
 
-    @NotNull
-    @Column(name = "IDENTITY_NO", unique = true, nullable = false)
-    private String identityNo;
+	@NotNull
+	@Column(name = "IDENTITY_NO", unique = true, nullable = false)
+	private String identityNo;
 
-    @NotNull
-    @Column(name = "NAME", nullable = false)
-    private String name;
+	@NotNull
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
-    @NotNull
-    @Column(name = "EMAIL")
-    private String email;
+	@NotNull
+	@Column(name = "EMAIL")
+	private String email;
 
-    @NotNull
-    @Column(name = "PHONE")
-    private String phone;
+	@NotNull
+	@Column(name = "PHONE")
+	private String phone;
 
-    @Column(name = "MOBILE")
-    private String mobile;
+	@Column(name = "MOBILE")
+	private String mobile;
 
-    @NotNull
-    @Column(name = "FAX")
-    private String fax;
+	@NotNull
+	@Column(name = "FAX")
+	private String fax;
 
-    @Column(name = "ACTOR_TYPE")
-    private AcActorType actorType;
+	@NotNull
+	@Column(name = "ADDRESS")
+	private String address;
 
-    @Embedded
-    private AcMetadata metadata;
+	@Column(name = "ACTOR_TYPE")
+	private AcActorType actorType;
 
-    public Long getId() {
-        return id;
-    }
+	@Embedded
+	private AcMetadata metadata;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getIdentityNo() {
-        return identityNo;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setIdentityNo(String identityNo) {
-        this.identityNo = identityNo;
-    }
+	public String getIdentityNo() {
+		return identityNo;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setIdentityNo(String identityNo) {
+		this.identityNo = identityNo;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public String getMobile() {
-        return mobile;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+	public String getMobile() {
+		return mobile;
+	}
 
-    public String getFax() {
-        return fax;
-    }
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
+	public String getFax() {
+		return fax;
+	}
 
-    public AcActorType getActorType() {
-        return actorType;
-    }
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
 
-    public void setActorType(AcActorType actorType) {
-        this.actorType = actorType;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public AcMetadata getMetadata() {
-        return metadata;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public void setMetadata(AcMetadata metadata) {
-        this.metadata = metadata;
-    }
+	public AcActorType getActorType() {
+		return actorType;
+	}
+
+	public void setActorType(AcActorType actorType) {
+		this.actorType = actorType;
+	}
+
+	public AcMetadata getMetadata() {
+		return metadata;
+	}
+
+	public void setMetadata(AcMetadata metadata) {
+		this.metadata = metadata;
+	}
 }
