@@ -20,9 +20,6 @@ import org.springframework.util.Assert;
 /**
  * @author PAMS
  */
-@Submodule("Billing")
-@CoreNext
-@FeatureNext("Invoicing")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_BLG_0001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenAccountIsInvoiced> {
