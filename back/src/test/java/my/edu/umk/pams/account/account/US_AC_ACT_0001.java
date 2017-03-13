@@ -30,7 +30,6 @@ public class US_AC_ACT_0001 extends SpringScenarioTest<GivenIAmBusinessAdminUser
      * TODO: so that I can view student's charges
      */
     @Test
-    @Issue("JIRA-0001")
     public void listChargesByAccountForBusinessUser() {
         given().I_am_a_business_admin_user();
         when().I_show_charges_by_account_for_accountNo_$("0-000-0");
