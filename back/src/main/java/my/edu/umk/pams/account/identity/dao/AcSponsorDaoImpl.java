@@ -3,12 +3,6 @@ package my.edu.umk.pams.account.identity.dao;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorImpl;
-import my.edu.umk.pams.account.identity.model.AcStudent;
-
-import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
-
-import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;

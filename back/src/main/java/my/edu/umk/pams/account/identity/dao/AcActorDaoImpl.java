@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static my.edu.umk.pams.account.core.AcMetaState.*;
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 /**
  * @author canang technologies

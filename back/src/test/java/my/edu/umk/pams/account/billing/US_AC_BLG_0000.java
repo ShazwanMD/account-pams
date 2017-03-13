@@ -1,10 +1,10 @@
 package my.edu.umk.pams.account.billing;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.account.billing.stage.ThenAccountIsInvoiced;
 import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 /**
  * @author PAMS
@@ -41,12 +40,4 @@ public class US_AC_BLG_0000 extends SpringScenarioTest<GivenIAmBursary, WhenIssu
                 .and().I_issue_invoice_on_student_account();
         then().student_account_is_invoiced();
     }
-
-    @Test
-    @Rollback
-    public  void defectiveScenario()
-    {
-        Assert.isTrue(1 != 1, "Defective method");
-    }
-
 }

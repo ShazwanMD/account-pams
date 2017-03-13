@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.billing.stage;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
@@ -10,22 +12,24 @@ import io.jsonwebtoken.lang.Assert;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 
+import java.util.List;
 
 
 @JGivenStage
 public class ThenStudentAccountIsCharged extends Stage<ThenStudentAccountIsCharged> {
 
 	@ExpectedScenarioState
-	AcAccount account;
-	
+	private AcAccount account;
+
+	@ExpectedScenarioState
+	private AcAcademicSession academicSession;
+
 	@Autowired
 	private AccountService accountService;
 	
     public ThenStudentAccountIsCharged my_account_is_charged() {
-
-    	Assert.isTrue(accountService.hasBalance(account));
-    	
+		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
+		Assert.isTrue(!charges.isEmpty());
         return self();
     }
-
 }

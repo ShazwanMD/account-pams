@@ -1,7 +1,9 @@
 package my.edu.umk.pams.account.identity.dao;
 
 import my.edu.umk.pams.account.core.GenericDao;
-import my.edu.umk.pams.account.identity.model.*;
+import my.edu.umk.pams.account.identity.model.AcPrincipal;
+import my.edu.umk.pams.account.identity.model.AcPrincipalRole;
+import my.edu.umk.pams.account.identity.model.AcPrincipalType;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
 import java.util.List;

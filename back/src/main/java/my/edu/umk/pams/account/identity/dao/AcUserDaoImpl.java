@@ -1,7 +1,8 @@
 package my.edu.umk.pams.account.identity.dao;
 
 import my.edu.umk.pams.account.core.GenericDaoSupport;
-import my.edu.umk.pams.account.identity.model.*;
+import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcGroup;
 import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.model.AcUserImpl;
 import org.hibernate.Query;

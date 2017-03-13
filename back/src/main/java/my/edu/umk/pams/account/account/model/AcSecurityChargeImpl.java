@@ -15,6 +15,10 @@ public class AcSecurityChargeImpl extends AcAccountChargeImpl implements AcSecur
     @JoinColumn(name = "CHARGE_CODE_ID")
     private AcChargeCode chargeCode;
 
+    public AcSecurityChargeImpl() {
+        setChargeType(AcAccountChargeType.SECURITY);
+    }
+
     public AcChargeCode getChargeCode() {
         return chargeCode;
     }

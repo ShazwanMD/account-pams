@@ -51,7 +51,6 @@ public class GivenIAmStudent extends Stage<GivenIAmStudent> {
 
 		AcUser user = ((AcUserDetails) authed.getPrincipal()).getUser();
 		student = (AcStudent) user.getActor();
-		
+		LOG.debug("studen: " + student);
 	}
-
 }

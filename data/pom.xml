@@ -282,6 +282,7 @@
                                 <srcFile>src/test/resources/data/AC_ACTR.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACCT.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACDM_SESN.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_CHRG_CODE.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </execution>

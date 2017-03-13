@@ -5,7 +5,6 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.*;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBusinessAdminUser;
-import my.edu.umk.pams.bdd.tags.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +58,6 @@ public class US_AC_ACT_0002 extends SpringScenarioTest<GivenIAmBusinessAdminUser
         // Then
         then().the_student_user_is_added();
         additionalThen.and().the_student_account_is_added();
-        addStage(ThenAccountIsCharged.class).and().student_account_is_charged(CHARGE_AMOUNT);
+        addStage(ThenAccountIsCharged.class).and().student_account_is_charged_$(CHARGE_AMOUNT);
     }
 }
