@@ -8,6 +8,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    US_AC_ACT_0005.class,
 })
 public class IdentityModuleTestSuite {
 }

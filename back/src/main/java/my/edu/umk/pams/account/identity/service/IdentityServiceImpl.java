@@ -50,6 +50,9 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Autowired
     private AcStudentDao studentDao;
+    
+    @Autowired
+    private AcSponsorDao sponsorDao;
 
     //====================================================================================================
     // PRINCIPAL
@@ -525,4 +528,25 @@ public class IdentityServiceImpl implements IdentityService {
         ApplicantUpdatedEvent event = new ApplicantUpdatedEvent(student);
         applicationContext.publishEvent(event);
     }
+    
+    //====================================================================================================
+    // sponsor
+    //====================================================================================================
+    
+    @Override
+    public void saveSponsor(AcSponsor sponsor) {
+        sponsorDao.save(sponsor, Util.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public AcSponsor findSponsorById(Long id) {
+        return sponsorDao.findById(id);
+    }
+    
+    @Override
+    public AcSponsor findBySponsorNo(String sponsorNo){
+        return sponsorDao.findBySponsorNo(sponsorNo);
+    }
+
 }
