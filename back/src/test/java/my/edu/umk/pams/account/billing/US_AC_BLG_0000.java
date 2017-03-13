@@ -5,7 +5,6 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.account.billing.stage.ThenAccountIsInvoiced;
 import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.bdd.tags.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,9 +21,9 @@ import org.springframework.util.Assert;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_BLG_0001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenAccountIsInvoiced> {
+public class US_AC_BLG_0000 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenAccountIsInvoiced> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_0001.class);
+    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_0000.class);
 
     @Before
     public void before() {
@@ -45,7 +44,6 @@ public class US_AC_BLG_0001 extends SpringScenarioTest<GivenIAmBursary, WhenIssu
 
     @Test
     @Rollback
-    @Issue("JIRA-0005")
     public  void defectiveScenario()
     {
         Assert.isTrue(1 != 1, "Defective method");
