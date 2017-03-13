@@ -36,7 +36,7 @@ public class US_AC_ACT_0008 extends SpringScenarioTest<GivenIAmBursary, WhenILis
     public void after() {
     }
     
-    private static final String MATRIC_NO = "ABC002";
+    private static final String MATRIC_NO = "19990201-07-1234";
     
     
     @Test

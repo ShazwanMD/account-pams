@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.account.stage;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +47,34 @@ public class WhenIListStudentChargesOfTypeCompound extends Stage<WhenIListStuden
 	    @Autowired
 	    private SessionFactory sessionFactory;
 	    
-
+	    @Autowired
+	    private IdentityService identityservice;
+	    
+	    @Autowired
+	    private AccountService accountservice;
+	    
 	    @Pending
 	    public void I_list_student_charges_of_type_compound_$(String matricNo) {	
+	    	//guna identity service untuk find student by matric number
+	    	AcStudent student = identityservice.findStudentByStudentNo(matricNo);
+	    	
+	    	//findstudent.getMatricNo();
+	    	
+	    	
+	    	
+	    	//gunakan account service untuk dapatkan charges by student
+	    	account = accountservice.findAccountByActor(student);
+	    	
+	    	//account service dapatkan charges
+	    	
+	    	List<AcAccountCharge> charges = accountservice.findAccountCharges(account);
+	    	
+	    	for (AcAccountCharge charge : charges){
+	    		charge.getAccount();
+	    		
+	    	}
+	    	
+	    	
 			
 		}
 
