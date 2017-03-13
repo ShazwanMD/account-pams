@@ -6,9 +6,6 @@ import my.edu.umk.pams.account.billing.stage.ThenAccountIsInvoiced;
 import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
-import my.edu.umk.pams.bdd.tags.CoreNext;
-import my.edu.umk.pams.bdd.tags.FeatureNext;
-import my.edu.umk.pams.bdd.tags.Submodule;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,9 +19,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * @author PAMS
  */
-@Submodule("Identity")
-@CoreNext
-@FeatureNext("Verification")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_IDN_0001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenAccountIsInvoiced> {
