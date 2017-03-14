@@ -13,8 +13,8 @@
             <!--> Use this server <id> value as your project pom's <settingsKey> value-->
             <!-- [DEV_DB_ADMIN] should then have the correct privilege to drop other DBs -->
             <id>postgres-dev</id>
-            <username>[DEV_DB_ADMIN]</username>
-            <password>[DEV_DB_PASSWORD]</password>
+            <username>account</username>
+            <password>account</password>
         </server>
     </servers>
 
