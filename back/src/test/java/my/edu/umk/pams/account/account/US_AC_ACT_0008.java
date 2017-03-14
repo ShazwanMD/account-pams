@@ -22,6 +22,7 @@ import my.edu.umk.pams.account.account.stage.WhenIAddAccountCharge;
 import my.edu.umk.pams.account.account.stage.WhenIListStudentChargesOfTypeCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -36,6 +37,7 @@ public class US_AC_ACT_0008 extends SpringScenarioTest<GivenIAmBursary, WhenILis
     public void after() {
     }
     
+    @Issue("PAMSU-3")
     private static final String MATRIC_NO = "19990201-07-1234";
     
     
