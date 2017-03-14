@@ -40,7 +40,7 @@ public class WhenIWantViewCompoundBill extends Stage<WhenIWantViewCompoundBill>{
         charge.setSourceNo("SRCNO");
         charge.setDescription("tatatataa");
         charge.setAmount(BigDecimal.valueOf(100.00));
-        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         charge.setSession(academicSession);
         
         

@@ -59,7 +59,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
         charge.setAmount(BigDecimal.valueOf(200.00));
         charge.setDescription("This is a test");
         charge.setSession(academicSession);
-        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         accountService.addAccountCharge(account, charge);
     }
 
@@ -91,7 +91,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
         accountCharge.setDescription("This is a test");
         accountCharge.setSession(academicSession);
         accountCharge.setChargeType(AcAccountChargeType.STUDENT_AFFAIRS);
-//        accountCharge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+//        accountCharge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         accountService.addAccountCharge(account, accountCharge);
     }
 
@@ -122,7 +122,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
         charge.setAmount(BigDecimal.valueOf(200.00));
         charge.setDescription("This is a test");
         charge.setSession(academicSession);
-        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         accountService.addAccountCharge(account, charge);
     }
 }
