@@ -13,7 +13,7 @@ public class IssueDescriptionGenerator implements TagDescriptionGenerator {
     public String generateDescription(TagConfiguration tagConfiguration,
                                       Annotation annotation, Object value ) {
         return String.format(
-                "<a href='https://jira.umk.edu.my/PAMS/issues/%s'>Issue %s</a>",
+                "<a href='https://jira.umk.edu.my:8080/PAMSU/issues/%s'>Issue %s</a>",
                 value, value );
     }
 }
