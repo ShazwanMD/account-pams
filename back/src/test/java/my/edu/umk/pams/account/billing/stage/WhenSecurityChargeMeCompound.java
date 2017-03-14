@@ -48,7 +48,7 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
 
         // add charges to student account
         AcSecurityCharge charge = new AcSecurityChargeImpl();
-        charge.setReferenceNo("REFNO/" + System.currentTimeMillis()w);
+        charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
         charge.setSourceNo("SRCNO");
         charge.setDescription("description");
         charge.setAmount(BigDecimal.valueOf(100.00));

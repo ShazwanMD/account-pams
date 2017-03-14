@@ -49,6 +49,7 @@ public class GivenIAmStudent extends Stage<GivenIAmStudent> {
 		Authentication authed = authenticationManager.authenticate(token);
 		SecurityContextHolder.getContext().setAuthentication(authed);
 
+		// retrieve student from user
 		AcUser user = ((AcUserDetails) authed.getPrincipal()).getUser();
 		student = (AcStudent) user.getActor();
 	}
