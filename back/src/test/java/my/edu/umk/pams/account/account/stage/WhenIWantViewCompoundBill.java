@@ -41,10 +41,10 @@ public class WhenIWantViewCompoundBill extends Stage<WhenIWantViewCompoundBill>{
     public WhenIWantViewCompoundBill I_want_view_my_compound_bill() {
     	
         // find student account
-        account = accountService.findAccountByActor(student);
+    	/*    account = accountService.findAccountByActor(student);
        
         
-        /*
+        
         // add charges to student account
         AcSecurityCharge charge = new AcSecurityChargeImpl();
         charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
@@ -54,7 +54,7 @@ public class WhenIWantViewCompoundBill extends Stage<WhenIWantViewCompoundBill>{
         charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
         charge.setSession(academicSession);
         
-        */
+        
         
         //get student charges
         AcAccountCharge charge = new AcAccountChargeImpl();
@@ -67,7 +67,7 @@ public class WhenIWantViewCompoundBill extends Stage<WhenIWantViewCompoundBill>{
 
         // use account service to add charge
         accountService.addAccountCharge(account, charge); 
-
+*/
         return self();
     }
 
