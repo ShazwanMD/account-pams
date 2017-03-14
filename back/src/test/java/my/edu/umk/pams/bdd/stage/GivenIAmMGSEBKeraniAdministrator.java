@@ -51,6 +51,5 @@ public class GivenIAmMGSEBKeraniAdministrator extends Stage<GivenIAmMGSEBKeraniA
         // retrieve staff from user
         AcUser user = ((AcUserDetails) authed.getPrincipal()).getUser();
         staff = (AcStaff) user.getActor();
-
     }
 }

@@ -29,10 +29,10 @@ public class GivenIAmStudent extends Stage<GivenIAmStudent> {
 	private AccountService accountService;
 
 	@ProvidedScenarioState
-	AcAcademicSession academicSession;
+	private AcAcademicSession academicSession;
 
 	@ProvidedScenarioState
-	AcStudent student;
+	private AcStudent student;
 
 	public void I_am_a_student_in_$_academic_session(String academicSessionCode) {
 		loginAsStudent();

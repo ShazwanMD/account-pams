@@ -46,7 +46,7 @@ public class US_AC_ACT_0002 extends SpringScenarioTest<GivenIAmBusinessAdminUser
 
     @Test
     @Rollback
-    public void addStudentAddAccountAddChargeByBusinessAdminUser() {
+    public void scenario1() {
         // Given
         given().I_am_a_business_admin_user();
 

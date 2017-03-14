@@ -5,6 +5,9 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.identity.model.AcStaff;
+import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.security.integration.AcUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,10 @@ public class GivenIAmMGSEBAdministrator extends Stage<GivenIAmMGSEBAdministrator
     private AccountService accountService;
 
     @ProvidedScenarioState
-    AcAcademicSession academicSession;
+    private AcAcademicSession academicSession;
+
+    @ProvidedScenarioState
+    private AcStaff staff;
 
     public void I_am_a_MGSEB_administrator_in_$_academic_session(String academicSessionCode){
         loginAsMGSEB();
@@ -41,5 +47,9 @@ public class GivenIAmMGSEBAdministrator extends Stage<GivenIAmMGSEBAdministrator
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("mgseb", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
+
+        // retrieve staff from user
+        AcUser user = ((AcUserDetails) authed.getPrincipal()).getUser();
+        staff = (AcStaff) user.getActor();
     }
 }

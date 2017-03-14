@@ -2,7 +2,6 @@ package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import io.jsonwebtoken.lang.Assert;
@@ -69,7 +68,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 
         // create student
         AcStudent student = new AcStudentImpl();
-        student.setIdentityNo("ABC001");
+        student.setIdentityNo("STDN-" + System.currentTimeMillis());
         student.setName("Rafizan Baharum");
         student.setEmail("rafizan.baharum@umk.edu.my");
         student.setMobile("123456789");
@@ -86,7 +85,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 
         // accountCharge
         accountCharge = new AcAccountChargeImpl();
-        accountCharge.setReferenceNo("abc123");
+        accountCharge.setReferenceNo("CHRG-"  + System.currentTimeMillis());
         accountCharge.setSourceNo("abc123");
         accountCharge.setAmount(BigDecimal.valueOf(chargeAmount));
         accountCharge.setDescription("This is a test");
@@ -101,7 +100,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 
         // create student
         AcStudent student = new AcStudentImpl();
-        student.setIdentityNo("ABC001");
+        student.setIdentityNo("STND-" + System.currentTimeMillis());
         student.setName("Rafizan Baharum");
         student.setEmail("rafizan.baharum@umk.edu.my");
         student.setMobile("123456789");
@@ -118,7 +117,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 
         // charge
         AcAcademicCharge charge = new AcAcademicChargeImpl();
-        charge.setReferenceNo("abc123");
+        charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
         charge.setSourceNo("abc123");
         charge.setAmount(BigDecimal.valueOf(200.00));
         charge.setDescription("This is a test");

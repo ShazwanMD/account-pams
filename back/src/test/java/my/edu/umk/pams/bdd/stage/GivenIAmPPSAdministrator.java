@@ -25,7 +25,7 @@ public class GivenIAmPPSAdministrator extends Stage<GivenIAmPPSAdministrator> {
     private AccountService accountService;
 
     @ProvidedScenarioState
-    AcAcademicSession academicSession;
+    private AcAcademicSession academicSession;
 
     public void I_am_a_PPS_administrator_in_$_academic_session(String academicSessionCode){
         loginAsPPS();
