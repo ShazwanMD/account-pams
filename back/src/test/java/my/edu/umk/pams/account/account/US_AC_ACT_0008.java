@@ -22,9 +22,11 @@ import my.edu.umk.pams.account.account.stage.WhenIAddAccountCharge;
 import my.edu.umk.pams.account.account.stage.WhenIListStudentChargesOfTypeCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Issue(value = { "PAMSU-5" })
 public class US_AC_ACT_0008 extends SpringScenarioTest<GivenIAmBursary, WhenIListStudentChargesOfTypeCompound, ThenICanViewStudentCompoundCharges>{
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0008.class);
 
