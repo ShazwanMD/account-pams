@@ -26,57 +26,51 @@ import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.service.SecurityService;
-import my.edu.umk.pams.bdd.stage.WhenIAddAStudent;
 
 @JGivenStage
-public class WhenIListStudentChargesOfTypeCompound extends Stage<WhenIListStudentChargesOfTypeCompound>{
-	 private static final Logger LOG = LoggerFactory.getLogger(WhenIListStudentChargesOfTypeCompound.class);
-	    
-	    @ExpectedScenarioState
-	    AcAcademicSession academicSession;
-	    
-	    @ProvidedScenarioState
-	    AcAccount account;
+public class WhenIListStudentChargesOfTypeCompound extends Stage<WhenIListStudentChargesOfTypeCompound> {
+	private static final Logger LOG = LoggerFactory.getLogger(WhenIListStudentChargesOfTypeCompound.class);
 
-	    @ProvidedScenarioState
-	    AcAccountCharge accountCharge;
+	@ExpectedScenarioState
+	AcAcademicSession academicSession;
 
-	    @ProvidedScenarioState
-	    AcStudent student;
-	    
-	    @Autowired
-	    private SessionFactory sessionFactory;
-	    
-	    @Autowired
-	    private IdentityService identityservice;
-	    
-	    @Autowired
-	    private AccountService accountservice;
-	    
-	    @Pending
-	    public void I_list_student_charges_of_type_compound_$(String matricNo) {	
-	    	//guna identity service untuk find student by matric number
-	    	AcStudent student = identityservice.findStudentByStudentNo(matricNo);
-	    	
-	    	//findstudent.getMatricNo();
-	    	
-	    	
-	    	
-	    	//gunakan account service untuk dapatkan charges by student
-	    	account = accountservice.findAccountByActor(student);
-	    	
-	    	//account service dapatkan charges
-	    	
-	    	List<AcAccountCharge> charges = accountservice.findAccountCharges(account);
-	    	
-	    	for (AcAccountCharge charge : charges){
-	    		charge.getAccount();
-	    		
-	    	}
-	    	
-	    	
-			
+	@ProvidedScenarioState
+	AcAccount account;
+
+	@ProvidedScenarioState
+	AcAccountCharge accountCharge;
+
+	@ProvidedScenarioState
+	AcStudent student;
+
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Autowired
+	private IdentityService identityservice;
+
+	@Autowired
+	private AccountService accountservice;
+
+	@Pending
+	public void I_list_student_charges_of_type_compound_$(String matricNo) {
+		// guna identity service untuk find student by matric number
+		AcStudent student = identityservice.findStudentByStudentNo(matricNo);
+
+		// findstudent.getMatricNo();
+
+		// gunakan account service untuk dapatkan charges by student
+		account = accountservice.findAccountByActor(student);
+
+		// account service dapatkan charges
+
+		List<AcAccountCharge> charges = accountservice.findAccountCharges(account);
+
+		for (AcAccountCharge charge : charges) {
+			charge.getAccount();
+
 		}
 
+	}
 
 }
