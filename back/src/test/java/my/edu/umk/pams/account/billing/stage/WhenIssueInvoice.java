@@ -44,7 +44,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
         // create student
         AcStudent student = new AcStudentImpl();
-        student.setIdentityNo("ABC001");
+        student.setIdentityNo("STDN-" + System.currentTimeMillis());
         student.setName("Rafizan Baharum");
         student.setEmail("rafizan.baharum@umk.edu.my");
         student.setMobile("123456789");
@@ -61,7 +61,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
         // charge
         AcAcademicCharge charge = new AcAcademicChargeImpl();
-        charge.setReferenceNo("abc123");
+        charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
         charge.setSourceNo("abc123");
         charge.setAmount(BigDecimal.valueOf(200.00));
         charge.setDescription("This is a test");
@@ -76,26 +76,9 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
     public WhenIssueInvoice I_issue_invoice_on_student_account() {
         LOG.debug("when i add account charge on " + academicSession.getCode());
 
-        // create student
-        AcStudent student = new AcStudentImpl();
-        student.setIdentityNo("ABC001");
-        student.setName("Rafizan Baharum");
-        student.setEmail("rafizan.baharum@umk.edu.my");
-        student.setMobile("123456789");
-        student.setPhone("123456789");
-        student.setFax("123456789");
-        identityService.saveStudent(student);
-
-        // create account
-        account = new AcAccountImpl();
-        account.setCode(student.getMatricNo());
-        account.setDescription(student.getMatricNo() + ";" + student.getEmail());
-        account.setActor(student);
-        accountService.saveAccount(account);
-
         // charge
         AcAcademicCharge charge = new AcAcademicChargeImpl();
-        charge.setReferenceNo("abc123");
+        charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
         charge.setSourceNo("abc123");
         charge.setAmount(BigDecimal.valueOf(200.00));
         charge.setDescription("This is a test");
@@ -103,6 +86,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
         charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
         accountService.addAccountCharge(account, charge);
 
+        // todo(uda): invoice
         return self();
     }
 }

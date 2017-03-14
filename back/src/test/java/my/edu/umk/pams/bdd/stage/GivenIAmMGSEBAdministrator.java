@@ -5,6 +5,9 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.identity.model.AcStaff;
+import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.security.integration.AcUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +17,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @JGivenStage
-public class GivenIAmPPSAdministrator extends Stage<GivenIAmPPSAdministrator> {
+public class GivenIAmMGSEBAdministrator extends Stage<GivenIAmMGSEBAdministrator> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmPPSAdministrator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmMGSEBAdministrator.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -27,19 +30,26 @@ public class GivenIAmPPSAdministrator extends Stage<GivenIAmPPSAdministrator> {
     @ProvidedScenarioState
     private AcAcademicSession academicSession;
 
-    public void I_am_a_PPS_administrator_in_$_academic_session(String academicSessionCode){
-        loginAsPPS();
+    @ProvidedScenarioState
+    private AcStaff staff;
+
+    public void I_am_a_MGSEB_administrator_in_$_academic_session(String academicSessionCode){
+        loginAsMGSEB();
         academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
     }
 
-    public void I_am_a_PPS_administrator_in_current_academic_session(){
-        loginAsPPS();
+    public void I_am_a_MGSEB_administrator_in_current_academic_session(){
+        loginAsMGSEB();
         academicSession = accountService.findCurrentAcademicSession();
     }
 
-    private void loginAsPPS() {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("pps", "abc123");
+    private void loginAsMGSEB() {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("mgseb", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
+
+        // retrieve staff from user
+        AcUser user = ((AcUserDetails) authed.getPrincipal()).getUser();
+        staff = (AcStaff) user.getActor();
     }
 }

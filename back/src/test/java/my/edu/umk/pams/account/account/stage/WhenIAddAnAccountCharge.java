@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
@@ -13,7 +12,6 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.math.BigDecimal;
@@ -47,13 +45,12 @@ public class WhenIAddAnAccountCharge extends Stage<WhenIAddAnAccountCharge> {
 
         // accountCharge
         accountCharge = new AcAccountChargeImpl();
-        accountCharge.setReferenceNo("abc123");
+        accountCharge.setReferenceNo("CHRG-" + System.currentTimeMillis());
         accountCharge.setSourceNo("abc123");
         accountCharge.setAmount(BigDecimal.valueOf(chargeAmount));
         accountCharge.setDescription("This is a test");
         accountCharge.setSession(academicSession);
         accountCharge.setChargeType(AcAccountChargeType.STUDENT_AFFAIRS);
-//        accountCharge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
         accountService.addAccountCharge(account, accountCharge);
 
         final String entityName = accountCharge.getClass().getSimpleName();

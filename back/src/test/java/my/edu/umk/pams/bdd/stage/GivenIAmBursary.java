@@ -25,7 +25,7 @@ public class GivenIAmBursary extends Stage<GivenIAmBursary> {
     private AccountService accountService;
 
     @ProvidedScenarioState
-    AcAcademicSession academicSession;
+    private AcAcademicSession academicSession;
 
     public void I_am_a_bursary_in_$_academic_session(String academicSessionCode) {
         loginAsBursary();
