@@ -24,9 +24,9 @@ public interface AcSettlementDao extends GenericDao<Long, AcSettlement> {
 
     List<AcSettlement> find(AcAcademicSession academicSession, Integer offset, Integer limit);
 
-    List<AcSettlementItem> findItems(AcSettlement batch);
+    List<AcSettlementItem> findItems(AcSettlement settlement);
 
-    List<AcSettlementItem> findItems(AcSettlement batch, Integer offset, Integer limit);
+    List<AcSettlementItem> findItems(AcSettlement settlement, Integer offset, Integer limit);
 
     // ====================================================================================================
     // HELPER
@@ -34,11 +34,11 @@ public interface AcSettlementDao extends GenericDao<Long, AcSettlement> {
 
     Integer count(AcAcademicSession academicSession);
 
-    Integer countItem(AcSettlement batch);
+    Integer countItem(AcSettlement settlement);
 
     Integer countItem(String filter, AcSettlement account);
 
-    Integer countSource(AcSettlement batch);
+    Integer countSource(AcSettlement settlement);
 
     Integer countSource(String filter, AcSettlement account);
 
@@ -50,10 +50,10 @@ public interface AcSettlementDao extends GenericDao<Long, AcSettlement> {
     // CRUD
     // ====================================================================================================
 
-    void addItem(AcSettlement batch, AcSettlementItem detail, AcUser user);
+    void addItem(AcSettlement settlement, AcSettlementItem detail, AcUser user);
 
-    void updateItem(AcSettlement batch, AcSettlementItem detail, AcUser user);
+    void updateItem(AcSettlement settlement, AcSettlementItem detail, AcUser user);
 
-    void deleteItem(AcSettlement batch, AcSettlementItem detail, AcUser user);
+    void deleteItem(AcSettlement settlement, AcSettlementItem detail, AcUser user);
 
 }

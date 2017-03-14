@@ -14,6 +14,7 @@ public class SchemaExporter {
                 "org.hibernate.dialect.PostgreSQL82Dialect",
                 "my.edu.umk.pams"
         );
-        exporter.setGenerateDropQueries(true);
+        exporter.setGenerateDropQueries(false);
         exporter.export(new File("create.sql"));
-    }}
+    }
+}

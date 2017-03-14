@@ -1,10 +1,10 @@
 package my.edu.umk.pams.account.billing;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.account.billing.stage.ThenAccountIsInvoiced;
 import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,9 +20,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_BLG_0001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenAccountIsInvoiced> {
+public class US_AC_BLG_0000 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenAccountIsInvoiced> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_0001.class);
+    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_0000.class);
 
     @Before
     public void before() {

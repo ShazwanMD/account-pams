@@ -5,7 +5,6 @@ import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.security.dao.AclObjectIdentityDao;
 import my.edu.umk.pams.account.security.integration.AcSidRetrievalStrategy;
 import my.edu.umk.pams.account.system.service.SystemService;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -83,13 +82,5 @@ public class SecurityServiceImpl implements SecurityService {
         } else {
             return null;
         }
-    }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
     }
 }

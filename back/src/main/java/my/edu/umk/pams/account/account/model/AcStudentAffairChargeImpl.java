@@ -15,6 +15,10 @@ public class AcStudentAffairChargeImpl extends AcAccountChargeImpl implements Ac
     @JoinColumn(name = "CHARGE_CODE_ID")
     private AcChargeCode chargeCode;
 
+    public AcStudentAffairChargeImpl() {
+        setChargeType(AcAccountChargeType.STUDENT_AFFAIRS);
+    }
+
     public AcChargeCode getChargeCode() {
         return chargeCode;
     }

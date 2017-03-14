@@ -1,68 +1,38 @@
 package my.edu.umk.pams.account.account;
 
-import io.jsonwebtoken.lang.Assert;
-import my.edu.umk.pams.account.TestSupport;
+import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
+import my.edu.umk.pams.account.account.stage.ThenAccountIsCharged;
+import my.edu.umk.pams.account.account.stage.WhenIAddAnAccountCharge;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.identity.dao.AcStaffDao;
-import my.edu.umk.pams.account.identity.model.AcStaff;
-import my.edu.umk.pams.account.identity.model.AcStaffImpl;
-import my.edu.umk.pams.account.security.service.SecurityService;
-import org.junit.After;
-import org.junit.Before;
+import my.edu.umk.pams.bdd.stage.GivenIAmBusinessAdminUser;
+import my.edu.umk.pams.bdd.tags.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * @author PAMS
- *
- * US_AC_ACT_0001 class is an example test class
- * For naming explanation of US_AC_ACT_0001,
- * see <project>/README.md
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_0001 extends TestSupport{
+public class US_AC_ACT_0001 extends SpringScenarioTest<GivenIAmBusinessAdminUser, WhenIAddAnAccountCharge, ThenAccountIsCharged>{
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0001.class);
 
-    @Autowired
-    private AcStaffDao staffDao;
-
-    @Autowired
-    private SecurityService securityService;
-
-    @Before
-    public void before() {
-        super.before();
-    }
-
-    @After
-    public void after(){
-    }
-
+    /**
+     * TODO: As a Business admin user
+     * TODO: I want to list student charges by account,
+     * TODO: so that I can view student's charges
+     */
     @Test
-    @Rollback
-    public void testScenario1(){
-        Assert.notNull(currentUser);
-        Assert.notNull("something");
-
-        AcStaff staff = new AcStaffImpl();
-        staff.setIdentityNo("ABC_123");
-        staff.setName("Elvis Presley");
-
-        staffDao.save(staff, currentUser);
-        securityService.getCurrentSession().flush();
-        staffDao.refresh(staff);
-        Assert.notNull(staffDao.findById(staff.getId()));
+    public void listChargesByAccountForBusinessUser() {
+        given().I_am_a_business_admin_user();
+        when().I_show_charges_by_account_for_accountNo_$("0-000-0");
+        then().the_charges_for_the_student_are_listed();
     }
 }
