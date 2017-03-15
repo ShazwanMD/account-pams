@@ -37,7 +37,7 @@ public class WhenIAddASponsor extends Stage<WhenIAddASponsor>{
     @ProvidedScenarioState
     AcSponsor sponsor;
 
-    @As("I add sponsor user PTPTN")
+    @As("I add sponsor user account")
     public WhenIAddASponsor I_add_a_sponsor_user() {
         AcSponsor sponsor = new AcSponsorImpl();
         sponsor.setIdentityNo("SPNSR-" + System.currentTimeMillis());

@@ -37,7 +37,7 @@ public class ThenTheSponsorIsAdded extends Stage<ThenTheSponsorIsAdded> {
     @ProvidedScenarioState
     AcSponsor sponsor;
 
-	@As("the sponsor user PTPTN is added")
+	@As("the sponsor is added")
     public ThenTheSponsorIsAdded the_sponsor_user_is_added(){
 
         return self();
