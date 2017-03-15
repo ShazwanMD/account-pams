@@ -3,10 +3,8 @@ package my.edu.umk.pams.account.identity.dao;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
-import my.edu.umk.pams.account.identity.model.AcCoverage;
-import my.edu.umk.pams.account.identity.model.AcSponsor;
-import my.edu.umk.pams.account.identity.model.AcSponsorImpl;
-import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.identity.model.*;
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -15,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author PAMS
@@ -36,6 +35,23 @@ public class AcSponsorDaoImpl extends GenericDaoSupport<Long, AcSponsor> impleme
                 "a.identityNo = :identityNo");
         query.setString("identityNo", sponsorNo);
         return (AcSponsor) query.uniqueResult();
+    }
+
+    @Override
+    public AcCoverage findCoverageById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcCoverage) session.get(AcCoverageImpl.class, id);
+    }
+
+    @Override
+    public List<AcCoverage> findCoverages(AcSponsor sponsor) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select a from AcCoverage a where " +
+                "a.sponsor = :sponsor "+
+                "and a.metadata.state = :state");
+        query.setEntity("sponsor", sponsor);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return (List<AcCoverage>) query.list();
     }
 
     // ====================================================================================================

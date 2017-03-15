@@ -5,12 +5,18 @@ import my.edu.umk.pams.account.identity.model.AcCoverage;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
+import java.util.List;
+
 /**
  * @author PAMS
  */
 public interface AcSponsorDao extends GenericDao<Long, AcSponsor>{
 	
 	AcSponsor findBySponsorNo(String sponsorNo);
+
+	AcCoverage findCoverageById(Long id);
+
+	List<AcCoverage> findCoverages(AcSponsor sponsor);
 
 	// ====================================================================================================
 	// CRUD
