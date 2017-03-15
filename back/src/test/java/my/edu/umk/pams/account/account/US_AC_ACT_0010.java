@@ -19,8 +19,8 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 
 /*
  * As a Student, 
- * I want view compound bill 
- * so that I know the compound amount.
+ *  I want view compound bill
+ *      so that I know the compound amount.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -37,6 +37,9 @@ public class US_AC_ACT_0010 extends SpringScenarioTest<GivenIAmStudent, WhenIWan
     @Test
     @Rollback(true)
     public void scenario1() {
+        // as a bursary
+        // when bursary invoice my compound bill
+        // my balance has increased
 		given().I_am_a_student_in_current_academic_session();
         when().I_want_view_my_compound_bill();
         then().I_know_the_compound_amount();

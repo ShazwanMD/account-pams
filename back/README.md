@@ -14,9 +14,9 @@
 - FK - Foreign Key
 
 **Module Naming Convention**
-- PLC - POLICY
-- APL - APPLICATION
-- AMS - ADMISSION
+- ACT - ACCOUNT
+- BLG - BILLING
+- FNA - FINANCIAL AID
 
 **Domain Convention**
 - CRTR = CRITERIA
