@@ -11,7 +11,11 @@ import org.junit.runners.Suite;
         US_AC_ACT_0000.class,
         US_AC_ACT_0001.class,
         US_AC_ACT_0002.class,
-        US_AC_ACT_0004.class
+        US_AC_ACT_0004.class,
+        US_AC_ACT_0008.class,
+        US_AC_ACT_0010.class,
+        US_AC_ACT_0012.class,
+        US_AC_ACT_5000.class,
 })
 public class AccountModuleTestSuite {
 }
