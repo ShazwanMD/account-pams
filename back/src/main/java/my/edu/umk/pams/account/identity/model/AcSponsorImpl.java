@@ -1,9 +1,5 @@
 package my.edu.umk.pams.account.identity.model;
 
-import my.edu.umk.pams.account.account.model.AcChargeCode;
-import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
-import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -20,10 +16,14 @@ public class AcSponsorImpl extends AcActorImpl implements AcSponsor {
     @OneToMany(targetEntity = AcCoverageImpl.class, mappedBy = "sponsor")
     private List<AcCoverage> coverages;
 
+	@Column(name = "SPONSOR_TYPE")
+	private AcSponsorType sponsorType;
+
     public AcSponsorImpl() {
         setActorType(AcActorType.SPONSOR);
+        setAcSponsorType(ac)
     }
-
+    
     public String getCode() {
         return code;
     }
@@ -40,6 +40,14 @@ public class AcSponsorImpl extends AcActorImpl implements AcSponsor {
         this.coverages = coverages;
     }
 
+	public AcSponsorType getSponsorType() {
+		return sponsorType;
+	}
+
+	public void setAcSponsorType(AcSponsorType sponsorType) {
+		this.sponsorType = sponsorType;
+	}
+	
     @Override
     public Class<?> getInterfaceClass() {
         return AcSponsor.class;

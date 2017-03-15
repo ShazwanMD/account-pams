@@ -16,13 +16,17 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.stage.ThenTheSponsorIsAdded;
 import my.edu.umk.pams.account.identity.stage.WhenIAddASponsor;
-import my.edu.umk.pams.bdd.stage.GivenIAmAUser;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 /**
  * As bursary
+ * 	I want to add sponsor user account, 
+ * 		so that sponsor user is added
+ * 
+ * As bursary
  * 	I want to add sponsor account, 
- * 		so that sponsor is added
+ * 		so that sponsor account is added
+ * 
  * @author PAMS
  *
  */
@@ -30,9 +34,9 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_0005 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsor, ThenTheSponsorIsAdded> {
+public class US_AC_ACT_2002 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsor, ThenTheSponsorIsAdded> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0005.class);
+	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2002.class);
 
 	@Before
 	public void before() {
@@ -46,11 +50,12 @@ public class US_AC_ACT_0005 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	@Rollback(false)
 	public void testAddSponsorByCurrentUser() {
 
-
 		given().I_am_a_bursary_in_current_academic_session();
 
-		when().I_add_a_sponsor_user();
+		when().I_add_a_sponsor_user()
+			.and().I_add_a_sponsor_account();
 
-		then().the_sponsor_user_is_added();
+		then().the_sponsor_user_is_added()
+			.and().the_sponsor_account_is_added();
 	}
 }
