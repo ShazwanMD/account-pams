@@ -8,8 +8,8 @@
 
 **Command Line**
 
-    mvn sql:execute@reset-drop-all
-    mvn sql:execute@create-tables-seed
+    mvn sql:execute@db-drop
+    mvn sql:execute@db-seed
     
 **Maven Settings**
 

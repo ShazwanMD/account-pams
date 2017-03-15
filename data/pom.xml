@@ -243,9 +243,7 @@
 
                 <executions>
                     <execution>
-                        <!-- Warning: This Drops Everything!!! -->
-                        <id>reset-drop-all</id>
-                        <!-- Warning: This Drops Everything!!! -->
+                        <id>db-drop</id>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -262,7 +260,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>create-tables-seed</id>
+                        <id>db-seed</id>
                         <goals>
                             <goal>execute</goal>
                         </goals>
