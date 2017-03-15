@@ -1,1030 +1,1056 @@
 
-create table AC_ACCT (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  ACTOR_ID int8,
-  primary key (ID)
+CREATE TABLE AC_ACCT (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  ACTOR_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_ACCT_CHRG (
-  ID int8 not null,
-  AMOUNT numeric(19, 2) not null,
-  CHARGE_TYPE int4 not null,
-  DESCRIPTION varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  REFERENCE_NO varchar(255) not null,
-  SOURCE_NO varchar(255) not null,
-  ACCOUNT_ID int8,
-  SESSION_ID int8 not null,
-  primary key (ID)
+CREATE TABLE AC_ACCT_CHRG (
+  ID INT8 NOT NULL,
+  AMOUNT NUMERIC(19, 2) NOT NULL,
+  CHARGE_TYPE INT4 NOT NULL,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  REFERENCE_NO VARCHAR(255) NOT NULL,
+  SOURCE_NO VARCHAR(255) NOT NULL,
+  ACCOUNT_ID INT8,
+  SESSION_ID INT8 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_ACDM_CHRG (
-  ID int8 not null,
-  CHARGE_CODE_ID int8,
-  primary key (ID)
+CREATE TABLE AC_ACDM_CHRG (
+  ID INT8 NOT NULL,
+  CHARGE_CODE_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_ACDM_SESN (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  CURRENT_ boolean not null,
-  DESCRIPTION varchar(255) not null,
-  END_DATE timestamp not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  START_DATE timestamp not null,
-  primary key (ID)
+CREATE TABLE AC_ACDM_SESN (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  CURRENT_ BOOLEAN NOT NULL,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  END_DATE TIMESTAMP NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  START_DATE TIMESTAMP NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_ACTR (
-  ID int8 not null,
-  ACTOR_TYPE int4,
-  ADDRESS varchar(255),
-  EMAIL varchar(255),
-  FAX varchar(255),
-  IDENTITY_NO varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  MOBILE varchar(255),
-  NAME varchar(255) not null,
-  PHONE varchar(255),
-  primary key (ID)
+CREATE TABLE AC_ACTR (
+  ID INT8 NOT NULL,
+  ACTOR_TYPE INT4,
+  ADDRESS VARCHAR(255),
+  EMAIL VARCHAR(255),
+  FAX VARCHAR(255),
+  IDENTITY_NO VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  MOBILE VARCHAR(255),
+  NAME VARCHAR(255) NOT NULL,
+  PHONE VARCHAR(255),
+  PRIMARY KEY (ID)
 );
 
-create table AC_AUDT (
-  ID int8 not null,
-  CLASS_NAME varchar(255) not null,
-  MESSAGE varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  OBJECT_ID int8 not null,
-  USER_ID int8 not null,
-  primary key (ID)
+CREATE TABLE AC_AUDT (
+  ID INT8 NOT NULL,
+  CLASS_NAME VARCHAR(255) NOT NULL,
+  MESSAGE VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  OBJECT_ID INT8 NOT NULL,
+  USER_ID INT8 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_BANK_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  IBG_CODE varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  NAME varchar(255) not null,
-  SWIFT_CODE varchar(255) not null,
-  primary key (ID)
+CREATE TABLE AC_BANK_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  IBG_CODE VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  NAME VARCHAR(255) NOT NULL,
+  SWIFT_CODE VARCHAR(255) NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_CHRG_CODE (
-  ID int8 not null,
-  CHARGE_TYPE int4 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  PRIORITY int4 not null,
-  primary key (ID)
+CREATE TABLE AC_CHRG_CODE (
+  ID INT8 NOT NULL,
+  CHARGE_TYPE INT4 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIORITY INT4 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_CITY_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  STATE_CODE_ID int8,
-  primary key (ID)
+CREATE TABLE AC_CITY_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  STATE_CODE_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_CMPS_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  primary key (ID)
+CREATE TABLE AC_CMPS_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_CNFG (
-  ID int8 not null,
-  DESCRIPTION varchar(255),
-  CONFIG_KEY varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  CONFIG_VALUE varchar(255),
-  CONFIG_VALUE_BYTEA bytea,
-  CONFIG_VALUE_DOUBLE float8,
-  CONFIG_VALUE_LONG int8,
-  primary key (ID)
+CREATE TABLE AC_CNFG (
+  ID INT8 NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  CONFIG_KEY VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  CONFIG_VALUE VARCHAR(255),
+  CONFIG_VALUE_BYTEA BYTEA,
+  CONFIG_VALUE_DOUBLE FLOAT8,
+  CONFIG_VALUE_LONG INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_CNTY_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  primary key (ID)
+CREATE TABLE AC_CNTY_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_DSCT_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  primary key (ID)
+CREATE TABLE AC_CVRG (
+  ID INT8 NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  CHARGE_CODE_ID INT8,
+  SPONSOR_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_EMAL_QUEU (
-  ID int8 not null,
-  EMAIL_BCC varchar(255),
-  BODY text,
-  EMAIL_CC varchar(255),
-  CODE varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  QUEUE_STATUS int4,
-  RETRY_COUNT int4,
-  SUBJECT varchar(255),
-  EMAIL_TO varchar(255),
-  primary key (ID)
+CREATE TABLE AC_DSCT_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_EMIL_TMPT (
-  ID int8 not null,
-  BCC_ADDRESS varchar(255),
-  CC_ADDRESS varchar(255),
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  SUBJECT varchar(255),
+CREATE TABLE AC_EMAL_QUEU (
+  ID INT8 NOT NULL,
+  EMAIL_BCC VARCHAR(255),
+  BODY TEXT,
+  EMAIL_CC VARCHAR(255),
+  CODE VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  QUEUE_STATUS INT4,
+  RETRY_COUNT INT4,
+  SUBJECT VARCHAR(255),
+  EMAIL_TO VARCHAR(255),
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE AC_EMIL_TMPT (
+  ID INT8 NOT NULL,
+  BCC_ADDRESS VARCHAR(255),
+  CC_ADDRESS VARCHAR(255),
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  SUBJECT VARCHAR(255),
   TEMPLATE TEXT,
-  TO_ADDRESS varchar(255),
-  primary key (ID)
+  TO_ADDRESS VARCHAR(255),
+  PRIMARY KEY (ID)
 );
 
-create table AC_FCTY_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  primary key (ID)
+CREATE TABLE AC_FCTY_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_GROP (
-  ID int8 not null,
-  primary key (ID)
+CREATE TABLE AC_GROP (
+  ID INT8 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_GROP_MMBR (
-  ID int8 not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  GROUP_ID int8,
-  PRINCIPAL_ID int8,
-  primary key (GROUP_ID, PRINCIPAL_ID)
+CREATE TABLE AC_GROP_MMBR (
+  ID INT8 NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  GROUP_ID INT8,
+  PRINCIPAL_ID INT8,
+  PRIMARY KEY (GROUP_ID, PRINCIPAL_ID)
 );
 
-create table AC_INVC (
-  ID int8 not null,
-  AUDIT_NO varchar(255),
-  CANCEL_COMMENT varchar(255),
-  DESCRIPTION varchar(255),
-  AV_TS timestamp,
-  AV_ID int8,
-  CL_ID int8,
-  CL_TS timestamp,
-  CK_TS timestamp,
-  CK_ID int8,
-  DT_TS timestamp,
-  DT_ID int8,
-  EV_TS timestamp,
-  EV_ID int8,
-  PR_TS timestamp,
-  PR_ID int8,
-  PS_TS timestamp,
-  PS_ID int8,
-  RG_TS timestamp,
-  RG_ID int8,
-  RM_TS timestamp,
-  RM_ID int8,
-  RQ_TS timestamp,
-  RQ_ID int8,
-  SL_TS timestamp,
-  SL_ID int8,
-  FD_ST int4,
-  UP_TS timestamp,
-  UP_ID int8,
-  UV_TS timestamp,
-  UV_ID int8,
-  VF_TS timestamp,
-  VF_ID int8,
-  ISSUED_DATE timestamp,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  RECEIPT_NO varchar(255),
-  REFERENCE_NO varchar(255),
-  REMOVE_COMMENT varchar(255),
-  SOURCE_NO varchar(255),
-  ACCOUNT_ID int8,
-  primary key (ID)
+CREATE TABLE AC_INVC (
+  ID INT8 NOT NULL,
+  AUDIT_NO VARCHAR(255),
+  CANCEL_COMMENT VARCHAR(255),
+  DESCRIPTION VARCHAR(255),
+  AV_TS TIMESTAMP,
+  AV_ID INT8,
+  CL_ID INT8,
+  CL_TS TIMESTAMP,
+  CK_TS TIMESTAMP,
+  CK_ID INT8,
+  DT_TS TIMESTAMP,
+  DT_ID INT8,
+  EV_TS TIMESTAMP,
+  EV_ID INT8,
+  PR_TS TIMESTAMP,
+  PR_ID INT8,
+  PS_TS TIMESTAMP,
+  PS_ID INT8,
+  RG_TS TIMESTAMP,
+  RG_ID INT8,
+  RM_TS TIMESTAMP,
+  RM_ID INT8,
+  RQ_TS TIMESTAMP,
+  RQ_ID INT8,
+  SL_TS TIMESTAMP,
+  SL_ID INT8,
+  FD_ST INT4,
+  UP_TS TIMESTAMP,
+  UP_ID INT8,
+  UV_TS TIMESTAMP,
+  UV_ID INT8,
+  VF_TS TIMESTAMP,
+  VF_ID INT8,
+  ISSUED_DATE TIMESTAMP,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  RECEIPT_NO VARCHAR(255),
+  REFERENCE_NO VARCHAR(255),
+  REMOVE_COMMENT VARCHAR(255),
+  SOURCE_NO VARCHAR(255),
+  ACCOUNT_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_MODL (
-  ID int8 not null,
-  CANONICAL_CODE varchar(255) not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255),
-  ENABLED boolean,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  ORDINAL int4 not null,
-  primary key (ID)
+CREATE TABLE AC_MODL (
+  ID INT8 NOT NULL,
+  CANONICAL_CODE VARCHAR(255) NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  ENABLED BOOLEAN,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  ORDINAL INT4 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_NTLY_CODE (
-  ID int8 not null,
-  CODE varchar(255),
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  primary key (ID)
+CREATE TABLE AC_NTLY_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255),
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_PCPL (
-  ID int8 not null,
-  ENABLED boolean not null,
-  LOCKED boolean not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  NAME varchar(255) not null,
-  PRINCIPAL_TYPE int4,
-  primary key (ID)
+CREATE TABLE AC_PCPL (
+  ID INT8 NOT NULL,
+  ENABLED BOOLEAN NOT NULL,
+  LOCKED BOOLEAN NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  NAME VARCHAR(255) NOT NULL,
+  PRINCIPAL_TYPE INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_PCPL_ROLE (
-  ID int8 not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  ROLE_TYPE int4,
-  PRINCIPAL_ID int8,
-  primary key (ID)
+CREATE TABLE AC_PCPL_ROLE (
+  ID INT8 NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  ROLE_TYPE INT4,
+  PRINCIPAL_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_PRGM_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  primary key (ID)
+CREATE TABLE AC_PRGM_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_RCPT (
-  ID int8 not null,
-  CANCEL_COMMENT varchar(255),
-  DESCRIPTION varchar(255),
-  AV_TS timestamp,
-  AV_ID int8,
-  CL_ID int8,
-  CL_TS timestamp,
-  CK_TS timestamp,
-  CK_ID int8,
-  DT_TS timestamp,
-  DT_ID int8,
-  EV_TS timestamp,
-  EV_ID int8,
-  PR_TS timestamp,
-  PR_ID int8,
-  PS_TS timestamp,
-  PS_ID int8,
-  RG_TS timestamp,
-  RG_ID int8,
-  RM_TS timestamp,
-  RM_ID int8,
-  RQ_TS timestamp,
-  RQ_ID int8,
-  SL_TS timestamp,
-  SL_ID int8,
-  FD_ST int4,
-  UP_TS timestamp,
-  UP_ID int8,
-  UV_TS timestamp,
-  UV_ID int8,
-  VF_TS timestamp,
-  VF_ID int8,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  PAYMENT_METHOD int4,
-  RECEIPT_NO varchar(255),
-  RECEIPT_TYPE int4,
-  RECEIVED_DATE timestamp,
-  REFERENCE_NO varchar(255),
-  REMOVE_COMMENT varchar(255),
-  SOURCE_NO varchar(255),
-  TOTAL_AMOUNT numeric(19, 2),
-  TOTAL_AMOUNT_IN_CURRENCY numeric(19, 2),
-  TOTAL_APPLIED numeric(19, 2),
-  TOTAL_RECEIVED numeric(19, 2),
-  ACCOUNT_ID int8,
-  primary key (ID)
+CREATE TABLE AC_RCPT (
+  ID INT8 NOT NULL,
+  CANCEL_COMMENT VARCHAR(255),
+  DESCRIPTION VARCHAR(255),
+  AV_TS TIMESTAMP,
+  AV_ID INT8,
+  CL_ID INT8,
+  CL_TS TIMESTAMP,
+  CK_TS TIMESTAMP,
+  CK_ID INT8,
+  DT_TS TIMESTAMP,
+  DT_ID INT8,
+  EV_TS TIMESTAMP,
+  EV_ID INT8,
+  PR_TS TIMESTAMP,
+  PR_ID INT8,
+  PS_TS TIMESTAMP,
+  PS_ID INT8,
+  RG_TS TIMESTAMP,
+  RG_ID INT8,
+  RM_TS TIMESTAMP,
+  RM_ID INT8,
+  RQ_TS TIMESTAMP,
+  RQ_ID INT8,
+  SL_TS TIMESTAMP,
+  SL_ID INT8,
+  FD_ST INT4,
+  UP_TS TIMESTAMP,
+  UP_ID INT8,
+  UV_TS TIMESTAMP,
+  UV_ID INT8,
+  VF_TS TIMESTAMP,
+  VF_ID INT8,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PAYMENT_METHOD INT4,
+  RECEIPT_NO VARCHAR(255),
+  RECEIPT_TYPE INT4,
+  RECEIVED_DATE TIMESTAMP,
+  REFERENCE_NO VARCHAR(255),
+  REMOVE_COMMENT VARCHAR(255),
+  SOURCE_NO VARCHAR(255),
+  TOTAL_AMOUNT NUMERIC(19, 2),
+  TOTAL_AMOUNT_IN_CURRENCY NUMERIC(19, 2),
+  TOTAL_APPLIED NUMERIC(19, 2),
+  TOTAL_RECEIVED NUMERIC(19, 2),
+  ACCOUNT_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_RCPT_ITEM (
-  ID int8 not null,
-  ADJUSTED_AMOUNT numeric(19, 2),
-  APPLIED_AMOUNT numeric(19, 2) not null,
-  DESCRIPTION varchar(255),
-  DUE_AMOUNT numeric(19, 2) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  PRICE numeric(19, 2),
-  TOTAL_AMOUNT numeric(19, 2),
-  UNIT int4,
-  CHARGE_CODE_ID int8,
-  INVOICE_ID int8,
-  RECEIPT_ID int8,
-  primary key (ID)
+CREATE TABLE AC_RCPT_ITEM (
+  ID INT8 NOT NULL,
+  ADJUSTED_AMOUNT NUMERIC(19, 2),
+  APPLIED_AMOUNT NUMERIC(19, 2) NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  DUE_AMOUNT NUMERIC(19, 2) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRICE NUMERIC(19, 2),
+  TOTAL_AMOUNT NUMERIC(19, 2),
+  UNIT INT4,
+  CHARGE_CODE_ID INT8,
+  INVOICE_ID INT8,
+  RECEIPT_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_RFRN_NO (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  CURRENT_VALUE int4,
-  DESCRIPTION varchar(255) not null,
-  INCREMENT_VALUE int4,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  PREFIX varchar(255),
-  REFERENCE_FORMAT varchar(255),
-  SEQUENCE_FORMAT varchar(255),
-  primary key (ID)
+CREATE TABLE AC_RFRN_NO (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  CURRENT_VALUE INT4,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  INCREMENT_VALUE INT4,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PREFIX VARCHAR(255),
+  REFERENCE_FORMAT VARCHAR(255),
+  SEQUENCE_FORMAT VARCHAR(255),
+  PRIMARY KEY (ID)
 );
 
-create table AC_RSCY_CODE (
-  ID int8 not null,
-  CODE varchar(255),
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  primary key (ID)
+CREATE TABLE AC_RSCY_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255),
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_SCTY_CHRG (
-  ID int8 not null,
-  CHARGE_CODE_ID int8,
-  primary key (ID)
+CREATE TABLE AC_SCTY_CHRG (
+  ID INT8 NOT NULL,
+  CHARGE_CODE_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_SMDL (
-  ID int8 not null,
-  CODE varchar(255),
-  DESCRIPTION varchar(255),
-  ENABLED boolean,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  ORDINAL int4,
-  MODULE_ID int8,
-  primary key (ID)
+CREATE TABLE AC_SMDL (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255),
+  DESCRIPTION VARCHAR(255),
+  ENABLED BOOLEAN,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  ORDINAL INT4,
+  MODULE_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_SPHP (
-  ID int8 not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  SPONSOR_ID int8,
-  STUDENT_ID int8,
-  primary key (ID)
+CREATE TABLE AC_SPHP (
+  ID INT8 NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  SPONSOR_ID INT8,
+  STUDENT_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_SPONSOR (
-  CODE_SPONSOR varchar(255),
-  ID int8 not null,
-  primary key (ID)
+CREATE TABLE AC_SPONSOR (
+  CODE VARCHAR(255),
+  ID INT8 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_STAF (
-  ID int8 not null,
-  primary key (ID)
+CREATE TABLE AC_STAF (
+  ID INT8 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_STDN (
-  ID int8 not null,
-  primary key (ID)
+CREATE TABLE AC_STDN (
+  ID INT8 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table AC_STDN_AFFR_CHRG (
-  ID int8 not null,
-  CHARGE_CODE_ID int8,
-  primary key (ID)
+CREATE TABLE AC_STDN_AFFR_CHRG (
+  ID INT8 NOT NULL,
+  CHARGE_CODE_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_STDY_CNTR_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  primary key (ID)
+CREATE TABLE AC_STDY_CNTR_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  PRIMARY KEY (ID)
 );
 
-create table AC_STLT (
-  ID int8 not null,
-  DESCRIPTION varchar(255) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  REFERENCE_NO varchar(255) not null,
-  SESSION_ID int8,
-  SPONSOR_ID int8,
-  primary key (ID)
+CREATE TABLE AC_STLT (
+  ID INT8 NOT NULL,
+  DESCRIPTION VARCHAR(255) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  REFERENCE_NO VARCHAR(255) NOT NULL,
+  SESSION_ID INT8,
+  SPONSOR_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_STLT_ITEM (
-  ID int8 not null,
-  BALANCE_AMOUNT numeric(19, 2) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  SETTLEMENT_STATUS int4 not null,
-  ACCOUNT_ID int8,
-  INVOICE_ID int8,
-  SETTLEMENT_ID int8,
-  STUDENT_ID int8,
-  primary key (ID)
+CREATE TABLE AC_STLT_ITEM (
+  ID INT8 NOT NULL,
+  BALANCE_AMOUNT NUMERIC(19, 2) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  SETTLEMENT_STATUS INT4 NOT NULL,
+  ACCOUNT_ID INT8,
+  INVOICE_ID INT8,
+  SETTLEMENT_ID INT8,
+  STUDENT_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_STTE_CODE (
-  ID int8 not null,
-  CODE varchar(255) not null,
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  COUNTRY_CODE_ID int8,
-  primary key (ID)
+CREATE TABLE AC_STTE_CODE (
+  ID INT8 NOT NULL,
+  CODE VARCHAR(255) NOT NULL,
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  COUNTRY_CODE_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_USER (
-  EMAIL varchar(255) not null,
-  PASSWORD varchar(255),
-  REAL_NAME varchar(255) not null,
-  ID int8 not null,
-  ACTOR_ID int8,
-  primary key (ID)
+CREATE TABLE AC_USER (
+  EMAIL VARCHAR(255) NOT NULL,
+  PASSWORD VARCHAR(255),
+  REAL_NAME VARCHAR(255) NOT NULL,
+  ID INT8 NOT NULL,
+  ACTOR_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table AC_WTCH (
-  ID int8 not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  OBJECT_CLASS varchar(255) not null,
-  OBJECT_ID int8 not null,
-  USER_ID int8 not null,
-  primary key (ID)
+CREATE TABLE AC_WTCH (
+  ID INT8 NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  OBJECT_CLASS VARCHAR(255) NOT NULL,
+  OBJECT_ID INT8 NOT NULL,
+  USER_ID INT8 NOT NULL,
+  PRIMARY KEY (ID)
 );
 
-create table Ac_ACCT_TRSN (
-  ID int8 not null,
-  AMOUNT numeric(19, 2) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  POSTED_DATE timestamp not null,
-  SOURCE_NO varchar(255) not null,
-  TRANSACTION_CODE int4 not null,
-  ACCOUNT_ID int8,
-  CHARGE_CODE_ID int8 not null,
-  SESSION_ID int8,
-  primary key (ID)
+CREATE TABLE AC_ACCT_TRSN (
+  ID INT8 NOT NULL,
+  AMOUNT NUMERIC(19, 2) NOT NULL,
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  POSTED_DATE TIMESTAMP NOT NULL,
+  SOURCE_NO VARCHAR(255) NOT NULL,
+  TRANSACTION_CODE INT4 NOT NULL,
+  ACCOUNT_ID INT8,
+  CHARGE_CODE_ID INT8 NOT NULL,
+  SESSION_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-create table Ac_INVC_ITEM (
-  ID int8 not null,
-  AMOUNT numeric(19, 2),
-  AMOUNT_BALANCE numeric(19, 2),
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  CHARGE_CODE_ID int8,
-  INVOICE_ID int8,
-  primary key (ID)
+CREATE TABLE AC_INVC_ITEM (
+  ID INT8 NOT NULL,
+  AMOUNT NUMERIC(19, 2),
+  AMOUNT_BALANCE NUMERIC(19, 2),
+  DESCRIPTION VARCHAR(255),
+  C_TS TIMESTAMP,
+  C_ID INT8,
+  D_TS TIMESTAMP,
+  D_ID INT8,
+  M_TS TIMESTAMP,
+  M_ID INT8,
+  M_ST INT4,
+  CHARGE_CODE_ID INT8,
+  INVOICE_ID INT8,
+  PRIMARY KEY (ID)
 );
 
-alter table AC_ACCT
-  add constraint uc_AC_ACCT_1 unique (CODE);
+ALTER TABLE AC_ACCT
+  ADD CONSTRAINT UC_AC_ACCT_1 UNIQUE (CODE);
 
-alter table AC_ACCT
-  add constraint FKE6230610F3FA5886
-foreign key (ACTOR_ID)
-references AC_ACTR;
+ALTER TABLE AC_ACCT
+  ADD CONSTRAINT FKE6230610F3FA5886
+FOREIGN KEY (ACTOR_ID)
+REFERENCES AC_ACTR;
 
-alter table AC_ACCT_CHRG
-  add constraint uc_AC_ACCT_CHRG_1 unique (REFERENCE_NO);
+ALTER TABLE AC_ACCT_CHRG
+  ADD CONSTRAINT UC_AC_ACCT_CHRG_1 UNIQUE (REFERENCE_NO);
 
-alter table AC_ACCT_CHRG
-  add constraint FKD5788A2962AC940F
-foreign key (ACCOUNT_ID)
-references AC_ACCT;
+ALTER TABLE AC_ACCT_CHRG
+  ADD CONSTRAINT FKD5788A2962AC940F
+FOREIGN KEY (ACCOUNT_ID)
+REFERENCES AC_ACCT;
 
-alter table AC_ACCT_CHRG
-  add constraint FKD5788A29706DBE68
-foreign key (SESSION_ID)
-references AC_ACDM_SESN;
+ALTER TABLE AC_ACCT_CHRG
+  ADD CONSTRAINT FKD5788A29706DBE68
+FOREIGN KEY (SESSION_ID)
+REFERENCES AC_ACDM_SESN;
 
-alter table AC_ACDM_CHRG
-  add constraint FKFE6CD91165B1C0CE
-foreign key (CHARGE_CODE_ID)
-references AC_CHRG_CODE;
+ALTER TABLE AC_ACDM_CHRG
+  ADD CONSTRAINT FKFE6CD91165B1C0CE
+FOREIGN KEY (CHARGE_CODE_ID)
+REFERENCES AC_CHRG_CODE;
 
-alter table AC_ACDM_CHRG
-  add constraint FKFE6CD911ACE4F811
-foreign key (ID)
-references AC_ACCT_CHRG;
+ALTER TABLE AC_ACDM_CHRG
+  ADD CONSTRAINT FKFE6CD911ACE4F811
+FOREIGN KEY (ID)
+REFERENCES AC_ACCT_CHRG;
 
-alter table AC_ACDM_SESN
-  add constraint uc_AC_ACDM_SESN_1 unique (CODE);
+ALTER TABLE AC_ACDM_SESN
+  ADD CONSTRAINT UC_AC_ACDM_SESN_1 UNIQUE (CODE);
 
-alter table AC_ACTR
-  add constraint uc_AC_ACTR_1 unique (IDENTITY_NO);
+ALTER TABLE AC_ACTR
+  ADD CONSTRAINT UC_AC_ACTR_1 UNIQUE (IDENTITY_NO);
 
-alter table AC_BANK_CODE
-  add constraint uc_AC_BANK_CODE_1 unique (CODE);
+ALTER TABLE AC_BANK_CODE
+  ADD CONSTRAINT UC_AC_BANK_CODE_1 UNIQUE (CODE);
 
-alter table AC_BANK_CODE
-  add constraint uc_AC_BANK_CODE_2 unique (IBG_CODE);
+ALTER TABLE AC_BANK_CODE
+  ADD CONSTRAINT UC_AC_BANK_CODE_2 UNIQUE (IBG_CODE);
 
-alter table AC_BANK_CODE
-  add constraint uc_AC_BANK_CODE_3 unique (SWIFT_CODE);
+ALTER TABLE AC_BANK_CODE
+  ADD CONSTRAINT UC_AC_BANK_CODE_3 UNIQUE (SWIFT_CODE);
 
-alter table AC_CHRG_CODE
-  add constraint uc_AC_CHRG_CODE_1 unique (CODE);
+ALTER TABLE AC_CHRG_CODE
+  ADD CONSTRAINT UC_AC_CHRG_CODE_1 UNIQUE (CODE);
 
-alter table AC_CITY_CODE
-  add constraint uc_AC_CITY_CODE_1 unique (CODE);
+ALTER TABLE AC_CITY_CODE
+  ADD CONSTRAINT UC_AC_CITY_CODE_1 UNIQUE (CODE);
 
-alter table AC_CITY_CODE
-  add constraint FKF91AB864761B73B6
-foreign key (STATE_CODE_ID)
-references AC_STTE_CODE;
+ALTER TABLE AC_CITY_CODE
+  ADD CONSTRAINT FKF91AB864761B73B6
+FOREIGN KEY (STATE_CODE_ID)
+REFERENCES AC_STTE_CODE;
 
-alter table AC_CMPS_CODE
-  add constraint uc_AC_CMPS_CODE_1 unique (CODE);
+ALTER TABLE AC_CMPS_CODE
+  ADD CONSTRAINT UC_AC_CMPS_CODE_1 UNIQUE (CODE);
 
-alter table AC_CNTY_CODE
-  add constraint uc_AC_CNTY_CODE_1 unique (CODE);
+ALTER TABLE AC_CNTY_CODE
+  ADD CONSTRAINT UC_AC_CNTY_CODE_1 UNIQUE (CODE);
 
-alter table AC_DSCT_CODE
-  add constraint uc_AC_DSCT_CODE_1 unique (CODE);
-
-alter table AC_EMAL_QUEU
-  add constraint uc_AC_EMAL_QUEU_1 unique (CODE);
+ALTER TABLE AC_CVRG
+  ADD CONSTRAINT FKE62437E565B1C0CE
+FOREIGN KEY (CHARGE_CODE_ID)
+REFERENCES AC_CHRG_CODE;
 
-alter table AC_EMIL_TMPT
-  add constraint uc_AC_EMIL_TMPT_1 unique (CODE);
+ALTER TABLE AC_CVRG
+  ADD CONSTRAINT FKE62437E5624354E6
+FOREIGN KEY (SPONSOR_ID)
+REFERENCES AC_SPONSOR;
 
-alter table AC_FCTY_CODE
-  add constraint uc_AC_FCTY_CODE_1 unique (CODE);
-
-alter table AC_GROP
-  add constraint FKE625FA0914AF69B5
-foreign key (ID)
-references AC_PCPL;
-
-alter table AC_GROP_MMBR
-  add constraint FKD940C6665F83F46
-foreign key (GROUP_ID)
-references AC_GROP;
-
-alter table AC_GROP_MMBR
-  add constraint FKD940C6664AF14766
-foreign key (PRINCIPAL_ID)
-references AC_PCPL;
-
-alter table AC_INVC
-  add constraint FKE626D48F62AC940F
-foreign key (ACCOUNT_ID)
-references AC_ACCT;
-
-alter table AC_MODL
-  add constraint uc_AC_MODL_1 unique (CANONICAL_CODE);
-
-alter table AC_MODL
-  add constraint uc_AC_MODL_2 unique (CODE);
-
-alter table AC_NTLY_CODE
-  add constraint uc_AC_NTLY_CODE_1 unique (CODE);
-
-alter table AC_PCPL
-  add constraint uc_AC_PCPL_1 unique (NAME);
-
-alter table AC_PCPL_ROLE
-  add constraint FK278C33A94AF14766
-foreign key (PRINCIPAL_ID)
-references AC_PCPL;
-
-alter table AC_PRGM_CODE
-  add constraint uc_AC_PRGM_CODE_1 unique (CODE);
-
-alter table AC_RCPT
-  add constraint FKE62AC1F262AC940F
-foreign key (ACCOUNT_ID)
-references AC_ACCT;
-
-alter table AC_RCPT_ITEM
-  add constraint FK5DB7D14065B1C0CE
-foreign key (CHARGE_CODE_ID)
-references AC_CHRG_CODE;
-
-alter table AC_RCPT_ITEM
-  add constraint FK5DB7D1407580D95D
-foreign key (INVOICE_ID)
-references AC_INVC;
-
-alter table AC_RCPT_ITEM
-  add constraint FK5DB7D140BC4EFBFD
-foreign key (RECEIPT_ID)
-references AC_RCPT;
-
-alter table AC_RFRN_NO
-  add constraint uc_AC_RFRN_NO_1 unique (CODE);
-
-alter table AC_RSCY_CODE
-  add constraint uc_AC_RSCY_CODE_1 unique (CODE);
-
-alter table AC_SCTY_CHRG
-  add constraint FKCE1A82A765B1C0CE
-foreign key (CHARGE_CODE_ID)
-references AC_CHRG_CODE;
-
-alter table AC_SCTY_CHRG
-  add constraint FKCE1A82A7ACE4F811
-foreign key (ID)
-references AC_ACCT_CHRG;
-
-alter table AC_SMDL
-  add constraint FKE62B5A5F1AED9EFD
-foreign key (MODULE_ID)
-references AC_MODL;
-
-alter table AC_SPHP
-  add constraint FKE62B6622624354E6
-foreign key (SPONSOR_ID)
-references AC_SPONSOR;
-
-alter table AC_SPHP
-  add constraint FKE62B66224F717CC6
-foreign key (STUDENT_ID)
-references AC_STDN;
-
-alter table AC_SPONSOR
-  add constraint FK14C54BDD565BDDFC
-foreign key (ID)
-references AC_ACTR;
-
-alter table AC_STAF
-  add constraint FKE62B7443565BDDFC
-foreign key (ID)
-references AC_ACTR;
-
-alter table AC_STDN
-  add constraint FKE62B74A8565BDDFC
-foreign key (ID)
-references AC_ACTR;
-
-alter table AC_STDN_AFFR_CHRG
-  add constraint FK7FEF0E5165B1C0CE
-foreign key (CHARGE_CODE_ID)
-references AC_CHRG_CODE;
-
-alter table AC_STDN_AFFR_CHRG
-  add constraint FK7FEF0E51ACE4F811
-foreign key (ID)
-references AC_ACCT_CHRG;
-
-alter table AC_STDY_CNTR_CODE
-  add constraint uc_AC_STDY_CNTR_CODE_1 unique (CODE);
+ALTER TABLE AC_DSCT_CODE
+  ADD CONSTRAINT UC_AC_DSCT_CODE_1 UNIQUE (CODE);
+
+ALTER TABLE AC_EMAL_QUEU
+  ADD CONSTRAINT UC_AC_EMAL_QUEU_1 UNIQUE (CODE);
+
+ALTER TABLE AC_EMIL_TMPT
+  ADD CONSTRAINT UC_AC_EMIL_TMPT_1 UNIQUE (CODE);
+
+ALTER TABLE AC_FCTY_CODE
+  ADD CONSTRAINT UC_AC_FCTY_CODE_1 UNIQUE (CODE);
+
+ALTER TABLE AC_GROP
+  ADD CONSTRAINT FKE625FA0914AF69B5
+FOREIGN KEY (ID)
+REFERENCES AC_PCPL;
+
+ALTER TABLE AC_GROP_MMBR
+  ADD CONSTRAINT FKD940C6665F83F46
+FOREIGN KEY (GROUP_ID)
+REFERENCES AC_GROP;
+
+ALTER TABLE AC_GROP_MMBR
+  ADD CONSTRAINT FKD940C6664AF14766
+FOREIGN KEY (PRINCIPAL_ID)
+REFERENCES AC_PCPL;
+
+ALTER TABLE AC_INVC
+  ADD CONSTRAINT FKE626D48F62AC940F
+FOREIGN KEY (ACCOUNT_ID)
+REFERENCES AC_ACCT;
+
+ALTER TABLE AC_MODL
+  ADD CONSTRAINT UC_AC_MODL_1 UNIQUE (CANONICAL_CODE);
+
+ALTER TABLE AC_MODL
+  ADD CONSTRAINT UC_AC_MODL_2 UNIQUE (CODE);
+
+ALTER TABLE AC_NTLY_CODE
+  ADD CONSTRAINT UC_AC_NTLY_CODE_1 UNIQUE (CODE);
+
+ALTER TABLE AC_PCPL
+  ADD CONSTRAINT UC_AC_PCPL_1 UNIQUE (NAME);
+
+ALTER TABLE AC_PCPL_ROLE
+  ADD CONSTRAINT FK278C33A94AF14766
+FOREIGN KEY (PRINCIPAL_ID)
+REFERENCES AC_PCPL;
+
+ALTER TABLE AC_PRGM_CODE
+  ADD CONSTRAINT UC_AC_PRGM_CODE_1 UNIQUE (CODE);
+
+ALTER TABLE AC_RCPT
+  ADD CONSTRAINT FKE62AC1F262AC940F
+FOREIGN KEY (ACCOUNT_ID)
+REFERENCES AC_ACCT;
+
+ALTER TABLE AC_RCPT_ITEM
+  ADD CONSTRAINT FK5DB7D14065B1C0CE
+FOREIGN KEY (CHARGE_CODE_ID)
+REFERENCES AC_CHRG_CODE;
+
+ALTER TABLE AC_RCPT_ITEM
+  ADD CONSTRAINT FK5DB7D1407580D95D
+FOREIGN KEY (INVOICE_ID)
+REFERENCES AC_INVC;
+
+ALTER TABLE AC_RCPT_ITEM
+  ADD CONSTRAINT FK5DB7D140BC4EFBFD
+FOREIGN KEY (RECEIPT_ID)
+REFERENCES AC_RCPT;
+
+ALTER TABLE AC_RFRN_NO
+  ADD CONSTRAINT UC_AC_RFRN_NO_1 UNIQUE (CODE);
+
+ALTER TABLE AC_RSCY_CODE
+  ADD CONSTRAINT UC_AC_RSCY_CODE_1 UNIQUE (CODE);
+
+ALTER TABLE AC_SCTY_CHRG
+  ADD CONSTRAINT FKCE1A82A765B1C0CE
+FOREIGN KEY (CHARGE_CODE_ID)
+REFERENCES AC_CHRG_CODE;
+
+ALTER TABLE AC_SCTY_CHRG
+  ADD CONSTRAINT FKCE1A82A7ACE4F811
+FOREIGN KEY (ID)
+REFERENCES AC_ACCT_CHRG;
+
+ALTER TABLE AC_SMDL
+  ADD CONSTRAINT FKE62B5A5F1AED9EFD
+FOREIGN KEY (MODULE_ID)
+REFERENCES AC_MODL;
+
+ALTER TABLE AC_SPHP
+  ADD CONSTRAINT FKE62B6622624354E6
+FOREIGN KEY (SPONSOR_ID)
+REFERENCES AC_SPONSOR;
+
+ALTER TABLE AC_SPHP
+  ADD CONSTRAINT FKE62B66224F717CC6
+FOREIGN KEY (STUDENT_ID)
+REFERENCES AC_STDN;
+
+ALTER TABLE AC_SPONSOR
+  ADD CONSTRAINT FK14C54BDD565BDDFC
+FOREIGN KEY (ID)
+REFERENCES AC_ACTR;
+
+ALTER TABLE AC_STAF
+  ADD CONSTRAINT FKE62B7443565BDDFC
+FOREIGN KEY (ID)
+REFERENCES AC_ACTR;
+
+ALTER TABLE AC_STDN
+  ADD CONSTRAINT FKE62B74A8565BDDFC
+FOREIGN KEY (ID)
+REFERENCES AC_ACTR;
+
+ALTER TABLE AC_STDN_AFFR_CHRG
+  ADD CONSTRAINT FK7FEF0E5165B1C0CE
+FOREIGN KEY (CHARGE_CODE_ID)
+REFERENCES AC_CHRG_CODE;
+
+ALTER TABLE AC_STDN_AFFR_CHRG
+  ADD CONSTRAINT FK7FEF0E51ACE4F811
+FOREIGN KEY (ID)
+REFERENCES AC_ACCT_CHRG;
+
+ALTER TABLE AC_STDY_CNTR_CODE
+  ADD CONSTRAINT UC_AC_STDY_CNTR_CODE_1 UNIQUE (CODE);
 
-alter table AC_STLT
-  add constraint uc_AC_STLT_1 unique (REFERENCE_NO);
+ALTER TABLE AC_STLT
+  ADD CONSTRAINT UC_AC_STLT_1 UNIQUE (REFERENCE_NO);
 
-alter table AC_STLT
-  add constraint FKE62B75A6706DBE68
-foreign key (SESSION_ID)
-references AC_ACDM_SESN;
+ALTER TABLE AC_STLT
+  ADD CONSTRAINT FKE62B75A6706DBE68
+FOREIGN KEY (SESSION_ID)
+REFERENCES AC_ACDM_SESN;
 
-alter table AC_STLT
-  add constraint FKE62B75A6624354E6
-foreign key (SPONSOR_ID)
-references AC_SPONSOR;
+ALTER TABLE AC_STLT
+  ADD CONSTRAINT FKE62B75A6624354E6
+FOREIGN KEY (SPONSOR_ID)
+REFERENCES AC_SPONSOR;
 
-alter table AC_STLT_ITEM
-  add constraint FK4574E0C62AC940F
-foreign key (ACCOUNT_ID)
-references AC_ACCT;
+ALTER TABLE AC_STLT_ITEM
+  ADD CONSTRAINT FK4574E0C62AC940F
+FOREIGN KEY (ACCOUNT_ID)
+REFERENCES AC_ACCT;
 
-alter table AC_STLT_ITEM
-  add constraint FK4574E0C7580D95D
-foreign key (INVOICE_ID)
-references AC_INVC;
+ALTER TABLE AC_STLT_ITEM
+  ADD CONSTRAINT FK4574E0C7580D95D
+FOREIGN KEY (INVOICE_ID)
+REFERENCES AC_INVC;
 
-alter table AC_STLT_ITEM
-  add constraint FK4574E0C49AD1DB9
-foreign key (SETTLEMENT_ID)
-references AC_STLT;
+ALTER TABLE AC_STLT_ITEM
+  ADD CONSTRAINT FK4574E0C49AD1DB9
+FOREIGN KEY (SETTLEMENT_ID)
+REFERENCES AC_STLT;
 
-alter table AC_STLT_ITEM
-  add constraint FK4574E0C4F717CC6
-foreign key (STUDENT_ID)
-references AC_STDN;
+ALTER TABLE AC_STLT_ITEM
+  ADD CONSTRAINT FK4574E0C4F717CC6
+FOREIGN KEY (STUDENT_ID)
+REFERENCES AC_STDN;
 
-alter table AC_STTE_CODE
-  add constraint uc_AC_STTE_CODE_1 unique (CODE);
+ALTER TABLE AC_STTE_CODE
+  ADD CONSTRAINT UC_AC_STTE_CODE_1 UNIQUE (CODE);
 
-alter table AC_STTE_CODE
-  add constraint FK91EDA99D66497D80
-foreign key (COUNTRY_CODE_ID)
-references AC_CNTY_CODE;
+ALTER TABLE AC_STTE_CODE
+  ADD CONSTRAINT FK91EDA99D66497D80
+FOREIGN KEY (COUNTRY_CODE_ID)
+REFERENCES AC_CNTY_CODE;
 
-alter table AC_USER
-  add constraint uc_AC_USER_1 unique (EMAIL);
+ALTER TABLE AC_USER
+  ADD CONSTRAINT UC_AC_USER_1 UNIQUE (EMAIL);
 
-alter table AC_USER
-  add constraint FKE62C59C8F3FA5886
-foreign key (ACTOR_ID)
-references AC_ACTR;
+ALTER TABLE AC_USER
+  ADD CONSTRAINT FKE62C59C8F3FA5886
+FOREIGN KEY (ACTOR_ID)
+REFERENCES AC_ACTR;
 
-alter table AC_USER
-  add constraint FKE62C59C814AF69B5
-foreign key (ID)
-references AC_PCPL;
+ALTER TABLE AC_USER
+  ADD CONSTRAINT FKE62C59C814AF69B5
+FOREIGN KEY (ID)
+REFERENCES AC_PCPL;
 
-alter table Ac_ACCT_TRSN
-  add constraint FK7216C24862AC940F
-foreign key (ACCOUNT_ID)
-references AC_ACCT;
+ALTER TABLE AC_ACCT_TRSN
+  ADD CONSTRAINT FK7216C24862AC940F
+FOREIGN KEY (ACCOUNT_ID)
+REFERENCES AC_ACCT;
 
-alter table Ac_ACCT_TRSN
-  add constraint FK7216C24865B1C0CE
-foreign key (CHARGE_CODE_ID)
-references AC_CHRG_CODE;
+ALTER TABLE AC_ACCT_TRSN
+  ADD CONSTRAINT FK7216C24865B1C0CE
+FOREIGN KEY (CHARGE_CODE_ID)
+REFERENCES AC_CHRG_CODE;
 
-alter table Ac_ACCT_TRSN
-  add constraint FK7216C248706DBE68
-foreign key (SESSION_ID)
-references AC_ACDM_SESN;
+ALTER TABLE AC_ACCT_TRSN
+  ADD CONSTRAINT FK7216C248706DBE68
+FOREIGN KEY (SESSION_ID)
+REFERENCES AC_ACDM_SESN;
 
-alter table Ac_INVC_ITEM
-  add constraint FK5AF630E365B1C0CE
-foreign key (CHARGE_CODE_ID)
-references AC_CHRG_CODE;
+ALTER TABLE AC_INVC_ITEM
+  ADD CONSTRAINT FK5AF630E365B1C0CE
+FOREIGN KEY (CHARGE_CODE_ID)
+REFERENCES AC_CHRG_CODE;
 
-alter table Ac_INVC_ITEM
-  add constraint FK5AF630E37580D95D
-foreign key (INVOICE_ID)
-references AC_INVC;
+ALTER TABLE AC_INVC_ITEM
+  ADD CONSTRAINT FK5AF630E37580D95D
+FOREIGN KEY (INVOICE_ID)
+REFERENCES AC_INVC;
 
-create sequence SEQ_ACTR_ACCT_CHRG;
+CREATE SEQUENCE SEQ_ACTR_ACCT_CHRG;
 
-create sequence SQ_AC_ACCT;
+CREATE SEQUENCE SQ_AC_ACCT;
 
-create sequence SQ_AC_ACCT_TRSN;
+CREATE SEQUENCE SQ_AC_ACCT_TRSN;
 
-create sequence SQ_AC_ACDM_SESN;
+CREATE SEQUENCE SQ_AC_ACDM_SESN;
 
-create sequence SQ_AC_ACTR;
+CREATE SEQUENCE SQ_AC_ACTR;
 
-create sequence SQ_AC_AUDT;
+CREATE SEQUENCE SQ_AC_AUDT;
 
-create sequence SQ_AC_BANK_CODE;
+CREATE SEQUENCE SQ_AC_BANK_CODE;
 
-create sequence SQ_AC_CHRG_CODE;
+CREATE SEQUENCE SQ_AC_CHRG_CODE;
 
-create sequence SQ_AC_CITY_CODE;
+CREATE SEQUENCE SQ_AC_CITY_CODE;
 
-create sequence SQ_AC_CMPS_CODE;
+CREATE SEQUENCE SQ_AC_CMPS_CODE;
 
-create sequence SQ_AC_CNFG;
+CREATE SEQUENCE SQ_AC_CNFG;
 
-create sequence SQ_AC_CNTY_CODE;
+CREATE SEQUENCE SQ_AC_CNTY_CODE;
 
-create sequence SQ_AC_DSCT_CODE;
+CREATE SEQUENCE SQ_AC_CVRG;
 
-create sequence SQ_AC_EMAL_QUEU;
+CREATE SEQUENCE SQ_AC_DSCT_CODE;
 
-create sequence SQ_AC_EMIL_TMPT;
+CREATE SEQUENCE SQ_AC_EMAL_QUEU;
 
-create sequence SQ_AC_FCTY_CODE;
+CREATE SEQUENCE SQ_AC_EMIL_TMPT;
 
-create sequence SQ_AC_GROP_MMBR;
+CREATE SEQUENCE SQ_AC_FCTY_CODE;
 
-create sequence SQ_AC_INVC;
+CREATE SEQUENCE SQ_AC_GROP_MMBR;
 
-create sequence SQ_AC_INVC_ITEM;
+CREATE SEQUENCE SQ_AC_INVC;
 
-create sequence SQ_AC_MODL;
+CREATE SEQUENCE SQ_AC_INVC_ITEM;
 
-create sequence SQ_AC_NTLY_CODE;
+CREATE SEQUENCE SQ_AC_MODL;
 
-create sequence SQ_AC_PCPL;
+CREATE SEQUENCE SQ_AC_NTLY_CODE;
 
-create sequence SQ_AC_PCPL_ROLE;
+CREATE SEQUENCE SQ_AC_PCPL;
 
-create sequence SQ_AC_PRGM_CODE;
+CREATE SEQUENCE SQ_AC_PCPL_ROLE;
 
-create sequence SQ_AC_RCPT;
+CREATE SEQUENCE SQ_AC_PRGM_CODE;
 
-create sequence SQ_AC_RFRN_NO;
+CREATE SEQUENCE SQ_AC_RCPT;
 
-create sequence SQ_AC_RSCY_CODE;
+CREATE SEQUENCE SQ_AC_RFRN_NO;
 
-create sequence SQ_AC_SMDL;
+CREATE SEQUENCE SQ_AC_RSCY_CODE;
 
-create sequence SQ_AC_SPHP;
+CREATE SEQUENCE SQ_AC_SMDL;
 
-create sequence SQ_AC_STDY_CNTR_CODE;
+CREATE SEQUENCE SQ_AC_SPHP;
 
-create sequence SQ_AC_STLT;
+CREATE SEQUENCE SQ_AC_STDY_CNTR_CODE;
 
-create sequence SQ_AC_STLT_ITEM;
+CREATE SEQUENCE SQ_AC_STLT;
 
-create sequence SQ_AC_STTE_CODE;
+CREATE SEQUENCE SQ_AC_STLT_ITEM;
 
-create sequence SQ_AC_WTCH;
+CREATE SEQUENCE SQ_AC_STTE_CODE;
+
+CREATE SEQUENCE SQ_AC_WTCH;

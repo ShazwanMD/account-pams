@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.identity.event.StaffCreatedEvent;
 import my.edu.umk.pams.account.identity.event.StaffUpdatedEvent;
 import my.edu.umk.pams.account.identity.event.StudentCreatedEvent;
 import my.edu.umk.pams.account.identity.model.*;
+import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.util.Util;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private SecurityService securityService;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -532,21 +536,45 @@ public class IdentityServiceImpl implements IdentityService {
     //====================================================================================================
     // sponsor
     //====================================================================================================
-    
+
+    @Override
+    public AcSponsor findSponsorById(Long id) {
+        return sponsorDao.findById(id);
+    }
+
+    @Override
+    public AcSponsor findBySponsorNo(String sponsorNo){
+        return sponsorDao.findBySponsorNo(sponsorNo);
+    }
+
+    @Override
+    public AcCoverage findCoverageById(Long id) {
+        return sponsorDao.findCoverageById(id);
+    }
+
+    @Override
+    public List<AcCoverage> findCoverages(AcSponsor sponsor) {
+        return sponsorDao.findCoverages(sponsor);
+    }
+
+
     @Override
     public void saveSponsor(AcSponsor sponsor) {
         sponsorDao.save(sponsor, Util.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-    
+
     @Override
-    public AcSponsor findSponsorById(Long id) {
-        return sponsorDao.findById(id);
+    public void addCoverage(AcSponsor sponsor, AcCoverage coverage) {
+        sponsorDao.addCoverage(sponsor, coverage, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
     }
-    
+
     @Override
-    public AcSponsor findBySponsorNo(String sponsorNo){
-        return sponsorDao.findBySponsorNo(sponsorNo);
+    public void deleteCoverage(AcSponsor sponsor, AcCoverage coverage) {
+        sponsorDao.deleteCoverage(sponsor, coverage, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
     }
+
 
 }
