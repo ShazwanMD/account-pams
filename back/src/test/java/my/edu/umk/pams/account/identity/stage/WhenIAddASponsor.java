@@ -7,6 +7,7 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorImpl;
+import my.edu.umk.pams.account.identity.model.AcSponsorType;
 import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.slf4j.Logger;
@@ -42,6 +43,7 @@ public class WhenIAddASponsor extends Stage<WhenIAddASponsor>{
         AcSponsor sponsor = new AcSponsorImpl();
         sponsor.setIdentityNo("SPNSR-" + System.currentTimeMillis());
         sponsor.setName("PTPTN");
+        sponsor.setSponsorType(AcSponsorType.DIRECT);
         identityService.saveSponsor(sponsor);
         
         return self();

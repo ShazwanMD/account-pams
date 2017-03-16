@@ -11,6 +11,10 @@ public interface AcSponsor extends AcActor {
 
     void setCode(String code);
 
+    AcSponsorType getSponsorType();
+
+    void setSponsorType(AcSponsorType sponsorType);
+
     List<AcCoverage> getCoverages();
 
     void setCoverages(List<AcCoverage> coverages);
