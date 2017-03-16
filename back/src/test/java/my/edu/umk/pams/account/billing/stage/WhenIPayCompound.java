@@ -26,6 +26,7 @@ public class WhenIPayCompound extends Stage<WhenIPayCompound> {
     @Autowired
     private AccountService accountService;
     
+    // todo: uda : boleh pakai WhenIssueInvoice tak? 
     public WhenIPayCompound I_pay_the_compound(){
 		return self();}
 
