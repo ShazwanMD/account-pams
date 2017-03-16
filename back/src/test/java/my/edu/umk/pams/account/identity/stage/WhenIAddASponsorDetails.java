@@ -30,7 +30,7 @@ public class WhenIAddASponsorDetails extends Stage<WhenIAddASponsorDetails>{
     AcCoverage coverage;
     
     @ProvidedScenarioState
-    Long id;
+    Long coverageId;
     
     public WhenIAddASponsorDetails(){
     	coverage = new AcCoverageImpl();
@@ -46,9 +46,9 @@ public class WhenIAddASponsorDetails extends Stage<WhenIAddASponsorDetails>{
     	
     	identityService.addCoverage(sponsor, coverage);
     	
-        id = coverage.getId();
+    	coverageId = coverage.getId(); 
         final String entityName = coverage.getClass().getSimpleName();
-        Assert.notNull(id, entityName + " must have Id");
+        Assert.notNull(coverageId, entityName + " must have Id");
     	
     	return self();
     }
