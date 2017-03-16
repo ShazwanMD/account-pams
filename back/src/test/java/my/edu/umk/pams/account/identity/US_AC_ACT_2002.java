@@ -52,6 +52,9 @@ public class US_AC_ACT_2002 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 
 		given().I_am_a_bursary_in_current_academic_session();
 
+		// kadang2 this could be a hint
+        // that we need better API
+        // i.e  initializeAccount(AcUser, AcSponsor);
 		when().I_add_a_sponsor_user()
 			.and().I_add_a_sponsor_account();
 

@@ -16,7 +16,7 @@ import java.util.List;
 @Entity(name = "AcReceipt")
 @Table(name = "AC_RCPT")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class AcReceiptImpl implements AcReceipt {
+public class AcReceiptImpl implements AcReceipt {
 
 	@Id
 	@Column(name = "ID", nullable = false)
@@ -33,6 +33,9 @@ public abstract class AcReceiptImpl implements AcReceipt {
 
 	@Column(name = "SOURCE_NO")
 	private String sourceNo;
+
+	@Column(name = "AUDIT_NO")
+	private String auditNo;
 
 	@NotNull
 	@Column(name = "DESCRIPTION")
@@ -53,10 +56,6 @@ public abstract class AcReceiptImpl implements AcReceipt {
 	@NotNull
 	@Column(name = "TOTAL_RECEIVED")
 	private BigDecimal totalReceived = BigDecimal.ZERO;
-
-	@NotNull
-	@Column(name = "TOTAL_AMOUNT_IN_CURRENCY")
-	private BigDecimal totalAmountInCurrency = new BigDecimal(0.00);
 
 	@NotNull
 	@Column(name = "TOTAL_AMOUNT")
@@ -125,6 +124,16 @@ public abstract class AcReceiptImpl implements AcReceipt {
 	}
 
 	@Override
+	public String getAuditNo() {
+		return auditNo;
+	}
+
+	@Override
+	public void setAuditNo(String auditNo) {
+		this.auditNo = auditNo;
+	}
+
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -172,16 +181,6 @@ public abstract class AcReceiptImpl implements AcReceipt {
 	@Override
 	public void setTotalReceived(BigDecimal totalReceived) {
 		this.totalReceived = totalReceived;
-	}
-
-	@Override
-	public BigDecimal getTotalAmountInCurrency() {
-		return totalAmountInCurrency;
-	}
-
-	@Override
-	public void setTotalAmountInCurrency(BigDecimal totalAmountInCurrency) {
-		this.totalAmountInCurrency = totalAmountInCurrency;
 	}
 
 	@Override
@@ -259,4 +258,11 @@ public abstract class AcReceiptImpl implements AcReceipt {
 	public void setFlowdata(AcFlowdata flowdata) {
 		this.flowdata = flowdata;
 	}
+
+
+	@Override
+	public Class<?> getInterfaceClass() {
+		return AcReceipt.class;
+	}
+
 }
