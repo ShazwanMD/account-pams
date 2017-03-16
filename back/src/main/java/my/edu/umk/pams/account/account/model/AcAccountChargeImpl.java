@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.account.model;
 
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -16,8 +18,8 @@ public class AcAccountChargeImpl implements AcAccountCharge {
 
     @Id
     @Column(name = "ID", nullable = false)
-    @GeneratedValue(generator = "SEQ_ACTR_ACCT_CHRG")
-    @SequenceGenerator(name = "SEQ_ACTR_ACCT_CHRG", sequenceName = "SEQ_ACTR_ACCT_CHRG", allocationSize = 1)
+    @GeneratedValue(generator = "SEQ_ACCT_CHRG")
+    @SequenceGenerator(name = "SEQ_ACCT_CHRG", sequenceName = "SEQ_ACCT_CHRG", allocationSize = 1)
     private Long id;
 
     @NotNull
@@ -48,6 +50,10 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @ManyToOne(targetEntity = AcAcademicSessionImpl.class)
     @JoinColumn(name = "SESSION_ID", nullable = false)
     private AcAcademicSession session;
+
+    @ManyToOne(targetEntity = AcInvoiceImpl.class)
+    @JoinColumn(name = "INVOICE_ID", nullable = true)
+    private AcInvoice invoice;
 
     @Embedded
     private AcMetadata metadata;
@@ -129,6 +135,16 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @Override
     public void setSession(AcAcademicSession session) {
         this.session = session;
+    }
+
+    @Override
+    public AcInvoice getInvoice() {
+        return invoice;
+    }
+
+    @Override
+    public void setInvoice(AcInvoice invoice) {
+        this.invoice = invoice;
     }
 
     @Override

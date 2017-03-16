@@ -29,7 +29,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         SecurityConfig.class,
         AccessConfig.class,
 //        ThreadingConfig.class,
-        SwaggerConfig.class
+        SwaggerConfig.class,
+        ChargeChainConfig.class,
 })
 @PropertySource("classpath:application.properties")
 public class AppConfiguration {

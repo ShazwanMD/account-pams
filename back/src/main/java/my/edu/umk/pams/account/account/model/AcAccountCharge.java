@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.account.model;
 
+import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
 import java.math.BigDecimal;
@@ -36,4 +37,8 @@ public interface AcAccountCharge extends AcMetaObject{
     AcAcademicSession getSession();
 
     void setSession(AcAcademicSession session);
+
+    AcInvoice getInvoice();
+
+    void setInvoice(AcInvoice invoice);
 }

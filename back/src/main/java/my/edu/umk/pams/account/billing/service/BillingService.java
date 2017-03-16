@@ -1,10 +1,14 @@
 package my.edu.umk.pams.account.billing.service;
 
-import my.edu.umk.pams.account.billing.model.AcReceipt;
-import my.edu.umk.pams.account.billing.model.AcReceiptItem;
-import my.edu.umk.pams.account.billing.model.AcReceiptType;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.billing.model.*;
+import my.edu.umk.pams.account.identity.model.AcActor;
 import org.activiti.engine.task.Task;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,8 +17,81 @@ import java.util.List;
 public interface BillingService {
     // ==================================================================================================== //
     // INVOICE
+    // workflow
+    // ==================================================================================================== //
+    AcInvoice findInvoiceByTaskId(String taskId);
+
+    List<Task> findAssignedInvoiceTasks(Integer offset, Integer limit);
+
+    List<Task> findPooledInvoiceTasks(Integer offset, Integer limit);
+
+    void startInvoiceTask(AcInvoice invoice);
+
+    void cancelInvoice(AcInvoice invoice);
+
+    void saveInvoice(AcInvoice invoice);
+
+    void updateInvoice(AcInvoice invoice);
+
+    void addInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem);
+
+    void updateInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem);
+
+    void attach(AcInvoice invoice, AcAccountCharge charge) throws Exception;
+
+    void attach(AcInvoice invoice, AcAccount account, AcAccountChargeType... type) throws Exception;
+
+    void attach(AcInvoice invoice, AcAccount account) throws Exception;
+
+    void detach(AcInvoice invoice, AcAccountCharge charge) throws Exception;
+
+    void detach(AcInvoice invoice, AcAccount account, AcAccountChargeType... chargeTypes) throws Exception;
+
+    // ==================================================================================================== //
+    // INVOICE
     // ==================================================================================================== //
 
+    AcInvoice findInvoiceById(Long id);
+
+    AcInvoice findInvoiceByReferenceNo(String referenceNo);
+
+    List<AcInvoice> findInvoicesBySourceNo(String sourceNo);
+
+    List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit);
+
+    List<AcInvoice> findUnpaidInvoices(AcAccount account, Integer offset, Integer limit);
+
+    List<AcInvoice> findPaidInvoices(AcAccount account, Integer offset, Integer limit);
+
+    List<AcInvoiceItem> findInvoiceItems(AcInvoice invoice);
+
+    List<AcInvoiceItem> findInvoiceItems(AcInvoice invoice, Integer offset, Integer limit);
+
+//    List<AcInvoiceTransaction> findInvoiceTransactions(AcInvoice invoice);
+//
+//    List<AcInvoiceTransaction> findInvoiceTransactions(AcInvoice invoice, Integer offset, Integer limit);
+
+    Integer countInvoiceItem(AcInvoice invoice);
+
+//    Integer countInvoiceTransaction(AcInvoice invoice);
+
+    Integer countInvoice(AcAccount account);
+
+    Integer countPaidInvoice(AcAccount account);
+
+    Integer countUnpaidInvoice(AcAccount account);
+
+    boolean hasInvoice(AcAccount account);
+
+    boolean hasUnpaidInvoice(AcAccount account);
+
+    boolean hasUnpaidInvoice(AcAccount account, Integer days);
+
+    boolean isInvoiceOverdue(AcAccountCharge charge);
+
+    BigDecimal sumUnpaidInvoice(AcAccountCharge charge);
+
+    boolean hasBalance(AcAcademicSession academicSession, AcActor actor);
 
 
     // ==================================================================================================== //

@@ -27,7 +27,7 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
     @Column(name = "AMOUNT")
     private BigDecimal amount = BigDecimal.ZERO;
 
-    @Column(name = "AMOUNT_BALANCE")
+    @Column(name = "BALANCE_AMOUNT")
     private BigDecimal balanceAmount = BigDecimal.ZERO;
 
     @NotNull
