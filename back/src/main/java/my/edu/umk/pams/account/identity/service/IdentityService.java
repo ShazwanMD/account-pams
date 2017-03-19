@@ -212,5 +212,11 @@ public interface IdentityService {
 
     void deleteCoverage(AcSponsor sponsor, AcCoverage coverage);
 
+    // ====================================================================================================
+    // SPONSORSHIP
+    // ====================================================================================================
 
+    AcSponsorship findSponsorhipById(Long id);
+    
+    void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
 }

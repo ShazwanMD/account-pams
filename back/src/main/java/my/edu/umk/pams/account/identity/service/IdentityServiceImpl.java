@@ -57,6 +57,9 @@ public class IdentityServiceImpl implements IdentityService {
     
     @Autowired
     private AcSponsorDao sponsorDao;
+    
+    @Autowired
+    private AcSponsorshipDao sponsorshipDao;
 
     //====================================================================================================
     // PRINCIPAL
@@ -575,6 +578,22 @@ public class IdentityServiceImpl implements IdentityService {
         sponsorDao.deleteCoverage(sponsor, coverage, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+
+    //====================================================================================================
+    // sponsorship
+    //====================================================================================================
+    
+	@Override
+	public AcSponsorship findSponsorhipById(Long id) {
+		return sponsorshipDao.findById(id);
+	}
+
+	@Override
+	public void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
+        sponsorshipDao.addSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+		
+	}
 
 
 }
