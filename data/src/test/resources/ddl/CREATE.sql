@@ -1,4 +1,3 @@
-
 create table AC_ACCT (
   ID int8 not null,
   CODE varchar(255) not null,
@@ -624,7 +623,6 @@ create table AC_SPHP (
 );
 
 create table AC_SPSR (
-  CODE varchar(255),
   SPONSOR_TYPE int4,
   ID int8 not null,
   primary key (ID)

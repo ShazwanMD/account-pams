@@ -1,31 +1,43 @@
 package my.edu.umk.pams.account.identity.dao;
 
 import my.edu.umk.pams.account.core.GenericDao;
-import my.edu.umk.pams.account.identity.model.AcCoverage;
-import my.edu.umk.pams.account.identity.model.AcSponsor;
-import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.identity.model.*;
 
 import java.util.List;
 
 /**
  * @author PAMS
  */
-public interface AcSponsorDao extends GenericDao<Long, AcSponsor>{
-	
-	AcSponsor findBySponsorNo(String sponsorNo);
+public interface AcSponsorDao extends GenericDao<Long, AcSponsor> {
 
-	AcCoverage findCoverageById(Long id);
+    AcSponsor findBySponsorNo(String sponsorNo);
 
-	List<AcCoverage> findCoverages(AcSponsor sponsor);
+    AcCoverage findCoverageById(Long id);
 
-	// ====================================================================================================
-	// CRUD
-	// ====================================================================================================
+    AcSponsorship findSponsorshipById(Long id);
 
-	void addCoverage(AcSponsor sponsor, AcCoverage coverage, AcUser user);
+    List<AcCoverage> findCoverages(AcSponsor sponsor);
 
-	void updateCoverage(AcSponsor sponsor, AcCoverage coverage, AcUser user);
+    List<AcSponsorship> findSponsorships(AcSponsor sponsor);
 
-	void deleteCoverage(AcSponsor sponsor, AcCoverage coverage, AcUser user);
+    Integer countCoverage(AcSponsor sponsor);
+
+    Integer countSponsorship(AcSponsor sponsor);
+
+    boolean hasSponsorship(AcSponsor sponsor);
+
+    boolean hasCoverage(AcSponsor sponsor);
+
+    // ====================================================================================================
+    // CRUD
+    // ====================================================================================================
+
+    void addCoverage(AcSponsor sponsor, AcCoverage coverage, AcUser user);
+
+    void deleteCoverage(AcSponsor sponsor, AcCoverage coverage, AcUser user);
+
+    void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship, AcUser user);
+
+    void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship, AcUser user);
 
 }

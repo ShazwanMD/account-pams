@@ -23,7 +23,7 @@ import java.util.Set;
  * @since 1/30/14
  */
 @Transactional
-@Service("inIdentityService")
+@Service("acIdentityService")
 public class IdentityServiceImpl implements IdentityService {
 
     private static final String GROUP_ROOT = "GRP_ADMN";
@@ -58,9 +58,6 @@ public class IdentityServiceImpl implements IdentityService {
     @Autowired
     private AcSponsorDao sponsorDao;
     
-    @Autowired
-    private AcSponsorshipDao sponsorshipDao;
-
     //====================================================================================================
     // PRINCIPAL
     //====================================================================================================
@@ -482,8 +479,8 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
-    public AcStudent findStudentByStudentNo(String StudentNo) {
-        return studentDao.findByStudentNo(StudentNo);
+    public AcStudent findStudentByMatricNo(String matricNo) {
+        return studentDao.findByMatricNo(matricNo);
     }
 
     @Override
@@ -497,6 +494,11 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public List<AcSponsorship> findSponsorships(AcStudent student) {
+        return studentDao.findSponsorships(student);
+    }
+
+    @Override
     public Integer countStudent() {
         return studentDao.count();
     }
@@ -504,6 +506,11 @@ public class IdentityServiceImpl implements IdentityService {
     @Override
     public Integer countStudent(String filter) {
         return studentDao.count(filter);
+    }
+
+    @Override
+    public Integer countSponsorship(AcStudent student) {
+        return studentDao.countSponsorship(student);
     }
 
     @Override
@@ -521,6 +528,18 @@ public class IdentityServiceImpl implements IdentityService {
     @Override
     public void deleteStudent(AcStudent student) {
         studentDao.delete(student, Util.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void addSponsorship(AcStudent student, AcSponsorship sponsorship) {
+        studentDao.addSponsorship(student, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeSponsorship(AcStudent student, AcSponsorship sponsorship) {
+        studentDao.removeSponsorship(student, sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -546,7 +565,7 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
-    public AcSponsor findBySponsorNo(String sponsorNo){
+    public AcSponsor findSponsorBySponsorNo(String sponsorNo){
         return sponsorDao.findBySponsorNo(sponsorNo);
     }
 
@@ -556,10 +575,29 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public List<AcSponsorship> findSponsorships(AcSponsor sponsor) {
+        return sponsorDao.findSponsorships(sponsor);
+    }
+
+    @Override
     public List<AcCoverage> findCoverages(AcSponsor sponsor) {
         return sponsorDao.findCoverages(sponsor);
     }
 
+    @Override
+    public Integer countCoverage(AcSponsor sponsor) {
+        return sponsorDao.countCoverage(sponsor);
+    }
+
+    @Override
+    public Integer countSponsorship(AcSponsor sponsor) {
+        return sponsorDao.countSponsorship(sponsor);
+    }
+
+    @Override
+    public boolean hasCoverage(AcSponsor sponsor) {
+        return sponsorDao.hasCoverage(sponsor);
+    }
 
     @Override
     public void saveSponsor(AcSponsor sponsor) {
@@ -580,20 +618,33 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     //====================================================================================================
-    // sponsorship
+    // SPONSORSHIP
     //====================================================================================================
     
 	@Override
-	public AcSponsorship findSponsorhipById(Long id) {
-		return sponsorshipDao.findById(id);
+	public AcSponsorship findSponsorshipById(Long id) {
+		return sponsorDao.findSponsorshipById(id);
 	}
 
-	@Override
+    @Override
+    public boolean hasSponsorship(AcStudent student) {
+        return studentDao.hasSponsorship(student);
+    }
+
+    @Override
+    public boolean hasSponsorship(AcSponsor sponsor) {
+        return sponsorDao.hasSponsorship(sponsor);
+    }
+
+    @Override
 	public void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
-        sponsorshipDao.addSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
+        sponsorDao.addSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
-		
 	}
 
-
+    @Override
+    public void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
+        sponsorDao.removeSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
 }

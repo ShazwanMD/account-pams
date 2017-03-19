@@ -391,7 +391,6 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         Validate.notNull(item, "Item member should not be null");
 
         Session session = sessionFactory.getCurrentSession();
-
         AcMetadata metadata = invoice.getMetadata();
         metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
         metadata.setModifierId(user.getId());

@@ -7,10 +7,6 @@ import java.util.List;
  */
 public interface AcSponsor extends AcActor {
 
-    String getCode();
-
-    void setCode(String code);
-
     AcSponsorType getSponsorType();
 
     void setSponsorType(AcSponsorType sponsorType);

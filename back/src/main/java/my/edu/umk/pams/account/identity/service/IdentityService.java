@@ -174,21 +174,29 @@ public interface IdentityService {
 
     AcStudent findStudentById(Long id);
 
-    AcStudent findStudentByStudentNo(String StudentNo);
+    AcStudent findStudentByMatricNo(String matricNo);
 
     List<AcStudent> findStudents(Integer offset, Integer limit);
 
     List<AcStudent> findStudents(String filter, Integer offset, Integer limit);
 
+    List<AcSponsorship> findSponsorships(AcStudent student);
+
     Integer countStudent();
 
     Integer countStudent(String filter);
+
+    Integer countSponsorship(AcStudent student);
 
     void saveStudent(AcStudent Student);
 
     void updateStudent(AcStudent Student);
 
     void deleteStudent(AcStudent Student);
+
+    void addSponsorship(AcStudent student, AcSponsorship sponsorship);
+
+    void removeSponsorship(AcStudent student, AcSponsorship sponsorship);
 
     void broadcastCreated(AcStudent Student);
 
@@ -200,11 +208,19 @@ public interface IdentityService {
 
     AcSponsor findSponsorById(Long id);
 
-    AcSponsor findBySponsorNo(String sponsorNo);
+    AcSponsor findSponsorBySponsorNo(String sponsorNo);
 
     AcCoverage findCoverageById(Long id);
 
+    List<AcSponsorship> findSponsorships(AcSponsor sponsor);
+
     List<AcCoverage> findCoverages(AcSponsor sponsor);
+
+    Integer countCoverage(AcSponsor sponsor);
+
+    Integer countSponsorship(AcSponsor sponsor);
+
+    boolean hasCoverage(AcSponsor sponsor);
 
     void saveSponsor(AcSponsor sponsor);
 
@@ -212,11 +228,18 @@ public interface IdentityService {
 
     void deleteCoverage(AcSponsor sponsor, AcCoverage coverage);
 
+    void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
+
+    void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
+
     // ====================================================================================================
     // SPONSORSHIP
     // ====================================================================================================
 
-    AcSponsorship findSponsorhipById(Long id);
-    
-    void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
+    AcSponsorship findSponsorshipById(Long id);
+
+    boolean hasSponsorship(AcStudent student);
+
+    boolean hasSponsorship(AcSponsor sponsor);
+
 }

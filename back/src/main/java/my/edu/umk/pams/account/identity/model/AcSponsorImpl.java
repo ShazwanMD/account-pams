@@ -7,9 +7,6 @@ import java.util.List;
 @Table(name = "AC_SPSR")
 public class AcSponsorImpl extends AcActorImpl implements AcSponsor {
 
-    @Column(name = "CODE")
-    private String code;
-
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "SPONSOR_TYPE")
     private AcSponsorType sponsorType = AcSponsorType.NONE;
@@ -19,16 +16,6 @@ public class AcSponsorImpl extends AcActorImpl implements AcSponsor {
 
     public AcSponsorImpl() {
         setActorType(AcActorType.SPONSOR);
-    }
-
-    @Override
-    public String getCode() {
-        return code;
-    }
-
-    @Override
-    public void setCode(String code) {
-        this.code = code;
     }
 
     @Override

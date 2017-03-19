@@ -3,7 +3,6 @@ package my.edu.umk.pams.account.identity.dao;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
 import my.edu.umk.pams.account.identity.model.*;
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
@@ -14,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.List;
+
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 /**
  * @author PAMS
@@ -44,6 +45,12 @@ public class AcSponsorDaoImpl extends GenericDaoSupport<Long, AcSponsor> impleme
     }
 
     @Override
+    public AcSponsorship findSponsorshipById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcSponsorship) session.get(AcSponsorshipImpl.class, id);
+    }
+
+    @Override
     public List<AcCoverage> findCoverages(AcSponsor sponsor) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select a from AcCoverage a where " +
@@ -54,14 +61,69 @@ public class AcSponsorDaoImpl extends GenericDaoSupport<Long, AcSponsor> impleme
         return (List<AcCoverage>) query.list();
     }
 
+    @Override
+    public List<AcSponsorship> findSponsorships(AcSponsor sponsor) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select a from AcSponsorship a where " +
+                "a.sponsor = :sponsor "+
+                "and a.metadata.state = :state");
+        query.setEntity("sponsor", sponsor);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return (List<AcSponsorship>) query.list();
+    }
+
+    @Override
+    public Integer countCoverage(AcSponsor sponsor) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(c) from AcCoverage c where " +
+                "c.sponsor = :sponsor " +
+                "and c.metadata.state = :state ");
+        query.setEntity("sponsor", sponsor);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
+    }
+
+    @Override
+    public Integer countSponsorship(AcSponsor sponsor) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcSponsorship s where " +
+                "s.sponsor = :sponsor " +
+                "and s.metadata.state = :state ");
+        query.setEntity("sponsor", sponsor);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
+    }
+
+    @Override
+    public boolean hasSponsorship(AcSponsor sponsor) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcSponsorship s where " +
+                "s.sponsor = :sponsor " +
+                "and s.metadata.state = :state ");
+        query.setEntity("sponsor", sponsor);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue() >= 1;
+    }
+
+    @Override
+    public boolean hasCoverage(AcSponsor sponsor) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(c) from AcCoverage c where " +
+                "c.sponsor = :sponsor " +
+                "and c.metadata.state = :state ");
+        query.setEntity("sponsor", sponsor);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue() >= 1;
+    }
+
     // ====================================================================================================
     // CRUD
     // ====================================================================================================
 
     @Override
     public void addCoverage(AcSponsor sponsor, AcCoverage coverage, AcUser user) {
-        Validate.notNull(sponsor, "Batch should not be null");
-        Validate.notNull(coverage, "coverage member should not be null");
+        Validate.notNull(sponsor, "Sponosr should not be null");
+        Validate.notNull(coverage, "Coverage member should not be null");
 
         Session session = sessionFactory.getCurrentSession();
         coverage.setSponsor(sponsor);
@@ -75,28 +137,42 @@ public class AcSponsorDaoImpl extends GenericDaoSupport<Long, AcSponsor> impleme
     }
 
     @Override
-    public void updateCoverage(AcSponsor sponsor, AcCoverage coverage, AcUser user) {
-        Validate.notNull(sponsor, "Batch should not be null");
-        Validate.notNull(coverage, "coverage member should not be null");
-
-        Session session = sessionFactory.getCurrentSession();
-        coverage.setSponsor(sponsor);
-
-        AcMetadata metadata = coverage.getMetadata();
-        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
-        metadata.setModifierId(user.getId());
-        metadata.setState(AcMetaState.ACTIVE);
-        coverage.setMetadata(metadata);
-        session.update(coverage);
-    }
-
-    @Override
     public void deleteCoverage(AcSponsor sponsor, AcCoverage coverage, AcUser user) {
-        Validate.notNull(sponsor, "Batch should not be null");
-        Validate.notNull(coverage, "coverage member should not be null");
+        Validate.notNull(sponsor, "Sponsor should not be null");
+        Validate.notNull(coverage, "Coverage should not be null");
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(coverage);
     }
 
+    @Override
+    public void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship, AcUser user) {
+        Validate.notNull(sponsor, "Sponsor should not be null");
+        Validate.notNull(sponsorship, "Sponsorship should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        sponsorship.setSponsor(sponsor);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(ACTIVE);
+        sponsorship.setMetadata(metadata);
+
+        session.save(sponsorship);
+    }
+
+    @Override
+    public void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship, AcUser user) {
+        Validate.notNull(sponsor, "Sponsor should not be null");
+        Validate.notNull(sponsorship, "Sponsorship should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcMetadata metadata = sponsorship.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.INACTIVE);
+        sponsorship.setMetadata(metadata);
+        session.update(sponsor);
+    }
 }

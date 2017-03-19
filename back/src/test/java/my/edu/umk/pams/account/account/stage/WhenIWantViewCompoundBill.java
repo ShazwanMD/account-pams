@@ -46,7 +46,7 @@ public class WhenIWantViewCompoundBill extends Stage<WhenIWantViewCompoundBill> 
 	public WhenIWantViewCompoundBill I_want_view_my_compound_bill(){
 		/*
 		 * // 1. guna identity service untuk find student by matric number
-		 * AcStudent student = identityservice.findStudentByStudentNo(student);
+		 * AcStudent student = identityservice.findStudentByMatricNo(student);
 		 * 
 		 * // gunakan account service untuk dapatkan charges by student account
 		 * account = accountservice.findAccountByActor(student);
@@ -91,13 +91,13 @@ public class WhenIWantViewCompoundBill extends Stage<WhenIWantViewCompoundBill> 
 		 * 
 		 * //1. Guna identity service untuk find student by matric number
 		 * AcStudent acstudent =
-		 * identityservice.findStudentByStudentNo(StudentNo);
+		 * identityservice.findStudentByMatricNo(StudentNo);
 		 * 
 		 * 
 		 * // 1. find student account //account =
 		 * accountService.findAccountByActor(student);
 		 * 
-		 * student = identityservice.findStudentByStudentNo("1");
+		 * student = identityservice.findStudentByMatricNo("1");
 		 * 
 		 * // 2. get charges from student account AcAccountCharge charge = new
 		 * AcAccountChargeImpl(); charge.getReferenceNo(); charge.getSourceNo();
@@ -108,7 +108,7 @@ public class WhenIWantViewCompoundBill extends Stage<WhenIWantViewCompoundBill> 
 		 
 
 		// 1. guna identity service untuk find student by matric number
-		AcStudent student = identityservice.findStudentByStudentNo(matricNo);
+		AcStudent student = identityservice.findStudentByMatricNo(matricNo);
 
 		// 2. gunakan account service untuk dapatkan charges by student
 		account = accountService.findAccountByActor(student);
