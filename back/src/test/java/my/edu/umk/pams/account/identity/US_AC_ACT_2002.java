@@ -47,9 +47,8 @@ public class US_AC_ACT_2002 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	}
 
 	@Test
-	@Rollback(false)
-	public void testAddSponsorByCurrentUser() {
-
+	@Rollback(true)
+	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
 
 		// kadang2 this could be a hint

@@ -5,7 +5,6 @@ import my.edu.umk.pams.account.account.stage.ThenTheStudentIsAdded;
 import my.edu.umk.pams.account.account.stage.WhenIAddAStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBusinessAdminUser;
-import my.edu.umk.pams.bdd.tags.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,15 +27,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class US_AC_ACT_0000 extends SpringScenarioTest<GivenIAmBusinessAdminUser, WhenIAddAStudent, ThenTheStudentIsAdded>{
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0000.class);
+    public static final String MATRIC_NO = "A17P001";
 
     @Test
     @Rollback
     public void scenario001() {
-        // Given
-        given().I_am_a_business_admin_user();
-        // When
-        when().I_add_a_student_user();
-        // Then
+        given().I_am_a_business_admin_user_in_current_academic_session();
+        when().I_pick_a_student_$(MATRIC_NO);
         then().the_student_user_is_added();
     }
 }

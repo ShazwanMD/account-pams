@@ -5,7 +5,6 @@ import my.edu.umk.pams.account.account.stage.ThenAccountIsCharged;
 import my.edu.umk.pams.account.account.stage.WhenIAddAnAccountCharge;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBusinessAdminUser;
-import my.edu.umk.pams.bdd.tags.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ public class US_AC_ACT_0001 extends SpringScenarioTest<GivenIAmBusinessAdminUser
      */
     @Test
     public void listChargesByAccountForBusinessUser() {
-        given().I_am_a_business_admin_user();
+        given().I_am_a_business_admin_user_in_current_academic_session();
         when().I_show_charges_by_account_for_accountNo_$("0-000-0");
         then().the_charges_for_the_student_are_listed();
     }

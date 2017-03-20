@@ -4,11 +4,11 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import io.jsonwebtoken.lang.Assert;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcUser;
-import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcUserDetails;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,18 @@ public class GivenIAmBusinessAdminUser extends Stage<GivenIAmBusinessAdminUser> 
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private AccountService accountService;
+
     @ProvidedScenarioState
     private AcUser businessAdminUser;
 
-    public GivenIAmBusinessAdminUser I_am_a_business_admin_user() {
+    @ProvidedScenarioState
+    private AcAcademicSession acAcademicSession;
+
+    public GivenIAmBusinessAdminUser I_am_a_business_admin_user_in_current_academic_session() {
         loginAsBusinessAdmin();
+        acAcademicSession = accountService.findCurrentAcademicSession();
         return self();
     }
 

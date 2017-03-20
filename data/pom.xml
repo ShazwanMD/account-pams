@@ -281,7 +281,9 @@
                                 <srcFile>src/test/resources/data/AC_RFRN_NO.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_PCPL.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACTR.sql</srcFile>
-                                <srcFile>src/test/resources/data/AC_ACCT.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_SPSR.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_ACCT-STDN.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_ACCT-SPSR.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACDM_SESN.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_CHRG_CODE.sql</srcFile>
                             </srcFiles>

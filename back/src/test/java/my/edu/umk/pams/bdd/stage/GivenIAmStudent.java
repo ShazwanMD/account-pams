@@ -4,6 +4,7 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcUser;
@@ -34,6 +35,9 @@ public class GivenIAmStudent extends Stage<GivenIAmStudent> {
 	@ProvidedScenarioState
 	private AcStudent student;
 
+	@ProvidedScenarioState
+	private AcAccount account;
+
 	public void I_am_a_student_in_$_academic_session(String academicSessionCode) {
 		loginAsStudent();
 		academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
@@ -52,5 +56,6 @@ public class GivenIAmStudent extends Stage<GivenIAmStudent> {
 		// retrieve student from user
 		AcUser user = ((AcUserDetails) authed.getPrincipal()).getUser();
 		student = (AcStudent) user.getActor();
+		account = accountService.findAccountByActor(student);
 	}
 }

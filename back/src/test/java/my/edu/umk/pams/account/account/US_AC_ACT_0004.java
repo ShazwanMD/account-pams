@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@Issue(value = { "PAMSU-6" })
+@Issue(value = {"PAMSU-6"})
 public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAddAccountCharge, ThenAccountIsCharged> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0004.class);
@@ -37,7 +37,7 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
     public void after() {
     }
 
-    private static final String STUDENT_NO = "ABC001";
+    private static final String MATRIC_NO = "A17P001";
     private static final String SESSION_CODE = "201720181";
     private static final double CHARGE_AMOUNT = 200.00;
 
@@ -48,37 +48,35 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
      */
     @Test
     @Rollback(true)
-    public void testScenario1() {
+    public void scenario1() {
         given().I_am_a_bursary_in_current_academic_session();
-        when().I_create_student_account_and_add_account_charge_of_$(CHARGE_AMOUNT);
+        when().I_pick_student_account_and_add_account_charge_of_$(MATRIC_NO, CHARGE_AMOUNT);
         then().student_account_is_charged_$(CHARGE_AMOUNT);
     }
 
     @Test
     @Rollback(true)
-    public void testScenario2() {
+    public void scenario2() {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);
-        when().I_create_student_account_and_add_account_charge_of_$(CHARGE_AMOUNT);
+        when().I_pick_student_account_and_add_account_charge_of_$(MATRIC_NO, CHARGE_AMOUNT);
         then().student_account_is_charged_$(CHARGE_AMOUNT);
     }
 
     @Test
     @Rollback(true)
-    public void testScenario3() {
+    public void scenario3() {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);
-        when().I_create_student_account_and_add_academic_charge();
+        when().I_pick_student_account_and_add_academic_charge(MATRIC_NO);
         then().student_account_is_charged_$(CHARGE_AMOUNT);
     }
 
     @Test
     @Ignore
     @Rollback
-    public  void flawedScenario()
-    {
+    public void flawedScenario() {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);
-        when().I_create_student_account_and_add_academic_charge();
+        when().I_pick_student_account_and_add_academic_charge(MATRIC_NO);
         then().the_charges_are_misplaced("INTENTIONALLY_BROKEN_METHOD");
-
     }
 }
 

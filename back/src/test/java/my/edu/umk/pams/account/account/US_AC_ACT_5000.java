@@ -29,6 +29,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
 public class US_AC_ACT_5000 extends
 		SpringScenarioTest<GivenIAmPPSAdministrator, WhenIRegisterStudentCompoundBill, ThenCompoundDetailsAreRecord> {
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5000.class);
+	public static final String MATRIC_NO = "A17P001";
 
 	@Before
 	public void before() {
@@ -40,13 +41,10 @@ public class US_AC_ACT_5000 extends
 
 	@Test
 	@Rollback
-	public void testScenario0() {
-		// Given
-		given().I_am_a_PPS_administrator_in_current_academic_session();
-		// When
+	public void scenario1() {
+		given().I_am_a_PPS_administrator_in_current_academic_session()
+				.and().I_pick_a_student_$(MATRIC_NO);
 		when().register_student_compound_bill();
-		// Then
 		then().compound_details_are_record();
 	}
-
 }

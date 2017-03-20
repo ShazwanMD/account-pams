@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
@@ -26,22 +25,11 @@ public class ThenTheStudentIsAdded extends Stage<ThenTheStudentIsAdded> {
     private IdentityService identityService;
 
     @ExpectedScenarioState
-    private String studentNo;
-
-    @ExpectedScenarioState
-    private String studentName;
-
-    @ExpectedScenarioState
-    private Long studentId;
+    private String matricNo;
 
     public ThenTheStudentIsAdded the_student_user_is_added(){
-
-        AcStudent student = identityService.findStudentById(studentId);
-
-        final String entityName = student.getClass().getSimpleName();
-        Assert.notNull(student.getId(), "No " + entityName + " found with studentNo " + studentNo);
-        Assert.notNull(student.getName(), "No " + entityName + " found with studentName " + studentName);
-
+        AcStudent student = identityService.findStudentByMatricNo(matricNo);
+        Assert.notNull(student, "Student is found");
         return self();
     }
 }

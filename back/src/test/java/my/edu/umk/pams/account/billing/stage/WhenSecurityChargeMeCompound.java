@@ -9,9 +9,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcSecurityCharge;
 import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.security.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +34,7 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
     private AccountService accountService;
 
     public WhenSecurityChargeMeCompound security_issues_me_compound_charges() {
-
-        // find student account
-        account = accountService.findAccountByActor(student);
-
-        // add charges to student account
+        // add charges to given student account
         AcSecurityCharge charge = new AcSecurityChargeImpl();
         charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
         charge.setSourceNo("SRCNO");
@@ -48,15 +42,8 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
         charge.setAmount(BigDecimal.valueOf(100.00));
         charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         charge.setSession(academicSession);
-        
-        
-        
-        System.out.println("charge "+charge);
-      
-
-        // use account service to add charge
         accountService.addAccountCharge(account, charge);
-        	
+
         return self();
     }
 }

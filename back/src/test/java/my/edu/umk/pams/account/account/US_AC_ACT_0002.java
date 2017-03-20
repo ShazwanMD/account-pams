@@ -25,34 +25,33 @@ import org.springframework.transaction.annotation.Transactional;
 public class US_AC_ACT_0002 extends SpringScenarioTest<GivenIAmBusinessAdminUser, WhenIAddAStudent, ThenTheStudentIsAdded>{
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0002.class);
+    public static final String MATRIC_NO = "A17P001";
+
     @ScenarioStage
-    private WhenIAddAStudentAccount additionalWhen;
+    private WhenIPickAStudentAccount additionalWhen;
 
     @ScenarioStage
     private ThenTheAccountIsAdded additionalThen;
 
     private static final double CHARGE_AMOUNT = 200.00;
 
-
     @Before
     public void before() {
-
     }
 
     @After
     public void after() {
-
     }
 
     @Test
     @Rollback
     public void scenario1() {
         // Given
-        given().I_am_a_business_admin_user();
+        given().I_am_a_business_admin_user_in_current_academic_session();
 
         // When
-        when().I_add_a_student_user();
-        additionalWhen.and().I_add_a_student_account();
+        when().I_pick_a_student_$(MATRIC_NO);
+        additionalWhen.and().I_pick_student_account();
         addStage(WhenIAddAnAccountCharge.class).and().I_add_an_account_charge(CHARGE_AMOUNT);
 
         // Then
