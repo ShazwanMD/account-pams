@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @JGivenStage
 public class WhenIListAcademicChargesByAccount extends Stage<WhenIListAcademicChargesByAccount> {
     private static final Logger LOG = LoggerFactory.getLogger(WhenIListAcademicChargesByAccount.class);
@@ -35,6 +37,7 @@ public class WhenIListAcademicChargesByAccount extends Stage<WhenIListAcademicCh
         Assert.notNull(account, "Account cannot be null");
 
         chargeType = AcAccountChargeType.ACADEMIC_LATE;
+        List<AcAccountCharge> accountCharges = accountService.findAccountCharges(account, chargeType);
 
         AcAccountCharge charge = new AcAccountChargeImpl();
         charge.setChargeType(chargeType);
