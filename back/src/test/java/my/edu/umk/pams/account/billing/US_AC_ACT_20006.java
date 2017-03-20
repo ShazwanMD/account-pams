@@ -13,11 +13,12 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.billing.stage.ThenAReceiptIsGenerated;
 import my.edu.umk.pams.account.billing.stage.WhenIPayCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_BLG_0012 extends	SpringScenarioTest<GivenIAmStudent, WhenIPayCompound, ThenAReceiptIsGenerated>{
+public class US_AC_ACT_20006 extends	SpringScenarioTest<GivenIAmBursary, WhenIPayCompound, ThenAReceiptIsGenerated>{
 //As a Student, I want to print receipt compound so that it can be used as proof of payment.
 
     @Before
@@ -31,9 +32,9 @@ public class US_AC_BLG_0012 extends	SpringScenarioTest<GivenIAmStudent, WhenIPay
     @Test
     @Rollback(true)
     public void scenarioPayment(){
-    	given().I_am_a_student_in_current_academic_session();
+    	given().I_am_a_bursary_in_current_academic_session();
     	when().I_pay_the_compound();
-    	then().Payment_receipt_generated();
+    	//then().Payment_receipt_generated();
     }
     
 
