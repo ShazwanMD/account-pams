@@ -1,0 +1,8 @@
+In command prompt
+git reset hard : git reset --hard HEAD
+copy setting file in location (C:\Users\PEJA-PAMS\git\account\data\src\test\resources) to location m2 
+(C:\Users\PEJA-PAMS\.m2)
+
+drop table :<../git/account/data> mvn sql:execute@db-drop
+
+create table : mvn sql:execute@db-seed

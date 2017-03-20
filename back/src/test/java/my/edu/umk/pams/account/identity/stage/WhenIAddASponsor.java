@@ -38,7 +38,7 @@ public class WhenIAddASponsor extends Stage<WhenIAddASponsor>{
         sponsor.setFax("097445566");
         sponsor.setEmail("sponsorship@tnb.my");
         identityService.saveSponsor(sponsor);
-        
+       
         return self();
     }
     

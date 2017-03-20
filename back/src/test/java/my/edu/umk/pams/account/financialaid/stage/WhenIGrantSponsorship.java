@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.identity.stage;
+package my.edu.umk.pams.account.financialaid.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -13,7 +13,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @JGivenStage
-public class WhenIGrantSponsorshipToStudent extends Stage<WhenIGrantSponsorshipToStudent>{
+public class WhenIGrantSponsorship extends Stage<WhenIGrantSponsorship>{
 
     @Autowired
     private IdentityService identityService;
@@ -24,16 +24,35 @@ public class WhenIGrantSponsorshipToStudent extends Stage<WhenIGrantSponsorshipT
     @ExpectedScenarioState
     AcStudent student;
 
+    @ExpectedScenarioState
+    private String matricNo;
+    
+    @ExpectedScenarioState
+    private String sponsorNo;
 
     @As("I add student by sponsorship")
-    public WhenIGrantSponsorshipToStudent I_grant_sponsorship_of_$_to_the_student(String sponsorNo){
+    public WhenIGrantSponsorship I_grant_sponsorship_of_$_to_the_student(String sponsorNo){
+    	
     	sponsor = identityService.findSponsorBySponsorNo(sponsorNo);
-
+    	
     	AcSponsorship sponsorship = new AcSponsorshipImpl();
     	sponsorship.setSponsor(sponsor);
-    	sponsorship.setStudent(identityService.findStudentById(2L));
+    	sponsorship.setStudent(identityService.findStudentByMatricNo(matricNo));
     	identityService.addSponsorship(student, sponsorship);
 
+    	return self();
+    }
+    
+    @As("I add sponsor by sponsorship")
+    public WhenIGrantSponsorship I_grant_sponsorship_of_$_to_the_sponsor(String matricNo){
+    	
+    	student = identityService.findStudentByMatricNo(matricNo);
+    	
+    	AcSponsorship sponsorship = new AcSponsorshipImpl();
+    	sponsorship.setSponsor(identityService.findSponsorBySponsorNo(sponsorNo));
+    	sponsorship.setStudent(student);
+     	identityService.addSponsorship(sponsor, sponsorship);
+     	
     	return self();
     }
 }

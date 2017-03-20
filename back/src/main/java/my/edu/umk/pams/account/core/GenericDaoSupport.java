@@ -211,7 +211,6 @@ public class GenericDaoSupport<K, I> implements GenericDao<K, I>, InitializingBe
             Session session = sessionFactory.getCurrentSession();
             prepareMetadata(entity, user, true);
             prepareFlowData(entity, user);
-            session.save(entity);
         } catch (HibernateException e) {
             LOG.debug("error occurred", e);
         }
