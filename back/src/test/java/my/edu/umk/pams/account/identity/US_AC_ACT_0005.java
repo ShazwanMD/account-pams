@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.identity;
 
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.stage.ThenTheSponsorIsAdded;
 import my.edu.umk.pams.account.identity.stage.WhenIAddASponsor;
-import my.edu.umk.pams.bdd.stage.GivenIAmAUser;
+
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 /**
