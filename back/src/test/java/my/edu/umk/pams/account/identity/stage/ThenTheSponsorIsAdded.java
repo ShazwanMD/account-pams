@@ -1,9 +1,8 @@
 package my.edu.umk.pams.account.identity.stage;
 
-import static org.junit.Assert.assertTrue;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -33,6 +32,8 @@ public class ThenTheSponsorIsAdded extends Stage<ThenTheSponsorIsAdded> {
 	@As("the sponsor is added")
     public ThenTheSponsorIsAdded the_sponsor_user_is_added(){
 
+		boolean hasSponsor = identityService.hasUser(sponsor);
+		Assert.isTrue(hasSponsor, "User sponsor not available");
 
         return self();
     
@@ -41,7 +42,9 @@ public class ThenTheSponsorIsAdded extends Stage<ThenTheSponsorIsAdded> {
 	@As("the sponsor account is added")
     public ThenTheSponsorIsAdded the_sponsor_account_is_added(){
 
-
+		boolean hasSponsor = identityService.hasUser(sponsor);
+		Assert.isTrue(hasSponsor, "User sponsor not available");
+		
         return self();
       
    

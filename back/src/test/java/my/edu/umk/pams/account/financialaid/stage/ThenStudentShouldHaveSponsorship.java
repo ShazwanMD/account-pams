@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.identity.stage;
+package my.edu.umk.pams.account.financialaid.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;

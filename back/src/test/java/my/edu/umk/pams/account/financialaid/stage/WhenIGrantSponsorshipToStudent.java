@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.identity.stage;
+package my.edu.umk.pams.account.financialaid.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -27,8 +27,9 @@ public class WhenIGrantSponsorshipToStudent extends Stage<WhenIGrantSponsorshipT
 
     @As("I add student by sponsorship")
     public WhenIGrantSponsorshipToStudent I_grant_sponsorship_of_$_to_the_student(String sponsorNo){
+    	
     	sponsor = identityService.findSponsorBySponsorNo(sponsorNo);
-
+    	
     	AcSponsorship sponsorship = new AcSponsorshipImpl();
     	sponsorship.setSponsor(sponsor);
     	sponsorship.setStudent(identityService.findStudentById(2L));

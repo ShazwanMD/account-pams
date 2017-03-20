@@ -19,8 +19,6 @@ import my.edu.umk.pams.account.identity.stage.WhenIAddASponsorDetails;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 /**
- * todo(hajar): refactor masuk financialaid
- *
  * As bursary
  * 	I want to add sponsor coverage, 
  * 		so that sponsor coverage is added
@@ -35,9 +33,6 @@ public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_FNA_1000.class);
 
-	// identity_no, refer data/../AC_ACTR.sql
-	private static final String SPONSOR_NO = "JPA";
-
 	@Before
 	public void before() {
 	}
@@ -45,13 +40,18 @@ public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	@After
 	public void after() {
 	}
-
+	
+	private static final Long ID = (long) 13;
 
 	@Test
 	@Rollback(false)
-	public void scenario1() {
+	public void testAddSponsorCoverageByCurrentUser() {
+		
 		given().I_am_a_bursary_in_current_academic_session();
-		when().I_add_sponsor_$_with_coverage(SPONSOR_NO);
+
+		when().I_add_sponsor_coverage$(ID);
+
 		then().the_sponsor_coverage_is_added();
 	}
+
 }

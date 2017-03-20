@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.identity;
+package my.edu.umk.pams.account.financialaid;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,16 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.identity.stage.ThenStudentSponsorshipIsAdded;
-import my.edu.umk.pams.account.identity.stage.ThenTheSponsorCoverageIsAdded;
-import my.edu.umk.pams.account.identity.stage.WhenIAddASponsorDetails;
-import my.edu.umk.pams.account.identity.stage.WhenIAddStudentSponsorship;
+import my.edu.umk.pams.account.financialaid.stage.ThenTheSponsorCoverageIsAdded;
+import my.edu.umk.pams.account.financialaid.stage.WhenIAddASponsorDetails;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 /**
+ * 
+ *
  * As bursary
- * 	I want to add sponsorship for student, 
- * 		so that I know which student have a sponsorship
+ * 	I want to add sponsor coverage, 
+ * 		so that sponsor coverage is added
  * 
  * @author PAMS
  *
@@ -31,7 +31,11 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_FNA_1001 extends SpringScenarioTest<GivenIAmBursary, WhenIAddStudentSponsorship, ThenStudentSponsorshipIsAdded>{
+public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsorDetails, ThenTheSponsorCoverageIsAdded>{
+	
+	private static final Logger LOG = LoggerFactory.getLogger(US_AC_FNA_1000.class);
+
+	private static final String SPONSOR_NO = "SPNSR-1489971827891";
 
 	@Before
 	public void before() {
@@ -40,18 +44,13 @@ public class US_AC_FNA_1001 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	@After
 	public void after() {
 	}
-	
-	private static final Long ID = (long) 13;
+
 
 	@Test
 	@Rollback(false)
-	public void testGroupStudentBySponsor() {
-		
+	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
-
-		when().I_add_student_by_sponsorship$(ID);
-
-		then().the_student_sponsorship_is_added();
+		when().I_add_sponsor_$_with_coverage(SPONSOR_NO);
+		then().the_sponsor_coverage_is_added();
 	}
-
 }
