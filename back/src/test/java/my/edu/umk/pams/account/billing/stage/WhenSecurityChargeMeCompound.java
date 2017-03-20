@@ -33,12 +33,6 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
     private AcAcademicSession academicSession;
 
     @Autowired
-    private CommonService commonService;
-
-    @Autowired
-    private SecurityService securityService;
-
-    @Autowired
     private AccountService accountService;
 
     public WhenSecurityChargeMeCompound security_issues_me_compound_charges() {
@@ -50,14 +44,19 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
         AcSecurityCharge charge = new AcSecurityChargeImpl();
         charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
         charge.setSourceNo("SRCNO");
-        charge.setDescription("tatatataa");
+        charge.setDescription("Charge is:");
         charge.setAmount(BigDecimal.valueOf(100.00));
         charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         charge.setSession(academicSession);
+        
+        
+        
+        System.out.println("charge "+charge);
+      
 
         // use account service to add charge
         accountService.addAccountCharge(account, charge);
-
+        	
         return self();
     }
 }
