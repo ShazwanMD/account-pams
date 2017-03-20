@@ -11,7 +11,7 @@ import java.util.Date;
  * @author PAMS
  */
 @Entity(name = "AcAccountTransaction")
-@Table(name = "Ac_ACCT_TRSN")
+@Table(name = "AC_ACCT_TRSN")
 public class AcAccountTransactionImpl implements AcAccountTransaction {
 
     @Id

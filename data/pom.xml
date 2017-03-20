@@ -244,7 +244,7 @@
                 <executions>
                     <execution>
                         <!-- Warning: This Drops Everything!!! -->
-                        <id>reset-drop-all</id>
+                        <id>db-drop</id>
                         <!-- Warning: This Drops Everything!!! -->
                         <goals>
                             <goal>execute</goal>
@@ -262,7 +262,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>create-tables-seed</id>
+                        <id>db-seed</id>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -278,6 +278,7 @@
                                 <srcFile>src/test/resources/ddl/ACL.POSTGRES.sql</srcFile>
                                 <srcFile>src/test/resources/ddl/ACT.POSTGRES.sql</srcFile>
                                 <srcFile>src/test/resources/ddl/BAT.POSTGRES.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_RFRN_NO.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_PCPL.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACTR.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACCT.sql</srcFile>

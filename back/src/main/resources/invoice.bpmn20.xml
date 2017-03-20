@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="definitions"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             targetNamespace="Billing">
+
+
+    <!--
+    ====================================================================================================
+    ==  DRAFTED > REGISTERED > VERIFIED > APPROVED >>  COMPLETED >> END
+    ====================================================================================================
+    -->
+
+    <!--
+    ====================================================================================================
+    == VARIABLE:
+    == invoiceId: invoice id
+    ====================================================================================================
+    -->
+
+    <process id="invoice_workflow" name="Billing Invoice Workflow">
+
+        <startEvent id="start"/>
+
+        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="invoice_draft_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : DRAFTED
+        == SERVICE TASK : draft a invoice
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="invoice_draft_ST"
+                     activiti:expression="#{invoice_draft_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow2.3" sourceRef="invoice_draft_ST" targetRef="invoice_register_ST"/>
+        <!--
+        ====================================================================================================
+        == STATE : REGISTERED
+        == SERVICE TASK : register a invoice
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="invoice_register_ST"
+                     activiti:expression="#{invoice_register_ST.execute(execution)}"/>
+
+
+        <sequenceFlow id="flow3.3" sourceRef="invoice_register_ST" targetRef="invoice_verify_ST"/>
+        <!--
+        ====================================================================================================
+        == STATE : VERIFIED
+        == SERVICE TASK : verify a invoice
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="invoice_verify_ST"
+                     activiti:expression="#{invoice_verify_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow4.2" sourceRef="invoice_verify_ST" targetRef="invoice_approve_ST"/>
+
+
+        <!--
+        ====================================================================================================
+        == STATE : REMOVED
+        == SERVICE TASK : removed a invoice
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="invoice_remove_ST"
+                     activiti:expression="#{invoice_remove_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow7.1" sourceRef="invoice_remove_ST" targetRef="end"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : APPROVED
+        == SERVICE TASK : approve a invoice
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="invoice_approve_ST"
+                     activiti:expression="#{invoice_approve_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow8.1" sourceRef="invoice_approve_ST" targetRef="invoice_complete_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : COMPLETED
+        == SERVICE TASK : complete a invoice
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="invoice_complete_ST"
+                     activiti:expression="#{invoice_complete_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow9.1" sourceRef="invoice_complete_ST" targetRef="end"/>
+
+        <!--
+            ====================================================================================================
+            == STATE : END
+            ====================================================================================================
+            -->
+        <endEvent id="end"/>
+
+    </process>
+</definitions>

@@ -40,6 +40,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         TestWorkflowConfig.class,
         TestAccessConfig.class,
         TestCacheConfig.class,
+        ChargeChainConfig.class,
 })
 @PropertySource("classpath:application.properties")
 public class TestAppConfiguration {

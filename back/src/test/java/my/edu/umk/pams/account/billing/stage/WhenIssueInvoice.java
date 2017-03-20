@@ -66,7 +66,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
         charge.setAmount(BigDecimal.valueOf(200.00));
         charge.setDescription("This is a test");
         charge.setSession(academicSession);
-        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         accountService.addAccountCharge(account, charge);
 
         return self();
@@ -83,7 +83,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
         charge.setAmount(BigDecimal.valueOf(200.00));
         charge.setDescription("This is a test");
         charge.setSession(academicSession);
-        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         accountService.addAccountCharge(account, charge);
 
         // todo(uda): invoice

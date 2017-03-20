@@ -29,10 +29,6 @@ public interface AcReceipt extends AcDocument{
 
     void setTotalReceived(BigDecimal totalReceived);
 
-    BigDecimal getTotalAmountInCurrency();
-
-    void setTotalAmountInCurrency(BigDecimal totalAmountInCurrency);
-
     BigDecimal getTotalAmount();
 
     Date getReceivedDate();

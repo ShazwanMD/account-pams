@@ -1,4 +1,3 @@
-
 create table AC_ACCT (
   ID int8 not null,
   CODE varchar(255) not null,
@@ -29,7 +28,27 @@ create table AC_ACCT_CHRG (
   REFERENCE_NO varchar(255) not null,
   SOURCE_NO varchar(255) not null,
   ACCOUNT_ID int8,
+  INVOICE_ID int8,
   SESSION_ID int8 not null,
+  primary key (ID)
+);
+
+create table AC_ACCT_TRSN (
+  ID int8 not null,
+  AMOUNT numeric(19, 2) not null,
+  C_TS timestamp,
+  C_ID int8,
+  D_TS timestamp,
+  D_ID int8,
+  M_TS timestamp,
+  M_ID int8,
+  M_ST int4,
+  POSTED_DATE timestamp not null,
+  SOURCE_NO varchar(255) not null,
+  TRANSACTION_CODE int4 not null,
+  ACCOUNT_ID int8,
+  CHARGE_CODE_ID int8 not null,
+  SESSION_ID int8,
   primary key (ID)
 );
 
@@ -105,6 +124,11 @@ create table AC_BANK_CODE (
   M_ST int4,
   NAME varchar(255) not null,
   SWIFT_CODE varchar(255) not null,
+  primary key (ID)
+);
+
+create table AC_BSRY_RCPT (
+  ID int8 not null,
   primary key (ID)
 );
 
@@ -185,6 +209,20 @@ create table AC_CNTY_CODE (
   primary key (ID)
 );
 
+create table AC_CVRG (
+  ID int8 not null,
+  C_TS timestamp,
+  C_ID int8,
+  D_TS timestamp,
+  D_ID int8,
+  M_TS timestamp,
+  M_ID int8,
+  M_ST int4,
+  CHARGE_CODE_ID int8,
+  SPONSOR_ID int8,
+  primary key (ID)
+);
+
 create table AC_DSCT_CODE (
   ID int8 not null,
   CODE varchar(255) not null,
@@ -196,6 +234,11 @@ create table AC_DSCT_CODE (
   M_TS timestamp,
   M_ID int8,
   M_ST int4,
+  primary key (ID)
+);
+
+create table AC_ELTC_RCPT (
+  ID int8 not null,
   primary key (ID)
 );
 
@@ -238,6 +281,16 @@ create table AC_EMIL_TMPT (
   primary key (ID)
 );
 
+create table AC_ENMT_CHRG (
+  ID int8 not null,
+  primary key (ID)
+);
+
+create table AC_ENMT_LATE_CHRG (
+  ID int8 not null,
+  primary key (ID)
+);
+
 create table AC_FCTY_CODE (
   ID int8 not null,
   CODE varchar(255) not null,
@@ -249,6 +302,11 @@ create table AC_FCTY_CODE (
   M_TS timestamp,
   M_ID int8,
   M_ST int4,
+  primary key (ID)
+);
+
+create table AC_GNRL_RCPT (
+  ID int8 not null,
   primary key (ID)
 );
 
@@ -274,6 +332,7 @@ create table AC_GROP_MMBR (
 create table AC_INVC (
   ID int8 not null,
   AUDIT_NO varchar(255),
+  BALANCE_AMOUNT numeric(19, 2),
   CANCEL_COMMENT varchar(255),
   DESCRIPTION varchar(255),
   AV_TS timestamp,
@@ -305,6 +364,7 @@ create table AC_INVC (
   UV_ID int8,
   VF_TS timestamp,
   VF_ID int8,
+  INVOICE_NO varchar(255),
   ISSUED_DATE timestamp,
   C_TS timestamp,
   C_ID int8,
@@ -313,11 +373,30 @@ create table AC_INVC (
   M_TS timestamp,
   M_ID int8,
   M_ST int4,
-  RECEIPT_NO varchar(255),
+  PAID boolean,
   REFERENCE_NO varchar(255),
   REMOVE_COMMENT varchar(255),
   SOURCE_NO varchar(255),
+  TOTAL_AMOUNT numeric(19, 2),
   ACCOUNT_ID int8,
+  SESSION_ID int8,
+  primary key (ID)
+);
+
+create table AC_INVC_ITEM (
+  ID int8 not null,
+  AMOUNT numeric(19, 2),
+  BALANCE_AMOUNT numeric(19, 2),
+  DESCRIPTION varchar(255),
+  C_TS timestamp,
+  C_ID int8,
+  D_TS timestamp,
+  D_ID int8,
+  M_TS timestamp,
+  M_ID int8,
+  M_ST int4,
+  CHARGE_CODE_ID int8,
+  INVOICE_ID int8,
   primary key (ID)
 );
 
@@ -398,6 +477,7 @@ create table AC_PRGM_CODE (
 
 create table AC_RCPT (
   ID int8 not null,
+  AUDIT_NO varchar(255),
   CANCEL_COMMENT varchar(255),
   DESCRIPTION varchar(255),
   AV_TS timestamp,
@@ -444,7 +524,6 @@ create table AC_RCPT (
   REMOVE_COMMENT varchar(255),
   SOURCE_NO varchar(255),
   TOTAL_AMOUNT numeric(19, 2),
-  TOTAL_AMOUNT_IN_CURRENCY numeric(19, 2),
   TOTAL_APPLIED numeric(19, 2),
   TOTAL_RECEIVED numeric(19, 2),
   ACCOUNT_ID int8,
@@ -543,8 +622,8 @@ create table AC_SPHP (
   primary key (ID)
 );
 
-create table AC_SPONSOR (
-  CODE_SPONSOR varchar(255),
+create table AC_SPSR (
+  SPONSOR_TYPE int4,
   ID int8 not null,
   primary key (ID)
 );
@@ -652,42 +731,6 @@ create table AC_WTCH (
   primary key (ID)
 );
 
-create table Ac_ACCT_TRSN (
-  ID int8 not null,
-  AMOUNT numeric(19, 2) not null,
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  POSTED_DATE timestamp not null,
-  SOURCE_NO varchar(255) not null,
-  TRANSACTION_CODE int4 not null,
-  ACCOUNT_ID int8,
-  CHARGE_CODE_ID int8 not null,
-  SESSION_ID int8,
-  primary key (ID)
-);
-
-create table Ac_INVC_ITEM (
-  ID int8 not null,
-  AMOUNT numeric(19, 2),
-  AMOUNT_BALANCE numeric(19, 2),
-  DESCRIPTION varchar(255),
-  C_TS timestamp,
-  C_ID int8,
-  D_TS timestamp,
-  D_ID int8,
-  M_TS timestamp,
-  M_ID int8,
-  M_ST int4,
-  CHARGE_CODE_ID int8,
-  INVOICE_ID int8,
-  primary key (ID)
-);
-
 alter table AC_ACCT
   add constraint uc_AC_ACCT_1 unique (CODE);
 
@@ -705,7 +748,27 @@ foreign key (ACCOUNT_ID)
 references AC_ACCT;
 
 alter table AC_ACCT_CHRG
+  add constraint FKD5788A297580D95D
+foreign key (INVOICE_ID)
+references AC_INVC;
+
+alter table AC_ACCT_CHRG
   add constraint FKD5788A29706DBE68
+foreign key (SESSION_ID)
+references AC_ACDM_SESN;
+
+alter table AC_ACCT_TRSN
+  add constraint FKD5806A2862AC940F
+foreign key (ACCOUNT_ID)
+references AC_ACCT;
+
+alter table AC_ACCT_TRSN
+  add constraint FKD5806A2865B1C0CE
+foreign key (CHARGE_CODE_ID)
+references AC_CHRG_CODE;
+
+alter table AC_ACCT_TRSN
+  add constraint FKD5806A28706DBE68
 foreign key (SESSION_ID)
 references AC_ACDM_SESN;
 
@@ -734,6 +797,11 @@ alter table AC_BANK_CODE
 alter table AC_BANK_CODE
   add constraint uc_AC_BANK_CODE_3 unique (SWIFT_CODE);
 
+alter table AC_BSRY_RCPT
+  add constraint FK9DC399FB023D496
+foreign key (ID)
+references AC_RCPT;
+
 alter table AC_CHRG_CODE
   add constraint uc_AC_CHRG_CODE_1 unique (CODE);
 
@@ -751,8 +819,23 @@ alter table AC_CMPS_CODE
 alter table AC_CNTY_CODE
   add constraint uc_AC_CNTY_CODE_1 unique (CODE);
 
+alter table AC_CVRG
+  add constraint FKE62437E565B1C0CE
+foreign key (CHARGE_CODE_ID)
+references AC_CHRG_CODE;
+
+alter table AC_CVRG
+  add constraint FKE62437E5624354E6
+foreign key (SPONSOR_ID)
+references AC_SPSR;
+
 alter table AC_DSCT_CODE
   add constraint uc_AC_DSCT_CODE_1 unique (CODE);
+
+alter table AC_ELTC_RCPT
+  add constraint FK33C32561B023D496
+foreign key (ID)
+references AC_RCPT;
 
 alter table AC_EMAL_QUEU
   add constraint uc_AC_EMAL_QUEU_1 unique (CODE);
@@ -760,8 +843,23 @@ alter table AC_EMAL_QUEU
 alter table AC_EMIL_TMPT
   add constraint uc_AC_EMIL_TMPT_1 unique (CODE);
 
+alter table AC_ENMT_CHRG
+  add constraint FKAE35844CACE4F811
+foreign key (ID)
+references AC_ACCT_CHRG;
+
+alter table AC_ENMT_LATE_CHRG
+  add constraint FK774A03A1ACE4F811
+foreign key (ID)
+references AC_ACCT_CHRG;
+
 alter table AC_FCTY_CODE
   add constraint uc_AC_FCTY_CODE_1 unique (CODE);
+
+alter table AC_GNRL_RCPT
+  add constraint FKD19D8436B023D496
+foreign key (ID)
+references AC_RCPT;
 
 alter table AC_GROP
   add constraint FKE625FA0914AF69B5
@@ -782,6 +880,21 @@ alter table AC_INVC
   add constraint FKE626D48F62AC940F
 foreign key (ACCOUNT_ID)
 references AC_ACCT;
+
+alter table AC_INVC
+  add constraint FKE626D48F706DBE68
+foreign key (SESSION_ID)
+references AC_ACDM_SESN;
+
+alter table AC_INVC_ITEM
+  add constraint FKBE5FD8C365B1C0CE
+foreign key (CHARGE_CODE_ID)
+references AC_CHRG_CODE;
+
+alter table AC_INVC_ITEM
+  add constraint FKBE5FD8C37580D95D
+foreign key (INVOICE_ID)
+references AC_INVC;
 
 alter table AC_MODL
   add constraint uc_AC_MODL_1 unique (CANONICAL_CODE);
@@ -847,15 +960,15 @@ references AC_MODL;
 alter table AC_SPHP
   add constraint FKE62B6622624354E6
 foreign key (SPONSOR_ID)
-references AC_SPONSOR;
+references AC_SPSR;
 
 alter table AC_SPHP
   add constraint FKE62B66224F717CC6
 foreign key (STUDENT_ID)
 references AC_STDN;
 
-alter table AC_SPONSOR
-  add constraint FK14C54BDD565BDDFC
+alter table AC_SPSR
+  add constraint FKE62B6779565BDDFC
 foreign key (ID)
 references AC_ACTR;
 
@@ -893,7 +1006,7 @@ references AC_ACDM_SESN;
 alter table AC_STLT
   add constraint FKE62B75A6624354E6
 foreign key (SPONSOR_ID)
-references AC_SPONSOR;
+references AC_SPSR;
 
 alter table AC_STLT_ITEM
   add constraint FK4574E0C62AC940F
@@ -936,32 +1049,7 @@ alter table AC_USER
 foreign key (ID)
 references AC_PCPL;
 
-alter table Ac_ACCT_TRSN
-  add constraint FK7216C24862AC940F
-foreign key (ACCOUNT_ID)
-references AC_ACCT;
-
-alter table Ac_ACCT_TRSN
-  add constraint FK7216C24865B1C0CE
-foreign key (CHARGE_CODE_ID)
-references AC_CHRG_CODE;
-
-alter table Ac_ACCT_TRSN
-  add constraint FK7216C248706DBE68
-foreign key (SESSION_ID)
-references AC_ACDM_SESN;
-
-alter table Ac_INVC_ITEM
-  add constraint FK5AF630E365B1C0CE
-foreign key (CHARGE_CODE_ID)
-references AC_CHRG_CODE;
-
-alter table Ac_INVC_ITEM
-  add constraint FK5AF630E37580D95D
-foreign key (INVOICE_ID)
-references AC_INVC;
-
-create sequence SEQ_ACTR_ACCT_CHRG;
+create sequence SEQ_ACCT_CHRG;
 
 create sequence SQ_AC_ACCT;
 
@@ -984,6 +1072,8 @@ create sequence SQ_AC_CMPS_CODE;
 create sequence SQ_AC_CNFG;
 
 create sequence SQ_AC_CNTY_CODE;
+
+create sequence SQ_AC_CVRG;
 
 create sequence SQ_AC_DSCT_CODE;
 

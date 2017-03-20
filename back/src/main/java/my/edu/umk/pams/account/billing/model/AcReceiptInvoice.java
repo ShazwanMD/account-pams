@@ -1,13 +1,11 @@
 package my.edu.umk.pams.account.billing.model;
 
+import my.edu.umk.pams.account.core.AcMetaObject;
+
 /**
  * @author PAMS
  */
-public interface AcReceiptInvoice {
-
-    Long getId();
-
-    void setId(Long id);
+public interface AcReceiptInvoice extends AcMetaObject {
 
     AcReceipt getReceipt();
 

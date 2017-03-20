@@ -1,0 +1,52 @@
+package my.edu.umk.pams.account.account;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/** As a Academic (MGSEB/PPS)
+ * I want to register student compound bill
+ * so that the compound details are record
+**/
+
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
+import my.edu.umk.pams.account.account.stage.ThenCompoundDetailsAreRecord;
+import my.edu.umk.pams.account.account.stage.WhenIRegisterStudentCompoundBill;
+import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@ContextConfiguration(classes = TestAppConfiguration.class)
+public class US_AC_ACT_5000 extends
+		SpringScenarioTest<GivenIAmPPSAdministrator, WhenIRegisterStudentCompoundBill, ThenCompoundDetailsAreRecord> {
+	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5000.class);
+
+	@Before
+	public void before() {
+	}
+
+	@After
+	public void after() {
+	}
+
+	@Test
+	@Rollback
+	public void testScenario0() {
+		// Given
+		given().I_am_a_PPS_administrator_in_current_academic_session();
+		// When
+		when().register_student_compound_bill();
+		// Then
+		then().compound_details_are_record();
+	}
+
+}

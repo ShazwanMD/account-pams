@@ -46,7 +46,7 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
         charge.setSourceNo("SRCNO");
         charge.setDescription("sam sam");
         charge.setAmount(BigDecimal.valueOf(100.00));
-        charge.setChargeCode(accountService.findChargeCodeByCode("AC-0001"));
+        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         charge.setSession(academicSession);
         
         

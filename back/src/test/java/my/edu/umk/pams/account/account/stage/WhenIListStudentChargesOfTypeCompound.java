@@ -46,7 +46,7 @@ public class WhenIListStudentChargesOfTypeCompound extends Stage<WhenIListStuden
 	@Pending
 	public void I_list_student_charges_of_type_compound_$(String matricNo) {
 		// guna identity service untuk find student by matric number
-		AcStudent student = identityservice.findStudentByStudentNo(matricNo);
+		AcStudent student = identityservice.findStudentByMatricNo(matricNo);
 
 		// gunakan account service untuk dapatkan charges by student
 		account = accountservice.findAccountByActor(student);

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="definitions"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             targetNamespace="PNM">
+
+
+    <!--
+    ====================================================================================================
+    == VARIABLE:
+    == receiptId: receiptId
+    ======================================================================================================
+    -->
+
+    <process id="bendahari_receipt_workflow" name="PNM Bendahari Receipt Workflow">
+
+        <startEvent id="start"/>
+
+        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="bendahariReceipt_draft_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : DRAFTED
+        == SERVICE TASK : draft a receipt
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="bendahariReceipt_draft_ST"
+                     activiti:expression="#{bendahariReceipt_draft_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow2.1" sourceRef="bendahariReceipt_draft_ST" targetRef="bendahariReceipt_draft_UT"/>
+
+        <userTask id="bendahariReceipt_draft_UT" name="my.edu.umk.pams.intake.billing.model.AcReceipt:DRAFTED"
+                  activiti:assignee="${userCreator}">
+            <documentation>
+                Draft Receipt / Deraf Resit
+            </documentation>
+        </userTask>
+
+        <sequenceFlow id="flow2.2" sourceRef="bendahariReceipt_draft_UT" targetRef="bendahariReceipt_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow2.3" sourceRef="bendahariReceipt_draft_UT" targetRef="bendahariReceipt_register_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!--
+        ====================================================================================================
+        == STATE : REGISTERED
+        == SERVICE TASK : register a receipt
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="bendahariReceipt_register_ST"
+                     activiti:expression="#{bendahariReceipt_register_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow3.1" sourceRef="bendahariReceipt_register_ST" targetRef="bendahariReceipt_register_UT"/>
+
+        <userTask id="bendahariReceipt_register_UT" name="my.edu.umk.pams.intake.billing.model.AcReceipt:REGISTERED"
+                  activiti:candidateGroups="#{receiptRouterService.findRegistererCandidates(receiptId)}">
+            <documentation>
+                Register Receipt / Daftar Resit
+            </documentation>
+
+        </userTask>
+
+        <sequenceFlow id="flow3.2" sourceRef="bendahariReceipt_register_UT" targetRef="bendahariReceipt_approve_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow3.3" sourceRef="bendahariReceipt_register_UT" targetRef="bendahariReceipt_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!--
+        ====================================================================================================
+        == STATE : REMOVED
+        == SERVICE TASK : removed a receipt
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="bendahariReceipt_remove_ST"
+                     activiti:expression="#{bendahariReceipt_remove_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow4.1" sourceRef="bendahariReceipt_remove_ST" targetRef="end"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : APPROVED
+        == SERVICE TASK : approve a receipt
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="bendahariReceipt_approve_ST"
+                     activiti:expression="#{bendahariReceipt_approve_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow5.1" sourceRef="bendahariReceipt_approve_ST" targetRef="bendahariReceipt_complete_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : COMPLETED
+        == SERVICE TASK : complete a receipt
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="bendahariReceipt_complete_ST"
+                     activiti:expression="#{bendahariReceipt_complete_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow6.1" sourceRef="bendahariReceipt_complete_ST" targetRef="end"/>
+
+        <!--
+            ====================================================================================================
+            == STATE : END
+            ====================================================================================================
+            -->
+        <endEvent id="end"/>
+
+    </process>
+</definitions>

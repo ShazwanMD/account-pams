@@ -1,15 +1,17 @@
 package my.edu.umk.pams.account.identity.dao;
 
+import my.edu.umk.pams.account.core.AcMetaState;
+import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
-import my.edu.umk.pams.account.identity.model.AcSponsor;
-import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.model.AcStudentImpl;
+import my.edu.umk.pams.account.identity.model.*;
+import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
@@ -29,12 +31,18 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
     }
 
     @Override
-    public AcStudent findByStudentNo(String studentNo) {
+    public AcStudent findByMatricNo(String matricNo) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select a from AcStudent a where " +
                 "a.identityNo = :identityNo");
-        query.setString("identityNo", studentNo);
+        query.setString("identityNo", matricNo);
         return (AcStudent) query.uniqueResult();
+    }
+
+    @Override
+    public AcSponsorship findSponsorshipById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcSponsorship) session.get(AcSponsorshipImpl.class, id);
     }
 
     @Override
@@ -60,10 +68,26 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
         return query.list();
     }
 
-    // todo(uda): stub
+    @Override
+    public List<AcSponsorship> findSponsorships(AcStudent student) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcSponsorship s where " +
+                "s.student = :student " +
+                "and s.metadata.state = :state ");
+        query.setEntity("student", student);
+        query.setInteger("state", ACTIVE.ordinal());
+        return query.list();
+    }
+
     @Override
     public List<AcSponsor> findSponsors(AcStudent student) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s.sponsor from AcStudent s join s.sponsorship sp where " +
+                "sp.student = :student " +
+                "and s.metadata.state = :state ");
+        query.setEntity("student", student);
+        query.setInteger("state", ACTIVE.ordinal());
+        return query.list();
     }
 
     @Override
@@ -79,7 +103,56 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
     }
 
     @Override
-    public Integer count(AcSponsor sponsor) {
-        return null;
+    public Integer countSponsorship(AcStudent student) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcSponsorship s where " +
+                "s.student = :student " +
+                "and s.metadata.state = :state ");
+        query.setEntity("student", student);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
     }
+
+    @Override
+    public boolean hasSponsorship(AcStudent student) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcSponsorship s where " +
+                "s.student = :student " +
+                "and s.metadata.state = :state ");
+        query.setEntity("student", student);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue() >= 1;
+    }
+
+
+    @Override
+    public void addSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user) {
+        Validate.notNull(student, "Student should not be null");
+        Validate.notNull(sponsorship, "Sponsorship should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        sponsorship.setStudent(student);
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(ACTIVE);
+        sponsorship.setMetadata(metadata);
+
+        session.save(sponsorship);
+    }
+
+    @Override
+    public void removeSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user) {
+        Validate.notNull(student, "Student should not be null");
+        Validate.notNull(sponsorship, "Sponsorship should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcMetadata metadata = sponsorship.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.INACTIVE);
+        sponsorship.setMetadata(metadata);
+        session.update(student);
+    }
+
 }

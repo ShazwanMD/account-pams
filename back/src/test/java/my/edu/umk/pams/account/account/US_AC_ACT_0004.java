@@ -24,6 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Issue(value = { "PAMSU-6" })
 public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAddAccountCharge, ThenAccountIsCharged> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0004.class);

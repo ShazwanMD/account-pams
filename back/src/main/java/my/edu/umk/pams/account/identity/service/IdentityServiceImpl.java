@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.identity.event.StaffCreatedEvent;
 import my.edu.umk.pams.account.identity.event.StaffUpdatedEvent;
 import my.edu.umk.pams.account.identity.event.StudentCreatedEvent;
 import my.edu.umk.pams.account.identity.model.*;
+import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.util.Util;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,16 @@ import java.util.Set;
  * @since 1/30/14
  */
 @Transactional
-@Service("inIdentityService")
+@Service("acIdentityService")
 public class IdentityServiceImpl implements IdentityService {
 
     private static final String GROUP_ROOT = "GRP_ADMN";
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private SecurityService securityService;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -53,7 +57,7 @@ public class IdentityServiceImpl implements IdentityService {
     
     @Autowired
     private AcSponsorDao sponsorDao;
-
+    
     //====================================================================================================
     // PRINCIPAL
     //====================================================================================================
@@ -475,8 +479,8 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
-    public AcStudent findStudentByStudentNo(String StudentNo) {
-        return studentDao.findByStudentNo(StudentNo);
+    public AcStudent findStudentByMatricNo(String matricNo) {
+        return studentDao.findByMatricNo(matricNo);
     }
 
     @Override
@@ -490,6 +494,11 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public List<AcSponsorship> findSponsorships(AcStudent student) {
+        return studentDao.findSponsorships(student);
+    }
+
+    @Override
     public Integer countStudent() {
         return studentDao.count();
     }
@@ -497,6 +506,11 @@ public class IdentityServiceImpl implements IdentityService {
     @Override
     public Integer countStudent(String filter) {
         return studentDao.count(filter);
+    }
+
+    @Override
+    public Integer countSponsorship(AcStudent student) {
+        return studentDao.countSponsorship(student);
     }
 
     @Override
@@ -518,6 +532,18 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public void addSponsorship(AcStudent student, AcSponsorship sponsorship) {
+        studentDao.addSponsorship(student, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeSponsorship(AcStudent student, AcSponsorship sponsorship) {
+        studentDao.removeSponsorship(student, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
     public void broadcastCreated(AcStudent student) {
         StudentCreatedEvent event = new StudentCreatedEvent(student);
         applicationContext.publishEvent(event);
@@ -532,21 +558,93 @@ public class IdentityServiceImpl implements IdentityService {
     //====================================================================================================
     // sponsor
     //====================================================================================================
-    
+
+    @Override
+    public AcSponsor findSponsorById(Long id) {
+        return sponsorDao.findById(id);
+    }
+
+    @Override
+    public AcSponsor findSponsorBySponsorNo(String sponsorNo){
+        return sponsorDao.findBySponsorNo(sponsorNo);
+    }
+
+    @Override
+    public AcCoverage findCoverageById(Long id) {
+        return sponsorDao.findCoverageById(id);
+    }
+
+    @Override
+    public List<AcSponsorship> findSponsorships(AcSponsor sponsor) {
+        return sponsorDao.findSponsorships(sponsor);
+    }
+
+    @Override
+    public List<AcCoverage> findCoverages(AcSponsor sponsor) {
+        return sponsorDao.findCoverages(sponsor);
+    }
+
+    @Override
+    public Integer countCoverage(AcSponsor sponsor) {
+        return sponsorDao.countCoverage(sponsor);
+    }
+
+    @Override
+    public Integer countSponsorship(AcSponsor sponsor) {
+        return sponsorDao.countSponsorship(sponsor);
+    }
+
+    @Override
+    public boolean hasCoverage(AcSponsor sponsor) {
+        return sponsorDao.hasCoverage(sponsor);
+    }
+
     @Override
     public void saveSponsor(AcSponsor sponsor) {
         sponsorDao.save(sponsor, Util.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-    
+
     @Override
-    public AcSponsor findSponsorById(Long id) {
-        return sponsorDao.findById(id);
-    }
-    
-    @Override
-    public AcSponsor findBySponsorNo(String sponsorNo){
-        return sponsorDao.findBySponsorNo(sponsorNo);
+    public void addCoverage(AcSponsor sponsor, AcCoverage coverage) {
+        sponsorDao.addCoverage(sponsor, coverage, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
     }
 
+    @Override
+    public void deleteCoverage(AcSponsor sponsor, AcCoverage coverage) {
+        sponsorDao.deleteCoverage(sponsor, coverage, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    //====================================================================================================
+    // SPONSORSHIP
+    //====================================================================================================
+    
+	@Override
+	public AcSponsorship findSponsorshipById(Long id) {
+		return sponsorDao.findSponsorshipById(id);
+	}
+
+    @Override
+    public boolean hasSponsorship(AcStudent student) {
+        return studentDao.hasSponsorship(student);
+    }
+
+    @Override
+    public boolean hasSponsorship(AcSponsor sponsor) {
+        return sponsorDao.hasSponsorship(sponsor);
+    }
+
+    @Override
+	public void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
+        sponsorDao.addSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+	}
+
+    @Override
+    public void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
+        sponsorDao.removeSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
 }

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author PAMS
  */
 @Entity(name = "AcInvoiceItem")
-@Table(name = "Ac_INVC_ITEM")
+@Table(name = "AC_INVC_ITEM")
 public class AcInvoiceItemImpl implements AcInvoiceItem {
 
     @Id
@@ -27,7 +27,7 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
     @Column(name = "AMOUNT")
     private BigDecimal amount = BigDecimal.ZERO;
 
-    @Column(name = "AMOUNT_BALANCE")
+    @Column(name = "BALANCE_AMOUNT")
     private BigDecimal balanceAmount = BigDecimal.ZERO;
 
     @NotNull
