@@ -27,6 +27,9 @@ public class WhenIListAcademicChargesByAccount extends Stage<WhenIListAcademicCh
     @ProvidedScenarioState
     private AcAccountChargeType chargeType;
 
+    @ProvidedScenarioState
+    List<AcAccountCharge> accountCharges;
+
     @Autowired
     private AccountService accountService;
 
@@ -37,10 +40,7 @@ public class WhenIListAcademicChargesByAccount extends Stage<WhenIListAcademicCh
         Assert.notNull(account, "Account cannot be null");
 
         chargeType = AcAccountChargeType.ACADEMIC_LATE;
-        List<AcAccountCharge> accountCharges = accountService.findAccountCharges(account, chargeType);
-
-        AcAccountCharge charge = new AcAccountChargeImpl();
-        charge.setChargeType(chargeType);
+        accountCharges = accountService.findAccountCharges(account, chargeType);
 
         return self();
     }
