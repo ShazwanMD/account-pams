@@ -9,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
+import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
+import my.edu.umk.pams.account.account.model.AcChargeCodeType;
 import my.edu.umk.pams.account.account.model.AcSecurityCharge;
 import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
@@ -25,7 +29,7 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.service.SecurityService;
-
+@JGivenStage
 public class WhenUpdateStudentCompound extends Stage<WhenUpdateStudentCompound> {
 	private static final Logger LOG = LoggerFactory.getLogger(WhenUpdateStudentCompound.class);
 
@@ -50,20 +54,21 @@ public class WhenUpdateStudentCompound extends Stage<WhenUpdateStudentCompound> 
 	
 	public WhenUpdateStudentCompound I_want_to_update_student_compound_payment() {
 	
-		// find student account
-        account = accountService.findAccountByActor(student);
+		AcChargeCode code = new AcChargeCodeImpl();
+		
+		//find compound by id
+		code = accountService.findChargeCodeByCode("AC-0004");
+		LOG.debug("test", code);
+		// update charge
+		
+		code.setCode("AC-0001");
+		code.setDescription("azieta");
+		code.setChargeType(AcChargeCodeType.HOSTEL);
+		code.setPriority(3);
 
-        // add charges to student account
-        AcSecurityCharge charge = new AcSecurityChargeImpl();
-        charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
-        charge.setSourceNo("TA24");
-        charge.setDescription("ta test");
-        charge.setAmount(BigDecimal.valueOf(100.00));
-        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-TATA"));
-        charge.setSession(academicSession);
 
      // use account service to update charge
-        accountService.updateChargeCode(accountService.findChargeCodeByCode("TATA"));
+        accountService.updateChargeCode(code);
 		
 		return self();
 	}

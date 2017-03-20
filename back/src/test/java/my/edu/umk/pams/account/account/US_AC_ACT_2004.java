@@ -38,7 +38,7 @@ public class US_AC_ACT_2004
 	}
 
 	@Test
-	@Rollback(true)
+	@Rollback(false)
 	public void testScenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
 		when().I_want_to_update_student_compound_payment();
