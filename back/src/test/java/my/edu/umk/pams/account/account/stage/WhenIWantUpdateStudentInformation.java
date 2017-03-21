@@ -8,47 +8,53 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
+import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import io.jsonwebtoken.lang.Assert;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcChargeCodeType;
+import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcActorImpl;
+import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
-
-public class WhenIWantUpdateStudentInformation extends Stage <WhenIWantUpdateStudentInformation>{
+@JGivenStage
+public class WhenIWantUpdateStudentInformation extends Stage<WhenIWantUpdateStudentInformation> {
 	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantUpdateStudentInformation.class);
 
+	@ExpectedScenarioState
+	private AcStudent student;
+
 	@ProvidedScenarioState
-    private String studentNo = "19770816-07-5442";
+	private AcAccount account;
 
-    @ProvidedScenarioState
-    private String studentName = "Siti Aisyah";
+	@ExpectedScenarioState
+	private AcAcademicSession academicSession;
 
-    @ProvidedScenarioState
-    private AcStudent student;
+	@Autowired
+	private IdentityService identityService;
 
-    @ProvidedScenarioState
-    private Long studentId;
+	public WhenIWantUpdateStudentInformation I_want_update_student_information() {
 
-    @Autowired
-    @ExpectedScenarioState
-    private IdentityService identityService;
-    
-	@Pending
-	public WhenIWantUpdateStudentInformation I_want_update_student_information(){
-		
 		AcStudent student = new AcStudentImpl();
-        student.setIdentityNo(studentNo);
-        student.setName(studentName);
-        student.setMobile("+60197888446");
-        identityService.updateStudent(student);
 
-        studentId = student.getId();
-        final String entityName = student.getClass().getSimpleName();
+		// find student by id
+		student = identityService.findStudentByMatricNo("A17P001");
+		LOG.debug("test", student);
 
-        Assert.notNull(student.getId(), entityName + " must have Id");
+		// update student
+		student.setMobile("012-87965454"); 
+		student.setActorType(AcActorType.STUDENT);
 
-        return self();
-		
+		// use account service to update charge
+		identityService.updateStudent(student);
+
+		return self();
+
 	}
 }
