@@ -1,6 +1,10 @@
 package my.edu.umk.pams.account.billing;
 
+import my.edu.umk.pams.account.billing.stage.ThenFilterTheInvoice;
+import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +15,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-//import my.edu.umk.pams.account.billing.stage.ThenFilterTheInvoice;
-//import my.edu.umk.pams.account.billing.stage.WhenIssueInvoiceWithGivenChargeCode;
+import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
+
 
 /*
  * As a bursary, 
@@ -21,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_BLG_2001 { // extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoiceWithGivenChargeCode, ThenFilterTheInvoice>{
+public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenFilterTheInvoice>{
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2001.class);
 	
 	@Before
@@ -35,9 +39,9 @@ public class US_AC_BLG_2001 { // extends SpringScenarioTest<GivenIAmBursary, Whe
     @Test
     @Rollback(true)
     public void scenario1() {
-	    // todo(azieta): fix this
-//		given().I_am_a_bursary_in_current_academic_session();
-//        when().I_want_to_invoice_with_given_charge_code();
-//        then().I_can_filter_what_I_can_invoice();
+
+		given().I_am_a_bursary_in_current_academic_session();
+        when().I_create_student_account_and_add_academic_charge();
+        then().I_can_show_invoice_filter_by_charge_code();
     }
 }
