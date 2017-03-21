@@ -38,7 +38,6 @@ public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_FNA_1000.class);
 
 	private static final String SPONSOR_NO = "HLP";
-	private static final String ACADEMIC_SESSION_CODE = "201720181";
 
 	@Before
 	public void before() {
@@ -52,9 +51,10 @@ public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	@Test
 	@Rollback(false)
 	public void scenario1() {
-		given().I_am_a_bursary_in_current_academic_session();
-		when().I_add_sponsor_$_with_coverage(SPONSOR_NO)
-				.and().I_want_to_add_settlement_process_for_sponsor$(SPONSOR_NO, ACADEMIC_SESSION_CODE);
+		given().I_am_a_bursary_in_current_academic_session()
+				.and().I_pick_a_sponsor_with_sponsor_no_$(SPONSOR_NO);
+		when().I_add_sponsor_with_coverages()
+				.and().I_want_to_start_settlement_process_for_sponsor$();
 		then().the_sponsor_coverage_is_added()
 				.and().I_can_check_my_fees_status();
 	}

@@ -1,5 +1,10 @@
 package my.edu.umk.pams.account.account;
 
+import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
+import my.edu.umk.pams.account.account.stage.ThenCanViewStudentsCompoundCharges;
+import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
+import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,14 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-
-import my.edu.umk.pams.account.account.stage.ThenCanViewStudentsCompoundCharges;
-import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
-import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
-import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
-
 /**
  *  As a Academic (MGSEB/PPS),
  *  I want to list all compound student,
@@ -28,11 +25,12 @@ import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_5001 extends
+public class US_AC_ACT_7002 extends
 		SpringScenarioTest<GivenIAmPPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
-	
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5001.class);
+
+	private static final String MATRIC_NO = "A17P002";
 
 	@Before
 	public void before() {
@@ -48,7 +46,7 @@ public class US_AC_ACT_5001 extends
 		// Given
 		given().I_am_a_PPS_administrator_in_current_academic_session();
 		// When
-		when().list_all_compound_student();
+		when().list_all_compound_student_$(MATRIC_NO);
 		// Then
 		then().can_view_students_compound_charges();
 	}

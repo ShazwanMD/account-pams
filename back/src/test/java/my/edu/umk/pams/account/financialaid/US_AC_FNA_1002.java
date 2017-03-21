@@ -43,7 +43,6 @@ public class US_AC_FNA_1002 extends SpringScenarioTest<GivenIAmBursary, WhenIGro
 	@Test
 	@Rollback(false)
 	public void testGroupSponsorByStudent() {
-
 		given().I_am_a_bursary_in_current_academic_session();
 		when().I_group_student_by_$_sponsor(SPONSOR_NO);
 //		then().the_settlement_can_be_processed();
