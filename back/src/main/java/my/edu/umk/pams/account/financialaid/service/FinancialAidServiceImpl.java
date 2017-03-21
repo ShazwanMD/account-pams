@@ -130,7 +130,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         LOG.debug("Processing process settlement with refNo {}", referenceNo);
 
         // save
-        settlementDao.save(settlement, securityService.getCurrentUser());
+        settlementDao.saveOrUpdate(settlement, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
 
         // generate item

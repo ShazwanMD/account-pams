@@ -30,8 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_FNA_1001 extends SpringScenarioTest<GivenIAmBursary, WhenIGrantSponsorship, ThenStudentAndSponsorShouldHaveSponsorship> {
 
-    private static final String SPONSOR_NO = "SPNSR-1489975805516"; // identity no
-    private static final String MATRIC_NO = "STDN-1489975805920";
+    private static final String SPONSOR_NO = "HLP"; // identity no
+    private static final String MATRIC_NO = "A17P002";
 
     @Before
     public void before() {
