@@ -60,7 +60,7 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
     @Override
     public List<AcStudent> find(AcSponsor sponsor) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from AcStudent s join s.sponsorship sp where " +
+        Query query = session.createQuery("select s from AcStudent s join s.sponsorships sp where " +
                 "sp.sponsor = :sponsor " +
                 "and s.metadata.state = :state ");
         query.setEntity("sponsor", sponsor);
@@ -82,7 +82,7 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
     @Override
     public List<AcSponsor> findSponsors(AcStudent student) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s.sponsor from AcStudent s join s.sponsorship sp where " +
+        Query query = session.createQuery("select s.sponsor from AcStudent s join s.sponsorships sp where " +
                 "sp.student = :student " +
                 "and s.metadata.state = :state ");
         query.setEntity("student", student);
