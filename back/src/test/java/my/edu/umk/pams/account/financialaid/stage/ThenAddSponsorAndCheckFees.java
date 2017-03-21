@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 @JGivenStage
-public class ThenTheSponsorCoverageIsAdded extends Stage<ThenTheSponsorCoverageIsAdded> {
+public class ThenAddSponsorAndCheckFees extends Stage<ThenAddSponsorAndCheckFees> {
 	
 	@Autowired
 	private IdentityService identityService;
@@ -22,7 +22,7 @@ public class ThenTheSponsorCoverageIsAdded extends Stage<ThenTheSponsorCoverageI
     AcSponsor sponsor;
 	
 	@As("the sponsor coverage is added")
-	public ThenTheSponsorCoverageIsAdded the_sponsor_coverage_is_added() {
+	public ThenAddSponsorAndCheckFees the_sponsor_coverage_is_added() {
 		// find coverages by sponsor
 		List<AcCoverage> coverages = identityService.findCoverages(sponsor);
         Assert.notEmpty(coverages, "Sponsor must have coverage");
@@ -30,6 +30,12 @@ public class ThenTheSponsorCoverageIsAdded extends Stage<ThenTheSponsorCoverageI
         // or try other API
 		boolean hasCoverage = identityService.hasCoverage(sponsor);
 		Assert.isTrue(hasCoverage, "Sponsor has coverage");
+
+		return self();
+	}
+	
+	@As("I can check my fees status")
+	public ThenAddSponsorAndCheckFees I_can_check_my_fees_status() {
 
 		return self();
 	}

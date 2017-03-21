@@ -20,8 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @JGivenStage
-public class WhenIWantToViewFeesAndChargesForAStudent extends Stage<WhenIWantToViewFeesAndChargesForAStudent> {
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantToViewFeesAndChargesForAStudent.class);
+public class WhenIWantToPayMyCharges extends Stage<WhenIWantToPayMyCharges> {
+	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantToPayMyCharges.class);
 
 	@ExpectedScenarioState
 	private AcStudent student;
@@ -39,12 +39,10 @@ public class WhenIWantToViewFeesAndChargesForAStudent extends Stage<WhenIWantToV
 	@Autowired
 	private IdentityService identityservice;
 	
-	//public WhenIWantViewCompoundBill I_want_view_my_compound_bill(String matricNo)
-
 	@Pending
-	public WhenIWantToViewFeesAndChargesForAStudent I_want_to_view_fees_and_charges_for_a_student(){
+	public WhenIWantToPayMyCharges I_want_to_pay_my_charges(){
 		
-		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
+		//todo:the process of paying charge - how?
 		
 
 		

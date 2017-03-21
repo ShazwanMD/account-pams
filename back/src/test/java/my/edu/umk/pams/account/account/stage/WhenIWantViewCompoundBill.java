@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
@@ -43,6 +44,7 @@ public class WhenIWantViewCompoundBill extends Stage<WhenIWantViewCompoundBill> 
 	
 	//public WhenIWantViewCompoundBill I_want_view_my_compound_bill(String matricNo)
 
+	@Pending
 	public WhenIWantViewCompoundBill I_want_view_my_compound_bill(){
 		/*
 		 * // 1. guna identity service untuk find student by matric number

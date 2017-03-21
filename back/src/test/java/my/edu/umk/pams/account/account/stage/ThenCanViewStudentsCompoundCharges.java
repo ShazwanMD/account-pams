@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -42,6 +43,7 @@ public class ThenCanViewStudentsCompoundCharges extends Stage<ThenCanViewStudent
 	@Autowired
 	private AccountService accountService;
 
+	@Pending
 	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges() {
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
 		Assert.isTrue(!charges.isEmpty());

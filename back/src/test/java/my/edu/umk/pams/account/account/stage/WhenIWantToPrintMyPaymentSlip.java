@@ -18,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @JGivenStage
-public class WhenIWantToViewCharges extends Stage<WhenIWantToViewCharges> {
-    private static final Logger LOG = LoggerFactory.getLogger(WhenIWantToViewCharges.class);
+public class WhenIWantToPrintMyPaymentSlip extends Stage<WhenIWantToPrintMyPaymentSlip> {
+    private static final Logger LOG = LoggerFactory.getLogger(WhenIWantToPrintMyPaymentSlip.class);
 
     @ExpectedScenarioState
     private AcStudent student;
@@ -37,12 +37,11 @@ public class WhenIWantToViewCharges extends Stage<WhenIWantToViewCharges> {
     @Autowired
     private IdentityService identityservice;
 
-    //public WhenIWantViewCompoundBill I_want_view_my_compound_bill(String matricNo)
 
     @Pending
-    public WhenIWantToViewCharges I_want_to_view_charges() {
+    public WhenIWantToPrintMyPaymentSlip I_want_to_print_my_payment_slip() {
 
-        List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
+        //todo: get data of the payment and put into a slip layout
 
 
         return self();
