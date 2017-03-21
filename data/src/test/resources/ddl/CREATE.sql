@@ -1,3 +1,4 @@
+
 create table AC_ACCT (
   ID int8 not null,
   CODE varchar(255) not null,
@@ -688,7 +689,6 @@ create table AC_STLT_ITEM (
   ACCOUNT_ID int8,
   INVOICE_ID int8,
   SETTLEMENT_ID int8,
-  STUDENT_ID int8,
   primary key (ID)
 );
 
@@ -1022,11 +1022,6 @@ alter table AC_STLT_ITEM
   add constraint FK4574E0C49AD1DB9
 foreign key (SETTLEMENT_ID)
 references AC_STLT;
-
-alter table AC_STLT_ITEM
-  add constraint FK4574E0C4F717CC6
-foreign key (STUDENT_ID)
-references AC_STDN;
 
 alter table AC_STTE_CODE
   add constraint uc_AC_STTE_CODE_1 unique (CODE);

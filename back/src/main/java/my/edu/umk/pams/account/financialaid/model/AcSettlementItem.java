@@ -3,7 +3,6 @@ package my.edu.umk.pams.account.financialaid.model;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.core.AcMetaObject;
-import my.edu.umk.pams.account.identity.model.AcStudent;
 
 import java.math.BigDecimal;
 
@@ -11,6 +10,10 @@ import java.math.BigDecimal;
  * @author PAMS
  */
 public interface AcSettlementItem extends AcMetaObject {
+
+    BigDecimal getBalanceAmount();
+
+    void setBalanceAmount(BigDecimal balanceAmount);
 
     void setStatus(AcSettlementStatus status);
 
@@ -20,18 +23,9 @@ public interface AcSettlementItem extends AcMetaObject {
 
     void setAccount(AcAccount account);
 
-    BigDecimal getBalanceAmount();
-
-    void setBalanceAmount(BigDecimal balanceAmount);
-
     AcSettlement getSettlement();
 
     void setSettlement(AcSettlement settlement);
-
-    //todo(uda): kenapa ada student bila dah point ke account??
-    AcStudent getStudent();
-
-    void setStudent(AcStudent student);
 
     AcInvoice getInvoice();
 

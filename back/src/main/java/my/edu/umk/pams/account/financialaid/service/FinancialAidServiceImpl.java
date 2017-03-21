@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.financialaid.service;
 
+import my.edu.umk.pams.account.account.dao.AcAcademicSessionDao;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
@@ -19,7 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static my.edu.umk.pams.account.AccountConstants.SETTLEMENT_REFERENCE_NO;
 
 /**
  * @author PAMS
@@ -42,8 +47,8 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     @Autowired
     private AcSettlementDao settlementDao;
 
-//    @Autowired
-//    private AcInvoiceDao invoiceDao;
+    @Autowired
+    private AcAcademicSessionDao academicSessionDao;
 
     @Autowired
     private SecurityService securityService;
@@ -116,9 +121,13 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Override
     public void initSettlement(AcSettlement settlement) {
-        String referenceNo = null; // todo(uda): systemService.generateReferenceNo(PROCESS_BATCH_REFERENCE_NO);
+        // prepare reference no generator
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("academicSession", academicSessionDao.findCurrentSession());
+        map.put("sponsor", settlement.getSponsor());
+        String referenceNo = systemService.generateFormattedReferenceNo(SETTLEMENT_REFERENCE_NO, map);
         settlement.setReferenceNo(referenceNo);
-        LOG.debug("Processing process settlement with refNo {}", new Object[]{referenceNo});
+        LOG.debug("Processing process settlement with refNo {}", referenceNo);
 
         // save
         settlementDao.save(settlement, securityService.getCurrentUser());

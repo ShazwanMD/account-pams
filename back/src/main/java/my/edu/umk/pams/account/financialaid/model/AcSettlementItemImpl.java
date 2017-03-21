@@ -5,8 +5,6 @@ import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
-import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,23 +25,19 @@ public class AcSettlementItemImpl implements AcSettlementItem {
     @JoinColumn(name = "SETTLEMENT_ID")
     private AcSettlement settlement;
 
+    @Column(name = "SETTLEMENT_STATUS", nullable = false)
+    private AcSettlementStatus status = AcSettlementStatus.NEW;
+
+    @Column(name = "BALANCE_AMOUNT", nullable = false)
+    private BigDecimal balanceAmount = BigDecimal.ZERO;
+
     @NotNull
     @OneToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
 
-    @Column(name = "SETTLEMENT_STATUS", nullable = false)
-    private AcSettlementStatus status = AcSettlementStatus.NEW;
-
-    @Column(name = "BALANCE_AMOUNT", nullable = false)
-    private BigDecimal balanceAmount;
-
-    @ManyToOne(targetEntity = AcStudentImpl.class)
-    @JoinColumn(name = "STUDENT_ID")
-    private AcStudent student;
-
     @OneToOne(targetEntity = AcInvoiceImpl.class)
-    @JoinColumn(name = "INVOICE_ID")
+    @JoinColumn(name = "INVOICE_ID", nullable = true)
     private AcInvoice invoice;
 
     @Embedded
@@ -95,16 +89,6 @@ public class AcSettlementItemImpl implements AcSettlementItem {
     @Override
     public void setBalanceAmount(BigDecimal balanceAmount) {
         this.balanceAmount = balanceAmount;
-    }
-
-    @Override
-    public AcStudent getStudent() {
-        return student;
-    }
-
-    @Override
-    public void setStudent(AcStudent student) {
-        this.student = student;
     }
 
     @Override

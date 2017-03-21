@@ -1,4 +1,39 @@
 
+    create table ACL_CLASS (
+        ID int8 not null,
+        CLASS varchar(255) not null,
+        primary key (ID)
+    );
+
+    create table ACL_ENTRY (
+        ID int8 not null,
+        ACE_ORDER int4 not null,
+        AUDIT_FAILURE boolean not null,
+        AUDIT_SUCCESS boolean not null,
+        GRANTING boolean not null,
+        MASK int4 not null,
+        ACL_OBJECT_IDENTITY int8,
+        SID int8,
+        primary key (ID)
+    );
+
+    create table ACL_OBJECT_IDENTITY (
+        ID int8 not null,
+        ENTRIES_INHERITING boolean not null,
+        OBJECT_ID_IDENTITY int8 not null,
+        PARENT_OBJECT int8,
+        OBJECT_ID_CLASS int8,
+        OWNER_SID int8,
+        primary key (ID)
+    );
+
+    create table ACL_SID (
+        ID int8 not null,
+        PRINCIPAL boolean not null,
+        SID varchar(255) not null,
+        primary key (ID)
+    );
+
     create table AC_ACCT (
         ID int8 not null,
         CODE varchar(255) not null,
@@ -624,7 +659,6 @@
     );
 
     create table AC_SPSR (
-        CODE varchar(255),
         SPONSOR_TYPE int4,
         ID int8 not null,
         primary key (ID)
@@ -690,7 +724,6 @@
         ACCOUNT_ID int8,
         INVOICE_ID int8,
         SETTLEMENT_ID int8,
-        STUDENT_ID int8,
         primary key (ID)
     );
 
@@ -733,7 +766,27 @@
         primary key (ID)
     );
 
-    alter table AC_ACCT
+    alter table ACL_ENTRY 
+        add constraint FK2FB5F83DE7610640 
+        foreign key (ACL_OBJECT_IDENTITY) 
+        references ACL_OBJECT_IDENTITY;
+
+    alter table ACL_ENTRY 
+        add constraint FK2FB5F83D8C537FC2 
+        foreign key (SID) 
+        references ACL_SID;
+
+    alter table ACL_OBJECT_IDENTITY 
+        add constraint FK988CEFE9CC108772 
+        foreign key (OBJECT_ID_CLASS) 
+        references ACL_CLASS;
+
+    alter table ACL_OBJECT_IDENTITY 
+        add constraint FK988CEFE98D641036 
+        foreign key (OWNER_SID) 
+        references ACL_SID;
+
+    alter table AC_ACCT 
         add constraint uc_AC_ACCT_1 unique (CODE);
 
     alter table AC_ACCT 
@@ -1024,11 +1077,6 @@
         add constraint FK4574E0C49AD1DB9 
         foreign key (SETTLEMENT_ID) 
         references AC_STLT;
-
-    alter table AC_STLT_ITEM 
-        add constraint FK4574E0C4F717CC6 
-        foreign key (STUDENT_ID) 
-        references AC_STDN;
 
     alter table AC_STTE_CODE 
         add constraint uc_AC_STTE_CODE_1 unique (CODE);
