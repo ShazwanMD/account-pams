@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -40,6 +41,7 @@ public class WhenIWantToViewFeesAndChargesForAStudent extends Stage<WhenIWantToV
 	
 	//public WhenIWantViewCompoundBill I_want_view_my_compound_bill(String matricNo)
 
+	@Pending
 	public WhenIWantToViewFeesAndChargesForAStudent I_want_to_view_fees_and_charges_for_a_student(){
 		
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);

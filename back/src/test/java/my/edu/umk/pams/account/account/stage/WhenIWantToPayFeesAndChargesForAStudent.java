@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -38,6 +39,7 @@ public class WhenIWantToPayFeesAndChargesForAStudent extends Stage<WhenIWantToPa
 	@Autowired
 	private IdentityService identityservice;
 	
+	@Pending
 	public WhenIWantToPayFeesAndChargesForAStudent I_want_to_pay_fees_and_charges_for_a_student(){
 		
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
