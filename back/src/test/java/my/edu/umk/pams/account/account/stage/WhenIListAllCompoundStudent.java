@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.stage;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,17 +10,17 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
-import my.edu.umk.pams.account.account.model.AcAcademicCharge;
-import my.edu.umk.pams.account.account.model.AcAcademicChargeImpl;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-
+import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -28,35 +29,37 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 	private static final Logger LOG = LoggerFactory.getLogger(WhenIListAllCompoundStudent.class);
 
 	@ExpectedScenarioState
-    private AcStudent student;
+	private AcStudent student;
 
-    @ProvidedScenarioState
-    private AcAccount account;
+	@ProvidedScenarioState
+	private AcAccount account;
 
-    @ExpectedScenarioState
-    private AcAcademicSession academicSession;
+	@ExpectedScenarioState
+	private AcAcademicSession academicSession;
 
-    @Autowired
-    private AccountService accountService;
-	
-	public WhenIListAllCompoundStudent list_all_compound_student() {
-		
-		// find student account
-        account = accountService.findAccountByActor(student);
-        
-        // add charges to student account
-        AcAcademicCharge charge = new AcAcademicChargeImpl();
-        charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
-        charge.setSourceNo("SRCNO");
-        charge.setDescription("Compound");
-        charge.setAmount(BigDecimal.valueOf(100.00));
-        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79323"));
-        charge.setSession(academicSession);
+	@Autowired
+	private AccountService accountService;
 
-        // use account service to add charge
-        accountService.addAccountCharge(account, charge);
+	@Autowired
+	private IdentityService identityService;
 
-        return self();
+	@Pending
+	public WhenIListAllCompoundStudent list_all_compound_student_$(String matricNo) {
+
+		// guna identity service untuk find student by matric number
+		AcStudent student = identityService.findStudentByMatricNo(matricNo);
+
+		/*find student account
+		AcAccount account = accountService.findAccountByActor(student);
+
+		// account service dapatkan charges
+		List<AcAccountCharge> charges = accountService.findAccountCharges(account);
+
+		for (AcAccountCharge charge : charges) {
+			charge.getAccount();
+		}*/
+
+		return self();
 	}
 
 }
