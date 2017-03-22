@@ -113,7 +113,7 @@ public class BillingServiceImpl implements BillingService {
         invoice.setReferenceNo(refNo);
         LOG.debug("Processing invoice with refNo {}", new Object[]{refNo});
 
-        invoiceDao.save(invoice, securityService.getCurrentUser());
+        invoiceDao.saveOrUpdate(invoice, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
         sessionFactory.getCurrentSession().refresh(invoice);
 

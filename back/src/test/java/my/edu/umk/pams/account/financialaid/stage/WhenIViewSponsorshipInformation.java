@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -46,7 +47,10 @@ public class WhenIViewSponsorshipInformation extends Stage<WhenIViewSponsorshipI
 		LOG.debug("Student ID :" + student.getIdentityNo());
 
 		sponsorship = identityService.findSponsorships(student);
-
+		
+		boolean hasSponsorship = identityService.hasSponsorship(student);
+		Assert.isTrue(hasSponsorship, "student should have sponsorship");
+		
 		for (AcSponsorship sponsorships : sponsorship) {
 
 			LOG.debug("Sponsor ID :" + sponsorships.getSponsor().getIdentityNo());

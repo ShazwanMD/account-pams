@@ -11,6 +11,7 @@ import my.edu.umk.pams.account.identity.model.AcSponsorshipImpl;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 @JGivenStage
 public class WhenIGrantSponsorship extends Stage<WhenIGrantSponsorship>{
@@ -34,12 +35,15 @@ public class WhenIGrantSponsorship extends Stage<WhenIGrantSponsorship>{
     public WhenIGrantSponsorship I_grant_sponsorship_of_$_to_the_student(String sponsorNo){
     	
     	sponsor = identityService.findSponsorBySponsorNo(sponsorNo);
-    	
+    	  	
     	AcSponsorship sponsorship = new AcSponsorshipImpl();
     	sponsorship.setSponsor(sponsor);
     	sponsorship.setStudent(identityService.findStudentByMatricNo(matricNo));
     	identityService.addSponsorship(student, sponsorship);
 
+		boolean hasSponsorship = identityService.hasSponsorship(sponsor);
+		Assert.isTrue(hasSponsorship, "sponsor should have sponsorship");
+    	    	
     	return self();
     }
     
@@ -52,6 +56,9 @@ public class WhenIGrantSponsorship extends Stage<WhenIGrantSponsorship>{
     	sponsorship.setSponsor(identityService.findSponsorBySponsorNo(sponsorNo));
     	sponsorship.setStudent(student);
      	identityService.addSponsorship(sponsor, sponsorship);
+     	
+     	boolean hasSponsorship = identityService.hasSponsorship(student);
+		Assert.isTrue(hasSponsorship, "student should have sponsorship");
      	
     	return self();
     }

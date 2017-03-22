@@ -11,6 +11,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -35,11 +36,16 @@ public class WhenIGroupStudentBySponsor extends Stage<WhenIGroupStudentBySponsor
         sponsor = identityService.findSponsorBySponsorNo(sponsorNo);
 
         sponsorship = identityService.findSponsorships(sponsor);
-
+		Assert.notEmpty(sponsorship, "sponsor must have sponsorship");
+		
         for (AcSponsorship sponsorship : sponsorship) {
 
             LOG.debug("Student ID :" + sponsorship.getStudent().getMatricNo());
         }
+        
+		boolean hasSponsorship = identityService.hasSponsorship(sponsor);
+		Assert.isTrue(hasSponsorship, "sponsor should have sponsorship");
+        
         return self();
     }
 }

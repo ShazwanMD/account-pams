@@ -50,6 +50,7 @@ public class AcSettlementImpl implements AcSettlement {
     @JoinColumn(name = "SPONSOR_ID")
     private AcSponsor sponsor;
 
+    
     @OneToMany(targetEntity = AcSettlementItemImpl.class, mappedBy = "settlement", fetch = FetchType.LAZY)
     private List<AcSettlementItem> details;
 
