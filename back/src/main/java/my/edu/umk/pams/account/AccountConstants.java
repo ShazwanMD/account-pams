@@ -16,7 +16,8 @@ public interface AccountConstants {
     public static final String RECEIPT_REFERENCE_NO = "AcReceipt.referenceNo";
     public static final String RECEIPT_RECEIPT_NO = "AcReceipt.receiptNo";
 
-    // todo(uda): set def account
-    public static final String PROCESS_DEF_ADMISSION_APPLICATION = "todo";
-    public static final String PROCESS_DEF_ENROLLMENT_APPLICATION = "todo";
+    public static final String INVOICE_PROCESS_KEY = "invoice_workflow";
+    public static final String INVOICE_RESOURCE_PATH = "invoice.bpmn20.xml";
+    public static final String INVOICE_PROCESS_NAME = "invoice";
+
 }
