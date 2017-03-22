@@ -33,9 +33,9 @@ public interface FinancialAidService {
 
     Integer countSettlementItem(AcSettlement processBatch);
 
-    void executeSettlement(AcSettlement settlement, List<AcSettlementItem> items);
-
     void initSettlement(AcSettlement settlement);
+
+    void executeSettlement(AcSettlement settlement);
 
     void saveSettlement(AcSettlement settlement);
 

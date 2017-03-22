@@ -111,15 +111,6 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
 
     @Override
-    public void executeSettlement(AcSettlement settlement, List<AcSettlementItem> items) {
-        // TODO: process qualification
-
-        // TODO: process invoice
-
-        // TODO:
-    }
-
-    @Override
     public void initSettlement(AcSettlement settlement) {
         // prepare reference no generator
         Map<String,Object> map = new HashMap<String,Object>();
@@ -145,6 +136,17 @@ public class FinancialAidServiceImpl implements FinancialAidService {
             addSettlementItem(settlement, item);
         }
         sessionFactory.getCurrentSession().flush();
+    }
+
+
+    @Override
+    public void executeSettlement(AcSettlement settlement) {
+        // todo(hajar): find all items for settlement
+
+        // todo(hajar): iterate all, skip AcSettlementStatus.DISQUALIFIED
+
+        // todo(hajar):  serialize to invoice DRAFT
+        // todo(hajar):  by calling billingService.startInvoiceTask
     }
 
     @Override
