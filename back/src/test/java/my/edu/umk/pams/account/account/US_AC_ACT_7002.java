@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class US_AC_ACT_7002 extends
 		SpringScenarioTest<GivenIAmPPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5001.class);
+	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7002.class);
 
 	private static final String MATRIC_NO = "A17P002";
 
@@ -48,6 +48,6 @@ public class US_AC_ACT_7002 extends
 		// When
 		when().list_all_compound_student_$(MATRIC_NO);
 		// Then
-		then().can_view_students_compound_charges();
+		then().can_view_students_compound_charges_$(MATRIC_NO);
 	}
 }

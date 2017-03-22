@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
@@ -42,23 +43,19 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 
 	@Autowired
 	private IdentityService identityService;
+	
+	@ProvidedScenarioState
+    private List<AcAccountCharge> accountCharges;
 
-	@Pending
+	@As("list_all_compound_student")
 	public WhenIListAllCompoundStudent list_all_compound_student_$(String matricNo) {
 
-		// guna identity service untuk find student by matric number
-		AcStudent student = identityService.findStudentByMatricNo(matricNo);
+		student = identityService.findStudentByMatricNo(matricNo);
 
-		/*find student account
-		AcAccount account = accountService.findAccountByActor(student);
+		account = accountService.findAccountByActor(student);
 
-		// account service dapatkan charges
-		List<AcAccountCharge> charges = accountService.findAccountCharges(account);
-
-		for (AcAccountCharge charge : charges) {
-			charge.getAccount();
-		}*/
-
+		accountCharges = account.getCharges();
+		
 		return self();
 	}
 
