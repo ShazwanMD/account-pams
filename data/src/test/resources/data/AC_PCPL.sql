@@ -34,6 +34,14 @@ INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'ptptn', 'sponsorship@ptptn.gov.my', 'abc123');
 
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'security', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'Security', 'security@umk.edu.my', 'abc123');
+
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'studentaffair', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'Student Affair', 'studentaffair@umk.edu.my', 'abc123');
+
 ---------------------------------------------------------
 -- GROUP START
 ---------------------------------------------------------

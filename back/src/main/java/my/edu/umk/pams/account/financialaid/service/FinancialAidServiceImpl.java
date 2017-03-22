@@ -172,6 +172,11 @@ public class FinancialAidServiceImpl implements FinancialAidService {
                 map.put("academicSession", settlement.getSession());
                 String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.INVOICE_REFERENCE_NO, map);
 
+                // generate reference no
+                Map<String, Object> mapInvoice = new HashMap<String, Object>();
+                mapInvoice.put("academicSession", settlement.getSession());
+                String invoiceNo = systemService.generateFormattedReferenceNo(AccountConstants.INVOICE_REFERENCE_NO, mapInvoice);
+                
                 // draft invoice
      			AcInvoice invoice = new AcInvoiceImpl();
                 invoice.setReferenceNo(referenceNo);
@@ -181,6 +186,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
      			invoice.setTotalAmount(BigDecimal.ZERO);
                 invoice.setBalanceAmount(BigDecimal.ZERO);
                 invoice.setPaid(false);
+                invoice.setInvoiceNo(invoiceNo);
 
                 // create item here
 //                AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();
