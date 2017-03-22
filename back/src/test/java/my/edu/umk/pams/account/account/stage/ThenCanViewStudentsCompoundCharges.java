@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
@@ -19,8 +20,10 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.account.identity.model.AcCoverage;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-
+import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -34,7 +37,7 @@ public class ThenCanViewStudentsCompoundCharges extends Stage<ThenCanViewStudent
 	@ProvidedScenarioState
 	private AcAccount account;
 
-	@ProvidedScenarioState
+	@ExpectedScenarioState
 	private AcAccountCharge accountCharge;
 
 	@ProvidedScenarioState
@@ -43,12 +46,25 @@ public class ThenCanViewStudentsCompoundCharges extends Stage<ThenCanViewStudent
 	@Autowired
 	private AccountService accountService;
 
-	@Pending
-	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges() {
-		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
-		Assert.isTrue(!charges.isEmpty());
+	@Autowired
+	private IdentityService identityService;
+
+	@As("can view students compound charges")
+	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges_$(String matricNo) {
+
+		student = identityService.findStudentByMatricNo(matricNo);
+		LOG.debug("Student ID :" + student.getIdentityNo());
+
+		// sponsorship = identityService.findSponsorships(student);
+		accountCharge = accountService.findAccountChargeByReferenceNo("REFNO/1490156078146");
+
+		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(account);
+
+		for (AcAccountCharge charge : accountCharge) {
+
+			LOG.debug("Charge Type :" + charge.getChargeType());
+		}
+
 		return self();
-
 	}
-
 }
