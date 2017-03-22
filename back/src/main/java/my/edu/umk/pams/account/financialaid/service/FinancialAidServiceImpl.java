@@ -1,13 +1,15 @@
 package my.edu.umk.pams.account.financialaid.service;
 
+import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.dao.AcAcademicSessionDao;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
@@ -25,6 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +67,12 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Autowired
     private SystemService systemService;
+
+    @Autowired
+    private CommonService commonService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -152,26 +162,38 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Override
     public void executeSettlement(AcSettlement settlement) {
- 
-        // todo(hajar): find all items for settlement
+        // find all items for settlement
+        // then iterate all, skip AcSettlementStatus.DISQUALIFIED
      	List<AcSettlementItem> settlementItem = settlementDao.findItems(settlement);
-
-     	// todo(hajar): iterate all, skip AcSettlementStatus.DISQUALIFIED
      	for(AcSettlementItem item : settlementItem){
      		if(item.getStatus()!= AcSettlementStatus.DISQUALIFIED){
-     			
+     		    // generate reference no
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("academicSession", settlement.getSession());
+                String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.INVOICE_REFERENCE_NO, map);
+
+                // draft invoice
      			AcInvoice invoice = new AcInvoiceImpl();
+                invoice.setReferenceNo(referenceNo);
      			invoice.setAccount(item.getAccount());
-     			
-     	        // todo(hajar):  serialize to invoice DRAFT
-     			
-     	        // todo(hajar):  by calling billingService.startInvoiceTask
+     			invoice.setSession(settlement.getSession());
+                invoice.setIssuedDate(new Date());
+     			invoice.setTotalAmount(BigDecimal.ZERO);
+                invoice.setBalanceAmount(BigDecimal.ZERO);
+                invoice.setPaid(false);
+
+                // create item here
+//                AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();
+//                invoiceItem.setBalanceAmount(BigDecimal.ZERO);
+//                invoiceItem.setAmount(BigDecimal.ZERO);
+//                invoiceItem.setDescription("");
+//                invoiceItem.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331"));
+
+     	        // serialize to invoice DRAFT
      	     	billingService.startInvoiceTask(invoice);
      		}
      	}
-     	
      	sessionFactory.getCurrentSession().flush();
-
     }
 
     @Override
