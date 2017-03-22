@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
+
 /**
  * @author PAMS
  */
@@ -32,7 +34,7 @@ public class AcAcademicSessionDaoImpl extends GenericDaoSupport<Long, AcAcademic
                 "s.metadata.state = :state");
         query.setString("code", code);
         query.setCacheable(true);
-        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("state", ACTIVE.ordinal());
         return (AcAcademicSession) query.uniqueResult();
     }
 
@@ -43,7 +45,7 @@ public class AcAcademicSessionDaoImpl extends GenericDaoSupport<Long, AcAcademic
                 "s.current = :current " +
                 "and s.metadata.state = :state");
         query.setBoolean("current", true);
-        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("state", ACTIVE.ordinal());
         query.setCacheable(true);
         return (AcAcademicSession) query.uniqueResult();
     }
@@ -55,7 +57,7 @@ public class AcAcademicSessionDaoImpl extends GenericDaoSupport<Long, AcAcademic
                 "(upper(s.code) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setString("filter", WILDCARD + filter + WILDCARD);
-        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("state", ACTIVE.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         query.setCacheable(true);
@@ -69,13 +71,18 @@ public class AcAcademicSessionDaoImpl extends GenericDaoSupport<Long, AcAcademic
                 "(upper(s.code) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setString("filter", WILDCARD + filter + WILDCARD);
-        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("state", ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
 
-    // todo:
     @Override
     public boolean isCodeExists(String code) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcAcademicSession s where " +
+                "s.code = :code " +
+                "and s.metadata.state = :state ");
+        query.setString("code", code);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Integer) query.uniqueResult() > 0);
     }
 }
