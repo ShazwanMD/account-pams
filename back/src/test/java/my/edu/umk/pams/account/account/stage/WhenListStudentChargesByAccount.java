@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcCoverage;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -24,21 +26,27 @@ public class WhenListStudentChargesByAccount extends Stage<WhenListStudentCharge
 	@Autowired
 	private IdentityService identityService;
 
-	@ExpectedScenarioState
-	private AcStudent student;
-
-	@ExpectedScenarioState
-	private AcAccount account;
-
-	@ExpectedScenarioState
-	private List<AcSponsorship> sponsorship;
-
-	@ExpectedScenarioState
-	private List<AcCoverage> coverage;
+	@Autowired
+	private AccountService accountService;
+	
+	@ProvidedScenarioState
+    private AcAccount account;
+	
+	@ProvidedScenarioState
+    private AcStudent student;
+	
+	@ProvidedScenarioState
+    private List<AcAccountCharge> accountCharges;
 	
 	@As("I want to list student charges by account")
 	public WhenListStudentChargesByAccount I_want_to_list_student_charges_by_account_$(String matricNo) {
 		
+		student = identityService.findStudentByMatricNo(matricNo);
+		
+		account = accountService.findAccountByActor(student);
+		
+		accountCharges = account.getCharges();
+		
 		return self();	
 	}
-	}
+}
