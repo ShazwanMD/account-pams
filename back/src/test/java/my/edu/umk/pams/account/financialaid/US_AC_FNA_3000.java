@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.financialaid.stage.ThenICanCheckMyFeesStatus;
+import my.edu.umk.pams.account.financialaid.stage.ThenAddSponsorAndCheckFees;
 import my.edu.umk.pams.account.financialaid.stage.WhenIViewSponsorshipInformation;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 
@@ -28,7 +28,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_FNA_3000 extends SpringScenarioTest<GivenIAmStudent, WhenIViewSponsorshipInformation, ThenICanCheckMyFeesStatus>{
+public class US_AC_FNA_3000 extends SpringScenarioTest<GivenIAmStudent, WhenIViewSponsorshipInformation, ThenAddSponsorAndCheckFees>{
 
 
 	private static final String MATRIC_NO = "A17P002";
