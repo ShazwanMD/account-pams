@@ -3,6 +3,11 @@ package my.edu.umk.pams.account.financialaid.service;
 import my.edu.umk.pams.account.account.dao.AcAcademicSessionDao;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
+import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
@@ -46,6 +51,9 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Autowired
     private AcSettlementDao settlementDao;
+    
+    @Autowired
+    private AcInvoiceDao invoiceDao;
 
     @Autowired
     private AcAcademicSessionDao academicSessionDao;
@@ -58,6 +66,9 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Autowired
     private SessionFactory sessionFactory;
+    
+    @Autowired
+    private BillingService billingService;
 
     // ==================================================================================================== //
     // SETTLEMENT
@@ -141,12 +152,26 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Override
     public void executeSettlement(AcSettlement settlement) {
+ 
         // todo(hajar): find all items for settlement
+     	List<AcSettlementItem> settlementItem = settlementDao.findItems(settlement);
 
-        // todo(hajar): iterate all, skip AcSettlementStatus.DISQUALIFIED
+     	// todo(hajar): iterate all, skip AcSettlementStatus.DISQUALIFIED
+     	for(AcSettlementItem item : settlementItem){
+     		if(item.getStatus()!= AcSettlementStatus.DISQUALIFIED){
+     			
+     			AcInvoice invoice = new AcInvoiceImpl();
+     			invoice.setAccount(item.getAccount());
+     			
+     	        // todo(hajar):  serialize to invoice DRAFT
+     			
+     	        // todo(hajar):  by calling billingService.startInvoiceTask
+     	     	billingService.startInvoiceTask(invoice);
+     		}
+     	}
+     	
+     	sessionFactory.getCurrentSession().flush();
 
-        // todo(hajar):  serialize to invoice DRAFT
-        // todo(hajar):  by calling billingService.startInvoiceTask
     }
 
     @Override
