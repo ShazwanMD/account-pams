@@ -3,11 +3,15 @@ package my.edu.umk.pams.account.common.dao;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCodeImpl;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 import java.util.List;
 
@@ -47,6 +51,17 @@ public class AcFacultyCodeDaoImpl extends GenericDaoSupport<Long, AcFacultyCode>
         return (List<AcFacultyCode>) query.list();
     }
 
+	@Override
+	public List<AcFacultyCode> find(AcStudent student) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select s from AcFacultyCode s where " +
+                "s.student = :s.student " +
+                "and s.metadata.state = :state");
+        query.setEntity("student", student);
+        query.setInteger("state", ACTIVE.ordinal());
+        return (List<AcFacultyCode>) query.list();
+	}
+    
     @Override
     public Integer count(String filter) {
         Session session = sessionFactory.getCurrentSession();
@@ -69,4 +84,6 @@ public class AcFacultyCodeDaoImpl extends GenericDaoSupport<Long, AcFacultyCode>
         query.setInteger("state", my.edu.umk.pams.account.core.AcMetaState.ACTIVE.ordinal());
         return 0 < ((Long) query.uniqueResult()).intValue();
     }
+
+
 }
