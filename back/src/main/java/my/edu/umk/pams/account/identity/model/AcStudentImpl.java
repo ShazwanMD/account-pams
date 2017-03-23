@@ -1,8 +1,15 @@
 package my.edu.umk.pams.account.identity.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCodeImpl;
+
 import java.util.List;
 
 /**
@@ -16,6 +23,11 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
     @OneToMany(targetEntity = AcSponsorshipImpl.class, mappedBy = "student")
     private List<AcSponsorship> sponsorships;
 
+    @NotNull
+    @OneToOne(targetEntity = AcFacultyCodeImpl.class)
+    @JoinColumn(name = "FACULTY_ID")
+    private AcFacultyCode facultyCode;
+    
     public AcStudentImpl() {
         setActorType(AcActorType.STUDENT);
     }
@@ -44,5 +56,15 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
     public Class<?> getInterfaceClass() {
         return AcStudent.class;
     }
+
+	@Override
+	public AcFacultyCode getFacultyCode() {
+		return facultyCode;
+	}
+
+	@Override
+	public void setFacultyCode(AcFacultyCode facultyCode) {
+		this.facultyCode=facultyCode;		
+	}
 
 }

@@ -4,6 +4,9 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
+
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.identity.model.AcCoverage;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.service.IdentityService;
@@ -21,13 +24,15 @@ public class ThenAddSponsorAndCheckFees extends Stage<ThenAddSponsorAndCheckFees
 	@ExpectedScenarioState
     AcSponsor sponsor;
 	
+	@ExpectedScenarioState
+	AcInvoice invoice;
+	
+	@ExpectedScenarioState
+	AcSettlement settlement;
+	
 	@As("the sponsor coverage is added")
 	public ThenAddSponsorAndCheckFees the_sponsor_coverage_is_added() {
-		// find coverages by sponsor
-		List<AcCoverage> coverages = identityService.findCoverages(sponsor);
-        Assert.notEmpty(coverages, "Sponsor must have coverage");
 
-        // or try other API
 		boolean hasCoverage = identityService.hasCoverage(sponsor);
 		Assert.isTrue(hasCoverage, "Sponsor has coverage");
 
@@ -37,6 +42,9 @@ public class ThenAddSponsorAndCheckFees extends Stage<ThenAddSponsorAndCheckFees
 	@As("I can check my fees status")
 	public ThenAddSponsorAndCheckFees I_can_check_my_fees_status() {
 
+		Assert.notNull(invoice, "invoice was null");
+		Assert.notNull(settlement, "settlement was null");
+		
 		return self();
 	}
 }

@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.identity.stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -35,17 +36,14 @@ public class WhenIAddStudentSponsorship extends Stage<WhenIAddStudentSponsorship
     	
     	sponsor = identityService.findSponsorById(id);
 
+    	Assert.notNull(sponsor, "sponsor was null");
+    	
     	sponsorship.setSponsor(sponsor);
     	sponsorship.setStudent(identityService.findStudentById(2L));
  
     	identityService.addSponsorship(sponsor, sponsorship);
-    	//identityService.addSponsorship(student, sponsorship);
-
-    	//coverageId = coverage.getId(); 
-
-    	//Assert.notNull(coverage);
-        //final String entityName = coverage.getClass().getSimpleName();
-        //Assert.notNull(coverageId, entityName + " must have Id");
+    	
+    	Assert.notNull(sponsorship, "sponsorship was null");;
     	
     	return self();
     }
