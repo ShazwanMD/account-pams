@@ -12,6 +12,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 @JGivenStage
 public class WhenIAddASponsor extends Stage<WhenIAddASponsor>{
@@ -39,6 +40,8 @@ public class WhenIAddASponsor extends Stage<WhenIAddASponsor>{
         sponsor.setEmail("sponsorship@tnb.my");
         identityService.saveSponsor(sponsor);
        
+        Assert.notNull(sponsor, "sponsor was null");
+        
         return self();
     }
     
@@ -46,6 +49,9 @@ public class WhenIAddASponsor extends Stage<WhenIAddASponsor>{
     public WhenIAddASponsor I_add_a_sponsor_account() {
         sponsor.setSponsorType(AcSponsorType.DIRECT);
         identityService.saveSponsor(sponsor);
+        
+        Assert.notNull(sponsor, "sponsor was null");
+        
         return self();
     }
 

@@ -18,6 +18,8 @@ import my.edu.umk.pams.account.identity.model.AcCoverageImpl;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +82,9 @@ public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsor
 		LOG.debug("session " + academicSession.getId());
 		LOG.debug("sponsor " + sponsor.getId());
 		
+		Assert.notNull(academicSession, "Academic Session was null");
+		Assert.notNull(sponsor, "Sponsor was null");
+		
 		settlement = new AcSettlementImpl();
 		settlement.setDescription(sponsor.getIdentityNo() + ";" + sponsor.getEmail());
 		settlement.setSession(academicSession);
@@ -92,7 +97,7 @@ public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsor
 		invoice.setSession(academicSession);
  
 		financialAidService.executeSettlement(settlement);
-
+		
 		return self();
 	}
 
