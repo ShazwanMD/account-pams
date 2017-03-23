@@ -25,12 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_7002 extends
-		SpringScenarioTest<GivenIAmPPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
+public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmPPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7002.class);
 
-	private static final String MATRIC_NO = "A17P002";
+	private static final String MATRIC_NO = "A17P001";
 
 	@Before
 	public void before() {

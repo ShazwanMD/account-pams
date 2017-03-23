@@ -24,7 +24,6 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
-@ContextConfiguration(classes = TestAppConfiguration.class)
 public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStudent> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(WhenIListAllCompoundStudent.class);
@@ -47,14 +46,22 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 	@ProvidedScenarioState
     private List<AcAccountCharge> accountCharges;
 
-	@As("list_all_compound_student")
+	@As("list all compound student")
 	public WhenIListAllCompoundStudent list_all_compound_student_$(String matricNo) {
 
+		//cari student untuk cari account 
 		student = identityService.findStudentByMatricNo(matricNo);
-
+		
+		//cari akaun yg dpt dr student
 		account = accountService.findAccountByActor(student);
+		
+		//senarai acc charge dari akaun yg kita jmp utk student ni
+		accountCharges= accountService.findAccountCharges(account);
+		for(AcAccountCharge accountCharges : accountCharges){
+			LOG.debug("Description "+ accountCharges.getDescription());
+			LOG.debug("Session "+ accountCharges.getSession().getCode());
+		}
 
-		accountCharges = account.getCharges();
 		
 		return self();
 	}
