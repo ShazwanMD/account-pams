@@ -4,7 +4,7 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.ThenCanViewStudentsCompoundCharges;
 import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
+import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *  As a Academic (MGSEB/PPS),
+ *  As a Academic (MGSEB/CPS),
  *  I want to list all compound student,
  *  so that I can view student's compound charges
  */
@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmPPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
+public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7002.class);
 
@@ -42,8 +42,7 @@ public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmPPSAdministrator,
 	@Test
 	@Rollback
 	public void testScenario0() {
-	
-		given().I_am_a_PPS_administrator_in_current_academic_session();
+		given().I_am_a_CPS_administrator_in_current_academic_session();
 		when().list_all_compound_student_$(MATRIC_NO);
 		then().can_view_students_compound_charges_$(MATRIC_NO);
 	}

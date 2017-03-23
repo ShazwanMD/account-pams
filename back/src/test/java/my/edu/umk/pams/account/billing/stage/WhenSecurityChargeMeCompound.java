@@ -21,6 +21,9 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
 
     private static final Logger LOG = LoggerFactory.getLogger(WhenSecurityChargeMeCompound.class);
 
+    @Autowired
+    private AccountService accountService;
+
     @ExpectedScenarioState
     private AcStudent student;
 
@@ -30,8 +33,6 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
     @ExpectedScenarioState
     private AcAcademicSession academicSession;
 
-    @Autowired
-    private AccountService accountService;
 
     public WhenSecurityChargeMeCompound security_issues_me_compound_charges() {
         // add charges to given student account

@@ -17,9 +17,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @JGivenStage
-public class GivenIAmPPSKeraniAdministrator extends Stage<GivenIAmPPSKeraniAdministrator> {
+public class GivenIAmCPSKeraniAdministrator extends Stage<GivenIAmCPSKeraniAdministrator> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmPPSKeraniAdministrator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmCPSKeraniAdministrator.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -33,18 +33,18 @@ public class GivenIAmPPSKeraniAdministrator extends Stage<GivenIAmPPSKeraniAdmin
     @ProvidedScenarioState
     private AcStaff staff;
 
-    public void I_am_a_PPS_administrator_in_$_academic_session(String academicSessionCode){
-        loginAsPPS();
+    public void I_am_a_CPS_administrator_in_$_academic_session(String academicSessionCode){
+        loginAsCPS();
         academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
     }
 
-    public void I_am_a_PPS_administrator_in_current_academic_session(){
-        loginAsPPS();
+    public void I_am_a_CPS_administrator_in_current_academic_session(){
+        loginAsCPS();
         academicSession = accountService.findCurrentAcademicSession();
     }
 
-    private void loginAsPPS() {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("pps-kerani", "abc123");
+    private void loginAsCPS() {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("cps-kerani", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
 

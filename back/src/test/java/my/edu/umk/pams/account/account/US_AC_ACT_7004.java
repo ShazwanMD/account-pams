@@ -16,13 +16,13 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.ThenCanGiveStudentInformationToBursary;
 import my.edu.umk.pams.account.account.stage.WhenIWantUpdateStudentInformation;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
+import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_ACT_7004 extends
-		SpringScenarioTest<GivenIAmPPSAdministrator, WhenIWantUpdateStudentInformation, ThenCanGiveStudentInformationToBursary> {
+		SpringScenarioTest<GivenIAmCPSAdministrator, WhenIWantUpdateStudentInformation, ThenCanGiveStudentInformationToBursary> {
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7004.class);
 
 	@Before
@@ -37,7 +37,7 @@ public class US_AC_ACT_7004 extends
 	@Rollback(false)
 	public void testScenario1() {
 		
-		given().I_am_a_PPS_administrator_in_current_academic_session();
+		given().I_am_a_CPS_administrator_in_current_academic_session();
 		when().I_want_update_student_information();
 		then().can_give_student_information_to_Bursary();
 

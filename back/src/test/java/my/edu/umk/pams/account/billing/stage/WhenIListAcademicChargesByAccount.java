@@ -18,6 +18,9 @@ import java.util.List;
 public class WhenIListAcademicChargesByAccount extends Stage<WhenIListAcademicChargesByAccount> {
     private static final Logger LOG = LoggerFactory.getLogger(WhenIListAcademicChargesByAccount.class);
 
+    @Autowired
+    private AccountService accountService;
+
     @ExpectedScenarioState
     private AcStudent student;
 
@@ -29,9 +32,6 @@ public class WhenIListAcademicChargesByAccount extends Stage<WhenIListAcademicCh
 
     @ProvidedScenarioState
     List<AcAccountCharge> accountCharges;
-
-    @Autowired
-    private AccountService accountService;
 
     public WhenIListAcademicChargesByAccount I_list_charges_by_acount() {
         Assert.notNull(student, "Student cannot be null");

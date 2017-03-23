@@ -1,13 +1,9 @@
 package my.edu.umk.pams.account.account;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-import my.edu.umk.pams.account.account.stage.ThenCanViewStudentsCompoundCharges;
 import my.edu.umk.pams.account.account.stage.ThenTheCompoundDetailsAreRecorded;
-import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
-import my.edu.umk.pams.account.account.stage.WhenIWantToRegisterStudentCompoundBill;
 import my.edu.umk.pams.account.account.stage.WhenWantToRegisterStudentCompoundBill;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
 
 import org.junit.After;

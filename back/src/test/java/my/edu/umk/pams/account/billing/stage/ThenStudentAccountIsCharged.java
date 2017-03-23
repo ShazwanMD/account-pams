@@ -18,15 +18,16 @@ import java.util.List;
 @JGivenStage
 public class ThenStudentAccountIsCharged extends Stage<ThenStudentAccountIsCharged> {
 
+	@Autowired
+	private AccountService accountService;
+
 	@ExpectedScenarioState
 	private AcAccount account;
 
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
 
-	@Autowired
-	private AccountService accountService;
-	
+
     public ThenStudentAccountIsCharged my_account_is_charged() {
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
 		Assert.isTrue(!charges.isEmpty());

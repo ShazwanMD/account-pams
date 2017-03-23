@@ -4,10 +4,10 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.identity.model.AcStaff;
-import my.edu.umk.pams.account.identity.model.AcUser;
-import my.edu.umk.pams.account.security.integration.AcUserDetails;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @JGivenStage
-public class GivenIAmPPSPegawaiAdministrator extends Stage<GivenIAmPPSPegawaiAdministrator> {
+public class GivenIAmCPSAdministrator extends Stage<GivenIAmCPSAdministrator> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmPPSPegawaiAdministrator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GivenIAmCPSAdministrator.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private IdentityService identityService;
 
     @Autowired
     private AccountService accountService;
@@ -31,26 +34,32 @@ public class GivenIAmPPSPegawaiAdministrator extends Stage<GivenIAmPPSPegawaiAdm
     private AcAcademicSession academicSession;
 
     @ProvidedScenarioState
-    private AcStaff staff;
+    private AcStudent student;
 
-    public void I_am_a_PPS_administrator_in_$_academic_session(String academicSessionCode){
-        loginAsPPS();
+    @ProvidedScenarioState
+    private AcAccount account;
+
+    public GivenIAmCPSAdministrator I_am_a_CPS_administrator_in_$_academic_session(String academicSessionCode){
+        loginAsCPS();
         academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
+        return self();
     }
 
-    public void I_am_a_PPS_administrator_in_current_academic_session(){
-        loginAsPPS();
+    public GivenIAmCPSAdministrator I_am_a_CPS_administrator_in_current_academic_session(){
+        loginAsCPS();
         academicSession = accountService.findCurrentAcademicSession();
+        return self();
     }
 
-    private void loginAsPPS() {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("pps-pegawai", "abc123");
+    public GivenIAmCPSAdministrator I_pick_a_student_$(String matricNo){
+        student = identityService.findStudentByMatricNo(matricNo);
+        account = accountService.findAccountByActor(student);
+        return self();
+    }
+
+    private void loginAsCPS() {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("cps", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
-
-        // retrieve staff from user
-        AcUser user = ((AcUserDetails) authed.getPrincipal()).getUser();
-        staff = (AcStaff) user.getActor();
-
     }
 }

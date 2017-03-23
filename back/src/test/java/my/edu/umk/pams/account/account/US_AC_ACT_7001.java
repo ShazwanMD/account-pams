@@ -14,7 +14,7 @@ import my.edu.umk.pams.account.account.stage.ThenCompoundDetailsRecord;
 import my.edu.umk.pams.account.account.stage.WhenRegisterStudentCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 /*
- * As Academic (MGSEB/PPS), 
+ * As Academic (MGSEB/CPS),
  * I want to register student compound bill 
  * so that the compound details are record. 
  */

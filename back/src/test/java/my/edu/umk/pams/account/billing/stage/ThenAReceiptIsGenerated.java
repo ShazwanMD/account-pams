@@ -16,15 +16,16 @@ import my.edu.umk.pams.account.account.service.AccountService;
 
 @JGivenStage
 public class ThenAReceiptIsGenerated extends Stage<ThenAReceiptIsGenerated> {
+
+	@Autowired
+	private AccountService accountService;
+
 	@ExpectedScenarioState
 	private AcAccount account;
 
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
 
-	@Autowired
-	private AccountService accountService;
-	
 
 	public ThenAReceiptIsGenerated Payment_receipt_generated() {
 		//List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);

@@ -31,7 +31,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
     private IdentityService identityService;
 
     @ExpectedScenarioState
-    AcAcademicSession academicSession;
+    private AcAcademicSession academicSession;
 
     @ProvidedScenarioState
     AcAccount account;

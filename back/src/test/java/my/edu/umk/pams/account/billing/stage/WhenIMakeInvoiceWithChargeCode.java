@@ -12,14 +12,14 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 
 public class WhenIMakeInvoiceWithChargeCode extends Stage<WhenIMakeInvoiceWithChargeCode>{
 
+    @Autowired
+    private AccountService accountService;
+
     @ExpectedScenarioState
     private AcStudent student;
 
     @ProvidedScenarioState
     private AcAccount account;
-    
-    @Autowired
-    private AccountService accountService;
     
     public WhenIMakeInvoiceWithChargeCode I_make_invoice_given_charge_code(){
 		return self();}

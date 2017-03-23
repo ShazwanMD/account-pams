@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.identity.stage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
@@ -17,10 +18,9 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 @JGivenStage
 public class ThenTheSponsorIsAdded extends Stage<ThenTheSponsorIsAdded> {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(ThenTheSponsorIsAdded.class);
 
-    @ExpectedScenarioState
+    @Autowired
     private IdentityService identityService;
 
     @ExpectedScenarioState
@@ -36,7 +36,6 @@ public class ThenTheSponsorIsAdded extends Stage<ThenTheSponsorIsAdded> {
 		Assert.isTrue(hasSponsor, "User sponsor not available");
 
         return self();
-    
     }
 	
 	@As("the sponsor account is added")
