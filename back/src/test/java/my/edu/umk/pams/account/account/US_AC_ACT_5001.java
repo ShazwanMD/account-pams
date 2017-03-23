@@ -2,9 +2,14 @@ package my.edu.umk.pams.account.account;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.ThenCanViewStudentsCompoundCharges;
+import my.edu.umk.pams.account.account.stage.ThenTheCompoundDetailsAreRecorded;
 import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
+import my.edu.umk.pams.account.account.stage.WhenIWantToRegisterStudentCompoundBill;
+import my.edu.umk.pams.account.account.stage.WhenWantToRegisterStudentCompoundBill;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmPPSAdministrator;
+import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,20 +22,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *  As a Academic (MGSEB/PPS),
- *  I want to list all compound student,
- *  so that I can view student's compound charges
+ * As a Student Affair I want to register student compound bill so that the
+ * compound details are recorded.
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_ACT_5001 extends
-		SpringScenarioTest<GivenIAmPPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5001.class);
-	private static final String MATRIC_NO = "A17P002";
+		SpringScenarioTest<GivenIAmStudentAffair, WhenWantToRegisterStudentCompoundBill, ThenTheCompoundDetailsAreRecorded> {
 
+	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5001.class);
+	
 
 	@Before
 	public void before() {
@@ -43,11 +46,9 @@ public class US_AC_ACT_5001 extends
 	@Test
 	@Rollback
 	public void testScenario0() {
-		// Given
-		given().I_am_a_PPS_administrator_in_current_academic_session();
-		// When
-		when().list_all_compound_student_$(MATRIC_NO  );
-		// Then
-		then().can_view_students_compound_charges();
+		String MATRIC_NO = "A17P001";
+		given().I_am_student_affair();
+		when().I_want_to_register_student_compound_bill_by_account_$(MATRIC_NO);
+		then().the_compound_details_are_recorded();
 	}
 }
