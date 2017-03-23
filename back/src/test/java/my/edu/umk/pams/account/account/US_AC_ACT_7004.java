@@ -36,11 +36,9 @@ public class US_AC_ACT_7004 extends
 	@Test
 	@Rollback(false)
 	public void testScenario1() {
-		// Given
+		
 		given().I_am_a_PPS_administrator_in_current_academic_session();
-		// When
 		when().I_want_update_student_information();
-		// Then
 		then().can_give_student_information_to_Bursary();
 
 	}
