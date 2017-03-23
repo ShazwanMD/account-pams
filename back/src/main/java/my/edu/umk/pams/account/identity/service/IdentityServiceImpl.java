@@ -7,7 +7,6 @@ import my.edu.umk.pams.account.identity.event.StaffUpdatedEvent;
 import my.edu.umk.pams.account.identity.event.StudentCreatedEvent;
 import my.edu.umk.pams.account.identity.model.*;
 import my.edu.umk.pams.account.security.service.SecurityService;
-import my.edu.umk.pams.account.util.Util;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -89,13 +88,13 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public void addPrincipalRole(AcPrincipal principal, AcPrincipalRole principalRole) {
-        principalDao.addRole(principal, principalRole, Util.getCurrentUser());
+        principalDao.addRole(principal, principalRole, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void deletePrincipalRole(AcPrincipal principal, AcPrincipalRole principalRole) {
-        principalDao.deleteRole(principal, principalRole, Util.getCurrentUser());
+        principalDao.deleteRole(principal, principalRole, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -155,26 +154,26 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public void saveUser(AcUser user) {
-        userDao.save(user, Util.getCurrentUser());
+        userDao.save(user, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void updateUser(AcUser user) {
-        userDao.update(user, Util.getCurrentUser());
+        userDao.update(user, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void removeUser(AcUser user) {
-        userDao.remove(user, Util.getCurrentUser());
+        userDao.remove(user, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void changePassword(AcUser user, String newPassword) {
         user.setPassword(newPassword);
-        userDao.update(user, Util.getCurrentUser());
+        userDao.update(user, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -202,7 +201,7 @@ public class IdentityServiceImpl implements IdentityService {
             group.setName(name);
             group.setEnabled(true);
             group.setLocked(false);
-            groupDao.save(group, Util.getCurrentUser());
+            groupDao.save(group, securityService.getCurrentUser());
         }
         sessionFactory.getCurrentSession().flush();
         sessionFactory.getCurrentSession().refresh(group);
@@ -290,14 +289,14 @@ public class IdentityServiceImpl implements IdentityService {
         group.setName(name);
         group.setEnabled(true);
         group.setLocked(false);
-        groupDao.save(group, Util.getCurrentUser());
+        groupDao.save(group, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
         sessionFactory.getCurrentSession().refresh(group);
 
         for (AcRoleType type : types) {
             AcPrincipalRole role = new AcPrincipalRoleImpl();
             role.setRole(type);
-            principalDao.addRole(group, role, Util.getCurrentUser());
+            principalDao.addRole(group, role, securityService.getCurrentUser());
             sessionFactory.getCurrentSession().flush();
         }
         sessionFactory.getCurrentSession().refresh(group);
@@ -306,25 +305,25 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public void saveGroup(AcGroup group) {
-        groupDao.save(group, Util.getCurrentUser());
+        groupDao.save(group, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void updateGroup(AcGroup group) {
-        groupDao.update(group, Util.getCurrentUser());
+        groupDao.update(group, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void removeGroup(AcGroup group) {
-        groupDao.remove(group, Util.getCurrentUser());
+        groupDao.remove(group, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void addGroupMember(AcGroup group, AcPrincipal principal) throws RecursiveGroupException {
-        groupDao.addMember(group, principal, Util.getCurrentUser());
+        groupDao.addMember(group, principal, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -440,19 +439,19 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public void saveStaff(AcStaff staff) {
-        staffDao.save(staff, Util.getCurrentUser());
+        staffDao.save(staff, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void updateStaff(AcStaff staff) {
-        staffDao.update(staff, Util.getCurrentUser());
+        staffDao.update(staff, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void deleteStaff(AcStaff staff) {
-        staffDao.delete(staff, Util.getCurrentUser());
+        staffDao.delete(staff, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -515,19 +514,19 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public void saveStudent(AcStudent student) {
-        studentDao.save(student, Util.getCurrentUser());
+        studentDao.save(student, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void updateStudent(AcStudent student) {
-        studentDao.update(student, Util.getCurrentUser());
+        studentDao.update(student, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void deleteStudent(AcStudent student) {
-        studentDao.delete(student, Util.getCurrentUser());
+        studentDao.delete(student, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -601,7 +600,7 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public void saveSponsor(AcSponsor sponsor) {
-        sponsorDao.save(sponsor, Util.getCurrentUser());
+        sponsorDao.save(sponsor, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 

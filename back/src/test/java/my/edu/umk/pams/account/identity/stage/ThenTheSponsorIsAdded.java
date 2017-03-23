@@ -31,7 +31,6 @@ public class ThenTheSponsorIsAdded extends Stage<ThenTheSponsorIsAdded> {
 
 	@As("the sponsor is added")
     public ThenTheSponsorIsAdded the_sponsor_user_is_added(){
-
 		boolean hasSponsor = identityService.hasUser(sponsor);
 		Assert.isTrue(hasSponsor, "User sponsor not available");
 
@@ -40,12 +39,9 @@ public class ThenTheSponsorIsAdded extends Stage<ThenTheSponsorIsAdded> {
 	
 	@As("the sponsor account is added")
     public ThenTheSponsorIsAdded the_sponsor_account_is_added(){
-
 		boolean hasSponsor = identityService.hasUser(sponsor);
 		Assert.isTrue(hasSponsor, "User sponsor not available");
-		
+
         return self();
-      
-   
     }
 }

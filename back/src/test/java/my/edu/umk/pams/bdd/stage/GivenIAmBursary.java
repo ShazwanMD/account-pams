@@ -61,7 +61,6 @@ public class GivenIAmBursary extends Stage<GivenIAmBursary> {
         return self();
     }
 
-
     private void loginAsBursary() {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("bursary", "abc123");
         Authentication authed = authenticationManager.authenticate(token);

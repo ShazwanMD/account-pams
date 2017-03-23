@@ -37,6 +37,6 @@ public class US_AC_BLG_00011 extends SpringScenarioTest<GivenIAmStudent, WhenSec
     public void scenario1() {
 		given().I_am_a_student_in_current_academic_session();
         when().security_issues_me_compound_charges();
-        then().my_account_is_charged();
+        then().student_account_is_charged();
     }
 }

@@ -4,10 +4,12 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
-import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.account.model.AcAcademicCharge;
+import my.edu.umk.pams.account.account.model.AcAcademicChargeImpl;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -33,31 +35,19 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
     @ExpectedScenarioState
     private AcAcademicSession academicSession;
 
+    @ExpectedScenarioState
+    private AcStudent student;
+
     @ProvidedScenarioState
-    AcAccount account;
+    private AcAccount account;
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public WhenIssueInvoice I_create_student_account_and_add_academic_charge() {
+    public WhenIssueInvoice I_charge_student_with_academic_fees() {
         LOG.debug("when i add account charge on " + academicSession.getCode());
 
-        // create student
-        AcStudent student = new AcStudentImpl();
-        student.setIdentityNo("STDN-" + System.currentTimeMillis());
-        student.setName("Rafizan Baharum");
-        student.setEmail("rafizan.baharum@umk.edu.my");
-        student.setMobile("123456789");
-        student.setPhone("123456789");
-        student.setFax("123456789");
-        identityService.saveStudent(student);
-
-        // create account
-        account = new AcAccountImpl();
-        account.setCode(student.getMatricNo());
-        account.setDescription(student.getMatricNo() + ";" + student.getEmail());
-        account.setActor(student);
-        accountService.saveAccount(account);
+         account = accountService.findAccountByActor(student);
 
         // charge
         AcAcademicCharge charge = new AcAcademicChargeImpl();
@@ -67,26 +57,8 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
         charge.setDescription("This is a test");
         charge.setSession(academicSession);
         charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
-        accountService.addAccountCharge(account, charge);
+        accountService.addAccountCharge(this.account, charge);
 
-        return self();
-    }
-
-
-    public WhenIssueInvoice I_issue_invoice_on_student_account() {
-        LOG.debug("when i add account charge on " + academicSession.getCode());
-
-        // charge
-        AcAcademicCharge charge = new AcAcademicChargeImpl();
-        charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
-        charge.setSourceNo("abc123");
-        charge.setAmount(BigDecimal.valueOf(200.00));
-        charge.setDescription("This is a test");
-        charge.setSession(academicSession);
-        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
-        accountService.addAccountCharge(account, charge);
-
-        // todo(uda): invoice
         return self();
     }
 }

@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.stage;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.identity.model.AcStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
@@ -22,13 +23,15 @@ public class ThenStudentAccountIsCharged extends Stage<ThenStudentAccountIsCharg
 	private AccountService accountService;
 
 	@ExpectedScenarioState
+	private AcStudent student;
+
+	@ExpectedScenarioState
 	private AcAccount account;
 
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
 
-
-    public ThenStudentAccountIsCharged my_account_is_charged() {
+    public ThenStudentAccountIsCharged student_account_is_charged() {
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
 		Assert.isTrue(!charges.isEmpty());
         return self();

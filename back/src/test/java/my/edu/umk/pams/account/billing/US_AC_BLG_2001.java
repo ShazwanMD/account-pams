@@ -41,7 +41,7 @@ public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssu
     public void scenario1() {
 
 		given().I_am_a_bursary_in_current_academic_session();
-        when().I_create_student_account_and_add_academic_charge();
+        when().I_charge_student_with_academic_fees();
         then().I_can_show_invoice_filter_by_charge_code();
     }
 }

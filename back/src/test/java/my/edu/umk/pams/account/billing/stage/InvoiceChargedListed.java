@@ -1,20 +1,18 @@
 package my.edu.umk.pams.account.billing.stage;
 
-import java.util.List;
-
+import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.integration.spring.JGivenStage;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.service.AccountService;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.integration.spring.JGivenStage;
-
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.service.AccountService;
+import java.util.List;
 
 /*public class InvoiceChargedListed extends Stage<InvoiceChargedListed> {
 
@@ -29,7 +27,7 @@ import my.edu.umk.pams.account.account.service.AccountService;
 @JGivenStage
 public class InvoiceChargedListed extends Stage<InvoiceChargedListed> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ThenAccountIsInvoiced.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InvoiceChargedListed.class);
 
     @Autowired
     private AccountService accountService;
