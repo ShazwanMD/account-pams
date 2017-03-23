@@ -25,12 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_7002 extends
-		SpringScenarioTest<GivenIAmPPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
+public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmPPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7002.class);
 
-	private static final String MATRIC_NO = "A17P002";
+	private static final String MATRIC_NO = "A17P001";
 
 	@Before
 	public void before() {
@@ -43,11 +42,9 @@ public class US_AC_ACT_7002 extends
 	@Test
 	@Rollback
 	public void testScenario0() {
-		// Given
+	
 		given().I_am_a_PPS_administrator_in_current_academic_session();
-		// When
 		when().list_all_compound_student_$(MATRIC_NO);
-		// Then
 		then().can_view_students_compound_charges_$(MATRIC_NO);
 	}
 }
