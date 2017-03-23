@@ -98,6 +98,11 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    public Task findInvoiceTaskByTaskId(String taskId) {
+        return workflowService.findTask(taskId);
+    }
+
+    @Override
     public List<Task> findAssignedInvoiceTasks(Integer offset, Integer limit) {
         return workflowService.findAssignedTasks(AcInvoice.class.getName(), offset, limit);
     }
@@ -217,10 +222,19 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    public AcInvoiceItem findInvoiceItemById(Long id) {
+        return invoiceDao.findItemById(id);
+    }
+
+    @Override
     public List<AcInvoice> findInvoicesBySourceNo(String sourceNo) {
         return invoiceDao.findBySourceNo(sourceNo);
     }
 
+    @Override
+    public List<AcInvoice> findInvoices(String filter, Integer offset, Integer limit) {
+        return invoiceDao.find(filter,offset, limit);
+    }
 
     @Override
     public List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit) {

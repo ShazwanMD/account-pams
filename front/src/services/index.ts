@@ -1,5 +1,6 @@
-export { AdmissionService } from './admission.service';
-export { PolicyService } from './policy.service';
-export { IdentityService } from './identity.service';
-export { SystemService } from './system.service';
-export { CommonService } from './common.service';
+export {BillingService} from './billing.service';
+export {FinancialaidService} from './financialaid.service';
+export {AccountService} from './account.service';
+export {IdentityService} from './identity.service';
+export {SystemService} from './system.service';
+export {CommonService} from './common.service';

@@ -16,6 +16,8 @@ public interface AcSponsorDao extends GenericDao<Long, AcSponsor> {
 
     AcSponsorship findSponsorshipById(Long id);
 
+    List<AcSponsor> find(String filter, Integer offset, Integer limit);
+
     List<AcCoverage> findCoverages(AcSponsor sponsor);
 
     List<AcSponsorship> findSponsorships(AcSponsor sponsor);

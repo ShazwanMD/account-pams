@@ -1,5 +1,5 @@
 import {Routes, RouterModule} from '@angular/router';
 
 
-export const AdmissionModuleRoutes: Routes = [
+export const AccountModuleRoutes: Routes = [
 ];

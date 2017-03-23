@@ -17,20 +17,38 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableCaching
 @ComponentScan(basePackages = {
-        "my.edu.umk.pams.account",
+        // internals
+        "my.edu.umk.pams.account.identity",
+        "my.edu.umk.pams.account.security",
+        "my.edu.umk.pams.account.system",
+        "my.edu.umk.pams.account.workflow",
+
+        // modules
+        "my.edu.umk.pams.account.common",
+        "my.edu.umk.pams.account.billing",
+        "my.edu.umk.pams.account.account",
+        "my.edu.umk.pams.account.financialaid",
+
+        // web modules
+        "my.edu.umk.pams.account.web.module.identity",
+        "my.edu.umk.pams.account.web.module.common",
+        "my.edu.umk.pams.account.web.module.billing",
+        "my.edu.umk.pams.account.web.module.financialaid",
+        "my.edu.umk.pams.account.web.module.account",
+
 }
 )
 @Import({
         DatasourceConfig.class,
-        WorkflowConfig.class,
-        CacheConfig.class,
-        EmailConfig.class,
-        VelocityConfig.class,
         SecurityConfig.class,
         AccessConfig.class,
-//        ThreadingConfig.class,
+        WorkflowConfig.class,
+        CacheConfig.class,
         SwaggerConfig.class,
         ChargeChainConfig.class,
+//        EmailConfig.class,
+//        VelocityConfig.class,
+//        ThreadingConfig.class,
 })
 @PropertySource("classpath:application.properties")
 public class AppConfiguration {

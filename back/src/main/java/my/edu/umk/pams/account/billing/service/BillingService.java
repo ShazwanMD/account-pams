@@ -21,6 +21,8 @@ public interface BillingService {
     // ==================================================================================================== //
     AcInvoice findInvoiceByTaskId(String taskId);
 
+    Task findInvoiceTaskByTaskId(String taskId);
+
     List<Task> findAssignedInvoiceTasks(Integer offset, Integer limit);
 
     List<Task> findPooledInvoiceTasks(Integer offset, Integer limit);
@@ -55,7 +57,11 @@ public interface BillingService {
 
     AcInvoice findInvoiceByReferenceNo(String referenceNo);
 
+    AcInvoiceItem findInvoiceItemById(Long id);
+
     List<AcInvoice> findInvoicesBySourceNo(String sourceNo);
+
+    List<AcInvoice> findInvoices(String filter, Integer offset, Integer limit);
 
     List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit);
 
@@ -141,4 +147,5 @@ public interface BillingService {
     Integer countReceipt(AcReceiptType type, String filter);
 
     Integer countReceiptItem(AcReceipt receipt);
+
 }

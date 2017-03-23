@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -40,6 +41,12 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         query.setCacheable(true);
         query.setInteger("state", ACTIVE.ordinal());
         return (AcInvoice) query.uniqueResult();
+    }
+
+    @Override
+    public AcInvoiceItem findItemById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcInvoiceItem) session.get(AcInvoiceItemImpl.class, id);
     }
 
     @Override
@@ -87,6 +94,17 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
                 "and i.metadata.state = :state ");
         query.setEntity("account", account);
         query.setBoolean("paid", paid);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcInvoice>) query.list();
+    }
+
+    @Override
+    public List<AcInvoice> find(String filter, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcInvoice i where " +
+                // todo(uda): filter
+                "i.metadata.state = :state ");
         query.setInteger("state", ACTIVE.ordinal());
         query.setCacheable(true);
         return (List<AcInvoice>) query.list();

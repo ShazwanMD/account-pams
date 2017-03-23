@@ -47,30 +47,30 @@ public class DatasourceConfig {
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUsername(env.getProperty("db.local.username"));
-        dataSource.setPassword(env.getProperty("db.local.password"));
-        dataSource.setUrl(env.getProperty("db.local.url"));
-        dataSource.setDriverClassName(env.getProperty("db.local.driver"));
+        dataSource.setUsername(env.getProperty("db.username"));
+        dataSource.setPassword(env.getProperty("db.password"));
+        dataSource.setUrl(env.getProperty("db.url"));
+        dataSource.setDriverClassName(env.getProperty("db.driver"));
         dataSource.setMaxIdle(10);
         dataSource.setMaxActive(20);
         dataSource.setMaxWait(-1);
         dataSource.setTestOnBorrow(true);
-        dataSource.setValidationQuery(env.getProperty("db.local.validation.query"));
+        dataSource.setValidationQuery(env.getProperty("db.validation.query"));
         return dataSource;
     }
 
     @Bean
     public DataSource batchDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUsername(env.getProperty("db.local.username"));
-        dataSource.setPassword(env.getProperty("db.local.password"));
-        dataSource.setUrl(env.getProperty("db.local.url"));
-        dataSource.setDriverClassName(env.getProperty("db.local.driver"));
+        dataSource.setUsername(env.getProperty("db.username"));
+        dataSource.setPassword(env.getProperty("db.password"));
+        dataSource.setUrl(env.getProperty("db.url"));
+        dataSource.setDriverClassName(env.getProperty("db.driver"));
         dataSource.setMaxIdle(10);
         dataSource.setMaxActive(20);
         dataSource.setMaxWait(-1);
         dataSource.setTestOnBorrow(true);
-        dataSource.setValidationQuery(env.getProperty("db.local.validation.query"));
+        dataSource.setValidationQuery(env.getProperty("db.validation.query"));
         return dataSource;
     }
 

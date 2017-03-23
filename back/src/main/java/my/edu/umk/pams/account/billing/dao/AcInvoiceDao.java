@@ -12,9 +12,11 @@ import java.util.List;
 /**
  * @author PAMS
  */
-public interface AcInvoiceDao extends GenericDao<Long, AcInvoice>{
+public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
 
     AcInvoice findByReferenceNo(String referenceNo);
+
+    AcInvoiceItem findItemById(Long id);
 
     List<AcInvoice> findBySourceNo(String sourceNo);
 
@@ -23,6 +25,8 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice>{
     List<AcInvoice> find(AcAccount account);
 
     List<AcInvoice> find(boolean paid, AcAccount account);
+
+    List<AcInvoice> find(String filter, Integer offset, Integer limit);
 
     List<AcInvoice> find(AcAccount account, Integer offset, Integer limit);
 
@@ -75,6 +79,7 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice>{
     void updateItem(AcInvoice invoice, AcInvoiceItem item, AcUser user);
 
     void removeItem(AcInvoice invoice, AcInvoiceItem item, AcUser user);
+
 
 //    void addTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user);
 //

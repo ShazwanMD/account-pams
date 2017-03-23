@@ -212,6 +212,10 @@ public interface IdentityService {
 
     AcCoverage findCoverageById(Long id);
 
+    List<AcSponsor> findSponsors(Integer offset, Integer limit);
+
+    List<AcSponsor> findSponsors(String filter, Integer offset, Integer limit);
+
     List<AcSponsorship> findSponsorships(AcSponsor sponsor);
 
     List<AcCoverage> findCoverages(AcSponsor sponsor);

@@ -28,7 +28,7 @@ public class CacheConfig implements CachingConfigurer {
     @Bean
     public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
         EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean();
-        cacheManagerFactoryBean.setConfigLocation(new ClassPathResource("com/canang/sagacity/finance/ehcache.xml"));
+        cacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
         cacheManagerFactoryBean.setShared(true);
         return cacheManagerFactoryBean;
     }

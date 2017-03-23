@@ -51,6 +51,18 @@ public class AcSponsorDaoImpl extends GenericDaoSupport<Long, AcSponsor> impleme
     }
 
     @Override
+    public List<AcSponsor> find(String filter, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcSponsor s where " +
+                "(upper(s.identityNo) like upper(:filter) " +
+                "or upper(s.name) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setString("filter", WILDCARD + filter + WILDCARD);
+        query.setInteger("state", ACTIVE.ordinal());
+        return query.list();
+    }
+
+    @Override
     public List<AcCoverage> findCoverages(AcSponsor sponsor) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select a from AcCoverage a where " +

@@ -13,12 +13,16 @@ export class MainComponent {
       route: '/',
       icon: 'dashboard',
     }, {
-      title: 'Regisration',
-      route: '/registration',
+      title: 'Account',
+      route: '/account',
       icon: 'view_quilt',
     }, {
-      title: 'Programs',
-      route: '/programs',
+      title: 'Billing',
+      route: '/billing',
+      icon: 'receipt',
+    }, {
+      title: 'Financial Aid',
+      route: '/financialaid',
       icon: 'receipt',
     }
   ];

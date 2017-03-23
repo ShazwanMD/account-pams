@@ -50,7 +50,7 @@ public class US_AC_ACT_2002 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	@Pending
 	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
-		when().I_add_a_sponsor_user_and_account();
+//		when().I_add_a_sponsor_user_and_account();
 		then().the_sponsor_user_is_added()
 			.and().the_sponsor_account_is_added();
 	}
