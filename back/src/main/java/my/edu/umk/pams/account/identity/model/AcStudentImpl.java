@@ -1,20 +1,14 @@
 package my.edu.umk.pams.account.identity.model;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import my.edu.umk.pams.account.common.model.AcFacultyCode;
-import my.edu.umk.pams.account.common.model.AcFacultyCodeImpl;
-
 import java.util.List;
 
 /**
- * @author canang technologies
- * @since 1/31/14
+ * @author PAMS
  */
 @Entity(name = "AcStudent")
 @Table(name = "AC_STDN")
@@ -24,9 +18,9 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
     private List<AcSponsorship> sponsorships;
 
     @NotNull
-    @OneToOne(targetEntity = AcFacultyCodeImpl.class)
-    @JoinColumn(name = "FACULTY_ID")
-    private AcFacultyCode facultyCode;
+    @OneToOne(targetEntity = AcCohortCodeImpl.class)
+    @JoinColumn(name = "COHORT_CODE_ID", nullable = true) // todo(uda): set to false
+    private AcCohortCode cohortCode;
     
     public AcStudentImpl() {
         setActorType(AcActorType.STUDENT);
@@ -43,6 +37,16 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
     }
 
     @Override
+    public AcCohortCode getCohortCode() {
+        return cohortCode;
+    }
+
+    @Override
+    public void setCohortCode(AcCohortCode cohortCode) {
+        this.cohortCode = cohortCode;
+    }
+
+    @Override
     public List<AcSponsorship> getSponsorships() {
         return sponsorships;
     }
@@ -56,15 +60,4 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
     public Class<?> getInterfaceClass() {
         return AcStudent.class;
     }
-
-	@Override
-	public AcFacultyCode getFacultyCode() {
-		return facultyCode;
-	}
-
-	@Override
-	public void setFacultyCode(AcFacultyCode facultyCode) {
-		this.facultyCode=facultyCode;		
-	}
-
 }

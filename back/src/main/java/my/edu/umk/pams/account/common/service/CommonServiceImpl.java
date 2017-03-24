@@ -2,7 +2,6 @@ package my.edu.umk.pams.account.common.service;
 
 import my.edu.umk.pams.account.common.dao.*;
 import my.edu.umk.pams.account.common.model.*;
-import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.util.Util;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -451,11 +450,6 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public AcFacultyCode findFacultyCodeByCode(String code) {
         return facultyCodeDao.findByCode(code);
-    }
-
-    @Override
-    public List<AcFacultyCode> findFacultyCodes(AcStudent student) {
-        return facultyCodeDao.find(student);
     }
 
     @Override

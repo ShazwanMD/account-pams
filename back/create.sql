@@ -184,6 +184,21 @@
         primary key (ID)
     );
 
+    create table AC_CHRT_CODE (
+        ID int8 not null,
+        CODE varchar(255) not null,
+        DESCRIPTION varchar(255) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        PROGRAM_CODE_ID int8,
+        primary key (ID)
+    );
+
     create table AC_CITY_CODE (
         ID int8 not null,
         CODE varchar(255) not null,
@@ -508,6 +523,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
+        FACULTY_CODE_ID int8,
         primary key (ID)
     );
 
@@ -671,6 +687,7 @@
 
     create table AC_STDN (
         ID int8 not null,
+        COHORT_CODE_ID int8,
         primary key (ID)
     );
 
@@ -860,6 +877,14 @@
     alter table AC_CHRG_CODE 
         add constraint uc_AC_CHRG_CODE_1 unique (CODE);
 
+    alter table AC_CHRT_CODE 
+        add constraint uc_AC_CHRT_CODE_1 unique (CODE);
+
+    alter table AC_CHRT_CODE 
+        add constraint FK1EE4D9E88C2B6F5C 
+        foreign key (PROGRAM_CODE_ID) 
+        references AC_PRGM_CODE;
+
     alter table AC_CITY_CODE 
         add constraint uc_AC_CITY_CODE_1 unique (CODE);
 
@@ -971,6 +996,11 @@
     alter table AC_PRGM_CODE 
         add constraint uc_AC_PRGM_CODE_1 unique (CODE);
 
+    alter table AC_PRGM_CODE 
+        add constraint FK6353C5873150A71C 
+        foreign key (FACULTY_CODE_ID) 
+        references AC_FCTY_CODE;
+
     alter table AC_RCPT 
         add constraint FKE62AC1F262AC940F 
         foreign key (ACCOUNT_ID) 
@@ -1031,6 +1061,11 @@
         add constraint FKE62B7443565BDDFC 
         foreign key (ID) 
         references AC_ACTR;
+
+    alter table AC_STDN 
+        add constraint FKE62B74A818CFEEEC 
+        foreign key (COHORT_CODE_ID) 
+        references AC_CHRT_CODE;
 
     alter table AC_STDN 
         add constraint FKE62B74A8565BDDFC 
@@ -1114,6 +1149,8 @@
     create sequence SQ_AC_BANK_CODE;
 
     create sequence SQ_AC_CHRG_CODE;
+
+    create sequence SQ_AC_CHRT_CODE;
 
     create sequence SQ_AC_CITY_CODE;
 

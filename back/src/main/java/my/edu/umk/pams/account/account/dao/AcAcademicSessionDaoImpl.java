@@ -2,7 +2,6 @@ package my.edu.umk.pams.account.account.dao;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
-import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.dao.AcGroupDaoImpl;
 import org.hibernate.Query;

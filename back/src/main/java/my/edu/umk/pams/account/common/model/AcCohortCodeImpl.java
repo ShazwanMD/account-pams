@@ -5,14 +5,14 @@ import my.edu.umk.pams.account.core.AcMetadata;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "AcFacultyCode")
-@Table(name = "AC_FCTY_CODE")
-public class AcFacultyCodeImpl implements AcFacultyCode {
+@Entity(name = "AcCohortCode")
+@Table(name = "AC_CHRT_CODE")
+public class AcCohortCodeImpl implements AcCohortCode {
 
     @Id
     @Column(name = "ID", nullable = false)
-    @GeneratedValue(generator = "SQ_AC_FCTY_CODE")
-    @SequenceGenerator(name = "SQ_AC_FCTY_CODE", sequenceName = "SQ_AC_FCTY_CODE", allocationSize = 1)
+    @GeneratedValue(generator = "SQ_AC_CHRT_CODE")
+    @SequenceGenerator(name = "SQ_AC_CHRT_CODE", sequenceName = "SQ_AC_CHRT_CODE", allocationSize = 1)
     private Long id;
 
     @NotNull
@@ -23,6 +23,14 @@ public class AcFacultyCodeImpl implements AcFacultyCode {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
+    @ManyToOne(targetEntity = AcProgramCodeImpl.class)
+    @JoinColumn(name = "PROGRAM_CODE_ID")
+    private AcProgramCode programCode;
+
+    // todo(hajar): link students
+//    @OneToMany(targetEntity = AcStudentImpl.class, mappedBy = "student", fetch = FetchType.LAZY)
+//    private List<AcStudent> student;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -56,6 +64,26 @@ public class AcFacultyCodeImpl implements AcFacultyCode {
     }
 
     @Override
+    public AcProgramCode getProgramCode() {
+        return programCode;
+    }
+
+    @Override
+    public void setProgramCode(AcProgramCode programCode) {
+        this.programCode = programCode;
+    }
+
+    //    @Override
+//    public List<AcStudent> getStudent() {
+//        return student;
+//    }
+//
+//    @Override
+//    public void setStudent(List<AcStudent> student) {
+//        this.student=student;
+//    }
+
+    @Override
     public AcMetadata getMetadata() {
         return metadata;
     }
@@ -67,7 +95,7 @@ public class AcFacultyCodeImpl implements AcFacultyCode {
 
     @Override
     public Class<?> getInterfaceClass() {
-        return AcFacultyCode.class;
+        return AcCohortCode.class;
     }
-
+    
 }

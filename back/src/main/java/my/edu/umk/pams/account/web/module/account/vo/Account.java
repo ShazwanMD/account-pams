@@ -2,7 +2,6 @@ package my.edu.umk.pams.account.web.module.account.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 import my.edu.umk.pams.account.web.module.identity.vo.Actor;
 

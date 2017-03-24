@@ -22,6 +22,10 @@ public class AcProgramCodeImpl implements AcProgramCode {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
+    @ManyToOne(targetEntity = AcFacultyCodeImpl.class)
+    @JoinColumn(name = "FACULTY_CODE_ID")
+    private AcFacultyCode facultyCode;
+
     @Embedded
     private AcMetadata metadata;
 
@@ -52,6 +56,16 @@ public class AcProgramCodeImpl implements AcProgramCode {
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public AcFacultyCode getFacultyCode() {
+        return facultyCode;
+    }
+
+    @Override
+    public void setFacultyCode(AcFacultyCode facultyCode) {
+        this.facultyCode = facultyCode;
     }
 
     @Override

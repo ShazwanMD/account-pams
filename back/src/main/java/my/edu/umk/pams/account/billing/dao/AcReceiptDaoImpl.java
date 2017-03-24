@@ -1,6 +1,5 @@
 package my.edu.umk.pams.account.billing.dao;
 
-import my.edu.umk.pams.account.account.service.AccountServiceImpl;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcReceiptItemImpl;

@@ -1,8 +1,8 @@
 package my.edu.umk.pams.account.identity.model;
 
-import java.util.List;
+import my.edu.umk.pams.account.common.model.AcCohortCode;
 
-import my.edu.umk.pams.account.common.model.AcFacultyCode;
+import java.util.List;
 
 /**
  * @author canang technologies
@@ -14,11 +14,12 @@ public interface AcStudent extends AcActor {
 
     void setMatricNo(String matricNo);
 
+    AcCohortCode getCohortCode();
+
+    void setCohortCode(AcCohortCode cohortCode);
+
     List<AcSponsorship> getSponsorships();
 
     void setSponsorships(List<AcSponsorship> sponsorships);
     
-    AcFacultyCode getFacultyCode();
-    
-    void setFacultyCode(AcFacultyCode facultyCode);
 }

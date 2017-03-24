@@ -1,6 +1,8 @@
 package my.edu.umk.pams.account.common.model;
 
-public interface AcProgramCode extends my.edu.umk.pams.account.core.AcMetaObject {
+import my.edu.umk.pams.account.core.AcMetaObject;
+
+public interface AcProgramCode extends AcMetaObject {
 
     String getCode();
 
@@ -9,4 +11,8 @@ public interface AcProgramCode extends my.edu.umk.pams.account.core.AcMetaObject
     String getDescription();
 
     void setDescription(String description);
+
+    AcFacultyCode getFacultyCode();
+
+    void setFacultyCode(AcFacultyCode facultyCode);
 }

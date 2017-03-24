@@ -17,6 +17,7 @@
 - ACT - ACCOUNT
 - BLG - BILLING
 - FNA - FINANCIAL AID
+- MKG - MARKETING
 
 **Domain Convention**
 - CRTR = CRITERIA

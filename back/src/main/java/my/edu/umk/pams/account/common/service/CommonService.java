@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.common.service;
 
 import my.edu.umk.pams.account.common.model.*;
-import my.edu.umk.pams.account.identity.model.AcStudent;
 
 import java.util.List;
 
@@ -107,8 +106,6 @@ public interface CommonService {
     AcFacultyCode findFacultyCodeById(Long id);
 
     AcFacultyCode findFacultyCodeByCode(String code);
-
-    List<AcFacultyCode> findFacultyCodes(AcStudent student);
 
     List<AcFacultyCode> findFacultyCodes(String filter, Integer offset, Integer limit);
 

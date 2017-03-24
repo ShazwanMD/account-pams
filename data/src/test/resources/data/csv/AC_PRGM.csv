@@ -1,0 +1,72 @@
+FIAT/PHD/0001,FIAT,PHD,Doctor of Philosophy Bio-Industrial Technology
+FIAT/PHD/0002,FIAT,PHD,Doctor of Philosophy Agro Technopreneurship
+FIAT/PHD/0003,FIAT,PHD,Doctor of Philosophy Agriculture Biotechnology
+FIAT/PHD/0004,FIAT,PHD,Doctor of Philosophy Product Development Technology
+FIAT/MASTER/0001,FIAT,MASTER,Master of Science Bio-Industrial Technology
+FIAT/MASTER/0002,FIAT,MASTER,Master of Science Agro Technopreneurship
+FIAT/MASTER/0003,FIAT,MASTER,Master of Science Agriculture Biotechnology
+FIAT/MASTER/0004,FIAT,MASTER,Master of Science Product Development Technology
+FSB/PHD/0001,FSB,PHD,Doctor of Philosophy Geoscience
+FSB/PHD/0002,FSB,PHD,Doctor of Philosophy Natural Resources Management
+FSB/PHD/0003,FSB,PHD,Doctor of Philosophy Sustainable Science
+FSB/PHD/0004,FSB,PHD,Doctor of Philosophy Material Technology
+FSB/PHD/0005,FSB,PHD,Doctor of Philosophy Forest Resources Technology
+FSB/PHD/0006,FSB,PHD,Doctor of Philosophy Energy Technology
+FSB/MASTER/0001,FSB,MASTER,Master of Science Geoscience
+FSB/MASTER/0002,FSB,MASTER,Master of Science Natural Resources Management
+FSB/MASTER/0003,FSB,MASTER,Master of Science Sustainable Science
+FSB/MASTER/0004,FSB,MASTER,Master of Science Material Technology
+FSB/MASTER/0005,FSB,MASTER,Master of Science Forest Resources Technology
+FSB/MASTER/0006,FSB,MASTER,Master of Science Energy Technology
+FPV/PHD/0001,FPV,PHD,Doctor of Philosophy Phatology
+FPV/PHD/0002,FPV,PHD,Doctor of Philosophy Nutrition
+FPV/PHD/0003,FPV,PHD,Doctor of Philosophy Anatomy
+FPV/PHD/0004,FPV,PHD,Doctor of Philosophy Microbiology
+FPV/PHD/0005,FPV,PHD,Doctor of Philosophy Parasitology
+FPV/PHD/0006,FPV,PHD,Doctor of Philosophy Physiology
+FPV/MASTER/0001,FPV,MASTER,Master of Science Phatology
+FPV/MASTER/0002,FPV,MASTER,Master of Science Nutrition
+FPV/MASTER/0003,FPV,MASTER,Master of Science Anatomy
+FPV/MASTER/0004,FPV,MASTER,Master of Science Microbiology
+FPV/MASTER/0005,FPV,MASTER,Master of Science Parasitology
+FPV/MASTER/0006,FPV,MASTER,Master of Science Physiology
+PBI/PHD/0001,PBI,PHD,Doctor of Philosophy Studies of History and Civilisation
+PBI/PHD/0002,PBI,PHD,Doctor of Philosophy Development and Educational Values
+PBI/PHD/0003,PBI,PHD,Doctor of Philosophy Industrial Psychological Organization
+PBI/PHD/0004,PBI,PHD,Doctor of Philosophy Religion And Contemporary
+PBI/PHD/0005,PBI,PHD,Doctor of Philosophy Social Work
+PBI/PHD/0006,PBI,PHD,Doctor of Philosophy Language Studies
+PBI/PHD/0007,PBI,PHD,Doctor of Philosophy Communication
+PBI/MASTER/0001,PBI,MASTER,Master of Arts Studies of History and Civilisation
+PBI/MASTER/0002,PBI,MASTER,Master of Arts Development and Educational Values
+PBI/MASTER/0003,PBI,MASTER,Master of Arts Industrial Psychological Organization
+PBI/MASTER/0004,PBI,MASTER,Master of Arts Religion And Contemporary
+PBI/MASTER/0005,PBI,MASTER,Master of Arts Social Work
+PBI/MASTER/0006,PBI,MASTER,Master of Arts Language Studies
+PBI/MASTER/0007,PBI,MASTER,Master of Arts Communication
+FTKW/PHD/0001,FTKW,PHD,Doctor of Philosophy Heritage Studies
+FTKW/PHD/0002,FTKW,PHD,Doctor of Philosophy Textile and Fashion
+FTKW/PHD/0003,FTKW,PHD,Doctor of Philosophy Product Design
+FTKW/PHD/0004,FTKW,PHD,Doctor of Philosophy Multimedia
+FTKW/PHD/0005,FTKW,PHD,Doctor of Philosophy VisualCommunication
+FTKW/MASTER/0001,FTKW,MASTER,Master of Arts Heritage Studies
+FTKW/MASTER/0002,FTKW,MASTER,Master of Arts Textile and Fashion
+FTKW/MASTER/0003,FTKW,MASTER,Master of Arts Product Design
+FTKW/MASTER/0004,FTKW,MASTER,Master of Arts Multimedia
+FTKW/MASTER/0005,FTKW,MASTER,Master of Arts VisualCommunication
+FKP/PHD/0001,FKP,PHD,Doctor of Philosophy Management
+FKP/PHD/0002,FKP,PHD,Doctor of Philosophy Finance
+FKP/PHD/0003,FKP,PHD,Doctor of Philosophy Accounting
+FKP/PHD/0004,FKP,PHD,Doctor of Philosophy Retailing
+FKP/PHD/0005,FKP,PHD,Doctor of Philosophy Commerce
+FKP/PHD/0006,FKP,PHD,Doctor of Philosophy HealthEntrepreneurship
+FKP/PHD/0007,FKP,PHD,Doctor of Philosophy Hospitality
+FKP/PHD/0008,FKP,PHD,Doctor of Philosophy Tourism
+FKP/MASTER/0001,FKP,MASTER,Master of Entrepreneurship Management
+FKP/MASTER/0002,FKP,MASTER,Master of Entrepreneurship Finance
+FKP/MASTER/0003,FKP,MASTER,Master of Entrepreneurship Accounting
+FKP/MASTER/0004,FKP,MASTER,Master of Entrepreneurship Retailing
+FKP/MASTER/0005,FKP,MASTER,Master of Entrepreneurship Commerce
+FKP/MASTER/0006,FKP,MASTER,Master of Entrepreneurship HealthEntrepreneurship
+FKP/MASTER/0007,FKP,MASTER,Master of Entrepreneurship Hospitality
+FKP/MASTER/0008,FKP,MASTER,Master of Entrepreneurship Tourism
