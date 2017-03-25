@@ -24,10 +24,11 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenFilterTheInvoice>{
+
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2001.class);
 	
     @Test
-    @Rollback(true)
+    @Rollback
     public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
         when().I_charge_student_with_academic_fees();

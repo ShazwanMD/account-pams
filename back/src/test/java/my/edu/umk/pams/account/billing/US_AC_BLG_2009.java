@@ -24,7 +24,7 @@ public class US_AC_BLG_2009 extends SpringScenarioTest<GivenIAmBursary, WhenRedu
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2009.class);
 
     @Test
-    @Rollback(true)
+    @Rollback
     public void testScenario1() {
         given().I_am_a_bursary_in_current_academic_session();
         when().Reduce_student_payment_based_on_waiver();

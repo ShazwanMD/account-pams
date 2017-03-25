@@ -37,7 +37,7 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
      * so that student is charged
      */
     @Test
-    @Rollback(true)
+    @Rollback
     public void scenario1() {
         given().I_am_a_bursary_in_current_academic_session();
         when().I_pick_student_account_and_add_account_charge_of_$(MATRIC_NO, CHARGE_AMOUNT);
@@ -45,7 +45,7 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
     }
 
     @Test
-    @Rollback(true)
+    @Rollback
     public void scenario2() {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);
         when().I_pick_student_account_and_add_account_charge_of_$(MATRIC_NO, CHARGE_AMOUNT);
@@ -53,7 +53,7 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
     }
 
     @Test
-    @Rollback(true)
+    @Rollback
     public void scenario3() {
         given().I_am_a_bursary_in_$_academic_session(SESSION_CODE);
         when().I_pick_student_account_and_add_academic_charge(MATRIC_NO);

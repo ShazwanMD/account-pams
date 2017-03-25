@@ -24,7 +24,7 @@ public class US_AC_BLG_0000 extends SpringScenarioTest<GivenIAmBursary, WhenIssu
     public static final String MATRIC_NO = "A17P001";
 
     @Test
-    @Rollback(true)
+    @Rollback
     public void testScenario1() {
         given().I_am_a_bursary_in_current_academic_session()
                 .and().I_pick_a_student_with_matric_no_$(MATRIC_NO);

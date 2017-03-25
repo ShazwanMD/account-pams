@@ -27,7 +27,7 @@ public class US_AC_ACT_0010 extends SpringScenarioTest<GivenIAmStudent, WhenIWan
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0010.class);
 
 	@Test
-	@Rollback(true)
+	@Rollback
 	public void scenario1() {
 		given().I_am_a_student_in_current_academic_session();
 		when().I_want_view_my_compound_bill();

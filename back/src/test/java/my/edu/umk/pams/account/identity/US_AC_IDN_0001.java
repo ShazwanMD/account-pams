@@ -24,7 +24,7 @@ public class US_AC_IDN_0001 extends SpringScenarioTest<GivenIAmBursary, WhenIssu
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_IDN_0001.class);
 
     @Test
-    @Rollback(true)
+    @Rollback
     @Pending
     public void testScenario1() {
     }

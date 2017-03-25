@@ -36,7 +36,7 @@ public class US_AC_ACT_2002 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2002.class);
 
 	@Test
-	@Rollback(true)
+	@Rollback
 	@Pending
 	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();

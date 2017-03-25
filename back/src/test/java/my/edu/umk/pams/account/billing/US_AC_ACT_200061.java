@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class US_AC_ACT_200061 extends SpringScenarioTest<GivenIAmStudent, WhenIListAcademicChargesByAccount, ThenTheAcademicChargesAreListed>{
 
     @Test
-    @Rollback(true)
+    @Rollback
     public void scenarioPayment(){
     	given().I_am_a_student_in_current_academic_session();
     	when().I_list_charges_by_acount();

@@ -23,7 +23,7 @@ public class US_AC_BLG_00011 extends SpringScenarioTest<GivenIAmStudent, WhenSec
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_00011.class);
 
     @Test
-    @Rollback(true)
+    @Rollback
     public void scenario1() {
 		given().I_am_a_student_in_current_academic_session();
         when().security_issues_me_compound_charges();
