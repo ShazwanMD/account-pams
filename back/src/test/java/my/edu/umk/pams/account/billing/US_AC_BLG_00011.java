@@ -5,8 +5,6 @@ import my.edu.umk.pams.account.billing.stage.ThenStudentAccountIsCharged;
 import my.edu.umk.pams.account.billing.stage.WhenSecurityChargeMeCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -23,14 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class US_AC_BLG_00011 extends SpringScenarioTest<GivenIAmStudent, WhenSecurityChargeMeCompound, ThenStudentAccountIsCharged> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_00011.class);
-
-    @Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
 
     @Test
     @Rollback(true)

@@ -1,7 +1,5 @@
 package my.edu.umk.pams.account.financialaid;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -33,17 +31,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsorAndSettlementDetails, ThenAddSponsorAndCheckFees>{
 
-
 	private static final String SPONSOR_NO = "HLP";
-
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
-
 
 	@Test
 	@Rollback(false)

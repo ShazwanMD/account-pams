@@ -5,8 +5,6 @@ package my.edu.umk.pams.account.account;
  * so that payment can be process .
  */
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,18 +22,9 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_2004
-		extends SpringScenarioTest<GivenIAmBursary, WhenUpdateStudentCompound, ThenPaymentCanProcess> {
+public class US_AC_ACT_2004 extends SpringScenarioTest<GivenIAmBursary, WhenUpdateStudentCompound, ThenPaymentCanProcess> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2004.class);
-
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
 
 	@Test
 	@Rollback(false)

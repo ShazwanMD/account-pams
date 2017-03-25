@@ -5,8 +5,6 @@ package my.edu.umk.pams.account.account;
  * so that I can keep the slip as a proove // I_can_keep_my_payment_details
  */
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -24,24 +22,13 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_3005 extends
-		SpringScenarioTest<GivenIAmStudent, WhenIWantToPrintMyPaymentSlip, ThenICanKeepMyPaymentDetails> {
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
+public class US_AC_ACT_3005 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToPrintMyPaymentSlip, ThenICanKeepMyPaymentDetails> {
 
 	@Test
 	@Rollback
 	public void testScenario0() {
-		// Given
 		given().I_am_a_student_in_current_academic_session() ;
-		// When
 		when().I_want_to_print_my_payment_slip();
-		// Then
 		then().I_can_keep_my_payment_details();
 	}
 }

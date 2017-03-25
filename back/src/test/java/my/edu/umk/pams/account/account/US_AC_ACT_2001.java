@@ -1,7 +1,5 @@
 package my.edu.umk.pams.account.account;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -26,14 +24,6 @@ public class US_AC_ACT_2001 extends SpringScenarioTest<GivenIAmBursary, WhenList
     
 	private static final String MATRIC_NO = "A17P001";
 	
-	@Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
-
     @Test
     @Rollback(false)
     public void scenario1() {

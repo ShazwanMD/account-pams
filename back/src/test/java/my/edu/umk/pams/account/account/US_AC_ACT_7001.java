@@ -1,7 +1,5 @@
 package my.edu.umk.pams.account.account;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -23,13 +21,6 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_ACT_7001 extends SpringScenarioTest<GivenIAmStudent, WhenRegisterStudentCompound, ThenCompoundDetailsRecord>{
-    @Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
 
     @Test
     @Rollback(false)

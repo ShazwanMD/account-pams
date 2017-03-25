@@ -6,8 +6,6 @@ import my.edu.umk.pams.account.account.stage.ThenAccountIsCharged;
 import my.edu.umk.pams.account.account.stage.WhenIAddAccountCharge;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.tags.*;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,14 +26,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAddAccountCharge, ThenAccountIsCharged> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0004.class);
-
-    @Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
 
     private static final String MATRIC_NO = "A17P001";
     private static final String SESSION_CODE = "201720181";

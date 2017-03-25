@@ -2,8 +2,6 @@ package my.edu.umk.pams.account.billing;
 
 import my.edu.umk.pams.account.billing.stage.ThenTheAcademicChargesAreListed;
 import my.edu.umk.pams.account.billing.stage.WhenIListAcademicChargesByAccount;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -19,16 +17,8 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_20006 extends	SpringScenarioTest<GivenIAmBursary, WhenIListAcademicChargesByAccount, ThenTheAcademicChargesAreListed>{
+public class US_AC_ACT_20006 extends SpringScenarioTest<GivenIAmBursary, WhenIListAcademicChargesByAccount, ThenTheAcademicChargesAreListed>{
 
-    @Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
-    
     @Test
     @Rollback(true)
     public void scenarioPayment(){

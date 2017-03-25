@@ -1,7 +1,5 @@
 package my.edu.umk.pams.account.financialaid;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -33,14 +31,6 @@ public class US_AC_FNA_3000 extends SpringScenarioTest<GivenIAmStudent, WhenIVie
 
 	private static final String MATRIC_NO = "A17P002";
 	
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
-
 	@Test
 	@Rollback(false)
 	public void testViewSponsorInformation() {

@@ -1,7 +1,5 @@
 package my.edu.umk.pams.account.account;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -22,13 +20,6 @@ import my.edu.umk.pams.bdd.stage.GivenIAmParent;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Pending
 public class US_AC_ACT_4002 extends SpringScenarioTest<GivenIAmParent, WhenIWantToPayFeesAndChargesForAStudent, ThenMyChildCanRegisterNewSubject> {
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
 
 	@Test
 	@Rollback

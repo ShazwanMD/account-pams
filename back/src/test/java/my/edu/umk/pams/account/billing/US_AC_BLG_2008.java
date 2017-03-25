@@ -6,8 +6,6 @@ import my.edu.umk.pams.account.billing.stage.ThenProcessThePayment;
 import my.edu.umk.pams.account.billing.stage.WhenUpdateStudentPayment;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,14 +22,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class US_AC_BLG_2008 extends SpringScenarioTest<GivenIAmBursary, WhenUpdateStudentPayment, ThenProcessThePayment> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2008.class);
-
-    @Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
 
     @Test
     @Rollback(true)

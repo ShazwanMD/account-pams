@@ -8,8 +8,6 @@ import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.account.account.stage.ThenAccountIsCharged;
 import my.edu.umk.pams.account.account.stage.WhenIAddAccountCharge;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -29,14 +27,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class US_AC_ACT_0012 extends SpringScenarioTest<GivenIAmStudent, WhenIPrintCompoundReceipt, ThenUsedAsProofOfPayment> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0012.class);
-
-    @Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
 
     private static final String STUDENT_NO = "ABC001";
     private static final String SESSION_CODE = "201720181";

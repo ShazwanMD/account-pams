@@ -6,8 +6,6 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.stage.ThenTheSponsorIsAdded;
 import my.edu.umk.pams.account.identity.stage.WhenIAddASponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -36,14 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class US_AC_ACT_2002 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsor, ThenTheSponsorIsAdded> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2002.class);
-
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
 
 	@Test
 	@Rollback(true)

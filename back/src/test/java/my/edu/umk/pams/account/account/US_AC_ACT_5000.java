@@ -1,7 +1,5 @@
 package my.edu.umk.pams.account.account;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /** As a Academic (MGSEB/CPS)
@@ -26,18 +24,10 @@ import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_5000 extends
-		SpringScenarioTest<GivenIAmCPSAdministrator, WhenIRegisterStudentCompoundBill, ThenCompoundDetailsAreRecord> {
+public class US_AC_ACT_5000 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIRegisterStudentCompoundBill, ThenCompoundDetailsAreRecord> {
+
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5000.class);
 	public static final String MATRIC_NO = "A17P001";
-
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
 
 	@Test
 	@Rollback

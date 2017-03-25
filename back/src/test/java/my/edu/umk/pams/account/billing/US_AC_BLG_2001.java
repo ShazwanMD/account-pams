@@ -5,8 +5,6 @@ import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,18 +26,9 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenFilterTheInvoice>{
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2001.class);
 	
-	@Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
-    
     @Test
     @Rollback(true)
     public void scenario1() {
-
 		given().I_am_a_bursary_in_current_academic_session();
         when().I_charge_student_with_academic_fees();
         then().I_can_show_invoice_filter_by_charge_code();

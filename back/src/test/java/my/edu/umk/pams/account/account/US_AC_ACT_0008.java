@@ -5,8 +5,6 @@ package my.edu.umk.pams.account.account;
  * so that I can view student's compound charges 
  */
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,16 +26,9 @@ import my.edu.umk.pams.bdd.tags.Issue;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue(value = { "PAMSU-5" })
 public class US_AC_ACT_0008 extends SpringScenarioTest<GivenIAmBursary, WhenIListStudentChargesOfTypeCompound, ThenICanViewStudentCompoundCharges>{
+
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0008.class);
 
-    @Before
-    public void before() {
-    }
-
-    @After
-    public void after() {
-    }
-    
     @Issue("PAMSU-3")
     private static final String MATRIC_NO = "19990201-07-1234";
     

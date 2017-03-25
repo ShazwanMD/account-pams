@@ -5,8 +5,6 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanStartSettlementProcess;
 import my.edu.umk.pams.account.financialaid.stage.WhenIGroupStudentBySponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -32,14 +30,6 @@ public class US_AC_FNA_1002 extends SpringScenarioTest<GivenIAmBursary, WhenIGro
 
 	private static final String SPONSOR_NO = "HLP";
 	
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
-
 	@Test
 	@Rollback(false)
 	public void testGroupSponsorByStudent() {

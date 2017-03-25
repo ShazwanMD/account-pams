@@ -1,7 +1,5 @@
 package my.edu.umk.pams.account.account;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,20 +22,9 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_0010
-		extends SpringScenarioTest<GivenIAmStudent, WhenIWantViewCompoundBill, ThenIKnowTheCompoundAmount> {
+public class US_AC_ACT_0010 extends SpringScenarioTest<GivenIAmStudent, WhenIWantViewCompoundBill, ThenIKnowTheCompoundAmount> {
+
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0010.class);
-
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
-
-	
-	
 
 	@Test
 	@Rollback(true)

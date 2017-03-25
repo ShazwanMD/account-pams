@@ -6,8 +6,6 @@ import my.edu.umk.pams.account.account.stage.WhenWantToRegisterStudentCompoundBi
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -25,19 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_5001 extends
-		SpringScenarioTest<GivenIAmStudentAffair, WhenWantToRegisterStudentCompoundBill, ThenTheCompoundDetailsAreRecorded> {
+public class US_AC_ACT_5001 extends SpringScenarioTest<GivenIAmStudentAffair, WhenWantToRegisterStudentCompoundBill, ThenTheCompoundDetailsAreRecorded> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5001.class);
-	
-
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
 
 	@Test
 	@Rollback

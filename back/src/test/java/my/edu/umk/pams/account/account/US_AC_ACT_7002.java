@@ -5,8 +5,6 @@ import my.edu.umk.pams.account.account.stage.ThenCanViewStudentsCompoundCharges;
 import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -30,14 +28,6 @@ public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmCPSAdministrator,
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7002.class);
 
 	private static final String MATRIC_NO = "A17P001";
-
-	@Before
-	public void before() {
-	}
-
-	@After
-	public void after() {
-	}
 
 	@Test
 	@Rollback
