@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.common.model;
 
+import java.util.List;
+
 import my.edu.umk.pams.account.core.AcMetaObject;
 
 public interface AcProgramCode extends AcMetaObject {
@@ -15,4 +17,8 @@ public interface AcProgramCode extends AcMetaObject {
     AcFacultyCode getFacultyCode();
 
     void setFacultyCode(AcFacultyCode facultyCode);
+    
+    List<AcCohortCode> getCohortCode();
+    
+    void setCohortCode(List<AcCohortCode> cohortCode);
 }

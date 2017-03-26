@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.identity.dao;
 
+import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -79,6 +80,17 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
         return query.list();
     }
 
+	@Override
+	public List<AcStudent> findCohort(AcCohortCode cohortCode) {
+		Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcCohortCode s where " +
+                "s.cohortCode = :cohortCode " +
+                "and s.metadata.state = :state ");
+        query.setEntity("cohortCode", cohortCode);
+        query.setInteger("state", ACTIVE.ordinal());
+        return query.list();
+	}
+	
     @Override
     public List<AcSponsor> findSponsors(AcStudent student) {
         Session session = sessionFactory.getCurrentSession();
@@ -154,5 +166,7 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
         sponsorship.setMetadata(metadata);
         session.update(student);
     }
+
+
 
 }

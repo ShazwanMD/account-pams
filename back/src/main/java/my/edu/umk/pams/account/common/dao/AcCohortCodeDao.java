@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.common.dao;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 
@@ -18,6 +19,8 @@ public interface AcCohortCodeDao extends GenericDao<Long, AcCohortCode> {
 
     List<AcCohortCode> find(AcStudent student);
     
+    List<AcCohortCode> findProgramCode(AcProgramCode programCode);
+    
     // ====================================================================================================
     // HELPER
     // ====================================================================================================
@@ -25,4 +28,6 @@ public interface AcCohortCodeDao extends GenericDao<Long, AcCohortCode> {
     Integer count(String filter);
 
     boolean isExists(String code);
+
+	
 }

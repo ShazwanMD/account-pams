@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.identity.service;
 
+import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.identity.dao.RecursiveGroupException;
 import my.edu.umk.pams.account.identity.model.*;
 
@@ -181,6 +182,8 @@ public interface IdentityService {
     List<AcStudent> findStudents(String filter, Integer offset, Integer limit);
 
     List<AcSponsorship> findSponsorships(AcStudent student);
+    
+    List<AcStudent> findCohort(AcCohortCode cohortCode);
 
     Integer countStudent();
 

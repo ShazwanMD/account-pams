@@ -1,6 +1,9 @@
 package my.edu.umk.pams.account.common.model;
 
 import my.edu.umk.pams.account.core.AcMetadata;
+import my.edu.umk.pams.account.identity.model.*;
+
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,9 +30,8 @@ public class AcCohortCodeImpl implements AcCohortCode {
     @JoinColumn(name = "PROGRAM_CODE_ID")
     private AcProgramCode programCode;
 
-    // todo(hajar): link students
-//    @OneToMany(targetEntity = AcStudentImpl.class, mappedBy = "student", fetch = FetchType.LAZY)
-//    private List<AcStudent> student;
+    @OneToMany(targetEntity = AcStudentImpl.class, mappedBy = "student", fetch = FetchType.LAZY)
+    private List<AcStudent> student;
     
     @Embedded
     private AcMetadata metadata;
@@ -73,15 +75,15 @@ public class AcCohortCodeImpl implements AcCohortCode {
         this.programCode = programCode;
     }
 
-    //    @Override
-//    public List<AcStudent> getStudent() {
-//        return student;
-//    }
-//
-//    @Override
-//    public void setStudent(List<AcStudent> student) {
-//        this.student=student;
-//    }
+    @Override
+    public List<AcStudent> getStudent() {
+        return student;
+    }
+
+    @Override
+    public void setStudent(List<AcStudent> student) {
+        this.student=student;
+    }
 
     @Override
     public AcMetadata getMetadata() {

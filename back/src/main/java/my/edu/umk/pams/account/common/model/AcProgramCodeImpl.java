@@ -1,6 +1,10 @@
 package my.edu.umk.pams.account.common.model;
 
 import my.edu.umk.pams.account.core.AcMetadata;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.model.AcStudentImpl;
+
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,6 +30,9 @@ public class AcProgramCodeImpl implements AcProgramCode {
     @JoinColumn(name = "FACULTY_CODE_ID")
     private AcFacultyCode facultyCode;
 
+    @OneToMany(targetEntity = AcCohortCodeImpl.class, mappedBy = "cohortCode", fetch = FetchType.LAZY)
+    private List<AcCohortCode> cohortCode;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -82,4 +89,14 @@ public class AcProgramCodeImpl implements AcProgramCode {
     public Class<?> getInterfaceClass() {
         return AcProgramCode.class;
     }
+
+	@Override
+	public List<AcCohortCode> getCohortCode() {
+		return cohortCode;
+	}
+
+	@Override
+	public void setCohortCode(List<AcCohortCode> cohortCode) {
+		this.cohortCode=cohortCode;
+	}
 }

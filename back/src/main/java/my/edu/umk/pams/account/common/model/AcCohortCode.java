@@ -1,21 +1,24 @@
 package my.edu.umk.pams.account.common.model;
 
+import my.edu.umk.pams.account.identity.model.*;
+
+import java.util.List;
+
 public interface AcCohortCode extends my.edu.umk.pams.account.core.AcMetaObject {
 
-    String getCode();
+	String getCode();
 
-    void setCode(String code);
+	void setCode(String code);
 
-    String getDescription();
+	String getDescription();
 
-    void setDescription(String description);
+	void setDescription(String description);
 
-    AcProgramCode getProgramCode();
+	AcProgramCode getProgramCode();
 
-    void setProgramCode(AcProgramCode programCode);
+	void setProgramCode(AcProgramCode programCode);
 
-    // todo(hajar): link ke student
-//    List<AcStudent> getStudent();
-//
-//	void setStudent(List<AcStudent> student);
+	List<AcStudent> getStudent();
+
+	void setStudent(List<AcStudent> student);
 }

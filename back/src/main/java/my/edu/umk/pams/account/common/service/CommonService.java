@@ -174,7 +174,7 @@ public interface CommonService {
 
     AcProgramCode findProgramCodeByUpuCode(String upuCode);
 
-    List<AcProgramCode> findProgramCodes();
+    List<AcProgramCode> findProgramCodes(AcFacultyCode facultyCode);
 
     List<AcProgramCode> findProgramCodes(String filter, Integer offset, Integer limit);
 
@@ -233,5 +233,12 @@ public interface CommonService {
     void updateResidencyCode(AcResidencyCode residencyCode);
 
     void removeResidencyCode(AcResidencyCode residencyCode);
+    
+
+    //====================================================================================================
+    // COHORT CODE
+    //====================================================================================================
+    
+    List<AcCohortCode> findProgramCode (AcProgramCode programCode);
 
 }

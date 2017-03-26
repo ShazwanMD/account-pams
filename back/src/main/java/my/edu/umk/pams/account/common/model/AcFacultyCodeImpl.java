@@ -1,6 +1,10 @@
 package my.edu.umk.pams.account.common.model;
 
 import my.edu.umk.pams.account.core.AcMetadata;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItemImpl;
+
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,6 +27,9 @@ public class AcFacultyCodeImpl implements AcFacultyCode {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
+    @OneToMany(targetEntity = AcProgramCodeImpl.class, mappedBy = "programCode", fetch = FetchType.LAZY)
+    private List<AcProgramCode> programCode;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -69,5 +76,15 @@ public class AcFacultyCodeImpl implements AcFacultyCode {
     public Class<?> getInterfaceClass() {
         return AcFacultyCode.class;
     }
+
+	@Override
+	public List<AcProgramCode> getProgramCode() {
+		return programCode;
+	}
+
+	@Override
+	public void setProgramCode(List<AcProgramCode> programCode) {
+		this.programCode=programCode;
+	}
 
 }

@@ -38,9 +38,7 @@ public class CommonServiceImpl implements CommonService {
     @Autowired
     private AcResidencyCodeDao residencyCodeDao;
 
-    @Autowired
-    private AcResidencyCodeDao residenceCodeDao;
-
+    
     @Autowired
     private AcFacultyCodeDao facultyCodeDao;
 
@@ -49,6 +47,9 @@ public class CommonServiceImpl implements CommonService {
 
     @Autowired
     private SessionFactory sessionFactory;
+    
+    @Autowired
+    private AcCohortCodeDao cohortCodeDao;
 
     //====================================================================================================
     // COUNTRY CODE
@@ -294,8 +295,8 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<AcProgramCode> findProgramCodes() {
-        return programCodeDao.find();
+    public List<AcProgramCode> findProgramCodes(AcFacultyCode facultyCode) {
+        return programCodeDao.findProgramCodes(facultyCode);
     }
 
     @Override
@@ -591,5 +592,16 @@ public class CommonServiceImpl implements CommonService {
         bankCodeDao.remove(bankCode, Util.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+
+    //====================================================================================================
+    // COHORT CODE
+    //====================================================================================================
+
+	@Override
+	public List<AcCohortCode> findProgramCode (AcProgramCode programCode) {
+		return cohortCodeDao.findProgramCode(programCode);
+	}
+
+
 
 }
