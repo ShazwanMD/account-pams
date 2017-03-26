@@ -30,7 +30,7 @@ public class AcCohortCodeImpl implements AcCohortCode {
     @JoinColumn(name = "PROGRAM_CODE_ID")
     private AcProgramCode programCode;
 
-    @OneToMany(targetEntity = AcStudentImpl.class, mappedBy = "student", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = AcStudentImpl.class, mappedBy = "cohortCode", fetch = FetchType.LAZY)
     private List<AcStudent> student;
     
     @Embedded

@@ -27,7 +27,7 @@ public class AcFacultyCodeImpl implements AcFacultyCode {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-    @OneToMany(targetEntity = AcProgramCodeImpl.class, mappedBy = "programCode", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = AcProgramCodeImpl.class, mappedBy = "facultyCode", fetch = FetchType.LAZY)
     private List<AcProgramCode> programCode;
     
     @Embedded
