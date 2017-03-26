@@ -3,7 +3,10 @@ package my.edu.umk.pams.account.common.dao;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.common.model.AcProgramCodeImpl;
+import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -87,10 +90,12 @@ public class AcProgramCodeDaoImpl extends GenericDaoSupport<Long, AcProgramCode>
 	@Override
 	public List<AcProgramCode> findProgramCodes(AcFacultyCode facultyCode) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("select s from AcProgramCode s where " + "s.facultyCode = :facultyCode "
+		Query query = session.createQuery("select s from AcProgramCode s where " 
+				+ "s.facultyCode = :facultyCode "
 				+ "and s.metadata.state = :state ");
 		query.setEntity("facultyCode", facultyCode);
-		query.setInteger("state", ACTIVE.ordinal());
+		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
 		return (List<AcProgramCode>) query.list();
+
 	}
 }

@@ -183,7 +183,7 @@ public interface IdentityService {
 
     List<AcSponsorship> findSponsorships(AcStudent student);
     
-    List<AcStudent> findCohort(AcCohortCode cohortCode);
+    List<AcStudent> findByCohort(AcCohortCode cohortCode);
 
     Integer countStudent();
 

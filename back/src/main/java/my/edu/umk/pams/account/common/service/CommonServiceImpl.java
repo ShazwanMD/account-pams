@@ -598,8 +598,8 @@ public class CommonServiceImpl implements CommonService {
     //====================================================================================================
 
 	@Override
-	public List<AcCohortCode> findProgramCode (AcProgramCode programCode) {
-		return cohortCodeDao.findProgramCode(programCode);
+	public List<AcCohortCode> findCohortCodesByProgramCode (AcProgramCode programCode) {
+		return cohortCodeDao.findByProgramCode(programCode);
 	}
 
 

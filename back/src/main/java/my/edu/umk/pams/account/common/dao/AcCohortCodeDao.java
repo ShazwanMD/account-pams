@@ -19,7 +19,7 @@ public interface AcCohortCodeDao extends GenericDao<Long, AcCohortCode> {
 
     List<AcCohortCode> find(AcStudent student);
     
-    List<AcCohortCode> findProgramCode(AcProgramCode programCode);
+    List<AcCohortCode> findByProgramCode(AcProgramCode programCode);
     
     // ====================================================================================================
     // HELPER
