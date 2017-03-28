@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.identity.service;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.identity.dao.*;
 import my.edu.umk.pams.account.identity.event.ApplicantUpdatedEvent;
 import my.edu.umk.pams.account.identity.event.StaffCreatedEvent;
@@ -503,6 +504,11 @@ public class IdentityServiceImpl implements IdentityService {
 		return studentDao.findCohort(cohortCode);
 	}
 
+	@Override
+	public List<AcSponsorship> findSponsorships(AcFacultyCode facultyCode){
+		return studentDao.find(facultyCode);
+	}
+	
     @Override
     public Integer countStudent() {
         return studentDao.count();
@@ -593,7 +599,7 @@ public class IdentityServiceImpl implements IdentityService {
     public List<AcSponsorship> findSponsorships(AcSponsor sponsor) {
         return sponsorDao.findSponsorships(sponsor);
     }
-
+    
     @Override
     public List<AcCoverage> findCoverages(AcSponsor sponsor) {
         return sponsorDao.findCoverages(sponsor);
@@ -662,6 +668,7 @@ public class IdentityServiceImpl implements IdentityService {
         sponsorDao.removeSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+
 
 
 }

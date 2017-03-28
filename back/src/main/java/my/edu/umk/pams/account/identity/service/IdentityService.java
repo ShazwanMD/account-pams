@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.identity.service;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.identity.dao.RecursiveGroupException;
 import my.edu.umk.pams.account.identity.model.*;
 
@@ -184,6 +185,8 @@ public interface IdentityService {
     List<AcSponsorship> findSponsorships(AcStudent student);
     
     List<AcStudent> findByCohort(AcCohortCode cohortCode);
+    
+    List<AcSponsorship> findSponsorships(AcFacultyCode facultyCode);
 
     Integer countStudent();
 
@@ -219,8 +222,6 @@ public interface IdentityService {
 
     List<AcSponsor> findSponsors(String filter, Integer offset, Integer limit);
 
-    List<AcSponsorship> findSponsorships(AcSponsor sponsor);
-
     List<AcCoverage> findCoverages(AcSponsor sponsor);
 
     Integer countCoverage(AcSponsor sponsor);
@@ -242,11 +243,15 @@ public interface IdentityService {
     // ====================================================================================================
     // SPONSORSHIP
     // ====================================================================================================
+	
+    List<AcSponsorship> findSponsorships(AcSponsor sponsor);
 
     AcSponsorship findSponsorshipById(Long id);
 
     boolean hasSponsorship(AcStudent student);
 
     boolean hasSponsorship(AcSponsor sponsor);
+
+
 
 }
