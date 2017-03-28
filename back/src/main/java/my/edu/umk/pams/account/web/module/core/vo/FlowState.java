@@ -19,8 +19,8 @@ public enum FlowState {
     CANCELLED,              // 12
     REJECTED,               // 13
     REMOVED,                // 14
-    COMPLETED,              // 16
-    ARCHIVED;               // 17
+    COMPLETED,              // 15
+    ARCHIVED;               // 16
 
     public static FlowState get(int index) {
         return values()[index];

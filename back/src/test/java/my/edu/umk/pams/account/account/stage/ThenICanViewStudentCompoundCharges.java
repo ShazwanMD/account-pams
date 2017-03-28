@@ -31,9 +31,8 @@ public class ThenICanViewStudentCompoundCharges extends Stage<ThenICanViewStuden
 	@ExpectedScenarioState
 	AcAccountCharge accountCharge;
 
-	@Pending
-	public void I_can_view_student_compound_charge() {
-
+	public ThenICanViewStudentCompoundCharges I_can_view_student_compound_charge() {
+		return self();
 	}
 
 }
