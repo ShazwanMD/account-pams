@@ -27,6 +27,8 @@ public interface AcAccountCharge extends AcMetaObject{
     void setAmount(BigDecimal amount);
 
     AcAccountChargeType getChargeType();
+    
+    AcAccountChargeType getChargeType(String i);
 
     void setChargeType(AcAccountChargeType chargeType);
 

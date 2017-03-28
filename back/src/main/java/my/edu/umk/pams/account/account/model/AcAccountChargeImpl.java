@@ -161,4 +161,9 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     public Class<?> getInterfaceClass() {
         return AcAccountCharge.class;
     }
+
+	@Override
+	public AcAccountChargeType getChargeType(String i) {
+		return chargeType.valueOf(i);
+	}
 }
