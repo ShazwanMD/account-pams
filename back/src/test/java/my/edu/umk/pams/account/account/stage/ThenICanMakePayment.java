@@ -44,7 +44,7 @@ public class ThenICanMakePayment extends Stage<ThenICanMakePayment> {
 
 	public ThenICanMakePayment I_can_make_payment() {
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
-		Assert.isTrue(!charges.isEmpty());
+		Assert.notEmpty(charges, "charges cannot be empty");
 		return self();
 
 	}

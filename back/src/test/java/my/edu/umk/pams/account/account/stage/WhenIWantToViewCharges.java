@@ -43,7 +43,9 @@ public class WhenIWantToViewCharges extends Stage<WhenIWantToViewCharges> {
     public WhenIWantToViewCharges I_want_to_view_charges() {
 
         List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
-
+        for (AcAccountCharge charge : charges) {
+            LOG.debug(charge.getDescription() + " " + charge.getReferenceNo());
+        }
 
         return self();
 
