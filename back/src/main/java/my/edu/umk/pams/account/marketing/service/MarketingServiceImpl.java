@@ -50,34 +50,34 @@ public class MarketingServiceImpl implements MarketingService{
 	}
 
 	@Override
-	public List<AcPromoCodeItem> findItems(AcPromoCode promoCode) {
+	public List<AcPromoCodeItem> findPromoCodeItems(AcPromoCode promoCode) {
 		return promoCodeDao.findItems(promoCode);
 	}
 
 	@Override
-	public List<AcPromoCodeItem> findItems(AcAccount account) {
+	public List<AcPromoCodeItem> findPromoCodeItems(AcAccount account) {
 		return promoCodeDao.findItems(account);
 	}
 
 	@Override
-	public boolean isExpired(Date now) {
+	public boolean isPromoCodeExpired(Date now) {
 		return promoCodeDao.isExpired(now);
 	}
 
 	@Override
-	public void addItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
+	public void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
 		promoCodeDao.addItem(promoCode, detail, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
 	}
 
 	@Override
-	public void updateItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
+	public void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
 		promoCodeDao.updateItem(promoCode, detail, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
 
 	@Override
-	public void deleteItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
+	public void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
 		promoCodeDao.deleteItem(promoCode, detail, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}

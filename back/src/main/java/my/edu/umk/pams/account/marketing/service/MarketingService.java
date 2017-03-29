@@ -19,15 +19,15 @@ public interface MarketingService {
 	
 	List<AcPromoCode> findByPromoCodeType(AcPromoCodeType promoCodeType, Integer offset, Integer limit);
 
-	List<AcPromoCodeItem> findItems(AcPromoCode promoCode);
+	List<AcPromoCodeItem> findPromoCodeItems(AcPromoCode promoCode);
 
-	List<AcPromoCodeItem> findItems(AcAccount account);
+	List<AcPromoCodeItem> findPromoCodeItems(AcAccount account);
 	
-	boolean isExpired(Date now);
+	boolean isPromoCodeExpired(Date now);
 
-	void addItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+	void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
 
-	void updateItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+	void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
 
-	void deleteItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+	void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
 }

@@ -20,40 +20,43 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
-public class WhenListStudentChargesOfTypeCompoundByAccount extends Stage<WhenListStudentChargesOfTypeCompoundByAccount>{
+public class WhenListStudentChargesOfTypeCompoundByAccount
+		extends Stage<WhenListStudentChargesOfTypeCompoundByAccount> {
 	private static final Logger LOG = LoggerFactory.getLogger(WhenListStudentChargesOfTypeCompoundByAccount.class);
 	@Autowired
 	private IdentityService identityService;
 
 	@Autowired
 	private AccountService accountService;
-	
+
 	@ProvidedScenarioState
-    private AcAccount account;
-	
+	private AcAccount account;
+
 	@ProvidedScenarioState
-    private AcAccountCharge accountchrg;
-	
+	private AcStudent student;
+
 	@ProvidedScenarioState
-    private AcStudent student;
-	
+	private List<AcAccountCharge> accountCharges;
+
 	@ProvidedScenarioState
-    private List<AcAccountCharge> accountCharges;
-	
-	@ProvidedScenarioState
-    private AcChargeCode chargeCode;
-	
+	 private AcChargeCode chargeCodes;
+	// private List<AcChargeCode> chargeCodes;
+
 	@As("I want to list student charges of type compound by account")
-	public WhenListStudentChargesOfTypeCompoundByAccount I_want_to_list_student_charges_of_type_compound_by_account_$(String matricNo, String Code) {
-		
+	public WhenListStudentChargesOfTypeCompoundByAccount I_want_to_list_student_charges_of_type_compound_by_account_$(
+			String matricNo, String Code) {
+
 		student = identityService.findStudentByMatricNo(matricNo);
-		
+
 		account = accountService.findAccountByActor(student);
 		
-		chargeCode = accountService.findChargeCodeByCode(Code);
+		chargeCodes = accountService.findChargeCodeByCode(Code);
 		
-		accountCharges = account.getCharges();
-				
-		return self();	
+		//for (AcChargeCode chargeCodes : chargeCodes) {		
+			LOG.debug("Code : " + chargeCodes.getCode());
+			LOG.debug("Description : " + chargeCodes.getDescription());
+		//}
+
+		return self();
 	}
 }
