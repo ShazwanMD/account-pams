@@ -3,35 +3,45 @@ package my.edu.umk.pams.account.marketing.model;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
+ * 
  * @author PAMS
  */
 public interface AcPromoCode extends AcMetaObject {
 
-    String getCode();
+	Long getId();
 
-    void setCode(String code);
+	void setId(Long Id);
 
-    String getDescription();
+	String getCode();
 
-    void setDescription(String description);
+	void setCode(String code);
 
-    BigDecimal getValue();
+	String getDescription();
 
-    void setValue(BigDecimal value);
+	void setDescription(String description);
 
-    AcPromoCodeType getPromoCodeType();
+	BigDecimal getValue();
 
-    void setPromoCodeType(AcPromoCodeType promoCodeType);
+	void setValue(BigDecimal value);
 
-    Integer getQuantity();
+	AcPromoCodeType getPromoCodeType();
 
-    void setQuantity(Integer quantity);
+	void setPromoCodeType(AcPromoCodeType promoCodeType);
 
-    List<AcPromoCodeItem> getItems();
+	Integer getQuantity();
 
-    void setItems(List<AcPromoCodeItem> items);
+	void setQuantity(Integer quantity);
+
+	Date getExpiryDate();
+
+	void setExpiryDate(Date expiryDate);
+
+	List<AcPromoCodeItemImpl> getItems();
+
+	void setItems(List<AcPromoCodeItemImpl> items);
 
 }
