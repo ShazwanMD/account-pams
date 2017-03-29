@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.financialaid.stage;
+package my.edu.umk.pams.account.billing.stage;
 
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
@@ -108,6 +108,7 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 
 	@As("I generate invoice by individually")
 	public WhenIGenerateInvoice I_generate_invoice_by_individually() {
+		
 		return self();
 	}
 }
