@@ -1,9 +1,9 @@
 package my.edu.umk.pams.account.financialaid.model;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
-import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -22,7 +22,7 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
 
 
     @NotNull
-    @ManyToOne(targetEntity = AcStudentImpl.class)
+    @ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
     
