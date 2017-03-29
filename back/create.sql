@@ -512,6 +512,22 @@
         primary key (ID)
     );
 
+    create table AC_PRCD_ITEM (
+        ID int8 not null,
+        APPLIED boolean,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        SOURCE_NO varchar(255),
+        ACCOUNT_ID int8,
+        PROMO_CODE_ID int8,
+        primary key (ID)
+    );
+
     create table AC_PRGM_CODE (
         ID int8 not null,
         CODE varchar(255) not null,
@@ -524,6 +540,24 @@
         M_ID int8,
         M_ST int4,
         FACULTY_CODE_ID int8,
+        primary key (ID)
+    );
+
+    create table AC_PROMO_CODE (
+        ID int8 not null,
+        CODE varchar(255) not null,
+        DESCRIPTION varchar(255) not null,
+        EXPIRY_DATE timestamp,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        PROMO_CODE_TYPE int4,
+        QUANTITY int4,
+        VALUE numeric(19, 2) not null,
         primary key (ID)
     );
 
@@ -768,6 +802,60 @@
         primary key (ID)
     );
 
+    create table AC_WAVR_APLN (
+        ID int8 not null,
+        AUDIT_NO varchar(255),
+        BALANCE numeric(19, 2) not null,
+        CANCEL_COMMENT varchar(255),
+        DESCRIPTION varchar(255),
+        EFFECTIVE_BALANCE numeric(19, 2) not null,
+        AV_TS timestamp,
+        AV_ID int8,
+        CL_ID int8,
+        CL_TS timestamp,
+        CK_TS timestamp,
+        CK_ID int8,
+        DT_TS timestamp,
+        DT_ID int8,
+        EV_TS timestamp,
+        EV_ID int8,
+        PR_TS timestamp,
+        PR_ID int8,
+        PS_TS timestamp,
+        PS_ID int8,
+        RG_TS timestamp,
+        RG_ID int8,
+        RM_TS timestamp,
+        RM_ID int8,
+        RQ_TS timestamp,
+        RQ_ID int8,
+        SL_TS timestamp,
+        SL_ID int8,
+        FD_ST int4,
+        UP_TS timestamp,
+        UP_ID int8,
+        UV_TS timestamp,
+        UV_ID int8,
+        VF_TS timestamp,
+        VF_ID int8,
+        GRACED_AMOUNT numeric(19, 2) not null,
+        MEMO varchar(255),
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        REASON varchar(255),
+        REFERENCE_NO varchar(255),
+        REMOVE_COMMENT varchar(255),
+        SOURCE_NO varchar(255),
+        WAIVED_AMOUNT numeric(19, 2) not null,
+        ACCOUNT_ID int8,
+        primary key (ID)
+    );
+
     create table AC_WTCH (
         ID int8 not null,
         C_TS timestamp,
@@ -993,6 +1081,16 @@
         foreign key (PRINCIPAL_ID) 
         references AC_PCPL;
 
+    alter table AC_PRCD_ITEM 
+        add constraint FK8062081262AC940F 
+        foreign key (ACCOUNT_ID) 
+        references AC_ACCT;
+
+    alter table AC_PRCD_ITEM 
+        add constraint FK80620812350DCDC7 
+        foreign key (PROMO_CODE_ID) 
+        references AC_PROMO_CODE;
+
     alter table AC_PRGM_CODE 
         add constraint uc_AC_PRGM_CODE_1 unique (CODE);
 
@@ -1134,6 +1232,11 @@
         foreign key (ID) 
         references AC_PCPL;
 
+    alter table AC_WAVR_APLN 
+        add constraint FKAD43A3AD62AC940F 
+        foreign key (ACCOUNT_ID) 
+        references AC_ACCT;
+
     create sequence SEQ_ACCT_CHRG;
 
     create sequence SQ_AC_ACCT;
@@ -1184,7 +1287,11 @@
 
     create sequence SQ_AC_PCPL_ROLE;
 
+    create sequence SQ_AC_PRCD_ITEM;
+
     create sequence SQ_AC_PRGM_CODE;
+
+    create sequence SQ_AC_PROMO_CODE;
 
     create sequence SQ_AC_RCPT;
 
@@ -1203,5 +1310,7 @@
     create sequence SQ_AC_STLT_ITEM;
 
     create sequence SQ_AC_STTE_CODE;
+
+    create sequence SQ_AC_WAVR_APLN;
 
     create sequence SQ_AC_WTCH;
