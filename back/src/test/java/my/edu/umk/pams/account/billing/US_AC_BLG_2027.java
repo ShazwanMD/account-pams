@@ -30,7 +30,7 @@ public class US_AC_BLG_2027 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2027.class);
 	
-	private static final String MATRIC_NO = "AP17001";
+	private static final String MATRIC_NO = "A17P002";
 	
 	@Test
 	@Rollback(false)
