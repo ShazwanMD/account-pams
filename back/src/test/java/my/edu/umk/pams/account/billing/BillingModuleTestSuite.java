@@ -8,8 +8,14 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        US_AC_BLG_0000.class,
-        US_AC_BLG_00011.class
+		US_AC_BLG_2001.class, //faizal
+        US_AC_BLG_2007.class, //hajar
+        US_AC_BLG_2008.class, //sahir
+        US_AC_BLG_2009.class, //sahir
+        US_AC_BLG_2015.class, //sahir
+        US_AC_BLG_2016.class, //sahir
+        US_AC_BLG_2025.class, //hajar
+        US_AC_BLG_2027.class, //aida
 })
 public class BillingModuleTestSuite {
 }
