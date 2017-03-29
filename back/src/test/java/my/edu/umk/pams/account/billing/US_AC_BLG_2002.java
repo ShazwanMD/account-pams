@@ -21,7 +21,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_BLG_2002
-		extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoicePerCriteria, ThenBulkInvoiceAreListed> {
+		 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoicePerCriteria, ThenBulkInvoiceAreListed> {
 
 	@Before
 	public void before() {
