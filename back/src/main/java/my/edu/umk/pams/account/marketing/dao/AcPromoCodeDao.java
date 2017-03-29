@@ -15,27 +15,19 @@ import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
  */
 public interface AcPromoCodeDao extends GenericDao<Long, AcPromoCode> {
 
-	// ====================================================================================================
-	// PROMO CODE
-	// ====================================================================================================
-
 	AcPromoCode findById(Long id);
 
 	AcPromoCode findByCode(String code);
 
-	List<AcPromoCode> find(AcPromoCodeType promoCodeType, Integer offset, Integer limit);
-
-	boolean isExpired(Date now);
-
-	// ====================================================================================================
-	// PROMO CODE ITEM
-	// ====================================================================================================
-
 	AcPromoCodeItem findBySourceNo(String sourceNo);
+	
+	List<AcPromoCode> find(AcPromoCodeType promoCodeType, Integer offset, Integer limit);
 
 	List<AcPromoCodeItem> findItems(AcPromoCode promoCode);
 
 	List<AcPromoCodeItem> findItems(AcAccount account);
+	
+	boolean isExpired(Date now);
 
 	void addItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
 
