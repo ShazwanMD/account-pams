@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.financialaid.stage;
+package my.edu.umk.pams.account.billing.stage;
 
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;

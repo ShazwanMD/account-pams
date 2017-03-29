@@ -25,7 +25,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 @JGivenStage
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class WhenWantToRegisterStudentCompoundBill extends Stage<WhenWantToRegisterStudentCompoundBill> {
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantToRegisterStudentCompoundBill.class);
+	private static final Logger LOG = LoggerFactory.getLogger(WhenWantToRegisterStudentCompoundBill.class);
 
 	@ExpectedScenarioState
 	private AcStudent student;
