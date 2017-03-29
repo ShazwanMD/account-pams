@@ -37,7 +37,6 @@ public class ThenCanGiveStudentInformationToBursary extends Stage<ThenCanGiveStu
 	@ExpectedScenarioState
 	private String matricNo;
 
-	@Pending
 	public ThenCanGiveStudentInformationToBursary can_give_student_information_to_Bursary() {
 
 		return self();

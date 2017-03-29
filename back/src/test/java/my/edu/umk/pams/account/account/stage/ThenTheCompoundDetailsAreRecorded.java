@@ -13,7 +13,7 @@ import my.edu.umk.pams.account.account.model.AcAccountCharge;
 
 public class ThenTheCompoundDetailsAreRecorded extends Stage<ThenTheCompoundDetailsAreRecorded> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantToRegisterStudentCompoundBill.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ThenTheCompoundDetailsAreRecorded.class);
 
 	@ExpectedScenarioState
 	private AcAccountCharge charge; 

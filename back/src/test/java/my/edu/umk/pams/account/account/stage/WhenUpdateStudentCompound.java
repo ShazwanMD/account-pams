@@ -41,11 +41,10 @@ public class WhenUpdateStudentCompound extends Stage<WhenUpdateStudentCompound> 
         AcChargeCode code = new AcChargeCodeImpl();
 
         //find compound by id
-        code = accountService.findChargeCodeByCode("AC-0004");
+        code = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321");
         LOG.debug("test", code);
         // update charge
 
-        code.setCode("AC-0001");
         code.setDescription("azieta");
         code.setChargeType(AcChargeCodeType.HOSTEL);
         code.setPriority(3);
