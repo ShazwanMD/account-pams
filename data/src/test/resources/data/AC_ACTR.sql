@@ -21,6 +21,13 @@ SET actor_id = currval('SQ_AC_ACTR')
 WHERE email = 'student2@umk.edu.my';
 
 -- sponsor
+-- self
+INSERT INTO AC_ACTR (ID, IDENTITY_NO, NAME, EMAIL, PHONE, MOBILE, FAX, ACTOR_TYPE, C_TS, C_ID, M_ST)
+VALUES
+  (nextval('SQ_AC_ACTR'), 'SELF', 'SENDIRI', 'admin@umk.edu.my', NULL, NULL, NULL, 2,
+                          CURRENT_TIMESTAMP, 1, 1);
+
+INSERT INTO AC_SPSR (ID, SPONSOR_TYPE) VALUES (currval('SQ_AC_ACTR'), 1);
 -- jpa
 INSERT INTO AC_ACTR (ID, IDENTITY_NO, NAME, EMAIL, PHONE, MOBILE, FAX, ACTOR_TYPE, C_TS, C_ID, M_ST)
 VALUES

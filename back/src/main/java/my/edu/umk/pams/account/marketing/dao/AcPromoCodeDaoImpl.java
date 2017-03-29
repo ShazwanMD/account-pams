@@ -35,39 +35,20 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 	public AcPromoCode findByCode(String code) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("select a from AcPromoCode a where " + 
-				"a.code = :code " + "and a.metadata.state = :state");
+				"a.code = :code " + 
+				"and a.metadata.state = :state");
 		query.setString("code", code);
 		query.setCacheable(true);
 		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
 		return (AcPromoCode) query.uniqueResult();
 	}
-
-	@Override
-	public List<AcPromoCode> find(AcPromoCodeType promoCodeType, Integer offset, Integer limit) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("select a from AcPromoCode a where " + 
-				"a.promoCodeType = :promoCodeType " + "order by a.code");
-		query.setInteger("promoCodeType", promoCodeType.ordinal());
-		query.setFirstResult(offset);
-		query.setMaxResults(limit);
-		return query.list();
-	}
-
-	@Override
-	public boolean isExpired(Date now) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("select count(a) from AcPromoCode a where " + "a.expiryDate > :now "
-				+ "and s.metadata.state = :state ");
-		query.setTimestamp("now", now);
-		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
-		return ((Long) query.uniqueResult()).intValue() > 0;
-	}
-
+	
 	@Override
 	public AcPromoCodeItem findBySourceNo(String sourceNo) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("select a from AcPromoCodeItem a where " + 
-				"a.sourceNo = :sourceNo " + "and a.metadata.state = :state");
+				"a.sourceNo = :sourceNo " + 
+				"and a.metadata.state = :state");
 		query.setString("sourceNo", sourceNo);
 		query.setCacheable(true);
 		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
@@ -75,11 +56,23 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 	}
 
 	@Override
+	public List<AcPromoCode> find(AcPromoCodeType promoCodeType, Integer offset, Integer limit) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select a from AcPromoCode a where " + 
+				"a.promoCodeType = :promoCodeType " + 
+				"order by a.code");
+		query.setInteger("promoCodeType", promoCodeType.ordinal());
+		query.setFirstResult(offset);
+		query.setMaxResults(limit);
+		return query.list();
+	}
+
+	@Override
 	public List<AcPromoCodeItem> findItems(AcPromoCode promoCode) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("select a from AcPromoCodeItem a where " + 
-				"a.promoCode = :promoCode "
-				+ "and a.metadata.state = :metaState");
+				"a.promoCode = :promoCode " + 
+				"and a.metadata.state = :metaState");
 		query.setEntity("promoCode", promoCode);
 		query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
 		return (List<AcPromoCodeItem>) query.list();
@@ -89,11 +82,22 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 	public List<AcPromoCodeItem> findItems(AcAccount account) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("select a from AcPromoCodeItem a where " + 
-				"a.account = :account "
-				+ "and a.metadata.state = :metaState");
+				"a.account = :account " + 
+				"and a.metadata.state = :metaState");
 		query.setEntity("account", account);
 		query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
 		return (List<AcPromoCodeItem>) query.list();
+	}
+	
+	@Override
+	public boolean isExpired(Date now) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(a) from AcPromoCode a where " + 
+				"a.expiryDate > :now " + 
+				"and s.metadata.state = :state ");
+		query.setDate("now", now);
+		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+		return ((Long) query.uniqueResult()).intValue() > 0;
 	}
 
 	@Override
