@@ -12,6 +12,7 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.service.AccountService;
@@ -23,17 +24,21 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 @JGivenStage
 public class WhenListStudentChargesByAccount extends Stage<WhenListStudentChargesByAccount>{
 	private static final Logger LOG = LoggerFactory.getLogger(WhenListStudentChargesByAccount.class);
-	@Autowired
-	private IdentityService identityService;
+	
+	@ExpectedScenarioState
+	private AcStudent student;
+
+	@ProvidedScenarioState
+	private AcAccount account;
+
+	@ExpectedScenarioState
+	private AcAcademicSession academicSession;
 
 	@Autowired
 	private AccountService accountService;
-	
-	@ProvidedScenarioState
-    private AcAccount account;
-	
-	@ProvidedScenarioState
-    private AcStudent student;
+
+	@Autowired
+	private IdentityService identityService;
 	
 	@ProvidedScenarioState
     private List<AcAccountCharge> accountCharges;
@@ -41,11 +46,18 @@ public class WhenListStudentChargesByAccount extends Stage<WhenListStudentCharge
 	@As("I want to list student charges by account")
 	public WhenListStudentChargesByAccount I_want_to_list_student_charges_by_account_$(String matricNo) {
 		
-		student = identityService.findStudentByMatricNo(matricNo);
-		
-		account = accountService.findAccountByActor(student);
-		
-		accountCharges = account.getCharges();
+		//cari student untuk cari account 
+				student = identityService.findStudentByMatricNo(matricNo);
+				
+				//cari akaun yg dpt dr student
+				account = accountService.findAccountByActor(student);
+				
+				//senarai acc charge dari akaun yg kita jmp utk student ni
+				accountCharges= accountService.findAccountCharges(account);
+				for(AcAccountCharge accountCharges : accountCharges){
+					LOG.debug("Description "+ accountCharges.getDescription());
+					LOG.debug("Session "+ accountCharges.getSession().getCode());
+				}
 		
 		return self();	
 	}

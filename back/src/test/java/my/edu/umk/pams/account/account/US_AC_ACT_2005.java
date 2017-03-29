@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenCanViewStudentCharges;
+import my.edu.umk.pams.account.account.stage.ThenICanViewStudentCharges;
 import my.edu.umk.pams.account.account.stage.WhenListStudentChargesOfTypeCompoundByAccount;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
@@ -19,7 +20,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
  */
 @RunWith(SpringJUnit4ClassRunner.class) 
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_2005 extends SpringScenarioTest<GivenIAmBursary, WhenListStudentChargesOfTypeCompoundByAccount, ThenCanViewStudentCharges>{
+public class US_AC_ACT_2005 extends SpringScenarioTest<GivenIAmBursary, WhenListStudentChargesOfTypeCompoundByAccount, ThenICanViewStudentCharges>{
 	
 	private static final String MATRIC_NO = "A17P001";
 	private static final String CODE = "TMGSEB-MBA-00-H79321";
