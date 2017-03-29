@@ -23,7 +23,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 public class US_AC_ACT_2005 extends SpringScenarioTest<GivenIAmBursary, WhenListStudentChargesOfTypeCompoundByAccount, ThenICanViewStudentCharges>{
 	
 	private static final String MATRIC_NO = "A17P001";
-	private static final String CODE = "TMGSEB-MBA-00-H79321";
+	private static final String CODE = "TMGSEB-MBA-00-H79322";
 	
 	@Test
     @Rollback(false)
