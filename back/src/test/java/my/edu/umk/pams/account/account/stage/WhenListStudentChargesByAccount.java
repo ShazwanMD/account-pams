@@ -22,9 +22,11 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
-public class WhenListStudentChargesByAccount extends Stage<WhenListStudentChargesByAccount>{
-	private static final Logger LOG = LoggerFactory.getLogger(WhenListStudentChargesByAccount.class);
-	
+public class WhenListStudentChargesByAccount extends
+		Stage<WhenListStudentChargesByAccount> {
+	private static final Logger LOG = LoggerFactory
+			.getLogger(WhenListStudentChargesByAccount.class);
+
 	@ExpectedScenarioState
 	private AcStudent student;
 
@@ -39,26 +41,24 @@ public class WhenListStudentChargesByAccount extends Stage<WhenListStudentCharge
 
 	@Autowired
 	private IdentityService identityService;
-	
+
 	@ProvidedScenarioState
-    private List<AcAccountCharge> accountCharges;
-	
+	private List<AcAccountCharge> accountCharges;
+
 	@As("I want to list student charges by account")
-	public WhenListStudentChargesByAccount I_want_to_list_student_charges_by_account_$(String matricNo) {
-		
-		//cari student untuk cari account 
-				student = identityService.findStudentByMatricNo(matricNo);
-				
-				//cari akaun yg dpt dr student
-				account = accountService.findAccountByActor(student);
-				
-				//senarai acc charge dari akaun yg kita jmp utk student ni
-				accountCharges= accountService.findAccountCharges(account);
-				for(AcAccountCharge accountCharges : accountCharges){
-					LOG.debug("Description "+ accountCharges.getDescription());
-					LOG.debug("Session "+ accountCharges.getSession().getCode());
-				}
-		
-		return self();	
+	public WhenListStudentChargesByAccount I_want_to_list_student_charges_by_account_$(
+			String matricNo) {
+
+		student = identityService.findStudentByMatricNo(matricNo);
+
+		account = accountService.findAccountByActor(student);
+
+		accountCharges = accountService.findAccountCharges(account);
+		for (AcAccountCharge accountCharges : accountCharges) {
+			LOG.debug("Description " + accountCharges.getDescription());
+			LOG.debug("Session " + accountCharges.getSession().getCode());
+		}
+
+		return self();
 	}
 }

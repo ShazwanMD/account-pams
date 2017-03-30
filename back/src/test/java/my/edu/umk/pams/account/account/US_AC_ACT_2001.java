@@ -14,6 +14,7 @@ import my.edu.umk.pams.account.account.stage.ThenCanViewStudentCharges;
 import my.edu.umk.pams.account.account.stage.WhenListStudentChargesByAccount;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 
 /*
  * As a Bursary, 
@@ -25,9 +26,9 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 public class US_AC_ACT_2001 extends SpringScenarioTest<GivenIAmBursary, WhenListStudentChargesByAccount, ThenCanViewStudentCharges>{
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2001.class);
 	private static final String MATRIC_NO = "A17P001";
-	
+	@Issue("PAMSU-34")
     @Test
-    @Rollback(false)
+    @Rollback
     public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
         when().I_want_to_list_student_charges_by_account_$(MATRIC_NO);
