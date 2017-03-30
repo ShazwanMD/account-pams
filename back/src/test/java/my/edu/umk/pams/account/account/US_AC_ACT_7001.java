@@ -17,7 +17,8 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
  * so that the compound details are record. 
  */
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+@Issue("PAMSU-55")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_ACT_7001 extends SpringScenarioTest<GivenIAmStudent, WhenRegisterStudentCompound, ThenCompoundDetailsRecord>{

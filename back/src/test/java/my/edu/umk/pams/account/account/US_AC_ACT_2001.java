@@ -21,12 +21,12 @@ import my.edu.umk.pams.bdd.tags.Issue;
  * I want to list student charges by account, 
  * so that I can view student's charges
  */
+@Issue("PAMSU-34")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_ACT_2001 extends SpringScenarioTest<GivenIAmBursary, WhenListStudentChargesByAccount, ThenCanViewStudentCharges>{
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2001.class);
-	private static final String MATRIC_NO = "A17P001";
-	@Issue("PAMSU-34")
+	private static final String MATRIC_NO = "A17P001";	
     @Test
     @Rollback
     public void scenario1() {

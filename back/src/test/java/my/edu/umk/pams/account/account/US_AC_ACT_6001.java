@@ -17,7 +17,8 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+@Issue("PAMSU-52")
 /*
  * As a Security, 
  * I want to register student compound bill 
