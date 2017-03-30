@@ -11,22 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
-import my.edu.umk.pams.account.billing.stage.ThenICanViewIndividualInvoice;
-import my.edu.umk.pams.account.billing.stage.ThenICanViewInvoice;
-import my.edu.umk.pams.account.billing.stage.WhenIGenerateInvoice;
-import my.edu.umk.pams.account.billing.stage.WhenIGenerateInvoiceIndividual;
+import my.edu.umk.pams.account.billing.stage.ThenICanPrintReport;
+import my.edu.umk.pams.account.billing.stage.WhenIWantToGetListOfInvoiceByStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 /*
- * As a Bursary 
- * I want to generate invoice by Individual
- * So that I can view individual invoice
+ * As a Bursary,  
+ * I want to get list of invoice by student 
+ * so that I can print report
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_BLG_2027 extends SpringScenarioTest<GivenIAmBursary, WhenIGenerateInvoiceIndividual, ThenICanViewIndividualInvoice> {
+public class US_AC_BLG_2027 extends SpringScenarioTest<GivenIAmBursary, WhenIWantToGetListOfInvoiceByStudent, ThenICanPrintReport> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2027.class);
 	
@@ -36,7 +34,7 @@ public class US_AC_BLG_2027 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 	@Rollback(false)
 	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
-		when().I_generate_invoice_by_individual$(MATRIC_NO);
-		then().I_can_view_individual_invoice();
+		when().I_want_to_get_list_of_invoice_by_student$(MATRIC_NO);
+		then().I_can_print_report();
 	}
 }
