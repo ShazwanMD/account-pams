@@ -45,10 +45,9 @@ public class WhenUpdateStudentCompound extends Stage<WhenUpdateStudentCompound> 
         LOG.debug("test", code);
         // update charge
 
-        code.setDescription("azieta");
+        code.setDescription("ACADEMIC");
         code.setChargeType(AcChargeCodeType.HOSTEL);
         code.setPriority(3);
-
 
         // use account service to update charge
         accountService.updateChargeCode(code);

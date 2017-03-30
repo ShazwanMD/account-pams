@@ -15,6 +15,8 @@ import my.edu.umk.pams.account.account.stage.ThenViewStudentCompoundCharges;
 import my.edu.umk.pams.account.account.stage.WhenListAllCompoundStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
+import my.edu.umk.pams.bdd.tags.Issue;
+@Issue("PAMSU-50")
 /*
  * As a Student Affair,
  * I want to list all compound student 

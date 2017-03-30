@@ -19,13 +19,13 @@ import my.edu.umk.pams.account.account.stage.ThenPaymentCanProcess;
 import my.edu.umk.pams.account.account.stage.WhenUpdateStudentCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+@Issue("PAMSU-37")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_ACT_2004 extends SpringScenarioTest<GivenIAmBursary, WhenUpdateStudentCompound, ThenPaymentCanProcess> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2004.class);
-
 	@Test
 	@Rollback
 	public void testScenario1() {
