@@ -15,12 +15,15 @@ import my.edu.umk.pams.account.billing.stage.ThenICanPrintReport;
 import my.edu.umk.pams.account.billing.stage.WhenIWantToGetListOfInvoiceByStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 
 /*
  * As a Bursary,  
  * I want to get list of invoice by student 
  * so that I can print report
  */
+
+@Issue("PAMSU-27")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -29,6 +32,7 @@ public class US_AC_BLG_2027 extends SpringScenarioTest<GivenIAmBursary, WhenIWan
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2027.class);
 	
 	private static final String MATRIC_NO = "A17P002";
+	
 	
 	@Test
 	@Rollback(false)

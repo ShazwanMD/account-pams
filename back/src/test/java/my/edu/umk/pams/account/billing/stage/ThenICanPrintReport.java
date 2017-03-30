@@ -24,7 +24,7 @@ public class ThenICanPrintReport extends Stage <ThenICanPrintReport> {
 	@ExpectedScenarioState
 	private AcInvoice invoice;
 	
-	@As("I can view individual invoice")
+	@As("I can print report")
 	public ThenICanPrintReport I_can_print_report(){
 		
 		Assert.notNull(invoice, "invoice was null");

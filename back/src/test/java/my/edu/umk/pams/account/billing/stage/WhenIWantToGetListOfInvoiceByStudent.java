@@ -59,7 +59,7 @@ public class WhenIWantToGetListOfInvoiceByStudent extends Stage<WhenIWantToGetLi
 	private AcInvoice invoice;
 	
 
-	@As("I generate invoice by individual")
+	@As("I want to get list of invoice by student")
 	public WhenIWantToGetListOfInvoiceByStudent I_want_to_get_list_of_invoice_by_student$(String matricNo) {
 
 		// cari student untuk cari account
