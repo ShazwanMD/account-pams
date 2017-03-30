@@ -1,8 +1,6 @@
 package my.edu.umk.pams.account.billing.stage;
 
 import java.math.BigDecimal;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
@@ -13,7 +11,6 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
-import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
@@ -31,7 +28,7 @@ public class WhenIssueInvoicePerCriteria extends Stage<WhenIssueInvoicePerCriter
 
 	@ProvidedScenarioState
 	private AcAccount account;
-	
+
 	public WhenIssueInvoicePerCriteria I_generate_invoice_per_matric_no(String matricNo) {
 		// 1) cari student by matric No,
 		// 2) cari account student itu.
