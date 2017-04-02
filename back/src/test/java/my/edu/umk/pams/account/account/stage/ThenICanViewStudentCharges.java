@@ -39,7 +39,7 @@ public class ThenICanViewStudentCharges {
 	
 	public void I_can_view_student_compound_charges_$(String code) {
 		
-		Assert.notNull(chargeCode, "There is compound charges");
+		Assert.isNull(chargeCode, "There is no compound charges");
 	}
 
 }
