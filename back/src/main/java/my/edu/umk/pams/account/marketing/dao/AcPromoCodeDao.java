@@ -15,8 +15,6 @@ import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
  */
 public interface AcPromoCodeDao extends GenericDao<Long, AcPromoCode> {
 
-	AcPromoCode findById(Long id);
-
 	AcPromoCode findByCode(String code);
 
 	AcPromoCodeItem findBySourceNo(String sourceNo);

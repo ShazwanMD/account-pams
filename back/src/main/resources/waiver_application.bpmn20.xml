@@ -3,18 +3,73 @@
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:activiti="http://activiti.org/bpmn"
              targetNamespace="PNM">
+    <BPMNDiagram xmlns="http://www.omg.org/spec/BPMN/20100524/DI">
+        <BPMNPlane>
+            <BPMNShape bpmnElement="IntermediateThrowEvent_1">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="48.0" x="411.0" y="200.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_register_UT">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_register_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_remove_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="start">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_draft_UT">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_verify_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_draft_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_verify_UT">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="StartEvent_1">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_approve_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="receipt_complete_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="end">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="IntermediateThrowEvent_2">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="48.0" x="237.0" y="145.0"/>
+            </BPMNShape>
+        </BPMNPlane>
+    </BPMNDiagram>
 
 
     <!--
     ====================================================================================================
+    == DRAFTED, REGISTER, VERIFIED, APPROVED
+    == student, supervisor, cps/mgseb, pendaftar
     == VARIABLE:
     == receiptId: receiptId
     ======================================================================================================
     -->
 
     <process id="receipt_workflow" name="PNM Bendahari Receipt Workflow">
+        <intermediateThrowEvent id="IntermediateThrowEvent_1" name="Intermediate Throw Event 1">
+            <escalationEventDefinition id="EscalationEventDefinition_1"/>
+        </intermediateThrowEvent>
+        <intermediateThrowEvent id="IntermediateThrowEvent_2" name="Intermediate Throw Event 2"/>
 
         <startEvent id="start"/>
+        <startEvent id="StartEvent_1" name="Start Event 1">
+            <compensateEventDefinition waitForCompletion="false" id="CompensateEventDefinition_1"/>
+        </startEvent>
 
         <sequenceFlow id="flow1.1" sourceRef="start" targetRef="receipt_draft_ST"/>
 
@@ -66,11 +121,39 @@
 
         </userTask>
 
-        <sequenceFlow id="flow3.2" sourceRef="receipt_register_UT" targetRef="receipt_approve_ST">
+        <sequenceFlow id="flow3.2" sourceRef="receipt_register_UT" targetRef="receipt_verify_ST">
             <conditionExpression>${!removeDecision}</conditionExpression>
         </sequenceFlow>
 
         <sequenceFlow id="flow3.3" sourceRef="receipt_register_UT" targetRef="receipt_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!--
+        ====================================================================================================
+        == STATE : VERIFIED
+        == SERVICE TASK : verify a receipt
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="receipt_verify_ST"
+                     activiti:expression="#{receipt_verify_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow3.1" sourceRef="receipt_verify_ST" targetRef="receipt_verify_UT"/>
+
+        <userTask id="receipt_verify_UT" name="my.edu.umk.pams.intake.billing.model.AcReceipt:verifyED"
+                  activiti:candidateGroups="#{receiptRouterService.findverifyerCandidates(receiptId)}">
+            <documentation>
+                verify Receipt / Daftar Resit
+            </documentation>
+
+        </userTask>
+
+        <sequenceFlow id="flow3.2" sourceRef="receipt_verify_UT" targetRef="receipt_approve_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow3.3" sourceRef="receipt_verify_UT" targetRef="receipt_remove_ST">
             <conditionExpression>${removeDecision}</conditionExpression>
         </sequenceFlow>
 

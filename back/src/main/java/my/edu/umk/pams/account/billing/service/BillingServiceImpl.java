@@ -5,11 +5,7 @@ import my.edu.umk.pams.account.account.dao.AcAcademicSessionDao;
 import my.edu.umk.pams.account.account.dao.AcAccountChargeDao;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
 import my.edu.umk.pams.account.account.dao.AcChargeCodeDao;
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.model.AcAccountChargeType;
-import my.edu.umk.pams.account.account.model.AcAccountTransaction;
+import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountServiceImpl;
 import my.edu.umk.pams.account.billing.chain.ChargeAttachProcessor;
 import my.edu.umk.pams.account.billing.chain.ChargeContext;
@@ -18,13 +14,8 @@ import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
 import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementItemImpl;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementStatus;
 import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
-import my.edu.umk.pams.account.identity.model.AcSponsor;
-import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.workflow.service.WorkflowConstants;
@@ -38,18 +29,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static my.edu.umk.pams.account.AccountConstants.INVOICE_ID;
 import static my.edu.umk.pams.account.AccountConstants.RECEIPT_ID;
-import static my.edu.umk.pams.account.AccountConstants.SETTLEMENT_REFERENCE_NO;
 import static my.edu.umk.pams.account.core.AcFlowState.DRAFTED;
 
 /**
@@ -103,15 +90,10 @@ public class BillingServiceImpl implements BillingService {
 	@Autowired
 	private WorkflowService workflowService;
 
-	@ExpectedScenarioState
-	private AcAccount account;
-
 	// ====================================================================================================
-	// //
 	// INVOICE
 	// workflow
 	// ====================================================================================================
-	// //
 	@Override
 	public AcInvoice findInvoiceByTaskId(String taskId) {
 		Task task = workflowService.findTask(taskId);
@@ -548,5 +530,4 @@ public class BillingServiceImpl implements BillingService {
 		map.put(WorkflowConstants.CANCEL_DECISION, false);
 		return map;
 	}
-
 }

@@ -56,4 +56,17 @@ public class Util {
         }
         return str;
     }
+
+    // todo(uda): better impl
+    public static Integer toOffset(Integer page) {
+        Integer limit = 10;
+        Integer offset = (page - 1) * limit;
+        return offset;
+    }
+
+    // todo(uda): better impl
+    public static Integer toLimit(Integer page) {
+        Integer limit = 10;
+        return limit;
+    }
 }

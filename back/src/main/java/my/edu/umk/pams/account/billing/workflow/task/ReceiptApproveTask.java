@@ -38,6 +38,10 @@ public class ReceiptApproveTask extends BpmnActivityBehavior implements Activity
 
         LOG.debug("approving bendahari receipt {}", receipt.getReferenceNo());
 
+        //. email user
+        // hantar notification
+        // send credit/debit to accounting
+
         // update flow state
         receipt.getFlowdata().setState(AcFlowState.APPROVED);
         receipt.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
