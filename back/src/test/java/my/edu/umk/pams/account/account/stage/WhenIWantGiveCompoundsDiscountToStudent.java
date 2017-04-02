@@ -44,12 +44,9 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 	private AcPromoCodeType promoCodeType;
 	
 	@As("I_want_give_compounds_discount_to_student")
-	public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student$(String code){
+	public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student_$(String matricNo){
 		
-		AcUser user = identityService.findUserByActor(student);
-		LOG.debug("Student No :" + student.getMatricNo());
-
-		LOG.debug("DISCOUNT :" + promocode.getCode());
+		//LOG.debug("DISCOUNT :" + promocode.getCode());
 
 		promocode = new AcPromoCodeImpl();
 		promocode.setCode("aa01");
@@ -64,7 +61,7 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 		detail.setPromoCode(promocode);
 		detail.setSourceNo("abc123");
 
-		marketingService.addPromoCodeItem(promocode, detail, user );
+		//marketingService.addPromoCodeItem(promocode, detail, user );
 
 		return self();
 	}
