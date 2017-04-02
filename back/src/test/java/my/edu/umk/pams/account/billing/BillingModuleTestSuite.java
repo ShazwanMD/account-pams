@@ -9,6 +9,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		US_AC_BLG_2001.class, //faizal
+		US_AC_BLG_2002.class, //faizal
         US_AC_BLG_2007.class, //hajar
         US_AC_BLG_2008.class, //sahir
         US_AC_BLG_2009.class, //sahir
