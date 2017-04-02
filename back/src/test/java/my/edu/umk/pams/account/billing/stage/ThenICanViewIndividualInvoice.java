@@ -16,7 +16,7 @@ import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 @JGivenStage
 public class ThenICanViewIndividualInvoice extends Stage <ThenICanViewIndividualInvoice> {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIGenerateInvoiceIndividual.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ThenICanViewIndividualInvoice.class);
 	
 	@ProvidedScenarioState
 	private AcSettlement settlement;
