@@ -17,7 +17,7 @@ import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 import my.edu.umk.pams.account.security.service.SecurityService;
 
 @Transactional
-@Service("acMarketingService")
+@Service("MarketingService")
 public class MarketingServiceImpl implements MarketingService{
 
     @Autowired

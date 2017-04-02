@@ -1,24 +1,16 @@
 package my.edu.umk.pams.account.account.stage;
 
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
-import my.edu.umk.pams.account.financialaid.model.AcSettlementImpl;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeImpl;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeItemImpl;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 import my.edu.umk.pams.account.marketing.service.MarketingService;
 
@@ -32,23 +24,26 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 	private IdentityService identityService;
 	
 	@Autowired
-	private MarketingService marketingService;
+private MarketingService marketingService;
 	
-	@ProvidedScenarioState
+	//@ProvidedScenarioState
 	private AcStudent student;
 	
-	@ProvidedScenarioState
+	//@ProvidedScenarioState
 	private AcPromoCode promocode;
 	
-	@Autowired
+   //@Autowired
 	private AcPromoCodeType promoCodeType;
 	
 	@As("I_want_give_compounds_discount_to_student")
-	public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student_$(String matricNo){
-		
-		//LOG.debug("DISCOUNT :" + promocode.getCode());
+	public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student_$(String identityNo){
+		 
+		student = identityService.findStudentByMatricNo(identityNo);
+		LOG.debug("Student's Name : {}", student.getName());
+	/**	AcUser user = identityService.findUserByActor(student);
+		LOG.debug("DISCOUNT :" + promocode.getCode());
 
-		promocode = new AcPromoCodeImpl();
+		AcPromoCode promocode = new AcPromoCodeImpl();
 		promocode.setCode("aa01");
 		promocode.setDescription("discount");
 		promocode.setPromoCodeType(promoCodeType.DISCOUNT);
@@ -61,8 +56,8 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 		detail.setPromoCode(promocode);
 		detail.setSourceNo("abc123");
 
-		//marketingService.addPromoCodeItem(promocode, detail, user );
-
+		marketingService.addPromoCodeItem(promocode, detail, user );
+**/
 		return self();
 	}
 }

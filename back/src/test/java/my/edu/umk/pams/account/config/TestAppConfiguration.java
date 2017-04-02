@@ -33,6 +33,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "my.edu.umk.pams.account.billing",
         "my.edu.umk.pams.account.account",
         "my.edu.umk.pams.account.financialaid",
+        "my.edu.umk.pams.account.marketing",
 })
 @Import({
         TestDatasourceConfig.class,

@@ -48,7 +48,7 @@ public class GivenIAmSecurity extends Stage<GivenIAmSecurity> {
 		student = identityService.findStudentByMatricNo(matricNo);
 		return self();
 	}
-
+	
 	private void loginAsSecurity() {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("security", "abc123");
 		Authentication authed = authenticationManager.authenticate(token);

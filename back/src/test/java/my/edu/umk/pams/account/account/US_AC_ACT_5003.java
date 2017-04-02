@@ -12,11 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenDiscountCanAppliedToReceipt;
-import my.edu.umk.pams.account.account.stage.ThenICanViewStudentCharges;
 import my.edu.umk.pams.account.account.stage.WhenIWantGiveCompoundsDiscountToStudent;
-import my.edu.umk.pams.account.account.stage.WhenListStudentChargesOfTypeCompoundByAccount;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
 
 /*
@@ -32,13 +29,13 @@ public class US_AC_ACT_5003 extends
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5003.class);
 
-	private static final String DISCOUNT = "50%";
+	private static final String IDENTITY_NO = "AP17002";
 
 	@Test
 	@Rollback
 	public void testScenario0() {
 		given().I_am_student_affair();
-		when().I_want_give_compounds_discount_to_student_$(DISCOUNT);
+		when().I_want_give_compounds_discount_to_student_$(IDENTITY_NO);
 		//then().discount_can_applied_to_receipt();
 	}
 }
