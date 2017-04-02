@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.billing.model.*;
+import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import org.activiti.engine.task.Task;
 
@@ -111,12 +112,16 @@ public interface BillingService {
     List<Task> findAssignedReceiptTasks(Integer offset, Integer limit);
 
     List<Task> findPooledReceiptTasks(Integer offset, Integer limit);
+    
+    void initReceipt(AcReceipt receipt);
+    
+    void executeReceipt(AcReceipt receipt);
+    
+    void startReceiptTask(AcReceipt receipt);
 
-    void startReceiptTask(AcReceipt intake);
+    void updateReceipt(AcReceipt receipt);
 
-    void updateReceipt(AcReceipt intake);
-
-    void cancelReceipt(AcReceipt intake);
+    void cancelReceipt(AcReceipt receipt);
 
     void addReceiptItem(AcReceipt receipt, AcReceiptItem item);
 
