@@ -15,7 +15,9 @@ public class WhenIWantGiveCompoundsDiscountStudent extends Stage <WhenIWantGiveC
 
 	@Pending
 	@As("I want to give compounds discount to student")
-	public WhenIWantGiveCompoundsDiscountStudent I_want_to_give_compounds_discount_to_student_$(String code){
+	public WhenIWantGiveCompoundsDiscountStudent I_want_to_give_compounds_discount_to_student_$(String matricNo){
+		
+		
 		
 		return self();
 	}
