@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -30,22 +31,22 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 	@Autowired
 	private IdentityService identityService;
 	
-	//@Autowired
-	//private MarketingService marketingService;
+	@Autowired
+	private MarketingService marketingService;
 	
 	@ProvidedScenarioState
 	private AcStudent student;
 	
-	//@ProvidedScenarioState
-	//private AcPromoCode promocode;
+	@ProvidedScenarioState
+	private AcPromoCode promocode;
 	
-	//@Autowired
-	//private AcPromoCodeType promoCodeType;
+	@Autowired
+	private AcPromoCodeType promoCodeType;
 	
-	
+	@As("I_want_give_compounds_discount_to_student")
 	public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student$(String code){
 		
-		/*AcUser user = identityService.findUserByActor(student);
+		AcUser user = identityService.findUserByActor(student);
 		LOG.debug("Student No :" + student.getMatricNo());
 
 		LOG.debug("DISCOUNT :" + promocode.getCode());
@@ -61,9 +62,9 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 		// detail.setAccount(account);
 		detail.setApplied(false);
 		detail.setPromoCode(promocode);
-		detail.setSourceNo("abc123");*/
+		detail.setSourceNo("abc123");
 
-		//marketingService.addItem(promocode, detail, user);
+		marketingService.addPromoCodeItem(promocode, detail, user );
 
 		return self();
 	}
