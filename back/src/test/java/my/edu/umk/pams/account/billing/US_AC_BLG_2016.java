@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@Issue("PAMSU-17")
+@Issue("PAMSU-16")
 public class US_AC_BLG_2016 extends SpringScenarioTest<GivenIAmBursary, WhenCreateCreditNote, ThenCreditOverChargeInvoice> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2016.class);
