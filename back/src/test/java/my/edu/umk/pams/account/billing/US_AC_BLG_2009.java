@@ -6,6 +6,8 @@ import my.edu.umk.pams.account.billing.stage.ThenUpdatePaymentAmount;
 import my.edu.umk.pams.account.billing.stage.WhenReduceStudentPaymentBasedOnWaiver;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Issue("PAMSU-9")
 public class US_AC_BLG_2009 extends SpringScenarioTest<GivenIAmBursary, WhenReduceStudentPaymentBasedOnWaiver, ThenUpdatePaymentAmount> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2009.class);

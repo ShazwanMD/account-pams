@@ -6,6 +6,8 @@ import my.edu.umk.pams.account.billing.stage.ThenDebitUnderChargeInvoice;
 import my.edu.umk.pams.account.billing.stage.WhenCreateDebitNote;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Issue("PAMSU-15")
 public class US_AC_BLG_2015 extends SpringScenarioTest<GivenIAmBursary, WhenCreateDebitNote, ThenDebitUnderChargeInvoice> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2015.class);
