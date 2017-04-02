@@ -84,7 +84,7 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 			settlement.setDescription(sponsor.getName() + " " + sponsor.getId());
 			settlement.setSession(academicSession);
 			settlement.setSponsor(sponsor);
-
+			
 			financialAidService.initSettlement(settlement);
 
 			invoice = new AcInvoiceImpl();
