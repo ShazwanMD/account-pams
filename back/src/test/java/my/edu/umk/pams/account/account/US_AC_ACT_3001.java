@@ -15,20 +15,22 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenICanMakePayment;
-import my.edu.umk.pams.account.account.stage.WhenIWantToViewCharges;
+import my.edu.umk.pams.account.account.stage.WhenIWantToViewMyUnpaidInvoices;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
+import my.edu.umk.pams.bdd.tags.Issue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_3001 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToViewCharges, ThenICanMakePayment> {
+@Issue("PAMSU-40")
+public class US_AC_ACT_3001 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToViewMyUnpaidInvoices, ThenICanMakePayment> {
 
 	@Test
 	@Rollback
 	public void testScenario0() {
 		given().I_am_a_student_in_current_academic_session() ;
-		when().I_want_to_view_charges();
+		when().I_want_to_view_my_unpaid_invoices();
 		then().I_can_make_payment();
 	}
 }
