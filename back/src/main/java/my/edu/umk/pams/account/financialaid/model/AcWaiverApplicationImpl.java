@@ -9,6 +9,15 @@ import javax.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
+/*
+ * scenario 
+ * student balance = 3000
+ * waived amount = 2800
+ * graced amount = 200
+ * Effective balance = balance - (waived amount + graced amount)
+ *
+ * 
+ * */
 
 @Entity(name = "AcWaiverApplication")
 @Table(name = "AC_WAVR_APLN")
@@ -29,16 +38,6 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @NotNull
     @Column(name = "REFERENCE_NO")
     private String referenceNo;
-
-    @Column(name = "SOURCE_NO")
-    private String sourceNo;
-
-    @Column(name = "AUDIT_NO")
-    private String auditNo;
-
-    @NotNull
-    @Column(name = "DESCRIPTION")
-    private String description;
     
     @NotNull
     @Column(name = "BALANCE", nullable = false)
@@ -55,6 +54,15 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @NotNull
     @Column(name = "GRACED_AMOUNT", nullable = false)
     private BigDecimal gracedAmount;
+
+    @Column(name = "SOURCE_NO")
+    private String sourceNo;
+
+    @Column(name = "AUDIT_NO")
+    private String auditNo;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
     
     @Column(name = "MEMO")
     private String memo;
