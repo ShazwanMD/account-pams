@@ -15,11 +15,14 @@ import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItemImpl;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementStatus;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
+import my.edu.umk.pams.account.financialaid.dao.AcWaiverApplicationDao;
 import my.edu.umk.pams.account.identity.dao.AcStudentDao;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
+
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +58,9 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Autowired
     private AcSettlementDao settlementDao;
+    
+    @Autowired
+    private AcWaiverApplicationDao waiverApplicationDao;
     
     @Autowired
     private AcInvoiceDao invoiceDao;
@@ -229,6 +235,12 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     @Override
     public void deleteSettlementItem(AcSettlement settlement, AcSettlementItem item) {
         settlementDao.deleteItem(settlement, item, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public void saveWaiverApplication(AcWaiverApplication waiverApplication) {
+        waiverApplicationDao.save(waiverApplication, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 }

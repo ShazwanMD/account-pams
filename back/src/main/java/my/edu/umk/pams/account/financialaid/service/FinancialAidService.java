@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.financialaid.service;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 
 import java.util.List;
 
@@ -46,5 +47,7 @@ public interface FinancialAidService {
     void updateSettlementItem(AcSettlement settlement, AcSettlementItem item);
 
     void deleteSettlementItem(AcSettlement settlement, AcSettlementItem item);
+    
+    void saveWaiverApplication(AcWaiverApplication waiverApplication);
 
 }
