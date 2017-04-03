@@ -18,12 +18,12 @@ import javax.validation.constraints.NotNull;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 @Entity(name = "AcPromoCode")
-@Table(name = "AC_PROMO_CODE")
+@Table(name = "AC_PRMO_CODE")
 public class AcPromoCodeImpl implements AcPromoCode {
 
 	@Id
-	@GeneratedValue(generator = "SQ_AC_PROMO_CODE")
-	@SequenceGenerator(name = "SQ_AC_PROMO_CODE", sequenceName = "SQ_AC_PROMO_CODE", allocationSize = 1)
+	@GeneratedValue(generator = "SQ_AC_PRMO_CODE")
+	@SequenceGenerator(name = "SQ_AC_PRMO_CODE", sequenceName = "SQ_AC_PRMO_CODE", allocationSize = 1)
 	@Column(name = "ID")
 	private Long id;
 

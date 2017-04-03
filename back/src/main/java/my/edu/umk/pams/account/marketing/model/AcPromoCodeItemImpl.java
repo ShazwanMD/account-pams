@@ -19,12 +19,12 @@ import my.edu.umk.pams.account.core.AcMetadata;
  * @author PAMS
  */
 @Entity(name = "AcPromoCodeItem")
-@Table(name = "AC_PRCD_ITEM")
+@Table(name = "AC_PRMO_CODE_ITEM")
 public class AcPromoCodeItemImpl implements AcPromoCodeItem {
 
 	@Id
-	@GeneratedValue(generator = "SQ_AC_PRCD_ITEM")
-	@SequenceGenerator(name = "SQ_AC_PRCD_ITEM", sequenceName = "SQ_AC_PRCD_ITEM", allocationSize = 1)
+	@GeneratedValue(generator = "SQ_AC_PRMO_CODE_ITEM")
+	@SequenceGenerator(name = "SQ_AC_PRMO_CODE_ITEM", sequenceName = "SQ_AC_PRMO_CODE_ITEM", allocationSize = 1)
 	@Column(name = "ID")
 	private Long id;
 
