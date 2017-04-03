@@ -1,30 +1,22 @@
 package my.edu.umk.pams.account.marketing.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author PAMS
  */
 @Entity(name = "AcPromoCodeItem")
-@Table(name = "AC_PRCD_ITEM")
+@Table(name = "AC_PRMO_CODE_ITEM")
 public class AcPromoCodeItemImpl implements AcPromoCodeItem {
 
 	@Id
-	@GeneratedValue(generator = "SQ_AC_PRCD_ITEM")
-	@SequenceGenerator(name = "SQ_AC_PRCD_ITEM", sequenceName = "SQ_AC_PRCD_ITEM", allocationSize = 1)
+	@GeneratedValue(generator = "SQ_AC_PRMO_CODE_ITEM")
+	@SequenceGenerator(name = "SQ_AC_PRMO_CODE_ITEM", sequenceName = "SQ_AC_PRMO_CODE_ITEM", allocationSize = 1)
 	@Column(name = "ID")
 	private Long id;
 
@@ -53,7 +45,6 @@ public class AcPromoCodeItemImpl implements AcPromoCodeItem {
 		return id;
 	}
 
-	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}

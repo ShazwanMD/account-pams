@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import my.edu.umk.pams.account.marketing.model.*;
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,10 +14,6 @@ import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcUser;
-import my.edu.umk.pams.account.marketing.model.AcPromoCode;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeImpl;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 
 @Repository("acPromoCodeDao")
 public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> implements AcPromoCodeDao {
@@ -42,8 +39,14 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 		query.setCacheable(true);
 		return (AcPromoCode) query.uniqueResult();
 	}
-	
-	@Override
+
+    @Override
+    public AcPromoCodeItem findItemById(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		return (AcPromoCodeItem) session.get(AcPromoCodeItemImpl.class, id);
+    }
+
+    @Override
 	public AcPromoCodeItem findBySourceNo(String sourceNo) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("select a from AcPromoCodeItem a where " + 
