@@ -30,10 +30,10 @@ public class ThenBulkInvoiceAreListed extends Stage<ThenBulkInvoiceAreListed> {
 		List<AcInvoice> invoices = billingService.findInvoices(account, 0, 100);
 		Assert.isTrue(!invoices.isEmpty());
 
-		for (AcInvoice acInvoice : invoices) {
+	/*	for (AcInvoice acInvoice : invoices) {
 			LOG.debug(acInvoice.getReferenceNo());
 			LOG.debug(acInvoice.getDescription());
-		}
+		}*/
 
 		return self();
 

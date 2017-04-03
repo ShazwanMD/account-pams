@@ -112,6 +112,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 		
 		accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321");
 		accountService.addAccountCharge(this.account, charge);
+		//accountService.addAccountCharge(acAccount, accountCharge);
 
 	}
 }
