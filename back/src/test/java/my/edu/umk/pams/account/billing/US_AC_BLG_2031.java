@@ -29,13 +29,13 @@ public class US_AC_BLG_2031
 
 	private static final Logger LOG = LoggerFactory
 			.getLogger(US_AC_BLG_2031.class);
-
+	private static final String MATRIC_NO = "A17P001";
 	@Issue("PAMSU-31")
 	@Test
 	@Rollback
 	public void testScenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
-		when().I_want_to_generate_report_by_faculty();
+		when().I_want_to_generate_report_by_faculty_$(MATRIC_NO);
 		then().I_can_print_report();
 	}
 }
