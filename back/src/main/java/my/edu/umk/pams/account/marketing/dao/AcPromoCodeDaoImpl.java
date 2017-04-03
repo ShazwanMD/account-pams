@@ -38,8 +38,8 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 				"a.code = :code " + 
 				"and a.metadata.state = :state");
 		query.setString("code", code);
-		query.setCacheable(true);
 		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+		query.setCacheable(true);
 		return (AcPromoCode) query.uniqueResult();
 	}
 	
@@ -50,8 +50,8 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 				"a.sourceNo = :sourceNo " + 
 				"and a.metadata.state = :state");
 		query.setString("sourceNo", sourceNo);
-		query.setCacheable(true);
 		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+		query.setCacheable(true);
 		return (AcPromoCodeItem) query.uniqueResult();
 	}
 
@@ -101,45 +101,44 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 	}
 
 	@Override
-	public void addItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
-		Validate.notNull(promoCode, "Batch should not be null");
-		Validate.notNull(detail, "Detail member should not be null");
+	public void addItem(AcPromoCode promoCode, AcPromoCodeItem item, AcUser user) {
+		Validate.notNull(promoCode, "Promocode should not be null");
+		Validate.notNull(item, "item member should not be null");
 
 		Session session = sessionFactory.getCurrentSession();
-		detail.setPromoCode(promoCode);
+		item.setPromoCode(promoCode);
 
 		AcMetadata metadata = new AcMetadata();
 		metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		metadata.setCreatorId(user.getId());
 		metadata.setState(AcMetaState.ACTIVE);
-		detail.setMetadata(metadata);
-		session.save(detail);
+		item.setMetadata(metadata);
+		session.save(item);
 
 	}
 
 	@Override
-	public void updateItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
-		Validate.notNull(promoCode, "Batch should not be null");
-		Validate.notNull(detail, "Detail member should not be null");
+	public void updateItem(AcPromoCode promoCode, AcPromoCodeItem item, AcUser user) {
+		Validate.notNull(promoCode, "Promocode should not be null");
+		Validate.notNull(item, "item member should not be null");
 
 		Session session = sessionFactory.getCurrentSession();
-		detail.setPromoCode(promoCode);
+		item.setPromoCode(promoCode);
 
-		AcMetadata metadata = detail.getMetadata();
+		AcMetadata metadata = item.getMetadata();
 		metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 		metadata.setModifierId(user.getId());
 		metadata.setState(AcMetaState.ACTIVE);
-		detail.setMetadata(metadata);
-		session.update(detail);
+		item.setMetadata(metadata);
+		session.update(item);
 	}
 
 	@Override
-	public void deleteItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
-		Validate.notNull(promoCode, "Batch should not be null");
-		Validate.notNull(detail, "Detail member should not be null");
+	public void deleteItem(AcPromoCode promoCode, AcPromoCodeItem item, AcUser user) {
+		Validate.notNull(promoCode, "Promocode should not be null");
+		Validate.notNull(item, "item member should not be null");
 
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(detail);
+		session.delete(item);
 	}
-
 }

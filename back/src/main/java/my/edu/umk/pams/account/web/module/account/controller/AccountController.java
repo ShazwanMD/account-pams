@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static my.edu.umk.pams.account.util.Util.toLimit;
+import static my.edu.umk.pams.account.util.Util.toOffset;
+
 /**
  * @author PAMS
  */
-@RestController
+ @RestController
 @RequestMapping("/api/account")
 public class AccountController {
 
@@ -37,7 +40,12 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts/", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> findAccounts() {
-        List<AcAccount> accounts =  accountService.findAccounts(0,100); // todo(uda): pagination
+        List<AcAccount> accounts =  accountService.findAccounts(0,100);
+        return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/accounts/page/{pageNo}", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findAccounts(@PathVariable Integer pageNo) {
+        List<AcAccount> accounts =  accountService.findAccounts(toOffset(pageNo), toLimit(pageNo));
         return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
     }
 
@@ -57,5 +65,4 @@ public class AccountController {
     public ResponseEntity<List<InvoiceItem>> findInvoiceItems(@PathVariable String referenceNo) {
         throw new UnsupportedOperationException();
     }
-
 }

@@ -1,9 +1,9 @@
 package my.edu.umk.pams.account.financialaid.model;
 
-import java.math.BigDecimal;
-
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.model.AcDocument;
+
+import java.math.BigDecimal;
 
 /*
  * scenario 
@@ -44,6 +44,4 @@ public interface AcWaiverApplication extends AcDocument {
 	String getMemo();
 	
 	void setMemo(String memo);
-	
-
 }
