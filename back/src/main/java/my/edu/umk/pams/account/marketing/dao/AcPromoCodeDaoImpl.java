@@ -93,7 +93,7 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 	}
 	
 	@Override
-	public boolean isExpired(Date now) {
+	public boolean hasExpired(Date now) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("select count(a) from AcPromoCode a where " + 
 				"a.expiryDate > :now " + 

@@ -27,7 +27,7 @@ public interface AcPromoCodeDao extends GenericDao<Long, AcPromoCode> {
 
 	List<AcPromoCodeItem> findItems(AcAccount account);
 	
-	boolean isExpired(Date now);
+	boolean hasExpired(Date now);
 
 	void addItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
 

@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.marketing.service;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
@@ -27,21 +26,13 @@ public interface MarketingService {
 
     List<AcPromoCodeItem> findPromoCodeItems(AcAccount account);
 
-    boolean isPromoCodeExpired(Date now);
+    boolean hasPromoCodeExpired(Date now);
 
     void addPromoCode(AcPromoCode promoCode);
 
-    void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail);
+    void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem item);
 
-    void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail);
+    void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem item);
 
-    void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail);
-
-    @Deprecated
-    void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
-    @Deprecated
-    void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
-    @Deprecated
-    void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
-
+    void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem item);
 }

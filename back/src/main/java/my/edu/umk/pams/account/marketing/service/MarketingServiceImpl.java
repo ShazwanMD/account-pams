@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.marketing.service;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.marketing.dao.AcPromoCodeDao;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
@@ -13,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.util.Date;
 import java.util.List;
@@ -74,8 +72,8 @@ public class MarketingServiceImpl implements MarketingService {
     }
 
     @Override
-    public boolean isPromoCodeExpired(Date now) {
-        return promoCodeDao.isExpired(now);
+    public boolean hasPromoCodeExpired(Date now) {
+        return promoCodeDao.hasExpired(now);
     }
 
     @Override
@@ -85,40 +83,20 @@ public class MarketingServiceImpl implements MarketingService {
     }
 
     @Override
-    public void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail) {
-        promoCodeDao.addItem(promoCode, detail, securityService.getCurrentUser());
+    public void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem item) {
+        promoCodeDao.addItem(promoCode, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail) {
-        promoCodeDao.updateItem(promoCode, detail, securityService.getCurrentUser());
+    public void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem item) {
+        promoCodeDao.updateItem(promoCode, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail) {
-        promoCodeDao.deleteItem(promoCode, detail, securityService.getCurrentUser());
+    public void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem item) {
+        promoCodeDao.deleteItem(promoCode, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-
-    @Deprecated
-    public void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
-        promoCodeDao.addItem(promoCode, detail, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Deprecated
-    public void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
-        promoCodeDao.updateItem(promoCode, detail, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Deprecated
-    public void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user) {
-        promoCodeDao.deleteItem(promoCode, detail, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-
 }
