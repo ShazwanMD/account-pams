@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="definitions"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             targetNamespace="Billing">
+
+
+    <!--
+    ====================================================================================================
+    ==  DRAFTED > REGISTERED > VERIFIED > APPROVED >>  COMPLETED >> END
+    ====================================================================================================
+    -->
+
+    <!--
+    ====================================================================================================
+    == VARIABLE:
+    == debit noteId: debit note id
+    ====================================================================================================
+    -->
+
+    <process id="debit_note_workflow" name="Billing Debit Note Workflow">
+
+        <startEvent id="start"/>
+
+        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="debitNote_draft_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : DRAFTED
+        == SERVICE TASK : draft a debit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="debitNote_draft_ST"
+                     activiti:expression="#{debitNote_draft_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow2.3" sourceRef="debitNote_draft_ST" targetRef="debitNote_register_ST"/>
+        <!--
+        ====================================================================================================
+        == STATE : REGISTERED
+        == SERVICE TASK : register a debit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="debitNote_register_ST"
+                     activiti:expression="#{debitNote_register_ST.execute(execution)}"/>
+
+
+        <sequenceFlow id="flow3.3" sourceRef="debitNote_register_ST" targetRef="debitNote_verify_ST"/>
+        <!--
+        ====================================================================================================
+        == STATE : VERIFIED
+        == SERVICE TASK : verify a debit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="debitNote_verify_ST"
+                     activiti:expression="#{debitNote_verify_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow4.2" sourceRef="debitNote_verify_ST" targetRef="debitNote_approve_ST"/>
+
+
+        <!--
+        ====================================================================================================
+        == STATE : REMOVED
+        == SERVICE TASK : removed a debit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="debitNote_remove_ST"
+                     activiti:expression="#{debitNote_remove_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow7.1" sourceRef="debitNote_remove_ST" targetRef="end"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : APPROVED
+        == SERVICE TASK : approve a debit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="debitNote_approve_ST"
+                     activiti:expression="#{debitNote_approve_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow8.1" sourceRef="debitNote_approve_ST" targetRef="debitNote_complete_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : COMPLETED
+        == SERVICE TASK : complete a debit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="debitNote_complete_ST"
+                     activiti:expression="#{debitNote_complete_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow9.1" sourceRef="debitNote_complete_ST" targetRef="end"/>
+
+        <!--
+            ====================================================================================================
+            == STATE : END
+            ====================================================================================================
+            -->
+        <endEvent id="end"/>
+
+    </process>
+</definitions>

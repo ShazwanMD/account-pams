@@ -133,6 +133,56 @@
         primary key (ID)
     );
 
+    create table AC_CDIT_NOTE (
+        ID int8 not null,
+        AUDIT_NO varchar(255),
+        CANCEL_COMMENT varchar(255),
+        DESCRIPTION varchar(255),
+        AV_TS timestamp,
+        AV_ID int8,
+        CL_ID int8,
+        CL_TS timestamp,
+        CK_TS timestamp,
+        CK_ID int8,
+        DT_TS timestamp,
+        DT_ID int8,
+        EV_TS timestamp,
+        EV_ID int8,
+        PR_TS timestamp,
+        PR_ID int8,
+        PS_TS timestamp,
+        PS_ID int8,
+        RG_TS timestamp,
+        RG_ID int8,
+        RM_TS timestamp,
+        RM_ID int8,
+        RQ_TS timestamp,
+        RQ_ID int8,
+        SL_TS timestamp,
+        SL_ID int8,
+        FD_ST int4,
+        UP_TS timestamp,
+        UP_ID int8,
+        UV_TS timestamp,
+        UV_ID int8,
+        VF_TS timestamp,
+        VF_ID int8,
+        ISSUED_DATE timestamp,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        REFERENCE_NO varchar(255),
+        REMOVE_COMMENT varchar(255),
+        SOURCE_NO varchar(255),
+        TOTAL_AMOUNT numeric(19, 2),
+        INVOICE_ID int8,
+        primary key (ID)
+    );
+
     create table AC_CHRG_CODE (
         ID int8 not null,
         CHARGE_TYPE int4 not null,
@@ -236,6 +286,56 @@
         M_ST int4,
         CHARGE_CODE_ID int8,
         SPONSOR_ID int8,
+        primary key (ID)
+    );
+
+    create table AC_DBIT_NOTE (
+        ID int8 not null,
+        AUDIT_NO varchar(255),
+        CANCEL_COMMENT varchar(255),
+        DESCRIPTION varchar(255),
+        AV_TS timestamp,
+        AV_ID int8,
+        CL_ID int8,
+        CL_TS timestamp,
+        CK_TS timestamp,
+        CK_ID int8,
+        DT_TS timestamp,
+        DT_ID int8,
+        EV_TS timestamp,
+        EV_ID int8,
+        PR_TS timestamp,
+        PR_ID int8,
+        PS_TS timestamp,
+        PS_ID int8,
+        RG_TS timestamp,
+        RG_ID int8,
+        RM_TS timestamp,
+        RM_ID int8,
+        RQ_TS timestamp,
+        RQ_ID int8,
+        SL_TS timestamp,
+        SL_ID int8,
+        FD_ST int4,
+        UP_TS timestamp,
+        UP_ID int8,
+        UV_TS timestamp,
+        UV_ID int8,
+        VF_TS timestamp,
+        VF_ID int8,
+        ISSUED_DATE timestamp,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        REFERENCE_NO varchar(255),
+        REMOVE_COMMENT varchar(255),
+        SOURCE_NO varchar(255),
+        TOTAL_AMOUNT numeric(19, 2),
+        INVOICE_ID int8,
         primary key (ID)
     );
 
@@ -907,6 +1007,11 @@
         foreign key (ID)
         references AC_RCPT;
 
+    alter table AC_CDIT_NOTE
+        add constraint FKA34D13287580D95D
+        foreign key (INVOICE_ID)
+        references AC_INVC;
+
     alter table AC_CHRG_CODE
         add constraint uc_AC_CHRG_CODE_1 unique (CODE);
 
@@ -941,6 +1046,11 @@
         add constraint FKE62437E5624354E6
         foreign key (SPONSOR_ID)
         references AC_SPSR;
+
+    alter table AC_DBIT_NOTE
+        add constraint FK67CF286B7580D95D
+        foreign key (INVOICE_ID)
+        references AC_INVC;
 
     alter table AC_DSCT_CODE
         add constraint uc_AC_DSCT_CODE_1 unique (CODE);
@@ -1196,6 +1306,8 @@
 
     create sequence SQ_AC_BANK_CODE;
 
+    create sequence SQ_AC_CDIT_NOTE;
+
     create sequence SQ_AC_CHRG_CODE;
 
     create sequence SQ_AC_CHRT_CODE;
@@ -1209,6 +1321,8 @@
     create sequence SQ_AC_CNTY_CODE;
 
     create sequence SQ_AC_CVRG;
+
+    create sequence SQ_AC_DBIT_NOTE;
 
     create sequence SQ_AC_DSCT_CODE;
 

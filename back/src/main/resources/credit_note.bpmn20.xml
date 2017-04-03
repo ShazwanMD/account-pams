@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="definitions"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             targetNamespace="Billing">
+
+
+    <!--
+    ====================================================================================================
+    ==  DRAFTED > REGISTERED > VERIFIED > APPROVED >>  COMPLETED >> END
+    ====================================================================================================
+    -->
+
+    <!--
+    ====================================================================================================
+    == VARIABLE:
+    == credit noteId: credit note id
+    ====================================================================================================
+    -->
+
+    <process id="credit_note_workflow" name="Billing credit Note Workflow">
+
+        <startEvent id="start"/>
+
+        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="creditNote_draft_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : DRAFTED
+        == SERVICE TASK : draft a credit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="creditNote_draft_ST"
+                     activiti:expression="#{creditNote_draft_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow2.3" sourceRef="creditNote_draft_ST" targetRef="creditNote_register_ST"/>
+        <!--
+        ====================================================================================================
+        == STATE : REGISTERED
+        == SERVICE TASK : register a credit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="creditNote_register_ST"
+                     activiti:expression="#{creditNote_register_ST.execute(execution)}"/>
+
+
+        <sequenceFlow id="flow3.3" sourceRef="creditNote_register_ST" targetRef="creditNote_verify_ST"/>
+        <!--
+        ====================================================================================================
+        == STATE : VERIFIED
+        == SERVICE TASK : verify a credit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="creditNote_verify_ST"
+                     activiti:expression="#{creditNote_verify_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow4.2" sourceRef="creditNote_verify_ST" targetRef="creditNote_approve_ST"/>
+
+
+        <!--
+        ====================================================================================================
+        == STATE : REMOVED
+        == SERVICE TASK : removed a credit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="creditNote_remove_ST"
+                     activiti:expression="#{creditNote_remove_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow7.1" sourceRef="creditNote_remove_ST" targetRef="end"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : APPROVED
+        == SERVICE TASK : approve a credit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="creditNote_approve_ST"
+                     activiti:expression="#{creditNote_approve_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow8.1" sourceRef="creditNote_approve_ST" targetRef="creditNote_complete_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : COMPLETED
+        == SERVICE TASK : complete a credit note
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="creditNote_complete_ST"
+                     activiti:expression="#{creditNote_complete_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow9.1" sourceRef="creditNote_complete_ST" targetRef="end"/>
+
+        <!--
+            ====================================================================================================
+            == STATE : END
+            ====================================================================================================
+            -->
+        <endEvent id="end"/>
+
+    </process>
+</definitions>

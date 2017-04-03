@@ -2,8 +2,13 @@
 <definitions id="definitions"
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:activiti="http://activiti.org/bpmn"
-             targetNamespace="PNM">
+             targetNamespace="Billing">
 
+    <!--
+    ====================================================================================================
+    ==  DRAFTED > REGISTERED  > APPROVED >>  COMPLETED >> END
+    ====================================================================================================
+    -->
 
     <!--
     ====================================================================================================
@@ -12,7 +17,7 @@
     ======================================================================================================
     -->
 
-    <process id="receipt_workflow" name="PNM Bendahari Receipt Workflow">
+    <process id="receipt_workflow" name="Billing Bendahari Receipt Workflow">
 
         <startEvent id="start"/>
 
