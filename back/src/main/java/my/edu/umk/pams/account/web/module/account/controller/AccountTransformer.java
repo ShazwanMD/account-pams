@@ -1,8 +1,10 @@
 package my.edu.umk.pams.account.web.module.account.controller;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.web.module.account.vo.AcademicSession;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
@@ -31,6 +33,13 @@ public class AccountTransformer {
     @Autowired
     private IdentityTransformer identityTransformer;
 
+    public AcademicSession toAcademicSessionVo(AcAcademicSession e) {
+        AcademicSession m = new AcademicSession();
+        m.setCode(e.getCode());
+        m.setDescription(e.getDescription());
+        return m;
+    }
+
     public Account toAccountVo(AcAccount e) {
         Account m = new Account();
         m.setCode(e.getCode());
@@ -42,5 +51,10 @@ public class AccountTransformer {
         return accounts.stream()
                 .map((task) -> toAccountVo(task))
                 .collect(toCollection(() -> new ArrayList<Account>()));
+    }
+    public List<AcademicSession> toAcademicSessionVos(List<AcAcademicSession> academicSessions) {
+        return academicSessions.stream()
+                .map((task) -> toAcademicSessionVo(task))
+                .collect(toCollection(() -> new ArrayList<AcademicSession>()));
     }
 }

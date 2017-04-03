@@ -1,33 +1,38 @@
 package my.edu.umk.pams.account.marketing.service;
 
-import java.util.Date;
-import java.util.List;
-
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 
+import java.util.Date;
+import java.util.List;
+
 public interface MarketingService {
 
-	AcPromoCode findById(Long id);
+    AcPromoCode findPromoCodeById(Long id);
 
-	AcPromoCode findByCode(String code);
+    AcPromoCode findPromoCodeByCode(String code);
 
-	AcPromoCodeItem findBySourceNo(String sourceNo);
-	
-	List<AcPromoCode> findByPromoCodeType(AcPromoCodeType promoCodeType, Integer offset, Integer limit);
+    AcPromoCodeItem findPromoCodeItemById(Long id);
 
-	List<AcPromoCodeItem> findPromoCodeItems(AcPromoCode promoCode);
+    AcPromoCodeItem findPromoCodeItemBySourceNo(String sourceNo);
 
-	List<AcPromoCodeItem> findPromoCodeItems(AcAccount account);
-	
-	boolean isPromoCodeExpired(Date now);
+    List<AcPromoCode> findPromoCodes(Integer offset, Integer limit);
 
-	void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+    List<AcPromoCode> findByPromoCodeType(AcPromoCodeType promoCodeType, Integer offset, Integer limit);
 
-	void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+    List<AcPromoCodeItem> findPromoCodeItems(AcPromoCode promoCode);
 
-	void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+    List<AcPromoCodeItem> findPromoCodeItems(AcAccount account);
+
+    boolean isPromoCodeExpired(Date now);
+
+    void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+
+    void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+
+    void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
+
 }

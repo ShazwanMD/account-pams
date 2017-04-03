@@ -15,6 +15,8 @@ public interface AcSettlement extends AcMetaObject{
 
     void setReferenceNo(String referenceNo);
 
+    // todo(uda): sourceNo
+
     String getDescription();
 
     void setDescription(String description);

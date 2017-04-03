@@ -80,7 +80,7 @@ public class BillingController {
         return new ResponseEntity<Invoice>(billingTransformer.toInvoiceVo(invoice), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/invoices/{referenceNo}", method = RequestMethod.POST)
+    @RequestMapping(value = "/invoices/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<Invoice> updateInvoice(@PathVariable String referenceNo, @RequestBody Invoice vo) {
         AcInvoice invoice = (AcInvoice) billingService.findInvoiceByReferenceNo(referenceNo);
         return new ResponseEntity<Invoice>(billingTransformer.toInvoiceVo(invoice), HttpStatus.OK);
