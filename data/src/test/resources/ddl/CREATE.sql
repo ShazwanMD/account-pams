@@ -1,3 +1,4 @@
+
     create table AC_ACCT (
         ID int8 not null,
         CODE varchar(255) not null,
@@ -476,22 +477,6 @@
         primary key (ID)
     );
 
-    create table AC_PRCD_ITEM (
-        ID int8 not null,
-        APPLIED boolean,
-        C_TS timestamp,
-        C_ID int8,
-        D_TS timestamp,
-        D_ID int8,
-        M_TS timestamp,
-        M_ID int8,
-        M_ST int4,
-        SOURCE_NO varchar(255),
-        ACCOUNT_ID int8,
-        PROMO_CODE_ID int8,
-        primary key (ID)
-    );
-
     create table AC_PRGM_CODE (
         ID int8 not null,
         CODE varchar(255) not null,
@@ -507,7 +492,7 @@
         primary key (ID)
     );
 
-    create table AC_PROMO_CODE (
+    create table AC_PRMO_CODE (
         ID int8 not null,
         CODE varchar(255) not null,
         DESCRIPTION varchar(255) not null,
@@ -522,6 +507,22 @@
         PROMO_CODE_TYPE int4,
         QUANTITY int4,
         VALUE numeric(19, 2) not null,
+        primary key (ID)
+    );
+
+    create table AC_PRMO_CODE_ITEM (
+        ID int8 not null,
+        APPLIED boolean,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        SOURCE_NO varchar(255),
+        ACCOUNT_ID int8,
+        PROMO_CODE_ID int8,
         primary key (ID)
     );
 
@@ -1025,16 +1026,6 @@
         foreign key (PRINCIPAL_ID)
         references AC_PCPL;
 
-    alter table AC_PRCD_ITEM
-        add constraint FK8062081262AC940F
-        foreign key (ACCOUNT_ID)
-        references AC_ACCT;
-
-    alter table AC_PRCD_ITEM
-        add constraint FK80620812350DCDC7
-        foreign key (PROMO_CODE_ID)
-        references AC_PROMO_CODE;
-
     alter table AC_PRGM_CODE
         add constraint uc_AC_PRGM_CODE_1 unique (CODE);
 
@@ -1042,6 +1033,16 @@
         add constraint FK6353C5873150A71C
         foreign key (FACULTY_CODE_ID)
         references AC_FCTY_CODE;
+
+    alter table AC_PRMO_CODE_ITEM
+        add constraint FK26EE088762AC940F
+        foreign key (ACCOUNT_ID)
+        references AC_ACCT;
+
+    alter table AC_PRMO_CODE_ITEM
+        add constraint FK26EE0887350DCDC7
+        foreign key (PROMO_CODE_ID)
+        references AC_PRMO_CODE;
 
     alter table AC_RCPT
         add constraint FKE62AC1F262AC940F
@@ -1231,11 +1232,11 @@
 
     create sequence SQ_AC_PCPL_ROLE;
 
-    create sequence SQ_AC_PRCD_ITEM;
-
     create sequence SQ_AC_PRGM_CODE;
 
-    create sequence SQ_AC_PROMO_CODE;
+    create sequence SQ_AC_PRMO_CODE;
+
+    create sequence SQ_AC_PRMO_CODE_ITEM;
 
     create sequence SQ_AC_RCPT;
 

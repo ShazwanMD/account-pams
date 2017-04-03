@@ -39,10 +39,6 @@ public class AcPromoCodeImpl implements AcPromoCode {
 	private String description;
 
 	@NotNull
-	@Column(name = "PROMO_CODE_TYPE")
-	private AcPromoCodeType promoCodeType;
-
-	@NotNull
 	@Column(name = "QUANTITY")
 	private int quantity;
 
@@ -50,8 +46,12 @@ public class AcPromoCodeImpl implements AcPromoCode {
 	@Column(name = "EXPIRY_DATE")
 	private Date expiryDate;
 
+	@NotNull
+	@Column(name = "PROMO_CODE_TYPE")
+	private AcPromoCodeType promoCodeType;
+
 	@OneToMany(targetEntity = AcPromoCodeItemImpl.class, mappedBy = "promoCode", fetch = FetchType.LAZY)
-	private List<AcPromoCodeItemImpl> items;
+	private List<AcPromoCodeItem> items;
 
 	@Embedded
 	private AcMetadata metadata;
@@ -61,7 +61,6 @@ public class AcPromoCodeImpl implements AcPromoCode {
 		return id;
 	}
 
-	@Override
 	public void setId(Long Id) {
 		this.id = id;
 	}
@@ -127,12 +126,12 @@ public class AcPromoCodeImpl implements AcPromoCode {
 	}
 
 	@Override
-	public List<AcPromoCodeItemImpl> getItems() {
+	public List<AcPromoCodeItem> getItems() {
 		return items;
 	}
 
 	@Override
-	public void setItems(List<AcPromoCodeItemImpl> items) {
+	public void setItems(List<AcPromoCodeItem> items) {
 		this.items = items;
 	}
 
