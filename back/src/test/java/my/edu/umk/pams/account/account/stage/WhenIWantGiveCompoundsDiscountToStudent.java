@@ -27,10 +27,6 @@ import my.edu.umk.pams.account.marketing.model.AcPromoCodeItemImpl;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 import my.edu.umk.pams.account.marketing.service.MarketingService;
 
-import my.edu.umk.pams.account.security.integration.AcUserDetails;
-
-import org.springframework.util.Assert;
-
 @JGivenStage
 public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGiveCompoundsDiscountToStudent> {
 
