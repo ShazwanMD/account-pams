@@ -10,11 +10,11 @@ public class InvoiceTask extends Task {
 
     private Invoice invoice;
 
-    public Invoice getBill() {
+    public Invoice getInvoice() {
         return invoice;
     }
 
-    public void setBill(Invoice invoice) {
+    public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
 }

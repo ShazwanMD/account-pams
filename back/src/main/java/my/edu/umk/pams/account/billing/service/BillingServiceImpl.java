@@ -352,6 +352,11 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
+	public Task findReceiptTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
+
+	@Override
 	public List<Task> findAssignedReceiptTasks(Integer offset, Integer limit) {
 		return workflowService.findAssignedTasks(AcReceipt.class.getName(), offset, limit);
 	}
@@ -475,6 +480,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public AcReceiptItem findReceiptItemById(Long id) {
 		return receiptDao.findItemById(id);
+	}
+
+	@Override
+	public List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit) {
+		return receiptDao.find(filter, offset, limit);
 	}
 
 	@Override

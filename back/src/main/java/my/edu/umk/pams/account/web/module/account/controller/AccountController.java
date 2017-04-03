@@ -23,7 +23,7 @@ import static my.edu.umk.pams.account.util.Util.toOffset;
 /**
  * @author PAMS
  */
- @RestController
+@RestController
 @RequestMapping("/api/account")
 public class AccountController {
 
@@ -40,24 +40,25 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts/", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> findAccounts() {
-        List<AcAccount> accounts =  accountService.findAccounts(0,100);
+        List<AcAccount> accounts = accountService.findAccounts(0, 100);
         return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
     }
+
     @RequestMapping(value = "/accounts/page/{pageNo}", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> findAccounts(@PathVariable Integer pageNo) {
-        List<AcAccount> accounts =  accountService.findAccounts(toOffset(pageNo), toLimit(pageNo));
+        List<AcAccount> accounts = accountService.findAccounts(toOffset(pageNo), toLimit(pageNo));
         return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{code}", method = RequestMethod.GET)
     public ResponseEntity<Account> findAccountByCode(@PathVariable String code) {
-        AcAccount account =  accountService.findAccountByCode(code);
+        AcAccount account = accountService.findAccountByCode(code);
         return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{code}", method = RequestMethod.PUT)
     public ResponseEntity<Account> updateAccount(@PathVariable String code) {
-        AcAccount account =  accountService.findAccountByCode(code);
+        AcAccount account = accountService.findAccountByCode(code);
         return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
     }
 

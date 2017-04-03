@@ -66,6 +66,20 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
 
     @Override
+    public List<AcReceipt> find(String filter, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select r from AcReceipt r where " +
+                // todo(uda): add filter
+                "r.metadata.state = :state " +
+                "order by r.id desc");
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        query.setCacheable(true);
+        return (List<AcReceipt>) query.list();
+    }
+
+    @Override
     public List<AcReceipt> find(AcReceiptType type, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select r from AcReceipt r where " +

@@ -2,18 +2,13 @@ package my.edu.umk.pams.account.web.module.billing.controller;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.billing.model.AcInvoice;
-import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
-import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
-import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
+import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
-import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
-import my.edu.umk.pams.account.web.module.billing.vo.InvoiceItem;
-import my.edu.umk.pams.account.web.module.billing.vo.InvoiceTask;
+import my.edu.umk.pams.account.web.module.billing.vo.*;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
@@ -34,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static my.edu.umk.pams.account.AccountConstants.INVOICE_REFERENCE_NO;
+import static my.edu.umk.pams.account.AccountConstants.RECEIPT_REFERENCE_NO;
 
 @RestController
 @RequestMapping("/api/billing")
@@ -170,6 +166,108 @@ public class BillingController {
     @RequestMapping(value = "/invoices/completeTask", method = RequestMethod.POST)
     public void completeInvoiceTask(@RequestBody InvoiceTask vo) {
         Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
+        workflowService.completeTask(task);
+    }
+
+    // ==================================================================================================== //
+    //  RECEIPT
+    // ==================================================================================================== //
+
+    @RequestMapping(value = "/receipts/", method = RequestMethod.GET)
+    public ResponseEntity<List<Receipt>> findReceipts() {
+        List<AcReceipt> receipts = billingService.findReceipts("%", 0, 100);
+        return new ResponseEntity<List<Receipt>>(billingTransformer.toReceiptVos(receipts), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<Receipt> findReceiptByReferenceNo(@PathVariable String referenceNo) {
+        AcReceipt receipt = (AcReceipt) billingService.findReceiptByReferenceNo(referenceNo);
+        return new ResponseEntity<Receipt>(billingTransformer.toReceiptVo(receipt), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/{referenceNo}", method = RequestMethod.POST)
+    public ResponseEntity<Receipt> updateReceipt(@PathVariable String referenceNo, @RequestBody Receipt vo) {
+        AcReceipt receipt = (AcReceipt) billingService.findReceiptByReferenceNo(referenceNo);
+        return new ResponseEntity<Receipt>(billingTransformer.toReceiptVo(receipt), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/{referenceNo:.+}/receiptItems", method = RequestMethod.GET)
+    public ResponseEntity<List<ReceiptItem>> findReceiptItems(@PathVariable String referenceNo) {
+        dummyLogin();
+        String decode = URLDecoder.decode(referenceNo);
+        LOG.debug("decoded: {}", decode);
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(decode);
+        return new ResponseEntity<List<ReceiptItem>>(billingTransformer
+                .toReceiptItemVos(billingService.findReceiptItems(receipt)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/{referenceNo}/receiptItems", method = RequestMethod.POST)
+    public void updateReceiptItems(@PathVariable String referenceNo, @RequestBody ReceiptItem item) {
+        dummyLogin();
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        if (null == item.getId()) { // new
+            AcReceiptItem e = new AcReceiptItemImpl();
+            e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+            e.setTotalAmount(item.getAmount());
+            e.setDescription(item.getDescription());
+            billingService.addReceiptItem(receipt, e);
+        } else { // update
+            AcReceiptItem e = billingService.findReceiptItemById(item.getId());
+            e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+            e.setTotalAmount(item.getAmount());
+            e.setDescription(item.getDescription());
+            billingService.updateReceiptItem(receipt, e);
+        }
+    }
+
+    @RequestMapping(value = "/receipts/assignedTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<ReceiptTask>> findAssignedReceipts() {
+        dummyLogin();
+        List<Task> tasks = billingService.findAssignedReceiptTasks(0, 100);
+        return new ResponseEntity<List<ReceiptTask>>(billingTransformer.toReceiptTaskVos(tasks), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/pooledTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<ReceiptTask>> findPooledReceipts() {
+        dummyLogin();
+        List<Task> tasks = billingService.findPooledReceiptTasks(0, 100);
+        return new ResponseEntity<List<ReceiptTask>>(billingTransformer.toReceiptTaskVos(tasks), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/startTask", method = RequestMethod.POST)
+    public void startReceiptTask(@RequestBody Receipt vo) throws Exception {
+        dummyLogin();
+
+        AcAccount account = accountService.findAccountById(vo.getPayer().getId());
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("academicSession", accountService.findCurrentAcademicSession());
+        String generated = systemService.generateFormattedReferenceNo(RECEIPT_REFERENCE_NO, map);
+
+        AcReceipt receipt = new AcReceiptImpl();
+        receipt.setReferenceNo(generated);
+        receipt.setDescription(vo.getDescription());
+        receipt.setTotalAmount(BigDecimal.ZERO);
+        receipt.setAccount(account);
+        billingService.startReceiptTask(receipt);
+    }
+
+    @RequestMapping(value = "/receipts/viewTask/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<ReceiptTask> findReceiptTaskByTaskId(@PathVariable String taskId) {
+        return new ResponseEntity<ReceiptTask>(billingTransformer
+                .toReceiptTaskVo(
+                        billingService.findReceiptTaskByTaskId(taskId)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/claimTask", method = RequestMethod.POST)
+    public void claimReceiptTask(@RequestBody ReceiptTask vo) {
+        dummyLogin();
+        Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
+        workflowService.claimTask(task);
+    }
+
+    @RequestMapping(value = "/receipts/completeTask", method = RequestMethod.POST)
+    public void completeReceiptTask(@RequestBody ReceiptTask vo) {
+        Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
     }
 
