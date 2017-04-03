@@ -69,20 +69,23 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 	@ProvidedScenarioState
     private List<AcAccountCharge> accountCharges;
 
-	@Pending
 	@As("I_want_give_compounds_discount_to_student")
 	public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student_$(String matricNo) {
 		
 		//cari student untuk cari account 
 		student = identityService.findStudentByMatricNo(matricNo);
-	
+		Assert.notNull(student, "student cannot be null");
         AcUser user = identityService.findUserByActor(student);
+		Assert.notNull(user, "user cannot be null");
 
 		//cari akaun yg dpt dr student
 		account = accountService.findAccountByActor(student);
-		
+		Assert.notNull(account, "account cannot be null");
+
 		//senarai acc charge dari akaun yg kita jmp utk student ni
-		accountCharges= accountService.findAccountCharges(account);
+		accountCharges = accountService.findAccountCharges(account);
+		Assert.notEmpty(accountCharges, "accountCharges cannot be empty");
+
 		for(AcAccountCharge accountCharges : accountCharges){
 			LOG.debug("Description "+ accountCharges.getDescription());
 			LOG.debug("Session "+ accountCharges.getSession().getCode());
@@ -96,7 +99,6 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 		promocode.setQuantity(1);
 	//	promocode.setExpiryDate(expiryDate);
 		LOG.debug("Student: {}", promocode);
-		
 
 		detail = new AcPromoCodeItemImpl();
 	//	detail.setAccount(account);
@@ -106,7 +108,7 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 		LOG.debug("Student: {}", detail);
 
 		marketingService.addPromoCodeItem(promocode, detail, user );
-	
+
 		return self();
 	
 }
