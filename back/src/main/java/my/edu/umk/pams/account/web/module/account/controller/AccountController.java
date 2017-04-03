@@ -55,13 +55,13 @@ public class AccountController {
         return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/{code}", method = RequestMethod.POST)
+    @RequestMapping(value = "/accounts/{code}", method = RequestMethod.PUT)
     public ResponseEntity<Account> updateAccount(@PathVariable String code) {
         AcAccount account =  accountService.findAccountByCode(code);
         return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/{code:.+}/accountTransactions", method = RequestMethod.GET)
+    @RequestMapping(value = "/accounts/{code}/accountTransactions", method = RequestMethod.GET)
     public ResponseEntity<List<InvoiceItem>> findInvoiceItems(@PathVariable String referenceNo) {
         throw new UnsupportedOperationException();
     }

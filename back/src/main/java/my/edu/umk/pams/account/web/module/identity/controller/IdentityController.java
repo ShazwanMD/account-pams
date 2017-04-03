@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.identity.vo.Actor;
 import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
 import my.edu.umk.pams.account.web.module.identity.vo.Staff;
+import my.edu.umk.pams.account.web.module.identity.vo.Student;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,5 +94,20 @@ public class IdentityController {
     public ResponseEntity<Staff> findStaffByIdentityNo(@PathVariable String identityNo) {
         return new ResponseEntity<Staff>(identityTransformer
                 .toStaffVo(identityService.findStaffByStaffNo(identityNo)), HttpStatus.OK);
+    }
+    // ==================================================================================================== //
+    // STUDENT
+    // ==================================================================================================== //
+
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    public ResponseEntity<List<Student>> findStudents() {
+        return new ResponseEntity<List<Student>>(identityTransformer
+                .toStudentVos(identityService.findStudents(0, 100)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/students/{identityNo}", method = RequestMethod.GET)
+    public ResponseEntity<Student> findStudentByIdentityNo(@PathVariable String identityNo) {
+        return new ResponseEntity<Student>(identityTransformer
+                .toStudentVo(identityService.findStudentByMatricNo(identityNo)), HttpStatus.OK);
     }
 }

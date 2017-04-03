@@ -72,15 +72,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/common/**").hasRole("USER")
-                .antMatchers("/api/dashboard/**").hasRole("USER")
-                .antMatchers("/api/identity/**").hasRole("USER")
-                .antMatchers("/api/ledger/**").hasRole("USER")
-                .antMatchers("/api/payable/**").hasRole("USER")
-                .antMatchers("/api/receivable/**").hasRole("USER")
-                .antMatchers("/api/billing/**").hasRole("USER")
-                .antMatchers("/api/disbursement/**").hasRole("USER")
-                .antMatchers("/download/**").hasRole("USER")
+                .antMatchers("/api/common/**").permitAll()  //todo(uda): .hasRole("USER")
+                .antMatchers("/api/dashboard/**").permitAll()
+                .antMatchers("/api/identity/**").permitAll()
+                .antMatchers("/api/account/**").permitAll()
+                .antMatchers("/api/billing/**").permitAll()
+                .antMatchers("/api/financialaid/**").permitAll()
+                .antMatchers("/api/marketing/**").permitAll()
+                .antMatchers("/download/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest().permitAll()
                 .and()
@@ -160,5 +159,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler() {
         return new JwtAuthenticationFailureHandler();
     }
-
 }

@@ -3,10 +3,8 @@ package my.edu.umk.pams.account.web.module.identity.controller;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcStaff;
-import my.edu.umk.pams.account.web.module.identity.vo.Actor;
-import my.edu.umk.pams.account.web.module.identity.vo.ActorType;
-import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
-import my.edu.umk.pams.account.web.module.identity.vo.Staff;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.web.module.identity.vo.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,6 +32,25 @@ public class IdentityTransformer {
     public List<Staff> toStaffVos(List<AcStaff> staffs) {
         List<Staff> vos = staffs.stream()
                 .map((staff) -> toStaffVo(staff))
+                .collect(toList());
+        return vos;
+    }
+
+    public Student toStudentVo(AcStudent student) {
+        Student m = new Student();
+        m.setId(student.getId());
+        m.setIdentityNo(student.getIdentityNo());
+        m.setName(student.getName());
+        m.setEmail(student.getEmail());
+        m.setMobile(student.getMobile());
+        m.setPhone(student.getPhone());
+        m.setFax(student.getFax());
+        return m;
+    }
+
+    public List<Student> toStudentVos(List<AcStudent> students) {
+        List<Student> vos = students.stream()
+                .map((student) -> toStudentVo(student))
                 .collect(toList());
         return vos;
     }
