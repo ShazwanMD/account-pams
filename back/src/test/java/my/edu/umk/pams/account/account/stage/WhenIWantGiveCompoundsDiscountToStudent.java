@@ -1,112 +1,95 @@
 package my.edu.umk.pams.account.account.stage;
 
-import java.util.List;
-
+import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
+import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.ProvidedScenarioState;
+import com.tngtech.jgiven.integration.spring.JGivenStage;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.service.IdentityService;
+import my.edu.umk.pams.account.marketing.model.*;
+import my.edu.umk.pams.account.marketing.service.MarketingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
-import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.As;
-import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.annotation.Pending;
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
-import com.tngtech.jgiven.integration.spring.JGivenStage;
-
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.identity.model.AcStaff;
-import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.model.AcUser;
-import my.edu.umk.pams.account.identity.service.IdentityService;
-import my.edu.umk.pams.account.marketing.model.AcPromoCode;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeImpl;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeItemImpl;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
-import my.edu.umk.pams.account.marketing.service.MarketingService;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @JGivenStage
 public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGiveCompoundsDiscountToStudent> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantGiveCompoundsDiscountToStudent.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WhenIWantGiveCompoundsDiscountToStudent.class);
 
-	@ExpectedScenarioState
-	private AcStudent student;
-
-	@ProvidedScenarioState
-	private AcAccount account;
-	
-	@ProvidedScenarioState
-	private AcPromoCode promocode;
-	
-	@ProvidedScenarioState
-	private AcPromoCodeItemImpl detail;
-	
-	@ProvidedScenarioState
-	private AcPromoCodeType promoCodeType;
-
-	@ExpectedScenarioState
-	private AcAcademicSession academicSession;
-
-	@Autowired
-	private AccountService accountService;
-
-	@Autowired
-	private IdentityService identityService;
-	
-	@Autowired
-	private MarketingService marketingService;
-	
     @ExpectedScenarioState
-    private AcStaff staff;
-	
-	@ProvidedScenarioState
+    private AcStudent student;
+
+    @ProvidedScenarioState
+    private AcAccount account;
+
+    @ProvidedScenarioState
+    private AcPromoCode promoCode;
+
+    @ExpectedScenarioState
+    private AcAcademicSession academicSession;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private IdentityService identityService;
+
+    @Autowired
+    private MarketingService marketingService;
+
+    @ProvidedScenarioState
     private List<AcAccountCharge> accountCharges;
 
-	@As("I_want_give_compounds_discount_to_student")
-	public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student_$(String matricNo) {
-		
-		//cari student untuk cari account 
-		student = identityService.findStudentByMatricNo(matricNo);
-		Assert.notNull(student, "student cannot be null");
-        AcUser user = identityService.findUserByActor(student);
-		Assert.notNull(user, "user cannot be null");
+    @As("I_want_give_compounds_discount_to_student")
+    public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student_$(String matricNo) {
 
-		//cari akaun yg dpt dr student
-		account = accountService.findAccountByActor(student);
-		Assert.notNull(account, "account cannot be null");
+        //cari student untuk cari account
+        student = identityService.findStudentByMatricNo(matricNo);
+        Assert.notNull(student, "student cannot be null");
 
-		//senarai acc charge dari akaun yg kita jmp utk student ni
-		accountCharges = accountService.findAccountCharges(account);
-		Assert.notEmpty(accountCharges, "accountCharges cannot be empty");
+        //cari akaun yg dpt dr student
+        account = accountService.findAccountByActor(student);
+        Assert.notNull(account, "account cannot be null");
 
-		for(AcAccountCharge accountCharges : accountCharges){
-			LOG.debug("Description "+ accountCharges.getDescription());
-			LOG.debug("Session "+ accountCharges.getSession().getCode());
-		}
+        //senarai acc charge dari akaun yg kita jmp utk student ni
+        accountCharges = accountService.findAccountCharges(account);
 
-		
-		promocode = new AcPromoCodeImpl();
-		promocode.setCode("aa01");
-		promocode.setDescription("discount");
-		promocode.setPromoCodeType(promoCodeType.DISCOUNT);
-		promocode.setQuantity(1);
-	//	promocode.setExpiryDate(expiryDate);
-		LOG.debug("Student: {}", promocode);
+        for (AcAccountCharge accountCharges : accountCharges) {
+            LOG.debug("Description " + accountCharges.getDescription());
+            LOG.debug("Session " + accountCharges.getSession().getCode());
+        }
 
-		detail = new AcPromoCodeItemImpl();
-	//	detail.setAccount(account);
-		detail.setApplied(false);
-		detail.setPromoCode(promocode);
-		detail.setSourceNo("abc123");
-		LOG.debug("Student: {}", detail);
+        String PROMO_CODE = "aa01";
+        promoCode = new AcPromoCodeImpl();
+        promoCode.setCode(PROMO_CODE);
+        promoCode.setDescription("A rare discount");
+        promoCode.setPromoCodeType(AcPromoCodeType.DISCOUNT);
+        promoCode.setQuantity(1);
+        promoCode.setValue(BigDecimal.TEN);
+        promoCode.setExpiryDate(new Date());
+        marketingService.addPromoCode(promoCode);
 
-		marketingService.addPromoCodeItem(promocode, detail, user );
+        AcPromoCodeItem item = new AcPromoCodeItemImpl();
+//		item.setAccount(account);
+        item.setSourceNo("abc123");
+        item.setApplied(false);
+        marketingService.addPromoCodeItem(promoCode, item);
 
-		return self();
-	
-}
+        Assert.notNull(promoCode, "promoCode cannot be  null");
+        Assert.notNull(item, "promoCodeItem cannot be  null");
+
+        return self();
+
+    }
 }

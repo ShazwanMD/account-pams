@@ -110,11 +110,11 @@ public class MarketingController {
         if (null == item.getId()) { // new
             AcPromoCodeItem e = new AcPromoCodeItemImpl();
             e.setAccount(accountService.findAccountById(item.getAccount().getId()));
-            marketingService.addPromoCodeItem(promoCode, e, securityService.getCurrentUser());
+            marketingService.addPromoCodeItem(promoCode, e);
         } else { // update
             AcPromoCodeItem e = marketingService.findPromoCodeItemById(item.getId());
             e.setAccount(accountService.findAccountById(item.getAccount().getId()));
-            marketingService.updatePromoCodeItem(promoCode, e, securityService.getCurrentUser());
+            marketingService.updatePromoCodeItem(promoCode, e);
         }
     }
 

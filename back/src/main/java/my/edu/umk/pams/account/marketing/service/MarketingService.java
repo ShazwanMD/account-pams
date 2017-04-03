@@ -29,10 +29,19 @@ public interface MarketingService {
 
     boolean isPromoCodeExpired(Date now);
 
+    void addPromoCode(AcPromoCode promoCode);
+
+    void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail);
+
+    void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail);
+
+    void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail);
+
+    @Deprecated
     void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
-
+    @Deprecated
     void updatePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
-
+    @Deprecated
     void deletePromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem detail, AcUser user);
 
 }
