@@ -26,13 +26,15 @@ public interface FinancialAidService {
 
     List<AcSettlement> findSettlementes(AcAcademicSession academicSession, Integer offset, Integer limit);
 
-    List<AcSettlementItem> findSettlementItems(AcSettlement processBatch, Integer offset, Integer limit);
+    List<AcSettlementItem> findSettlementItems(AcSettlement settlement);
+
+    List<AcSettlementItem> findSettlementItems(AcSettlement settlement, Integer offset, Integer limit);
 
     Integer countSettlement();
 
     Integer countSettlement(AcAcademicSession academicSession);
 
-    Integer countSettlementItem(AcSettlement processBatch);
+    Integer countSettlementItem(AcSettlement settlement);
 
     void initSettlement(AcSettlement settlement);
 
@@ -47,7 +49,7 @@ public interface FinancialAidService {
     void updateSettlementItem(AcSettlement settlement, AcSettlementItem item);
 
     void deleteSettlementItem(AcSettlement settlement, AcSettlementItem item);
-    
+
     void saveWaiverApplication(AcWaiverApplication waiverApplication);
 
 }

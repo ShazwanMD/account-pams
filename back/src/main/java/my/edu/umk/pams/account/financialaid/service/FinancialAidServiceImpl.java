@@ -117,6 +117,11 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     }
 
     @Override
+    public List<AcSettlementItem> findSettlementItems(AcSettlement settlement) {
+        return settlementDao.findItems(settlement);
+    }
+
+    @Override
     public List<AcSettlementItem> findSettlementItems(AcSettlement settlement, Integer offset, Integer limit) {
         return settlementDao.findItems(settlement, offset, limit);
     }

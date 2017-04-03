@@ -5,7 +5,6 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.billing.model.*;
-import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import org.activiti.engine.task.Task;
 
@@ -107,16 +106,16 @@ public interface BillingService {
 
     AcReceipt findReceiptByTaskId(String taskId);
 
-    // todo(uda): find by record id
+    Task findReceiptTaskByTaskId(String taskId);
 
     List<Task> findAssignedReceiptTasks(Integer offset, Integer limit);
 
     List<Task> findPooledReceiptTasks(Integer offset, Integer limit);
-    
+
     void initReceipt(AcReceipt receipt);
-    
+
     void executeReceipt(AcReceipt receipt);
-    
+
     void startReceiptTask(AcReceipt receipt);
 
     void updateReceipt(AcReceipt receipt);
@@ -140,6 +139,8 @@ public interface BillingService {
     AcReceipt findReceiptByReceiptNo(String receiptNo);
 
     AcReceiptItem findReceiptItemById(Long id);
+
+    List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit);
 
     List<AcReceipt> findReceipts(AcReceiptType type, Integer offset, Integer limit);
 

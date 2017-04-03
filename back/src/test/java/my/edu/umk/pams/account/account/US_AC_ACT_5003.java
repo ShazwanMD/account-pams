@@ -29,7 +29,7 @@ public class US_AC_ACT_5003 extends
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5003.class);
 
-	private static final String IDENTITY_NO = "AP17002";
+	private static final String IDENTITY_NO = "A17P002";
 
 	@Test
 	@Rollback

@@ -4,11 +4,10 @@ import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
+import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
-import my.edu.umk.pams.account.web.module.billing.vo.ChargeCode;
-import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
-import my.edu.umk.pams.account.web.module.billing.vo.InvoiceItem;
-import my.edu.umk.pams.account.web.module.billing.vo.InvoiceTask;
+import my.edu.umk.pams.account.web.module.billing.vo.*;
 import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
@@ -129,6 +128,80 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setDebitAmount(e.getAmount().compareTo(BigDecimal.ZERO) < 0 ? e.getAmount().negate() : null);
         vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) > 0 ? e.getAmount() : null);
+        vo.setChargeCode(toChargeCodeVo(e.getChargeCode()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+    public List<ReceiptTask> toReceiptTaskVos(List<Task> tasks) {
+        return tasks.stream()
+                .map((task) -> toReceiptTaskVo(task))
+                .collect(toCollection(() -> new ArrayList<ReceiptTask>()));
+    }
+
+    public ReceiptTask toReceiptTaskVo(Task t) {
+        Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
+        AcReceipt receipt = billingService.findReceiptById((Long) vars.get(AccountConstants.RECEIPT_ID));
+
+        ReceiptTask task = new ReceiptTask();
+        task.setId(receipt.getId());
+        task.setTaskId(t.getId());
+        task.setReferenceNo(receipt.getReferenceNo());
+        task.setSourceNo(receipt.getSourceNo());
+        task.setDescription(receipt.getDescription());
+        task.setTaskName(t.getName());
+        task.setAssignee(task.getAssignee());
+        task.setCandidate(task.getCandidate());
+//        task.setReceipt(toReceiptVo(receipt));
+        task.setFlowState(FlowState.get(receipt.getFlowdata().getState().ordinal()));
+        task.setMetaState(MetaState.get(receipt.getMetadata().getState().ordinal()));
+        return task;
+    }
+
+    public Receipt toSimpleReceiptVo(AcReceipt e) {
+        Receipt vo = new Receipt();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setReceiptNo(e.getReceiptNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDescription(e.getDescription());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+
+    public Receipt toReceiptVo(AcReceipt e) {
+        Receipt vo = new Receipt();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDescription(e.getDescription());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+
+    public List<Receipt> toReceiptVos(List<AcReceipt> journals) {
+        return journals.stream()
+                .map((task) -> toReceiptVo(task))
+                .collect(toCollection(() -> new ArrayList<Receipt>()));
+    }
+
+    public List<ReceiptItem> toReceiptItemVos(List<AcReceiptItem> entries) {
+        return entries.stream()
+                .map((entry) -> toReceiptItemVo(entry))
+                .collect(toCollection(() -> new ArrayList<ReceiptItem>()));
+    }
+
+    public ReceiptItem toReceiptItemVo(AcReceiptItem e) {
+        // todo(uda): more properties
+        ReceiptItem vo = new ReceiptItem();
+        vo.setId(e.getId());
+        vo.setAmount(e.getTotalAmount());
+        vo.setDescription(e.getDescription());
         vo.setChargeCode(toChargeCodeVo(e.getChargeCode()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;

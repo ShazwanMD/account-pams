@@ -13,6 +13,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 import my.edu.umk.pams.account.marketing.service.MarketingService;
+import org.springframework.util.Assert;
 
 
 @JGivenStage
@@ -39,6 +40,7 @@ private MarketingService marketingService;
 	public WhenIWantGiveCompoundsDiscountToStudent I_want_give_compounds_discount_to_student_$(String identityNo){
 		 
 		student = identityService.findStudentByMatricNo(identityNo);
+		Assert.notNull(student, "student cannot be null");
 		LOG.debug("Student's Name : {}", student.getName());
 	/**	AcUser user = identityService.findUserByActor(student);
 		LOG.debug("DISCOUNT :" + promocode.getCode());

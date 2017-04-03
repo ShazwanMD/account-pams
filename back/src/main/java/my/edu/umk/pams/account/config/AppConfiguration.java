@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "my.edu.umk.pams.account.billing",
         "my.edu.umk.pams.account.account",
         "my.edu.umk.pams.account.financialaid",
+        "my.edu.umk.pams.account.marketing",
 
         // web modules
         "my.edu.umk.pams.account.web.module.identity",
@@ -35,6 +36,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "my.edu.umk.pams.account.web.module.billing",
         "my.edu.umk.pams.account.web.module.financialaid",
         "my.edu.umk.pams.account.web.module.account",
+        "my.edu.umk.pams.account.web.module.marketing",
 
 }
 )
