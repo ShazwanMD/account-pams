@@ -97,7 +97,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
 	}
 
-	public void I_create_security_charge_to_student(String MatricNo) {
+	public WhenIssueInvoice I_create_security_charge_to_student(String MatricNo) {
 		AcStudent student = identityService.findStudentByMatricNo(MatricNo);
 		account = accountService.findAccountByActor(student);
 
@@ -112,7 +112,8 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 		
 		accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321");
 		accountService.addAccountCharge(this.account, charge);
-		//accountService.addAccountCharge(acAccount, accountCharge);
+		return self();
+
 
 	}
 }

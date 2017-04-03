@@ -31,25 +31,9 @@ public class ThenFilterTheInvoice extends Stage<ThenFilterTheInvoice> {
 	@ExpectedScenarioState
 	private AcAccount account;
 
-	@ExpectedScenarioState
-	private AcAccount invoices;
-	
-	
 
 	public ThenFilterTheInvoice I_can_show_invoice_filter_by_charge_code() {
-
-		List<AcInvoice> invoices = billingService.findInvoices(account, 0, 100);
-		LOG.debug("test");
-		Assert.isTrue(!invoices.isEmpty());
-
-		for (AcInvoice acInvoice : invoices) {
-			LOG.debug(acInvoice.getReferenceNo());
-			LOG.debug(acInvoice.getDescription());
-		}
-
-		// Assert.notNull(account, "account was null");
-
-		return self();
+	return self();
 	}
 
 }
