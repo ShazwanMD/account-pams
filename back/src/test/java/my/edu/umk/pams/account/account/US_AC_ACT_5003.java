@@ -29,13 +29,14 @@ public class US_AC_ACT_5003 extends
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5003.class);
 
-	private static final String IDENTITY_NO = "A17P002";
+
+	private static final String MATRIC_NO = "A17P001";
 
 	@Test
 	@Rollback
 	public void testScenario0() {
 		given().I_am_student_affair();
-		when().I_want_give_compounds_discount_to_student_$(IDENTITY_NO);
+		when().I_want_give_compounds_discount_to_student_$(MATRIC_NO);
 		//then().discount_can_applied_to_receipt();
 	}
 }
