@@ -584,6 +584,24 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void executeReceipt(AcReceipt receipt) {
 
+		AcAcademicSession academicSession = academicSessionDao.findCurrentSession();
+		//receipt = receiptDao.findByReceiptNo(receipt.getReceiptNo());
+		LOG.debug("Receipt "+ receipt.getReceiptNo());
+		//for (AcReceipt item : receipt) {
+
+			LOG.debug("account "+ receipt.getAccount().getCode());
+			
+			AcAccountTransaction transaction = new AcAccountTransactionImpl(); 
+			transaction.setAccount(receipt.getAccount());
+			transaction.setAmount(receipt.getTotalAmount());
+			//transaction.setChargeCode(item.getChargeCode());
+			transaction.setSession(academicSession);
+			transaction.setTransactionCode(AcAccountTransactionCode.RECEIPT);
+			transaction.setSourceNo(receipt.getSourceNo());
+			transaction.setPostedDate(receipt.getReceivedDate());
+			accountDao.addAccountTransaction(receipt.getAccount(), transaction, securityService.getCurrentUser());
+		//}
+		
 		sessionFactory.getCurrentSession().flush();
 	}
 
