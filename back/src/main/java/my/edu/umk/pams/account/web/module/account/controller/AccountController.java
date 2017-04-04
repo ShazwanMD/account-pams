@@ -38,7 +38,7 @@ public class AccountController {
     @Autowired
     private AccountTransformer accountTransformer;
 
-    @RequestMapping(value = "/accounts/", method = RequestMethod.GET)
+    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> findAccounts() {
         List<AcAccount> accounts = accountService.findAccounts(0, 100);
         return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);

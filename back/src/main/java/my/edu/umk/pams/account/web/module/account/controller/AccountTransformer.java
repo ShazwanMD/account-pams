@@ -43,6 +43,8 @@ public class AccountTransformer {
     public Account toAccountVo(AcAccount e) {
         Account m = new Account();
         m.setCode(e.getCode());
+        m.setName(e.getActor().getName());
+        m.setEmail(e.getActor().getEmail());
         m.setActor(identityTransformer.toActorVo(e.getActor()));
         return m;
     }

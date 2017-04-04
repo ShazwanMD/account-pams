@@ -13,6 +13,8 @@ import java.io.IOException;
 public class Account extends MetaObject {
 
     private String code;
+    private String name; // transient
+    private String email;// transient
     private Actor actor;
 
     public String getCode() {
@@ -21,6 +23,22 @@ public class Account extends MetaObject {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Actor getActor() {
