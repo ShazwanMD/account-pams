@@ -5,5 +5,6 @@ package my.edu.umk.pams.account.marketing.model;
  */
 public enum AcPromoCodeType {
     DISCOUNT,
-    REBATE;
+    REBATE,
+    PROCESSING_FEE;
 }

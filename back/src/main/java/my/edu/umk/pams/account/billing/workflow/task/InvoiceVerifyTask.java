@@ -39,6 +39,6 @@ public class InvoiceVerifyTask extends BpmnActivityBehavior
         billingService.updateInvoice(invoice);
 
         // TODO: generate transaction
-        // bapManager.generateInvoiceTransactions(invoice);
+        // billingService.generateInvoiceTransactions(invoice);
     }
 }

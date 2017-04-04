@@ -10,6 +10,8 @@ import my.edu.umk.pams.account.account.service.AccountServiceImpl;
 import my.edu.umk.pams.account.billing.chain.ChargeAttachProcessor;
 import my.edu.umk.pams.account.billing.chain.ChargeContext;
 import my.edu.umk.pams.account.billing.chain.ChargeDetachProcessor;
+import my.edu.umk.pams.account.billing.dao.AcCreditNoteDao;
+import my.edu.umk.pams.account.billing.dao.AcDebitNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
 import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.model.*;
@@ -35,8 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static my.edu.umk.pams.account.AccountConstants.INVOICE_ID;
-import static my.edu.umk.pams.account.AccountConstants.RECEIPT_ID;
+import static my.edu.umk.pams.account.AccountConstants.*;
 import static my.edu.umk.pams.account.core.AcFlowState.DRAFTED;
 
 /**
@@ -70,6 +71,12 @@ public class BillingServiceImpl implements BillingService {
 	private AcInvoiceDao invoiceDao;
 
 	@Autowired
+	private AcDebitNoteDao debitNoteDao;
+
+	@Autowired
+	private AcCreditNoteDao creditNoteDao;
+
+	@Autowired
 	private ChargeAttachProcessor attachProcessor;
 
 	@Autowired
@@ -80,9 +87,6 @@ public class BillingServiceImpl implements BillingService {
 
 	@Autowired
 	private SystemService systemService;
-
-	@Autowired
-	private BillingService billingService;
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -216,10 +220,8 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	// ====================================================================================================
-	// //
 	// INVOICE
 	// ====================================================================================================
-	// //
 
 	@Override
 	public AcInvoice findInvoiceById(Long id) {
@@ -339,10 +341,184 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	// ====================================================================================================
-	// //
+	// DEBIT NOTE
+	// ====================================================================================================
+
+	@Override
+	public AcDebitNote findDebitNoteByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return debitNoteDao.findById((Long) map.get(AccountConstants.DEBIT_NOTE_ID));
+	}
+
+	@Override
+	public Task findDebitNoteTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
+
+	@Override
+	public List<Task> findAssignedDebitNoteTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcDebitNote.class.getName(), offset, limit);
+	}
+
+	@Override
+	public List<Task> findPooledDebitNoteTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcDebitNote.class.getName(), offset, limit);
+	}
+
+	@Override
+	public void startDebitNoteTask(AcDebitNote debitNote) {
+		String refNo = systemService.generateReferenceNo(AccountConstants.DEBIT_NOTE_REFERENCE_NO);
+		debitNote.setReferenceNo(refNo);
+		LOG.debug("Processing debitNote with refNo {}", new Object[] { refNo });
+
+		debitNoteDao.saveOrUpdate(debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(debitNote);
+
+		workflowService.processWorkflow(debitNote, prepareVariables(debitNote));
+	}
+
+	@Override
+	public void cancelDebitNote(AcDebitNote debitNote) {
+		debitNote.getFlowdata().setState(AcFlowState.CANCELLED);
+		debitNote.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+		debitNote.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+		debitNoteDao.update(debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void saveDebitNote(AcDebitNote debitNote) {
+		debitNoteDao.save(debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateDebitNote(AcDebitNote debitNote) {
+		debitNoteDao.update(debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+
+	// finder
+
+	@Override
+	public AcDebitNote findDebitNoteById(Long id) {
+		return debitNoteDao.findById(id);
+	}
+
+	@Override
+	public AcDebitNote findDebitNoteByReferenceNo(String referenceNo) {
+		return debitNoteDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public List<AcDebitNote> findDebitNotes(AcInvoice invoice) {
+		return debitNoteDao.find(invoice);
+	}
+
+	@Override
+	public boolean hasDebitNote(AcInvoice invoice) {
+		return debitNoteDao.hasDebitNote(invoice);
+	}
+
+	@Override
+	public Integer countDebitNote(AcInvoice invoice) {
+		return debitNoteDao.count(invoice);
+	}
+
+	// ====================================================================================================
+	// CREDIT NOTE
+	// ====================================================================================================
+
+	@Override
+	public AcCreditNote findCreditNoteByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return creditNoteDao.findById((Long) map.get(AccountConstants.CREDIT_NOTE_ID));
+	}
+
+	@Override
+	public Task findCreditNoteTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
+
+	@Override
+	public List<Task> findAssignedCreditNoteTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcCreditNote.class.getName(), offset, limit);
+	}
+
+	@Override
+	public List<Task> findPooledCreditNoteTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcCreditNote.class.getName(), offset, limit);
+	}
+
+	@Override
+	public void startCreditNoteTask(AcCreditNote creditNote) {
+		String refNo = systemService.generateReferenceNo(AccountConstants.CREDIT_NOTE_REFERENCE_NO);
+		creditNote.setReferenceNo(refNo);
+		LOG.debug("Processing creditNote with refNo {}", new Object[] { refNo });
+
+		creditNoteDao.saveOrUpdate(creditNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(creditNote);
+
+		workflowService.processWorkflow(creditNote, prepareVariables(creditNote));
+	}
+
+	@Override
+	public void cancelCreditNote(AcCreditNote creditNote) {
+		creditNote.getFlowdata().setState(AcFlowState.CANCELLED);
+		creditNote.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+		creditNote.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+		creditNoteDao.update(creditNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void saveCreditNote(AcCreditNote creditNote) {
+		creditNoteDao.save(creditNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateCreditNote(AcCreditNote creditNote) {
+		creditNoteDao.update(creditNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+
+	// finder
+
+	@Override
+	public AcCreditNote findCreditNoteById(Long id) {
+		return creditNoteDao.findById(id);
+	}
+
+	@Override
+	public AcCreditNote findCreditNoteByReferenceNo(String referenceNo) {
+		return creditNoteDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public List<AcCreditNote> findCreditNotes(AcInvoice invoice) {
+		return creditNoteDao.find(invoice);
+	}
+
+	@Override
+	public boolean hasCreditNote(AcInvoice invoice) {
+		return creditNoteDao.hasCreditNote(invoice);
+	}
+
+	@Override
+	public Integer countCreditNote(AcInvoice invoice) {
+		return creditNoteDao.count(invoice);
+	}
+
+	// ====================================================================================================
 	// RECEIPT
 	// ====================================================================================================
-	// //
 
 	@Override
 	public AcReceipt findReceiptByTaskId(String taskId) {
@@ -536,6 +712,26 @@ public class BillingServiceImpl implements BillingService {
 		map.put(INVOICE_ID, invoice.getId());
 		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
 		map.put(WorkflowConstants.REFERENCE_NO, invoice.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
+
+	private Map<String, Object> prepareVariables(AcDebitNote debitNote) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(DEBIT_NOTE_ID, debitNote.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, debitNote.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
+
+	private Map<String, Object> prepareVariables(AcCreditNote creditNote) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(CREDIT_NOTE_ID, creditNote.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, creditNote.getReferenceNo());
 		map.put(WorkflowConstants.REMOVE_DECISION, false);
 		map.put(WorkflowConstants.CANCEL_DECISION, false);
 		return map;

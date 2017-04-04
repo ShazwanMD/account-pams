@@ -15,6 +15,7 @@ import java.util.List;
  * @author PAMS
  */
 public interface BillingService {
+
     // ==================================================================================================== //
     // INVOICE
     // workflow
@@ -99,6 +100,76 @@ public interface BillingService {
 
     boolean hasBalance(AcAcademicSession academicSession, AcActor actor);
 
+    // ==================================================================================================== //
+    // DEBIT NOTE
+    // workflow
+    // ==================================================================================================== //
+
+    AcDebitNote findDebitNoteByTaskId(String taskId);
+
+    Task findDebitNoteTaskByTaskId(String taskId);
+
+    List<Task> findAssignedDebitNoteTasks(Integer offset, Integer limit);
+
+    List<Task> findPooledDebitNoteTasks(Integer offset, Integer limit);
+
+    void startDebitNoteTask(AcDebitNote debitNote);
+
+    void cancelDebitNote(AcDebitNote debitNote);
+
+    void saveDebitNote(AcDebitNote debitNote);
+
+    void updateDebitNote(AcDebitNote debitNote);
+
+    // ==================================================================================================== //
+    // DEBIT NOTE
+    // ==================================================================================================== //
+
+    AcDebitNote findDebitNoteById(Long id);
+
+    AcDebitNote findDebitNoteByReferenceNo(String referenceNo);
+
+    List<AcDebitNote> findDebitNotes(AcInvoice invoice);
+
+    Integer countDebitNote(AcInvoice invoice);
+
+    boolean hasDebitNote(AcInvoice invoice);
+
+
+    // ==================================================================================================== //
+    // CREDIT NOTE
+    // workflow
+    // ==================================================================================================== //
+
+    AcCreditNote findCreditNoteByTaskId(String taskId);
+
+    Task findCreditNoteTaskByTaskId(String taskId);
+
+    List<Task> findAssignedCreditNoteTasks(Integer offset, Integer limit);
+
+    List<Task> findPooledCreditNoteTasks(Integer offset, Integer limit);
+
+    void startCreditNoteTask(AcCreditNote creditNote);
+
+    void cancelCreditNote(AcCreditNote creditNote);
+
+    void saveCreditNote(AcCreditNote creditNote);
+
+    void updateCreditNote(AcCreditNote creditNote);
+
+    // ==================================================================================================== //
+    // CREDIT NOTE
+    // ==================================================================================================== //
+
+    AcCreditNote findCreditNoteById(Long id);
+
+    AcCreditNote findCreditNoteByReferenceNo(String referenceNo);
+
+    List<AcCreditNote> findCreditNotes(AcInvoice invoice);
+
+    Integer countCreditNote(AcInvoice invoice);
+
+    boolean hasCreditNote(AcInvoice invoice);
 
     // ==================================================================================================== //
     // RECEIPT

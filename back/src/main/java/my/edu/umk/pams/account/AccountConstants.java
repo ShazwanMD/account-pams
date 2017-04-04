@@ -9,12 +9,16 @@ public interface AccountConstants {
     public static final String INVOICE_ID = "invoiceId";
     public static final String RECEIPT_ID = "receiptId";
     public static final String VOUCHER_ID = "voucherId";
+    public static final String DEBIT_NOTE_ID = "debitNoteId";
+    public static final String CREDIT_NOTE_ID = "creditNoteId";
 
     public static final String SETTLEMENT_REFERENCE_NO = "AcSettlement.referenceNo";
     public static final String INVOICE_REFERENCE_NO = "AcInvoice.referenceNo";
     public static final String INVOICE_INVOICE_NO = "AcInvoice.invoiceNo";
     public static final String RECEIPT_REFERENCE_NO = "AcReceipt.referenceNo";
     public static final String RECEIPT_RECEIPT_NO = "AcReceipt.receiptNo";
+    public static final String DEBIT_NOTE_REFERENCE_NO = "AcDebitNote.referenceNo";
+    public static final String CREDIT_NOTE_REFERENCE_NO = "AcCreditNote.referenceNo";
 
     public static final String INVOICE_PROCESS_KEY = "invoice_workflow";
     public static final String INVOICE_RESOURCE_PATH = "invoice.bpmn20.xml";
