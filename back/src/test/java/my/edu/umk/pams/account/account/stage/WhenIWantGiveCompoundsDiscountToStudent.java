@@ -79,11 +79,15 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
         promoCode.setValue(BigDecimal.TEN);
         promoCode.setExpiryDate(new Date());
         marketingService.addPromoCode(promoCode);
+        
+        AcAccount account = accountService.findAccountByCode("A17P001");
+        
 
         AcPromoCodeItem item = new AcPromoCodeItemImpl();
 //		item.setAccount(account);
         item.setSourceNo("abc123");
         item.setApplied(false);
+        item.setAccount(account);
         marketingService.addPromoCodeItem(promoCode, item);
 
         Assert.notNull(promoCode, "promoCode cannot be  null");
