@@ -49,6 +49,12 @@ public class GivenIAmSecurity extends Stage<GivenIAmSecurity> {
 		return self();
 	}
 	
+	public GivenIAmSecurity I_am_security() {
+		loginAsSecurity();
+		academicSession = accountService.findCurrentAcademicSession();
+		return self();
+	}
+	
 	private void loginAsSecurity() {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("security", "abc123");
 		Authentication authed = authenticationManager.authenticate(token);
