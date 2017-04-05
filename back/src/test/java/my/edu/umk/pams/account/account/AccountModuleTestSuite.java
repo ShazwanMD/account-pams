@@ -26,10 +26,12 @@ import org.junit.runners.Suite;
         US_AC_ACT_4002.class, //sahir
         US_AC_ACT_5001.class, //aida
         US_AC_ACT_5002.class, //ta
+        US_AC_ACT_5003.class, //aida
         US_AC_ACT_6001.class, //ta
         US_AC_ACT_6002.class, //aida
         US_AC_ACT_7001.class, //ta
         US_AC_ACT_7002.class, //aida
+        US_AC_ACT_7003.class, //ta
         US_AC_ACT_7004.class, //aida     
 })
 public class AccountModuleTestSuite {
