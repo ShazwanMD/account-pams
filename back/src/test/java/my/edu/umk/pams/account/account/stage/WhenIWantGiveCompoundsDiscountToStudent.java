@@ -80,7 +80,7 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
         promoCode.setExpiryDate(new Date());
         marketingService.addPromoCode(promoCode);
         
-        AcAccount account = accountService.findAccountByCode("A17P001");
+        AcAccount account = accountService.findAccountByCode("A17P002");
         
 
         AcPromoCodeItem item = new AcPromoCodeItemImpl();
