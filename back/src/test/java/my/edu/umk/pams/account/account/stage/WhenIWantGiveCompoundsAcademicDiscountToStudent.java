@@ -29,74 +29,78 @@ import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 import my.edu.umk.pams.account.marketing.service.MarketingService;
 
 @JGivenStage
-public class WhenIWantGiveCompoundsAcademicDiscountToStudent extends Stage<WhenIWantGiveCompoundsAcademicDiscountToStudent>{
+public class WhenIWantGiveCompoundsAcademicDiscountToStudent
+		extends Stage<WhenIWantGiveCompoundsAcademicDiscountToStudent> {
 	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantGiveCompoundsDiscountToStudent.class);
 
-    @ExpectedScenarioState
-    private AcStudent student;
+	@ExpectedScenarioState
+	private AcStudent student;
 
-    @ProvidedScenarioState
-    private AcAccount account;
+	@ProvidedScenarioState
+	private AcAccount account;
 
-    @ProvidedScenarioState
-    private AcPromoCode promoCode;
+	@ProvidedScenarioState
+	private AcPromoCode promoCode;
 
-    @ExpectedScenarioState
-    private AcAcademicSession academicSession;
+	@ExpectedScenarioState
+	private AcAcademicSession academicSession;
 
-    @Autowired
-    private AccountService accountService;
+	@Autowired
+	private AccountService accountService;
 
-    @Autowired
-    private IdentityService identityService;
+	@Autowired
+	private IdentityService identityService;
 
-    @Autowired
-    private MarketingService marketingService;
+	@Autowired
+	private MarketingService marketingService;
 
-    @ProvidedScenarioState
-    private List<AcAccountCharge> accountCharges;
+	@ProvidedScenarioState
+	private List<AcAccountCharge> accountCharges;
 
-    @As("I_want_give_compounds_discount_to_student")
-    public WhenIWantGiveCompoundsAcademicDiscountToStudent I_want_give_compounds_discount_to_student_$(String matricNo){
-    	//1. cari student untuk cari account
-        student = identityService.findStudentByMatricNo(matricNo);
-        Assert.notNull(student, "student cannot be null");
+	@As("I_want_give_compounds_discount_to_student")
+	public WhenIWantGiveCompoundsAcademicDiscountToStudent I_want_give_compounds_discount_to_student_$(
+			String matricNo) {
+		// 1. cari student untuk cari account
+		student = identityService.findStudentByMatricNo(matricNo);
+		Assert.notNull(student, "student cannot be null");
 
-        //2. cari akaun yg dpt dr student
-        account = accountService.findAccountByActor(student);
-        Assert.notNull(account, "account cannot be null");
+		// 2. cari akaun yg dpt dari student
+		account = accountService.findAccountByActor(student);
+		Assert.notNull(account, "account cannot be null");
 
-        //3. senarai acc charge dari akaun yg kita jmp utk student ni
-        accountCharges = accountService.findAccountCharges(account);
+		// 3. senarai acc charge dari akaun yg kita jumpa utk student ni
+		accountCharges = accountService.findAccountCharges(account);
 
-        for (AcAccountCharge accountCharges : accountCharges) {
-            LOG.debug("Description " + accountCharges.getDescription());
-            LOG.debug("Session " + accountCharges.getSession().getCode());
-        }
+		for (AcAccountCharge accountCharges : accountCharges) {
+			LOG.debug("Description " + accountCharges.getDescription());
+			LOG.debug("Session " + accountCharges.getSession().getCode());
+		}
 
-        String PROMO_CODE = "MGSEB01";
-        promoCode = new AcPromoCodeImpl();
-        promoCode.setCode(PROMO_CODE);
-        promoCode.setDescription("MGSEB give dicsount");
-        promoCode.setPromoCodeType(AcPromoCodeType.DISCOUNT);
-        promoCode.setQuantity(1);
-        promoCode.setValue(BigDecimal.TEN);
-        promoCode.setExpiryDate(new Date());
-        marketingService.addPromoCode(promoCode);
-        
-        AcAccount account = accountService.findAccountByCode("A17P001");
-        
+		// 4. add details into promo code
+		String PROMO_CODE = "MGSEB01";
+		promoCode = new AcPromoCodeImpl();
+		promoCode.setCode(PROMO_CODE);
+		promoCode.setDescription("MGSEB give dicsount");
+		promoCode.setPromoCodeType(AcPromoCodeType.DISCOUNT);
+		promoCode.setQuantity(1);
+		promoCode.setValue(BigDecimal.TEN);
+		promoCode.setExpiryDate(new Date());
+		marketingService.addPromoCode(promoCode);
 
-        AcPromoCodeItem item = new AcPromoCodeItemImpl();
-//		item.setAccount(account);
-        item.setSourceNo("abc123");
-        item.setApplied(false);
-        item.setAccount(account);
-        marketingService.addPromoCodeItem(promoCode, item);
+		// 5. cari akaun pelajar
+		AcAccount account = accountService.findAccountByCode("A17P001");
 
-        Assert.notNull(promoCode, "promoCode cannot be  null");
-        Assert.notNull(item, "promoCodeItem cannot be  null");
+		// 6. add details into promo code item
+		AcPromoCodeItem item = new AcPromoCodeItemImpl();
+		// item.setAccount(account);
+		item.setSourceNo("abc123");
+		item.setApplied(false);
+		item.setAccount(account);
+		marketingService.addPromoCodeItem(promoCode, item);
 
-        return self();
-    }
+		Assert.notNull(promoCode, "promoCode cannot be  null");
+		Assert.notNull(item, "promoCodeItem cannot be  null");
+
+		return self();
+	}
 }

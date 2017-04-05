@@ -32,7 +32,7 @@ public class US_AC_ACT_7003 extends
 	private static final String MATRIC_NO = "A17P001";
 
 	@Test
-	@Rollback(false)
+	@Rollback
 	public void testScenario0() {
 		given().I_am_a_MGSEB_administrator_in_current_academic_session();
 		when().I_want_give_compounds_discount_to_student_$(MATRIC_NO);
