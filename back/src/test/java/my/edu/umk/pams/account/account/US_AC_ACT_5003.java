@@ -19,7 +19,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
 /*
  * As a Student Affair,
  * I want to give compound's discount to student 
- * so that discount can applied to receipt
+ * so that discount can apply to receipt
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -30,10 +30,10 @@ public class US_AC_ACT_5003 extends
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5003.class);
 
 
-	private static final String MATRIC_NO = "A17P001";
+	private static final String MATRIC_NO = "A17P002";
 
 	@Test
-	@Rollback
+	@Rollback(false)
 	public void testScenario0() {
 		given().I_am_student_affair();
 		when().I_want_give_compounds_discount_to_student_$(MATRIC_NO);
