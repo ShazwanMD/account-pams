@@ -16,11 +16,15 @@ import java.math.BigDecimal;
  * */
 
 public interface AcWaiverApplication extends AcDocument {
-	
-	AcAccount getAccount();
 
-    void setAccount(AcAccount account);
-	
+	String getReason();
+
+	void setReason(String reason);
+
+	String getMemo();
+
+	void setMemo(String memo);
+
 	BigDecimal getBalance();
 	
 	void setBalance(BigDecimal balance);
@@ -36,12 +40,10 @@ public interface AcWaiverApplication extends AcDocument {
 	BigDecimal getGracedAmount();
 	
 	void setGracedAmount(BigDecimal gracedAmount);
-	
-	String getReason();
-	
-	void setReason(String reason);
-	
-	String getMemo();
-	
-	void setMemo(String memo);
+
+	AcAccount getAccount();
+
+	void setAccount(AcAccount account);
+
+
 }

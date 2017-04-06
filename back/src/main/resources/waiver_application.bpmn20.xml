@@ -2,196 +2,101 @@
 <definitions id="definitions"
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:activiti="http://activiti.org/bpmn"
-             targetNamespace="PNM">
-    <BPMNDiagram xmlns="http://www.omg.org/spec/BPMN/20100524/DI">
-        <BPMNPlane>
-            <BPMNShape bpmnElement="IntermediateThrowEvent_1">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="48.0" x="411.0" y="200.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_register_UT">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_register_ST">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_remove_ST">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="start">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_draft_UT">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_verify_ST">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_draft_ST">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_verify_UT">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="StartEvent_1">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_approve_ST">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="receipt_complete_ST">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="end">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
-            </BPMNShape>
-            <BPMNShape bpmnElement="IntermediateThrowEvent_2">
-                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="48.0" x="237.0" y="145.0"/>
-            </BPMNShape>
-        </BPMNPlane>
-    </BPMNDiagram>
+             targetNamespace="FinancialAid">
 
 
     <!--
     ====================================================================================================
-    == DRAFTED, REGISTER, VERIFIED, APPROVED
-    == student, supervisor, cps/mgseb, pendaftar
-    == VARIABLE:
-    == receiptId: receiptId
-    ======================================================================================================
+    ==  DRAFTED > REGISTERED > VERIFIED > APPROVED >>  COMPLETED >> END
+    ====================================================================================================
     -->
 
-    <process id="receipt_workflow" name="PNM Bendahari Receipt Workflow">
-        <intermediateThrowEvent id="IntermediateThrowEvent_1" name="Intermediate Throw Event 1">
-            <escalationEventDefinition id="EscalationEventDefinition_1"/>
-        </intermediateThrowEvent>
-        <intermediateThrowEvent id="IntermediateThrowEvent_2" name="Intermediate Throw Event 2"/>
+    <!--
+    ====================================================================================================
+    == VARIABLE:
+    == waiverApplicationId: waiverApplication id
+    ====================================================================================================
+    -->
+
+    <process id="waiver_application_workflow" name="Financial Aid Waiver Application Workflow">
 
         <startEvent id="start"/>
-        <startEvent id="StartEvent_1" name="Start Event 1">
-            <compensateEventDefinition waitForCompletion="false" id="CompensateEventDefinition_1"/>
-        </startEvent>
 
-        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="receipt_draft_ST"/>
+        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="waiverApplication_draft_ST"/>
 
         <!--
         ====================================================================================================
         == STATE : DRAFTED
-        == SERVICE TASK : draft a receipt
+        == SERVICE TASK : draft a waiverApplication
         == USER TASK :
         ====================================================================================================
         -->
 
-        <serviceTask id="receipt_draft_ST"
-                     activiti:expression="#{receipt_draft_ST.execute(execution)}"/>
+        <serviceTask id="waiverApplication_draft_ST"
+                     activiti:expression="#{waiverApplication_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow2.1" sourceRef="receipt_draft_ST" targetRef="receipt_draft_UT"/>
-
-        <userTask id="receipt_draft_UT" name="my.edu.umk.pams.intake.billing.model.AcReceipt:DRAFTED"
-                  activiti:assignee="${userCreator}">
-            <documentation>
-                Draft Receipt / Deraf Resit
-            </documentation>
-        </userTask>
-
-        <sequenceFlow id="flow2.2" sourceRef="receipt_draft_UT" targetRef="receipt_remove_ST">
-            <conditionExpression>${removeDecision}</conditionExpression>
-        </sequenceFlow>
-
-        <sequenceFlow id="flow2.3" sourceRef="receipt_draft_UT" targetRef="receipt_register_ST">
-            <conditionExpression>${!removeDecision}</conditionExpression>
-        </sequenceFlow>
-
+        <sequenceFlow id="flow2.3" sourceRef="waiverApplication_draft_ST" targetRef="waiverApplication_register_ST"/>
         <!--
         ====================================================================================================
         == STATE : REGISTERED
-        == SERVICE TASK : register a receipt
+        == SERVICE TASK : register a waiverApplication
         == USER TASK :
         ====================================================================================================
         -->
-        <serviceTask id="receipt_register_ST"
-                     activiti:expression="#{receipt_register_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow3.1" sourceRef="receipt_register_ST" targetRef="receipt_register_UT"/>
+        <serviceTask id="waiverApplication_register_ST"
+                     activiti:expression="#{waiverApplication_register_ST.execute(execution)}"/>
 
-        <userTask id="receipt_register_UT" name="my.edu.umk.pams.intake.billing.model.AcReceipt:REGISTERED"
-                  activiti:candidateGroups="#{receiptRouterService.findRegistererCandidates(receiptId)}">
-            <documentation>
-                Register Receipt / Daftar Resit
-            </documentation>
 
-        </userTask>
-
-        <sequenceFlow id="flow3.2" sourceRef="receipt_register_UT" targetRef="receipt_verify_ST">
-            <conditionExpression>${!removeDecision}</conditionExpression>
-        </sequenceFlow>
-
-        <sequenceFlow id="flow3.3" sourceRef="receipt_register_UT" targetRef="receipt_remove_ST">
-            <conditionExpression>${removeDecision}</conditionExpression>
-        </sequenceFlow>
-
+        <sequenceFlow id="flow3.3" sourceRef="waiverApplication_register_ST" targetRef="waiverApplication_verify_ST"/>
         <!--
         ====================================================================================================
         == STATE : VERIFIED
-        == SERVICE TASK : verify a receipt
+        == SERVICE TASK : verify a waiverApplication
         == USER TASK :
         ====================================================================================================
         -->
-        <serviceTask id="receipt_verify_ST"
-                     activiti:expression="#{receipt_verify_ST.execute(execution)}"/>
+        <serviceTask id="waiverApplication_verify_ST"
+                     activiti:expression="#{waiverApplication_verify_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow3.1" sourceRef="receipt_verify_ST" targetRef="receipt_verify_UT"/>
+        <sequenceFlow id="flow4.2" sourceRef="waiverApplication_verify_ST" targetRef="waiverApplication_approve_ST"/>
 
-        <userTask id="receipt_verify_UT" name="my.edu.umk.pams.intake.billing.model.AcReceipt:verifyED"
-                  activiti:candidateGroups="#{receiptRouterService.findverifyerCandidates(receiptId)}">
-            <documentation>
-                verify Receipt / Daftar Resit
-            </documentation>
-
-        </userTask>
-
-        <sequenceFlow id="flow3.2" sourceRef="receipt_verify_UT" targetRef="receipt_approve_ST">
-            <conditionExpression>${!removeDecision}</conditionExpression>
-        </sequenceFlow>
-
-        <sequenceFlow id="flow3.3" sourceRef="receipt_verify_UT" targetRef="receipt_remove_ST">
-            <conditionExpression>${removeDecision}</conditionExpression>
-        </sequenceFlow>
 
         <!--
         ====================================================================================================
         == STATE : REMOVED
-        == SERVICE TASK : removed a receipt
+        == SERVICE TASK : removed a waiverApplication
         == USER TASK :
         ====================================================================================================
         -->
-        <serviceTask id="receipt_remove_ST"
-                     activiti:expression="#{receipt_remove_ST.execute(execution)}"/>
+        <serviceTask id="waiverApplication_remove_ST"
+                     activiti:expression="#{waiverApplication_remove_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow4.1" sourceRef="receipt_remove_ST" targetRef="end"/>
+        <sequenceFlow id="flow7.1" sourceRef="waiverApplication_remove_ST" targetRef="end"/>
 
         <!--
         ====================================================================================================
         == STATE : APPROVED
-        == SERVICE TASK : approve a receipt
+        == SERVICE TASK : approve a waiverApplication
         == USER TASK :
         ====================================================================================================
         -->
-        <serviceTask id="receipt_approve_ST"
-                     activiti:expression="#{receipt_approve_ST.execute(execution)}"/>
+        <serviceTask id="waiverApplication_approve_ST"
+                     activiti:expression="#{waiverApplication_approve_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow5.1" sourceRef="receipt_approve_ST" targetRef="receipt_complete_ST"/>
+        <sequenceFlow id="flow8.1" sourceRef="waiverApplication_approve_ST" targetRef="waiverApplication_complete_ST"/>
 
         <!--
         ====================================================================================================
         == STATE : COMPLETED
-        == SERVICE TASK : complete a receipt
+        == SERVICE TASK : complete a waiverApplication
         == USER TASK :
         ====================================================================================================
         -->
-        <serviceTask id="receipt_complete_ST"
-                     activiti:expression="#{receipt_complete_ST.execute(execution)}"/>
+        <serviceTask id="waiverApplication_complete_ST"
+                     activiti:expression="#{waiverApplication_complete_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow6.1" sourceRef="receipt_complete_ST" targetRef="end"/>
+        <sequenceFlow id="flow9.1" sourceRef="waiverApplication_complete_ST" targetRef="end"/>
 
         <!--
             ====================================================================================================

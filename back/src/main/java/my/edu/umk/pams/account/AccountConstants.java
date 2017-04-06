@@ -11,6 +11,8 @@ public interface AccountConstants {
     public static final String VOUCHER_ID = "voucherId";
     public static final String DEBIT_NOTE_ID = "debitNoteId";
     public static final String CREDIT_NOTE_ID = "creditNoteId";
+    public static final String WAIVER_APPLICATION_ID = "waiverApplicationId";
+    public static final String REFUND_APPLICATION_ID = "refundApplicationId";
 
     public static final String SETTLEMENT_REFERENCE_NO = "AcSettlement.referenceNo";
     public static final String INVOICE_REFERENCE_NO = "AcInvoice.referenceNo";
@@ -23,6 +25,10 @@ public interface AccountConstants {
     public static final String INVOICE_PROCESS_KEY = "invoice_workflow";
     public static final String INVOICE_RESOURCE_PATH = "invoice.bpmn20.xml";
     public static final String INVOICE_PROCESS_NAME = "invoice";
+
+    public static final String RECEIPT_PROCESS_KEY = "receipt_workflow";
+    public static final String RECEIPT_RESOURCE_PATH = "receipt.bpmn20.xml";
+    public static final String RECEIPT_PROCESS_NAME = "receipt";
 
     public static final String DEBIT_NOTE_PROCESS_KEY = "debit_note_workflow";
     public static final String DEBIT_NOTE_RESOURCE_PATH = "debit_note.bpmn20.xml";

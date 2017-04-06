@@ -1,6 +1,6 @@
-package my.edu.umk.pams.account.billing.workflow.handler;
+package my.edu.umk.pams.account.financialaid.workflow.handler;
 
-import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.workflow.integration.registry.DocumentHandler;
 import org.activiti.engine.*;
 import org.activiti.engine.repository.DeploymentBuilder;
@@ -20,8 +20,8 @@ import static my.edu.umk.pams.account.AccountConstants.*;
  * @author PAMS
  */
 @Component
-public class ReceiptHandler implements DocumentHandler<AcReceipt> {
-    private static final Logger LOG = LoggerFactory.getLogger(ReceiptHandler.class);
+public class WaiverApplicationHandler implements DocumentHandler<AcWaiverApplication> {
+    private static final Logger LOG = LoggerFactory.getLogger(WaiverApplicationHandler.class);
 
     @Autowired
     protected ProcessEngine processEngine;
@@ -39,26 +39,26 @@ public class ReceiptHandler implements DocumentHandler<AcReceipt> {
     protected RepositoryService repositoryService;
 
     @Override
-    public String process(AcReceipt receipt, Map<String, Object> variables) {
+    public String process(AcWaiverApplication waiverApplication, Map<String, Object> variables) {
         ProcessInstance instance = runtimeService.startProcessInstanceByKey(
-                RECEIPT_PROCESS_KEY,
-                receipt.getReferenceNo(),
+                WAIVER_APPLICATION_PROCESS_KEY,
+                waiverApplication.getReferenceNo(),
                 variables);
-        LOG.info("Process started for {} with process instance #{} ", RECEIPT_PROCESS_KEY, instance.getId());
+        LOG.info("Process started for {} with process instance #{} ", WAIVER_APPLICATION_PROCESS_KEY, instance.getId());
         return instance.getProcessInstanceId();
     }
 
     @PostConstruct
-    public void deployReceipt() {
+    public void deployWaiverApplication() {
         DeploymentBuilder deployment = repositoryService.createDeployment();
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
 
         // start only when we don't have one
-        long count = query.processDefinitionKey(RECEIPT_PROCESS_KEY).count();
+        long count = query.processDefinitionKey(WAIVER_APPLICATION_PROCESS_KEY).count();
         if (count < 1) {
             deployment
-                    .addClasspathResource(RECEIPT_RESOURCE_PATH)
-                    .name(RECEIPT_PROCESS_NAME)
+                    .addClasspathResource(WAIVER_APPLICATION_RESOURCE_PATH)
+                    .name(WAIVER_APPLICATION_PROCESS_NAME)
                     .deploy();
         }
     }
