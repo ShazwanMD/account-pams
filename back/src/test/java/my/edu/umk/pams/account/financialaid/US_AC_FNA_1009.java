@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.billing;
+package my.edu.umk.pams.account.financialaid;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
-import my.edu.umk.pams.account.billing.stage.ThenICanGenerateInvoiceForSponsor;
-import my.edu.umk.pams.account.billing.stage.WhenIAddSettlementDetails;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.account.financialaid.stage.ThenICanGenerateInvoiceForSponsor;
+import my.edu.umk.pams.account.financialaid.stage.WhenIAddSettlementDetails;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 /**
@@ -25,7 +25,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIAddSettlementDetails, ThenICanGenerateInvoiceForSponsor>{
+public class US_AC_FNA_1009 extends SpringScenarioTest<GivenIAmBursary, WhenIAddSettlementDetails, ThenICanGenerateInvoiceForSponsor>{
 
 	private static final String SPONSOR_NO = "HLP";
 

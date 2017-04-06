@@ -11,7 +11,7 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenAddSponsorAndCheckFees;
-import my.edu.umk.pams.account.financialaid.stage.WhenIAddASponsorAndSettlementDetails;
+import my.edu.umk.pams.account.financialaid.stage.WhenIAddASponsorDetails;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 /**
@@ -19,6 +19,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
  * 	I want to add sponsor coverage, 
  * 		so that sponsor coverage is added
  * 
+ * US_AC_FNA_1009
  * As bursary
  * 	I want to add settlement process for sponsor,
  * 		so that I can check my fees status
@@ -29,7 +30,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsorAndSettlementDetails, ThenAddSponsorAndCheckFees>{
+public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsorDetails, ThenAddSponsorAndCheckFees>{
 
 	private static final String SPONSOR_NO = "HLP";
 
@@ -38,9 +39,7 @@ public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session()
 				.and().I_pick_a_sponsor_with_sponsor_no_$(SPONSOR_NO);
-		when().I_add_sponsor_with_coverages()
-				.and().I_want_to_start_settlement_process_for_sponsor$();
-		then().the_sponsor_coverage_is_added()
-				.and().I_can_check_my_fees_status();
+		when().I_add_sponsor_with_coverages();
+		then().the_sponsor_coverage_is_added();
 	}
 }

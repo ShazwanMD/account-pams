@@ -27,18 +27,15 @@ import org.springframework.util.Assert;
 
 
 @JGivenStage
-public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsorAndSettlementDetails>{
+public class WhenIAddASponsorDetails extends Stage<WhenIAddASponsorDetails>{
 	
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIAddASponsorAndSettlementDetails.class);
+	private static final Logger LOG = LoggerFactory.getLogger(WhenIAddASponsorDetails.class);
 	
     @Autowired
     private IdentityService identityService;
     
     @Autowired
     private AccountService accountService;
-    
-    @Autowired
-    private FinancialAidService financialAidService;
     
     @ProvidedScenarioState
 	private AcSettlement settlement;
@@ -51,16 +48,13 @@ public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsor
 
 	@ExpectedScenarioState
 	private AcSponsor sponsor;
-
-	@ExpectedScenarioState
-	private AcInvoice invoice;
 	
-	public WhenIAddASponsorAndSettlementDetails() {
+	public WhenIAddASponsorDetails() {
 		coverage = new AcCoverageImpl();
 	}
 
 	@As("I add sponsor coverage")
-	public WhenIAddASponsorAndSettlementDetails I_add_sponsor_with_coverages() {
+	public WhenIAddASponsorDetails I_add_sponsor_with_coverages() {
 		
 		coverage = new AcCoverageImpl();
 		coverage.setSponsor(sponsor);
@@ -77,28 +71,6 @@ public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsor
     	return self();
 	}
 	
-	@As("I want to start settlement process for sponsor")
-	public WhenIAddASponsorAndSettlementDetails I_want_to_start_settlement_process_for_sponsor$() {
-		LOG.debug("session " + academicSession.getId());
-		LOG.debug("sponsor " + sponsor.getId());
-		
-		Assert.notNull(academicSession, "Academic Session was null");
-		Assert.notNull(sponsor, "Sponsor was null");
-		
-		settlement = new AcSettlementImpl();
-		settlement.setDescription(sponsor.getIdentityNo() + ";" + sponsor.getEmail());
-		settlement.setSession(academicSession);
-		settlement.setSponsor(sponsor);
-		
-		financialAidService.initSettlement(settlement);
-		
-		invoice = new AcInvoiceImpl();
-		invoice.setDescription(settlement.getId()+" "+settlement.getSession());
-		invoice.setSession(academicSession);
- 
-		financialAidService.executeSettlement(settlement);
-		
-		return self();
-	}
+	
 
 }
