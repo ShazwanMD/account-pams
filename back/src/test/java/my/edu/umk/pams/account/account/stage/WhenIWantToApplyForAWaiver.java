@@ -66,7 +66,7 @@ public class WhenIWantToApplyForAWaiver extends Stage<WhenIWantToApplyForAWaiver
     	waiverApplication.setGracedAmount(gracedAmount);
     	waiverApplication.setEffectiveBalance(effectiveBalance);
     	waiverApplication.setDescription("this is test of waiver application for student " + account.getActor().getName());
-    	financialAidService.saveWaiverApplication(waiverApplication);
+    	financialAidService.startWaiverApplicationTask(waiverApplication);
        
         return self();
     }

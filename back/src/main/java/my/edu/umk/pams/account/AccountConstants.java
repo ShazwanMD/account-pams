@@ -21,6 +21,7 @@ public interface AccountConstants {
     public static final String RECEIPT_RECEIPT_NO = "AcReceipt.receiptNo";
     public static final String DEBIT_NOTE_REFERENCE_NO = "AcDebitNote.referenceNo";
     public static final String CREDIT_NOTE_REFERENCE_NO = "AcCreditNote.referenceNo";
+    public static final String WAIVER_APPLICATION_REFERENCE_NO = "AcWaiverApplication.referenceNo";
 
     public static final String INVOICE_PROCESS_KEY = "invoice_workflow";
     public static final String INVOICE_RESOURCE_PATH = "invoice.bpmn20.xml";
