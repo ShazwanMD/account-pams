@@ -11,14 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
 import static my.edu.umk.pams.account.AccountConstants.RECEIPT_ID;
 
 @Component("receipt_draft_ST")
-@Transactional
 public class ReceiptDraftTask extends BpmnActivityBehavior implements ActivityBehavior {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptDraftTask.class);
@@ -34,7 +32,7 @@ public class ReceiptDraftTask extends BpmnActivityBehavior implements ActivityBe
         Long receiptId = (Long) execution.getVariable(RECEIPT_ID);
         AcReceipt receipt = billingService.findReceiptById(receiptId);
 
-        LOG.debug("drafting invoice receipt {}", receipt.getReferenceNo());
+        LOG.debug("drafting receipt {}", receipt.getReferenceNo());
 
         // update flow state
         receipt.getFlowdata().setState(AcFlowState.DRAFTED);

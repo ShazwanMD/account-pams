@@ -23,7 +23,6 @@ import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Component("receipt_register_ST")
-@Transactional
 public class ReceiptRegisterTask extends BpmnActivityBehavior implements ActivityBehavior {
 
     private static final Logger LOG = getLogger(ReceiptRegisterTask.class);

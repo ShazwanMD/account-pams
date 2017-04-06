@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.workflow.service;
 
+import my.edu.umk.pams.account.core.model.AcDocument;
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public interface WorkflowService {
 
-    void processWorkflow(my.edu.umk.pams.account.core.model.AcDocument document, Map<String, Object> variables);
+    void processWorkflow(AcDocument document, Map<String, Object> variables);
 
     Map<String, Object> getVariables(String executionId);
 

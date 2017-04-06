@@ -1,9 +1,6 @@
 package my.edu.umk.pams.account.billing.dao;
 
-import my.edu.umk.pams.account.billing.model.AcReceipt;
-import my.edu.umk.pams.account.billing.model.AcReceiptItem;
-import my.edu.umk.pams.account.billing.model.AcReceiptItemImpl;
-import my.edu.umk.pams.account.billing.model.AcReceiptType;
+import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -24,7 +21,7 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     private static final Logger LOG = LoggerFactory.getLogger(AcReceiptDaoImpl.class);
 
     public AcReceiptDaoImpl() {
-        super(AcReceiptDaoImpl.class);
+        super(AcReceiptImpl.class);
     }
 
     // ====================================================================================================

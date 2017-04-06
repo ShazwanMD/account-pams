@@ -719,6 +719,7 @@ public class BillingServiceImpl implements BillingService {
 	// ====================================================================================================
 
 	private Map<String, Object> prepareVariables(AcReceipt receipt) {
+		LOG.debug("receiptid: " + receipt.getId());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(RECEIPT_ID, receipt.getId());
 		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());

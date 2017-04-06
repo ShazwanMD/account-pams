@@ -11,12 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import static my.edu.umk.pams.account.AccountConstants.RECEIPT_ID;
 
 @Component("receipt_complete_ST")
-@Transactional
 public class ReceiptCompleteTask extends BpmnActivityBehavior implements ActivityBehavior {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptCompleteTask.class);

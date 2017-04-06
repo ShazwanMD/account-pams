@@ -27,7 +27,7 @@ public class US_AC_FNA_1006 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 	private static final String SPONSOR_NO = "HLP";
 	
 	@Test
-	@Rollback(false)
+	@Rollback
 	public void testGroupSponsorByStudent() {
 		given().I_am_a_bursary_in_current_academic_session()
 				.and().I_pick_a_sponsor_with_sponsor_no_$(SPONSOR_NO);

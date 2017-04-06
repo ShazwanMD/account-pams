@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
@@ -19,7 +18,6 @@ import static my.edu.umk.pams.account.AccountConstants.RECEIPT_ID;
 
 
 @Component("receipt_approve_ST")
-@Transactional
 public class ReceiptApproveTask extends BpmnActivityBehavior implements ActivityBehavior {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptApproveTask.class);
