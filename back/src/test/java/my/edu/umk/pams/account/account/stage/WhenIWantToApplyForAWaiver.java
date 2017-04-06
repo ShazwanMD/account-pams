@@ -34,9 +34,6 @@ public class WhenIWantToApplyForAWaiver extends Stage<WhenIWantToApplyForAWaiver
 
     @ExpectedScenarioState
     private AcAccount account;
-
-    @ProvidedScenarioState
-    private AcAccountCharge accountCharge;
     
     @ProvidedScenarioState
 	private AcWaiverApplication waiverApplication;

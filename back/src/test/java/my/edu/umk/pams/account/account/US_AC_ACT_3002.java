@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
-import my.edu.umk.pams.account.account.stage.ThenICanReduceMyCharges;
+import my.edu.umk.pams.account.account.stage.ThenMyWaiverHasBeenSubmitted;
 import my.edu.umk.pams.account.account.stage.WhenIWantToApplyForAWaiver;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
@@ -22,13 +22,13 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_3002 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToApplyForAWaiver, ThenICanReduceMyCharges> {
+public class US_AC_ACT_3002 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToApplyForAWaiver, ThenMyWaiverHasBeenSubmitted> {
 
 	@Test
 	@Rollback(false)
 	public void testScenario0() {
 		given().I_am_a_student_in_current_academic_session() ;
 		when().I_want_to_apply_for_a_waiver();
-		then().I_can_reduce_my_charges();
+		then().I_my_waiver_has_been_submitted();
 	}
 }
