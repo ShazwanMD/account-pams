@@ -17,6 +17,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.model.AcChargeCodeType;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -28,14 +29,11 @@ public class WhenListStudentCharges extends Stage<WhenListStudentCharges> {
 	private static final Logger LOG = LoggerFactory
 			.getLogger(WhenListStudentCharges.class);
 
-	@ExpectedScenarioState
+	@ProvidedScenarioState
 	private AcStudent student;
 
 	@ProvidedScenarioState
 	private AcAccount account;
-
-	@ExpectedScenarioState
-	private AcAcademicSession academicSession;
 
 	@Autowired
 	private AccountService accountService;
@@ -43,11 +41,10 @@ public class WhenListStudentCharges extends Stage<WhenListStudentCharges> {
 	@Autowired
 	private IdentityService identityService;
 
-	@ProvidedScenarioState
-	private List<AcAccountCharge> accountCharges;
+//	@ProvidedScenarioState
+//	private List<AcAccountCharge> accountCharges;
 
-	@ProvidedScenarioState
-	 private AcChargeCode chargeCodes;
+
 	// private List<AcChargeCode> chargeCodes;
 	
 	public WhenListStudentCharges I_want_to_list_student_charges_of_type_academic_by_account_$(
@@ -57,16 +54,19 @@ public class WhenListStudentCharges extends Stage<WhenListStudentCharges> {
 
 		account = accountService.findAccountByActor(student);
 		
-		chargeCodes = accountService.findChargeCodeByCode(Code);
+
 		
-		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(account);
+		 AcAccount chargeType;
+		//List<AcAccountCharge>  accountCharges = accountService.findAccountCharges(chargeType);
+		 
+		// LOG.debug("test : {}", accountCharges);
 
-		for (AcAccountCharge charge : accountCharge) {
+	//	for (AcAccountCharge charge : accountCharges) {
 
-			LOG.debug("Charge Type :" + charge.getChargeType("ACADEMIC"));
-			//LOG.debug("Charge Type :" + charge.getChargeType());
-			LOG.debug("Description : " + charge.getDescription());
-		}
+			//LOG.debug("Charge Type :" , accountCharges );
+		//	LOG.debug("Charge Type :" + charge.getChargeType());
+			//LOG.debug("Description : " + charge.getDescription());
+		
 		
 		//for (AcChargeCode chargeCodes : chargeCodes) {		
 			//LOG.debug("Code : " + chargeCodes.getCode());
