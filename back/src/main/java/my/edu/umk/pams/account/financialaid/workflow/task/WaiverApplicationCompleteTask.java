@@ -10,12 +10,10 @@ import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import static my.edu.umk.pams.account.AccountConstants.WAIVER_APPLICATION_ID;
 
 @Component("waiverApplication_complete_ST")
-@Transactional
 public class WaiverApplicationCompleteTask extends BpmnActivityBehavior
         implements ActivityBehavior {
 

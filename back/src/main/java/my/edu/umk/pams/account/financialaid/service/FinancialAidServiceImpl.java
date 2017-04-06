@@ -58,10 +58,10 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Autowired
     private AcSettlementDao settlementDao;
-    
+
     @Autowired
     private AcWaiverApplicationDao waiverApplicationDao;
-    
+
     @Autowired
     private AcInvoiceDao invoiceDao;
 
@@ -85,7 +85,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     @Autowired
     private BillingService billingService;
 
@@ -147,7 +147,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     @Override
     public void initSettlement(AcSettlement settlement) {
         // prepare reference no generator
-        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("academicSession", academicSessionDao.findCurrentSession());
         map.put("sponsor", settlement.getSponsor());
         String referenceNo = systemService.generateFormattedReferenceNo(SETTLEMENT_REFERENCE_NO, map);
@@ -177,10 +177,10 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     public void executeSettlement(AcSettlement settlement) {
         // find all items for settlement
         // then iterate all, skip AcSettlementStatus.DISQUALIFIED
-     	List<AcSettlementItem> settlementItem = settlementDao.findItems(settlement);
-     	for(AcSettlementItem item : settlementItem){
-     		if(item.getStatus()!= AcSettlementStatus.DISQUALIFIED){
-     		    // generate reference no
+        List<AcSettlementItem> settlementItem = settlementDao.findItems(settlement);
+        for (AcSettlementItem item : settlementItem) {
+            if (item.getStatus() != AcSettlementStatus.DISQUALIFIED) {
+                // generate reference no
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("academicSession", settlement.getSession());
                 String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.INVOICE_REFERENCE_NO, map);
@@ -189,14 +189,14 @@ public class FinancialAidServiceImpl implements FinancialAidService {
                 Map<String, Object> mapInvoice = new HashMap<String, Object>();
                 mapInvoice.put("academicSession", settlement.getSession());
                 String invoiceNo = systemService.generateFormattedReferenceNo(AccountConstants.INVOICE_REFERENCE_NO, mapInvoice);
-                
+
                 // draft invoice
-     			AcInvoice invoice = new AcInvoiceImpl();
+                AcInvoice invoice = new AcInvoiceImpl();
                 invoice.setReferenceNo(referenceNo);
-     			invoice.setAccount(item.getAccount());
-     			invoice.setSession(settlement.getSession());
+                invoice.setAccount(item.getAccount());
+                invoice.setSession(settlement.getSession());
                 invoice.setIssuedDate(new Date());
-     			invoice.setTotalAmount(BigDecimal.ZERO);
+                invoice.setTotalAmount(BigDecimal.ZERO);
                 invoice.setBalanceAmount(BigDecimal.ZERO);
                 invoice.setPaid(false);
                 invoice.setInvoiceNo(invoiceNo);
@@ -208,11 +208,11 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 //                invoiceItem.setDescription("");
 //                invoiceItem.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331"));
 
-     	        // serialize to invoice DRAFT
-     	     	billingService.startInvoiceTask(invoice);
-     		}
-     	}
-     	sessionFactory.getCurrentSession().flush();
+                // serialize to invoice DRAFT
+                billingService.startInvoiceTask(invoice);
+            }
+        }
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
@@ -244,7 +244,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         settlementDao.deleteItem(settlement, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-    
+
     // ==================================================================================================== //
     // WAIVER APPLICATION
     // ==================================================================================================== //
@@ -277,7 +277,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     public void startWaiverApplicationTask(AcWaiverApplication application) {
         String refNo = systemService.generateReferenceNo(AccountConstants.WAIVER_APPLICATION_REFERENCE_NO);
         application.setReferenceNo(refNo);
-        LOG.debug("Processing application with refNo {}", new Object[] { refNo });
+        LOG.debug("Processing application with refNo {}", new Object[]{refNo});
 
         waiverApplicationDao.saveOrUpdate(application, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
@@ -337,7 +337,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     private Map<String, Object> prepareVariables(AcWaiverApplication application) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put(RECEIPT_ID, application.getId());
+        map.put(WAIVER_APPLICATION_ID, application.getId());
         map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
         map.put(WorkflowConstants.REFERENCE_NO, application.getReferenceNo());
         map.put(WorkflowConstants.REMOVE_DECISION, false);
