@@ -25,7 +25,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 public class US_AC_ACT_3002 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToApplyForAWaiver, ThenICanReduceMyCharges> {
 
 	@Test
-	@Rollback
+	@Rollback(false)
 	public void testScenario0() {
 		given().I_am_a_student_in_current_academic_session() ;
 		when().I_want_to_apply_for_a_waiver();
