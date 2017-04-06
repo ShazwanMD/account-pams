@@ -36,7 +36,7 @@ public class WhenIWantToApplyForAWaiver extends Stage<WhenIWantToApplyForAWaiver
     private AcAccount account;
     
     @ProvidedScenarioState
-	private AcWaiverApplication waiverApplication;
+	private AcWaiverApplication application;
     
     /*
 	 * scenario 
@@ -58,15 +58,15 @@ public class WhenIWantToApplyForAWaiver extends Stage<WhenIWantToApplyForAWaiver
     
     public WhenIWantToApplyForAWaiver I_want_to_apply_for_a_waiver() {
     	
-    	waiverApplication = new AcWaiverApplicationImpl();
-    	waiverApplication.setAccount(account);
-    	waiverApplication.setReferenceNo("qwe123");
-    	waiverApplication.setBalance(balance);
-    	waiverApplication.setWaivedAmount(waivedAmount);
-    	waiverApplication.setGracedAmount(gracedAmount);
-    	waiverApplication.setEffectiveBalance(effectiveBalance);
-    	waiverApplication.setDescription("this is test of waiver application for student " + account.getActor().getName());
-    	financialAidService.startWaiverApplicationTask(waiverApplication);
+    	application = new AcWaiverApplicationImpl();
+    	application.setAccount(account);
+    	application.setReferenceNo("qwe123");
+    	application.setBalance(balance);
+    	application.setWaivedAmount(waivedAmount);
+    	application.setGracedAmount(gracedAmount);
+    	application.setEffectiveBalance(effectiveBalance);
+    	application.setDescription("this is test of waiver application for student " + account.getActor().getName());
+    	financialAidService.startWaiverApplicationTask(application);
        
         return self();
     }
