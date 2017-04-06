@@ -39,12 +39,5 @@ public class ThenAddSponsorAndCheckFees extends Stage<ThenAddSponsorAndCheckFees
 		return self();
 	}
 	
-	@As("I can check my fees status")
-	public ThenAddSponsorAndCheckFees I_can_check_my_fees_status() {
 
-		Assert.notNull(invoice, "invoice was null");
-		Assert.notNull(settlement, "settlement was null");
-		
-		return self();
-	}
 }
