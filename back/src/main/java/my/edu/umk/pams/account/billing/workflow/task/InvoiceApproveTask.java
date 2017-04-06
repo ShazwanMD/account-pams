@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
+import my.edu.umk.pams.account.billing.event.InvoiceApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -10,6 +11,7 @@ import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -28,6 +30,9 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     public void execute(ActivityExecution execution) throws Exception {
         Long invoiceId = (Long) execution.getVariable(INVOICE_ID);
         AcInvoice invoice = billingService.findInvoiceById(invoiceId);
@@ -41,5 +46,8 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
         invoice.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
         invoice.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateInvoice(invoice);
+
+        // fire event
+        applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
     }
 }

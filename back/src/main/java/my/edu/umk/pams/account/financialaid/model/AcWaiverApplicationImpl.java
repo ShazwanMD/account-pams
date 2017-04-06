@@ -15,10 +15,7 @@ import java.math.BigDecimal;
  * waived amount = 2800
  * graced amount = 200
  * Effective balance = balance - (waived amount + graced amount)
- *
- * 
  * */
-
 @Entity(name = "AcWaiverApplication")
 @Table(name = "AC_WAVR_APLN")
 public class AcWaiverApplicationImpl implements AcWaiverApplication {
@@ -29,12 +26,6 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @Column(name = "ID")
     private Long id;
 
-
-    @NotNull
-    @ManyToOne(targetEntity = AcAccountImpl.class)
-    @JoinColumn(name = "ACCOUNT_ID")
-    private AcAccount account;
-    
     @NotNull
     @Column(name = "REFERENCE_NO")
     private String referenceNo;
@@ -76,31 +67,27 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @Column(name = "REMOVE_COMMENT")
     private String removeComment;
 
+    @NotNull
+    @ManyToOne(targetEntity = AcAccountImpl.class)
+    @JoinColumn(name = "ACCOUNT_ID")
+    private AcAccount account;
+
     @Embedded
     private AcMetadata metadata;
     
     @Embedded
     private AcFlowdata flowdata;
 
+
     @Override
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
-    @Override
-    public AcAccount getAccount() {
-        return account;
-    }
 
-    @Override
-    public void setAccount(AcAccount account) {
-        this.account = account;
-    }
-    
     @Override
     public String getReferenceNo() {
         return referenceNo;
@@ -109,6 +96,46 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @Override
     public void setReferenceNo(String referenceNo) {
         this.referenceNo = referenceNo;
+    }
+
+    @Override
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    @Override
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    @Override
+    public BigDecimal getEffectiveBalance() {
+        return effectiveBalance;
+    }
+
+    @Override
+    public void setEffectiveBalance(BigDecimal effectiveBalance) {
+        this.effectiveBalance = effectiveBalance;
+    }
+
+    @Override
+    public BigDecimal getWaivedAmount() {
+        return waivedAmount;
+    }
+
+    @Override
+    public void setWaivedAmount(BigDecimal waivedAmount) {
+        this.waivedAmount = waivedAmount;
+    }
+
+    @Override
+    public BigDecimal getGracedAmount() {
+        return gracedAmount;
+    }
+
+    @Override
+    public void setGracedAmount(BigDecimal gracedAmount) {
+        this.gracedAmount = gracedAmount;
     }
 
     @Override
@@ -141,68 +168,26 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
         this.description = description;
     }
 
-    
-    @Override
-    public BigDecimal getBalance() {
-        return balance;
-    }
-    
-    @Override
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-    
-    @Override
-    public BigDecimal getEffectiveBalance() {
-        return effectiveBalance;
-    }
-    
-    @Override
-    public void setEffectiveBalance(BigDecimal effectiveBalance) {
-        this.effectiveBalance = effectiveBalance;
-    }
-    
-    @Override
-    public BigDecimal getWaivedAmount() {
-        return gracedAmount;
-    }
-    
-    @Override
-    public void setWaivedAmount(BigDecimal waivedAmount) {
-        this.waivedAmount = waivedAmount;
-    }
-    
-    @Override
-    public BigDecimal getGracedAmount() {
-        return gracedAmount;
-    }
-    
-    @Override
-    public void setGracedAmount(BigDecimal gracedAmount) {
-        this.gracedAmount = gracedAmount;
-    }
-    
-
     @Override
     public String getMemo() {
         return memo;
     }
-    
+
     @Override
     public void setMemo(String memo) {
         this.memo = memo;
     }
 
     @Override
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-    
-    @Override
     public String getReason() {
         return reason;
     }
-    
+
+    @Override
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     @Override
     public String getCancelComment() {
         return cancelComment;
@@ -222,7 +207,17 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     public void setRemoveComment(String removeComment) {
         this.removeComment = removeComment;
     }
-    
+
+    @Override
+    public AcAccount getAccount() {
+        return account;
+    }
+
+    @Override
+    public void setAccount(AcAccount account) {
+        this.account = account;
+    }
+
     @Override
     public AcMetadata getMetadata() {
         return metadata;
@@ -247,6 +242,4 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     public Class<?> getInterfaceClass() {
         return AcWaiverApplication.class;
     }
-
-  
 }

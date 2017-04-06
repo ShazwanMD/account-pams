@@ -583,7 +583,6 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void executeReceipt(AcReceipt receipt) {
-
 		AcAcademicSession academicSession = academicSessionDao.findCurrentSession();
 		//receipt = receiptDao.findByReceiptNo(receipt.getReceiptNo());
 		LOG.debug("Receipt "+ receipt.getReceiptNo());
