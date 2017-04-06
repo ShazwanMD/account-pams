@@ -245,14 +245,8 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         sessionFactory.getCurrentSession().flush();
     }
     
-    @Override
-    public void saveWaiverApplication(AcWaiverApplication waiverApplication) {
-        waiverApplicationDao.save(waiverApplication, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
     // ==================================================================================================== //
-    // EAIVER APPLICATION
+    // WAIVER APPLICATION
     // ==================================================================================================== //
 
     // workflow

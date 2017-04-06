@@ -14,50 +14,64 @@ import java.util.List;
 @Table(name = "AC_STDN")
 public class AcStudentImpl extends AcActorImpl implements AcStudent {
 
-    @OneToMany(targetEntity = AcSponsorshipImpl.class, mappedBy = "student")
-    private List<AcSponsorship> sponsorships;
+	@OneToMany(targetEntity = AcSponsorshipImpl.class, mappedBy = "student")
+	private List<AcSponsorship> sponsorships;
 
-    @NotNull
-    @OneToOne(targetEntity = AcCohortCodeImpl.class)
-    @JoinColumn(name = "COHORT_CODE_ID", nullable = true) // todo(uda): set to false
-    private AcCohortCode cohortCode;
-    
-    public AcStudentImpl() {
-        setActorType(AcActorType.STUDENT);
-    }
+	@Column(name = "STUDENT_STATUS")
+	private AdStudentStatus studentStatus;
 
-    @Override
-    public String getMatricNo() {
-        return getIdentityNo();
-    }
+	@NotNull
+	@OneToOne(targetEntity = AcCohortCodeImpl.class)
+	@JoinColumn(name = "COHORT_CODE_ID", nullable = true) // todo(uda): set to
+															// false
+	private AcCohortCode cohortCode;
 
-    @Override
-    public void setMatricNo(String matricNo) {
-        setIdentityNo(matricNo);
-    }
+	public AcStudentImpl() {
+		setActorType(AcActorType.STUDENT);
+	}
 
-    @Override
-    public AcCohortCode getCohortCode() {
-        return cohortCode;
-    }
+	@Override
+	public String getMatricNo() {
+		return getIdentityNo();
+	}
 
-    @Override
-    public void setCohortCode(AcCohortCode cohortCode) {
-        this.cohortCode = cohortCode;
-    }
+	@Override
+	public void setMatricNo(String matricNo) {
+		setIdentityNo(matricNo);
+	}
 
-    @Override
-    public List<AcSponsorship> getSponsorships() {
-        return sponsorships;
-    }
+	@Override
+	public AdStudentStatus getStudentStatus() {
+		return studentStatus;
+	}
 
-    @Override
-    public void setSponsorships(List<AcSponsorship> sponsorships) {
-        this.sponsorships = sponsorships;
-    }
+	@Override
+	public void setStudentStatus(AdStudentStatus studentStatus) {
+		this.studentStatus = studentStatus;
+	}
 
-    @Override
-    public Class<?> getInterfaceClass() {
-        return AcStudent.class;
-    }
+	@Override
+	public AcCohortCode getCohortCode() {
+		return cohortCode;
+	}
+
+	@Override
+	public void setCohortCode(AcCohortCode cohortCode) {
+		this.cohortCode = cohortCode;
+	}
+
+	@Override
+	public List<AcSponsorship> getSponsorships() {
+		return sponsorships;
+	}
+
+	@Override
+	public void setSponsorships(List<AcSponsorship> sponsorships) {
+		this.sponsorships = sponsorships;
+	}
+
+	@Override
+	public Class<?> getInterfaceClass() {
+		return AcStudent.class;
+	}
 }

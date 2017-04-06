@@ -51,8 +51,6 @@ public interface FinancialAidService {
 
     void deleteSettlementItem(AcSettlement settlement, AcSettlementItem item);
 
-    void saveWaiverApplication(AcWaiverApplication waiverApplication);
-
 
     // ==================================================================================================== //
     // WAIVER APPLICATION

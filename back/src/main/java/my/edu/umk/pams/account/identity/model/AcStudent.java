@@ -10,16 +10,20 @@ import java.util.List;
  */
 public interface AcStudent extends AcActor {
 
-    String getMatricNo();
+	String getMatricNo();
 
-    void setMatricNo(String matricNo);
+	void setMatricNo(String matricNo);
 
-    AcCohortCode getCohortCode();
+	AdStudentStatus getStudentStatus();
 
-    void setCohortCode(AcCohortCode cohortCode);
+	void setStudentStatus(AdStudentStatus studentStatus);
 
-    List<AcSponsorship> getSponsorships();
+	AcCohortCode getCohortCode();
 
-    void setSponsorships(List<AcSponsorship> sponsorships);
-    
+	void setCohortCode(AcCohortCode cohortCode);
+
+	List<AcSponsorship> getSponsorships();
+
+	void setSponsorships(List<AcSponsorship> sponsorships);
+
 }
