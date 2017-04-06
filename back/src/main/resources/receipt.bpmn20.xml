@@ -34,7 +34,7 @@
         <serviceTask id="receipt_draft_ST"
                      activiti:expression="#{receipt_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow2.1" sourceRef="receipt_draft_ST" targetRef="receipt_draft_UT"/>
+        <sequenceFlow id="flow2.1" sourceRef="receipt_draft_ST" targetRef="receipt_register_ST"/>
 
         <userTask id="receipt_draft_UT" name="my.edu.umk.pams.intake.billing.model.AcReceipt:DRAFTED"
                   activiti:assignee="${userCreator}">
@@ -61,9 +61,9 @@
         <serviceTask id="receipt_register_ST"
                      activiti:expression="#{receipt_register_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow3.1" sourceRef="receipt_register_ST" targetRef="receipt_register_UT"/>
+        <sequenceFlow id="flow3.1" sourceRef="receipt_register_ST" targetRef="receipt_approve_ST"/>
 
-        <userTask id="receipt_register_UT" name="my.edu.umk.pams.intake.billing.model.AcReceipt:REGISTERED"
+        <userTask id="receipt_register_UT" name="my.edu.umk.pams.account.billing.model.AcReceipt:REGISTERED"
                   activiti:candidateGroups="#{receiptRouterService.findRegistererCandidates(receiptId)}">
             <documentation>
                 Register Receipt / Daftar Resit
