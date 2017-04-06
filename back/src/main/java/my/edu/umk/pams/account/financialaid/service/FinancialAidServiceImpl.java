@@ -281,7 +281,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Override
     public void startWaiverApplicationTask(AcWaiverApplication application) {
-        String refNo = systemService.generateReferenceNo(AccountConstants.RECEIPT_REFERENCE_NO);
+        String refNo = systemService.generateReferenceNo(AccountConstants.WAIVER_APPLICATION_REFERENCE_NO);
         application.setReferenceNo(refNo);
         LOG.debug("Processing application with refNo {}", new Object[] { refNo });
 
