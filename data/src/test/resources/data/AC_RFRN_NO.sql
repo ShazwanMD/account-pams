@@ -22,3 +22,5 @@ VALUES (nextval('SQ_AC_RFRN_NO'), 'AcDebitNote.referenceNo', 1, 'Debit Note Refe
 INSERT INTO AC_RFRN_NO (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, M_ST, C_ID, C_TS )
 VALUES (nextval('SQ_AC_RFRN_NO'), 'AcCreditNote.referenceNo', 1, 'Credit Note Reference No Format', 1, 'CTNT', '{#academicSession.getCode()}/{#j}', '000', 1, 0, CURRENT_TIMESTAMP );
 
+INSERT INTO AC_RFRN_NO (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, M_ST, C_ID, C_TS )
+VALUES (nextval('SQ_AC_RFRN_NO'), 'AcWaiverApplication.referenceNo', 1, 'Waiver Application Reference No Format', 1, 'CTNT', '{#academicSession.getCode()}/{#j}', '000', 1, 0, CURRENT_TIMESTAMP );
