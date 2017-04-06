@@ -10,19 +10,18 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
-import my.edu.umk.pams.account.financialaid.model.AcSettlement;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementItemImpl;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementStatus;
-import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.financialaid.dao.AcWaiverApplicationDao;
+import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.identity.dao.AcStudentDao;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
-
+import my.edu.umk.pams.account.workflow.service.WorkflowConstants;
+import my.edu.umk.pams.account.workflow.service.WorkflowService;
+import org.activiti.engine.task.Task;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +30,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static my.edu.umk.pams.account.AccountConstants.SETTLEMENT_REFERENCE_NO;
+import static my.edu.umk.pams.account.AccountConstants.*;
 
 /**
  * @author PAMS
@@ -81,6 +81,9 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     private AccountService accountService;
 
     @Autowired
+    private WorkflowService workflowService;
+
+    @Autowired
     private SessionFactory sessionFactory;
     
     @Autowired
@@ -89,7 +92,6 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     // ==================================================================================================== //
     // SETTLEMENT
     // ==================================================================================================== //
-
 
     @Override
     public AcSettlement findSettlementById(Long id) {
@@ -248,4 +250,106 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         waiverApplicationDao.save(waiverApplication, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+
+    // ==================================================================================================== //
+    // EAIVER APPLICATION
+    // ==================================================================================================== //
+
+    // workflow
+
+    @Override
+    public AcWaiverApplication findWaiverApplicationByTaskId(String taskId) {
+        Task task = workflowService.findTask(taskId);
+        Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+        return waiverApplicationDao.findById((Long) map.get(WAIVER_APPLICATION_ID));
+    }
+
+    @Override
+    public Task findWaiverApplicationTaskByTaskId(String taskId) {
+        return workflowService.findTask(taskId);
+    }
+
+    @Override
+    public List<Task> findAssignedWaiverApplicationTasks(Integer offset, Integer limit) {
+        return workflowService.findAssignedTasks(AcWaiverApplication.class.getName(), offset, limit);
+    }
+
+    @Override
+    public List<Task> findPooledWaiverApplicationTasks(Integer offset, Integer limit) {
+        return workflowService.findPooledTasks(AcWaiverApplication.class.getName(), offset, limit);
+    }
+
+    @Override
+    public void startWaiverApplicationTask(AcWaiverApplication application) {
+        String refNo = systemService.generateReferenceNo(AccountConstants.RECEIPT_REFERENCE_NO);
+        application.setReferenceNo(refNo);
+        LOG.debug("Processing application with refNo {}", new Object[] { refNo });
+
+        waiverApplicationDao.saveOrUpdate(application, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+        sessionFactory.getCurrentSession().refresh(application);
+
+        workflowService.processWorkflow(application, prepareVariables(application));
+    }
+
+    @Override
+    public void updateWaiverApplication(AcWaiverApplication application) {
+        waiverApplicationDao.update(application, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void cancelWaiverApplication(AcWaiverApplication application) {
+        application.getFlowdata().setState(AcFlowState.CANCELLED);
+        application.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+        application.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+        waiverApplicationDao.update(application, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public AcWaiverApplication findWaiverApplicationById(Long id) {
+        return waiverApplicationDao.findById(id);
+    }
+
+    @Override
+    public AcWaiverApplication findWaiverApplicationByReferenceNo(String referenceNo) {
+        return waiverApplicationDao.findByReferenceNo(referenceNo);
+    }
+
+    @Override
+    public List<AcWaiverApplication> findWaiverApplications(String filter, Integer offset, Integer limit) {
+        return waiverApplicationDao.find(offset, limit);
+    }
+
+    @Override
+    public List<AcWaiverApplication> findWaiverApplications(AcAcademicSession academicSession, Integer offset, Integer limit) {
+        return waiverApplicationDao.find(academicSession, offset, limit);
+    }
+
+    @Override
+    public Integer countWaiverApplication(String filter) {
+        return waiverApplicationDao.count();
+    }
+
+    @Override
+    public Integer countWaiverApplication(AcAcademicSession academicSession) {
+        return waiverApplicationDao.count(academicSession);
+    }
+
+    // ==================================================================================================== //
+    // PRIVATE METHODS
+    // ==================================================================================================== //
+
+    private Map<String, Object> prepareVariables(AcWaiverApplication application) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put(RECEIPT_ID, application.getId());
+        map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+        map.put(WorkflowConstants.REFERENCE_NO, application.getReferenceNo());
+        map.put(WorkflowConstants.REMOVE_DECISION, false);
+        map.put(WorkflowConstants.CANCEL_DECISION, false);
+        return map;
+    }
+
+
 }
