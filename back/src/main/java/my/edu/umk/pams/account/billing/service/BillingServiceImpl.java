@@ -562,20 +562,22 @@ public class BillingServiceImpl implements BillingService {
 		receiptDao.saveOrUpdate(receipt, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 
-		AcAccount account = receipt.getAccount();
-		LOG.debug("Account", account.getId());
-		List<AcAccountTransaction> accountTransaction = accountDao.findAccountTransactions(account);
-		for (AcAccountTransaction accountTransactions : accountTransaction) {
-
-			AcReceiptItem item = new AcReceiptItemImpl();
-			item.setAdjustedAmount(BigDecimal.ZERO);
-			item.setAppliedAmount(BigDecimal.ZERO);
-			item.setChargeCode(accountTransactions.getChargeCode());
-			item.setDueAmount(BigDecimal.ZERO);
-			item.setTotalAmount(BigDecimal.ZERO);
-			item.setReceipt(receipt);
-			addReceiptItem(receipt, item);
-			startReceiptTask(receipt);
+		List<AcInvoice> invoice = invoiceDao.find(true, receipt.getAccount(), 0, 0);
+		for (AcInvoice invc : invoice) {
+			
+			List<AcInvoiceItem> invoiceItem = invoiceDao.findItems(invc);
+			for (AcInvoiceItem invcItem : invoiceItem) {
+				AcReceiptItem item = new AcReceiptItemImpl();
+				item.setAdjustedAmount(BigDecimal.ZERO);
+				item.setAppliedAmount(BigDecimal.ZERO);
+				item.setChargeCode(invcItem.getChargeCode());
+				item.setDueAmount(BigDecimal.ZERO);
+				item.setTotalAmount(BigDecimal.ZERO);
+				item.setReceipt(receipt);
+				item.setInvoice(invc);
+				addReceiptItem(receipt, item);
+				
+			}
 		}
 
 		sessionFactory.getCurrentSession().flush();
@@ -583,23 +585,25 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void executeReceipt(AcReceipt receipt) {
-		AcAcademicSession academicSession = academicSessionDao.findCurrentSession();
-		//receipt = receiptDao.findByReceiptNo(receipt.getReceiptNo());
+		
 		LOG.debug("Receipt "+ receipt.getReceiptNo());
-		//for (AcReceipt item : receipt) {
+		AcAcademicSession academicSession = academicSessionDao.findCurrentSession();
+		List<AcReceiptItem> rcpt = receiptDao.findItems(receipt);
+		
+		for (AcReceiptItem item : rcpt) {
 
 			LOG.debug("account "+ receipt.getAccount().getCode());
 			
 			AcAccountTransaction transaction = new AcAccountTransactionImpl(); 
 			transaction.setAccount(receipt.getAccount());
 			transaction.setAmount(receipt.getTotalAmount());
-			//transaction.setChargeCode(item.getChargeCode());
+			transaction.setChargeCode(item.getChargeCode());
 			transaction.setSession(academicSession);
 			transaction.setTransactionCode(AcAccountTransactionCode.RECEIPT);
 			transaction.setSourceNo(receipt.getSourceNo());
 			transaction.setPostedDate(receipt.getReceivedDate());
 			accountDao.addAccountTransaction(receipt.getAccount(), transaction, securityService.getCurrentUser());
-		//}
+		}
 		
 		sessionFactory.getCurrentSession().flush();
 	}
