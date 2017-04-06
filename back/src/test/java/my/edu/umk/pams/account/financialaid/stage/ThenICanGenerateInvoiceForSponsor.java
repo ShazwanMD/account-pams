@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.billing.stage;
+package my.edu.umk.pams.account.financialaid.stage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;

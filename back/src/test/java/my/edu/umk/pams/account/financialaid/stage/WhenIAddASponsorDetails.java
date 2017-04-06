@@ -5,7 +5,6 @@ import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
-
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
@@ -17,9 +16,6 @@ import my.edu.umk.pams.account.identity.model.AcCoverage;
 import my.edu.umk.pams.account.identity.model.AcCoverageImpl;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.service.IdentityService;
-
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +23,9 @@ import org.springframework.util.Assert;
 
 
 @JGivenStage
-public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsorAndSettlementDetails>{
+public class WhenIAddASponsorDetails extends Stage<WhenIAddASponsorDetails>{
 	
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIAddASponsorAndSettlementDetails.class);
+	private static final Logger LOG = LoggerFactory.getLogger(WhenIAddASponsorDetails.class);
 	
     @Autowired
     private IdentityService identityService;
@@ -55,12 +51,12 @@ public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsor
 	@ExpectedScenarioState
 	private AcInvoice invoice;
 	
-	public WhenIAddASponsorAndSettlementDetails() {
+	public WhenIAddASponsorDetails() {
 		coverage = new AcCoverageImpl();
 	}
 
 	@As("I add sponsor coverage")
-	public WhenIAddASponsorAndSettlementDetails I_add_sponsor_with_coverages() {
+	public WhenIAddASponsorDetails I_add_sponsor_with_coverages() {
 		
 		coverage = new AcCoverageImpl();
 		coverage.setSponsor(sponsor);
@@ -78,7 +74,7 @@ public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsor
 	}
 	
 	@As("I want to start settlement process for sponsor")
-	public WhenIAddASponsorAndSettlementDetails I_want_to_start_settlement_process_for_sponsor$() {
+	public WhenIAddASponsorDetails I_want_to_start_settlement_process_for_sponsor$() {
 		LOG.debug("session " + academicSession.getId());
 		LOG.debug("sponsor " + sponsor.getId());
 		

@@ -1,18 +1,16 @@
 package my.edu.umk.pams.account.financialaid;
 
+import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
+import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.account.financialaid.stage.ThenAddSponsorAndCheckFees;
+import my.edu.umk.pams.account.financialaid.stage.WhenIAddASponsorDetails;
+import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-
-import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.financialaid.stage.ThenAddSponsorAndCheckFees;
-import my.edu.umk.pams.account.financialaid.stage.WhenIAddASponsorAndSettlementDetails;
-import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
 /**
  * As bursary
@@ -29,7 +27,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsorAndSettlementDetails, ThenAddSponsorAndCheckFees>{
+public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsorDetails, ThenAddSponsorAndCheckFees>{
 
 	private static final String SPONSOR_NO = "HLP";
 
@@ -40,7 +38,7 @@ public class US_AC_FNA_1000 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 				.and().I_pick_a_sponsor_with_sponsor_no_$(SPONSOR_NO);
 		when().I_add_sponsor_with_coverages()
 				.and().I_want_to_start_settlement_process_for_sponsor$();
-		then().the_sponsor_coverage_is_added()
-				.and().I_can_check_my_fees_status();
+		then().the_sponsor_coverage_is_added();
+//				.and().I_can_check_my_fees_status();
 	}
 }
