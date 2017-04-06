@@ -23,9 +23,9 @@ import org.springframework.util.Assert;
 
 
 @JGivenStage
-public class WhenIAddASponsorDetails extends Stage<WhenIAddASponsorDetails>{
+public class WhenIAddASponsorAndSettlementDetails extends Stage<WhenIAddASponsorAndSettlementDetails>{
 	
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIAddASponsorDetails.class);
+	private static final Logger LOG = LoggerFactory.getLogger(WhenIAddASponsorAndSettlementDetails.class);
 	
     @Autowired
     private IdentityService identityService;
@@ -51,12 +51,12 @@ public class WhenIAddASponsorDetails extends Stage<WhenIAddASponsorDetails>{
 	@ExpectedScenarioState
 	private AcInvoice invoice;
 	
-	public WhenIAddASponsorDetails() {
+	public WhenIAddASponsorAndSettlementDetails() {
 		coverage = new AcCoverageImpl();
 	}
 
 	@As("I add sponsor coverage")
-	public WhenIAddASponsorDetails I_add_sponsor_with_coverages() {
+	public WhenIAddASponsorAndSettlementDetails I_add_sponsor_with_coverages() {
 		
 		coverage = new AcCoverageImpl();
 		coverage.setSponsor(sponsor);
@@ -74,7 +74,7 @@ public class WhenIAddASponsorDetails extends Stage<WhenIAddASponsorDetails>{
 	}
 	
 	@As("I want to start settlement process for sponsor")
-	public WhenIAddASponsorDetails I_want_to_start_settlement_process_for_sponsor$() {
+	public WhenIAddASponsorAndSettlementDetails I_want_to_start_settlement_process_for_sponsor$() {
 		LOG.debug("session " + academicSession.getId());
 		LOG.debug("sponsor " + sponsor.getId());
 		
