@@ -17,6 +17,8 @@ import {AccountCenterPage} from "./account-center.page";
 import {AccountListComponent} from "./component/account-list.component";
 import {AccountDetailPage} from "./account-detail.page";
 import {AccountComponent} from "./component/account.component";
+import {AccountActivityComponent} from "./component/account-activity.component";
+import {AccountStatusComponent} from "./component/account-status.component";
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import {AccountComponent} from "./component/account.component";
     // component
     AccountListComponent,
     AccountComponent,
+    AccountStatusComponent,
+    AccountActivityComponent,
   ],
   exports: [],
   entryComponents: [

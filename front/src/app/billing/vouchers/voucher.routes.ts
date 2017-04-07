@@ -2,9 +2,9 @@ import {Routes, RouterModule} from '@angular/router';
 
 
 // Route Configuration
-export const ReceiptRoutes: Routes = [
-  // {path: 'billing/invoices/new-task', component: ReceiptNewTaskPage},
-  // {path: 'billing/invoices/assigned-tasks', component: ReceiptAssignedTaskPage},
-  // {path: 'billing/invoices/pooled-tasks', component: ReceiptPooledTaskPage},
-  // {path: 'billing/invoices/view-task/:taskId', component: ReceiptViewTaskPage},
+export const VoucherRoutes: Routes = [
+  // {path: 'billing/vouchers/new-task', component: VoucherNewTaskPage},
+  // {path: 'billing/vouchers/assigned-tasks', component: VoucherAssignedTaskPage},
+  // {path: 'billing/vouchers/pooled-tasks', component: VoucherPooledTaskPage},
+  // {path: 'billing/vouchers/view-task/:taskId', component: VoucherViewTaskPage},
 ];

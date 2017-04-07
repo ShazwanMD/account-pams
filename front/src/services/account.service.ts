@@ -4,12 +4,32 @@ import { HttpInterceptorService } from '@covalent/http';
 import {Account} from "../app/account/accounts/account.interface";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
+import {ChargeCode} from "../app/account/accounts/charge-code.interface";
+import {AccountTransaction} from "../app/account/accounts/account-transaction.interface";
 
 @Injectable()
 export class AccountService {
 
   constructor(private http: Http,
               private _http: HttpInterceptorService) {
+  }
+
+  // ====================================================================================================
+  // CHARGE CODE
+  // ====================================================================================================
+  findChargeCodes(): Observable<ChargeCode[]> {
+    console.log("findAccounts");
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/chargeCodes')
+      .map((res: Response) => <ChargeCode[]>res.json());
+  }
+
+  findChargeCodeByCode(code: string): Observable<ChargeCode> {
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/chargeCodes/' + code)
+      .map((res: Response) => <ChargeCode>res.json());
   }
 
   // ====================================================================================================
@@ -30,6 +50,14 @@ export class AccountService {
     console.log("encoded uri: " + encodeURI (code))
     return this.http.get(environment.endpoint + '/api/account/accounts/' + encodeURI (code))
       .map((res: Response) => <Account>res.json());
+  }
+
+  findAccountTransactions(account:Account): Observable<AccountTransaction[]> {
+    console.log("findAccounts");
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountTransactions")
+      .map((res: Response) => <AccountTransaction[]>res.json());
   }
 
   saveAccount(account: Account): Observable<Boolean> {

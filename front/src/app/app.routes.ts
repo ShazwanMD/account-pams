@@ -5,6 +5,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginComponent} from './login/login.component';
 import {HomeModuleRoutes} from "./home/home-module.routes";
 import {AccountModuleRoutes} from "./account/account-module.routes";
+import {BillingModuleRoutes} from "./billing/billing-module.routes";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       ...HomeModuleRoutes,
       ...AccountModuleRoutes,
+      ...BillingModuleRoutes,
     ]
   },
 ];

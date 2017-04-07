@@ -7,22 +7,19 @@
   <div md-content flex md-scroll-y>
     <div layout="column" layout-gt-md="row" class="inset">
       <div flex-gt-md="70">
-
         <pams-account [account]="account$ | async"></pams-account>
+        <pams-account-activity  [transactions]="transactions$ | async"></pams-account-activity>
       </div>
 
       <div flex-gt-md="30">
+        <pams-account-status  [account]="account$ | async"></pams-account-status>
+
         <md-card>
           <md-card-title>Action</md-card-title>
           <md-card-subtitle>Actions available on current account</md-card-subtitle>
           <md-divider></md-divider>
 
           <md-nav-list flex dense>
-            <md-list-item [routerLink]="['/accounts-assign', account?.code]">
-              <md-icon md-list-avatar>assignment_ind</md-icon>
-              <h4 md-line>Reassign</h4>
-              <p md-line>Reassign this account</p>
-            </md-list-item>
             <md-list-item [routerLink]="['/accounts-resolve', account?.code]">
               <md-icon md-list-avatar>done_all</md-icon>
               <h4 md-line>Resolve</h4>

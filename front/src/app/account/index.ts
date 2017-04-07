@@ -15,6 +15,7 @@ import {AccountService} from "../../services/account.service";
 import {AccountModule} from "./accounts/index";
 import {AccountListState, accountListReducer} from "./accounts/account-list.reducer";
 import {accountReducer} from "./accounts/account.reducer";
+import {compose} from "@ngrx/core/compose";
 
 export interface AccountState {
   accounts: AccountListState;
@@ -22,17 +23,17 @@ export interface AccountState {
 }
 ;
 
-export const accountxReducer = combineReducers({
+export const accountxReducer = compose(combineReducers)({
   accounts: accountListReducer, account: accountReducer,
 });
 
 
 @NgModule({
   imports: [
+    appRoutes,
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    appRoutes,
 
     // our modules
     AccountModule.forRoot(),

@@ -2,7 +2,7 @@ import {NgModule, Type} from '@angular/core';
 import {BrowserModule, Title}  from '@angular/platform-browser';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {StoreModule, combineReducers} from "@ngrx/store";
+import {StoreModule} from "@ngrx/store";
 
 import {CovalentCoreModule} from '@covalent/core';
 import {CovalentHttpModule, IHttpInterceptor} from '@covalent/http';
@@ -21,6 +21,7 @@ import {HomeComponent} from "./home/home.component";
 import {AccountModuleX, accountxReducer} from "./account/index";
 import {CustomUrlSerializer} from "./common/custom-url-serializer";
 import {UrlSerializer} from "@angular/router";
+import {BillingModule} from "./billing/index";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -33,6 +34,7 @@ const httpInterceptorProviders: Type<any>[] = [
     HomeComponent,
     DashboardComponent,
     LoginComponent,
+
   ], // directives, components, and pipes owned by this NgModule
   imports: [
     appRoutes,
@@ -49,7 +51,7 @@ const httpInterceptorProviders: Type<any>[] = [
     NgxChartsModule,
 
     AccountModuleX.forRoot(),
-    // note:temporary solution
+    BillingModule.forRoot(),
     StoreModule.provideStore(accountxReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
 

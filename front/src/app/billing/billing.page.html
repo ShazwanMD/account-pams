@@ -1,7 +1,7 @@
-<td-layout-nav toolbarTitle="Billing Center" logo="assets:canang_logo">
+<td-layout-nav toolbarTitle="Billing Center">
   <td-layout-manage-list #list title="Toolbar Title" logo="path/to/toolbar-logo.svg">
     <md-nav-list list-items dense>
-      <h3 md-subheader>Bill Tasks</h3>
+      <h3 md-subheader>Invoice Tasks</h3>
       <a md-list-item [routerLink]="['/billing/invoices/new-task']">
         <md-icon>add</md-icon>
         New Task
@@ -11,6 +11,34 @@
         My Tasks
       </a>
       <a md-list-item [routerLink]="['/billing/invoices/pooled-tasks']">
+        <md-icon>label_outline</md-icon>
+        Task Pool
+      </a>
+      <md-divider></md-divider>
+      <h3 md-subheader>Receipt Tasks</h3>
+      <a md-list-item [routerLink]="['/billing/receipts/new-task']">
+        <md-icon>add</md-icon>
+        New Task
+      </a>
+      <a md-list-item [routerLink]="['/billing/receipts/assigned-tasks']">
+        <md-icon>label</md-icon>
+        My Tasks
+      </a>
+      <a md-list-item [routerLink]="['/billing/receipts/pooled-tasks']">
+        <md-icon>label_outline</md-icon>
+        Task Pool
+      </a>
+      <md-divider></md-divider>
+      <h3 md-subheader>Debit Note Tasks</h3>
+      <a md-list-item [routerLink]="['/billing/debit-notes/new-task']">
+        <md-icon>add</md-icon>
+        New Task
+      </a>
+      <a md-list-item [routerLink]="['/billing/debit-notes/assigned-tasks']">
+        <md-icon>label</md-icon>
+        My Tasks
+      </a>
+      <a md-list-item [routerLink]="['/billing/debit-notes/pooled-tasks']">
         <md-icon>label_outline</md-icon>
         Task Pool
       </a>

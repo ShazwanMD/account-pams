@@ -11,7 +11,5 @@ export interface Voucher {
   totalTaxAmount: number;
   totalAmount: number;
   balanceAmount: number;
-  // period: Period;
-  // requester: CostCenterCode;
   payer: Account;
 }
