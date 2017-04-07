@@ -15,16 +15,14 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
-/*
- * As a Security, 
- * I want to give compound's discount to student 
- * so that discount can applied to receipt
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Security, I want to give compound's discount to student so that discount can applied to receipt")
 public class US_AC_ACT_6003 extends SpringScenarioTest<GivenIAmSecurity, WhenIWantGiveCompoundsDiscountStudent, ThenDiscountAppliedReceipt> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_6003.class);

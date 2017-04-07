@@ -14,22 +14,21 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
+
+
 @Issue("PAMSU-31")
-/*
- *As a Bursary, 
- *I want to generate report by faculty 
- *so that I can print report
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Bursary, I want to generate report by faculty so that I can print report")
 public class US_AC_BLG_2031
 		extends
 		SpringScenarioTest<GivenIAmBursary, WhenGenerateReportByFaculty, ThenICanPrintReportByFaculty> {
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(US_AC_BLG_2031.class);
+	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2031.class);
 	private static final String MATRIC_NO = "A17P001";
+
 	@Issue("PAMSU-31")
 	@Test
 	@Rollback

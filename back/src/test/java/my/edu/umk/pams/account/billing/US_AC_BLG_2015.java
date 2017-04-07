@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.billing.stage.ThenDebitUnderChargeInvoice;
@@ -16,12 +17,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * @author PAMS
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-15")
+@As("As a Bursary, i should be able to create debit note so that I can debit any under charge invoice")
 public class US_AC_BLG_2015 extends SpringScenarioTest<GivenIAmBursary, WhenCreateDebitNote, ThenDebitUnderChargeInvoice> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2015.class);

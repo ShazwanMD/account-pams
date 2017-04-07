@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
@@ -14,14 +15,11 @@ import my.edu.umk.pams.account.financialaid.stage.ThenChargesWillBeBilledToSpons
 import my.edu.umk.pams.account.financialaid.stage.WhenIWantConfigureStudentSponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 
-/*
- * As a Bursary, 
- * 	I want to configure student sponsor 
- * 		so that charges will be billed to sponsor
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Bursary, I want to configure student sponsor so that charges will be billed to sponsor")
 public class US_AC_FNA_1007 extends SpringScenarioTest<GivenIAmBursary, WhenIWantConfigureStudentSponsor, ThenChargesWillBeBilledToSponsor>{
 
 	private static final String MATRIC_NO = "A17P002";

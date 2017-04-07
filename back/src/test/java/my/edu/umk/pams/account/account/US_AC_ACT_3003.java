@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenICanViewMyResult;
@@ -22,6 +23,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Students, I want to pay student fees and charges so that I can register new subject and view my result")
 public class US_AC_ACT_3003 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToPayMyCharges, ThenICanViewMyResult> {
 
 	@Test

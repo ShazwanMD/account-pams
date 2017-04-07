@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.account;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.account.account.stage.ThenAccountIsCharged;
@@ -15,15 +16,13 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * As a Bursary, I want to list student charges by account,  so that I can view student's charges
- *
- * @author PAMS
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue(value = {"PAMSU-6"})
-public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAddAccountCharge, ThenAccountIsCharged> {
+@As("As a Bursary in current academic session, I want to add charges to student so that student is charged")
+public class US_AC_ACT_0004 extends
+        SpringScenarioTest<GivenIAmBursary, WhenIAddAccountCharge, ThenAccountIsCharged> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0004.class);
 
@@ -31,11 +30,6 @@ public class US_AC_ACT_0004 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
     private static final String SESSION_CODE = "201720181";
     private static final double CHARGE_AMOUNT = 200.00;
 
-    /**
-     * As a Bursary in current academic session,
-     * I want to add charges to student
-     * so that student is charged
-     */
     @Test
     @Rollback
     public void scenario1() {

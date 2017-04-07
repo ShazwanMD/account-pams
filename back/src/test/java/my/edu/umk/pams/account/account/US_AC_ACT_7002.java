@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.account;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.ThenCanViewStudentsCompoundCharges;
 import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
@@ -14,15 +15,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *  As a Academic (MGSEB/CPS),
- *  I want to list all compound student,
- *  so that I can view student's compound charges
- */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As Academic (MGSEB/CPS), I want to list all compound student so that I can view student's compound charges")
 public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIListAllCompoundStudent, ThenCanViewStudentsCompoundCharges> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7002.class);

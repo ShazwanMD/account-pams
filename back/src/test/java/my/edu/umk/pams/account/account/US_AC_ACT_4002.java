@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tngtech.jgiven.annotation.Pending;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenMyChildCanRegisterNewSubject;
@@ -19,6 +20,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmParent;
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Pending
+@As("As Parents, I want to pay student fees and charges so that I can allow my son or daughter to register new subject")
 public class US_AC_ACT_4002 extends SpringScenarioTest<GivenIAmParent, WhenIWantToPayFeesAndChargesForAStudent, ThenMyChildCanRegisterNewSubject> {
 
 	@Test

@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.financialaid;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanStartSettlementProcess;
@@ -12,20 +13,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-//import my.edu.umk.pams.account.financialaid.stage.ThenICanStartSettlementProcess;
-
-/**
- * As bursary
- * 	I want to group student by sponsor, 
- * 		so that I can start settlement processed;
- * 
- * @author PAMS
- *
- */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a bursary, I want to group student by sponsor, so that I can start a settlement process")
 public class US_AC_FNA_1002 extends SpringScenarioTest<GivenIAmBursary, WhenIGroupStudentBySponsor, ThenICanStartSettlementProcess>{
 
 	private static final String SPONSOR_NO = "HLP";

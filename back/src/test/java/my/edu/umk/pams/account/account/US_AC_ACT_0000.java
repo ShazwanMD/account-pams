@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.account;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.ThenTheStudentIsAdded;
 import my.edu.umk.pams.account.account.stage.WhenIAddAStudent;
@@ -14,17 +15,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author PAMS
- *
- * US_AC_ACT_0000 class is an example test class
- * For naming explanation of US_AC_ACT_0000,
- * see <project>/README.md
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_0000 extends SpringScenarioTest<GivenIAmBusinessAdminUser, WhenIAddAStudent, ThenTheStudentIsAdded>{
+@As("US_AC_ACT_0000 is a sample test class. For naming convention explanation, see <project>/README.md")
+public class US_AC_ACT_0000 extends
+        SpringScenarioTest<GivenIAmBusinessAdminUser, WhenIAddAStudent, ThenTheStudentIsAdded>{
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0000.class);
     public static final String MATRIC_NO = "A17P001";

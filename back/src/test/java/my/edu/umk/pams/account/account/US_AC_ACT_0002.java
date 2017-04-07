@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account;
 
 import com.tngtech.jgiven.annotation.ScenarioStage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.*;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
@@ -14,12 +15,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author PAMS
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("US_AC_ACT_0002 Sample User Story")
 public class US_AC_ACT_0002 extends SpringScenarioTest<GivenIAmBusinessAdminUser, WhenIAddAStudent, ThenTheStudentIsAdded>{
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0002.class);

@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.billing.stage.ThenUpdatePaymentAmount;
@@ -16,12 +17,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * @author PAMS
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-9")
+@As("As a Bursary, I want to reduce student payment based on waiver promo code so that I can update the payment amount")
 public class US_AC_BLG_2009 extends SpringScenarioTest<GivenIAmBursary, WhenReduceStudentPaymentBasedOnWaiver, ThenUpdatePaymentAmount> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2009.class);

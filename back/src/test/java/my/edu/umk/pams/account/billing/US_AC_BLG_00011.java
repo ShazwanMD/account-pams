@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.billing.stage.ThenStudentAccountIsCharged;
 import my.edu.umk.pams.account.billing.stage.WhenSecurityChargeMeCompound;
@@ -13,11 +14,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * @author PAMS
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("TODO User Story goes here")
 public class US_AC_BLG_00011 extends SpringScenarioTest<GivenIAmStudent, WhenSecurityChargeMeCompound, ThenStudentAccountIsCharged> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_00011.class);

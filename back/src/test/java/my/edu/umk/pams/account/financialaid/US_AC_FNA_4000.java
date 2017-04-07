@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
@@ -17,6 +18,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmMGSEBAdministrator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As an Academic, I want to update student status, so that I can make sure student fee payment")
 public class US_AC_FNA_4000 extends SpringScenarioTest<GivenIAmMGSEBAdministrator, WhenIUpdateStudentStatus, ThenICanMakeSureFeesPayment>{
 
 

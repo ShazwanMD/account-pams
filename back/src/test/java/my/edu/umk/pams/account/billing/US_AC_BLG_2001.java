@@ -13,17 +13,13 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 
-/*
- * As a bursary, 
- * I want to invoice with given charge code, 
- * so that I can filter what I can invoice
- *  
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a bursary, I want to invoice with given charge code, so that I can filter what I can invoice")
 public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenFilterTheInvoice>{
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2001.class);

@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.account;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.ThenTheCompoundDetailsAreRecorded;
 import my.edu.umk.pams.account.account.stage.WhenWantToRegisterStudentCompoundBill;
@@ -15,14 +16,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * As a Student Affair I want to register student compound bill so that the
- * compound details are recorded.
- */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Student Affair, I want to register student compound bill so that the compound details are recorded")
 public class US_AC_ACT_5001 extends SpringScenarioTest<GivenIAmStudentAffair, WhenWantToRegisterStudentCompoundBill, ThenTheCompoundDetailsAreRecorded> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5001.class);

@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenICanMakePayment;
@@ -24,6 +25,7 @@ import my.edu.umk.pams.bdd.tags.Issue;
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-40")
+@As("As a Students, I want to view fees statement and charges so that I can make payment")
 public class US_AC_ACT_3001 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToViewMyUnpaidInvoices, ThenICanMakePayment> {
 
 	@Test

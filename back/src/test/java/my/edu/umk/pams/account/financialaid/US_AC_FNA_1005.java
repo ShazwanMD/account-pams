@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
@@ -21,6 +22,7 @@ import my.edu.umk.pams.bdd.tags.Issue;
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-65")
+@As("As a Bursary, I want to generate text file with total deduction to submit to BIMB so that I can complete payment data")
 public class US_AC_FNA_1005 extends SpringScenarioTest<GivenIAmBursary, WhenIGetListOfDeductions, ThenICanGenerateTextFile>{
 
 	private static final String SPONSOR_NO = "HLP";

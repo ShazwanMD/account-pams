@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenViewStudentCompoundCharges;
@@ -16,15 +17,13 @@ import my.edu.umk.pams.account.account.stage.WhenListAllCompoundStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
 import my.edu.umk.pams.bdd.tags.Issue;
+
+
 @Issue("PAMSU-50")
-/*
- * As a Student Affair,
- * I want to list all compound student 
- * so that I can view student's compound charges
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Student Affair, I want to list all compound student so that I can view student's compound charges")
 public class US_AC_ACT_5002 extends SpringScenarioTest<GivenIAmStudentAffair, WhenListAllCompoundStudent, ThenViewStudentCompoundCharges>{
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5002.class);
 	

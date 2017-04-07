@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.financialaid;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenStudentAndSponsorShouldHaveSponsorship;
@@ -12,20 +13,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * As bursary
- * I want to grant sponsorship for student,
- * so that student has sponsorship  
- *
- * As bursary
- * I want to grant sponsorship for sponsor,
- * so that sponsor has sponsorship 
- *  
- * @author PAMS
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Bursary, I want to grant sponsorship for student and sponsor, so that sponsor and student have sponsorship")
 public class US_AC_FNA_1001 extends SpringScenarioTest<GivenIAmBursary, WhenIGrantSponsorship, ThenStudentAndSponsorShouldHaveSponsorship> {
 
     private static final String SPONSOR_NO = "HLP"; // identity no

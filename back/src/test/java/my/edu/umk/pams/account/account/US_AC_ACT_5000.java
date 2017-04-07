@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.ThenCompoundDetailsAreRecord;
 import my.edu.umk.pams.account.account.stage.WhenIRegisterStudentCompoundBill;
@@ -24,6 +25,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("Academic (MGSEB/PPS), I want to register student compound bill so that the compound details are record. ")
 public class US_AC_ACT_5000 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIRegisterStudentCompoundBill, ThenCompoundDetailsAreRecord> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5000.class);

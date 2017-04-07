@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenViewStudentAcademicCharges;
@@ -16,15 +17,13 @@ import my.edu.umk.pams.account.account.stage.WhenListStudentCharges;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
-/*
- * As a Bursary, 
- * I want to list student charges of type academic by account, 
- * so that I can view student's academic charges
- */
+
+
 @Issue("PAMSU-39")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Bursary, I want to list student charges of type academic by account, so that I can view student's academic charges")
 public class US_AC_ACT_2006
 		extends SpringScenarioTest<GivenIAmBursary, WhenListStudentCharges, ThenViewStudentAcademicCharges> {
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2006.class);

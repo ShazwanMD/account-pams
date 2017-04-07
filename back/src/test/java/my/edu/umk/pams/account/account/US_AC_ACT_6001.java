@@ -6,6 +6,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenCompoundDetailsAreRecorded;
@@ -18,14 +19,12 @@ import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
 import my.edu.umk.pams.bdd.tags.Issue;
+
+
 @Issue("PAMSU-52")
-/*
- * As a Security, 
- * I want to register student compound bill 
- * so that the compound details are recorded
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Security, I want to register student compound bill so that the compound details are recorded")
 public class US_AC_ACT_6001 extends SpringScenarioTest<GivenIAmSecurity, WhenRegisterStudentCompoundBill, ThenCompoundDetailsAreRecorded>{
 	private static final String MATRIC_NO = "A17P001";
     @Test

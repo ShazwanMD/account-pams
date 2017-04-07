@@ -1,11 +1,13 @@
 package my.edu.umk.pams.account.identity;
 
 import com.tngtech.jgiven.annotation.Pending;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.stage.ThenTheSponsorIsAdded;
 import my.edu.umk.pams.account.identity.stage.WhenIAddASponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -15,22 +17,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * As bursary
- * 	I want to add sponsor user account, 
- * 		so that sponsor user is added
- * 
- * As bursary
- * 	I want to add sponsor account, 
- * 		so that sponsor account is added
- * 
- * @author PAMS
- *
- */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Ignore("Register sponsor do not included in this module")
+@As("As bursary, I want to add sponsor user account so that sponsor user is added")
+//@As("As bursary, I want to add sponsor account so that sponsor account is added")
 public class US_AC_ACT_2002 extends SpringScenarioTest<GivenIAmBursary, WhenIAddASponsor, ThenTheSponsorIsAdded> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2002.class);

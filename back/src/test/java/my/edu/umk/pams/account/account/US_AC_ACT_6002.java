@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
@@ -23,6 +24,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a Security, I want to list all compound student so that I can view student's compound charges")
 public class US_AC_ACT_6002 extends
 		SpringScenarioTest<GivenIAmSecurity, WhenWantToListAllCompoundStudent, TheCanViewStudentsCompoundCharges> {
 	

@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.billing.stage.ThenCreditOverChargeInvoice;
@@ -16,12 +17,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * @author PAMS
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-16")
+@As("As a Bursary, I should be able to create credit note to credit so that I can credit any over charge")
 public class US_AC_BLG_2016 extends SpringScenarioTest<GivenIAmBursary, WhenCreateCreditNote, ThenCreditOverChargeInvoice> {
 
     private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2016.class);

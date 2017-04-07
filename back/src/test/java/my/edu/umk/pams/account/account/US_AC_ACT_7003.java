@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenAcademicDiscountCanAppliedToReceipt;
@@ -16,14 +17,11 @@ import my.edu.umk.pams.account.account.stage.WhenIWantGiveCompoundsAcademicDisco
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmMGSEBAdministrator;
 
-/*
- * As Academic (MGSEB/PPS), 
- * I want to give compound's discount to student 
- * so that discount can applied to receipt
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As Academic (MGSEB/CPS), I want to give compound's discount to student so that discount can applied to receipt")
 public class US_AC_ACT_7003 extends
 		SpringScenarioTest<GivenIAmMGSEBAdministrator, WhenIWantGiveCompoundsAcademicDiscountToStudent, ThenAcademicDiscountCanAppliedToReceipt> {
 

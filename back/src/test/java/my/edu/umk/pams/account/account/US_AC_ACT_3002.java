@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenMyChargeIsReduced;
@@ -22,6 +23,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@As("As a student, I want to apply for a waiver so that I can reduce my charges and fees amount")
 public class US_AC_ACT_3002 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToApplyForAWaiver, ThenMyChargeIsReduced> {
 
 	@Test
