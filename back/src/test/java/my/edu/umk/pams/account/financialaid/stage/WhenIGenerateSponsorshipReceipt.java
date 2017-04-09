@@ -16,14 +16,21 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptImpl;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
+import my.edu.umk.pams.account.billing.model.AcReceiptItemImpl;
 import my.edu.umk.pams.account.billing.model.AcReceiptType;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcPaymentMethod;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @JGivenStage
@@ -49,9 +56,6 @@ public class WhenIGenerateSponsorshipReceipt extends Stage<WhenIGenerateSponsors
 	@ProvidedScenarioState
 	private AcAccount account;
 
-	@ProvidedScenarioState
-	private AcReceipt receipt;
-
 	@As("I want to generate sponsorship receipt to sponsor")
 	public WhenIGenerateSponsorshipReceipt I_want_to_generate_sponsorship_receipt_to_sponsor$() {
 
@@ -64,20 +68,58 @@ public class WhenIGenerateSponsorshipReceipt extends Stage<WhenIGenerateSponsors
 		AcAccount account = accountService.findAccountByActor(sponsor);
 		LOG.debug("Account " + account.getCode());
 
-		// prepare reference no generator
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("academicSession", accountService.findCurrentAcademicSession());
-		String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.RECEIPT_REFERENCE_NO, map);
-		receipt = new AcReceiptImpl();
-		receipt.setReferenceNo(referenceNo);
-		receipt.setDescription(sponsor.getIdentityNo() + ";" + sponsor.getEmail());
-		receipt.setPaymentMethod(AcPaymentMethod.BANK_DRAFT);
-		receipt.setReceiptType(AcReceiptType.BILLING);
-		receipt.setAccount(account);
-		LOG.debug("Processing process receipting with refNo {}", referenceNo);
-//		billingService.initReceipt(receipt);
-		billingService.startReceiptTask(receipt);
+		List<AcInvoice> invoice = billingService.findPaidInvoices(account, 0, 0);
+		for (AcInvoice invc : invoice) {
 
+			List<AcInvoiceItem> invoiceItem = billingService.findInvoiceItems(invc);
+			for (AcInvoiceItem invcItem : invoiceItem) {
+
+				// prepare reference no generator
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("academicSession", accountService.findCurrentAcademicSession());
+				String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.RECEIPT_REFERENCE_NO,
+						map);
+
+				Map<String, Object> maps = new HashMap<String, Object>();
+				maps.put("academicSession", accountService.findCurrentAcademicSession());
+				String receiptNo = systemService.generateFormattedReferenceNo(AccountConstants.RECEIPT_RECEIPT_NO,
+						maps);
+
+				LOG.debug("Processing process receipting with refNo {}", referenceNo);
+				LOG.debug("Processing process receipting with receiptNo {}", receiptNo);
+				
+				AcReceipt receipt = new AcReceiptImpl();
+				receipt.setReferenceNo(referenceNo);
+				receipt.setDescription(sponsor.getIdentityNo() + ";" + sponsor.getEmail());
+				receipt.setPaymentMethod(AcPaymentMethod.BANK_DRAFT);
+				receipt.setReceiptType(AcReceiptType.BILLING);
+				receipt.setAccount(account);
+				receipt.setReceiptNo(receiptNo);
+				receipt.setTotalApplied(BigDecimal.ZERO);
+				receipt.setTotalReceived(BigDecimal.ZERO);
+				receipt.setTotalAmount(invcItem.getAmount());
+				receipt.setReceivedDate(new Timestamp(System.currentTimeMillis()));
+
+				billingService.startReceiptTask(receipt);
+				
+				AcReceiptItem item = new AcReceiptItemImpl();
+				item.setAdjustedAmount(BigDecimal.ZERO);
+				item.setAppliedAmount(BigDecimal.ZERO);
+				item.setChargeCode(invcItem.getChargeCode());
+				item.setDueAmount(BigDecimal.ZERO);
+				item.setTotalAmount(BigDecimal.ZERO);
+				item.setReceipt(receipt);
+				item.setInvoice(invc);
+				
+				billingService.addReceiptItem(receipt, item);
+							
+				
+			}
+
+
+
+			//billingService.startReceiptTask(receipt);
+		}
 		return self();
 
 	}
