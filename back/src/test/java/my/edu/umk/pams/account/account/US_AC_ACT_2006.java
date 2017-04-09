@@ -49,4 +49,13 @@ public class US_AC_ACT_2006
 	    addStage( WhenListStudentCharges.class).and().I_want_to_list_student_charges_of_type_security_by_account_$(MATRIC_NO, CODE);
 		then().I_can_view_student_security_charges();
 	}
+	
+	@Test
+	@Rollback
+	public void testScenario3() {
+		given().I_am_a_bursary_in_current_academic_session();
+		when().I_fill_in_student_compound_$(MATRIC_NO, CODE);
+	    addStage( WhenListStudentCharges.class).and().I_want_to_list_student_charges_of_type_student_affair_by_account_$(MATRIC_NO, CODE);
+		then().I_can_view_student_student_affair_charges();
+	}
 }
