@@ -13,66 +13,65 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
-import my.edu.umk.pams.account.account.model.AcChargeCode;
-import my.edu.umk.pams.account.account.model.AcChargeCodeType;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
+import org.springframework.util.Assert;
 
 @JGivenStage
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class WhenListStudentCharges extends Stage<WhenListStudentCharges> {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(WhenListStudentCharges.class);
+	private static final Logger LOG = LoggerFactory.getLogger(WhenListStudentCharges.class);
 
-	@ProvidedScenarioState
-	private AcStudent student;
-
-	@ProvidedScenarioState
-	private AcAccount account;
 
 	@Autowired
 	private AccountService accountService;
 
-	@Autowired
-	private IdentityService identityService;
 
-//	@ProvidedScenarioState
-//	private List<AcAccountCharge> accountCharges;
+	@ExpectedScenarioState
+	private AcAcademicSession academicSession;
+
+	@ProvidedScenarioState
+	private AcAccountChargeType chargeType;
+
+	@ProvidedScenarioState
+	List<AcAccountCharge> accountCharges;
+
+	public WhenListStudentCharges I_want_to_list_student_charges_of_type_academic_by_account_$(String matricNo,
+			String Code) {
 
 
-	// private List<AcChargeCode> chargeCodes;
-	
-	public WhenListStudentCharges I_want_to_list_student_charges_of_type_academic_by_account_$(
-			String matricNo, String Code) {
+		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
 
-		student = identityService.findStudentByMatricNo(matricNo);
+		Assert.notEmpty(accountCharges, "Account Charges is empty");
 
-		account = accountService.findAccountByActor(student);
+		for (AcAccountCharge charges : accountCharges) {
+
+			Assert.notNull(charges, "Charges is empty");
+
+		}
 		
+		return self();
+		
+	}
+		
+		public WhenListStudentCharges I_want_to_list_student_charges_of_type_security_by_account_$(String matricNo,
+				String Code) {
 
-		
-		 AcAccount chargeType;
-		//List<AcAccountCharge>  accountCharges = accountService.findAccountCharges(chargeType);
-		 
-		// LOG.debug("test : {}", accountCharges);
 
-	//	for (AcAccountCharge charge : accountCharges) {
+			AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
+			List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
 
-			//LOG.debug("Charge Type :" , accountCharges );
-		//	LOG.debug("Charge Type :" + charge.getChargeType());
-			//LOG.debug("Description : " + charge.getDescription());
-		
-		
-		//for (AcChargeCode chargeCodes : chargeCodes) {		
-			//LOG.debug("Code : " + chargeCodes.getCode());
-			//LOG.debug("Description : " + chargeCodes.getDescription());
-		//}
-		
+			Assert.notEmpty(accountCharges, "Account Charges is empty");
+
+			for (AcAccountCharge charges : accountCharges) {
+
+				Assert.notNull(charges, "Charges is empty");
+
+			}
+
 		return self();
 	}
 }
