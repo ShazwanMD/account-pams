@@ -65,7 +65,7 @@ public interface FinancialAidService {
 
     List<Task> findPooledWaiverApplicationTasks(Integer offset, Integer limit);
 
-    void startWaiverApplicationTask(AcWaiverApplication application);
+    String startWaiverApplicationTask(AcWaiverApplication application);
 
     void updateWaiverApplication(AcWaiverApplication application);
 

@@ -121,7 +121,7 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
-	public void startInvoiceTask(AcInvoice invoice) {
+	public String startInvoiceTask(AcInvoice invoice) {
 		String refNo = systemService.generateReferenceNo(AccountConstants.INVOICE_REFERENCE_NO);
 		invoice.setReferenceNo(refNo);
 		LOG.debug("Processing invoice with refNo {}", new Object[] { refNo });
@@ -131,6 +131,7 @@ public class BillingServiceImpl implements BillingService {
 		sessionFactory.getCurrentSession().refresh(invoice);
 
 		workflowService.processWorkflow(invoice, prepareVariables(invoice));
+		return refNo;
 	}
 
 	@Override
@@ -367,7 +368,7 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
-	public void startDebitNoteTask(AcDebitNote debitNote) {
+	public String startDebitNoteTask(AcDebitNote debitNote) {
 		String refNo = systemService.generateReferenceNo(AccountConstants.DEBIT_NOTE_REFERENCE_NO);
 		debitNote.setReferenceNo(refNo);
 		LOG.debug("Processing debitNote with refNo {}", new Object[] { refNo });
@@ -377,6 +378,7 @@ public class BillingServiceImpl implements BillingService {
 		sessionFactory.getCurrentSession().refresh(debitNote);
 
 		workflowService.processWorkflow(debitNote, prepareVariables(debitNote));
+		return refNo;
 	}
 
 	@Override
@@ -455,7 +457,7 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
-	public void startCreditNoteTask(AcCreditNote creditNote) {
+	public String startCreditNoteTask(AcCreditNote creditNote) {
 		String refNo = systemService.generateReferenceNo(AccountConstants.CREDIT_NOTE_REFERENCE_NO);
 		creditNote.setReferenceNo(refNo);
 		LOG.debug("Processing creditNote with refNo {}", new Object[] { refNo });
@@ -465,6 +467,7 @@ public class BillingServiceImpl implements BillingService {
 		sessionFactory.getCurrentSession().refresh(creditNote);
 
 		workflowService.processWorkflow(creditNote, prepareVariables(creditNote));
+		return refNo;
 	}
 
 	@Override
@@ -609,7 +612,7 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
-	public void startReceiptTask(AcReceipt receipt) {
+	public String startReceiptTask(AcReceipt receipt) {
 		String refNo = systemService.generateReferenceNo(AccountConstants.RECEIPT_REFERENCE_NO);
 		receipt.setReferenceNo(refNo);
 		LOG.debug("Processing receipt with refNo {}", new Object[] { refNo });
@@ -619,6 +622,7 @@ public class BillingServiceImpl implements BillingService {
 		sessionFactory.getCurrentSession().refresh(receipt);
 
 		workflowService.processWorkflow(receipt, prepareVariables(receipt));
+		return refNo;
 	}
 
 	@Override

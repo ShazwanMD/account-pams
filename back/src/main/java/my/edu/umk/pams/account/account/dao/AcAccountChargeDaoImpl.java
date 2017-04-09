@@ -319,16 +319,10 @@ public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCha
         return ((Long) query.uniqueResult()).intValue();
     }
 
-	@Override
-	public Integer countDetached(AcAcademicSession academicSession, AcAccount account) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("select count(s) from AcAccountCharge s where " + "s.account = :account "
-				+ "and s.session = :academicSession " + "and s.invoice is null " + "and s.metadata.state = :state ");
-		query.setEntity("account", account);
-		query.setEntity("academicSession", academicSession);
-		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
-		return ((Long) query.uniqueResult()).intValue();
-	}
+    @Override
+    public Integer countAttached(AcAcademicSession academicSession, AcAccount account) {
+        return null;
+    }
 
     @Override
     public Integer countDetached(AcAccount account) {

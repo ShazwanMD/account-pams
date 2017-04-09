@@ -28,7 +28,7 @@ public interface BillingService {
 
     List<Task> findPooledInvoiceTasks(Integer offset, Integer limit);
 
-    void startInvoiceTask(AcInvoice invoice);
+    String startInvoiceTask(AcInvoice invoice);
 
     void cancelInvoice(AcInvoice invoice);
 
@@ -113,7 +113,7 @@ public interface BillingService {
 
     List<Task> findPooledDebitNoteTasks(Integer offset, Integer limit);
 
-    void startDebitNoteTask(AcDebitNote debitNote);
+    String startDebitNoteTask(AcDebitNote debitNote);
 
     void cancelDebitNote(AcDebitNote debitNote);
 
@@ -149,7 +149,7 @@ public interface BillingService {
 
     List<Task> findPooledCreditNoteTasks(Integer offset, Integer limit);
 
-    void startCreditNoteTask(AcCreditNote creditNote);
+    String startCreditNoteTask(AcCreditNote creditNote);
 
     void cancelCreditNote(AcCreditNote creditNote);
 
@@ -183,11 +183,13 @@ public interface BillingService {
 
     List<Task> findPooledReceiptTasks(Integer offset, Integer limit);
 
+    @Deprecated // double check
     void initReceipt(AcReceipt receipt);
 
+    @Deprecated // double check
     void executeReceipt(AcReceipt receipt);
 
-    void startReceiptTask(AcReceipt receipt);
+    String startReceiptTask(AcReceipt receipt);
 
     void updateReceipt(AcReceipt receipt);
 
