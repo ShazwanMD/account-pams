@@ -33,10 +33,10 @@ public class US_AC_ACT_6002 extends
 	private static final String MATRIC_NO = "A17P001";
 
 	@Test
-	@Rollback
+	@Rollback(false)
 	public void scenario0() {
-		given().I_am_security_$(MATRIC_NO);
-		when().I_want_to_list_all_compound_student();
+		given().I_am_security();
+		when().I_want_to_list_all_compound_student_$(MATRIC_NO);
 		then().can_view_students_compound_charges();
 	}
 
