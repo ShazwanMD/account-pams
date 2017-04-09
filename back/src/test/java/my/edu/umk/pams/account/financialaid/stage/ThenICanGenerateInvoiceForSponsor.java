@@ -21,7 +21,7 @@ public class ThenICanGenerateInvoiceForSponsor extends Stage<ThenICanGenerateInv
 	private AcInvoice invoice;
 	
 	@As("I can generate sponsor invoice")
-	public ThenICanGenerateInvoiceForSponsor I_can_generate_sponsor_invoice() {
+	public ThenICanGenerateInvoiceForSponsor I_can_generate_invoice() {
 
 		Assert.notNull(invoice, "invoice was null");
 		

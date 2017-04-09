@@ -32,6 +32,6 @@ public class US_AC_FNA_1009 extends SpringScenarioTest<GivenIAmBursary, WhenIAdd
 		given().I_am_a_bursary_in_current_academic_session()
 				.and().I_pick_a_sponsor_with_sponsor_no_$(SPONSOR_NO);
 		when().I_want_to_start_settlement_process_for_sponsor$();
-		then().I_can_generate_sponsor_invoice();
+		then().I_can_generate_invoice();
 	}
 }
