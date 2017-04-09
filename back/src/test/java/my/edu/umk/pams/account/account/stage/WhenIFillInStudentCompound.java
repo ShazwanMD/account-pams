@@ -16,6 +16,8 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcSecurityCharge;
 import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
+import my.edu.umk.pams.account.account.model.AcStudentAffairCharge;
+import my.edu.umk.pams.account.account.model.AcStudentAffairChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -58,7 +60,7 @@ public class WhenIFillInStudentCompound extends Stage<WhenIFillInStudentCompound
 		charge1.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge1.setSourceNo("ACD - 001");
 		charge1.setDescription("BAYAR YURAN LEWAT");
-		charge1.setAmount(BigDecimal.valueOf(100.00));
+		charge1.setAmount(BigDecimal.valueOf(80.00));
 		charge1.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79333"));
 		charge1.setSession(academicSession);
 
@@ -69,13 +71,25 @@ public class WhenIFillInStudentCompound extends Stage<WhenIFillInStudentCompound
 
 		charge2.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge2.setSourceNo("SCTY - 001");
-		charge2.setDescription("BAYAR YURAN LEWAT");
-		charge2.setAmount(BigDecimal.valueOf(100.00));
+		charge2.setDescription("TIADA KAD MATRIK");
+		charge2.setAmount(BigDecimal.valueOf(90.00));
 		charge2.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79333"));
 		charge2.setSession(academicSession);
 
 		// use account service to add charge
 		accountService.addAccountCharge(account, charge2);
+		
+		AcStudentAffairCharge charge3 = new AcStudentAffairChargeImpl();
+
+		charge3.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		charge3.setSourceNo("STDA - 001");
+		charge3.setDescription("BARANG ELEKTRIK TIDAK DAFTAR");
+		charge3.setAmount(BigDecimal.valueOf(100.00));
+		charge3.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79333"));
+		charge3.setSession(academicSession);
+
+		// use account service to add charge
+		accountService.addAccountCharge(account, charge3);
 
 		return self();
 	}
