@@ -54,7 +54,7 @@ public class WhenWantToRegisterStudentCompoundBill extends Stage<WhenWantToRegis
 		charge = new AcStudentAffairChargeImpl();
 		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge.setSourceNo("SRCNO");
-		charge.setDescription("Register Compound");
+		charge.setDescription("KEROSAKAN ASRAMA");
 		charge.setAmount(BigDecimal.valueOf(50.00));
 		charge.setSession(academicSession);
 		charge.setAccount(account);
