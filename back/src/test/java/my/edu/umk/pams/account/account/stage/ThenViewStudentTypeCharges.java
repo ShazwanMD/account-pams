@@ -50,43 +50,59 @@ public class ThenViewStudentTypeCharges extends Stage<ThenViewStudentTypeCharges
 	@ExpectedScenarioState
 	List<AcAccountCharge> accountCharges;
 
-	public ThenViewStudentTypeCharges I_can_view_student_academic_charges(){
-		
+	public ThenViewStudentTypeCharges I_can_view_student_academic_charges() {
+
 		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
 		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(chargeType);
-		
+
+		LOG.debug("===========Academic Charges============");
 		for (AcAccountCharge charge : accountCharge) {
-			
+
 			Assert.notNull(charge, "Charges is empty");
 
-			LOG.debug("===========Academic Charges============");
 			LOG.debug("Student Name :" + charge.getAccount().getActor().getName());
 			LOG.debug("Charge Type :" + charge.getChargeType());
 			LOG.debug("Reference No : " + charge.getReferenceNo());
 			LOG.debug("Description : " + charge.getDescription());
 			LOG.debug("                                       ");
 
+		}
+		return self();
+	}
+
+	public ThenViewStudentTypeCharges I_can_view_student_security_charges() {
+
+		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
+		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(chargeType);
+		LOG.debug("============Security Charges============");
+		for (AcAccountCharge charge : accountCharge) {
+
+			Assert.notNull(charge, "Charges is empty");
+
+			LOG.debug("Student Name :" + charge.getAccount().getActor().getName());
+			LOG.debug("Charge Type :" + charge.getChargeType());
+			LOG.debug("Reference No : " + charge.getReferenceNo());
+			LOG.debug("Description : " + charge.getDescription());
+			LOG.debug("                                       ");
 
 		}
 		return self();
 	}
 
-	
-	public ThenViewStudentTypeCharges I_can_view_student_security_charges(){
-		
-		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
+	public ThenViewStudentTypeCharges I_can_view_student_student_affair_charges() {
+
+		AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
 		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(chargeType);
-		
+		LOG.debug("========Student Affair Charges=========");
 		for (AcAccountCharge charge : accountCharge) {
-			
+
 			Assert.notNull(charge, "Charges is empty");
 
-			LOG.debug("============Security Charges============");
 			LOG.debug("Student Name :" + charge.getAccount().getActor().getName());
 			LOG.debug("Charge Type :" + charge.getChargeType());
 			LOG.debug("Reference No : " + charge.getReferenceNo());
 			LOG.debug("Description : " + charge.getDescription());
-		
+			LOG.debug("                                       ");
 
 		}
 		return self();
