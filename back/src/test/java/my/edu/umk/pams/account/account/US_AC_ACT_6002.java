@@ -16,7 +16,7 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.stage.TheCanViewStudentsCompoundCharges;
+import my.edu.umk.pams.account.account.stage.ThenICanViewStudentsCompoundCharges;
 import my.edu.umk.pams.account.account.stage.WhenWantToListAllCompoundStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
@@ -26,7 +26,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As a Security, I want to list all compound student so that I can view student's compound charges")
 public class US_AC_ACT_6002 extends
-		SpringScenarioTest<GivenIAmSecurity, WhenWantToListAllCompoundStudent, TheCanViewStudentsCompoundCharges> {
+		SpringScenarioTest<GivenIAmSecurity, WhenWantToListAllCompoundStudent, ThenICanViewStudentsCompoundCharges> {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_6002.class);
 	
