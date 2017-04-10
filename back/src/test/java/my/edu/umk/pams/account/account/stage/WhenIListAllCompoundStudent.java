@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -18,6 +19,7 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -46,7 +48,7 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 	@ProvidedScenarioState
     private List<AcAccountCharge> accountCharges;
 
-	@As("list all compound student")
+	/*@As("list all compound student")
 	public WhenIListAllCompoundStudent list_all_compound_student_$(String matricNo) {
 
 		//cari student untuk cari account 
@@ -63,9 +65,62 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 			LOG.debug("Description : "+ accountCharges.getDescription());
 			LOG.debug("Session : "+ accountCharges.getSession().getCode());
 		}
-
 		
 		return self();
-	}
+	}*/
+	
+	@As("list all compound student of type academic")
+	public WhenIListAllCompoundStudent I_want_to_list_all_compound_student_of_type_academic_$(String matricNo) {
 
+		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
+
+		Assert.notEmpty(accountCharges, "Account Charges is empty");
+
+		for (AcAccountCharge charges : accountCharges) {
+
+			Assert.notNull(charges, "Charges is empty");
+
+		}
+		
+		return self();
+		
+	}
+	
+	@As("list all compound student of type security")
+	public WhenIListAllCompoundStudent I_want_to_list_all_compound_student_of_type_security_$(String matricNo) {
+
+		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
+		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
+
+		Assert.notEmpty(accountCharges, "Account Charges is empty");
+
+		for (AcAccountCharge charges : accountCharges) {
+
+			Assert.notNull(charges, "Charges is empty");
+
+		}
+		
+		return self();
+		
+	}
+	
+	@As("list all compound student of type student affair")
+	public WhenIListAllCompoundStudent I_want_to_list_all_compound_student_of_type_student_affair_$(String matricNo) {
+
+		AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
+		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
+
+		Assert.notEmpty(accountCharges, "Account Charges is empty");
+
+		for (AcAccountCharge charges : accountCharges) {
+
+			Assert.notNull(charges, "Charges is empty");
+
+		}
+		
+		return self();
+		
+	}
+		
 }
