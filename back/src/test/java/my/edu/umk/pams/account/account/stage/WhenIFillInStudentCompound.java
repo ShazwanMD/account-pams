@@ -45,8 +45,6 @@ public class WhenIFillInStudentCompound extends Stage<WhenIFillInStudentCompound
 	@Autowired
 	private AccountService accountService;
 
-
-
 	public WhenIFillInStudentCompound I_fill_in_student_compound_$(String matricNo,
 			String Code){
 		
