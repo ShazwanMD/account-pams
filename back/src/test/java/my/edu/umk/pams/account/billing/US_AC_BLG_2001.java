@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tngtech.jgiven.annotation.As;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 
@@ -32,6 +33,18 @@ public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssu
     
 		given().I_am_a_bursary_in_current_academic_session();
         when().I_create_security_charge_to_student("A17P002");
+        then().I_can_show_invoice_filter_by_charge_code();
+    }
+    
+    @Test
+    @Rollback
+    @Pending
+    public void scenario2() {
+    	//create student @ find student 
+    	//create invoice @ charge code
+    
+		given().I_am_a_bursary_in_current_academic_session();
+        when().I_create_security_charge_to_student("A17P001");
         then().I_can_show_invoice_filter_by_charge_code();
     }
 }

@@ -50,6 +50,9 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
 	@ProvidedScenarioState
 	private AcAccount account;
+	
+	@ProvidedScenarioState
+	private AcAccountCharge charge;
 
 	@ProvidedScenarioState
 	private AcChargeCode chargeCode;
@@ -59,22 +62,6 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
 	public WhenIssueInvoice I_charge_student_with_academic_fees() {
 
-		/*
-		 * LOG.debug("when i add account charge on " +
-		 * academicSession.getCode());
-		 * 
-		 * account = accountService.findAccountByActor(student);
-		 * 
-		 * // charge AcAcademicCharge charge = new AcAcademicChargeImpl();
-		 * charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
-		 * charge.setSourceNo("abc123");
-		 * charge.setAmount(BigDecimal.valueOf(200.00));
-		 * charge.setDescription("This is a test");
-		 * charge.setSession(academicSession);
-		 * charge.setChargeCode(accountService
-		 * .findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
-		 * accountService.addAccountCharge(this.account, charge);
-		 */
 
 		return self();
 	}
@@ -105,7 +92,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 		AcStudent student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
-		AcSecurityCharge charge = new AcSecurityChargeImpl();
+	   charge = new AcSecurityChargeImpl();
 		charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
 		charge.setSourceNo("abc123");
 		charge.setAmount(BigDecimal.valueOf(20.00));
