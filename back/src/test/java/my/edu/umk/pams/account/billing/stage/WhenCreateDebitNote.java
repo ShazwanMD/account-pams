@@ -22,16 +22,16 @@ public class WhenCreateDebitNote extends Stage<WhenCreateDebitNote> {
 	@Autowired
 	BillingService billingService;
 	
-	@ProvidedScenarioState
-	AcDebitNote debitNote;
+	//@ProvidedScenarioState
+	//AcDebitNote debitNote;
 	
 	public WhenCreateDebitNote Create_debit_note(){
 		
-		String referenceNo = "rn1";
-		String description = "de1";
+		String referenceNo = "drn";
+		String description = "dde";
 		Date issuedDate = new Date();
 		
-		debitNote = new AcDebitNoteImpl();
+		AcDebitNote debitNote = new AcDebitNoteImpl();
 		debitNote.setReferenceNo(referenceNo);
 		debitNote.setDescription(description);
 		debitNote.setIssuedDate(issuedDate);
