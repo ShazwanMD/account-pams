@@ -18,7 +18,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@As("As a Bursary, I want to generate student invoice")
+@As("As a Bursary, I want to generate student invoice so that I can view invoice")
 public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGenerateInvoice, ThenICanViewInvoice>{
 	
 	private static final String FACULTY_CODE = "HLP";
