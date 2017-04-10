@@ -180,7 +180,4 @@ public class AcDebitNoteImpl implements AcDebitNote {
         return AcDebitNote.class;
     }
     
-    public String toString(){
-		return getReferenceNo() + ", " + getDescription() + ", " + getIssuedDate();
-	}
 }
