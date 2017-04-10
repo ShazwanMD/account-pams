@@ -1,8 +1,8 @@
 package my.edu.umk.pams.account.identity.dao;
 
-
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
+import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
@@ -17,34 +17,36 @@ import java.util.List;
  */
 public interface AcStudentDao extends GenericDao<Long, AcStudent> {
 
-    AcStudent findByMatricNo(String matricNo);
+	AcStudent findByMatricNo(String matricNo);
 
-    AcSponsorship findSponsorshipById(Long id);
+	AcSponsorship findSponsorshipById(Long id);
 
-    List<AcStudent> find(String filter, Integer offset, Integer limit);
+	List<AcStudent> find(String filter, Integer offset, Integer limit);
 
-    List<AcStudent> find(AcSponsor sponsor);
-    
-    List<AcSponsorship> findSponsorships(AcStudent student);
-    
-    List<AcStudent> findCohort(AcCohortCode cohortCode);
-    
-    List<AcSponsorship> find(AcFacultyCode facultyCode);
+	List<AcStudent> find(AcSponsor sponsor);
 
-    List<AcSponsor> findSponsors(AcStudent student);
+	List<AcSponsorship> find(AcStudent student);
+	
+	List<AcSponsorship> findSponsorships(AcProgramCode programCode);
 
-    Integer count(String filter);
+	List<AcSponsorship> findSponsorship(AcFacultyCode facultyCode);
 
-    Integer countSponsorship(AcStudent student);
+	List<AcStudent> findCohort(AcCohortCode cohortCode);
 
-    boolean hasSponsorship(AcStudent student);
+	List<AcSponsor> findSponsors(AcStudent student);
 
-    // ====================================================================================================
-    // CRUD
-    // ====================================================================================================
+	Integer count(String filter);
 
-    void addSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user);
+	Integer countSponsorship(AcStudent student);
 
-    void removeSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user);
+	boolean hasSponsorship(AcStudent student);
+
+	// ====================================================================================================
+	// CRUD
+	// ====================================================================================================
+
+	void addSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user);
+
+	void removeSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user);
 
 }
