@@ -179,4 +179,5 @@ public class AcDebitNoteImpl implements AcDebitNote {
     public Class<?> getInterfaceClass() {
         return AcDebitNote.class;
     }
+    
 }

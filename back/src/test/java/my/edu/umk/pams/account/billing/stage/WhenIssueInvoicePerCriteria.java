@@ -1,6 +1,9 @@
 package my.edu.umk.pams.account.billing.stage;
 
 import java.math.BigDecimal;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
@@ -17,6 +20,8 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 public class WhenIssueInvoicePerCriteria extends Stage<WhenIssueInvoicePerCriteria> {
+	private static final Logger LOG = LoggerFactory
+			.getLogger(WhenIssueInvoicePerCriteria.class);
 	@Autowired
 	private AccountService accountService;
 
@@ -36,6 +41,10 @@ public class WhenIssueInvoicePerCriteria extends Stage<WhenIssueInvoicePerCriter
 
 		AcStudent student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
+		
+		LOG.debug("Processing invoice with refNo {}", new Object[] { account });
+
+		
 		BigDecimal amount = new BigDecimal(1000.00);
 
 		AcInvoice invoice = new AcInvoiceImpl();

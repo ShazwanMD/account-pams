@@ -9,7 +9,7 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
-import my.edu.umk.pams.account.identity.model.AdStudentStatus;
+import my.edu.umk.pams.account.identity.model.AcStudentStatus;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
 
@@ -30,7 +30,7 @@ public class WhenIUpdateStudentStatus extends Stage<WhenIUpdateStudentStatus>{
 
 		AcStudent student = identityService.findStudentByMatricNo(code);
 		// = new AcStudentImpl();
-		student.setStudentStatus(AdStudentStatus.ACTIVE);
+		student.setStudentStatus(AcStudentStatus.ACTIVE);
 		
 		identityService.updateStudent(student);
 		

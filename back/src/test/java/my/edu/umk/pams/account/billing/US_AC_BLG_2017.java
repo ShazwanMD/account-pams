@@ -3,8 +3,8 @@ package my.edu.umk.pams.account.billing;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
-import my.edu.umk.pams.account.billing.stage.ThenUpdatePaymentAmount;
-import my.edu.umk.pams.account.billing.stage.WhenReduceStudentPaymentBasedOnWaiver;
+import my.edu.umk.pams.account.billing.stage.WhenCreateAdvancedPayment;
+import my.edu.umk.pams.account.billing.stage.ThenAddSurplus;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
@@ -20,17 +20,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@Issue("PAMSU-9")
-@As("As a Bursary, I want to reduce student payment based on waiver promo code so that I can update the payment amount")
-public class US_AC_BLG_2009 extends SpringScenarioTest<GivenIAmBursary, WhenReduceStudentPaymentBasedOnWaiver, ThenUpdatePaymentAmount> {
+@Issue("PAMSU-17")
+@As("As a bursary i should able to create any advance payment so that I can recognize any surplus")
+public class US_AC_BLG_2017 extends SpringScenarioTest<GivenIAmBursary, WhenCreateAdvancedPayment, ThenAddSurplus> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2009.class);
+    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2017.class);
+    
+    private static final String MATRIC_NO = "A17P001";
 
     @Test
     @Rollback
     public void testScenario1() {
         given().I_am_a_bursary_in_current_academic_session();
-        when().Reduce_student_payment_based_on_waiver();
-        then().Update_payment_amount();
+        when().Create_advanced_payment_for_student_$(MATRIC_NO);
+        then().Add_surplus_for_student_$(MATRIC_NO);
     }
 }

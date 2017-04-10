@@ -10,8 +10,11 @@ import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcActorImpl;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
+import my.edu.umk.pams.account.web.module.identity.vo.Actor;
 
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -47,6 +50,9 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
 	@ProvidedScenarioState
 	private AcAccount account;
+	
+	@ProvidedScenarioState
+	private AcAccountCharge charge;
 
 	@ProvidedScenarioState
 	private AcChargeCode chargeCode;
@@ -56,22 +62,6 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
 	public WhenIssueInvoice I_charge_student_with_academic_fees() {
 
-		/*
-		 * LOG.debug("when i add account charge on " +
-		 * academicSession.getCode());
-		 * 
-		 * account = accountService.findAccountByActor(student);
-		 * 
-		 * // charge AcAcademicCharge charge = new AcAcademicChargeImpl();
-		 * charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
-		 * charge.setSourceNo("abc123");
-		 * charge.setAmount(BigDecimal.valueOf(200.00));
-		 * charge.setDescription("This is a test");
-		 * charge.setSession(academicSession);
-		 * charge.setChargeCode(accountService
-		 * .findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
-		 * accountService.addAccountCharge(this.account, charge);
-		 */
 
 		return self();
 	}
@@ -81,16 +71,18 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 	// create invoice.
 	// then - cari invoice based charge tadi
 	public void I_generate_invoice_per_matric_no(String MatricNo) {
-
+		
+	
 		AcStudent student = identityService.findStudentByMatricNo(MatricNo);
 		account = accountService.findAccountByActor(student);
+		System.out.println(account);
 		BigDecimal amount = new BigDecimal(1000.00);
 
 		AcInvoice invoice = new AcInvoiceImpl();
 		invoice.setReferenceNo("1234");
 		invoice.setInvoiceNo("INV20170329");
 		invoice.setTotalAmount(amount);
-		invoice.setDescription("UDA DEWA");
+		invoice.setDescription("INVOICE");
 		invoice.setAccount(account);
 		billingService.startInvoiceTask(invoice);
 
@@ -100,8 +92,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 		AcStudent student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
-		
-		AcSecurityCharge charge = new AcSecurityChargeImpl();
+	   charge = new AcSecurityChargeImpl();
 		charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
 		charge.setSourceNo("abc123");
 		charge.setAmount(BigDecimal.valueOf(20.00));
