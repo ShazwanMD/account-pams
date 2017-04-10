@@ -33,7 +33,6 @@ import org.junit.runners.Suite;
         US_AC_ACT_6003.class, //aida
         US_AC_ACT_7001.class, //ta
         US_AC_ACT_7002.class, //aida
-        US_AC_ACT_7003.class, //ta
         US_AC_ACT_7004.class, //aida     
 })
 public class AccountModuleTestSuite {
