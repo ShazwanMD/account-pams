@@ -179,4 +179,8 @@ public class AcDebitNoteImpl implements AcDebitNote {
     public Class<?> getInterfaceClass() {
         return AcDebitNote.class;
     }
+    
+    public String toString(){
+		return getReferenceNo() + ", " + getDescription() + ", " + getIssuedDate();
+	}
 }
