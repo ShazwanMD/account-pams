@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.identity.dao;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
+import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -71,7 +72,7 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
     }
 
     @Override
-    public List<AcSponsorship> findSponsorships(AcStudent student) {
+    public List<AcSponsorship> find(AcStudent student) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcSponsorship s where " +
                 "s.student = :student " +
@@ -93,7 +94,18 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
 	}
 	
 	@Override
-	public List<AcSponsorship> find(AcFacultyCode facultyCode) {
+	public List<AcSponsorship> findSponsorships(AcProgramCode programCode) {
+		Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcSponsorship s where " +
+                "s.student.cohortCode.programCode = :programCode " +
+                "and s.metadata.state = :state ");
+        query.setEntity("programCode", programCode);
+        query.setInteger("state", ACTIVE.ordinal());
+        return (List<AcSponsorship>) query.list();
+	}
+	
+	@Override
+	public List<AcSponsorship> findSponsorship(AcFacultyCode facultyCode) {
 		Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcSponsorship s where " +
                 "s.student.cohortCode.programCode.facultyCode = :facultyCode " +

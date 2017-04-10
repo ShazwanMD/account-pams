@@ -50,7 +50,7 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 	private AcFacultyCode facultyCode;
 
 	@ExpectedScenarioState
-	private List<AcProgramCode> programCode;
+	private AcProgramCode programCode;
 
 	@ExpectedScenarioState
 	private List<AcCohortCode> cohortCode;
@@ -97,6 +97,7 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 
 	@As("I generate invoice by batch")
 	public WhenIGenerateInvoice I_generate_invoice_by_batch() {
+		
 		LOG.debug("session " + academicSession.getId());
 
 		return self();
@@ -110,6 +111,36 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 
 		sponsorship = identityService.findSponsorships(student);
 
+		for (AcSponsorship sponsorship : sponsorship) {
+
+			LOG.debug("Sponsorship " + sponsorship.getSponsor().getName());
+			AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorship.getSponsor().getIdentityNo());
+
+			settlement = new AcSettlementImpl();
+			settlement.setDescription(sponsor.getName() + " " + sponsor.getId());
+			settlement.setSession(academicSession);
+			settlement.setSponsor(sponsor);
+
+			financialAidService.initSettlement(settlement);
+
+			invoice = new AcInvoiceImpl();
+			invoice.setDescription(settlement.getId() + " " + settlement.getSession());
+			invoice.setSession(academicSession);
+
+			financialAidService.executeSettlement(settlement);
+		}
+
+		return self();
+	}
+	
+	@As("I generate invoice by program")
+	public WhenIGenerateInvoice I_generate_invoice_by_program$(String code) {
+		
+		programCode = commonService.findProgramCodeByCode(code);
+		LOG.debug("Program Code " + programCode.getDescription());
+				
+		sponsorship = identityService.findSponsorships(programCode);
+		
 		for (AcSponsorship sponsorship : sponsorship) {
 
 			LOG.debug("Sponsorship " + sponsorship.getSponsor().getName());
