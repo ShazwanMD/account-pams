@@ -10,8 +10,11 @@ import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcActorImpl;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
+import my.edu.umk.pams.account.web.module.identity.vo.Actor;
 
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -81,16 +84,18 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 	// create invoice.
 	// then - cari invoice based charge tadi
 	public void I_generate_invoice_per_matric_no(String MatricNo) {
-
+		
+	
 		AcStudent student = identityService.findStudentByMatricNo(MatricNo);
 		account = accountService.findAccountByActor(student);
+		System.out.println(account);
 		BigDecimal amount = new BigDecimal(1000.00);
 
 		AcInvoice invoice = new AcInvoiceImpl();
 		invoice.setReferenceNo("1234");
 		invoice.setInvoiceNo("INV20170329");
 		invoice.setTotalAmount(amount);
-		invoice.setDescription("UDA DEWA");
+		invoice.setDescription("INVOICE");
 		invoice.setAccount(account);
 		billingService.startInvoiceTask(invoice);
 
@@ -100,7 +105,6 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 		AcStudent student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
-		
 		AcSecurityCharge charge = new AcSecurityChargeImpl();
 		charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
 		charge.setSourceNo("abc123");

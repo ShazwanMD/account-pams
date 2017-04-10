@@ -27,7 +27,7 @@ public class US_AC_BLG_2002
 		 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoicePerCriteria, ThenBulkInvoiceAreListed> {
 
 	@Test
-	@Rollback
+	@Rollback(false)
 	public void showInvoiceCodePerCriteria() {
 		given().I_am_a_bursary_in_current_academic_session();
 		when().I_generate_invoice_per_matric_no("A17P001");

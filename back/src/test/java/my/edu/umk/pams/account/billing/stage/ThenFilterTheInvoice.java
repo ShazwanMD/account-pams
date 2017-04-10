@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.stage;
 
 import io.jsonwebtoken.lang.Assert;
 
+
 import java.util.List;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
@@ -17,10 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.integration.spring.JGivenStage;
 
+@JGivenStage
 public class ThenFilterTheInvoice extends Stage<ThenFilterTheInvoice> {
 	private static final Logger LOG = LoggerFactory
 			.getLogger(ThenFilterTheInvoice.class);
+	
+
 
 	@Autowired
 	private AccountService accountService;
@@ -33,6 +38,7 @@ public class ThenFilterTheInvoice extends Stage<ThenFilterTheInvoice> {
 
 
 	public ThenFilterTheInvoice I_can_show_invoice_filter_by_charge_code() {
+			
 	return self();
 	}
 
