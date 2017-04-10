@@ -57,10 +57,12 @@ public class WhenListStudentChargesOfTypeCompoundByAccount extends
 		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
 		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
 
+		//NOT EMPTY : TO CHECK COLLECTION DATA
 		Assert.notEmpty(accountCharges, "Account Charges is empty");
 
 		for (AcAccountCharge charges : accountCharges) {
 
+			//NOT NULL : TO CHECK DATA
 			Assert.notNull(charges, "Charges is empty");
 
 		}
