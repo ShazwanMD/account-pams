@@ -18,6 +18,7 @@ import io.jsonwebtoken.lang.Assert;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcCoverage;
@@ -36,9 +37,9 @@ public class ThenCanViewStudentsCompoundCharges extends Stage<ThenCanViewStudent
 
 	@ProvidedScenarioState
 	private AcAccount account;
-
+	
 	@ExpectedScenarioState
-	private AcAccountCharge accountCharge;
+    private List<AcAccountCharge> accountCharges;
 
 	@ProvidedScenarioState
 	private AcStudent student;
@@ -49,22 +50,71 @@ public class ThenCanViewStudentsCompoundCharges extends Stage<ThenCanViewStudent
 	@Autowired
 	private IdentityService identityService;
 
-	@As("can view students compound charges")
-	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges_$(String matricNo) {
-
-		student = identityService.findStudentByMatricNo(matricNo);
-		LOG.debug("Student ID :" + student.getIdentityNo());
-
-		// sponsorship = identityService.findSponsorships(student);
-		accountCharge = accountService.findAccountChargeByReferenceNo("REFNO/1490156078146");
-
-		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(account);
-
-		for (AcAccountCharge charge : accountCharge) {
-
-			LOG.debug("Charge Type :" + charge.getChargeType());
+	@As("can view students compound charges of type Academic")
+	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges_of_type_academic_$(String matricNo) {
+		
+		//cari student untuk cari account 
+		//student = identityService.findStudentByMatricNo(matricNo);
+		
+		//cari akaun yg dpt dr student
+		//account = accountService.findAccountByActor(student);
+		
+		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		
+		LOG.debug("-------------------ACADEMIC--------------------");
+		
+		
+		//senarai acc charge dari akaun yg kita jmp utk student ni
+		accountCharges= accountService.findAccountCharges(account);
+		for(AcAccountCharge accountCharges : accountCharges){
+			LOG.debug("Name : "+ accountCharges.getAccount().getActor().getName());
+			LOG.debug("Charge Type : "+ accountCharges.getChargeType());
+			LOG.debug("Description : "+ accountCharges.getDescription());
+			LOG.debug("Session : "+ accountCharges.getSession().getCode());
+			LOG.debug("Reference No : "+ accountCharges.getReferenceNo());
 		}
-
+		
 		return self();
 	}
+	
+	@As("can view students compound charges of type Security")
+	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges_of_type_security_$(String matricNo) {
+		
+		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
+		
+		LOG.debug("-------------------SECURITY--------------------");
+		
+		//senarai acc charge dari akaun yg kita jmp utk student ni
+		accountCharges= accountService.findAccountCharges(chargeType);
+		for(AcAccountCharge accountCharges : accountCharges){
+			LOG.debug("Name : "+ accountCharges.getAccount().getActor().getName());
+			LOG.debug("Charge Type : "+ accountCharges.getChargeType());
+			LOG.debug("Description : "+ accountCharges.getDescription());
+			LOG.debug("Session : "+ accountCharges.getSession().getCode());
+			LOG.debug("Reference No : "+ accountCharges.getReferenceNo());
+		}
+		
+		return self();
+	}
+	
+	@As("can view students compound charges of type Student Affair")
+	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges_of_type_student_affair_$(String matricNo) {
+		
+		AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
+		
+		LOG.debug("-------------------STUDENT_AFFAIRS--------------------");
+		
+		//senarai acc charge dari akaun yg kita jmp utk student ni
+		accountCharges= accountService.findAccountCharges(chargeType);
+		for(AcAccountCharge accountCharges : accountCharges){
+			LOG.debug("Name : "+ accountCharges.getAccount().getActor().getName());
+			LOG.debug("Charge Type : "+ accountCharges.getChargeType());
+			LOG.debug("Description : "+ accountCharges.getDescription());
+			LOG.debug("Session : "+ accountCharges.getSession().getCode());
+			LOG.debug("Reference No : "+ accountCharges.getReferenceNo());
+		}
+		
+		return self();
+	}
+
 }
