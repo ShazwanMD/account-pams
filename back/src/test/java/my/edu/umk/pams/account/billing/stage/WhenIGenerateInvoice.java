@@ -56,9 +56,6 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 	private List<AcCohortCode> cohortCode;
 
 	@ExpectedScenarioState
-	private List<AcStudent> student;
-
-	@ExpectedScenarioState
 	private List<AcSponsorship> sponsorship;
 
 	@ProvidedScenarioState
@@ -84,7 +81,7 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 			settlement.setDescription(sponsor.getName() + " " + sponsor.getId());
 			settlement.setSession(academicSession);
 			settlement.setSponsor(sponsor);
-			
+
 			financialAidService.initSettlement(settlement);
 
 			invoice = new AcInvoiceImpl();
@@ -93,9 +90,8 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 
 			financialAidService.executeSettlement(settlement);
 		}
-	
 
-	return self();
+		return self();
 
 	}
 
@@ -107,8 +103,32 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 	}
 
 	@As("I generate invoice by individually")
-	public WhenIGenerateInvoice I_generate_invoice_by_individually() {
-		
+	public WhenIGenerateInvoice I_generate_invoice_by_individually$(String matricNo) {
+
+		AcStudent student = identityService.findStudentByMatricNo(matricNo);
+		LOG.debug("Student matric No " + student.getMatricNo());
+
+		sponsorship = identityService.findSponsorships(student);
+
+		for (AcSponsorship sponsorship : sponsorship) {
+
+			LOG.debug("Sponsorship " + sponsorship.getSponsor().getName());
+			AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorship.getSponsor().getIdentityNo());
+
+			settlement = new AcSettlementImpl();
+			settlement.setDescription(sponsor.getName() + " " + sponsor.getId());
+			settlement.setSession(academicSession);
+			settlement.setSponsor(sponsor);
+
+			financialAidService.initSettlement(settlement);
+
+			invoice = new AcInvoiceImpl();
+			invoice.setDescription(settlement.getId() + " " + settlement.getSession());
+			invoice.setSession(academicSession);
+
+			financialAidService.executeSettlement(settlement);
+		}
+
 		return self();
 	}
 }
