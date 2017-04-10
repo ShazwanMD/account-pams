@@ -44,7 +44,7 @@ public class ThenFilterTheInvoice extends Stage<ThenFilterTheInvoice> {
 
 	public ThenFilterTheInvoice I_can_show_invoice_filter_by_charge_code() {
 		Assert.notNull(charge,"Charge can not be null");
-		String sourceNo = charge.getSourceNo();
+		String sourceNo  = charge.getSourceNo();
 		LOG.debug("source number {}", sourceNo);
 		List<AcInvoice> invoices = 	billingService.findInvoicesBySourceNo(sourceNo);
 		Assert.notEmpty(invoices,"invoices can not be empty");
