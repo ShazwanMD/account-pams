@@ -18,7 +18,7 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
 	private List<AcSponsorship> sponsorships;
 
 	@Column(name = "STUDENT_STATUS")
-	private AdStudentStatus studentStatus;
+	private AcStudentStatus studentStatus;
 
 	@NotNull
 	@OneToOne(targetEntity = AcCohortCodeImpl.class)
@@ -41,12 +41,12 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
 	}
 
 	@Override
-	public AdStudentStatus getStudentStatus() {
+	public AcStudentStatus getStudentStatus() {
 		return studentStatus;
 	}
 
 	@Override
-	public void setStudentStatus(AdStudentStatus studentStatus) {
+	public void setStudentStatus(AcStudentStatus studentStatus) {
 		this.studentStatus = studentStatus;
 	}
 

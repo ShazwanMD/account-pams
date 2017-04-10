@@ -14,9 +14,9 @@ public interface AcStudent extends AcActor {
 
 	void setMatricNo(String matricNo);
 
-	AdStudentStatus getStudentStatus();
+	AcStudentStatus getStudentStatus();
 
-	void setStudentStatus(AdStudentStatus studentStatus);
+	void setStudentStatus(AcStudentStatus studentStatus);
 
 	AcCohortCode getCohortCode();
 
