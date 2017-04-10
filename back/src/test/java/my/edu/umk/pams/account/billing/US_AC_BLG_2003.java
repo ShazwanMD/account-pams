@@ -23,6 +23,7 @@ public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 	
 	private static final String FACULTY_CODE = "HLP";
 	private static final String MATRIC_NO = "A17P001";
+	private static final String PROGRAM_CODE = "FIAT/PHD/0001";
 	
 	@Test
 	@Rollback(false)
@@ -37,6 +38,14 @@ public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 	public void scenario2() {
 		given().I_am_a_bursary_in_current_academic_session();
 		when().I_generate_invoice_by_individually$(MATRIC_NO);
+		then().I_can_view_invoice();
+	}
+	
+	@Test
+	@Rollback(false)
+	public void scenario3() {
+		given().I_am_a_bursary_in_current_academic_session();
+		when().I_generate_invoice_by_program$(PROGRAM_CODE);
 		then().I_can_view_invoice();
 	}
 
