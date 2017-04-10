@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.account.stage;
+package my.edu.umk.pams.account.marketing.stage;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
