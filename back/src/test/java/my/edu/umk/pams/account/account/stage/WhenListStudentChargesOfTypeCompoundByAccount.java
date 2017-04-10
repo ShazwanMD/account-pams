@@ -9,11 +9,14 @@ import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
+import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -41,6 +44,9 @@ public class WhenListStudentChargesOfTypeCompoundByAccount extends
 
 	@ProvidedScenarioState
 	private AcChargeCode chargeCodes;
+	
+	@ExpectedScenarioState
+	private AcAcademicSession academicSession;
 
 	// private List<AcChargeCode> chargeCodes;
 
@@ -48,19 +54,15 @@ public class WhenListStudentChargesOfTypeCompoundByAccount extends
 	public WhenListStudentChargesOfTypeCompoundByAccount I_want_to_list_student_charges_of_type_compound_by_account_$(
 			String matricNo, String Code) {
 
-		LOG.debug("Student : " + matricNo);
+		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
 
-		// cari student untuk cari account
-		student = identityService.findStudentByMatricNo(matricNo);
+		Assert.notEmpty(accountCharges, "Account Charges is empty");
 
-		// cari akaun yg dpt dr student
-		account = accountService.findAccountByActor(student);
+		for (AcAccountCharge charges : accountCharges) {
 
-		// senarai acc charge dari akaun yg kita jmp utk student ni
-		accountCharges = accountService.findAccountCharges(account);
-		for (AcAccountCharge accountCharges : accountCharges) {
-			LOG.debug("Description " + accountCharges.getDescription());
-			LOG.debug("Session " + accountCharges.getSession().getCode());
+			Assert.notNull(charges, "Charges is empty");
+
 		}
 		
 		return self();
