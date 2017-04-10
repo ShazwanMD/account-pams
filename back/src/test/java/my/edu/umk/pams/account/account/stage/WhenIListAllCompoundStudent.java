@@ -58,8 +58,10 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 		//senarai acc charge dari akaun yg kita jmp utk student ni
 		accountCharges= accountService.findAccountCharges(account);
 		for(AcAccountCharge accountCharges : accountCharges){
-			LOG.debug("Description "+ accountCharges.getDescription());
-			LOG.debug("Session "+ accountCharges.getSession().getCode());
+			LOG.debug("Name : "+ accountCharges.getAccount().getActor().getName());
+			LOG.debug("Charge Type : "+ accountCharges.getChargeType());
+			LOG.debug("Description : "+ accountCharges.getDescription());
+			LOG.debug("Session : "+ accountCharges.getSession().getCode());
 		}
 
 		
