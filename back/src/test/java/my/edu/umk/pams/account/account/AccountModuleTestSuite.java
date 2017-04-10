@@ -24,6 +24,7 @@ import org.junit.runners.Suite;
         US_AC_ACT_3005.class, //zul
         US_AC_ACT_4001.class, //sahir
         US_AC_ACT_4002.class, //sahir
+        US_AC_ACT_5000.class,
         US_AC_ACT_5001.class, //aida
         US_AC_ACT_5002.class, //ta
         US_AC_ACT_5003.class, //aida
