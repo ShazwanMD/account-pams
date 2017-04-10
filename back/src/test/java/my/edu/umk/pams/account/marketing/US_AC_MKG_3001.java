@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.account;
+package my.edu.umk.pams.account.marketing;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-
-import my.edu.umk.pams.account.account.stage.ThenAcademicDiscountCanAppliedToReceipt;
-import my.edu.umk.pams.account.account.stage.WhenIWantGiveCompoundsAcademicDiscountToStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.account.marketing.stage.ThenAcademicDiscountCanAppliedToReceipt;
+import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsAcademicDiscountToStudent;
 import my.edu.umk.pams.bdd.stage.GivenIAmMGSEBAdministrator;
 
 
@@ -22,10 +21,10 @@ import my.edu.umk.pams.bdd.stage.GivenIAmMGSEBAdministrator;
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As Academic (MGSEB/CPS), I want to give compound's discount to student so that discount can applied to receipt")
-public class US_AC_ACT_7003 extends
+public class US_AC_MKG_3001 extends
 		SpringScenarioTest<GivenIAmMGSEBAdministrator, WhenIWantGiveCompoundsAcademicDiscountToStudent, ThenAcademicDiscountCanAppliedToReceipt> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7003.class);
+	private static final Logger LOG = LoggerFactory.getLogger(US_AC_MKG_3001.class);
 
 	private static final String MATRIC_NO = "A17P001";
 
