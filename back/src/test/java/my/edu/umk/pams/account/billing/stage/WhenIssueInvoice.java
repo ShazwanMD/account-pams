@@ -50,7 +50,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
 	@ProvidedScenarioState
 	private AcAccount account;
-	
+
 	@ProvidedScenarioState
 	private AcAccountCharge charge;
 
@@ -62,7 +62,6 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
 	public WhenIssueInvoice I_charge_student_with_academic_fees() {
 
-
 		return self();
 	}
 
@@ -71,8 +70,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 	// create invoice.
 	// then - cari invoice based charge tadi
 	public void I_generate_invoice_per_matric_no(String MatricNo) {
-		
-	
+
 		AcStudent student = identityService.findStudentByMatricNo(MatricNo);
 		account = accountService.findAccountByActor(student);
 		System.out.println(account);
@@ -89,23 +87,26 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 	}
 
 	public WhenIssueInvoice I_create_security_charge_to_student(String matricNo) {
+
 		AcStudent student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
-	   charge = new AcSecurityChargeImpl();
+		charge = new AcSecurityChargeImpl();
 		charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
 		charge.setSourceNo("abc123");
 		charge.setAmount(BigDecimal.valueOf(20.00));
 		charge.setDescription("chargeA");
 		charge.setSession(academicSession);
-		charge.setReferenceNo("SEC_CHRGE"+System.currentTimeMillis());
+		charge.setReferenceNo("SEC_CHRGE" + System.currentTimeMillis());
 
-		chargeCode = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321");
+		chargeCode = accountService
+				.findChargeCodeByCode("TMGSEB-MBA-00-H79321");
 		Assert.notNull(chargeCode, "chargeCode cannot be null");
 
 		accountService.addAccountCharge(account, charge);
-		return self();
+		LOG.debug("Student :--> " + student.getIdentityNo());
 
+		return self();
 
 	}
 }
