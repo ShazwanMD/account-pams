@@ -34,7 +34,7 @@ public class WhenIGenerateReport extends Stage<WhenIGenerateReport> {
 	private AcProgramCode programCode;
 
 	@As("I generate report by program")
-	public WhenIGenerateReport I_generate_by_program$(String code) {
+	public WhenIGenerateReport I_generate_report_by_program$(String code) {
 
 		programCode = commonService.findProgramCodeByCode(code);
 		LOG.debug("Program Code " + programCode.getDescription());

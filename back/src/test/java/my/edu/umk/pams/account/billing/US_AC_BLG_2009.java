@@ -27,7 +27,7 @@ public class US_AC_BLG_2009 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 	@Rollback(false)
 	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
-		when().I_generate_by_program$(PROGRAM_CODE);
+		when().I_generate_report_by_program$(PROGRAM_CODE);
 		then().I_can_print_report();
 	}
 }
