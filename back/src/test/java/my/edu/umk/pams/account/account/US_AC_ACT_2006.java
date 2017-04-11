@@ -2,8 +2,6 @@ package my.edu.umk.pams.account.account;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,9 +23,7 @@ import my.edu.umk.pams.bdd.tags.Issue;
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As a Bursary, I want to list student charges of type academic by account, so that I can view student's academic charges")
-public class US_AC_ACT_2006
-		extends SpringScenarioTest<GivenIAmBursary, WhenIFillInStudentCompound, ThenViewStudentTypeCharges> {
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_2006.class);
+public class US_AC_ACT_2006 extends SpringScenarioTest<GivenIAmBursary, WhenIFillInStudentCompound, ThenViewStudentTypeCharges> {
 
 	private static final String MATRIC_NO = "A17P001";
 	private static final String CODE = "TMGSEB-MBA-00-H79322";

@@ -9,8 +9,6 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,8 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As a Student Affair, I want to register student compound bill so that the compound details are recorded")
 public class US_AC_ACT_5001 extends SpringScenarioTest<GivenIAmStudentAffair, WhenWantToRegisterStudentCompoundBill, ThenTheCompoundDetailsAreRecorded> {
-
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5001.class);
 
 	@Test
 	@Rollback
