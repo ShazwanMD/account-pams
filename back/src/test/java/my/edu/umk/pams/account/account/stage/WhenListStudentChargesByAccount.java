@@ -50,13 +50,16 @@ public class WhenListStudentChargesByAccount extends
 			String matricNo) {
 
 		student = identityService.findStudentByMatricNo(matricNo);
-
+		
 		account = accountService.findAccountByActor(student);
-
 		accountCharges = accountService.findAccountCharges(account);
 		for (AcAccountCharge accountCharges : accountCharges) {
-			LOG.debug("Description " + accountCharges.getDescription());
-			LOG.debug("Session " + accountCharges.getSession().getCode());
+			LOG.debug("Identity Number : " + accountCharges.getAccount().getActor().getIdentityNo());
+			LOG.debug("Name : " + accountCharges.getAccount().getActor().getName());
+			LOG.debug("Source Number : " + accountCharges.getSourceNo());
+			LOG.debug("Description : " + accountCharges.getDescription());
+			LOG.debug("Session : " + accountCharges.getSession().getCode());
+			LOG.debug("");
 		}
 
 		return self();
