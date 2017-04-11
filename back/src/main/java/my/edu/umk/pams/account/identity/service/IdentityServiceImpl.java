@@ -496,7 +496,7 @@ public class IdentityServiceImpl implements IdentityService {
     }
     
 	@Override
-	public List<AcStudent> findByCohort(AcCohortCode cohortCode) {
+	public List<AcStudent> findStudentByCohortCode(AcCohortCode cohortCode) {
 		return studentDao.findCohort(cohortCode);
 	}
 	

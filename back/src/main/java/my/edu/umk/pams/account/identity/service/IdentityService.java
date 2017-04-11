@@ -183,7 +183,7 @@ public interface IdentityService {
 
     List<AcStudent> findStudents(String filter, Integer offset, Integer limit);
     
-    List<AcStudent> findByCohort(AcCohortCode cohortCode);
+    List<AcStudent> findStudentByCohortCode(AcCohortCode cohortCode);
     
     List<AcSponsorship> findSponsorships(AcStudent student);
         
