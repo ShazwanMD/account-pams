@@ -91,7 +91,7 @@ public class ReceiptWorkflowTest {
         // transition to DRAFTED
         AcBursaryReceipt receipt = new AcBursaryReceiptImpl();
         receipt.setTotalAmount(BigDecimal.ZERO);
-        receipt.setDescription("INVOICE");
+        receipt.setDescription("RECEIPT");
         receipt.setPaymentMethod(AcPaymentMethod.CASH);
         receipt.setTotalApplied(BigDecimal.ZERO);
         receipt.setTotalReceived(BigDecimal.ZERO);
@@ -130,7 +130,7 @@ public class ReceiptWorkflowTest {
 
         // find and complete assigned registered receipt
         // assuming there is exactly one
-        // transition to APPROVED
+        // transition to APPROVED (COMPLETED)
         List<Task> assignedRegisteredReceipts = billingService.findAssignedReceiptTasks(0, 100);
         workflowService.completeTask(assignedRegisteredReceipts.get(0));
     }
@@ -197,7 +197,7 @@ public class ReceiptWorkflowTest {
 
         // find and complete assigned verified invoice
         // assuming there is exactly one
-        // transition to APPROVED
+        // transition to APPROVED (COMPLETED)
         List<Task> assignedVerifiedInvoices = billingService.findAssignedInvoiceTasks(0, 100);
         workflowService.completeTask(assignedVerifiedInvoices.get(0)); // TO APPROVE
         return referenceNo;
