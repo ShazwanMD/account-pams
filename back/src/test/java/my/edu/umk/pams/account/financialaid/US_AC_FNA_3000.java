@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
+import my.edu.umk.pams.account.account.stage.ThenICanCheckMyPaymentStatus;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.financialaid.stage.ThenAddSponsorAndCheckFees;
 import my.edu.umk.pams.account.financialaid.stage.WhenIViewSponsorshipInformation;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 
@@ -20,7 +20,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As a student, I want to view information on my sponsorship so that I can check my fee status")
-public class US_AC_FNA_3000 extends SpringScenarioTest<GivenIAmStudent, WhenIViewSponsorshipInformation, ThenAddSponsorAndCheckFees>{
+public class US_AC_FNA_3000 extends SpringScenarioTest<GivenIAmStudent, WhenIViewSponsorshipInformation, ThenICanCheckMyPaymentStatus>{
 
 
 	private static final String MATRIC_NO = "A17P002";
@@ -31,7 +31,6 @@ public class US_AC_FNA_3000 extends SpringScenarioTest<GivenIAmStudent, WhenIVie
 
 		given().I_am_a_student_in_current_academic_session();
 		when().I_want_to_view_sponsorship_information_$(MATRIC_NO);
-		// todo:
-//		then().I_can_check_my_fees_status();
+		then().I_can_check_my_payment_status();
 	}
 }

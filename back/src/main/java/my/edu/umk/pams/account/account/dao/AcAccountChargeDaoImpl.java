@@ -18,8 +18,7 @@ import java.util.List;
 @Repository("acAccountChargeDao")
 public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCharge> implements  AcAccountChargeDao {
 
-
-    private static final Logger LOG = LoggerFactory.getLogger(AcAccountDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcAccountChargeDaoImpl.class);
 
     public AcAccountChargeDaoImpl() {
         super(AcAccountChargeImpl.class);
@@ -348,6 +347,19 @@ public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCha
         query.setEntity("academicSession", academicSession);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
+    }
+
+    @Override
+    public boolean isChargeExists(AcAccount account, String sourceNo) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcAccountCharge s where " +
+                "s.account = :account " +
+                "and s.sourceNo = :sourceNo " +
+                "and s.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setString("sourceNo", sourceNo);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue() > 0;
     }
 
     @Override

@@ -72,5 +72,8 @@ public interface AcAccountChargeDao extends GenericDao<Long, AcAccountCharge> {
 
     Integer countDetached(AcAcademicSession academicSession, AcAccount account);
 
+    boolean isChargeExists(AcAccount account, String sourceNo);
+
     boolean isChargeExists(AcAccount account, AcAcademicSession academicSession, AcAccountChargeType chargeType);
+
 }

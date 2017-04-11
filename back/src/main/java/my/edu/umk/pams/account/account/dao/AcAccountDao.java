@@ -1,9 +1,6 @@
 package my.edu.umk.pams.account.account.dao;
 
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.model.AcAccountTransaction;
+import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
@@ -70,6 +67,8 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 
     BigDecimal sumCreditAmount(AcAccount account);
 
+    BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession);
+
     BigDecimal sumAccountTransaction(AcAccount account);
 
     BigDecimal sumAccountTransaction(AcAccount account, AcAcademicSession academicSession);
@@ -97,6 +96,10 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     void updateCharge(AcAccount account, AcAccountCharge charge, AcUser user);
 
     void deleteCharge(AcAccount account, AcAccountCharge charge, AcUser user);
+
+    void addWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver, AcUser user);
+
+    void deleteWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver, AcUser user);
 
     void addAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
 

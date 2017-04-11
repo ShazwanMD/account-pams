@@ -32,10 +32,10 @@ public class ThenICanCheckMyPaymentStatus extends Stage<ThenICanCheckMyPaymentSt
 	AcAccountCharge accountCharge;
 
 	@Pending
-	public void I_can_check_my_payment_status() {
+	public ThenICanCheckMyPaymentStatus I_can_check_my_payment_status() {
 		
 		//todo: check the status, make sure payment is cleared
-
+		return self();
 	}
 
 }
