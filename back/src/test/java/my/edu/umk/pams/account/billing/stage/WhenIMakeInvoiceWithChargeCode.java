@@ -5,9 +5,7 @@ import io.jsonwebtoken.lang.Assert;
 import java.math.BigDecimal;
 
 
-
-
-
+import my.edu.umk.pams.account.account.model.AcSecurityCharge;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
@@ -43,24 +41,26 @@ public class WhenIMakeInvoiceWithChargeCode extends
 	@ProvidedScenarioState
 	private AcChargeCode chargeCode;
 
-	public WhenIMakeInvoiceWithChargeCode I_make_invoice_given_charge_code(
+	@ProvidedScenarioState
+	private AcInvoice invoice ;
+
+    public WhenIMakeInvoiceWithChargeCode I_make_invoice_given_charge_code(
 			String code) {
 		
 		Assert.notNull(student,"Student cannot be null");
 		String noStudent = student.getIdentityNo();
 		BigDecimal a = new BigDecimal("2.00");
 
-		AcInvoice invoice = new AcInvoiceImpl();
+		invoice = new AcInvoiceImpl();
 		invoice.setDescription("Inv Desc 1");
 		invoice.setTotalAmount(a);
 		invoice.setInvoiceNo("INV_" + noStudent + 001);
 		billingService.saveInvoice(invoice);
 
-		
-		AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();
+        AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();
 		invoiceItem.setAmount(a);
 		invoiceItem.setDescription("Sub Item 1");
-		
+
 		chargeCode = accountService.findChargeCodeByCode(code);
 		invoiceItem.setChargeCode(chargeCode);
 		billingService.addInvoiceItem(invoice, invoiceItem);

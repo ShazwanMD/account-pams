@@ -37,8 +37,8 @@ public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssu
     
 		given().I_am_a_bursary_in_current_academic_session();
         //when().I_create_security_charge_to_student(MATRIC_NUMBER);
-        addStage(WhenAddStudentCompound.class).and().I_add_security_compound_$(MATRIC_NUMBER,CHARGE_CODE);
         addStage(WhenIMakeInvoiceWithChargeCode.class).and().I_make_invoice_given_charge_code(CHARGE_CODE);
+        addStage(WhenAddStudentCompound.class).and().I_add_security_compound_$(MATRIC_NUMBER,CHARGE_CODE);
         then().then_the_invoice_has_a_correct_charge_code();
     }
     

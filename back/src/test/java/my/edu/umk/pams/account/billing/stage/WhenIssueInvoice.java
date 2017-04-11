@@ -68,7 +68,6 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 
 
 	public WhenIssueInvoice I_create_security_charge_to_student(String matricNo) {
-
 		AcStudent student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
