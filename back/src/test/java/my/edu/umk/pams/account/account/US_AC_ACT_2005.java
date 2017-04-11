@@ -20,8 +20,7 @@ import my.edu.umk.pams.bdd.tags.Issue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As a Bursary, I want to list student charges of type compound by account so that I can view student's compound charges")
-public class US_AC_ACT_2005
-		extends SpringScenarioTest<GivenIAmBursary, WhenIFillInCompoundStudent, ThenICanViewStudentCharges> {
+public class US_AC_ACT_2005 extends SpringScenarioTest<GivenIAmBursary, WhenIFillInCompoundStudent, ThenICanViewStudentCharges> {
 
 	private static final String MATRIC_NO = "A17P001";
 	private static final String CODE = "TMGSEB-MBA-00-H79322";

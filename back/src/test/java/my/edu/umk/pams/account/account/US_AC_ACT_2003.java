@@ -19,8 +19,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As a Bursary, I want to list student charges by account so that I can view student's charges")
 //@As("As a Bursary, I want to print compound payment receipt after payment so that it can be used as proof of payment.")
-public class US_AC_ACT_2003 extends
-        SpringScenarioTest<GivenIAmBursary, WhenListPaidStudentChargesByAccount, ThenCanViewPaidStudentCharges>{
+public class US_AC_ACT_2003 extends SpringScenarioTest<GivenIAmBursary, WhenListPaidStudentChargesByAccount, ThenCanViewPaidStudentCharges>{
     
 	private static final String MATRIC_NO = "A17P001";
 	

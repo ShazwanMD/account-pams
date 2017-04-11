@@ -2,8 +2,6 @@ package my.edu.umk.pams.account.account;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,8 +21,6 @@ import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As Academic (MGSEB/CPS), I want to update student information so that I can give student information to Bursary")
 public class US_AC_ACT_7004 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIWantUpdateStudentInformation, ThenCanGiveStudentInformationToBursary> {
-
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7004.class);
 
 	@Test
 	@Rollback(false)

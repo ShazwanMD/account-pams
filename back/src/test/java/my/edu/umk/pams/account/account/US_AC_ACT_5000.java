@@ -8,8 +8,6 @@ import org.junit.Test;
 **/
 
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,7 +26,6 @@ import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
 @As("Academic (MGSEB/PPS), I want to register student compound bill so that the compound details are record. ")
 public class US_AC_ACT_5000 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIRegisterStudentCompoundBill, ThenCompoundDetailsAreRecord> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5000.class);
 	public static final String MATRIC_NO = "A17P001";
 
 	@Test

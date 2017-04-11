@@ -2,8 +2,6 @@ package my.edu.umk.pams.account.account;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,7 +23,6 @@ import my.edu.umk.pams.bdd.tags.Issue;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As a Student Affair, I want to list all compound student so that I can view student's compound charges")
 public class US_AC_ACT_5002 extends SpringScenarioTest<GivenIAmStudentAffair, WhenListAllCompoundStudent, ThenViewStudentCompoundCharges>{
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_5002.class);
 	
 	@Test
 	@Rollback
