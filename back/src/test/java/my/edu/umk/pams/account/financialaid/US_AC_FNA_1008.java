@@ -11,24 +11,22 @@ import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.financialaid.stage.ThenICanGenerateInvoiceForSponsor;
-import my.edu.umk.pams.account.financialaid.stage.WhenIAddSettlementDetails;
-import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.account.financialaid.stage.ThenICanMakeSureFeesPayment;
+import my.edu.umk.pams.account.financialaid.stage.WhenIWantToListStudentStatus;
+import my.edu.umk.pams.bdd.stage.GivenIAmMGSEBAdministrator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@As("As a Bursary, I want to add settlement process ,so that I can generate sponsor Invoice")
-public class US_AC_FNA_1009 extends SpringScenarioTest<GivenIAmBursary, WhenIAddSettlementDetails, ThenICanGenerateInvoiceForSponsor>{
-
-	private static final String SPONSOR_NO = "HLP";
+@As("As a Bursary, I want to receive active student list from Academic so that student list can be submit to KPT for KADS1M purposes.")
+public class US_AC_FNA_1008 extends SpringScenarioTest<GivenIAmMGSEBAdministrator, WhenIWantToListStudentStatus, ThenICanMakeSureFeesPayment>{
 
 	@Test
 	@Rollback(false)
 	public void scenario1() {
-		given().I_am_a_bursary_in_current_academic_session()
-				.and().I_pick_a_sponsor_with_sponsor_no_$(SPONSOR_NO);
-		when().I_want_to_start_settlement_process_for_sponsor$();
-		then().I_can_generate_invoice();
+
+		given().I_am_a_MGSEB_administrator_in_current_academic_session();
+		when().list_student_status();
+		then().I_want_to_make_sure_fess_payment();
 	}
 }
