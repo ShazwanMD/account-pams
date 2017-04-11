@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.service;
 
 import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 
@@ -62,6 +63,38 @@ public interface AccountService {
 
     void removeChargeCode(AcChargeCode code);
 
+    //====================================================================================================
+    // FEE SCHEDULE
+    //====================================================================================================
+
+    AcFeeSchedule findFeeScheduleById(Long id);
+
+    AcFeeSchedule findFeeScheduleByCode(String code);
+
+    AcFeeSchedule findFeeScheduleByCohortCode(AcCohortCode cohortCode);
+
+    AcFeeScheduleItem findFeeScheduleItemById(Long id);
+
+    List<AcFeeSchedule> findFeeSchedules(Integer offset, Integer limit);
+
+    List<AcFeeSchedule> findFeeSchedules(String filter, Integer offset, Integer limit);
+
+    List<AcFeeScheduleItem> findFeeScheduleItems(AcFeeSchedule schedule);
+
+    Integer countFeeSchedule(String filter);
+
+    Integer countFeeSchedule(AcCohortCode cohortCode);
+
+    Integer countFeeScheduleItem(AcFeeSchedule schedule);
+
+    boolean hasFeeSchedule(AcCohortCode cohortCode);
+
+    void saveFeeSchedule(AcFeeSchedule schedule);
+
+    void updateFeeSchedule(AcFeeSchedule schedule);
+
+    void deleteFeeSchedule(AcFeeSchedule schedule);
+
     // ==================================================================================================== //
     // ACTOR ACCOUNT
     // ==================================================================================================== //
@@ -117,6 +150,12 @@ public interface AccountService {
     boolean hasAccountTransaction(String sourceNo);
 
     void saveAccount(AcAccount account);
+
+    void updateAccount(AcAccount account);
+
+    // business
+    // activate
+    // deactivate
 
     // ==================================================================================================== //
     //  ACCOUNT CHARGE

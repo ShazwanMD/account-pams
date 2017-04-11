@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author PAMS
  */
-public interface AcFeeScheduleDao extends GenericDao<Long, AcFeeSchedule>{
+public interface AcFeeScheduleDao extends GenericDao<Long, AcFeeSchedule> {
 
     AcFeeSchedule findByCode(String code);
 
@@ -24,6 +24,8 @@ public interface AcFeeScheduleDao extends GenericDao<Long, AcFeeSchedule>{
     List<AcFeeScheduleItem> findItems(AcFeeSchedule schedule);
 
     Integer count(String filter);
+
+    Integer count(AcCohortCode cohortCode);
 
     Integer countItem(AcFeeSchedule schedule);
 

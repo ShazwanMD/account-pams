@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.service;
 
 import my.edu.umk.pams.account.account.dao.*;
 import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.security.service.SecurityService;
@@ -35,6 +36,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AcChargeCodeDao chargeCodeDao;
+
+    @Autowired
+    private AcFeeScheduleDao feeScheduleDao;
 
     @Autowired
     private AcAcademicSessionDao academicSessionDao;
@@ -162,6 +166,83 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void removeChargeCode(AcChargeCode chargeCode) {
         chargeCodeDao.remove(chargeCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    // ==================================================================================================== //
+    // FEE SCHEDULE
+    // ==================================================================================================== //
+
+    @Override
+    public AcFeeSchedule findFeeScheduleById(Long id) {
+        return feeScheduleDao.findById(id);
+    }
+
+    @Override
+    public AcFeeSchedule findFeeScheduleByCode(String code) {
+        return feeScheduleDao.findByCode(code);
+    }
+
+    @Override
+    public AcFeeSchedule findFeeScheduleByCohortCode(AcCohortCode cohortCode) {
+        return feeScheduleDao.findByCohortCode(cohortCode);
+    }
+
+    @Override
+    public AcFeeScheduleItem findFeeScheduleItemById(Long id) {
+        return feeScheduleDao.findItemById(id);
+    }
+
+    @Override
+    public List<AcFeeSchedule> findFeeSchedules(Integer offset, Integer limit) {
+        return feeScheduleDao.find(offset, limit);
+    }
+
+    @Override
+    public List<AcFeeSchedule> findFeeSchedules(String filter, Integer offset, Integer limit) {
+        return feeScheduleDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public List<AcFeeScheduleItem> findFeeScheduleItems(AcFeeSchedule schedule) {
+        return feeScheduleDao.findItems(schedule);
+    }
+
+    @Override
+    public Integer countFeeSchedule(String filter) {
+        return feeScheduleDao.count(filter);
+    }
+
+    @Override
+    public Integer countFeeSchedule(AcCohortCode cohortCode) {
+        return feeScheduleDao.count(cohortCode);
+    }
+
+    @Override
+    public Integer countFeeScheduleItem(AcFeeSchedule schedule) {
+        return feeScheduleDao.countItem(schedule);
+    }
+
+    @Override
+    public boolean hasFeeSchedule(AcCohortCode cohortCode) {
+        return feeScheduleDao.hasSchedule(cohortCode);
+    }
+
+    @Override
+    public void saveFeeSchedule(AcFeeSchedule schedule) {
+        feeScheduleDao.save(schedule,securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateFeeSchedule(AcFeeSchedule schedule) {
+        feeScheduleDao.update(schedule,securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void deleteFeeSchedule(AcFeeSchedule schedule) {
+        feeScheduleDao.delete(schedule, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -307,6 +388,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void saveAccount(AcAccount account) {
         accountDao.save(account, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateAccount(AcAccount account) {
+        accountDao.update(account, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 

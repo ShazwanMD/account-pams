@@ -472,6 +472,37 @@
         primary key (ID)
     );
 
+    create table AC_FEE_SCDL (
+        ID int8 not null,
+        CODE varchar(255) not null,
+        DESCRIPTION varchar(255) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        TOTAL_AMOUNT numeric(19, 2) not null,
+        COHORT_CODE_ID int8,
+        primary key (ID)
+    );
+
+    create table AC_FEE_SCDL_ITEM (
+        ID int8 not null,
+        AMOUNT numeric(19, 2) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        CHARGE_CODE_ID int8,
+        SCHEDULE_ID int8,
+        primary key (ID)
+    );
+
     create table AC_GNRL_RCPT (
         ID int8 not null,
         primary key (ID)
@@ -1162,6 +1193,24 @@
     alter table AC_FCTY_CODE 
         add constraint uc_AC_FCTY_CODE_1 unique (CODE);
 
+    alter table AC_FEE_SCDL 
+        add constraint uc_AC_FEE_SCDL_1 unique (CODE);
+
+    alter table AC_FEE_SCDL 
+        add constraint FKE76F478E18CFEEEC 
+        foreign key (COHORT_CODE_ID) 
+        references AC_CHRT_CODE;
+
+    alter table AC_FEE_SCDL_ITEM 
+        add constraint FK85B26D2465B1C0CE 
+        foreign key (CHARGE_CODE_ID) 
+        references AC_CHRG_CODE;
+
+    alter table AC_FEE_SCDL_ITEM 
+        add constraint FK85B26D24798F62F5 
+        foreign key (SCHEDULE_ID) 
+        references AC_FEE_SCDL;
+
     alter table AC_GNRL_RCPT 
         add constraint FKD19D8436B023D496 
         foreign key (ID) 
@@ -1421,6 +1470,10 @@
     create sequence SQ_AC_EMIL_TMPT;
 
     create sequence SQ_AC_FCTY_CODE;
+
+    create sequence SQ_AC_FEE_SCDL;
+
+    create sequence SQ_AC_FEE_SCDL_ITEM;
 
     create sequence SQ_AC_GROP_MMBR;
 
