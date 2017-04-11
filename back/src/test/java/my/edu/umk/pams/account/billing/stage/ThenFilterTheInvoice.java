@@ -4,10 +4,12 @@ import io.jsonwebtoken.lang.Assert;
 
 
 
+
 import java.util.List;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
@@ -39,13 +41,16 @@ public class ThenFilterTheInvoice extends Stage<ThenFilterTheInvoice> {
 	private AcAccount account;
 	
 	@ExpectedScenarioState
-	private AcAccountCharge charge;
+	private AcChargeCode chargeCode;
+	
 
 
 	public ThenFilterTheInvoice I_can_show_invoice_filter_by_charge_code() {
-		Assert.notNull(charge,"Charge can not be null");
-		LOG.debug("source number {}", charge.getChargeType());
+		Assert.notNull(chargeCode ,"chargeCode  can not be null");
+		LOG.debug("source number {}", chargeCode.getCode());
+		LOG.debug("source number {}", chargeCode.getDescription());
 		
+
 		//List<AcAccount> charges = charge.setAccount(account);
 		//accountService.addAccountCharge(acAccount, charge);
 		

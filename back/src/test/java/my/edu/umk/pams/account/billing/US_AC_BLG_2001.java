@@ -1,6 +1,8 @@
 package my.edu.umk.pams.account.billing;
 
+import my.edu.umk.pams.account.account.stage.WhenAddStudentCompound;
 import my.edu.umk.pams.account.billing.stage.ThenFilterTheInvoice;
+import my.edu.umk.pams.account.billing.stage.WhenIMakeInvoiceWithChargeCode;
 import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
@@ -24,6 +26,8 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenFilterTheInvoice>{
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2001.class);
+	private static final String MATRIC_NUMBER = "A17P002";   
+	private static final String CHARGE_CODE = "TABPPS-PCA-00-H79336";
 	
     @Test
     @Rollback
@@ -32,7 +36,9 @@ public class US_AC_BLG_2001 extends SpringScenarioTest<GivenIAmBursary, WhenIssu
     	//create invoice @ charge code
     
 		given().I_am_a_bursary_in_current_academic_session();
-        when().I_create_security_charge_to_student("A17P002");
+        //when().I_create_security_charge_to_student(MATRIC_NUMBER);
+        addStage(WhenAddStudentCompound.class).and().I_add_security_compound_$(MATRIC_NUMBER,CHARGE_CODE);
+        addStage(WhenIMakeInvoiceWithChargeCode.class).and().I_make_invoice_given_charge_code(CHARGE_CODE);
         then().I_can_show_invoice_filter_by_charge_code();
     }
     

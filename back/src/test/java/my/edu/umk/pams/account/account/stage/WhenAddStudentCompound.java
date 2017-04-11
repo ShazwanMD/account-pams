@@ -65,24 +65,25 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 		return self();
 	}
 
-	public WhenAddStudentCompound I_add_security_compound_$(String matricNo){
+
+	public WhenAddStudentCompound I_add_security_compound_$(String matricNo, String code){
 
 		student = identityService.findStudentByMatricNo(matricNo);
 
 		account = accountService.findAccountByActor(student);
 
-		AcSecurityCharge charge1 = new AcSecurityChargeImpl();
+		AcSecurityCharge charge = new AcSecurityChargeImpl();
 
-		charge1.setReferenceNo("REFNO/" + System.currentTimeMillis());
-		charge1.setSourceNo("ACD - 001");
-		charge1.setDescription("BAYAR YURAN LEWAT");
-		charge1.setAmount(BigDecimal.valueOf(80.00));
-		charge1.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79333"));
-		charge1.setSession(academicSession);
+		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		charge.setSourceNo("ACD - 002");
+		charge.setDescription("TAK PAKAI KASUT");
+		charge.setAmount(BigDecimal.valueOf(80.00));
+		charge.setChargeCode(accountService.findChargeCodeByCode(code));
+		charge.setSession(academicSession);
 
 		// use account service to add charge
-		accountService.addAccountCharge(account, charge1);
-
+		accountService.addAccountCharge(account, charge);
+		LOG.debug("charge "+charge);
 		return self();
 	}
 }

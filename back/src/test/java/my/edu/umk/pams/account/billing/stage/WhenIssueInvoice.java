@@ -7,6 +7,7 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.account.stage.WhenIAddAStudent;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.service.BillingService;
@@ -65,26 +66,6 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 		return self();
 	}
 
-	// create student
-	// create charge code
-	// create invoice.
-	// then - cari invoice based charge tadi
-	public void I_generate_invoice_per_matric_no(String MatricNo) {
-
-		AcStudent student = identityService.findStudentByMatricNo(MatricNo);
-		account = accountService.findAccountByActor(student);
-		System.out.println(account);
-		BigDecimal amount = new BigDecimal(1000.00);
-
-		AcInvoice invoice = new AcInvoiceImpl();
-		invoice.setReferenceNo("1234");
-		invoice.setInvoiceNo("INV20170329");
-		invoice.setTotalAmount(amount);
-		invoice.setDescription("INVOICE");
-		invoice.setAccount(account);
-		billingService.startInvoiceTask(invoice);
-
-	}
 
 	public WhenIssueInvoice I_create_security_charge_to_student(String matricNo) {
 
@@ -104,6 +85,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 		Assert.notNull(chargeCode, "chargeCode cannot be null");
 
 		accountService.addAccountCharge(account, charge);
+		
 		LOG.debug("Student :--> " + student.getIdentityNo());
 
 		return self();
