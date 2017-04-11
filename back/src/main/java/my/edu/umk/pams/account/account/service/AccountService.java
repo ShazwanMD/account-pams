@@ -168,7 +168,7 @@ public interface AccountService {
 
     Integer countAccountCharge(String filter, AcAccount account);
 
-    boolean isAccountChargeExists(String sourceNo);
+    boolean isAccountChargeExists(AcAccount account, String sourceNo);
 
     boolean isAccountChargeExists(AcAccount account, AcAccountChargeType chargeType, AcAcademicSession academicSession);
 

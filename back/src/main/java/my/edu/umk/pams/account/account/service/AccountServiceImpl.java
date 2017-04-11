@@ -451,8 +451,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean isAccountChargeExists(String sourceNo) {
-        return false;// todo: return chargeDao.isChargeExists(sourceNo);
+    public boolean isAccountChargeExists(AcAccount account, String sourceNo) {
+        return chargeDao.isChargeExists(account, sourceNo);
     }
 
     @Override
