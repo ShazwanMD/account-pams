@@ -117,10 +117,12 @@ public class AcCreditNoteImpl implements AcCreditNote {
         this.totalAmount = totalAmount;
     }
 
+    @Override
     public Date getIssuedDate() {
         return issuedDate;
     }
 
+    @Override
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
     }

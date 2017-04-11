@@ -117,10 +117,12 @@ public class AcDebitNoteImpl implements AcDebitNote {
         this.totalAmount = totalAmount;
     }
 
+    @Override
     public Date getIssuedDate() {
         return issuedDate;
     }
 
+    @Override
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
     }
