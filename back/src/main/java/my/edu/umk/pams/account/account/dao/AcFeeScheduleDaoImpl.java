@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcUser;
+
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -159,4 +160,10 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
     }
+
+	@Override
+	public Integer count(AcCohortCode cohortCode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
