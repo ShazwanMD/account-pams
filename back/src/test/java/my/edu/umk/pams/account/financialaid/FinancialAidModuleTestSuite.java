@@ -12,7 +12,6 @@ import org.junit.runners.Suite;
     US_AC_FNA_1006.class,
     US_AC_FNA_1007.class,
     US_AC_FNA_1009.class,
-    US_AC_FNA_2003.class,
     US_AC_FNA_3000.class, //hajar
     US_AC_FNA_4000.class,
 })
