@@ -92,6 +92,10 @@ public interface AccountService {
 
     BigDecimal sumBalanceAmount(AcAccount account);
 
+    BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession);
+
+    BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession);
+
     List<AcAccountTransaction> findAccountTransactions(AcAccount account);
 
     List<AcAccountTransaction> findAccountTransactions(AcAccount account, Integer offset, Integer limit);
@@ -112,8 +116,10 @@ public interface AccountService {
 
     boolean hasAccountTransaction(String sourceNo);
 
+    void saveAccount(AcAccount account);
+
     // ==================================================================================================== //
-    // ACTOR ACCOUNT CHARGE
+    //  ACCOUNT CHARGE
     // ==================================================================================================== //
 
     AcAccountCharge findAccountChargeById(Long id);
@@ -176,11 +182,28 @@ public interface AccountService {
 
     Integer countDetachedAccountCharge(AcAcademicSession academicSession, AcAccount account);
 
-    void saveAccount(AcAccount account);
+    void addAccountCharge(AcAccount acAccount, AcAccountCharge charge);
 
-    void addAccountCharge(AcAccount acAccount, AcAccountCharge accountCharge);
+    void deleteAccountCharge(AcAccount acAccount, AcAccountCharge charge);
 
-    void removeAccountCharge(AcAccount acAccount, AcAccountCharge accountCharge);
+    // ==================================================================================================== //
+    //  ACCOUNT WAIVER
+    // ==================================================================================================== //
 
+    AcAccountWaiver findAccountWaiverById(Long id);
+
+    AcAccountWaiver findAccountWaiverByReferenceNo(String referenceNo);
+
+    List<AcAccountWaiver> findAccountWaivers(AcAccount account);
+
+    List<AcAccountWaiver> findAccountWaivers(AcAcademicSession academicSession, AcAccount account);
+
+    Integer countAccountWaiver(AcAcademicSession academicSession, AcAccount account);
+
+    boolean isAccountWaiverExists(AcAccount account, String sourceNo);
+
+    void addAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
+
+    void removeAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
 
 }

@@ -41,6 +41,9 @@ public class AcAccountImpl implements AcAccount{
     @OneToMany(targetEntity = AcAccountChargeImpl.class, mappedBy = "account")
     private List<AcAccountCharge> charges;
 
+    @OneToMany(targetEntity = AcAccountWaiverImpl.class, mappedBy = "account")
+    private List<AcAccountWaiver> waivers;
+
     @Embedded
     private AcMetadata metadata;
 
@@ -91,6 +94,16 @@ public class AcAccountImpl implements AcAccount{
     @Override
     public void setCharges(List<AcAccountCharge> charges) {
         this.charges = charges;
+    }
+
+    @Override
+    public List<AcAccountWaiver> getWaivers() {
+        return waivers;
+    }
+
+    @Override
+    public void setWaivers(List<AcAccountWaiver> waivers) {
+        this.waivers = waivers;
     }
 
     @Override

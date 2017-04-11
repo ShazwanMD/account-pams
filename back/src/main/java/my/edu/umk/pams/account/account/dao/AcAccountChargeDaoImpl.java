@@ -18,8 +18,7 @@ import java.util.List;
 @Repository("acAccountChargeDao")
 public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCharge> implements  AcAccountChargeDao {
 
-
-    private static final Logger LOG = LoggerFactory.getLogger(AcAccountDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcAccountChargeDaoImpl.class);
 
     public AcAccountChargeDaoImpl() {
         super(AcAccountChargeImpl.class);

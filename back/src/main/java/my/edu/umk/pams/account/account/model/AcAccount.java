@@ -9,6 +9,7 @@ import java.util.List;
  * @author PAMS
  */
 public interface AcAccount extends AcMetaObject {
+
     String getCode();
 
     void setCode(String code);
@@ -23,7 +24,11 @@ public interface AcAccount extends AcMetaObject {
 
     List<AcAccountCharge> getCharges();
 
-    void setCharges(List<AcAccountCharge> studentCharges);
+    void setCharges(List<AcAccountCharge> charges);
+
+    List<AcAccountWaiver> getWaivers();
+
+    void setWaivers(List<AcAccountWaiver> waiver);
 
     List<AcAccountTransaction> getTransactions();
 

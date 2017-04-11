@@ -53,6 +53,22 @@
         primary key (ID)
     );
 
+    create table AC_ACCT_WAVR (
+        ID int8 not null,
+        AMOUNT numeric(19, 2),
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        SOURCE_NO varchar(255),
+        ACCOUNT_ID int8,
+        SESSION_ID int8,
+        primary key (ID)
+    );
+
     create table AC_ACDM_CHRG (
         ID int8 not null,
         CHARGE_CODE_ID int8,
@@ -979,6 +995,16 @@
         foreign key (SESSION_ID)
         references AC_ACDM_SESN;
 
+    alter table AC_ACCT_WAVR
+        add constraint FKD58187D562AC940F
+        foreign key (ACCOUNT_ID)
+        references AC_ACCT;
+
+    alter table AC_ACCT_WAVR
+        add constraint FKD58187D5706DBE68
+        foreign key (SESSION_ID)
+        references AC_ACDM_SESN;
+
     alter table AC_ACDM_CHRG
         add constraint FKFE6CD91165B1C0CE
         foreign key (CHARGE_CODE_ID)
@@ -1304,6 +1330,8 @@
     create sequence SQ_AC_ACCT;
 
     create sequence SQ_AC_ACCT_TRSN;
+
+    create sequence SQ_AC_ACCT_WAVR;
 
     create sequence SQ_AC_ACDM_SESN;
 

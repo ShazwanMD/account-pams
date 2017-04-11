@@ -266,6 +266,22 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
+    public BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(w.waivedAmount) from AcWaiver w where " +
+                "w.account = :account " +
+                "and w.session = :academicSession");
+        query.setEntity("account", account);
+        query.setEntity("academicSession", academicSession);
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else {
+            if (((BigDecimal) result).compareTo(BigDecimal.ZERO) < 0) return (BigDecimal) result;
+            else return BigDecimal.ZERO;
+        }
+    }
+
+    @Override
     public BigDecimal sumAccountTransaction(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.amount) from AcAccountTransaction a where " +
@@ -384,6 +400,32 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(charge);
+    }
+
+    @Override
+    public void addWaiver(AcAccount account, AcAcademicSession academicSession,  AcAccountWaiver waiver, AcUser user) {
+        Validate.notNull(account, "Account should not be null");
+        Validate.notNull(waiver, "Waiver should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        waiver.setAccount(account);
+        waiver.setSession(academicSession);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        waiver.setMetadata(metadata);
+        session.save(waiver);
+    }
+
+    @Override
+    public void deleteWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver, AcUser user) {
+        Validate.notNull(account, "Account should not be null");
+        Validate.notNull(waiver, "Waiver should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(waiver);
     }
 
     @Override

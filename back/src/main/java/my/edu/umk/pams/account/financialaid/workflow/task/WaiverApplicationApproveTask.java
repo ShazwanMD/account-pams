@@ -1,5 +1,8 @@
 package my.edu.umk.pams.account.financialaid.workflow.task;
 
+import my.edu.umk.pams.account.account.model.AcAccountWaiver;
+import my.edu.umk.pams.account.account.model.AcAccountWaiverImpl;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
@@ -27,6 +30,9 @@ public class WaiverApplicationApproveTask extends BpmnActivityBehavior
     private FinancialAidService financialAidService;
 
     @Autowired
+    private AccountService accountService;
+
+    @Autowired
     private SecurityService securityService;
 
     public void execute(ActivityExecution execution) throws Exception {
@@ -39,5 +45,15 @@ public class WaiverApplicationApproveTask extends BpmnActivityBehavior
         application.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
         application.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         financialAidService.updateWaiverApplication(application);
+
+        // setup account waiver
+        AcAccountWaiver waiver = new AcAccountWaiverImpl();
+        waiver.setSourceNo(application.getReferenceNo());
+        waiver.setAmount(application.getWaivedAmount());
+        waiver.setSession(application.getSession());
+        waiver.setAccount(application.getAccount());
+
+        // save waiver
+        accountService.addAccountWaiver(application.getAccount(), application.getSession(), waiver);
     }
 }

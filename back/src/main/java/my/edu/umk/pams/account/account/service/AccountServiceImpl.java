@@ -1,9 +1,6 @@
 package my.edu.umk.pams.account.account.service;
 
-import my.edu.umk.pams.account.account.dao.AcAcademicSessionDao;
-import my.edu.umk.pams.account.account.dao.AcAccountChargeDao;
-import my.edu.umk.pams.account.account.dao.AcAccountDao;
-import my.edu.umk.pams.account.account.dao.AcChargeCodeDao;
+import my.edu.umk.pams.account.account.dao.*;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
@@ -31,7 +28,10 @@ public class AccountServiceImpl implements AccountService {
     private AcAccountDao accountDao;
 
     @Autowired
-    private AcAccountChargeDao accountChargeDao;
+    private AcAccountChargeDao chargeDao;
+
+    @Autowired
+    private AcAccountWaiverDao waiverDao;
 
     @Autowired
     private AcChargeCodeDao chargeCodeDao;
@@ -232,7 +232,6 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.hasBalance(academicSession, actor);
     }
 
-
     @Override
     public BigDecimal sumSurplusAmount(AcAccount account) {
         return accountDao.sumDebitAmount(account);
@@ -241,6 +240,17 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public BigDecimal sumBalanceAmount(AcAccount account) {
         return accountDao.sumCreditAmount(account);
+    }
+
+    @Override
+    public BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession) {
+        return accountDao.sumWaiverAmount(account, academicSession);
+    }
+
+    @Override
+    public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
+        return accountDao.sumBalanceAmount(account)
+                .subtract(accountDao.sumWaiverAmount(account, academicSession));
     }
 
     @Override
@@ -294,6 +304,12 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.hasAccountTransaction(sourceNo);
     }
 
+    @Override
+    public void saveAccount(AcAccount account) {
+        accountDao.save(account, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
     // ==================================================================================================== //
     // ACCOUNT CHARGE
     // TODO: refactored per new  account
@@ -301,165 +317,205 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AcAccountCharge findAccountChargeById(Long id) {
-        return accountChargeDao.findById(id);
+        return chargeDao.findById(id);
     }
 
     @Override
     public AcAccountCharge findAccountChargeByReferenceNo(String referenceNo) {
-        return accountChargeDao.findByReferenceNo(referenceNo);
+        return chargeDao.findByReferenceNo(referenceNo);
     }
 
     @Override
     public List<AcAccountCharge> findAttachedAccountCharges(AcAccount account) {
-        return accountChargeDao.findAttached(account);
+        return chargeDao.findAttached(account);
     }
 
     @Override
     public List<AcAccountCharge> findAttachedAccountCharges(AcAcademicSession academicSession, AcAccount account) {
-        return accountChargeDao.findAttached(academicSession, account);
+        return chargeDao.findAttached(academicSession, account);
     }
 
     @Override
     public List<AcAccountCharge> findDetachedAccountCharges(AcAccount account) {
-        return accountChargeDao.findDetached(account);
+        return chargeDao.findDetached(account);
     }
 
     @Override
     public List<AcAccountCharge> findDetachedAccountCharges(AcAcademicSession academicSession, AcAccount account) {
-        return accountChargeDao.findDetached(academicSession, account);
+        return chargeDao.findDetached(academicSession, account);
     }
 
     @Override
     public List<AcAccountCharge> findAccountCharges(AcAccount account) {
-        return accountChargeDao.find(account);
+        return chargeDao.find(account);
     }
 
     @Override
     public List<AcAccountCharge> findAccountCharges(AcAccount account, AcAccountChargeType... chargeTypes) {
-        return accountChargeDao.find(account, chargeTypes);
+        return chargeDao.find(account, chargeTypes);
     }
 
     @Override
     public List<AcAccountCharge> findAccountCharges(AcAcademicSession academicSession, AcAccount account) {
-        return accountChargeDao.find(academicSession, account);
+        return chargeDao.find(academicSession, account);
     }
 
     @Override
     public List<AcAccountCharge> findAccountCharges(AcAcademicSession academicSession, AcAccount account, Integer offset, Integer limit) {
-        return accountChargeDao.find(academicSession, account, offset, limit);
+        return chargeDao.find(academicSession, account, offset, limit);
     }
 
     @Override
     public List<AcAccountCharge> findAccountCharges(AcAccountChargeType... chargeType) {
-        return accountChargeDao.find(chargeType);
+        return chargeDao.find(chargeType);
     }
 
     @Override
     public List<AcAccountCharge> findAccountCharges(AcAcademicSession academicSession, AcAccountChargeType... chargeType) {
-        return accountChargeDao.find(academicSession, chargeType);
+        return chargeDao.find(academicSession, chargeType);
     }
 
     @Override
     public List<AcAccountCharge> findUnpaidAccountCharges(AcAccount account) {
-        return accountChargeDao.find(account);
+        return chargeDao.find(account);
     }
 
     @Override
     public List<AcAccountCharge> findPaidAccountCharges(AcAccount account) {
-        return accountChargeDao.find(account);
+        return chargeDao.find(account);
     }
 
     @Override
     public List<AcAccountCharge> findAccountCharges(AcAccount account, Integer offset, Integer limit) {
-        return accountChargeDao.find(account, offset, limit);
+        return chargeDao.find(account, offset, limit);
     }
 
     @Override
     public List<AcAccountCharge> findUnpaidAccountCharges(AcAccount account, Integer offset, Integer limit) {
-        return accountChargeDao.find(account, offset, limit); // TODO unpaid
+        return chargeDao.find(account, offset, limit); // TODO unpaid
     }
 
     @Override
     public List<AcAccountCharge> findPaidAccountCharges(AcAccount account, Integer offset, Integer limit) {
-        return accountChargeDao.find(account, offset, limit); // TODO paid
+        return chargeDao.find(account, offset, limit); // TODO paid
     }
 
     @Override
     public List<AcAccountCharge> findAccountCharges(String filter, AcAccount account, Integer offset, Integer limit) {
-        return accountChargeDao.find(account);
+        return chargeDao.find(account);
     }
 
     @Override
     public List<AcAccountCharge> findUnpaidAccountCharges(String filter, AcAccount account, Integer offset, Integer limit) {
-        return accountChargeDao.find(account);
+        return chargeDao.find(account);
     }
 
     @Override
     public List<AcAccountCharge> findPaidAccountCharges(String filter, AcAccount account, Integer offset, Integer limit) {
-        return accountChargeDao.find(account);
+        return chargeDao.find(account);
     }
 
     @Override
     public Integer countAccountCharge(AcAccount account) {
-        return accountChargeDao.count(account);
+        return chargeDao.count(account);
     }
 
     @Override
     public Integer countAccountCharge(AcAcademicSession academicSession, AcAccount account) {
-        return accountChargeDao.count(academicSession, account);
+        return chargeDao.count(academicSession, account);
     }
 
     @Override
     public Integer countAccountCharge(String filter, AcAccount account) {
-        return accountChargeDao.count(account);
+        return chargeDao.count(account);
     }
 
     @Override
     public Integer countAttachedAccountCharge(AcAccount account) {
-        return accountChargeDao.countAttached(account);
+        return chargeDao.countAttached(account);
     }
 
     @Override
     public Integer countAttachedAccountCharge(AcAcademicSession academicSession, AcAccount account) {
-        return accountChargeDao.countAttached(academicSession, account);
+        return chargeDao.countAttached(academicSession, account);
     }
 
     @Override
     public Integer countDetachedAccountCharge(AcAccount account) {
-        return accountChargeDao.countDetached(account);
+        return chargeDao.countDetached(account);
     }
 
     @Override
     public Integer countDetachedAccountCharge(AcAcademicSession academicSession, AcAccount account) {
-        return accountChargeDao.countDetached(academicSession, account);
-    }
-
-    @Override
-    public void saveAccount(AcAccount account) {
-        accountDao.save(account, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void addAccountCharge(AcAccount account, AcAccountCharge accountCharge) {
-        accountDao.addCharge(account, accountCharge, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void removeAccountCharge(AcAccount acAccount, AcAccountCharge accountCharge) {
-
+        return chargeDao.countDetached(academicSession, account);
     }
 
     @Override
     public boolean isAccountChargeExists(String sourceNo) {
-        return false;
+        return false;// todo: return chargeDao.isChargeExists(sourceNo);
     }
 
     @Override
     public boolean isAccountChargeExists(AcAccount account, AcAccountChargeType chargeType, AcAcademicSession academicSession) {
-        return accountChargeDao.isChargeExists(account, academicSession, chargeType);
+        return chargeDao.isChargeExists(account, academicSession, chargeType);
     }
 
+    @Override
+    public void addAccountCharge(AcAccount account, AcAccountCharge charge) {
+        accountDao.addCharge(account, charge, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void deleteAccountCharge(AcAccount account, AcAccountCharge charge) {
+        accountDao.deleteCharge(account, charge, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    // ==================================================================================================== //
+    //  ACCOUNT WAIVER
+    // ==================================================================================================== //
+
+    @Override
+    public AcAccountWaiver findAccountWaiverById(Long id) {
+        return waiverDao.findById(id);
+    }
+
+    @Override
+    public AcAccountWaiver findAccountWaiverByReferenceNo(String referenceNo) {
+        return waiverDao.findByReferenceNo(referenceNo);
+    }
+
+    @Override
+    public List<AcAccountWaiver> findAccountWaivers(AcAccount account) {
+        return waiverDao.find(account);
+    }
+
+    @Override
+    public List<AcAccountWaiver> findAccountWaivers(AcAcademicSession academicSession, AcAccount account) {
+        return waiverDao.find(academicSession, account);
+    }
+
+    @Override
+    public Integer countAccountWaiver(AcAcademicSession academicSession, AcAccount account) {
+        return waiverDao.count(academicSession, account);
+    }
+
+    @Override
+    public boolean isAccountWaiverExists(AcAccount account, String sourceNo) {
+        return waiverDao.isWaiverExists(account, sourceNo);
+    }
+
+    @Override
+    public void addAccountWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver) {
+        accountDao.addWaiver(account, academicSession, waiver, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeAccountWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver) {
+        accountDao.addWaiver(account, academicSession, waiver, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
 
 }
