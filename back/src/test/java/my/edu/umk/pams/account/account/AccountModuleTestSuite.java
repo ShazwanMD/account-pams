@@ -3,6 +3,8 @@ package my.edu.umk.pams.account.account;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import my.edu.umk.pams.account.marketing.US_AC_MKG_2001;
+
 
 /**
  * @author PAMS
@@ -30,7 +32,6 @@ import org.junit.runners.Suite;
         US_AC_ACT_5002.class, //ta
         US_AC_ACT_6001.class, //ta
         US_AC_ACT_6002.class, //aida
-        US_AC_ACT_6003.class, //aida
         US_AC_ACT_7001.class, //ta
         US_AC_ACT_7002.class, //aida
         US_AC_ACT_7004.class, //aida     
