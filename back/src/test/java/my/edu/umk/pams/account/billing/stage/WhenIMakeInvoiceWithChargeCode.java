@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 
 import my.edu.umk.pams.account.account.model.AcSecurityCharge;
+import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
@@ -30,9 +31,12 @@ public class WhenIMakeInvoiceWithChargeCode extends
 	private AccountService accountService;
 
 	@Autowired
+	private IdentityService identityService;
+
+	@Autowired
 	private BillingService billingService;
 
-	@ExpectedScenarioState
+	@ProvidedScenarioState
 	private AcStudent student;
 
 	@ProvidedScenarioState
@@ -44,10 +48,9 @@ public class WhenIMakeInvoiceWithChargeCode extends
 	@ProvidedScenarioState
 	private AcInvoice invoice ;
 
-    public WhenIMakeInvoiceWithChargeCode I_make_invoice_given_charge_code(
-			String code) {
-		
-		Assert.notNull(student,"Student cannot be null");
+    public WhenIMakeInvoiceWithChargeCode I_make_invoice_given_charge_code(String matricNo, String code) {
+
+		student = identityService.findStudentByMatricNo(matricNo);
 		String noStudent = student.getIdentityNo();
 		BigDecimal a = new BigDecimal("2.00");
 

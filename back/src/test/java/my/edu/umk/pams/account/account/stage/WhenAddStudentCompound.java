@@ -2,6 +2,8 @@ package my.edu.umk.pams.account.account.stage;
 
 import java.math.BigDecimal;
 
+import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,6 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
-import my.edu.umk.pams.account.account.model.AcAcademicCharge;
-import my.edu.umk.pams.account.account.model.AcAcademicChargeImpl;
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcSecurityCharge;
-import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -40,6 +36,9 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 
 	@ProvidedScenarioState
 	private AcStudent student;
+
+	@ExpectedScenarioState
+	private AcInvoice invoice ;
 
 	@Autowired
 	private AccountService accountService;
@@ -69,18 +68,16 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 	public WhenAddStudentCompound I_add_security_compound_$(String matricNo, String code){
 
 		student = identityService.findStudentByMatricNo(matricNo);
-
 		account = accountService.findAccountByActor(student);
 
 		AcSecurityCharge charge = new AcSecurityChargeImpl();
-
 		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge.setSourceNo("ACD - 002");
 		charge.setDescription("TAK PAKAI KASUT");
 		charge.setAmount(BigDecimal.valueOf(80.00));
 		charge.setChargeCode(accountService.findChargeCodeByCode(code));
 		charge.setSession(academicSession);
-	
+		charge.setInvoice(invoice);
 
 		// use account service to add charge
 		accountService.addAccountCharge(account, charge);
