@@ -45,12 +45,11 @@ public interface AcInvoice extends AcDocument{
 
     void setItems(List<AcInvoiceItem> items);
 
-    // todo(uda): todo
-//    List<AcDebitNote> getDebitNotes();
-//
-//    void setDebitNotes(List<AcDebitNote> notes);
-//
-//    List<AcCreditNote> getCreditNotes();
-//
-//    void setCreditNotes(List<AcCreditNote> notes);
+    List<AcDebitNote> getDebitNotes();
+
+    void setDebitNotes(List<AcDebitNote> notes);
+
+    List<AcCreditNote> getCreditNotes();
+
+    void setCreditNotes(List<AcCreditNote> notes);
 }

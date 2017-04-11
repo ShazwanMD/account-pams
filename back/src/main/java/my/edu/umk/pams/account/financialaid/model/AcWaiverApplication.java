@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.financialaid.model;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.model.AcDocument;
 
@@ -44,6 +45,10 @@ public interface AcWaiverApplication extends AcDocument {
 	AcAccount getAccount();
 
 	void setAccount(AcAccount account);
+
+	AcAcademicSession getSession();
+
+	void setSession(AcAcademicSession session);
 
 
 }

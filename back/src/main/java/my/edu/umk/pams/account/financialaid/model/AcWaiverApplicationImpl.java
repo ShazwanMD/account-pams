@@ -1,12 +1,14 @@
 package my.edu.umk.pams.account.financialaid.model;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
 import java.math.BigDecimal;
 
 /*
@@ -71,6 +73,11 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
+
+    @NotNull
+    @OneToOne(targetEntity = AcAcademicSessionImpl.class)
+    @JoinColumn(name = "SESSION_ID")
+    private AcAcademicSession session;
 
     @Embedded
     private AcMetadata metadata;
@@ -206,6 +213,16 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @Override
     public void setRemoveComment(String removeComment) {
         this.removeComment = removeComment;
+    }
+
+    @Override
+    public AcAcademicSession getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(AcAcademicSession session) {
+        this.session = session;
     }
 
     @Override

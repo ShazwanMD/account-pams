@@ -74,6 +74,12 @@ public class AcInvoiceImpl implements AcInvoice {
     @OneToMany(targetEntity = AcAccountChargeImpl.class, mappedBy = "invoice", fetch = FetchType.LAZY)
     private List<AcAccountCharge> charges;
 
+    @OneToMany(targetEntity = AcDebitNoteImpl.class, mappedBy = "invoice", fetch = FetchType.LAZY)
+    private List<AcDebitNote> debitNotes;
+
+    @OneToMany(targetEntity = AcCreditNoteImpl.class, mappedBy = "invoice", fetch = FetchType.LAZY)
+    private List<AcCreditNote> creditNotes;
+
     @Embedded
     private AcMetadata metadata;
 
@@ -234,6 +240,26 @@ public class AcInvoiceImpl implements AcInvoice {
 
     public void setCharges(List<AcAccountCharge> charges) {
         this.charges = charges;
+    }
+
+    @Override
+    public List<AcDebitNote> getDebitNotes() {
+        return debitNotes;
+    }
+
+    @Override
+    public void setDebitNotes(List<AcDebitNote> debitNotes) {
+        this.debitNotes = debitNotes;
+    }
+
+    @Override
+    public List<AcCreditNote> getCreditNotes() {
+        return creditNotes;
+    }
+
+    @Override
+    public void setCreditNotes(List<AcCreditNote> creditNotes) {
+        this.creditNotes = creditNotes;
     }
 
     @Override

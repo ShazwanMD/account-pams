@@ -820,6 +820,7 @@
     );
 
     create table AC_STDN (
+        STUDENT_STATUS int4,
         ID int8 not null,
         COHORT_CODE_ID int8,
         primary key (ID)
@@ -953,6 +954,7 @@
         SOURCE_NO varchar(255),
         WAIVED_AMOUNT numeric(19, 2) not null,
         ACCOUNT_ID int8,
+        SESSION_ID int8,
         primary key (ID)
     );
 
@@ -1346,6 +1348,11 @@
         add constraint FKAD43A3AD62AC940F 
         foreign key (ACCOUNT_ID) 
         references AC_ACCT;
+
+    alter table AC_WAVR_APLN 
+        add constraint FKAD43A3AD706DBE68 
+        foreign key (SESSION_ID) 
+        references AC_ACDM_SESN;
 
     create sequence SEQ_ACCT_CHRG;
 
