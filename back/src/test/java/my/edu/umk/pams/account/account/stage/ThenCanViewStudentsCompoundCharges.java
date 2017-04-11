@@ -37,9 +37,9 @@ public class ThenCanViewStudentsCompoundCharges extends Stage<ThenCanViewStudent
 
 	@ProvidedScenarioState
 	private AcAccount account;
-	
+
 	@ExpectedScenarioState
-    private List<AcAccountCharge> accountCharges;
+	private List<AcAccountCharge> accountCharges;
 
 	@ProvidedScenarioState
 	private AcStudent student;
@@ -52,68 +52,20 @@ public class ThenCanViewStudentsCompoundCharges extends Stage<ThenCanViewStudent
 
 	@As("can view students compound charges of type Academic")
 	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges_of_type_academic_$(String matricNo) {
-		
-		//cari student untuk cari account 
-		//student = identityService.findStudentByMatricNo(matricNo);
-		
-		//cari akaun yg dpt dr student
-		//account = accountService.findAccountByActor(student);
-		
+
 		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
-		
-		LOG.debug("-------------------ACADEMIC--------------------");
-		
-		
-		//senarai acc charge dari akaun yg kita jmp utk student ni
-		accountCharges= accountService.findAccountCharges(account);
-		for(AcAccountCharge accountCharges : accountCharges){
-			LOG.debug("Name : "+ accountCharges.getAccount().getActor().getName());
-			LOG.debug("Charge Type : "+ accountCharges.getChargeType());
-			LOG.debug("Description : "+ accountCharges.getDescription());
-			LOG.debug("Session : "+ accountCharges.getSession().getCode());
-			LOG.debug("Reference No : "+ accountCharges.getReferenceNo());
+		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(chargeType);
+
+		for (AcAccountCharge charge : accountCharge) {
+
+			Assert.notNull(charge, "Charges is empty");
+
+			LOG.debug("Student Name :" + charge.getAccount().getActor().getName());
+			LOG.debug("Charge Type :" + charge.getChargeType());
+			LOG.debug("Reference No : " + charge.getReferenceNo());
+			LOG.debug("Description : " + charge.getDescription());
+
 		}
-		
-		return self();
-	}
-	
-	@As("can view students compound charges of type Security")
-	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges_of_type_security_$(String matricNo) {
-		
-		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
-		
-		LOG.debug("-------------------SECURITY--------------------");
-		
-		//senarai acc charge dari akaun yg kita jmp utk student ni
-		accountCharges= accountService.findAccountCharges(chargeType);
-		for(AcAccountCharge accountCharges : accountCharges){
-			LOG.debug("Name : "+ accountCharges.getAccount().getActor().getName());
-			LOG.debug("Charge Type : "+ accountCharges.getChargeType());
-			LOG.debug("Description : "+ accountCharges.getDescription());
-			LOG.debug("Session : "+ accountCharges.getSession().getCode());
-			LOG.debug("Reference No : "+ accountCharges.getReferenceNo());
-		}
-		
-		return self();
-	}
-	
-	@As("can view students compound charges of type Student Affair")
-	public ThenCanViewStudentsCompoundCharges can_view_students_compound_charges_of_type_student_affair_$(String matricNo) {
-		
-		AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
-		
-		LOG.debug("-------------------STUDENT_AFFAIRS--------------------");
-		
-		//senarai acc charge dari akaun yg kita jmp utk student ni
-		accountCharges= accountService.findAccountCharges(chargeType);
-		for(AcAccountCharge accountCharges : accountCharges){
-			LOG.debug("Name : "+ accountCharges.getAccount().getActor().getName());
-			LOG.debug("Charge Type : "+ accountCharges.getChargeType());
-			LOG.debug("Description : "+ accountCharges.getDescription());
-			LOG.debug("Session : "+ accountCharges.getSession().getCode());
-			LOG.debug("Reference No : "+ accountCharges.getReferenceNo());
-		}
-		
 		return self();
 	}
 

@@ -86,41 +86,5 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 		return self();
 		
 	}
-	
-	@As("list all compound student of type security")
-	public WhenIListAllCompoundStudent I_want_to_list_all_compound_student_of_type_security_$(String matricNo) {
-
-		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
-		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
-
-		Assert.notEmpty(accountCharges, "Account Charges is empty");
-
-		for (AcAccountCharge charges : accountCharges) {
-
-			Assert.notNull(charges, "Charges is empty");
-
-		}
-		
-		return self();
-		
-	}
-	
-	@As("list all compound student of type student affair")
-	public WhenIListAllCompoundStudent I_want_to_list_all_compound_student_of_type_student_affair_$(String matricNo) {
-
-		AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
-		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
-
-		Assert.notEmpty(accountCharges, "Account Charges is empty");
-
-		for (AcAccountCharge charges : accountCharges) {
-
-			Assert.notNull(charges, "Charges is empty");
-
-		}
-		
-		return self();
-		
-	}
 		
 }

@@ -38,22 +38,4 @@ import org.springframework.transaction.annotation.Transactional;
 		then().can_view_students_compound_charges_of_type_academic_$(MATRIC_NO);
 	}
 	
-	@Test
-	@Rollback(false)
-	public void testScenario2() {
-		given().I_am_a_CPS_administrator_in_current_academic_session();
-		when().I_add_student_compound_$(MATRIC_NO);
-		addStage( WhenIListAllCompoundStudent.class).and().I_want_to_list_all_compound_student_of_type_security_$(MATRIC_NO);
-		then().can_view_students_compound_charges_of_type_security_$(MATRIC_NO);
-	}
-	
-	@Test
-	@Rollback(false)
-	public void testScenario3() {
-		given().I_am_a_CPS_administrator_in_current_academic_session();
-		when().I_add_student_compound_$(MATRIC_NO);
-		addStage( WhenIListAllCompoundStudent.class).and().I_want_to_list_all_compound_student_of_type_student_affair_$(MATRIC_NO);
-		then().can_view_students_compound_charges_of_type_student_affair_$(MATRIC_NO);
-	}
-	
 }
