@@ -45,19 +45,13 @@ public class ThenFilterTheInvoice extends Stage<ThenFilterTheInvoice> {
 	
 
 
-	public ThenFilterTheInvoice I_can_show_invoice_filter_by_charge_code() {
+	public ThenFilterTheInvoice then_the_invoice_has_a_correct_charge_code() {
 		Assert.notNull(chargeCode ,"chargeCode  can not be null");
 		LOG.debug("source number {}", chargeCode.getCode());
 		LOG.debug("source number {}", chargeCode.getDescription());
 		
+//dapat
 
-		//List<AcAccount> charges = charge.setAccount(account);
-		//accountService.addAccountCharge(acAccount, charge);
-		
-/*		String sourceNo  = charge.getSourceNo();
-		LOG.debug("source number {}", sourceNo);
-		List<AcInvoice> invoices = 	billingService.findInvoicesBySourceNo(sourceNo);
-		Assert.notEmpty(invoices,"invoices can not be empty");*/
 			
 	return self();
 	}

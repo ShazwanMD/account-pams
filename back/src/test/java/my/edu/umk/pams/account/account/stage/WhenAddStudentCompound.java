@@ -80,6 +80,7 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 		charge.setAmount(BigDecimal.valueOf(80.00));
 		charge.setChargeCode(accountService.findChargeCodeByCode(code));
 		charge.setSession(academicSession);
+	
 
 		// use account service to add charge
 		accountService.addAccountCharge(account, charge);
