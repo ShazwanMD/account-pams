@@ -3,11 +3,9 @@ package my.edu.umk.pams.account.workflow;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.billing.model.AcInvoice;
-import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
-import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
-import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
+import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.common.model.AcPaymentMethod;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -38,9 +36,9 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class InvoiceWorkflowTest {
+public class ReceiptWorkflowTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(InvoiceWorkflowTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReceiptWorkflowTest.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -71,12 +69,75 @@ public class InvoiceWorkflowTest {
     }
 
     /**
-     * NOTE: invoice has 3 layers of workflow
-     * NOTE: DRAFTED > REGISTERED > VERIFIED > APPROVED
+     * NOTE: receipt has 2 layers of workflow
+     * NOTE: DRAFTED > REGISTERED > APPROVED
+     * NOTE: before creating bursary receipt,
+     * NOTE: invoice must exists
      */
     @Test
     @Rollback
     public void testWorkflow() {
+        // create invoice first
+        // and retrieve the invoice
+        String invoiceReferenceNo = createInvoice();
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(invoiceReferenceNo);
+
+        // find account
+        AcStudent student = identityService.findStudentByMatricNo("A17P001");
+        AcAccount account = accountService.findAccountByActor(student);
+        AcAcademicSession academicSession = accountService.findCurrentAcademicSession();
+
+        // issue an invoice then start workflow
+        // transition to DRAFTED
+        AcBursaryReceipt receipt = new AcBursaryReceiptImpl();
+        receipt.setTotalAmount(BigDecimal.ZERO);
+        receipt.setDescription("INVOICE");
+        receipt.setPaymentMethod(AcPaymentMethod.CASH);
+        receipt.setTotalApplied(BigDecimal.ZERO);
+        receipt.setTotalReceived(BigDecimal.ZERO);
+        receipt.setAccount(account);
+        String referenceNo = billingService.startReceiptTask(receipt);
+        LOG.debug("receipt is created with referenceNo {}", referenceNo);
+
+        // KAUNTER
+        // find and pick assigned drafted receipt
+        // assuming there is one
+        List<Task> draftedTasks = billingService.findAssignedReceiptTasks(0, 100);
+        Task draftedTask = draftedTasks.get(0);
+        AcReceipt draftedReceipt = billingService.findReceiptByTaskId(draftedTask.getId());
+
+        // add invoice  to receipt
+        AcReceiptItem item1 = new AcReceiptItemImpl();
+        item1.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
+        item1.setDescription("YURAN PENDAFTARAN");
+        item1.setTotalAmount(BigDecimal.valueOf(2000.00)); // ??
+        item1.setAdjustedAmount(BigDecimal.valueOf(2000.00));// ??
+        item1.setAppliedAmount(BigDecimal.valueOf(2000.00));// ??
+        item1.setDueAmount(BigDecimal.valueOf(2000.00));// ??
+        item1.setUnit(1);
+        item1.setInvoice(invoice);  // previous invoice
+        billingService.addReceiptItem(draftedReceipt, item1);
+
+        // we're done, let's submit drafted task
+        // transition to REGISTERED
+        workflowService.completeTask(draftedTask);
+
+        // PEGAWAI
+        // find and pick pooled registered receipt
+        // assuming there is exactly one
+        List<Task> pooledRegisteredReceipts = billingService.findPooledReceiptTasks(0, 100);
+        workflowService.assignTask(pooledRegisteredReceipts.get(0));
+
+        // find and complete assigned registered receipt
+        // assuming there is exactly one
+        // transition to APPROVED
+        List<Task> assignedRegisteredReceipts = billingService.findAssignedReceiptTasks(0, 100);
+        workflowService.completeTask(assignedRegisteredReceipts.get(0));
+    }
+
+    @Test
+    @Rollback
+    public String createInvoice() {
         // find account
         AcStudent student = identityService.findStudentByMatricNo("A17P001");
         AcAccount account = accountService.findAccountByActor(student);
@@ -139,5 +200,7 @@ public class InvoiceWorkflowTest {
         // transition to APPROVED
         List<Task> assignedVerifiedInvoices = billingService.findAssignedInvoiceTasks(0, 100);
         workflowService.completeTask(assignedVerifiedInvoices.get(0)); // TO APPROVE
+        return referenceNo;
     }
+
 }
