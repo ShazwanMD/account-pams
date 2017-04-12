@@ -13,6 +13,7 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.billing.stage.WhenIGenerateInvoice;
 import my.edu.umk.pams.account.billing.stage.ThenICanViewInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
+import my.edu.umk.pams.account.financialaid.stage.ThenChargesWillBeBilledToSponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Submodule;
 
@@ -21,7 +22,7 @@ import my.edu.umk.pams.bdd.tags.Submodule;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Submodule("Billing")
 @As("As a Bursary, I want to generate student invoice so that I can view invoice")
-public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGenerateInvoice, ThenICanViewInvoice>{
+public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGenerateInvoice, ThenChargesWillBeBilledToSponsor>{
 	
 	private static final String FACULTY_CODE = "HLP";
 	private static final String MATRIC_NO = "A17P001";
@@ -32,7 +33,7 @@ public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
 		when().I_generate_invoice_by_faculty$(FACULTY_CODE);
-		then().I_can_view_invoice();
+		then().Charges_will_be_billed_to_sponsor();
 	}
 	
 	@Test
@@ -40,7 +41,7 @@ public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 	public void scenario2() {
 		given().I_am_a_bursary_in_current_academic_session();
 		when().I_generate_invoice_by_individually$(MATRIC_NO);
-		then().I_can_view_invoice();
+		then().Charges_will_be_billed_to_sponsor();
 	}
 	
 	@Test
@@ -48,7 +49,7 @@ public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 	public void scenario3() {
 		given().I_am_a_bursary_in_current_academic_session();
 		when().I_generate_invoice_by_program$(PROGRAM_CODE);
-		then().I_can_view_invoice();
+		then().Charges_will_be_billed_to_sponsor();
 	}
 
 }
