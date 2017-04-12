@@ -34,7 +34,7 @@ import my.edu.umk.pams.account.marketing.US_AC_MKG_2001;
         US_AC_ACT_6002.class, //aida
         US_AC_ACT_7001.class, //ta
         US_AC_ACT_7002.class, //aida
-        US_AC_ACT_7004.class, //aida     
+        US_AC_ACT_7003.class, //aida     
 })
 public class AccountModuleTestSuite {
 }

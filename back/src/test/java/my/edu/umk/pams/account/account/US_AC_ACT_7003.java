@@ -20,7 +20,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As Academic (MGSEB/CPS), I want to update student information so that I can give student information to Bursary")
-public class US_AC_ACT_7004 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIWantUpdateStudentInformation, ThenCanGiveStudentInformationToBursary> {
+public class US_AC_ACT_7003 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIWantUpdateStudentInformation, ThenCanGiveStudentInformationToBursary> {
 
 	@Test
 	@Rollback(false)
