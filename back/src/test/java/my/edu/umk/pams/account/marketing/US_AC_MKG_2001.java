@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.marketing.stage.ThenDiscountAppliedReceipt;
+import my.edu.umk.pams.account.marketing.stage.ThenDiscountCanAppliedToReceipt;
 import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsDiscountStudent;
+import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsDiscountToStudent;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 
@@ -23,17 +25,17 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As a Security, I want to give compound's discount to student so that discount can applied to receipt")
-public class US_AC_MKG_2001 extends SpringScenarioTest<GivenIAmSecurity, WhenIWantGiveCompoundsDiscountStudent, ThenDiscountAppliedReceipt> {
+public class US_AC_MKG_2001 extends SpringScenarioTest<GivenIAmSecurity, WhenIWantGiveCompoundsDiscountToStudent, ThenDiscountCanAppliedToReceipt> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_MKG_2001.class);
 
 	private static final String MATRIC_NO = "A17P001";
 
 	@Test
-	@Rollback(false)
+	@Rollback
 	public void testScenario0() {
 		given().I_am_security();
-		when().I_want_to_give_compounds_discount_to_student_$(MATRIC_NO);
+		when().I_want_give_compounds_discount_to_student_$(MATRIC_NO);
 		then().discount_can_applied_to_receipt();
 	}
 }
