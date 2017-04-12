@@ -14,6 +14,7 @@ import my.edu.umk.pams.account.marketing.stage.ThenDiscountAppliedReceipt;
 import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsDiscountStudent;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
@@ -22,6 +23,7 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Marketing")
 @As("As a Security, I want to give compound's discount to student so that discount can applied to receipt")
 public class US_AC_MKG_2001 extends SpringScenarioTest<GivenIAmSecurity, WhenIWantGiveCompoundsDiscountStudent, ThenDiscountAppliedReceipt> {
 

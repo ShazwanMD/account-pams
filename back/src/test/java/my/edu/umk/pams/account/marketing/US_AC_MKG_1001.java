@@ -16,11 +16,13 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.marketing.stage.ThenDiscountCanAppliedToReceipt;
 import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsDiscountToStudent;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Marketing")
 @As("As a Student Affair, I want to give compound's discount to student so that discount can apply to receipt\n")
 public class US_AC_MKG_1001 extends
 		SpringScenarioTest<GivenIAmStudentAffair, WhenIWantGiveCompoundsDiscountToStudent, ThenDiscountCanAppliedToReceipt> {
