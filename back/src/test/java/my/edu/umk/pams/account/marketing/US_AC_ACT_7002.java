@@ -14,11 +14,13 @@ import my.edu.umk.pams.account.marketing.stage.ThenICanReduceStudentPayment;
 import my.edu.umk.pams.account.marketing.stage.WhenIWantToValidateWaiverPromoCode;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @Issue("")
 @RunWith(SpringJUnit4ClassRunner.class) 
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Marketing")
 @As("As a Bursary, I want to list student charges of type compound by account so that I can view student's compound charges")
 public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmBursary, WhenIWantToValidateWaiverPromoCode, ThenICanReduceStudentPayment>{
 	
