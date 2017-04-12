@@ -6,6 +6,8 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenStudentAndSponsorShouldHaveSponsorship;
 import my.edu.umk.pams.account.financialaid.stage.WhenIGrantSponsorship;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As a Bursary, I want to grant sponsorship for student and sponsor, so that sponsor and student have sponsorship")
 public class US_AC_FNA_1001 extends SpringScenarioTest<GivenIAmBursary, WhenIGrantSponsorship, ThenStudentAndSponsorShouldHaveSponsorship> {
 

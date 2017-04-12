@@ -17,11 +17,13 @@ import my.edu.umk.pams.account.financialaid.stage.WhenIGenerateSponsorshipReceip
 import my.edu.umk.pams.account.financialaid.stage.WhenIGetListOfDeductions;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-65")
+@Submodule("Financial Aid")
 @As("As a Bursary, I want to generate text file with total deduction to submit to BIMB so that I can complete payment data")
 public class US_AC_FNA_1005 extends SpringScenarioTest<GivenIAmBursary, WhenIGetListOfDeductions, ThenICanGenerateTextFile>{
 

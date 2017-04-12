@@ -14,11 +14,13 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanUseAsAProof;
 import my.edu.umk.pams.account.financialaid.stage.WhenIGenerateSponsorshipReceipt;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As a Bursary, I want to generate sponsorship receipt to Sponsor so that it can be use as a proof of sponsorship payment")
 public class US_AC_FNA_1006 extends SpringScenarioTest<GivenIAmBursary, WhenIGenerateSponsorshipReceipt, ThenICanUseAsAProof>{
 

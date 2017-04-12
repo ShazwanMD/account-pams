@@ -14,10 +14,12 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanMakeSureFeesPayment;
 import my.edu.umk.pams.account.financialaid.stage.WhenIUpdateStudentStatus;
 import my.edu.umk.pams.bdd.stage.GivenIAmMGSEBAdministrator;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As an Academic, I want to update student status, so that I can make sure student fee payment")
 public class US_AC_FNA_4000 extends SpringScenarioTest<GivenIAmMGSEBAdministrator, WhenIUpdateStudentStatus, ThenICanMakeSureFeesPayment>{
 

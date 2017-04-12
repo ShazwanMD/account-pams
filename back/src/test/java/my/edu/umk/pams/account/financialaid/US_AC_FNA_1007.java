@@ -14,11 +14,13 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenChargesWillBeBilledToSponsor;
 import my.edu.umk.pams.account.financialaid.stage.WhenIWantConfigureStudentSponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As a Bursary, I want to configure student sponsor so that charges will be billed to sponsor")
 public class US_AC_FNA_1007 extends SpringScenarioTest<GivenIAmBursary, WhenIWantConfigureStudentSponsor, ThenChargesWillBeBilledToSponsor>{
 

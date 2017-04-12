@@ -14,10 +14,12 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanMakeSureFeesPayment;
 import my.edu.umk.pams.account.financialaid.stage.WhenIWantToListStudentStatus;
 import my.edu.umk.pams.bdd.stage.GivenIAmMGSEBAdministrator;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As a Bursary, I want to receive active student list from Academic so that student list can be submit to KPT for KADS1M purposes.")
 public class US_AC_FNA_1008 extends SpringScenarioTest<GivenIAmMGSEBAdministrator, WhenIWantToListStudentStatus, ThenICanMakeSureFeesPayment>{
 

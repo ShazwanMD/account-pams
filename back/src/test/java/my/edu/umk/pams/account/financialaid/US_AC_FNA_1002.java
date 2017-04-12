@@ -6,6 +6,8 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanStartSettlementProcess;
 import my.edu.umk.pams.account.financialaid.stage.WhenIGroupStudentBySponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As a bursary, I want to group student by sponsor, so that I can start a settlement process")
 public class US_AC_FNA_1002 extends SpringScenarioTest<GivenIAmBursary, WhenIGroupStudentBySponsor, ThenICanStartSettlementProcess>{
 

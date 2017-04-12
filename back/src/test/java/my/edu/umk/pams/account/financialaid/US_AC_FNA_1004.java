@@ -14,10 +14,12 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanCompleteDataSponsor;
 import my.edu.umk.pams.account.financialaid.stage.WhenIWantUpdateAmount;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As a Bursary, I want to update student outstanding amount and short term loan amount (STL) so that I can complete Sponsor data")
 public class US_AC_FNA_1004 extends SpringScenarioTest<GivenIAmBursary, WhenIWantUpdateAmount, ThenICanCompleteDataSponsor>{
 

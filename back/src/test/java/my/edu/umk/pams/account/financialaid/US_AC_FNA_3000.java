@@ -14,11 +14,13 @@ import my.edu.umk.pams.account.account.stage.ThenICanCheckMyPaymentStatus;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.WhenIViewSponsorshipInformation;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As a student, I want to view information on my sponsorship so that I can check my fee status")
 public class US_AC_FNA_3000 extends SpringScenarioTest<GivenIAmStudent, WhenIViewSponsorshipInformation, ThenICanCheckMyPaymentStatus>{
 

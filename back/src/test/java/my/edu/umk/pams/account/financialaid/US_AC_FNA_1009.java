@@ -14,10 +14,12 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanGenerateInvoiceForSponsor;
 import my.edu.umk.pams.account.financialaid.stage.WhenIAddSettlementDetails;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Financial Aid")
 @As("As a Bursary, I want to add settlement process ,so that I can generate sponsor Invoice")
 public class US_AC_FNA_1009 extends SpringScenarioTest<GivenIAmBursary, WhenIAddSettlementDetails, ThenICanGenerateInvoiceForSponsor>{
 
