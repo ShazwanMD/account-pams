@@ -26,7 +26,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @As("As a Bursary, i want to update student payment so that I can process the payment")
 public class US_AC_BLG_2008 extends SpringScenarioTest<GivenIAmBursary, WhenUpdateStudentPayment, ThenProcessThePayment> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_2008.class);
 
     @Test
     @Rollback
