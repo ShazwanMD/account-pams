@@ -26,10 +26,10 @@ public class US_AC_MKG_1001 extends
 		SpringScenarioTest<GivenIAmStudentAffair, WhenIWantGiveCompoundsDiscountToStudent, ThenDiscountCanAppliedToReceipt> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_MKG_1001.class);
-	private static final String MATRIC_NO = "A17P002";
+	private static final String MATRIC_NO = "A17P001";
 
 	@Test
-	@Rollback(false)
+	@Rollback
 	public void testScenario0() {
 		given().I_am_student_affair();
 		when().I_want_give_compounds_discount_to_student_$(MATRIC_NO);
