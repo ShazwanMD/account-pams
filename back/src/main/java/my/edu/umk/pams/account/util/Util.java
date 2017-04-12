@@ -21,6 +21,7 @@ public class Util {
         return new LocalDate().getYear();
     }
 
+    @Deprecated // anti-pattern
     public static AcUser getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getPrincipal() instanceof UserDetails) {
