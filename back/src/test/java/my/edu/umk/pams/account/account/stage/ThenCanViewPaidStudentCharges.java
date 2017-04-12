@@ -21,7 +21,7 @@ public class ThenCanViewPaidStudentCharges extends Stage<ThenCanViewPaidStudentC
 	
 	public ThenCanViewPaidStudentCharges I_can_view_paid_student_charges() {
 		
-		Assert.notNull(accountCharges, "This is list of paid charges");
+		Assert.notEmpty(accountCharges, "This is list of paid charges");
 		
 		return self();
 	}

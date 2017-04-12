@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
-import my.edu.umk.pams.account.account.stage.ThenViewStudentTypeCharges;
+import my.edu.umk.pams.account.account.stage.ThenICanViewStudentCharges;
 import my.edu.umk.pams.account.account.stage.WhenIFillInStudentCompound;
 import my.edu.umk.pams.account.account.stage.WhenListStudentCharges;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
@@ -25,7 +25,7 @@ import my.edu.umk.pams.bdd.tags.Submodule;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Submodule("Account")
 @As("As a Bursary, I want to list student charges of type academic by account, so that I can view student's academic charges")
-public class US_AC_ACT_2006 extends SpringScenarioTest<GivenIAmBursary, WhenIFillInStudentCompound, ThenViewStudentTypeCharges> {
+public class US_AC_ACT_2006 extends SpringScenarioTest<GivenIAmBursary, WhenIFillInStudentCompound, ThenICanViewStudentCharges> {
 
 	private static final String MATRIC_NO = "A17P001";
 	private static final String CODE = "TMGSEB-MBA-00-H79322";

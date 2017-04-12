@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
@@ -39,6 +40,7 @@ public class ThenCanGiveStudentInformationToBursary extends Stage<ThenCanGiveStu
 
 	public ThenCanGiveStudentInformationToBursary can_give_student_information_to_Bursary() {
 
+		Assert.notNull(academicSession, "academic session is a prerequisite");
 		return self();
 	}
 

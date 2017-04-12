@@ -8,8 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-
-import my.edu.umk.pams.account.account.stage.ThenCanViewStudentCharges;
+import my.edu.umk.pams.account.account.stage.ThenICanViewStudentCharges;
 import my.edu.umk.pams.account.account.stage.WhenListStudentChargesByAccount;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
@@ -23,7 +22,7 @@ import my.edu.umk.pams.bdd.tags.Submodule;
 @Submodule("Account")
 @As("As a Bursary, I want to list student charges by account so that I can view student's charges")
 public class US_AC_ACT_2001 extends
-        SpringScenarioTest<GivenIAmBursary, WhenListStudentChargesByAccount, ThenCanViewStudentCharges>{
+        SpringScenarioTest<GivenIAmBursary, WhenListStudentChargesByAccount, ThenICanViewStudentCharges>{
 
 	private static final String MATRIC_NO = "A17P001";	
     @Test

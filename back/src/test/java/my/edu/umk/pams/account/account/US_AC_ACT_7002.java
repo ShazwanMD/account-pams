@@ -2,7 +2,7 @@ package my.edu.umk.pams.account.account;
 
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-import my.edu.umk.pams.account.account.stage.ThenCanViewStudentsCompoundCharges;
+import my.edu.umk.pams.account.account.stage.ThenICanViewStudentCharges;
 import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
 import my.edu.umk.pams.account.account.stage.WhenAddStudentCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Submodule("Account")
 @As("As Academic (MGSEB/CPS), I want to list all compound student so that I can view student's compound charges")
-  public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenAddStudentCompound, ThenCanViewStudentsCompoundCharges> {
+  public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenAddStudentCompound, ThenICanViewStudentCharges> {
 
 	
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_7002.class);
