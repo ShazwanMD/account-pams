@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.billing.stage.WhenIMakeInvoiceWithChargeCode;
 import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,7 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Billing")
 @As("As a bursary, I want to invoice with given charge code, so that I can filter what I can invoice")
 public class US_AC_BLG_2001
 		extends

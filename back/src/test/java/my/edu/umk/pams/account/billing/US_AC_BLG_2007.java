@@ -13,10 +13,12 @@ import my.edu.umk.pams.account.billing.stage.ThenICanGiveValidInvoice;
 import my.edu.umk.pams.account.billing.stage.WhenIWantPrintStudentInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Billing")
 @As("As a Bursary, I want to print student invoice after approve so that I can give valid invoice to student")
 public class US_AC_BLG_2007 extends SpringScenarioTest<GivenIAmBursary, WhenIWantPrintStudentInvoice, ThenICanGiveValidInvoice>{
 	

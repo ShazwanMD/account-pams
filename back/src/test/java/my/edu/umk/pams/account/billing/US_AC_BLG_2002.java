@@ -18,10 +18,12 @@ import my.edu.umk.pams.account.billing.stage.ThenBulkInvoiceAreListed;
 import my.edu.umk.pams.account.billing.stage.WhenIssueInvoicePerCriteria;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Billing")
 @As("As a bursary, I want to invoice per criteria, so that I can bulk invoice")
 public class US_AC_BLG_2002
 		 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoicePerCriteria, ThenBulkInvoiceAreListed> {

@@ -14,10 +14,12 @@ import my.edu.umk.pams.account.billing.stage.ThenICanPrintReport;
 import my.edu.umk.pams.account.billing.stage.WhenIGenerateReport;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Billing")
 @As("As a Bursary, I want to generate report so that I can print report")
 public class US_AC_BLG_2009 extends SpringScenarioTest<GivenIAmBursary, WhenIGenerateReport, ThenICanPrintReport> {
 

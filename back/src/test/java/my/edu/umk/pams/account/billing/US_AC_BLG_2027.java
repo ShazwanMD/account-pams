@@ -17,12 +17,14 @@ import my.edu.umk.pams.account.billing.stage.WhenIWantToGetListOfInvoiceByStuden
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @Issue("PAMSU-27")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Billing")
 @As("As a Bursary, I want to get list of invoice by student so that I can print report")
 public class US_AC_BLG_2027 extends SpringScenarioTest<GivenIAmBursary, WhenIWantToGetListOfInvoiceByStudent, ThenICanPrintReport> {
 
@@ -30,10 +32,10 @@ public class US_AC_BLG_2027 extends SpringScenarioTest<GivenIAmBursary, WhenIWan
 	private static final String MATRIC_NO = "A17P001";
 
 	@Test
-	@Rollback
+	@Rollback (false)
 	public void scenario1() {
 		given().I_am_a_bursary_in_current_academic_session();
 		when().I_want_to_get_list_of_invoice_by_student$(MATRIC_NO);
-		//then().I_can_print_report();
+		then().I_can_print_report();
 	}
 }
