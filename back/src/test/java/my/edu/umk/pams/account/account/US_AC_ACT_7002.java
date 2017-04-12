@@ -7,6 +7,8 @@ import my.edu.umk.pams.account.account.stage.WhenIListAllCompoundStudent;
 import my.edu.umk.pams.account.account.stage.WhenAddStudentCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
+import my.edu.umk.pams.bdd.tags.Submodule;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As Academic (MGSEB/CPS), I want to list all compound student so that I can view student's compound charges")
   public class US_AC_ACT_7002 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenAddStudentCompound, ThenCanViewStudentsCompoundCharges> {
 

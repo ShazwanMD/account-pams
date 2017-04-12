@@ -20,11 +20,13 @@ import my.edu.umk.pams.account.account.stage.WhenIWantToViewMyUnpaidInvoices;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
+@Issue("PAMSU-40")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@Issue("PAMSU-40")
+@Submodule("Account")
 @As("As a Students, I want to view fees statement and charges so that I can make payment")
 public class US_AC_ACT_3001 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToViewMyUnpaidInvoices, ThenICanMakePayment> {
 

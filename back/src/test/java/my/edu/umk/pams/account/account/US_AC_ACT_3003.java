@@ -19,10 +19,13 @@ import my.edu.umk.pams.account.account.stage.ThenICanViewMyResult;
 import my.edu.umk.pams.account.account.stage.WhenIWantToPayMyCharges;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
+@Issue("PAMSU-42")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As a Students, I want to pay student fees and charges so that I can register new subject and view my result")
 public class US_AC_ACT_3003 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToPayMyCharges, ThenICanViewMyResult> {
 

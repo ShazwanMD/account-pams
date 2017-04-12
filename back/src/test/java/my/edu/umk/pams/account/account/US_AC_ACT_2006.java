@@ -16,12 +16,14 @@ import my.edu.umk.pams.account.account.stage.WhenListStudentCharges;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @Issue("PAMSU-39")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As a Bursary, I want to list student charges of type academic by account, so that I can view student's academic charges")
 public class US_AC_ACT_2006 extends SpringScenarioTest<GivenIAmBursary, WhenIFillInStudentCompound, ThenViewStudentTypeCharges> {
 

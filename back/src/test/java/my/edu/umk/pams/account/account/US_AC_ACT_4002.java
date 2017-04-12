@@ -15,11 +15,14 @@ import my.edu.umk.pams.account.account.stage.ThenMyChildCanRegisterNewSubject;
 import my.edu.umk.pams.account.account.stage.WhenIWantToPayFeesAndChargesForAStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmParent;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
+@Issue("PAMSU-46")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Pending
+@Submodule("Account")
 @As("As Parents, I want to pay student fees and charges so that I can allow my son or daughter to register new subject")
 public class US_AC_ACT_4002 extends SpringScenarioTest<GivenIAmParent, WhenIWantToPayFeesAndChargesForAStudent, ThenMyChildCanRegisterNewSubject> {
 

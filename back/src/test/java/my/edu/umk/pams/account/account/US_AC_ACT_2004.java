@@ -19,11 +19,13 @@ import my.edu.umk.pams.account.account.stage.WhenUpdateStudentCompound;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @Issue("PAMSU-37")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As a Bursary, I want to update student compound payment so that payment can be process.")
 public class US_AC_ACT_2004 extends SpringScenarioTest<GivenIAmBursary, WhenUpdateStudentCompound, ThenPaymentCanProcess> {
 	

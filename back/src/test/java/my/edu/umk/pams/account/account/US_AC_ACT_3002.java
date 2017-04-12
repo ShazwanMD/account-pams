@@ -19,10 +19,13 @@ import my.edu.umk.pams.account.account.stage.ThenMyChargeIsReduced;
 import my.edu.umk.pams.account.account.stage.WhenIWantToApplyForAWaiver;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
+@Issue("PAMSU-41")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As a student, I want to apply for a waiver so that I can reduce my charges and fees amount")
 public class US_AC_ACT_3002 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToApplyForAWaiver, ThenMyChargeIsReduced> {
 

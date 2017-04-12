@@ -19,10 +19,13 @@ import my.edu.umk.pams.account.account.stage.ThenCompoundDetailsAreRecord;
 import my.edu.umk.pams.account.account.stage.WhenIRegisterStudentCompoundBill;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
+import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("Academic (MGSEB/PPS), I want to register student compound bill so that the compound details are record. ")
 public class US_AC_ACT_5000 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIRegisterStudentCompoundBill, ThenCompoundDetailsAreRecord> {
 

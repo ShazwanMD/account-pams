@@ -19,10 +19,13 @@ import my.edu.umk.pams.account.account.stage.ThenICanCheckMyPaymentStatus;
 import my.edu.umk.pams.account.account.stage.WhenIWantToViewMyPaymentSlip;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
+@Issue("PAMSU-43")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As a student, I want to view my slip of payment so that I can check my payment status")
 public class US_AC_ACT_3004 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToViewMyPaymentSlip, ThenICanCheckMyPaymentStatus> {
 

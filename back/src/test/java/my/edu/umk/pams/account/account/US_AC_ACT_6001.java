@@ -16,10 +16,12 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @Issue("PAMSU-52")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As a Security, I want to register student compound bill so that the compound details are recorded")
 public class US_AC_ACT_6001
 		extends SpringScenarioTest<GivenIAmSecurity, WhenRegisterStudentCompoundBill, ThenCompoundDetailsAreRecorded> {

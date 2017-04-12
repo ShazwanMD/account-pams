@@ -19,10 +19,13 @@ import my.edu.umk.pams.account.account.stage.ThenICanKeepMyPaymentDetails;
 import my.edu.umk.pams.account.account.stage.WhenIWantToPrintMyPaymentSlip;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
+@Issue("PAMSU-44")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As a Students, I want to print slip after payment so that I can keep the slip as a proof")
 public class US_AC_ACT_3005 extends SpringScenarioTest<GivenIAmStudent, WhenIWantToPrintMyPaymentSlip, ThenICanKeepMyPaymentDetails> {
 

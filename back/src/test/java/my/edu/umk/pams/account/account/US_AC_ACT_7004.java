@@ -14,11 +14,13 @@ import my.edu.umk.pams.account.account.stage.ThenCanGiveStudentInformationToBurs
 import my.edu.umk.pams.account.account.stage.WhenIWantUpdateStudentInformation;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As Academic (MGSEB/CPS), I want to update student information so that I can give student information to Bursary")
 public class US_AC_ACT_7004 extends SpringScenarioTest<GivenIAmCPSAdministrator, WhenIWantUpdateStudentInformation, ThenCanGiveStudentInformationToBursary> {
 

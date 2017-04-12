@@ -20,11 +20,14 @@ import my.edu.umk.pams.account.account.stage.ThenICanMakePayment;
 import my.edu.umk.pams.account.account.stage.WhenIWantToViewFeesAndChargesForAStudent;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmParent;
-
+import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
+@Issue("PAMSU-45")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Pending
+@Submodule("Account")
 @As("As Parents, I want to view student fees statement and charges so that I can make payment")
 public class US_AC_ACT_4001 extends SpringScenarioTest<GivenIAmParent, WhenIWantToViewFeesAndChargesForAStudent, ThenICanMakePayment> {
 

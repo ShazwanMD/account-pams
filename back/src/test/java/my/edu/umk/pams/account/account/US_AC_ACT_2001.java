@@ -14,11 +14,13 @@ import my.edu.umk.pams.account.account.stage.WhenListStudentChargesByAccount;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 
 @Issue("PAMSU-34")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Account")
 @As("As a Bursary, I want to list student charges by account so that I can view student's charges")
 public class US_AC_ACT_2001 extends
         SpringScenarioTest<GivenIAmBursary, WhenListStudentChargesByAccount, ThenCanViewStudentCharges>{
