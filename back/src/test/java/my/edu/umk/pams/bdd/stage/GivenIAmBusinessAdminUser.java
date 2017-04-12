@@ -46,7 +46,7 @@ public class GivenIAmBusinessAdminUser extends Stage<GivenIAmBusinessAdminUser> 
     }
 
     private void loginAsBusinessAdmin() {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("pps", "abc123");
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("cps", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         businessAdminUser = ((AcUserDetails) authed.getPrincipal()).getUser();
         Assert.notNull(businessAdminUser, "We have no current user");
