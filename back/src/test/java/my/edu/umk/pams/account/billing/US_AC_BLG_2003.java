@@ -14,10 +14,12 @@ import my.edu.umk.pams.account.billing.stage.WhenIGenerateInvoice;
 import my.edu.umk.pams.account.billing.stage.ThenICanViewInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
+@Submodule("Billing")
 @As("As a Bursary, I want to generate student invoice so that I can view invoice")
 public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGenerateInvoice, ThenICanViewInvoice>{
 	

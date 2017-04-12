@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.billing.stage.ThenAddSurplus;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-17")
+@Submodule("Billing")
 @As("As a bursary i should able to create any advance payment so that I can recognize any surplus")
 public class US_AC_BLG_2017 extends SpringScenarioTest<GivenIAmBursary, WhenCreateAdvancedPayment, ThenAddSurplus> {
 

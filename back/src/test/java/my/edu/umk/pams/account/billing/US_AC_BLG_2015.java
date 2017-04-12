@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.billing.stage.WhenCreateDebitNote;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-15")
+@Submodule("Billing")
 @As("As a Bursary, i should be able to create debit note so that I can debit any under charge invoice")
 public class US_AC_BLG_2015 extends SpringScenarioTest<GivenIAmBursary, WhenCreateDebitNote, ThenDebitUnderChargeInvoice> {
 

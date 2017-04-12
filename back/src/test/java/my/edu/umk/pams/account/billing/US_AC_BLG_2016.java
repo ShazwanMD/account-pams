@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.billing.stage.WhenCreateCreditNote;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
+import my.edu.umk.pams.bdd.tags.Submodule;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Issue("PAMSU-16")
+@Submodule("Billing")
 @As("As a Bursary, I should be able to create credit note to credit so that I can credit any over charge")
 public class US_AC_BLG_2016 extends SpringScenarioTest<GivenIAmBursary, WhenCreateCreditNote, ThenCreditOverChargeInvoice> {
 
