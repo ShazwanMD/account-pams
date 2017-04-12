@@ -21,13 +21,21 @@ import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 @As("As a Bursary, I want to update student outstanding amount and short term loan amount (STL) so that I can complete Sponsor data")
 public class US_AC_FNA_1004 extends SpringScenarioTest<GivenIAmBursary, WhenIWantUpdateAmount, ThenICanCompleteDataSponsor>{
 
-
 	@Test
 	@Rollback(false)
 	public void scenario1() {
 
 		given().I_am_a_bursary_in_current_academic_session();
 		when().update_student_outstanding_amount();
+		then().complete_data_sponsor();
+	}
+	
+	@Test
+	@Rollback(false)
+	public void scenario2() {
+
+		given().I_am_a_bursary_in_current_academic_session();
+		when().update_short_term_loan_amount();
 		then().complete_data_sponsor();
 	}
 }

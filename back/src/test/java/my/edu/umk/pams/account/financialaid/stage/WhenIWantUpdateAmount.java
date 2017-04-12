@@ -12,4 +12,10 @@ public class WhenIWantUpdateAmount extends Stage<WhenIWantUpdateAmount>{
 
 		return self();
 	}
+	
+	@As("I want to update short term loan (STL) amount")
+	public WhenIWantUpdateAmount update_short_term_loan_amount() {
+
+		return self();
+	}
 }
