@@ -52,19 +52,17 @@ public class ThenDiscountCanAppliedToReceipt extends Stage<ThenDiscountCanApplie
     public ThenDiscountCanAppliedToReceipt discount_can_applied_to_receipt() {
     	
     	AcAccount account = accountService.findAccountByCode("A17P002");
-    	Assert.notNull(account, "account cannot be null");
-    	LOG.debug("Student:"+account.getActor());
-    	
+    	Assert.notNull(account, "account cannot be null");	
     
     	promoCodeItem = marketingService.findPromoCodeItems(account);
     	
     	for (AcPromoCodeItem promoCodeItems : promoCodeItem) {
           LOG.debug("SourceNo : "+promoCodeItems.getSourceNo());
-         LOG.debug("Account : "+promoCodeItems.getAccount());
-           LOG.debug("PromoCode : "+promoCodeItems.getPromoCode());
+         LOG.debug("Promo Code Type : "+promoCodeItems.getPromoCode().getPromoCodeType());
+         LOG.debug("Charge Description : "+promoCodeItems.getPromoCode().getDescription());
+           LOG.debug("Expiry Date : "+promoCodeItems.getPromoCode().getExpiryDate());
         
     	}
-    	//Assert.notNull(promoCode, "promoCode cannot be null");
         
         return self();
     }
