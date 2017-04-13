@@ -10,11 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
-import my.edu.umk.pams.account.marketing.stage.ThenDiscountAppliedReceipt;
 import my.edu.umk.pams.account.marketing.stage.ThenDiscountCanAppliedToReceipt;
-import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsDiscountStudent;
 import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsDiscountToStudent;
-import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 
 import com.tngtech.jgiven.annotation.As;
