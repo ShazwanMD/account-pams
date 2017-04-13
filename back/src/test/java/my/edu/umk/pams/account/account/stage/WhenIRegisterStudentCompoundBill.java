@@ -10,7 +10,6 @@ import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ import java.math.BigDecimal;
 public class WhenIRegisterStudentCompoundBill extends Stage<WhenIRegisterStudentCompoundBill> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(WhenIRegisterStudentCompoundBill.class);
-
-    @Autowired
-    private IdentityService identityService;
 
     @Autowired
     private AccountService accountService;

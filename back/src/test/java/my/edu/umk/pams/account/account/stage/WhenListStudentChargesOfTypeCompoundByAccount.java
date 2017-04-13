@@ -20,15 +20,12 @@ import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 public class WhenListStudentChargesOfTypeCompoundByAccount extends
 		Stage<WhenListStudentChargesOfTypeCompoundByAccount> {
 	private static final Logger LOG = LoggerFactory
 			.getLogger(WhenListStudentChargesOfTypeCompoundByAccount.class);
-	@Autowired
-	private IdentityService identityService;
 
 	@Autowired
 	private AccountService accountService;

@@ -27,12 +27,6 @@ public class WhenUpdateStudentCompound extends Stage<WhenUpdateStudentCompound> 
     private AcAcademicSession academicSession;
 
     @Autowired
-    private CommonService commonService;
-
-    @Autowired
-    private IdentityService identityService;
-
-    @Autowired
     private AccountService accountService;
 
 
