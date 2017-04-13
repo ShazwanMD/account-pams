@@ -2,8 +2,6 @@ package my.edu.umk.pams.account.marketing;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,7 +23,6 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudentAffair;
 public class US_AC_MKG_1001 extends
 		SpringScenarioTest<GivenIAmStudentAffair, WhenIWantGiveCompoundsDiscountToStudent, ThenDiscountCanAppliedToReceipt> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(US_AC_MKG_1001.class);
 	private static final String MATRIC_NO = "A17P001";
 
 	@Test
