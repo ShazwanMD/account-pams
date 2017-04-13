@@ -12,11 +12,7 @@ import my.edu.umk.pams.account.account.model.AcAccountCharge;
 @JGivenStage
 public class ThenICanCheckMyPaymentStatus extends Stage<ThenICanCheckMyPaymentStatus> {
 
-<<<<<<< HEAD
-=======
-	private static final Logger LOG = LoggerFactory.getLogger(ThenICanCheckMyPaymentStatus.class);
 
->>>>>>> branch 'master' of http://119.110.101.9/pams/account.git
 	@ExpectedScenarioState
 	AcAcademicSession academicSession;
 
