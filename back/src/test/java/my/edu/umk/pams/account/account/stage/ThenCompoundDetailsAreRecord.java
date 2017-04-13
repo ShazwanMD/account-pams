@@ -9,6 +9,10 @@ import org.springframework.util.Assert;
 @JGivenStage
 public class ThenCompoundDetailsAreRecord extends Stage<ThenCompoundDetailsAreRecord> {
 
+<<<<<<< HEAD
+=======
+	private static final Logger LOG = LoggerFactory.getLogger(WhenIRegisterStudentCompoundBill.class);
+>>>>>>> branch 'master' of http://119.110.101.9/pams/account.git
 
 	@ExpectedScenarioState
 	private AcStudent student;
