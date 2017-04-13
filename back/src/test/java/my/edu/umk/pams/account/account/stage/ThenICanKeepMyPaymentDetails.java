@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -29,7 +30,7 @@ public class ThenICanKeepMyPaymentDetails extends Stage<ThenICanKeepMyPaymentDet
 	@ExpectedScenarioState
 	List<AcAccountCharge> charges;
 
-	@Pending
+	@As("I can keep my payment details")
 	public ThenICanKeepMyPaymentDetails I_can_keep_my_payment_details() {
 		
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);

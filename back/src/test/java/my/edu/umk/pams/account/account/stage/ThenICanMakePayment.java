@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -22,6 +23,7 @@ public class ThenICanMakePayment extends Stage<ThenICanMakePayment> {
 	@ExpectedScenarioState
 	List<AcAccountCharge> charges;
 
+	@As("I can make my payment")
 	public ThenICanMakePayment I_can_make_payment() {
 		Assert.notEmpty(charges, "charges cannot be empty");
 		return self();

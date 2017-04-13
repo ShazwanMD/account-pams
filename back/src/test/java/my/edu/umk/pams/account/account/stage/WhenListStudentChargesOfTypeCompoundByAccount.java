@@ -2,8 +2,6 @@ package my.edu.umk.pams.account.account.stage;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -22,10 +20,8 @@ import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 
 @JGivenStage
-public class WhenListStudentChargesOfTypeCompoundByAccount extends
-		Stage<WhenListStudentChargesOfTypeCompoundByAccount> {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(WhenListStudentChargesOfTypeCompoundByAccount.class);
+public class WhenListStudentChargesOfTypeCompoundByAccount
+		extends Stage<WhenListStudentChargesOfTypeCompoundByAccount> {
 
 	@Autowired
 	private AccountService accountService;
@@ -41,11 +37,9 @@ public class WhenListStudentChargesOfTypeCompoundByAccount extends
 
 	@ProvidedScenarioState
 	private AcChargeCode chargeCodes;
-	
+
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
-
-	// private List<AcChargeCode> chargeCodes;
 
 	@As("I want to list student charges of type compound by account")
 	public WhenListStudentChargesOfTypeCompoundByAccount I_want_to_list_student_charges_of_type_compound_by_account_$(
@@ -54,16 +48,16 @@ public class WhenListStudentChargesOfTypeCompoundByAccount extends
 		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
 		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
 
-		//NOT EMPTY : TO CHECK COLLECTION DATA
+		// NOT EMPTY : TO CHECK COLLECTION DATA
 		Assert.notEmpty(accountCharges, "Account Charges is empty");
 
 		for (AcAccountCharge charges : accountCharges) {
 
-			//NOT NULL : TO CHECK DATA
+			// NOT NULL : TO CHECK DATA
 			Assert.notNull(charges, "Charges is empty");
 
 		}
-		
+
 		return self();
 	}
 }

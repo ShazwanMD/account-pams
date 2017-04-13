@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -22,12 +23,9 @@ import org.springframework.util.Assert;
 @JGivenStage
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class WhenListStudentCharges extends Stage<WhenListStudentCharges> {
-	private static final Logger LOG = LoggerFactory.getLogger(WhenListStudentCharges.class);
-
 
 	@Autowired
 	private AccountService accountService;
-
 
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
@@ -38,9 +36,9 @@ public class WhenListStudentCharges extends Stage<WhenListStudentCharges> {
 	@ProvidedScenarioState
 	List<AcAccountCharge> accountCharges;
 
+	@As("I want to list student charges of type academic by account")
 	public WhenListStudentCharges I_want_to_list_student_charges_of_type_academic_by_account_$(String matricNo,
 			String Code) {
-
 
 		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
 		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
@@ -52,43 +50,43 @@ public class WhenListStudentCharges extends Stage<WhenListStudentCharges> {
 			Assert.notNull(charges, "Charges is empty");
 
 		}
-		
-		return self();
-		
-	}
-		
-		public WhenListStudentCharges I_want_to_list_student_charges_of_type_security_by_account_$(String matricNo,
-				String Code) {
-
-
-			AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
-			List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
-
-			Assert.notEmpty(accountCharges, "Account Charges is empty");
-
-			for (AcAccountCharge charges : accountCharges) {
-
-				Assert.notNull(charges, "Charges is empty");
-
-			}
 
 		return self();
+
 	}
-		
-		public WhenListStudentCharges I_want_to_list_student_charges_of_type_student_affair_by_account_$(String matricNo,
-				String Code) {
 
+	@As("I want to list student charges of type security by account")
+	public WhenListStudentCharges I_want_to_list_student_charges_of_type_security_by_account_$(String matricNo,
+			String Code) {
 
-			AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
-			List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
+		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
+		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
 
-			Assert.notEmpty(accountCharges, "Account Charges is empty");
+		Assert.notEmpty(accountCharges, "Account Charges is empty");
 
-			for (AcAccountCharge charges : accountCharges) {
+		for (AcAccountCharge charges : accountCharges) {
 
-				Assert.notNull(charges, "Charges is empty");
+			Assert.notNull(charges, "Charges is empty");
 
-			}
+		}
+
+		return self();
+	}
+
+	@As("I want to list student charges of type student affair by account")
+	public WhenListStudentCharges I_want_to_list_student_charges_of_type_student_affair_by_account_$(String matricNo,
+			String Code) {
+
+		AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
+		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
+
+		Assert.notEmpty(accountCharges, "Account Charges is empty");
+
+		for (AcAccountCharge charges : accountCharges) {
+
+			Assert.notNull(charges, "Charges is empty");
+
+		}
 
 		return self();
 	}

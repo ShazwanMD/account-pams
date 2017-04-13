@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -27,7 +28,7 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 
 	@Autowired
 	private IdentityService identityService;
-	
+
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
 
@@ -38,15 +39,15 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 	private AcStudent student;
 
 	@ExpectedScenarioState
-	private AcInvoice invoice ;
+	private AcInvoice invoice;
 
 	@Autowired
 	private AccountService accountService;
 
-	public WhenAddStudentCompound I_add_student_compound_$(String matricNo){
-		
-		student = identityService.findStudentByMatricNo(matricNo);
+	@As("I add student compound")
+	public WhenAddStudentCompound I_add_student_compound_$(String matricNo) {
 
+		student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
 		AcAcademicCharge charge1 = new AcAcademicChargeImpl();
@@ -60,12 +61,12 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 
 		// use account service to add charge
 		accountService.addAccountCharge(account, charge1);
-	
+
 		return self();
 	}
 
-
-	public WhenAddStudentCompound I_add_security_compound_$(String matricNo, String code){
+	@As("I add security compound")
+	public WhenAddStudentCompound I_add_security_compound_$(String matricNo, String code) {
 
 		student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
@@ -81,7 +82,7 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 
 		// use account service to add charge
 		accountService.addAccountCharge(account, charge);
-		LOG.debug("charge "+charge);
+		LOG.debug("charge " + charge);
 		return self();
 	}
 }

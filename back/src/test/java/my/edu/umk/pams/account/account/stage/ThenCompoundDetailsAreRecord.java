@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -12,6 +13,7 @@ public class ThenCompoundDetailsAreRecord extends Stage<ThenCompoundDetailsAreRe
 	@ExpectedScenarioState
 	private AcStudent student;
 
+	@As("the compound details are recorded")
 	public ThenCompoundDetailsAreRecord compound_details_are_record() {
 
 		final String entityName = student.getClass().getSimpleName();

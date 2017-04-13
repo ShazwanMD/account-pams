@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import io.jsonwebtoken.lang.Assert;
@@ -30,7 +30,7 @@ public class ThenICanCheckMyPaymentStatus extends Stage<ThenICanCheckMyPaymentSt
 	@ExpectedScenarioState
 	List<AcAccountCharge> charges;
 
-	@Pending
+	@As("I can check my payment status")
 	public ThenICanCheckMyPaymentStatus I_can_check_my_payment_status() {
 
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
