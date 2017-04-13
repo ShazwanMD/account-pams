@@ -12,18 +12,16 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 
-
 @JGivenStage
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class ThenICanMakePayment extends Stage<ThenICanMakePayment> {
-
 
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
 
 	@ExpectedScenarioState
-	 List<AcAccountCharge> charges;
-	    
+	List<AcAccountCharge> charges;
+
 	public ThenICanMakePayment I_can_make_payment() {
 		Assert.notEmpty(charges, "charges cannot be empty");
 		return self();

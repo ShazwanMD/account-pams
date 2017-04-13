@@ -9,8 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
-import my.edu.umk.pams.account.account.stage.ThenCompoundDetailsAreRecorded;
-
+import my.edu.umk.pams.account.account.stage.ThenCompoundDetailsRecord;
 import my.edu.umk.pams.account.account.stage.WhenRegisterStudentCompoundBill;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 
@@ -24,9 +23,8 @@ import my.edu.umk.pams.bdd.tags.Submodule;
 @Submodule("Account")
 @As("As a Security, I want to register student compound bill so that the compound details are recorded")
 public class US_AC_ACT_6001
-		extends SpringScenarioTest<GivenIAmSecurity, WhenRegisterStudentCompoundBill, ThenCompoundDetailsAreRecorded> {
+		extends SpringScenarioTest<GivenIAmSecurity, WhenRegisterStudentCompoundBill, ThenCompoundDetailsRecord> {
 	private static final String MATRIC_NO = "A17P001";
-
 	@Test
 	@Rollback
 	public void scenario1() {

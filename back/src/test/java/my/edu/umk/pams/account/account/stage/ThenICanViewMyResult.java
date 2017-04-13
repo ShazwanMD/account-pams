@@ -1,7 +1,7 @@
 package my.edu.umk.pams.account.account.stage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
+
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
@@ -14,9 +14,6 @@ import my.edu.umk.pams.account.account.model.AcAccountCharge;
 @JGivenStage
 public class ThenICanViewMyResult extends Stage<ThenICanViewMyResult> {
 
-
-	private static final Logger LOG = LoggerFactory.getLogger(ThenICanViewMyResult.class);
-
 	@ExpectedScenarioState
 	AcAcademicSession academicSession;
 
@@ -27,9 +24,11 @@ public class ThenICanViewMyResult extends Stage<ThenICanViewMyResult> {
 	AcAccountCharge accountCharge;
 
 	@Pending
-	public void I_can_view_my_result() {
-		// todo: ni dah melibatkan academic module - how?
+	public ThenICanViewMyResult I_can_view_my_result() {
 
+		Assert.notNull(academicSession, "academic session is a prerequisite");
+		Assert.notNull(accountCharge, "account charge is a prerequisite");
+		return self();
 	}
 
 }
