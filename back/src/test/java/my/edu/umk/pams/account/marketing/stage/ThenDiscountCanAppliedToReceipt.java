@@ -6,16 +6,13 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 import my.edu.umk.pams.account.marketing.service.MarketingService;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.slf4j.Logger;
