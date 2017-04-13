@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -53,6 +54,7 @@ public class WhenIWantToApplyForAWaiver extends Stage<WhenIWantToApplyForAWaiver
     
     private BigDecimal gracedAmount = new BigDecimal("200");
     
+    @As("I want to apply for a waiver")
     public WhenIWantToApplyForAWaiver I_want_to_apply_for_a_waiver() {
         balanceBefore = accountService.sumBalanceAmount(account);
 

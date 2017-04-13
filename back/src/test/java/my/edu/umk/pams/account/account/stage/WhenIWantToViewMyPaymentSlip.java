@@ -38,7 +38,7 @@ public class WhenIWantToViewMyPaymentSlip extends Stage<WhenIWantToViewMyPayment
     @Pending
     public WhenIWantToViewMyPaymentSlip I_want_to_view_my_payment_slip() {
 
-        //todo: get data of previous payment
+		// todo: get data of previous payment
 
 
         return self();
