@@ -11,7 +11,6 @@ import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.billing.stage.WhenIGenerateInvoice;
-import my.edu.umk.pams.account.billing.stage.ThenICanViewInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenChargesWillBeBilledToSponsor;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;

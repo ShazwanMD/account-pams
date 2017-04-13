@@ -3,7 +3,6 @@ package my.edu.umk.pams.account.billing;
 import my.edu.umk.pams.account.account.stage.WhenAddStudentCompound;
 import my.edu.umk.pams.account.billing.stage.ThenFilterTheInvoice;
 import my.edu.umk.pams.account.billing.stage.WhenIMakeInvoiceWithChargeCode;
-import my.edu.umk.pams.account.billing.stage.WhenIssueInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Submodule;
@@ -17,7 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tngtech.jgiven.annotation.As;
-import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
