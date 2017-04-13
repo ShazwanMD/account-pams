@@ -11,8 +11,6 @@ import my.edu.umk.pams.bdd.tags.Issue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,8 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Issue("PAMSU-9")
 @As("As a Bursary, I want to reduce student payment based on waiver promo code so that I can update the payment amount")
 public class US_AC_MKG_4001 extends SpringScenarioTest<GivenIAmBursary, WhenReduceStudentPaymentBasedOnWaiver, ThenUpdatePaymentAmount> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_MKG_4001.class);
 
     @Test
     @Rollback
