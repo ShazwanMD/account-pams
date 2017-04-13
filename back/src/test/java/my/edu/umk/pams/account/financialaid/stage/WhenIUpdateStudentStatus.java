@@ -8,7 +8,6 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.model.AcStudentStatus;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 

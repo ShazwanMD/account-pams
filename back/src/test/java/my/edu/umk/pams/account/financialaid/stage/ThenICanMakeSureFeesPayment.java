@@ -1,21 +1,13 @@
 package my.edu.umk.pams.account.financialaid.stage;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
-
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
-import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
-
 @JGivenStage
 public class ThenICanMakeSureFeesPayment extends Stage<ThenICanMakeSureFeesPayment>{
 
-	@Autowired
-	private IdentityService identityService;
 	
 	@ExpectedScenarioState
 	private String code;

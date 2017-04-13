@@ -14,7 +14,6 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.identity.model.AcCoverage;
-import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
 
 import my.edu.umk.pams.account.identity.model.AcStudent;
