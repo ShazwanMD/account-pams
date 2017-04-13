@@ -10,8 +10,6 @@ import my.edu.umk.pams.bdd.tags.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,8 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @As("As a Bursary in current academic session, I want to add charges to student so that student is charged")
 public class US_AC_ACT_0004 extends
         SpringScenarioTest<GivenIAmBursary, WhenIAddAccountCharge, ThenAccountIsCharged> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0004.class);
 
     private static final String MATRIC_NO = "A17P001";
     private static final String SESSION_CODE = "201720181";

@@ -8,8 +8,6 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBusinessAdminUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,8 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @As("US_AC_ACT_0002 Sample User Story")
 public class US_AC_ACT_0002 extends SpringScenarioTest<GivenIAmBusinessAdminUser, WhenIAddAStudent, ThenTheStudentIsAdded>{
 
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_0002.class);
-    public static final String MATRIC_NO = "A17P001";
+	public static final String MATRIC_NO = "A17P001";
 
     @ScenarioStage
     private WhenIPickAStudentAccount additionalWhen;

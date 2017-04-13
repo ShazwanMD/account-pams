@@ -19,7 +19,6 @@ import my.edu.umk.pams.account.account.stage.ThenCompoundDetailsAreRecord;
 import my.edu.umk.pams.account.account.stage.WhenIRegisterStudentCompoundBill;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmCPSAdministrator;
-import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.bdd.tags.Submodule;
 
 @RunWith(SpringJUnit4ClassRunner.class)

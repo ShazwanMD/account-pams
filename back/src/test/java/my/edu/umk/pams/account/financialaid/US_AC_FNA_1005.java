@@ -12,8 +12,6 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanGenerateTextFile;
-import my.edu.umk.pams.account.financialaid.stage.ThenICanStartSettlementProcess;
-import my.edu.umk.pams.account.financialaid.stage.WhenIGenerateSponsorshipReceipt;
 import my.edu.umk.pams.account.financialaid.stage.WhenIGetListOfDeductions;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import my.edu.umk.pams.bdd.tags.Issue;
