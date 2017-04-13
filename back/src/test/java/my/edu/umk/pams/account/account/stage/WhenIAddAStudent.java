@@ -6,7 +6,6 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ public class WhenIAddAStudent extends Stage<WhenIAddAStudent> {
 
     @Autowired
     private IdentityService identityService;
-
-    @Autowired
-    private SessionFactory sessionFactory;
 
     @ProvidedScenarioState
     private String matricNo = "19770816-07-1234";

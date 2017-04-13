@@ -17,10 +17,7 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.billing.stage.WhenSecurityChargeMeCompound;
-import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.security.service.SecurityService;
 
 @JGivenStage
 public class WhenRegisterStudentCompound extends Stage<WhenRegisterStudentCompound>{

@@ -8,7 +8,6 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,6 @@ public class WhenIPickAStudentAccount extends Stage<WhenIPickAStudentAccount> {
 
     @Autowired
     private AccountService accountService;
-
-    @Autowired
-    private SessionFactory sessionFactory;
 
     @ExpectedScenarioState
     private AcStudent student;
