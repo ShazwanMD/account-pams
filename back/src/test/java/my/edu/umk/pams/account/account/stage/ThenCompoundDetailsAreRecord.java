@@ -4,23 +4,15 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
-import my.edu.umk.pams.account.security.service.AccessService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 @JGivenStage
 public class ThenCompoundDetailsAreRecord extends Stage<ThenCompoundDetailsAreRecord> {
 
+<<<<<<< HEAD
+=======
 	private static final Logger LOG = LoggerFactory.getLogger(WhenIRegisterStudentCompoundBill.class);
-
-	@Autowired
-	private IdentityService identityService;
-
-	@Autowired
-	private AccessService accessService;
+>>>>>>> branch 'master' of http://119.110.101.9/pams/account.git
 
 	@ExpectedScenarioState
 	private AcStudent student;

@@ -1,9 +1,10 @@
 package my.edu.umk.pams.account.account.stage;
 
+<<<<<<< HEAD
+=======
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
+>>>>>>> branch 'master' of http://119.110.101.9/pams/account.git
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
@@ -12,15 +13,14 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.service.AccountService;
 
 @JGivenStage
 public class ThenICanKeepMyPaymentDetails extends Stage<ThenICanKeepMyPaymentDetails> {
+<<<<<<< HEAD
+=======
 
 	private static final Logger LOG = LoggerFactory.getLogger(ThenICanKeepMyPaymentDetails.class);
-
-	@Autowired
-	private AccountService accountService;
+>>>>>>> branch 'master' of http://119.110.101.9/pams/account.git
 
 	@ExpectedScenarioState
 	AcAcademicSession academicSession;

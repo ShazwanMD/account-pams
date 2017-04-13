@@ -15,7 +15,6 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.model.AcStudentAffairChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;

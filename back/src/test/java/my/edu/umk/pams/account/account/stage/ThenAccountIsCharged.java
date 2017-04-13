@@ -8,20 +8,13 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.service.AccountService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 
-/**
- * @author PAMS
- */
 @JGivenStage
 public class ThenAccountIsCharged extends Stage<ThenAccountIsCharged> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ThenAccountIsCharged.class);
 
     @Autowired
     private AccountService accountService;
