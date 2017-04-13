@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -25,6 +26,7 @@ public class ThenCompoundDetailsRecord extends Stage<ThenCompoundDetailsRecord> 
 	@Autowired
 	private AccountService accountService;
 
+	@As("the compound details are recorded")
 	public ThenCompoundDetailsRecord the_compound_details_are_record() {
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
 		Assert.isTrue(!charges.isEmpty());

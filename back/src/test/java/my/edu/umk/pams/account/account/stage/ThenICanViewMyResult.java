@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.account.stage;
 import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -23,7 +24,7 @@ public class ThenICanViewMyResult extends Stage<ThenICanViewMyResult> {
 	@ExpectedScenarioState
 	AcAccountCharge accountCharge;
 
-	@Pending
+	@As("I can view my result")
 	public ThenICanViewMyResult I_can_view_my_result() {
 
 		Assert.notNull(academicSession, "academic session is a prerequisite");

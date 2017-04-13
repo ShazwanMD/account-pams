@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -39,6 +40,7 @@ public class ThenMyChargeIsReduced extends Stage<ThenMyChargeIsReduced> {
 	@ExpectedScenarioState
 	private BigDecimal balanceBefore;
 
+	@As("my charge is reduced")
 	public ThenMyChargeIsReduced my_charge_is_reduced() {
 
 		Assert.notNull(academicSession, "academic session is a prerequisite");

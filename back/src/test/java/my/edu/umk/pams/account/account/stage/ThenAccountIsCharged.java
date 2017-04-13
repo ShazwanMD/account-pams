@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.stage;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -28,6 +29,7 @@ public class ThenAccountIsCharged extends Stage<ThenAccountIsCharged> {
     @ExpectedScenarioState
     private AcAccountCharge accountCharge;
 
+    @As("student account is charged")
     public ThenAccountIsCharged student_account_is_charged_$(double chargeAmount){
         Assert.notNull(academicSession, "academic session is a prerequisite");
         Assert.notNull(accountCharge, "account charge is a prerequisite");
@@ -46,6 +48,7 @@ public class ThenAccountIsCharged extends Stage<ThenAccountIsCharged> {
     public void the_charges_for_the_student_are_listed() {
     }
 
+    @As("the charges are misplaced")
     public ThenAccountIsCharged the_charges_are_misplaced(String message) {
         Assert.isTrue("WILL_NEVER_MATCH".equals("EVER"), message);
         return self();

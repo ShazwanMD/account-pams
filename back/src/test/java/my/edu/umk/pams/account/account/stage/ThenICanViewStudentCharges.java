@@ -59,6 +59,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 		return self();
 	}
 
+	@As("can view students compound charges of type Academic charges")
 	public ThenICanViewStudentCharges I_can_view_student_academic_compound_charges_$(String code) {
 		LOG.debug("========List Student Charges of Type compound by account=========");
 		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
@@ -79,6 +80,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 		return self();
 	}
 
+	@As("can view students compound charges of type scurity charges")
 	public ThenICanViewStudentCharges I_can_view_student_security_compound_charges_$(String code) {
 
 		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
@@ -99,6 +101,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 		return self();
 	}
 
+	@As("can view students compound charges of type student affair charges")
 	public ThenICanViewStudentCharges I_can_view_student_student_affair_compound_charges_$(String code) {
 
 		AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
@@ -118,6 +121,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 		return self();
 	}
 	
+	@As("can view students compound charges of type Academic charges")
 	public ThenICanViewStudentCharges I_can_view_student_academic_charges() {
 
 		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
@@ -138,6 +142,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 		return self();
 	}
 
+	@As("can view students compound charges of type security charges")
 	public ThenICanViewStudentCharges I_can_view_student_security_charges() {
 
 		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
@@ -157,6 +162,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 		return self();
 	}
 
+	@As("can view students compound charges of type student affair")
 	public ThenICanViewStudentCharges I_can_view_student_student_affair_charges() {
 
 		AcAccountChargeType chargeType = AcAccountChargeType.STUDENT_AFFAIRS;
@@ -176,6 +182,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 		return self();
 	}
 	
+	@As("can view students compound charges of type security")
 	public ThenICanViewStudentCharges I_can_view_student_compound_charges() {
 
 		AcAccountChargeType chargeType = AcAccountChargeType.SECURITY;
