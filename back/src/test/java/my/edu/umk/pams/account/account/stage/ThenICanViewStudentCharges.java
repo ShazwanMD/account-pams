@@ -22,7 +22,6 @@ import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -44,9 +43,6 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 
 	@Autowired
 	private AccountService accountService;
-
-	@Autowired
-	private IdentityService identityService;
 
 	@ExpectedScenarioState
 	private AcChargeCode chargeCode;
