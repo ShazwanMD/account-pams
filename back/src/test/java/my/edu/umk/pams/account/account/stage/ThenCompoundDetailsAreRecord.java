@@ -16,12 +16,6 @@ public class ThenCompoundDetailsAreRecord extends Stage<ThenCompoundDetailsAreRe
 
 	private static final Logger LOG = LoggerFactory.getLogger(WhenIRegisterStudentCompoundBill.class);
 
-	@Autowired
-	private IdentityService identityService;
-
-	@Autowired
-	private AccessService accessService;
-
 	@ExpectedScenarioState
 	private AcStudent student;
 

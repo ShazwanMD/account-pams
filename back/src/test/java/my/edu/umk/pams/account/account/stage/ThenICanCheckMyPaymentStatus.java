@@ -19,9 +19,6 @@ public class ThenICanCheckMyPaymentStatus extends Stage<ThenICanCheckMyPaymentSt
 
 	private static final Logger LOG = LoggerFactory.getLogger(ThenICanCheckMyPaymentStatus.class);
 
-	@Autowired
-	private AccountService accountService;
-
 	@ExpectedScenarioState
 	AcAcademicSession academicSession;
 

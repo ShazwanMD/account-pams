@@ -1,6 +1,5 @@
 package my.edu.umk.pams.account.account.stage;
 
-import com.tngtech.jgiven.annotation.Pending;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 @ContextConfiguration(classes = TestAppConfiguration.class)
@@ -31,9 +29,6 @@ public class ThenCanGiveStudentInformationToBursary extends Stage<ThenCanGiveStu
 
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
-
-	@Autowired
-	private IdentityService identityService;
 
 	@ExpectedScenarioState
 	private String matricNo;

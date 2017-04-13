@@ -45,9 +45,6 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 	@Autowired
 	private AccountService accountService;
 
-	@Autowired
-	private IdentityService identityService;
-
 	@ExpectedScenarioState
 	private AcChargeCode chargeCode;
 

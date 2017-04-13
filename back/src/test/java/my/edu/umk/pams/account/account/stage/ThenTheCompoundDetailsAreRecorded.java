@@ -6,9 +6,6 @@ import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.annotation.Pending;
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
-
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 
 public class ThenTheCompoundDetailsAreRecorded extends Stage<ThenTheCompoundDetailsAreRecorded> {
