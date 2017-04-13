@@ -15,7 +15,6 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
@@ -33,9 +32,6 @@ public class WhenIWantToGetListOfInvoiceByStudent extends Stage<WhenIWantToGetLi
 
 	@Autowired
 	private IdentityService identityService;
-	
-	@Autowired
-	private AccountService accountService;
 	
 	@Autowired
 	private FinancialAidService financialAidService;

@@ -2,34 +2,21 @@ package my.edu.umk.pams.account.billing.stage;
 
 import io.jsonwebtoken.lang.Assert;
 
-
-
-
-import java.util.List;
-
 import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
-import my.edu.umk.pams.account.financialaid.stage.ThenChargesWillBeBilledToSponsor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 @JGivenStage
 public class ThenFilterTheInvoice extends Stage<ThenFilterTheInvoice> {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(ThenFilterTheInvoice.class);
-	
-
+	private static final Logger LOG = LoggerFactory.getLogger(ThenFilterTheInvoice.class);
 
 	@Autowired
 	private AccountService accountService;
@@ -39,21 +26,18 @@ public class ThenFilterTheInvoice extends Stage<ThenFilterTheInvoice> {
 
 	@ExpectedScenarioState
 	private AcAccount account;
-	
+
 	@ExpectedScenarioState
 	private AcChargeCode chargeCode;
-	
-
 
 	public ThenFilterTheInvoice then_the_invoice_has_a_correct_charge_code() {
-		Assert.notNull(chargeCode ,"chargeCode  can not be null");
+		Assert.notNull(chargeCode, "chargeCode  can not be null");
 		LOG.debug("source number {}", chargeCode.getCode());
 		LOG.debug("source number {}", chargeCode.getDescription());
-		
-//dapat
 
-			
-	return self();
+		// dapat
+
+		return self();
 	}
 
 }
