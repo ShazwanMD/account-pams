@@ -2,11 +2,10 @@ package my.edu.umk.pams.account.account.stage;
 
 import java.math.BigDecimal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -21,7 +20,6 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 
 @JGivenStage
 public class WhenRegisterStudentCompound extends Stage<WhenRegisterStudentCompound>{
-	private static final Logger LOG = LoggerFactory.getLogger(WhenRegisterStudentCompound.class);
 
 	@ExpectedScenarioState
     private AcStudent student;
@@ -38,6 +36,7 @@ public class WhenRegisterStudentCompound extends Stage<WhenRegisterStudentCompou
     @Autowired
     private AccountService accountService;
     
+    @As("I want to register student compound bill")
 	public WhenRegisterStudentCompound I_want_to_register_student_compound_bill() {
 		
 		// find student account

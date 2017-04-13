@@ -2,11 +2,10 @@ package my.edu.umk.pams.account.account.stage;
 
 import java.math.BigDecimal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -18,11 +17,9 @@ import my.edu.umk.pams.account.account.model.AcSecurityCharge;
 import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 public class WhenRegisterStudentCompoundBill extends Stage<WhenRegisterStudentCompoundBill> {
-	private static final Logger LOG = LoggerFactory.getLogger(WhenRegisterStudentCompoundBill.class);
 
 	@ExpectedScenarioState
 	private AcStudent student;
@@ -30,8 +27,6 @@ public class WhenRegisterStudentCompoundBill extends Stage<WhenRegisterStudentCo
 	@ProvidedScenarioState
 	private AcAccount account;
 
-	@Autowired
-	private IdentityService identityService;
 
 	@ProvidedScenarioState
 	private AcAccountCharge charge;
@@ -42,6 +37,7 @@ public class WhenRegisterStudentCompoundBill extends Stage<WhenRegisterStudentCo
 	@Autowired
 	private AccountService accountService;
 
+	@As("I want to register student compound bill")
 	public WhenRegisterStudentCompoundBill I_want_to_register_student_compound_bill() {
 		// find student account
 
