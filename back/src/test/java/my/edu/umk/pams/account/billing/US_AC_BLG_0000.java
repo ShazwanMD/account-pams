@@ -8,8 +8,6 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,7 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @As("TODO User Story goes here US_AC_BLG_0000")
 public class US_AC_BLG_0000 extends SpringScenarioTest<GivenIAmBursary, WhenIssueInvoice, ThenStudentAccountIsCharged> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_0000.class);
     public static final String MATRIC_NO = "A17P001";
 
     @Test

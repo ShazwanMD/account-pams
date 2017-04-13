@@ -9,8 +9,6 @@ import my.edu.umk.pams.bdd.tags.Submodule;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,11 +21,8 @@ import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 @Submodule("Billing")
 @As("As a bursary, I want to invoice with given charge code, so that I can filter what I can invoice")
 public class US_AC_BLG_2001
-		extends
-		SpringScenarioTest<GivenIAmBursary, WhenIMakeInvoiceWithChargeCode, ThenFilterTheInvoice> {
+		extends SpringScenarioTest<GivenIAmBursary, WhenIMakeInvoiceWithChargeCode, ThenFilterTheInvoice> {
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(US_AC_BLG_2001.class);
 	private static final String MATRIC_NUMBER = "A17P002";
 	private static final String CHARGE_CODE = "TABPPS-PCA-00-H79336";
 

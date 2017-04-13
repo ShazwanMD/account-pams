@@ -11,7 +11,6 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentStatus;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
-
 @JGivenStage
 public class WhenIUpdateStudentStatus extends Stage<WhenIUpdateStudentStatus>{
 

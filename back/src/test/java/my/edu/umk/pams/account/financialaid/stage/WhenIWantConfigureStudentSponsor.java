@@ -1,7 +1,5 @@
 package my.edu.umk.pams.account.financialaid.stage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -19,8 +17,6 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 public class WhenIWantConfigureStudentSponsor extends Stage<WhenIWantConfigureStudentSponsor> {
-
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantConfigureStudentSponsor.class);
 
 	@Autowired
 	private IdentityService identityService;

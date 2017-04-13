@@ -8,8 +8,6 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,8 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("TODO User Story goes here")
 public class US_AC_BLG_00011 extends SpringScenarioTest<GivenIAmStudent, WhenSecurityChargeMeCompound, ThenStudentAccountIsCharged> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(US_AC_BLG_00011.class);
 
     @Test
     @Rollback

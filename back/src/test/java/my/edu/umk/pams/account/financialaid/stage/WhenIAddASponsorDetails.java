@@ -14,16 +14,12 @@ import my.edu.umk.pams.account.identity.model.AcCoverageImpl;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 
 @JGivenStage
 public class WhenIAddASponsorDetails extends Stage<WhenIAddASponsorDetails>{
-	
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIAddASponsorDetails.class);
 	
     @Autowired
     private IdentityService identityService;
