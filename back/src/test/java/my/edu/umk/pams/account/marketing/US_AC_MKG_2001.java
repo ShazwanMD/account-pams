@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 
 import my.edu.umk.pams.account.marketing.stage.ThenDiscountCanAppliedToReceipt;
-
 import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsDiscountToStudent;
-
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 
 import com.tngtech.jgiven.annotation.As;
