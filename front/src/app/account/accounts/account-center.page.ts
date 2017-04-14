@@ -7,7 +7,7 @@ import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Account} from "./account.interface";
 import {AccountActions} from "./account.action";
-import {AccountState} from "../index";
+import {AccountState} from "./account.reducer";
 
 @Component({
   selector: 'pams-account-center',

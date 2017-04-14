@@ -4,7 +4,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
-import my.edu.umk.pams.account.web.module.billing.vo.InvoiceItem;
+import my.edu.umk.pams.account.web.module.account.vo.AccountTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,9 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/accounts/{code}/accountTransactions", method = RequestMethod.GET)
-    public ResponseEntity<List<InvoiceItem>> findInvoiceItems(@PathVariable String referenceNo) {
-        throw new UnsupportedOperationException();
+    public ResponseEntity<List<AccountTransaction>> findInvoiceItems(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountTransaction>>(accountTransformer
+                .toAccountTransactionVos(accountService.findAccountTransactions(account)), HttpStatus.OK);
     }
 }

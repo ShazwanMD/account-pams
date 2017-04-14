@@ -1,4 +1,4 @@
-package my.edu.umk.pams.account.web.module.billing.vo;
+package my.edu.umk.pams.account.web.module.account.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;

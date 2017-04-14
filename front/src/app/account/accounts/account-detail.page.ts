@@ -7,8 +7,8 @@ import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Account} from "./account.interface";
 import {AccountActions} from "./account.action";
-import {AccountState} from "../index";
 import {AccountTransaction} from "./account-transaction.interface";
+import {AccountModuleState} from "../index";
 
 @Component({
   selector: 'pams-account-detail',
@@ -22,14 +22,14 @@ export class AccountDetailPage implements OnInit {
   private _router: Router;
   private _route: ActivatedRoute;
   private _actions: AccountActions;
-  private store: Store<AccountState>;
+  private store: Store<AccountModuleState>;
   private account$: Observable<Account>;
   private transactions$: Observable<AccountTransaction[]>;
 
   constructor(router: Router,
               route: ActivatedRoute,
               actions: AccountActions,
-              store: Store<AccountState>,
+              store: Store<AccountModuleState>,
               identityService: IdentityService,
               commonService: CommonService) {
 

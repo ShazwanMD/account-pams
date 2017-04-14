@@ -12,10 +12,7 @@ import java.math.BigDecimal;
  * waived amount = 2800
  * graced amount = 200
  * Effective balance = balance - (waived amount + graced amount)
- *
- * 
  * */
-
 public interface AcWaiverApplication extends AcDocument {
 
 	String getReason();
@@ -49,6 +46,4 @@ public interface AcWaiverApplication extends AcDocument {
 	AcAcademicSession getSession();
 
 	void setSession(AcAcademicSession session);
-
-
 }

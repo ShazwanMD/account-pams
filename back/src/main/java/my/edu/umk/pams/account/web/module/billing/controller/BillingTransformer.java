@@ -1,12 +1,12 @@
 package my.edu.umk.pams.account.web.module.billing.controller;
 
 import my.edu.umk.pams.account.AccountConstants;
-import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.web.module.account.controller.AccountTransformer;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
 import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -39,26 +38,12 @@ public class BillingTransformer {
     @Autowired
     private IdentityTransformer identityTransformer;
 
-    public ChargeCode toChargeCodeVo(AcChargeCode e) {
-        ChargeCode m = new ChargeCode();
-        m.setId(e.getId());
-        m.setCode(e.getCode());
-        m.setDescription(e.getDescription());
-        return m;
-    }
+    @Autowired
+    private BillingTransformer billingTransformer;
 
-    public List<ChargeCode> toChargeCodeVos(List<AcChargeCode> e) {
-        List<ChargeCode> vos = e.stream()
-                .map((e1) -> toChargeCodeVo(e1))
-                .collect(Collectors.toList());
-        return vos;
-    }
+    @Autowired
+    private AccountTransformer accountTransformer;
 
-    public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
-        return tasks.stream()
-                .map((task) -> toInvoiceTaskVo(task))
-                .collect(toCollection(() -> new ArrayList<InvoiceTask>()));
-    }
 
     public InvoiceTask toInvoiceTaskVo(Task t) {
         Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
@@ -109,18 +94,6 @@ public class BillingTransformer {
         return vo;
     }
 
-    public List<Invoice> toInvoiceVos(List<AcInvoice> journals) {
-        return journals.stream()
-                .map((task) -> toInvoiceVo(task))
-                .collect(toCollection(() -> new ArrayList<Invoice>()));
-    }
-
-    public List<InvoiceItem> toInvoiceItemVos(List<AcInvoiceItem> entries) {
-        return entries.stream()
-                .map((entry) -> toInvoiceItemVo(entry))
-                .collect(toCollection(() -> new ArrayList<InvoiceItem>()));
-    }
-
     public InvoiceItem toInvoiceItemVo(AcInvoiceItem e) {
         InvoiceItem vo = new InvoiceItem();
         vo.setId(e.getId());
@@ -128,14 +101,9 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setDebitAmount(e.getAmount().compareTo(BigDecimal.ZERO) < 0 ? e.getAmount().negate() : null);
         vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) > 0 ? e.getAmount() : null);
-        vo.setChargeCode(toChargeCodeVo(e.getChargeCode()));
+        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
-    }
-    public List<ReceiptTask> toReceiptTaskVos(List<Task> tasks) {
-        return tasks.stream()
-                .map((task) -> toReceiptTaskVo(task))
-                .collect(toCollection(() -> new ArrayList<ReceiptTask>()));
     }
 
     public ReceiptTask toReceiptTaskVo(Task t) {
@@ -184,6 +152,30 @@ public class BillingTransformer {
         return vo;
     }
 
+    public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
+        return tasks.stream()
+                .map((task) -> toInvoiceTaskVo(task))
+                .collect(toCollection(() -> new ArrayList<InvoiceTask>()));
+    }
+
+    public List<Invoice> toInvoiceVos(List<AcInvoice> journals) {
+        return journals.stream()
+                .map((task) -> toInvoiceVo(task))
+                .collect(toCollection(() -> new ArrayList<Invoice>()));
+    }
+
+    public List<InvoiceItem> toInvoiceItemVos(List<AcInvoiceItem> entries) {
+        return entries.stream()
+                .map((entry) -> toInvoiceItemVo(entry))
+                .collect(toCollection(() -> new ArrayList<InvoiceItem>()));
+    }
+
+    public List<ReceiptTask> toReceiptTaskVos(List<Task> tasks) {
+        return tasks.stream()
+                .map((task) -> toReceiptTaskVo(task))
+                .collect(toCollection(() -> new ArrayList<ReceiptTask>()));
+    }
+
     public List<Receipt> toReceiptVos(List<AcReceipt> journals) {
         return journals.stream()
                 .map((task) -> toReceiptVo(task))
@@ -202,7 +194,7 @@ public class BillingTransformer {
         vo.setId(e.getId());
         vo.setAmount(e.getTotalAmount());
         vo.setDescription(e.getDescription());
-        vo.setChargeCode(toChargeCodeVo(e.getChargeCode()));
+        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }

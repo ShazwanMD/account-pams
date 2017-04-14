@@ -18,7 +18,7 @@ import {appRoutes, appRoutingProviders} from './app.routes';
 import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 
 import {HomeComponent} from "./home/home.component";
-import {AccountModuleX, accountxReducer} from "./account/index";
+import {AccountModuleX, accountModuleReducer} from "./account/index";
 import {CustomUrlSerializer} from "./common/custom-url-serializer";
 import {UrlSerializer} from "@angular/router";
 import {BillingModule} from "./billing/index";
@@ -52,7 +52,7 @@ const httpInterceptorProviders: Type<any>[] = [
 
     AccountModuleX.forRoot(),
     BillingModule.forRoot(),
-    StoreModule.provideStore(accountxReducer),
+    StoreModule.provideStore(accountModuleReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
   ], // modules needed to run this module

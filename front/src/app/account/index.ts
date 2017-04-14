@@ -2,8 +2,7 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../app.routes';
-import {environment} from '../../environments/environment';
-import {combineReducers, StoreModule} from "@ngrx/store";
+import {combineReducers, ActionReducer} from "@ngrx/store";
 
 import {CovalentCoreModule} from '@covalent/core';
 
@@ -14,19 +13,20 @@ import {AccountPage} from "./account.page";
 import {AccountService} from "../../services/account.service";
 import {AccountModule} from "./accounts/index";
 import {AccountListState, accountListReducer} from "./accounts/account-list.reducer";
-import {accountReducer} from "./accounts/account.reducer";
-import {compose} from "@ngrx/core/compose";
+import {accountReducer, AccountState} from "./accounts/account.reducer";
 
-export interface AccountState {
+export interface AccountModuleState {
   accounts: AccountListState;
   account: AccountState;
+};
+
+export const INITIAL_ACCOUNT_DATA: AccountModuleState = <AccountModuleState>{accounts:[], account:{}};
+const reducers = {accounts:accountListReducer, account:accountReducer};
+const productionReducer: ActionReducer<AccountModuleState> = combineReducers(reducers);
+
+export function accountModuleReducer(state: any = INITIAL_ACCOUNT_DATA, action: any) {
+  return productionReducer(state, action);
 }
-;
-
-export const accountxReducer = compose(combineReducers)({
-  accounts: accountListReducer, account: accountReducer,
-});
-
 
 @NgModule({
   imports: [

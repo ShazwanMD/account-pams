@@ -2,10 +2,12 @@ package my.edu.umk.pams.account.web.module.financialaid.controller;
 
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.web.module.account.controller.AccountTransformer;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
 import my.edu.umk.pams.account.web.module.financialaid.vo.Settlement;
 import my.edu.umk.pams.account.web.module.financialaid.vo.SettlementItem;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,19 @@ public class FinancialAidTransformer {
     @Autowired
     private IdentityTransformer identityTransformer;
 
+    public WaiverApplication toWaiverApplicationVo(AcWaiverApplication e) {
+        WaiverApplication vo = new WaiverApplication();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setDescription(e.getDescription());
+        vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
+        vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
+        // todo(uda):flowstate
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+
     public Settlement toSimpleSettlementVo(AcSettlement e) {
         Settlement vo = new Settlement();
         vo.setId(e.getId());
@@ -46,6 +61,7 @@ public class FinancialAidTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
+
     public SettlementItem toSettlementItemVo(AcSettlementItem e) {
         // todo(uda): more properties
         SettlementItem vo = new SettlementItem();
@@ -66,5 +82,10 @@ public class FinancialAidTransformer {
         return entries.stream()
                 .map((entry) -> toSettlementItemVo(entry))
                 .collect(toCollection(() -> new ArrayList<SettlementItem>()));
+    }
+    public List<WaiverApplication> toWaiverApplicationVos(List<AcWaiverApplication> entries) {
+        return entries.stream()
+                .map((entry) -> toWaiverApplicationVo(entry))
+                .collect(toCollection(() -> new ArrayList<WaiverApplication>()));
     }
 }
