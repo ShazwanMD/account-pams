@@ -295,9 +295,9 @@
                                 <srcFile>src/test/resources/data/AC_SPSR.sql</srcFile>
 
                                 <!--ACCOUNT-->
+                                <srcFile>src/test/resources/data/AC_ACDM_SESN.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACCT-STDN.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACCT-SPSR.sql</srcFile>
-                                <srcFile>src/test/resources/data/AC_ACDM_SESN.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_FEE_SCDL.sql</srcFile>
 
                                 <!--BILLING-->

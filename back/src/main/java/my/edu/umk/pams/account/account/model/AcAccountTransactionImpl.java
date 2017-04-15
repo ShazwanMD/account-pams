@@ -37,12 +37,12 @@ public class AcAccountTransactionImpl implements AcAccountTransaction {
 
     @NotNull
     @ManyToOne(targetEntity = AcChargeCodeImpl.class)
-    @JoinColumn(name = "CHARGE_CODE_ID",nullable = false)
+    @JoinColumn(name = "CHARGE_CODE_ID", nullable = false)
     private AcChargeCode chargeCode;
 
     @NotNull
     @OneToOne(targetEntity = AcAcademicSessionImpl.class)
-    @JoinColumn(name = "SESSION_ID")
+    @JoinColumn(name = "SESSION_ID", nullable = false)
     private AcAcademicSession session;
 
     @NotNull

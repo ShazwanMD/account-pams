@@ -10,7 +10,6 @@ export type AccountListState = Account[];
 const initialState: AccountListState = <Account[]>[];
 
 export function accountListReducer(state = initialState, action: Action): AccountListState {
-  console.log("action: " + action.type);
   switch (action.type) {
     case AccountActions.FIND_ACCOUNTS_SUCCESS: {
       return action.payload;

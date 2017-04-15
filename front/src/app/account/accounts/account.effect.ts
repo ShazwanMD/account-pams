@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {Effect, Actions} from '@ngrx/effects';
 import {AccountActions} from "./account.action";
 import {AccountService} from "../../../services/account.service";
+import {from} from "rxjs/observable/from";
 
 
 @Injectable()
 export class AccountEffects {
   constructor(private actions$: Actions,
               private accountActions: AccountActions,
-              private accountService: AccountService,) {
+              private accountService: AccountService) {
   }
 
   @Effect() findAccounts$ = this.actions$
@@ -20,7 +21,14 @@ export class AccountEffects {
     .ofType(AccountActions.FIND_ACCOUNT)
     .map(action => action.payload)
     .switchMap(code => this.accountService.findAccountByCode(code))
-    .map(account => this.accountActions.getAccountSuccess(account));
+    .map(account => this.accountActions.findAccountSuccess(account))
+    .mergeMap(action => from([action, this.accountActions.findAccountTransactions(action.payload)]));
+
+  @Effect() findAccountTransactions$ = this.actions$
+    .ofType(AccountActions.FIND_ACCOUNT_TRANSACTIONS)
+    .map(action => action.payload)
+    .switchMap(account => this.accountService.findAccountTransactions(account))
+    .map(transactions => this.accountActions.findAccountTransactionsSuccess(transactions));
 
   @Effect() saveAccount$ = this.actions$
     .ofType(AccountActions.SAVE_ACCOUNT)

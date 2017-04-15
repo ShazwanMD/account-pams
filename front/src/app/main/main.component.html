@@ -1,5 +1,5 @@
 <td-layout #layout>
-  <td-navigation-drawer logo="assets:covalent" sidenavTitle="PAMS Intake" name="Bob" email="bob@gmail.com">
+  <td-navigation-drawer logo="assets:covalent" sidenavTitle="PAMS Account" name="Bob" email="bob@gmail.com">
     <md-nav-list>
       <template let-item let-last="last" ngFor [ngForOf]="routes">
         <a md-list-item [routerLink]="[item.route]" (click)="layout.close()"><md-icon>{{item.icon}}</md-icon>{{item.title}}</a>

@@ -53,7 +53,7 @@ export class AccountService {
   }
 
   findAccountTransactions(account:Account): Observable<AccountTransaction[]> {
-    console.log("findAccounts");
+    console.log("findAccountTransactions");
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
     return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountTransactions")

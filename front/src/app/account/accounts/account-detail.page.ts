@@ -24,7 +24,7 @@ export class AccountDetailPage implements OnInit {
   private _actions: AccountActions;
   private store: Store<AccountModuleState>;
   private account$: Observable<Account>;
-  private transactions$: Observable<AccountTransaction[]>;
+  private accountTransactions$: Observable<AccountTransaction[]>;
 
   constructor(router: Router,
               route: ActivatedRoute,
@@ -40,7 +40,7 @@ export class AccountDetailPage implements OnInit {
     this._actions = actions;
     this.store = store;
     this.account$ = this.store.select('account');
-    this.transactions$ = this.store.select('accountTransactions');
+    this.accountTransactions$ = this.store.select('accountTransactions');
   }
 
   ngOnInit(): void {

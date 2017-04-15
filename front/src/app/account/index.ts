@@ -14,14 +14,16 @@ import {AccountService} from "../../services/account.service";
 import {AccountModule} from "./accounts/index";
 import {AccountListState, accountListReducer} from "./accounts/account-list.reducer";
 import {accountReducer, AccountState} from "./accounts/account.reducer";
+import {AccountTransactionListState, accountTransactionListReducer} from "./accounts/account-transaction-list.reducer";
 
 export interface AccountModuleState {
   accounts: AccountListState;
   account: AccountState;
+  accountTransactions:AccountTransactionListState;
 };
 
-export const INITIAL_ACCOUNT_DATA: AccountModuleState = <AccountModuleState>{accounts:[], account:{}};
-const reducers = {accounts:accountListReducer, account:accountReducer};
+export const INITIAL_ACCOUNT_DATA: AccountModuleState = <AccountModuleState>{accounts:[], account:{},accountTransactions:[]};
+const reducers = {accounts:accountListReducer, account:accountReducer, accountTransactions:accountTransactionListReducer};
 const productionReducer: ActionReducer<AccountModuleState> = combineReducers(reducers);
 
 export function accountModuleReducer(state: any = INITIAL_ACCOUNT_DATA, action: any) {

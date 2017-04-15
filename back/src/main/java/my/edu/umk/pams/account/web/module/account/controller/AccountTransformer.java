@@ -53,7 +53,6 @@ public class AccountTransformer {
         return vos;
     }
 
-
     public AcademicSession toAcademicSessionVo(AcAcademicSession e) {
         AcademicSession m = new AcademicSession();
         m.setId(e.getId());
@@ -77,6 +76,7 @@ public class AccountTransformer {
         m.setId(e.getId());
         m.setSourceNo(e.getSourceNo());
         m.setPostedDate(e.getPostedDate());
+        m.setAmount(e.getAmount());
         m.setChargeCode(toChargeCodeVo(e.getChargeCode()));
         m.setAccount(toAccountVo(e.getAccount()));
         m.setSession(toAcademicSessionVo(e.getSession()));

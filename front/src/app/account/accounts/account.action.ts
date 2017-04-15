@@ -30,10 +30,29 @@ export class AccountActions {
   }
 
   static FIND_ACCOUNT_SUCCESS = '[Account] Find Account Success';
-  getAccountSuccess(account): Action {
+  findAccountSuccess(account): Action {
+    console.log("findAccountSuccess");
     return {
       type: AccountActions.FIND_ACCOUNT_SUCCESS,
       payload: account
+    };
+  }
+
+  static FIND_ACCOUNT_TRANSACTIONS = '[Account] Find Account Transactions';
+  findAccountTransactions(account): Action {
+    console.log("findAccountTransactions");
+    return {
+      type: AccountActions.FIND_ACCOUNT_TRANSACTIONS,
+      payload: account
+    };
+  }
+
+  static FIND_ACCOUNT_TRANSACTIONS_SUCCESS = '[Account] Find Account Transactions Success';
+  findAccountTransactionsSuccess(accountTransactions): Action {
+    console.log("findAccountTransactionsSuccess");
+    return {
+      type: AccountActions.FIND_ACCOUNT_TRANSACTIONS_SUCCESS,
+      payload: accountTransactions
     };
   }
 
