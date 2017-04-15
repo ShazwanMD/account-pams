@@ -23,7 +23,7 @@ import java.util.Set;
  * @since 1/31/14
  */
 @Repository("aclObjectIdentityDao")
-public final class AclObjectIdentityDaoImpl extends GenericDaoSupport<Long, AclObjectIdentity> implements AclObjectIdentityDao {
+public class AclObjectIdentityDaoImpl extends GenericDaoSupport<Long, AclObjectIdentity> implements AclObjectIdentityDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AclObjectIdentityDaoImpl.class);
 

@@ -11,9 +11,8 @@ import java.util.List;
  * @author canang technologies
  * @since 1/31/14
  */
-@SuppressWarnings({"unchecked"})
 @Repository("referenceNoDao")
-public final class AcReferenceNoDaoImpl extends GenericDaoSupport<Long, my.edu.umk.pams.account.system.model.AcReferenceNo> implements AcReferenceNoDao {
+public class AcReferenceNoDaoImpl extends GenericDaoSupport<Long, my.edu.umk.pams.account.system.model.AcReferenceNo> implements AcReferenceNoDao {
 
     public AcReferenceNoDaoImpl() {
         super(my.edu.umk.pams.account.system.model.AcReferenceNoImpl.class);
