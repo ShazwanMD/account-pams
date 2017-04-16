@@ -28,6 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -96,6 +97,7 @@ public class InvoiceWorkflowTest {
         // find and pick assigned drafted invoice
         // assuming there is one
         List<Task> draftedTasks = billingService.findAssignedInvoiceTasks(0, 100);
+        Assert.notEmpty(draftedTasks, "Tasks should not be empty");
         Task draftedTask = draftedTasks.get(0);
         AcInvoice draftedInvoice = billingService.findInvoiceByTaskId(draftedTask.getId());
 
@@ -120,24 +122,28 @@ public class InvoiceWorkflowTest {
         // find and pick pooled registered invoice
         // assuming there is exactly one
         List<Task> pooledRegisteredInvoices = billingService.findPooledInvoiceTasks(0, 100);
+        Assert.notEmpty(pooledRegisteredInvoices, "Tasks should not be empty");
         workflowService.assignTask(pooledRegisteredInvoices.get(0));
 
         // find and complete assigned registered invoice
         // assuming there is exactly one
         // transition to VERIFIED
         List<Task> assignedRegisteredInvoices = billingService.findAssignedInvoiceTasks(0, 100);
+        Assert.notEmpty(assignedRegisteredInvoices, "Tasks should not be empty");
         workflowService.completeTask(assignedRegisteredInvoices.get(0));
 
         // PEGAWAI
         // find and pick pooled verified invoice
         // assuming there is exactly one
         List<Task> pooledVerifiedInvoices = billingService.findPooledInvoiceTasks(0, 100);
+        Assert.notEmpty(pooledVerifiedInvoices, "Tasks should not be empty");
         workflowService.assignTask(pooledVerifiedInvoices.get(0));
 
         // find and complete assigned verified invoice
         // assuming there is exactly one
         // transition to APPROVED (COMPLETED)
         List<Task> assignedVerifiedInvoices = billingService.findAssignedInvoiceTasks(0, 100);
+        Assert.notEmpty(assignedVerifiedInvoices, "Tasks should not be empty");
         workflowService.completeTask(assignedVerifiedInvoices.get(0)); // TO APPROVE
     }
 }

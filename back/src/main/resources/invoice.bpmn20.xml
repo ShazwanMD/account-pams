@@ -22,7 +22,7 @@
 
         <startEvent id="start"/>
 
-        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="invoice_draft_ST"/>
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="invoice_draft_ST"/>
 
         <!--
         ====================================================================================================
@@ -35,7 +35,22 @@
         <serviceTask id="invoice_draft_ST"
                      activiti:expression="#{invoice_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow2.3" sourceRef="invoice_draft_ST" targetRef="invoice_register_ST"/>
+        <sequenceFlow id="flow1.1" sourceRef="invoice_draft_ST" targetRef="invoice_draft_UT"/>
+
+        <userTask id="invoice_draft_UT" name="my.edu.umk.pams.account.billing.model.AcInvoice:DRAFTED"
+                  activiti:assignee="${userCreator}">
+            <documentation>
+                Draft Invoice
+            </documentation>
+        </userTask>
+
+        <sequenceFlow id="flow1.2" sourceRef="invoice_draft_UT" targetRef="invoice_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow1.3" sourceRef="invoice_draft_UT" targetRef="invoice_register_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
         <!--
         ====================================================================================================
         == STATE : REGISTERED
@@ -48,7 +63,25 @@
                      activiti:expression="#{invoice_register_ST.execute(execution)}"/>
 
 
-        <sequenceFlow id="flow3.3" sourceRef="invoice_register_ST" targetRef="invoice_verify_ST"/>
+        <sequenceFlow id="flow3.1" sourceRef="invoice_register_ST" targetRef="invoice_register_UT"/>
+
+        <userTask id="invoice_register_UT" name="my.edu.umk.pams.account.billing.model.AcInvoice:REGISTERED"
+                  activiti:candidateGroups="${invoiceRouter.findRegistererCandidates(invoiceId)}">
+            <documentation>
+                Register Invoice
+            </documentation>
+
+        </userTask>
+
+        <!-- accept -->
+        <sequenceFlow id="flow3.2" sourceRef="invoice_register_UT" targetRef="invoice_verify_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!-- delete -->
+        <sequenceFlow id="flow3.4" sourceRef="invoice_register_UT" targetRef="invoice_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
         <!--
         ====================================================================================================
         == STATE : VERIFIED
@@ -59,7 +92,23 @@
         <serviceTask id="invoice_verify_ST"
                      activiti:expression="#{invoice_verify_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow4.2" sourceRef="invoice_verify_ST" targetRef="invoice_approve_ST"/>
+        <sequenceFlow id="flow4.1" sourceRef="invoice_verify_ST" targetRef="invoice_verify_UT"/>
+
+        <userTask id="invoice_verify_UT" name="my.edu.umk.pams.account.billing.model.AcInvoice:VERIFIED"
+                  activiti:candidateGroups="${invoiceRouter.findVerifierCandidates(invoiceId)}">
+            <documentation>
+                Verify Invoice
+            </documentation>
+
+        </userTask>
+
+        <sequenceFlow id="flow4.2" sourceRef="invoice_verify_UT" targetRef="invoice_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow4.3" sourceRef="invoice_verify_UT" targetRef="invoice_approve_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
 
 
         <!--

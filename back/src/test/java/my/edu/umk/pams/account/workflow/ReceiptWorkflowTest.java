@@ -26,6 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -103,6 +104,7 @@ public class ReceiptWorkflowTest {
         // find and pick assigned drafted receipt
         // assuming there is one
         List<Task> draftedTasks = billingService.findAssignedReceiptTasks(0, 100);
+        Assert.notEmpty(draftedTasks, "Tasks should not be empty");
         Task draftedTask = draftedTasks.get(0);
         AcReceipt draftedReceipt = billingService.findReceiptByTaskId(draftedTask.getId());
 
@@ -126,12 +128,14 @@ public class ReceiptWorkflowTest {
         // find and pick pooled registered receipt
         // assuming there is exactly one
         List<Task> pooledRegisteredReceipts = billingService.findPooledReceiptTasks(0, 100);
+        Assert.notEmpty(pooledRegisteredReceipts, "Tasks should not be empty");
         workflowService.assignTask(pooledRegisteredReceipts.get(0));
 
         // find and complete assigned registered receipt
         // assuming there is exactly one
         // transition to APPROVED (COMPLETED)
         List<Task> assignedRegisteredReceipts = billingService.findAssignedReceiptTasks(0, 100);
+        Assert.notEmpty(assignedRegisteredReceipts, "Tasks should not be empty");
         workflowService.completeTask(assignedRegisteredReceipts.get(0));
     }
 
