@@ -12,26 +12,25 @@ import my.edu.umk.pams.account.identity.model.AcStudentStatus;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
-public class WhenIUpdateStudentStatus extends Stage<WhenIUpdateStudentStatus>{
+public class WhenIUpdateStudentStatus extends Stage<WhenIUpdateStudentStatus> {
 
 	@Autowired
 	private IdentityService identityService;
-	
+
 	@ProvidedScenarioState
 	private AcStudent student;
-	
+
 	@ProvidedScenarioState
 	private String code;
-	
+
 	@As("I want to update student status")
 	public WhenIUpdateStudentStatus I_want_to_update_student_status_$(String code) {
 
 		AcStudent student = identityService.findStudentByMatricNo(code);
-		// = new AcStudentImpl();
 		student.setStudentStatus(AcStudentStatus.ACTIVE);
-		
+
 		identityService.updateStudent(student);
-		
+
 		return self();
 	}
 }

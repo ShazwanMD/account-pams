@@ -16,23 +16,23 @@ import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
-public class ThenICanStartSettlementProcess extends Stage<ThenICanStartSettlementProcess>{
+public class ThenICanStartSettlementProcess extends Stage<ThenICanStartSettlementProcess> {
 
-    @Autowired
-    private IdentityService identityService;
+	@Autowired
+	private IdentityService identityService;
 
-    @ProvidedScenarioState
-    AcSponsor sponsor;
-    
-    @ExpectedScenarioState
-    private List<AcSponsorship> sponsorship;
-    
+	@ProvidedScenarioState
+	AcSponsor sponsor;
+
+	@ExpectedScenarioState
+	private List<AcSponsorship> sponsorship;
+
 	@As("I start check settlement process")
 	public ThenICanStartSettlementProcess I_start_check_settlement_process() {
 
 		boolean hasSponsorship = identityService.hasSponsorship(sponsor);
 		Assert.isTrue(hasSponsorship, "sponsor should have sponsorship");
-		
+
 		return self();
 	}
 }

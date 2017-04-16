@@ -53,11 +53,11 @@ public class WhenIAddSettlementDetails extends Stage<WhenIAddSettlementDetails> 
 		settlement.setSponsor(sponsor);
 
 		financialAidService.initSettlement(settlement);
-		
+
 		invoice = new AcInvoiceImpl();
-		invoice.setDescription(settlement.getId()+" "+settlement.getSession());
+		invoice.setDescription(settlement.getId() + " " + settlement.getSession());
 		invoice.setSession(academicSession);
- 
+
 		financialAidService.executeSettlement(settlement);
 
 		return self();

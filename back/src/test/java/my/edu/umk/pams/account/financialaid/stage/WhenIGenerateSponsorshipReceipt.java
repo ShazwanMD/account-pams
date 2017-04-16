@@ -87,7 +87,7 @@ public class WhenIGenerateSponsorshipReceipt extends Stage<WhenIGenerateSponsors
 
 				LOG.debug("Processing process receipting with refNo {}", referenceNo);
 				LOG.debug("Processing process receipting with receiptNo {}", receiptNo);
-				
+
 				AcReceipt receipt = new AcReceiptImpl();
 				receipt.setReferenceNo(referenceNo);
 				receipt.setDescription(sponsor.getIdentityNo() + ";" + sponsor.getEmail());
@@ -101,7 +101,7 @@ public class WhenIGenerateSponsorshipReceipt extends Stage<WhenIGenerateSponsors
 				receipt.setReceivedDate(new Timestamp(System.currentTimeMillis()));
 
 				billingService.startReceiptTask(receipt);
-				
+
 				AcReceiptItem item = new AcReceiptItemImpl();
 				item.setAdjustedAmount(BigDecimal.ZERO);
 				item.setAppliedAmount(BigDecimal.ZERO);
@@ -110,15 +110,11 @@ public class WhenIGenerateSponsorshipReceipt extends Stage<WhenIGenerateSponsors
 				item.setTotalAmount(BigDecimal.ZERO);
 				item.setReceipt(receipt);
 				item.setInvoice(invc);
-				
+
 				billingService.addReceiptItem(receipt, item);
-							
-				
+
 			}
 
-
-
-			//billingService.startReceiptTask(receipt);
 		}
 		return self();
 
