@@ -1,22 +1,29 @@
 package my.edu.umk.pams.account.web.module.financialaid.controller;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationImpl;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
 import my.edu.umk.pams.account.identity.service.IdentityService;
+import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
+import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -27,9 +34,6 @@ import java.util.List;
 public class FinancialAidController {
 
     private static final Logger LOG = LoggerFactory.getLogger(FinancialAidController.class);
-
-    @Autowired
-    private BillingService billingService;
 
     @Autowired
     private AccountService accountService;
@@ -72,4 +76,64 @@ public class FinancialAidController {
         AcWaiverApplication waiverApplication = (AcWaiverApplication) financialAidService.findWaiverApplicationByReferenceNo(referenceNo);
         return new ResponseEntity<WaiverApplication>(financialAidTransformer.toWaiverApplicationVo(waiverApplication), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/waiverApplications/assignedTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverApplicationTask>> findAssignedWaiverApplications() {
+        dummyLogin();
+        List<Task> tasks = financialAidService.findAssignedWaiverApplicationTasks(0, 100);
+        return new ResponseEntity<List<WaiverApplicationTask>>(financialAidTransformer.toWaiverApplicationTaskVos(tasks), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverApplications/pooledTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverApplicationTask>> findPooledWaiverApplications() {
+        dummyLogin();
+        List<Task> tasks = financialAidService.findPooledWaiverApplicationTasks(0, 100);
+        return new ResponseEntity<List<WaiverApplicationTask>>(financialAidTransformer.toWaiverApplicationTaskVos(tasks), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverApplications/startTask", method = RequestMethod.POST)
+    public void startWaiverApplicationTask(@RequestBody WaiverApplication vo) throws Exception {
+        dummyLogin();
+
+        AcAccount account = accountService.findAccountById(vo.getAccount().getId());
+        AcWaiverApplication waiverApplication = new AcWaiverApplicationImpl();
+        waiverApplication.setDescription(vo.getDescription());
+        waiverApplication.setWaivedAmount(BigDecimal.ZERO);
+        waiverApplication.setGracedAmount(BigDecimal.ZERO);
+        waiverApplication.setEffectiveBalance(BigDecimal.ZERO);
+        waiverApplication.setBalance(BigDecimal.ZERO);
+        waiverApplication.setAccount(account);
+        financialAidService.startWaiverApplicationTask(waiverApplication);
+    }
+
+    @RequestMapping(value = "/waiverApplications/viewTask/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<WaiverApplicationTask> findWaiverApplicationTaskByTaskId(@PathVariable String taskId) {
+        return new ResponseEntity<WaiverApplicationTask>(financialAidTransformer
+                .toWaiverApplicationTaskVo(
+                        financialAidService.findWaiverApplicationTaskByTaskId(taskId)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverApplications/claimTask", method = RequestMethod.POST)
+    public void claimWaiverApplicationTask(@RequestBody WaiverApplicationTask vo) {
+        dummyLogin();
+        Task task = financialAidService.findWaiverApplicationTaskByTaskId(vo.getTaskId());
+        workflowService.claimTask(task);
+    }
+
+    @RequestMapping(value = "/waiverApplications/completeTask", method = RequestMethod.POST)
+    public void completeWaiverApplicationTask(@RequestBody WaiverApplicationTask vo) {
+        Task task = financialAidService.findWaiverApplicationTaskByTaskId(vo.getTaskId());
+        workflowService.completeTask(task);
+    }
+
+    // ====================================================================================================
+    // PRIVATE METHODS
+    // ====================================================================================================
+
+    private void dummyLogin() {
+        AcAutoLoginToken token = new AcAutoLoginToken("root");
+        Authentication authed = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authed);
+    }
+
 }

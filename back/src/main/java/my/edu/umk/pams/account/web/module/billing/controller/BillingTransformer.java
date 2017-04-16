@@ -58,7 +58,7 @@ public class BillingTransformer {
         task.setTaskName(t.getName());
         task.setAssignee(task.getAssignee());
         task.setCandidate(task.getCandidate());
-//        task.setInvoice(toInvoiceVo(invoice));
+        task.setInvoice(toInvoiceVo(invoice));
         task.setFlowState(FlowState.get(invoice.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(invoice.getMetadata().getState().ordinal()));
         return task;
@@ -119,7 +119,7 @@ public class BillingTransformer {
         task.setTaskName(t.getName());
         task.setAssignee(task.getAssignee());
         task.setCandidate(task.getCandidate());
-//        task.setReceipt(toReceiptVo(receipt));
+        task.setReceipt(toReceiptVo(receipt));
         task.setFlowState(FlowState.get(receipt.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(receipt.getMetadata().getState().ordinal()));
         return task;
