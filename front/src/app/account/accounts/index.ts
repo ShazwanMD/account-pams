@@ -46,10 +46,10 @@ import {AccountStatusComponent} from "./component/account-status.component";
   ],
 
 })
-export class AccountModule {
+export class AccountSubModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: AccountModule,
+      ngModule: AccountSubModule,
       providers: [
         appRoutingProviders,
         IdentityService,

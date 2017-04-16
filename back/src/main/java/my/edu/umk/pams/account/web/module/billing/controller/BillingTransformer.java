@@ -55,6 +55,9 @@ public class BillingTransformer {
         task.setReferenceNo(invoice.getReferenceNo());
         task.setSourceNo(invoice.getSourceNo());
         task.setDescription(invoice.getDescription());
+        task.setTotalAmount(invoice.getTotalAmount());
+        task.setBalanceAmount(invoice.getBalanceAmount());
+        task.setIssuedDate(invoice.getIssuedDate());
         task.setTaskName(t.getName());
         task.setAssignee(task.getAssignee());
         task.setCandidate(task.getCandidate());

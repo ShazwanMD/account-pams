@@ -6,13 +6,42 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.core.vo.Task;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author PAMS
  */
 public class InvoiceTask extends Task {
 
+    private BigDecimal totalAmount;
+    private BigDecimal balanceAmount;
+    private Date issuedDate;
     private Invoice invoice;
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public BigDecimal getBalanceAmount() {
+        return balanceAmount;
+    }
+
+    public void setBalanceAmount(BigDecimal balanceAmount) {
+        this.balanceAmount = balanceAmount;
+    }
+
+    public Date getIssuedDate() {
+        return issuedDate;
+    }
+
+    public void setIssuedDate(Date issuedDate) {
+        this.issuedDate = issuedDate;
+    }
 
     public Invoice getInvoice() {
         return invoice;

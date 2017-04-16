@@ -1,5 +1,5 @@
 import {Routes, RouterModule} from '@angular/router';
 
 
-export const PolicyModuleRoutes: Routes = [
+export const FinancialaidModuleRoutes: Routes = [
 ];

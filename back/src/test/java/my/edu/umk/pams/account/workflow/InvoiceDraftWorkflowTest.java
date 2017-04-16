@@ -66,7 +66,7 @@ public class InvoiceDraftWorkflowTest {
 
     @Before
     public void before() {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("bursary", "abc123");
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("root", "abc123");
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
     }
@@ -88,6 +88,7 @@ public class InvoiceDraftWorkflowTest {
             // transition to DRAFTED
             AcInvoice invoice = new AcInvoiceImpl();
             invoice.setTotalAmount(BigDecimal.valueOf(100));
+            invoice.setBalanceAmount(BigDecimal.valueOf(100));
             invoice.setDescription("INVOICE");
             invoice.setIssuedDate(new Date());
             invoice.setPaid(false);

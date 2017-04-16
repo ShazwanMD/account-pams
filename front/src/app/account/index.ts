@@ -11,7 +11,7 @@ import {IdentityService} from '../../services';
 
 import {AccountPage} from "./account.page";
 import {AccountService} from "../../services/account.service";
-import {AccountModule} from "./accounts/index";
+import {AccountSubModule} from "./accounts/index";
 import {AccountListState, accountListReducer} from "./accounts/account-list.reducer";
 import {accountReducer, AccountState} from "./accounts/account.reducer";
 import {AccountTransactionListState, accountTransactionListReducer} from "./accounts/account-transaction-list.reducer";
@@ -22,12 +22,12 @@ export interface AccountModuleState {
   accountTransactions:AccountTransactionListState;
 };
 
-export const INITIAL_ACCOUNT_DATA: AccountModuleState = <AccountModuleState>{accounts:[], account:{},accountTransactions:[]};
+export const INITIAL_ACCOUNT_STATE: AccountModuleState = <AccountModuleState>{accounts:[], account:{},accountTransactions:[]};
 const reducers = {accounts:accountListReducer, account:accountReducer, accountTransactions:accountTransactionListReducer};
 const productionReducer: ActionReducer<AccountModuleState> = combineReducers(reducers);
 
-export function accountModuleReducer(state: any = INITIAL_ACCOUNT_DATA, action: any) {
-  return productionReducer(state, action);
+export function accountModuleReducer(accountModuleState: any = INITIAL_ACCOUNT_STATE, action: any) {
+  return productionReducer(accountModuleState, action);
 }
 
 @NgModule({
@@ -36,9 +36,7 @@ export function accountModuleReducer(state: any = INITIAL_ACCOUNT_DATA, action: 
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-
-    // our modules
-    AccountModule.forRoot(),
+    AccountSubModule.forRoot(),
   ],
   declarations: [
     // page
@@ -46,10 +44,10 @@ export function accountModuleReducer(state: any = INITIAL_ACCOUNT_DATA, action: 
   ],
   exports: [],
 })
-export class AccountModuleX {
+export class AccountModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: AccountModuleX,
+      ngModule: AccountModule,
       providers: [
         appRoutingProviders,
         IdentityService,

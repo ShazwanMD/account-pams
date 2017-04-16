@@ -2,7 +2,6 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../app.routes';
-import {environment} from '../../environments/environment';
 
 import {CovalentCoreModule} from '@covalent/core';
 
@@ -11,14 +10,42 @@ import {IdentityService} from '../../services';
 
 import {BillingPage} from "./billing.page";
 import {BillingService} from "../../services/billing.service";
+import {InvoiceTaskListState, invoiceTaskListReducer} from "./invoices/invoice-task-list.reducer";
+import {InvoiceTaskState, invoiceTaskReducer} from "./invoices/invoice-task.reducer";
+import {InvoiceState, invoiceReducer} from "./invoices/invoice.reducer";
+import {ActionReducer, combineReducers} from "@ngrx/store";
+import {InvoiceSubModule} from "./invoices/index";
+import {InvoiceTask} from "./invoices/invoice-task.interface";
+import {Invoice} from "./invoices/invoice.interface";
 
+export interface BillingModuleState {
+  invoiceTasks: InvoiceTaskListState;
+  invoiceTask: InvoiceTaskState;
+  invoice: InvoiceState;
+}
+;
+
+export const INITIAL_BILLING_STATE: BillingModuleState =
+  <BillingModuleState>{
+    invoiceTasks: [],
+    invoiceTask: <InvoiceTask>{},
+    invoice: <Invoice>{}
+  };
+
+const reducers = {invoiceTasks: invoiceTaskListReducer, invoiceTask: invoiceTaskReducer, invoices: invoiceReducer};
+const productionReducer: ActionReducer<BillingModuleState> = combineReducers(reducers);
+
+export function billingModuleReducer(billingModuleState: any = INITIAL_BILLING_STATE, action: any) {
+  return productionReducer(billingModuleState, action);
+}
 
 @NgModule({
   imports: [
+    appRoutes,
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    appRoutes,
+    InvoiceSubModule.forRoot(),
   ],
   declarations: [
     // page

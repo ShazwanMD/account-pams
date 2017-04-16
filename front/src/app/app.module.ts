@@ -2,7 +2,7 @@ import {NgModule, Type} from '@angular/core';
 import {BrowserModule, Title}  from '@angular/platform-browser';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {StoreModule} from "@ngrx/store";
+import {StoreModule, combineReducers, ActionReducer} from "@ngrx/store";
 
 import {CovalentCoreModule} from '@covalent/core';
 import {CovalentHttpModule, IHttpInterceptor} from '@covalent/http';
@@ -18,14 +18,29 @@ import {appRoutes, appRoutingProviders} from './app.routes';
 import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 
 import {HomeComponent} from "./home/home.component";
-import {AccountModuleX, accountModuleReducer} from "./account/index";
+import {AccountModule, accountModuleReducer, AccountModuleState} from "./account/index";
 import {CustomUrlSerializer} from "./common/custom-url-serializer";
 import {UrlSerializer} from "@angular/router";
-import {BillingModule} from "./billing/index";
+import {BillingModule, billingModuleReducer, BillingModuleState} from "./billing/index";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
 ];
+
+
+// state
+interface ApplicationState {
+  accountModuleState: AccountModuleState;
+}
+;
+
+// reducer
+const INITIAL_APPLICATION_STATE: ApplicationState = <ApplicationState>{accountModuleState:<AccountModuleState>{}};
+const reducers = {accountModuleState: accountModuleReducer};
+const productionReducer: ActionReducer<ApplicationState> = combineReducers(reducers);
+function applicationReducer(state: any = INITIAL_APPLICATION_STATE, action: any) {
+  return productionReducer(state, action);
+}
 
 @NgModule({
   declarations: [
@@ -50,9 +65,9 @@ const httpInterceptorProviders: Type<any>[] = [
     CovalentMarkdownModule.forRoot(),
     NgxChartsModule,
 
-    AccountModuleX.forRoot(),
+    AccountModule.forRoot(),
     BillingModule.forRoot(),
-    StoreModule.provideStore(accountModuleReducer),
+    StoreModule.provideStore(applicationReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
   ], // modules needed to run this module
