@@ -2,7 +2,7 @@
 <definitions id="definitions"
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:activiti="http://activiti.org/bpmn"
-             targetNamespace="Billing">
+             targetNamespace="BLG">
 
 
     <!--
@@ -109,7 +109,6 @@
         <sequenceFlow id="flow4.3" sourceRef="invoice_verify_UT" targetRef="invoice_approve_ST">
             <conditionExpression>${!removeDecision}</conditionExpression>
         </sequenceFlow>
-
 
         <!--
         ====================================================================================================

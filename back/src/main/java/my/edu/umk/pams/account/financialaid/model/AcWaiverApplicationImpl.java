@@ -34,19 +34,19 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     
     @NotNull
     @Column(name = "BALANCE", nullable = false)
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
     
     @NotNull
     @Column(name = "EFFECTIVE_BALANCE", nullable = false)
-    private BigDecimal effectiveBalance;
+    private BigDecimal effectiveBalance = BigDecimal.ZERO;
     
     @NotNull
     @Column(name = "WAIVED_AMOUNT", nullable = false)
-    private BigDecimal waivedAmount;
+    private BigDecimal waivedAmount = BigDecimal.ZERO;
     
     @NotNull
     @Column(name = "GRACED_AMOUNT", nullable = false)
-    private BigDecimal gracedAmount;
+    private BigDecimal gracedAmount = BigDecimal.ZERO;
 
     @Column(name = "SOURCE_NO")
     private String sourceNo;

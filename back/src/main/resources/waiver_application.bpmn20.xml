@@ -2,12 +2,12 @@
 <definitions id="definitions"
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:activiti="http://activiti.org/bpmn"
-             targetNamespace="FinancialAid">
+             targetNamespace="FNA">
 
 
     <!--
     ====================================================================================================
-    ==  DRAFTED > REGISTERED > VERIFIED > APPROVED >>  COMPLETED >> END
+    ==  DRAFTED > REGISTERED > VERIFIED > CHECKED > APPROVED >>  COMPLETED >> END
     ====================================================================================================
     -->
 
@@ -22,7 +22,7 @@
 
         <startEvent id="start"/>
 
-        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="waiverApplication_draft_ST"/>
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="waiverApplication_draft_ST"/>
 
         <!--
         ====================================================================================================
@@ -31,11 +31,26 @@
         == USER TASK :
         ====================================================================================================
         -->
-
         <serviceTask id="waiverApplication_draft_ST"
                      activiti:expression="#{waiverApplication_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow2.3" sourceRef="waiverApplication_draft_ST" targetRef="waiverApplication_register_ST"/>
+        <sequenceFlow id="flow1.1" sourceRef="waiverApplication_draft_ST" targetRef="waiverApplication_draft_UT"/>
+
+        <userTask id="waiverApplication_draft_UT"
+                  name="my.edu.umk.pams.account.financialaid.model.AcWaiverApplication:DRAFTED"
+                  activiti:assignee="${userCreator}">
+            <documentation>
+                Draft Invoice
+            </documentation>
+        </userTask>
+
+        <sequenceFlow id="flow1.2" sourceRef="waiverApplication_draft_UT" targetRef="waiverApplication_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow1.3" sourceRef="waiverApplication_draft_UT" targetRef="waiverApplication_register_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
         <!--
         ====================================================================================================
         == STATE : REGISTERED
@@ -43,12 +58,29 @@
         == USER TASK :
         ====================================================================================================
         -->
-
         <serviceTask id="waiverApplication_register_ST"
                      activiti:expression="#{waiverApplication_register_ST.execute(execution)}"/>
 
+        <sequenceFlow id="flow3.1" sourceRef="waiverApplication_register_ST" targetRef="waiverApplication_register_UT"/>
 
-        <sequenceFlow id="flow3.3" sourceRef="waiverApplication_register_ST" targetRef="waiverApplication_verify_ST"/>
+        <userTask id="waiverApplication_register_UT"
+                  name="my.edu.umk.pams.account.financialaid.model.AcWaiverApplication:REGISTERED"
+                  activiti:candidateGroups="${waiverApplicationRouter.findRegistererCandidates(waiverApplicationId)}">
+            <documentation>
+                Register Waiver Application
+            </documentation>
+
+        </userTask>
+
+        <!-- accept -->
+        <sequenceFlow id="flow3.2" sourceRef="waiverApplication_register_UT" targetRef="waiverApplication_verify_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!-- delete -->
+        <sequenceFlow id="flow3.4" sourceRef="waiverApplication_register_UT" targetRef="waiverApplication_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
         <!--
         ====================================================================================================
         == STATE : VERIFIED
@@ -59,8 +91,24 @@
         <serviceTask id="waiverApplication_verify_ST"
                      activiti:expression="#{waiverApplication_verify_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow4.2" sourceRef="waiverApplication_verify_ST" targetRef="waiverApplication_approve_ST"/>
+        <sequenceFlow id="flow4.1" sourceRef="waiverApplication_verify_ST" targetRef="waiverApplication_verify_UT"/>
 
+        <userTask id="waiverApplication_verify_UT"
+                  name="my.edu.umk.pams.account.financialaid.model.AcWaiverApplication:VERIFIED"
+                  activiti:candidateGroups="${waiverApplicationRouter.findVerifierCandidates(waiverApplicationId)}">
+            <documentation>
+                Verify Waiver Application
+            </documentation>
+
+        </userTask>
+
+        <sequenceFlow id="flow4.2" sourceRef="waiverApplication_verify_UT" targetRef="waiverApplication_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow4.3" sourceRef="waiverApplication_verify_UT" targetRef="waiverApplication_approve_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
 
         <!--
         ====================================================================================================

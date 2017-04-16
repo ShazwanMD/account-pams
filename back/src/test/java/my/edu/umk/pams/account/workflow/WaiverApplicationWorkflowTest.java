@@ -3,7 +3,6 @@ package my.edu.umk.pams.account.workflow;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
@@ -27,6 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -48,9 +48,6 @@ public class WaiverApplicationWorkflowTest {
 
     @Autowired
     private AccountService accountService;
-
-    @Autowired
-    private BillingService billingService;
 
     @Autowired
     private FinancialAidService financialAidService;
@@ -89,12 +86,17 @@ public class WaiverApplicationWorkflowTest {
         application.setDescription("WAIVER APPLICATION");
         application.setAccount(account);
         application.setSession(academicSession);
+        application.setBalance(BigDecimal.ZERO);
+        application.setEffectiveBalance(BigDecimal.ZERO);
+        application.setGracedAmount(BigDecimal.ZERO);
+        application.setWaivedAmount(BigDecimal.ZERO);
         String referenceNo = financialAidService.startWaiverApplicationTask(application);
         LOG.debug("waiver application is started with referenceNo {}", referenceNo);
 
         // find and pick assigned drafted invoice
         // assuming there is one
         List<Task> draftedTasks = financialAidService.findAssignedWaiverApplicationTasks(0, 100);
+        Assert.notEmpty(draftedTasks, "Tasks should not be empty");
         Task draftedTask = draftedTasks.get(0);
         AcWaiverApplication draftedApplication = financialAidService.findWaiverApplicationByTaskId(draftedTask.getId());
 
@@ -112,25 +114,29 @@ public class WaiverApplicationWorkflowTest {
         // PEGAWAI CPS/MGSEB
         // find and pick pooled registered invoice
         // assuming there is exactly one
-        List<Task> pooledRegisteredInvoices = billingService.findPooledInvoiceTasks(0, 100);
+        List<Task> pooledRegisteredInvoices = financialAidService.findPooledWaiverApplicationTasks(0, 100);
+        Assert.notEmpty(pooledRegisteredInvoices, "Tasks should not be empty");
         workflowService.assignTask(pooledRegisteredInvoices.get(0));
 
         // find and complete assigned registered invoice
         // assuming there is exactly one
         // transition to VERIFIED
-        List<Task> assignedRegisteredInvoices = billingService.findAssignedInvoiceTasks(0, 100);
+        List<Task> assignedRegisteredInvoices = financialAidService.findAssignedWaiverApplicationTasks(0, 100);
+        Assert.notEmpty(assignedRegisteredInvoices, "Tasks should not be empty");
         workflowService.completeTask(assignedRegisteredInvoices.get(0));
 
         // PENDAFTAR
         // find and pick pooled verified invoice
         // assuming there is exactly one
-        List<Task> pooledVerifiedInvoices = billingService.findPooledInvoiceTasks(0, 100);
+        List<Task> pooledVerifiedInvoices = financialAidService.findPooledWaiverApplicationTasks(0, 100);
+        Assert.notEmpty(pooledVerifiedInvoices, "Tasks should not be empty");
         workflowService.assignTask(pooledVerifiedInvoices.get(0));
 
         // find and complete assigned verified invoice
         // assuming there is exactly one
         // transition to APPROVED (COMPLETED)
-        List<Task> assignedVerifiedInvoices = billingService.findAssignedInvoiceTasks(0, 100);
+        List<Task> assignedVerifiedInvoices = financialAidService.findAssignedWaiverApplicationTasks(0, 100);
+        Assert.notEmpty(assignedVerifiedInvoices, "Tasks should not be empty");
         workflowService.completeTask(assignedVerifiedInvoices.get(0)); // TO APPROVE
     }
 }
