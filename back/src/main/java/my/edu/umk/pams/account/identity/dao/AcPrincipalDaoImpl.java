@@ -19,9 +19,8 @@ import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
  * @author canang technologies
  * @since 1/31/14
  */
-@SuppressWarnings({"unchecked"})
 @Repository("principalDao")
-public final class AcPrincipalDaoImpl extends GenericDaoSupport<Long, AcPrincipal> implements AcPrincipalDao {
+public class AcPrincipalDaoImpl extends GenericDaoSupport<Long, AcPrincipal> implements AcPrincipalDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AcPrincipalDaoImpl.class);
 

@@ -12,9 +12,8 @@ import java.util.List;
  * @author canang technologies
  * @since 1/31/14
  */
-@SuppressWarnings({"unchecked"})
 @Repository("configurationDao")
-public final class AcConfigurationDaoImpl extends GenericDaoSupport<Long, AcConfiguration> implements AcConfigurationDao {
+public class AcConfigurationDaoImpl extends GenericDaoSupport<Long, AcConfiguration> implements AcConfigurationDao {
 
     public AcConfigurationDaoImpl() {
         super(my.edu.umk.pams.account.system.model.AcConfigurationImpl.class);
