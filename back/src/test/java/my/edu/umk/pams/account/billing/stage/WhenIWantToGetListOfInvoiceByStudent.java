@@ -31,31 +31,27 @@ public class WhenIWantToGetListOfInvoiceByStudent extends Stage<WhenIWantToGetLi
 
 	@Autowired
 	private IdentityService identityService;
-	
-	@Autowired
-	private FinancialAidService financialAidService;
-	
+
 	@Autowired
 	private BillingService billingService;
 
 	@ProvidedScenarioState
 	private AcStudent student;
-	
+
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
 
 	@ProvidedScenarioState
 	private List<AcSponsorship> sponsorship;
-	
+
 	@Autowired
 	private AccountService accountService;
-	
+
 	@ProvidedScenarioState
 	private AcSettlement settlement;
 
 	@ProvidedScenarioState
-	private List<AcInvoice> invoices;
-	
+	private List<AcStudent> students;
 
 	@As("I want to get list of invoice by student")
 	public WhenIWantToGetListOfInvoiceByStudent I_want_to_get_list_of_invoice_by_student$(String matricNo) {
@@ -65,17 +61,16 @@ public class WhenIWantToGetListOfInvoiceByStudent extends Stage<WhenIWantToGetLi
 		for (AcStudent student : students) {
 
 			AcAccount account = accountService.findAccountByActor(student);
-			
-			List<AcInvoice> invoices = billingService.findInvoices(account, 0, 100);
-			
-			for (AcInvoice invoice : invoices) {
-				LOG.debug("Name : {}",  invoice.getAccount().getActor().getName());
 
-				}
+			List<AcInvoice> invoices = billingService.findInvoices(account, 0, 100);
+
+			for (AcInvoice invoice : invoices) {
+				LOG.debug("Name : {}", invoice.getAccount().getActor().getName());
+
+			}
 		}
 
-	return self();
-		
+		return self();
+
 	}
 }
-
