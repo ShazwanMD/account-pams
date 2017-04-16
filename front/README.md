@@ -17,7 +17,7 @@ Check npm version
     
 Install latest angular-cli globally
      
-    npm i -g @angular/cli@1.0.0-rc.0
+    npm i -g @angular/cli@1.0.0
 
 Check ng cli version
     
@@ -28,7 +28,7 @@ Check ng cli version
      / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
     /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
                |___/
-    @angular/cli: 1.0.0-rc.0
+    @angular/cli: 1.0.0
     node: 6.10.0
     os: win32 x64
 

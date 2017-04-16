@@ -2,25 +2,23 @@ import {
   Component, OnInit, ViewChild, ViewContainerRef,
   ComponentFactoryResolver, ComponentRef, Input, AfterViewInit
 } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
 import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
 import {InvoiceTask} from "../invoice-task.interface";
-import {InvoiceRegisterTaskPanel} from "./invoice-register-task.panel";
-import {FlowState} from "../../../core/flow-state.enum";
 import {InvoiceDraftTaskPanel} from "./invoice-draft-task.panel";
+import {FlowState} from "../../../core/flow-state.enum";
+import {InvoiceRegisterTaskPanel} from "./invoice-register-task.panel";
 
 
 @Component({
   selector: 'pams-invoice-task-workflow',
   templateUrl: './invoice-task-workflow.panel.html',
 })
-export class InvoiceTaskWorkflowPanel implements OnInit,AfterViewInit {
+export class InvoiceTaskWorkflowPanel implements OnInit {
 
   @ViewChild('taskPanel', {read: ViewContainerRef})
   private taskPanel: ViewContainerRef;
-  private componentReference: ComponentRef<any>;
-  @Input() invoiceTask: InvoiceTask;
+  private componentRef: ComponentRef<any>;
+  @Input() invoiceTaskObservable: Observable<InvoiceTask>;
 
   constructor(private viewContainerRef: ViewContainerRef,
               private cfr: ComponentFactoryResolver) {
@@ -28,30 +26,28 @@ export class InvoiceTaskWorkflowPanel implements OnInit,AfterViewInit {
 
   ngOnInit(): void {
     let componentFactory;
-    componentFactory = this.cfr.resolveComponentFactory(InvoiceDraftTaskPanel);
-    this.componentReference = this.taskPanel.createComponent(componentFactory);
-    console.log("task: " + this.invoiceTask.referenceNo);
+    this.invoiceTaskObservable.subscribe(task => {
+      if (task.flowState) {
 
-    // console.log("task: " + this.invoiceTask.referenceNo);
-    // switch (FlowState[this.invoiceTask.flowState.toString()]) {
-    //   case FlowState.DRAFTED:
-    //     componentFactory = this.cfr.resolveComponentFactory(InvoiceDraftTaskPanel);
-    //     break;
-    //   case FlowState.REGISTERED:
-    //     componentFactory = this.cfr.resolveComponentFactory(InvoiceRegisterTaskPanel);
-    //     break;
-    // }
-    // this.componentReference = this.taskPanel.createComponent(componentFactory);
-  }
-
-  ngAfterViewInit(): void {
-    let componentFactory;
-    console.log("task: " + this.invoiceTask.referenceNo);
+        console.log("task flowState: " + task.flowState);
+        if (this.componentRef) this.componentRef.destroy();
+        switch (FlowState[task.flowState.toString()]) {
+          case FlowState.DRAFTED:
+            componentFactory = this.cfr.resolveComponentFactory(InvoiceDraftTaskPanel);
+            break;
+          case FlowState.REGISTERED:
+            componentFactory = this.cfr.resolveComponentFactory(InvoiceRegisterTaskPanel);
+            break;
+        }
+        this.componentRef = this.taskPanel.createComponent(componentFactory);
+        this.componentRef.instance.invoiceTask = task;
+      }
+    });
   }
 
   ngOnDestroy() {
-    if (this.componentReference) {
-      this.componentReference.destroy();
+    if (this.componentRef) {
+      this.componentRef.destroy();
     }
   }
 }

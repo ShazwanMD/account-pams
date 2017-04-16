@@ -12,20 +12,25 @@ import {IdentityService} from '../../services';
 import {FinancialaidPage} from "./financialaid.page";
 import {FinancialaidService} from "../../services/financialaid.service";
 import {ActionReducer, combineReducers} from "@ngrx/store";
+import {WaiverApplicationSubModule} from "./waiver-applications/index";
+import {SettlementSubModule} from "./settlements/index";
 
 export interface FinancialaidModuleState {
   // waiverApplicationTasks: WaiverApplicationTaskListState;
   // waiverApplicationTask: WaiverApplicationTaskState;
   // waiverApplication: WaiverApplicationState;
+  // settlements: SettlementListState;
+  // settlement: SettlementState;
 };
 
 // export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState = <FinancialaidModuleState>{};
-// const reducers = {waiverApplicationTasks:waiverApplicationTaskListReducer, waiverApplicationTask:waiverApplicationTaskReducer, waiverApplications:waiverApplicationReducer};
-// const productionReducer: ActionReducer<FinancialaidModuleState> = combineReducers(reducers);
-//
-// export function financialaidModuleReducer(state: any = INITIAL_FINANCIALAID_STATE, action: any) {
-//   return productionReducer(state, action);
-// }
+// const financialAidModuleReducers = {
+//    waiverApplicationTasks:waiverApplicationTaskListReducer,
+//    waiverApplicationTask:waiverApplicationTaskReducer,
+//    waiverApplications:waiverApplicationReducer
+//    settlements:settlementListReducer
+//    settlement:settlementReducer
+// };
 
 @NgModule({
   imports: [
@@ -33,7 +38,8 @@ export interface FinancialaidModuleState {
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    // WaiverApplicationSubModule.forRoot(),
+    SettlementSubModule.forRoot(),
+    WaiverApplicationSubModule.forRoot(),
   ],
   declarations: [
     // page

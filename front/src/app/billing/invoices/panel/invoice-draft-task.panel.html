@@ -19,21 +19,13 @@
                 <h4 md-line>{{invoiceTask?.referenceNo}}</h4>
                 <p md-line>Reference No</p>
               </md-list-item>
-              <md-list-item>
-                <h4 md-line>{{invoiceTask?.sourceNo}}</h4>
-                <p md-line>Source No</p>
-              </md-list-item>
             </md-list>
           </div>
           <div layout="column" flex>
             <md-list dense>
               <md-list-item>
-                <h4 md-line>{{invoiceTask?.invoice?.invoiceType}}</h4>
-                <p md-line>Invoice Type</p>
-              </md-list-item>
-              <md-list-item>
-                <h4 md-line>{{invoiceTask?.invoice?.invoiceCategory}}</h4>
-                <p md-line>Invoice Category</p>
+                <h4 md-line>{{invoiceTask?.accountCode}}</h4>
+                <p md-line>Account</p>
               </md-list-item>
             </md-list>
           </div>
@@ -45,8 +37,8 @@
 
 
       <md-card>
-        <md-card-title>Entries</md-card-title>
-        <md-card-subtitle>Invoice entries</md-card-subtitle>
+        <md-card-title>Items</md-card-title>
+        <md-card-subtitle>Invoice items</md-card-subtitle>
         <md-divider></md-divider>
         <div toolbar-buttons layout="row" layout-align="start center" flex>
           <span flex></span>
@@ -65,7 +57,7 @@
              layout-align="start center"
              layout-wrap>
           <md-nav-list dense flex>
-            <!--<template let-invoiceEntry let-last="last" ngFor [ngForOf]="invoiceEntries">-->
+            <!--<template let-invoiceEntry let-last="last" ngFor [ngForOf]="invoiceItems">-->
               <!--<a md-list-item (click)="attachVoucher(invoiceEntry)">-->
                 <!--<md-icon md-list-avatar>payment</md-icon>-->
                 <!--<h3 md-line> {{invoiceEntry.description}} </h3>-->

@@ -22,10 +22,8 @@ import {CustomUrlSerializer} from "./common/custom-url-serializer";
 import {UrlSerializer} from "@angular/router";
 import {AccountModuleState, INITIAL_ACCOUNT_STATE, AccountModule, accountModuleReducers} from "./account/index";
 import {BillingModuleState, INITIAL_BILLING_STATE, BillingModule, billingModuleReducers} from "./billing/index";
-import {accountReducer} from "./account/accounts/account.reducer";
-import {accountListReducer} from "./account/accounts/account-list.reducer";
-import {invoiceTaskListReducer} from "./billing/invoices/invoice-task-list.reducer";
-import {invoiceTaskReducer} from "./billing/invoices/invoice-task.reducer";
+import {FinancialaidModule} from "./financialaid/index";
+import {MarketingModule} from "./marketing/index";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -79,6 +77,8 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     AccountModule.forRoot(),
     BillingModule.forRoot(),
+    FinancialaidModule.forRoot(),
+    MarketingModule.forRoot(),
 
   ], // modules needed to run this module
   providers: [

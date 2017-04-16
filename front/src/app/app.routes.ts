@@ -6,6 +6,8 @@ import {LoginComponent} from './login/login.component';
 import {HomeModuleRoutes} from "./home/home-module.routes";
 import {AccountModuleRoutes} from "./account/account-module.routes";
 import {BillingModuleRoutes} from "./billing/billing-module.routes";
+import {FinancialaidModuleRoutes} from "./financialaid/financialaid-module.routes";
+import {MarketingModuleRoutes} from "./marketing/marketing-module.routes";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -15,6 +17,8 @@ const routes: Routes = [
       ...HomeModuleRoutes,
       ...AccountModuleRoutes,
       ...BillingModuleRoutes,
+      ...FinancialaidModuleRoutes,
+      ...MarketingModuleRoutes,
     ]
   },
 ];

@@ -4,11 +4,11 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {IdentityService} from '../../services';
 
 @Component({
-  selector: 'pams-financialaid-page',
-  templateUrl: './financialaid.page.html',
+  selector: 'pams-marketing-page',
+  templateUrl: './marketing.page.html',
 })
 
-export class FinancialaidPage implements OnInit {
+export class MarketingPage implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute) {

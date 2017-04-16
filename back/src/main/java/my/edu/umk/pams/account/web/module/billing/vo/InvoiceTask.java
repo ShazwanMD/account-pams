@@ -14,10 +14,19 @@ import java.util.Date;
  */
 public class InvoiceTask extends Task {
 
+    private String accountCode;
     private BigDecimal totalAmount;
     private BigDecimal balanceAmount;
     private Date issuedDate;
     private Invoice invoice;
+
+    public String getAccountCode() {
+        return accountCode;
+    }
+
+    public void setAccountCode(String accountCode) {
+        this.accountCode = accountCode;
+    }
 
     public BigDecimal getTotalAmount() {
         return totalAmount;

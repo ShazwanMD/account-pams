@@ -6,6 +6,8 @@ export interface InvoiceTask {
   candidate:string;
   assignee:string;
   referenceNo: string;
+  sourceNo: string;
+  accountCode: string;
   description: string;
   totalAmount: number;
   balanceAmount: number;

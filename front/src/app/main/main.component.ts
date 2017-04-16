@@ -24,6 +24,10 @@ export class MainComponent {
       title: 'Financial Aid',
       route: '/financialaid',
       icon: 'receipt',
+    }, {
+      title: 'Marketing',
+      route: '/marketing',
+      icon: 'receipt',
     }
   ];
 
