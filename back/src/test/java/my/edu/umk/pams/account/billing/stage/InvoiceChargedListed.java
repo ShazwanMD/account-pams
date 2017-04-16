@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.billing.stage;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
@@ -13,16 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-
-/*public class InvoiceChargedListed extends Stage<InvoiceChargedListed> {
-
-	public InvoiceChargedListed the_invoice_charges_are_listed() {
-		return self();
-		
-	}
-
-}
-*/
 
 @JGivenStage
 public class InvoiceChargedListed extends Stage<InvoiceChargedListed> {
@@ -39,6 +30,7 @@ public class InvoiceChargedListed extends Stage<InvoiceChargedListed> {
     AcAccount account;
 
     // todo: use $ placeholder
+    @As("Student account is invoiced")
     public InvoiceChargedListed student_account_is_invoiced() {
         LOG.debug("student account is charged {}");
         List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -24,6 +25,7 @@ public class ThenBulkInvoiceAreListed extends Stage<ThenBulkInvoiceAreListed> {
 	@ExpectedScenarioState
 	private AcAccount account;
 
+	@As("I can list invoice by student matric number")
 	public ThenBulkInvoiceAreListed I_can_list_invoice_by_matric_no() {
 
 		List<AcInvoice> invoices = billingService.findInvoices(account, 0, 100);
