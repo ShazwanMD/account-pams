@@ -2,8 +2,9 @@ package my.edu.umk.pams.account.account.stage;
 
 import java.math.BigDecimal;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -21,6 +22,8 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 
 @JGivenStage
 public class WhenWantToRegisterStudentCompoundBill extends Stage<WhenWantToRegisterStudentCompoundBill> {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(WhenWantToRegisterStudentCompoundBill.class);
 
 	@ExpectedScenarioState
 	private AcStudent student;
@@ -43,15 +46,17 @@ public class WhenWantToRegisterStudentCompoundBill extends Stage<WhenWantToRegis
 	@As("I want to register student compound bill by account")
 	public WhenWantToRegisterStudentCompoundBill I_want_to_register_student_compound_bill_by_account_$(String matricNo) {
 		
-		student = identityService.findStudentByMatricNo(matricNo);
+		student = identityService.findStudentByMatricNo(matricNo);	
+		LOG.debug("Matric No:"+ student.getMatricNo());
 		
 		account = accountService.findAccountByActor(student);
+		LOG.debug("Name:"+ student.getName());
 		
 		charge = new AcStudentAffairChargeImpl();
 		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge.setSourceNo("SRCNO");
-		charge.setDescription("KEROSAKAN ASRAMA");
-		charge.setAmount(BigDecimal.valueOf(50.00));
+		charge.setDescription("BAJU TIDAK BERKOLAR");
+		charge.setAmount(BigDecimal.valueOf(50.00));	
 		charge.setSession(academicSession);
 		charge.setAccount(account);
 
