@@ -8,6 +8,9 @@ import {InvoiceDraftTaskPanel} from "./panel/invoice-draft-task.panel";
 import {InvoiceRegisterTaskPanel} from "./panel/invoice-register-task.panel";
 import {FlowState} from "../../core/flow-state.enum";
 import {InvoiceActions} from "./invoice.action";
+import {Observable} from "rxjs";
+import {BillingModuleState} from "../index";
+import {Store} from "@ngrx/store";
 
 
 @Component({
@@ -16,46 +19,25 @@ import {InvoiceActions} from "./invoice.action";
 })
 export class InvoiceViewTaskPage implements OnInit {
 
-  @ViewChild('taskPanel', {read: ViewContainerRef})
-  private taskPanel: ViewContainerRef;
-  private componentReference: ComponentRef<any>;
-  private invoiceTask: InvoiceTask = <InvoiceTask>{};
+  private invoiceTask$: Observable<InvoiceTask>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private cfr: ComponentFactoryResolver,
+              private store: Store<BillingModuleState>,
               private actions: InvoiceActions) {
+    this.invoiceTask$ = this.store.select(state => state.invoiceTask)
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: {taskId: string}) => {
       let taskId: string = params.taskId;
-      this.actions.findInvoiceTaskById(taskId);
-      this.switchPanel();
+      this.store.dispatch(this.actions.findInvoiceTaskByTaskId(taskId));
     });
   }
 
-  ngOnDestroy() {
-    if (this.componentReference) {
-      this.componentReference.destroy();
-    }
-  }
-
   goBack(): void {
-    this.router.navigate(['/ledger/invoices']);
-  }
-
-  switchPanel(): void {
-    let componentFactory;
-    switch(FlowState[this.invoiceTask.flowState.toString()]){
-      case FlowState.DRAFTED:
-         componentFactory = this.cfr.resolveComponentFactory(InvoiceDraftTaskPanel);
-         break;
-      case FlowState.REGISTERED:
-         componentFactory = this.cfr.resolveComponentFactory(InvoiceRegisterTaskPanel);
-        break;
-    }
-    this.componentReference = this.taskPanel.createComponent(componentFactory);
+    this.router.navigate(['/billing/invoices']);
   }
 }
+
 

@@ -32,12 +32,11 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     invoice: <Invoice>{}
   };
 
-const reducers = {invoiceTasks: invoiceTaskListReducer, invoiceTask: invoiceTaskReducer, invoices: invoiceReducer};
-const productionReducer: ActionReducer<BillingModuleState> = combineReducers(reducers);
-
-export function billingModuleReducer(billingModuleState: any = INITIAL_BILLING_STATE, action: any) {
-  return productionReducer(billingModuleState, action);
-}
+export const billingModuleReducers = {
+  invoiceTasks: invoiceTaskListReducer,
+  invoiceTask: invoiceTaskReducer,
+  invoices: invoiceReducer
+};
 
 @NgModule({
   imports: [

@@ -21,7 +21,7 @@ export class InvoiceCenterPage implements OnInit {
               private route: ActivatedRoute,
               private actions: InvoiceActions,
               private store: Store<BillingModuleState>) {
-    this.invoiceTasks$ = this.store.select(state=>state.invoiceTasks);
+    this.invoiceTasks$ = this.store.select(state => state.invoiceTasks);
   }
 
   goBack(route: string): void {
@@ -36,6 +36,6 @@ export class InvoiceCenterPage implements OnInit {
   ngOnInit(): void {
     console.log("find assigned invoice tasks");
     this.store.dispatch(this.actions.findAssignedInvoiceTasks());
-    }
+  }
 }
 

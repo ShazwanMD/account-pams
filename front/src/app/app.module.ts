@@ -18,10 +18,14 @@ import {appRoutes, appRoutingProviders} from './app.routes';
 import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 
 import {HomeComponent} from "./home/home.component";
-import {AccountModule, accountModuleReducer, AccountModuleState} from "./account/index";
 import {CustomUrlSerializer} from "./common/custom-url-serializer";
 import {UrlSerializer} from "@angular/router";
-import {BillingModule, billingModuleReducer, BillingModuleState} from "./billing/index";
+import {AccountModuleState, INITIAL_ACCOUNT_STATE, AccountModule, accountModuleReducers} from "./account/index";
+import {BillingModuleState, INITIAL_BILLING_STATE, BillingModule, billingModuleReducers} from "./billing/index";
+import {accountReducer} from "./account/accounts/account.reducer";
+import {accountListReducer} from "./account/accounts/account-list.reducer";
+import {invoiceTaskListReducer} from "./billing/invoices/invoice-task-list.reducer";
+import {invoiceTaskReducer} from "./billing/invoices/invoice-task.reducer";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -31,15 +35,21 @@ const httpInterceptorProviders: Type<any>[] = [
 // state
 interface ApplicationState {
   accountModuleState: AccountModuleState;
+  billingModuleState: BillingModuleState;
 }
 ;
 
 // reducer
-const INITIAL_APPLICATION_STATE: ApplicationState = <ApplicationState>{accountModuleState:<AccountModuleState>{}};
-const reducers = {accountModuleState: accountModuleReducer};
-const productionReducer: ActionReducer<ApplicationState> = combineReducers(reducers);
-function applicationReducer(state: any = INITIAL_APPLICATION_STATE, action: any) {
-  return productionReducer(state, action);
+export const INITIAL_APPLICATION_STATE: ApplicationState =
+  <ApplicationState>{
+    accountModuleState: INITIAL_ACCOUNT_STATE,
+    billingModuleState: INITIAL_BILLING_STATE
+  };
+
+export const applicationReducers = {...accountModuleReducers, ...billingModuleReducers};
+export const productionReducer: ActionReducer<ApplicationState> = combineReducers(applicationReducers);
+export function applicationReducer(applicationState: any = INITIAL_APPLICATION_STATE, action: any) {
+  return productionReducer(applicationState, action);
 }
 
 @NgModule({
@@ -65,10 +75,10 @@ function applicationReducer(state: any = INITIAL_APPLICATION_STATE, action: any)
     CovalentMarkdownModule.forRoot(),
     NgxChartsModule,
 
-    AccountModule.forRoot(),
-    BillingModule.forRoot(),
     StoreModule.provideStore(applicationReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    AccountModule.forRoot(),
+    BillingModule.forRoot(),
 
   ], // modules needed to run this module
   providers: [

@@ -30,6 +30,12 @@ export class BillingService {
       .map((res: Response) => <InvoiceTask[]>res.json());
   }
 
+  findInvoiceTaskByTaskId(taskId: string): Observable<InvoiceTask> {
+    console.log("findInvoiceTaskByTaskId");
+    return this.http.get(environment.endpoint + '/api/billing/invoices/viewTask/' + taskId)
+      .map((res: Response) => <InvoiceTask>res.json());
+  }
+
   findInvoiceByReferenceNo(referenceNo: string): Observable<Invoice> {
     console.log("encoded uri: " + encodeURI (referenceNo))
     return this.http.get(environment.endpoint + '/api/billing/invoices/' + encodeURI (referenceNo))

@@ -23,8 +23,8 @@ export class AccountCenterPage implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: AccountActions,
-              private store: Store<AccountListState>) {
-    this.accounts$ = this.store.select(state => state);
+              private store: Store<AccountModuleState>) {
+    this.accounts$ = this.store.select(state => state.accounts);
   }
 
   goBack(route: string): void {

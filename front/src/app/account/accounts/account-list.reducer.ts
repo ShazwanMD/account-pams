@@ -12,6 +12,7 @@ const initialState: AccountListState = <Account[]>[];
 export function accountListReducer(state = initialState, action: Action): AccountListState {
   switch (action.type) {
     case AccountActions.FIND_ACCOUNTS_SUCCESS: {
+      console.log("reducer");
       return action.payload;
     }
     case AccountActions.CREATE_ACCOUNT_SUCCESS: {

@@ -23,10 +23,16 @@ export class InvoiceEffects {
     .switchMap(() => this.billingService.findPooledInvoiceTasks())
     .map(invoices => this.invoiceActions.findPooledInvoiceTasksSuccess(invoices));
 
-  @Effect() findInvoiceByReferenceNo$ = this.actions$
-    .ofType(InvoiceActions.FIND_INVOICE_BY_ID)
+  @Effect() findInvoiceTaskByTaskId = this.actions$
+    .ofType(InvoiceActions.FIND_INVOICE_TASK_BY_TASK_ID)
     .map(action => action.payload)
-    .switchMap(code => this.billingService.findInvoiceByReferenceNo(code))
+    .switchMap(taskId => this.billingService.findInvoiceTaskByTaskId(taskId))
+    .map(task => this.invoiceActions.findInvoiceTaskByTaskIdSuccess(task));
+
+  @Effect() findInvoiceByReferenceNo$ = this.actions$
+    .ofType(InvoiceActions.FIND_INVOICE_BY_REFERENCE_NO)
+    .map(action => action.payload)
+    .switchMap(referenceNo => this.billingService.findInvoiceByReferenceNo(referenceNo))
     .map(invoice => this.invoiceActions.findInvoiceByReferenceNoSuccess(invoice))
     .mergeMap(action => from([action, this.invoiceActions.findInvoiceItems(action.payload)]));
 

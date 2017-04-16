@@ -19,16 +19,22 @@ import {AccountTransactionListState, accountTransactionListReducer} from "./acco
 export interface AccountModuleState {
   accounts: AccountListState;
   account: AccountState;
-  accountTransactions:AccountTransactionListState;
-};
-
-export const INITIAL_ACCOUNT_STATE: AccountModuleState = <AccountModuleState>{accounts:[], account:{},accountTransactions:[]};
-const reducers = {accounts:accountListReducer, account:accountReducer, accountTransactions:accountTransactionListReducer};
-const productionReducer: ActionReducer<AccountModuleState> = combineReducers(reducers);
-
-export function accountModuleReducer(accountModuleState: any = INITIAL_ACCOUNT_STATE, action: any) {
-  return productionReducer(accountModuleState, action);
+  accountTransactions: AccountTransactionListState
 }
+;
+
+export const INITIAL_ACCOUNT_STATE: AccountModuleState =
+  <AccountModuleState>{
+    accounts: [],
+    account: {},
+    accountTransactions: []
+  };
+
+export const accountModuleReducers = {
+  accounts:accountListReducer,
+  account:accountReducer,
+  accountTransactions:accountTransactionListReducer
+};
 
 @NgModule({
   imports: [

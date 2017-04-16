@@ -28,11 +28,11 @@
           <div layout="column" flex>
             <md-list dense>
               <md-list-item>
-                <h4 md-line>{{invoiceTask.invoice?.invoiceType}}</h4>
+                <h4 md-line>{{invoiceTask?.invoice?.invoiceType}}</h4>
                 <p md-line>Invoice Type</p>
               </md-list-item>
               <md-list-item>
-                <h4 md-line>{{invoiceTask.invoice?.invoiceCategory}}</h4>
+                <h4 md-line>{{invoiceTask?.invoice?.invoiceCategory}}</h4>
                 <p md-line>Invoice Category</p>
               </md-list-item>
             </md-list>
@@ -65,18 +65,18 @@
              layout-align="start center"
              layout-wrap>
           <md-nav-list dense flex>
-            <template let-invoiceEntry let-last="last" ngFor [ngForOf]="invoiceEntries">
-              <a md-list-item (click)="attachVoucher(invoiceEntry)">
-                <md-icon md-list-avatar>payment</md-icon>
-                <h3 md-line> {{invoiceEntry.description}} </h3>
-                <p md-line> {{invoiceEntry.sourceNo}} </p>
-                <span flex></span>
-                <span flex="40"> {{invoiceEntry.period?.costCenterCode?.code}} </span>
-                <span flex="40"> {{invoiceEntry.sodoCode?.code}} </span>
-                <span flex="20"> {{invoiceEntry.debitAmount | number:'.2-2'}} </span>
-                <span flex="20"> {{invoiceEntry.creditAmount | number:'.2-2'}} </span>
-              </a>
-            </template>
+            <!--<template let-invoiceEntry let-last="last" ngFor [ngForOf]="invoiceEntries">-->
+              <!--<a md-list-item (click)="attachVoucher(invoiceEntry)">-->
+                <!--<md-icon md-list-avatar>payment</md-icon>-->
+                <!--<h3 md-line> {{invoiceEntry.description}} </h3>-->
+                <!--<p md-line> {{invoiceEntry.sourceNo}} </p>-->
+                <!--<span flex></span>-->
+                <!--<span flex="40"> {{invoiceEntry.period?.costCenterCode?.code}} </span>-->
+                <!--<span flex="40"> {{invoiceEntry.sodoCode?.code}} </span>-->
+                <!--<span flex="20"> {{invoiceEntry.debitAmount | number:'.2-2'}} </span>-->
+                <!--<span flex="20"> {{invoiceEntry.creditAmount | number:'.2-2'}} </span>-->
+              <!--</a>-->
+            <!--</template>-->
           </md-nav-list>
         </div>
       </md-card>
@@ -89,11 +89,6 @@
         <md-card-subtitle>Actions available on current invoice</md-card-subtitle>
         <md-divider></md-divider>
         <md-nav-list dense>
-          <md-list-item>
-            <md-icon md-list-avatar>mode_edit</md-icon>
-            <h4 md-line>Edit</h4>
-            <p md-line>Edit this invoice</p>
-          </md-list-item>
           <md-list-item (click)="register()">
             <md-icon md-list-avatar>done</md-icon>
             <h4 md-line>Register</h4>

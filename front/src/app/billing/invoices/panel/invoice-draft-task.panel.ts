@@ -8,6 +8,7 @@ import {InvoiceActions} from "../invoice.action";
 import {InvoiceTaskState} from "../invoice-task.reducer";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
+import {BillingModuleState} from "../../index";
 
 
 @Component({
@@ -25,14 +26,14 @@ export class InvoiceDraftTaskPanel implements OnInit {
               private dialog: MdDialog,
               private snackBar: MdSnackBar,
               private actions: InvoiceActions,
-              private store: Store<InvoiceTaskState>) {
-    this.invoiceTask$ = this.store.select('invoiceTask');
+              private store: Store<BillingModuleState>) {
+    this.invoiceTask$ = this.store.select(state => state.invoiceTask);
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: {taskId: string}) => {
       let taskId: string = params.taskId;
-      this.actions.findInvoiceTaskById(taskId);
+      this.actions.findInvoiceTaskByTaskId(taskId);
     });
 
   }

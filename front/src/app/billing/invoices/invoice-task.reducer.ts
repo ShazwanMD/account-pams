@@ -8,7 +8,7 @@ const initialState: InvoiceTaskState = <InvoiceTaskState>{};
 
 export function invoiceTaskReducer(state = initialState, action: Action): InvoiceTaskState {
   switch (action.type) {
-    case InvoiceActions.FIND_INVOICE_TASK_SUCCESS: {
+    case InvoiceActions.FIND_INVOICE_TASK_BY_TASK_ID_SUCCESS: {
       return action.payload;
     }
     default: {

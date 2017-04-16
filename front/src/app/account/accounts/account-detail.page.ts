@@ -17,41 +17,27 @@ import {AccountModuleState} from "../index";
 
 export class AccountDetailPage implements OnInit {
 
-  private _identityService: IdentityService;
-  private _commonService: CommonService;
-  private _router: Router;
-  private _route: ActivatedRoute;
-  private _actions: AccountActions;
-  private store: Store<AccountModuleState>;
   private account$: Observable<Account>;
   private accountTransactions$: Observable<AccountTransaction[]>;
 
-  constructor(router: Router,
-              route: ActivatedRoute,
-              actions: AccountActions,
-              store: Store<AccountModuleState>,
-              identityService: IdentityService,
-              commonService: CommonService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private actions: AccountActions,
+              private store: Store<AccountModuleState>) {
 
-    this._router = router;
-    this._route = route;
-    this._identityService = identityService;
-    this._commonService = commonService;
-    this._actions = actions;
-    this.store = store;
-    this.account$ = this.store.select('account');
-    this.accountTransactions$ = this.store.select('accountTransactions');
+    this.account$ = this.store.select(state=>state.account);
+    this.accountTransactions$ = this.store.select(state=>state.accountTransactions);
   }
 
   ngOnInit(): void {
-    this._route.params.subscribe((params: {code: string}) => {
+    this.route.params.subscribe((params: {code: string}) => {
       let code: string = params.code;
-      this.store.dispatch(this._actions.findAccount(code));
+      this.store.dispatch(this.actions.findAccount(code));
     });
   }
 
   goBack(route: string): void {
-    this._router.navigate(['/accounts']);
+    this.router.navigate(['/accounts']);
   }
 }
 

@@ -18,6 +18,7 @@ import {InvoiceViewTaskPage} from "./invoice-view-task.page";
 import {InvoiceDraftTaskPanel} from "./panel/invoice-draft-task.panel";
 import {InvoiceRegisterTaskPanel} from "./panel/invoice-register-task.panel";
 import {InvoiceItemEditorDialog} from "./dialog/invoice-item-editor.dialog";
+import {InvoiceTaskWorkflowPanel} from "./panel/invoice-task-workflow.panel";
 
 
 @NgModule({
@@ -35,9 +36,11 @@ import {InvoiceItemEditorDialog} from "./dialog/invoice-item-editor.dialog";
 
     // components
     InvoiceTaskListComponent,
+    InvoiceTaskWorkflowPanel,
     InvoiceDraftTaskPanel,
     InvoiceRegisterTaskPanel,
-    InvoiceItemEditorDialog
+    InvoiceItemEditorDialog,
+
   ],
   exports: [],
   entryComponents: [

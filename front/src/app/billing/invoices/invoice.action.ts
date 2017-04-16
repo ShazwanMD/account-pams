@@ -35,20 +35,20 @@ export class InvoiceActions {
       payload: tasks
     };
   }
-
-  static FIND_INVOICE_TASK = '[Invoice] Find Invoice Task';
-  findInvoiceTask(taskId): Action {
+  static FIND_INVOICE_TASK_BY_TASK_ID = '[Invoice] Find Invoice Task By Task Id';
+  findInvoiceTaskByTaskId(taskId): Action {
+    console.log("findInvoiceTaskByTaskId");
     return {
-      type: InvoiceActions.FIND_INVOICE_TASK,
+      type: InvoiceActions.FIND_INVOICE_TASK_BY_TASK_ID,
       payload: taskId
     };
   }
 
-  static FIND_INVOICE_TASK_SUCCESS = '[Invoice] Find Invoice Task Success';
-  findInvoiceTaskSuccess(task): Action {
-    console.log("findInvoiceTaskSuccess");
+  static FIND_INVOICE_TASK_BY_TASK_ID_SUCCESS = '[Invoice] Find Invoice Task By Task Id Success';
+  findInvoiceTaskByTaskIdSuccess(task): Action {
+    console.log("findInvoiceTaskByTaskIdSuccess");
     return {
-      type: InvoiceActions.FIND_INVOICE_TASK_SUCCESS,
+      type: InvoiceActions.FIND_INVOICE_TASK_BY_TASK_ID_SUCCESS,
       payload: task
     };
   }
@@ -64,7 +64,7 @@ export class InvoiceActions {
   static START_INVOICE_TASK_SUCCESS = '[Invoice] Start Invoice Task Success';
   startInvoiceTaskSuccess(task): Action {
     return {
-      type: InvoiceActions.FIND_INVOICE_TASK_SUCCESS,
+      type: InvoiceActions.START_INVOICE_TASK_SUCCESS,
       payload: task
     };
   }
@@ -80,7 +80,7 @@ export class InvoiceActions {
   static COMPLETE_INVOICE_TASK_SUCCESS = '[Invoice] Complete Invoice Task Success';
   completeInvoiceTaskSuccess(task): Action {
     return {
-      type: InvoiceActions.FIND_INVOICE_TASK_SUCCESS,
+      type: InvoiceActions.COMPLETE_INVOICE_TASK_SUCCESS,
       payload: task
     };
   }
@@ -96,7 +96,7 @@ export class InvoiceActions {
   static ASSIGN_INVOICE_TASK_SUCCESS = '[Invoice] Assign Invoice Task Success';
   assignInvoiceTaskSuccess(task): Action {
     return {
-      type: InvoiceActions.FIND_INVOICE_TASK_SUCCESS,
+      type: InvoiceActions.ASSIGN_INVOICE_TASK_SUCCESS,
       payload: task
     };
   }
@@ -112,7 +112,7 @@ export class InvoiceActions {
   static RELEASE_INVOICE_TASK_SUCCESS = '[Invoice] Release Invoice Task Success';
   releaseInvoiceTaskSuccess(task): Action {
     return {
-      type: InvoiceActions.FIND_INVOICE_TASK_SUCCESS,
+      type: InvoiceActions.RELEASE_INVOICE_TASK_SUCCESS,
       payload: task
     };
   }
@@ -149,25 +149,8 @@ export class InvoiceActions {
     };
   }
 
-  static FIND_INVOICE_BY_TASK_ID = '[Invoice] Find Invoice By Task Id';
-  findInvoiceTaskById(taskId): Action {
-    return {
-      type: InvoiceActions.FIND_INVOICE_BY_TASK_ID,
-      payload: taskId
-    };
-  }
-
-  static FIND_INVOICE_BY_TASK_ID_SUCCESS = '[Invoice] Find Invoice By Task Id Success';
-  findInvoiceTaskByIdSuccess(invoice): Action {
-    return {
-      type: InvoiceActions.FIND_INVOICE_BY_TASK_ID_SUCCESS,
-      payload: invoice
-    };
-  }
-
   static FIND_INVOICE_ITEMS = '[Invoice] Find Invoice Items';
   findInvoiceItems(invoice): Action {
-    console.log("findInvoiceItems");
     return {
       type: InvoiceActions.FIND_INVOICE_ITEMS,
       payload: invoice

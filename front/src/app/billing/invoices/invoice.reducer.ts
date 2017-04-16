@@ -11,7 +11,7 @@ export function invoiceReducer(state = initialState, action: Action): InvoiceSta
     case InvoiceActions.FIND_INVOICE_BY_ID_SUCCESS: {
       return action.payload;
     }
-    case InvoiceActions.FIND_INVOICE_BY_TASK_ID_SUCCESS: {
+    case InvoiceActions.FIND_INVOICE_BY_REFERENCE_NO_SUCCESS: {
       return action.payload;
     }
     default: {
