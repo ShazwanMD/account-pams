@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account;
 
 import com.tngtech.jgiven.annotation.As;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.ThenTheStudentIsAdded;
 import my.edu.umk.pams.account.account.stage.WhenIAddAStudent;
@@ -25,6 +26,7 @@ public class US_AC_ACT_0000 extends
 
     @Test
     @Rollback
+    @Pending
     public void scenario001() {
         given().I_am_a_business_admin_user_in_current_academic_session();
         when().I_pick_a_student_$(MATRIC_NO);

@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account;
 
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.annotation.As;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 import my.edu.umk.pams.account.account.stage.*;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
@@ -32,6 +33,7 @@ public class US_AC_ACT_0002 extends SpringScenarioTest<GivenIAmBusinessAdminUser
 
     @Test
     @Rollback
+    @Pending
     public void scenario1() {
         given().I_am_a_business_admin_user_in_current_academic_session();
 
