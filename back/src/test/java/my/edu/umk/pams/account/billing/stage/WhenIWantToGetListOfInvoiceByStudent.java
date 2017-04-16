@@ -13,10 +13,13 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
+import io.jsonwebtoken.lang.Assert;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
+import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementImpl;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
@@ -35,61 +38,48 @@ public class WhenIWantToGetListOfInvoiceByStudent extends Stage<WhenIWantToGetLi
 	
 	@Autowired
 	private FinancialAidService financialAidService;
+	
+	@Autowired
+	private BillingService billingService;
 
 	@ProvidedScenarioState
 	private AcStudent student;
 	
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
-	
-	@ExpectedScenarioState
-	private AcAccount account;
 
 	@ProvidedScenarioState
 	private List<AcSponsorship> sponsorship;
 	
+	@Autowired
+	private AccountService accountService;
+	
 	@ProvidedScenarioState
 	private AcSettlement settlement;
 
-	@ExpectedScenarioState
-	private AcInvoice invoice;
+	@ProvidedScenarioState
+	private List<AcInvoice> invoices;
 	
 
 	@As("I want to get list of invoice by student")
 	public WhenIWantToGetListOfInvoiceByStudent I_want_to_get_list_of_invoice_by_student$(String matricNo) {
 
 		// cari student untuk cari account
-		student = identityService.findStudentByMatricNo(matricNo);
-		LOG.debug("Student No " + student.getMatricNo());
-		
-		sponsorship = identityService.findSponsorships(student);
-		
-		for (AcSponsorship sponsorship : sponsorship) {
+		List<AcStudent> students = identityService.findStudents(0, 100);
+		for (AcStudent student : students) {
 
-			LOG.debug("Sponsorship " + sponsorship.getSponsor().getName());
-			AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorship.getSponsor().getIdentityNo());
-
-			settlement = new AcSettlementImpl();
-			settlement.setDescription(sponsor.getName() + " " + sponsor.getId());
-			settlement.setSession(academicSession);
-			settlement.setSponsor(sponsor);
-			settlement.setReferenceNo("daaa111");
-
-			financialAidService.initSettlement(settlement);
-
-			invoice = new AcInvoiceImpl();
-			invoice.setDescription(settlement.getId() + " " + settlement.getSession());
-			invoice.setSession(academicSession);
-			invoice.setReferenceNo("dddd1111");
-			invoice.setIssuedDate(new Date());
+			AcAccount account = accountService.findAccountByActor(student);
 			
+			List<AcInvoice> invoices = billingService.findInvoices(account, 0, 100);
+			
+			for (AcInvoice invoice : invoices) {
+				LOG.debug("Name : {}",  invoice.getAccount().getActor().getName());
 
-			financialAidService.executeSettlement(settlement);
+				}
 		}
-	
 
 	return self();
 		
 	}
-
 }
+
