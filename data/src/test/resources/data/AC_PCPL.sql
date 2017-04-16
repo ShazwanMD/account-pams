@@ -60,8 +60,18 @@ INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
 INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM'), 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM'),
+                                                                                (SELECT ID FROM AC_PCPL WHERE NAME = 'root'), 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM'),
+                                                                                (SELECT ID FROM AC_PCPL WHERE NAME = 'bursary'), 1, 1, CURRENT_TIMESTAMP);
+
+
+
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_USR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM'), 1, 1, CURRENT_TIMESTAMP);
+
 ---------------------------------------------------------
 -- GROUP END
 ---------------------------------------------------------
