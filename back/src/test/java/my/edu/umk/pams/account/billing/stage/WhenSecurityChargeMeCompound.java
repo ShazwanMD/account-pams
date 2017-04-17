@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.billing.stage;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -10,16 +11,12 @@ import my.edu.umk.pams.account.account.model.AcSecurityCharge;
 import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
 @JGivenStage
 public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeCompound> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(WhenSecurityChargeMeCompound.class);
 
     @Autowired
     private AccountService accountService;
@@ -33,7 +30,7 @@ public class WhenSecurityChargeMeCompound extends Stage<WhenSecurityChargeMeComp
     @ExpectedScenarioState
     private AcAcademicSession academicSession;
 
-
+    @As("Security issues my compound charges")
     public WhenSecurityChargeMeCompound security_issues_me_compound_charges() {
         // add charges to given student account
         AcSecurityCharge charge = new AcSecurityChargeImpl();
