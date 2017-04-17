@@ -26,13 +26,13 @@ import my.edu.umk.pams.bdd.tags.Submodule;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@Pending
 @Submodule("Account")
 @As("As Parents, I want to view student fees statement and charges so that I can make payment")
 public class US_AC_ACT_4001 extends SpringScenarioTest<GivenIAmParent, WhenIWantToViewFeesAndChargesForAStudent, ThenICanMakePayment> {
 
 	@Test
 	@Rollback
+	@Pending
 	public void testScenario0() {
 		given().I_am_a_parent_for_a_student_in_current_academic_session() ;
 		when().I_want_to_view_fees_and_charges_for_a_student();
