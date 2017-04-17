@@ -14,6 +14,7 @@ public interface AccountConstants {
     public static final String WAIVER_APPLICATION_ID = "waiverApplicationId";
     public static final String REFUND_APPLICATION_ID = "refundApplicationId";
 
+    public static final String PROMO_CODE_REFERENCE_NO = "AcPromoCode.referenceNo";
     public static final String SETTLEMENT_REFERENCE_NO = "AcSettlement.referenceNo";
     public static final String INVOICE_REFERENCE_NO = "AcInvoice.referenceNo";
     public static final String INVOICE_INVOICE_NO = "AcInvoice.invoiceNo";

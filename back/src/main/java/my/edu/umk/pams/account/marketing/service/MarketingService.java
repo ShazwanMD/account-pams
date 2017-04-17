@@ -28,7 +28,7 @@ public interface MarketingService {
 
     boolean hasPromoCodeExpired(Date now);
 
-    void addPromoCode(AcPromoCode promoCode);
+    String initPromoCode(AcPromoCode promoCode);
 
     void addPromoCodeItem(AcPromoCode promoCode, AcPromoCodeItem item);
 

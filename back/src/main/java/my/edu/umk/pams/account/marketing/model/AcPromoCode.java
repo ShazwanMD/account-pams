@@ -16,9 +16,9 @@ public interface AcPromoCode extends AcMetaObject {
 	 * todo(uda): referenceNo?
 	 * @return
 	 */
-	String getCode();
+	String getReferenceNo();
 
-	void setCode(String code);
+	void setReferenceNo(String referenceNo);
 
 	/**
 	 *

@@ -641,7 +641,7 @@ create table AC_PRGM_CODE (
 
 create table AC_PRMO_CODE (
     ID int8 not null,
-    CODE varchar(255) not null,
+    REFERENCE_NO varchar(255) not null,
     DESCRIPTION varchar(255) not null,
     EXPIRY_DATE timestamp,
     C_TS timestamp,

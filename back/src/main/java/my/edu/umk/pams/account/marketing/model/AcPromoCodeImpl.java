@@ -1,21 +1,12 @@
 package my.edu.umk.pams.account.marketing.model;
 
+import my.edu.umk.pams.account.core.AcMetadata;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import my.edu.umk.pams.account.core.AcMetadata;
 
 @Entity(name = "AcPromoCode")
 @Table(name = "AC_PRMO_CODE")
@@ -27,16 +18,16 @@ public class AcPromoCodeImpl implements AcPromoCode {
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "VALUE", nullable = false)
-	private BigDecimal value = BigDecimal.ZERO;
-
 	@NotNull
-	@Column(name = "CODE", nullable = false)
-	private String code;
+	@Column(name = "REFERENCE_NO", nullable = false)
+	private String referenceNo;
 
 	@NotNull
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
+
+	@Column(name = "VALUE", nullable = false)
+	private BigDecimal value = BigDecimal.ZERO;
 
 	@NotNull
 	@Column(name = "QUANTITY")
@@ -65,14 +56,12 @@ public class AcPromoCodeImpl implements AcPromoCode {
 		this.id = id;
 	}
 
-	@Override
-	public String getCode() {
-		return code;
+	public String getReferenceNo() {
+		return referenceNo;
 	}
 
-	@Override
-	public void setCode(String code) {
-		this.code = code;
+	public void setReferenceNo(String referenceNo) {
+		this.referenceNo = referenceNo;
 	}
 
 	@Override

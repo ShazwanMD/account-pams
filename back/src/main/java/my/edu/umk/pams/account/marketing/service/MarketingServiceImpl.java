@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.marketing.model.AcPromoCode;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 import my.edu.umk.pams.account.security.service.SecurityService;
+import my.edu.umk.pams.account.system.service.SystemService;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static my.edu.umk.pams.account.AccountConstants.PROMO_CODE_REFERENCE_NO;
 
 @Transactional
 @Service("marketingService")
@@ -27,6 +32,9 @@ public class MarketingServiceImpl implements MarketingService {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private SystemService systemService;
 
     @Autowired
     private AcPromoCodeDao promoCodeDao;
@@ -77,9 +85,17 @@ public class MarketingServiceImpl implements MarketingService {
     }
 
     @Override
-    public void addPromoCode(AcPromoCode promoCode) {
-        promoCodeDao.save(promoCode, securityService.getCurrentUser());
+    public String initPromoCode(AcPromoCode promoCode) {
+        // prepare reference no generator
+        Map<String, Object> map = new HashMap<String, Object>();
+        String referenceNo = systemService.generateFormattedReferenceNo(PROMO_CODE_REFERENCE_NO, map);
+        promoCode.setReferenceNo(referenceNo);
+        LOG.debug("Processing promo code with refNo {}", referenceNo);
+
+        // save
+        promoCodeDao.saveOrUpdate(promoCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
+        return referenceNo;
     }
 
     @Override

@@ -30,7 +30,7 @@ public class MarketingTransformer {
     public PromoCode toSimplePromoCodeVo(AcPromoCode e) {
         PromoCode vo = new PromoCode();
         vo.setId(e.getId());
-        vo.setCode(e.getCode());
+        vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
@@ -39,7 +39,7 @@ public class MarketingTransformer {
     public PromoCode toPromoCodeVo(AcPromoCode e) {
         PromoCode vo = new PromoCode();
         vo.setId(e.getId());
-        vo.setCode(e.getCode());
+        vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;

@@ -56,13 +56,13 @@ public class WhenIWantGiveCompoundsDiscountToStudent extends Stage<WhenIWantGive
 
 		String PROMO_CODE = "aa01";
 		promoCode = new AcPromoCodeImpl();
-		promoCode.setCode(PROMO_CODE);
+		promoCode.setReferenceNo(PROMO_CODE);
 		promoCode.setDescription("A rare discount");
 		promoCode.setPromoCodeType(AcPromoCodeType.DISCOUNT);
 		promoCode.setQuantity(1);
 		promoCode.setValue(BigDecimal.TEN);
 		promoCode.setExpiryDate(new Date());
-		marketingService.addPromoCode(promoCode);
+		marketingService.initPromoCode(promoCode);
 
 		AcAccount account = accountService.findAccountByCode("A17P002");
 

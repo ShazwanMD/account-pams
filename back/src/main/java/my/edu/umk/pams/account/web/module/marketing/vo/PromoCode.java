@@ -11,16 +11,16 @@ import java.io.IOException;
  */
 public class PromoCode extends MetaObject{
 
-    private String code;
+    private String referenceNo;
     private String description;
     private Integer quantity;
 
-    public String getCode() {
-        return code;
+    public String getReferenceNo() {
+        return referenceNo;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setReferenceNo(String referenceNo) {
+        this.referenceNo = referenceNo;
     }
 
     public String getDescription() {
