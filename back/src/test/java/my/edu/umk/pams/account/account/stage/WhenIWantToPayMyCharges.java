@@ -36,7 +36,6 @@ public class WhenIWantToPayMyCharges extends Stage<WhenIWantToPayMyCharges> {
 	@Autowired
 	private IdentityService identityservice;
 	
-	@Pending
 	public WhenIWantToPayMyCharges I_want_to_pay_my_charges(){
 		
 		//todo:the process of paying charge - how?
