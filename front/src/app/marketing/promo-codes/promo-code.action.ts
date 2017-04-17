@@ -61,7 +61,7 @@ export class PromoCodeActions {
 
   static FIND_PROMO_CODES_SUCCESS = '[PromoCode] Find PromoCodes Success';
   findPromoCodesSuccess(promoCodes): Action {
-    console.log("findPromoCodeTransactionsSuccess");
+    console.log("findPromoCodesSuccess");
     return {
       type: PromoCodeActions.FIND_PROMO_CODES_SUCCESS,
       payload: promoCodes

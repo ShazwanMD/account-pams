@@ -12,6 +12,7 @@ import {PromoCodeEffects} from "./promo-code.effect";
 import {EffectsModule} from "@ngrx/effects";
 import {PromoCodeActions} from "./promo-code.action";
 import {PromoCodeCenterPage} from "./promo-code-center.page";
+import {PromoCodeListComponent} from "./component/promo-code-list.component";
 
 
 @NgModule({
@@ -25,6 +26,9 @@ import {PromoCodeCenterPage} from "./promo-code-center.page";
   declarations: [
     // page
     PromoCodeCenterPage,
+
+    // component
+    PromoCodeListComponent,
   ],
   exports: [],
   entryComponents: [

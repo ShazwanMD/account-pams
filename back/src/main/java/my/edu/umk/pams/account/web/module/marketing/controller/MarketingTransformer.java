@@ -45,9 +45,10 @@ public class MarketingTransformer {
         return vo;
     }
     public PromoCodeItem toPromoCodeItemVo(AcPromoCodeItem e) {
-        // todo(uda): more properties
         PromoCodeItem vo = new PromoCodeItem();
         vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setApplied(e.getApplied());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;

@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 public class PromoCodeItem extends MetaObject {
 
     private String code;
+    private boolean applied;
     private BigDecimal value;
     private Account account;
 
@@ -23,6 +24,14 @@ public class PromoCodeItem extends MetaObject {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public boolean isApplied() {
+        return applied;
+    }
+
+    public void setApplied(boolean applied) {
+        this.applied = applied;
     }
 
     public BigDecimal getValue() {

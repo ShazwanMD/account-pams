@@ -25,6 +25,12 @@ export class PromoCodeEffects {
     .map(promoCode => this.promoCodeActions.findPromoCodeByReferenceNoSuccess(promoCode))
     .mergeMap(action => from([action, this.promoCodeActions.findPromoCodeItems(action.payload)]));
 
+  @Effect() findPromoCodes$ = this.actions$
+    .ofType(PromoCodeActions.FIND_PROMO_CODES)
+    .map(action => action.payload)
+    .switchMap(() => this.marketingService.findPromoCodes())
+    .map(items => this.promoCodeActions.findPromoCodesSuccess(items));
+
   @Effect() findPromoCodeItems$ = this.actions$
     .ofType(PromoCodeActions.FIND_PROMO_CODE_ITEMS)
     .map(action => action.payload)

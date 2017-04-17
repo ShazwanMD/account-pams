@@ -35,11 +35,11 @@
 
     <md-card class="">
       <md-card-title>PromoCodes</md-card-title>
-      <md-card-subtitle>List of settlement tasks</md-card-subtitle>
+      <md-card-subtitle>List of promo codes</md-card-subtitle>
 
-      <!--<pams-settlement-list-->
-        <!--[settlements]="settlements$ | async"-->
-        <!--(view)="view($event)"></pams-settlement-list>-->
+      <pams-promo-code-list
+        [promoCodes]="promoCodes$ | async"
+        (view)="view($event)"></pams-promo-code-list>
 
       <md-divider></md-divider>
       <md-card-actions>

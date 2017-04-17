@@ -9,6 +9,14 @@ public interface AcPromoCodeItem extends AcMetaObject {
      *
      * @return
      */
+    String getCode();
+
+    void setCode(String code);
+
+    /**
+     *
+     * @return
+     */
     String getSourceNo();
 
     void setSourceNo(String sourceNo);
