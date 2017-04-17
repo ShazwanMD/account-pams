@@ -3,7 +3,6 @@ import {InvoiceCenterPage} from "./invoice-center.page";
 import {InvoiceViewTaskPage} from "./invoice-view-task.page";
 
 
-// Route Configuration
 export const InvoiceRoutes: Routes = [
   {path: 'billing/invoices', component: InvoiceCenterPage},
   // {path: 'billing/invoices/assigned-tasks', component: InvoiceAssignedTaskPage},

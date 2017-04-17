@@ -77,7 +77,7 @@ public class MarketingController {
     //  PromoCode
     // ==================================================================================================== //
 
-    @RequestMapping(value = "/promoCodes/", method = RequestMethod.GET)
+    @RequestMapping(value = "/promoCodes", method = RequestMethod.GET)
     public ResponseEntity<List<PromoCode>> findPromoCodes() {
         List<AcPromoCode> promoCodes = marketingService.findPromoCodes(0, 100);
         return new ResponseEntity<List<PromoCode>>(marketingTransformer.toPromoCodeVos(promoCodes), HttpStatus.OK);

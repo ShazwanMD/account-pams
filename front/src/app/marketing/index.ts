@@ -13,19 +13,19 @@ import {MarketingService} from "../../services/marketing.service";
 import {ActionReducer, combineReducers} from "@ngrx/store";
 import {NgModule, ModuleWithProviders} from "@angular/core";
 import {PromoCodeSubModule} from "./promo-codes/index";
+import {PromoCodeListState, promoCodeListReducer} from "./promo-codes/promo-code-list.reducer";
+import {PromoCodeState, promoCodeReducer} from "./promo-codes/promo-code.reducer";
 
 export interface MarketingModuleState {
-  // promoCodeTasks: PromoCodeTaskListState;
-  // promoCodeTask: PromoCodeTaskState;
-  // promoCode: PromoCodeState;
+  promoCodes: PromoCodeListState;
+  promoCode: PromoCodeState;
 };
 
-// export const INITIAL_MARKETING_STATE: MarketingModuleState = <MarketingModuleState>{};
-// const marketingModuleReducers = {
-//    promoCodeTasks:promoCodeTaskListReducer,
-//    promoCodeTask:promoCodeTaskReducer,
-//    promoCodes:promoCodeReducer
-// };
+export const INITIAL_MARKETING_STATE: MarketingModuleState = <MarketingModuleState>{};
+export const marketingModuleReducers = {
+   promoCodes:promoCodeListReducer,
+   promoCode:promoCodeReducer
+};
 
 @NgModule({
   imports: [

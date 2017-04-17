@@ -1,7 +1,6 @@
 import {Routes, RouterModule} from '@angular/router';
 
 
-// Route Configuration
 export const ReceiptRoutes: Routes = [
   // {path: 'billing/invoices/new-task', component: ReceiptNewTaskPage},
   // {path: 'billing/invoices/assigned-tasks', component: ReceiptAssignedTaskPage},

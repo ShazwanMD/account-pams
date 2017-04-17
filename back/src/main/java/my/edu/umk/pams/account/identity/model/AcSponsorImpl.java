@@ -19,6 +19,16 @@ public class AcSponsorImpl extends AcActorImpl implements AcSponsor {
     }
 
     @Override
+    public String getSponsorNo() {
+        return getIdentityNo();
+    }
+
+    @Override
+    public void setSponsorNo(String sponsorNo) {
+        setIdentityNo(sponsorNo);
+    }
+
+    @Override
     public AcSponsorType getSponsorType() {
         return sponsorType;
     }

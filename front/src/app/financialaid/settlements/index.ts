@@ -8,6 +8,11 @@ import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../../services';
 import {IdentityService} from '../../../services';
 import {FinancialaidService} from "../../../services/financialaid.service";
+import {SettlementEffects} from "./settlement.effect";
+import {EffectsModule} from "@ngrx/effects";
+import {SettlementCenterPage} from "./settlement-center.page";
+import {SettlementActions} from "./settlement.action";
+import {SettlementListComponent} from "./component/settlement-list.component";
 
 
 @NgModule({
@@ -16,11 +21,14 @@ import {FinancialaidService} from "../../../services/financialaid.service";
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    // EffectsModule.run(SettlementEffects),
+    EffectsModule.run(SettlementEffects),
   ],
   declarations: [
     // page
-    //SettlementCenterPage,
+    SettlementCenterPage,
+
+    // component
+    SettlementListComponent,
   ],
   exports: [],
   entryComponents: [
@@ -36,7 +44,7 @@ export class SettlementSubModule {
         IdentityService,
         CommonService,
         FinancialaidService,
-        // SettlementActions,
+        SettlementActions,
       ],
     };
   }

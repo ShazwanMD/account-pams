@@ -23,9 +23,9 @@ public interface FinancialAidService {
 
     AcSettlementItem findSettlementItemById(Long id);
 
-    List<AcSettlement> findSettlementes(Integer offset, Integer limit);
+    List<AcSettlement> findSettlements(Integer offset, Integer limit);
 
-    List<AcSettlement> findSettlementes(AcAcademicSession academicSession, Integer offset, Integer limit);
+    List<AcSettlement> findSettlements(AcAcademicSession academicSession, Integer offset, Integer limit);
 
     List<AcSettlementItem> findSettlementItems(AcSettlement settlement);
 

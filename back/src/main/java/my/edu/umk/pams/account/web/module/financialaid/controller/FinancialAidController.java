@@ -3,12 +3,13 @@ package my.edu.umk.pams.account.web.module.financialaid.controller;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.common.service.CommonService;
-import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
-import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationImpl;
+import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.account.web.module.financialaid.vo.Settlement;
+import my.edu.umk.pams.account.web.module.financialaid.vo.SettlementItem;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
@@ -24,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -59,7 +61,55 @@ public class FinancialAidController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @RequestMapping(value = "/waiverApplications/", method = RequestMethod.GET)
+    // ====================================================================================================
+    // SETTLEMENT
+    // ====================================================================================================
+    @RequestMapping(value = "/settlements", method = RequestMethod.GET)
+    public ResponseEntity<List<Settlement>> findSettlements() {
+        List<AcSettlement> settlements = financialAidService.findSettlements(0, 100);
+        return new ResponseEntity<List<Settlement>>(financialAidTransformer.toSettlementVos(settlements), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/settlements/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<Settlement> findSettlementByReferenceNo(@PathVariable String referenceNo) {
+        AcSettlement settlement = (AcSettlement) financialAidService.findSettlementByReferenceNo(referenceNo);
+        return new ResponseEntity<Settlement>(financialAidTransformer.toSettlementVo(settlement), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.GET)
+    public ResponseEntity<List<SettlementItem>> findSettlementItems(@PathVariable String referenceNo) {
+        dummyLogin();
+        String decode = URLDecoder.decode(referenceNo);
+        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(decode);
+        return new ResponseEntity<List<SettlementItem>>(financialAidTransformer
+                .toSettlementItemVos(financialAidService.findSettlementItems(settlement)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.POST)
+    public void updateSettlementItems(@PathVariable String referenceNo, @RequestBody SettlementItem item) {
+        dummyLogin();
+        String decode = URLDecoder.decode(referenceNo);
+        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(decode);
+        if (null == item.getId()) { // new
+            AcSettlementItem e = new AcSettlementItemImpl();
+            e.setBalanceAmount(item.getBalanceAmount());
+            // todo: e.setAccount();
+            // todo: e.setStatus();
+            financialAidService.addSettlementItem(settlement, e);
+        } else { // update
+            AcSettlementItem e = financialAidService.findSettlementItemById(item.getId());
+            e.setBalanceAmount(item.getBalanceAmount());
+            // todo: e.setAccount();
+            // todo: e.setStatus();
+            financialAidService.updateSettlementItem(settlement, e);
+        }
+    }
+
+    // ====================================================================================================
+    // WAIVER APPLICATION
+    // ====================================================================================================
+
+    @RequestMapping(value = "/waiverApplications", method = RequestMethod.GET)
     public ResponseEntity<List<WaiverApplication>> findWaiverApplications() {
         List<AcWaiverApplication> waiverApplications = financialAidService.findWaiverApplications("%", 0, 100);
         return new ResponseEntity<List<WaiverApplication>>(financialAidTransformer.toWaiverApplicationVos(waiverApplications), HttpStatus.OK);
@@ -122,6 +172,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/waiverApplications/completeTask", method = RequestMethod.POST)
     public void completeWaiverApplicationTask(@RequestBody WaiverApplicationTask vo) {
+        dummyLogin();
         Task task = financialAidService.findWaiverApplicationTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
     }

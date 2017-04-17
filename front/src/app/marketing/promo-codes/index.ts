@@ -8,6 +8,10 @@ import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../../services';
 import {IdentityService} from '../../../services';
 import {FinancialaidService} from "../../../services/financialaid.service";
+import {PromoCodeEffects} from "./promo-code.effect";
+import {EffectsModule} from "@ngrx/effects";
+import {PromoCodeActions} from "./promo-code.action";
+import {PromoCodeCenterPage} from "./promo-code-center.page";
 
 
 @NgModule({
@@ -16,11 +20,11 @@ import {FinancialaidService} from "../../../services/financialaid.service";
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    // EffectsModule.run(PromoCodeEffects),
+    EffectsModule.run(PromoCodeEffects),
   ],
   declarations: [
     // page
-    //PromoCodeCenterPage,
+    PromoCodeCenterPage,
   ],
   exports: [],
   entryComponents: [
@@ -36,7 +40,7 @@ export class PromoCodeSubModule {
         IdentityService,
         CommonService,
         FinancialaidService,
-        // PromoCodeActions,
+        PromoCodeActions,
       ],
     };
   }

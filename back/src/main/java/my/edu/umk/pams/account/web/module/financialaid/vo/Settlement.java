@@ -15,6 +15,7 @@ public class Settlement extends MetaObject{
 
     private String referenceNo;
     private String sourceNo;
+    private String sponsorNo;
     private String description;
     private Sponsor sponsor;
     private AcademicSession academicSession;
@@ -33,6 +34,14 @@ public class Settlement extends MetaObject{
 
     public void setSourceNo(String sourceNo) {
         this.sourceNo = sourceNo;
+    }
+
+    public String getSponsorNo() {
+        return sponsorNo;
+    }
+
+    public void setSponsorNo(String sponsorNo) {
+        this.sponsorNo = sponsorNo;
     }
 
     public String getDescription() {

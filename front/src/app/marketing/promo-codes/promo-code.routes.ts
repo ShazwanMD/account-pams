@@ -1,7 +1,7 @@
 import {Routes, RouterModule} from '@angular/router';
+import {PromoCodeCenterPage} from "./promo-code-center.page";
 
 
-// Route Configuration
 export const PromoCodeRoutes: Routes = [
-  // {path: 'marketing/promo-codes', component: PromoCodeCenterPage},
+  {path: 'marketing/promo-codes', component: PromoCodeCenterPage},
 ];

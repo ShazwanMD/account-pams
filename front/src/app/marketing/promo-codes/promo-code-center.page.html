@@ -1,0 +1,52 @@
+<td-layout-nav>
+  <div toolbar-content layout="row" layout-align="center center" flex>
+    <span>PAMS: Postgraduate Management System</span>
+    <span flex></span>
+  </div>
+
+  <md-nav-list menu-items>
+    <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="layout.close()">
+      <md-icon>{{item.icon}}</md-icon>
+      {{item.title}}
+    </a>
+  </md-nav-list>
+
+
+  <td-layout-manage-list #list>
+    <md-nav-list list-items>
+      <a md-list-item [routerLink]="['/settlements-create']">
+        <md-icon>create</md-icon>
+        Create PromoCode
+      </a>
+      <md-divider></md-divider>
+    </md-nav-list>
+    <div toolbar-buttons layout="row" layout-align="start center" flex>
+      <span flex>PromoCode Center</span>
+      <button md-button class="md-icon-button">
+        <md-icon class="md-24">settings</md-icon>
+      </button>
+      <button md-button class="md-icon-button">
+        <md-icon class="md-24">more_vert</md-icon>
+      </button>
+    </div>
+
+    <div layout="row" layout-wrap>
+    </div>
+
+    <md-card class="">
+      <md-card-title>PromoCodes</md-card-title>
+      <md-card-subtitle>List of settlement tasks</md-card-subtitle>
+
+      <!--<pams-settlement-list-->
+        <!--[settlements]="settlements$ | async"-->
+        <!--(view)="view($event)"></pams-settlement-list>-->
+
+      <md-divider></md-divider>
+      <md-card-actions>
+        <a md-button color="accent" class="text-upper" [routerLink]="['/settlements-search']">
+          <span>View More</span>
+        </a>
+      </md-card-actions>
+    </md-card>
+  </td-layout-manage-list>
+</td-layout-nav>

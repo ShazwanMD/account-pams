@@ -22,7 +22,10 @@ import {CustomUrlSerializer} from "./common/custom-url-serializer";
 import {UrlSerializer} from "@angular/router";
 import {AccountModuleState, INITIAL_ACCOUNT_STATE, AccountModule, accountModuleReducers} from "./account/index";
 import {BillingModuleState, INITIAL_BILLING_STATE, BillingModule, billingModuleReducers} from "./billing/index";
-import {FinancialaidModule} from "./financialaid/index";
+import {
+  FinancialaidModule, INITIAL_FINANCIALAID_STATE, FinancialaidModuleState,
+  financialaidModuleReducers
+} from "./financialaid/index";
 import {MarketingModule} from "./marketing/index";
 
 const httpInterceptorProviders: Type<any>[] = [
@@ -34,6 +37,7 @@ const httpInterceptorProviders: Type<any>[] = [
 interface ApplicationState {
   accountModuleState: AccountModuleState;
   billingModuleState: BillingModuleState;
+  financialaidModuleState: FinancialaidModuleState;
 }
 ;
 
@@ -41,10 +45,16 @@ interface ApplicationState {
 export const INITIAL_APPLICATION_STATE: ApplicationState =
   <ApplicationState>{
     accountModuleState: INITIAL_ACCOUNT_STATE,
-    billingModuleState: INITIAL_BILLING_STATE
+    billingModuleState: INITIAL_BILLING_STATE,
+    financialaidModuleState: INITIAL_FINANCIALAID_STATE
   };
 
-export const applicationReducers = {...accountModuleReducers, ...billingModuleReducers};
+export const applicationReducers = {
+  ...accountModuleReducers,
+  ...billingModuleReducers,
+  ...financialaidModuleReducers
+};
+
 export const productionReducer: ActionReducer<ApplicationState> = combineReducers(applicationReducers);
 export function applicationReducer(applicationState: any = INITIAL_APPLICATION_STATE, action: any) {
   return productionReducer(applicationState, action);

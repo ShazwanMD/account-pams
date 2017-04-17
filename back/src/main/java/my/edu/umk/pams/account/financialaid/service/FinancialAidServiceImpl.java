@@ -55,9 +55,6 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 	@Autowired
 	private AcStudentDao studentDao;
 
-	// @Autowired
-	// private AcAccountChargeDao accountChargeDao;
-
 	@Autowired
 	private AcSettlementDao settlementDao;
 
@@ -113,12 +110,12 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 	}
 
 	@Override
-	public List<AcSettlement> findSettlementes(Integer offset, Integer limit) {
+	public List<AcSettlement> findSettlements(Integer offset, Integer limit) {
 		return settlementDao.find(offset, limit);
 	}
 
 	@Override
-	public List<AcSettlement> findSettlementes(AcAcademicSession academicSession, Integer offset, Integer limit) {
+	public List<AcSettlement> findSettlements(AcAcademicSession academicSession, Integer offset, Integer limit) {
 		return settlementDao.find(academicSession, offset, limit);
 	}
 
