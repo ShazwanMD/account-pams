@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
+import my.edu.umk.pams.account.marketing.model.AcPromoCodeImpl;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItemImpl;
 import my.edu.umk.pams.account.marketing.service.MarketingService;
@@ -25,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,6 +80,18 @@ public class MarketingController {
     public ResponseEntity<List<PromoCode>> findPromoCodes() {
         List<AcPromoCode> promoCodes = marketingService.findPromoCodes(0, 100);
         return new ResponseEntity<List<PromoCode>>(marketingTransformer.toPromoCodeVos(promoCodes), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/promoCodes/init", method = RequestMethod.POST)
+    public ResponseEntity<String> initPromoCode(@RequestBody PromoCode vo) {
+        dummyLogin();
+        AcPromoCode promoCode = new AcPromoCodeImpl();
+        promoCode.setDescription(vo.getDescription());
+        promoCode.setQuantity(vo.getQuantity());
+        promoCode.setValue(vo.getValue());
+        promoCode.setExpiryDate(new Date());
+        String referenceNo = marketingService.initPromoCode(promoCode);
+        return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/promoCodes/{referenceNo}", method = RequestMethod.GET)

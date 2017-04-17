@@ -3,11 +3,13 @@ import {Effect, Actions} from '@ngrx/effects';
 import {PromoCodeActions} from "./promo-code.action";
 import {from} from "rxjs/observable/from";
 import {MarketingService} from "../../../services/marketing.service";
+import {Router} from "@angular/router";
 
 
 @Injectable()
 export class PromoCodeEffects {
-  constructor(private actions$: Actions,
+  constructor(private router: Router,
+              private actions$: Actions,
               private promoCodeActions: PromoCodeActions,
               private marketingService: MarketingService) {
   }
@@ -37,11 +39,14 @@ export class PromoCodeEffects {
     .switchMap(promoCode => this.marketingService.findPromoCodeItems(promoCode))
     .map(items => this.promoCodeActions.findPromoCodeItemsSuccess(items));
 
-  @Effect() createPromoCode$ = this.actions$
-    .ofType(PromoCodeActions.CREATE_PROMO_CODE)
+  @Effect() initPromoCode$ = this.actions$
+    .ofType(PromoCodeActions.INIT_PROMO_CODE)
     .map(action => action.payload)
-    .switchMap(promoCode => this.marketingService.createPromoCode(promoCode))
-    .map(task => this.promoCodeActions.createPromoCodeSuccess(task));
+    .switchMap(promoCode => this.marketingService.initPromoCode(promoCode))
+    .map(referenceNo => this.promoCodeActions.initPromoCodeSuccess(referenceNo))
+    .mergeMap(action => from([action,
+      this.promoCodeActions.findPromoCodeByReferenceNo(action.payload),
+      this.router.navigate(['marketing/promo-codes/', action.payload])]));
 
   @Effect() updatePromoCode$ = this.actions$
     .ofType(PromoCodeActions.UPDATE_PROMO_CODE)

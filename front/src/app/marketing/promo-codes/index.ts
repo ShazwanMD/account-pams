@@ -13,6 +13,10 @@ import {EffectsModule} from "@ngrx/effects";
 import {PromoCodeActions} from "./promo-code.action";
 import {PromoCodeCenterPage} from "./promo-code-center.page";
 import {PromoCodeListComponent} from "./component/promo-code-list.component";
+import {PromoCodeDetailPage} from "./promo-code-detail.page";
+import {PromoCodeComponent} from "./component/promo-code.component";
+import {PromoCodeItemComponent} from "./component/promo-code-item-list.component";
+import {PromoCodeCreatorDialog} from "./dialog/promo-code-creator.dialog";
 
 
 @NgModule({
@@ -26,12 +30,17 @@ import {PromoCodeListComponent} from "./component/promo-code-list.component";
   declarations: [
     // page
     PromoCodeCenterPage,
+    PromoCodeDetailPage,
 
     // component
     PromoCodeListComponent,
+    PromoCodeComponent,
+    PromoCodeItemComponent,
+    PromoCodeCreatorDialog,
   ],
   exports: [],
   entryComponents: [
+    PromoCodeCreatorDialog,
   ],
 
 })

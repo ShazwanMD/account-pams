@@ -6,7 +6,6 @@ import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 /**
  * @author PAMS
@@ -15,7 +14,7 @@ public class PromoCodeItem extends MetaObject {
 
     private String code;
     private boolean applied;
-    private BigDecimal value;
+    private String sourceNo;
     private Account account;
 
     public String getCode() {
@@ -34,12 +33,12 @@ public class PromoCodeItem extends MetaObject {
         this.applied = applied;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public String getSourceNo() {
+        return sourceNo;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setSourceNo(String sourceNo) {
+        this.sourceNo = sourceNo;
     }
 
     public Account getAccount() {

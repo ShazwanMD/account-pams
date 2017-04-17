@@ -62,6 +62,7 @@ public class AccountTransformer {
     }
 
     public Account toAccountVo(AcAccount e) {
+        if (null == e) return null;
         Account m = new Account();
         m.setId(e.getId());
         m.setCode(e.getCode());
@@ -94,6 +95,7 @@ public class AccountTransformer {
                 .map((accountTx) -> toAccountTransactionVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountTransaction>()));
     }
+
     public List<AcademicSession> toAcademicSessionVos(List<AcAcademicSession> academicSessions) {
         return academicSessions.stream()
                 .map((task) -> toAcademicSessionVo(task))

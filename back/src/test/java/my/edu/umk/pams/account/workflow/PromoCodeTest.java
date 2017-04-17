@@ -7,9 +7,7 @@ import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
 import my.edu.umk.pams.account.identity.service.IdentityService;
-import my.edu.umk.pams.account.marketing.model.AcPromoCode;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeImpl;
-import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
+import my.edu.umk.pams.account.marketing.model.*;
 import my.edu.umk.pams.account.marketing.service.MarketingService;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.hibernate.SessionFactory;
@@ -77,11 +75,22 @@ public class PromoCodeTest {
     @Rollback(false)
     public void testWorkflow() {
         AcPromoCode promoCode  = new AcPromoCodeImpl();
-        promoCode.setDescription("This is promocode");
+        promoCode.setDescription("Promotional code for processing fee intake 201720181");
         promoCode.setExpiryDate(new Date());
         promoCode.setPromoCodeType(AcPromoCodeType.DISCOUNT);
         promoCode.setQuantity(20);
-        promoCode.setValue(BigDecimal.valueOf(10.00));
-        marketingService.initPromoCode(promoCode);
+        promoCode.setValue(BigDecimal.valueOf(120.00));
+        String referenceNo = marketingService.initPromoCode(promoCode);
+
+         promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
+        AcPromoCodeItem item1 = new AcPromoCodeItemImpl();
+        item1.setCode("ABC123");
+        item1.setApplied(false);
+        marketingService.addPromoCodeItem(promoCode, item1);
+
+        AcPromoCodeItem item2 = new AcPromoCodeItemImpl();
+        item2.setCode("DEF123");
+        item2.setApplied(false);
+        marketingService.addPromoCodeItem(promoCode, item2);
     }
 }

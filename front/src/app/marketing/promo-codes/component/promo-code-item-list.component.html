@@ -1,0 +1,19 @@
+<md-card>
+  <md-card-title>Items</md-card-title>
+  <md-card-subtitle>List of promo code items</md-card-subtitle>
+  <md-tab-group [selectedIndex]="0">
+    <md-tab label="Items">
+      <md-list dense>
+        <template let-item let-last="last" ngFor [ngForOf]="promoCodeItems">
+          <md-list-item layout-align="row">
+            <h3 md-line>{{item.code}}</h3>
+            <p md-line> {{item.applied}} </p>
+            <span flex="50" class="md-body-1 tc-grey-500 text-right">{{item.sourceNo}}</span>
+            <span flex="20" class="md-body-1 tc-grey-500 text-right">{{item.applied}}</span>
+          </md-list-item>
+          <md-divider *ngIf="!last"></md-divider>
+        </template>
+      </md-list>
+    </md-tab>
+  </md-tab-group>
+</md-card>

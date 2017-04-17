@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Response, Http} from '@angular/http';
+import {Response, Http, Headers, RequestOptions} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
@@ -32,7 +32,7 @@ export class MarketingService {
   findPromoCodes(): Observable<PromoCode[]> {
     console.log("findPromoCodes");
     return this.http.get(environment.endpoint + '/api/marketing/promoCodes')
-      .map((res: Response) => <PromoCodeItem[]>res.json());
+      .map((res: Response) => <PromoCode[]>res.json());
   }
 
   findPromoCodeItems(promoCode: PromoCode): Observable<PromoCodeItem[]> {
@@ -41,22 +41,19 @@ export class MarketingService {
       .map((res: Response) => <PromoCodeItem[]>res.json());
   }
 
-  createPromoCode(promoCode: PromoCode): Observable<Boolean> {
-    return Observable.of(true);
-    // return this.http.post(environment.endpoint + '/api/marketing/promoCodes/create', JSON.stringify(promoCode))
-    //   .flatMap(data => Observable.of(true));
+  initPromoCode(promoCode: PromoCode): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/marketing/promoCodes/init', JSON.stringify(promoCode), options)
+      .map((res: Response) => <String>res.json());
   }
 
-  processPromoCode(settlement: PromoCode): Observable<Boolean> {
-    return Observable.of(true);
-    // return this.http.post(environment.endpoint + '/api/marketing/promoCodes/process', JSON.stringify(settlement))
-    //   .flatMap(data => Observable.of(true));
-  }
-
-  updatePromoCode(settlement: PromoCode): Observable<Boolean> {
+  updatePromoCode(promoCode: PromoCode): Observable<Boolean> {
     return Observable.of(true);
     // return this.http.put(environment.endpoint + '/api/marketing/promoCodes', JSON.stringify(settlement))
     //   .flatMap(data => Observable.of(true));
   }
-
 }

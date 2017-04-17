@@ -1,6 +1,6 @@
 export interface PromoCode {
-
-  referenceNo:string; // todo: referenceNo
-  sourceNo:string;
+  referenceNo:string;
   description:string;
+  value:number;
+  quantity:number;
 }
