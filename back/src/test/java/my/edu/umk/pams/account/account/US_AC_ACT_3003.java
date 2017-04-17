@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tngtech.jgiven.annotation.As;
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenICanViewMyResult;
@@ -31,6 +32,7 @@ public class US_AC_ACT_3003 extends SpringScenarioTest<GivenIAmStudent, WhenIWan
 
 	@Test
 	@Rollback
+	@Pending
 	public void testScenario0() {
 		given().I_am_a_student_in_current_academic_session() ;
 		when().I_want_to_pay_my_charges();
