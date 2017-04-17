@@ -11,32 +11,34 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 @JGivenStage
 public class WhenCreateCreditNote extends Stage<WhenCreateCreditNote> {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WhenCreateCreditNote.class);
-	
+
 	@Autowired
 	BillingService billingService;
-	
-	//@ProvidedScenarioState
-	//AcCreditNote creditNote;
-	
-	public WhenCreateCreditNote Create_credit_note(){
-		
+
+	// @ProvidedScenarioState
+	// AcCreditNote creditNote;
+
+	@As("create credit note")
+	public WhenCreateCreditNote Create_credit_note() {
+
 		String referenceNo = "crn";
 		String description = "cde";
 		Date issuedDate = new Date();
-		
+
 		AcCreditNote creditNote = new AcCreditNoteImpl();
 		creditNote.setReferenceNo(referenceNo);
 		creditNote.setDescription(description);
 		creditNote.setIssuedDate(issuedDate);
-		
+
 		String refNo = billingService.startCreditNoteTask(creditNote);
-		
+
 		LOG.debug("Processed debitNote with refNo {}", refNo);
 		return self();
 	}

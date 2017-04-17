@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
@@ -42,6 +43,7 @@ public class WhenGenerateReportByFaculty extends Stage<WhenGenerateReportByFacul
 	@ProvidedScenarioState
 	private List<AcAccountCharge> accountCharges;
 
+	@As("I want to generate report by faculty")
 	public WhenGenerateReportByFaculty I_want_to_generate_report_by_faculty_$(String matricNo) {
 		student = identityService.findStudentByMatricNo(matricNo);
 

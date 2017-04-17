@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 @JGivenStage
@@ -24,6 +25,7 @@ public class WhenCreateDebitNote extends Stage<WhenCreateDebitNote> {
 	//@ProvidedScenarioState
 	//AcDebitNote debitNote;
 	
+	@As("create debit note")
 	public WhenCreateDebitNote Create_debit_note(){
 		
 		String referenceNo = "drn";

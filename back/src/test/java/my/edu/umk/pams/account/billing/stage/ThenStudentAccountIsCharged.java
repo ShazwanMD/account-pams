@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tngtech.jgiven.Stage;
+import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 
@@ -14,7 +15,6 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 
 import java.util.List;
-
 
 @JGivenStage
 public class ThenStudentAccountIsCharged extends Stage<ThenStudentAccountIsCharged> {
@@ -31,9 +31,10 @@ public class ThenStudentAccountIsCharged extends Stage<ThenStudentAccountIsCharg
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
 
-    public ThenStudentAccountIsCharged student_account_is_charged() {
+	@As("student account is charged")
+	public ThenStudentAccountIsCharged student_account_is_charged() {
 		List<AcAccountCharge> charges = accountService.findAccountCharges(academicSession, account);
 		Assert.isTrue(!charges.isEmpty());
-        return self();
-    }
+		return self();
+	}
 }
