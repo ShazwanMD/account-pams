@@ -19,8 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @JGivenStage
-public class WhenIWantToViewMyUnpaidInvoices extends Stage<WhenIWantToViewMyUnpaidInvoices> {
-	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantToViewMyUnpaidInvoices.class);
+public class WhenIWantToViewFeesStatementAndCharges extends Stage<WhenIWantToViewFeesStatementAndCharges> {
+	private static final Logger LOG = LoggerFactory.getLogger(WhenIWantToViewFeesStatementAndCharges.class);
 
 	@ExpectedScenarioState
 	private AcStudent student;
@@ -37,8 +37,8 @@ public class WhenIWantToViewMyUnpaidInvoices extends Stage<WhenIWantToViewMyUnpa
 	@ProvidedScenarioState
 	List<AcInvoice> invoices;
 
-	@As("I want to view unpaid invoices")
-	public WhenIWantToViewMyUnpaidInvoices I_want_to_view_my_unpaid_invoices() {
+	@As("I want to view fees statement and charges")
+	public WhenIWantToViewFeesStatementAndCharges I_want_to_view_fees_statement_and_charges() {
 		invoices = billingService.findUnpaidInvoices(account, 0, 100);
 		for (AcInvoice invoice : invoices) {
 			LOG.debug(invoice.getDescription() + " " + invoice.getReferenceNo());
