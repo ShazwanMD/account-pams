@@ -19,6 +19,10 @@ import {InvoiceRegisterTaskPanel} from "./panel/invoice-register-task.panel";
 import {InvoiceItemEditorDialog} from "./dialog/invoice-item-editor.dialog";
 import {InvoiceTaskWorkflowPanel} from "./panel/invoice-task-workflow.panel";
 import {InvoiceTaskViewPage} from "./invoice-task-view.page";
+import {InvoiceTaskCreatorDialog} from "./dialog/invoice-task-creator.dialog";
+import {AccountSubModule} from "../../account/accounts/index";
+import {AccountModule} from "../../account/index";
+import {AccountService} from "../../../services/account.service";
 
 
 @NgModule({
@@ -28,6 +32,7 @@ import {InvoiceTaskViewPage} from "./invoice-task-view.page";
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     EffectsModule.run(InvoiceEffects),
+    AccountSubModule.forRoot(),
   ],
   declarations: [
     // page
@@ -40,13 +45,14 @@ import {InvoiceTaskViewPage} from "./invoice-task-view.page";
     InvoiceDraftTaskPanel,
     InvoiceRegisterTaskPanel,
     InvoiceItemEditorDialog,
-
+    InvoiceTaskCreatorDialog,
   ],
   exports: [],
   entryComponents: [
     InvoiceDraftTaskPanel,
     InvoiceRegisterTaskPanel,
     InvoiceItemEditorDialog,
+    InvoiceTaskCreatorDialog,
   ],
 
 })
@@ -58,6 +64,7 @@ export class InvoiceSubModule {
         appRoutingProviders,
         IdentityService,
         CommonService,
+        AccountService,
         BillingService,
         InvoiceActions,
       ],

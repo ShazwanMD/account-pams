@@ -46,7 +46,7 @@ export class InvoiceEffects {
     .ofType(InvoiceActions.START_INVOICE_TASK)
     .map(action => action.payload)
     .switchMap(invoice => this.billingService.startInvoiceTask(invoice))
-    .map(task => this.invoiceActions.startInvoiceTaskSuccess(task));
+    .map(() => this.invoiceActions.findAssignedInvoiceTasks())
 
   @Effect() completeInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.COMPLETE_INVOICE_TASK)

@@ -1,0 +1,5 @@
+<md-select placeholder="Account" flex>
+  <md-option *ngFor="let account of accounts" [value]="account">
+    {{account.code}}: {{account.name}}
+  </md-option>
+</md-select>

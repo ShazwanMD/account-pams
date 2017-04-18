@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Response, Http} from '@angular/http';
+import {Response, Http, RequestOptions, Headers} from '@angular/http';
 import { HttpInterceptorService } from '@covalent/http';
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
@@ -57,9 +57,14 @@ export class BillingService {
       .map((res: Response) => <InvoiceItem[]>res.json());
   }
 
-  startInvoiceTask(invoice: Invoice): Observable<Boolean> {
-    return this.http.post(environment.endpoint + '/api/billing/invoices/startTask', JSON.stringify(invoice))
-      .flatMap(data => Observable.of(true));
+  startInvoiceTask(invoice: Invoice): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/invoices/startTask', JSON.stringify(invoice), options)
+      .flatMap((res:Response) => Observable.of(res.text()));
   }
 
   updateInvoice(invoice: Invoice): Observable<Boolean> {
@@ -108,9 +113,9 @@ export class BillingService {
       .map((res: Response) => <ReceiptItem[]>res.json());
   }
 
-  startReceiptTask(receipt: Receipt): Observable<Boolean> {
+  startReceiptTask(receipt: Receipt): Observable<String> {
     return this.http.post(environment.endpoint + '/api/billing/receipts/startTask', JSON.stringify(receipt))
-      .flatMap(data => Observable.of(true));
+      .flatMap((res:Response) => Observable.of(res.text()));
   }
 
   updateReceipt(receipt: Receipt): Observable<Boolean> {

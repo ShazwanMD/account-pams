@@ -19,6 +19,8 @@ import {AccountDetailPage} from "./account-detail.page";
 import {AccountComponent} from "./component/account.component";
 import {AccountActivityComponent} from "./component/account-activity.component";
 import {AccountStatusComponent} from "./component/account-status.component";
+import {AccountComboBoxComponent} from "./component/account-combo-box.component";
+import {AccountSelectComponent} from "./component/account-select.component";
 
 
 @NgModule({
@@ -39,8 +41,13 @@ import {AccountStatusComponent} from "./component/account-status.component";
     AccountComponent,
     AccountStatusComponent,
     AccountActivityComponent,
+    AccountComboBoxComponent,
+    AccountSelectComponent,
   ],
-  exports: [],
+  exports: [
+    AccountComboBoxComponent,
+    AccountSelectComponent,
+  ],
   entryComponents: [
     // dialog
   ],

@@ -18,7 +18,6 @@ export class AccountService {
   // CHARGE CODE
   // ====================================================================================================
   findChargeCodes(): Observable<ChargeCode[]> {
-    console.log("findAccounts");
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
     return this.http.get(environment.endpoint + '/api/account/chargeCodes')

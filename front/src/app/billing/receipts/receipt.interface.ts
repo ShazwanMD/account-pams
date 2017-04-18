@@ -13,5 +13,5 @@ export interface Receipt {
   balanceAmount: number;
   // period: Period;
   // requester: CostCenterCode;
-  payer: Account;
+  account: Account;
 }

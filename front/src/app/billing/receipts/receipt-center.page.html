@@ -14,17 +14,9 @@
 
   <td-layout-manage-list #list>
     <md-nav-list list-items>
-      <a md-list-item [routerLink]="['/receipts-create']">
+      <a md-list-item (click)="showDialog()">
         <md-icon>create</md-icon>
         Create Receipt
-      </a>
-      <a md-list-item [routerLink]="['/receipts']">
-        <md-icon>star</md-icon>
-        Open Receipts
-      </a>
-      <a md-list-item [routerLink]="['/receipts']">
-        <md-icon>sync_disabled</md-icon>
-        Closed Receipts
       </a>
       <md-divider></md-divider>
     </md-nav-list>

@@ -1,4 +1,4 @@
-<h2 md-dialog-title>Invoice Creator</h2>
+<h2 md-dialog-title>Invoice Task Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
     <div layout="row" class="pad-bottom">
@@ -18,6 +18,13 @@
                value="Description"
                flex/>
       </md-input-container>
+    </div>
+      <div layout="row" class="pad-bottom pad-top">
+        <md-select formControlName="account"  placeholder="account" style="width: 100%">
+          <md-option *ngFor="let account of accounts" [value]="account">
+            {{account.code}}: {{account.name}}
+          </md-option>
+        </md-select>
     </div>
   </form>
 </md-dialog-content>

@@ -17,6 +17,8 @@ import {ReceiptItemEditorDialog} from "./dialog/receipt-item-editor.dialog";
 import {ReceiptTaskViewPage} from "./receipt-task-view.page";
 import {ReceiptActions} from "./receipt.action";
 import {ReceiptTaskListComponent} from "./component/receipt-task-list.component";
+import {ReceiptTaskCreatorDialog} from "./dialog/receipt-task-creator.dialog";
+import {AccountService} from "../../../services/account.service";
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import {ReceiptTaskListComponent} from "./component/receipt-task-list.component"
     ReceiptDraftTaskPanel,
     ReceiptRegisterTaskPanel,
     ReceiptItemEditorDialog,
+    ReceiptTaskCreatorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -44,6 +47,7 @@ import {ReceiptTaskListComponent} from "./component/receipt-task-list.component"
     ReceiptDraftTaskPanel,
     ReceiptRegisterTaskPanel,
     ReceiptItemEditorDialog,
+    ReceiptTaskCreatorDialog
   ],
 
 })
@@ -56,6 +60,7 @@ export class ReceiptSubModule {
         IdentityService,
         CommonService,
         BillingService,
+        AccountService,
         ReceiptActions,
       ],
     };

@@ -17,7 +17,7 @@ public class Receipt extends Document {
     private String receiptNo;
     private Boolean paid;
     private Date issuedDate;
-    private Account payer;
+    private Account account;
     private BigDecimal totalAmount;
     private BigDecimal totalPretaxAmount;
     private BigDecimal totalTaxAmount;
@@ -79,12 +79,12 @@ public class Receipt extends Document {
         this.balanceAmount = balanceAmount;
     }
 
-    public Account getPayer() {
-        return payer;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setPayer(Account payer) {
-        this.payer = payer;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @JsonCreator

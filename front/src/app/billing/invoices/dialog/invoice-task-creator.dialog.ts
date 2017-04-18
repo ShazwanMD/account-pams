@@ -9,24 +9,27 @@ import {Account} from "../../../account/accounts/account.interface";
 import {InvoiceActions} from "../invoice.action";
 import {BillingModuleState} from "../../index";
 import {Invoice} from "../invoice.interface";
+import {AccountService} from "../../../../services/account.service";
 
 
 @Component({
-  selector: 'pams-invoice-creator',
-  templateUrl: './invoice-creator.dialog.html',
+  selector: 'pams-invoice-task-creator',
+  templateUrl: './invoice-task-creator.dialog.html',
 })
 
-export class InvoiceCreatorDialog implements OnInit {
+export class InvoiceTaskCreatorDialog implements OnInit {
 
   private createForm: FormGroup;
+  accounts: Account[] = <Account[]>[];
 
-  constructor(private router: Router,
+  constructor(private accountService: AccountService,
+              private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
               private actions: InvoiceActions,
-              private dialog: MdDialogRef<InvoiceCreatorDialog>) {
+              private dialog: MdDialogRef<InvoiceTaskCreatorDialog>) {
   }
 
   ngOnInit(): void {
@@ -44,10 +47,15 @@ export class InvoiceCreatorDialog implements OnInit {
       account:<Account>{},
       academicSession:<AcademicSession>{},
     });
+
+    // todo: componentize
+    this.accountService.findAccounts().subscribe(accounts => this.accounts = accounts);
   }
 
-  save(settlement: Invoice, isValid: boolean) {
-    this.store.dispatch(this.actions.startInvoiceTask(settlement));
+  save(invoice: Invoice, isValid: boolean) {
+    console.log("invoice: " + invoice.description);
+    console.log("account: " + invoice.account.code);
+    this.store.dispatch(this.actions.startInvoiceTask(invoice));
     this.dialog.close();
 
     // .subscribe(res => {

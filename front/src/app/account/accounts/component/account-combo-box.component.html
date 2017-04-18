@@ -1,0 +1,13 @@
+<md-input-container flex>
+  <input type="text"
+         placeholder="Account"
+         value="Account"
+         formControlName="account"
+         mdInput [formControl]="accountControl" [mdAutocomplete]="auto">
+</md-input-container>
+
+<md-autocomplete #auto="mdAutocomplete">
+  <md-option *ngFor="let option of options" [value]="option">
+    {{ option.code }} : {{ option.name }}
+  </md-option>
+</md-autocomplete>

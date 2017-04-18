@@ -15,7 +15,7 @@ export class MainComponent {
     }, {
       title: 'Account',
       route: '/account',
-      icon: 'view_quilt',
+      icon: 'receipt',
     }, {
       title: 'Billing',
       route: '/billing',

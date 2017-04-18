@@ -14,17 +14,9 @@
 
   <td-layout-manage-list #list>
     <md-nav-list list-items>
-      <a md-list-item [routerLink]="['/invoices-create']">
+      <a md-list-item (click)="showDialog()">
         <md-icon>create</md-icon>
         Create Invoice
-      </a>
-      <a md-list-item [routerLink]="['/invoices']">
-        <md-icon>star</md-icon>
-        Open Invoices
-      </a>
-      <a md-list-item [routerLink]="['/invoices']">
-        <md-icon>sync_disabled</md-icon>
-        Closed Invoices
       </a>
       <md-divider></md-divider>
     </md-nav-list>

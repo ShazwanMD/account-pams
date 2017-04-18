@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static my.edu.umk.pams.account.AccountConstants.INVOICE_REFERENCE_NO;
 import static my.edu.umk.pams.account.AccountConstants.RECEIPT_REFERENCE_NO;
 
 @RestController
@@ -130,23 +129,18 @@ public class BillingController {
     }
 
     @RequestMapping(value = "/invoices/startTask", method = RequestMethod.POST)
-    public void startInvoiceTask(@RequestBody Invoice vo) throws Exception {
+    public ResponseEntity<String> startInvoiceTask(@RequestBody Invoice vo) throws Exception {
         dummyLogin();
 
-        AcAccount account = accountService.findAccountById(vo.getPayer().getId());
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("academicSession", accountService.findCurrentAcademicSession());
-        String generated = systemService.generateFormattedReferenceNo(INVOICE_REFERENCE_NO, map);
-
+        AcAccount account = accountService.findAccountById(vo.getAccount().getId());
         AcInvoice invoice = new AcInvoiceImpl();
-        invoice.setReferenceNo(generated);
         invoice.setDescription(vo.getDescription());
         invoice.setTotalAmount(BigDecimal.ZERO);
         invoice.setBalanceAmount(BigDecimal.ZERO);
         invoice.setIssuedDate(new Date());
         invoice.setPaid(false);
         invoice.setAccount(account);
-        billingService.startInvoiceTask(invoice);
+        return new ResponseEntity<String>(billingService.startInvoiceTask(invoice), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/viewTask/{taskId}", method = RequestMethod.GET)
@@ -238,7 +232,7 @@ public class BillingController {
     public void startReceiptTask(@RequestBody Receipt vo) throws Exception {
         dummyLogin();
 
-        AcAccount account = accountService.findAccountById(vo.getPayer().getId());
+        AcAccount account = accountService.findAccountById(vo.getAccount().getId());
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("academicSession", accountService.findCurrentAcademicSession());
         String generated = systemService.generateFormattedReferenceNo(RECEIPT_REFERENCE_NO, map);

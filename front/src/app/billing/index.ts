@@ -23,6 +23,8 @@ import {receiptTaskListReducer, ReceiptTaskListState} from "./receipts/receipt-t
 import {ReceiptSubModule} from "./receipts/index";
 import {ReceiptTask} from "./receipts/receipt-task.interface";
 import {Receipt} from "./receipts/receipt.interface";
+import {AccountModuleState, AccountModule} from "../account/index";
+import {AccountSubModule} from "../account/accounts/index";
 
 export interface BillingModuleState {
   invoiceTasks: InvoiceTaskListState;

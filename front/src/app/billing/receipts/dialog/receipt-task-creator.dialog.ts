@@ -12,11 +12,11 @@ import {Receipt} from "../receipt.interface";
 
 
 @Component({
-  selector: 'pams-receipt-creator',
-  templateUrl: './receipt-creator.dialog.html',
+  selector: 'pams-receipt-task-creator',
+  templateUrl: './receipt-task-creator.dialog.html',
 })
 
-export class ReceiptCreatorDialog implements OnInit {
+export class ReceiptTaskCreatorDialog implements OnInit {
 
   private createForm: FormGroup;
 
@@ -26,7 +26,7 @@ export class ReceiptCreatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
               private actions: ReceiptActions,
-              private dialog: MdDialogRef<ReceiptCreatorDialog>) {
+              private dialog: MdDialogRef<ReceiptTaskCreatorDialog>) {
   }
 
   ngOnInit(): void {
@@ -46,8 +46,8 @@ export class ReceiptCreatorDialog implements OnInit {
     });
   }
 
-  save(settlement: Receipt, isValid: boolean) {
-    this.store.dispatch(this.actions.startReceiptTask(settlement));
+  save(receipt: Receipt, isValid: boolean) {
+    this.store.dispatch(this.actions.startReceiptTask(receipt));
     this.dialog.close();
 
     // .subscribe(res => {

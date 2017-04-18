@@ -15,6 +15,7 @@ import {AccountSubModule} from "./accounts/index";
 import {AccountListState, accountListReducer} from "./accounts/account-list.reducer";
 import {accountReducer, AccountState} from "./accounts/account.reducer";
 import {AccountTransactionListState, accountTransactionListReducer} from "./accounts/account-transaction-list.reducer";
+import {AccountComboBoxComponent} from "./accounts/component/account-combo-box.component";
 
 export interface AccountModuleState {
   accounts: AccountListState;
@@ -45,10 +46,10 @@ export const accountModuleReducers = {
     AccountSubModule.forRoot(),
   ],
   declarations: [
-    // page
     AccountPage,
   ],
-  exports: [],
+  exports: [
+  ],
 })
 export class AccountModule {
   static forRoot(): ModuleWithProviders {
