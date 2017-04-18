@@ -1,0 +1,28 @@
+<h2 md-dialog-title>Invoice Creator</h2>
+<md-dialog-content>
+  <form [formGroup]="createForm">
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #description
+               placeholder="description"
+               formControlName="description"
+               value="Description"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #sourceNo
+               placeholder="sourceNo"
+               formControlName="sourceNo"
+               value="Description"
+               flex/>
+      </md-input-container>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-button color="primary" (click)="goBack()">Back</button>
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+</md-dialog-actions>
+

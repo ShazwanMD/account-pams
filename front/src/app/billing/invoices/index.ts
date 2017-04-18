@@ -14,11 +14,11 @@ import {EffectsModule} from "@ngrx/effects";
 import {InvoiceCenterPage} from "./invoice-center.page";
 import {InvoiceTaskListComponent} from "./component/invoice-task-list.component";
 import {InvoiceActions} from "./invoice.action";
-import {InvoiceViewTaskPage} from "./invoice-view-task.page";
 import {InvoiceDraftTaskPanel} from "./panel/invoice-draft-task.panel";
 import {InvoiceRegisterTaskPanel} from "./panel/invoice-register-task.panel";
 import {InvoiceItemEditorDialog} from "./dialog/invoice-item-editor.dialog";
 import {InvoiceTaskWorkflowPanel} from "./panel/invoice-task-workflow.panel";
+import {InvoiceTaskViewPage} from "./invoice-task-view.page";
 
 
 @NgModule({
@@ -32,7 +32,7 @@ import {InvoiceTaskWorkflowPanel} from "./panel/invoice-task-workflow.panel";
   declarations: [
     // page
     InvoiceCenterPage,
-    InvoiceViewTaskPage,
+    InvoiceTaskViewPage,
 
     // components
     InvoiceTaskListComponent,

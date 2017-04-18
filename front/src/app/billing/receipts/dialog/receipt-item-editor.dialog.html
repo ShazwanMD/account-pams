@@ -1,0 +1,33 @@
+<h2 md-dialog-title>Invoice Item Editor</h2>
+<md-dialog-content>
+  <form [formGroup]="editForm">
+    <div layout="row" class="pad-bottom">
+      <md-input-container  flex>
+        <input md-input #description
+               placeholder="description"
+               formControlName="description"
+               value="Description"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input placeholder="Amount"
+                  value="Amount" formControlName="amount">
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-select formControlName="chargeCode" [(ngModel)]="selectedChargeCode" placeholder="Charge Code"
+                 style="width: 100%">
+        <md-option *ngFor="let chargeCode of chargeCodes" [value]="chargeCode">
+          {{chargeCode.code}}: {{chargeCode.description}}
+        </md-option>
+      </md-select>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-button color="primary" (click)="goBack()">Back</button>
+  <button md-raised-button color="accent" (click)="save(editForm.value, newForm.valid)">Save</button>
+</md-dialog-actions>
+

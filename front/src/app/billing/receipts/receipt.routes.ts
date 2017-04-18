@@ -1,9 +1,11 @@
 import {Routes, RouterModule} from '@angular/router';
+import {ReceiptCenterPage} from "./receipt-center.page";
 
 
 export const ReceiptRoutes: Routes = [
-  // {path: 'billing/invoices/new-task', component: ReceiptNewTaskPage},
-  // {path: 'billing/invoices/assigned-tasks', component: ReceiptAssignedTaskPage},
-  // {path: 'billing/invoices/pooled-tasks', component: ReceiptPooledTaskPage},
-  // {path: 'billing/invoices/view-task/:taskId', component: ReceiptViewTaskPage},
+  {path: 'billing/receipts', component: ReceiptCenterPage},
+  // {path: 'billing/receipts/new-task', component: ReceiptNewTaskPage},
+  // {path: 'billing/receipts/assigned-tasks', component: ReceiptAssignedTaskPage},
+  // {path: 'billing/receipts/pooled-tasks', component: ReceiptPooledTaskPage},
+  // {path: 'billing/receipts/view-task/:taskId', component: ReceiptViewTaskPage},
 ];

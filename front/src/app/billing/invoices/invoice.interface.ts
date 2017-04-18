@@ -1,4 +1,6 @@
-export interface Invoice {
+import {Account} from "../../account/accounts/account.interface";
+import {MetaObject} from "../../core/meta-object.interface";
+export interface Invoice extends MetaObject{
 
   id: number;
   referenceNo: string;
@@ -10,7 +12,7 @@ export interface Invoice {
   totalTaxAmount: number;
   totalAmount: number;
   balanceAmount: number;
+  account: Account;
   // period: Period;
   // requester: CostCenterCode;
-  // payer: Actor;
 }

@@ -16,20 +16,30 @@ import {WaiverApplicationSubModule} from "./waiver-applications/index";
 import {SettlementSubModule} from "./settlements/index";
 import {SettlementState, settlementReducer} from "./settlements/settlement.reducer";
 import {SettlementListState, settlementListReducer} from "./settlements/settlement-list.reducer";
+import {WaiverApplicationState, waiverApplicationReducer} from "./waiver-applications/waiver-application.reducer";
+import {
+  WaiverApplicationTaskListState,
+  waiverApplicationTaskListReducer
+} from "./waiver-applications/waiver-application-task-list.reducer";
+
+import {
+  WaiverApplicationTaskState,
+  waiverApplicationTaskReducer
+} from "./waiver-applications/waiver-application-task.reducer";
 
 export interface FinancialaidModuleState {
-  // waiverApplicationTasks: WaiverApplicationTaskListState;
-  // waiverApplicationTask: WaiverApplicationTaskState;
-  // waiverApplication: WaiverApplicationState;
+  waiverApplicationTasks: WaiverApplicationTaskListState;
+  waiverApplicationTask: WaiverApplicationTaskState;
+  waiverApplication: WaiverApplicationState;
   settlements: SettlementListState;
   settlement: SettlementState;
 };
 
 export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState = <FinancialaidModuleState>{};
 export const financialaidModuleReducers = {
-//    waiverApplicationTasks:waiverApplicationTaskListReducer,
-//    waiverApplicationTask:waiverApplicationTaskReducer,
-//    waiverApplications:waiverApplicationReducer
+   waiverApplicationTasks:waiverApplicationTaskListReducer,
+   waiverApplicationTask:waiverApplicationTaskReducer,
+   waiverApplications:waiverApplicationReducer,
    settlements:settlementListReducer,
    settlement:settlementReducer
  };
