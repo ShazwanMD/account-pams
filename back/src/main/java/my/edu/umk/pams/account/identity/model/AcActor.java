@@ -31,6 +31,10 @@ public interface AcActor extends AcMetaObject {
     String getEmail();
 
     void setEmail(String email);
+    
+    String getAddress();
+
+    void setAddress(String address);
 
     AcActorType getActorType();
 

@@ -43,7 +43,9 @@ public class WhenIWantUpdateStudentInformation extends Stage<WhenIWantUpdateStud
 		LOG.debug("test", student);
 
 		// update student
-		student.setMobile("012-87965454"); 
+		student.setMobile("012-87965454");
+		student.setFax("09-79998778");
+		student.setAddress("Kelantan");           
 		student.setActorType(AcActorType.STUDENT);
 
 		// use account service to update charge
