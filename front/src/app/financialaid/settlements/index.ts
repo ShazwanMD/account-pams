@@ -13,6 +13,7 @@ import {EffectsModule} from "@ngrx/effects";
 import {SettlementCenterPage} from "./settlement-center.page";
 import {SettlementActions} from "./settlement.action";
 import {SettlementListComponent} from "./component/settlement-list.component";
+import {SettlementCreatorDialog} from "./dialog/settlement-creator.dialog";
 
 
 @NgModule({
@@ -29,9 +30,11 @@ import {SettlementListComponent} from "./component/settlement-list.component";
 
     // component
     SettlementListComponent,
+    SettlementCreatorDialog,
   ],
   exports: [],
   entryComponents: [
+    SettlementCreatorDialog,
   ],
 
 })

@@ -43,11 +43,9 @@ export class FinancialaidService {
       .map((res: Response) => <SettlementItem[]>res.json());
   }
 
-  createSettlement(settlement: Settlement): Observable<Boolean> {
-    return Observable.of(true);
-
-    // return this.http.post(environment.endpoint + '/api/financialaid/settlements/create', JSON.stringify(settlement))
-    //   .flatMap(data => Observable.of(true));
+  initSettlement(settlement: Settlement): Observable<Boolean> {
+    return this.http.post(environment.endpoint + '/api/financialaid/settlements/init', JSON.stringify(settlement))
+      .flatMap(res => Observable.of(res.json()));
   }
 
   processSettlement(settlement: Settlement): Observable<Boolean> {

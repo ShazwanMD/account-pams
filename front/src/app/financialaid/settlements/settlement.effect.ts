@@ -3,11 +3,13 @@ import {Effect, Actions} from '@ngrx/effects';
 import {SettlementActions} from "./settlement.action";
 import {from} from "rxjs/observable/from";
 import {FinancialaidService} from "../../../services/financialaid.service";
+import {Router} from "@angular/router";
 
 
 @Injectable()
 export class SettlementEffects {
-  constructor(private actions$: Actions,
+  constructor(private router: Router,
+              private actions$: Actions,
               private settlementActions: SettlementActions,
               private financialaidService: FinancialaidService) {
   }
@@ -37,11 +39,14 @@ export class SettlementEffects {
     .switchMap(settlement => this.financialaidService.findSettlementItems(settlement))
     .map(items => this.settlementActions.findSettlementItemsSuccess(items));
 
-  @Effect() createSettlement$ = this.actions$
-    .ofType(SettlementActions.CREATE_SETTLEMENT)
+  @Effect() initSettlement$ = this.actions$
+    .ofType(SettlementActions.INIT_SETTLEMENT)
     .map(action => action.payload)
-    .switchMap(settlement => this.financialaidService.createSettlement(settlement))
-    .map(task => this.settlementActions.createSettlementSuccess(task));
+    .switchMap(settlement => this.financialaidService.initSettlement(settlement))
+    .map(referenceNo => this.settlementActions.initSettlementSuccess(referenceNo))
+    .mergeMap(action => from([action,
+      this.settlementActions.findSettlementByReferenceNo(action.payload),
+      this.router.navigate(['financialaid/settlements/', action.payload])]));
 
   @Effect() processSettlement$ = this.actions$
     .ofType(SettlementActions.PROCESS_SETTLEMENT)

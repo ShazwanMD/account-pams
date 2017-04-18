@@ -43,10 +43,11 @@ export class PromoCodeEffects {
     .ofType(PromoCodeActions.INIT_PROMO_CODE)
     .map(action => action.payload)
     .switchMap(promoCode => this.marketingService.initPromoCode(promoCode))
-    .map(referenceNo => this.promoCodeActions.initPromoCodeSuccess(referenceNo))
-    .mergeMap(action => from([action,
-      this.promoCodeActions.findPromoCodeByReferenceNo(action.payload),
-      this.router.navigate(['marketing/promo-codes/', action.payload])]));
+    .map(() => this.promoCodeActions.findPromoCodes());
+    // .mergeMap(action => {
+    //   from([action, this.router.navigate(['/marketing/promo-codes', action.payload])])
+    // });
+
 
   @Effect() updatePromoCode$ = this.actions$
     .ofType(PromoCodeActions.UPDATE_PROMO_CODE)

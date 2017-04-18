@@ -48,7 +48,7 @@ export class MarketingService {
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/marketing/promoCodes/init', JSON.stringify(promoCode), options)
-      .map((res: Response) => <String>res.json());
+      .flatMap((res:Response) => Observable.of(res.text()));
   }
 
   updatePromoCode(promoCode: PromoCode): Observable<Boolean> {

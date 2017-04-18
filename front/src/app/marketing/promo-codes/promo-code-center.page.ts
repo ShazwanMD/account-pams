@@ -37,8 +37,8 @@ export class PromoCodeCenterPage implements OnInit {
     this.router.navigate(['marketing/promo-codes/', promoCode.referenceNo]);
   }
 
-  showCreatorDialog(): void {
-    console.log("showCreatorDialog");
+  showDialog(): void {
+    console.log("showDialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';

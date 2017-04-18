@@ -4,18 +4,18 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class SettlementActions {
 
-  static CREATE_SETTLEMENT = '[Settlement] Create Settlement';
-  startSettlementTask(settlement): Action {
+  static INIT_SETTLEMENT = '[Settlement] Init Settlement';
+  initSettlement(settlement): Action {
     return {
-      type: SettlementActions.CREATE_SETTLEMENT,
+      type: SettlementActions.INIT_SETTLEMENT,
       payload: settlement
     };
   }
 
-  static CREATE_SETTLEMENT_SUCCESS = '[Settlement] Create Settlement Success';
-  createSettlementSuccess(settlement): Action {
+  static INIT_SETTLEMENT_SUCCESS = '[Settlement] Init Settlement Success';
+  initSettlementSuccess(settlement): Action {
     return {
-      type: SettlementActions.CREATE_SETTLEMENT_SUCCESS,
+      type: SettlementActions.INIT_SETTLEMENT_SUCCESS,
       payload: settlement
     };
   }
