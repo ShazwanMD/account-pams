@@ -39,27 +39,6 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 	
 	@ProvidedScenarioState
     private List<AcAccountCharge> accountCharges;
-
-	/*@As("list all compound student")
-	public WhenIListAllCompoundStudent list_all_compound_student_$(String matricNo) {
-
-		//cari student untuk cari account 
-		student = identityService.findStudentByMatricNo(matricNo);
-		
-		//cari akaun yg dpt dr student
-		account = accountService.findAccountByActor(student);
-		
-		//senarai acc charge dari akaun yg kita jmp utk student ni
-		accountCharges= accountService.findAccountCharges(account);
-		for(AcAccountCharge accountCharges : accountCharges){
-			LOG.debug("Name : "+ accountCharges.getAccount().getActor().getName());
-			LOG.debug("Charge Type : "+ accountCharges.getChargeType());
-			LOG.debug("Description : "+ accountCharges.getDescription());
-			LOG.debug("Session : "+ accountCharges.getSession().getCode());
-		}
-		
-		return self();
-	}*/
 	
 	@As("list all compound student of type academic")
 	public WhenIListAllCompoundStudent I_want_to_list_all_compound_student_of_type_academic_$(String matricNo) {
