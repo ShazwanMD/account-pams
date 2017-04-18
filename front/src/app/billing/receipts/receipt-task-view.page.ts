@@ -11,10 +11,10 @@ import {Store} from "@ngrx/store";
 
 
 @Component({
-  selector: 'pams-receipt-view-task',
-  templateUrl: './receipt-view-task.page.html',
+  selector: 'pams-receipt-task-view',
+  templateUrl: './receipt-task-view.page.html',
 })
-export class ReceiptViewTaskPage implements OnInit {
+export class ReceiptTaskViewPage implements OnInit {
 
   private receiptTask$: Observable<ReceiptTask>;
 

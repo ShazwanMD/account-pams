@@ -17,17 +17,20 @@ import {ActionReducer, combineReducers} from "@ngrx/store";
 import {InvoiceSubModule} from "./invoices/index";
 import {InvoiceTask} from "./invoices/invoice-task.interface";
 import {Invoice} from "./invoices/invoice.interface";
-import {receiptTaskReducer} from "./receipts/receipt-task.reducer";
-import {receiptReducer} from "./receipts/receipt.reducer";
-import {receiptTaskListReducer} from "./receipts/receipt-task-list.reducer";
+import {receiptTaskReducer, ReceiptTaskState} from "./receipts/receipt-task.reducer";
+import {receiptReducer, ReceiptState} from "./receipts/receipt.reducer";
+import {receiptTaskListReducer, ReceiptTaskListState} from "./receipts/receipt-task-list.reducer";
+import {ReceiptSubModule} from "./receipts/index";
+import {ReceiptTask} from "./receipts/receipt-task.interface";
+import {Receipt} from "./receipts/receipt.interface";
 
 export interface BillingModuleState {
   invoiceTasks: InvoiceTaskListState;
   invoiceTask: InvoiceTaskState;
   invoice: InvoiceState;
-  receiptTasks: InvoiceTaskListState;
-  receiptTask: InvoiceTaskState;
-  receipt: InvoiceState;
+  receiptTasks: ReceiptTaskListState;
+  receiptTask: ReceiptTaskState;
+  receipt: ReceiptState;
 }
 ;
 
@@ -37,8 +40,8 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     invoiceTask: <InvoiceTask>{},
     invoice: <Invoice>{},
     receiptTasks: [],
-    receiptTask: <InvoiceTask>{},
-    receipt: <Invoice>{}
+    receiptTask: <ReceiptTask>{},
+    receipt: <Receipt>{}
   };
 
 export const billingModuleReducers = {
@@ -57,6 +60,7 @@ export const billingModuleReducers = {
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     InvoiceSubModule.forRoot(),
+    ReceiptSubModule.forRoot(),
   ],
   declarations: [
     // page
