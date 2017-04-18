@@ -19,16 +19,17 @@ import my.edu.umk.pams.bdd.tags.Issue;
 @Issue("PAMSU-40")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class US_AC_ACT_3006 extends SpringScenarioTest<GivenIAmStudent, WhenViewFeesStatement, ThenCanMakePayment>{
-	
+public class US_AC_ACT_3006 extends SpringScenarioTest<GivenIAmStudent, WhenViewFeesStatement, ThenCanMakePayment> {
+
 	private static final Logger LOG = LoggerFactory.getLogger(US_AC_ACT_3006.class);
-	
+
 	@Issue("PAMSU-40")
 	@Test
 	@Rollback
 	public void testScenario1() {
 		given().I_am_a_student_in_current_academic_session();
 		when().I_want_to_view_fees_statement();
+		addStage(WhenViewCharges.class).and().I_want_to_view_charges();
 		then().I_can_make_payment();
 	}
 }
