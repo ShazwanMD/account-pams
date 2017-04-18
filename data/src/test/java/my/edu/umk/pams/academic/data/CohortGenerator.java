@@ -23,7 +23,7 @@ public class CohortGenerator extends GeneratorSupport {
             "   (SELECT ID\n" +
             "    FROM AC_PRGM_CODE PC\n" +
             "    WHERE PC.CODE = '%1$s'),\n" +
-            "   (SELECT CODE  || '/CHRT/0001'\n" +
+            "   (SELECT CODE  || '/CHRT/201720181'\n" +
             "    FROM AC_PRGM_CODE PC\n" +
             "    WHERE PC.CODE = '%1$s'),\n" +
             "   (SELECT 'COHORT' || DESCRIPTION\n" +
