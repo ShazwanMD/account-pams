@@ -21,6 +21,10 @@ public class AcPromoCodeItemImpl implements AcPromoCodeItem {
 	private Long id;
 
 	@NotNull
+	@Column(name = "CODE")
+	private String code;
+
+	@NotNull
 	@Column(name = "SOURCE_NO")
 	private String sourceNo;
 
@@ -47,6 +51,16 @@ public class AcPromoCodeItemImpl implements AcPromoCodeItem {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String getCode() {
+		return code;
+	}
+
+	@Override
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	@Override

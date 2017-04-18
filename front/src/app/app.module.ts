@@ -26,7 +26,7 @@ import {
   FinancialaidModule, INITIAL_FINANCIALAID_STATE, FinancialaidModuleState,
   financialaidModuleReducers
 } from "./financialaid/index";
-import {MarketingModule} from "./marketing/index";
+import {MarketingModule, INITIAL_MARKETING_STATE, marketingModuleReducers} from "./marketing/index";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -46,13 +46,15 @@ export const INITIAL_APPLICATION_STATE: ApplicationState =
   <ApplicationState>{
     accountModuleState: INITIAL_ACCOUNT_STATE,
     billingModuleState: INITIAL_BILLING_STATE,
-    financialaidModuleState: INITIAL_FINANCIALAID_STATE
+    financialaidModuleState: INITIAL_FINANCIALAID_STATE,
+    marketingModuleState: INITIAL_MARKETING_STATE
   };
 
 export const applicationReducers = {
   ...accountModuleReducers,
   ...billingModuleReducers,
-  ...financialaidModuleReducers
+  ...financialaidModuleReducers,
+  ...marketingModuleReducers
 };
 
 export const productionReducer: ActionReducer<ApplicationState> = combineReducers(applicationReducers);

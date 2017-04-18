@@ -29,12 +29,12 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 	}
 
 	@Override
-	public AcPromoCode findByCode(String code) {
+	public AcPromoCode findByReferenceNo(String referenceNo) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("select a from AcPromoCode a where " + 
-				"a.code = :code " + 
+				"a.referenceNo = :referenceNo " + 
 				"and a.metadata.state = :state");
-		query.setString("code", code);
+		query.setString("referenceNo", referenceNo);
 		query.setInteger("state", AcMetaState.ACTIVE.ordinal());
 		query.setCacheable(true);
 		return (AcPromoCode) query.uniqueResult();
@@ -63,7 +63,7 @@ public class AcPromoCodeDaoImpl extends GenericDaoSupport<Long, AcPromoCode> imp
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("select a from AcPromoCode a where " + 
 				"a.promoCodeType = :promoCodeType " + 
-				"order by a.code");
+				"order by a.referenceNo");
 		query.setInteger("promoCodeType", promoCodeType.ordinal());
 		query.setFirstResult(offset);
 		query.setMaxResults(limit);

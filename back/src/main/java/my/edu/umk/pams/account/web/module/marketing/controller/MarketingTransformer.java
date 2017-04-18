@@ -41,13 +41,17 @@ public class MarketingTransformer {
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
+        vo.setValue(e.getValue());
+        vo.setQuantity(e.getQuantity());
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
     public PromoCodeItem toPromoCodeItemVo(AcPromoCodeItem e) {
-        // todo(uda): more properties
         PromoCodeItem vo = new PromoCodeItem();
         vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setApplied(e.getApplied());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;

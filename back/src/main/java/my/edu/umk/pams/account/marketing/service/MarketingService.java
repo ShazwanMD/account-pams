@@ -12,7 +12,7 @@ public interface MarketingService {
 
     AcPromoCode findPromoCodeById(Long id);
 
-    AcPromoCode findPromoCodeByCode(String code);
+    AcPromoCode findPromoCodeByReferenceNo(String referenceNo);
 
     AcPromoCodeItem findPromoCodeItemById(Long id);
 

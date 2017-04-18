@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface AcPromoCodeDao extends GenericDao<Long, AcPromoCode> {
 
-	AcPromoCode findByCode(String code);
+	AcPromoCode findByReferenceNo(String code);
 
 	AcPromoCodeItem findItemById(Long id);
 

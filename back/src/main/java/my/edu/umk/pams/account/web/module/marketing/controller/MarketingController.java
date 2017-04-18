@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
+import my.edu.umk.pams.account.marketing.model.AcPromoCodeImpl;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItemImpl;
 import my.edu.umk.pams.account.marketing.service.MarketingService;
@@ -23,18 +24,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author PAMS
  */
-@Controller("marketingController")
+@RestController
+@RequestMapping("/api/marketing")
 public class MarketingController {
 
     private static final Logger LOG = LoggerFactory.getLogger(MarketingController.class);
@@ -83,30 +82,42 @@ public class MarketingController {
         return new ResponseEntity<List<PromoCode>>(marketingTransformer.toPromoCodeVos(promoCodes), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/promoCodes/{code}", method = RequestMethod.GET)
-    public ResponseEntity<PromoCode> findPromoCodeByReferenceNo(@PathVariable String code) {
-        AcPromoCode promoCode = (AcPromoCode) marketingService.findPromoCodeByCode(code);
-        return new ResponseEntity<PromoCode>(marketingTransformer.toPromoCodeVo(promoCode), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/promoCodes/{code}", method = RequestMethod.PUT)
-    public ResponseEntity<PromoCode> updatePromoCode(@PathVariable String code, @RequestBody PromoCode vo) {
-        AcPromoCode promoCode = (AcPromoCode) marketingService.findPromoCodeByCode(code);
-        return new ResponseEntity<PromoCode>(marketingTransformer.toPromoCodeVo(promoCode), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/promoCodes/{code}/promoCodeItems", method = RequestMethod.GET)
-    public ResponseEntity<List<PromoCodeItem>> findPromoCodeItems(@PathVariable String code) {
+    @RequestMapping(value = "/promoCodes/init", method = RequestMethod.POST)
+    public ResponseEntity<String> initPromoCode(@RequestBody PromoCode vo) {
         dummyLogin();
-        AcPromoCode promoCode = marketingService.findPromoCodeByCode(code);
+        AcPromoCode promoCode = new AcPromoCodeImpl();
+        promoCode.setDescription(vo.getDescription());
+        promoCode.setQuantity(vo.getQuantity());
+        promoCode.setValue(vo.getValue());
+        promoCode.setExpiryDate(new Date());
+        String referenceNo = marketingService.initPromoCode(promoCode);
+        return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/promoCodes/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<PromoCode> findPromoCodeByReferenceNo(@PathVariable String referenceNo) {
+        AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
+        return new ResponseEntity<PromoCode>(marketingTransformer.toPromoCodeVo(promoCode), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/promoCodes/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<PromoCode> updatePromoCode(@PathVariable String referenceNo, @RequestBody PromoCode vo) {
+        AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
+        return new ResponseEntity<PromoCode>(marketingTransformer.toPromoCodeVo(promoCode), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems", method = RequestMethod.GET)
+    public ResponseEntity<List<PromoCodeItem>> findPromoCodeItems(@PathVariable String referenceNo) {
+        dummyLogin();
+        AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
         return new ResponseEntity<List<PromoCodeItem>>(marketingTransformer
                 .toPromoCodeItemVos(marketingService.findPromoCodeItems(promoCode)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/promoCodes/{code}/promoCodeItems", method = RequestMethod.POST)
-    public void updatePromoCodeItems(@PathVariable String code, @RequestBody PromoCodeItem item) {
+    @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems", method = RequestMethod.POST)
+    public void updatePromoCodeItems(@PathVariable String referenceNo, @RequestBody PromoCodeItem item) {
         dummyLogin();
-        AcPromoCode promoCode = marketingService.findPromoCodeByCode(code);
+        AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
         if (null == item.getId()) { // new
             AcPromoCodeItem e = new AcPromoCodeItemImpl();
             e.setAccount(accountService.findAccountById(item.getAccount().getId()));

@@ -4,19 +4,19 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class PromoCodeActions {
 
-  static CREATE_PROMO_CODE = '[PromoCode] Create PromoCode';
-  startPromoCodeTask(promoCode): Action {
+  static INIT_PROMO_CODE = '[PromoCode] Init PromoCode';
+  initPromoCode(promoCode): Action {
     return {
-      type: PromoCodeActions.CREATE_PROMO_CODE,
+      type: PromoCodeActions.INIT_PROMO_CODE,
       payload: promoCode
     };
   }
 
-  static CREATE_PROMO_CODE_SUCCESS = '[PromoCode] Create PromoCode Success';
-  createPromoCodeSuccess(promoCode): Action {
+  static INIT_PROMO_CODE_SUCCESS = '[PromoCode] Init PromoCode Success';
+  initPromoCodeSuccess(referenceNo): Action {
     return {
-      type: PromoCodeActions.CREATE_PROMO_CODE_SUCCESS,
-      payload: promoCode
+      type: PromoCodeActions.INIT_PROMO_CODE_SUCCESS,
+      payload: referenceNo
     };
   }
 
@@ -61,7 +61,7 @@ export class PromoCodeActions {
 
   static FIND_PROMO_CODES_SUCCESS = '[PromoCode] Find PromoCodes Success';
   findPromoCodesSuccess(promoCodes): Action {
-    console.log("findPromoCodeTransactionsSuccess");
+    console.log("findPromoCodesSuccess");
     return {
       type: PromoCodeActions.FIND_PROMO_CODES_SUCCESS,
       payload: promoCodes

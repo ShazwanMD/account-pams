@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * @author PAMS
@@ -13,6 +14,7 @@ public class PromoCode extends MetaObject{
 
     private String referenceNo;
     private String description;
+    private BigDecimal value;
     private Integer quantity;
 
     public String getReferenceNo() {
@@ -29,6 +31,14 @@ public class PromoCode extends MetaObject{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 
     public Integer getQuantity() {

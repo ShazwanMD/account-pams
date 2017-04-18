@@ -45,8 +45,8 @@ public class MarketingServiceImpl implements MarketingService {
     }
 
     @Override
-    public AcPromoCode findPromoCodeByCode(String code) {
-        return promoCodeDao.findByCode(code);
+    public AcPromoCode findPromoCodeByReferenceNo(String referenceNo) {
+        return promoCodeDao.findByReferenceNo(referenceNo);
     }
 
     @Override
