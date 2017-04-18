@@ -23,6 +23,7 @@ import org.junit.runners.Suite;
         US_AC_ACT_3003.class, //zul
         US_AC_ACT_3004.class, //zul
         US_AC_ACT_3005.class, //zul
+        US_AC_ACT_3006.class, //zul
         US_AC_ACT_4001.class, //sahir
         US_AC_ACT_4002.class, //sahir
         US_AC_ACT_5000.class,
