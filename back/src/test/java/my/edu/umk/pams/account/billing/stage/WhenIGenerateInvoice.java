@@ -98,7 +98,29 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 	@As("I generate invoice by batch")
 	public WhenIGenerateInvoice I_generate_invoice_by_batch() {
 		
+		//get intake
 		LOG.debug("session " + academicSession.getId());
+
+		sponsorship = identityService.findSponsorships(facultyCode);
+
+		for (AcSponsorship sponsorship : sponsorship) {
+
+			LOG.debug("Sponsorship " + sponsorship.getSponsor().getName());
+			AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorship.getSponsor().getIdentityNo());
+
+			settlement = new AcSettlementImpl();
+			settlement.setDescription(sponsor.getName() + " " + sponsor.getId());
+			settlement.setSession(academicSession);
+			settlement.setSponsor(sponsor);
+
+			financialAidService.initSettlement(settlement);
+
+			invoice = new AcInvoiceImpl();
+			invoice.setDescription(settlement.getId() + " " + settlement.getSession());
+			invoice.setSession(academicSession);
+
+			financialAidService.executeSettlement(settlement);
+		}
 
 		return self();
 	}
