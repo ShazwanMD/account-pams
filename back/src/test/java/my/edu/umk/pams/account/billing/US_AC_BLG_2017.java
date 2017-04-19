@@ -17,11 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+@Issue("PAMSU-17")
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@Issue("PAMSU-17")
 @Submodule("Billing")
 @As("As a bursary i should able to create any advance payment so that I can recognize any surplus")
 public class US_AC_BLG_2017 extends SpringScenarioTest<GivenIAmBursary, WhenCreateAdvancedPayment, ThenAddSurplus> {

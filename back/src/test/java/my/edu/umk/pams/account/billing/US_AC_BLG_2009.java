@@ -14,7 +14,9 @@ import my.edu.umk.pams.account.billing.stage.ThenICanPrintReport;
 import my.edu.umk.pams.account.billing.stage.WhenIGenerateReport;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.bdd.tags.Submodule;
+@Issue("PAMSU-9")
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional

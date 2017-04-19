@@ -13,8 +13,9 @@ import my.edu.umk.pams.account.billing.stage.ThenICanGiveValidInvoice;
 import my.edu.umk.pams.account.billing.stage.WhenIWantPrintStudentInvoice;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.bdd.tags.Submodule;
-
+@Issue("PAMSU-7")
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
