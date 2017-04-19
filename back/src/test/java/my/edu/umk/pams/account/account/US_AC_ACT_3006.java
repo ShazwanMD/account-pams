@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenCanMakePayment;
+import my.edu.umk.pams.account.account.stage.WhenViewCharges;
 import my.edu.umk.pams.account.account.stage.WhenViewFeesStatement;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
