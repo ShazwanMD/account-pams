@@ -13,10 +13,12 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.marketing.stage.ThenDiscountCanAppliedToReceipt;
 import my.edu.umk.pams.account.marketing.stage.WhenIWantGiveCompoundsDiscountToStudent;
 import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
+import my.edu.umk.pams.bdd.tags.Issue;
 
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
+@Issue("PAMSU-99")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
