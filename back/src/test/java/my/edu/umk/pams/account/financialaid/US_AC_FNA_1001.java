@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenStudentAndSponsorShouldHaveSponsorship;
 import my.edu.umk.pams.account.financialaid.stage.WhenIGrantSponsorship;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.bdd.tags.Submodule;
 
 import org.junit.Test;
@@ -15,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Issue("PAMSU-61")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)

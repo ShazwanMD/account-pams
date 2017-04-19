@@ -14,8 +14,10 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanGenerateInvoiceForSponsor;
 import my.edu.umk.pams.account.financialaid.stage.WhenIAddSettlementDetails;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.bdd.tags.Submodule;
 
+@Issue("PAMSU-68")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)

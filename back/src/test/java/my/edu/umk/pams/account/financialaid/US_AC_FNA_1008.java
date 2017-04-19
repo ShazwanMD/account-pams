@@ -14,8 +14,10 @@ import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.stage.ThenICanMakeSureFeesPayment;
 import my.edu.umk.pams.account.financialaid.stage.WhenIWantToListStudentStatus;
 import my.edu.umk.pams.bdd.stage.GivenIAmMGSEBAdministrator;
+import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.bdd.tags.Submodule;
 
+@Issue("PAMSU-67")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = TestAppConfiguration.class)
