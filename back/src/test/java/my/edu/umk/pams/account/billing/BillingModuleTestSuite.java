@@ -3,8 +3,6 @@ package my.edu.umk.pams.account.billing;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import my.edu.umk.pams.account.marketing.US_AC_MKG_4000;
-
 /**
  * @author PAMS
  */
