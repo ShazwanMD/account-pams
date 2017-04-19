@@ -17,11 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+@Issue("PAMSU-16")
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@Issue("PAMSU-16")
 @Submodule("Billing")
 @As("As a Bursary, I should be able to create credit note to credit so that I can credit any over charge")
 public class US_AC_BLG_2016 extends SpringScenarioTest<GivenIAmBursary, WhenCreateCreditNote, ThenCreditOverChargeInvoice> {

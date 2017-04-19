@@ -17,11 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+@Issue("PAMSU-15")
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-@Issue("PAMSU-15")
 @Submodule("Billing")
 @As("As a Bursary, i should be able to create debit note so that I can debit any under charge invoice")
 public class US_AC_BLG_2015 extends SpringScenarioTest<GivenIAmBursary, WhenCreateDebitNote, ThenDebitUnderChargeInvoice> {

@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.billing.stage.ThenFilterTheInvoice;
 import my.edu.umk.pams.account.billing.stage.WhenIMakeInvoiceWithChargeCode;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.bdd.stage.GivenIAmBursary;
+import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.bdd.tags.Submodule;
 
 import org.junit.Test;
@@ -15,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
-
+@Issue("PAMSU-1")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Submodule("Billing")
