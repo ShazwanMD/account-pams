@@ -17,7 +17,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmSecurity;
 import my.edu.umk.pams.bdd.tags.Issue;
 import my.edu.umk.pams.bdd.tags.Submodule;
 
-@Issue("PAMSU-52")
+@Issue("PAMSU-91")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @Submodule("Account")
