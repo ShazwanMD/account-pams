@@ -42,6 +42,10 @@ public class GivenIAmStudent extends Stage<GivenIAmStudent> {
 		loginAsStudent();
 		academicSession = accountService.findAcademicSessionByCode(academicSessionCode);
 	}
+	
+	public void I_am_a_student(){
+		loginAsStudent();
+	}
 
 	public void I_am_a_student_in_current_academic_session() {
 		loginAsStudent();
