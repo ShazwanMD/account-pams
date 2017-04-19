@@ -48,16 +48,16 @@ public class WhenIMakeInvoiceWithChargeCode extends
 
 		student = identityService.findStudentByMatricNo(matricNo);
 		String noStudent = student.getIdentityNo();
-		BigDecimal a = new BigDecimal("2.00");
 
 		invoice = new AcInvoiceImpl();
 		invoice.setDescription("Inv Desc 1");
-		invoice.setTotalAmount(a);
+		invoice.setTotalAmount(BigDecimal.valueOf(33.50));
 		invoice.setInvoiceNo("INV_" + noStudent + 001);
 		billingService.saveInvoice(invoice);
 
         AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();
-		invoiceItem.setAmount(a);
+
+		invoiceItem.setAmount(BigDecimal.valueOf(60));
 		invoiceItem.setDescription("Sub Item 1");
 
 		chargeCode = accountService.findChargeCodeByCode(code);
