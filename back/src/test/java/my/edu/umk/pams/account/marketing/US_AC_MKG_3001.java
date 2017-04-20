@@ -24,15 +24,14 @@ import my.edu.umk.pams.bdd.tags.Issue;
 @ContextConfiguration(classes = TestAppConfiguration.class)
 @As("As Academic (MGSEB/CPS), I want to give compound's discount to student so that discount can applied to receipt")
 public class US_AC_MKG_3001 extends
-		SpringScenarioTest<GivenIAmMGSEBAdministrator, WhenWantToRegisterStudentCompoundBill, ThenDiscountCanAppliedToReceipt> {
+		SpringScenarioTest<GivenIAmMGSEBAdministrator, WhenIWantGiveCompoundsDiscountToStudent, ThenDiscountCanAppliedToReceipt> {
 	private static final String MATRIC_NO = "A17P001";
 
 	@Test
 	@Rollback
 	public void testScenario0() {
 		given().I_am_a_MGSEB_administrator_in_current_academic_session();
-		when().I_want_to_register_student_compound_bill_by_account_$(MATRIC_NO);
-		addStage(WhenIWantGiveCompoundsDiscountToStudent.class).and().I_want_give_compounds_discount_to_student_$(MATRIC_NO);
+		when().I_want_give_compounds_discount_to_student_$(MATRIC_NO);
 		then().discount_can_applied_to_receipt();
 	}
 }
