@@ -16,6 +16,7 @@ import {PromoCodeCreatorDialog} from "./dialog/promo-code-creator.dialog";
 
 export class PromoCodeCenterPage implements OnInit {
 
+  private PROMO_CODES = "marketingModuleState.promoCodes".split(".");
   private promoCodes$: Observable<PromoCode[]>;
   private creatorDialogRef: MdDialogRef<PromoCodeCreatorDialog>;
 
@@ -25,7 +26,7 @@ export class PromoCodeCenterPage implements OnInit {
               private store: Store<MarketingModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
-    this.promoCodes$ = this.store.select(state => state.promoCodes);
+    this.promoCodes$ = this.store.select(...this.PROMO_CODES);
   }
 
   goBack(route: string): void {

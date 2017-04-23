@@ -16,6 +16,7 @@ import {MdDialogRef, MdDialog, MdDialogConfig} from "@angular/material";
 
 export class ReceiptCenterPage implements OnInit {
 
+  private RECEIPT_TASKS = "billingModuleState.receiptTasks".split(".");
   private receiptTasks$: Observable<ReceiptTask[]>;
   private creatorDialogRef: MdDialogRef<ReceiptTaskCreatorDialog>;
 
@@ -25,7 +26,7 @@ export class ReceiptCenterPage implements OnInit {
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
-    this.receiptTasks$ = this.store.select(state => state.receiptTasks);
+    this.receiptTasks$ = this.store.select(...this.RECEIPT_TASKS);
   }
 
   goBack(route: string): void {

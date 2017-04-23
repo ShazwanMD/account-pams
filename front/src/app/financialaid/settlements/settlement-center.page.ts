@@ -17,6 +17,7 @@ import {SettlementCreatorDialog} from "./dialog/settlement-creator.dialog";
 
 export class SettlementCenterPage implements OnInit {
 
+  private SETTLEMENTS = "financialaidModuleState.settlements".split(".");
   private settlements$: Observable<Settlement[]>;
   private creatorDialogRef: MdDialogRef<SettlementCreatorDialog>;
 
@@ -26,7 +27,7 @@ export class SettlementCenterPage implements OnInit {
               private store: Store<FinancialaidModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
-    this.settlements$ = this.store.select(state => state.settlements);
+    this.settlements$ = this.store.select(...this.SETTLEMENTS);
   }
 
   goBack(route: string): void {

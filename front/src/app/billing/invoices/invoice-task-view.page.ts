@@ -16,13 +16,14 @@ import {Store} from "@ngrx/store";
 })
 export class InvoiceTaskViewPage implements OnInit {
 
+  private INVOICE_TASK = "billingModuleState.invoiceTask".split(".");
   private invoiceTask$: Observable<InvoiceTask>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private actions: InvoiceActions) {
-    this.invoiceTask$ = this.store.select(state => state.invoiceTask)
+    this.invoiceTask$ = this.store.select(...this.INVOICE_TASK)
   }
 
   ngOnInit(): void {

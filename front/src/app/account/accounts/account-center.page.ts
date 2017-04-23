@@ -18,13 +18,14 @@ import {AccountModuleState} from "../index";
 
 export class AccountCenterPage implements OnInit {
 
+  private ACCOUNTS = "accountModuleState.accounts".split(".");
   private accounts$: Observable<Account[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: AccountActions,
               private store: Store<AccountModuleState>) {
-    this.accounts$ = this.store.select(state => state.accounts);
+    this.accounts$ = this.store.select(...this.ACCOUNTS);
   }
 
   goBack(route: string): void {

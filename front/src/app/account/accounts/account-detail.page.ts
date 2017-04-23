@@ -17,6 +17,8 @@ import {AccountModuleState} from "../index";
 
 export class AccountDetailPage implements OnInit {
 
+  private ACCOUNT = "accountModuleState.account".split(".");
+  private ACCOUNT_TRANSACTIONS = "accountModuleState.accountTransactions".split(".");
   private account$: Observable<Account>;
   private accountTransactions$: Observable<AccountTransaction[]>;
 
@@ -25,8 +27,8 @@ export class AccountDetailPage implements OnInit {
               private actions: AccountActions,
               private store: Store<AccountModuleState>) {
 
-    this.account$ = this.store.select(state=>state.account);
-    this.accountTransactions$ = this.store.select(state=>state.accountTransactions);
+    this.account$ = this.store.select(...this.ACCOUNT);
+    this.accountTransactions$ = this.store.select(...this.ACCOUNT_TRANSACTIONS);
   }
 
   ngOnInit(): void {

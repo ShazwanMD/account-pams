@@ -16,13 +16,14 @@ import {Store} from "@ngrx/store";
 })
 export class ReceiptTaskViewPage implements OnInit {
 
+  private RECEIPT_TASK = "billingModuleState.receiptTask".split(".");
   private receiptTask$: Observable<ReceiptTask>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private actions: ReceiptActions) {
-    this.receiptTask$ = this.store.select(state => state.receiptTask)
+    this.receiptTask$ = this.store.select(...this.RECEIPT_TASK)
   }
 
   ngOnInit(): void {

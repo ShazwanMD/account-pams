@@ -16,6 +16,7 @@ import {InvoiceTaskCreatorDialog} from "./dialog/invoice-task-creator.dialog";
 
 export class InvoiceCenterPage implements OnInit {
 
+  private INVOICE_TASKS = "billingModuleState.invoiceTasks".split(".");
   private invoiceTasks$: Observable<InvoiceTask[]>;
   private creatorDialogRef: MdDialogRef<InvoiceTaskCreatorDialog>;
 
@@ -25,7 +26,7 @@ export class InvoiceCenterPage implements OnInit {
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
-    this.invoiceTasks$ = this.store.select(state => state.invoiceTasks);
+    this.invoiceTasks$ = this.store.select(...this.INVOICE_TASKS);
   }
 
   goBack(route: string): void {

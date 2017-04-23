@@ -17,6 +17,8 @@ import {PromoCodeItem} from "./promo-code-item.interface";
 
 export class PromoCodeDetailPage implements OnInit {
 
+  private PROMO_CODE = "marketingModuleState.promoCode".split(".");
+  private PROMO_CODE_ITEMS = "marketingModuleState.promoCodeItems".split(".");
   private promoCode$: Observable<PromoCode>;
   private promoCodeItems$: Observable<PromoCodeItem[]>;
 
@@ -25,8 +27,8 @@ export class PromoCodeDetailPage implements OnInit {
               private actions: PromoCodeActions,
               private store: Store<MarketingModuleState>) {
 
-    this.promoCode$ = this.store.select(state => state.promoCode);
-    this.promoCodeItems$ = this.store.select(state => state.promoCodeItems);
+    this.promoCode$ = this.store.select(...this.PROMO_CODE);
+    this.promoCodeItems$ = this.store.select(...this.PROMO_CODE_ITEMS);
   }
 
   ngOnInit(): void {
