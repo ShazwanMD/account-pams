@@ -1,7 +1,8 @@
-import {FlowState} from "../../core/flow-state.enum";
-import {WaiverApplication} from "./waiver-application.interface";
 
-export interface WaiverApplicationTask extends Task {
+import {WaiverApplication} from "./waiver-application.interface";
+import {FlowState} from "../../core/flow-state.enum";
+import {Document} from "../../core/document.interface";
+export interface WaiverApplicationTask extends Document {
   taskId: string;
   taskName: string;
   candidate: string;

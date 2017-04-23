@@ -1,6 +1,7 @@
 import {Invoice} from "./invoice.interface";
 import {FlowState} from "../../core/flow-state.enum";
-export interface InvoiceTask {
+import {Document} from "../../core/document.interface";
+export interface InvoiceTask extends Document{
   taskId:string;
   taskName:string;
   candidate:string;

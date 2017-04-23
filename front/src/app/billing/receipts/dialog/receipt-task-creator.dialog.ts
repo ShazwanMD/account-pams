@@ -33,8 +33,8 @@ export class ReceiptTaskCreatorDialog implements OnInit {
     this.createForm = this.formBuilder.group(<Receipt>{
       id: null,
       referenceNo: '',
-      sourceNo:'',
       receiptNo:'',
+      sourceNo:'',
       description: '',
       totalPretaxAmount:0,
       totalTaxAmount:0,

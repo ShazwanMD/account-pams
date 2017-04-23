@@ -3,7 +3,7 @@ export interface Receipt {
 
   id: number;
   referenceNo: string;
-  invoiceNo: string;
+  receiptNo: string;
   sourceNo: string;
   description: string;
   paid: Boolean;
@@ -11,7 +11,5 @@ export interface Receipt {
   totalTaxAmount: number;
   totalAmount: number;
   balanceAmount: number;
-  // period: Period;
-  // requester: CostCenterCode;
   account: Account;
 }

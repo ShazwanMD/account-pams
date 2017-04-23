@@ -1,6 +1,7 @@
 import {Receipt} from "./receipt.interface";
 import {FlowState} from "../../core/flow-state.enum";
-export interface ReceiptTask {
+import {Document} from "../../core/document.interface";
+export interface ReceiptTask extends Document{
   taskId:string;
   taskName:string;
   candidate:string;
