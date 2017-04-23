@@ -51,10 +51,10 @@ export const INITIAL_APPLICATION_STATE: ApplicationState =
   };
 
 export const applicationReducers = {
-  ...accountModuleReducers,
-  ...billingModuleReducers,
-  ...financialaidModuleReducers,
-  ...marketingModuleReducers
+  accountModuleState: combineReducers({...accountModuleReducers}),
+  billingModuleState: combineReducers({...billingModuleReducers}),
+  financialaidModuleState: combineReducers({...financialaidModuleReducers}),
+  marketingModuleState: combineReducers({...marketingModuleReducers})
 };
 
 export const productionReducer: ActionReducer<ApplicationState> = combineReducers(applicationReducers);
