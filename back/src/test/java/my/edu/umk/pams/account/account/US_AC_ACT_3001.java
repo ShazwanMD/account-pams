@@ -11,8 +11,6 @@ import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
 import my.edu.umk.pams.account.account.stage.ThenCanMakePayment;
-import my.edu.umk.pams.account.account.stage.ThenICanMakePayment;
-import my.edu.umk.pams.account.account.stage.WhenIWantToViewFeesStatementAndCharges;
 import my.edu.umk.pams.account.account.stage.WhenViewCharges;
 import my.edu.umk.pams.account.account.stage.WhenViewFeesStatement;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
