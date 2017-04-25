@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.financialaid.stage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -28,6 +29,8 @@ public class WhenIWantToListStudentStatus extends Stage<WhenIWantToListStudentSt
 	public WhenIWantToListStudentStatus list_student_status() {
 
 		LOG.debug("session " + academicSession.getId());
+		
+		Assert.notNull(student, "student was null");
 		
 		if(student.getStudentStatus()==AcStudentStatus.ACTIVE){
 			

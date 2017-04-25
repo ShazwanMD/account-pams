@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.financialaid.stage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
@@ -27,6 +28,8 @@ public class WhenIUpdateStudentStatus extends Stage<WhenIUpdateStudentStatus> {
 	public WhenIUpdateStudentStatus I_want_to_update_student_status_$(String code) {
 
 		AcStudent student = identityService.findStudentByMatricNo(code);
+		Assert.notNull(student, "student was null");
+		
 		student.setStudentStatus(AcStudentStatus.ACTIVE);
 
 		identityService.updateStudent(student);
