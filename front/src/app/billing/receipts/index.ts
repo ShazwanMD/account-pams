@@ -19,6 +19,8 @@ import {ReceiptActions} from "./receipt.action";
 import {ReceiptTaskListComponent} from "./component/receipt-task-list.component";
 import {ReceiptTaskCreatorDialog} from "./dialog/receipt-task-creator.dialog";
 import {AccountService} from "../../../services/account.service";
+import {ReceiptEffects} from "./receipt.effect";
+import {EffectsModule} from "@ngrx/effects";
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import {AccountService} from "../../../services/account.service";
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
+    EffectsModule.run(ReceiptEffects),
   ],
   declarations: [
     // page
