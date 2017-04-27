@@ -19,13 +19,8 @@ import {IdentityService} from "../../../../services/identity.service";
 export class AccountCreatorDialog implements OnInit {
 
   private createForm: FormGroup;
-  actors: Actor[] = <Actor[]>[];
 
-  constructor(private identityService: IdentityService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private viewContainerRef: ViewContainerRef,
+  constructor(private formBuilder: FormBuilder,
               private store: Store<AccountModuleState>,
               private actions: AccountActions,
               private dialog: MdDialogRef<AccountCreatorDialog>) {
@@ -40,21 +35,11 @@ export class AccountCreatorDialog implements OnInit {
       balanceAmount:0,
       actor:<Actor>{},
     });
-
-    // todo: componentize
-    this.identityService.findActors().subscribe(actors => this.actors = actors);
   }
 
   save(account: Account, isValid: boolean) {
     console.log("account: " + account.name);
     this.store.dispatch(this.actions.saveAccount(account));
     this.dialog.close();
-
-    // .subscribe(res => {
-    //   let snackBarRef = this._snackBar.open("Invoice started", "OK");
-    //   snackBarRef.afterDismissed().subscribe(() => {
-    //     this.goBack();
-    //   });
-    // });
   }
 }

@@ -1,21 +1,34 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, forwardRef, Provider} from '@angular/core';
-import {Account} from "../account.interface";
+import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {AccountService} from "../../../../services/account.service";
+import {Account} from "../account.interface";
+import {AccountActions} from "../account.action";
+import {Store} from "@ngrx/store";
+import {FormControl} from "@angular/forms";
+import {AccountModuleState} from "../../index";
+
 
 @Component({
   selector: 'pams-account-select',
   templateUrl: './account-select.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountSelectComponent {
+export class AccountSelectComponent implements OnInit {
 
-  accounts: Account[] = <Account[]>[];
-  constructor(private accountService: AccountService) {
+  private ACCOUNTS = "accountModuleState.accounts".split(".");
+  @Input() placeholder: string;
+  @Input() innerFormControl: FormControl;
+  programLevels$: Observable<Account[]>;
+
+  constructor(private store: Store<AccountModuleState>,
+              private actions: AccountActions) {
+    this.programLevels$ = this.store.select(...this.ACCOUNTS);
   }
 
   ngOnInit() {
-    this.accountService.findAccounts().subscribe(accounts => this.accounts = accounts);
+    this.store.dispatch(this.actions.findAccounts());
+  }
+
+  selectChangeEvent(event: Account) {
+    this.innerFormControl.setValue(event, {emitEvent: false});
   }
 }
+

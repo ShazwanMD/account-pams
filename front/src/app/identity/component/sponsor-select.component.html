@@ -1,0 +1,8 @@
+<md-select
+  [placeholder]="placeholder"
+  (change)="selectChangeEvent($event.value)" flex>
+
+  <md-option *ngFor="let sponsor of sponsors$ | async" [value]="sponsor">
+    {{sponsor.identityNo}}: {{sponsor.name}} {{sponsor.email}}
+  </md-option>
+</md-select>

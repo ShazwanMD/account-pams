@@ -1,5 +1,8 @@
-<md-select placeholder="Account" flex>
-  <md-option *ngFor="let account of accounts" [value]="account">
-    {{account.code}}: {{account.name}}
+<md-select
+  [placeholder]="placeholder"
+  (change)="selectChangeEvent($event.value)" flex>
+
+  <md-option *ngFor="let account of accounts$ | async" [value]="account">
+    {{account.code}}: {{account.name}} {{account.email}}
   </md-option>
 </md-select>

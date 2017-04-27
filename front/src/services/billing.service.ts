@@ -85,7 +85,7 @@ export class BillingService {
 
   findPooledReceiptTasks(): Observable<ReceiptTask[]> {
     console.log("findPooledReceiptTasks");
-    return this.http.get(environment.endpoint + '/api/billing/receipts/pooledTasks')
+     return this.http.get(environment.endpoint + '/api/billing/receipts/pooledTasks')
       .map((res: Response) => <ReceiptTask[]>res.json());
   }
 

@@ -16,6 +16,7 @@ import {AccountListState, accountListReducer} from "./accounts/account-list.redu
 import {accountReducer, AccountState} from "./accounts/account.reducer";
 import {AccountTransactionListState, accountTransactionListReducer} from "./accounts/account-transaction-list.reducer";
 import {AccountComboBoxComponent} from "./accounts/component/account-combo-box.component";
+import {IdentityModule} from "../identity/index";
 
 export interface AccountModuleState {
   accounts: AccountListState;
@@ -44,6 +45,7 @@ export const accountModuleReducers = {
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     AccountSubModule.forRoot(),
+    IdentityModule.forRoot(),
   ],
   declarations: [
     AccountPage,

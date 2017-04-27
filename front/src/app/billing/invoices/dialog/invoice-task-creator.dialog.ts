@@ -20,13 +20,7 @@ import {AccountService} from "../../../../services/account.service";
 export class InvoiceTaskCreatorDialog implements OnInit {
 
   private createForm: FormGroup;
-  accounts: Account[] = <Account[]>[];
-
-  constructor(private accountService: AccountService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private viewContainerRef: ViewContainerRef,
+  constructor(private formBuilder: FormBuilder,
               private store: Store<BillingModuleState>,
               private actions: InvoiceActions,
               private dialog: MdDialogRef<InvoiceTaskCreatorDialog>) {
@@ -47,9 +41,6 @@ export class InvoiceTaskCreatorDialog implements OnInit {
       account:<Account>{},
       academicSession:<AcademicSession>{},
     });
-
-    // todo: componentize
-    this.accountService.findAccounts().subscribe(accounts => this.accounts = accounts);
   }
 
   save(invoice: Invoice, isValid: boolean) {
@@ -57,12 +48,5 @@ export class InvoiceTaskCreatorDialog implements OnInit {
     console.log("account: " + invoice.account.code);
     this.store.dispatch(this.actions.startInvoiceTask(invoice));
     this.dialog.close();
-
-    // .subscribe(res => {
-    //   let snackBarRef = this._snackBar.open("Invoice started", "OK");
-    //   snackBarRef.afterDismissed().subscribe(() => {
-    //     this.goBack();
-    //   });
-    // });
   }
 }

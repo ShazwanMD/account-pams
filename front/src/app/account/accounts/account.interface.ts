@@ -5,5 +5,5 @@ export  interface Account extends MetaObject{
   name:string;
   email:string;
   actor?: Actor;
-  balanceAmount?:number;
+  balanceAmount?:number; // transient
 }

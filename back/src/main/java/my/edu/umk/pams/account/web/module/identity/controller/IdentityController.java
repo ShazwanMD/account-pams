@@ -55,13 +55,19 @@ public class IdentityController {
     AuthenticationManager authenticationManager;
 
     // ==================================================================================================== //
-    // STAFF
+    // ACTOR
     // ==================================================================================================== //
 
     @RequestMapping(value = "/actors", method = RequestMethod.GET)
     public ResponseEntity<List<Actor>> findActors() {
         return new ResponseEntity<List<Actor>>(identityTransformer
                 .toActorVos(identityService.findActors(0, 100)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/actors/{identityNo}", method = RequestMethod.GET)
+    public ResponseEntity<Actor> findActorByIdentityNo(@PathVariable String identityNo) {
+        return new ResponseEntity<Actor>(identityTransformer
+                .toActorVo(identityService.findActorByIdentityNo(identityNo)), HttpStatus.OK);
     }
 
     // ==================================================================================================== //
@@ -95,6 +101,7 @@ public class IdentityController {
         return new ResponseEntity<Staff>(identityTransformer
                 .toStaffVo(identityService.findStaffByStaffNo(identityNo)), HttpStatus.OK);
     }
+
     // ==================================================================================================== //
     // STUDENT
     // ==================================================================================================== //

@@ -3,42 +3,29 @@
   <form [formGroup]="createForm">
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
-        <input mdInput #code
-               placeholder="code"
-               formControlName="code"
-               value="Code"
+        <input mdInput #name
+               placeholder="Name"
+               formControlName="name"
                flex/>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #name
-               placeholder="name"
-               formControlName="name"
-               value="Name"
+               placeholder="Email"
+               formControlName="email"
                flex/>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput #actorid
-               placeholder="actorid"
-               formControlName="actorid"
-               value="ID"
-               flex/>
-      </md-input-container>
-    </div>
-      <div layout="row" class="pad-bottom pad-top">
-        <md-select formControlName="actor"  placeholder="actor" style="width: 100%">
-          <md-option *ngFor="let actor of actors" [value]="actor">
-            {{actor.identityNo}}: {{actor.name}}
-          </md-option>
-        </md-select>
+      <pams-actor-select
+        [placeholder]="'Student/Sponsor'"
+        [innerFormControl]="createForm.controls[actor]">
+      </pams-actor-select>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-button color="primary" (click)="goBack()">Back</button>
   <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
 </md-dialog-actions>
 

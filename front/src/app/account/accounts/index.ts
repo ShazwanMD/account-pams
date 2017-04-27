@@ -21,6 +21,8 @@ import {AccountActivityComponent} from "./component/account-activity.component";
 import {AccountStatusComponent} from "./component/account-status.component";
 import {AccountComboBoxComponent} from "./component/account-combo-box.component";
 import {AccountSelectComponent} from "./component/account-select.component";
+import {AccountCreatorDialog} from "./dialog/account-creator.dialog";
+import {IdentityModule} from "../../identity/index";
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import {AccountSelectComponent} from "./component/account-select.component";
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
+    IdentityModule.forRoot(),
     EffectsModule.run(AccountEffects),
   ],
   declarations: [
@@ -43,13 +46,15 @@ import {AccountSelectComponent} from "./component/account-select.component";
     AccountActivityComponent,
     AccountComboBoxComponent,
     AccountSelectComponent,
+    AccountCreatorDialog,
+
   ],
   exports: [
     AccountComboBoxComponent,
     AccountSelectComponent,
   ],
   entryComponents: [
-    // dialog
+    AccountCreatorDialog,
   ],
 
 })
