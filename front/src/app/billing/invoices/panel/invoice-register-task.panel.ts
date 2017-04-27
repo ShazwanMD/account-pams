@@ -7,6 +7,7 @@ import {InvoiceTask} from "../invoice-task.interface";
 import {InvoiceActions} from "../invoice.action";
 import {Store} from "@ngrx/store";
 import {BillingModuleState} from "../../index";
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -16,8 +17,9 @@ import {BillingModuleState} from "../../index";
 
 export class InvoiceRegisterTaskPanel {
 
+  private INVOICE_ITEMS = "billingModuleState.invoiceItems".split(".");
   @Input() invoiceTask: InvoiceTask;
-  @Input() invoiceItems: InvoiceItem[];
+  invoiceItems$: Observable<InvoiceItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -26,6 +28,11 @@ export class InvoiceRegisterTaskPanel {
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private snackBar: MdSnackBar) {
+    this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(this.actions.findInvoiceItems(this.invoiceTask.invoice))
   }
 
   editItem(item: InvoiceItem) {
@@ -41,12 +48,6 @@ export class InvoiceRegisterTaskPanel {
 
   approve(invoiceTask: InvoiceTask) {
     this.store.dispatch(this.actions.completeInvoiceTask(invoiceTask));
-    // .subscribe(res => {
-    // let snackBarRef = this._snackBar.open("Invoice  completed", "OK");
-    // snackBarRef.afterDismissed().subscribe(() => {
-    //   this.goBack();
-    // });
-    // });
   }
 
   goBack(): void {

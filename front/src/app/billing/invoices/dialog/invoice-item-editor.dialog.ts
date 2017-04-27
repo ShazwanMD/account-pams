@@ -5,7 +5,9 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {IdentityService} from "../../../../services/identity.service";
 import {CommonService} from "../../../../services/common.service";
 import {InvoiceItem} from "../invoice-item.interface";
-import {ChargeCode} from "../../../account/accounts/charge-code.interface";
+import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
+import {PromoCodeCreatorDialog} from "../../../marketing/promo-codes/dialog/promo-code-creator.dialog";
+import {MdDialogRef} from "@angular/material";
 
 
 @Component({
@@ -17,13 +19,11 @@ export class InvoiceItemEditorDialog implements OnInit {
 
   private editForm: FormGroup;
 
-  private selectedChargeCode: ChargeCode;
-  private chargeCodes: ChargeCode[] = <ChargeCode[]> [];
-
   constructor(private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private viewContainerRef: ViewContainerRef) {
+              private viewContainerRef: ViewContainerRef,
+              private dialog: MdDialogRef<InvoiceItemEditorDialog>) {
   }
 
   set invoiceItem(value: InvoiceItem) {
@@ -36,18 +36,18 @@ export class InvoiceItemEditorDialog implements OnInit {
       description: '',
       amount: 0,
       balanceAmount: 0,
+      chargeCode: {},
     });
-
     // this.editForm.patchValue(this.invoiceItem);
   }
 
   // save(invoice: Invoice, isValid: boolean) {
   //   this.submitted = true; // set form submit to true
   //   this._invoiceService.startInvoiceTask(invoice).subscribe(res => {
-  //     let snackBarRef = this._snackBar.open("Invoice started", "OK");
-  //     snackBarRef.afterDismissed().subscribe(() => {
-  //       this.goBack();
-  //     });
   //   });
   // }
+
+  close(): void {
+    this.dialog.close();
+  }
 }

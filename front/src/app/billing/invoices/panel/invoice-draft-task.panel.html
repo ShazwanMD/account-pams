@@ -35,43 +35,9 @@
         </md-card-actions>
       </md-card>
 
-
-      <md-card>
-        <md-card-title>Items</md-card-title>
-        <md-card-subtitle>Invoice items</md-card-subtitle>
-        <md-divider></md-divider>
-        <div toolbar-buttons layout="row" layout-align="start center" flex>
-          <span flex></span>
-          <button md-button class="md-icon-button">
-            <md-icon class="md-24 tc-grey-700">add</md-icon>
-          </button>
-          <button md-button class="md-icon-button">
-            <md-icon class="md-24 tc-grey-700">clear</md-icon>
-          </button>
-          <button md-button class="md-icon-button">
-            <md-icon class="md-24 tc-grey-700">content_copy</md-icon>
-          </button>
-        </div>
-        <md-divider></md-divider>
-        <div layout="row"
-             layout-align="start center"
-             layout-wrap>
-          <md-nav-list dense flex>
-            <!--<template let-invoiceEntry let-last="last" ngFor [ngForOf]="invoiceItems">-->
-              <!--<a md-list-item (click)="attachVoucher(invoiceEntry)">-->
-                <!--<md-icon md-list-avatar>payment</md-icon>-->
-                <!--<h3 md-line> {{invoiceEntry.description}} </h3>-->
-                <!--<p md-line> {{invoiceEntry.sourceNo}} </p>-->
-                <!--<span flex></span>-->
-                <!--<span flex="40"> {{invoiceEntry.period?.costCenterCode?.code}} </span>-->
-                <!--<span flex="40"> {{invoiceEntry.sodoCode?.code}} </span>-->
-                <!--<span flex="20"> {{invoiceEntry.debitAmount | number:'.2-2'}} </span>-->
-                <!--<span flex="20"> {{invoiceEntry.creditAmount | number:'.2-2'}} </span>-->
-              <!--</a>-->
-            <!--</template>-->
-          </md-nav-list>
-        </div>
-      </md-card>
+      <pams-invoice-item-list
+        [invoiceItems]="invoiceItems$ | async">
+      </pams-invoice-item-list>
 
     </div>
     <div flex-gt-md="30">

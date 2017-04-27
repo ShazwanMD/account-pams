@@ -16,10 +16,11 @@ import {BillingModuleState} from "../../index";
   templateUrl: './invoice-draft-task.panel.html',
 })
 
-export class InvoiceDraftTaskPanel {
+export class InvoiceDraftTaskPanel implements OnInit {
 
+  private INVOICE_ITEMS = "billingModuleState.invoiceItems".split(".");
   @Input() invoiceTask: InvoiceTask;
-  @Input() invoiceItems: InvoiceItem[];
+  invoiceItems$: Observable<InvoiceItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -28,6 +29,11 @@ export class InvoiceDraftTaskPanel {
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private snackBar: MdSnackBar) {
+    this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(this.actions.findInvoiceItems(this.invoiceTask.invoice))
   }
 
   editItem(item: InvoiceItem) {
@@ -43,12 +49,6 @@ export class InvoiceDraftTaskPanel {
 
   draft(invoiceTask: InvoiceTask) {
     this.store.dispatch(this.actions.completeInvoiceTask(invoiceTask));
-    // .subscribe(res => {
-    // let snackBarRef = this._snackBar.open("Invoice  completed", "OK");
-    // snackBarRef.afterDismissed().subscribe(() => {
-    //   this.goBack();
-    // });
-    // });
   }
 
   goBack(): void {

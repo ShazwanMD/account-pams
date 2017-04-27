@@ -21,8 +21,9 @@ import {InvoiceTaskWorkflowPanel} from "./panel/invoice-task-workflow.panel";
 import {InvoiceTaskViewPage} from "./invoice-task-view.page";
 import {InvoiceTaskCreatorDialog} from "./dialog/invoice-task-creator.dialog";
 import {AccountSubModule} from "../../account/accounts/index";
-import {AccountModule} from "../../account/index";
 import {AccountService} from "../../../services/account.service";
+import {InvoiceItemComponent} from "./component/invoice-item-list.component";
+import {ChargeCodeSubModule} from "../../account/charge-codes/index";
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {AccountService} from "../../../services/account.service";
     CovalentCoreModule.forRoot(),
     EffectsModule.run(InvoiceEffects),
     AccountSubModule.forRoot(),
+    ChargeCodeSubModule.forRoot(),
   ],
   declarations: [
     // page
@@ -46,6 +48,7 @@ import {AccountService} from "../../../services/account.service";
     InvoiceRegisterTaskPanel,
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
+    InvoiceItemComponent,
   ],
   exports: [],
   entryComponents: [

@@ -3,7 +3,7 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ReceiptItem} from "../receipt-item.interface";
-import {ChargeCode} from "../../../account/accounts/charge-code.interface";
+import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
 
 
 @Component({

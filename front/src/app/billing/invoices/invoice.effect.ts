@@ -75,4 +75,10 @@ export class InvoiceEffects {
     .map(action => action.payload)
     .switchMap(invoice => this.billingService.updateInvoice(invoice))
     .map(invoice => this.invoiceActions.updateInvoiceSuccess(invoice));
+
+  @Effect() addInvoiceItem$ = this.actions$
+    .ofType(InvoiceActions.ADD_INVOICE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.billingService.addInvoiceItem(payload.invoice, payload.item))
+    .map(message => this.invoiceActions.addInvoiceItemSuccess(message));
 }

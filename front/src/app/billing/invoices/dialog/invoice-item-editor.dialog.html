@@ -2,32 +2,28 @@
 <md-dialog-content>
   <form [formGroup]="editForm">
     <div layout="row" class="pad-bottom">
-      <md-input-container  flex>
-        <input md-input #description
-               placeholder="description"
-               formControlName="description"
-               value="Description"
-               flex/>
+      <md-input-container flex>
+        <input mdInput #description
+               placeholder="Description"
+               formControlName="description"/>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
-        <input placeholder="Amount"
-                  value="Amount" formControlName="amount">
+        <input mdInput
+               placeholder="Amount"
+               formControlName="amount">
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-select formControlName="chargeCode" [(ngModel)]="selectedChargeCode" placeholder="Charge Code"
-                 style="width: 100%">
-        <md-option *ngFor="let chargeCode of chargeCodes" [value]="chargeCode">
-          {{chargeCode.code}}: {{chargeCode.description}}
-        </md-option>
-      </md-select>
+      <pams-charge-code-select
+        [placeholder]="'Charge Code'"
+        [innerFormControl]="editForm.controls.chargeCode"></pams-charge-code-select>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-button color="primary" (click)="goBack()">Back</button>
-  <button md-raised-button color="accent" (click)="save(editForm.value, newForm.valid)">Save</button>
+  <button md-button color="primary" (click)="close()">Cancel</button>
+  <button md-raised-button color="accent" (click)="save(editForm.value, editForm.valid)">Save</button>
 </md-dialog-actions>
 

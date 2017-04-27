@@ -11,7 +11,6 @@ const initialState: ActorListState = <Actor[]>[];
 export function actorListReducer(state = initialState, action: Action): ActorListState {
   switch (action.type) {
     case ActorActions.FIND_ACTORS_SUCCESS: {
-      console.log("reducer");
       return action.payload;
     }
 

@@ -1,10 +1,12 @@
 package my.edu.umk.pams.account.web.module.account.controller;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.account.vo.AccountTransaction;
+import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,25 @@ public class AccountController {
 
     @Autowired
     private AccountTransformer accountTransformer;
+
+    // ==================================================================================================== //
+    // CHARGE CODE
+    // ==================================================================================================== //
+    @RequestMapping(value = "/chargeCodes", method = RequestMethod.GET)
+    public ResponseEntity<List<ChargeCode>> findChargeCodes() {
+        List<AcChargeCode> chargeCodes = accountService.findChargeCodes("%", 0, 100);
+        return new ResponseEntity<List<ChargeCode>>(accountTransformer.toChargeCodeVos(chargeCodes), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<ChargeCode> findChargeCodeByCode(@PathVariable String code) {
+        AcChargeCode chargeCode = accountService.findChargeCodeByCode(code);
+        return new ResponseEntity<ChargeCode>(accountTransformer.toChargeCodeVo(chargeCode), HttpStatus.OK);
+    }
+
+    // ==================================================================================================== //
+    // ACCOUNT
+    // ==================================================================================================== //
 
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> findAccounts() {

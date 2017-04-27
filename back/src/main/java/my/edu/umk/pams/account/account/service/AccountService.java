@@ -96,7 +96,7 @@ public interface AccountService {
     void deleteFeeSchedule(AcFeeSchedule schedule);
 
     // ==================================================================================================== //
-    // ACTOR ACCOUNT
+    // ACCOUNT
     // ==================================================================================================== //
 
     AcAccount findAccountById(Long id);

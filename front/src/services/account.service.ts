@@ -4,7 +4,7 @@ import { HttpInterceptorService } from '@covalent/http';
 import {Account} from "../app/account/accounts/account.interface";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
-import {ChargeCode} from "../app/account/accounts/charge-code.interface";
+import {ChargeCode} from "../app/account/charge-codes/charge-code.interface";
 import {AccountTransaction} from "../app/account/accounts/account-transaction.interface";
 
 @Injectable()
