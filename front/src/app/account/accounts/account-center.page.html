@@ -14,10 +14,12 @@
 
   <td-layout-manage-list #list>
     <md-nav-list list-items>
-      <a md-list-item [routerLink]="['/accounts-create']">
+      <a md-list-item (click)="showDialog()">
         <md-icon>create</md-icon>
         Create Account
       </a>
+      <md-divider></md-divider>
+      </md-nav-list>
       <a md-list-item [routerLink]="['/accounts']">
         <md-icon>star</md-icon>
         Open Accounts
