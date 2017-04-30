@@ -16,9 +16,9 @@
     "start-api": "cd mock-api && covalent-data &",
     "stop-api": "pkill covalent-data",
     "webdriver-update": "bash ./node_modules/.bin/webdriver-manager update",
+    "test": "ng test --code-coverage --single-run",
     "build": "ng build",
     "serve": "ng serve",
-    "test": "ng test --code-coverage --single-run",
     "ghpages-deploy": "ng build --base-href /covalent-quickstart/ --aot -prod --sourcemap=false && bash scripts/ghpages-deploy"
   },
   "engines": {
