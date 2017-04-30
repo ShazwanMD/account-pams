@@ -48,6 +48,7 @@
           </execution>
           <execution>
             <id>npm install</id>
+            <phase>generate-sources</phase>
             <goals>
               <goal>npm</goal>
             </goals>
@@ -64,7 +65,6 @@
           </execution>
           <execution>
             <id>serve</id>
-            <phase>install</phase>
             <goals>
               <goal>npm</goal>
             </goals>
