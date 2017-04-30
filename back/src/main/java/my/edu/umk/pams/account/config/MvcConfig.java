@@ -28,6 +28,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/report").setViewName("forward:/report/index.html");
         super.addViewControllers(registry);
     }
 }
