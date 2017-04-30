@@ -1,11 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>my.edu.umk.pams</groupId>
   <artifactId>account-front</artifactId>
   <version>0.1.0</version>
   <name>PAMS Account</name>
+  <parent>
+    <groupId>my.edu.umk.pams</groupId>
+    <artifactId>account</artifactId>
+    <version>1.0</version>
+  </parent>
+
   <build>
     <finalName>front</finalName>
+    <resources>
+      <resource>
+        <directory>dist</directory>
+        <targetPath>static</targetPath>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
@@ -14,9 +25,6 @@
           <filesets>
             <fileset>
               <directory>dist</directory>
-              <includes>
-                <include>*</include>
-              </includes>
             </fileset>
           </filesets>
         </configuration>
@@ -45,18 +53,8 @@
             </goals>
           </execution>
           <execution>
-            <id>npm run-script prod</id>
-            <phase>package</phase>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>run-script prod</arguments>
-            </configuration>
-          </execution>
-          <execution>
             <id>build</id>
-            <phase>package</phase>
+            <phase>generate-sources</phase>
             <goals>
               <goal>npm</goal>
             </goals>
