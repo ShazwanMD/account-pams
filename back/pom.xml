@@ -480,7 +480,7 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
