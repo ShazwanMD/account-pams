@@ -222,7 +222,6 @@
     </repositories>
 
     <build>
-        <finalName>canang-payroll</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -249,6 +248,7 @@
                 <executions>
                     <execution>
                         <id>db-drop</id>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -264,6 +264,7 @@
                     </execution>
                     <execution>
                         <id>db-seed</id>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
