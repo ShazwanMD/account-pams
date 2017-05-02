@@ -1,6 +1,14 @@
 <h2 md-dialog-title>Account Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
+  <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #code
+               placeholder="Code"
+               formControlName="code"
+               flex/>
+      </md-input-container>
+    </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #name
@@ -11,9 +19,17 @@
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
-        <input mdInput #name
+        <input mdInput #email
                placeholder="Email"
                formControlName="email"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #balanceAmount
+               placeholder="Balance Amount"
+               formControlName="balanceAmount"
                flex/>
       </md-input-container>
     </div>
