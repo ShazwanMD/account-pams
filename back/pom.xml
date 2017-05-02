@@ -513,7 +513,7 @@
                     <stopPort>9966</stopPort>
                     <stopKey>foo</stopKey>
                     <stopWait>10</stopWait>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
