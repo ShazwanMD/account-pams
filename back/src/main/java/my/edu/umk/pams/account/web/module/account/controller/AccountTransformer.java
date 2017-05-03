@@ -4,14 +4,17 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountTransaction;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.web.module.account.vo.AcademicSession;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.account.vo.AccountTransaction;
 import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
+import my.edu.umk.pams.account.web.module.account.vo.FeeSchedule;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,12 +41,28 @@ public class AccountTransformer {
     @Autowired
     private IdentityTransformer identityTransformer;
 
+    public FeeSchedule toFeeScheduleVo(AcFeeSchedule e) {
+    	FeeSchedule m = new FeeSchedule();
+        m.setId(e.getId());
+        m.setCode(e.getCode());
+        m.setDescription(e.getDescription());
+        return m;
+    }
+    
     public ChargeCode toChargeCodeVo(AcChargeCode e) {
         ChargeCode m = new ChargeCode();
         m.setId(e.getId());
         m.setCode(e.getCode());
         m.setDescription(e.getDescription());
         return m;
+    }
+    
+
+    public List<FeeSchedule> toFeeScheduleVos(List<AcFeeSchedule> e) {
+        List<FeeSchedule> vos = e.stream()
+                .map((e1) -> toFeeScheduleVo(e1))
+                .collect(Collectors.toList());
+        return vos;
     }
 
     public List<ChargeCode> toChargeCodeVos(List<AcChargeCode> e) {
