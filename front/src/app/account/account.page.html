@@ -12,7 +12,13 @@
         Account
       </a>
       <md-divider></md-divider>
-      <h3 md-subheader>Shortcuts</h3>
+    </md-nav-list>
+    <md-nav-list list-items dense>
+      <a md-list-item [routerLink]="['/account/charge-codes']">
+        <md-icon>label</md-icon>
+        Charge Code
+      </a>
+      <md-divider></md-divider>
     </md-nav-list>
     <div toolbar-buttons layout="row" layout-align="start center" flex>
       <span flex></span>
