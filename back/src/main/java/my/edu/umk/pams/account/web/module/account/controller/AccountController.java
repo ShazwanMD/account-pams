@@ -48,8 +48,8 @@ public class AccountController {
     // ==================================================================================================== //
     @RequestMapping(value = "/feeSchedules", method = RequestMethod.GET)
     public ResponseEntity<List<FeeSchedule>> findFeeSchedules() {
-        List<AcFeeSchedule> feeSchedules = accountService.findFeeSchedules("%", 0, 100);
-        return new ResponseEntity<List<FeeSchedule>>(accountTransformer.toFeeScheduleVos(feeSchedules), HttpStatus.OK);
+        List<AcFeeSchedule> feeSchedules = accountService.findFeeSchedules("%", 0, 1);
+         return new ResponseEntity<List<FeeSchedule>>(accountTransformer.toFeeScheduleVos(feeSchedules), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/feeSchedules/{code}", method = RequestMethod.GET)
