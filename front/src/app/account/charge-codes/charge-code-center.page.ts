@@ -18,23 +18,27 @@ import {AccountModuleState} from "../index";
 
 export class ChargeCodeCenterPage implements OnInit {
 
-    private ACCOUNTS = "accountModuleState.accounts".split(".");
+    private CHARGE_CODES = "accountModuleState.chargeCodes".split(".");
+    private chargeCodes$: Observable<ChargeCode[]>;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
         private actions: ChargeCodeActions,
         private store: Store<AccountModuleState>) {
+        this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
+
     }
 
     goBack(route: string): void {
-        this.router.navigate(['/accounts']);
+        this.router.navigate(['/charge-codes']);
     }
 
   
 
  
     ngOnInit(): void {
-       // this.store.dispatch(this.actions.findAccounts());
+        console.log("abc")
+       this.store.dispatch(this.actions.findChargeCodes());
     }
 }
 
