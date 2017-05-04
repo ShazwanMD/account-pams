@@ -1,64 +1,57 @@
+
 <td-layout-nav>
-  <div toolbar-content layout="row" layout-align="center center" flex>
-    <span>PAMS: Postgraduate Management System</span>
-    <span flex></span>
-  </div>
+<div toolbar-content layout="row" layout-align="center center" flex>
+	<span>PAMS: Postgraduate Management System</span> <span flex></span>
+</div>
 
-  <md-nav-list menu-items>
-    <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="layout.close()">
-      <md-icon>{{item.icon}}</md-icon>
-      {{item.title}}
-    </a>
-  </md-nav-list>
+<md-nav-list menu-items> <a *ngFor="let item of routes"
+	md-list-item [routerLink]="[item.route]" (click)="layout.close()">
+	<md-icon>{{item.icon}}</md-icon> {{item.title}}
+</a> </md-nav-list> <td-layout-manage-list #list> <md-nav-list
+	list-items> <a md-list-item (click)="showDialog()"> <md-icon>create</md-icon>
+	Create Account
+</a> <md-divider></md-divider> <a md-list-item [routerLink]="['/accounts']">
+	<md-icon>star</md-icon> Open Accounts
+</a> <a md-list-item [routerLink]="['/accounts']"> <md-icon>sync_disabled</md-icon>
+	Closed Accounts
+</a> <md-divider></md-divider> </md-nav-list>
+
+<div toolbar-buttons layout="row" layout-align="start center" flex>
+	<span flex>Account Center</span>
+	<td-search-box backIcon="arrow_back" 
+		ng-model="selected" placeholder="Search Code or Name here"
+		[showUnderline]="true" [debounce]="400"
+		(searchDebounce)="searchInputTerm = $event"
+		(search)="searchInputTerm = $event" (clear)="searchInputTerm = ''"
+		[alwaysVisible]="false" flex>
+
+	</td-search-box>
+	
+
+	
+	<button md-button class="md-icon-button">
+		<md-icon class="md-24">settings</md-icon>
+	</button>
+	<button md-button class="md-icon-button">
+		<md-icon class="md-24">more_vert</md-icon>
+	</button>
+</div>
+
+<div layout="row" layout-wrap></div>
+
+<md-card class=""> <md-card-title>Accounts </md-card-title>
+
+<div class="md-padding" ng-cloak layout="column">
+	<div layout="row">
+		<md-card-subtitle> List of accounts </md-card-subtitle>
+	</div>
+</div>
 
 
-  <td-layout-manage-list #list>
-    <md-nav-list list-items>
-      <a md-list-item (click)="showDialog()">
-        <md-icon>create</md-icon>
-        Create Account
-      </a>
-      <md-divider></md-divider>
-      <a md-list-item [routerLink]="['/accounts']">
-        <md-icon>star</md-icon>
-        Open Accounts
-      </a>
-      <a md-list-item [routerLink]="['/accounts']">
-        <md-icon>sync_disabled</md-icon>
-        Closed Accounts
-      </a>
-      <md-divider></md-divider>
-    </md-nav-list>
+<md-divider> </md-divider> <pams-account-list
+	[accounts]="accounts$ | async" (view)="viewAccount($event)"></pams-account-list>
 
-    <div toolbar-buttons layout="row" layout-align="start center" flex>
-      <span flex>Account Center</span>
-      <button md-button class="md-icon-button">
-        <md-icon class="md-24">settings</md-icon>
-      </button>
-      <button md-button class="md-icon-button">
-        <md-icon class="md-24">more_vert</md-icon>
-      </button>
-    </div>
-
-    <div layout="row" layout-wrap>
-    </div>
-
-    <md-card class="">
-    <md-card-title>Accounts</md-card-title>
-    <md-card-subtitle>List of accounts</md-card-subtitle>
-
-    <md-divider></md-divider>
-
-    <pams-account-list
-    [accounts]="accounts$ | async"
-    (view)="viewAccount($event)"></pams-account-list>
-
-    <md-divider></md-divider>
-    <md-card-actions>
-    <a md-button color="accent" class="text-upper" [routerLink]="['/accounts-search']">
-    <span>View More</span>
-    </a>
-    </md-card-actions>
-    </md-card>
-  </td-layout-manage-list>
-</td-layout-nav>
+<md-divider></md-divider> <md-card-actions> <a
+	md-button color="accent" class="text-upper"
+	[routerLink]="['/accounts-search']"> <span>View More</span>
+</a> </md-card-actions> </md-card> </td-layout-manage-list> </td-layout-nav>
