@@ -43,22 +43,40 @@
     <div layout="row" layout-wrap>
     </div>
 
-    <!--<md-card class="">-->
-    <!--<md-card-title>Accounts</md-card-title>-->
-    <!--<md-card-subtitle>List of accounts</md-card-subtitle>-->
+    <md-card class="">
+    <md-card-title>Charge Code</md-card-title>
+    <md-card-subtitle>List of charge code</md-card-subtitle>
 
-    <!--<md-divider></md-divider>-->
+    <md-divider></md-divider>
+<td-data-table
+  [data]="chargeCodes$ | async"
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  (rowSelect)="view.emit($event)" dense>
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex>{{value}}</span>
+    </div>
+  </template>
+  <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <a md-button color="accent" class="text-upper" [routerLink]="['/account/accounts', row['code']]">
+        <span>View</span>
+      </a>
+    </div>
+  </template>
+</td-data-table>
 
-    <!--<pams-account-list-->
-    <!--[accounts]="accounts$ | async"-->
-    <!--(view)="viewAccount($event)"></pams-account-list>-->
-
-    <!--<md-divider></md-divider>-->
-    <!--<md-card-actions>-->
-    <!--<a md-button color="accent" class="text-upper" [routerLink]="['/accounts-search']">-->
-    <!--<span>View More</span>-->
-    <!--</a>-->
-    <!--</md-card-actions>-->
-    <!--</md-card>-->
+    <md-divider></md-divider>
+    <md-card-actions>
+    <a md-button color="accent" class="text-upper" [routerLink]="['/accounts-search']">
+    <span>View More</span>
+    </a>
+    </md-card-actions>
+    </md-card>
   </td-layout-manage-list>
 </td-layout-nav>
