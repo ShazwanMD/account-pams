@@ -14,6 +14,7 @@ import {IdentityModule} from "../../identity/index";
 import {ChargeCodeSelectComponent} from "./component/charge-code-select.component";
 import {ChargeCodeEffects} from "./charge-code.effect";
 import {ChargeCodeActions} from "./charge-code.action";
+import {ChargeCodeCenterPage} from "./charge-code-center.page";
 
 
 @NgModule({
@@ -26,6 +27,8 @@ import {ChargeCodeActions} from "./charge-code.action";
     EffectsModule.run(ChargeCodeEffects),
   ],
   declarations: [
+  //page
+  ChargeCodeCenterPage,
     ChargeCodeSelectComponent,
   ],
   exports: [

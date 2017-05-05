@@ -5,6 +5,7 @@ import {Account} from "../app/account/accounts/account.interface";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
 import {ChargeCode} from "../app/account/charge-codes/charge-code.interface";
+import {FeeSchedule} from '../app/account/accounts/fee-schedule.interface';
 import {AccountTransaction} from "../app/account/accounts/account-transaction.interface";
 
 @Injectable()
@@ -12,6 +13,23 @@ export class AccountService {
 
   constructor(private http: Http,
               private _http: HttpInterceptorService) {
+  }
+
+    // ====================================================================================================
+  // Fee Schedule
+  // ====================================================================================================
+  findFeeSchedules(): Observable<FeeSchedule[]> {
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/feeSchedules')
+      .map((res: Response) => <FeeSchedule[]>res.json());
+  }
+
+  findFeeScheduleBySchedule(Schedule: string): Observable<FeeSchedule> {
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/feeSchedules/' + Schedule)
+      .map((res: Response) => <FeeSchedule>res.json());
   }
 
   // ====================================================================================================

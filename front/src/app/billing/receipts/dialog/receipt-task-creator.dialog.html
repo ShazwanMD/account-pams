@@ -1,6 +1,33 @@
 <h2 md-dialog-title>Receipt Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
+     <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #referenceNo
+               placeholder="referenceNo"
+               formControlName="totalPretaxAmount"
+               value="ReferenceNo"
+               flex/>
+   </md-input-container>
+   </div>
+        <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #receiptNo
+               placeholder="receiptNo"
+               formControlName="receiptNo"
+               value="ReceiptNo"
+               flex/>
+      </md-input-container>
+    </div>
+        <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #sourceNo
+               placeholder="sourceNo"
+               formControlName="sourceNo"
+               value="Description"
+               flex/>
+      </md-input-container>
+    </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #description
@@ -10,12 +37,39 @@
                flex/>
       </md-input-container>
     </div>
+         <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #totalPretaxAmount
+               placeholder="totalPretaxAmount"
+               formControlName="totalPretaxAmount"
+               value="TotalPretaxAmount"
+               flex/>
+      </md-input-container>
+    </div>
+     <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #totalTaxAmount
+               placeholder="totalTaxAmount"
+               formControlName="totalTaxAmount"
+               value="TotalTaxAmount"
+               flex/>
+      </md-input-container>
+    </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
-        <input mdInput #sourceNo
-               placeholder="sourceNo"
-               formControlName="sourceNo"
-               value="Description"
+        <input mdInput #totalAmount
+               placeholder="totalAmount"
+               formControlName="totalAmount"
+               value="TotalAmount"
+               flex/>
+      </md-input-container>
+    </div>
+        <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #balanceAmount
+               placeholder="balanceAmount"
+               formControlName="balanceAmount"
+               value="BalanceAmount"
                flex/>
       </md-input-container>
     </div>

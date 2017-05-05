@@ -1,3 +1,4 @@
+//import { SetupModule } from './setup/index';
 import {NgModule, Type} from '@angular/core';
 import {BrowserModule, Title}  from '@angular/platform-browser';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
@@ -20,6 +21,7 @@ import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 import {HomeComponent} from "./home/home.component";
 import {CustomUrlSerializer} from "./common/custom-url-serializer";
 import {UrlSerializer} from "@angular/router";
+import {SetupModule} from "./setup/index";
 import {AccountModuleState, INITIAL_ACCOUNT_STATE, AccountModule, accountModuleReducers} from "./account/index";
 import {BillingModuleState, INITIAL_BILLING_STATE, BillingModule, billingModuleReducers} from "./billing/index";
 import {
@@ -97,7 +99,11 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     BillingModule.forRoot(),
     FinancialaidModule.forRoot(),
     MarketingModule.forRoot(),
+<<<<<<< HEAD
     WakjokoModule.forRoot(),
+=======
+    SetupModule.forRoot(),
+>>>>>>> refs/remotes/origin/master
 
   ], // modules needed to run this module
   providers: [

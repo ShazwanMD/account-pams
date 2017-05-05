@@ -2,11 +2,14 @@ package my.edu.umk.pams.account.web.module.account.controller;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.account.vo.AccountTransaction;
 import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
+import my.edu.umk.pams.account.web.module.account.vo.FeeSchedule;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,22 @@ public class AccountController {
     @Autowired
     private AccountTransformer accountTransformer;
 
+    // ==================================================================================================== //
+    // FEE SCHEDULE
+    // ==================================================================================================== //
+    @RequestMapping(value = "/feeSchedules", method = RequestMethod.GET)
+    public ResponseEntity<List<FeeSchedule>> findFeeSchedules() {
+        List<AcFeeSchedule> feeSchedules = accountService.findFeeSchedules("%", 0, 1);
+         return new ResponseEntity<List<FeeSchedule>>(accountTransformer.toFeeScheduleVos(feeSchedules), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/feeSchedules/{code}", method = RequestMethod.GET)
+    public ResponseEntity<FeeSchedule> findScheduleScheduleBySchedule(@PathVariable String code) {
+    	AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
+        return new ResponseEntity<FeeSchedule>(accountTransformer.toFeeScheduleVo(feeSchedule), HttpStatus.OK);
+    }
+    
+    
     // ==================================================================================================== //
     // CHARGE CODE
     // ==================================================================================================== //

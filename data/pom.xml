@@ -248,7 +248,7 @@
                 <executions>
                     <execution>
                         <id>db-drop</id>
-                        <phase>initialize</phase>
+                        <phase>process-test-resources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -264,7 +264,7 @@
                     </execution>
                     <execution>
                         <id>db-seed</id>
-                        <phase>initialize</phase>
+                        <phase>process-test-resources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>

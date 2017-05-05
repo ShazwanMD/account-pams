@@ -28,6 +28,10 @@ export class MainComponent {
       title: 'Marketing',
       route: '/marketing',
       icon: 'receipt',
+    }, {
+      title: 'Setup',
+      route: '/setup',
+      icon: 'receipt',
     }
   ];
 

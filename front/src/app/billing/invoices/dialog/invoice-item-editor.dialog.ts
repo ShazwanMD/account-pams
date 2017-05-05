@@ -36,7 +36,7 @@ export class InvoiceItemEditorDialog implements OnInit {
       description: '',
       amount: 0,
       balanceAmount: 0,
-      chargeCode: {},
+      chargeCode: <ChargeCode>{},
     });
     // this.editForm.patchValue(this.invoiceItem);
   }
