@@ -99,12 +99,8 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     BillingModule.forRoot(),
     FinancialaidModule.forRoot(),
     MarketingModule.forRoot(),
-<<<<<<< HEAD
     WakjokoModule.forRoot(),
-=======
     SetupModule.forRoot(),
->>>>>>> refs/remotes/origin/master
-
   ], // modules needed to run this module
   providers: [
     appRoutingProviders,
