@@ -28,6 +28,7 @@ import {
 } from "./financialaid/index";
 import {MarketingModule, INITIAL_MARKETING_STATE, marketingModuleReducers} from "./marketing/index";
 import {IdentityModule, identityModuleReducers, IdentityModuleState, INITIAL_IDENTITY_STATE} from "./identity/index";
+import {WakjokoModule} from "./wakjoko/index";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -96,6 +97,7 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     BillingModule.forRoot(),
     FinancialaidModule.forRoot(),
     MarketingModule.forRoot(),
+    WakjokoModule.forRoot(),
 
   ], // modules needed to run this module
   providers: [
