@@ -38,7 +38,23 @@
       <md-card-subtitle>List of invoice tasks</md-card-subtitle>
 
       <pams-invoice-task-list
-        [invoiceTasks]="invoiceTasks$ | async"
+        [invoiceTasks]="assignedInvoiceTasks$ | async"
+        (view)="view($event)"></pams-invoice-task-list>
+
+      <md-divider></md-divider>
+      <md-card-actions>
+        <a md-button color="accent" class="text-upper" [routerLink]="['/invoices-search']">
+          <span>View More</span>
+        </a>
+      </md-card-actions>
+    </md-card>
+
+    <md-card class="">
+      <md-card-title>Invoices</md-card-title>
+      <md-card-subtitle>List of invoice tasks</md-card-subtitle>
+
+      <pams-invoice-task-list
+        [invoiceTasks]="pooledInvoiceTasks$ | async"
         (view)="view($event)"></pams-invoice-task-list>
 
       <md-divider></md-divider>

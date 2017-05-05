@@ -1,5 +1,5 @@
 import {Document} from "../../core/document.interface";
-import {AcademicSession} from "../../account/accounts/academic-session.interface";
+import {AcademicSession} from "../../account/academic-sessions/academic-session.interface";
 import {Account} from "../../account/accounts/account.interface";
 export interface WaiverApplication extends Document{
 

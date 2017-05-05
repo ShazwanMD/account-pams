@@ -1,17 +1,9 @@
 package my.edu.umk.pams.account.web.module.account.controller;
 
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountTransaction;
-import my.edu.umk.pams.account.account.model.AcChargeCode;
-import my.edu.umk.pams.account.account.model.AcFeeSchedule;
+import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
-import my.edu.umk.pams.account.web.module.account.vo.AcademicSession;
-import my.edu.umk.pams.account.web.module.account.vo.Account;
-import my.edu.umk.pams.account.web.module.account.vo.AccountTransaction;
-import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
-import my.edu.umk.pams.account.web.module.account.vo.FeeSchedule;
+import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
@@ -56,7 +48,6 @@ public class AccountTransformer {
         m.setDescription(e.getDescription());
         return m;
     }
-    
 
     public List<FeeSchedule> toFeeScheduleVos(List<AcFeeSchedule> e) {
         List<FeeSchedule> vos = e.stream()
@@ -103,6 +94,14 @@ public class AccountTransformer {
         return m;
     }
 
+    public FeeScheduleItem toFeeScheduleItemVo(AcFeeScheduleItem e) {
+        FeeScheduleItem m = new FeeScheduleItem();
+        m.setId(e.getId());
+        m.setAmount(e.getAmount());
+        m.setChargeCode(toChargeCodeVo(e.getChargeCode()));
+        return m;
+    }
+
     public List<Account> toAccountVos(List<AcAccount> accounts) {
         return accounts.stream()
                 .map((task) -> toAccountVo(task))
@@ -113,6 +112,11 @@ public class AccountTransformer {
         return accounts.stream()
                 .map((accountTx) -> toAccountTransactionVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountTransaction>()));
+    }
+    public List<FeeScheduleItem> toFeeScheduleItemVos(List<AcFeeScheduleItem> items) {
+        return items.stream()
+                .map((item) -> toFeeScheduleItemVo(item))
+                .collect(toCollection(() -> new ArrayList<FeeScheduleItem>()));
     }
 
     public List<AcademicSession> toAcademicSessionVos(List<AcAcademicSession> academicSessions) {

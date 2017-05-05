@@ -1,0 +1,27 @@
+<h2 md-dialog-title>Fee Schedule Creator</h2>
+<md-dialog-content>
+  <form [formGroup]="createForm">
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="code"
+               formControlName="code"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="description"
+               formControlName="description"
+               flex/>
+      </md-input-container>
+    </div>
+
+
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+</md-dialog-actions>
+

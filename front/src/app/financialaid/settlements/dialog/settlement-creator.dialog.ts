@@ -7,7 +7,7 @@ import {MdDialogRef} from "@angular/material";
 import {FinancialaidModuleState} from "../../index";
 import {SettlementActions} from "../settlement.action";
 import {Settlement} from "../settlement.interface";
-import {AcademicSession} from "../../../account/accounts/academic-session.interface";
+import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
 import {Sponsor} from "../../../identity/sponsor.interface";
 import {PromoCodeCreatorDialog} from "../../../marketing/promo-codes/dialog/promo-code-creator.dialog";
 

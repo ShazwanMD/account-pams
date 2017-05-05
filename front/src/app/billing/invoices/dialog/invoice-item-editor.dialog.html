@@ -18,12 +18,11 @@
     <div layout="row" class="pad-bottom">
       <pams-charge-code-select
         [placeholder]="'Charge Code'"
-        [innerFormControl]="editForm.controls.chargeCode"></pams-charge-code-select>
+        [innerFormControl]="editForm.controls['chargeCode']"></pams-charge-code-select>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-button color="primary" (click)="close()">Cancel</button>
   <button md-raised-button color="accent" (click)="save(editForm.value, editForm.valid)">Save</button>
 </md-dialog-actions>
 

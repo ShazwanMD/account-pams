@@ -597,7 +597,13 @@ public class CommonServiceImpl implements CommonService {
     // COHORT CODE
     //====================================================================================================
 
-	@Override
+
+    @Override
+    public AcCohortCode findCohortCodeById(Long id) {
+        return cohortCodeDao.findById(id);
+    }
+
+    @Override
 	public List<AcCohortCode> findCohortCodesByProgramCode (AcProgramCode programCode) {
 		return cohortCodeDao.findByProgramCode(programCode);
 	}

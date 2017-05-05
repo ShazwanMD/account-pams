@@ -16,8 +16,10 @@ import {InvoiceTaskCreatorDialog} from "./dialog/invoice-task-creator.dialog";
 
 export class InvoiceCenterPage implements OnInit {
 
-  private INVOICE_TASKS = "billingModuleState.invoiceTasks".split(".");
-  private invoiceTasks$: Observable<InvoiceTask[]>;
+  private ASSIGNED_INVOICE_TASKS = "billingModuleState.assignedInvoiceTasks".split(".");
+  private POOLED_INVOICE_TASKS = "billingModuleState.pooledInvoiceTasks".split(".");
+  private assignedInvoiceTasks$: Observable<InvoiceTask[]>;
+  private pooledInvoiceTasks$: Observable<InvoiceTask[]>;
   private creatorDialogRef: MdDialogRef<InvoiceTaskCreatorDialog>;
 
   constructor(private router: Router,
@@ -26,7 +28,8 @@ export class InvoiceCenterPage implements OnInit {
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
-    this.invoiceTasks$ = this.store.select(...this.INVOICE_TASKS);
+    this.assignedInvoiceTasks$ = this.store.select(...this.ASSIGNED_INVOICE_TASKS);
+    this.pooledInvoiceTasks$ = this.store.select(...this.POOLED_INVOICE_TASKS);
   }
 
   goBack(route: string): void {
@@ -44,7 +47,7 @@ export class InvoiceCenterPage implements OnInit {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '60%';
+    config.height = '65%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(InvoiceTaskCreatorDialog, config);
     this.creatorDialogRef.afterClosed().subscribe(res => {
@@ -56,6 +59,7 @@ export class InvoiceCenterPage implements OnInit {
   ngOnInit(): void {
     console.log("find assigned invoice tasks");
     this.store.dispatch(this.actions.findAssignedInvoiceTasks());
+    this.store.dispatch(this.actions.findPooledInvoiceTasks());
   }
 }
 

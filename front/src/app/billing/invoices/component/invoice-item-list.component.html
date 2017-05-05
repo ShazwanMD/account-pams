@@ -12,12 +12,13 @@
   <div layout="row"
        layout-align="start center"
        layout-wrap>
-    <md-list dense>
+    <md-list dense flex>
       <template let-item let-last="last" ngFor [ngForOf]="invoiceItems">
         <md-list-item layout-align="row" (click)="showDialog()">
           <h3 md-line>{{item.chargeCode.description}}</h3>
           <p md-line> {{item.chargeCode.code}} </p>
-          <span flex="20" class="md-body-1 tc-grey-500 text-right">{{item.amount}}</span>
+          <span flex="40" class="md-body-1 tc-grey-500 text-right">{{item.balanceAmount}}</span>
+          <span flex="40" class="md-body-1 tc-grey-500 text-right">{{item.amount}}</span>
         </md-list-item>
         <md-divider *ngIf="!last"></md-divider>
       </template>

@@ -3,13 +3,20 @@ import {Effect, Actions} from '@ngrx/effects';
 import {InvoiceActions} from "./invoice.action";
 import {from} from "rxjs/observable/from";
 import {BillingService} from "../../../services/billing.service";
+import {BillingModuleState} from "../index";
+import {Store} from "@ngrx/store";
+import 'rxjs/add/operator/withLatestFrom';
 
 
 @Injectable()
 export class InvoiceEffects {
+
+  private INVOICE_TASK = "billingModuleState.invoiceTask".split(".");
+
   constructor(private actions$: Actions,
               private invoiceActions: InvoiceActions,
-              private billingService: BillingService) {
+              private billingService: BillingService,
+              private store$: Store<BillingModuleState>) {
   }
 
   @Effect() findAssignedInvoiceTasks$ = this.actions$
@@ -51,24 +58,14 @@ export class InvoiceEffects {
   @Effect() completeInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.COMPLETE_INVOICE_TASK)
     .map(action => action.payload);
-  // todo
-    // .switchMap(invoice => this.billingService.startInvoiceTask(invoice))
-    // .map(task => this.invoiceActions.startInvoiceTaskSuccess(task));
 
   @Effect() assignInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.ASSIGN_INVOICE_TASK)
     .map(action => action.payload);
-  // todo
-    // .switchMap(invoice => this.billingService.startInvoiceTask(invoice))
-    // .map(task => this.invoiceActions.startInvoiceTaskSuccess(task));
-
 
   @Effect() releaseInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.RELEASE_INVOICE_TASK)
     .map(action => action.payload);
-  // todo
-    // .switchMap(invoice => this.billingService.startInvoiceTask(invoice))
-    // .map(task => this.invoiceActions.startInvoiceTaskSuccess(task));
 
   @Effect() updateInvoice$ = this.actions$
     .ofType(InvoiceActions.UPDATE_INVOICE)
@@ -76,9 +73,13 @@ export class InvoiceEffects {
     .switchMap(invoice => this.billingService.updateInvoice(invoice))
     .map(invoice => this.invoiceActions.updateInvoiceSuccess(invoice));
 
-  @Effect() addInvoiceItem$ = this.actions$
-    .ofType(InvoiceActions.ADD_INVOICE_ITEM)
-    .map(action => action.payload)
-    .switchMap(payload => this.billingService.addInvoiceItem(payload.invoice, payload.item))
-    .map(message => this.invoiceActions.addInvoiceItemSuccess(message));
+  @Effect() addInvoiceItem$ =
+    this.actions$
+      .ofType(InvoiceActions.ADD_INVOICE_ITEM)
+      .map(action => action.payload)
+      .switchMap(payload => this.billingService.addInvoiceItem(payload.invoice, payload.item))
+      .map(message => this.invoiceActions.addInvoiceItemSuccess(message))
+      .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
+      .map(state => state[1])
+      .map(invoice => this.invoiceActions.findInvoiceItems(invoice));
 }

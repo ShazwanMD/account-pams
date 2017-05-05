@@ -4,7 +4,7 @@ import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
-import {AcademicSession} from "../../../account/accounts/academic-session.interface";
+import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
 import {Account} from "../../../account/accounts/account.interface";
 import {ReceiptActions} from "../receipt.action";
 import {BillingModuleState} from "../../index";

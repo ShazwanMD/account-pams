@@ -1,16 +1,17 @@
 package my.edu.umk.pams.account.web.module.account.vo;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
+
+import java.io.IOException;
 
 public class FeeSchedule {
-
 
     private Long id;
     private String code;
     private String description;
+    private CohortCode cohortCode;
 
     public Long getId() {
         return id;
@@ -36,6 +37,14 @@ public class FeeSchedule {
         this.description = description;
     }
 
+    public CohortCode getCohortCode() {
+        return cohortCode;
+    }
+
+    public void setCohortCode(CohortCode cohortCode) {
+        this.cohortCode = cohortCode;
+    }
+
     @JsonCreator
     public static FeeSchedule create(String jsonString) {
     	FeeSchedule o = null;
@@ -48,5 +57,4 @@ public class FeeSchedule {
         return o;
     }
 
-	
 }

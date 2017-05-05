@@ -2,7 +2,6 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../app.routes';
-import {environment} from '../../../environments/environment';
 
 import {CovalentCoreModule} from '@covalent/core';
 

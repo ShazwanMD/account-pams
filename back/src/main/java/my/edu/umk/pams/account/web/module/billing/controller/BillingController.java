@@ -22,7 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -85,33 +84,38 @@ public class BillingController {
         return new ResponseEntity<Invoice>(billingTransformer.toInvoiceVo(invoice), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/invoices/{referenceNo:.+}/invoiceItems", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.GET)
     public ResponseEntity<List<InvoiceItem>> findInvoiceItems(@PathVariable String referenceNo) {
         dummyLogin();
-        String decode = URLDecoder.decode(referenceNo);
-        LOG.debug("decoded: {}", decode);
-        AcInvoice invoice = billingService.findInvoiceByReferenceNo(decode);
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         return new ResponseEntity<List<InvoiceItem>>(billingTransformer
                 .toInvoiceItemVos(billingService.findInvoiceItems(invoice)), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.POST)
+    public void addInvoiceItem(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
+        dummyLogin();
+
+        LOG.debug("referenceNo: {}", referenceNo);
+        LOG.debug("chargeCode: {}", item.getChargeCode().getCode());
+
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        AcInvoiceItem e = new AcInvoiceItemImpl();
+        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setAmount(item.getAmount());
+        e.setDescription(item.getDescription());
+        billingService.addInvoiceItem(invoice, e);
+    }
+
+    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.PUT)
     public void updateInvoiceItems(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
         dummyLogin();
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-        if (null == item.getId()) { // new
-            AcInvoiceItem e = new AcInvoiceItemImpl();
-            e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
-            e.setAmount(item.getAmount());
-            e.setDescription(item.getDescription());
-            billingService.addInvoiceItem(invoice, e);
-        } else { // update
-            AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
-            e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
-            e.setAmount(item.getAmount());
-            e.setDescription(item.getDescription());
-            billingService.updateInvoiceItem(invoice, e);
-        }
+        AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
+        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setAmount(item.getAmount());
+        e.setDescription(item.getDescription());
+        billingService.updateInvoiceItem(invoice, e);
     }
 
     @RequestMapping(value = "/invoices/assignedTasks", method = RequestMethod.GET)
@@ -185,12 +189,10 @@ public class BillingController {
         return new ResponseEntity<Receipt>(billingTransformer.toReceiptVo(receipt), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/receipts/{referenceNo:.+}/receiptItems", method = RequestMethod.GET)
+    @RequestMapping(value = "/receipts/{referenceNo}/receiptItems", method = RequestMethod.GET)
     public ResponseEntity<List<ReceiptItem>> findReceiptItems(@PathVariable String referenceNo) {
         dummyLogin();
-        String decode = URLDecoder.decode(referenceNo);
-        LOG.debug("decoded: {}", decode);
-        AcReceipt receipt = billingService.findReceiptByReferenceNo(decode);
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         return new ResponseEntity<List<ReceiptItem>>(billingTransformer
                 .toReceiptItemVos(billingService.findReceiptItems(receipt)), HttpStatus.OK);
     }

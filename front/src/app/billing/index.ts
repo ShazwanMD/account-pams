@@ -10,7 +10,6 @@ import {IdentityService} from '../../services';
 
 import {BillingPage} from "./billing.page";
 import {BillingService} from "../../services/billing.service";
-import {InvoiceTaskListState, invoiceTaskListReducer} from "./invoices/invoice-task-list.reducer";
 import {InvoiceTaskState, invoiceTaskReducer} from "./invoices/invoice-task.reducer";
 import {InvoiceState, invoiceReducer} from "./invoices/invoice.reducer";
 import {InvoiceSubModule} from "./invoices/index";
@@ -18,18 +17,28 @@ import {InvoiceTask} from "./invoices/invoice-task.interface";
 import {Invoice} from "./invoices/invoice.interface";
 import {receiptTaskReducer, ReceiptTaskState} from "./receipts/receipt-task.reducer";
 import {receiptReducer, ReceiptState} from "./receipts/receipt.reducer";
-import {receiptTaskListReducer, ReceiptTaskListState} from "./receipts/receipt-task-list.reducer";
 import {ReceiptSubModule} from "./receipts/index";
 import {ReceiptTask} from "./receipts/receipt-task.interface";
 import {Receipt} from "./receipts/receipt.interface";
 import {invoiceItemListReducer, InvoiceItemListState} from "./invoices/invoice-item-list.reducer";
+import {
+  assignedInvoiceTaskListReducer,
+  InvoiceTaskListState,
+  pooledInvoiceTaskListReducer
+} from "./invoices/invoice-task-list.reducer";
+import {
+  assignedReceiptTaskListReducer, pooledReceiptTaskListReducer,
+  ReceiptTaskListState
+} from "./receipts/receipt-task-list.reducer";
 
 export interface BillingModuleState {
-  invoiceTasks: InvoiceTaskListState;
+  assignedInvoiceTasks: InvoiceTaskListState;
+  pooledInvoiceTasks: InvoiceTaskListState;
   invoiceTask: InvoiceTaskState;
   invoice: InvoiceState;
   invoiceItems: InvoiceItemListState;
-  receiptTasks: ReceiptTaskListState;
+  assignedReceiptTasks: ReceiptTaskListState;
+  pooledReceiptTasks: ReceiptTaskListState;
   receiptTask: ReceiptTaskState;
   receipt: ReceiptState;
 }
@@ -37,21 +46,25 @@ export interface BillingModuleState {
 
 export const INITIAL_BILLING_STATE: BillingModuleState =
   <BillingModuleState>{
-    invoiceTasks: [],
+    assignedInvoiceTasks: [],
+    pooledInvoiceTasks: [],
     invoiceTask: <InvoiceTask>{},
     invoice: <Invoice>{},
     invoiceItems: [],
-    receiptTasks: [],
+    assignedReceiptTasks: [],
+    pooledReceiptTasks: [],
     receiptTask: <ReceiptTask>{},
     receipt: <Receipt>{}
   };
 
 export const billingModuleReducers = {
-  invoiceTasks: invoiceTaskListReducer,
+  assignedInvoiceTasks: assignedInvoiceTaskListReducer,
+  pooledInvoiceTasks: pooledInvoiceTaskListReducer,
   invoiceTask: invoiceTaskReducer,
   invoices: invoiceReducer,
   invoiceItems: invoiceItemListReducer,
-  receiptTasks: receiptTaskListReducer,
+  assignedReceiptTasks: assignedReceiptTaskListReducer,
+  pooledReceiptTasks: pooledReceiptTaskListReducer,
   receiptTask: receiptTaskReducer,
   receipts: receiptReducer
 };

@@ -16,8 +16,10 @@ import {MdDialogRef, MdDialog, MdDialogConfig} from "@angular/material";
 
 export class ReceiptCenterPage implements OnInit {
 
-  private RECEIPT_TASKS = "billingModuleState.receiptTasks".split(".");
-  private receiptTasks$: Observable<ReceiptTask[]>;
+  private ASSIGNED_RECEIPT_TASKS = "billingModuleState.assignedReceiptTasks".split(".");
+  private POOLED_RECEIPT_TASKS = "billingModuleState.pooledReceiptTasks".split(".");
+  private assignedReceiptTasks$: Observable<ReceiptTask[]>;
+  private pooledReceiptTasks$: Observable<ReceiptTask[]>;
   private creatorDialogRef: MdDialogRef<ReceiptTaskCreatorDialog>;
 
   constructor(private router: Router,
@@ -26,7 +28,8 @@ export class ReceiptCenterPage implements OnInit {
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
-    this.receiptTasks$ = this.store.select(...this.RECEIPT_TASKS);
+    this.assignedReceiptTasks$ = this.store.select(...this.ASSIGNED_RECEIPT_TASKS);
+    this.pooledReceiptTasks$ = this.store.select(...this.POOLED_RECEIPT_TASKS);
   }
 
   goBack(route: string): void {

@@ -41,16 +41,4 @@ export class AccountEffects {
     .map(action => action.payload)
     .switchMap(account => this.accountService.updateAccount(account))
     .map(account => this.accountActions.updateAccountSuccess(account));
-
-  // @Effect() createAccount = this.actions$
-  //   .ofType(AccountActions.CREATE_ACCOUNT)
-  //   .map(action => action.payload)
-  //   .switchMap(account => this.accountService.saveAccount(account))
-  //   .map(account => this.accountActions.addAccountSuccess(account));
-  //
-  // @Effect() deleteAccount$ = this.actions$
-  //   .ofType(AccountActions.DELETE_ACCOUNT)
-  //   .map(action => action.payload)
-  //   .switchMap(account => this.accountService.deleteAccount(account))
-  //   .map(account => this.accountActions.deleteAccountSuccess(account));
 }

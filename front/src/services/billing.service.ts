@@ -40,14 +40,12 @@ export class BillingService {
   }
 
   findInvoiceByReferenceNo(referenceNo: string): Observable<Invoice> {
-    console.log("encoded uri: " + encodeURI(referenceNo))
-    return this.http.get(environment.endpoint + '/api/billing/invoices/' + encodeURI(referenceNo))
+    return this.http.get(environment.endpoint + '/api/billing/invoices/' + referenceNo)
       .map((res: Response) => <Invoice>res.json());
   }
 
   findInvoiceByTaskId(taskId: string): Observable<Invoice> {
-    console.log("encoded uri: " + encodeURI(taskId))
-    return this.http.get(environment.endpoint + '/api/billing/invoices/' + encodeURI(taskId))
+    return this.http.get(environment.endpoint + '/api/billing/invoices/' + taskId)
       .map((res: Response) => <Invoice>res.json());
   }
 
@@ -73,7 +71,12 @@ export class BillingService {
   }
 
   addInvoiceItem(invoice: Invoice, item: InvoiceItem): Observable<String> {
-    return this.http.post(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/invoiceItems' , JSON.stringify(invoice))
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/invoiceItems' , JSON.stringify(item), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 

@@ -6,16 +6,18 @@ export type WaiverApplicationTaskListState = WaiverApplicationTask[];
 
 const initialState: WaiverApplicationTaskListState = <WaiverApplicationTask[]>[];
 
-export function waiverApplicationTaskListReducer(state = initialState, action: Action): WaiverApplicationTaskListState {
+export function assignedWaiverApplicationTaskListReducer(state = initialState, action: Action): WaiverApplicationTaskListState {
   switch (action.type) {
     case WaiverApplicationActions.FIND_ASSIGNED_WAIVER_APPLICATION_TASKS_SUCCESS: {
       return action.payload;
     }
+  }
+}
+
+export function pooledWaiverApplicationTaskListReducer(state = initialState, action: Action): WaiverApplicationTaskListState {
+  switch (action.type) {
     case WaiverApplicationActions.FIND_POOLED_WAIVER_APPLICATION_TASKS_SUCCESS: {
       return action.payload;
-    }
-    default: {
-      return state;
     }
   }
 }

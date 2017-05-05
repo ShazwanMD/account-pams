@@ -8,6 +8,10 @@ import {InvoiceItem} from "../invoice-item.interface";
 import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
 import {PromoCodeCreatorDialog} from "../../../marketing/promo-codes/dialog/promo-code-creator.dialog";
 import {MdDialogRef} from "@angular/material";
+import {BillingModuleState} from "../../index";
+import {Store} from "@ngrx/store";
+import {InvoiceActions} from "../invoice.action";
+import {Invoice} from "../invoice.interface";
 
 
 @Component({
@@ -18,16 +22,24 @@ import {MdDialogRef} from "@angular/material";
 export class InvoiceItemEditorDialog implements OnInit {
 
   private editForm: FormGroup;
+  private _invoiceItem: InvoiceItem;
+  private _invoice: Invoice;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private viewContainerRef: ViewContainerRef,
+              private store: Store<BillingModuleState>,
+              private actions:InvoiceActions,
               private dialog: MdDialogRef<InvoiceItemEditorDialog>) {
   }
 
   set invoiceItem(value: InvoiceItem) {
-    this.invoiceItem = value;
+    this._invoiceItem = value;
+  }
+
+  set invoice(value: Invoice) {
+    this._invoice = value;
   }
 
   ngOnInit(): void {
@@ -41,11 +53,10 @@ export class InvoiceItemEditorDialog implements OnInit {
     // this.editForm.patchValue(this.invoiceItem);
   }
 
-  // save(invoice: Invoice, isValid: boolean) {
-  //   this.submitted = true; // set form submit to true
-  //   this._invoiceService.startInvoiceTask(invoice).subscribe(res => {
-  //   });
-  // }
+  save(item: InvoiceItem, isValid: boolean) {
+    this.store.dispatch(this.actions.addInvoiceItem(this._invoice, item))
+    this.close();
+  }
 
   close(): void {
     this.dialog.close();

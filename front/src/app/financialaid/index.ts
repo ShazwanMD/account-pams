@@ -2,7 +2,6 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../app.routes';
-import {environment} from '../../environments/environment';
 
 import {CovalentCoreModule} from '@covalent/core';
 
@@ -11,38 +10,51 @@ import {IdentityService} from '../../services';
 
 import {FinancialaidPage} from "./financialaid.page";
 import {FinancialaidService} from "../../services/financialaid.service";
-import {ActionReducer, combineReducers} from "@ngrx/store";
 import {WaiverApplicationSubModule} from "./waiver-applications/index";
 import {SettlementSubModule} from "./settlements/index";
 import {SettlementState, settlementReducer} from "./settlements/settlement.reducer";
 import {SettlementListState, settlementListReducer} from "./settlements/settlement-list.reducer";
 import {WaiverApplicationState, waiverApplicationReducer} from "./waiver-applications/waiver-application.reducer";
 import {
+  assignedWaiverApplicationTaskListReducer,
+  pooledWaiverApplicationTaskListReducer,
   WaiverApplicationTaskListState,
-  waiverApplicationTaskListReducer
 } from "./waiver-applications/waiver-application-task-list.reducer";
 
 import {
   WaiverApplicationTaskState,
   waiverApplicationTaskReducer
 } from "./waiver-applications/waiver-application-task.reducer";
+import {WaiverApplicationTask} from "./waiver-applications/waiver-application-task.interface";
 
 export interface FinancialaidModuleState {
-  waiverApplicationTasks: WaiverApplicationTaskListState;
+  assignedWaiverApplicationTasks: WaiverApplicationTaskListState;
+  pooledWaiverApplicationTasks: WaiverApplicationTaskListState;
   waiverApplicationTask: WaiverApplicationTaskState;
   waiverApplication: WaiverApplicationState;
   settlements: SettlementListState;
   settlement: SettlementState;
-};
+}
+;
 
-export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState = <FinancialaidModuleState>{};
+export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState =
+  <FinancialaidModuleState>{
+    assignedWaiverApplicationTasks: <WaiverApplicationTask[]>[],
+    pooledWaiverApplicationTasks: <WaiverApplicationTask[]>[],
+    waiverApplicationTask: {},
+    waiverApplication:{},
+    settlements: [],
+    settlement: {}
+  };
+
 export const financialaidModuleReducers = {
-   waiverApplicationTasks:waiverApplicationTaskListReducer,
-   waiverApplicationTask:waiverApplicationTaskReducer,
-   waiverApplications:waiverApplicationReducer,
-   settlements:settlementListReducer,
-   settlement:settlementReducer
- };
+  assignedWaiverApplicationTasks: assignedWaiverApplicationTaskListReducer,
+  pooledWaiverApplicationTasks: pooledWaiverApplicationTaskListReducer,
+  waiverApplicationTask: waiverApplicationTaskReducer,
+  waiverApplication: waiverApplicationReducer,
+  settlements: settlementListReducer,
+  settlement: settlementReducer
+};
 
 @NgModule({
   imports: [

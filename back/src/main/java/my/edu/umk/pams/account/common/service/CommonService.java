@@ -238,7 +238,9 @@ public interface CommonService {
     //====================================================================================================
     // COHORT CODE
     //====================================================================================================
-    
+
+    AcCohortCode findCohortCodeById(Long id);
+
     List<AcCohortCode> findCohortCodesByProgramCode (AcProgramCode programCode);
 
 }

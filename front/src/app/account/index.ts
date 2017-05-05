@@ -2,7 +2,6 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../app.routes';
-import {combineReducers, ActionReducer} from "@ngrx/store";
 
 import {CovalentCoreModule} from '@covalent/core';
 
@@ -15,36 +14,60 @@ import {AccountSubModule} from "./accounts/index";
 import {AccountListState, accountListReducer} from "./accounts/account-list.reducer";
 import {accountReducer, AccountState} from "./accounts/account.reducer";
 import {AccountTransactionListState, accountTransactionListReducer} from "./accounts/account-transaction-list.reducer";
-import {AccountComboBoxComponent} from "./accounts/component/account-combo-box.component";
 import {IdentityModule} from "../identity/index";
 import {chargeCodeReducer, ChargeCodeState} from "./charge-codes/charge-code.reducer";
 import {chargeCodeListReducer, ChargeCodeListState} from "./charge-codes/charge-code-list.reducer";
 import {ChargeCodeSubModule} from "./charge-codes/index";
+import {
+  academicSessionListReducer,
+  AcademicSessionListState
+} from "./academic-sessions/component/academic-session-list.reducer";
+import {academicSessionReducer, AcademicSessionState} from "./academic-sessions/academic-session.reducer";
+import {AcademicSessionSubModule} from "./academic-sessions/index";
+import {FeeScheduleSubModule} from "./fee-schedules/index";
+import {feeScheduleReducer, FeeScheduleState} from "./fee-schedules/fee-schedule.reducer";
+import {feeScheduleItemListReducer, FeeScheduleItemListState} from "./fee-schedules/fee-schedule-item-list.reducer";
+import {feeScheduleListReducer, FeeScheduleListState} from "./fee-schedules/fee-schedule-list.reducer";
 
 export interface AccountModuleState {
+  academicSessions: AcademicSessionListState;
+  academicSession: AcademicSessionState;
   accounts: AccountListState;
   account: AccountState;
   accountTransactions: AccountTransactionListState
-  chargeCode: ChargeCodeState
-  chargeCodes: ChargeCodeListState
+  chargeCode: ChargeCodeState;
+  chargeCodes: ChargeCodeListState;
+  feeSchedules: FeeScheduleListState;
+  feeSchedule: FeeScheduleState;
+  feeScheduleItems: FeeScheduleItemListState;
 }
 ;
 
 export const INITIAL_ACCOUNT_STATE: AccountModuleState =
   <AccountModuleState>{
+    academicSessions: [],
+    academicSession: {},
     accounts: [],
     account: {},
     accountTransactions: [],
     chargeCodes: [],
-    chargeCode: {}
+    chargeCode: {},
+    feeSchedules:[],
+    feeSchedule:{},
+    feeScheduleItems:[],
   };
 
 export const accountModuleReducers = {
+  academicSessions: academicSessionListReducer,
+  academicSession: academicSessionReducer,
   accounts: accountListReducer,
   account: accountReducer,
   accountTransactions: accountTransactionListReducer,
   chargeCodes: chargeCodeListReducer,
   chargeCode: chargeCodeReducer,
+  feeSchedules: feeScheduleListReducer,
+  feeSchedule: feeScheduleReducer,
+  feeScheduleItems:feeScheduleItemListReducer,
 };
 
 @NgModule({
@@ -55,6 +78,9 @@ export const accountModuleReducers = {
     CovalentCoreModule.forRoot(),
     AccountSubModule.forRoot(),
     ChargeCodeSubModule.forRoot(),
+    AccountSubModule.forRoot(),
+    AcademicSessionSubModule.forRoot(),
+    FeeScheduleSubModule.forRoot(),
     IdentityModule.forRoot(),
   ],
   declarations: [

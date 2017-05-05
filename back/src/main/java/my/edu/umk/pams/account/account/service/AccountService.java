@@ -95,6 +95,12 @@ public interface AccountService {
 
     void deleteFeeSchedule(AcFeeSchedule schedule);
 
+    void addFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item);
+
+    void updateFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item);
+
+    void deleteFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item);
+
     // ==================================================================================================== //
     // ACCOUNT
     // ==================================================================================================== //

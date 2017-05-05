@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BillingModuleState} from "../../index";
 import {Store} from "@ngrx/store";
 import {InvoiceActions} from "../invoice.action";
+import {Invoice} from "../invoice.interface";
 
 @Component({
   selector: 'pams-invoice-item-list',
@@ -13,6 +14,7 @@ import {InvoiceActions} from "../invoice.action";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceItemComponent {
+  @Input() invoice: Invoice;
   @Input() invoiceItems: InvoiceItem[];
   private editorDialogRef: MdDialogRef<InvoiceItemEditorDialog>;
 
@@ -34,9 +36,11 @@ export class InvoiceItemComponent {
     config.height = '60%';
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(InvoiceItemEditorDialog, config);
+    this.editorDialogRef.componentInstance.invoice = this.invoice;
+
+    // close
     this.editorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
-      // load something here
+      // do something
     });
   }
 }

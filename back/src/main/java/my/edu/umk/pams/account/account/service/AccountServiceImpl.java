@@ -246,6 +246,24 @@ public class AccountServiceImpl implements AccountService {
         sessionFactory.getCurrentSession().flush();
     }
 
+    @Override
+    public void addFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item) {
+        feeScheduleDao.addItem(schedule, item, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item) {
+        feeScheduleDao.updateItem(schedule, item, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void deleteFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item) {
+        feeScheduleDao.deleteItem(schedule, item, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
     // ==================================================================================================== //
     // ACCOUNT
     // ==================================================================================================== //

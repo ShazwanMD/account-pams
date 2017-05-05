@@ -16,11 +16,11 @@ export class AccountSelectComponent implements OnInit {
   private ACCOUNTS = "accountModuleState.accounts".split(".");
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
-  programLevels$: Observable<Account[]>;
+  private accounts$: Observable<Account[]>;
 
   constructor(private store: Store<AccountModuleState>,
               private actions: AccountActions) {
-    this.programLevels$ = this.store.select(...this.ACCOUNTS);
+    this.accounts$ = this.store.select(...this.ACCOUNTS);
   }
 
   ngOnInit() {

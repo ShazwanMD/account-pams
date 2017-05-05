@@ -19,17 +19,21 @@
                flex/>
       </md-input-container>
     </div>
-      <div layout="row" class="pad-bottom pad-top">
-        <md-select formControlName="account"  placeholder="account" style="width: 100%">
-          <md-option *ngFor="let account of accounts" [value]="account">
-            {{account.code}}: {{account.name}}
-          </md-option>
-        </md-select>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-account-select
+        [placeholder]="'Select Account'"
+        [innerFormControl]="createForm.controls['account']">
+      </pams-account-select>
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-academic-session-select
+        [placeholder]="'Select Session'"
+        [innerFormControl]="createForm.controls['academicSession']">
+      </pams-academic-session-select>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-button color="primary" (click)="goBack()">Back</button>
   <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
 </md-dialog-actions>
 

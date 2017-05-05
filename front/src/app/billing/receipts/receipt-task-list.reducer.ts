@@ -6,16 +6,18 @@ export type ReceiptTaskListState = ReceiptTask[];
 
 const initialState: ReceiptTaskListState = <ReceiptTask[]>[];
 
-export function receiptTaskListReducer(state = initialState, action: Action): ReceiptTaskListState {
+export function assignedReceiptTaskListReducer(state = initialState, action: Action): ReceiptTaskListState {
   switch (action.type) {
     case ReceiptActions.FIND_ASSIGNED_RECEIPT_TASKS_SUCCESS: {
       return action.payload;
     }
+  }
+}
+
+export function pooledReceiptTaskListReducer(state = initialState, action: Action): ReceiptTaskListState {
+  switch (action.type) {
     case ReceiptActions.FIND_POOLED_RECEIPT_TASKS_SUCCESS: {
       return action.payload;
-    }
-    default: {
-      return state;
     }
   }
 }

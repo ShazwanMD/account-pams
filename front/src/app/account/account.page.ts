@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {FeeSchedule} from './accounts/fee-schedule.interface'
+import {FeeSchedule} from './fee-schedules/fee-schedule.interface'
 
 import {IdentityService} from '../../services';
 import {AccountService} from "../../services/account.service";

@@ -24,6 +24,7 @@ import {AccountSubModule} from "../../account/accounts/index";
 import {AccountService} from "../../../services/account.service";
 import {InvoiceItemComponent} from "./component/invoice-item-list.component";
 import {ChargeCodeSubModule} from "../../account/charge-codes/index";
+import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {ChargeCodeSubModule} from "../../account/charge-codes/index";
     CovalentCoreModule.forRoot(),
     EffectsModule.run(InvoiceEffects),
     AccountSubModule.forRoot(),
+    AcademicSessionSubModule.forRoot(),
     ChargeCodeSubModule.forRoot(),
   ],
   declarations: [

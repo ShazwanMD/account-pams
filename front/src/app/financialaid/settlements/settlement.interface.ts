@@ -1,5 +1,5 @@
 import {Sponsor} from "../../identity/sponsor.interface";
-import {AcademicSession} from "../../account/accounts/academic-session.interface";
+import {AcademicSession} from "../../account/academic-sessions/academic-session.interface";
 export interface Settlement {
 
   referenceNo:string;

@@ -171,6 +171,7 @@ export class InvoiceActions {
   static FIND_INVOICE_ITEMS = '[Invoice] Find Invoice Items';
 
   findInvoiceItems(invoice): Action {
+    console.log("findInvoiceItems for invoice: " + invoice);
     return {
       type: InvoiceActions.FIND_INVOICE_ITEMS,
       payload: invoice
