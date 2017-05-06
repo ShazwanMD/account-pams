@@ -1,0 +1,17 @@
+<md-card>
+  <md-card-title>Account Activities</md-card-title>
+  <md-card-subtitle>List of account activities</md-card-subtitle>
+  <md-divider></md-divider>
+  <md-list dense>
+    <template let-transaction let-last="last" ngFor [ngForOf]="transactions">
+      <md-list-item layout-align="row">
+        <h3 md-line>{{transaction.sourceNo}}</h3>
+        <p md-line> {{transaction.chargeCode.code}} </p>
+        <span flex="50" class="md-body-1 text-right">{{transaction.session.code}}</span>
+        <span flex="30" class="md-body-1 text-right">{{transaction.postedDate}}</span>
+        <span flex="30" class="md-body-1 text-right">{{transaction.amount | currency:'MYR':true:'1.2-2'}}</span>
+      </md-list-item>
+      <md-divider *ngIf="!last"></md-divider>
+    </template>
+  </md-list>
+</md-card>

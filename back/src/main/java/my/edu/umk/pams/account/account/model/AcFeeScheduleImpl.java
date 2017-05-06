@@ -33,7 +33,7 @@ public class AcFeeScheduleImpl implements AcFeeSchedule {
 
     @NotNull
     @OneToOne(targetEntity = AcCohortCodeImpl.class)
-    @JoinColumn(name = "COHORT_CODE_ID")
+    @JoinColumn(name = "COHORT_CODE_ID", nullable = false)
     private AcCohortCode cohortCode;
 
     @Embedded

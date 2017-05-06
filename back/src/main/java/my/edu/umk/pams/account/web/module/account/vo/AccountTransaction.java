@@ -1,7 +1,10 @@
 package my.edu.umk.pams.account.web.module.account.vo;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -73,4 +76,17 @@ public class AccountTransaction extends MetaObject{
     public void setSession(AcademicSession session) {
         this.session = session;
     }
+
+    @JsonCreator
+    public static AccountTransaction create(String jsonString) {
+        AccountTransaction o = null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            o = mapper.readValue(jsonString, AccountTransaction.class);
+        } catch (IOException e) {
+            // handle
+        }
+        return o;
+    }
+
 }

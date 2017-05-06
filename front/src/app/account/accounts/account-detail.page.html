@@ -8,7 +8,8 @@
     <div layout="column" layout-gt-md="row" class="inset">
       <div flex-gt-md="70">
         <pams-account [account]="account$ | async"></pams-account>
-        <pams-account-activity  [transactions]="accountTransactions$ | async"></pams-account-activity>
+        <pams-account-activity-list  [transactions]="accountTransactions$ | async"></pams-account-activity-list>
+        <pams-account-charge-list  [transactions]="accountTransactions$ | async"></pams-account-charge-list>
       </div>
 
       <div flex-gt-md="30">

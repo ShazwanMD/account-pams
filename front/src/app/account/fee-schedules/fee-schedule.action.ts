@@ -58,6 +58,7 @@ export class FeeScheduleActions {
 
   static SAVE_FEE_SCHEDULE = '[FeeSchedule] Save FeeSchedule';
   saveFeeSchedule(feeSchedule): Action {
+    console.log("saveFeeSchedule");
     return {
       type: FeeScheduleActions.SAVE_FEE_SCHEDULE,
       payload: feeSchedule

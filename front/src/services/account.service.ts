@@ -41,6 +41,7 @@ export class AccountService {
   }
 
   saveFeeSchedule(feeSchedule: FeeSchedule): Observable<String> {
+    console.log("saveFeeSchedule");
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token

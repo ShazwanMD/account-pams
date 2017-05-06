@@ -4,14 +4,6 @@
     <span flex></span>
   </div>
 
-  <md-nav-list menu-items>
-    <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="layout.close()">
-      <md-icon>{{item.icon}}</md-icon>
-      {{item.title}}
-    </a>
-  </md-nav-list>
-
-
   <td-layout-manage-list #list>
     <md-nav-list list-items>
       <a md-list-item (click)="showDialog()">
@@ -30,23 +22,20 @@
       </button>
     </div>
 
-    <div layout="row" layout-wrap>
-    </div>
-
-    <md-card class="">
-      <md-card-title>Receipts</md-card-title>
-      <md-card-subtitle>List of receipt tasks</md-card-subtitle>
-
-      <pams-receipt-task-list
-        [receiptTasks]="receiptTasks$ | async"
-        (view)="view($event)"></pams-receipt-task-list>
-
-      <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/receipts-search']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
+    <md-card>
+      <md-tab-group [selectedIndex]="0">
+        <md-tab label="Assigned">
+          <pams-receipt-task-list
+            [receiptTasks]="assignedReceiptTasks$ | async"
+            (view)="view($event)"></pams-receipt-task-list>
+        </md-tab>
+        <md-tab label="Pooled">
+          <pams-receipt-task-list
+            [receiptTasks]="pooledReceiptTasks$ | async"
+            (view)="view($event)"></pams-receipt-task-list>
+        </md-tab>
+      </md-tab-group>
     </md-card>
+
   </td-layout-manage-list>
 </td-layout-nav>

@@ -38,8 +38,9 @@ export class FeeScheduleEffects {
   @Effect() saveFeeSchedule$ = this.actions$
     .ofType(FeeScheduleActions.SAVE_FEE_SCHEDULE)
     .map(action => action.payload)
-    .switchMap(account => this.accountService.saveFeeSchedule(account))
-    .map(account => this.feeScheduleActions.saveFeeScheduleSuccess(account));
+    .switchMap(feeSchedule => this.accountService.saveFeeSchedule(feeSchedule))
+    .map(message => this.feeScheduleActions.saveFeeScheduleSuccess(message))
+    .mergeMap(action => from([action, this.feeScheduleActions.findFeeSchedules()]));
 
   @Effect() updateFeeSchedule$ = this.actions$
     .ofType(FeeScheduleActions.UPDATE_FEE_SCHEDULE)

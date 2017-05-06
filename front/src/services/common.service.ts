@@ -19,13 +19,13 @@ export class CommonService {
 
   findCohortCodes(): Observable<CohortCode[]> {
     console.log("findCohortCodes");
-    return this.http.get(environment.endpoint + '/api/common/programCodes')
+    return this.http.get(environment.endpoint + '/api/common/cohortCodes')
       .map((res: Response) => <CohortCode[]>res.json());
   }
 
   findCohortCodeByCode(code: string): Observable<CohortCode> {
     console.log("findCohortCodeByCode");
-    return this.http.get(environment.endpoint + '/api/common/programCodes/' + code)
+    return this.http.get(environment.endpoint + '/api/common/cohortCodes/' + code)
       .map((res: Response) => <CohortCode>res.json());
   }
 

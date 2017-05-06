@@ -4,14 +4,6 @@
     <span flex></span>
   </div>
 
-  <md-nav-list menu-items>
-    <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="layout.close()">
-      <md-icon>{{item.icon}}</md-icon>
-      {{item.title}}
-    </a>
-  </md-nav-list>
-
-
   <td-layout-manage-list #list>
     <md-nav-list list-items>
       <a md-list-item (click)="showDialog()">
@@ -30,39 +22,20 @@
       </button>
     </div>
 
-    <div layout="row" layout-wrap>
-    </div>
-
-    <md-card class="">
-      <md-card-title>Invoices</md-card-title>
-      <md-card-subtitle>List of invoice tasks</md-card-subtitle>
-
-      <pams-invoice-task-list
-        [invoiceTasks]="assignedInvoiceTasks$ | async"
-        (view)="view($event)"></pams-invoice-task-list>
-
-      <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/invoices-search']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
+    <md-card>
+      <md-tab-group [selectedIndex]="0">
+        <md-tab label="Assigned">
+          <pams-invoice-task-list
+            [invoiceTasks]="assignedInvoiceTasks$ | async"
+            (view)="view($event)"></pams-invoice-task-list>
+        </md-tab>
+        <md-tab label="Pooled">
+          <pams-invoice-task-list
+            [invoiceTasks]="pooledInvoiceTasks$ | async"
+            (view)="view($event)"></pams-invoice-task-list>
+        </md-tab>
+      </md-tab-group>
     </md-card>
 
-    <md-card class="">
-      <md-card-title>Invoices</md-card-title>
-      <md-card-subtitle>List of invoice tasks</md-card-subtitle>
-
-      <pams-invoice-task-list
-        [invoiceTasks]="pooledInvoiceTasks$ | async"
-        (view)="view($event)"></pams-invoice-task-list>
-
-      <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/invoices-search']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
-    </md-card>
   </td-layout-manage-list>
 </td-layout-nav>

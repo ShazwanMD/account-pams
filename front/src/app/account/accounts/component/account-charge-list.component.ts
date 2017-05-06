@@ -2,10 +2,10 @@ import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@
 import {AccountTransaction} from "../account-transaction.interface";
 
 @Component({
-  selector: 'pams-account-activity',
-  templateUrl: './account-activity.component.html',
+  selector: 'pams-account-charge-list',
+  templateUrl: './account-charge-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountActivityComponent {
+export class AccountChargeListComponent {
   @Input() transactions: AccountTransaction[];
 }

@@ -34,18 +34,15 @@ export class FeeScheduleCreatorDialog implements OnInit {
       id: null,
       code: '',
       description: '',
-      cohortCode:<CohortCode>{},
+      cohortCode: <CohortCode>{},
       // todo: studyMode
       // todo: localityCode
     });
   }
 
-  save(feeSchedule: FeeSchedule, isValid: boolean):void {
+  save(feeSchedule: FeeSchedule, isValid: boolean): void {
+    console.log("saving fee");
     this.store.dispatch(this.actions.saveFeeSchedule(feeSchedule));
-    this.close();
-  }
-
-  close():void {
     this.dialog.close();
   }
 }

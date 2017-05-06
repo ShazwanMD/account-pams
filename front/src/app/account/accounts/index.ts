@@ -15,12 +15,13 @@ import {AccountCenterPage} from "./account-center.page";
 import {AccountListComponent} from "./component/account-list.component";
 import {AccountDetailPage} from "./account-detail.page";
 import {AccountComponent} from "./component/account.component";
-import {AccountActivityComponent} from "./component/account-activity.component";
 import {AccountStatusComponent} from "./component/account-status.component";
 import {AccountComboBoxComponent} from "./component/account-combo-box.component";
 import {AccountSelectComponent} from "./component/account-select.component";
 import {AccountCreatorDialog} from "./dialog/account-creator.dialog";
 import {IdentityModule} from "../../identity/index";
+import {AccountActivityListComponent} from "./component/account-activity-list.component";
+import {AccountChargeListComponent} from "./component/account-charge-list.component";
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {IdentityModule} from "../../identity/index";
     AccountListComponent,
     AccountComponent,
     AccountStatusComponent,
-    AccountActivityComponent,
+    AccountActivityListComponent,
+    AccountChargeListComponent,
     AccountComboBoxComponent,
     AccountSelectComponent,
     AccountCreatorDialog,

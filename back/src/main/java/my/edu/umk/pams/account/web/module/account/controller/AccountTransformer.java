@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.web.module.account.vo.*;
+import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
@@ -33,11 +34,15 @@ public class AccountTransformer {
     @Autowired
     private IdentityTransformer identityTransformer;
 
+    @Autowired
+    private CommonTransformer commonTransformer;
+
     public FeeSchedule toFeeScheduleVo(AcFeeSchedule e) {
     	FeeSchedule m = new FeeSchedule();
         m.setId(e.getId());
         m.setCode(e.getCode());
         m.setDescription(e.getDescription());
+        m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()  ));
         return m;
     }
     
@@ -94,6 +99,15 @@ public class AccountTransformer {
         return m;
     }
 
+    public AccountCharge toAccountChargeVo(AcAccountCharge e) {
+        AccountCharge m = new AccountCharge();
+        m.setId(e.getId());
+        m.setSourceNo(e.getSourceNo());
+        m.setAmount(e.getAmount());
+        m.setSession(toAcademicSessionVo(e.getSession()));
+        return m;
+    }
+
     public FeeScheduleItem toFeeScheduleItemVo(AcFeeScheduleItem e) {
         FeeScheduleItem m = new FeeScheduleItem();
         m.setId(e.getId());
@@ -112,6 +126,11 @@ public class AccountTransformer {
         return accounts.stream()
                 .map((accountTx) -> toAccountTransactionVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountTransaction>()));
+    }
+    public List<AccountCharge> toAccountChargeVos(List<AcAccountCharge> accounts) {
+        return accounts.stream()
+                .map((accountTx) -> toAccountChargeVo(accountTx))
+                .collect(toCollection(() -> new ArrayList<AccountCharge>()));
     }
     public List<FeeScheduleItem> toFeeScheduleItemVos(List<AcFeeScheduleItem> items) {
         return items.stream()

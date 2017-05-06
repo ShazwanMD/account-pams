@@ -44,7 +44,7 @@ export class FeeScheduleItemListComponent {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '65%';
+    config.height = '40%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(FeeScheduleItemEditorDialog, config);
     this.creatorDialogRef.componentInstance.feeSchedule = this.feeSchedule;

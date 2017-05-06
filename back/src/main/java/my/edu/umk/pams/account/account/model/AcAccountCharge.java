@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.core.AcMetaObject;
 import java.math.BigDecimal;
 
 /**
+ * TODO: postedDate??
  * @author PAMS
  */
 public interface AcAccountCharge extends AcMetaObject{

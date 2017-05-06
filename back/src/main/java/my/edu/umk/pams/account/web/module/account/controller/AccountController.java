@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static my.edu.umk.pams.account.util.Util.toLimit;
@@ -66,7 +67,7 @@ public class AccountController {
 
     @RequestMapping(value = "/feeSchedules", method = RequestMethod.GET)
     public ResponseEntity<List<FeeSchedule>> findFeeSchedules() {
-        List<AcFeeSchedule> feeSchedules = accountService.findFeeSchedules("%", 0, 1);
+        List<AcFeeSchedule> feeSchedules = accountService.findFeeSchedules("%", 0, 100);
         return new ResponseEntity<List<FeeSchedule>>(accountTransformer.toFeeScheduleVos(feeSchedules), HttpStatus.OK);
     }
 
@@ -83,20 +84,26 @@ public class AccountController {
                 .toFeeScheduleItemVos(accountService.findFeeScheduleItems(feeSchedule)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/feeSchedules", method = RequestMethod.POST    )
+    @RequestMapping(value = "/feeSchedules", method = RequestMethod.POST)
     public ResponseEntity<String> saveFeeSchedule(@RequestBody FeeSchedule vo) {
+        dummyLogin();
         AcFeeSchedule feeSchedule = new AcFeeScheduleImpl();
         feeSchedule.setCode(vo.getCode());
         feeSchedule.setDescription(vo.getDescription());
+        feeSchedule.setTotalAmount(BigDecimal.ZERO); // todo
         feeSchedule.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+        accountService.saveFeeSchedule(feeSchedule);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/feeSchedules/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateFeeSchedule(@PathVariable String code, @RequestBody FeeSchedule vo) {
+        dummyLogin();
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         feeSchedule.setCode(vo.getCode());
         feeSchedule.setDescription(vo.getDescription());
+        feeSchedule.setTotalAmount(BigDecimal.ZERO); // todo
+        accountService.updateFeeSchedule(feeSchedule);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
@@ -166,10 +173,17 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/accounts/{code}/accountTransactions", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountTransaction>> findInvoiceItems(@PathVariable String code) {
+    public ResponseEntity<List<AccountTransaction>> findAccountTransactions(@PathVariable String code) {
         AcAccount account = accountService.findAccountByCode(code);
         return new ResponseEntity<List<AccountTransaction>>(accountTransformer
                 .toAccountTransactionVos(accountService.findAccountTransactions(account)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/accounts/{code}/accountCharges", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountCharge>> findAccountCharges(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountCharge>>(accountTransformer
+                .toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
     }
 
     // ====================================================================================================
