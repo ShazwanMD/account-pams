@@ -22,11 +22,11 @@ export class FeeScheduleEffects {
     .switchMap(() => this.accountService.findFeeSchedules())
     .map(accounts => this.feeScheduleActions.findFeeSchedulesSuccess(accounts));
 
-  @Effect() findFeeSchedule$ = this.actions$
-    .ofType(FeeScheduleActions.FIND_FEE_SCHEDULE)
+  @Effect() findFeeScheduleByCode$ = this.actions$
+    .ofType(FeeScheduleActions.FIND_FEE_SCHEDULE_BY_CODE)
     .map(action => action.payload)
     .switchMap(code => this.accountService.findFeeScheduleByCode(code))
-    .map(account => this.feeScheduleActions.findFeeScheduleSuccess(account))
+    .map(account => this.feeScheduleActions.findFeeScheduleByCodeSuccess(account))
     .mergeMap(action => from([action, this.feeScheduleActions.findFeeScheduleItems(action.payload)]));
 
   @Effect() findFeeScheduleItems$ = this.actions$

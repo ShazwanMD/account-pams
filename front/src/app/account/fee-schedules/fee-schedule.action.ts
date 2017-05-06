@@ -21,19 +21,19 @@ export class FeeScheduleActions {
     };
   }
 
-  static FIND_FEE_SCHEDULE = '[FeeSchedule] Find FeeSchedule';
-  findFeeSchedule(code): Action {
+  static FIND_FEE_SCHEDULE_BY_CODE = '[FeeSchedule] Find FeeSchedule By Code';
+  findFeeScheduleByCode(code): Action {
     return {
-      type: FeeScheduleActions.FIND_FEE_SCHEDULE,
+      type: FeeScheduleActions.FIND_FEE_SCHEDULE_BY_CODE,
       payload: code
     };
   }
 
-  static FIND_FEE_SCHEDULE_SUCCESS = '[FeeSchedule] Find FeeSchedule Success';
-  findFeeScheduleSuccess(feeSchedule): Action {
-    console.log("findFeeScheduleSuccess");
+  static FIND_FEE_SCHEDULE_BY_CODE_SUCCESS = '[FeeSchedule] Find FeeSchedule By Code Success';
+  findFeeScheduleByCodeSuccess(feeSchedule): Action {
+    console.log("findFeeScheduleByCodeSuccess");
     return {
-      type: FeeScheduleActions.FIND_FEE_SCHEDULE_SUCCESS,
+      type: FeeScheduleActions.FIND_FEE_SCHEDULE_BY_CODE_SUCCESS,
       payload: feeSchedule
     };
   }

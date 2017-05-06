@@ -1,14 +1,12 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {Account} from "../account.interface";
+import {FeeSchedule} from "../fee-schedule.interface";
 
 @Component({
-  selector: 'pams-account',
-  templateUrl: './account.component.html',
+  selector: 'pams-fee-schedule',
+  templateUrl: './fee-schedule.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountComponent {
+export class FeeScheduleComponent {
 
-  @Input() account: Account;
-  // @Output() addComment = new EventEmitter<AccountComment>();
-  // @Output() addAttachment = new EventEmitter<AccountAttachment>();
+  @Input() feeSchedule: FeeSchedule;
 }

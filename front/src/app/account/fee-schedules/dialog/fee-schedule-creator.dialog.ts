@@ -8,6 +8,7 @@ import {Sponsor} from "../../../identity/sponsor.interface";
 import {FeeSchedule} from "../fee-schedule.interface";
 import {AccountModuleState} from "../../index";
 import {FeeScheduleActions} from "../fee-schedule.action";
+import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 
 
 @Component({
@@ -33,7 +34,7 @@ export class FeeScheduleCreatorDialog implements OnInit {
       id: null,
       code: '',
       description: '',
-      // todo: cohort
+      cohortCode:<CohortCode>{},
       // todo: studyMode
       // todo: localityCode
     });

@@ -2,7 +2,7 @@
   [placeholder]="placeholder"
   (change)="selectChangeEvent($event.value)" flex>
 
-  <md-option *ngFor="let graduateCentre of graduateCentres$ | async" [value]="graduateCentre">
-    {{graduateCentre.code}}: {{graduateCentre.descriptionMs }}
+  <md-option *ngFor="let cohortCode of cohortCodes$ | async" [value]="cohortCode">
+    {{cohortCode.code}}: {{cohortCode.descriptionMs }}
   </md-option>
 </md-select>

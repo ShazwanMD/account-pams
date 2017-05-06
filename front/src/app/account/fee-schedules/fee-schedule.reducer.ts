@@ -8,7 +8,7 @@ const initialState: FeeScheduleState = <FeeSchedule>{};
 
 export function feeScheduleReducer(state = initialState, action: Action): FeeScheduleState {
   switch (action.type) {
-    case FeeScheduleActions.FIND_FEE_SCHEDULE_SUCCESS: {
+    case FeeScheduleActions.FIND_FEE_SCHEDULE_BY_CODE_SUCCESS: {
       return action.payload;
     }
     default: {

@@ -1,42 +1,45 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {IdentityService} from '../../../services';
-import {CommonService} from '../../../services';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {FeeSchedule} from "./fee-schedule.interface";
 import {FeeScheduleItem} from "./fee-schedule-item.interface";
 import {FeeScheduleActions} from "./fee-schedule.action";
 import {AccountModuleState} from "../index";
+import {FeeScheduleItemEditorDialog} from "./dialog/fee-schedule-item-editor.dialog";
+import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
 
 @Component({
-  selector: 'pams-feeSchedule-detail',
-  templateUrl: './feeSchedule-detail.page.html',
+  selector: 'pams-fee-schedule-detail',
+  templateUrl: './fee-schedule-detail.page.html',
 })
 
 export class FeeScheduleDetailPage implements OnInit {
 
-  private FEE_SCHEDULE = "feeScheduleModuleState.feeSchedule".split(".");
-  private FEE_SCHEDULE_ITEMS = "feeScheduleModuleState.feeScheduleItems".split(".");
+  private FEE_SCHEDULE = "accountModuleState.feeSchedule".split(".");
+  private FEE_SCHEDULE_ITEMS = "accountModuleState.feeScheduleItems".split(".");
   private feeSchedule$: Observable<FeeSchedule>;
   private feeScheduleItems$: Observable<FeeScheduleItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: FeeScheduleActions,
-              private store: Store<AccountModuleState>) {
+              private store: Store<AccountModuleState>,
+              private vcf: ViewContainerRef,
+              private dialog: MdDialog) {
 
     this.feeSchedule$ = this.store.select(...this.FEE_SCHEDULE);
     this.feeScheduleItems$ = this.store.select(...this.FEE_SCHEDULE_ITEMS);
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: {code: string}) => {
+    this.route.params.subscribe((params: { code: string }) => {
       let code: string = params.code;
-      this.store.dispatch(this.actions.findFeeSchedule(code));
+      this.store.dispatch(this.actions.findFeeScheduleByCode(code));
     });
   }
+
 
   goBack(route: string): void {
     this.router.navigate(['/feeSchedules']);

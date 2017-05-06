@@ -31,6 +31,7 @@ import {
 import {MarketingModule, INITIAL_MARKETING_STATE, marketingModuleReducers} from "./marketing/index";
 import {IdentityModule, identityModuleReducers, IdentityModuleState, INITIAL_IDENTITY_STATE} from "./identity/index";
 import {WakjokoModule} from "./wakjoko/index";
+import {CommonModule, commonModuleReducers, CommonModuleState, INITIAL_COMMON_STATE} from "./common/index";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -39,6 +40,7 @@ const httpInterceptorProviders: Type<any>[] = [
 
 // state
 interface ApplicationState {
+  commonModuleState: CommonModuleState;
   identityModuleState: IdentityModuleState;
   accountModuleState: AccountModuleState;
   billingModuleState: BillingModuleState;
@@ -49,6 +51,7 @@ interface ApplicationState {
 // reducer
 export const INITIAL_APPLICATION_STATE: ApplicationState =
   <ApplicationState>{
+    commonModuleState: INITIAL_COMMON_STATE,
     identityModuleState: INITIAL_IDENTITY_STATE,
     accountModuleState: INITIAL_ACCOUNT_STATE,
     billingModuleState: INITIAL_BILLING_STATE,
@@ -57,6 +60,7 @@ export const INITIAL_APPLICATION_STATE: ApplicationState =
   };
 
 export const applicationReducers = {
+  commonModuleState: combineReducers({...commonModuleReducers}),
   identityModuleState: combineReducers({...identityModuleReducers}),
   accountModuleState: combineReducers({...accountModuleReducers}),
   billingModuleState: combineReducers({...billingModuleReducers}),
@@ -94,6 +98,7 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
 
     StoreModule.provideStore(applicationReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    CommonModule.forRoot(),
     IdentityModule.forRoot(),
     AccountModule.forRoot(),
     BillingModule.forRoot(),

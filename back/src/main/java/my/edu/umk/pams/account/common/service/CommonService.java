@@ -241,6 +241,23 @@ public interface CommonService {
 
     AcCohortCode findCohortCodeById(Long id);
 
-    List<AcCohortCode> findCohortCodesByProgramCode (AcProgramCode programCode);
+    AcCohortCode findCohortCodeByCode(String code);
 
+    List<AcCohortCode> findCohortCodes();
+
+    List<AcCohortCode> findCohortCodes(Integer offset, Integer limit);
+
+    List<AcCohortCode> findCohortCodes(String filter, Integer offset, Integer limit);
+
+    Integer countCohortCode();
+
+    Integer countCohortCode(String filter);
+
+    void saveCohortCode(AcCohortCode cohortCode);
+
+    void updateCohortCode(AcCohortCode cohortCode);
+
+    void removeCohortCode(AcCohortCode cohortCode);
+
+    
 }

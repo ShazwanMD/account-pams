@@ -17,6 +17,12 @@
                flex/>
       </md-input-container>
     </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-cohort-code-select
+        [placeholder]="'Select Cohort'"
+        [innerFormControl]="createForm.controls['cohortCode']">
+      </pams-cohort-code-select>
+    </div>
 
 
   </form>

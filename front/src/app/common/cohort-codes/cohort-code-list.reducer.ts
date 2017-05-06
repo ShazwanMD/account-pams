@@ -1,14 +1,14 @@
 import {Action} from '@ngrx/store';
-import {GraduateCentre} from "./graduate-centre.interface";
 import {CommonActions} from "../common.action";
+import {CohortCode} from "./cohort-code.interface";
 
-export type GraduateCentreListState = GraduateCentre[];
+export type CohortCodeListState = CohortCode[];
 
-const initialState: GraduateCentreListState = <GraduateCentre[]>[];
+const initialState: CohortCodeListState = <CohortCode[]>[];
 
-export function graduateCentreListReducer(state = initialState, action: Action): GraduateCentreListState {
+export function cohortCodeListReducer(state = initialState, action: Action): CohortCodeListState {
   switch (action.type) {
-    case CommonActions.FIND_GRADUATE_CENTRES_SUCCESS: {
+    case CommonActions.FIND_COHORT_CODES_SUCCESS: {
       return action.payload;
     }
     default: {

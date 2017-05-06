@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {GraduateCentre} from "../graduate-centre.interface";
+import {CohortCode} from "../cohort-code.interface";
 import {Store} from "@ngrx/store";
 import {FormControl} from "@angular/forms";
 import {CommonActions} from "../../common.action";
@@ -8,26 +8,26 @@ import {CommonModuleState} from "../../index";
 
 
 @Component({
-  selector: 'pams-graduate-centre-select',
-  templateUrl: './graduate-centre-select.component.html',
+  selector: 'pams-cohort-code-select',
+  templateUrl: './cohort-code-select.component.html',
 })
-export class GraduateCentreSelectComponent implements OnInit {
+export class CohortCodeSelectComponent implements OnInit {
 
-  private GRADUATE_CENTRES = "commonModuleState.graduateCentres".split(".");
+  private COHORT_CODES = "commonModuleState.cohortCodes".split(".");
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
-  graduateCentres$: Observable<GraduateCentre[]>;
+  cohortCodes$: Observable<CohortCode[]>;
 
   constructor(private store: Store<CommonModuleState>,
               private actions: CommonActions) {
-    this.graduateCentres$ = this.store.select(...this.GRADUATE_CENTRES);
+    this.cohortCodes$ = this.store.select(...this.COHORT_CODES);
   }
 
   ngOnInit() {
-    this.store.dispatch(this.actions.findGraduateCentres());
+    this.store.dispatch(this.actions.findCohortCodes());
   }
 
-  selectChangeEvent(event: GraduateCentre) {
+  selectChangeEvent(event: CohortCode) {
     this.innerFormControl.setValue(event, {emitEvent: false});
   }
 }
