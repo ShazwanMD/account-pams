@@ -1,10 +1,14 @@
 package my.edu.umk.pams.account.web.module.financialaid.controller;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
@@ -25,7 +29,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -79,8 +82,7 @@ public class FinancialAidController {
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.GET)
     public ResponseEntity<List<SettlementItem>> findSettlementItems(@PathVariable String referenceNo) {
         dummyLogin();
-        String decode = URLDecoder.decode(referenceNo);
-        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(decode);
+        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         return new ResponseEntity<List<SettlementItem>>(financialAidTransformer
                 .toSettlementItemVos(financialAidService.findSettlementItems(settlement)), HttpStatus.OK);
     }
@@ -88,8 +90,7 @@ public class FinancialAidController {
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.POST)
     public void updateSettlementItems(@PathVariable String referenceNo, @RequestBody SettlementItem item) {
         dummyLogin();
-        String decode = URLDecoder.decode(referenceNo);
-        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(decode);
+        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         if (null == item.getId()) { // new
             AcSettlementItem e = new AcSettlementItemImpl();
             e.setBalanceAmount(item.getBalanceAmount());
@@ -103,6 +104,59 @@ public class FinancialAidController {
             // todo: e.setStatus();
             financialAidService.updateSettlementItem(settlement, e);
         }
+    }
+
+    @Deprecated
+    @RequestMapping(value = "/settlements/init", method = RequestMethod.POST)
+    public void initSettlements(@RequestBody Settlement vo) {
+    	dummyLogin();
+    	
+    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+    	AcSponsor acSponsor = identityService.findSponsorById(vo.getSponsor().getId());
+    	AcSettlement acSettlement = new AcSettlementImpl();
+    	
+    	acSettlement.setReferenceNo(vo.getReferenceNo());
+    	acSettlement.setDescription(vo.getDescription());
+    	acSettlement.setSession(acAcademicSession);
+    	acSettlement.setSponsor(acSponsor);
+    	
+    	financialAidService.initSettlement(acSettlement);
+    }
+
+    @RequestMapping(value = "/settlements/initBySponsor/{sponsorNo}", method = RequestMethod.POST)
+    public void initSettlementBySponsor(@PathVariable String sponsorNo,  @RequestBody Settlement vo) {
+    	dummyLogin();
+
+    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+    	AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorNo);
+    	AcSettlement settlement = new AcSettlementImpl();
+    	settlement.setDescription(vo.getDescription());
+    	settlement.setSession(acAcademicSession);
+    	financialAidService.initSettlementBySponsor(settlement, sponsor);
+    }
+
+    @RequestMapping(value = "/settlements/initByCohortCode/{code}", method = RequestMethod.POST)
+    public void initSettlementByCohortCode(@PathVariable String code,  @RequestBody Settlement vo) {
+    	dummyLogin();
+
+    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+    	AcCohortCode cohortCode = commonService.findCohortCodeByCode(code);
+    	AcSettlement settlement = new AcSettlementImpl();
+    	settlement.setDescription(vo.getDescription());
+    	settlement.setSession(acAcademicSession);
+    	financialAidService.initSettlementByCohortCode(settlement, cohortCode);
+    }
+
+    @RequestMapping(value = "/settlements/initByFacultyCode/{code}", method = RequestMethod.POST)
+    public void initSettlementByFacultyCode(@PathVariable String code,  @RequestBody Settlement vo) {
+    	dummyLogin();
+
+    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+    	AcFacultyCode facultyCode = commonService.findFacultyCodeByCode(code);
+    	AcSettlement settlement = new AcSettlementImpl();
+    	settlement.setDescription(vo.getDescription());
+    	settlement.setSession(acAcademicSession);
+    	financialAidService.initSettlementByFacultyCode(settlement, facultyCode);
     }
 
     // ====================================================================================================

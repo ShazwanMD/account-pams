@@ -41,6 +41,8 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
 //    List<AcInvoiceTransaction> findTransactions(AcInvoice invoice);
 //
 //    List<AcInvoiceTransaction> findTransactions(AcInvoice invoice, Integer offset, Integer limit);
+    
+    AcInvoice execute();
 
     // ====================================================================================================
     // HELPER

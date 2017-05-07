@@ -33,17 +33,36 @@
     <div layout="row" layout-wrap>
     </div>
 
-    <md-card class="">
+       <md-card class="">
       <md-card-title>Debit Note</md-card-title>
-      <md-card-subtitle>List of Debit Note tasks</md-card-subtitle>
-
-      <pams-debitnote-task-list
-        [debitnoteTasks]="debitnoteTasks$ | async"
-        (view)="view($event)"></pams-debitnote-task-list>
+      <md-card-subtitle>List of debit notes</md-card-subtitle>
+      <md-divider></md-divider>
+      <td-data-table
+        [data]="debitNOtes$ | async"
+        [columns]="columns"
+        [sortBy]="summary"
+        [sortOrder]="ASC"
+        [sortable]="false"
+        [multiple]="false"
+        [selectable]="false"
+        (rowSelect)="view.emit($event)" dense>
+        <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <span flex>{{value}}</span>
+          </div>
+        </template>
+        <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <a md-button color="accent" class="text-upper" [routerLink]="['/billing/debit-notes', row['code']]">
+              <span>View</span>
+            </a>
+          </div>
+        </template>
+      </td-data-table>
 
       <md-divider></md-divider>
       <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/debitnotes-search']">
+        <a md-button color="accent" class="text-upper" [routerLink]="['/billings-search']">
           <span>View More</span>
         </a>
       </md-card-actions>

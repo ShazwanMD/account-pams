@@ -17,11 +17,11 @@ export class SponsorSelectComponent implements OnInit {
   private SPONSORS = "identityModuleState.sponsors".split(".");
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
-  programLevels$: Observable<Actor[]>;
+  sponsors$: Observable<Actor[]>;
 
   constructor(private store: Store<IdentityModuleState>,
               private actions: SponsorActions) {
-    this.programLevels$ = this.store.select(...this.SPONSORS);
+    this.sponsors$ = this.store.select(...this.SPONSORS);
   }
 
   ngOnInit() {

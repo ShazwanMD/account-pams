@@ -25,8 +25,10 @@ public interface AcSettlement extends AcMetaObject{
 
     void setSession(AcAcademicSession session);
 
+    @Deprecated
     AcSponsor getSponsor();
 
+    @Deprecated
     void setSponsor(AcSponsor sponsor);
 
     List<AcSettlementItem> getItems();
