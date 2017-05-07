@@ -6,7 +6,6 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
-import my.edu.umk.pams.account.billing.stage.WhenIGenerateInvoice;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;

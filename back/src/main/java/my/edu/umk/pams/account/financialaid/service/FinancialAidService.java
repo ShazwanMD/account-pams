@@ -1,9 +1,12 @@
 package my.edu.umk.pams.account.financialaid.service;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
 import org.activiti.engine.task.Task;
 
 import java.util.List;
@@ -37,7 +40,14 @@ public interface FinancialAidService {
 
     Integer countSettlementItem(AcSettlement settlement);
 
+    @Deprecated
     void initSettlement(AcSettlement settlement);
+
+    String initSettlementByFacultyCode(AcSettlement settlement, AcFacultyCode facultyCode);
+
+    String initSettlementBySponsor(AcSettlement settlement, AcSponsor sponsor);
+
+    String initSettlementByCohortCode(AcSettlement settlement, AcCohortCode cohortCode);
 
     void executeSettlement(AcSettlement settlement);
 
