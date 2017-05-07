@@ -44,10 +44,12 @@ export class SettlementEffects {
     .map(action => action.payload)
     .switchMap(settlement => this.financialaidService.initSettlement(settlement))
     .map(referenceNo => this.settlementActions.initSettlementSuccess(referenceNo))
+    .mergeMap(action => from([action, this.settlementActions.findSettlements()]));
+  /*
     .mergeMap(action => from([action,
       this.settlementActions.findSettlementByReferenceNo(action.payload),
       this.router.navigate(['financialaid/settlements/', action.payload])]));
-
+*/
   @Effect() processSettlement$ = this.actions$
     .ofType(SettlementActions.PROCESS_SETTLEMENT)
     .map(action => action.payload);

@@ -341,6 +341,11 @@ public class BillingServiceImpl implements BillingService {
 		return invoiceDao.countUnpaid(account);
 	}
 
+	@Override
+	public AcInvoice executeInvoice(){
+		return invoiceDao.execute();
+	}
+	
 	// ====================================================================================================
 	// DEBIT NOTE
 	// ====================================================================================================

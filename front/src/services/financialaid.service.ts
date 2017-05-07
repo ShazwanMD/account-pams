@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Response, Http} from '@angular/http';
+import {Response, Http, Headers, RequestOptions} from '@angular/http';
 import { HttpInterceptorService } from '@covalent/http';
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
@@ -43,9 +43,15 @@ export class FinancialaidService {
       .map((res: Response) => <SettlementItem[]>res.json());
   }
 
-  initSettlement(settlement: Settlement): Observable<Boolean> {
-    return this.http.post(environment.endpoint + '/api/financialaid/settlements/init', JSON.stringify(settlement))
-      .flatMap(res => Observable.of(res.json()));
+  initSettlement(settlement: Settlement): Observable<String> {
+    console.log("init settlement",settlement);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/settlements/init', JSON.stringify(settlement), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
   }
 
   processSettlement(settlement: Settlement): Observable<Boolean> {
