@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.stage;
 
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
+import my.edu.umk.pams.account.billing.service.BillingService;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @JGivenStage
 public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
@@ -42,6 +44,9 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 
 	@Autowired
 	private CommonService commonService;
+	
+	@Autowired
+	private BillingService billingService;
 
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
@@ -182,6 +187,16 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 			financialAidService.executeSettlement(settlement);
 		}
 
+		return self();
+	}
+	
+	@As("I generate invoice")
+	@Scheduled(fixedRate = 5000)
+	public WhenIGenerateInvoice I_generate_invoice() {
+
+		AcInvoice a = billingService.executeInvoice();
+		LOG.info("Execute {}", a);
+		
 		return self();
 	}
 }
