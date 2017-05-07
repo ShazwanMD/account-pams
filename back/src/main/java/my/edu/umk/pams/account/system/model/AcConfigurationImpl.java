@@ -4,6 +4,10 @@ import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
 import java.math.BigDecimal;
 
 /**
@@ -12,6 +16,8 @@ import java.math.BigDecimal;
  */
 @Entity(name = "AcConfiguration")
 @Table(name = "AC_CNFG")
+@Configuration
+@EnableScheduling
 public class AcConfigurationImpl implements AcConfiguration {
 
     @Id

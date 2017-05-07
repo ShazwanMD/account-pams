@@ -51,13 +51,5 @@ public class US_AC_BLG_2003 extends SpringScenarioTest<GivenIAmBursary, WhenIGen
 		when().I_generate_invoice_by_program$(PROGRAM_CODE);
 		then().Charges_will_be_billed_to_sponsor();
 	}
-	
-	@Test
-	@Rollback
-	public void scenario4() {
-		given().I_am_a_bursary_in_current_academic_session();
-		when().I_generate_invoice();
-		//then().Charges_will_be_billed_to_sponsor();
-	}
 
 }

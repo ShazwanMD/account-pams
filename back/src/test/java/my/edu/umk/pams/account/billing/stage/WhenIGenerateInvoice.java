@@ -189,14 +189,5 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 
 		return self();
 	}
-	
-	@As("I generate invoice")
-	@Scheduled(fixedRate = 5000)
-	public WhenIGenerateInvoice I_generate_invoice() {
 
-		AcInvoice a = billingService.executeInvoice();
-		LOG.info("Execute {}", a);
-		
-		return self();
-	}
 }
