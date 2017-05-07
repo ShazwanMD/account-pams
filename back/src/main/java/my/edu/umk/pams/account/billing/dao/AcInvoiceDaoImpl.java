@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
+import my.edu.umk.pams.account.billing.stage.WhenIGenerateInvoice;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -14,6 +15,8 @@ import my.edu.umk.pams.account.identity.model.AcUser;
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
@@ -28,6 +31,8 @@ import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 @Repository("acInvoiceDao")
 public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> implements AcInvoiceDao{
 
+	private static final Logger LOG = LoggerFactory.getLogger(AcInvoiceDaoImpl .class);
+	
     public AcInvoiceDaoImpl() {
         super(AcInvoiceImpl.class);
     }
@@ -174,6 +179,19 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         query.setEntity("invoice", invoice);
         query.setInteger("state", ACTIVE.ordinal());
         return (List<AcInvoiceItem>) query.list();
+    }
+    
+    @Override
+    public AcInvoice execute() {
+    	AcInvoice result = null;
+        try {
+            LOG.warn("Starting sample operation");
+            LOG.warn("Returning {}", result);
+            return (result);
+        } catch (Exception e) {
+            LOG.error("Sample java service operation has failed", e);
+            throw e;
+        }
     }
 
 //    @Override

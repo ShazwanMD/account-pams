@@ -99,6 +99,8 @@ public interface BillingService {
     BigDecimal sumUnpaidInvoice(AcAccountCharge charge);
 
     boolean hasBalance(AcAcademicSession academicSession, AcActor actor);
+    
+    AcInvoice executeInvoice();
 
     // ==================================================================================================== //
     // DEBIT NOTE
