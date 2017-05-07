@@ -1,10 +1,14 @@
 package my.edu.umk.pams.account.web.module.financialaid.controller;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcSponsorImpl;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
@@ -13,6 +17,7 @@ import my.edu.umk.pams.account.web.module.financialaid.vo.SettlementItem;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
+
 import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,6 +108,22 @@ public class FinancialAidController {
             // todo: e.setStatus();
             financialAidService.updateSettlementItem(settlement, e);
         }
+    }
+    
+    @RequestMapping(value = "/settlements/init", method = RequestMethod.POST)
+    public void initSettlements(@RequestBody Settlement vo) {
+    	dummyLogin();
+    	
+    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+    	AcSponsor acSponsor = identityService.findSponsorById(vo.getSponsor().getId());
+    	AcSettlement acSettlement = new AcSettlementImpl();
+    	
+    	acSettlement.setReferenceNo(vo.getReferenceNo());
+    	acSettlement.setDescription(vo.getDescription());
+    	acSettlement.setSession(acAcademicSession);
+    	acSettlement.setSponsor(acSponsor);
+    	
+    	financialAidService.initSettlement(acSettlement);
     }
 
     // ====================================================================================================

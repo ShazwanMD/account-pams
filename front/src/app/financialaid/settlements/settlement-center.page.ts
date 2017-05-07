@@ -45,7 +45,7 @@ export class SettlementCenterPage implements OnInit {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '70%';
-    config.height = '60%';
+    config.height = '70%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(SettlementCreatorDialog, config);
     this.creatorDialogRef.afterClosed().subscribe(res => {

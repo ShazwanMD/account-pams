@@ -14,6 +14,8 @@ import {SettlementCenterPage} from "./settlement-center.page";
 import {SettlementActions} from "./settlement.action";
 import {SettlementListComponent} from "./component/settlement-list.component";
 import {SettlementCreatorDialog} from "./dialog/settlement-creator.dialog";
+import {IdentityModule} from "../../identity/index";
+import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import {SettlementCreatorDialog} from "./dialog/settlement-creator.dialog";
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
+    IdentityModule.forRoot(),
+    AcademicSessionSubModule.forRoot(),
     EffectsModule.run(SettlementEffects),
   ],
   declarations: [

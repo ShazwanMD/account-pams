@@ -10,10 +10,21 @@
                flex/>
       </md-input-container>
     </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-sponsor-select
+        [placeholder]="'Select Sponsor'"
+        [innerFormControl]="createForm.controls['sponsor']">
+      </pams-sponsor-select>
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-academic-session-select
+        [placeholder]="'Select Academic Session'"
+        [innerFormControl]="createForm.controls['academicSession']">
+      </pams-academic-session-select>
+    </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-button color="primary" (click)="goBack()">Back</button>
   <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
 </md-dialog-actions>
 
