@@ -88,7 +88,6 @@ public class FinancialAidTransformer {
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
-        vo.setSponsor(identityTransformer.toSponsorVo(e.getSponsor()));
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
@@ -99,7 +98,6 @@ public class FinancialAidTransformer {
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
-        vo.setSponsorNo(e.getSponsor().getSponsorNo());
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }

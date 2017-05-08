@@ -50,7 +50,6 @@ public class WhenIAddSettlementDetails extends Stage<WhenIAddSettlementDetails> 
 		AcSettlement settlement = new AcSettlementImpl();
 		settlement.setDescription(sponsor.getIdentityNo() + ";" + sponsor.getEmail());
 		settlement.setSession(academicSession);
-		settlement.setSponsor(sponsor);
 
 		financialAidService.initSettlement(settlement);
 

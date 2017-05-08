@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.workflow;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
@@ -67,10 +68,11 @@ public class SettlementTest {
     @Test
     @Rollback(false)
     public void testWorkflow() {
+        AcAcademicSession academicSession = accountService.findCurrentAcademicSession();
+
         AcSettlement settlement = new AcSettlementImpl();
         settlement.setDescription("Settlement for HLP");
-        settlement.setSponsor(identityService.findSponsorBySponsorNo("HLP"));
         settlement.setSession(accountService.findCurrentAcademicSession());
-        financialAidService.initSettlement(settlement);
+        financialAidService.initSettlement(settlement); // todo(hajar): byAcademicSession
     }
 }

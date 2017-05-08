@@ -112,14 +112,12 @@ public class FinancialAidController {
     	dummyLogin();
     	
     	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
-    	AcSponsor acSponsor = identityService.findSponsorById(vo.getSponsor().getId());
     	AcSettlement acSettlement = new AcSettlementImpl();
     	
     	acSettlement.setReferenceNo(vo.getReferenceNo());
     	acSettlement.setDescription(vo.getDescription());
     	acSettlement.setSession(acAcademicSession);
-    	acSettlement.setSponsor(acSponsor);
-    	
+
     	String referenceNo = financialAidService.initSettlement(acSettlement);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }

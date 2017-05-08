@@ -3,8 +3,6 @@ package my.edu.umk.pams.account.financialaid.model;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
-import my.edu.umk.pams.account.identity.model.AcSponsor;
-import my.edu.umk.pams.account.identity.model.AcSponsorImpl;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,6 +35,10 @@ public class AcSettlementImpl implements AcSettlement {
     private String referenceNo;
 
     @NotNull
+    @Column(name = "SOURCE_NO", unique = true, nullable = false)
+    private String sourceNo;
+
+    @NotNull
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
@@ -45,14 +47,8 @@ public class AcSettlementImpl implements AcSettlement {
     @JoinColumn(name = "SESSION_ID")
     private AcAcademicSession session;
 
-    @NotNull
-    @OneToOne(targetEntity = AcSponsorImpl.class)
-    @JoinColumn(name = "SPONSOR_ID")
-    private AcSponsor sponsor;
-
-    
     @OneToMany(targetEntity = AcSettlementItemImpl.class, mappedBy = "settlement", fetch = FetchType.LAZY)
-    private List<AcSettlementItem> details;
+    private List<AcSettlementItem> items;
 
     @Embedded
     private AcMetadata metadata;
@@ -77,6 +73,16 @@ public class AcSettlementImpl implements AcSettlement {
     }
 
     @Override
+    public String getSourceNo() {
+        return sourceNo;
+    }
+
+    @Override
+    public void setSourceNo(String sourceNo) {
+        this.sourceNo = sourceNo;
+    }
+
+    @Override
     public String getDescription() {
         return description;
     }
@@ -97,21 +103,13 @@ public class AcSettlementImpl implements AcSettlement {
     }
 
     @Override
-    public AcSponsor getSponsor() {
-        return sponsor;
+    public List<AcSettlementItem> getItems() {
+        return items;
     }
 
     @Override
-    public void setSponsor(AcSponsor sponsor) {
-        this.sponsor = sponsor;
-    }
-
-    public List<AcSettlementItem> getItems() {
-        return details;
-    }
-
     public void setItems(List<AcSettlementItem> details) {
-        this.details = details;
+        this.items = details;
     }
 
     @Override

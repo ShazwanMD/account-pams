@@ -84,7 +84,7 @@
         TRANSACTION_CODE int4 not null,
         ACCOUNT_ID int8,
         CHARGE_CODE_ID int8 not null,
-        SESSION_ID int8,
+        SESSION_ID int8 not null,
         primary key (ID)
     );
 
@@ -484,7 +484,7 @@
         M_ID int8,
         M_ST int4,
         TOTAL_AMOUNT numeric(19, 2) not null,
-        COHORT_CODE_ID int8,
+        COHORT_CODE_ID int8 not null,
         primary key (ID)
     );
 
@@ -676,7 +676,6 @@
 
     create table AC_PRMO_CODE (
         ID int8 not null,
-        CODE varchar(255) not null,
         DESCRIPTION varchar(255) not null,
         EXPIRY_DATE timestamp,
         C_TS timestamp,
@@ -688,6 +687,7 @@
         M_ST int4,
         PROMO_CODE_TYPE int4,
         QUANTITY int4,
+        REFERENCE_NO varchar(255) not null,
         VALUE numeric(19, 2) not null,
         primary key (ID)
     );
@@ -695,6 +695,7 @@
     create table AC_PRMO_CODE_ITEM (
         ID int8 not null,
         APPLIED boolean,
+        CODE varchar(255),
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -904,8 +905,8 @@
         M_ID int8,
         M_ST int4,
         REFERENCE_NO varchar(255) not null,
+        SOURCE_NO varchar(255) not null,
         SESSION_ID int8,
-        SPONSOR_ID int8,
         primary key (ID)
     );
 
@@ -1374,14 +1375,12 @@
         add constraint uc_AC_STLT_1 unique (REFERENCE_NO);
 
     alter table AC_STLT 
+        add constraint uc_AC_STLT_2 unique (SOURCE_NO);
+
+    alter table AC_STLT 
         add constraint FKE62B75A6706DBE68 
         foreign key (SESSION_ID) 
         references AC_ACDM_SESN;
-
-    alter table AC_STLT 
-        add constraint FKE62B75A6624354E6 
-        foreign key (SPONSOR_ID) 
-        references AC_SPSR;
 
     alter table AC_STLT_ITEM 
         add constraint FK4574E0C62AC940F 

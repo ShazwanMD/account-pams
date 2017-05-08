@@ -157,7 +157,6 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         // prepare reference no generator
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("academicSession", academicSessionDao.findCurrentSession());
-        map.put("sponsor", settlement.getSponsor());
         String referenceNo = systemService.generateFormattedReferenceNo(SETTLEMENT_REFERENCE_NO, map);
         settlement.setReferenceNo(referenceNo);
         LOG.debug("Processing process settlement with refNo {}", referenceNo);
@@ -167,7 +166,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         sessionFactory.getCurrentSession().flush();
 
         // generate item
-        AcSponsor sponsor = settlement.getSponsor();
+        AcSponsor sponsor = null; // todo: remove this
         List<AcStudent> students = studentDao.find(sponsor);
         for (AcStudent student : students) {
             AcSettlementItem item = new AcSettlementItemImpl();
@@ -379,7 +378,6 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     private String initSettlement(AcSettlement settlement, List<AcStudent> students) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("academicSession", academicSessionDao.findCurrentSession());
-        map.put("sponsor", settlement.getSponsor());
         String referenceNo = systemService.generateFormattedReferenceNo(SETTLEMENT_REFERENCE_NO, map);
         settlement.setReferenceNo(referenceNo);
         LOG.debug("Processing process settlement with refNo {}", referenceNo);

@@ -24,14 +24,12 @@ export class FinancialaidService {
   // ====================================================================================================
 
   findSettlementByReferenceNo(referenceNo: string): Observable<Settlement> {
-    console.log("encoded uri: " + encodeURI (referenceNo));
-    return this.http.get(environment.endpoint + '/api/financialaid/settlements/' + encodeURI (referenceNo))
+    return this.http.get(environment.endpoint + '/api/financialaid/settlements/' + referenceNo)
       .map((res: Response) => <Settlement>res.json());
   }
 
   findSettlementById(id: string): Observable<Settlement> {
-    console.log("encoded uri: " + encodeURI (id));
-    return this.http.get(environment.endpoint + '/api/financialaid/settlements/' + encodeURI (id))
+    return this.http.get(environment.endpoint + '/api/financialaid/settlements/' + id)
       .map((res: Response) => <Settlement>res.json());
   }
 
@@ -137,14 +135,12 @@ export class FinancialaidService {
   }
 
   findWaiverApplicationByReferenceNo(referenceNo: string): Observable<WaiverApplication> {
-    console.log("encoded uri: " + encodeURI (referenceNo));
-    return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/' + encodeURI (referenceNo))
+    return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/' + referenceNo)
       .map((res: Response) => <WaiverApplication>res.json());
   }
 
   findWaiverApplicationByTaskId(taskId: string): Observable<WaiverApplication> {
-    console.log("encoded uri: " + encodeURI (taskId));
-    return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/' + encodeURI (taskId))
+    return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/' + taskId)
       .map((res: Response) => <WaiverApplication>res.json());
   }
 
