@@ -176,4 +176,9 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
+  resetAccount(account: Account): Observable<Boolean> {
+    return this.http.put(environment.endpoint + '/api/account/accounts', JSON.stringify(account))
+        .flatMap(data => Observable.of(true));
+  }
+
 }

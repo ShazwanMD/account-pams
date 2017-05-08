@@ -41,4 +41,10 @@ export class AccountEffects {
     .map(action => action.payload)
     .switchMap(account => this.accountService.updateAccount(account))
     .map(account => this.accountActions.updateAccountSuccess(account));
+
+  @Effect() resetAccount$ = this.actions$
+    .ofType(AccountActions.RESET_ACCOUNT)
+    .map(action => action.payload)
+    .switchMap(account => this.accountService.resetAccount(account))
+    .map(account => this.accountActions.resetAccountSuccess(account));
 }

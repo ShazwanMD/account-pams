@@ -138,6 +138,22 @@ export class AccountActions {
     };
   }
 
+  static RESET_ACCOUNT = '[Account] Reset Account';
+  resetAccount(account): Action {
+    return {
+      type: AccountActions.RESET_ACCOUNT,
+      payload: account
+    };
+  }
+
+  static RESET_ACCOUNT_SUCCESS = '[Account] Reset Account Success';
+  resetAccountSuccess(account): Action {
+    return {
+      type: AccountActions.RESET_ACCOUNT_SUCCESS,
+      payload: account
+    };
+  }
+
   static ADD_ACCOUNT_CHARGE = '[Account] Add AccountCharge ';
 
   addAccountCharge(account, charge): Action {
