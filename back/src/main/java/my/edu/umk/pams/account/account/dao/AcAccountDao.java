@@ -101,9 +101,9 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 
     void deleteWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver, AcUser user);
 
-    void addAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
+    void addTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
 
     void updateAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
 
-    void deleteAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
+    void deleteTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
 }

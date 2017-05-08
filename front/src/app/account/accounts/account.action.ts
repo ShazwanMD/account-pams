@@ -56,10 +56,21 @@ export class AccountActions {
     };
   }
 
-  static RESET_ACCOUNT = '[Account] Reset Blank Account';
-  resetAccount(): Action {
+  static FIND_ACCOUNT_CHARGES = '[Account] Find Account Charges';
+  findAccountCharges(account): Action {
+    console.log("findAccountCharges");
     return {
-      type: AccountActions.RESET_ACCOUNT
+      type: AccountActions.FIND_ACCOUNT_CHARGES,
+      payload: account
+    };
+  }
+
+  static FIND_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Account Charges Success';
+  findAccountChargesSuccess(accountCharges): Action {
+    console.log("findAccountChargesSuccess");
+    return {
+      type: AccountActions.FIND_ACCOUNT_CHARGES_SUCCESS,
+      payload: accountCharges
     };
   }
 
@@ -124,6 +135,42 @@ export class AccountActions {
     return {
       type: AccountActions.REMOVE_ACCOUNT_SUCCESS,
       payload: account
+    };
+  }
+
+  static ADD_ACCOUNT_CHARGE = '[Account] Add AccountCharge ';
+
+  addAccountCharge(account, charge): Action {
+    return {
+      type: AccountActions.ADD_ACCOUNT_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+  static ADD_ACCOUNT_CHARGE_SUCCESS = '[Account] Add AccountCharge  Success';
+
+  addAccountChargeSuccess(message): Action {
+    return {
+      type: AccountActions.ADD_ACCOUNT_CHARGE_SUCCESS,
+      payload: message
+    };
+  }
+
+  static ADD_ACCOUNT_TRANSACTION_ = '[Account] Add AccountTransaction ';
+
+  addAccountTransaction(account, accountTransaction): Action {
+    return {
+      type: AccountActions.ADD_ACCOUNT_TRANSACTION_,
+      payload: {account:account, accountTransaction:accountTransaction}
+    };
+  }
+
+  static ADD_ACCOUNT_TRANSACTION_SUCCESS = '[Account] Add AccountTransaction  Success';
+
+  addAccountTransactionSuccess(message): Action {
+    return {
+      type: AccountActions.ADD_ACCOUNT_TRANSACTION_SUCCESS,
+      payload: message
     };
   }
 }

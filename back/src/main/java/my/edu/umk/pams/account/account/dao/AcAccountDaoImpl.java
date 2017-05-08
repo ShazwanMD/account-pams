@@ -429,7 +429,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
-    public void addAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user) {
+    public void addTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user) {
         Validate.notNull(account, "Account should not be null");
         Validate.notNull(transaction, "Transaction should not be null");
 
@@ -462,7 +462,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
-    public void deleteAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user) {
+    public void deleteTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(transaction);
     }

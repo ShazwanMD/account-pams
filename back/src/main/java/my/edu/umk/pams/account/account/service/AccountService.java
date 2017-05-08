@@ -159,6 +159,10 @@ public interface AccountService {
 
     void updateAccount(AcAccount account);
 
+    void addAccountTransaction(AcAccount acAccount, AcAccountTransaction transaction);
+
+    void deleteAccountTransaction(AcAccount acAccount, AcAccountTransaction transaction);
+
     // business
     // activate
     // deactivate

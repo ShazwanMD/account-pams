@@ -9,6 +9,7 @@ import {FeeSchedule} from '../app/account/fee-schedules/fee-schedule.interface';
 import {AccountTransaction} from "../app/account/accounts/account-transaction.interface";
 import {AcademicSession} from "../app/account/academic-sessions/academic-session.interface";
 import {FeeScheduleItem} from "../app/account/fee-schedules/fee-schedule-item.interface";
+import {AccountCharge} from "../app/account/accounts/account-charge.interface";
 
 @Injectable()
 export class AccountService {
@@ -147,6 +148,14 @@ export class AccountService {
       .map((res: Response) => <AccountTransaction[]>res.json());
   }
 
+  findAccountCharges(account: Account): Observable<AccountCharge[]> {
+    console.log("findAccountCharges");
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountCharges")
+      .map((res: Response) => <AccountCharge[]>res.json());
+  }
+
   saveAccount(account: Account): Observable<Boolean> {
     return this.http.post(environment.endpoint + '/api/account/accounts', JSON.stringify(account))
       .flatMap(data => Observable.of(true));
@@ -156,4 +165,15 @@ export class AccountService {
     return this.http.put(environment.endpoint + '/api/account/accounts', JSON.stringify(account))
       .flatMap(data => Observable.of(true));
   }
+
+  addAccountCharge(account: Account, charge: AccountCharge): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges', JSON.stringify(charge), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
 }

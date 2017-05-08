@@ -122,5 +122,4 @@ export class FeeScheduleActions {
       payload: message
     };
   }
-
 }

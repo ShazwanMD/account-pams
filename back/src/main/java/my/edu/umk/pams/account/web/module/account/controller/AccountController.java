@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import org.slf4j.Logger;
@@ -39,6 +40,9 @@ public class AccountController {
 
     @Autowired
     private CommonService commonService;
+
+    @Autowired
+    private IdentityService identityService;
 
     @Autowired
     private AccountTransformer accountTransformer;
@@ -166,10 +170,27 @@ public class AccountController {
         return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = "/accounts", method = RequestMethod.POST)
+    public ResponseEntity<String> saveAccoun(@RequestBody Account vo) {
+        dummyLogin();
+        AcAccount account = new AcAccountImpl();
+        account.setCode(vo.getCode());
+        account.setDescription(vo.getActor().getName());
+        account.setActor(identityService.findActorById(vo.getActor().getId())); // todo
+        accountService.saveAccount(account);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/accounts/{code}", method = RequestMethod.PUT)
-    public ResponseEntity<Account> updateAccount(@PathVariable String code) {
-        AcAccount account = accountService.findAccountByCode(code);
-        return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
+    public ResponseEntity<String> updateAccount(@PathVariable String code, @RequestBody Account vo) {
+        dummyLogin();
+        // what can we update?
+        AcAccount account = accountService.findAccountById(vo.getId()) ;
+        account.setCode(vo.getCode());
+        account.setDescription(vo.getActor().getName());
+        accountService.updateAccount(account);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{code}/accountTransactions", method = RequestMethod.GET)
@@ -186,6 +207,28 @@ public class AccountController {
                 .toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/account/{code}/accountCharges", method = RequestMethod.POST)
+    public void addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo ) {
+        dummyLogin();
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAcademicChargeImpl charge = new AcAcademicChargeImpl();
+        charge.setAmount(vo.getAmount());
+        accountService.addAccountCharge(account, charge);
+    }
+
+    @RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
+    public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo ) {
+        dummyLogin();
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAccountTransaction transaction = new AcAccountTransactionImpl();
+        transaction.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        transaction.setAmount(vo.getAmount());
+        transaction.setPostedDate(vo.getPostedDate());
+        transaction.setSession(accountService.findAcademicSessionById(vo.getSession().getId()));
+        transaction.setTransactionCode(AcAccountTransactionCode.ADHOC);
+        accountService.addAccountTransaction(account, transaction);
+    }
+    
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================

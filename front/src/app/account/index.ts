@@ -28,13 +28,15 @@ import {FeeScheduleSubModule} from "./fee-schedules/index";
 import {feeScheduleReducer, FeeScheduleState} from "./fee-schedules/fee-schedule.reducer";
 import {feeScheduleItemListReducer, FeeScheduleItemListState} from "./fee-schedules/fee-schedule-item-list.reducer";
 import {feeScheduleListReducer, FeeScheduleListState} from "./fee-schedules/fee-schedule-list.reducer";
+import {accountChargeListReducer, AccountChargeListState} from "./accounts/account-charge-list.reducer";
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
   academicSession: AcademicSessionState;
   accounts: AccountListState;
   account: AccountState;
-  accountTransactions: AccountTransactionListState
+  accountTransactions: AccountTransactionListState;
+  accountCharges:AccountChargeListState;
   chargeCode: ChargeCodeState;
   chargeCodes: ChargeCodeListState;
   feeSchedules: FeeScheduleListState;
@@ -50,6 +52,7 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accounts: [],
     account: {},
     accountTransactions: [],
+    accountCharges: [],
     chargeCodes: [],
     chargeCode: {},
     feeSchedules:[],
@@ -63,6 +66,7 @@ export const accountModuleReducers = {
   accounts: accountListReducer,
   account: accountReducer,
   accountTransactions: accountTransactionListReducer,
+  accountCharges: accountChargeListReducer,
   chargeCodes: chargeCodeListReducer,
   chargeCode: chargeCodeReducer,
   feeSchedules: feeScheduleListReducer,

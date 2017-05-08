@@ -638,7 +638,7 @@ public class BillingServiceImpl implements BillingService {
 			transaction.setTransactionCode(AcAccountTransactionCode.RECEIPT);
 			transaction.setSourceNo(receipt.getSourceNo());
 			transaction.setPostedDate(receipt.getReceivedDate());
-			accountDao.addAccountTransaction(receipt.getAccount(), transaction, securityService.getCurrentUser());
+			accountDao.addTransaction(receipt.getAccount(), transaction, securityService.getCurrentUser());
 		}
 		
 		sessionFactory.getCurrentSession().flush();

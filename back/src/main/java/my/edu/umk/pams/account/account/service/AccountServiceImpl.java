@@ -415,6 +415,18 @@ public class AccountServiceImpl implements AccountService {
         sessionFactory.getCurrentSession().flush();
     }
 
+    @Override
+    public void addAccountTransaction(AcAccount account, AcAccountTransaction transaction) {
+        accountDao.addTransaction(account, transaction, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void deleteAccountTransaction(AcAccount account, AcAccountTransaction transaction) {
+        accountDao.deleteTransaction(account, transaction, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
     // ==================================================================================================== //
     // ACCOUNT CHARGE
     // TODO: refactored per new  account

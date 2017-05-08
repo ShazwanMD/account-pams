@@ -7,5 +7,6 @@ public enum  AcAccountTransactionCode {
     INVOICE,  // 0
     RECEIPT,  // 1
     VOUCHER,  // 2
-    REFUND;   // 3
+    REFUND,   // 3
+    ADHOC,   // 3
 }

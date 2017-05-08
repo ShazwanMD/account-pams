@@ -180,19 +180,6 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         return (List<AcInvoiceItem>) query.list();
     }
     
-    @Override
-    public AcInvoice execute() {
-    	AcInvoice result = null;
-        try {
-            LOG.warn("Starting sample operation");
-            LOG.warn("Returning {}", result);
-            return (result);
-        } catch (Exception e) {
-            LOG.error("Sample java service operation has failed", e);
-            throw e;
-        }
-    }
-
 //    @Override
 //    public List<AcInvoiceTransaction> findTransactions(AcInvoice invoice) {
 //        Session session = sessionFactory.getCurrentSession();
