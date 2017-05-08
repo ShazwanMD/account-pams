@@ -6,6 +6,7 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.service.BillingService;
@@ -15,6 +16,9 @@ import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementImpl;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItemImpl;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementStatus;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
@@ -42,6 +46,9 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 	
 	@Autowired
 	private BillingService billingService;
+	
+	@Autowired
+	private AccountService accountService;
 
 	@ExpectedScenarioState
 	private AcAcademicSession academicSession;
@@ -81,7 +88,7 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 			settlement.setDescription(sponsor.getName() + " " + sponsor.getId());
 			settlement.setSession(academicSession);
 
-			financialAidService.initSettlement(settlement); /// todo: by?? byCohortCOde, byFacultyCode
+			financialAidService.initSettlementByFacultyCode(settlement, facultyCode); /// todo: by?? byCohortCOde, byFacultyCode
 
 			invoice = new AcInvoiceImpl();
 			invoice.setDescription(settlement.getId() + " " + settlement.getSession());
@@ -94,24 +101,29 @@ public class WhenIGenerateInvoice extends Stage<WhenIGenerateInvoice> {
 
 	}
 
-	@As("I generate invoice by batch")
-	public WhenIGenerateInvoice I_generate_invoice_by_batch() {
-		
-		//get intake
+	@As("I generate invoice by cohort")
+	public WhenIGenerateInvoice I_generate_invoice_by_cohort() {
+
 		LOG.debug("session " + academicSession.getId());
+		
+		List<AcCohortCode> cohortCode = commonService.findCohortCodes();
 
-		sponsorship = identityService.findSponsorships(facultyCode);
-
-		for (AcSponsorship sponsorship : sponsorship) {
-
-			LOG.debug("Sponsorship " + sponsorship.getSponsor().getName());
-			AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorship.getSponsor().getIdentityNo());
+		for (AcCohortCode cohortCodes : cohortCode) {
 
 			settlement = new AcSettlementImpl();
-			settlement.setDescription(sponsor.getName() + " " + sponsor.getId());
+			settlement.setDescription(cohortCodes.getCode());
 			settlement.setSession(academicSession);
 
-			financialAidService.initSettlement(settlement);
+			financialAidService.initSettlementByCohortCode(settlement, cohortCodes);
+			
+			List<AcStudent> students = identityService.findStudentByCohortCode(cohortCodes);
+	        for (AcStudent student : students) {
+	            AcSettlementItem item = new AcSettlementItemImpl();
+	            item.setSettlement(settlement);
+	            item.setAccount(accountService.findAccountByActor(student));
+	            item.setStatus(AcSettlementStatus.NEW);
+	            financialAidService.addSettlementItem(settlement, item);
+	        }
 
 			invoice = new AcInvoiceImpl();
 			invoice.setDescription(settlement.getId() + " " + settlement.getSession());
