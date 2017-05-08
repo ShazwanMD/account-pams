@@ -405,7 +405,7 @@ public class BillingServiceImpl implements BillingService {
 					settlement.setDescription(cohortCodes.getCode());
 					settlement.setSession(academicSessionDao.findCurrentSession());
 
-					settlementDao.saveOrUpdate(settlement, securityService.getCurrentUser());
+					financialAidService.initSettlementByCohortCode(settlement, cohortCodes);
 					
 					List<AcStudent> students = identityService.findStudentByCohortCode(cohortCodes);
 			        for (AcStudent student : students) {
