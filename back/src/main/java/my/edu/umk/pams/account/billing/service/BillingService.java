@@ -102,6 +102,8 @@ public interface BillingService {
     
     AcInvoice executeInvoice();
 
+     void executeScheduler();
+
     // ==================================================================================================== //
     // DEBIT NOTE
     // workflow
