@@ -31,6 +31,7 @@ import {
   ReceiptTaskListState
 } from "./receipts/receipt-task-list.reducer";
 import { DebitNoteSubModule } from "./debit-notes/index";
+import { CreditNoteSubModule } from "./credit-notes/index";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -79,6 +80,7 @@ export const billingModuleReducers = {
     InvoiceSubModule.forRoot(),
     ReceiptSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
+    CreditNoteSubModule.forRoot(),
   ],
   declarations: [
     // page
