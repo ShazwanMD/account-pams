@@ -6,7 +6,8 @@ import {CommonService} from '../../../services';
 import {Store} from "@ngrx/store";
 import { Observable } from "rxjs";
 import { BillingModuleState } from "../index";
-import {DebitNote} from "./debit-note.interface";
+import { DebitNote } from "./debit-note.interface";
+import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 //import {ChargeCodeActions} from "./charge-code.action";
 //import {ChargeCodeState} from "./charge-code.reducer";
 //import {ChargeCodeListState} from "./charge-code-list.reducer";
@@ -22,7 +23,7 @@ export class DebitNoteCenterPage implements OnInit {
 
     private DEBIT_NOTES = "billingModuleState.debitnotes".split(".");
     private debitnotes$: Observable<DebitNote[]>;
-    //private creatorDialogRef: MdDialogRef<ChargeCodeCreatorDialog>;
+    private creatorDialogRef: MdDialogRef<DebitNoteCreatorDialog>;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class DebitNoteCenterPage implements OnInit {
     }
 
   
- /*showDialog(): void {
+ showDialog(): void {
         console.log("showDialog");
         let config = new MdDialogConfig();
         config.viewContainerRef = this.vcf;
@@ -47,12 +48,12 @@ export class DebitNoteCenterPage implements OnInit {
         config.width = '50%';
         config.height = '60%';
         config.position = { top: '0px' };
-        this.creatorDialogRef = this.dialog.open(ChargeCodeCreatorDialog, config);
+        this.creatorDialogRef = this.dialog.open(DebitNoteCreatorDialog, config);
         this.creatorDialogRef.afterClosed().subscribe(res => {
             console.log("close dialog");
             // load something here
         });
-    }*/
+    }
  
     ngOnInit(): void {
        // console.log("abc")

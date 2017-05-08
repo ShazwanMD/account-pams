@@ -11,7 +11,9 @@ import {CommonService} from '../../../services';
 import {IdentityService} from '../../../services';
 import {AccountService} from "../../../services/account.service";
 import {IdentityModule} from "../../identity/index";
-import {DebitNoteCenterPage} from "./debit-note-center.page";
+import { DebitNoteCenterPage } from "./debit-note-center.page";
+import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
+import { DebitNoteActions } from "./debit-note.action";
 
 
 @NgModule({
@@ -29,13 +31,13 @@ import {DebitNoteCenterPage} from "./debit-note-center.page";
     
 
 //component
-//ChargeCodeCreatorDialog,
+DebitNoteCreatorDialog,
   ],
   exports: [
     //ChargeCodeSelectComponent,
   ],
   entryComponents: [
-    //ChargeCodeCreatorDialog,
+    DebitNoteCreatorDialog,
   ],
 
 })
@@ -48,7 +50,7 @@ export class DebitNoteSubModule {
         IdentityService,
         CommonService,
         AccountService,
-        //ChargeCodeActions,
+        DebitNoteActions,
       ],
     };
   }
