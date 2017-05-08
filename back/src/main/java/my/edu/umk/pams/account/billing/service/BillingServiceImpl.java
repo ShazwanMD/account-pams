@@ -15,9 +15,24 @@ import my.edu.umk.pams.account.billing.dao.AcDebitNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
 import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.model.*;
+import my.edu.umk.pams.account.common.dao.AcCohortCodeDao;
+import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.core.AcFlowState;
+import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
+import my.edu.umk.pams.account.financialaid.model.AcSettlement;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementImpl;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItemImpl;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementStatus;
+import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
+import my.edu.umk.pams.account.identity.dao.AcActorDao;
 import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
+import my.edu.umk.pams.account.identity.dao.AcStudentDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.model.AcConfiguration;
 import my.edu.umk.pams.account.system.service.SystemService;
@@ -81,6 +96,12 @@ public class BillingServiceImpl implements BillingService {
 
 	@Autowired
 	private AcCreditNoteDao creditNoteDao;
+	
+	@Autowired
+	private AcCohortCodeDao cohortCodeDao;
+	
+	@Autowired
+	private AcSettlementDao settlementDao;
 
 	@Autowired
 	private ChargeAttachProcessor attachProcessor;
@@ -99,6 +120,12 @@ public class BillingServiceImpl implements BillingService {
 
 	@Autowired
 	private WorkflowService workflowService;
+	
+	@Autowired
+	private IdentityService identityService;
+	
+	@Autowired
+	private FinancialAidService financialAidService;
 
 	// ====================================================================================================
 	// INVOICE
@@ -368,6 +395,34 @@ public class BillingServiceImpl implements BillingService {
 			if (now.isAfter(new LocalDate(lastEnrollment))) {
 				// todo(hajar): generate invoice for student
 				// todo(hajar): for this semester
+				LOG.debug("session " + academicSessionDao.findCurrentSession());
+				
+				List<AcCohortCode> cohortCode = cohortCodeDao.find();
+
+				for (AcCohortCode cohortCodes : cohortCode) {
+
+					AcSettlement settlement = new AcSettlementImpl();
+					settlement.setDescription(cohortCodes.getCode());
+					settlement.setSession(academicSessionDao.findCurrentSession());
+
+					settlementDao.saveOrUpdate(settlement, securityService.getCurrentUser());
+					
+					List<AcStudent> students = identityService.findStudentByCohortCode(cohortCodes);
+			        for (AcStudent student : students) {
+			            AcSettlementItem item = new AcSettlementItemImpl();
+			            item.setSettlement(settlement);
+			            item.setAccount(accountDao.findByActor(student));
+			            item.setStatus(AcSettlementStatus.NEW);
+			            financialAidService.addSettlementItem(settlement, item);
+			        }
+
+					AcInvoice invoice = new AcInvoiceImpl();
+					invoice.setDescription(settlement.getId() + " " + settlement.getSession());
+					invoice.setSession(academicSessionDao.findCurrentSession());
+
+					financialAidService.executeSettlement(settlement);
+				}
+
             }
 		} catch (ParseException e) {
 			LOG.error("error parsing");
