@@ -67,6 +67,13 @@ export class SettlementEffects {
     .map(referenceNo => this.settlementActions.initSettlementByFacultyCodeSuccess(referenceNo))
     .mergeMap(action => from([action, this.settlementActions.findSettlements()]));
 
+  @Effect() initSettlementByAcademicSession$ = this.actions$
+    .ofType(SettlementActions.INIT_SETTLEMENT_BY_ACADEMIC_SESSION)
+    .map(action => action.payload)
+    .switchMap(payload => this.financialaidService.initSettlementByAcademicSession(payload))
+    .map(referenceNo => this.settlementActions.initSettlementByAcademicSessionSuccess(referenceNo))
+    .mergeMap(action => from([action, this.settlementActions.findSettlements()]));
+
   @Effect() processSettlement$ = this.actions$
     .ofType(SettlementActions.PROCESS_SETTLEMENT)
     .map(action => action.payload);

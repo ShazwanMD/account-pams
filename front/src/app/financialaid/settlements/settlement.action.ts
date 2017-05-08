@@ -61,10 +61,26 @@ export class SettlementActions {
   }
 
   static INIT_SETTLEMENT_BY_COHORT_CODE_SUCCESS = '[Settlement] Init Settlement By Cohort Code Success';
-  initSettlementCohortCodeSuccess(settlement): Action {
+  initSettlementByCohortCodeSuccess(referenceNo): Action {
     return {
       type: SettlementActions.INIT_SETTLEMENT_BY_COHORT_CODE_SUCCESS,
-      payload: settlement
+      payload: referenceNo
+    };
+  }
+
+  static INIT_SETTLEMENT_BY_ACADEMIC_SESSION = '[Settlement] Init Settlement By AcademicSession';
+  initSettlementByAcademicSession(settlementCreator): Action {
+    return {
+      type: SettlementActions.INIT_SETTLEMENT_BY_ACADEMIC_SESSION,
+      payload: settlementCreator
+    };
+  }
+
+  static INIT_SETTLEMENT_BY_ACADEMIC_SESSION_SUCCESS = '[Settlement] Init Settlement By Academic Session Success';
+  initSettlementByAcademicSessionSuccess(referenceNo): Action {
+    return {
+      type: SettlementActions.INIT_SETTLEMENT_BY_ACADEMIC_SESSION_SUCCESS,
+      payload: referenceNo
     };
   }
 

@@ -10,6 +10,7 @@ import {WaiverApplication} from "../app/financialaid/waiver-applications/waiver-
 import {Sponsor} from "../app/identity/sponsor.interface";
 import {FacultyCode} from "../app/common/faculty-codes/faculty-code.interface";
 import {CohortCode} from "../app/common/cohort-codes/cohort-code.interface";
+import {SettlementCreator} from "../app/financialaid/settlements/settlement-creator.interface";
 
 @Injectable()
 export class FinancialaidService {
@@ -87,6 +88,17 @@ export class FinancialaidService {
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/financialaid/settlements/initByCohortCode/' + cohortCode.code, JSON.stringify(settlement), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  initSettlementByAcademicSession(settlementCreator:SettlementCreator): Observable<String> {
+    console.log("init settlement",settlementCreator);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/settlements/initByAcademicSession/' + settlementCreator.academicSession.code, JSON.stringify(settlementCreator), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 

@@ -16,6 +16,7 @@ import {SettlementListComponent} from "./component/settlement-list.component";
 import {SettlementCreatorDialog} from "./dialog/settlement-creator.dialog";
 import {IdentityModule} from "../../identity/index";
 import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
+import {SettlementCreatorByAcademicSessionDialog} from "./dialog/settlement-creator-by-academic-session.dialog";
 
 
 @NgModule({
@@ -35,10 +36,12 @@ import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
     // component
     SettlementListComponent,
     SettlementCreatorDialog,
+    SettlementCreatorByAcademicSessionDialog,
   ],
   exports: [],
   entryComponents: [
     SettlementCreatorDialog,
+    SettlementCreatorByAcademicSessionDialog,
   ],
 
 })
