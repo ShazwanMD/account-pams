@@ -108,7 +108,7 @@ public class FinancialAidController {
 
     @Deprecated
     @RequestMapping(value = "/settlements/init", method = RequestMethod.POST)
-    public void initSettlements(@RequestBody Settlement vo) {
+    public ResponseEntity<String> initSettlements(@RequestBody Settlement vo) {
     	dummyLogin();
     	
     	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
@@ -120,11 +120,12 @@ public class FinancialAidController {
     	acSettlement.setSession(acAcademicSession);
     	acSettlement.setSponsor(acSponsor);
     	
-    	financialAidService.initSettlement(acSettlement);
+    	String referenceNo = financialAidService.initSettlement(acSettlement);
+        return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/settlements/initBySponsor/{sponsorNo}", method = RequestMethod.POST)
-    public void initSettlementBySponsor(@PathVariable String sponsorNo,  @RequestBody Settlement vo) {
+    public ResponseEntity<String> initSettlementBySponsor(@PathVariable String sponsorNo,  @RequestBody Settlement vo) {
     	dummyLogin();
 
     	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
@@ -132,11 +133,13 @@ public class FinancialAidController {
     	AcSettlement settlement = new AcSettlementImpl();
     	settlement.setDescription(vo.getDescription());
     	settlement.setSession(acAcademicSession);
-    	financialAidService.initSettlementBySponsor(settlement, sponsor);
+
+        String referenceNo = financialAidService.initSettlementBySponsor(settlement, sponsor);
+        return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/settlements/initByCohortCode/{code}", method = RequestMethod.POST)
-    public void initSettlementByCohortCode(@PathVariable String code,  @RequestBody Settlement vo) {
+    public ResponseEntity<String> initSettlementByCohortCode(@PathVariable String code,  @RequestBody Settlement vo) {
     	dummyLogin();
 
     	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
@@ -144,11 +147,12 @@ public class FinancialAidController {
     	AcSettlement settlement = new AcSettlementImpl();
     	settlement.setDescription(vo.getDescription());
     	settlement.setSession(acAcademicSession);
-    	financialAidService.initSettlementByCohortCode(settlement, cohortCode);
+        String referenceNo = financialAidService.initSettlementByCohortCode(settlement, cohortCode);
+        return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/settlements/initByFacultyCode/{code}", method = RequestMethod.POST)
-    public void initSettlementByFacultyCode(@PathVariable String code,  @RequestBody Settlement vo) {
+    public ResponseEntity<String> initSettlementByFacultyCode(@PathVariable String code,  @RequestBody Settlement vo) {
     	dummyLogin();
 
     	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
@@ -156,7 +160,8 @@ public class FinancialAidController {
     	AcSettlement settlement = new AcSettlementImpl();
     	settlement.setDescription(vo.getDescription());
     	settlement.setSession(acAcademicSession);
-    	financialAidService.initSettlementByFacultyCode(settlement, facultyCode);
+        String referenceNo = financialAidService.initSettlementByFacultyCode(settlement, facultyCode);
+        return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
 
     // ====================================================================================================

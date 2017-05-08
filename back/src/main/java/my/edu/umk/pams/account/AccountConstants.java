@@ -44,4 +44,6 @@ public interface AccountConstants {
     public static final String WAIVER_APPLICATION_RESOURCE_PATH = "waiver_application.bpmn20.xml";
     public static final String WAIVER_APPLICATION_PROCESS_NAME = "waiver_application";
 
+    public static final String LAST_ENROLLMENT_DATE = "account.last.enrollmentDate";
+
 }

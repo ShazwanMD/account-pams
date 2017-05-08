@@ -19,12 +19,14 @@ import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.security.service.SecurityService;
+import my.edu.umk.pams.account.system.model.AcConfiguration;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.workflow.service.WorkflowConstants;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang.Validate;
 import org.hibernate.SessionFactory;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -318,6 +323,11 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
+	public AcInvoice executeInvoice() {
+		return null;
+	}
+
+	@Override
 	public Integer countInvoiceItem(AcInvoice invoice) {
 		return invoiceDao.countItem(invoice);
 	}
@@ -342,12 +352,26 @@ public class BillingServiceImpl implements BillingService {
 		return invoiceDao.countUnpaid(account);
 	}
 
-	@Override
-	@Scheduled(cron = "0 0 12 * * *")
+	// every midnite: "0 0 12 * * *"
+	// every 30 seconds: "0/20 * * * * *"
+	// check AC_CNFG.sql in /data
+	@Scheduled(cron = "0/20 * * * * *")
 	public void executeScheduler(){
+		LOG.debug("executing scheduler");
+		LocalDate now = new LocalDate(System.currentTimeMillis());
+		AcConfiguration lastEnrollmentDateStr = systemService.findConfigurationByKey(LAST_ENROLLMENT_DATE);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-		System.out.println("Fixed delay task - " + System.currentTimeMillis() / 1000);
-            
+		// generate when date past last enrollment date
+		try {
+			Date lastEnrollment  = formatter.parse(lastEnrollmentDateStr.getValue());
+			if (now.isAfter(new LocalDate(lastEnrollment))) {
+				// todo(hajar): generate invoice for student
+				// todo(hajar): for this semester
+            }
+		} catch (ParseException e) {
+			LOG.error("error parsing");
+		}
 	}
 	
 	// ====================================================================================================

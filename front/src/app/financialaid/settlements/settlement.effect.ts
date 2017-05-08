@@ -45,17 +45,32 @@ export class SettlementEffects {
     .switchMap(settlement => this.financialaidService.initSettlement(settlement))
     .map(referenceNo => this.settlementActions.initSettlementSuccess(referenceNo))
     .mergeMap(action => from([action, this.settlementActions.findSettlements()]));
-  /*
-    .mergeMap(action => from([action,
-      this.settlementActions.findSettlementByReferenceNo(action.payload),
-      this.router.navigate(['financialaid/settlements/', action.payload])]));
-*/
+
+  @Effect() initSettlementBySponsor$ = this.actions$
+    .ofType(SettlementActions.INIT_SETTLEMENT_BY_SPONSOR)
+    .map(action => action.payload)
+    .switchMap(payload => this.financialaidService.initSettlementBySponsor(payload.settlement, payload.sponsor))
+    .map(referenceNo => this.settlementActions.initSettlementBySponsorSuccess(referenceNo))
+    .mergeMap(action => from([action, this.settlementActions.findSettlements()]));
+
+  @Effect() initSettlementByFacultyCode$ = this.actions$
+    .ofType(SettlementActions.INIT_SETTLEMENT_BY_FACULTY_CODE)
+    .map(action => action.payload)
+    .switchMap(payload => this.financialaidService.initSettlementByFacultyCode(payload.settlement, payload.facultyCode))
+    .map(referenceNo => this.settlementActions.initSettlementByFacultyCodeSuccess(referenceNo))
+    .mergeMap(action => from([action, this.settlementActions.findSettlements()]));
+
+  @Effect() initSettlementByCohortCode$ = this.actions$
+    .ofType(SettlementActions.INIT_SETTLEMENT_BY_COHORT_CODE)
+    .map(action => action.payload)
+    .switchMap(payload => this.financialaidService.initSettlementByCohortCode(payload.settlement, payload.cohortCode))
+    .map(referenceNo => this.settlementActions.initSettlementByFacultyCodeSuccess(referenceNo))
+    .mergeMap(action => from([action, this.settlementActions.findSettlements()]));
+
   @Effect() processSettlement$ = this.actions$
     .ofType(SettlementActions.PROCESS_SETTLEMENT)
     .map(action => action.payload);
   // todo
-  // .switchMap(settlement => this.financialaidService.startSettlementTask(settlement))
-  // .map(task => this.settlementActions.startSettlementTaskSuccess(task));
 
   @Effect() updateSettlement$ = this.actions$
     .ofType(SettlementActions.UPDATE_SETTLEMENT)
