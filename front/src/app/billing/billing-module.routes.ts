@@ -4,7 +4,8 @@ import {BillingPage} from "./billing.page";
 import {VoucherRoutes} from "./vouchers/voucher.routes";
 import {ReceiptRoutes} from "./receipts/receipt.routes";
 import {InvoiceRoutes} from "./invoices/invoice.routes";
-import {DebitNoteRoutes} from "./debit-notes/debit-note.routes";
+import { DebitNoteRoutes } from "./debit-notes/debit-note.routes";
+import { CreditNoteRoutes } from "./credit-notes/credit-note.routes";
 
 // Route Configuration
 export const BillingModuleRoutes: Routes = [
@@ -13,4 +14,5 @@ export const BillingModuleRoutes: Routes = [
   ...ReceiptRoutes,
   ...VoucherRoutes,
   ...DebitNoteRoutes,
+  ...CreditNoteRoutes,
 ];
