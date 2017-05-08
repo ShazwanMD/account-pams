@@ -41,7 +41,7 @@ public interface FinancialAidService {
     Integer countSettlementItem(AcSettlement settlement);
 
     @Deprecated
-    void initSettlement(AcSettlement settlement);
+    String initSettlement(AcSettlement settlement);
 
     String initSettlementByFacultyCode(AcSettlement settlement, AcFacultyCode facultyCode);
 

@@ -13,9 +13,57 @@ export class SettlementActions {
   }
 
   static INIT_SETTLEMENT_SUCCESS = '[Settlement] Init Settlement Success';
-  initSettlementSuccess(settlement): Action {
+  initSettlementSuccess(referenceNo): Action {
     return {
       type: SettlementActions.INIT_SETTLEMENT_SUCCESS,
+      payload: referenceNo
+    };
+  }
+
+  static INIT_SETTLEMENT_BY_SPONSOR = '[Settlement] Init Settlement By Sponsor';
+  initSettlementBySponsor(settlement, sponsor): Action {
+    return {
+      type: SettlementActions.INIT_SETTLEMENT_BY_SPONSOR,
+      payload: {settlement:settlement, sponsor:sponsor}
+    };
+  }
+
+  static INIT_SETTLEMENT_BY_SPONSOR_SUCCESS = '[Settlement] Init Settlement By Sponsor Success';
+  initSettlementBySponsorSuccess(referenceNo): Action {
+    return {
+      type: SettlementActions.INIT_SETTLEMENT_BY_SPONSOR_SUCCESS,
+      payload: referenceNo
+    };
+  }
+
+  static INIT_SETTLEMENT_BY_FACULTY_CODE = '[Settlement] Init Settlement By FacultyCode';
+  initSettlementByFacultyCode(settlement, facultyCode): Action {
+    return {
+      type: SettlementActions.INIT_SETTLEMENT_BY_FACULTY_CODE,
+      payload: {settlement:settlement, facultyCode:facultyCode}
+    };
+  }
+
+  static INIT_SETTLEMENT_BY_FACULTY_CODE_SUCCESS = '[Settlement] Init Settlement By Faculty Code Success';
+  initSettlementByFacultyCodeSuccess(referenceNo): Action {
+    return {
+      type: SettlementActions.INIT_SETTLEMENT_BY_FACULTY_CODE_SUCCESS,
+      payload: referenceNo
+    };
+  }
+
+  static INIT_SETTLEMENT_BY_COHORT_CODE = '[Settlement] Init Settlement By CohortCode';
+  initSettlementByCohortCode(settlement, cohortCode): Action {
+    return {
+      type: SettlementActions.INIT_SETTLEMENT_BY_COHORT_CODE,
+      payload: {settlement:settlement, cohortCode:cohortCode}
+    };
+  }
+
+  static INIT_SETTLEMENT_BY_COHORT_CODE_SUCCESS = '[Settlement] Init Settlement By Cohort Code Success';
+  initSettlementCohortCodeSuccess(settlement): Action {
+    return {
+      type: SettlementActions.INIT_SETTLEMENT_BY_COHORT_CODE_SUCCESS,
       payload: settlement
     };
   }

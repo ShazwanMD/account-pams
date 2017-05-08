@@ -153,7 +153,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Deprecated
     @Override
-    public void initSettlement(AcSettlement settlement) {
+    public String initSettlement(AcSettlement settlement) {
         // prepare reference no generator
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("academicSession", academicSessionDao.findCurrentSession());
@@ -178,6 +178,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
             addSettlementItem(settlement, item);
         }
         sessionFactory.getCurrentSession().flush();
+        return referenceNo;
     }
 
     @Override

@@ -22,4 +22,22 @@ export class CommonActions {
       payload: codes
     };
   }
+  static FIND_FACULTY_CODES = '[Common] Find Faculty Codes';
+
+  findFacultyCodes(): Action {
+    console.log("findFacultyCodes");
+    return {
+      type: CommonActions.FIND_FACULTY_CODES,
+    };
+  }
+
+  static FIND_FACULTY_CODES_SUCCESS = '[Common] Find Faculty Codes Success';
+
+  findFacultyCodesSuccess(codes): Action {
+    console.log("findFacultyCodesSuccess");
+    return {
+      type: CommonActions.FIND_FACULTY_CODES_SUCCESS,
+      payload: codes
+    };
+  }
 }

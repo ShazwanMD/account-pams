@@ -7,6 +7,9 @@ import {Settlement} from "../app/financialaid/settlements/settlement.interface";
 import {SettlementItem} from "../app/financialaid/settlements/settlement-item.interface";
 import {WaiverApplicationTask} from "../app/financialaid/waiver-applications/waiver-application-task.interface";
 import {WaiverApplication} from "../app/financialaid/waiver-applications/waiver-application.interface";
+import {Sponsor} from "../app/identity/sponsor.interface";
+import {FacultyCode} from "../app/common/faculty-codes/faculty-code.interface";
+import {CohortCode} from "../app/common/cohort-codes/cohort-code.interface";
 
 @Injectable()
 export class FinancialaidService {
@@ -51,6 +54,39 @@ export class FinancialaidService {
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/financialaid/settlements/init', JSON.stringify(settlement), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  initSettlementBySponsor(settlement: Settlement, sponsor:Sponsor): Observable<String> {
+    console.log("init settlement",settlement);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/settlements/initBySponsor/' + sponsor.identityNo, JSON.stringify(settlement), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  initSettlementByFacultyCode(settlement: Settlement, facultyCode:FacultyCode): Observable<String> {
+    console.log("init settlement",settlement);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/settlements/initByFacultyCode/' + facultyCode.code, JSON.stringify(settlement), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  initSettlementByCohortCode(settlement: Settlement, cohortCode:CohortCode): Observable<String> {
+    console.log("init settlement",settlement);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/settlements/initByCohortCode/' + cohortCode.code, JSON.stringify(settlement), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
