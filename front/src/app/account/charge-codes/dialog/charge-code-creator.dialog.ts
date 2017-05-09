@@ -34,6 +34,7 @@ export class ChargeCodeCreatorDialog implements OnInit {
       id: null,
       code: '',
       description:'',
+      priority:0,
     });
   }
 
