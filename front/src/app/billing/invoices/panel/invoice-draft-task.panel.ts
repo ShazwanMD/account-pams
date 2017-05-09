@@ -47,7 +47,7 @@ export class InvoiceDraftTaskPanel implements OnInit {
     editorDialogRef.componentInstance.invoiceItem = item;
   }
 
-  draft(invoiceTask: InvoiceTask) {
+  register(invoiceTask: InvoiceTask) {
     this.store.dispatch(this.actions.completeInvoiceTask(invoiceTask));
   }
 

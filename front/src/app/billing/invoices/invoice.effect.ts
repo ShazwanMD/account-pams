@@ -53,19 +53,30 @@ export class InvoiceEffects {
     .ofType(InvoiceActions.START_INVOICE_TASK)
     .map(action => action.payload)
     .switchMap(invoice => this.billingService.startInvoiceTask(invoice))
-    .map(() => this.invoiceActions.findAssignedInvoiceTasks())
+    .mergeMap(action => from([action,
+        this.invoiceActions.findAssignedInvoiceTasks(),
+        this.invoiceActions.findPooledInvoiceTasks()
+      ]
+    ));
 
   @Effect() completeInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.COMPLETE_INVOICE_TASK)
-    .map(action => action.payload);
+    .map(action => action.payload)
+    .mergeMap(action => from([action,
+        this.invoiceActions.findAssignedInvoiceTasks(),
+        this.invoiceActions.findPooledInvoiceTasks()
+      ]
+    ));
 
   @Effect() assignInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.ASSIGN_INVOICE_TASK)
     .map(action => action.payload);
+  // todo:
 
   @Effect() releaseInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.RELEASE_INVOICE_TASK)
     .map(action => action.payload);
+  // todo:
 
   @Effect() updateInvoice$ = this.actions$
     .ofType(InvoiceActions.UPDATE_INVOICE)
