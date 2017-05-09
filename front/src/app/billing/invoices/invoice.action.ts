@@ -89,10 +89,10 @@ export class InvoiceActions {
 
   static COMPLETE_INVOICE_TASK_SUCCESS = '[Invoice] Complete Invoice Task Success';
 
-  completeInvoiceTaskSuccess(task): Action {
+  completeInvoiceTaskSuccess(message): Action {
     return {
       type: InvoiceActions.COMPLETE_INVOICE_TASK_SUCCESS,
-      payload: task
+      payload: message
     };
   }
 

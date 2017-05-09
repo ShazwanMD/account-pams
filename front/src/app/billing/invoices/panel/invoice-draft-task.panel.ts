@@ -47,8 +47,9 @@ export class InvoiceDraftTaskPanel implements OnInit {
     editorDialogRef.componentInstance.invoiceItem = item;
   }
 
-  register(invoiceTask: InvoiceTask) {
-    this.store.dispatch(this.actions.completeInvoiceTask(invoiceTask));
+  register() {
+    this.store.dispatch(this.actions.completeInvoiceTask(this.invoiceTask));
+    this.goBack();
   }
 
   goBack(): void {

@@ -155,16 +155,26 @@ public class BillingController {
     }
 
     @RequestMapping(value = "/invoices/claimTask", method = RequestMethod.POST)
-    public void claimInvoiceTask(@RequestBody InvoiceTask vo) {
+    public ResponseEntity<String> claimInvoiceTask(@RequestBody InvoiceTask vo) {
         dummyLogin();
         Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
         workflowService.claimTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/invoices/releaseTask", method = RequestMethod.POST)
+    public ResponseEntity<String> releaseInvoiceTask(@RequestBody InvoiceTask vo) {
+        dummyLogin();
+        Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
+        workflowService.releaseTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/completeTask", method = RequestMethod.POST)
-    public void completeInvoiceTask(@RequestBody InvoiceTask vo) {
+    public ResponseEntity<String> completeInvoiceTask(@RequestBody InvoiceTask vo) {
         Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     // ==================================================================================================== //

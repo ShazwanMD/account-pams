@@ -62,6 +62,8 @@ export class InvoiceEffects {
   @Effect() completeInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.COMPLETE_INVOICE_TASK)
     .map(action => action.payload)
+    .switchMap(invoiceTask => this.billingService.completeInvoiceTask(invoiceTask))
+    .map(message => this.invoiceActions.completeInvoiceTaskSuccess(message))
     .mergeMap(action => from([action,
         this.invoiceActions.findAssignedInvoiceTasks(),
         this.invoiceActions.findPooledInvoiceTasks()
@@ -70,13 +72,25 @@ export class InvoiceEffects {
 
   @Effect() assignInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.ASSIGN_INVOICE_TASK)
-    .map(action => action.payload);
-  // todo:
+    .map(action => action.payload)
+    .switchMap(invoiceTask => this.billingService.assignInvoiceTask(invoiceTask))
+    .map(message => this.invoiceActions.assignInvoiceTaskSuccess(message))
+    .mergeMap(action => from([action,
+        this.invoiceActions.findAssignedInvoiceTasks(),
+        this.invoiceActions.findPooledInvoiceTasks()
+      ]
+    ));
 
   @Effect() releaseInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.RELEASE_INVOICE_TASK)
-    .map(action => action.payload);
-  // todo:
+    .map(action => action.payload)
+    .switchMap(invoiceTask => this.billingService.releaseInvoiceTask(invoiceTask))
+    .map(message => this.invoiceActions.releaseInvoiceTaskSuccess(message))
+    .mergeMap(action => from([action,
+        this.invoiceActions.findAssignedInvoiceTasks(),
+        this.invoiceActions.findPooledInvoiceTasks()
+      ]
+    ));
 
   @Effect() updateInvoice$ = this.actions$
     .ofType(InvoiceActions.UPDATE_INVOICE)

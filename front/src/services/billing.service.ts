@@ -65,6 +65,37 @@ export class BillingService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
+  completeInvoiceTask(invoiceTask: InvoiceTask): Observable<String> {
+    console.log("TaskId: " + invoiceTask.taskId);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/invoices/completeTask', JSON.stringify(invoiceTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  assignInvoiceTask(invoiceTask: InvoiceTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/invoices/assignTask', JSON.stringify(invoiceTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  releaseInvoiceTask(invoiceTask: InvoiceTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/invoices/releaseTask', JSON.stringify(invoiceTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
   updateInvoice(invoice: Invoice): Observable<String> {
     return this.http.put(environment.endpoint + '/api/billing/invoices', JSON.stringify(invoice))
       .flatMap((res: Response) => Observable.of(res.text()));
