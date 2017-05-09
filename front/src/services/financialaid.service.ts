@@ -68,7 +68,7 @@ export class FinancialaidService {
   }
 
   initSettlementByFacultyCode(settlement: Settlement, facultyCode:FacultyCode): Observable<String> {
-    console.log("init settlement",settlement);
+    console.log("initSettlementByFacultyCode",settlement,facultyCode);
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token
@@ -79,7 +79,7 @@ export class FinancialaidService {
   }
 
   initSettlementByCohortCode(settlement: Settlement, cohortCode:CohortCode): Observable<String> {
-    console.log("init settlement",settlement);
+    console.log("initSettlementByCohortCode",settlement,cohortCode);
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token
