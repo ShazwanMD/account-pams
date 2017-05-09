@@ -1,7 +1,10 @@
 package my.edu.umk.pams.account.web.module.common.controller;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
+import my.edu.umk.pams.account.web.module.common.vo.FacultyCode;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,4 +34,22 @@ public class CommonTransformer {
                 .collect(Collectors.toList());
         return vos;
     }
+    
+	// ====================================================================================================
+	// FACULTY CODE
+	// ====================================================================================================
+
+	public FacultyCode toFacultyCodeVo(AcFacultyCode e) {
+		FacultyCode vo = new FacultyCode();
+		vo.setId(e.getId());
+		vo.setCode(e.getCode());
+		vo.setDescription(e.getDescription());
+		return vo;
+	}
+
+	public List<FacultyCode> toFacultyCodeVos(List<AcFacultyCode> e) {
+		List<FacultyCode> vos = e.stream().map((e1) -> toFacultyCodeVo(e1)).collect(Collectors.toList());
+		return vos;
+	}
+
 }
