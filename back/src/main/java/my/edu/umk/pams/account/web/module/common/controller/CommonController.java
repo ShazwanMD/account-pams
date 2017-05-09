@@ -94,9 +94,9 @@ public class CommonController {
     //====================================================================================================
 
     @RequestMapping(value = "/facultyCodes", method = RequestMethod.GET)
-    public ResponseEntity<List<FacultyCode>> findFacultyCodes(String filter, Integer offset, Integer limit) {
+    public ResponseEntity<List<FacultyCode>> findFacultyCodes() {
         return new ResponseEntity<List<FacultyCode>>(commonTransformer.toFacultyCodeVos(
-                commonService.findFacultyCodes(filter, offset, limit)), HttpStatus.OK);
+                commonService.findFacultyCodes()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/facultyCodes/{code}", method = RequestMethod.GET)

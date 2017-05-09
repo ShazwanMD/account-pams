@@ -107,7 +107,7 @@ public interface CommonService {
 
     AcFacultyCode findFacultyCodeByCode(String code);
 
-    List<AcFacultyCode> findFacultyCodes(String filter, Integer offset, Integer limit);
+    List<AcFacultyCode> findFacultyCodes();
 
     Integer countFacultyCode();
 
