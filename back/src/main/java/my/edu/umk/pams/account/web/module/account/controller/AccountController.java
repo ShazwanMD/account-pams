@@ -149,14 +149,15 @@ public class AccountController {
 
     @RequestMapping(value = "/chargeCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveChargeCode(@RequestBody ChargeCode vo) {
-            dummyLogin();
+        dummyLogin();
 
-           AcChargeCode chargeCode = new AcChargeCodeImpl();
-            chargeCode.setCode(vo.getCode());
-            chargeCode.setDescription(vo.getDescription());
-            accountService.saveChargeCode(chargeCode);
-            return new ResponseEntity<String>("Success", HttpStatus.OK);
-            }
+        AcChargeCode chargeCode = new AcChargeCodeImpl();
+        chargeCode.setCode(vo.getCode());
+        chargeCode.setDescription(vo.getDescription());
+        chargeCode.setPriority(vo.getPriority());
+        accountService.saveChargeCode(chargeCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
     // ==================================================================================================== //
     // ACCOUNT
@@ -196,7 +197,7 @@ public class AccountController {
     public ResponseEntity<String> updateAccount(@PathVariable String code, @RequestBody Account vo) {
         dummyLogin();
         // what can we update?
-        AcAccount account = accountService.findAccountById(vo.getId()) ;
+        AcAccount account = accountService.findAccountById(vo.getId());
         account.setCode(vo.getCode());
         account.setDescription(vo.getActor().getName());
         accountService.updateAccount(account);
@@ -218,7 +219,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/account/{code}/accountCharges", method = RequestMethod.POST)
-    public void addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo ) {
+    public void addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
         dummyLogin();
         AcAccount account = accountService.findAccountByCode(code);
         AcAcademicChargeImpl charge = new AcAcademicChargeImpl();
@@ -227,7 +228,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
-    public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo ) {
+    public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo) {
         dummyLogin();
         AcAccount account = accountService.findAccountByCode(code);
         AcAccountTransaction transaction = new AcAccountTransactionImpl();
@@ -238,7 +239,7 @@ public class AccountController {
         transaction.setTransactionCode(AcAccountTransactionCode.ADHOC);
         accountService.addAccountTransaction(account, transaction);
     }
-    
+
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================

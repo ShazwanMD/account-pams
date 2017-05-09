@@ -19,18 +19,10 @@ import my.edu.umk.pams.account.common.dao.AcCohortCodeDao;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
-import my.edu.umk.pams.account.financialaid.model.AcSettlement;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementImpl;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementItemImpl;
-import my.edu.umk.pams.account.financialaid.model.AcSettlementStatus;
+import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
-import my.edu.umk.pams.account.identity.dao.AcActorDao;
 import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
-import my.edu.umk.pams.account.identity.dao.AcStudentDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
-import my.edu.umk.pams.account.identity.model.AcSponsor;
-import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.service.SecurityService;
@@ -382,7 +374,7 @@ public class BillingServiceImpl implements BillingService {
 	// every midnite: "0 0 12 * * *"
 	// every 30 seconds: "0/20 * * * * *"
 	// check AC_CNFG.sql in /data
-	@Scheduled(cron = "0/20 * * * * *")
+	@Scheduled(cron = "0 0 1 * * *")
 	public void executeScheduler(){
 		LOG.debug("executing scheduler");
 		LocalDate now = new LocalDate(System.currentTimeMillis());

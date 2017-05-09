@@ -2,17 +2,19 @@ package my.edu.umk.pams.account.web.module.account.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
 import java.io.IOException;
 
 /**
  * @author PAMS
  */
-public class ChargeCode {
+public class ChargeCode extends MetaObject{
 
     private Long id;
     private String code;
     private String description;
+    private Integer priority;
 
     public Long getId() {
         return id;
@@ -36,6 +38,14 @@ public class ChargeCode {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     @JsonCreator

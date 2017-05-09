@@ -35,6 +35,10 @@ public class AcChargeCodeImpl implements AcChargeCode {
     @Embedded
     private AcMetadata metadata;
 
+    public AcChargeCodeImpl() {
+        setChargeType(AcChargeCodeType.ACADEMIC);
+    }
+
     @Override
     public Long getId() {
         return id;
