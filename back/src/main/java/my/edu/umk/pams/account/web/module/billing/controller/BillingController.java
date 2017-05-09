@@ -266,16 +266,27 @@ public class BillingController {
     }
 
     @RequestMapping(value = "/receipts/claimTask", method = RequestMethod.POST)
-    public void claimReceiptTask(@RequestBody ReceiptTask vo) {
+    public ResponseEntity<String> claimReceiptTask(@RequestBody ReceiptTask vo) {
         dummyLogin();
         Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
         workflowService.claimTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/releaseTask", method = RequestMethod.POST)
+    public ResponseEntity<String> releaseReceiptTask(@RequestBody ReceiptTask vo) {
+        dummyLogin();
+        Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
+        workflowService.releaseTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/receipts/completeTask", method = RequestMethod.POST)
-    public void completeReceiptTask(@RequestBody ReceiptTask vo) {
+    public ResponseEntity<String> completeReceiptTask(@RequestBody ReceiptTask vo) {
+        dummyLogin();
         Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     // ====================================================================================================

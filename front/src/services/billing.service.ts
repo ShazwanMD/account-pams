@@ -76,13 +76,13 @@ export class BillingService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  assignInvoiceTask(invoiceTask: InvoiceTask): Observable<String> {
+  claimInvoiceTask(invoiceTask: InvoiceTask): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
-    return this.http.post(environment.endpoint + '/api/billing/invoices/assignTask', JSON.stringify(invoiceTask), options)
+    return this.http.post(environment.endpoint + '/api/billing/invoices/claimTask', JSON.stringify(invoiceTask), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
@@ -154,6 +154,37 @@ export class BillingService {
 
   startReceiptTask(receipt: Receipt): Observable<String> {
     return this.http.post(environment.endpoint + '/api/billing/receipts/startTask', JSON.stringify(receipt))
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  completeReceiptTask(receiptTask: ReceiptTask): Observable<String> {
+    console.log("TaskId: " + receiptTask.taskId);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/receipts/completeTask', JSON.stringify(receiptTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  claimReceiptTask(receiptTask: ReceiptTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/receipts/claimTask', JSON.stringify(receiptTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  releaseReceiptTask(receiptTask: ReceiptTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/receipts/releaseTask', JSON.stringify(receiptTask), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
