@@ -2,9 +2,13 @@ package my.edu.umk.pams.account.web.module.common.controller;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCodeImpl;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
+import my.edu.umk.pams.account.web.module.common.vo.FacultyCode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,4 +88,54 @@ public class CommonController {
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
     }
+    
+    // ====================================================================================================
+    // FACULTY CODES
+    //====================================================================================================
+
+    @RequestMapping(value = "/facultyCodes", method = RequestMethod.GET)
+    public ResponseEntity<List<FacultyCode>> findFacultyCodes(String filter, Integer offset, Integer limit) {
+        return new ResponseEntity<List<FacultyCode>>(commonTransformer.toFacultyCodeVos(
+                commonService.findFacultyCodes(filter, offset, limit)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/facultyCodes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<FacultyCode> findFacultyCode(@PathVariable String code) {
+        return new ResponseEntity<FacultyCode>(commonTransformer.toFacultyCodeVo(
+                commonService.findFacultyCodeByCode(code)), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/facultyCodes", method = RequestMethod.POST)
+    public ResponseEntity<String> saveFacultyCode(@RequestBody FacultyCode vo) {
+        dummyLogin();
+
+        AcFacultyCode facultyCode = new AcFacultyCodeImpl();
+        facultyCode.setCode(vo.getCode());
+        facultyCode.setDescription(vo.getDescription());
+        commonService.saveFacultyCode(facultyCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/facultyCodes/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateFacultyCode(@PathVariable String code, @RequestBody FacultyCode vo) {
+        dummyLogin();
+
+        AcFacultyCode facultyCode = commonService.findFacultyCodeById(vo.getId());
+        facultyCode.setCode(vo.getCode());
+        facultyCode.setDescription(vo.getDescription());
+        commonService.updateFacultyCode(facultyCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/facultyCodes/{code}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeFacultyCode(@PathVariable String code) {
+        dummyLogin();
+
+        AcFacultyCode facultyCode = commonService.findFacultyCodeByCode(code);
+        commonService.removeFacultyCode(facultyCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    
 }
