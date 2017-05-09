@@ -154,7 +154,7 @@ public class AccountController {
            AcChargeCode chargeCode = new AcChargeCodeImpl();
             chargeCode.setCode(vo.getCode());
             chargeCode.setDescription(vo.getDescription());
-            commonService.saveChargeCode(chargeCode);
+            accountService.saveChargeCode(chargeCode);
             return new ResponseEntity<String>("Success", HttpStatus.OK);
             }
 
