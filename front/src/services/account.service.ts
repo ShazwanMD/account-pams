@@ -89,6 +89,15 @@ export class AccountService {
       .map((res: Response) => <ChargeCode>res.json());
   }
 
+  saveChargeCode(code:ChargeCode) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/common/chargeCodes', JSON.stringify(code), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
   // ====================================================================================================
   // ACADEMIC SESSION
   // ====================================================================================================

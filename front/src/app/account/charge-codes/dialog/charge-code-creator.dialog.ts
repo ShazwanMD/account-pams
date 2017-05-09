@@ -20,7 +20,10 @@ export class ChargeCodeCreatorDialog implements OnInit {
 
   private createForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              private viewContainerRef: ViewContainerRef,
               private store: Store<AccountModuleState>,
               private actions: ChargeCodeActions,
               private dialog: MdDialogRef<ChargeCodeCreatorDialog>) {
@@ -34,8 +37,8 @@ export class ChargeCodeCreatorDialog implements OnInit {
     });
   }
 
-  save(chargeCode: ChargeCode, isValid: boolean) {
-    console.log("code: " + chargeCode.code);
+  save(chargeCode: ChargeCode, isValid: boolean): void{
+    console.log("saving charge code");
     this.store.dispatch(this.actions.saveChargeCode(chargeCode));
     this.dialog.close();
   }
