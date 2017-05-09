@@ -8,8 +8,9 @@ import {Settlement} from "./settlement.interface";
 import {SettlementListState} from "./settlement-list.reducer";
 import {FinancialaidModuleState} from "../index";
 import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
-import {SettlementCreatorDialog} from "./dialog/settlement-creator.dialog";
-import {SettlementCreatorByAcademicSessionDialog} from "./dialog/settlement-creator-by-academic-session.dialog";
+import {SettlementCreatorByCohortDialog} from "./dialog/settlement-creator-by-cohort.dialog";
+import {SettlementCreatorByFacultyDialog} from "./dialog/settlement-creator-by-faculty.dialog";
+import {SettlementCreatorBySponsorDialog} from "./dialog/settlement-creator-by-sponsor.dialog";
 
 @Component({
   selector: 'pams-settlement-center',
@@ -20,8 +21,9 @@ export class SettlementCenterPage implements OnInit {
 
   private SETTLEMENTS = "financialaidModuleState.settlements".split(".");
   private settlements$: Observable<Settlement[]>;
-  private creatorDialogRef: MdDialogRef<SettlementCreatorDialog>;
-  private creatorByAcademicSessionDialogRef: MdDialogRef<SettlementCreatorByAcademicSessionDialog>;
+  private creatorByCohortDialogRef: MdDialogRef<SettlementCreatorByCohortDialog>;
+  private creatorByFacultyDialogRef: MdDialogRef<SettlementCreatorByFacultyDialog>;
+  private creatorBySponsorDialogRef: MdDialogRef<SettlementCreatorBySponsorDialog>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -41,22 +43,35 @@ export class SettlementCenterPage implements OnInit {
     this.router.navigate(['/view', settlement.referenceNo]);
   }
 
-  showDialog(): void {
-    console.log("showDialog");
+  showByCohortDialog(): void {
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '70%';
     config.height = '70%';
     config.position = {top: '0px'};
-    this.creatorDialogRef = this.dialog.open(SettlementCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
+    this.creatorByCohortDialogRef = this.dialog.open(SettlementCreatorByCohortDialog, config);
+    this.creatorByCohortDialogRef.afterClosed().subscribe(res => {
+      console.log("close dialog");
+      // load something here
+    });
+  }
+  
+  showByFacultyDialog(): void {
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '70%';
+    config.height = '70%';
+    config.position = {top: '0px'};
+    this.creatorByFacultyDialogRef = this.dialog.open(SettlementCreatorByFacultyDialog, config);
+    this.creatorByFacultyDialogRef.afterClosed().subscribe(res => {
       console.log("close dialog");
       // load something here
     });
   }
 
-  showByAcademicSessionDialog(): void {
+  showBySponsorDialog(): void {
     console.log("showDialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -64,8 +79,8 @@ export class SettlementCenterPage implements OnInit {
     config.width = '70%';
     config.height = '70%';
     config.position = {top: '0px'};
-    this.creatorByAcademicSessionDialogRef = this.dialog.open(SettlementCreatorByAcademicSessionDialog, config);
-    this.creatorByAcademicSessionDialogRef.afterClosed().subscribe(res => {
+    this.creatorBySponsorDialogRef = this.dialog.open(SettlementCreatorBySponsorDialog, config);
+    this.creatorBySponsorDialogRef.afterClosed().subscribe(res => {
       console.log("close dialog");
       // load something here
     });

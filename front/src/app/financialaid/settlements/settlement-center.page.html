@@ -6,21 +6,17 @@
 
   <td-layout-manage-list #list>
     <md-nav-list list-items>
-      <a md-list-item (click)="showDialog()">
+      <a md-list-item (click)="showByCohortDialog()">
         <md-icon>create</md-icon>
         By Cohort Code
       </a>
-      <a md-list-item (click)="showDialog()">
+      <a md-list-item (click)="showByFacultyDialog()">
         <md-icon>create</md-icon>
         By Faculty Code
       </a>
-      <a md-list-item (click)="showDialog()">
+      <a md-list-item (click)="showBySponsorDialog()">
         <md-icon>create</md-icon>
         By Sponsor
-      </a>
-      <a md-list-item (click)="showByAcademicSessionDialog()">
-        <md-icon>create</md-icon>
-        By Academic Session
       </a>
       <md-divider></md-divider>
     </md-nav-list>
