@@ -13,15 +13,19 @@ import {CommonEffects} from "./common.effect";
 import {CommonActions} from "./common.action";
 import {cohortCodeListReducer, CohortCodeListState} from "./cohort-codes/cohort-code-list.reducer";
 import {CohortCodeSelectComponent} from "./cohort-codes/component/cohort-code-select.component";
+import {facultyCodeListReducer, FacultyCodeListState} from "./faculty-codes/faculty-code-list.reducer";
+import {FacultyCodeSelectComponent} from "./faculty-codes/component/faculty-code-select.component";
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
+  facultyCodes: CohortCodeListState;
 }
 ;
 
 export const INITIAL_COMMON_STATE: CommonModuleState = <CommonModuleState>{};
 export const commonModuleReducers = {
   cohortCodes: cohortCodeListReducer,
+  facultyCodes: facultyCodeListReducer,
 };
 
 @NgModule({
@@ -34,9 +38,11 @@ export const commonModuleReducers = {
   ],
   declarations: [
     CohortCodeSelectComponent,
+    FacultyCodeSelectComponent,
   ],
   exports: [
     CohortCodeSelectComponent,
+    FacultyCodeSelectComponent,
   ],
 })
 export class CommonModule {
