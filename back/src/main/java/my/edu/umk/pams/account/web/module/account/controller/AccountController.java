@@ -147,6 +147,16 @@ public class AccountController {
         return new ResponseEntity<ChargeCode>(accountTransformer.toChargeCodeVo(chargeCode), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/chargeCodes", method = RequestMethod.POST)
+    public ResponseEntity<String> saveChargeCode(@RequestBody ChargeCode vo) {
+            dummyLogin();
+
+           AcChargeCode chargeCode = new AcChargeCodeImpl();
+            chargeCode.setCode(vo.getCode());
+            chargeCode.setDescription(vo.getDescription());
+            commonService.saveChargeCode(chargeCode);
+            return new ResponseEntity<String>("Success", HttpStatus.OK);
+            }
 
     // ==================================================================================================== //
     // ACCOUNT
