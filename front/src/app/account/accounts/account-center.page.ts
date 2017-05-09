@@ -23,6 +23,8 @@ export class AccountCenterPage implements OnInit {
     private accounts$: Observable<Account[]>;
     private creatorDialogRef: MdDialogRef<AccountCreatorDialog>;
 
+    text: string;
+    
     constructor(private router: Router,
         private route: ActivatedRoute,
         private actions: AccountActions,
