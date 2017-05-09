@@ -8,11 +8,7 @@ import { Observable } from "rxjs";
 import { BillingModuleState } from "../index";
 import { DebitNote } from "./debit-note.interface";
 import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
-//import {ChargeCodeActions} from "./charge-code.action";
-//import {ChargeCodeState} from "./charge-code.reducer";
-//import {ChargeCodeListState} from "./charge-code-list.reducer";
-//import {AccountModuleState} from "../index";
-//import {ChargeCodeCreatorDialog} from "./dialog/charge-code-creator.dialog";
+
 
 @Component({
     selector: 'pams-debit-note-center',
