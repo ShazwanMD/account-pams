@@ -4,5 +4,5 @@ import {SetupPage} from "./setup.page";
 
 
 export const SetupModuleRoutes: Routes = [
-  {path: 'setup', component: SetupPage},
+  {path: 'setup/', component: SetupPage},
 ];
