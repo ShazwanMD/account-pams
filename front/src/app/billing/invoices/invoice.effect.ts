@@ -70,11 +70,11 @@ export class InvoiceEffects {
       ]
     ));
 
-  @Effect() assignInvoiceTask$ = this.actions$
-    .ofType(InvoiceActions.ASSIGN_INVOICE_TASK)
+  @Effect() claimInvoiceTask$ = this.actions$
+    .ofType(InvoiceActions.CLAIM_INVOICE_TASK)
     .map(action => action.payload)
-    .switchMap(invoiceTask => this.billingService.assignInvoiceTask(invoiceTask))
-    .map(message => this.invoiceActions.assignInvoiceTaskSuccess(message))
+    .switchMap(invoiceTask => this.billingService.claimInvoiceTask(invoiceTask))
+    .map(message => this.invoiceActions.claimInvoiceTaskSuccess(message))
     .mergeMap(action => from([action,
         this.invoiceActions.findAssignedInvoiceTasks(),
         this.invoiceActions.findPooledInvoiceTasks()

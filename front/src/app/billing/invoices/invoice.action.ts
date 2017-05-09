@@ -96,20 +96,20 @@ export class InvoiceActions {
     };
   }
 
-  static ASSIGN_INVOICE_TASK = '[Invoice] Assign Invoice Task';
+  static CLAIM_INVOICE_TASK = '[Invoice] Assign Invoice Task';
 
-  assignInvoiceTask(invoice): Action {
+  claimInvoiceTask(invoice): Action {
     return {
-      type: InvoiceActions.ASSIGN_INVOICE_TASK,
+      type: InvoiceActions.CLAIM_INVOICE_TASK,
       payload: invoice
     };
   }
 
-  static ASSIGN_INVOICE_TASK_SUCCESS = '[Invoice] Assign Invoice Task Success';
+  static CLAIM_INVOICE_TASK_SUCCESS = '[Invoice] Assign Invoice Task Success';
 
-  assignInvoiceTaskSuccess(task): Action {
+  claimInvoiceTaskSuccess(task): Action {
     return {
-      type: InvoiceActions.ASSIGN_INVOICE_TASK_SUCCESS,
+      type: InvoiceActions.CLAIM_INVOICE_TASK_SUCCESS,
       payload: task
     };
   }
