@@ -870,7 +870,7 @@
         M_ID int8,
         M_ST int4,
         REFERENCE_NO varchar(255) not null,
-        SOURCE_NO varchar(255) not null,
+        SOURCE_NO varchar(255),
         SESSION_ID int8,
         primary key (ID)
     );

@@ -34,8 +34,7 @@ public class AcSettlementImpl implements AcSettlement {
     @Column(name = "REFERENCE_NO", unique = true, nullable = false)
     private String referenceNo;
 
-    @NotNull
-    @Column(name = "SOURCE_NO", unique = true, nullable = false)
+    @Column(name = "SOURCE_NO", unique = true)
     private String sourceNo;
 
     @NotNull
