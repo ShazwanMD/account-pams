@@ -7,6 +7,7 @@ import {InvoiceTask} from "../invoice-task.interface";
 import {InvoiceDraftTaskPanel} from "./invoice-draft-task.panel";
 import {FlowState} from "../../../core/flow-state.enum";
 import {InvoiceRegisterTaskPanel} from "./invoice-register-task.panel";
+import { InvoiceVerifyTaskPanel } from "./invoice-verify-task.panel";
 
 
 @Component({
@@ -37,6 +38,9 @@ export class InvoiceTaskWorkflowPanel implements OnInit {
             break;
           case FlowState.REGISTERED:
             componentFactory = this.cfr.resolveComponentFactory(InvoiceRegisterTaskPanel);
+            break;
+          case FlowState.VERIFIED:
+            componentFactory = this.cfr.resolveComponentFactory(InvoiceVerifyTaskPanel);
             break;
         }
         this.componentRef = this.taskPanel.createComponent(componentFactory);

@@ -25,6 +25,7 @@ import {AccountService} from "../../../services/account.service";
 import {InvoiceItemComponent} from "./component/invoice-item-list.component";
 import {ChargeCodeSubModule} from "../../account/charge-codes/index";
 import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
+import { InvoiceVerifyTaskPanel } from "./panel/invoice-verify-task.panel";
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
     InvoiceTaskWorkflowPanel,
     InvoiceDraftTaskPanel,
     InvoiceRegisterTaskPanel,
+    InvoiceVerifyTaskPanel,
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
     InvoiceItemComponent,
@@ -56,6 +58,7 @@ import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
   entryComponents: [
     InvoiceDraftTaskPanel,
     InvoiceRegisterTaskPanel,
+    InvoiceVerifyTaskPanel,
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
   ],
