@@ -5,7 +5,6 @@ import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/materi
 import {InvoiceItemEditorDialog} from "../dialog/invoice-item-editor.dialog";
 import {InvoiceTask} from "../invoice-task.interface";
 import {InvoiceActions} from "../invoice.action";
-import {InvoiceTaskState} from "../invoice-task.reducer";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {BillingModuleState} from "../../index";
@@ -47,8 +46,9 @@ export class InvoiceVerifyTaskPanel implements OnInit {
     editorDialogRef.componentInstance.invoiceItem = item;
   }
 
-  register(invoiceTask: InvoiceTask) {
-    this.store.dispatch(this.actions.completeInvoiceTask(invoiceTask));
+  approve() {
+    this.store.dispatch(this.actions.completeInvoiceTask(this.invoiceTask));
+    this.goBack();
   }
 
   goBack(): void {

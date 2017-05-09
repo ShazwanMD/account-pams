@@ -46,8 +46,9 @@ export class InvoiceRegisterTaskPanel {
     editorDialogRef.componentInstance.invoiceItem = item;
   }
 
-  approve() {
+  verify() {
     this.store.dispatch(this.actions.completeInvoiceTask(this.invoiceTask));
+    this.goBack();
   }
 
   goBack(): void {

@@ -172,6 +172,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeInvoiceTask(@RequestBody InvoiceTask vo) {
+        dummyLogin();
         Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
