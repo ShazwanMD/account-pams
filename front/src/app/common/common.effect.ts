@@ -15,4 +15,13 @@ export class CommonEffects {
     .map(action => action.payload)
     .switchMap(() => this.commonService.findCohortCodes())
     .map(codes => this.commonActions.findCohortCodesSuccess(codes));
+
+
+  @Effect() findFacultyCodes$ = this.actions$
+    .ofType(CommonActions.FIND_FACULTY_CODES)
+    .map(action => action.payload)
+    .switchMap(() => this.commonService.findFacultyCodes())
+    .map(codes => this.commonActions.findFacultyCodesSuccess(codes));
+
+
 }
