@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
 
@@ -14,72 +15,90 @@ import java.util.Date;
  */
 public class Receipt extends Document {
 
-    private String receiptNo;
-    private Boolean paid;
-    private Date issuedDate;
-    private Account account;
-    private BigDecimal totalAmount;
-    private BigDecimal totalPretaxAmount;
-    private BigDecimal totalTaxAmount;
-    private BigDecimal balanceAmount;
+	private String referenceNo;
+	private String receiptNo;
+	private String sourceNo;
+	private String auditNo;
+	private String description;
+	private BigDecimal totalApplied = BigDecimal.ZERO;
+	private BigDecimal totalReceived = BigDecimal.ZERO;
+	private BigDecimal totalAmount = new BigDecimal(0.00);
+	private Date receivedDate;
+	private Account account;
+	
+	public String getReferenceNo() {
+		return referenceNo;
+	}
 
-    public String getReceiptNo() {
-        return receiptNo;
-    }
+	public void setReferenceNo(String referenceNo) {
+		this.referenceNo = referenceNo;
+	}
 
-    public void setReceiptNo(String receiptNo) {
-        this.receiptNo = receiptNo;
-    }
+	public String getReceiptNo() {
+		return receiptNo;
+	}
 
-    public Date getIssuedDate() {
-        return issuedDate;
-    }
+	public void setReceiptNo(String receiptNo) {
+		this.receiptNo = receiptNo;
+	}
 
-    public void setIssuedDate(Date issuedDate) {
-        this.issuedDate = issuedDate;
-    }
+	public String getSourceNo() {
+		return sourceNo;
+	}
 
-    public Boolean getPaid() {
-        return paid;
-    }
+	public void setSourceNo(String sourceNo) {
+		this.sourceNo = sourceNo;
+	}
 
-    public void setPaid(Boolean paid) {
-        this.paid = paid;
-    }
+	public String getAuditNo() {
+		return auditNo;
+	}
 
-    public BigDecimal getTotalPretaxAmount() {
-        return totalPretaxAmount;
-    }
+	public void setAuditNo(String auditNo) {
+		this.auditNo = auditNo;
+	}
 
-    public void setTotalPretaxAmount(BigDecimal totalPretaxAmount) {
-        this.totalPretaxAmount = totalPretaxAmount;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public BigDecimal getTotalTaxAmount() {
-        return totalTaxAmount;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setTotalTaxAmount(BigDecimal totalTaxAmount) {
-        this.totalTaxAmount = totalTaxAmount;
-    }
+	public BigDecimal getTotalApplied() {
+		return totalApplied;
+	}
 
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
+	public void setTotalApplied(BigDecimal totalApplied) {
+		this.totalApplied = totalApplied;
+	}
 
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
+	public BigDecimal getTotalReceived() {
+		return totalReceived;
+	}
 
-    public BigDecimal getBalanceAmount() {
-        return balanceAmount;
-    }
+	public void setTotalReceived(BigDecimal totalReceived) {
+		this.totalReceived = totalReceived;
+	}
 
-    public void setBalanceAmount(BigDecimal balanceAmount) {
-        this.balanceAmount = balanceAmount;
-    }
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
 
-    public Account getAccount() {
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public Date getReceivedDate() {
+		return receivedDate;
+	}
+
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
+	}
+
+	public Account getAccount() {
         return account;
     }
 
@@ -87,7 +106,7 @@ public class Receipt extends Document {
         this.account = account;
     }
 
-    @JsonCreator
+	@JsonCreator
     public static Receipt create(String jsonString) {
         Receipt o = null;
         try {
