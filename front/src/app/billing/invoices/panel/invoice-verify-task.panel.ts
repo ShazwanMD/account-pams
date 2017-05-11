@@ -18,8 +18,8 @@ import {BillingModuleState} from "../../index";
 export class InvoiceVerifyTaskPanel implements OnInit {
 
   private INVOICE_ITEMS = "billingModuleState.invoiceItems".split(".");
+  private invoiceItems$: Observable<InvoiceItem[]>;
   @Input() invoiceTask: InvoiceTask;
-  invoiceItems$: Observable<InvoiceItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
