@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
+
 import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -242,7 +243,7 @@ public class BillingController {
     }
 
     @RequestMapping(value = "/receipts/startTask", method = RequestMethod.POST)
-    public void startReceiptTask(@RequestBody Receipt vo) throws Exception {
+    public ResponseEntity<String> startReceiptTask(@RequestBody Receipt vo) throws Exception {
         dummyLogin();
         
         AcAccount account = accountService.findAccountById(vo.getAccount().getId());
@@ -261,7 +262,7 @@ public class BillingController {
         receipt.setTotalAmount(vo.getTotalAmount());
         receipt.setAccount(account);
         
-        billingService.startReceiptTask(receipt);
+        return new ResponseEntity<String>(billingService.startReceiptTask(receipt), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/receipts/viewTask/{taskId}", method = RequestMethod.GET)
