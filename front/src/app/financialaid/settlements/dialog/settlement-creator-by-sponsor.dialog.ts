@@ -9,8 +9,6 @@ import {SettlementActions} from "../settlement.action";
 import {SettlementCreator} from "../settlement-creator.interface";
 import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
 import {Sponsor} from "../../../identity/sponsor.interface";
-//import {PromoCodeCreatorDialog} from "../../../marketing/promo-codes/dialog/promo-code-creator.dialog";
-
 
 @Component({
   selector: 'pams-settlement-creator-by-sponsor',

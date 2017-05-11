@@ -32,12 +32,13 @@ export class SettlementCreatorByFacultyDialog implements OnInit {
     this.createForm = this.formBuilder.group(<SettlementCreator>{
       sourceNo:'',
       description: '',
-      faculty:<FacultyCode>{},
+      facultyCode:<FacultyCode>{},
       academicSession:<AcademicSession>{},
     });
   }
 
   save(settlementCreator: SettlementCreator, isValid: boolean) {
+    console.log("settlementCreator",settlementCreator);
     this.store.dispatch(this.actions.initSettlementByFacultyCode(settlementCreator,settlementCreator.facultyCode));
     this.dialog.close();
 
