@@ -244,7 +244,7 @@ public class BillingController {
     @RequestMapping(value = "/receipts/startTask", method = RequestMethod.POST)
     public void startReceiptTask(@RequestBody Receipt vo) throws Exception {
         dummyLogin();
-
+        
         AcAccount account = accountService.findAccountById(vo.getAccount().getId());
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("academicSession", accountService.findCurrentAcademicSession());
@@ -252,9 +252,15 @@ public class BillingController {
 
         AcReceipt receipt = new AcReceiptImpl();
         receipt.setReferenceNo(generated);
+        receipt.setReceiptNo(vo.getReceiptNo());
+        receipt.setSourceNo(vo.getSourceNo());
+        receipt.setAuditNo(vo.getAuditNo());
         receipt.setDescription(vo.getDescription());
-        receipt.setTotalAmount(BigDecimal.ZERO);
+        receipt.setTotalApplied(vo.getTotalApplied());
+        receipt.setTotalReceived(vo.getTotalReceived());
+        receipt.setTotalAmount(vo.getTotalAmount());
         receipt.setAccount(account);
+        
         billingService.startReceiptTask(receipt);
     }
 
