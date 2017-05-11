@@ -47,7 +47,7 @@ export class ReceiptCenterPage implements OnInit {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '60%';
+    config.height = '90%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(ReceiptTaskCreatorDialog, config);
     this.creatorDialogRef.afterClosed().subscribe(res => {
