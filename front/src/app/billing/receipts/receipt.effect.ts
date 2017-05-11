@@ -46,7 +46,12 @@ export class ReceiptEffects {
     .ofType(ReceiptActions.START_RECEIPT_TASK)
     .map(action => action.payload)
     .switchMap(receipt => this.billingService.startReceiptTask(receipt))
-    .map(task => this.receiptActions.startReceiptTaskSuccess(task));
+    .map(task => this.receiptActions.startReceiptTaskSuccess(task))
+    .mergeMap(action => from([action,
+       this.receiptActions.findAssignedReceiptTasks(),
+       this.receiptActions.findPooledReceiptTasks()
+      ]
+    ));
 
   @Effect() completeReceiptTask$ = this.actions$
     .ofType(ReceiptActions.COMPLETE_RECEIPT_TASK)
