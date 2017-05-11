@@ -53,6 +53,7 @@ export class InvoiceEffects {
     .ofType(InvoiceActions.START_INVOICE_TASK)
     .map(action => action.payload)
     .switchMap(invoice => this.billingService.startInvoiceTask(invoice))
+    .map(referenceNo => this.invoiceActions.startInvoiceTaskSuccess(referenceNo))
     .mergeMap(action => from([action,
         this.invoiceActions.findAssignedInvoiceTasks(),
         this.invoiceActions.findPooledInvoiceTasks()

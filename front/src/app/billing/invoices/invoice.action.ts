@@ -71,10 +71,10 @@ export class InvoiceActions {
 
   static START_INVOICE_TASK_SUCCESS = '[Invoice] Start Invoice Task Success';
 
-  startInvoiceTaskSuccess(task): Action {
+  startInvoiceTaskSuccess(referenceNo): Action {
     return {
       type: InvoiceActions.START_INVOICE_TASK_SUCCESS,
-      payload: task
+      payload: referenceNo
     };
   }
 
