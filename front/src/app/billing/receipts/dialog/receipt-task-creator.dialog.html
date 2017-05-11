@@ -82,6 +82,12 @@
                flex/>
       </md-input-container>
     </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-account-select
+        [placeholder]="'Select Account'"
+        [innerFormControl]="createForm.controls['account']">
+      </pams-account-select>
+    </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
