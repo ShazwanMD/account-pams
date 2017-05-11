@@ -35,14 +35,13 @@ export class ReceiptTaskCreatorDialog implements OnInit {
       referenceNo: '',
       receiptNo:'',
       sourceNo:'',
+      auditNo:'',
       description: '',
-      totalPretaxAmount:0,
-      totalTaxAmount:0,
+      totalApplied:0,
+      totalReceived:0,
       totalAmount:0,
       balanceAmount:0,
-      paid:false,
       account:<Account>{},
-      academicSession:<AcademicSession>{},
     });
   }
 
