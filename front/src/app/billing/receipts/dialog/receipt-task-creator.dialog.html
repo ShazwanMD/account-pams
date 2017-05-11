@@ -4,8 +4,8 @@
      <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #referenceNo
-               placeholder="referenceNo"
-               formControlName="totalPretaxAmount"
+               placeholder="Reference No"
+               formControlName="referenceNo"
                value="ReferenceNo"
                flex/>
    </md-input-container>
@@ -13,25 +13,34 @@
         <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #receiptNo
-               placeholder="receiptNo"
+               placeholder="Receipt No"
                formControlName="receiptNo"
                value="ReceiptNo"
                flex/>
       </md-input-container>
     </div>
-        <div layout="row" class="pad-bottom">
+    <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #sourceNo
-               placeholder="sourceNo"
+               placeholder="Source No"
                formControlName="sourceNo"
-               value="Description"
+               value="SourceNo"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #auditNo
+               placeholder="Audit No"
+               formControlName="auditNo"
+               value="AuditNo"
                flex/>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #description
-               placeholder="description"
+               placeholder="Description"
                formControlName="description"
                value="Description"
                flex/>
@@ -39,26 +48,26 @@
     </div>
          <div layout="row" class="pad-bottom">
       <md-input-container flex>
-        <input mdInput #totalPretaxAmount
-               placeholder="totalPretaxAmount"
-               formControlName="totalPretaxAmount"
-               value="TotalPretaxAmount"
+        <input mdInput #totalApplied
+               placeholder="Total Applied"
+               formControlName="totalApplied"
+               value="TotalApplied"
                flex/>
       </md-input-container>
     </div>
      <div layout="row" class="pad-bottom">
       <md-input-container flex>
-        <input mdInput #totalTaxAmount
-               placeholder="totalTaxAmount"
-               formControlName="totalTaxAmount"
-               value="TotalTaxAmount"
+        <input mdInput #totalReceived
+               placeholder="Total Received"
+               formControlName="totalReceived"
+               value="TotalReceived"
                flex/>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #totalAmount
-               placeholder="totalAmount"
+               placeholder="Total Amount"
                formControlName="totalAmount"
                value="TotalAmount"
                flex/>
@@ -67,7 +76,7 @@
         <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #balanceAmount
-               placeholder="balanceAmount"
+               placeholder="Balance Amount"
                formControlName="balanceAmount"
                value="BalanceAmount"
                flex/>
@@ -76,7 +85,6 @@
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-button color="primary" (click)="goBack()">Back</button>
   <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
 </md-dialog-actions>
 
