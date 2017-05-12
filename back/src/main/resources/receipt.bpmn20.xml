@@ -64,7 +64,7 @@
         <sequenceFlow id="flow3.1" sourceRef="receipt_register_ST" targetRef="receipt_register_UT"/>
 
         <userTask id="receipt_register_UT" name="my.edu.umk.pams.account.billing.model.AcReceipt:REGISTERED"
-                  activiti:candidateGroups="#{receiptRouterService.findRegistererCandidates(receiptId)}">
+                  activiti:candidateGroups="#{receiptRouter.findRegistererCandidates(receiptId)}">
             <documentation>
                 Register Receipt / Daftar Resit
             </documentation>
