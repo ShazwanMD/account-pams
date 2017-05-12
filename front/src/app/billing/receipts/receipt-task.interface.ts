@@ -8,11 +8,7 @@ export interface ReceiptTask extends Document{
   assignee:string;
   referenceNo: string;
   sourceNo: string;
-  accountCode: string;
   description: string;
-  totalAmount: number;
-  balanceAmount: number;
-  issuedDate: number;
   receipt: Receipt;
   flowState:FlowState;
 }
