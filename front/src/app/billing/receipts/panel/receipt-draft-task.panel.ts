@@ -16,10 +16,11 @@ import {BillingModuleState} from "../../index";
   templateUrl: './receipt-draft-task.panel.html',
 })
 
-export class ReceiptDraftTaskPanel {
+export class ReceiptDraftTaskPanel implements OnInit {
 
+  private RECEIPT_ITEMS = "billingModuleState.receiptItems".split(".");
   @Input() receiptTask: ReceiptTask;
-  @Input() receiptItems: ReceiptItem[];
+  receiptItems$: Observable<ReceiptItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -28,6 +29,11 @@ export class ReceiptDraftTaskPanel {
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private snackBar: MdSnackBar) {
+    this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt))
   }
 
   editItem(item: ReceiptItem) {
@@ -41,14 +47,9 @@ export class ReceiptDraftTaskPanel {
     editorDialogRef.componentInstance.receiptItem = item;
   }
 
-  draft(receiptTask: ReceiptTask) {
-    this.store.dispatch(this.actions.completeReceiptTask(receiptTask));
-    // .subscribe(res => {
-    // let snackBarRef = this._snackBar.open("Receipt  completed", "OK");
-    // snackBarRef.afterDismissed().subscribe(() => {
-    //   this.goBack();
-    // });
-    // });
+  register() {
+    this.store.dispatch(this.actions.completeReceiptTask(this.receiptTask));
+    this.goBack();
   }
 
   goBack(): void {

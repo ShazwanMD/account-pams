@@ -7,6 +7,7 @@ import {ReceiptTask} from "../receipt-task.interface";
 import {ReceiptActions} from "../receipt.action";
 import {Store} from "@ngrx/store";
 import {BillingModuleState} from "../../index";
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -16,8 +17,9 @@ import {BillingModuleState} from "../../index";
 
 export class ReceiptRegisterTaskPanel {
 
+  private RECEIPT_ITEMS = "billingModuleState.receiptItems".split(".");
   @Input() receiptTask: ReceiptTask;
-  @Input() receiptItems: ReceiptItem[];
+  receiptItems$: Observable<ReceiptItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -26,6 +28,11 @@ export class ReceiptRegisterTaskPanel {
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private snackBar: MdSnackBar) {
+    this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt))
   }
 
   editItem(item: ReceiptItem) {
@@ -39,14 +46,9 @@ export class ReceiptRegisterTaskPanel {
     editorDialogRef.componentInstance.receiptItem = item;
   }
 
-  approve(receiptTask: ReceiptTask) {
-    this.store.dispatch(this.actions.completeReceiptTask(receiptTask));
-    // .subscribe(res => {
-    // let snackBarRef = this._snackBar.open("Receipt  completed", "OK");
-    // snackBarRef.afterDismissed().subscribe(() => {
-    //   this.goBack();
-    // });
-    // });
+  verify() {
+    this.store.dispatch(this.actions.completeReceiptTask(this.receiptTask));
+    this.goBack();
   }
 
   goBack(): void {
