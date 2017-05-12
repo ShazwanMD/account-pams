@@ -141,6 +141,14 @@ export class AccountService {
       .map((res: Response) => <Account[]>res.json());
   }
 
+  findAccountsByFilter(filter:string): Observable<Account[]> {
+    console.log("findAccountsByFilter");
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/byFilter/' + filter)
+      .map((res: Response) => <Account[]>res.json());
+  }
+
   findAccountByCode(code: string): Observable<Account> {
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
