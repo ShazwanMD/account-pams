@@ -8,6 +8,7 @@ export type AccountState = Account;
 const initialState: AccountState = {
   id: 0,
   code: '',
+  description: '',
   name: '',
   email: '',
   actor:<Actor>{},
