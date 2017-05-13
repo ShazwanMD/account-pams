@@ -17,6 +17,12 @@ export class AccountEffects {
     .switchMap(() => this.accountService.findAccounts())
     .map(accounts => this.accountActions.findAccountsSuccess(accounts));
 
+  @Effect() findAccountsByFilter$ = this.actions$
+    .ofType(AccountActions.FIND_ACCOUNTS_BY_FILTER)
+    .map(action => action.payload)
+    .switchMap(filter => this.accountService.findAccountsByFilter(filter))
+    .map(accounts => this.accountActions.findAccountsSuccess(accounts));
+
   @Effect() findAccount$ = this.actions$
     .ofType(AccountActions.FIND_ACCOUNT)
     .map(action => action.payload)
