@@ -1,14 +1,10 @@
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
-import {IdentityService} from '../../../services';
-import {CommonService} from '../../../services';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Account} from "./account.interface";
 import {AccountActions} from "./account.action";
-import {AccountState} from "./account.reducer";
-import {AccountListState} from "./account-list.reducer";
 import {AccountModuleState} from "../index";
 import {AccountCreatorDialog} from "./dialog/account-creator.dialog";
 
@@ -45,7 +41,8 @@ export class AccountCenterPage implements OnInit {
 
   filterAccounts(filter: string): void {
     console.log("filtering: " + filter);
-    if(filter) this.store.dispatch(this.actions.findAccountsByFilter(filter))
+    if (filter) this.store.dispatch(this.actions.findAccountsByFilter(filter));
+    else this.store.dispatch(this.actions.findAccounts())
   }
 
   showDialog(): void {

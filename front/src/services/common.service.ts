@@ -5,6 +5,11 @@ import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
 import {CohortCode} from "../app/common/cohort-codes/cohort-code.interface";
 import {FacultyCode} from "../app/common/faculty-codes/faculty-code.interface";
+import {CountryCode} from "../app/common/country-codes/country-code.interface";
+import {ProgramCode} from "../app/common/program-codes/program-code.interface";
+import {StudyMode} from "../app/common/study-modes/study-mode.interface";
+import {StateCode} from "../app/common/state-codes/state-code.interface";
+import {BankCode} from "../app/common/bank-codes/bank-code.interface";
 
 @Injectable()
 export class CommonService {
@@ -13,9 +18,24 @@ export class CommonService {
               private _http: HttpInterceptorService) {
   }
 
+  // ====================================================================================================
+  // BANK CODES
+  // ====================================================================================================
+
+  findBankCodes(): Observable<BankCode[]> {
+    console.log("findBankCodes()");
+    return this.http.get(environment.endpoint + '/api/common/bankCodes')
+      .map((res: Response) => <BankCode[]>res.json());
+  }
+
+  findBankCodeByCode(code: string): Observable<BankCode> {
+    console.log("findBankCodeByCode");
+    return this.http.get(environment.endpoint + '/api/common/bankCodes/' + code)
+      .map((res: Response) => <BankCode>res.json());
+  }
 
   // ====================================================================================================
-  // PROGRAM CODES
+  // COHORT CODES
   // ====================================================================================================
 
   findCohortCodes(): Observable<CohortCode[]> {
@@ -46,7 +66,117 @@ export class CommonService {
       .map((res: Response) => <FacultyCode>res.json());
   }
 
+  findProgramCodesByFacultyCode(facultyCode: FacultyCode): Observable<ProgramCode[]> {
+    console.log("findProgramCodesByFacultyCode");
+    return this.http.get(environment.endpoint + '/api/common/facultyCodes/' + facultyCode.code + '/programCodes')
+      .map((res: Response) => <ProgramCode[]>res.json());
+  }
 
+  saveFacultyCode(code: FacultyCode) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/common/facultyCodes', JSON.stringify(code), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+
+  // ====================================================================================================
+  // PROGRAM CODES
+  // ====================================================================================================
+
+  findProgramCodes(): Observable<ProgramCode[]> {
+    console.log("findProgramCodes");
+    return this.http.get(environment.endpoint + '/api/common/programCodes')
+      .map((res: Response) => <ProgramCode[]>res.json());
+  }
+
+  findProgramCodeByCode(code: string): Observable<ProgramCode> {
+    console.log("findProgramCodeByCode");
+    return this.http.get(environment.endpoint + '/api/common/programCodes/' + code)
+      .map((res: Response) => <ProgramCode>res.json());
+  }
+
+  saveProgramCode(code: ProgramCode) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/common/programCodes', JSON.stringify(code), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  removeProgramCode(code: ProgramCode) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.delete(environment.endpoint + '/api/common/programCodes/' + code.code, options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+
+  // ====================================================================================================
+  // STUDY MODE
+  // ====================================================================================================
+
+  findStudyModes(): Observable<StudyMode[]> {
+    console.log("findStudyModes");
+    return this.http.get(environment.endpoint + '/api/common/studyModes')
+      .map((res: Response) => <StudyMode[]>res.json());
+  }
+
+  findStudyModeByCode(code: string): Observable<StudyMode> {
+    console.log("findStudyModeByCode");
+    return this.http.get(environment.endpoint + '/api/common/studyModes/' + code)
+      .map((res: Response) => <StudyMode>res.json());
+  }
+
+  saveStudyMode(code: StudyMode) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/common/studyModes', JSON.stringify(code), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+// ====================================================================================================
+// COUNTRY CODES
+// ====================================================================================================
+
+  findCountryCodes(): Observable<CountryCode[]> {
+    console.log("findCountryCodes()");
+    return this.http.get(environment.endpoint + '/api/common/countryCodes')
+      .map((res: Response) => <CountryCode[]>res.json());
+  }
+
+  findCountryCodeByCode(code: string): Observable<CountryCode> {
+    console.log("findCountryCodeByCode");
+    return this.http.get(environment.endpoint + '/api/common/countryCodes/' + code)
+      .map((res: Response) => <CountryCode>res.json());
+  }
+
+// ====================================================================================================
+// STATE CODES
+// ====================================================================================================
+
+  findStateCodes(): Observable<StateCode[]> {
+    console.log("findStateCodes()");
+    return this.http.get(environment.endpoint + '/api/common/stateCodes')
+      .map((res: Response) => <StateCode[]>res.json());
+  }
+
+  findStateCodeByCode(code: string): Observable<StateCode> {
+    console.log("findStateCodeByCode");
+    return this.http.get(environment.endpoint + '/api/common/stateCodes/' + code)
+      .map((res: Response) => <StateCode>res.json());
+  }
 
 
 }

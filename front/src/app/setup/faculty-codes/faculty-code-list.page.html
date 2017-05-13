@@ -1,0 +1,28 @@
+<md-card class="">
+  <md-card-title>Faculty codes and descriptions</md-card-title>
+  <md-card-subtitle>List of faculty codes and descriptions</md-card-subtitle>
+
+  <td-data-table
+    [data]="facultyCodes$ | async"
+    [columns]="columns"
+    [sortBy]="summary"
+    [sortOrder]="ASC"
+    [sortable]="false"
+    [multiple]="false"
+    [selectable]="false"
+    (rowSelect)="view.emit($event)" dense>
+    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <span flex>{{value}}</span>
+      </div>
+    </template>
+  </td-data-table>
+
+  <md-divider></md-divider>
+  <md-card-actions>
+  </md-card-actions>
+</md-card>
+
+<a md-fab color="accent" class="mat-fab-top-right" (click)="showDialog()">
+  <md-icon>add</md-icon>
+</a>

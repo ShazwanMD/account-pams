@@ -7,7 +7,6 @@ import {AccountModuleRoutes} from "./account/account-module.routes";
 import {BillingModuleRoutes} from "./billing/billing-module.routes";
 import {FinancialaidModuleRoutes} from "./financialaid/financialaid-module.routes";
 import {MarketingModuleRoutes} from "./marketing/marketing-module.routes";
-import {WakjokoModuleRoutes} from "./wakjoko/wakjoko-module.routes";
 import {SetupModuleRoutes} from "./setup/setup-module.routes";
 
 const routes: Routes = [
@@ -20,7 +19,6 @@ const routes: Routes = [
       ...BillingModuleRoutes,
       ...FinancialaidModuleRoutes,
       ...MarketingModuleRoutes,
-      ...WakjokoModuleRoutes,
       ...SetupModuleRoutes,
     ]
   },

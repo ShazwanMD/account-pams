@@ -1,0 +1,28 @@
+<md-card>
+  <td-search-box class="push-left push-right"
+                 placeholder="search"
+                 [alwaysVisible]="true"
+                 (searchDebounce)="filter($event)">
+
+  </td-search-box>
+
+  <td-data-table
+    [data]="studyModes$ | async"
+    [columns]="columns"
+    [sortBy]="summary"
+    [sortOrder]="ASC"
+    [sortable]="false"
+    [multiple]="false"
+    [selectable]="false"
+    (rowSelect)="view.emit($event)" dense>
+    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <span flex>{{value}}</span>
+      </div>
+    </template>
+  </td-data-table>
+
+  <md-divider></md-divider>
+  <md-card-actions>
+  </md-card-actions>
+</md-card>

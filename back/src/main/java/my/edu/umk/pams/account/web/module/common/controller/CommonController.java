@@ -136,6 +136,4 @@ public class CommonController {
         commonService.removeFacultyCode(facultyCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-
-    
 }

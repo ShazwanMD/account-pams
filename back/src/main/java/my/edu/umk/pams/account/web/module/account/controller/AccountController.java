@@ -166,7 +166,7 @@ public class AccountController {
         return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/byFilter/{filter}", method = RequestMethod.GET)
+    @RequestMapping(value = "/accounts?/byFilter/{filter}", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> findAccounts(@PathVariable String filter) {
         List<AcAccount> accounts = accountService.findAccounts(filter, 0, Integer.MAX_VALUE);
         return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);

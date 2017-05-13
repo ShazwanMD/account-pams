@@ -17,6 +17,7 @@ public enum AcFlowState {
     UPPER_APPROVED,         // 9
     SELECTED,               // 10
     EVALUATED,              // 11
+    PUBLISHED,              // 12
     CANCELLED,              // 12
     REJECTED,               // 13
     REMOVED,                // 14
