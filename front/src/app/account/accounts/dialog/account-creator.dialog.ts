@@ -30,6 +30,7 @@ export class AccountCreatorDialog implements OnInit {
     this.createForm = this.formBuilder.group(<Account>{
       id: null,
       code: '',
+      description: '',
       name:'',
       email:'',
       balanceAmount:0,
