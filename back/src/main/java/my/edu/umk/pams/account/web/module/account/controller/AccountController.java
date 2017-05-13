@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static my.edu.umk.pams.account.util.Util.toLimit;
+import static my.edu.umk.pams.account.util.Util.toOffset;
+
 /**
  * @author PAMS
  */
@@ -166,9 +169,9 @@ public class AccountController {
         return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/byFilter/{filter}", method = RequestMethod.GET)
-    public ResponseEntity<List<Account>> findAccounts(@PathVariable String filter) {
-        List<AcAccount> accounts = accountService.findAccounts(filter, 0, Integer.MAX_VALUE);
+    @RequestMapping(value = "/accounts/page/{pageNo}", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findAccounts(@PathVariable Integer pageNo) {
+        List<AcAccount> accounts = accountService.findAccounts(toOffset(pageNo), toLimit(pageNo));
         return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
     }
 

@@ -21,22 +21,6 @@ export class AccountActions {
     };
   }
 
-  static FIND_ACCOUNTS_BY_FILTER = '[Account] Find Accounts By Filter';
-  findAccountsByFilter(filter): Action {
-    return {
-      type: AccountActions.FIND_ACCOUNTS_BY_FILTER,
-      payload:filter
-    };
-  }
-
-  static FIND_ACCOUNTS_BY_FILTER_SUCCESS = '[Account] Find Accounts By FilterSuccess';
-  findAccountsByFilterSuccess(accounts): Action {
-    return {
-      type: AccountActions.FIND_ACCOUNTS_BY_FILTER_SUCCESS,
-      payload: accounts
-    };
-  }
-
   static FIND_ACCOUNT = '[Account] Find Account';
   findAccount(code): Action {
     return {
