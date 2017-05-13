@@ -4,14 +4,6 @@
     <span flex></span>
   </div>
 
-  <md-nav-list menu-items>
-    <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="layout.close()">
-      <md-icon>{{item.icon}}</md-icon>
-      {{item.title}}
-    </a>
-  </md-nav-list>
-
-
   <td-layout-manage-list #list>
     <md-nav-list list-items>
       <a md-list-item (click)="showDialog()">
@@ -33,20 +25,17 @@
     <div layout="row" layout-wrap>
     </div>
 
-    <md-card class="">
-      <md-card-title>PromoCodes</md-card-title>
-      <md-card-subtitle>List of promo codes</md-card-subtitle>
+    <md-card>
+      <td-search-box class="push-left push-right"
+                     placeholder="search"
+                     [alwaysVisible]="true"
+                     (searchDebounce)="filter($event)">
+
+      </td-search-box>
 
       <pams-promo-code-list
         [promoCodes]="promoCodes$ | async"
         (view)="view($event)"></pams-promo-code-list>
-
-      <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/settlements-search']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
     </md-card>
   </td-layout-manage-list>
 </td-layout-nav>

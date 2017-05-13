@@ -90,6 +90,25 @@ export class AccountActions {
     };
   }
 
+
+  static FIND_ACCOUNT_WAIVERS = '[Account] Find Account Waivers';
+  findAccountWaivers(account): Action {
+    console.log("findAccountWaivers");
+    return {
+      type: AccountActions.FIND_ACCOUNT_WAIVERS,
+      payload: account
+    };
+  }
+
+  static FIND_ACCOUNT_WAIVERS_SUCCESS = '[Account] Find Account Waivers Success';
+  findAccountWaiversSuccess(accountWaivers): Action {
+    console.log("findAccountWaiversSuccess");
+    return {
+      type: AccountActions.FIND_ACCOUNT_WAIVERS_SUCCESS,
+      payload: accountWaivers
+    };
+  }
+
   static SAVE_ACCOUNT = '[Account] Save Account';
   saveAccount(account): Action {
     return {
@@ -150,22 +169,6 @@ export class AccountActions {
   removeAccountSuccess(account): Action {
     return {
       type: AccountActions.REMOVE_ACCOUNT_SUCCESS,
-      payload: account
-    };
-  }
-
-  static RESET_ACCOUNT = '[Account] Reset Account';
-  resetAccount(account): Action {
-    return {
-      type: AccountActions.RESET_ACCOUNT,
-      payload: account
-    };
-  }
-
-  static RESET_ACCOUNT_SUCCESS = '[Account] Reset Account Success';
-  resetAccountSuccess(account): Action {
-    return {
-      type: AccountActions.RESET_ACCOUNT_SUCCESS,
       payload: account
     };
   }

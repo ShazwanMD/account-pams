@@ -215,6 +215,13 @@ public class AccountController {
                 .toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/accounts/{code}/accountWaivers", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountWaiver>> findAccountWaivers(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountWaiver>>(accountTransformer
+                .toAccountWaiverVos(accountService.findAccountWaivers(account)), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/account/{code}/accountCharges", method = RequestMethod.POST)
     public void addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
         dummyLogin();

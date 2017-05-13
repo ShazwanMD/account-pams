@@ -10,6 +10,7 @@ import {AccountTransaction} from "../app/account/accounts/account-transaction.in
 import {AcademicSession} from "../app/account/academic-sessions/academic-session.interface";
 import {FeeScheduleItem} from "../app/account/fee-schedules/fee-schedule-item.interface";
 import {AccountCharge} from "../app/account/accounts/account-charge.interface";
+import {AccountWaiver} from "../app/account/accounts/account-waiver.interface";
 
 @Injectable()
 export class AccountService {
@@ -173,6 +174,14 @@ export class AccountService {
       .map((res: Response) => <AccountCharge[]>res.json());
   }
 
+  findAccountWaivers(account: Account): Observable<AccountWaiver[]> {
+    console.log("findAccountWaivers");
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountWaivers")
+      .map((res: Response) => <AccountWaiver[]>res.json());
+  }
+
   saveAccount(account: Account): Observable<Boolean> {
     return this.http.post(environment.endpoint + '/api/account/accounts', JSON.stringify(account))
       .flatMap(data => Observable.of(true));
@@ -193,9 +202,13 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  resetAccount(account: Account): Observable<Boolean> {
-    return this.http.put(environment.endpoint + '/api/account/accounts', JSON.stringify(account))
-        .flatMap(data => Observable.of(true));
+  addAccountWaiver(account: Account, waiver: AccountWaiver): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/accountWaivers', JSON.stringify(waiver), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
   }
-
 }

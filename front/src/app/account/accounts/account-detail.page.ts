@@ -9,6 +9,8 @@ import {Account} from "./account.interface";
 import {AccountActions} from "./account.action";
 import {AccountTransaction} from "./account-transaction.interface";
 import {AccountModuleState} from "../index";
+import {AccountCharge} from "./account-charge.interface";
+import {AccountWaiver} from "./account-waiver.interface";
 
 @Component({
   selector: 'pams-account-detail',
@@ -19,8 +21,12 @@ export class AccountDetailPage implements OnInit {
 
   private ACCOUNT = "accountModuleState.account".split(".");
   private ACCOUNT_TRANSACTIONS = "accountModuleState.accountTransactions".split(".");
+  private ACCOUNT_CHARGES = "accountModuleState.accountCharges".split(".");
+  private ACCOUNT_WAIVERS = "accountModuleState.accountWaivers".split(".");
   private account$: Observable<Account>;
   private accountTransactions$: Observable<AccountTransaction[]>;
+  private accountCharges$: Observable<AccountCharge[]>;
+  private accountWaivers$: Observable<AccountWaiver[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -29,6 +35,8 @@ export class AccountDetailPage implements OnInit {
 
     this.account$ = this.store.select(...this.ACCOUNT);
     this.accountTransactions$ = this.store.select(...this.ACCOUNT_TRANSACTIONS);
+    this.accountCharges$ = this.store.select(...this.ACCOUNT_CHARGES);
+    this.accountWaivers$ = this.store.select(...this.ACCOUNT_WAIVERS);
   }
 
   ngOnInit(): void {

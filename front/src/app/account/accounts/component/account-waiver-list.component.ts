@@ -1,12 +1,12 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
 import {AccountTransaction} from "../account-transaction.interface";
-import {AccountCharge} from "../account-charge.interface";
+import {AccountWaiver} from "../account-waiver.interface";
 
 @Component({
-  selector: 'pams-account-charge-list',
-  templateUrl: './account-charge-list.component.html',
+  selector: 'pams-account-waiver-list',
+  templateUrl: './account-waiver-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountChargeListComponent {
-  @Input() charges: AccountCharge[];
+export class AccountWaiverListComponent {
+  @Input() waivers: AccountWaiver[];
 }

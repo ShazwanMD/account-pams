@@ -8,12 +8,13 @@
     <div layout="column" layout-gt-md="row" class="inset">
       <div flex-gt-md="70">
         <pams-account [account]="account$ | async"></pams-account>
-        <pams-account-activity-list  [transactions]="accountTransactions$ | async"></pams-account-activity-list>
-        <pams-account-charge-list  [transactions]="accountTransactions$ | async"></pams-account-charge-list>
+        <pams-account-activity-list [transactions]="accountTransactions$ | async"></pams-account-activity-list>
+        <pams-account-charge-list [charges]="accountCharges$   | async"></pams-account-charge-list>
+        <pams-account-waiver-list [waivers]="accountWaivers$   | async"></pams-account-waiver-list>
       </div>
 
       <div flex-gt-md="30">
-        <pams-account-status  [account]="account$ | async"></pams-account-status>
+        <pams-account-status [account]="account$ | async"></pams-account-status>
 
         <md-card>
           <md-card-title>Action</md-card-title>

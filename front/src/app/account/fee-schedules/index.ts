@@ -21,6 +21,7 @@ import {CommonModule} from "../../common/index";
 import {FeeScheduleComponent} from "./component/fee-schedule.component";
 import {FeeScheduleDetailPage} from "./fee-schedule-detail.page";
 import {FeeScheduleItemListComponent} from "./component/fee-schedule-item-list.component";
+import {FeeScheduleListComponent} from "./component/fee-schedule-list.component";
 
 
 @NgModule({
@@ -42,7 +43,10 @@ import {FeeScheduleItemListComponent} from "./component/fee-schedule-item-list.c
     // dialog
     FeeScheduleCreatorDialog,
     FeeScheduleItemEditorDialog,
+
+    // component
     FeeScheduleComponent,
+    FeeScheduleListComponent,
     FeeScheduleItemListComponent,
   ],
   exports: [],

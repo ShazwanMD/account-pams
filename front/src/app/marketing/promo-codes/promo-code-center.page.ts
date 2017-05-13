@@ -53,6 +53,8 @@ export class PromoCodeCenterPage implements OnInit {
     });
   }
 
+  filter():void {}
+
   ngOnInit(): void {
     console.log("find promoCodes");
     this.store.dispatch(this.actions.findPromoCodes());

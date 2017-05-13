@@ -108,6 +108,15 @@ public class AccountTransformer {
         return m;
     }
 
+    public AccountWaiver toAccountWaiverVo(AcAccountWaiver e) {
+        AccountWaiver m = new AccountWaiver();
+        m.setId(e.getId());
+        m.setSourceNo(e.getSourceNo());
+        m.setAmount(e.getAmount());
+        m.setSession(toAcademicSessionVo(e.getSession()));
+        return m;
+    }
+
     public FeeScheduleItem toFeeScheduleItemVo(AcFeeScheduleItem e) {
         FeeScheduleItem m = new FeeScheduleItem();
         m.setId(e.getId());
@@ -127,11 +136,19 @@ public class AccountTransformer {
                 .map((accountTx) -> toAccountTransactionVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountTransaction>()));
     }
+
     public List<AccountCharge> toAccountChargeVos(List<AcAccountCharge> accounts) {
         return accounts.stream()
                 .map((accountTx) -> toAccountChargeVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountCharge>()));
     }
+
+    public List<AccountWaiver> toAccountWaiverVos(List<AcAccountWaiver> accounts) {
+        return accounts.stream()
+                .map((accountTx) -> toAccountWaiverVo(accountTx))
+                .collect(toCollection(() -> new ArrayList<AccountWaiver>()));
+    }
+
     public List<FeeScheduleItem> toFeeScheduleItemVos(List<AcFeeScheduleItem> items) {
         return items.stream()
                 .map((item) -> toFeeScheduleItemVo(item))

@@ -28,7 +28,10 @@ export class AccountEffects {
     .map(action => action.payload)
     .switchMap(code => this.accountService.findAccountByCode(code))
     .map(account => this.accountActions.findAccountSuccess(account))
-    .mergeMap(action => from([action, this.accountActions.findAccountTransactions(action.payload)]));
+    .mergeMap(action => from([action,
+      this.accountActions.findAccountTransactions(action.payload),
+      this.accountActions.findAccountCharges(action.payload)
+    ]));
 
   @Effect() findAccountTransactions$ = this.actions$
     .ofType(AccountActions.FIND_ACCOUNT_TRANSACTIONS)
@@ -47,10 +50,4 @@ export class AccountEffects {
     .map(action => action.payload)
     .switchMap(account => this.accountService.updateAccount(account))
     .map(account => this.accountActions.updateAccountSuccess(account));
-
-  @Effect() resetAccount$ = this.actions$
-    .ofType(AccountActions.RESET_ACCOUNT)
-    .map(action => action.payload)
-    .switchMap(account => this.accountService.resetAccount(account))
-    .map(account => this.accountActions.resetAccountSuccess(account));
 }

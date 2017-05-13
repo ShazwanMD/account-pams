@@ -9,6 +9,4 @@ import {WaiverApplication} from "../waiver-application.interface";
 export class WaiverApplicationComponent {
 
   @Input() waiverApplication: WaiverApplication;
-  // @Output() addComment = new EventEmitter<AccountComment>();
-  // @Output() addAttachment = new EventEmitter<AccountAttachment>();
 }

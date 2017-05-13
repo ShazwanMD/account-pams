@@ -48,6 +48,9 @@ export class FeeScheduleCenterPage implements OnInit {
     });
   }
 
+  filter(): void {
+  }
+
   goBack(route: string): void {
     this.router.navigate(['/fee-schedules']);
   }

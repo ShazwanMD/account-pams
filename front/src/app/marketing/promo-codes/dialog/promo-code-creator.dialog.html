@@ -13,19 +13,18 @@
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput placeholder="Value"
-                  value="Value" formControlName="value">
+                  value="Value" formControlName="value" type="number">
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput placeholder="Quantity"
-                  value="Quantity" formControlName="quantity">
+                  value="Quantity" formControlName="quantity" type="number">
       </md-input-container>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-button color="primary" (click)="goBack()">Back</button>
   <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
 </md-dialog-actions>
 
