@@ -5,7 +5,6 @@ export interface Settlement {
   referenceNo:string;
   sourceNo:string;
   description:string;
-  //sponsor:Sponsor;
   academicSession:AcademicSession;
 
 }

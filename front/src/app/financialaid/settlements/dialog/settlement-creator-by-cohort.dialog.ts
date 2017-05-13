@@ -30,22 +30,15 @@ export class SettlementCreatorByCohortDialog implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<SettlementCreator>{
-      sourceNo:'',
+      sourceNo: '',
       description: '',
-      cohortCode:<CohortCode>{},
-      academicSession:<AcademicSession>{},
+      cohortCode: <CohortCode>{},
+      academicSession: <AcademicSession>{},
     });
   }
 
   save(settlementCreator: SettlementCreator, isValid: boolean) {
-    this.store.dispatch(this.actions.initSettlementByCohortCode(settlementCreator,settlementCreator.cohortCode));
+    this.store.dispatch(this.actions.initSettlementByCohortCode(settlementCreator, settlementCreator.cohortCode));
     this.dialog.close();
-
-    // .subscribe(res => {
-    //   let snackBarRef = this._snackBar.open("Invoice started", "OK");
-    //   snackBarRef.afterDismissed().subscribe(() => {
-    //     this.goBack();
-    //   });
-    // });
   }
 }

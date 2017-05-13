@@ -30,23 +30,16 @@ export class SettlementCreatorByFacultyDialog implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<SettlementCreator>{
-      sourceNo:'',
+      sourceNo: '',
       description: '',
-      facultyCode:<FacultyCode>{},
-      academicSession:<AcademicSession>{},
+      facultyCode: <FacultyCode>{},
+      academicSession: <AcademicSession>{},
     });
   }
 
   save(settlementCreator: SettlementCreator, isValid: boolean) {
-    console.log("settlementCreator",settlementCreator);
-    this.store.dispatch(this.actions.initSettlementByFacultyCode(settlementCreator,settlementCreator.facultyCode));
+    console.log("settlementCreator", settlementCreator);
+    this.store.dispatch(this.actions.initSettlementByFacultyCode(settlementCreator, settlementCreator.facultyCode));
     this.dialog.close();
-
-    // .subscribe(res => {
-    //   let snackBarRef = this._snackBar.open("Invoice started", "OK");
-    //   snackBarRef.afterDismissed().subscribe(() => {
-    //     this.goBack();
-    //   });
-    // });
   }
 }

@@ -56,7 +56,7 @@ export class SettlementCenterPage implements OnInit {
       // load something here
     });
   }
-  
+
   showByFacultyDialog(): void {
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -84,6 +84,9 @@ export class SettlementCenterPage implements OnInit {
       console.log("close dialog");
       // load something here
     });
+  }
+
+  filter(): void {
   }
 
   ngOnInit(): void {

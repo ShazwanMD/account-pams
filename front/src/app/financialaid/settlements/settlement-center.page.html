@@ -33,20 +33,17 @@
     <div layout="row" layout-wrap>
     </div>
 
-    <md-card class="">
-      <md-card-title>Settlements</md-card-title>
-      <md-card-subtitle>List of settlement</md-card-subtitle>
+    <md-card>
+      <td-search-box class="push-left push-right"
+                     placeholder="search"
+                     [alwaysVisible]="true"
+                     (searchDebounce)="filter($event)">
+
+      </td-search-box>
 
       <pams-settlement-list
         [settlements]="settlements$ | async"
         (view)="view($event)"></pams-settlement-list>
-
-      <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/settlements-search']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
     </md-card>
   </td-layout-manage-list>
 </td-layout-nav>

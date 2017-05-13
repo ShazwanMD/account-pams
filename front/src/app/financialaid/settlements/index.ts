@@ -20,6 +20,7 @@ import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 import {SettlementCreatorByCohortDialog} from "./dialog/settlement-creator-by-cohort.dialog";
 import {SettlementCreatorByFacultyDialog} from "./dialog/settlement-creator-by-faculty.dialog";
 import {SettlementCreatorBySponsorDialog} from "./dialog/settlement-creator-by-sponsor.dialog";
+import {SettlementDetailPage} from "./settlement-detail.page";
 
 @NgModule({
   imports: [
@@ -35,10 +36,10 @@ import {SettlementCreatorBySponsorDialog} from "./dialog/settlement-creator-by-s
   declarations: [
     // page
     SettlementCenterPage,
+    SettlementDetailPage,
 
     // component
     SettlementListComponent,
-    //SettlementCreatorDialog,
     SettlementCreatorByCohortDialog,
     SettlementCreatorByFacultyDialog,
     SettlementCreatorBySponsorDialog,

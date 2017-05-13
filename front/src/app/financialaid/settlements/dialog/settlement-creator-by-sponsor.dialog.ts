@@ -30,22 +30,15 @@ export class SettlementCreatorBySponsorDialog implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<SettlementCreator>{
-      sourceNo:'',
+      sourceNo: '',
       description: '',
-      sponsor:<Sponsor>{},
-      academicSession:<AcademicSession>{},
+      sponsor: <Sponsor>{},
+      academicSession: <AcademicSession>{},
     });
   }
 
   save(settlementCreator: SettlementCreator, isValid: boolean) {
-    this.store.dispatch(this.actions.initSettlementBySponsor(settlementCreator,settlementCreator.sponsor));
+    this.store.dispatch(this.actions.initSettlementBySponsor(settlementCreator, settlementCreator.sponsor));
     this.dialog.close();
-
-    // .subscribe(res => {
-    //   let snackBarRef = this._snackBar.open("Invoice started", "OK");
-    //   snackBarRef.afterDismissed().subscribe(() => {
-    //     this.goBack();
-    //   });
-    // });
   }
 }
