@@ -17,6 +17,7 @@ import {ChargeCodeEffects} from "./charge-code.effect";
 import {ChargeCodeActions} from "./charge-code.action";
 import {ChargeCodeCenterPage} from "./charge-code-center.page";
 import {ChargeCodeListComponent} from "./component/charge-code-list.component";
+import { ChargeCodeEditorDialog } from "./dialog/charge-code-editor.dialog";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {ChargeCodeListComponent} from "./component/charge-code-list.component";
 
     // dialog
     ChargeCodeCreatorDialog,
+    ChargeCodeEditorDialog,
 
   ],
   exports: [
@@ -45,6 +47,7 @@ import {ChargeCodeListComponent} from "./component/charge-code-list.component";
   ],
   entryComponents: [
     ChargeCodeCreatorDialog,
+    ChargeCodeEditorDialog,
   ],
 
 })

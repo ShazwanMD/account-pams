@@ -29,6 +29,10 @@ import {feeScheduleReducer, FeeScheduleState} from "./fee-schedules/fee-schedule
 import {feeScheduleItemListReducer, FeeScheduleItemListState} from "./fee-schedules/fee-schedule-item-list.reducer";
 import {feeScheduleListReducer, FeeScheduleListState} from "./fee-schedules/fee-schedule-list.reducer";
 import {accountChargeListReducer, AccountChargeListState} from "./accounts/account-charge-list.reducer";
+import { ChargeCodeListComponent } from "./charge-codes/component/charge-code-list.component";
+import { ChargeCodeSelectComponent } from "./charge-codes/component/charge-code-select.component";
+import { ChargeCodeCreatorDialog } from "./charge-codes/dialog/charge-code-creator.dialog";
+import { ChargeCodeEditorDialog } from "./charge-codes/dialog/charge-code-editor.dialog";
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -89,8 +93,15 @@ export const accountModuleReducers = {
   ],
   declarations: [
     AccountPage,
+
   ],
-  exports: [],
+  exports: [
+    ChargeCodeSelectComponent,
+  ],
+    
+    entryComponents: [
+
+ ],
 })
 export class AccountModule {
   static forRoot(): ModuleWithProviders {
