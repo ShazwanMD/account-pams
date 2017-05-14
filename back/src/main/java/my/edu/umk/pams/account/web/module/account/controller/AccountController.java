@@ -155,6 +155,18 @@ public class AccountController {
         accountService.saveChargeCode(chargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateChargeCode(@PathVariable String code, @RequestBody ChargeCode vo) {
+        dummyLogin();
+        // what can we update?
+        AcChargeCode chargeCode = accountService.findChargeCodeByCode(code);
+        chargeCode.setCode(vo.getCode());
+        chargeCode.setDescription(vo.getDescription());
+        chargeCode.setPriority(vo.getPriority());
+        accountService.updateChargeCode(chargeCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
     // ==================================================================================================== //
     // ACCOUNT

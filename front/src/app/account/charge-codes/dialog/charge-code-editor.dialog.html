@@ -1,0 +1,35 @@
+<h2 md-dialog-title>Charge Code Editor</h2>
+<md-dialog-content>
+  <form [formGroup]="editorForm">
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Code"
+               formControlName="code"
+               flex/>
+      </md-input-container>
+    </div>
+
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Description "
+               formControlName="description"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Priority"
+               formControlName="priority"
+               flex/>
+      </md-input-container>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
+</md-dialog-actions>

@@ -96,9 +96,15 @@ export class AccountService {
       //'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
-    return this.http.post(environment.endpoint + '/api/common/chargeCodes', JSON.stringify(code), options)
+    return this.http.post(environment.endpoint + '/api/account/chargeCodes', JSON.stringify(code), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+  
+  updateChargeCode(code:ChargeCode): Observable<Boolean> {
+      return this.http.put(environment.endpoint + '/api/account/chargeCodes', JSON.stringify(code))
+        .flatMap(data => Observable.of(true));
+    }
+  
   // ====================================================================================================
   // ACADEMIC SESSION
   // ====================================================================================================

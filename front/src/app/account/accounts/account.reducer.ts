@@ -17,9 +17,6 @@ const initialState: AccountState = {
 
 export function accountReducer(state = initialState, action: Action): AccountState {
   switch (action.type) {
-    /*case AccountActions.RESET_ACCOUNT: {
-      return initialState;
-    }*/
     case AccountActions.FIND_ACCOUNT_SUCCESS: {
       return action.payload;
     }
