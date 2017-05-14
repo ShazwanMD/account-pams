@@ -2,7 +2,6 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../app.routes';
-import {environment} from '../../../environments/environment';
 import {EffectsModule} from "@ngrx/effects";
 
 import {CovalentCoreModule} from '@covalent/core';
@@ -17,7 +16,7 @@ import {ChargeCodeEffects} from "./charge-code.effect";
 import {ChargeCodeActions} from "./charge-code.action";
 import {ChargeCodeCenterPage} from "./charge-code-center.page";
 import {ChargeCodeListComponent} from "./component/charge-code-list.component";
-import { ChargeCodeEditorDialog } from "./dialog/charge-code-editor.dialog";
+import {ChargeCodeEditorDialog} from "./dialog/charge-code-editor.dialog";
 
 
 @NgModule({

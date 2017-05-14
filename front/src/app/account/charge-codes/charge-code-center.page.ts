@@ -41,15 +41,10 @@ export class ChargeCodeCenterPage implements OnInit {
     config.height = '60%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(ChargeCodeCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
-      // load something here
-    });
   }
 
   filter(): void {
   }
-
 
   ngOnInit(): void {
     this.store.dispatch(this.actions.findChargeCodes());

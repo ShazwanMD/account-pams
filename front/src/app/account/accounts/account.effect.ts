@@ -14,6 +14,7 @@ export class AccountEffects {
 
   @Effect() findAccounts$ = this.actions$
     .ofType(AccountActions.FIND_ACCOUNTS)
+    .map(action => action.payload)
     .switchMap(() => this.accountService.findAccounts())
     .map(accounts => this.accountActions.findAccountsSuccess(accounts));
 

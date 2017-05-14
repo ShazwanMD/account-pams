@@ -18,11 +18,6 @@ export class FeeScheduleCenterPage implements OnInit {
   private FEE_SCHEDULES = "accountModuleState.feeSchedules".split(".");
   private feeSchedules$: Observable<FeeSchedule[]>;
   private creatorDialogRef: MdDialogRef<FeeScheduleCreatorDialog>;
-  private columns: any[] = [
-    {name: 'code', label: 'Code'},
-    {name: 'description', label: 'Description'},
-    {name: 'action', label: ''}
-  ];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -56,7 +51,6 @@ export class FeeScheduleCenterPage implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("abc")
     this.store.dispatch(this.actions.findFeeSchedules());
   }
 }

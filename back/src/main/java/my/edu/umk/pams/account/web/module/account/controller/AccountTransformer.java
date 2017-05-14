@@ -51,6 +51,7 @@ public class AccountTransformer {
         m.setId(e.getId());
         m.setCode(e.getCode());
         m.setDescription(e.getDescription());
+        m.setPriority(e.getPriority());
         return m;
     }
 

@@ -1,7 +1,4 @@
 import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
-
-import * as _ from 'lodash';
 import {ChargeCode} from "./charge-code.interface";
 import {ChargeCodeActions} from "./charge-code.action";
 

@@ -8,7 +8,7 @@ const initialState: ChargeCodeState = <ChargeCode>{};
 
 export function chargeCodeReducer(state = initialState, action: Action): ChargeCodeState {
   switch (action.type) {
-    case ChargeCodeActions.FIND_CHARGE_CODE_SUCCESS: {
+    case ChargeCodeActions.FIND_CHARGE_CODE_BY_CODE_SUCCESS: {
       return action.payload;
     }
     default: {

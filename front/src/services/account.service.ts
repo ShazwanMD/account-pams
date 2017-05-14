@@ -43,7 +43,7 @@ export class AccountService {
   }
 
   saveFeeSchedule(feeSchedule: FeeSchedule): Observable<String> {
-    console.log("saveFeeSchedule",feeSchedule);
+    console.log("saveFeeSchedule", feeSchedule);
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token
@@ -74,8 +74,9 @@ export class AccountService {
   }
 
   // ====================================================================================================
-  // CHARGE CODE
+    // CHARGE CODE
   // ====================================================================================================
+
   findChargeCodes(): Observable<ChargeCode[]> {
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
@@ -90,7 +91,8 @@ export class AccountService {
       .map((res: Response) => <ChargeCode>res.json());
   }
 
-  saveChargeCode(code:ChargeCode) {
+  saveChargeCode(code: ChargeCode): Observable<String> {
+    console.log("saving chargecode");
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token
@@ -99,12 +101,22 @@ export class AccountService {
     return this.http.post(environment.endpoint + '/api/account/chargeCodes', JSON.stringify(code), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-  
-  updateChargeCode(code:ChargeCode): Observable<Boolean> {
-      return this.http.put(environment.endpoint + '/api/account/chargeCodes', JSON.stringify(code))
-        .flatMap(data => Observable.of(true));
-    }
-  
+
+  updateChargeCode(code: ChargeCode): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.put(environment.endpoint + '/api/account/chargeCodes', JSON.stringify(code), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  removeChargeCode(code: ChargeCode): Observable<String> {
+    return this.http.delete(environment.endpoint + '/api/account/chargeCodes/' + code.code)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
   // ====================================================================================================
   // ACADEMIC SESSION
   // ====================================================================================================
@@ -148,7 +160,7 @@ export class AccountService {
       .map((res: Response) => <Account[]>res.json());
   }
 
-  findAccountsByFilter(filter:string): Observable<Account[]> {
+  findAccountsByFilter(filter: string): Observable<Account[]> {
     console.log("findAccountsByFilter");
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});

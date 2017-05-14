@@ -14,17 +14,13 @@
   </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
-      <a md-button color="accent" class="text-upper" [routerLink]="['/account/accounts', row['code']]">
-        <span>View</span></a>
-        <button md-icon-button [md-menu-trigger-for]="menu">
-          <md-icon>more_vert</md-icon>
-        </button>
-        <md-menu x-position="before" #menu="mdMenu">
-          <button md-menu-item (click)="editDialog(row)">Edit</button>
-          <button md-menu-item (click)="delete(row)">Delete</button>
-        </md-menu>
-      
+      <button md-icon-button [md-menu-trigger-for]="menu">
+        <md-icon>more_vert</md-icon>
+      </button>
+      <md-menu x-position="before" #menu="mdMenu">
+        <button md-menu-item (click)="editDialog(row)">Edit</button>
+        <button md-menu-item (click)="delete(row)">Delete</button>
+      </md-menu>
     </div>
-
   </template>
 </td-data-table>

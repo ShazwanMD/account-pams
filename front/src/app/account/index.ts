@@ -29,10 +29,7 @@ import {feeScheduleReducer, FeeScheduleState} from "./fee-schedules/fee-schedule
 import {feeScheduleItemListReducer, FeeScheduleItemListState} from "./fee-schedules/fee-schedule-item-list.reducer";
 import {feeScheduleListReducer, FeeScheduleListState} from "./fee-schedules/fee-schedule-list.reducer";
 import {accountChargeListReducer, AccountChargeListState} from "./accounts/account-charge-list.reducer";
-import { ChargeCodeListComponent } from "./charge-codes/component/charge-code-list.component";
-import { ChargeCodeSelectComponent } from "./charge-codes/component/charge-code-select.component";
-import { ChargeCodeCreatorDialog } from "./charge-codes/dialog/charge-code-creator.dialog";
-import { ChargeCodeEditorDialog } from "./charge-codes/dialog/charge-code-editor.dialog";
+import {ChargeCodeSelectComponent} from "./charge-codes/component/charge-code-select.component";
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -40,7 +37,7 @@ export interface AccountModuleState {
   accounts: AccountListState;
   account: AccountState;
   accountTransactions: AccountTransactionListState;
-  accountCharges:AccountChargeListState;
+  accountCharges: AccountChargeListState;
   chargeCode: ChargeCodeState;
   chargeCodes: ChargeCodeListState;
   feeSchedules: FeeScheduleListState;
@@ -59,9 +56,9 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accountCharges: [],
     chargeCodes: [],
     chargeCode: {},
-    feeSchedules:[],
-    feeSchedule:{},
-    feeScheduleItems:[],
+    feeSchedules: [],
+    feeSchedule: {},
+    feeScheduleItems: [],
   };
 
 export const accountModuleReducers = {
@@ -75,7 +72,7 @@ export const accountModuleReducers = {
   chargeCode: chargeCodeReducer,
   feeSchedules: feeScheduleListReducer,
   feeSchedule: feeScheduleReducer,
-  feeScheduleItems:feeScheduleItemListReducer,
+  feeScheduleItems: feeScheduleItemListReducer,
 };
 
 @NgModule({
@@ -84,12 +81,11 @@ export const accountModuleReducers = {
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    AccountSubModule.forRoot(),
-    ChargeCodeSubModule.forRoot(),
+    IdentityModule.forRoot(),
     AccountSubModule.forRoot(),
     AcademicSessionSubModule.forRoot(),
+    ChargeCodeSubModule.forRoot(),
     FeeScheduleSubModule.forRoot(),
-    IdentityModule.forRoot(),
   ],
   declarations: [
     AccountPage,
@@ -98,10 +94,8 @@ export const accountModuleReducers = {
   exports: [
     ChargeCodeSelectComponent,
   ],
-    
-    entryComponents: [
 
- ],
+  entryComponents: [],
 })
 export class AccountModule {
   static forRoot(): ModuleWithProviders {

@@ -5,10 +5,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
 import {ChargeCode} from "../charge-code.interface";
-import {Actor} from "../../../identity/actor.interface";
 import {ChargeCodeActions} from "../charge-code.action";
 import {AccountModuleState} from "../../index";
-import {IdentityService} from "../../../../services/identity.service";
 
 
 @Component({
@@ -38,8 +36,8 @@ export class ChargeCodeCreatorDialog implements OnInit {
     });
   }
 
-  save(chargeCode: ChargeCode, isValid: boolean): void{
-    console.log("saving charge code");
+  save(chargeCode: ChargeCode, isValid: boolean): void {
+    console.log("saving fee");
     this.store.dispatch(this.actions.saveChargeCode(chargeCode));
     this.dialog.close();
   }
