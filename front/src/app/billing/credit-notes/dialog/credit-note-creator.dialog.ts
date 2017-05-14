@@ -5,18 +5,18 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
 import {Sponsor} from "../../../identity/sponsor.interface";
-import {DebitNote} from "../debit-note.interface";
-import {BillingModuleState} from "../../index";
-import {DebitNoteActions} from "../debit-note.action";
+import { BillingModuleState } from "../../index";
+import { CreditNote } from "../credit-note.interface";
+import { CreditNoteActions } from "../credit-note.action";
 //import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 
 
 @Component({
-  selector: 'pams-debit-note-creator',
-  templateUrl: './debit-note-creator.dialog.html',
+  selector: 'pams-credit-note-creator',
+  templateUrl: './credit-note-creator.dialog.html',
 })
 
-export class DebitNoteCreatorDialog implements OnInit {
+export class CreditNoteCreatorDialog implements OnInit {
 
   private createForm: FormGroup;
 
@@ -25,12 +25,12 @@ export class DebitNoteCreatorDialog implements OnInit {
               private formBuilder: FormBuilder,
               private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
-              private actions: DebitNoteActions,
-              private dialog: MdDialogRef<DebitNoteCreatorDialog>) {
+              private actions: CreditNoteActions,
+              private dialog: MdDialogRef<CreditNoteCreatorDialog>) {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<DebitNote>{
+    this.createForm = this.formBuilder.group(<CreditNote>{
       id: null,
       code: '',
       description: '',
@@ -42,9 +42,9 @@ export class DebitNoteCreatorDialog implements OnInit {
     });
   }
 
-  save(debitNote: DebitNote, isValid: boolean): void {
+  save(creditNote: CreditNote, isValid: boolean): void {
     console.log("saving fee");
-    this.store.dispatch(this.actions.saveDebitNote(debitNote));
+    this.store.dispatch(this.actions.saveCreditNote(creditNote));
     this.dialog.close();
   }
 }
