@@ -7,6 +7,8 @@ import {Store} from "@ngrx/store";
 import { Observable } from "rxjs";
 import { BillingModuleState } from "../index";
 import { CreditNote } from "./credit-note.interface";
+import { CreditNoteCreatorDialog } from "./dialog/credit-note-creator.dialog";
+import { CreditNoteActions } from "./credit-note.action";
 //import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 
 
@@ -18,17 +20,17 @@ import { CreditNote } from "./credit-note.interface";
 
 export class CreditNoteCenterPage implements OnInit {
 
-    private CREDIT_NOTES = "billingModuleState.creditnotes".split(".");
-    private creditnotes$: Observable<CreditNote[]>;
-    //private creatorDialogRef: MdDialogRef<DebitNoteCreatorDialog>;
+    private CREDIT_NOTES = "billingModuleState.creditNotes".split(".");
+    private creditNotes$: Observable<CreditNote[]>;
+    private creatorDialogRef: MdDialogRef<CreditNoteCreatorDialog>;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
-        //private actions: ChargeCodeActions,
+        private actions: CreditNoteActions,
         private store: Store<BillingModuleState>,
         private vcf: ViewContainerRef,
         private dialog: MdDialog) {
-        this.creditnotes$ = this.store.select(...this.CREDIT_NOTES);
+        this.creditNotes$ = this.store.select(...this.CREDIT_NOTES);
 
     }
 
@@ -37,7 +39,7 @@ export class CreditNoteCenterPage implements OnInit {
     }
 
   
- /*showDialog(): void {
+ showDialog(): void {
         console.log("showDialog");
         let config = new MdDialogConfig();
         config.viewContainerRef = this.vcf;
@@ -45,16 +47,16 @@ export class CreditNoteCenterPage implements OnInit {
         config.width = '50%';
         config.height = '60%';
         config.position = { top: '0px' };
-        this.creatorDialogRef = this.dialog.open(DebitNoteCreatorDialog, config);
+        this.creatorDialogRef = this.dialog.open(CreditNoteCreatorDialog, config);
         this.creatorDialogRef.afterClosed().subscribe(res => {
             console.log("close dialog");
             // load something here
         });
-    }*/
+    }
  
     ngOnInit(): void {
-       // console.log("abc")
-       //this.store.dispatch(this.actions.findChargeCodes());
+       console.log("abc")
+       this.store.dispatch(this.actions.findCreditNotes());
     }
 }
 

@@ -8,10 +8,11 @@ import {EffectsModule} from "@ngrx/effects";
 import {CovalentCoreModule} from '@covalent/core';
 
 import {CommonService} from '../../../services';
-import {IdentityService} from '../../../services';
-import {AccountService} from "../../../services/account.service";
+import { IdentityService, AccountService } from '../../../services';
 import {IdentityModule} from "../../identity/index";
 import { CreditNoteCenterPage } from "./credit-note-center.page";
+import { CreditNoteCreatorDialog } from "./dialog/credit-note-creator.dialog";
+import { CreditNoteActions } from "./credit-note.action";
 //import { CreditNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 //import { CreditNoteActions } from "./debit-note.action";
 
@@ -31,13 +32,13 @@ import { CreditNoteCenterPage } from "./credit-note-center.page";
     
 
 //component
-//DebitNoteCreatorDialog,
+CreditNoteCreatorDialog,
   ],
   exports: [
     //ChargeCodeSelectComponent,
   ],
   entryComponents: [
-    //DebitNoteCreatorDialog,
+  CreditNoteCreatorDialog,
   ],
 
 })
@@ -50,7 +51,7 @@ export class CreditNoteSubModule {
         IdentityService,
         CommonService,
         AccountService,
-        //CreditNoteActions,
+        CreditNoteActions,
       ],
     };
   }

@@ -4,85 +4,85 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class DebitNoteActions {
 
-  static FIND_CHARGE_CODES = '[ChargeCode] Find ChargeCodes';
-  findChargeCodes(): Action {
+  static FIND_DEBIT_NOTES = '[DebitNote] Find DebitNotes';
+  findDebitNotes(): Action {
     return {
-      type: DebitNoteActions.FIND_CHARGE_CODES
+      type: DebitNoteActions.FIND_DEBIT_NOTES
     };
   }
 
-  static FIND_CHARGE_CODES_SUCCESS = '[ChargeCode] Find ChargeCodes Success';
-  findChargeCodesSuccess(chargeCodes): Action {
+  static FIND_DEBIT_NOTES_SUCCESS = '[DebitNote] Find DebitNotes Success';
+  findDebitNotesSuccess(debitNotes): Action {
     console.log("findChargeCodesSuccess");
-    console.log("chargeCodes: " + chargeCodes.length);
+    console.log("DebitNotes: " + debitNotes.length);
     return {
-      type: DebitNoteActions.FIND_CHARGE_CODES_SUCCESS,
-      payload: chargeCodes
+      type: DebitNoteActions.FIND_DEBIT_NOTES_SUCCESS,
+      payload: debitNotes
     };
   }
 
-  static FIND_CHARGE_CODE = '[ChargeCode] Find ChargeCode';
-  findChargeCode(code): Action {
+  static FIND_DEBIT_NOTE = '[DebitNote] Find DebitNote';
+  findDebitNote(code): Action {
     return {
-      type: DebitNoteActions.FIND_CHARGE_CODE,
+      type: DebitNoteActions.FIND_DEBIT_NOTE,
       payload: code
     };
   }
 
-  static FIND_CHARGE_CODE_SUCCESS = '[ChargeCode] Find ChargeCode Success';
-  findChargeCodeSuccess(chargeCode): Action {
-    console.log("findChargeCodeSuccess");
+  static FIND_DEBIT_NOTE_SUCCESS = '[DebitNote] Find DebitNote Success';
+  findChargeCodeSuccess(debitNote): Action {
+    console.log("findDebitNoteSuccess");
     return {
-      type: DebitNoteActions.FIND_CHARGE_CODE_SUCCESS,
-      payload: chargeCode
+      type: DebitNoteActions.FIND_DEBIT_NOTE_SUCCESS,
+      payload: debitNote
     };
   }
 
-  static SAVE_CHARGE_CODE = '[ChargeCode] Save ChargeCode';
-  saveChargeCode(chargeCode): Action {
+  static SAVE_DEBIT_NOTE = '[DebitNote] Save DebitNote';
+  saveDebitNote(debitNote): Action {
     return {
-      type: DebitNoteActions.SAVE_CHARGE_CODE,
-      payload: chargeCode
+      type: DebitNoteActions.SAVE_DEBIT_NOTE,
+      payload: debitNote
     };
   }
 
-  static SAVE_CHARGE_CODE_SUCCESS = '[ChargeCode] Save ChargeCode Success';
-  saveChargeCodeSuccess(chargeCode): Action {
+  static SAVE_DEBIT_NOTE_SUCCESS = '[DebitNote] Save DebitNote Success';
+  saveDebitNoteSuccess(debitNote): Action {
     return {
-      type: DebitNoteActions.SAVE_CHARGE_CODE_SUCCESS,
-      payload: chargeCode
+      type: DebitNoteActions.SAVE_DEBIT_NOTE_SUCCESS,
+      payload: debitNote
     };
   }
 
-  static UPDATE_CHARGE_CODE = '[ChargeCode] Update ChargeCode';
-  updateChargeCode(chargeCode): Action {
+  static UPDATE_DEBIT_NOTE = '[DebitNote] Update DebitNote';
+  updateDebitNote(debitNote): Action {
     return {
-      type: DebitNoteActions.UPDATE_CHARGE_CODE,
-      payload: chargeCode
+      type: DebitNoteActions.UPDATE_DEBIT_NOTE,
+      payload: debitNote
     };
   }
 
-  static UPDATE_CHARGE_CODE_SUCCESS = '[ChargeCode] Update ChargeCode Success';
-  updateChargeCodeSuccess(chargeCode): Action {
+  static UPDATE_DEBIT_NOTE_SUCCESS = '[DebitNote] Update DebitNote Success';
+  updateDebitNoteSuccess(debitNote): Action {
     return {
-      type: DebitNoteActions.UPDATE_CHARGE_CODE_SUCCESS,
-      payload: chargeCode
+      type: DebitNoteActions.UPDATE_DEBIT_NOTE_SUCCESS,
+      payload: debitNote
     };
   }
 
-  static REMOVE_CHARGE_CODE = '[ChargeCode] Remove ChargeCode';
-  removeChargeCode(chargeCode): Action {
+  static REMOVE_DEBIT_NOTE = '[DebitNote] Remove DebitNote';
+  removeDebitNote(debitNote): Action {
     return {
-      type: DebitNoteActions.REMOVE_CHARGE_CODE,
-      payload: chargeCode
+      type: DebitNoteActions.REMOVE_DEBIT_NOTE,
+      payload: debitNote
     };
   }
 
-  static REMOVE_CHARGE_CODE_SUCCESS = '[ChargeCode] Remove ChargeCode Success';
-  removeChargeCodeSuccess(chargeCode): Action {
+  static REMOVE_DEBIT_NOTE_SUCCESS = '[DebitNote] Remove DebitNote Success';
+  removeDebitNoteSuccess(debitNote): Action {
     return {
-      type: DebitNoteActions.REMOVE_CHARGE_CODE_SUCCESS,
-      payload: chargeCode
+      type: DebitNoteActions.REMOVE_DEBIT_NOTE_SUCCESS,
+      payload: debitNote
     };
   }
 }
