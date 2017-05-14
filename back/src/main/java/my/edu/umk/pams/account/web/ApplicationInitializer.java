@@ -9,10 +9,9 @@ import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-/**
- */
-public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-
+@Deprecated
+public class ApplicationInitializer { //extends AbstractAnnotationConfigDispatcherServletInitializer {
+/*
     @Override
     public void onStartup(ServletContext servletContext)
             throws ServletException {
@@ -42,4 +41,5 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
         super.registerDispatcherServlet(servletContext);
         servletContext.addListener(new HttpSessionEventPublisher());
     }
+*/
 }
