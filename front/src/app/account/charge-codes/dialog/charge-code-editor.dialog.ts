@@ -34,6 +34,7 @@ export class ChargeCodeEditorDialog implements OnInit {
 
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group(<ChargeCode>{
+      id: null,
       code: '',
       description: '',
       priority: 0,
