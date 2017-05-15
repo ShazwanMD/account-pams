@@ -102,13 +102,14 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateChargeCode(code: ChargeCode): Observable<String> {
+  updateChargeCode(code: ChargeCode){
+      console.log("saving chargecode" + code.id);
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
-    return this.http.put(environment.endpoint + '/api/account/chargeCodes', JSON.stringify(code), options)
+    return this.http.put(environment.endpoint + '/api/account/chargeCodes/' + code.code,  JSON.stringify(code), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 

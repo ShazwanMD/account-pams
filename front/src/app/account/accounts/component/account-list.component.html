@@ -7,6 +7,7 @@
   [multiple]="false"
   [selectable]="false"
   (rowSelect)="view.emit($event)" dense>
+  
   <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <span flex>{{value}}</span>

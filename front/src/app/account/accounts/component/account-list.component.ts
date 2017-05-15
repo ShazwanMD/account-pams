@@ -6,6 +6,7 @@ import {Account} from "../account.interface";
   templateUrl: './account-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+    
 export class AccountListComponent {
 
   @Input() accounts: Account[];

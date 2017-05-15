@@ -160,7 +160,7 @@ public class AccountController {
     public ResponseEntity<String> updateChargeCode(@PathVariable String code, @RequestBody ChargeCode vo) {
         dummyLogin();
         // what can we update?
-        AcChargeCode chargeCode = accountService.findChargeCodeByCode(code);
+        AcChargeCode chargeCode = accountService.findChargeCodeById(vo.getId());
         chargeCode.setCode(vo.getCode());
         chargeCode.setDescription(vo.getDescription());
         chargeCode.setPriority(vo.getPriority());
