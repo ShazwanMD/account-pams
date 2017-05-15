@@ -17,9 +17,6 @@ export class InvoiceTaskListComponent {
   @Input() invoiceTasks: InvoiceTask[];
   @Output() view = new EventEmitter<InvoiceTask>();
 
-  private INVOICES = "billingModuleState.invoiceTask".split(".");
-  invoices$: Observable<InvoiceTask[]>;
-  private editorDialogRef: MdDialogRef<InvoiceTaskEditorDialog>;
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'accountCode', label: 'Account'},
@@ -30,36 +27,4 @@ export class InvoiceTaskListComponent {
     {name: 'action', label: ''}
   ];
   
-  constructor(private store: Store<BillingModuleState>,
-          private actions: InvoiceActions,
-          private vcf: ViewContainerRef,
-          private dialog: MdDialog) {
-      this.invoices$ = this.store.select(...this.INVOICES);
-    }
-    
-    editDialog(invoice: InvoiceTask): void {
-    this.showDialog(invoice);
-    }
-    
-    delete(invoice: InvoiceTask): void {
-    // this.store.dispatch(this.actions.de)
-    }
-    
-    filter(): void {
-    }
-    
-    private showDialog(invoice: InvoiceTask): void {
-        console.log("create");
-        let config = new MdDialogConfig();
-        config.viewContainerRef = this.vcf;
-        config.role = 'dialog';
-        config.width = '70%';
-        config.height = '65%';
-        config.position = {top: '0px'};
-        this.editorDialogRef = this.dialog.open(InvoiceTaskEditorDialog, config);
-        if (invoice) this.editorDialogRef.componentInstance.invoice = invoice; // set
-        this.editorDialogRef.afterClosed().subscribe(res => {
-          console.log("close dialog");
-        });
-    }
 }

@@ -87,15 +87,13 @@ export const billingModuleReducers = {
   declarations: [
     // page
     BillingPage,
-    
-    //dialog
-    InvoiceTaskEditorDialog,
+
     
   ],
   exports: [
 ],
   entryComponents: [
-                    InvoiceTaskEditorDialog,
+
                   ],
 })
 export class BillingModule {
