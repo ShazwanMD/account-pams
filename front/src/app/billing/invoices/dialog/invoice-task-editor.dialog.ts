@@ -50,4 +50,5 @@ export class InvoiceTaskEditorDialog implements OnInit {
     else  this.store.dispatch(this.actions.updateInvoice(invoice));
     this.dialog.close();
   }
+
 }
