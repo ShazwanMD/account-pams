@@ -30,6 +30,7 @@ import {feeScheduleItemListReducer, FeeScheduleItemListState} from "./fee-schedu
 import {feeScheduleListReducer, FeeScheduleListState} from "./fee-schedules/fee-schedule-list.reducer";
 import {accountChargeListReducer, AccountChargeListState} from "./accounts/account-charge-list.reducer";
 import {ChargeCodeSelectComponent} from "./charge-codes/component/charge-code-select.component";
+import {AccountChargeSubModule} from "./account-charge/index";
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -86,6 +87,7 @@ export const accountModuleReducers = {
     AcademicSessionSubModule.forRoot(),
     ChargeCodeSubModule.forRoot(),
     FeeScheduleSubModule.forRoot(),
+    AccountChargeSubModule.forRoot(),
   ],
   declarations: [
     AccountPage,

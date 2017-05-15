@@ -32,6 +32,8 @@ import {
 } from "./receipts/receipt-task-list.reducer";
 import { DebitNoteSubModule } from "./debit-notes/index";
 import { CreditNoteSubModule } from "./credit-notes/index";
+import { InvoiceTaskEditorDialog } from "./invoices/dialog/invoice-task-editor.dialog";
+import { InvoiceTaskListComponent } from "./invoices/component/invoice-task-list.component";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -85,8 +87,16 @@ export const billingModuleReducers = {
   declarations: [
     // page
     BillingPage,
+    
+    //dialog
+    InvoiceTaskEditorDialog,
+    
   ],
-  exports: [],
+  exports: [
+],
+  entryComponents: [
+                    InvoiceTaskEditorDialog,
+                  ],
 })
 export class BillingModule {
   static forRoot(): ModuleWithProviders {

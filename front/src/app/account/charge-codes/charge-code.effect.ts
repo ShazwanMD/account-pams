@@ -33,12 +33,19 @@ export class ChargeCodeEffects {
     .ofType(ChargeCodeActions.SAVE_CHARGE_CODE)
     .map(action => action.payload)
     .switchMap(chargeCode => this.accountService.saveChargeCode(chargeCode))
-    .map(message => this.chargeCodeActions.saveChargeCodeSuccess(message))
-    .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]));
+    .map(message => this.chargeCodeActions.saveChargeCodeSuccess(message));
 
   @Effect() updateChargeCode$ = this.actions$
     .ofType(ChargeCodeActions.UPDATE_CHARGE_CODE)
     .map(action => action.payload)
-    .switchMap(account => this.accountService.updateChargeCode(account))
-    .map(account => this.chargeCodeActions.updateChargeCodeSuccess(account));
+    .switchMap(payload => this.accountService.updateChargeCode(payload))
+    .map(message => this.chargeCodeActions.updateChargeCodeSuccess(message))
+    .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]));
+  
+  @Effect() removeChargeCode$ = this.actions$
+  .ofType(ChargeCodeActions.REMOVE_CHARGE_CODE)
+  .map(action => action.payload)
+  .switchMap(payload => this.accountService.removeChargeCode(payload))
+  .map(message => this.chargeCodeActions.removeChargeCodeSuccess(message))
+  .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]));
 }

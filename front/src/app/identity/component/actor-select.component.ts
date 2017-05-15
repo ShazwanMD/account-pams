@@ -17,7 +17,8 @@ export class ActorSelectComponent implements OnInit {
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   programLevels$: Observable<Actor[]>;
-
+  private actors$: Observable<Actor[]>;
+      
   constructor(private store: Store<IdentityModuleState>,
               private actions: ActorActions) {
     this.programLevels$ = this.store.select(...this.ACTORS);

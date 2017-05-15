@@ -74,10 +74,11 @@ export class ChargeCodeActions {
 
   static UPDATE_CHARGE_CODE_SUCCESS = '[ChargeCode] Update ChargeCode Success';
 
-  updateChargeCodeSuccess(chargeCode): Action {
+  updateChargeCodeSuccess(message): Action {
+      console.log("updateChargeCodeSuccess");
     return {
       type: ChargeCodeActions.UPDATE_CHARGE_CODE_SUCCESS,
-      payload: chargeCode
+      payload: message
     };
   }
 
@@ -98,4 +99,6 @@ export class ChargeCodeActions {
       payload: chargeCode
     };
   }
+
+
 }
