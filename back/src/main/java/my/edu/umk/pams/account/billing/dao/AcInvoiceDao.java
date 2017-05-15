@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
@@ -37,6 +38,8 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
     List<AcInvoiceItem> findItems(AcInvoice invoice, Integer offset, Integer limit);
 
     List<AcInvoiceItem> findSortedItems(AcInvoice invoice);
+    
+    List<AcInvoice> findByFlowState(AcFlowState acFlowState);
 
 //    List<AcInvoiceTransaction> findTransactions(AcInvoice invoice);
 //

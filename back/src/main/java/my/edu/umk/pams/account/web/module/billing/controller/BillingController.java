@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
@@ -177,6 +178,12 @@ public class BillingController {
         Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/invoices/task/{state}", method = RequestMethod.GET)
+    public ResponseEntity<List<Invoice>> findInvoicesByFlowState(@PathVariable String state) {
+    	List<AcInvoice> invoices = billingService.findInvoicesByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 
     // ==================================================================================================== //
