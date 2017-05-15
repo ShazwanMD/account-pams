@@ -302,7 +302,36 @@ public class BillingController {
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    // ==================================================================================================== //
+    //  DEBIT NOTE
+    // ==================================================================================================== //
+    
+    @RequestMapping(value = "/debitNotes/", method = RequestMethod.GET)
+    public ResponseEntity <List<DebitNote>> findDebitNotes(AcInvoice invoice) {
+        List<AcDebitNote> debitNotes = billingService.findDebitNotes(invoice);
+        return new ResponseEntity <List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<DebitNote> DebitNote(@PathVariable String referenceNo) {
+    	AcDebitNote debitNotes = (AcDebitNote) billingService.findDebitNoteByReferenceNo(referenceNo);
+        return new ResponseEntity<DebitNote>(billingTransformer.toDebitNoteVo(debitNotes), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/debitNotes/startTask", method = RequestMethod.POST)
+    public ResponseEntity<String> startDebitNoteTask(@RequestBody DebitNote vo) throws Exception {
+        dummyLogin();
 
+        AcDebitNote debitNotes = new AcDebitNoteImpl();
+        debitNotes.setReferenceNo(vo.getReferenceNo());
+        debitNotes.setSourceNo(vo.getSourceNo());
+        debitNotes.setAuditNo(vo.getAuditNo());
+        debitNotes.setDescription(vo.getDescription());
+        debitNotes.setTotalAmount(BigDecimal.ZERO);
+        return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNotes), HttpStatus.OK);
+    }
+    
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
