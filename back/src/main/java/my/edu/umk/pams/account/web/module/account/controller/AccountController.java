@@ -168,6 +168,15 @@ public class AccountController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeChargeCode(@PathVariable String code) {
+        dummyLogin();
+
+        AcChargeCode chargeCode = accountService.findChargeCodeByCode(code);
+        accountService.removeChargeCode(chargeCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
     // ==================================================================================================== //
     // ACCOUNT
     // ==================================================================================================== //

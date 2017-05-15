@@ -113,8 +113,13 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  removeChargeCode(code: ChargeCode): Observable<String> {
-    return this.http.delete(environment.endpoint + '/api/account/chargeCodes/' + code.code)
+  removeChargeCode(code: ChargeCode) {
+      let headers = new Headers({
+          'Content-Type': 'application/json',
+          //'Authorization': 'Bearer ' + this.authService.token
+        });
+        let options = new RequestOptions({headers: headers});
+    return this.http.delete(environment.endpoint + '/api/account/chargeCodes/' + code.code, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
