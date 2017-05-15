@@ -278,6 +278,11 @@ public class BillingServiceImpl implements BillingService {
 	public List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit) {
 		return invoiceDao.find(account, offset, limit);
 	}
+	
+	@Override
+	public List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState) {
+		return invoiceDao.findByFlowState(acFlowState);
+	}
 
 	@Override
 	public List<AcInvoice> findUnpaidInvoices(AcAccount account, Integer offset, Integer limit) {

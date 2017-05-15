@@ -5,7 +5,9 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.billing.model.*;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.model.AcActor;
+
 import org.activiti.engine.task.Task;
 
 import java.math.BigDecimal;
@@ -65,6 +67,8 @@ public interface BillingService {
     List<AcInvoice> findInvoices(String filter, Integer offset, Integer limit);
 
     List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit);
+    
+    List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState);
 
     List<AcInvoice> findUnpaidInvoices(AcAccount account, Integer offset, Integer limit);
 
