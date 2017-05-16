@@ -84,7 +84,7 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
     }
 
 	@Override
-	public List<AcStudent> findByCohort(AcCohortCode cohortCode) {
+	public List<AcStudent> findByCohortCode(AcCohortCode cohortCode) {
 		Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcStudent s where " +
                 "s.cohortCode = :cohortCode " +

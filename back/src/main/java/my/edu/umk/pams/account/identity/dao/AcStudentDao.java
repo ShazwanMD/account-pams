@@ -31,7 +31,7 @@ public interface AcStudentDao extends GenericDao<Long, AcStudent> {
 
 	List<AcSponsorship> findSponsorship(AcFacultyCode facultyCode);
 
-	List<AcStudent> findByCohort(AcCohortCode cohortCode);
+	List<AcStudent> findByCohortCode(AcCohortCode cohortCode);
 	
 	List<AcStudent> findByFacultyCode(AcFacultyCode facultyCode);
 	
