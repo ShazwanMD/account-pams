@@ -41,6 +41,8 @@ public interface BillingService {
     void addInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem);
 
     void updateInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem);
+    
+    void deleteInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem);
 
     void attach(AcInvoice invoice, AcAccountCharge charge) throws Exception;
 
@@ -106,7 +108,7 @@ public interface BillingService {
     
     AcInvoice executeInvoice();
 
-     void executeScheduler();
+    void executeScheduler();
 
     // ==================================================================================================== //
     // DEBIT NOTE

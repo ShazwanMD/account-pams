@@ -83,6 +83,7 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
 
     void removeItem(AcInvoice invoice, AcInvoiceItem item, AcUser user);
 
+    void deleteItem(AcInvoice invoice, AcInvoiceItem item, AcUser user);
 
 //    void addTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user);
 //
