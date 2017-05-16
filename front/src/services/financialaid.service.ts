@@ -24,11 +24,13 @@ export class FinancialaidService {
   // ====================================================================================================
 
   findSettlementByReferenceNo(referenceNo: string): Observable<Settlement> {
+    console.log("findSettlementByReferenceNo",referenceNo);
     return this.http.get(environment.endpoint + '/api/financialaid/settlements/' + referenceNo)
       .map((res: Response) => <Settlement>res.json());
   }
 
   findSettlementById(id: string): Observable<Settlement> {
+    console.log("findSettlementById",id);
     return this.http.get(environment.endpoint + '/api/financialaid/settlements/' + id)
       .map((res: Response) => <Settlement>res.json());
   }
