@@ -21,6 +21,13 @@ export class BillingService {
   // INVOICE
   // ====================================================================================================
 
+
+  findCompletedInvoices(): Observable<Invoice[]> {
+    console.log("findCompletedInvoices");
+    return this.http.get(environment.endpoint + '/api/billing/invoices/state/COMPLETED')
+      .map((res: Response) => <Invoice[]>res.json());
+  }
+
   findAssignedInvoiceTasks(): Observable<InvoiceTask[]> {
     console.log("findAssignedInvoiceTasks");
     return this.http.get(environment.endpoint + '/api/billing/invoices/assignedTasks')
