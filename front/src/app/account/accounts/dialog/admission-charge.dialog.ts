@@ -32,8 +32,10 @@ export class AdmissionChargeDialog implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<AdmissionCharge>{
+      id:null,
       referenceNo: '',
       sourceNo: '',
+      description:'',
       amount: 0,
       studyMode: <StudyMode>{},
       cohortCode:<CohortCode>{},
@@ -43,7 +45,7 @@ export class AdmissionChargeDialog implements OnInit {
 
   save(charge: AdmissionCharge, isValid: boolean) {
     console.log("account: " + charge.amount);
-    this.store.dispatch(this.actions.addAdmissionCharge(null, charge)); // todo:
+    this.store.dispatch(this.actions.addAdmissionCharge(this._account, charge));
     this.dialog.close();
   }
 }

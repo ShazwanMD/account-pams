@@ -236,8 +236,10 @@ public class AccountController {
                 .toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/{code}/admissionCharge", method = RequestMethod.POST)
+    @RequestMapping(value = "/accounts/{code}/admissionCharges", method = RequestMethod.POST)
     public ResponseEntity<String> addAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
+    	dummyLogin();
+    	
         AcAccount account = accountService.findAccountByCode(code);
         AcAdmissionCharge admissionCharge = new AcAdmissionChargeImpl();
         admissionCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());

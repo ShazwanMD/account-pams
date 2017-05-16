@@ -111,8 +111,8 @@ export class CommonActions {
 
   static FIND_STUDY_MODES_SUCCESS = '[Common] Find Study Modes Success';
 
-  findStudyModeSuccess(codes): Action {
-    console.log("findStudyModeSuccess");
+  findStudyModesSuccess(codes): Action {
+    console.log("findStudyModesSuccess");
     return {
       type: CommonActions.FIND_STUDY_MODES_SUCCESS,
       payload: codes
