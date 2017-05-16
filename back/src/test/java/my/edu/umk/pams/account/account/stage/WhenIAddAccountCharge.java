@@ -37,7 +37,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 	AcAccountCharge accountCharge;
 
 	@ProvidedScenarioState
-	AcAcademicCharge academicCharge;
+    AcAdmissionCharge academicCharge;
 
 	@As("I add account charge for account")
 	public WhenIAddAccountCharge I_add_account_charge_for_account_$(String code) {
@@ -46,13 +46,13 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 		account = accountService.findAccountByCode(code);
 
 		// charge
-		AcAcademicCharge charge = new AcAcademicChargeImpl();
+		AcAdmissionCharge charge = new AcAdmissionChargeImpl();
 		charge.setReferenceNo("abc123");
 		charge.setSourceNo("abc123");
 		charge.setAmount(BigDecimal.valueOf(200.00));
 		charge.setDescription("This is a test");
 		charge.setSession(academicSession);
-		charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
+		// todo: cohort, studymode
 		accountService.addAccountCharge(account, charge);
 
 		return self();
@@ -87,13 +87,13 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 		account = accountService.findAccountByActor(student);
 
 		// charge
-		AcAcademicCharge charge = new AcAcademicChargeImpl();
+		AcAdmissionCharge charge = new AcAdmissionChargeImpl();
 		charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
 		charge.setSourceNo("abc123");
 		charge.setAmount(BigDecimal.valueOf(200.00));
 		charge.setDescription("This is a test");
 		charge.setSession(academicSession);
-		charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
+		// todo: cohort, studymode
 		accountService.addAccountCharge(account, charge);
 
 		return self();

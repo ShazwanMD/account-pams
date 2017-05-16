@@ -14,7 +14,7 @@ import java.util.List;
 public interface AccountService {
 
     //====================================================================================================
-    // ACADEMIC SESSION
+    // ADMISSION SESSION
     //====================================================================================================
 
     AcAcademicSession findAcademicSessionById(Long id);

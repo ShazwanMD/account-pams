@@ -48,7 +48,7 @@ public class AccountController {
     private AuthenticationManager authenticationManager;
 
     // ==================================================================================================== //
-    // ACADEMIC SESSION
+    // ADMISSION SESSION
     // ==================================================================================================== //
     @RequestMapping(value = "/academicSessions", method = RequestMethod.GET)
     public ResponseEntity<List<AcademicSession>> findAcademicSessions() {
@@ -247,7 +247,7 @@ public class AccountController {
     public void addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
         dummyLogin();
         AcAccount account = accountService.findAccountByCode(code);
-        AcAcademicChargeImpl charge = new AcAcademicChargeImpl();
+        AcAdmissionChargeImpl charge = new AcAdmissionChargeImpl();
         charge.setAmount(vo.getAmount());
         accountService.addAccountCharge(account, charge);
     }
