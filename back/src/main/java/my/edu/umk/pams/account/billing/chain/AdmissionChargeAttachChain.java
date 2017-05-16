@@ -1,14 +1,16 @@
 package my.edu.umk.pams.account.billing.chain;
 
-import my.edu.umk.pams.account.account.model.AcAdmissionCharge;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author PAMS
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Component;
 public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdmissionChargeAttachChain.class);
+
+    @Autowired
+    private AccountService accountService;
 
     // TODO: update invoice total amount
     @Override
@@ -28,21 +33,26 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
         if (!AcAccountChargeType.ADMISSION.equals(charge.getChargeType()))
             return false;
 
-        AcAdmissionCharge academicCharge = ((AcAdmissionCharge) charge);
+        AcAdmissionCharge admissionCharge = ((AcAdmissionCharge) charge);
+        AcFeeSchedule feeSchedule = accountService
+                .findFeeScheduleByCohortCodeAndStudyMode(admissionCharge.getCohortCode(), admissionCharge.getStudyMode());
+
+        List<AcFeeScheduleItem> scheduleItems = accountService.findFeeScheduleItems(feeSchedule);
+        for (AcFeeScheduleItem scheduleItem : scheduleItems) {
             AcInvoiceItem item = new AcInvoiceItemImpl();
             item.setDescription(String.format("Admission Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
-            item.setAmount(academicCharge.getAmount());
-            item.setBalanceAmount(academicCharge.getAmount());
-            // todo(uda): translate
-//            item.setChargeCode(detail.getChargeCode());
+            item.setAmount(scheduleItem.getAmount());
+            item.setBalanceAmount(scheduleItem.getAmount());
+            item.setChargeCode(scheduleItem.getChargeCode());
             item.setInvoice(invoice);
             invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
             sessionFactory.getCurrentSession().flush();
+        }
 
-        invoice.setTotalAmount(invoice.getTotalAmount().add(academicCharge.getAmount()));
-        invoice.setBalanceAmount(invoice.getBalanceAmount().add(academicCharge.getAmount()));
-        academicCharge.setInvoice(invoice);
-        accountChargeDao.update(academicCharge, securityService.getCurrentUser());
+        invoice.setTotalAmount(invoice.getTotalAmount().add(admissionCharge.getAmount()));
+        invoice.setBalanceAmount(invoice.getBalanceAmount().add(admissionCharge.getAmount()));
+        admissionCharge.setInvoice(invoice);
+        accountChargeDao.update(admissionCharge, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
         return true;
     }
