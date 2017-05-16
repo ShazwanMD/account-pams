@@ -42,8 +42,8 @@ export interface FinancialaidModuleState {
 
 export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState =
   <FinancialaidModuleState>{
-    assignedWaiverApplicationTasks: <WaiverApplicationTask[]>[],
-    pooledWaiverApplicationTasks: <WaiverApplicationTask[]>[],
+    assignedWaiverApplicationTasks: [],
+    pooledWaiverApplicationTasks: [],
     waiverApplicationTask: {},
     waiverApplication: {},
     settlements: [],

@@ -48,6 +48,17 @@ export class WaiverApplicationCenterPage implements OnInit {
     });
   }
 
+  claim(task: WaiverApplicationTask) {
+    console.log("waiverApplication: " + task.taskId);
+    this.store.dispatch(this.actions.claimWaiverApplicationTask(task));
+  }
+
+  view(task: WaiverApplicationTask) {
+    console.log("waiverApplication: " + task.taskId);
+    this.router.navigate(['/financialaid/waiver-applications/view-task', task.taskId]);
+  }
+
+
   ngOnInit(): void {
     this.store.dispatch(this.actions.findAssignedWaiverApplicationTasks());
     this.store.dispatch(this.actions.findPooledWaiverApplicationTasks());

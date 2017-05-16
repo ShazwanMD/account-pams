@@ -29,7 +29,7 @@ export class WaiverApplicationActions {
 
   static FIND_POOLED_WAIVER_APPLICATION_TASKS_SUCCESS = '[WaiverApplication] Find Pooled WaiverApplication Tasks Success';
   findPooledWaiverApplicationTasksSuccess(tasks): Action {
-    console.log("findAssignedWaiverApplicationTasksSuccess");
+    console.log("findPooledWaiverApplicationTasksSuccess");
     return {
       type: WaiverApplicationActions.FIND_POOLED_WAIVER_APPLICATION_TASKS_SUCCESS,
       payload: tasks
