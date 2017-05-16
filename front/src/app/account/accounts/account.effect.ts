@@ -58,7 +58,7 @@ export class AccountEffects {
     .switchMap(account => this.accountService.updateAccount(account))
     .map(account => this.accountActions.updateAccountSuccess(account));
 
-  @Effect() addAcademicCharge$ = this.actions$
+  @Effect() addAdmissionCharge$ = this.actions$
     .ofType(AccountActions.ADD_ADMISSION_CHARGE)
     .map(action => action.payload)
     .switchMap(payload => this.accountService.addAdmissionCharge(payload.account, payload.charge))
