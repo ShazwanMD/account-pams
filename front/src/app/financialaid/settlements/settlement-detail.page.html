@@ -1,0 +1,36 @@
+<td-layout-nav>
+  <div toolbar-content layout="row" layout-align="center center" flex>
+    <span>PAMS: Postgraduate Management System</span>
+    <span flex></span>
+  </div>
+
+  <div md-content flex md-scroll-y>
+    <div layout="column" layout-gt-md="row" class="inset">
+      <div flex-gt-md="70">
+        <pams-settlement [settlement]="settlement$ | async"></pams-settlement>
+
+        <pams-settlement-item-list
+          [settlement]="settlement$ | async"
+          [settlementItems]="settlementItems$ | async">
+        </pams-settlement-item-list>
+
+      </div>
+
+      <div flex-gt-md="30">
+        <md-card>
+          <md-card-title>Action</md-card-title>
+          <md-card-subtitle>Actions available on current settlement</md-card-subtitle>
+          <md-divider></md-divider>
+
+          <md-nav-list flex dense>
+            <md-list-item (click)="executeSettlement()">
+              <md-icon md-list-avatar>done_all</md-icon>
+              <h4 md-line>Execute</h4>
+              <p md-line>Execute Settlement</p>
+            </md-list-item>
+          </md-nav-list>
+        </md-card>
+      </div>
+    </div>
+  </div>
+</td-layout-nav>

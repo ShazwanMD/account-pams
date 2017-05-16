@@ -29,9 +29,9 @@ export class SettlementDetailPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: {code: string}) => {
-      let referenceNo: string = params.code;
-      this.store.dispatch(this.actions.findSettlementById(referenceNo));
+    this.route.params.subscribe((params: {referenceNo: string}) => {
+      let referenceNo: string = params.referenceNo;
+      this.store.dispatch(this.actions.findSettlementByReferenceNo(referenceNo));
     });
   }
 
