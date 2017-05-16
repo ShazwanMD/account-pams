@@ -37,6 +37,12 @@
                flex/>
       </md-input-container>
     </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-invoice-select
+        [placeholder]="'Select Invoice'"
+        [innerFormControl]="createForm.controls['invoice']">
+      </pams-invoice-select>
+    </div>
 
   </form>
 </md-dialog-content>
