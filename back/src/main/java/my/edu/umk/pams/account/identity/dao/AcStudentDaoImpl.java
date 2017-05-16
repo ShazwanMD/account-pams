@@ -108,8 +108,8 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
 	@Override
 	public List<AcStudent> findBySponsor(AcSponsor sponsor) {
 		Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from AcStudent s where " +
-                "s.sponsorships.sponsor = :sponsor " +
+        Query query = session.createQuery("select s from AcStudent s join s.sponsorships sp where " +
+                "sp.sponsor = :sponsor " +
                 "and s.metadata.state = :state ");
         query.setEntity("sponsor", sponsor);
         query.setInteger("state", ACTIVE.ordinal());
