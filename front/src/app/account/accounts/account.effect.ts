@@ -46,6 +46,12 @@ export class AccountEffects {
     .switchMap(account => this.accountService.findAccountTransactions(account))
     .map(transactions => this.accountActions.findAccountTransactionsSuccess(transactions));
 
+  @Effect() findAccountCharges$ = this.actions$
+    .ofType(AccountActions.FIND_ACCOUNT_CHARGES)
+    .map(action => action.payload)
+    .switchMap(account => this.accountService.findAccountCharges(account))
+    .map(charges => this.accountActions.findAccountChargesSuccess(charges));
+
   @Effect() saveAccount$ = this.actions$
     .ofType(AccountActions.SAVE_ACCOUNT)
     .map(action => action.payload)

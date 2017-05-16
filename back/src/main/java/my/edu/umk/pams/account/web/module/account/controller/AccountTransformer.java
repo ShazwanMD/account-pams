@@ -85,6 +85,7 @@ public class AccountTransformer {
         m.setCode(e.getCode());
         m.setName(e.getActor().getName());
         m.setEmail(e.getActor().getEmail());
+        m.setBalanceAmount(e.getBalanceAmount());
         m.setActor(identityTransformer.toActorVo(e.getActor()));
         return m;
     }
@@ -106,6 +107,7 @@ public class AccountTransformer {
         m.setId(e.getId());
         m.setSourceNo(e.getSourceNo());
         m.setAmount(e.getAmount());
+        m.setChargeType(AccountChargeType.get(e.getChargeType().ordinal()));
         m.setSession(toAcademicSessionVo(e.getSession()));
         return m;
     }

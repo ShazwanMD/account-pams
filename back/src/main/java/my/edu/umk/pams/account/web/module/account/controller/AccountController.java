@@ -156,7 +156,7 @@ public class AccountController {
         accountService.saveChargeCode(chargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateChargeCode(@PathVariable String code, @RequestBody ChargeCode vo) {
         dummyLogin();
@@ -177,7 +177,7 @@ public class AccountController {
         accountService.removeChargeCode(chargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-    
+
     // ==================================================================================================== //
     // ACCOUNT
     // ==================================================================================================== //
@@ -185,7 +185,8 @@ public class AccountController {
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> findAccounts() {
         List<AcAccount> accounts = accountService.findAccounts(0, 100);
-        return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
+        List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
+        return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts?/byFilter/{filter}", method = RequestMethod.GET)
@@ -196,7 +197,7 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts/{code}", method = RequestMethod.GET)
     public ResponseEntity<Account> findAccountByCode(@PathVariable String code) {
-        AcAccount account = accountService.findAccountByCode(code);
+        AcAccount account = decorateAccount(accountService.findAccountByCode(code));
         return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
     }
 
@@ -239,8 +240,8 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts/{code}/admissionCharges", method = RequestMethod.POST)
     public ResponseEntity<String> addAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
-    	dummyLogin();
-    	
+        dummyLogin();
+
         AcAccount account = accountService.findAccountByCode(code);
         AcAdmissionCharge admissionCharge = new AcAdmissionChargeImpl();
         admissionCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
@@ -299,6 +300,17 @@ public class AccountController {
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
+    private List<AcAccount> decorateAccounts(List<AcAccount> accounts) {
+        for (AcAccount a : accounts) {
+            a.setBalanceAmount(accountService.sumBalanceAmount(a));
+        }
+        return accounts;
+    }
+
+    private AcAccount decorateAccount(AcAccount account) {
+        account.setBalanceAmount(accountService.sumBalanceAmount(account));
+        return account;
+    }
 
     private void dummyLogin() {
         AcAutoLoginToken token = new AcAutoLoginToken("root");

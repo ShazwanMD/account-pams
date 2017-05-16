@@ -16,6 +16,7 @@ public class AccountCharge extends MetaObject{
     private String sourceNo;
     private String description;
     private BigDecimal amount;
+    private AccountChargeType chargeType;
     private AcademicSession session;
 
 
@@ -49,6 +50,14 @@ public class AccountCharge extends MetaObject{
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public AccountChargeType getChargeType() {
+        return chargeType;
+    }
+
+    public void setChargeType(AccountChargeType chargeType) {
+        this.chargeType = chargeType;
     }
 
     public AcademicSession getSession() {
