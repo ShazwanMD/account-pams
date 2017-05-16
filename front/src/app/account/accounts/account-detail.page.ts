@@ -28,7 +28,6 @@ export class AccountDetailPage implements OnInit {
   private accountTransactions$: Observable<AccountTransaction[]>;
   private accountCharges$: Observable<AccountCharge[]>;
   private accountWaivers$: Observable<AccountWaiver[]>;
-  private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
 
 
   constructor(private router: Router,
@@ -53,21 +52,6 @@ export class AccountDetailPage implements OnInit {
 
   goBack(route: string): void {
     this.router.navigate(['/accounts']);
-  }
-
-  showAdmissionChargeDialog():void{
-    console.log("show dialog");
-    let config = new MdDialogConfig();
-    config.viewContainerRef = this.vcf;
-    config.role = 'dialog';
-    config.width = '50%';
-    config.height = '80%';
-    config.position = {top: '0px'};
-    this.creatorDialogRef = this.dialog.open(AdmissionChargeDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
-      // load something here
-    });
   }
 
 
