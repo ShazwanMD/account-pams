@@ -119,6 +119,14 @@ public class BillingController {
         e.setDescription(item.getDescription());
         billingService.updateInvoiceItem(invoice, e);
     }
+    
+    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.DELETE)
+    public void deleteInvoiceItems(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
+        dummyLogin();
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
+        billingService.deleteInvoiceItem(invoice, e);
+    }
 
     @RequestMapping(value = "/invoices/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<InvoiceTask>> findAssignedInvoices() {
