@@ -1,6 +1,6 @@
 package my.edu.umk.pams.account.config;
 
-import my.edu.umk.pams.account.billing.chain.AcademicChargeAttachChain;
+import my.edu.umk.pams.account.billing.chain.AdmissionChargeAttachChain;
 import my.edu.umk.pams.account.billing.chain.EnrollmentChargeAttachChain;
 import my.edu.umk.pams.account.billing.chain.EnrollmentLateChargeAttachChain;
 import my.edu.umk.pams.account.billing.chain.SecurityChargeAttachChain;
@@ -25,7 +25,7 @@ public class ChargeChainConfig {
     private EnrollmentLateChargeAttachChain enrollmentLateChargeAttachChain;
 
     @Autowired
-    private AcademicChargeAttachChain academicChargeAttachChain;
+    private AdmissionChargeAttachChain academicChargeAttachChain;
 
     @Autowired
     private SecurityChargeAttachChain securityChargeAttachChain;

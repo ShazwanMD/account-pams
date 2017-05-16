@@ -182,16 +182,14 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Override
     public String initSettlementByFacultyCode(AcSettlement settlement, AcFacultyCode facultyCode) {
-        // todo(sahir):
-//        List<AcStudent> students = identityService.findStudentByFacultyCode(facultyCode);
-        return "todo";
+        List<AcStudent> students = identityService.findStudentByFacultyCode(facultyCode);
+        return initSettlement(settlement, students);
     }
 
     @Override
     public String initSettlementBySponsor(AcSettlement settlement, AcSponsor sponsor) {
-        // todo(sahir):
-        // List<AcStudent> students = identityService.findStudentBySponsor();
-        return "todo";
+        List<AcStudent> students = identityService.findStudentBySponsor(sponsor);
+        return initSettlement(settlement, students);
     }
 
     @Override
@@ -202,6 +200,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Override
     public void executeSettlement(AcSettlement settlement) {
+    	LOG.debug("settlement {}",settlement);
         // find all items for settlement
         // then iterate all, skip AcSettlementStatus.DISQUALIFIED
         List<AcSettlementItem> settlementItem = settlementDao.findItems(settlement);

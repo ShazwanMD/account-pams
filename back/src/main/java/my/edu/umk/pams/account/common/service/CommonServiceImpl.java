@@ -3,7 +3,6 @@ package my.edu.umk.pams.account.common.service;
 import my.edu.umk.pams.account.common.dao.*;
 import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.security.service.SecurityService;
-import my.edu.umk.pams.account.util.Util;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +46,9 @@ public class CommonServiceImpl implements CommonService {
 
     @Autowired
     private AcCohortCodeDao cohortCodeDao;
+
+    @Autowired
+    private AcStudyModeDao studyModeDao;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -651,5 +653,60 @@ public class CommonServiceImpl implements CommonService {
         cohortCodeDao.remove(cohortCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+
+
+    //====================================================================================================
+    // STUDY MODE
+    //====================================================================================================
+
+    @Override
+    public AcStudyMode findStudyModeById(Long id) {
+        return studyModeDao.findById(id);
+    }
+
+    @Override
+    public AcStudyMode findStudyModeByCode(String code) {
+        return studyModeDao.findByCode(code);
+    }
+
+    @Override
+    public List<AcStudyMode> findStudyModes() {
+        return studyModeDao.find();
+    }
+
+    @Override
+    public List<AcStudyMode> findStudyModes(String filter, Integer offset, Integer limit) {
+        return studyModeDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public Integer countStudyMode() {
+        return studyModeDao.count();
+    }
+
+    @Override
+    public Integer countStudyMode(String filter) {
+        return studyModeDao.count(filter);
+    }
+
+
+    @Override
+    public void saveStudyMode(AcStudyMode studyMode) {
+        studyModeDao.save(studyMode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateStudyMode(AcStudyMode studyMode) {
+        studyModeDao.update(studyMode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeStudyMode(AcStudyMode studyMode) {
+        studyModeDao.remove(studyMode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
 
 }

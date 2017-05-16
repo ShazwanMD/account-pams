@@ -104,12 +104,6 @@
         primary key (ID)
     );
 
-    create table AC_ACDM_CHRG (
-        ID int8 not null,
-        CHARGE_CODE_ID int8,
-        primary key (ID)
-    );
-
     create table AC_ACDM_SESN (
         ID int8 not null,
         CODE varchar(255) not null,
@@ -144,6 +138,13 @@
         MOBILE varchar(255),
         NAME varchar(255) not null,
         PHONE varchar(255),
+        primary key (ID)
+    );
+
+    create table AC_ADMN_CHRG (
+        ID int8 not null,
+        COHORT_CODE_ID int8,
+        STUDY_MODE_ID int8,
         primary key (ID)
     );
 
@@ -894,6 +895,22 @@
         primary key (ID)
     );
 
+    create table AC_STDY_MODE (
+        ID int8 not null,
+        CODE varchar(255) not null,
+        DESCRIPTION_EN varchar(255) not null,
+        DESCRIPTION_MS varchar(255) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        PREFIX varchar(255) not null,
+        primary key (ID)
+    );
+
     create table AC_STLT (
         ID int8 not null,
         DESCRIPTION varchar(255) not null,
@@ -905,7 +922,7 @@
         M_ID int8,
         M_ST int4,
         REFERENCE_NO varchar(255) not null,
-        SOURCE_NO varchar(255) not null,
+        SOURCE_NO varchar(255),
         SESSION_ID int8,
         primary key (ID)
     );
@@ -1092,21 +1109,26 @@
         foreign key (SESSION_ID) 
         references AC_ACDM_SESN;
 
-    alter table AC_ACDM_CHRG 
-        add constraint FKFE6CD91165B1C0CE 
-        foreign key (CHARGE_CODE_ID) 
-        references AC_CHRG_CODE;
-
-    alter table AC_ACDM_CHRG 
-        add constraint FKFE6CD911ACE4F811 
-        foreign key (ID) 
-        references AC_ACCT_CHRG;
-
     alter table AC_ACDM_SESN 
         add constraint uc_AC_ACDM_SESN_1 unique (CODE);
 
     alter table AC_ACTR 
         add constraint uc_AC_ACTR_1 unique (IDENTITY_NO);
+
+    alter table AC_ADMN_CHRG 
+        add constraint FK441AF3D818CFEEEC 
+        foreign key (COHORT_CODE_ID) 
+        references AC_CHRT_CODE;
+
+    alter table AC_ADMN_CHRG 
+        add constraint FK441AF3D87B24A766 
+        foreign key (STUDY_MODE_ID) 
+        references AC_STDY_MODE;
+
+    alter table AC_ADMN_CHRG 
+        add constraint FK441AF3D8ACE4F811 
+        foreign key (ID) 
+        references AC_ACCT_CHRG;
 
     alter table AC_BANK_CODE 
         add constraint uc_AC_BANK_CODE_1 unique (CODE);
@@ -1371,6 +1393,9 @@
     alter table AC_STDY_CNTR_CODE 
         add constraint uc_AC_STDY_CNTR_CODE_1 unique (CODE);
 
+    alter table AC_STDY_MODE 
+        add constraint uc_AC_STDY_MODE_1 unique (CODE);
+
     alter table AC_STLT 
         add constraint uc_AC_STLT_1 unique (REFERENCE_NO);
 
@@ -1505,6 +1530,8 @@
     create sequence SQ_AC_SPHP;
 
     create sequence SQ_AC_STDY_CNTR_CODE;
+
+    create sequence SQ_AC_STDY_MODE;
 
     create sequence SQ_AC_STLT;
 

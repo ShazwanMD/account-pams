@@ -28,7 +28,7 @@ export class PooledInvoiceTaskListComponent {
 
   constructor(private snackBar: MdSnackBar) {
   }
-  
+
   claimTask(task: InvoiceTask): void {
     console.log("Emitting task");
     let snackBarRef = this.snackBar.open("Claiming invoice", "OK");

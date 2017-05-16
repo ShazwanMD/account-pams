@@ -1,6 +1,6 @@
 package my.edu.umk.pams.account.billing.chain;
 
-import my.edu.umk.pams.account.account.model.AcAcademicCharge;
+import my.edu.umk.pams.account.account.model.AcAdmissionCharge;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 /**
  * @author PAMS
  */
-@Component("academicChargeAttachChain")
-public class AcademicChargeAttachChain extends ChainSupport<ChargeContext> {
+@Component("admissionChargeAttachChain")
+public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AcademicChargeAttachChain.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdmissionChargeAttachChain.class);
 
     // TODO: update invoice total amount
     @Override
@@ -25,10 +25,10 @@ public class AcademicChargeAttachChain extends ChainSupport<ChargeContext> {
         AcInvoice invoice = context.getInvoice();
         AcAccountCharge charge = context.getCharge();
 
-        if (!AcAccountChargeType.ACADEMIC.equals(charge.getChargeType()))
+        if (!AcAccountChargeType.ADMISSION.equals(charge.getChargeType()))
             return false;
 
-        AcAcademicCharge academicCharge = ((AcAcademicCharge) charge);
+        AcAdmissionCharge academicCharge = ((AcAdmissionCharge) charge);
             AcInvoiceItem item = new AcInvoiceItemImpl();
             item.setDescription(String.format("Admission Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
             item.setAmount(academicCharge.getAmount());

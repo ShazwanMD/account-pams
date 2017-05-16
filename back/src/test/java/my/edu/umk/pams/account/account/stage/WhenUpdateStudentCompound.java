@@ -40,7 +40,7 @@ public class WhenUpdateStudentCompound extends Stage<WhenUpdateStudentCompound> 
 		LOG.debug("test", code);
 		// update charge
 
-		code.setDescription("ACADEMIC");
+		code.setDescription("ADMISSION");
 		code.setChargeType(AcChargeCodeType.HOSTEL);
 		code.setPriority(3);
 

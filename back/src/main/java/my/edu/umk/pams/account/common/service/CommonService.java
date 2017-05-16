@@ -233,7 +233,7 @@ public interface CommonService {
     void updateResidencyCode(AcResidencyCode residencyCode);
 
     void removeResidencyCode(AcResidencyCode residencyCode);
-    
+
 
     //====================================================================================================
     // COHORT CODE
@@ -259,5 +259,27 @@ public interface CommonService {
 
     void removeCohortCode(AcCohortCode cohortCode);
 
-    
+    // ====================================================================================================
+    // STUDY MODE
+    // ====================================================================================================
+
+    AcStudyMode findStudyModeById(Long id);
+
+    AcStudyMode findStudyModeByCode(String code);
+
+    List<AcStudyMode> findStudyModes();
+
+    List<AcStudyMode> findStudyModes(String filter, Integer offset, Integer limit);
+
+    Integer countStudyMode();
+
+    Integer countStudyMode(String filter);
+
+    void saveStudyMode(AcStudyMode studyMode);
+
+    void updateStudyMode(AcStudyMode studyMode);
+
+    void removeStudyMode(AcStudyMode studyMode);
+
+
 }

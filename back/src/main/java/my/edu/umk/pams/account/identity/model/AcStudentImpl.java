@@ -22,8 +22,7 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
 
 	@NotNull
 	@OneToOne(targetEntity = AcCohortCodeImpl.class)
-	@JoinColumn(name = "COHORT_CODE_ID", nullable = true) // todo(uda): set to
-															// false
+	@JoinColumn(name = "COHORT_CODE_ID", nullable = true) // todo(uda): set to false
 	private AcCohortCode cohortCode;
 
 	public AcStudentImpl() {

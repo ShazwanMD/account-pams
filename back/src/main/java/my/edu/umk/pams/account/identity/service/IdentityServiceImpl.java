@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.identity.event.StaffUpdatedEvent;
 import my.edu.umk.pams.account.identity.event.StudentCreatedEvent;
 import my.edu.umk.pams.account.identity.model.*;
 import my.edu.umk.pams.account.security.service.SecurityService;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -497,7 +498,17 @@ public class IdentityServiceImpl implements IdentityService {
     
 	@Override
 	public List<AcStudent> findStudentByCohortCode(AcCohortCode cohortCode) {
-		return studentDao.findCohort(cohortCode);
+		return studentDao.findByCohortCode(cohortCode);
+	}
+	
+	@Override
+	public List<AcStudent> findStudentByFacultyCode(AcFacultyCode facultyCode) {
+		return studentDao.findByFacultyCode(facultyCode);
+	}
+	
+	@Override
+	public List<AcStudent> findStudentBySponsor(AcSponsor sponsor) {
+		return studentDao.findBySponsor(sponsor);
 	}
 	
     @Override

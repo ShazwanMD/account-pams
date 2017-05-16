@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.*;
+
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -83,12 +84,34 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
     }
 
 	@Override
-	public List<AcStudent> findCohort(AcCohortCode cohortCode) {
+	public List<AcStudent> findByCohortCode(AcCohortCode cohortCode) {
 		Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcStudent s where " +
                 "s.cohortCode = :cohortCode " +
                 "and s.metadata.state = :state ");
         query.setEntity("cohortCode", cohortCode);
+        query.setInteger("state", ACTIVE.ordinal());
+        return (List<AcStudent>) query.list();
+	}
+	
+	@Override
+	public List<AcStudent> findByFacultyCode(AcFacultyCode facultyCode) {
+		Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcStudent s where " +
+                "s.cohortCode.programCode.facultyCode = :facultyCode " +
+                "and s.metadata.state = :state ");
+        query.setEntity("facultyCode", facultyCode);
+        query.setInteger("state", ACTIVE.ordinal());
+        return (List<AcStudent>) query.list();
+	}
+	
+	@Override
+	public List<AcStudent> findBySponsor(AcSponsor sponsor) {
+		Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcStudent s where " +
+                "s.sponsorships.sponsor = :sponsor " +
+                "and s.metadata.state = :state ");
+        query.setEntity("sponsor", sponsor);
         query.setInteger("state", ACTIVE.ordinal());
         return (List<AcStudent>) query.list();
 	}
