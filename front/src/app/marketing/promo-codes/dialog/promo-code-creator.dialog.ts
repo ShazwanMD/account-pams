@@ -40,12 +40,5 @@ export class PromoCodeCreatorDialog implements OnInit {
   save(promoCode: PromoCode, isValid: boolean) {
     this.store.dispatch(this.actions.initPromoCode(promoCode));
     this.dialog.close();
-
-    // .subscribe(res => {
-    //   let snackBarRef = this._snackBar.open("Invoice started", "OK");
-    //   snackBarRef.afterDismissed().subscribe(() => {
-    //     this.goBack();
-    //   });
-    // });
   }
 }

@@ -1,14 +1,13 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {InvoiceTask} from "../invoice-task.interface";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
-  selector: 'pams-invoice-task-list',
-  templateUrl: './invoice-task-list.component.html',
+  selector: 'pams-assigned-invoice-task-list',
+  templateUrl: './assigned-invoice-task-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-// DEPRECATED
-export class InvoiceTaskListComponent {
+export class AssignedInvoiceTaskListComponent {
 
   @Input() invoiceTasks: InvoiceTask[];
   @Output() view = new EventEmitter<InvoiceTask>();
@@ -23,4 +22,14 @@ export class InvoiceTaskListComponent {
     {name: 'action', label: ''}
   ];
 
+  constructor(private snackBar: MdSnackBar) {
+  }
+
+  viewTask(task: InvoiceTask): void {
+    console.log("Emitting task");
+    let snackBarRef = this.snackBar.open("Viewing invoice", "OK");
+    snackBarRef.afterDismissed().subscribe(() => {
+      this.view.emit(task);
+    });
+  }
 }

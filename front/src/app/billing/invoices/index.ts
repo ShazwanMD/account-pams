@@ -12,7 +12,6 @@ import {BillingService} from "../../../services/billing.service";
 import {InvoiceEffects} from "./invoice.effect";
 import {EffectsModule} from "@ngrx/effects";
 import {InvoiceCenterPage} from "./invoice-center.page";
-import {InvoiceTaskListComponent} from "./component/invoice-task-list.component";
 import {InvoiceActions} from "./invoice.action";
 import {InvoiceDraftTaskPanel} from "./panel/invoice-draft-task.panel";
 import {InvoiceRegisterTaskPanel} from "./panel/invoice-register-task.panel";
@@ -25,7 +24,9 @@ import {AccountService} from "../../../services/account.service";
 import {InvoiceItemComponent} from "./component/invoice-item-list.component";
 import {ChargeCodeSubModule} from "../../account/charge-codes/index";
 import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
-import { InvoiceVerifyTaskPanel } from "./panel/invoice-verify-task.panel";
+import {InvoiceVerifyTaskPanel} from "./panel/invoice-verify-task.panel";
+import {AssignedInvoiceTaskListComponent} from "./component/assigned-invoice-task-list.component";
+import {PooledInvoiceTaskListComponent} from "./component/pooled-invoice-task-list.component";
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { InvoiceVerifyTaskPanel } from "./panel/invoice-verify-task.panel";
     InvoiceTaskViewPage,
 
     // components
-    InvoiceTaskListComponent,
+    AssignedInvoiceTaskListComponent,
+    PooledInvoiceTaskListComponent,
     InvoiceTaskWorkflowPanel,
     InvoiceDraftTaskPanel,
     InvoiceRegisterTaskPanel,
