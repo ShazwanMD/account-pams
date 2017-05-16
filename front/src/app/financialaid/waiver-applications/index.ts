@@ -10,6 +10,10 @@ import {IdentityService} from '../../../services';
 import {FinancialaidService} from "../../../services/financialaid.service";
 import {WaiverApplicationEffects} from "./waiver-application.effect";
 import {WaiverApplicationActions} from "./waiver-application.action";
+import {IdentityModule} from "../../identity/index";
+import {CommonModule} from "../../common/index";
+import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
+import {WaiverApplicationCreatorDialog} from "./dialog/waiver-application-creator.dialog";
 
 @NgModule({
   imports: [
@@ -17,14 +21,20 @@ import {WaiverApplicationActions} from "./waiver-application.action";
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
+    IdentityModule.forRoot(),
+    CommonModule.forRoot(),
+    AcademicSessionSubModule.forRoot(),
     EffectsModule.run(WaiverApplicationEffects),
   ],
   declarations: [
     // page
     WaiverApplicationCenterPage,
+    //component
+    WaiverApplicationCreatorDialog,
   ],
   exports: [],
   entryComponents: [
+    WaiverApplicationCreatorDialog,
   ],
 
 })

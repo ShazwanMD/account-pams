@@ -3,6 +3,9 @@ import {AcademicSession} from "../../account/academic-sessions/academic-session.
 import {Account} from "../../account/accounts/account.interface";
 export interface WaiverApplication extends Document{
 
+  referenceNo:string;
+  sourceNo:string;
+  description:string;
   reason:string;
   memo:string;
   balance:number;
