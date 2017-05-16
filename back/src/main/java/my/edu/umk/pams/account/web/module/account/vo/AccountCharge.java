@@ -14,6 +14,7 @@ public class AccountCharge extends MetaObject{
 
     private String referenceNo;
     private String sourceNo;
+    private String description;
     private BigDecimal amount;
     private AcademicSession session;
 
@@ -32,6 +33,14 @@ public class AccountCharge extends MetaObject{
 
     public void setSourceNo(String sourceNo) {
         this.sourceNo = sourceNo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getAmount() {

@@ -236,6 +236,34 @@ public class AccountController {
                 .toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/accounts/{code}/admissionCharge", method = RequestMethod.POST)
+    public ResponseEntity<String> addAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAdmissionCharge admissionCharge = new AcAdmissionChargeImpl();
+        admissionCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+        admissionCharge.setSourceNo(vo.getSourceNo());
+        admissionCharge.setDescription(vo.getDescription());
+        admissionCharge.setAmount(vo.getAmount());
+        admissionCharge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+        admissionCharge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+        admissionCharge.setSession(accountService.findCurrentAcademicSession()); // todo:
+        accountService.addAccountCharge(account, admissionCharge);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/accounts/{code}/enrollmentCharge", method = RequestMethod.POST)
+    public ResponseEntity<String> addEnrollmentCharge(@PathVariable String code, @RequestBody EnrollmentCharge vo) {
+        AcAccount account = accountService.findAccountByCode(code);
+        AcEnrollmentCharge enrollmentCharge = new AcEnrollmentChargeImpl();
+        enrollmentCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+        enrollmentCharge.setSourceNo(vo.getSourceNo());
+        enrollmentCharge.setDescription(vo.getDescription());
+        enrollmentCharge.setAmount(vo.getAmount());
+        enrollmentCharge.setSession(accountService.findCurrentAcademicSession()); // todo:
+        accountService.addAccountCharge(account, enrollmentCharge);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/accounts/{code}/accountWaivers", method = RequestMethod.GET)
     public ResponseEntity<List<AccountWaiver>> findAccountWaivers(@PathVariable String code) {
         AcAccount account = accountService.findAccountByCode(code);
