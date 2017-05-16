@@ -61,7 +61,7 @@ export class AccountDetailPage implements OnInit {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '60%';
+    config.height = '80%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(AdmissionChargeDialog, config);
     this.creatorDialogRef.afterClosed().subscribe(res => {

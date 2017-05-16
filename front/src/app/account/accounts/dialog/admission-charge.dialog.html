@@ -28,6 +28,24 @@
 
     <!-- select cohort, session, studymode -->
 
+     <div layout="row" class="pad-bottom pad-top">
+      <pams-cohort-code-select
+        [placeholder]="'Select Cohort'"
+        [innerFormControl]="createForm.controls['cohortCode']">
+      </pams-cohort-code-select>
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-academic-session-select
+        [placeholder]="'Select Academic Session'"
+        [innerFormControl]="createForm.controls['session']">
+      </pams-academic-session-select>
+      </div>
+      <div layout="row" class="pad-bottom pad-top">
+      <pams-study-mode-select
+        [placeholder]="'Select Study Mode'"
+        [innerFormControl]="createForm.controls['studyMode']">
+      </pams-study-mode-select>
+      </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
