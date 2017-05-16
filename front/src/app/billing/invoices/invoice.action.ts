@@ -4,6 +4,25 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class InvoiceActions {
 
+  static FIND_COMPLETED_INVOICES = '[Invoice] Find Completed Invoices';
+
+  findCompletedInvoices(): Action {
+    return {
+      type: InvoiceActions.FIND_COMPLETED_INVOICES
+    };
+  }
+
+  static FIND_COMPLETED_INVOICES_SUCCESS = '[Invoice] Find Completed Invoices Success';
+
+  findCompletedInvoicesSuccess(invoices): Action {
+    console.log("findCompletedInvoicesSuccess");
+    return {
+      type: InvoiceActions.FIND_COMPLETED_INVOICES_SUCCESS,
+      payload: invoices
+    };
+  }
+
+
   static FIND_ASSIGNED_INVOICE_TASKS = '[Invoice] Find Assigned Invoice Tasks';
 
   findAssignedInvoiceTasks(): Action {
