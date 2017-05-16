@@ -2,6 +2,8 @@ package my.edu.umk.pams.account.account.model;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
+import my.edu.umk.pams.account.common.model.AcStudyMode;
+import my.edu.umk.pams.account.common.model.AcStudyModeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -35,6 +37,11 @@ public class AcFeeScheduleImpl implements AcFeeSchedule {
     @OneToOne(targetEntity = AcCohortCodeImpl.class)
     @JoinColumn(name = "COHORT_CODE_ID", nullable = false)
     private AcCohortCode cohortCode;
+
+    @NotNull
+    @OneToOne(targetEntity = AcStudyModeImpl.class)
+    @JoinColumn(name = "STUDY_MODE_ID", nullable = false)
+    private AcStudyMode studyMode;
 
     @Embedded
     private AcMetadata metadata;
@@ -86,6 +93,16 @@ public class AcFeeScheduleImpl implements AcFeeSchedule {
     @Override
     public void setCohortCode(AcCohortCode cohortCode) {
         this.cohortCode = cohortCode;
+    }
+
+    @Override
+    public AcStudyMode getStudyMode() {
+        return studyMode;
+    }
+
+    @Override
+    public void setStudyMode(AcStudyMode studyMode) {
+        this.studyMode = studyMode;
     }
 
     @Override

@@ -4,7 +4,7 @@ package my.edu.umk.pams.account.account.model;
  * @author PAMS
  */
 public enum  AcAccountChargeType {
-    ACADEMIC,
+    ADMISSION,
     ACADEMIC_LATE,
     ENROLLMENT,
     ENROLLMENT_LATE,

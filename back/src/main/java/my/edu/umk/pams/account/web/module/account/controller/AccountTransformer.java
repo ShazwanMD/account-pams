@@ -38,14 +38,15 @@ public class AccountTransformer {
     private CommonTransformer commonTransformer;
 
     public FeeSchedule toFeeScheduleVo(AcFeeSchedule e) {
-    	FeeSchedule m = new FeeSchedule();
+        FeeSchedule m = new FeeSchedule();
         m.setId(e.getId());
         m.setCode(e.getCode());
         m.setDescription(e.getDescription());
-        m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()  ));
+        m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
+        m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
         return m;
     }
-    
+
     public ChargeCode toChargeCodeVo(AcChargeCode e) {
         ChargeCode m = new ChargeCode();
         m.setId(e.getId());

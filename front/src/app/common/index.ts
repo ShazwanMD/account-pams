@@ -15,10 +15,13 @@ import {cohortCodeListReducer, CohortCodeListState} from "./cohort-codes/cohort-
 import {CohortCodeSelectComponent} from "./cohort-codes/component/cohort-code-select.component";
 import {facultyCodeListReducer, FacultyCodeListState} from "./faculty-codes/faculty-code-list.reducer";
 import {FacultyCodeSelectComponent} from "./faculty-codes/component/faculty-code-select.component";
+import {StudyModeSelectComponent} from "./study-modes/component/study-mode-select.component";
+import {studyModeListReducer, StudyModeListState} from "../setup/study-modes/study-mode-list.reducer";
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
   facultyCodes: CohortCodeListState;
+  studyModes: StudyModeListState;
 }
 ;
 
@@ -26,6 +29,7 @@ export const INITIAL_COMMON_STATE: CommonModuleState = <CommonModuleState>{};
 export const commonModuleReducers = {
   cohortCodes: cohortCodeListReducer,
   facultyCodes: facultyCodeListReducer,
+  studyModes: studyModeListReducer,
 };
 
 @NgModule({
@@ -39,11 +43,13 @@ export const commonModuleReducers = {
   declarations: [
     CohortCodeSelectComponent,
     FacultyCodeSelectComponent,
+    StudyModeSelectComponent,
   ],
   exports: [
     CohortCodeSelectComponent,
     FacultyCodeSelectComponent,
-  ],
+    StudyModeSelectComponent,
+],
 })
 export class CommonModule {
   static forRoot(): ModuleWithProviders {

@@ -11,6 +11,8 @@ import {AcademicSession} from "../app/account/academic-sessions/academic-session
 import {FeeScheduleItem} from "../app/account/fee-schedules/fee-schedule-item.interface";
 import {AccountCharge} from "../app/account/accounts/account-charge.interface";
 import {AccountWaiver} from "../app/account/accounts/account-waiver.interface";
+import {AdmissionCharge} from "../app/account/accounts/admission-charge.interface";
+import {EnrollmentCharge} from "../app/account/accounts/enrollment-charge.interface";
 
 @Injectable()
 export class AccountService {
@@ -233,6 +235,26 @@ export class AccountService {
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/accountWaivers', JSON.stringify(waiver), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  addAdmissionCharge(account: Account, charge:AdmissionCharge ): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/admissionCharges', JSON.stringify(charge), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  addEnrollmentCharge(account: Account, charge:EnrollmentCharge ): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/enrollmentCharges', JSON.stringify(charge), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 }

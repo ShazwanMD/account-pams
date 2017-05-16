@@ -43,7 +43,7 @@ public class WhenIListAllCompoundStudent extends Stage<WhenIListAllCompoundStude
 	@As("list all compound student of type academic")
 	public WhenIListAllCompoundStudent I_want_to_list_all_compound_student_of_type_academic_$(String matricNo) {
 
-		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		AcAccountChargeType chargeType = AcAccountChargeType.ADMISSION;
 		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
 
 		Assert.notEmpty(accountCharges, "Account Charges is empty");

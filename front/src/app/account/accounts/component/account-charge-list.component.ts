@@ -1,6 +1,11 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {AccountTransaction} from "../account-transaction.interface";
+import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {AccountCharge} from "../account-charge.interface";
+import {AdmissionChargeDialog} from "../dialog/admission-charge.dialog";
+import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
+import {AccountActions} from "../account.action";
+import {AccountModuleState} from "../../index";
+import {Store} from "@ngrx/store";
+import {Account} from "../account.interface";
 
 @Component({
   selector: 'pams-account-charge-list',
@@ -8,5 +13,29 @@ import {AccountCharge} from "../account-charge.interface";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountChargeListComponent {
+  @Input() account: Account;
   @Input() charges: AccountCharge[];
+  private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
+
+  constructor(private actions: AccountActions,
+              private store: Store<AccountModuleState>,
+              private vcf: ViewContainerRef,
+              private dialog: MdDialog) {}
+
+  showAdmissionChargeDialog():void{
+    console.log("show dialog");
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '90%';
+    config.position = {top: '0px'};
+    this.creatorDialogRef = this.dialog.open(AdmissionChargeDialog, config);
+    this.creatorDialogRef.componentInstance.account = this.account;
+    this.creatorDialogRef.afterClosed().subscribe(res => {
+      console.log("close dialog");
+      // load something here
+    });
+  }
+
 }

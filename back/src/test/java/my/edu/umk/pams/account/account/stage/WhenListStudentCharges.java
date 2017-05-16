@@ -38,7 +38,7 @@ public class WhenListStudentCharges extends Stage<WhenListStudentCharges> {
 	public WhenListStudentCharges I_want_to_list_student_charges_of_type_academic_by_account_$(String matricNo,
 			String Code) {
 
-		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		AcAccountChargeType chargeType = AcAccountChargeType.ADMISSION;
 		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(academicSession, chargeType);
 
 		Assert.notEmpty(accountCharges, "Account Charges is empty");

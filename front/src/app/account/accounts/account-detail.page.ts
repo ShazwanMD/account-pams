@@ -1,8 +1,8 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
 
-import {IdentityService} from '../../../services';
-import {CommonService} from '../../../services';
+
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Account} from "./account.interface";
@@ -11,6 +11,7 @@ import {AccountTransaction} from "./account-transaction.interface";
 import {AccountModuleState} from "../index";
 import {AccountCharge} from "./account-charge.interface";
 import {AccountWaiver} from "./account-waiver.interface";
+import {AdmissionChargeDialog} from "./dialog/admission-charge.dialog";
 
 @Component({
   selector: 'pams-account-detail',
@@ -28,10 +29,13 @@ export class AccountDetailPage implements OnInit {
   private accountCharges$: Observable<AccountCharge[]>;
   private accountWaivers$: Observable<AccountWaiver[]>;
 
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: AccountActions,
-              private store: Store<AccountModuleState>) {
+              private store: Store<AccountModuleState>,
+              private vcf: ViewContainerRef,
+              private dialog: MdDialog) {
 
     this.account$ = this.store.select(...this.ACCOUNT);
     this.accountTransactions$ = this.store.select(...this.ACCOUNT_TRANSACTIONS);
@@ -49,5 +53,7 @@ export class AccountDetailPage implements OnInit {
   goBack(route: string): void {
     this.router.navigate(['/accounts']);
   }
+
+
 }
 

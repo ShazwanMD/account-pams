@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.service;
 
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public interface AccountService {
 
     //====================================================================================================
-    // ACADEMIC SESSION
+    // ADMISSION SESSION
     //====================================================================================================
 
     AcAcademicSession findAcademicSessionById(Long id);
@@ -71,7 +72,7 @@ public interface AccountService {
 
     AcFeeSchedule findFeeScheduleByCode(String code);
 
-    AcFeeSchedule findFeeScheduleByCohortCode(AcCohortCode cohortCode);
+    AcFeeSchedule findFeeScheduleByCohortCodeAndStudyMode(AcCohortCode cohortCode, AcStudyMode studyMode);
 
     AcFeeScheduleItem findFeeScheduleItemById(Long id);
 
@@ -231,6 +232,7 @@ public interface AccountService {
 
     Integer countDetachedAccountCharge(AcAcademicSession academicSession, AcAccount account);
 
+    // todo: return refno
     void addAccountCharge(AcAccount acAccount, AcAccountCharge charge);
 
     void deleteAccountCharge(AcAccount acAccount, AcAccountCharge charge);
