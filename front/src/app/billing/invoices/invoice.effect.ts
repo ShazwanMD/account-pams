@@ -108,4 +108,13 @@ export class InvoiceEffects {
       .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
       .map(state => state[1])
       .map(invoice => this.invoiceActions.findInvoiceItems(invoice));
+        
+  @Effect() deleteInvoiceItem$ = this.actions$
+        .ofType(InvoiceActions.DELETE_INVOICE_ITEM)
+        .map(action => action.payload)
+        .switchMap(payload => this.billingService.deleteInvoiceItem(payload.invoice, payload.item))
+        .map(message => this.invoiceActions.deleteInvoiceItemSuccess(message))
+        .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
+        .map(state => state[1])
+        .map(invoice => this.invoiceActions.findInvoiceItems(invoice));
 }

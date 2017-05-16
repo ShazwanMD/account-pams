@@ -23,16 +23,17 @@
             </md-list>
           </div>
         </div>
-
         <md-card-actions>
+        
         </md-card-actions>
       </md-card>
-
+	
       <pams-invoice-item-list
         [invoice]="invoiceTask.invoice"
         [invoiceItems]="invoiceItems$ | async">
+		
       </pams-invoice-item-list>
-
+      
     </div>
     <div flex-gt-md="30">
 
@@ -50,6 +51,11 @@
             <md-icon md-list-avatar>remove_circle</md-icon>
             <h4 md-line>Remove</h4>
             <p md-line>Remove this invoice</p>
+          </md-list-item>
+          <md-list-item>
+            <md-icon md-list-avatar>edit</md-icon>
+            <h4 md-line>Edit</h4>
+            <p md-line>Edit this invoice</p>
           </md-list-item>
         </md-nav-list>
       </md-card>

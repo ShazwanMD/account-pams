@@ -110,6 +110,16 @@ export class BillingService {
     return this.http.post(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/invoiceItems' , JSON.stringify(item), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+  
+  deleteInvoiceItem(invoice: Invoice, item: InvoiceItem) {
+      let headers = new Headers({
+          'Content-Type': 'application/json',
+          //'Authorization': 'Bearer ' + this.authService.token
+        });
+        let options = new RequestOptions({headers: headers});
+       return this.http.delete(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/invoiceItems/' + item.id, options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
 
 
   // ====================================================================================================

@@ -120,11 +120,11 @@ public class BillingController {
         billingService.updateInvoiceItem(invoice, e);
     }
     
-    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.DELETE)
-    public void deleteInvoiceItems(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
+    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems/{id}", method = RequestMethod.DELETE)
+    public void deleteInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id) {
         dummyLogin();
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-        AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
+        AcInvoiceItem e = billingService.findInvoiceItemById(id);
         billingService.deleteInvoiceItem(invoice, e);
     }
 
