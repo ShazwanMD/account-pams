@@ -22,24 +22,20 @@
       </button>
     </div>
 
-    <div layout="row" layout-wrap>
-    </div>
-
-    <md-card class="">
-      <md-card-title>Waiver</md-card-title>
-      <md-card-subtitle>List of waiver</md-card-subtitle>
-
-     <!--  <pams-waiver-list
-        [waivers]="waivers$ | async"
-        (view)="viewWaiver($event)">
-      </pams-waiver-list>
--->
-      <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/waivers-search']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
+    <md-card>
+      <md-tab-group [selectedIndex]="0">
+        <md-tab label="Assigned">
+          <pams-assigned-waiver-application-task-list
+            [waiverApplicationTasks]="assignedWaiverApplicationTasks$ | async"
+            (view)="view($event)"></pams-assigned-waiver-application-task-list>
+        </md-tab>
+        <md-tab label="Pooled">
+          <pams-pooled-waiver-application-task-list
+            [waiverApplicationTasks]="pooledWaiverApplicationTasks$ | async"
+            (claim)="claim($event)"></pams-pooled-waiver-application-task-list>
+        </md-tab>
+      </md-tab-group>
     </md-card>
+
   </td-layout-manage-list>
 </td-layout-nav>

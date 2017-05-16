@@ -26,9 +26,8 @@ import {ChargeCodeSubModule} from "../../account/charge-codes/index";
 import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 import {InvoiceVerifyTaskPanel} from "./panel/invoice-verify-task.panel";
 import {AssignedInvoiceTaskListComponent} from "./component/assigned-invoice-task-list.component";
-import { PooledInvoiceTaskListComponent } from "./component/pooled-invoice-task-list.component";
-import { InvoiceSelectComponent } from "./component/invoice-select.component";
-
+import {PooledInvoiceTaskListComponent} from "./component/pooled-invoice-task-list.component";
+import {InvoiceSelectComponent} from "./component/invoice-select.component";
 
 
 @NgModule({

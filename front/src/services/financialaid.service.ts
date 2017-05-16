@@ -115,6 +115,12 @@ export class FinancialaidService {
   // WAIVER APPLICATION
   // ====================================================================================================
 
+  findCompletedWaiverApplications(): Observable<WaiverApplication[]> {
+    console.log("findCompletedWaiverApplications");
+    return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/state/COMPLETED')
+      .map((res: Response) => <WaiverApplication[]>res.json());
+  }
+
   findAssignedWaiverApplicationTasks(): Observable<WaiverApplicationTask[]> {
     console.log("findAssignedWaiverApplicationTasks");
     return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/assignedTasks')
@@ -143,10 +149,45 @@ export class FinancialaidService {
       .map((res: Response) => <WaiverApplication>res.json());
   }
 
-  startWaiverApplicationTask(waiverApplication: WaiverApplication): Observable<Boolean> {
-    return Observable.of(true);
-// return this.http.post(environment.endpoint + '/api/financialaid/waiverApplications/startTask', JSON.stringify(waiverApplication))
-    //   .flatMap(data => Observable.of(true));
+  startWaiverApplicationTask(waiverApplication: WaiverApplication): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/waiverApplications/startTask', JSON.stringify(waiverApplication), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  completeWaiverApplicationTask(waiverApplicationTask: WaiverApplicationTask): Observable<String> {
+    console.log("TaskId: " + waiverApplicationTask.taskId);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/waiverApplications/completeTask', JSON.stringify(waiverApplicationTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  claimWaiverApplicationTask(waiverApplicationTask: WaiverApplicationTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/waiverApplications/claimTask', JSON.stringify(waiverApplicationTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  releaseWaiverApplicationTask(waiverApplicationTask: WaiverApplicationTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/waiverApplications/releaseTask', JSON.stringify(waiverApplicationTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
   }
 
   updateWaiverApplication(waiverApplication: WaiverApplication): Observable<Boolean> {

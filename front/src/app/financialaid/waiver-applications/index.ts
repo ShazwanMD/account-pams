@@ -14,6 +14,9 @@ import {IdentityModule} from "../../identity/index";
 import {CommonModule} from "../../common/index";
 import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 import {WaiverApplicationCreatorDialog} from "./dialog/waiver-application-creator.dialog";
+import {AccountSubModule} from "../../account/accounts/index";
+import {AssignedWaiverApplicationTaskListComponent} from "./component/assigned-waiver-application-task-list.component";
+import {PooledWaiverApplicationTaskListComponent} from "./component/pooled-waiver-application-task-list.component";
 
 @NgModule({
   imports: [
@@ -21,6 +24,7 @@ import {WaiverApplicationCreatorDialog} from "./dialog/waiver-application-creato
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
+    AccountSubModule.forRoot(),
     IdentityModule.forRoot(),
     CommonModule.forRoot(),
     AcademicSessionSubModule.forRoot(),
@@ -31,6 +35,8 @@ import {WaiverApplicationCreatorDialog} from "./dialog/waiver-application-creato
     WaiverApplicationCenterPage,
     //component
     WaiverApplicationCreatorDialog,
+    AssignedWaiverApplicationTaskListComponent,
+    PooledWaiverApplicationTaskListComponent
   ],
   exports: [],
   entryComponents: [
