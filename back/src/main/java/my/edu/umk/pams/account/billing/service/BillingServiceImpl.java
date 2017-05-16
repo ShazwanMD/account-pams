@@ -191,6 +191,12 @@ public class BillingServiceImpl implements BillingService {
 		invoiceDao.updateItem(invoice, invoiceItem, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	@Override
+    public void deleteInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
+        invoiceDao.deleteItem(invoice, invoiceItem, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
 
 	@Override
 	public void attach(AcInvoice invoice, AcAccountCharge charge) throws Exception {

@@ -434,6 +434,14 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         session.update(item);
     }
 
+    @Override
+    public void deleteItem(AcInvoice invoice, AcInvoiceItem item, AcUser user){
+    	Validate.notNull(invoice, "Invoice should not be null");
+        Validate.notNull(item, "Invoice Item should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(item);
+    }
 //    @Override
 //    public void addTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user) {
 //        Validate.notNull(invoice, "Invoice should not be null");
