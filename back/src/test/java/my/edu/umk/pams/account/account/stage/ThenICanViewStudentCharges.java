@@ -62,7 +62,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 	@As("can view students compound charges of type Academic charges")
 	public ThenICanViewStudentCharges I_can_view_student_academic_compound_charges_$(String code) {
 		LOG.debug("========List Student Charges of Type compound by account=========");
-		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		AcAccountChargeType chargeType = AcAccountChargeType.ADMISSION;
 		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(chargeType);
 
 		LOG.debug("===========Academic Charges============");
@@ -124,7 +124,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 	@As("can view students compound charges of type Academic charges")
 	public ThenICanViewStudentCharges I_can_view_student_academic_charges() {
 
-		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		AcAccountChargeType chargeType = AcAccountChargeType.ADMISSION;
 		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(chargeType);
 
 		LOG.debug("===========Academic Charges============");
@@ -204,7 +204,7 @@ public class ThenICanViewStudentCharges extends Stage<ThenICanViewStudentCharges
 	@As("can view students compound charges of type Academic")
 	public ThenICanViewStudentCharges can_view_students_compound_charges_of_type_academic_$(String matricNo) {
 
-		AcAccountChargeType chargeType = AcAccountChargeType.ACADEMIC;
+		AcAccountChargeType chargeType = AcAccountChargeType.ADMISSION;
 		List<AcAccountCharge> accountCharge = accountService.findAccountCharges(chargeType);
 
 		for (AcAccountCharge charge : accountCharge) {

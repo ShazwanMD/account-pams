@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.dao;
 
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -41,10 +42,11 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
     }
 
     @Override
-    public AcFeeSchedule findByCohortCode(AcCohortCode cohortCode) {
+    public AcFeeSchedule findByCohortCodeAndStudyMode(AcCohortCode cohortCode,AcStudyMode studyMode) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sa from AcFeeSchedule sa where " +
                 "sa.cohortCode = :cohortCode " +
+                "and sa.studyMode = :studyMode " +
                 "and sa.metadata.state = :state");
         query.setEntity("cohortCode", cohortCode);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());

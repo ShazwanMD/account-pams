@@ -2,32 +2,26 @@ package my.edu.umk.pams.account.account.model;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
-import my.edu.umk.pams.account.core.AcMetaObject;
-
-import java.math.BigDecimal;
 
 /**
  * @author PAMS
  */
-public interface AcFeeSchedule extends AcMetaObject{
+public interface AcAdmissionCharge extends AcAccountCharge {
 
-    String getCode();
-
-    void setCode(String code);
-
-    String getDescription();
-
-    void setDescription(String description);
-
-    BigDecimal getTotalAmount();
-
-    void setTotalAmount(BigDecimal totalAmount);
-
+    /**
+     *
+     * @return
+     */
     AcCohortCode getCohortCode();
 
     void setCohortCode(AcCohortCode cohortCode);
 
+    /**
+     *
+     * @return
+     */
     AcStudyMode getStudyMode();
 
     void setStudyMode(AcStudyMode studyMode);
+    // locality
 }

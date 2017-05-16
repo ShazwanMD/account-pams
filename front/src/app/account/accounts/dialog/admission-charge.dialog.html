@@ -1,4 +1,4 @@
-<h2 md-dialog-title>Account Charge Creator</h2>
+<h2 md-dialog-title>Admission Charge</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
   <div layout="row" class="pad-bottom">
@@ -11,28 +11,23 @@
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex mdTooltip="Source Number" mdTooltipPosition="below" class="text-upper">
-        <input mdInput #name
+        <input mdInput #description
                placeholder="SourceNo"
                formControlName="sourceNo"
                flex/>
       </md-input-container>
     </div>
-     <div layout="row" class="pad-bottom">
-      <md-input-container flex mdTooltip="Description" mdTooltipPosition="below" class="text-upper">
-        <input mdInput #priority
-               placeholder="Description"
-               formControlName="description"
-               flex/>
-      </md-input-container>
-    </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex mdTooltip="Amount" mdTooltipPosition="below" class="text-upper">
-        <input mdInput #priority
+        <input mdInput #email
                placeholder="Amount"
                formControlName="amount"
                flex/>
       </md-input-container>
     </div>
+
+    <!-- select cohort, session, studymode -->
+
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">

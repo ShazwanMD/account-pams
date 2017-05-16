@@ -1,22 +1,16 @@
 package my.edu.umk.pams.account.account.stage;
 
-import java.math.BigDecimal;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
-
-import my.edu.umk.pams.account.account.model.AcAcademicCharge;
-import my.edu.umk.pams.account.account.model.AcAcademicChargeImpl;
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
 
 @JGivenStage
 public class WhenRegisterStudentCompound extends Stage<WhenRegisterStudentCompound>{
@@ -43,13 +37,13 @@ public class WhenRegisterStudentCompound extends Stage<WhenRegisterStudentCompou
 	       account = accountService.findAccountByActor(student);
 		
 		// add charges to student account
-       AcAcademicCharge charge = new AcAcademicChargeImpl();
+       AcAdmissionCharge charge = new AcAdmissionChargeImpl();
    
        charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
        charge.setSourceNo("ACD - 001");
        charge.setDescription("BAYAR YURAN LEWAT");
        charge.setAmount(BigDecimal.valueOf(100.00));
-       charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79333"));
+       // todo: cohort, study mode
        charge.setSession(academicSession);
 
         // use account service to add charge

@@ -1,14 +1,11 @@
 package my.edu.umk.pams.account.web.module.common.controller;
 
-import my.edu.umk.pams.account.common.model.AcCohortCode;
-import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
-import my.edu.umk.pams.account.common.model.AcFacultyCode;
-import my.edu.umk.pams.account.common.model.AcFacultyCodeImpl;
+import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
 import my.edu.umk.pams.account.web.module.common.vo.FacultyCode;
-
+import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +73,56 @@ public class CommonController {
 
         AcCohortCode cohortCode = commonService.findCohortCodeByCode(code);
         commonService.removeCohortCode(cohortCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+
+    //====================================================================================================
+    // STUDY_MODE
+    //====================================================================================================
+
+    @RequestMapping(value = "/studyModes", method = RequestMethod.GET)
+    public ResponseEntity<List<StudyMode>> findStudyModes() {
+        return new ResponseEntity<List<StudyMode>>(commonTransformer.toStudyModeVos(
+                commonService.findStudyModes()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/studyModes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<StudyMode> findStudyModeByMode(@PathVariable String code) {
+        return new ResponseEntity<StudyMode>(commonTransformer.toStudyModeVo(
+                commonService.findStudyModeByCode(code)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/studyModes", method = RequestMethod.POST)
+    public ResponseEntity<String> saveStudyMode(@RequestBody StudyMode vo) {
+        dummyLogin();
+
+        AcStudyMode studyMode = new AcStudyModeImpl();
+        studyMode.setCode(vo.getCode());
+        studyMode.setDescriptionMs(vo.getDescriptionMs());
+        studyMode.setDescriptionEn(vo.getDescriptionEn());
+        commonService.saveStudyMode(studyMode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/studyModes/{mode}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateStudyMode(@PathVariable String mode, @RequestBody StudyMode vo) {
+        dummyLogin();
+
+        AcStudyMode studyMode = commonService.findStudyModeById(vo.getId());
+        studyMode.setCode(vo.getCode());
+        studyMode.setDescriptionMs(vo.getDescriptionMs());
+        studyMode.setDescriptionEn(vo.getDescriptionEn());
+        commonService.updateStudyMode(studyMode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/studyModes/{mode}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeStudyMode(@PathVariable String mode) {
+        dummyLogin();
+
+        AcStudyMode studyMode = commonService.findStudyModeByCode(mode);
+        commonService.removeStudyMode(studyMode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 

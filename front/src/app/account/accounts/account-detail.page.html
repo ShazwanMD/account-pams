@@ -33,16 +33,16 @@
               <p md-line>Deactivate this account</p>
             </md-list-item>
             <md-divider></md-divider>
-            <h3 md-subheader>Notification</h3>
-            <md-list-item>
-              <md-icon md-list-avatar>visibility</md-icon>
-              <h4 md-line>Watch</h4>
-              <p md-line>Watch this account</p>
+            <h3 md-subheader>Account Charge</h3>
+            <md-list-item (click)="showAdmissionChargeDialog()">
+              <md-icon md-list-avatar>attach_money</md-icon>
+              <h4 md-line>Admission</h4>
+              <p md-line>Add admission charge</p>
             </md-list-item>
             <md-list-item>
-              <md-icon md-list-avatar>email</md-icon>
-              <h4 md-line>Share</h4>
-              <p md-line>Share this account with others</p>
+              <md-icon md-list-avatar>attach_money</md-icon>
+              <h4 md-line>Enrollment</h4>
+              <p md-line>Add enrollment charge</p>
             </md-list-item>
           </md-nav-list>
         </md-card>
