@@ -261,5 +261,23 @@ export class InvoiceActions {
       payload: message
     };
   }
+  
+  static DELETE_INVOICE_ITEM = '[Invoice] Delete Invoice Item';
+
+  deleteInvoiceItem(invoice, item): Action {
+    return {
+      type: InvoiceActions.DELETE_INVOICE_ITEM,
+      payload: {invoice:invoice, item:item}
+    };
+  }
+
+  static DELETE_INVOICE_ITEM_SUCCESS = '[Invoice] Add Invoice Item Success';
+
+  deleteInvoiceItemSuccess(message): Action {
+    return {
+      type: InvoiceActions.DELETE_INVOICE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
 
 }

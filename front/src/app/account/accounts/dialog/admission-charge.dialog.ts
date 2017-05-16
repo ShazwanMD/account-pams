@@ -32,8 +32,10 @@ export class AdmissionChargeDialog implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<AdmissionCharge>{
+      id:null,
       referenceNo: '',
       sourceNo: '',
+      description:'',
       amount: 0,
       studyMode: <StudyMode>{},
       cohortCode:<CohortCode>{},
