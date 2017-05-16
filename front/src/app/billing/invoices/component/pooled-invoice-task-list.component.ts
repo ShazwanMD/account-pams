@@ -1,10 +1,10 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {InvoiceTask} from "../invoice-task.interface";
-import { Observable } from "rxjs/Observable";
-import { MdDialogRef, MdDialog, MdDialogConfig } from "@angular/material";
-import { Store } from "@ngrx/store";
-import { BillingModuleState } from "../../index";
-import { InvoiceActions } from "../invoice.action";
+import {Observable} from "rxjs/Observable";
+import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from "@angular/material";
+import {Store} from "@ngrx/store";
+import {BillingModuleState} from "../../index";
+import {InvoiceActions} from "../invoice.action";
 
 @Component({
   selector: 'pams-pooled-invoice-task-list',
@@ -16,9 +16,6 @@ export class PooledInvoiceTaskListComponent {
   @Input() invoiceTasks: InvoiceTask[];
   @Output() claim = new EventEmitter<InvoiceTask>();
 
-  constructor() {
-  }
-
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'accountCode', label: 'Account'},
@@ -28,4 +25,15 @@ export class PooledInvoiceTaskListComponent {
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''}
   ];
+
+  constructor(private snackBar: MdSnackBar) {
+  }
+  
+  claimTask(task: InvoiceTask): void {
+    console.log("Emitting task");
+    let snackBarRef = this.snackBar.open("Claiming invoice", "OK");
+    snackBarRef.afterDismissed().subscribe(() => {
+      this.claim.emit(task);
+    });
+  }
 }

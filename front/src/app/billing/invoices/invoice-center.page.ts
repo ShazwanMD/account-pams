@@ -43,7 +43,7 @@ export class InvoiceCenterPage implements OnInit {
 
   view(task: InvoiceTask) {
     console.log("invoice: " + task.taskId);
-    this.router.navigate(['/invoices/view-task', task.taskId]);
+    this.router.navigate(['/billing/invoices/view-task', task.taskId]);
   }
 
   showDialog(): void {
