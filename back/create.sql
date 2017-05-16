@@ -486,6 +486,7 @@
         M_ST int4,
         TOTAL_AMOUNT numeric(19, 2) not null,
         COHORT_CODE_ID int8 not null,
+        STUDY_MODE_ID int8 not null,
         primary key (ID)
     );
 
@@ -1223,6 +1224,11 @@
         add constraint FKE76F478E18CFEEEC 
         foreign key (COHORT_CODE_ID) 
         references AC_CHRT_CODE;
+
+    alter table AC_FEE_SCDL 
+        add constraint FKE76F478E7B24A766 
+        foreign key (STUDY_MODE_ID) 
+        references AC_STDY_MODE;
 
     alter table AC_FEE_SCDL_ITEM 
         add constraint FK85B26D2465B1C0CE 

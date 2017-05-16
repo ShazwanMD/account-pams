@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.model;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
 import java.math.BigDecimal;
@@ -25,4 +26,8 @@ public interface AcFeeSchedule extends AcMetaObject{
     AcCohortCode getCohortCode();
 
     void setCohortCode(AcCohortCode cohortCode);
+
+    AcStudyMode getStudyMode();
+
+    void setStudyMode(AcStudyMode studyMode);
 }
