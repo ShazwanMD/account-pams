@@ -1,17 +1,23 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {InvoiceTask} from "../invoice-task.interface";
+import { Observable } from "rxjs/Observable";
+import { MdDialogRef, MdDialog, MdDialogConfig } from "@angular/material";
+import { Store } from "@ngrx/store";
+import { BillingModuleState } from "../../index";
+import { InvoiceActions } from "../invoice.action";
 
 @Component({
-  selector: 'pams-invoice-task-list',
-  templateUrl: './invoice-task-list.component.html',
+  selector: 'pams-pooled-invoice-task-list',
+  templateUrl: './pooled-invoice-task-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-// DEPRECATED
-export class InvoiceTaskListComponent {
+export class PooledInvoiceTaskListComponent {
 
   @Input() invoiceTasks: InvoiceTask[];
-  @Output() view = new EventEmitter<InvoiceTask>();
+  @Output() claim = new EventEmitter<InvoiceTask>();
+
+  constructor() {
+  }
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
@@ -22,5 +28,4 @@ export class InvoiceTaskListComponent {
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''}
   ];
-
 }

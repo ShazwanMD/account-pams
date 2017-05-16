@@ -1,4 +1,3 @@
-<!-- DEPRECATED -->
 <td-data-table
   [data]="invoiceTasks"
   [columns]="columns"
@@ -21,7 +20,7 @@
   </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
-      <a md-button color="accent" class="text-upper" [routerLink]="['/billing/invoices/view-task', row['taskId']]">
+      <a md-button color="accent" class="text-upper" (click)="view(row)">
         <span>View</span>
       </a>
        </div>

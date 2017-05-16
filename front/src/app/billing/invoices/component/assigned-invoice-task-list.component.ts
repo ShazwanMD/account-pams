@@ -2,13 +2,11 @@ import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewCon
 import {InvoiceTask} from "../invoice-task.interface";
 
 @Component({
-  selector: 'pams-invoice-task-list',
-  templateUrl: './invoice-task-list.component.html',
+  selector: 'pams-assigned-invoice-task-list',
+  templateUrl: './assigned-invoice-task-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-// DEPRECATED
-export class InvoiceTaskListComponent {
+export class AssignedInvoiceTaskListComponent {
 
   @Input() invoiceTasks: InvoiceTask[];
   @Output() view = new EventEmitter<InvoiceTask>();
