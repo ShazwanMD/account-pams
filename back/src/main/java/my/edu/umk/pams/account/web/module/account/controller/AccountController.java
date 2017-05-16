@@ -93,6 +93,7 @@ public class AccountController {
         feeSchedule.setDescription(vo.getDescription());
         feeSchedule.setTotalAmount(BigDecimal.ZERO); // todo
         feeSchedule.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+        feeSchedule.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
         accountService.saveFeeSchedule(feeSchedule);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

@@ -24,6 +24,13 @@
       </pams-cohort-code-select>
     </div>
 
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-study-mode-select
+        [placeholder]="'Select Study Mode'"
+        [innerFormControl]="createForm.controls['studyMode']">
+      </pams-study-mode-select>
+    </div>
+
 
   </form>
 </md-dialog-content>
