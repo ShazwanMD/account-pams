@@ -20,6 +20,7 @@ import {
   pooledWaiverApplicationTaskListReducer,
   WaiverApplicationTaskListState,
 } from "./waiver-applications/waiver-application-task-list.reducer";
+import {settlementItemListReducer, SettlementItemListState} from "./settlements/settlement-item-list.reducer";
 
 import {
   WaiverApplicationTaskState,
@@ -34,8 +35,8 @@ export interface FinancialaidModuleState {
   waiverApplication: WaiverApplicationState;
   settlements: SettlementListState;
   settlement: SettlementState;
-}
-;
+  settlementItems: SettlementItemListState;
+};
 
 export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState =
   <FinancialaidModuleState>{
@@ -44,7 +45,8 @@ export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState =
     waiverApplicationTask: {},
     waiverApplication:{},
     settlements: [],
-    settlement: {}
+    settlement: {},
+    settlementItems: [],
   };
 
 export const financialaidModuleReducers = {
@@ -53,7 +55,8 @@ export const financialaidModuleReducers = {
   waiverApplicationTask: waiverApplicationTaskReducer,
   waiverApplication: waiverApplicationReducer,
   settlements: settlementListReducer,
-  settlement: settlementReducer
+  settlement: settlementReducer,
+  settlementItems: settlementItemListReducer
 };
 
 @NgModule({
