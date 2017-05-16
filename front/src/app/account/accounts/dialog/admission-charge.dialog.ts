@@ -43,7 +43,7 @@ export class AdmissionChargeDialog implements OnInit {
 
   save(charge: AdmissionCharge, isValid: boolean) {
     console.log("account: " + charge.amount);
-    this.store.dispatch(this.actions.addAdmissionCharge(null, charge)); // todo:
+    this.store.dispatch(this.actions.addAdmissionCharge(this._account, charge));
     this.dialog.close();
   }
 }

@@ -3,13 +3,19 @@ import {Effect, Actions} from '@ngrx/effects';
 import {AccountActions} from "./account.action";
 import {AccountService} from "../../../services/account.service";
 import {from} from "rxjs/observable/from";
+import {AccountModuleState} from "../index";
+import {Store} from "@ngrx/store";
 
 
 @Injectable()
 export class AccountEffects {
+
+  private ACCOUNT = "accountModuleState.account".split(".");
+
   constructor(private actions$: Actions,
               private accountActions: AccountActions,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private store$: Store<AccountModuleState>) {
   }
 
   @Effect() findAccounts$ = this.actions$
@@ -51,4 +57,16 @@ export class AccountEffects {
     .map(action => action.payload)
     .switchMap(account => this.accountService.updateAccount(account))
     .map(account => this.accountActions.updateAccountSuccess(account));
+
+  @Effect() addAcademicCharge$ = this.actions$
+    .ofType(AccountActions.ADD_ADMISSION_CHARGE)
+    .map(action => action.payload)
+    .switchMap(payload => this.accountService.addAdmissionCharge(payload.account, payload.charge))
+    .map(message => this.accountActions.addAdmissionChargeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map(state => state[1])
+    .mergeMap(account => from([account,
+      this.accountActions.findAccountTransactions(account),
+      this.accountActions.findAccountCharges(account)
+    ]));
 }
