@@ -5,7 +5,6 @@ import { MdDialogRef, MdDialog, MdDialogConfig } from "@angular/material";
 import { Store } from "@ngrx/store";
 import { BillingModuleState } from "../../index";
 import { InvoiceActions } from "../invoice.action";
-import { InvoiceTaskEditorDialog } from "../dialog/invoice-task-editor.dialog";
 
 @Component({
   selector: 'pams-invoice-task-list',

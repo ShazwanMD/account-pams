@@ -32,7 +32,6 @@ import {
 } from "./receipts/receipt-task-list.reducer";
 import { DebitNoteSubModule } from "./debit-notes/index";
 import { CreditNoteSubModule } from "./credit-notes/index";
-import { InvoiceTaskEditorDialog } from "./invoices/dialog/invoice-task-editor.dialog";
 import { InvoiceTaskListComponent } from "./invoices/component/invoice-task-list.component";
 
 export interface BillingModuleState {
