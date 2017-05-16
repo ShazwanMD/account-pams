@@ -23,6 +23,7 @@ import {IdentityModule} from "../../identity/index";
 import {AccountActivityListComponent} from "./component/account-activity-list.component";
 import {AccountChargeListComponent} from "./component/account-charge-list.component";
 import {AccountWaiverListComponent} from "./component/account-waiver-list.component";
+import {AdmissionChargeDialog} from "./dialog/admission-charge.dialog";
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {AccountWaiverListComponent} from "./component/account-waiver-list.compon
     AccountComboBoxComponent,
     AccountSelectComponent,
     AccountCreatorDialog,
+    AdmissionChargeDialog,
 
   ],
   exports: [
@@ -57,6 +59,7 @@ import {AccountWaiverListComponent} from "./component/account-waiver-list.compon
   ],
   entryComponents: [
     AccountCreatorDialog,
+    AdmissionChargeDialog,
   ],
 
 })
