@@ -149,19 +149,19 @@ export class SettlementActions {
   }
 
   static FIND_SETTLEMENT_ITEMS = '[Settlement] Find Settlement Items';
-  findSettlementItems(settlement): Action {
+  findSettlementItems(settlements): Action {
     return {
       type: SettlementActions.FIND_SETTLEMENT_ITEMS,
-      payload: settlement
+      payload: settlements
     };
   }
 
   static FIND_SETTLEMENT_ITEMS_SUCCESS = '[Settlement] Find Settlement Items Success';
-  findSettlementItemsSuccess(items): Action {
+  findSettlementItemsSuccess(settlementItems): Action {
     console.log("findSettlementTransactionsSuccess");
     return {
       type: SettlementActions.FIND_SETTLEMENT_ITEMS_SUCCESS,
-      payload: items
+      payload: settlementItems
     };
   }
 
@@ -195,6 +195,30 @@ export class SettlementActions {
     return {
       type: SettlementActions.REMOVE_SETTLEMENT_SUCCESS,
       payload: settlement
+    };
+  }
+  
+  static EXEC_SETTLEMENT = '[Settlement] Exec Settlement';
+  executeSettlement(referenceNo): Action {
+    return {
+      type: SettlementActions.EXEC_SETTLEMENT,
+      payload: referenceNo
+    };
+  }
+  
+  static EXEC_SETTLEMENT_SUCCESS = '[Settlement] Exec Settlement Success';
+  executeSettlementSuccess(referenceNo): Action {
+    return {
+      type: SettlementActions.EXEC_SETTLEMENT_SUCCESS,
+      payload: referenceNo
+    };
+  }
+  
+  static ADD_SETTLEMENT_ITEM = '[Settlement] Add Settlement Item';
+  addSettlementItem(referenceNo, settlementItem): Action {
+    return {
+      type: SettlementActions.ADD_SETTLEMENT_ITEM,
+      payload: {referenceNo: referenceNo, settlementItem: settlementItem}
     };
   }
 }
