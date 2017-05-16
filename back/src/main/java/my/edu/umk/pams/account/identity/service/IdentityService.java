@@ -185,6 +185,10 @@ public interface IdentityService {
     
     List<AcStudent> findStudentByCohortCode(AcCohortCode cohortCode);
     
+    List<AcStudent> findStudentByFacultyCode(AcFacultyCode facultyCode);
+
+	List<AcStudent> findStudentBySponsor(AcSponsor sponsor);
+    
     List<AcSponsorship> findSponsorships(AcStudent student);
         
     List<AcSponsorship> findSponsorships(AcFacultyCode facultyCode);
@@ -254,6 +258,8 @@ public interface IdentityService {
     boolean hasSponsorship(AcStudent student);
 
     boolean hasSponsorship(AcSponsor sponsor);
+
+	
 
 
 
