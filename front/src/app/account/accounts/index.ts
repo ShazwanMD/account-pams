@@ -24,6 +24,8 @@ import {AccountActivityListComponent} from "./component/account-activity-list.co
 import {AccountChargeListComponent} from "./component/account-charge-list.component";
 import {AccountWaiverListComponent} from "./component/account-waiver-list.component";
 import {AdmissionChargeDialog} from "./dialog/admission-charge.dialog";
+import {CommonModule} from "../../common/index";
+import {AcademicSessionSubModule} from "../academic-sessions/index";
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import {AdmissionChargeDialog} from "./dialog/admission-charge.dialog";
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     IdentityModule.forRoot(),
+    CommonModule.forRoot(),
+    AcademicSessionSubModule.forRoot(),
     EffectsModule.run(AccountEffects),
   ],
   declarations: [

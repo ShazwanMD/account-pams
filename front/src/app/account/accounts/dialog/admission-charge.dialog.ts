@@ -1,14 +1,15 @@
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
-import {AccountCharge} from "../account-charge.interface";
-import {Actor} from "../../../identity/actor.interface";
 import {AccountActions} from "../account.action";
 import {AccountModuleState} from "../../index";
-import {IdentityService} from "../../../../services/identity.service";
+import {AdmissionCharge} from "../admission-charge.interface";
+import {StudyMode} from "../../../common/study-modes/study-mode.interface";
+import {AcademicSession} from "../../academic-sessions/academic-session.interface";
+import {Account} from "../account.interface";
+import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 
 @Component({
   selector: 'pams-admission-charge',
@@ -17,6 +18,7 @@ import {IdentityService} from "../../../../services/identity.service";
 export class AdmissionChargeDialog implements OnInit {
 
   private createForm: FormGroup;
+  private _account : Account;
 
   constructor(private formBuilder: FormBuilder,
               private store: Store<AccountModuleState>,
@@ -24,17 +26,24 @@ export class AdmissionChargeDialog implements OnInit {
               private dialog: MdDialogRef<AdmissionChargeDialog>) {
   }
 
+  set account(value: Account) {
+    this._account = value;
+  }
+
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<AccountCharge>{
-        referenceNo: '',
-        sourceNo: '',
-        amount: 0,
+    this.createForm = this.formBuilder.group(<AdmissionCharge>{
+      referenceNo: '',
+      sourceNo: '',
+      amount: 0,
+      studyMode: <StudyMode>{},
+      cohortCode:<CohortCode>{},
+      session: <AcademicSession>{}
     });
   }
 
-  save(accountCharge: AccountCharge, isValid: boolean) {
-    console.log("account: " + accountCharge.amount);
+  save(charge: AdmissionCharge, isValid: boolean) {
+    console.log("account: " + charge.amount);
+    this.store.dispatch(this.actions.addAdmissionCharge(null, charge)); // todo:
     this.dialog.close();
-
   }
 }

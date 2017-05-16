@@ -191,6 +191,24 @@ export class AccountActions {
     };
   }
 
+  static ADD_ADMISSION_CHARGE = '[Admission] Add AdmissionCharge ';
+
+  addAdmissionCharge(account, charge): Action {
+    return {
+      type: AccountActions.ADD_ADMISSION_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+  static ADD_ADMISSION_CHARGE_SUCCESS = '[Admission] Add AdmissionCharge  Success';
+
+  addAdmissionChargeSuccess(message): Action {
+    return {
+      type: AccountActions.ADD_ADMISSION_CHARGE_SUCCESS,
+      payload: message
+    };
+  }
+
   static ADD_ACCOUNT_TRANSACTION_ = '[Account] Add AccountTransaction ';
 
   addAccountTransaction(account, accountTransaction): Action {

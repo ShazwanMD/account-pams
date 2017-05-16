@@ -3,8 +3,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
 
 
-import {IdentityService} from '../../../services';
-import {CommonService} from '../../../services';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Account} from "./account.interface";
@@ -72,6 +70,6 @@ export class AccountDetailPage implements OnInit {
     });
   }
 
-  
+
 }
 
