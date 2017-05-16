@@ -12,15 +12,18 @@ import {SettlementEffects} from "./settlement.effect";
 import {EffectsModule} from "@ngrx/effects";
 import {SettlementCenterPage} from "./settlement-center.page";
 import {SettlementActions} from "./settlement.action";
-import {SettlementListComponent} from "./component/settlement-list.component";
-//import {SettlementCreatorDialog} from "./dialog/settlement-creator.dialog";
 import {IdentityModule} from "../../identity/index";
 import {CommonModule} from "../../common/index";
 import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 import {SettlementCreatorByCohortDialog} from "./dialog/settlement-creator-by-cohort.dialog";
 import {SettlementCreatorByFacultyDialog} from "./dialog/settlement-creator-by-faculty.dialog";
 import {SettlementCreatorBySponsorDialog} from "./dialog/settlement-creator-by-sponsor.dialog";
+import {SettlementComponent} from "./component/settlement.component";
 import {SettlementDetailPage} from "./settlement-detail.page";
+import {SettlementItemListComponent} from "./component/settlement-item-list.component";
+import {SettlementListComponent} from "./component/settlement-list.component";
+import {SettlementItemDialog} from "./dialog/settlement-item.dialog";
+import {AccountSubModule} from "../../account/accounts/index";
 
 @NgModule({
   imports: [
@@ -32,24 +35,30 @@ import {SettlementDetailPage} from "./settlement-detail.page";
     CommonModule.forRoot(),
     AcademicSessionSubModule.forRoot(),
     EffectsModule.run(SettlementEffects),
+    AccountSubModule.forRoot(),
   ],
   declarations: [
     // page
     SettlementCenterPage,
     SettlementDetailPage,
-
-    // component
-    SettlementListComponent,
+  
+    // dialog
+    SettlementItemDialog,
     SettlementCreatorByCohortDialog,
     SettlementCreatorByFacultyDialog,
     SettlementCreatorBySponsorDialog,
+
+    // component
+    SettlementComponent,
+    SettlementListComponent,
+    SettlementItemListComponent,
   ],
   exports: [],
   entryComponents: [
-    //SettlementCreatorDialog,
     SettlementCreatorByCohortDialog,
     SettlementCreatorByFacultyDialog,
     SettlementCreatorBySponsorDialog,
+    SettlementItemDialog,
   ],
 
 })
