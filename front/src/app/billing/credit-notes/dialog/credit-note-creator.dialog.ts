@@ -8,6 +8,7 @@ import {Sponsor} from "../../../identity/sponsor.interface";
 import { BillingModuleState } from "../../index";
 import { CreditNote } from "../credit-note.interface";
 import { CreditNoteActions } from "../credit-note.action";
+import { Invoice } from "../../invoices/invoice.interface";
 //import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 
 
@@ -37,6 +38,7 @@ export class CreditNoteCreatorDialog implements OnInit {
       referenceNo: '',
       sourceNo:'',
       totalAmount:0,
+      invoice: <Invoice>{},
       // todo: studyMode
       // todo: localityCode
     });
