@@ -78,7 +78,7 @@ public class FinancialAidTransformer {
         vo.setDescription(e.getDescription());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
-        // todo(uda):flowstate
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }

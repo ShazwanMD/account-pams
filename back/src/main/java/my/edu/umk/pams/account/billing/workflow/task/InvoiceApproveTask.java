@@ -47,6 +47,8 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
         invoice.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateInvoice(invoice);
 
+        billingService.post(invoice);
+
         // fire event
         applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
     }
