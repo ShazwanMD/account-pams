@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
 import {FormControl} from "@angular/forms";
@@ -21,7 +21,7 @@ export class ActorSelectComponent implements OnInit {
       
   constructor(private store: Store<IdentityModuleState>,
               private actions: ActorActions) {
-    this.programLevels$ = this.store.select(...this.ACTORS);
+    this.actors$ = this.store.select(...this.ACTORS);
   }
 
   ngOnInit() {

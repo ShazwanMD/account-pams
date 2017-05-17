@@ -1,4 +1,4 @@
-package my.edu.umk.pams.academic.data;
+package my.edu.umk.pams.account.data;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -12,29 +12,25 @@ import java.util.List;
 /**
  * @author PAMS
  */
-public class CohortGenerator extends GeneratorSupport {
+public class ProgramGenerator extends GeneratorSupport {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CohortGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProgramGenerator.class);
 
     private final String SOURCE_FILE = "data/csv/AC_PRGM.csv";
 
-    private final String TEMPLATE = "INSERT INTO AC_CHRT_CODE (ID, PROGRAM_CODE_ID, CODE, DESCRIPTION, C_TS, C_ID, M_ST) " +
-            "   VALUES (nextval('SQ_AC_CHRT_CODE'), " +
+    private final String TEMPLATE = "INSERT INTO AC_PRGM_CODE (ID, FACULTY_CODE_ID, CODE, DESCRIPTION, C_TS, C_ID, M_ST) " +
+            "   VALUES (nextval('SQ_AC_PRGM_CODE'), " +
             "   (SELECT ID\n" +
-            "    FROM AC_PRGM_CODE PC\n" +
-            "    WHERE PC.CODE = '%1$s'),\n" +
-            "   (SELECT CODE  || '/CHRT/201720181'\n" +
-            "    FROM AC_PRGM_CODE PC\n" +
-            "    WHERE PC.CODE = '%1$s'),\n" +
-            "   (SELECT 'COHORT' || DESCRIPTION\n" +
-            "    FROM AC_PRGM_CODE PC\n" +
-            "    WHERE PC.CODE = '%1$s'),\n" +
+            "    FROM AC_FCTY_CODE FC\n" +
+            "    WHERE FC.CODE = '%2$s'),\n" +
+            "   '%1$s',\n" +
+            "   '%4$s',\n" +
             "    CURRENT_TIMESTAMP, 0, 1);\n";
 
     @Test
     @Rollback(false)
     public void loadData() throws IOException {
-        FileWriter writer = new FileWriter("src/test/resources/data/AC_CHRT_CODE.sql");
+        FileWriter writer = new FileWriter("src/test/resources/data/AC_PRGM_CODE.sql");
         List<String> lines = readSource(SOURCE_FILE);
         int i = 0;
         for (String line : lines) {

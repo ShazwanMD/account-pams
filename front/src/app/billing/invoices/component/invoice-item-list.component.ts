@@ -38,6 +38,13 @@ export class InvoiceItemComponent{
       this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
   }
 
+  createDialog(): void {
+      this.showDialog(null);
+    }
+  
+  edit(invoiceItem: InvoiceItem): void {
+      this.showDialog(invoiceItem);
+    }
   
   delete(invoiceItem: InvoiceItem): void {
       this.store.dispatch(this.actions.deleteInvoiceItem(this.invoice, invoiceItem));
@@ -46,7 +53,7 @@ export class InvoiceItemComponent{
   filter(): void {
   }
   
-  showDialog(): void {
+  showDialog(invoiceItem: InvoiceItem): void {
     console.log("showDialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -56,10 +63,9 @@ export class InvoiceItemComponent{
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(InvoiceItemEditorDialog, config);
     this.editorDialogRef.componentInstance.invoice = this.invoice;
-
-    // close
-    this.editorDialogRef.afterClosed().subscribe(res => {
-      // do something
+    if (invoiceItem) this.editorDialogRef.componentInstance.invoiceItem = invoiceItem; // set
+        this.editorDialogRef.afterClosed().subscribe(res => {
+    console.log("close dialog");
     });
   }
 }

@@ -199,18 +199,18 @@ export class SettlementActions {
   }
   
   static EXEC_SETTLEMENT = '[Settlement] Exec Settlement';
-  executeSettlement(referenceNo): Action {
+  executeSettlement(settlement): Action {
     return {
       type: SettlementActions.EXEC_SETTLEMENT,
-      payload: referenceNo
+      payload:settlement
     };
   }
   
   static EXEC_SETTLEMENT_SUCCESS = '[Settlement] Exec Settlement Success';
-  executeSettlementSuccess(referenceNo): Action {
+  executeSettlementSuccess(settlement): Action {
     return {
       type: SettlementActions.EXEC_SETTLEMENT_SUCCESS,
-      payload: referenceNo
+      payload: settlement
     };
   }
   

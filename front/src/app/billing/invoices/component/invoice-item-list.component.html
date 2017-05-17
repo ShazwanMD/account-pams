@@ -4,7 +4,7 @@
   <md-divider></md-divider>
   <div toolbar-buttons layout="row" layout-align="start center" flex>
     <span flex></span>
-    <button md-button class="md-icon-button" (click)="showDialog()">
+    <button md-button class="md-icon-button" (click)="createDialog()">
       <md-icon class="md-24 tc-grey-700">add</md-icon>
     </button>
   </div>
@@ -28,6 +28,9 @@
     <div layout="row">
           <button md-button class="md-icon-button" (click)="delete(row)">
           		<md-icon class="md-24 tc-grey-700" md-list-avatar>delete</md-icon>
+          </button>
+          <button md-button class="md-icon-button" (click)="edit(row)">
+          		<md-icon class="md-24 tc-grey-700" md-list-avatar>edit</md-icon>
           </button>
     </div>
   </template>

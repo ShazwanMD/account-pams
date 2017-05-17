@@ -1,4 +1,4 @@
-package my.edu.umk.pams.academic.config;
+package my.edu.umk.pams.account.config;
 
 import org.springframework.context.annotation.Configuration;
 

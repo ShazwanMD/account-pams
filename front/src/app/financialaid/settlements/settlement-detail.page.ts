@@ -18,6 +18,7 @@ export class SettlementDetailPage implements OnInit {
   private SETTLEMENT_ITEMS = "financialaidModuleState.settlementItems".split(".");
   private settlement$: Observable<Settlement>;
   private settlementItems$: Observable<SettlementItem[]>;
+  private referenceNo;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -29,13 +30,16 @@ export class SettlementDetailPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: {referenceNo: string}) => {
-      let referenceNo: string = params.referenceNo;
-      this.store.dispatch(this.actions.findSettlementByReferenceNo(referenceNo));
+    this.route.params.subscribe((params: { referenceNo: string }) => {
+      this.store.dispatch(this.actions.findSettlementByReferenceNo(params.referenceNo));
     });
   }
+  
+  executeSettlement() {
+    this.settlement$.subscribe(settlement => this.store.dispatch(this.actions.executeSettlement(settlement)));
+  }
 
-  goBack(route: string): void {
-    this.router.navigate(['/accounts']);
+  goBack(): void {
+    this.router.navigate(['/settlements']);
   }
 }

@@ -1,6 +1,6 @@
-package my.edu.umk.pams.academic.data;
+package my.edu.umk.pams.account.data;
 
-import my.edu.umk.pams.academic.config.TestAppConfiguration;
+import my.edu.umk.pams.account.config.TestAppConfiguration;
 import org.junit.runner.RunWith;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

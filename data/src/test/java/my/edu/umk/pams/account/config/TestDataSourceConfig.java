@@ -1,4 +1,4 @@
-package my.edu.umk.pams.academic.config;
+package my.edu.umk.pams.account.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;

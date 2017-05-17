@@ -1,4 +1,4 @@
-package my.edu.umk.pams.academic.data;
+package my.edu.umk.pams.account.data;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -12,23 +12,23 @@ import java.util.List;
 /**
  * @author PAMS
  */
-public class SponsorGenerator extends GeneratorSupport {
+public class AccountGenerator extends GeneratorSupport {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SponsorGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AccountGenerator.class);
 
     private final String SOURCE_FILE = "data/csv/AC_SPSR.csv";
 
-    private final String TEMPLATE = "INSERT INTO AC_ACTR (ID, IDENTITY_NO, NAME, EMAIL, PHONE, MOBILE, FAX, ACTOR_TYPE, C_TS, C_ID, M_ST)\n" +
-            "VALUES\n" +
-            "  (nextval('SQ_AC_ACTR'), '%1$s', '%2$s', 'todo@todo.my', NULL, NULL, NULL, 2,\n" +
-            "                          CURRENT_TIMESTAMP, 1, 1);\n" +
-            "\n" +
-            "INSERT INTO AC_SPSR (ID, SPONSOR_TYPE) VALUES (currval('SQ_AC_ACTR'), 1);\n";
+    private final String TEMPLATE = "INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)\n" +
+            "    values (nextval('SQ_AC_ACCT'),\n" +
+            "            (select ID from AC_ACTR where identity_no = '%1$s'),\n" +
+            "            (select IDENTITY_NO from AC_ACTR where identity_no = '%1$s'),\n" +
+            "            '%2$s',\n" +
+            "            1, CURRENT_TIMESTAMP, 1);";
 
     @Test
     @Rollback(false)
     public void loadData() throws IOException {
-        FileWriter writer = new FileWriter("src/test/resources/data/AC_SPSR.sql");
+        FileWriter writer = new FileWriter("src/test/resources/data/AC_ACCT-SPSR.sql");
         List<String> lines = readSource(SOURCE_FILE);
         for (String line : lines) {
             String[] split = line.split(",", -1);
@@ -37,7 +37,7 @@ public class SponsorGenerator extends GeneratorSupport {
             if (!"JPA".equals(split[0]) && !"PTPTN".equals(split[0])) {
                 String formatted = String.format(TEMPLATE, split[0], split[1]);
                 LOG.debug("formatted: " + formatted);
-                writer.write(formatted);
+                writer.write(formatted + "\n");
             }
         }
         writer.flush();

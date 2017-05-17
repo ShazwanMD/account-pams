@@ -279,5 +279,23 @@ export class InvoiceActions {
       payload: message
     };
   }
+  
+  static UPDATE_INVOICE_ITEM = '[Invoice] Update Invoice Item';
+
+  updateInvoiceItem(invoice, item): Action {
+    return {
+      type: InvoiceActions.UPDATE_INVOICE_ITEM,
+      payload: {invoice:invoice, item:item}
+    };
+  }
+
+  static UPDATE_INVOICE_ITEM_SUCCESS = '[Invoice] Update Invoice Item Success';
+
+  updateInvoiceItemSuccess(message): Action {
+    return {
+      type: InvoiceActions.UPDATE_INVOICE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
 
 }
