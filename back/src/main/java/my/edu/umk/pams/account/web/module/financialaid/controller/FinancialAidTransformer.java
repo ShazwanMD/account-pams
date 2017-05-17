@@ -107,6 +107,7 @@ public class FinancialAidTransformer {
         SettlementItem vo = new SettlementItem();
         vo.setId(e.getId());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
+        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         vo.setBalanceAmount(e.getBalanceAmount());
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
