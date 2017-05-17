@@ -25,22 +25,10 @@
     <div layout="row" layout-wrap>
     </div>
 
-            <md-card>
+      <md-card>
       <md-tab-group [selectedIndex]="0">
         <md-tab label="Assigned">
-        
-        </md-tab>
-        <md-tab label="Pooled">
-        
-        </md-tab>
-      </md-tab-group>
-    </md-card>
-    
-
-       <md-card class="">
-      <md-card-title>Debit Note</md-card-title>
-      <md-card-subtitle>List of debit notes</md-card-subtitle>
-      <md-divider></md-divider>
+        <md-card class="">
       <td-data-table
         [data]="debitNotes$ | async"
         [columns]="columns"
@@ -71,6 +59,15 @@
         </a>
       </md-card-actions>
     </md-card>
+        </md-tab>
+        <md-tab label="Pooled">
+        
+        </md-tab>
+      </md-tab-group>
+    </md-card>
+    
+
+       
 
   </td-layout-manage-list>
 </td-layout-nav>
