@@ -13,6 +13,7 @@ import {IdentityModule} from "../../identity/index";
 import { CreditNoteCenterPage } from "./credit-note-center.page";
 import { CreditNoteCreatorDialog } from "./dialog/credit-note-creator.dialog";
 import { CreditNoteActions } from "./credit-note.action";
+import { InvoiceSubModule } from "../invoices/index";
 //import { CreditNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 //import { CreditNoteActions } from "./debit-note.action";
 
@@ -24,6 +25,7 @@ import { CreditNoteActions } from "./credit-note.action";
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     IdentityModule.forRoot(),
+    InvoiceSubModule.forRoot(),
     //EffectsModule.run(ChargeCodeEffects),
   ],
   declarations: [
