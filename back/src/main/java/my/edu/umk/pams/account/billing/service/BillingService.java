@@ -110,6 +110,8 @@ public interface BillingService {
 
     void executeScheduler();
 
+    void post(AcInvoice invoice);
+
     // ==================================================================================================== //
     // DEBIT NOTE
     // workflow
