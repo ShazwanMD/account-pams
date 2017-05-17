@@ -31,20 +31,24 @@ public class FeeScheduleReader {
     @Rollback(false)
     public void loadDataTempatan() throws IOException {
         try {
-            File out = new File("C:/Users/UMK-PEJA/git/account/data/src/site/AC_FEE_SCDL_DOMESTIC.sql");
-            File file = new File("C:/Users/UMK-PEJA/git/account/data/src/site/cps-normalizatize table.xlsx");
+            File out = new File("C:/Projects/GitLab/UMK/account/data/src/site/AC_FEE_SCDL_DOMESTIC.sql");
+            File file = new File("C:/Projects/GitLab/UMK/account/data/src/site/cps-normalizatize table.xlsx");
             FileWriter writer = new FileWriter(out);
             Workbook workbook = WorkbookFactory.create(new FileInputStream(file));
             LOG.debug("number of sheets: " + workbook.getNumberOfSheets());
             for (int i = 0; i < COURSES.length; i++) {
                 String course = COURSES[i];
                 Sheet sheet = workbook.getSheet(course);
-                writer.write("INSERT INTO AC_FEE_SCDL (ID,CODE, DESCRIPTION,C_TS,C_ID) VALUES ("
+                writer.write("INSERT INTO AC_FEE_SCDL (ID, COHORT_CODE_ID, STUDY_MODE_ID, CODE, DESCRIPTION, TOTAL_AMOUNT, M_ST, C_TS,C_ID) VALUES (\n"
                         + "nextval('SQ_AC_FEE_SCDL'),"
-                        + "YB-FKP-PHD-0001-CHRT-201720181,"
-                        + "'"+ getCell(sheet, 2, 2) +"',"
-                        + "'CURRENT_TIMESTAMP',"
-                        + "'1'); \n");
+                        + "(SELECT ID FROM AC_CHRT_CODE WHERE CODE = '" + getCell(sheet, 1, 1) + "' ),"
+                        + "(SELECT ID FROM AC_STDY_MODE WHERE CODE = '" + getCell(sheet, 2, 1) + "' ),"
+                        + "'YB-" + getCell(sheet, 1, 1) + "',"
+                        + "'" + getCell(sheet, 0, 1) + "',"
+                        + "0.00,"
+                        + "1,"
+                        + "CURRENT_TIMESTAMP,"
+                        + "1); \n\n\n\n\n");
 
 
                 int lastRowNum = sheet.getLastRowNum();
@@ -114,8 +118,10 @@ public class FeeScheduleReader {
         return "";
     }
 
-    private String getCell(Sheet sheet, int rowIndex, int colIndex){
+    private String getCell(Sheet sheet, int rowIndex, int colIndex) {
         Row row = sheet.getRow(rowIndex);
-        return toString(row.getCell(colIndex));
+        Cell cell = row.getCell(colIndex);
+        LOG.debug("cell: " + cell.getCellType());
+        return toString(cell);
     }
 }
