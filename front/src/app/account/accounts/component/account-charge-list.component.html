@@ -12,7 +12,7 @@
     <template let-charge let-last="last" ngFor [ngForOf]="charges">
       <md-list-item layout-align="row">
         <h3 md-line>{{charge.referenceNo}}</h3>
-        <p md-line> {{charge.sourceNo}} </p>
+        <p md-line> {{charge.chargeType}} </p>
         <span flex="50" class="md-body-1 text-right">{{charge.session.code}}</span>
         <span flex="30" class="md-body-1 text-right">{{charge.postedDate}}</span>
         <span flex="30" class="md-body-1 text-right">{{charge.amount | currency:'MYR':true:'1.2-2'}}</span>

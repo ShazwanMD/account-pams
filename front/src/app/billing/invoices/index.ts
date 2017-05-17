@@ -27,6 +27,7 @@ import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 import {InvoiceVerifyTaskPanel} from "./panel/invoice-verify-task.panel";
 import {AssignedInvoiceTaskListComponent} from "./component/assigned-invoice-task-list.component";
 import {PooledInvoiceTaskListComponent} from "./component/pooled-invoice-task-list.component";
+import {InvoiceSelectComponent} from "./component/invoice-select.component";
 
 
 @NgModule({
@@ -55,14 +56,18 @@ import {PooledInvoiceTaskListComponent} from "./component/pooled-invoice-task-li
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
     InvoiceItemComponent,
+    InvoiceSelectComponent,
   ],
-  exports: [],
+  exports: [
+    InvoiceSelectComponent,
+  ],
   entryComponents: [
     InvoiceDraftTaskPanel,
     InvoiceRegisterTaskPanel,
     InvoiceVerifyTaskPanel,
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
+    InvoiceSelectComponent,
   ],
 
 })

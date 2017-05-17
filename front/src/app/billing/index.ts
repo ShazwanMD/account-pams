@@ -21,6 +21,7 @@ import {ReceiptSubModule} from "./receipts/index";
 import {ReceiptTask} from "./receipts/receipt-task.interface";
 import {Receipt} from "./receipts/receipt.interface";
 import {invoiceItemListReducer, InvoiceItemListState} from "./invoices/invoice-item-list.reducer";
+import {invoiceListReducer, InvoiceListState} from "./invoices/invoice-list.reducer";
 import {
   assignedInvoiceTaskListReducer,
   InvoiceTaskListState,
@@ -38,6 +39,7 @@ export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
   pooledInvoiceTasks: InvoiceTaskListState;
   invoiceTask: InvoiceTaskState;
+  invoices:InvoiceListState;
   invoice: InvoiceState;
   invoiceItems: InvoiceItemListState;
   assignedReceiptTasks: ReceiptTaskListState;
@@ -52,6 +54,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     assignedInvoiceTasks: [],
     pooledInvoiceTasks: [],
     invoiceTask: <InvoiceTask>{},
+    invoices:<Invoice[]>[],
     invoice: <Invoice>{},
     invoiceItems: [],
     assignedReceiptTasks: [],
@@ -64,7 +67,8 @@ export const billingModuleReducers = {
   assignedInvoiceTasks: assignedInvoiceTaskListReducer,
   pooledInvoiceTasks: pooledInvoiceTaskListReducer,
   invoiceTask: invoiceTaskReducer,
-  invoices: invoiceReducer,
+  invoices: invoiceListReducer,
+  invoice:invoiceReducer,
   invoiceItems: invoiceItemListReducer,
   assignedReceiptTasks: assignedReceiptTaskListReducer,
   pooledReceiptTasks: pooledReceiptTaskListReducer,

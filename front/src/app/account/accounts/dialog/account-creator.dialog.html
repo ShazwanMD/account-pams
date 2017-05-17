@@ -13,7 +13,7 @@
       <md-input-container flex mdTooltip="Account Description" mdTooltipPosition="below" class="text-upper">
         <input mdInput #description
                placeholder="Description"
-               formControlName="Description"
+               formControlName="description"
                flex/>
       </md-input-container>
     </div>
@@ -44,7 +44,7 @@
     <div layout="row" class="pad-bottom">
       <pams-actor-select 
         [placeholder]="'Student/Sponsor'"
-        [innerFormControl]="createForm.controls[actor]">
+        [innerFormControl]="createForm.controls['actor']">
       </pams-actor-select>
     </div>
   </form>

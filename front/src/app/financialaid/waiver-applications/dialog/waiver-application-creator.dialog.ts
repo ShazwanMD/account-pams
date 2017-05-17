@@ -6,9 +6,9 @@ import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
 import {FinancialaidModuleState} from "../../index";
 import {WaiverApplicationActions} from "../waiver-application.action";
-import {WaiverApplicationCreator} from "../waiver-application-creator.interface";
 import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
-import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
+import {WaiverApplication} from "../waiver-application.interface";
+import {Account} from "../../../account/accounts/account.interface";
 
 @Component({
   selector: 'pams-waiver-application',
@@ -29,19 +29,20 @@ export class WaiverApplicationCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<WaiverApplicationCreator>{
+    this.createForm = this.formBuilder.group(<WaiverApplication>{
+      referenceNo:'',
       sourceNo: '',
       description: '',
       reason: '',
       waivedAmount: 0,
+      account:<Account>{},
       academicSession: <AcademicSession>{},
     });
   }
 
-save(waiverApplicationCreator: WaiverApplicationCreator, isValid: boolean) {
-    //this.store.dispatch(this.actions.initWaiverApplication(waiverApplicationCreator, waiverApplicationCreator.cohortCode));
+  save(waiverApplicationCreator: WaiverApplication, isValid: boolean) {
+    this.store.dispatch(this.actions.startWaiverApplicationTask(waiverApplicationCreator));
     this.dialog.close();
   }
 
-  
 }

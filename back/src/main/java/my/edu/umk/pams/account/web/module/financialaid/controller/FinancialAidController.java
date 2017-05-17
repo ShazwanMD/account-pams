@@ -218,6 +218,7 @@ public class FinancialAidController {
         waiverApplication.setEffectiveBalance(BigDecimal.ZERO);
         waiverApplication.setBalance(BigDecimal.ZERO);
         waiverApplication.setAccount(account);
+        waiverApplication.setSession(accountService.findAcademicSessionById(vo.getAcademicSession().getId()));
         financialAidService.startWaiverApplicationTask(waiverApplication);
     }
 

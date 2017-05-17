@@ -29,7 +29,7 @@ export class WaiverApplicationActions {
 
   static FIND_POOLED_WAIVER_APPLICATION_TASKS_SUCCESS = '[WaiverApplication] Find Pooled WaiverApplication Tasks Success';
   findPooledWaiverApplicationTasksSuccess(tasks): Action {
-    console.log("findAssignedWaiverApplicationTasksSuccess");
+    console.log("findPooledWaiverApplicationTasksSuccess");
     return {
       type: WaiverApplicationActions.FIND_POOLED_WAIVER_APPLICATION_TASKS_SUCCESS,
       payload: tasks
@@ -54,10 +54,10 @@ export class WaiverApplicationActions {
   }
 
   static START_WAIVER_APPLICATION_TASK = '[WaiverApplication] Start WaiverApplication Task';
-  startWaiverApplicationTask(invoice): Action {
+  startWaiverApplicationTask(waiverApplication): Action {
     return {
       type: WaiverApplicationActions.START_WAIVER_APPLICATION_TASK,
-      payload: invoice
+      payload: waiverApplication
     };
   }
 
@@ -85,18 +85,18 @@ export class WaiverApplicationActions {
     };
   }
 
-  static ASSIGN_WAIVER_APPLICATION_TASK = '[WaiverApplication] Assign WaiverApplication Task';
-  assignWaiverApplicationTask(invoice): Action {
+  static CLAIM_WAIVER_APPLICATION_TASK = '[WaiverApplication] Claim WaiverApplication Task';
+  claimWaiverApplicationTask(invoice): Action {
     return {
-      type: WaiverApplicationActions.ASSIGN_WAIVER_APPLICATION_TASK,
+      type: WaiverApplicationActions.CLAIM_WAIVER_APPLICATION_TASK,
       payload: invoice
     };
   }
 
-  static ASSIGN_WAIVER_APPLICATION_TASK_SUCCESS = '[WaiverApplication] Assign WaiverApplication Task Success';
-  assignWaiverApplicationTaskSuccess(task): Action {
+  static CLAIM_WAIVER_APPLICATION_TASK_SUCCESS = '[WaiverApplication] Claim WaiverApplication Task Success';
+  claimWaiverApplicationTaskSuccess(task): Action {
     return {
-      type: WaiverApplicationActions.ASSIGN_WAIVER_APPLICATION_TASK_SUCCESS,
+      type: WaiverApplicationActions.CLAIM_WAIVER_APPLICATION_TASK_SUCCESS,
       payload: task
     };
   }

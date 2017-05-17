@@ -4,6 +4,25 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class InvoiceActions {
 
+  static FIND_COMPLETED_INVOICES = '[Invoice] Find Completed Invoices';
+
+  findCompletedInvoices(): Action {
+    return {
+      type: InvoiceActions.FIND_COMPLETED_INVOICES
+    };
+  }
+
+  static FIND_COMPLETED_INVOICES_SUCCESS = '[Invoice] Find Completed Invoices Success';
+
+  findCompletedInvoicesSuccess(invoices): Action {
+    console.log("findCompletedInvoicesSuccess");
+    return {
+      type: InvoiceActions.FIND_COMPLETED_INVOICES_SUCCESS,
+      payload: invoices
+    };
+  }
+
+
   static FIND_ASSIGNED_INVOICE_TASKS = '[Invoice] Find Assigned Invoice Tasks';
 
   findAssignedInvoiceTasks(): Action {
@@ -257,6 +276,24 @@ export class InvoiceActions {
   deleteInvoiceItemSuccess(message): Action {
     return {
       type: InvoiceActions.DELETE_INVOICE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static UPDATE_INVOICE_ITEM = '[Invoice] Update Invoice Item';
+
+  updateInvoiceItem(invoice, item): Action {
+    return {
+      type: InvoiceActions.UPDATE_INVOICE_ITEM,
+      payload: {invoice:invoice, item:item}
+    };
+  }
+
+  static UPDATE_INVOICE_ITEM_SUCCESS = '[Invoice] Update Invoice Item Success';
+
+  updateInvoiceItemSuccess(message): Action {
+    return {
+      type: InvoiceActions.UPDATE_INVOICE_ITEM_SUCCESS,
       payload: message
     };
   }

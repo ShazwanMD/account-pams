@@ -7,7 +7,8 @@ import {MdDialogRef} from "@angular/material";
 import {Sponsor} from "../../../identity/sponsor.interface";
 import {DebitNote} from "../debit-note.interface";
 import {BillingModuleState} from "../../index";
-import {DebitNoteActions} from "../debit-note.action";
+import { DebitNoteActions } from "../debit-note.action";
+import { Invoice } from "../../invoices/invoice.interface";
 //import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 
 
@@ -37,8 +38,7 @@ export class DebitNoteCreatorDialog implements OnInit {
       referenceNo: '',
       sourceNo:'',
       totalAmount:0,
-      // todo: studyMode
-      // todo: localityCode
+      invoice: <Invoice>{},
     });
   }
 

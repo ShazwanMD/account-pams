@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 import my.edu.umk.pams.account.web.module.identity.vo.Actor;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * @author PAMS
@@ -16,6 +17,7 @@ public class Account extends MetaObject {
     private String name; // transient
     private String email;// transient
     private Actor actor;
+    private BigDecimal balanceAmount;
 
     public String getCode() {
         return code;
@@ -49,6 +51,13 @@ public class Account extends MetaObject {
         this.actor = actor;
     }
 
+    public BigDecimal getBalanceAmount() {
+        return balanceAmount;
+    }
+
+    public void setBalanceAmount(BigDecimal balanceAmount) {
+        this.balanceAmount = balanceAmount;
+    }
 
     @JsonCreator
     public static Account create(String jsonString) {

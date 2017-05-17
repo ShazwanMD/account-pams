@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.identity.model.AcActorImpl;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -46,6 +47,10 @@ public class AcAccountImpl implements AcAccount{
 
     @Embedded
     private AcMetadata metadata;
+
+    // transient
+    @Transient
+    private BigDecimal balanceAmount;
 
     @Override
     public Long getId() {
@@ -129,5 +134,14 @@ public class AcAccountImpl implements AcAccount{
     @Override
     public Class<?> getInterfaceClass() {
         return AcAccount.class;
+    }
+
+    @Override
+    public BigDecimal getBalanceAmount() {
+        return balanceAmount;
+    }
+
+    public void setBalanceAmount(BigDecimal balanceAmount) {
+        this.balanceAmount = balanceAmount;
     }
 }

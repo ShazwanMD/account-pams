@@ -27,6 +27,7 @@ import {
   waiverApplicationTaskReducer
 } from "./waiver-applications/waiver-application-task.reducer";
 import {WaiverApplicationTask} from "./waiver-applications/waiver-application-task.interface";
+import {AccountSubModule} from "../account/accounts/index";
 
 export interface FinancialaidModuleState {
   assignedWaiverApplicationTasks: WaiverApplicationTaskListState;
@@ -36,14 +37,15 @@ export interface FinancialaidModuleState {
   settlements: SettlementListState;
   settlement: SettlementState;
   settlementItems: SettlementItemListState;
-};
+}
+;
 
 export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState =
   <FinancialaidModuleState>{
-    assignedWaiverApplicationTasks: <WaiverApplicationTask[]>[],
-    pooledWaiverApplicationTasks: <WaiverApplicationTask[]>[],
+    assignedWaiverApplicationTasks: [],
+    pooledWaiverApplicationTasks: [],
     waiverApplicationTask: {},
-    waiverApplication:{},
+    waiverApplication: {},
     settlements: [],
     settlement: {},
     settlementItems: [],

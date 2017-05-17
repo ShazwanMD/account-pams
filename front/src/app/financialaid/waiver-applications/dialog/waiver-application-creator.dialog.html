@@ -6,7 +6,6 @@
         <input mdInput #description
                placeholder="description"
                formControlName="description"
-               value="Description"
                flex/>
       </md-input-container>
     </div>
@@ -15,7 +14,6 @@
         <input mdInput #reason
                placeholder="reason"
                formControlName="reason"
-               value="Reason"
                flex/>
       </md-input-container>
     </div>
@@ -23,11 +21,17 @@
     <div layout="row" class="pad-bottom">
       <md-input-container  flex>
         <input mdInput #reason
-               placeholder="waived amount"
+               placeholder="Waived amount"
                formControlName="waivedAmount"
-               value="waivedAmount"
+               type="number"
                flex/>
       </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-account-select
+        [placeholder]="'Select Account'"
+        [innerFormControl]="createForm.controls['account']">
+      </pams-account-select>
     </div>
 
     <div layout="row" class="pad-bottom pad-top">

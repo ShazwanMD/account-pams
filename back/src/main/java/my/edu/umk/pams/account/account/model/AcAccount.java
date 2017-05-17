@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.account.model;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.identity.model.AcActor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -37,4 +38,8 @@ public interface AcAccount extends AcMetaObject {
 
     // transient
     // todo: debit, credit, balance
+
+    BigDecimal getBalanceAmount();
+
+    void setBalanceAmount(BigDecimal balanceAmount);
 }

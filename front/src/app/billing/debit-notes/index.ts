@@ -14,6 +14,7 @@ import {IdentityModule} from "../../identity/index";
 import { DebitNoteCenterPage } from "./debit-note-center.page";
 import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 import { DebitNoteActions } from "./debit-note.action";
+import {InvoiceSubModule} from "../invoices/index"
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { DebitNoteActions } from "./debit-note.action";
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     IdentityModule.forRoot(),
+    InvoiceSubModule.forRoot(),
     //EffectsModule.run(ChargeCodeEffects),
   ],
   declarations: [

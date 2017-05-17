@@ -109,8 +109,8 @@ public class BillingController {
         billingService.addInvoiceItem(invoice, e);
     }
 
-    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.PUT)
-    public void updateInvoiceItems(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
+    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems/{id}", method = RequestMethod.PUT)
+    public void updateInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody InvoiceItem item) {
         dummyLogin();
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
@@ -188,7 +188,7 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/invoices/task/{state}", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoices/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findInvoicesByFlowState(@PathVariable String state) {
     	List<AcInvoice> invoices = billingService.findInvoicesByFlowState(AcFlowState.valueOf(state));
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);

@@ -21,6 +21,13 @@ export class BillingService {
   // INVOICE
   // ====================================================================================================
 
+
+  findCompletedInvoices(): Observable<Invoice[]> {
+    console.log("findCompletedInvoices");
+    return this.http.get(environment.endpoint + '/api/billing/invoices/state/COMPLETED')
+      .map((res: Response) => <Invoice[]>res.json());
+  }
+
   findAssignedInvoiceTasks(): Observable<InvoiceTask[]> {
     console.log("findAssignedInvoiceTasks");
     return this.http.get(environment.endpoint + '/api/billing/invoices/assignedTasks')
@@ -108,6 +115,17 @@ export class BillingService {
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/invoiceItems' , JSON.stringify(item), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+  
+  updateInvoiceItem(invoice: Invoice, item: InvoiceItem){
+      console.log("saving invoice item" + item.id);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.put(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/invoiceItems/' + item.id,  JSON.stringify(item), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
   
