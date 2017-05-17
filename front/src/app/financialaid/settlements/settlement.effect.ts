@@ -4,14 +4,20 @@ import {SettlementActions} from "./settlement.action";
 import {from} from "rxjs/observable/from";
 import {FinancialaidService} from "../../../services/financialaid.service";
 import {Router} from "@angular/router";
-
+import {Store} from "@ngrx/store";
+import 'rxjs/add/operator/withLatestFrom';
+import {FinancialaidModuleState} from "../index";
 
 @Injectable()
 export class SettlementEffects {
+  
+  private SETTLEMENT = "financialaidModuleState.settlement".split(".");
+  
   constructor(private router: Router,
               private actions$: Actions,
               private settlementActions: SettlementActions,
-              private financialaidService: FinancialaidService) {
+              private financialaidService: FinancialaidService,
+              private store$: Store<FinancialaidModuleState>) {
   }
 
   @Effect() findSettlementById = this.actions$
@@ -84,4 +90,13 @@ export class SettlementEffects {
     .map(action => action.payload)
     .switchMap(settlement => this.financialaidService.updateSettlement(settlement))
     .map(settlement => this.settlementActions.updateSettlementSuccess(settlement));
+  
+  @Effect() executeSettlement$ = this.actions$
+    .ofType(SettlementActions.EXEC_SETTLEMENT)
+    .map(action => action.payload)
+    .switchMap(settlement => this.financialaidService.executeSettlement(settlement))
+    .map(message => this.settlementActions.executeSettlementSuccess(message))
+    .withLatestFrom(this.store$.select(...this.SETTLEMENT))
+    .map(state => state[1])
+    .map(settlement => this.settlementActions.findSettlementItems(settlement));
 }
