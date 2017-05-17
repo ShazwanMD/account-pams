@@ -161,6 +161,14 @@ public class FinancialAidController {
         String referenceNo = financialAidService.initSettlementByFacultyCode(settlement, facultyCode);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/settlements/{referenceNo}/execute", method = RequestMethod.POST)
+    public void executeSettlement(@PathVariable String referenceNo) {
+    	dummyLogin();
+    	LOG.debug("referenceNo {}",referenceNo);
+    	AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
+    	financialAidService.executeSettlement(settlement);
+    }
 
     // ====================================================================================================
     // WAIVER APPLICATION
