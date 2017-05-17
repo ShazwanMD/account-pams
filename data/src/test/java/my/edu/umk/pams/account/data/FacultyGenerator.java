@@ -1,4 +1,4 @@
-package my.edu.umk.pams.academic.data;
+package my.edu.umk.pams.account.data;
 
 import org.junit.Test;
 import org.slf4j.Logger;
