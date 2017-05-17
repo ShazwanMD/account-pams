@@ -23,14 +23,14 @@
         <span flex>{{value}}</span>
       </div>
     </template>
-    <template tdDataTableTemplate="amount" let-value="value" let-row="row" let-column="column">
+    <template tdDataTableTemplate="account" let-value="value" let-row="row" let-column="column">
       <div layout="row">
-        <span flex>{{value | currency:'MYR':true:'4.2-2' }}</span>
+        <span flex>{{value.code}} {{value.name}}</span>
       </div>
     </template>
-    <template tdDataTableTemplate="chargeCode" let-value="value" let-row="row" let-column="column">
+    <template tdDataTableTemplate="invoice" let-value="value" let-row="row" let-column="column">
       <div layout="row">
-        <span flex>{{value.code}} {{value.description}}</span>
+        <span flex>{{value?.code}} {{value?.description}}</span>
       </div>
     </template>
   </td-data-table>
