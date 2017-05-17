@@ -1,5 +1,8 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.event.InvoiceApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
@@ -25,6 +28,9 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
     private static final Logger LOG = LoggerFactory.getLogger(InvoiceApproveTask.class);
 
     @Autowired
+    private AccountService accountService;
+    
+    @Autowired
     private BillingService billingService;
 
     @Autowired
@@ -49,5 +55,17 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
 
         // fire event
         applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
+        
+        // posting to student account
+        // todo(hajar)
+        AcAccountCharge accountCharge = new AcAccountChargeImpl();
+        accountCharge.setAccount(invoice.getAccount());
+        accountCharge.setAmount(invoice.getTotalAmount());
+        accountCharge.setInvoice(invoice);
+        accountCharge.setReferenceNo(invoice.getReferenceNo());
+        accountCharge.setDescription(invoice.getDescription());
+        accountCharge.setSession(invoice.getSession());
+        accountCharge.setSourceNo(invoice.getSourceNo());
+        accountService.addAccountCharge(invoice.getAccount(), accountCharge);
     }
 }
