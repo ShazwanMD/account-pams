@@ -109,8 +109,8 @@ public class BillingController {
         billingService.addInvoiceItem(invoice, e);
     }
 
-    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.PUT)
-    public void updateInvoiceItems(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
+    @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems/{id}", method = RequestMethod.PUT)
+    public void updateInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody InvoiceItem item) {
         dummyLogin();
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());

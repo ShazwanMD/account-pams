@@ -24,6 +24,7 @@ export class InvoiceItemEditorDialog implements OnInit {
   private editForm: FormGroup;
   private _invoiceItem: InvoiceItem;
   private _invoice: Invoice;
+  private edit: boolean = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class InvoiceItemEditorDialog implements OnInit {
 
   set invoiceItem(value: InvoiceItem) {
     this._invoiceItem = value;
+    this.edit = true;
   }
 
   set invoice(value: Invoice) {
@@ -50,15 +52,12 @@ export class InvoiceItemEditorDialog implements OnInit {
       balanceAmount: 0,
       chargeCode: <ChargeCode>{},
     });
-    // this.editForm.patchValue(this.invoiceItem);
+    if (this.edit) this.editForm.patchValue(this._invoiceItem);
   }
 
-  save(item: InvoiceItem, isValid: boolean) {
-    this.store.dispatch(this.actions.addInvoiceItem(this._invoice, item))
-    this.close();
-  }
-
-  close(): void {
+  submit(item: InvoiceItem, isValid: boolean) {
+    if (!item.id) this.store.dispatch(this.actions.addInvoiceItem(this._invoice, item));
+    else  this.store.dispatch(this.actions.updateInvoiceItem(this._invoice, item));
     this.dialog.close();
   }
 }

@@ -122,4 +122,13 @@ export class InvoiceEffects {
         .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
         .map(state => state[1])
         .map(invoice => this.invoiceActions.findInvoiceItems(invoice));
+  
+  @Effect() UpdateInvoiceItem$ = this.actions$
+      .ofType(InvoiceActions.UPDATE_INVOICE_ITEM)
+      .map(action => action.payload)
+      .switchMap(payload => this.billingService.updateInvoiceItem(payload.invoice, payload.item))
+      .map(message => this.invoiceActions.updateInvoiceItemSuccess(message))
+      .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
+      .map(state => state[1])
+      .map(invoice => this.invoiceActions.findInvoiceItems(invoice));
 }

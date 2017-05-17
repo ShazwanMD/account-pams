@@ -110,6 +110,17 @@ export class FinancialaidService {
     // return this.http.put(environment.endpoint + '/api/financialaid/settlements', JSON.stringify(settlement))
     //   .flatMap(data => Observable.of(true));
   }
+  
+  executeSettlement(settlement: Settlement): Observable<String> {
+    console.log("exec settlement",settlement);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/financialaid/settlements/'+ settlement.referenceNo +'/execute', null)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
 
   // ====================================================================================================
   // WAIVER APPLICATION
