@@ -41,10 +41,10 @@
                flex/>
       </md-input-container>
     </div>
-    <div layout="row" class="pad-bottom">
-      <pams-actor-select 
+    <div layout="row" class="pad-bottom pad-top">
+        <pams-actor-select 
         [placeholder]="'Student/Sponsor'"
-        [innerFormControl]="createForm.controls[actor]">
+        [innerFormControl]="createForm.controls['actor']">
       </pams-actor-select>
     </div>
   </form>
