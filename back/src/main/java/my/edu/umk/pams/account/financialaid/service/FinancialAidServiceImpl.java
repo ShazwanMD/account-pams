@@ -195,6 +195,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     @Override
     public String initSettlementByCohortCode(AcSettlement settlement, AcCohortCode cohortCode) {
         List<AcStudent> students = identityService.findStudentByCohortCode(cohortCode);
+        LOG.debug("student size: {}" + students.size());
         return initSettlement(settlement, students);
     }
 
