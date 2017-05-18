@@ -14,6 +14,7 @@ import { CreditNoteCenterPage } from "./credit-note-center.page";
 import { CreditNoteCreatorDialog } from "./dialog/credit-note-creator.dialog";
 import { CreditNoteActions } from "./credit-note.action";
 import { InvoiceSubModule } from "../invoices/index";
+import { AssignedCreditNoteTaskListComponent } from "./component/assigned-credit-note-task-list.component";
 //import { CreditNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 //import { CreditNoteActions } from "./debit-note.action";
 
@@ -35,6 +36,7 @@ import { InvoiceSubModule } from "../invoices/index";
 
 //component
 CreditNoteCreatorDialog,
+AssignedCreditNoteTaskListComponent,
   ],
   exports: [
     //ChargeCodeSelectComponent,
