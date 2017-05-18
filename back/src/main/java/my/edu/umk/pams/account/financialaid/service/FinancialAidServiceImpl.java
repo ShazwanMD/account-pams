@@ -204,8 +204,8 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     	LOG.debug("settlement {}",settlement);
         // find all items for settlement
         // then iterate all, skip AcSettlementStatus.DISQUALIFIED
-        List<AcSettlementItem> settlementItem = settlementDao.findItems(settlement);
-        for (AcSettlementItem item : settlementItem) {
+        List<AcSettlementItem> settlementItems = settlementDao.findItems(settlement);
+        for (AcSettlementItem item : settlementItems) {
             if (item.getStatus() != AcSettlementStatus.DISQUALIFIED) {
                 // generate reference no
                 Map<String, Object> map = new HashMap<String, Object>();
@@ -231,7 +231,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
                 invoice.setInvoiceNo(invoiceNo);
 
                 // serialize to invoice DRAFT
-                billingService.startInvoiceTask(invoice);
+                String invoiceReferenceNo = billingService.startInvoiceTask(invoice);
 
                 // create item here
                 List<AcInvoice> invc = invoiceDao.find(item.getAccount());
@@ -244,6 +244,11 @@ public class FinancialAidServiceImpl implements FinancialAidService {
                     invoiceItem.setInvoice(invce);
                     invoiceDao.addItem(invce, invoiceItem, securityService.getCurrentUser());
                 }
+
+                // update settlement item with generated invoice
+                invoice = billingService.findInvoiceByReferenceNo(invoiceReferenceNo);
+                item.setInvoice(invoice);
+                updateSettlementItem(settlement, item);
             }
         }
         sessionFactory.getCurrentSession().flush();
