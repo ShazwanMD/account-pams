@@ -1,16 +1,12 @@
 import {Component, ViewContainerRef, OnInit, Input} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
 import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {Sponsor} from "../../../identity/sponsor.interface";
 import {FeeSchedule} from "../fee-schedule.interface";
-import {AccountModuleState} from "../../index";
 import {FeeScheduleActions} from "../fee-schedule.action";
-import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 import {FeeScheduleItemEditorDialog} from "../dialog/fee-schedule-item-editor.dialog";
 import {FeeScheduleItem} from "../fee-schedule-item.interface";
+import {AccountModuleState} from "../../index";
+import {Store} from "@ngrx/store";
 
 
 @Component({
@@ -18,13 +14,13 @@ import {FeeScheduleItem} from "../fee-schedule-item.interface";
   templateUrl: './fee-schedule-item-list.component.html',
 })
 
-export class FeeScheduleItemListComponent {
-
-  private creatorDialogRef: MdDialogRef<FeeScheduleItemEditorDialog>;
+export class FeeScheduleItemListComponent implements OnInit{
 
   @Input() feeSchedule: FeeSchedule;
   @Input() feeScheduleItems: FeeScheduleItem[];
 
+  private creatorDialogRef: MdDialogRef<FeeScheduleItemEditorDialog>;
+  private selectedRows: FeeScheduleItem[];
   private columns: any[] = [
     {name: 'chargeCode', label: 'ChargeCode'},
     {name: 'amount', label: 'Amount'},
@@ -34,8 +30,33 @@ export class FeeScheduleItemListComponent {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: FeeScheduleActions,
+              private store: Store<AccountModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
+  }
+
+  ngOnInit(): void {
+    this.selectedRows = this.feeScheduleItems.filter(value => value.selected);
+  }
+
+  edit(scheduleItem: FeeScheduleItem): void {
+    // this.showDialog(scheduleItem);
+  }
+
+  delete(): void {
+    console.log("length: " + this.selectedRows.length);
+    for (var i = 0; i < this.selectedRows.length; i++) {
+       // this.store.dispatch(this.actions.deleteFeeScheduleItem(this.feeSchedule, this.selectedRows[i]));
+    }
+  }
+
+  filter(): void {
+  }
+
+  selectRow(scheduleItem: FeeScheduleItem): void {
+  }
+
+  selectAllRows(scheduleItems: FeeScheduleItem[]): void {
   }
 
   showDialog(): void {

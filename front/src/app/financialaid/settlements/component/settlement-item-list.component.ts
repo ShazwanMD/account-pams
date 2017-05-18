@@ -14,13 +14,12 @@ import {Store} from "@ngrx/store";
   templateUrl: './settlement-item-list.component.html',
 })
 
-export class SettlementItemListComponent {
-
-  private creatorDialogRef: MdDialogRef<SettlementItemDialog>;
+export class SettlementItemListComponent implements OnInit{
 
   @Input() settlement: Settlement;
   @Input() settlementItems: SettlementItem[];
 
+  private creatorDialogRef: MdDialogRef<SettlementItemDialog>;
   private selectedRows: SettlementItem[];
   private columns: any[] = [
     {name: 'account', label: 'Account'},
@@ -60,7 +59,6 @@ export class SettlementItemListComponent {
 
   selectAllRows(settlementItems: SettlementItem[]): void {
   }
-
 
   showDialog(): void {
     let config = new MdDialogConfig();

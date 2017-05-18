@@ -39,7 +39,7 @@ export class WaiverApplicationCenterPage implements OnInit {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '70%';
-    config.height = '70%';
+    config.height = '80%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(WaiverApplicationCreatorDialog, config);
     this.creatorDialogRef.afterClosed().subscribe(res => {
@@ -60,7 +60,8 @@ export class WaiverApplicationCenterPage implements OnInit {
 
 
   ngOnInit(): void {
+    console.log("find assigned/pooled waiver application tasks");
     this.store.dispatch(this.actions.findAssignedWaiverApplicationTasks());
-    this.store.dispatch(this.actions.findPooledWaiverApplicationTasks());
+    // this.store.dispatch(this.actions.findPooledWaiverApplicationTasks());
   }
 }

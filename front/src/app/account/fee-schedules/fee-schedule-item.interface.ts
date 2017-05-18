@@ -3,4 +3,7 @@ import {ChargeCode} from "../charge-codes/charge-code.interface";
 export interface FeeScheduleItem extends MetaObject {
   amount: number;
   chargeCode: ChargeCode;
+
+  // selection
+  selected?: boolean;
 }

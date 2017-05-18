@@ -11,6 +11,9 @@ export function assignedWaiverApplicationTaskListReducer(state = initialState, a
     case WaiverApplicationActions.FIND_ASSIGNED_WAIVER_APPLICATION_TASKS_SUCCESS: {
       return action.payload;
     }
+    default: {
+      return state;
+    }
   }
 }
 
@@ -18,6 +21,9 @@ export function pooledWaiverApplicationTaskListReducer(state = initialState, act
   switch (action.type) {
     case WaiverApplicationActions.FIND_POOLED_WAIVER_APPLICATION_TASKS_SUCCESS: {
       return action.payload;
+    }
+    default: {
+      return state;
     }
   }
 }

@@ -7,5 +7,5 @@ export interface InvoiceItem extends MetaObject {
   chargeCode:ChargeCode;
 
   // selection
-  selected:boolean;
+  selected?:boolean;
 }

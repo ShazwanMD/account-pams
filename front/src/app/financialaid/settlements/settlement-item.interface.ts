@@ -7,5 +7,5 @@ export interface SettlementItem {
   invoice:Invoice;
 
   // selection
-  selected:boolean;
+  selected?:boolean;
 }

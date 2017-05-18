@@ -18,8 +18,9 @@ import {WaiverApplicationCheckTaskPanel} from "./waiver-application-check-task.p
 export class WaiverApplicationTaskWorkflowPanel implements OnInit {
 
   @ViewChild('taskPanel', {read: ViewContainerRef})
-  @Input() waiverApplicationTaskObservable: Observable<WaiverApplicationTask>;
   private taskPanel: ViewContainerRef;
+
+  @Input() waiverApplicationTaskObservable: Observable<WaiverApplicationTask>;
   private componentRef: ComponentRef<any>;
 
   constructor(private viewContainerRef: ViewContainerRef,
