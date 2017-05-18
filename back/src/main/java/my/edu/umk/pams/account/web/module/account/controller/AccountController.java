@@ -203,7 +203,7 @@ public class AccountController {
 
 
     @RequestMapping(value = "/accounts", method = RequestMethod.POST)
-    public ResponseEntity<String> saveAccoun(@RequestBody Account vo) {
+    public ResponseEntity<String> saveAccount(@RequestBody Account vo) {
         dummyLogin();
         AcAccount account = new AcAccountImpl();
         account.setCode(vo.getCode());
