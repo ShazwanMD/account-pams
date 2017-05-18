@@ -84,7 +84,9 @@ public class BillingTransformer {
     }
 
     public Invoice toInvoiceVo(AcInvoice e) {
-        Invoice vo = new Invoice();
+        if(null == e) return null;
+        
+    	Invoice vo = new Invoice();
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
