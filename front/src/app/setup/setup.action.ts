@@ -84,6 +84,65 @@ export class SetupActions {
     };
   }
 
+    static REMOVE_BANK_CODE = '[Setup] Remove Bank Code';
+
+  removeBankCode(code): Action {
+    console.log("removeBankCode");
+    return {
+      type: SetupActions.REMOVE_BANK_CODE,
+      payload: code
+    };
+  }
+
+  static REMOVE_BANK_CODE_SUCCESS = '[Setup] Remove Bank Code  Success';
+
+  removeBankCodeSuccess(message): Action {
+    console.log("removeBankCodeSuccess");
+    return {
+      type: SetupActions.REMOVE_BANK_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+    static SAVE_MARITAL_CODE = '[Setup] Save Marital Code';
+
+  saveMaritalCode(code): Action {
+    console.log("saveMaritalCode");
+    return {
+      type: SetupActions.SAVE_MARITAL_CODE,
+      payload: code
+    };
+  }
+
+  static SAVE_MARITAL_CODE_SUCCESS = '[Setup] Save Marital Code Success';
+
+  saveMaritalCodeSuccess(message): Action {
+    console.log("saveMaritalCodeSuccess");
+    return {
+      type: SetupActions.SAVE_MARITAL_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+  static UPDATE_MARITAL_CODE = '[Setup] Update Marital Code';
+
+  updateMaritalCode(code): Action {
+    console.log("updateMaritalCode");
+    return {
+      type: SetupActions.UPDATE_MARITAL_CODE,
+      payload: code
+    };
+  }
+
+  static UPDATE_MARITAL_CODE_SUCCESS = '[Setup] Update Marital Code  Success';
+
+  updateMaritalCodeSuccess(message): Action {
+    console.log("updateMaritalCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_MARITAL_CODE_SUCCESS,
+      payload: message
+    };
+  }
 
   static FIND_COUNTRY_CODES = '[Common] Find CountryCodes';
 

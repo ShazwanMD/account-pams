@@ -25,6 +25,28 @@ export class SetupEffects {
     .switchMap(() => this.commonService.findBankCodes())
     .map(codes => this.setupActions.findBankCodesSuccess(codes));
 
+    @Effect() saveBankCodes$ = this.actions$
+    .ofType(SetupActions.SAVE_BANK_CODE)
+    .map(action => action.payload)
+    .switchMap(payload => this.commonService.saveBankCode(payload))
+    .map(message => this.setupActions.saveBankCodeSuccess(message))
+    .mergeMap(action => from([action, this.setupActions.findBankCodes()]));
+
+  @Effect() updateBankCodes$ = this.actions$
+    .ofType(SetupActions.UPDATE_BANK_CODE)
+    .map(action => action.payload)
+    .switchMap(payload => this.commonService.updateBankCode(payload))
+    .map(message => this.setupActions.updateBankCodeSuccess(message))
+    .mergeMap(action => from([action, this.setupActions.findBankCodes()]));
+
+  @Effect() removeBankCode$ = this.actions$
+    .ofType(SetupActions.REMOVE_BANK_CODE)
+    .map(action => action.payload)
+    .switchMap(payload => this.commonService.removeBankCode(payload))
+    .map(message => this.setupActions.removeBankCodeSuccess(message))
+    .mergeMap(action => from([action, this.setupActions.findBankCodes()]));
+
+
   @Effect() findCountryCodes$ = this.actions$
     .ofType(SetupActions.FIND_COUNTRY_CODES)
     .map(action => action.payload)

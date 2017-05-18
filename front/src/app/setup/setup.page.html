@@ -11,32 +11,23 @@
         <md-icon>label</md-icon>
         Bank Code
       </a>
+      <a md-list-item [routerLink]="['/setup/graduate-centres']">
+        <md-icon>label</md-icon>
+        Graduate Centre
+      </a>
       <a md-list-item [routerLink]="['/setup/program-codes']">
         <md-icon>label</md-icon>
         Program Code
+      </a>
+      <a md-list-item [routerLink]="['/setup/supervisor-codes']">
+        <md-icon>label</md-icon>
+        Supervisor Code
       </a>
       <a md-list-item [routerLink]="['/setup/faculty-codes']">
         <md-icon>label</md-icon>
         Faculty Code
       </a>
-      <a md-list-item [routerLink]="['/setup/study-modes']">
-        <md-icon>label</md-icon>
-        Study Mode
-      </a>
-      <a md-list-item [routerLink]="['/setup/city-codes']">
-        <md-icon>label</md-icon>
-        City Code
-      </a>
-      <a md-list-item [routerLink]="['/setup/state-codes']">
-        <md-icon>label</md-icon>
-        State Code
-      </a>
-      <a md-list-item [routerLink]="['/setup/country-codes']">
-        <md-icon>label</md-icon>
-        Country Code
-      </a>
     </md-nav-list>
-
     <div toolbar-buttons layout="row" layout-align="start center" flex>
       <span flex>{{title$ | async}}</span>
     </div>

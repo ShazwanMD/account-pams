@@ -1,5 +1,4 @@
 <md-card class="">
-
   <td-search-box class="push-left push-right"
                  placeholder="search"
                  [alwaysVisible]="true"
@@ -21,12 +20,21 @@
         <span flex>{{value}}</span>
       </div>
     </template>
-  </td-data-table>
+    <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <button md-icon-button [md-menu-trigger-for]="menu">
+          <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu x-position="before" #menu="mdMenu">
+          <button md-menu-item (click)="editDialog(row)">Edit</button>
+          <button md-menu-item (click)="delete(row)">Delete</button>
+        </md-menu>
+      </div>
+    </template>
 
-  <md-divider></md-divider>
-  <md-card-actions>
-  </md-card-actions>
+  </td-data-table>
 </md-card>
-<a md-fab color="accent" class="mat-fab-bottom-right" [routerLink]="['add']">
+
+<a md-fab color="accent" class="mat-fab-top-right" (click)="createDialog()">
   <md-icon>add</md-icon>
 </a>
