@@ -3,9 +3,11 @@ package my.edu.umk.pams.account.web.module.common.controller;
 import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
+import my.edu.umk.pams.account.web.module.common.vo.BankCode;
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
 import my.edu.umk.pams.account.web.module.common.vo.FacultyCode;
 import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -183,4 +185,56 @@ public class CommonController {
         commonService.removeFacultyCode(facultyCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    //====================================================================================================
+    // BANK_CODE
+    //====================================================================================================
+
+    @RequestMapping(value = "/bankCodes", method = RequestMethod.GET)
+    public ResponseEntity<List<BankCode>> findBankCodes() {
+        return new ResponseEntity<List<BankCode>>(commonTransformer.toBankCodeVos(
+                commonService.findBankCodes()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/bankCodes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<BankCode> findBankCodeByCode(@PathVariable String code) {
+        return new ResponseEntity<BankCode>(commonTransformer.toBankCodeVo(
+                commonService.findBankCodeByCode(code)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/bankCodes", method = RequestMethod.POST)
+    public ResponseEntity<String>saveBankCode(@RequestBody BankCode vo) {
+        dummyLogin();
+
+        AcBankCode bankCode = new AcBankCodeImpl();
+        bankCode.setCode(vo.getCode());
+        bankCode.setName(vo.getName());
+        bankCode.setSwiftCode(vo.getSwiftCode());
+        bankCode.setIbgCode(vo.getIbgCode());
+        commonService.saveBankCode(bankCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/bankCodes/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String>updateBankCode(@PathVariable String code, @RequestBody BankCode vo) {
+        dummyLogin();
+
+        AcBankCode bankCode  = commonService.findBankCodeByCode(code);
+        bankCode.setCode(vo.getCode());
+        bankCode.setName(vo.getName());
+        bankCode.setSwiftCode(vo.getSwiftCode());
+        bankCode.setIbgCode(vo.getIbgCode());
+        commonService.updateBankCode(bankCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/bankCodes/{code}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeBankCode(@PathVariable String code) {
+        dummyLogin();
+
+        AcBankCode bankCode = commonService.findBankCodeByCode(code);
+        commonService.removeBankCode(bankCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }    
 }
