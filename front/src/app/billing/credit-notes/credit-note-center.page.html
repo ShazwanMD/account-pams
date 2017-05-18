@@ -24,10 +24,9 @@
     <div layout="row" layout-wrap>
     </div>
 
-       <md-card class="">
-      <md-card-title>Credit Note</md-card-title>
-      <md-card-subtitle>List of credit notes</md-card-subtitle>
-      <md-divider></md-divider>
+       <md-card>
+      <md-tab-group [selectedIndex]="0">
+        <md-tab label="Assigned">
       <td-data-table
         [data]="creditNotes$ | async"
         [columns]="columns"
@@ -44,7 +43,7 @@
         </template>
         <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
           <div layout="row">
-            <a md-button color="accent" class="text-upper" [routerLink]="['/billing/credit-notes', row['code']]">
+            <a md-button color="accent" class="text-upper" [routerLink]="['/billing/debit-notes', row['code']]">
               <span>View</span>
             </a>
           </div>
@@ -52,11 +51,35 @@
       </td-data-table>
 
       <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/billing-search']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
+        </md-tab>
+        <md-tab label="Pooled">
+           <td-data-table
+        [data]="creditNotes$ | async"
+        [columns]="columns"
+        [sortBy]="summary"
+        [sortOrder]="ASC"
+        [sortable]="false"
+        [multiple]="false"
+        [selectable]="false"
+        (rowSelect)="view.emit($event)" dense>
+        <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <span flex>{{value}}</span>
+          </div>
+        </template>
+        <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <a md-button color="accent" class="text-upper" [routerLink]="['/billing/debit-notes', row['code']]">
+              <span>View</span>
+            </a>
+          </div>
+        </template>
+      </td-data-table>
+
+        </md-tab>
+      </md-tab-group>
     </md-card>
+    
+
   </td-layout-manage-list>
 </td-layout-nav>
