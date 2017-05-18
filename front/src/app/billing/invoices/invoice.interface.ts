@@ -13,6 +13,4 @@ export interface Invoice extends MetaObject{
   totalAmount: number;
   balanceAmount: number;
   account: Account;
-  // period: Period;
-  // requester: CostCenterCode;
 }

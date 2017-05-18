@@ -28,6 +28,7 @@ import {InvoiceVerifyTaskPanel} from "./panel/invoice-verify-task.panel";
 import {AssignedInvoiceTaskListComponent} from "./component/assigned-invoice-task-list.component";
 import {PooledInvoiceTaskListComponent} from "./component/pooled-invoice-task-list.component";
 import {InvoiceSelectComponent} from "./component/invoice-select.component";
+import {InvoiceStatusComponent} from "./component/invoice-status.component";
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import {InvoiceSelectComponent} from "./component/invoice-select.component";
     InvoiceTaskCreatorDialog,
     InvoiceItemComponent,
     InvoiceSelectComponent,
+    InvoiceStatusComponent,
   ],
   exports: [
     InvoiceSelectComponent,

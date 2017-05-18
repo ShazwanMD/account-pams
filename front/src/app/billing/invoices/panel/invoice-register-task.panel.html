@@ -3,7 +3,7 @@
     <div flex-gt-md="70">
       <md-card>
 
-        <md-card-title>REGISTERED:{{invoiceTask?.referenceNo}}</md-card-title>
+        <md-card-title>{{invoiceTask?.referenceNo}}</md-card-title>
         <md-card-subtitle>{{invoiceTask?.description}}</md-card-subtitle>
 
         <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
@@ -35,6 +35,8 @@
 
     </div>
     <div flex-gt-md="30">
+
+      <pams-invoice-status [invoice]="invoiceTask.invoice"></pams-invoice-status>
 
       <md-card>
         <md-card-title>Action</md-card-title>

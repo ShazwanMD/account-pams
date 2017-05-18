@@ -2,7 +2,7 @@
   <div layout="column" layout-gt-md="row" class="inset">
     <div flex-gt-md="70">
       <md-card>
-        <md-card-title>DRAFTED:{{invoiceTask?.referenceNo}}</md-card-title>
+        <md-card-title>{{invoiceTask?.referenceNo}}</md-card-title>
         <md-card-subtitle>{{invoiceTask?.description}}</md-card-subtitle>
 
         <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
@@ -24,18 +24,20 @@
           </div>
         </div>
         <md-card-actions>
-        
+
         </md-card-actions>
       </md-card>
-	
+
       <pams-invoice-item-list
         [invoice]="invoiceTask.invoice"
         [invoiceItems]="invoiceItems$ | async">
-		
+
       </pams-invoice-item-list>
-      
+
     </div>
     <div flex-gt-md="30">
+
+      <pams-invoice-status [invoice]="invoiceTask.invoice"></pams-invoice-status>
 
       <md-card>
         <md-card-title>Action</md-card-title>
