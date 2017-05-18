@@ -3,7 +3,8 @@ VALUES
   (nextval('SQ_AC_ACTR'), 'A17P001', 'STUDENT ONE', 'student1@umk.edu.my', NULL, NULL, NULL, 1,
                           CURRENT_TIMESTAMP, 1, 1);
 
-INSERT INTO AC_STDN (ID) VALUES (currval('SQ_AC_ACTR'));
+INSERT INTO AC_STDN (ID, COHORT_CODE_ID) VALUES (currval('SQ_AC_ACTR'),
+(SELECT ID from AC_CHRT_CODE where code = 'FIAT-PHD-0001-CHRT-201720181'));
 
 UPDATE AC_USER
 SET actor_id = currval('SQ_AC_ACTR')
@@ -14,7 +15,8 @@ VALUES
   (nextval('SQ_AC_ACTR'), 'A17P002', 'STUDENT TWO', 'student2@umk.edu.my', NULL, NULL, NULL, 1,
                           CURRENT_TIMESTAMP, 1, 1);
 
-INSERT INTO AC_STDN (ID) VALUES (currval('SQ_AC_ACTR'));
+INSERT INTO AC_STDN (ID, COHORT_CODE_ID) VALUES (currval('SQ_AC_ACTR'),
+(SELECT ID from AC_CHRT_CODE where code = 'FIAT-PHD-0001-CHRT-201720181'));
 
 UPDATE AC_USER
 SET actor_id = currval('SQ_AC_ACTR')
