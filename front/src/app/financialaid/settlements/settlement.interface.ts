@@ -7,5 +7,4 @@ export interface Settlement {
   description:string;
   executed:boolean;
   academicSession:AcademicSession;
-
 }

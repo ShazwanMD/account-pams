@@ -12,6 +12,11 @@
       <span flex>{{value}}</span>
     </div>
   </template>
+  <template tdDataTableTemplate="executed" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <md-icon *ngIf="value" class="md-24 tc-grey-700">done</md-icon>
+    </div>
+  </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <a md-button color="accent" class="text-upper" [routerLink]="['/financialaid/settlements', row['referenceNo']]">

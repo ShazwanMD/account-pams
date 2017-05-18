@@ -7,32 +7,33 @@
     <button md-button class="md-icon-button" (click)="createDialog()">
       <md-icon class="md-24 tc-grey-700">add</md-icon>
     </button>
+    <!-- pending -->
+    <!--<button md-button class="md-icon-button" (click)="edit(row)">-->
+      <!--<md-icon class="md-24 tc-grey-700">edit</md-icon>-->
+    <!--</button>-->
+    <button md-button class="md-icon-button" (click)="delete(selectedRows)">
+      <md-icon class="md-24 tc-grey-700">delete</md-icon>
+    </button>
   </div>
   <md-divider></md-divider>
-  
-<td-data-table
-  [data]="invoiceItems"
-  [columns]="columns"
-  [sortBy]="summary"
-  [sortOrder]="ASC"
-  [sortable]="false"
-  [multiple]="false"
-  [selectable]="false"
-  (rowSelect)="view.emit($event)" dense>
-  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-    <div layout="row">
-      <span flex>{{value}}</span>
-    </div>
-  </template>
-  <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
-    <div layout="row">
-          <button md-button class="md-icon-button" (click)="delete(row)">
-          		<md-icon class="md-24 tc-grey-700" md-list-avatar>delete</md-icon>
-          </button>
-          <button md-button class="md-icon-button" (click)="edit(row)">
-          		<md-icon class="md-24 tc-grey-700" md-list-avatar>edit</md-icon>
-          </button>
-    </div>
-  </template>
-</td-data-table>
+
+  <td-data-table
+    #dataTable
+    [data]="invoiceItems"
+    [columns]="columns"
+    [sortBy]="summary"
+    [sortOrder]="ASC"
+    [sortable]="false"
+    [multiple]="true"
+    [selectable]="true"
+    [(ngModel)]="selectedRows"
+    (rowSelect)="selectRow($event)"
+    (selectAll)="selectAllRows($event)"
+    dense>
+    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <span flex="40">{{value}}</span>
+      </div>
+    </template>
+  </td-data-table>
 

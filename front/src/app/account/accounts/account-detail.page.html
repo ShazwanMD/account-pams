@@ -22,12 +22,7 @@
           <md-divider></md-divider>
 
           <md-nav-list flex dense>
-            <md-list-item [routerLink]="['/accounts-resolve', account?.code]">
-              <md-icon md-list-avatar>done_all</md-icon>
-              <h4 md-line>Resolve</h4>
-              <p md-line>Resolve this account</p>
-            </md-list-item>
-            <md-list-item [routerLink]="['/accounts-reopen', account?.code]">
+            <md-list-item [routerLink]="['/accounts', account?.code]">
               <md-icon md-list-avatar>gavel</md-icon>
               <h4 md-line>Deactivate</h4>
               <p md-line>Deactivate this account</p>

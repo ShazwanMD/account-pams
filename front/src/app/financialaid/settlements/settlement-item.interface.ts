@@ -5,4 +5,7 @@ export interface SettlementItem {
   balanceAmount:number;
   account:Account;
   invoice:Invoice;
+
+  // selection
+  selected:boolean;
 }

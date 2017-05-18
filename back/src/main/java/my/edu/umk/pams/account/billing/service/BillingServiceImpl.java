@@ -4,8 +4,8 @@ import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.dao.AcAcademicSessionDao;
 import my.edu.umk.pams.account.account.dao.AcAccountChargeDao;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
-import my.edu.umk.pams.account.account.dao.AcChargeCodeDao;
 import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.account.service.AccountServiceImpl;
 import my.edu.umk.pams.account.billing.chain.ChargeAttachProcessor;
 import my.edu.umk.pams.account.billing.chain.ChargeContext;
@@ -18,10 +18,8 @@ import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.common.dao.AcCohortCodeDao;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.core.AcFlowState;
-import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
 import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
-import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
@@ -69,12 +67,6 @@ public class BillingServiceImpl implements BillingService {
 	private AcAccountChargeDao accountChargeDao;
 
 	@Autowired
-	private AcChargeCodeDao chargeCodeDao;
-
-	@Autowired
-	private AcSponsorDao sponsorDao;
-
-	@Autowired
 	private AcAcademicSessionDao academicSessionDao;
 
 	@Autowired
@@ -93,13 +85,13 @@ public class BillingServiceImpl implements BillingService {
 	private AcCohortCodeDao cohortCodeDao;
 	
 	@Autowired
-	private AcSettlementDao settlementDao;
-
-	@Autowired
 	private ChargeAttachProcessor attachProcessor;
 
 	@Autowired
 	private ChargeDetachProcessor detachProcessor;
+
+	@Autowired
+	private AccountService accountService;
 
 	@Autowired
 	private SecurityService securityService;
@@ -432,10 +424,22 @@ public class BillingServiceImpl implements BillingService {
 		}
 	}
 
+	// posting to student account
     @Override
     public void post(AcInvoice invoice) {
-
-    }
+		List<AcInvoiceItem> items = findInvoiceItems(invoice);
+		for (AcInvoiceItem item : items) {
+			AcAccountTransaction tx = new AcAccountTransactionImpl();
+			tx.setSession(invoice.getSession());
+			tx.setChargeCode(item.getChargeCode());
+			tx.setPostedDate(new Date());
+			tx.setSourceNo(invoice.getReferenceNo());
+			tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
+			tx.setAccount(invoice.getAccount());
+			tx.setAmount(item.getAmount());
+			accountService.addAccountTransaction(invoice.getAccount(),tx);
+		}
+	}
 
     // ====================================================================================================
 	// DEBIT NOTE

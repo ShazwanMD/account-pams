@@ -14,6 +14,7 @@ export class SettlementListComponent {
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'description', label: 'Description'},
+    {name: 'executed', label: 'Executed'},
     {name: 'action', label: ''}
   ];
 }

@@ -1,14 +1,12 @@
 import {Component, ViewContainerRef, OnInit, Input} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
 import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
 import {Settlement} from "../settlement.interface";
-import {FinancialaidModuleState} from "../../index";
 import {SettlementActions} from "../settlement.action";
 import {SettlementItemDialog} from "../dialog/settlement-item.dialog";
 import {SettlementItem} from "../settlement-item.interface";
+import {FinancialaidModuleState} from "../../index";
+import {Store} from "@ngrx/store";
 
 
 @Component({
@@ -23,6 +21,7 @@ export class SettlementItemListComponent {
   @Input() settlement: Settlement;
   @Input() settlementItems: SettlementItem[];
 
+  private selectedRows: SettlementItem[];
   private columns: any[] = [
     {name: 'account', label: 'Account'},
     {name: 'invoice', label: 'Invoice'},
@@ -33,9 +32,35 @@ export class SettlementItemListComponent {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: SettlementActions,
+              private store: Store<FinancialaidModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
   }
+
+  ngOnInit(): void {
+    this.selectedRows = this.settlementItems.filter(value => value.selected);
+  }
+
+  edit(settlementItem: SettlementItem): void {
+    // this.showDialog(settlementItem);
+  }
+
+  delete(): void {
+    console.log("length: " + this.selectedRows.length);
+    for (var i = 0; i < this.selectedRows.length; i++) {
+      // this.store.dispatch(this.actions.deleteSettlementItem(this.settlement, this.selectedRows[i]));
+    }
+  }
+
+  filter(): void {
+  }
+
+  selectRow(settlementItem: SettlementItem): void {
+  }
+
+  selectAllRows(settlementItems: SettlementItem[]): void {
+  }
+
 
   showDialog(): void {
     let config = new MdDialogConfig();
