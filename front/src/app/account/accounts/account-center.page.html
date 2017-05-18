@@ -25,14 +25,35 @@
 
     <div layout="row" layout-wrap></div>
 
-    <md-card class="">
+    <md-card>
       <td-search-box class="push-left push-right"
                      placeholder="search account"
                      [alwaysVisible]="true"
                      (searchDebounce)="filterAccounts($event)"></td-search-box>
       <md-divider></md-divider>
-      <pams-account-list
-        [accounts]="accounts$ | async" (view)="viewAccount($event)"></pams-account-list>
+      <td-data-table
+  [data]="accounts$ | async" 
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  (rowSelect)="view.emit($event)" dense>
+  
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex>{{value}}</span>
+    </div>
+  </template>
+  <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <a md-button color="accent" class="text-upper" [routerLink]="['/account/accounts', row['code']]">
+        <span>View</span>
+      </a>
+    </div>
+  </template>
+</td-data-table>
 
       <md-divider></md-divider>
       <md-card-actions><a
