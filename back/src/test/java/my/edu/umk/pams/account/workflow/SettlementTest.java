@@ -1,12 +1,13 @@
 package my.edu.umk.pams.account.workflow;
 
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementImpl;
+import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
@@ -24,6 +25,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 /**
  * @author PAMS
@@ -57,6 +60,7 @@ public class SettlementTest {
 
     @Autowired
     private IdentityService identityService;
+    public static final String COHORT_CODE = "FIAT-PHD-0001-CHRT-201720181";
 
     @Before
     public void before() {
@@ -68,11 +72,28 @@ public class SettlementTest {
     @Test
     @Rollback(false)
     public void testWorkflow() {
-        AcAcademicSession academicSession = accountService.findCurrentAcademicSession();
-
+        AcCohortCode cohortCode = commonService.findCohortCodeByCode(COHORT_CODE);
         AcSettlement settlement = new AcSettlementImpl();
-        settlement.setDescription("Settlement for HLP");
+        settlement.setDescription("Settlement for cohort " + COHORT_CODE);
         settlement.setSession(accountService.findCurrentAcademicSession());
-        financialAidService.initSettlement(settlement); // todo(hajar): byAcademicSession
+        String referenceNo = financialAidService.initSettlementByCohortCode(settlement, cohortCode);
+
+        // find generated settlement
+        settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
+
+        // check if we have settlement item
+        List<AcSettlementItem> settlementItems = financialAidService.findSettlementItems(settlement);
+        LOG.debug("items size: {}", settlementItems.size());
+
+        // execute settlement
+        financialAidService.executeSettlement(settlement);
+
+        // check if we generated invoice for each item
+         settlementItems = financialAidService.findSettlementItems(settlement);
+        for (AcSettlementItem settlementItem : settlementItems) {
+            LOG.debug("invoice?: " + settlementItem.getInvoice());
+        }
+
+
     }
 }
