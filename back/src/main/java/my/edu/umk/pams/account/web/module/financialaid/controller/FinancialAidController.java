@@ -26,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -34,6 +35,7 @@ import java.util.List;
 /**
  * @author PAMS
  */
+@Transactional
 @RestController
 @RequestMapping("/api/financialaid")
 public class FinancialAidController {

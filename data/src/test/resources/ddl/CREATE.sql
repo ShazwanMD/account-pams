@@ -880,6 +880,7 @@
     create table AC_STLT (
         ID int8 not null,
         DESCRIPTION varchar(255) not null,
+        EXECUTED boolean,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,

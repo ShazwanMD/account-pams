@@ -195,13 +195,13 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     @Override
     public String initSettlementByCohortCode(AcSettlement settlement, AcCohortCode cohortCode) {
         List<AcStudent> students = identityService.findStudentByCohortCode(cohortCode);
-        LOG.debug("student size: {}" + students.size());
+        LOG.debug("student size: {}", students.size());
         return initSettlement(settlement, students);
     }
 
     @Override
     public void executeSettlement(AcSettlement settlement) {
-    	LOG.debug("settlement {}",settlement);
+        LOG.debug("settlement {}", settlement.getReferenceNo());
         // find all items for settlement
         // then iterate all, skip AcSettlementStatus.DISQUALIFIED
         List<AcSettlementItem> settlementItems = settlementDao.findItems(settlement);
@@ -249,9 +249,11 @@ public class FinancialAidServiceImpl implements FinancialAidService {
                 invoice = billingService.findInvoiceByReferenceNo(invoiceReferenceNo);
                 item.setInvoice(invoice);
                 updateSettlementItem(settlement, item);
+                sessionFactory.getCurrentSession().flush();
             }
         }
-        sessionFactory.getCurrentSession().flush();
+        settlement.setExecuted(true);
+        updateSettlement(settlement);
     }
 
     @Override
@@ -385,6 +387,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         map.put("academicSession", academicSessionDao.findCurrentSession());
         String referenceNo = systemService.generateFormattedReferenceNo(SETTLEMENT_REFERENCE_NO, map);
         settlement.setReferenceNo(referenceNo);
+        settlement.setExecuted(false);
         LOG.debug("Processing process settlement with refNo {}", referenceNo);
 
         // save

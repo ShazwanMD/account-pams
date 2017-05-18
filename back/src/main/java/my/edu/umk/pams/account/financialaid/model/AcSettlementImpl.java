@@ -41,6 +41,9 @@ public class AcSettlementImpl implements AcSettlement {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
+    @Column(name = "EXECUTED")
+    private boolean executed = false;
+
     @NotNull
     @OneToOne(targetEntity = AcAcademicSessionImpl.class)
     @JoinColumn(name = "SESSION_ID")
@@ -89,6 +92,16 @@ public class AcSettlementImpl implements AcSettlement {
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean isExecuted() {
+        return executed;
+    }
+
+    @Override
+    public void setExecuted(boolean executed) {
+        this.executed = executed;
     }
 
     @Override

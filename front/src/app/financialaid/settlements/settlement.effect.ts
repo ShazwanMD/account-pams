@@ -7,12 +7,14 @@ import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import 'rxjs/add/operator/withLatestFrom';
 import {FinancialaidModuleState} from "../index";
+import {Settlement} from "./settlement.interface";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class SettlementEffects {
-  
+
   private SETTLEMENT = "financialaidModuleState.settlement".split(".");
-  
+
   constructor(private router: Router,
               private actions$: Actions,
               private settlementActions: SettlementActions,
@@ -80,17 +82,12 @@ export class SettlementEffects {
     .map(referenceNo => this.settlementActions.initSettlementByAcademicSessionSuccess(referenceNo))
     .mergeMap(action => from([action, this.settlementActions.findSettlements()]));
 
-  @Effect() processSettlement$ = this.actions$
-    .ofType(SettlementActions.PROCESS_SETTLEMENT)
-    .map(action => action.payload);
-  // todo
-
   @Effect() updateSettlement$ = this.actions$
     .ofType(SettlementActions.UPDATE_SETTLEMENT)
     .map(action => action.payload)
     .switchMap(settlement => this.financialaidService.updateSettlement(settlement))
     .map(settlement => this.settlementActions.updateSettlementSuccess(settlement));
-  
+
   @Effect() executeSettlement$ = this.actions$
     .ofType(SettlementActions.EXEC_SETTLEMENT)
     .map(action => action.payload)
@@ -98,5 +95,5 @@ export class SettlementEffects {
     .map(message => this.settlementActions.executeSettlementSuccess(message))
     .withLatestFrom(this.store$.select(...this.SETTLEMENT))
     .map(state => state[1])
-    .map(settlement => this.settlementActions.findSettlementItems(settlement));
-}
+    .map((settlement: Settlement) => this.settlementActions.findSettlementByReferenceNo(settlement.referenceNo));
+  }

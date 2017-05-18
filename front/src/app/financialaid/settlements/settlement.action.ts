@@ -84,22 +84,6 @@ export class SettlementActions {
     };
   }
 
-  static PROCESS_SETTLEMENT = '[Settlement] Process Settlement';
-  processSettlementTask(settlement): Action {
-    return {
-      type: SettlementActions.PROCESS_SETTLEMENT,
-      payload: settlement
-    };
-  }
-
-  static PROCESS_SETTLEMENT_SUCCESS = '[Settlement] Process Settlement Success';
-  processSettlementTaskSuccess(task): Action {
-    return {
-      type: SettlementActions.PROCESS_SETTLEMENT_SUCCESS,
-      payload: task
-    };
-  }
-
   static FIND_SETTLEMENT_BY_ID = '[Settlement] Find Settlement By Id';
   findSettlementById(id): Action {
     return {
@@ -118,6 +102,7 @@ export class SettlementActions {
 
   static FIND_SETTLEMENT_BY_REFERENCE_NO = '[Settlement] Find Settlement By Reference No';
   findSettlementByReferenceNo(referenceNo): Action {
+    console.log("findSettlementByReferenceNo: " + referenceNo);
     return {
       type: SettlementActions.FIND_SETTLEMENT_BY_REFERENCE_NO,
       payload: referenceNo
@@ -126,6 +111,7 @@ export class SettlementActions {
 
   static FIND_SETTLEMENT_BY_REFERENCE_NO_SUCCESS = '[Settlement] Find Settlement By Reference No Success';
   findSettlementByReferenceNoSuccess(settlement): Action {
+    console.log("findSettlementByReferenceNoSuccess")
     return {
       type: SettlementActions.FIND_SETTLEMENT_BY_REFERENCE_NO_SUCCESS,
       payload: settlement
@@ -150,6 +136,7 @@ export class SettlementActions {
 
   static FIND_SETTLEMENT_ITEMS = '[Settlement] Find Settlement Items';
   findSettlementItems(settlements): Action {
+    console.log("findSettlementItems");
     return {
       type: SettlementActions.FIND_SETTLEMENT_ITEMS,
       payload: settlements
@@ -197,7 +184,7 @@ export class SettlementActions {
       payload: settlement
     };
   }
-  
+
   static EXEC_SETTLEMENT = '[Settlement] Exec Settlement';
   executeSettlement(settlement): Action {
     return {
@@ -205,7 +192,7 @@ export class SettlementActions {
       payload:settlement
     };
   }
-  
+
   static EXEC_SETTLEMENT_SUCCESS = '[Settlement] Exec Settlement Success';
   executeSettlementSuccess(settlement): Action {
     return {
@@ -213,7 +200,7 @@ export class SettlementActions {
       payload: settlement
     };
   }
-  
+
   static ADD_SETTLEMENT_ITEM = '[Settlement] Add Settlement Item';
   addSettlementItem(referenceNo, settlementItem): Action {
     return {

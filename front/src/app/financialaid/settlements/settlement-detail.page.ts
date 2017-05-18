@@ -7,6 +7,7 @@ import {AccountActions} from "../../account/accounts/account.action";
 import {SettlementActions} from "./settlement.action";
 import {Store} from "@ngrx/store";
 import {FinancialaidModuleState} from "../index";
+import {MdSnackBar} from "@angular/material";
 @Component({
   selector: 'pams-settlement-detail',
   templateUrl: './settlement-detail.page.html',
@@ -18,12 +19,12 @@ export class SettlementDetailPage implements OnInit {
   private SETTLEMENT_ITEMS = "financialaidModuleState.settlementItems".split(".");
   private settlement$: Observable<Settlement>;
   private settlementItems$: Observable<SettlementItem[]>;
-  private referenceNo;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: SettlementActions,
-              private store: Store<FinancialaidModuleState>) {
+              private store: Store<FinancialaidModuleState>,
+              private snackBar: MdSnackBar) {
 
     this.settlement$ = this.store.select(...this.SETTLEMENT);
     this.settlementItems$ = this.store.select(...this.SETTLEMENT_ITEMS);
@@ -34,9 +35,20 @@ export class SettlementDetailPage implements OnInit {
       this.store.dispatch(this.actions.findSettlementByReferenceNo(params.referenceNo));
     });
   }
-  
+
   executeSettlement() {
-    this.settlement$.subscribe(settlement => this.store.dispatch(this.actions.executeSettlement(settlement)));
+    this.settlement$.take(1).subscribe(settlement => {
+        if (!settlement.executed) {
+          let snackBarRef = this.snackBar.open("Are you sure you want to execute this settlement?", "YES");
+          snackBarRef.afterDismissed().subscribe(() => {
+            this.store.dispatch(this.actions.executeSettlement(settlement))
+          });
+        }
+        else {
+          this.snackBar.open("Sorry, this settlement has been executed", "OK");
+        }
+      }
+    );
   }
 
   goBack(): void {

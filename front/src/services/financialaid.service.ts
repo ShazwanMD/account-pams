@@ -110,9 +110,8 @@ export class FinancialaidService {
     // return this.http.put(environment.endpoint + '/api/financialaid/settlements', JSON.stringify(settlement))
     //   .flatMap(data => Observable.of(true));
   }
-  
+
   executeSettlement(settlement: Settlement): Observable<String> {
-    console.log("exec settlement",settlement);
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token

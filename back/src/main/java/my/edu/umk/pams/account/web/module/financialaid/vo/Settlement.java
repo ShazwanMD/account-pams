@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.account.vo.AcademicSession;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
-import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
 
 import java.io.IOException;
 
@@ -16,6 +15,7 @@ public class Settlement extends MetaObject{
     private String referenceNo;
     private String sourceNo;
     private String description;
+    private boolean executed;
     private AcademicSession academicSession;
 
     public String getReferenceNo() {
@@ -40,6 +40,14 @@ public class Settlement extends MetaObject{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isExecuted() {
+        return executed;
+    }
+
+    public void setExecuted(boolean executed) {
+        this.executed = executed;
     }
 
     public AcademicSession getAcademicSession() {

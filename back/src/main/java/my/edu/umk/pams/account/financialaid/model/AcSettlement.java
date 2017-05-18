@@ -22,6 +22,10 @@ public interface AcSettlement extends AcMetaObject{
 
     void setDescription(String description);
 
+    boolean isExecuted();
+
+    void setExecuted(boolean executed);
+
     AcAcademicSession getSession();
 
     void setSession(AcAcademicSession session);
