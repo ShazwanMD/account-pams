@@ -25,14 +25,14 @@
     <md-card>
       <md-tab-group [selectedIndex]="0">
         <md-tab label="Assigned">
-          <pams-receipt-task-list
+          <pams-assigned-receipt-task-list
             [receiptTasks]="assignedReceiptTasks$ | async"
-            (view)="view($event)"></pams-receipt-task-list>
+            (view)="view($event)"></pams-assigned-receipt-task-list>
         </md-tab>
         <md-tab label="Pooled">
-          <pams-receipt-task-list
+          <pams-pooled-receipt-task-list
             [receiptTasks]="pooledReceiptTasks$ | async"
-            (view)="view($event)"></pams-receipt-task-list>
+            (view)="view($event)"></pams-pooled-receipt-task-list>
         </md-tab>
       </md-tab-group>
     </md-card>

@@ -59,6 +59,7 @@ export class ReceiptCenterPage implements OnInit {
   ngOnInit(): void {
     console.log("find assigned receipt tasks");
     this.store.dispatch(this.actions.findAssignedReceiptTasks());
+    this.store.dispatch(this.actions.findPooledReceiptTasks());
   }
 }
 
