@@ -10,7 +10,7 @@ import {Store} from "@ngrx/store";
 @Injectable()
 export class AccountEffects {
 
-  private ACCOUNT = "accountModuleState.account".split(".");
+  private ACCOUNT: string[] = "accountModuleState.account".split(".");
 
   constructor(private actions$: Actions,
               private accountActions: AccountActions,

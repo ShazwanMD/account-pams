@@ -17,8 +17,8 @@ import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
 
 export class FeeScheduleDetailPage implements OnInit {
 
-  private FEE_SCHEDULE = "accountModuleState.feeSchedule".split(".");
-  private FEE_SCHEDULE_ITEMS = "accountModuleState.feeScheduleItems".split(".");
+  private FEE_SCHEDULE: string[] = "accountModuleState.feeSchedule".split(".");
+  private FEE_SCHEDULE_ITEMS: string[] = "accountModuleState.feeScheduleItems".split(".");
   private feeSchedule$: Observable<FeeSchedule>;
   private feeScheduleItems$: Observable<FeeScheduleItem[]>;
 

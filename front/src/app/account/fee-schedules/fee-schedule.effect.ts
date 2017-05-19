@@ -15,7 +15,7 @@ export class FeeScheduleEffects {
               private store$: Store<AccountModuleState>) {
   }
 
-  private FEE_SCHEDULE = "accountModuleState.feeSchedule".split(".");
+  private FEE_SCHEDULE: string[] = "accountModuleState.feeSchedule".split(".");
 
   @Effect() findFeeSchedules$ = this.actions$
     .ofType(FeeScheduleActions.FIND_FEE_SCHEDULES)
@@ -75,7 +75,6 @@ export class FeeScheduleEffects {
     .withLatestFrom(this.store$.select(...this.FEE_SCHEDULE))
     .map(state => state[1])
     .map(feeSchedule => this.feeScheduleActions.findFeeScheduleItems(feeSchedule));
-
 
 
 }

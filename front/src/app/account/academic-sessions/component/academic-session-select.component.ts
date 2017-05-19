@@ -13,9 +13,9 @@ import {AcademicSession} from "../academic-session.interface";
 })
 export class AcademicSessionSelectComponent implements OnInit {
 
-  private ACADEMIC_SESSIONS = "accountModuleState.academicSessions".split(".");
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
+  private ACADEMIC_SESSIONS: string[] = "accountModuleState.academicSessions".split(".");
   private academicSessions$: Observable<AcademicSession[]>;
 
   constructor(private store: Store<AccountModuleState>,

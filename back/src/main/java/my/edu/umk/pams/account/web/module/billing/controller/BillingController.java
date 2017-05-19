@@ -156,6 +156,7 @@ public class BillingController {
         invoice.setBalanceAmount(BigDecimal.ZERO);
         invoice.setIssuedDate(new Date());
         invoice.setPaid(false);
+        invoice.setSession(accountService.findCurrentAcademicSession());
         invoice.setAccount(account);
         return new ResponseEntity<String>(billingService.startInvoiceTask(invoice), HttpStatus.OK);
     }

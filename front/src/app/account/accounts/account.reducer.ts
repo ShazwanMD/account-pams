@@ -5,15 +5,7 @@ import {Actor} from "../../identity/actor.interface";
 
 export type AccountState = Account;
 
-const initialState: AccountState = {
-  id: 0,
-  code: '',
-  description: '',
-  name: '',
-  email: '',
-  actor:<Actor>{},
-  balanceAmount:0
-};
+const initialState: AccountState = <Account>{};
 
 export function accountReducer(state = initialState, action: Action): AccountState {
   switch (action.type) {

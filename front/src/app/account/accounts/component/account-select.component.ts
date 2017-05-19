@@ -13,7 +13,7 @@ import {AccountModuleState} from "../../index";
 })
 export class AccountSelectComponent implements OnInit {
 
-  private ACCOUNTS = "accountModuleState.accounts".split(".");
+  private ACCOUNTS: string[] = "accountModuleState.accounts".split(".");
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   private accounts$: Observable<Account[]>;

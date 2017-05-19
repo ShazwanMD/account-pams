@@ -15,7 +15,7 @@ export class ChargeCodeEffects {
               private store$: Store<AccountModuleState>) {
   }
 
-  private CHARGE_CODE = "accountModuleState.chargeCode".split(".");
+  private CHARGE_CODE: string[] = "accountModuleState.chargeCode".split(".");
 
   @Effect() findChargeCodes$ = this.actions$
     .ofType(ChargeCodeActions.FIND_CHARGE_CODES)
@@ -41,11 +41,11 @@ export class ChargeCodeEffects {
     .switchMap(payload => this.accountService.updateChargeCode(payload))
     .map(message => this.chargeCodeActions.updateChargeCodeSuccess(message))
     .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]));
-  
+
   @Effect() removeChargeCode$ = this.actions$
-  .ofType(ChargeCodeActions.REMOVE_CHARGE_CODE)
-  .map(action => action.payload)
-  .switchMap(payload => this.accountService.removeChargeCode(payload))
-  .map(message => this.chargeCodeActions.removeChargeCodeSuccess(message))
-  .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]));
+    .ofType(ChargeCodeActions.REMOVE_CHARGE_CODE)
+    .map(action => action.payload)
+    .switchMap(payload => this.accountService.removeChargeCode(payload))
+    .map(message => this.chargeCodeActions.removeChargeCodeSuccess(message))
+    .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]));
 }

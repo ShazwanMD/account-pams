@@ -5,7 +5,7 @@ import {ChargeCodeActions} from "../charge-code.action";
 import {AccountModuleState} from "../../index";
 import {MdDialogRef, MdDialogConfig, MdDialog} from "@angular/material";
 import {ChargeCodeEditorDialog} from "../dialog/charge-code-editor.dialog";
-import { Observable } from "rxjs/Observable";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'pams-charge-code-list',
@@ -16,8 +16,8 @@ export class ChargeCodeListComponent {
 
   @Input() chargeCodes: ChargeCode[];
   @Output() view = new EventEmitter<ChargeCode>();
-  
-  private CHARGE_CODES = "accountModuleState.chargeCodes".split(".");
+
+  private CHARGE_CODES: string[] = "accountModuleState.chargeCodes".split(".");
   chargeCodes$: Observable<ChargeCode[]>;
   private editorDialogRef: MdDialogRef<ChargeCodeEditorDialog>;
   private columns: any[] = [
@@ -31,9 +31,9 @@ export class ChargeCodeListComponent {
               private actions: ChargeCodeActions,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
-      this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
+    this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
   }
-  
+
   editDialog(code: ChargeCode): void {
     this.showDialog(code);
   }
