@@ -198,4 +198,22 @@ export class ReceiptActions {
       payload: receipt
     };
   }
+  
+  static CLAIM_RECEIPT_TASK = '[Receipt] Assign Receipt Task';
+
+  claimReceiptTask(receipt): Action {
+    return {
+      type: ReceiptActions.CLAIM_RECEIPT_TASK,
+      payload: receipt
+    };
+  }
+
+  static CLAIM_RECEIPT_TASK_SUCCESS = '[Receipt] Assign Receipt Task Success';
+
+  claimReceiptTaskSuccess(task): Action {
+    return {
+      type: ReceiptActions.CLAIM_RECEIPT_TASK_SUCCESS,
+      payload: task
+    };
+  }
 }

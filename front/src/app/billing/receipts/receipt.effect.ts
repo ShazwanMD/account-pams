@@ -82,4 +82,15 @@ export class ReceiptEffects {
     .map(action => action.payload)
     .switchMap(receipt => this.billingService.updateReceipt(receipt))
     .map(receipt => this.receiptActions.updateReceiptSuccess(receipt));
+  
+  @Effect() claimReceiptTask$ = this.actions$
+      .ofType(ReceiptActions.CLAIM_RECEIPT_TASK)
+      .map(action => action.payload)
+      .switchMap(receiptTask => this.billingService.claimReceiptTask(receiptTask))
+      .map(message => this.receiptActions.claimReceiptTaskSuccess(message))
+      .mergeMap(action => from([action,
+          this.receiptActions.findAssignedReceiptTasks(),
+          this.receiptActions.findPooledReceiptTasks()
+        ]
+      ));
 }
