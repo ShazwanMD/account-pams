@@ -122,4 +122,42 @@ export class FeeScheduleActions {
       payload: message
     };
   }
+
+  static DELETE_FEE_SCHEDULE_ITEM = '[FeeSchedule] Delete FeeSchedule Item';
+
+  deleteFeeScheduleItem(feeSchedule, item): Action {
+    return {
+      type: FeeScheduleActions.DELETE_FEE_SCHEDULE_ITEM,
+      payload: {feeSchedule:feeSchedule, item:item}
+    };
+  }
+
+  static DELETE_FEE_SCHEDULE_ITEM_SUCCESS = '[FeeSchedule] Add FeeSchedule Item Success';
+
+  deleteFeeScheduleItemSuccess(message): Action {
+    return {
+      type: FeeScheduleActions.DELETE_FEE_SCHEDULE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+
+  static UPDATE_FEE_SCHEDULE_ITEM = '[FeeSchedule] Update FeeSchedule Item';
+
+  updateFeeScheduleItem(feeSchedule, item): Action {
+    return {
+      type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM,
+      payload: {feeSchedule:feeSchedule, item:item}
+    };
+  }
+
+  static UPDATE_FEE_SCHEDULE_ITEM_SUCCESS = '[FeeSchedule] Update FeeSchedule Item Success';
+
+  updateFeeScheduleItemSuccess(message): Action {
+    return {
+      type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+
+
 }

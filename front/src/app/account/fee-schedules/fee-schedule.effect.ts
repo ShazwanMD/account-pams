@@ -57,4 +57,25 @@ export class FeeScheduleEffects {
       .withLatestFrom(this.store$.select(...this.FEE_SCHEDULE))
       .map(state => state[1])
       .map(feeSchedule => this.feeScheduleActions.findFeeScheduleItems(feeSchedule));
+
+  @Effect() updateFeeScheduleItem$ = this.actions$
+    .ofType(FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.accountService.updateFeeScheduleItem(payload.feeSchedule, payload.item))
+    .map(message => this.feeScheduleActions.updateFeeScheduleItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.FEE_SCHEDULE))
+    .map(state => state[1])
+    .map(feeSchedule => this.feeScheduleActions.findFeeScheduleItems(feeSchedule));
+
+  @Effect() deleteFeeScheduleItem$ = this.actions$
+    .ofType(FeeScheduleActions.DELETE_FEE_SCHEDULE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.accountService.deleteFeeScheduleItem(payload.feeSchedule, payload.item))
+    .map(message => this.feeScheduleActions.deleteFeeScheduleItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.FEE_SCHEDULE))
+    .map(state => state[1])
+    .map(feeSchedule => this.feeScheduleActions.findFeeScheduleItems(feeSchedule));
+
+
+
 }

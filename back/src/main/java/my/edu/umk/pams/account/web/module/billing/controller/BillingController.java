@@ -95,7 +95,7 @@ public class BillingController {
     }
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.POST)
-    public void addInvoiceItem(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
+    public ResponseEntity<String> addInvoiceItem(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
         dummyLogin();
 
         LOG.debug("referenceNo: {}", referenceNo);
@@ -107,10 +107,11 @@ public class BillingController {
         e.setAmount(item.getAmount());
         e.setDescription(item.getDescription());
         billingService.addInvoiceItem(invoice, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems/{id}", method = RequestMethod.PUT)
-    public void updateInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody InvoiceItem item) {
+    public ResponseEntity<String> updateInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody InvoiceItem item) {
         dummyLogin();
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
@@ -118,14 +119,16 @@ public class BillingController {
         e.setAmount(item.getAmount());
         e.setDescription(item.getDescription());
         billingService.updateInvoiceItem(invoice, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems/{id}", method = RequestMethod.DELETE)
-    public void deleteInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id) {
+    public ResponseEntity<String> deleteInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id) {
         dummyLogin();
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = billingService.findInvoiceItemById(id);
         billingService.deleteInvoiceItem(invoice, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/assignedTasks", method = RequestMethod.GET)

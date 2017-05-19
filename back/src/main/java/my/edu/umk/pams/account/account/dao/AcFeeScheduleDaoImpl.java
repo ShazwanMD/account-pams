@@ -113,6 +113,17 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
     }
 
     @Override
+    public Integer count(AcCohortCode cohortCode) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcFeeSchedule s where " +
+                "s.cohortCode=:cohortCode " +
+                "and s.metadata.state = :state ");
+        query.setEntity("cohortCode", cohortCode);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
+    }
+
+    @Override
     public boolean hasSchedule(AcCohortCode cohortCode) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count(*) from AcFeeSchedule u where " +
@@ -151,21 +162,14 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
         metadata.setState(AcMetaState.ACTIVE);
         item.setMetadata(metadata);
         session.update(item);
-
     }
 
     @Override
     public void deleteItem(AcFeeSchedule schedule, AcFeeScheduleItem item, AcUser user) {
         Validate.notNull(schedule, "Schedule should not be null");
-        Validate.notNull(item, "Charge should not be null");
+        Validate.notNull(item, "Item should not be null");
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
     }
-
-	@Override
-	public Integer count(AcCohortCode cohortCode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -117,7 +117,7 @@ export class BillingService {
     return this.http.post(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/invoiceItems' , JSON.stringify(item), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-  
+
   updateInvoiceItem(invoice: Invoice, item: InvoiceItem){
       console.log("saving invoice item" + item.id);
     let headers = new Headers({
@@ -128,7 +128,7 @@ export class BillingService {
     return this.http.put(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/invoiceItems/' + item.id,  JSON.stringify(item), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-  
+
   deleteInvoiceItem(invoice: Invoice, item: InvoiceItem) {
       let headers = new Headers({
           'Content-Type': 'application/json',

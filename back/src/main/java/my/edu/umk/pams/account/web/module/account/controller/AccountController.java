@@ -110,23 +110,34 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.POST)
-    public void addFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
+    public ResponseEntity<String> addFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
         dummyLogin();
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         AcFeeScheduleItem e = new AcFeeScheduleItemImpl();
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
         accountService.addFeeScheduleItem(feeSchedule, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.PUT)
-    public void updateFeeScheduleItems(@PathVariable String code, @RequestBody FeeScheduleItem item) {
+    public ResponseEntity<String> updateFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
         dummyLogin();
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         AcFeeScheduleItem e = accountService.findFeeScheduleItemById(item.getId());
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
         accountService.updateFeeScheduleItem(feeSchedule, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteFeeScheduleItem(@PathVariable String code, @PathVariable Long id) {
+        dummyLogin();
+        AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
+        AcFeeScheduleItem e = accountService.findFeeScheduleItemById(id);
+        accountService.deleteFeeScheduleItem(feeSchedule, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
 

@@ -75,6 +75,27 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
+  updateFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem){
+    console.log("saving feeSchedule item" + item.id);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.put(environment.endpoint + '/api/account/feeSchedules/' + feeSchedule.code + '/feeScheduleItems/' + item.id,  JSON.stringify(item), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  deleteFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.delete(environment.endpoint + '/api/account/feeSchedules/' + feeSchedule.code + '/feeScheduleItems/' + item.id, options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
   // ====================================================================================================
     // CHARGE CODE
   // ====================================================================================================
