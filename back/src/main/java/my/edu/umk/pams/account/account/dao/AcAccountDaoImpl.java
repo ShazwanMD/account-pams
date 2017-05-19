@@ -106,8 +106,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sa.account from AcAccountTransaction sa inner join sa.account where " +
                 "sa.account = :account " +
-                "and sa.sourceNo = :sourceNo ");
+                "and sa.sourceNo = :sourceNo " +
+                "and sa.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return (List<AcAccountTransaction>) query.list();
     }
 
@@ -115,8 +117,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public List<AcAccountTransaction> findAccountTransactions(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sa from AcAccountTransaction sa where " +
-                "sa.account = :account ");
+                "sa.account = :account " +
+                "and sa.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return (List<AcAccountTransaction>) query.list();
     }
 
@@ -124,8 +128,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public List<AcAccountTransaction> findAccountTransactions(AcAccount account, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sa from AcAccountTransaction sa where " +
-                "sa.account = :account ");
+                "sa.account = :account " +
+                "and sa.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<AcAccountTransaction>) query.list();
@@ -136,9 +142,11 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sa from AcAccountTransaction sa where " +
                 "sa.account = :account " +
-                "and sa.session = :academicSession");
+                "and sa.session = :academicSession " +
+                "and sa.metadata.state = :state ");
         query.setEntity("account", account);
         query.setEntity("academicSession", academicSession);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<AcAccountTransaction>) query.list();
@@ -148,8 +156,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount account, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sa from AcAccountTransaction sa where " +
-                "sa.account = :account ");
+                "sa.account = :account " +
+                "and sa.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<AcAccountTransaction>) query.list();
@@ -187,8 +197,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public Integer countAccountTransaction(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count(s) from AcAccountTransaction s where " +
-                "s.account=:account ");
+                "s.account=:account " +
+                "and s.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
 
@@ -197,9 +209,11 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count(s) from AcAccountTransaction s where " +
                 "s.account=:account " +
-                "and s.session = :academicSession");
+                "and s.session = :academicSession " +
+                "and s.metadata.state = :state ");
         query.setEntity("account", account);
         query.setEntity("academicSession", academicSession);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
 
@@ -207,8 +221,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public Integer countAccountTransaction(String filter, AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count(s) from AcAccountTransaction s where " +
-                "s.account=:account ");
+                "s.account=:account " +
+                "and s.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
 
@@ -216,8 +232,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public BigDecimal sumBalanceAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(sat.amount) from AcAccountTransaction sat where " +
-                "sat.account = :account ");
+                "sat.account = :account " +
+                "and sat.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
@@ -227,8 +245,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public BigDecimal sumSurplusAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(sat.amount) from AcAccountTransaction sat where " +
-                "sat.account = :account ");
+                "sat.account = :account " +
+                "and sat.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else {
@@ -241,8 +261,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public BigDecimal sumDebitAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(sat.amount) from AcAccountTransaction sat where " +
-                "sat.account = :account and sat.amount > 0");
+                "sat.account = :account and sat.amount > 0 " +
+                "and sat.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else {
@@ -255,8 +277,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public BigDecimal sumCreditAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(sat.amount) from AcAccountTransaction sat where " +
-                "sat.account = :account and sat.amount < 0");
+                "sat.account = :account and sat.amount < 0 " +
+                "and sat.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else {
@@ -268,11 +292,13 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(w.waivedAmount) from AcWaiver w where " +
+        Query query = session.createQuery("select sum(w.amount) from AcAccountWaiver w where " +
                 "w.account = :account " +
-                "and w.session = :academicSession");
+                "and w.session = :academicSession  " +
+                "and w.metadata.state = :state ");
         query.setEntity("account", account);
         query.setEntity("academicSession", academicSession);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else {
@@ -285,8 +311,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     public BigDecimal sumAccountTransaction(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.amount) from AcAccountTransaction a where " +
-                "a.account = :account ");
+                "a.account = :account " +
+                "and a.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
@@ -297,9 +325,11 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.amount) from AcAccountTransaction a where " +
                 "a.account = :account " +
-                "and a.session = :session");
+                "and a.session = :session " +
+                "and a.metadata.state = :state ");
         query.setEntity("account", account);
         query.setEntity("session", academicSession);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
@@ -403,7 +433,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
-    public void addWaiver(AcAccount account, AcAcademicSession academicSession,  AcAccountWaiver waiver, AcUser user) {
+    public void addWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver, AcUser user) {
         Validate.notNull(account, "Account should not be null");
         Validate.notNull(waiver, "Waiver should not be null");
 

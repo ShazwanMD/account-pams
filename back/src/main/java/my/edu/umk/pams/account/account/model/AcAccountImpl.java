@@ -50,7 +50,10 @@ public class AcAccountImpl implements AcAccount{
 
     // transient
     @Transient
-    private BigDecimal balanceAmount;
+    private BigDecimal balance;
+
+    @Transient
+    private BigDecimal effectiveBalance;
 
     @Override
     public Long getId() {
@@ -136,12 +139,19 @@ public class AcAccountImpl implements AcAccount{
         return AcAccount.class;
     }
 
-    @Override
-    public BigDecimal getBalanceAmount() {
-        return balanceAmount;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
-    public void setBalanceAmount(BigDecimal balanceAmount) {
-        this.balanceAmount = balanceAmount;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public BigDecimal getEffectiveBalance() {
+        return effectiveBalance;
+    }
+
+    public void setEffectiveBalance(BigDecimal effectiveBalance) {
+        this.effectiveBalance = effectiveBalance;
     }
 }

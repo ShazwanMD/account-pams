@@ -212,7 +212,6 @@ public class AccountController {
         return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
     }
 
-
     @RequestMapping(value = "/accounts", method = RequestMethod.POST)
     public ResponseEntity<String> saveAccount(@RequestBody Account vo) {
         dummyLogin();
@@ -313,13 +312,14 @@ public class AccountController {
     // ====================================================================================================
     private List<AcAccount> decorateAccounts(List<AcAccount> accounts) {
         for (AcAccount a : accounts) {
-            a.setBalanceAmount(accountService.sumBalanceAmount(a));
+            decorateAccount(a);
         }
         return accounts;
     }
 
     private AcAccount decorateAccount(AcAccount account) {
-        account.setBalanceAmount(accountService.sumBalanceAmount(account));
+        account.setBalance(accountService.sumBalanceAmount(account));
+        account.setEffectiveBalance(accountService.sumEffectiveBalanceAmount(account, accountService.findCurrentAcademicSession()));
         return account;
     }
 
@@ -328,5 +328,4 @@ public class AccountController {
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
     }
-
 }

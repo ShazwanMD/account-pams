@@ -339,7 +339,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public BigDecimal sumBalanceAmount(AcAccount account) {
-        return accountDao.sumCreditAmount(account);
+        return accountDao.sumBalanceAmount(account);
     }
 
     @Override

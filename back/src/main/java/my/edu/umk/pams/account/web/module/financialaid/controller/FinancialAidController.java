@@ -111,65 +111,65 @@ public class FinancialAidController {
     @Deprecated
     @RequestMapping(value = "/settlements/init", method = RequestMethod.POST)
     public ResponseEntity<String> initSettlements(@RequestBody Settlement vo) {
-    	dummyLogin();
-    	
-    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
-    	AcSettlement acSettlement = new AcSettlementImpl();
-    	
-    	acSettlement.setReferenceNo(vo.getReferenceNo());
-    	acSettlement.setDescription(vo.getDescription());
-    	acSettlement.setSession(acAcademicSession);
+        dummyLogin();
 
-    	String referenceNo = financialAidService.initSettlement(acSettlement);
+        AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+        AcSettlement acSettlement = new AcSettlementImpl();
+
+        acSettlement.setReferenceNo(vo.getReferenceNo());
+        acSettlement.setDescription(vo.getDescription());
+        acSettlement.setSession(acAcademicSession);
+
+        String referenceNo = financialAidService.initSettlement(acSettlement);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/settlements/initBySponsor/{sponsorNo}", method = RequestMethod.POST)
-    public ResponseEntity<String> initSettlementBySponsor(@PathVariable String sponsorNo,  @RequestBody Settlement vo) {
-    	dummyLogin();
+    public ResponseEntity<String> initSettlementBySponsor(@PathVariable String sponsorNo, @RequestBody Settlement vo) {
+        dummyLogin();
 
-    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
-    	AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorNo);
-    	AcSettlement settlement = new AcSettlementImpl();
-    	settlement.setDescription(vo.getDescription());
-    	settlement.setSession(acAcademicSession);
+        AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+        AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorNo);
+        AcSettlement settlement = new AcSettlementImpl();
+        settlement.setDescription(vo.getDescription());
+        settlement.setSession(acAcademicSession);
 
         String referenceNo = financialAidService.initSettlementBySponsor(settlement, sponsor);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/settlements/initByCohortCode/{code}", method = RequestMethod.POST)
-    public ResponseEntity<String> initSettlementByCohortCode(@PathVariable String code,  @RequestBody Settlement vo) {
-    	dummyLogin();
+    public ResponseEntity<String> initSettlementByCohortCode(@PathVariable String code, @RequestBody Settlement vo) {
+        dummyLogin();
 
-    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
-    	AcCohortCode cohortCode = commonService.findCohortCodeByCode(code);
-    	AcSettlement settlement = new AcSettlementImpl();
-    	settlement.setDescription(vo.getDescription());
-    	settlement.setSession(acAcademicSession);
+        AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+        AcCohortCode cohortCode = commonService.findCohortCodeByCode(code);
+        AcSettlement settlement = new AcSettlementImpl();
+        settlement.setDescription(vo.getDescription());
+        settlement.setSession(acAcademicSession);
         String referenceNo = financialAidService.initSettlementByCohortCode(settlement, cohortCode);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/settlements/initByFacultyCode/{code}", method = RequestMethod.POST)
-    public ResponseEntity<String> initSettlementByFacultyCode(@PathVariable String code,  @RequestBody Settlement vo) {
-    	dummyLogin();
+    public ResponseEntity<String> initSettlementByFacultyCode(@PathVariable String code, @RequestBody Settlement vo) {
+        dummyLogin();
 
-    	AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
-    	AcFacultyCode facultyCode = commonService.findFacultyCodeByCode(code);
-    	AcSettlement settlement = new AcSettlementImpl();
-    	settlement.setDescription(vo.getDescription());
-    	settlement.setSession(acAcademicSession);
+        AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+        AcFacultyCode facultyCode = commonService.findFacultyCodeByCode(code);
+        AcSettlement settlement = new AcSettlementImpl();
+        settlement.setDescription(vo.getDescription());
+        settlement.setSession(acAcademicSession);
         String referenceNo = financialAidService.initSettlementByFacultyCode(settlement, facultyCode);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/settlements/{referenceNo}/execute", method = RequestMethod.POST)
     public void executeSettlement(@PathVariable String referenceNo) {
-    	dummyLogin();
-    	LOG.debug("referenceNo {}",referenceNo);
-    	AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
-    	financialAidService.executeSettlement(settlement);
+        dummyLogin();
+        LOG.debug("referenceNo {}", referenceNo);
+        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
+        financialAidService.executeSettlement(settlement);
     }
 
     // ====================================================================================================
@@ -212,15 +212,16 @@ public class FinancialAidController {
     public void startWaiverApplicationTask(@RequestBody WaiverApplication vo) throws Exception {
         dummyLogin();
 
+        AcAcademicSession academicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
         AcAccount account = accountService.findAccountById(vo.getAccount().getId());
         AcWaiverApplication waiverApplication = new AcWaiverApplicationImpl();
         waiverApplication.setDescription(vo.getDescription());
         waiverApplication.setWaivedAmount(BigDecimal.ZERO);
         waiverApplication.setGracedAmount(BigDecimal.ZERO);
-        waiverApplication.setEffectiveBalance(BigDecimal.ZERO);
-        waiverApplication.setBalance(BigDecimal.ZERO);
+        waiverApplication.setEffectiveBalance(accountService.sumEffectiveBalanceAmount(account, academicSession));
+        waiverApplication.setBalance(accountService.sumBalanceAmount(account));
         waiverApplication.setAccount(account);
-        waiverApplication.setSession(accountService.findAcademicSessionById(vo.getAcademicSession().getId()));
+        waiverApplication.setSession(academicSession);
         financialAidService.startWaiverApplicationTask(waiverApplication);
     }
 

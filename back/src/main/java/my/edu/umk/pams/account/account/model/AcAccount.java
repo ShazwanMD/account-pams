@@ -39,7 +39,11 @@ public interface AcAccount extends AcMetaObject {
     // transient
     // todo: debit, credit, balance
 
-    BigDecimal getBalanceAmount();
+    BigDecimal getBalance();
 
-    void setBalanceAmount(BigDecimal balanceAmount);
+    void setBalance(BigDecimal balance);
+
+    BigDecimal getEffectiveBalance();
+
+    void setEffectiveBalance(BigDecimal effectiveBalance);
 }

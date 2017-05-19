@@ -85,7 +85,8 @@ public class AccountTransformer {
         m.setCode(e.getCode());
         m.setName(e.getActor().getName());
         m.setEmail(e.getActor().getEmail());
-        m.setBalanceAmount(e.getBalanceAmount());
+        m.setBalance(e.getBalance());
+        m.setEffectiveBalance(e.getEffectiveBalance());
         m.setActor(identityTransformer.toActorVo(e.getActor()));
         return m;
     }

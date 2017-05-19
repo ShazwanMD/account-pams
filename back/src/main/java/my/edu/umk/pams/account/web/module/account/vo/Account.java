@@ -17,7 +17,10 @@ public class Account extends MetaObject {
     private String name; // transient
     private String email;// transient
     private Actor actor;
-    private BigDecimal balanceAmount;
+
+    // transient
+    private BigDecimal balance;
+    private BigDecimal effectiveBalance;
 
     public String getCode() {
         return code;
@@ -51,12 +54,20 @@ public class Account extends MetaObject {
         this.actor = actor;
     }
 
-    public BigDecimal getBalanceAmount() {
-        return balanceAmount;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
-    public void setBalanceAmount(BigDecimal balanceAmount) {
-        this.balanceAmount = balanceAmount;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public BigDecimal getEffectiveBalance() {
+        return effectiveBalance;
+    }
+
+    public void setEffectiveBalance(BigDecimal effectiveBalance) {
+        this.effectiveBalance = effectiveBalance;
     }
 
     @JsonCreator
