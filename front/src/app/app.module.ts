@@ -21,7 +21,7 @@ import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 import {HomeComponent} from "./home/home.component";
 import {CustomUrlSerializer} from "./common/custom-url-serializer";
 import {UrlSerializer} from "@angular/router";
-import {SetupModule} from "./setup/index";
+import {INITIAL_SETUP_STATE, SetupModule, setupModuleReducers, SetupModuleState} from "./setup/index";
 import {AccountModuleState, INITIAL_ACCOUNT_STATE, AccountModule, accountModuleReducers} from "./account/index";
 import {BillingModuleState, INITIAL_BILLING_STATE, BillingModule, billingModuleReducers} from "./billing/index";
 import {
@@ -39,6 +39,7 @@ const httpInterceptorProviders: Type<any>[] = [
 
 // state
 interface ApplicationState {
+  setupModuleState: SetupModuleState;
   commonModuleState: CommonModuleState;
   identityModuleState: IdentityModuleState;
   accountModuleState: AccountModuleState;
@@ -50,6 +51,7 @@ interface ApplicationState {
 // reducer
 export const INITIAL_APPLICATION_STATE: ApplicationState =
   <ApplicationState>{
+    setupModuleState: INITIAL_SETUP_STATE,
     commonModuleState: INITIAL_COMMON_STATE,
     identityModuleState: INITIAL_IDENTITY_STATE,
     accountModuleState: INITIAL_ACCOUNT_STATE,
@@ -59,6 +61,7 @@ export const INITIAL_APPLICATION_STATE: ApplicationState =
   };
 
 export const applicationReducers = {
+  setupModuleState: combineReducers({...setupModuleReducers}),
   commonModuleState: combineReducers({...commonModuleReducers}),
   identityModuleState: combineReducers({...identityModuleReducers}),
   accountModuleState: combineReducers({...accountModuleReducers}),
