@@ -15,7 +15,7 @@ import {FeeScheduleCreatorDialog} from "./dialog/fee-schedule-creator.dialog";
 
 export class FeeScheduleCenterPage implements OnInit {
 
-  private FEE_SCHEDULES = "accountModuleState.feeSchedules".split(".");
+  private FEE_SCHEDULES: string[] = "accountModuleState.feeSchedules".split(".");
   private feeSchedules$: Observable<FeeSchedule[]>;
   private creatorDialogRef: MdDialogRef<FeeScheduleCreatorDialog>;
 

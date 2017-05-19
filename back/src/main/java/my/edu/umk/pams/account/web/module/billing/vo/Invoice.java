@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import my.edu.umk.pams.account.web.module.account.vo.AcademicSession;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
 
@@ -18,6 +19,7 @@ public class Invoice extends Document {
     private Boolean paid;
     private Date issuedDate;
     private Account account;
+    private AcademicSession academicSession;
     private BigDecimal totalAmount;
     private BigDecimal totalPretaxAmount;
     private BigDecimal totalTaxAmount;
@@ -77,6 +79,14 @@ public class Invoice extends Document {
 
     public void setBalanceAmount(BigDecimal balanceAmount) {
         this.balanceAmount = balanceAmount;
+    }
+
+    public AcademicSession getAcademicSession() {
+        return academicSession;
+    }
+
+    public void setAcademicSession(AcademicSession academicSession) {
+        this.academicSession = academicSession;
     }
 
     public Account getAccount() {

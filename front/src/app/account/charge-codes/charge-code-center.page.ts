@@ -15,7 +15,7 @@ import {ChargeCodeCreatorDialog} from "./dialog/charge-code-creator.dialog";
 
 export class ChargeCodeCenterPage implements OnInit {
 
-  private CHARGE_CODES = "accountModuleState.chargeCodes".split(".");
+  private CHARGE_CODES: string[] = "accountModuleState.chargeCodes".split(".");
   private chargeCodes$: Observable<ChargeCode[]>;
   private creatorDialogRef: MdDialogRef<ChargeCodeCreatorDialog>;
 

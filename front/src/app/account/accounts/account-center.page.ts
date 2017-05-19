@@ -1,4 +1,13 @@
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef, Input, EventEmitter, Output} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  state,
+  ViewContainerRef,
+  Input,
+  EventEmitter,
+  Output
+} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
 import {Store} from "@ngrx/store";
@@ -15,10 +24,10 @@ import {AccountCreatorDialog} from "./dialog/account-creator.dialog";
 
 export class AccountCenterPage implements OnInit {
 
-    @Input() accounts: Account[];
-    @Output() view = new EventEmitter<Account>();
-    
-  private ACCOUNTS = "accountModuleState.accounts".split(".");
+  @Input() accounts: Account[];
+  @Output() view = new EventEmitter<Account>();
+
+  private ACCOUNTS: string[] = "accountModuleState.accounts".split(".");
   private accounts$: Observable<Account[]>;
   private creatorDialogRef: MdDialogRef<AccountCreatorDialog>;
 
@@ -30,7 +39,7 @@ export class AccountCenterPage implements OnInit {
     {name: 'email', label: 'Email'},
     {name: 'action', label: ''}
   ];
-  
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: AccountActions,

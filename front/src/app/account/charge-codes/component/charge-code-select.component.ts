@@ -13,7 +13,7 @@ import {ChargeCodeActions} from "../charge-code.action";
 })
 export class ChargeCodeSelectComponent implements OnInit {
 
-  private CHARGE_CODES = "accountModuleState.chargeCodes".split(".");
+  private CHARGE_CODES: string[] = "accountModuleState.chargeCodes".split(".");
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   chargeCodes$: Observable<ChargeCode[]>;
