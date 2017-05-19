@@ -10,6 +10,5 @@ export interface Receipt extends MetaObject {
   totalApplied: number;
   totalReceived: number;
   totalAmount: number;
-  balanceAmount: number;
   account: Account;
 }
