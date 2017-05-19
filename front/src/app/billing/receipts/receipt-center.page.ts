@@ -40,6 +40,11 @@ export class ReceiptCenterPage implements OnInit {
     console.log("receipt: " + receipt.taskId);
     this.router.navigate(['/billing/receipts/view-task', receipt.taskId]);
   }
+  
+  claim(task: ReceiptTask) {
+    console.log("receipt: " + task.taskId);
+    this.store.dispatch(this.actions.claimReceiptTask(task));
+  }
 
   showDialog(): void {
     console.log("showDialog");
