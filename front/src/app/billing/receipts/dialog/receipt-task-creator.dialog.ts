@@ -40,7 +40,6 @@ export class ReceiptTaskCreatorDialog implements OnInit {
       totalApplied:0,
       totalReceived:0,
       totalAmount:0,
-      balanceAmount:0,
       account:<Account>{},
     });
   }
