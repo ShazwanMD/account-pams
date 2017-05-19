@@ -15,12 +15,13 @@ import {ReceiptRegisterTaskPanel} from "./panel/receipt-register-task.panel";
 import {ReceiptItemEditorDialog} from "./dialog/receipt-item-editor.dialog";
 import {ReceiptTaskViewPage} from "./receipt-task-view.page";
 import {ReceiptActions} from "./receipt.action";
-import {ReceiptTaskListComponent} from "./component/receipt-task-list.component";
 import {ReceiptTaskCreatorDialog} from "./dialog/receipt-task-creator.dialog";
 import {AccountSubModule} from "../../account/accounts/index";
 import {AccountService} from "../../../services/account.service";
 import {ReceiptEffects} from "./receipt.effect";
 import {EffectsModule} from "@ngrx/effects";
+import {AssignedReceiptTaskListComponent} from "./component/assigned-receipt-task-list.component";
+import {PooledReceiptTaskListComponent} from "./component/pooled-receipt-task-list.component";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {EffectsModule} from "@ngrx/effects";
     ReceiptTaskViewPage,
 
     // components
-    ReceiptTaskListComponent,
+    AssignedReceiptTaskListComponent,
+    PooledReceiptTaskListComponent,
     ReceiptTaskWorkflowPanel,
     ReceiptDraftTaskPanel,
     ReceiptRegisterTaskPanel,
