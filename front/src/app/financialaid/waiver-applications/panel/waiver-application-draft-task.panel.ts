@@ -3,10 +3,9 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
 import {WaiverApplicationTask} from "../waiver-application-task.interface";
 import {WaiverApplicationActions} from "../waiver-application.action";
-import {WaiverApplicationTaskState} from "../waiver-application-task.reducer";
 import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
 import {FinancialaidModuleState} from "../../index";
+import {WaiverApplicationEditorDialog} from "../dialog/waiver-application-editor.dialog";
 
 
 @Component({
@@ -17,6 +16,7 @@ import {FinancialaidModuleState} from "../../index";
 export class WaiverApplicationDraftTaskPanel implements OnInit {
 
   @Input() waiverApplicationTask: WaiverApplicationTask;
+  private creatorDialogRef: MdDialogRef<WaiverApplicationEditorDialog>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -24,6 +24,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
               private actions: WaiverApplicationActions,
               private store: Store<FinancialaidModuleState>,
               private dialog: MdDialog,
+              private vcf: ViewContainerRef,
               private snackBar: MdSnackBar) {
   }
 
@@ -38,4 +39,23 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
   goBack(): void {
     this.router.navigate(['/billing/waiverApplications']);
   }
+
+  showDialog(): void {
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '40%';
+    config.position = {top: '65px'};
+    this.creatorDialogRef = this.dialog.open(WaiverApplicationEditorDialog, config);
+    this.creatorDialogRef.componentInstance.application = this.waiverApplicationTask.application;
+
+    // close
+    this.creatorDialogRef.afterClosed().subscribe(res => {
+      console.log("close dialog");
+      // load something here
+    });
+  }
+
+
 }

@@ -17,6 +17,7 @@ public class WaiverApplication extends Document {
     private String reason;
     private String memo;
     private BigDecimal balance;
+    private BigDecimal effectiveBalance;
     private BigDecimal waivedAmount;
     private BigDecimal gracedAmount;
     private Account account;
@@ -36,6 +37,14 @@ public class WaiverApplication extends Document {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public BigDecimal getEffectiveBalance() {
+        return effectiveBalance;
+    }
+
+    public void setEffectiveBalance(BigDecimal effectiveBalance) {
+        this.effectiveBalance = effectiveBalance;
     }
 
     public BigDecimal getBalance() {

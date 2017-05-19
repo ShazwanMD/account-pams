@@ -8,4 +8,13 @@ import {AccountTransaction} from "../account-transaction.interface";
 })
 export class AccountActivityListComponent {
   @Input() transactions: AccountTransaction[];
+
+  private columns: any[] = [
+    {name: 'sourceNo', label: 'Source'},
+    {name: 'chargeCode.code', label: 'ChargeCode'},
+    {name: 'session.code', label: 'Session'},
+    {name: 'amount', label: 'Amount'},
+    {name: 'action', label: ''}
+  ];
+
 }

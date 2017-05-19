@@ -23,6 +23,7 @@ import {WaiverApplicationTaskViewPage} from "./waiver-application-task-view.page
 import {WaiverApplicationCheckTaskPanel} from "./panel/waiver-application-check-task.panel";
 import {WaiverApplicationVerifyTaskPanel} from "./panel/waiver-application-verify-task.panel";
 import {WaiverApplicationRegisterTaskPanel} from "./panel/waiver-application-register-task.panel";
+import {WaiverApplicationEditorDialog} from "./dialog/waiver-application-editor.dialog";
 
 @NgModule({
   imports: [
@@ -42,7 +43,6 @@ import {WaiverApplicationRegisterTaskPanel} from "./panel/waiver-application-reg
     WaiverApplicationTaskViewPage,
 
     //component
-    WaiverApplicationCreatorDialog,
     AssignedWaiverApplicationTaskListComponent,
     PooledWaiverApplicationTaskListComponent,
     WaiverApplicationTaskWorkflowPanel,
@@ -50,10 +50,15 @@ import {WaiverApplicationRegisterTaskPanel} from "./panel/waiver-application-reg
     WaiverApplicationRegisterTaskPanel,
     WaiverApplicationVerifyTaskPanel,
     WaiverApplicationCheckTaskPanel,
+
+    // dialog
+    WaiverApplicationCreatorDialog,
+    WaiverApplicationEditorDialog,
   ],
   exports: [],
   entryComponents: [
     WaiverApplicationCreatorDialog,
+    WaiverApplicationEditorDialog,
     WaiverApplicationDraftTaskPanel,
     WaiverApplicationRegisterTaskPanel,
     WaiverApplicationVerifyTaskPanel,

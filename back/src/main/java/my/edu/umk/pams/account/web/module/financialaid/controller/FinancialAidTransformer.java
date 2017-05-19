@@ -65,6 +65,7 @@ public class FinancialAidTransformer {
         task.setAssignee(task.getAssignee());
         task.setCandidate(task.getCandidate());
         task.setApplication(toWaiverApplicationVo(application));
+        task.setAccount(accountTransformer.toAccountVo(application.getAccount()));
         task.setFlowState(FlowState.get(application.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(application.getMetadata().getState().ordinal()));
         return task;
@@ -76,6 +77,10 @@ public class FinancialAidTransformer {
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
         vo.setDescription(e.getDescription());
+        vo.setGracedAmount(e.getGracedAmount());
+        vo.setWaivedAmount(e.getWaivedAmount());
+        vo.setBalance(e.getWaivedAmount());
+        vo.setEffectiveBalance(e.getEffectiveBalance());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));

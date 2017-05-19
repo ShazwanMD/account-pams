@@ -15,7 +15,7 @@ export class WaiverApplicationEffects {
   // @Effect() findCompletedWaiverApplications$ = this.actions$
   //   .ofType(WaiverApplicationActions.FIND_COMPLETED_WAIVER_APPLICATIONS)
   //   .switchMap(() => this.financialaidService.findCompletedWaiverApplications())
-  //   .map(invoices => this.waiverApplicationActions.findCompletedWaiverApplicationSuccess(invoices));
+  //   .map(applications => this.waiverApplicationActions.findCompletedWaiverApplicationSuccess(applications));
 
   @Effect() findAssignedWaiverApplicationTasks$ = this.actions$
     .ofType(WaiverApplicationActions.FIND_ASSIGNED_WAIVER_APPLICATION_TASKS)
@@ -55,7 +55,7 @@ export class WaiverApplicationEffects {
   @Effect() completeWaiverApplicationTask$ = this.actions$
     .ofType(WaiverApplicationActions.COMPLETE_WAIVER_APPLICATION_TASK)
     .map(action => action.payload)
-    .switchMap(invoiceTask => this.financialaidService.completeWaiverApplicationTask(invoiceTask))
+    .switchMap(applicationTask => this.financialaidService.completeWaiverApplicationTask(applicationTask))
     .map(message => this.waiverApplicationActions.completeWaiverApplicationTaskSuccess(message))
     .mergeMap(action => from([action,
         this.waiverApplicationActions.findAssignedWaiverApplicationTasks(),
@@ -66,7 +66,7 @@ export class WaiverApplicationEffects {
   @Effect() claimWaiverApplicationTask$ = this.actions$
     .ofType(WaiverApplicationActions.CLAIM_WAIVER_APPLICATION_TASK)
     .map(action => action.payload)
-    .switchMap(invoiceTask => this.financialaidService.claimWaiverApplicationTask(invoiceTask))
+    .switchMap(applicationTask => this.financialaidService.claimWaiverApplicationTask(applicationTask))
     .map(message => this.waiverApplicationActions.claimWaiverApplicationTaskSuccess(message))
     .mergeMap(action => from([action,
         this.waiverApplicationActions.findAssignedWaiverApplicationTasks(),
@@ -77,7 +77,7 @@ export class WaiverApplicationEffects {
   @Effect() releaseWaiverApplicationTask$ = this.actions$
     .ofType(WaiverApplicationActions.RELEASE_WAIVER_APPLICATION_TASK)
     .map(action => action.payload)
-    .switchMap(invoiceTask => this.financialaidService.releaseWaiverApplicationTask(invoiceTask))
+    .switchMap(applicationTask => this.financialaidService.releaseWaiverApplicationTask(applicationTask))
     .map(message => this.waiverApplicationActions.releaseWaiverApplicationTaskSuccess(message))
     .mergeMap(action => from([action,
         this.waiverApplicationActions.findAssignedWaiverApplicationTasks(),
@@ -88,7 +88,7 @@ export class WaiverApplicationEffects {
   @Effect() updateWaiverApplication$ = this.actions$
     .ofType(WaiverApplicationActions.UPDATE_WAIVER_APPLICATION)
     .map(action => action.payload)
-    .switchMap(invoice => this.financialaidService.updateWaiverApplication(invoice))
-    .map(invoice => this.waiverApplicationActions.updateWaiverApplicationSuccess(invoice));
+    .switchMap(application => this.financialaidService.updateWaiverApplication(application))
+    .map(application => this.waiverApplicationActions.updateWaiverApplicationSuccess(application));
 
 }

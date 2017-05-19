@@ -9,16 +9,34 @@
           <div layout="column" flex>
             <md-list dense>
               <md-list-item>
-                <h4 md-line>{{waiverApplicationTask?.referenceNo}}</h4>
+                <h4 md-line>{{waiverApplicationTask?.application?.referenceNo}}</h4>
                 <p md-line>Reference No</p>
+              </md-list-item>
+            </md-list>
+            <md-list dense>
+              <md-list-item>
+                <h4 md-line>{{waiverApplicationTask?.application?.balance}}</h4>
+                <p md-line>Balance</p>
+              </md-list-item>
+            </md-list>
+            <md-list dense>
+              <md-list-item>
+                <h4 md-line>{{waiverApplicationTask?.application?.waivedAmount}}</h4>
+                <p md-line>Waived Amount</p>
               </md-list-item>
             </md-list>
           </div>
           <div layout="column" flex>
             <md-list dense>
               <md-list-item>
-                <h4 md-line>{{waiverApplicationTask?.accountCode}}</h4>
+                <h4 md-line>{{waiverApplicationTask?.application?.account?.code}}</h4>
                 <p md-line>Account</p>
+              </md-list-item>
+            </md-list>
+            <md-list dense>
+              <md-list-item>
+                <h4 md-line>{{waiverApplicationTask?.application?.gracedAmount}}</h4>
+                <p md-line>Graced Amount</p>
               </md-list-item>
             </md-list>
           </div>
