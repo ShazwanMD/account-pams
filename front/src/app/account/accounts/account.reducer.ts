@@ -12,7 +12,7 @@ const initialState: AccountState = {
   name: '',
   email: '',
   actor:<Actor>{},
-  balanceAmount:0
+  balance:0
 };
 
 export function accountReducer(state = initialState, action: Action): AccountState {
