@@ -11,6 +11,9 @@ export function assignedReceiptTaskListReducer(state = initialState, action: Act
     case ReceiptActions.FIND_ASSIGNED_RECEIPT_TASKS_SUCCESS: {
       return action.payload;
     }
+    default: {
+      return state;
+    }
   }
 }
 
@@ -18,6 +21,9 @@ export function pooledReceiptTaskListReducer(state = initialState, action: Actio
   switch (action.type) {
     case ReceiptActions.FIND_POOLED_RECEIPT_TASKS_SUCCESS: {
       return action.payload;
+    }
+    default: {
+      return state;
     }
   }
 }
