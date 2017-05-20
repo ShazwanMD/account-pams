@@ -4,7 +4,7 @@ import {MetaObject} from "../../core/meta-object.interface";
 export interface PromoCodeItem extends MetaObject{
 
   code:string;
-  applied:number;
+  //applied:number;
   sourceNo:number;
   account:Account;
 }
