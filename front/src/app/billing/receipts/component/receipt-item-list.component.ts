@@ -70,7 +70,7 @@ export class ReceiptItemListComponent implements OnInit {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '60%';
+    config.height = '90%';
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
     this.editorDialogRef.componentInstance.receipt = this.receipt;
