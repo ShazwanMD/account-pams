@@ -113,7 +113,43 @@ public class MarketingController {
         return new ResponseEntity<List<PromoCodeItem>>(marketingTransformer
                 .toPromoCodeItemVos(marketingService.findPromoCodeItems(promoCode)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems", method = RequestMethod.POST)
+    public ResponseEntity<String> addPromoCodeItem(@PathVariable String referenceNo, @RequestBody PromoCodeItem item) {
+        dummyLogin();
+        AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
+        AcPromoCodeItem e = new AcPromoCodeItemImpl();
+        e.setApplied(false);
+        e.setCode(item.getCode());
+        e.setSourceNo(item.getSourceNo());
+        e.setPromoCode(promoCode);
+        //e.setAccount(accountService.findAccountById(item.getAccount().getId()));
+        marketingService.addPromoCodeItem(promoCode, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updatePromoCodeItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody PromoCodeItem item) {
+        dummyLogin();
+        AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
+        AcPromoCodeItem e = marketingService.findPromoCodeItemById(item.getId());
+        e.setApplied(item.isApplied());
+        e.setCode(item.getCode());
+        e.setSourceNo(item.getSourceNo());
+        e.setPromoCode(promoCode);
+        marketingService.updatePromoCodeItem(promoCode, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deletePromoCodeItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        dummyLogin();
+        AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
+        AcPromoCodeItem e = marketingService.findPromoCodeItemById(id);
+        marketingService.deletePromoCodeItem(promoCode, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+/*
     @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems", method = RequestMethod.POST)
     public void updatePromoCodeItems(@PathVariable String referenceNo, @RequestBody PromoCodeItem item) {
         dummyLogin();
@@ -128,7 +164,7 @@ public class MarketingController {
             marketingService.updatePromoCodeItem(promoCode, e);
         }
     }
-
+*/
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================

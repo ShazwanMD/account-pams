@@ -56,4 +56,35 @@ export class MarketingService {
     // return this.http.put(environment.endpoint + '/api/marketing/promoCodes', JSON.stringify(settlement))
     //   .flatMap(data => Observable.of(true));
   }
+  
+  addPromoCodeItem(promoCode: PromoCode, item: PromoCodeItem): Observable<String> {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.post(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems' , JSON.stringify(item), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+    
+    updatePromoCodeItem(promoCode: PromoCode, item: PromoCodeItem){
+        console.log("saving promoCode item" + item.id);
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.put(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + item.id,  JSON.stringify(item), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+    
+    deletePromoCodeItem(promoCode: PromoCode, item: PromoCodeItem) {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            //'Authorization': 'Bearer ' + this.authService.token
+          });
+          let options = new RequestOptions({headers: headers});
+         return this.http.delete(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + item.id, options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
 }
