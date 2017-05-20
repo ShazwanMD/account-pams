@@ -1,0 +1,37 @@
+<h2 md-dialog-title>PromoCode Item Editor</h2>
+<md-dialog-content>
+  <form [formGroup]="editForm">
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Code"
+               formControlName="code"/>
+      </md-input-container>
+    </div><!--
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Applied"
+               formControlName="applied">
+      </md-input-container>
+    </div>-->
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="SourceNo"
+               formControlName="sourceNo">
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <pams-account-select
+        [placeholder]="'Account'"
+        [innerFormControl]="editForm.controls['account']"></pams-account-select>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
+</md-dialog-actions>
+
