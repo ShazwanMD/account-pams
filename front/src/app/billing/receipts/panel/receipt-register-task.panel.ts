@@ -5,9 +5,10 @@ import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/materi
 import {ReceiptItemEditorDialog} from "../dialog/receipt-item-editor.dialog";
 import {ReceiptTask} from "../receipt-task.interface";
 import {ReceiptActions} from "../receipt.action";
+import {ReceiptTaskState} from "../receipt-task.reducer";
 import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
 import {BillingModuleState} from "../../index";
-import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -15,7 +16,7 @@ import {Observable} from "rxjs/Observable";
   templateUrl: './receipt-register-task.panel.html',
 })
 
-export class ReceiptRegisterTaskPanel {
+export class ReceiptRegisterTaskPanel implements OnInit {
 
   private RECEIPT_ITEMS = "billingModuleState.receiptItems".split(".");
   @Input() receiptTask: ReceiptTask;
@@ -46,7 +47,7 @@ export class ReceiptRegisterTaskPanel {
     editorDialogRef.componentInstance.receiptItem = item;
   }
 
-  verify() {
+  approve() {
     this.store.dispatch(this.actions.completeReceiptTask(this.receiptTask));
     this.goBack();
   }
