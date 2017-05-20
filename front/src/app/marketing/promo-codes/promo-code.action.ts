@@ -117,4 +117,58 @@ export class PromoCodeActions {
       payload: promoCode
     };
   }
+  
+  static ADD_PROMO_CODE_ITEM = '[PromoCode] Add PromoCode Item';
+
+  addPromoCodeItem(promoCode, item): Action {
+    return {
+      type: PromoCodeActions.ADD_PROMO_CODE_ITEM,
+      payload: {promoCode:promoCode, item:item}
+    };
+  }
+
+  static ADD_PROMO_CODE_ITEM_SUCCESS = '[PromoCode] Add PromoCode Item Success';
+
+  addPromoCodeItemSuccess(message): Action {
+    return {
+      type: PromoCodeActions.ADD_PROMO_CODE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static UPDATE_PROMO_CODE_ITEM = '[PromoCode] Update PromoCode Item';
+
+  updatePromoCodeItem(promoCode, item): Action {
+    return {
+      type: PromoCodeActions.UPDATE_PROMO_CODE_ITEM,
+      payload: {promoCode:promoCode, item:item}
+    };
+  }
+
+  static UPDATE_PROMO_CODE_ITEM_SUCCESS = '[PromoCode] Update PromoCode Item Success';
+
+  updatePromoCodeItemSuccess(message): Action {
+    return {
+      type: PromoCodeActions.UPDATE_PROMO_CODE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static DELETE_PROMO_CODE_ITEM = '[PromoCode] Delete PromoCode Item';
+
+  deletePromoCodeItem(promoCode, item): Action {
+    return {
+      type: PromoCodeActions.DELETE_PROMO_CODE_ITEM,
+      payload: {promoCode:promoCode, item:item}
+    };
+  }
+
+  static DELETE_PROMO_CODE_ITEM_SUCCESS = '[PromoCode] Add PromoCode Item Success';
+
+  deletePromoCodeItemSuccess(message): Action {
+    return {
+      type: PromoCodeActions.DELETE_PROMO_CODE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
 }
