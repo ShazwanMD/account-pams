@@ -15,8 +15,10 @@ import {PromoCodeCenterPage} from "./promo-code-center.page";
 import {PromoCodeListComponent} from "./component/promo-code-list.component";
 import {PromoCodeDetailPage} from "./promo-code-detail.page";
 import {PromoCodeComponent} from "./component/promo-code.component";
-import {PromoCodeItemComponent} from "./component/promo-code-item-list.component";
+import {PromoCodeItemListComponent} from "./component/promo-code-item-list.component";
 import {PromoCodeCreatorDialog} from "./dialog/promo-code-creator.dialog";
+import {PromoCodeItemEditorDialog} from "./dialog/promo-code-item-editor.dialog";
+import {AccountSubModule} from "../../account/accounts/index";
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import {PromoCodeCreatorDialog} from "./dialog/promo-code-creator.dialog";
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     EffectsModule.run(PromoCodeEffects),
+    AccountSubModule.forRoot(),
   ],
   declarations: [
     // page
@@ -35,12 +38,15 @@ import {PromoCodeCreatorDialog} from "./dialog/promo-code-creator.dialog";
     // component
     PromoCodeListComponent,
     PromoCodeComponent,
-    PromoCodeItemComponent,
+    PromoCodeItemListComponent,
+    
     PromoCodeCreatorDialog,
+    PromoCodeItemEditorDialog,
   ],
   exports: [],
   entryComponents: [
     PromoCodeCreatorDialog,
+    PromoCodeItemEditorDialog,
   ],
 
 })
