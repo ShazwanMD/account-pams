@@ -32,7 +32,7 @@
         <md-tab label="Pooled">
           <pams-pooled-receipt-task-list
             [receiptTasks]="pooledReceiptTasks$ | async"
-            (view)="claim($event)"></pams-pooled-receipt-task-list>
+            (claim)="claim($event)"></pams-pooled-receipt-task-list>
         </md-tab>
       </md-tab-group>
     </md-card>
