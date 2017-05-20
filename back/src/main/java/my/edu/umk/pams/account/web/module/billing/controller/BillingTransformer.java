@@ -158,7 +158,21 @@ public class BillingTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
-    ////----
+
+    public ReceiptItem toReceiptItemVo(AcReceiptItem e) {
+        ReceiptItem vo = new ReceiptItem();
+        vo.setId(e.getId());
+        vo.setDescription(e.getDescription());
+        vo.setAdjustedAmount(e.getAdjustedAmount());
+        vo.setAppliedAmount(e.getAppliedAmount());
+        vo.setDueAmount(e.getDueAmount());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+
+
     public DebitNote toDebitNoteVos(AcDebitNote e) {
     	DebitNote vo = new DebitNote();
         vo.setId(e.getId());
@@ -221,17 +235,6 @@ public class BillingTransformer {
                 .collect(toCollection(() -> new ArrayList<ReceiptItem>()));
     }
 
-    public ReceiptItem toReceiptItemVo(AcReceiptItem e) {
-        // todo(uda): more properties
-        ReceiptItem vo = new ReceiptItem();
-        vo.setId(e.getId());
-        vo.setAmount(e.getTotalAmount());
-        vo.setDescription(e.getDescription());
-        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
-        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        return vo;
-    }
-    /////-----
     public List<DebitNote> toDebitNoteVos(List<AcDebitNote> journals) {
         return journals.stream()
                 .map((task) -> toDebitNoteVos(task))

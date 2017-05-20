@@ -22,6 +22,10 @@ import {ReceiptEffects} from "./receipt.effect";
 import {EffectsModule} from "@ngrx/effects";
 import {AssignedReceiptTaskListComponent} from "./component/assigned-receipt-task-list.component";
 import {PooledReceiptTaskListComponent} from "./component/pooled-receipt-task-list.component";
+import {ReceiptStatusComponent} from "./component/receipt-status.component";
+import {ReceiptItemListComponent} from "./component/receipt-item-list.component";
+import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
+import {ChargeCodeSubModule} from "../../account/charge-codes/index";
 
 
 @NgModule({
@@ -32,6 +36,8 @@ import {PooledReceiptTaskListComponent} from "./component/pooled-receipt-task-li
     CovalentCoreModule.forRoot(),
     EffectsModule.run(ReceiptEffects),
     AccountSubModule.forRoot(),
+    AcademicSessionSubModule.forRoot(),
+    ChargeCodeSubModule.forRoot(),
   ],
   declarations: [
     // page
@@ -44,12 +50,15 @@ import {PooledReceiptTaskListComponent} from "./component/pooled-receipt-task-li
     ReceiptTaskWorkflowPanel,
     ReceiptDraftTaskPanel,
     ReceiptRegisterTaskPanel,
+    ReceiptStatusComponent,
+    ReceiptItemListComponent,
+
+    // dialog
     ReceiptItemEditorDialog,
     ReceiptTaskCreatorDialog,
   ],
   exports: [],
   entryComponents: [
-    // dialog
     ReceiptDraftTaskPanel,
     ReceiptRegisterTaskPanel,
     ReceiptItemEditorDialog,

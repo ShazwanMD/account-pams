@@ -1,33 +1,71 @@
-<h2 md-dialog-title>Invoice Item Editor</h2>
+<h2 md-dialog-title>Receipt Item Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editForm">
     <div layout="row" class="pad-bottom">
-      <md-input-container  flex>
-        <input md-input #description
-               placeholder="description"
-               formControlName="description"
-               value="Description"
-               flex/>
+      <md-input-container flex>
+        <input mdInput #description
+               placeholder="Description"
+               formControlName="description"/>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
-        <input placeholder="Amount"
-                  value="Amount" formControlName="amount">
+        <input mdInput
+               placeholder="Total Amount"
+               formControlName="totalAmount"
+               type="number">
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-select formControlName="chargeCode" [(ngModel)]="selectedChargeCode" placeholder="Charge Code"
-                 style="width: 100%">
-        <md-option *ngFor="let chargeCode of chargeCodes" [value]="chargeCode">
-          {{chargeCode.code}}: {{chargeCode.description}}
-        </md-option>
-      </md-select>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Due Amount"
+               formControlName="dueAmount"
+              type="number">
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Applied Amount"
+               formControlName="appliedAmount"
+               type="number">
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Adjusted Amount"
+               formControlName="adjustedAmount"
+               type="number">
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Unit"
+               formControlName="unit"
+               type="number">
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Price"
+               formControlName="price"
+               type="number">
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <pams-charge-code-select
+        [placeholder]="'Charge Code'"
+        [innerFormControl]="editForm.controls['chargeCode']"></pams-charge-code-select>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-button color="primary" (click)="goBack()">Back</button>
-  <button md-raised-button color="accent" (click)="save(editForm.value, newForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
 </md-dialog-actions>
 

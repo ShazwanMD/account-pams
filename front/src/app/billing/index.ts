@@ -34,6 +34,7 @@ import {
 import { DebitNoteSubModule } from "./debit-notes/index";
 import { CreditNoteSubModule } from "./credit-notes/index";
 import { InvoiceTaskListComponent } from "./invoices/component/invoice-task-list.component";
+import {receiptItemListReducer, ReceiptItemListState} from "./receipts/receipt-item-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -46,6 +47,7 @@ export interface BillingModuleState {
   pooledReceiptTasks: ReceiptTaskListState;
   receiptTask: ReceiptTaskState;
   receipt: ReceiptState;
+  receiptItems: ReceiptItemListState;
 }
 ;
 
@@ -60,7 +62,8 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     assignedReceiptTasks: [],
     pooledReceiptTasks: [],
     receiptTask: <ReceiptTask>{},
-    receipt: <Receipt>{}
+    receipt: <Receipt>{},
+    receiptItems: [],
   };
 
 export const billingModuleReducers = {
@@ -73,7 +76,8 @@ export const billingModuleReducers = {
   assignedReceiptTasks: assignedReceiptTaskListReducer,
   pooledReceiptTasks: pooledReceiptTaskListReducer,
   receiptTask: receiptTaskReducer,
-  receipts: receiptReducer
+  receipts: receiptReducer,
+  receiptItems: receiptItemListReducer,
 };
 
 @NgModule({
@@ -90,14 +94,9 @@ export const billingModuleReducers = {
   declarations: [
     // page
     BillingPage,
-
-    
   ],
-  exports: [
-],
-  entryComponents: [
-
-                  ],
+  exports: [],
+  entryComponents: [],
 })
 export class BillingModule {
   static forRoot(): ModuleWithProviders {

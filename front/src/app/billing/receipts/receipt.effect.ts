@@ -3,13 +3,19 @@ import {Effect, Actions} from '@ngrx/effects';
 import {ReceiptActions} from "./receipt.action";
 import {from} from "rxjs/observable/from";
 import {BillingService} from "../../../services/billing.service";
+import {BillingModuleState} from "../index";
+import {Store} from "@ngrx/store";
 
 
 @Injectable()
 export class ReceiptEffects {
+
+  private RECEIPT_TASK: string[] = "billingModuleState.receiptTask".split(".");
+
   constructor(private actions$: Actions,
               private receiptActions: ReceiptActions,
-              private billingService: BillingService) {
+              private billingService: BillingService,
+              private store$: Store<BillingModuleState>) {
   }
 
   @Effect() findAssignedReceiptTasks$ = this.actions$
@@ -48,8 +54,8 @@ export class ReceiptEffects {
     .switchMap(receipt => this.billingService.startReceiptTask(receipt))
     .map(referenceNo => this.receiptActions.startReceiptTaskSuccess(referenceNo))
     .mergeMap(action => from([action,
-       this.receiptActions.findAssignedReceiptTasks(),
-       this.receiptActions.findPooledReceiptTasks()
+        this.receiptActions.findAssignedReceiptTasks(),
+        this.receiptActions.findPooledReceiptTasks()
       ]
     ));
 
@@ -63,34 +69,62 @@ export class ReceiptEffects {
         this.receiptActions.findPooledReceiptTasks()
       ]
     ));
-  
-  @Effect() assignReceiptTask$ = this.actions$
-    .ofType(ReceiptActions.ASSIGN_RECEIPT_TASK)
-    .map(action => action.payload);
-  // todo
 
+  @Effect() claimReceiptTask$ = this.actions$
+    .ofType(ReceiptActions.CLAIM_RECEIPT_TASK)
+    .map(action => action.payload)
+    .switchMap(receiptTask => this.billingService.claimReceiptTask(receiptTask))
+    .map(message => this.receiptActions.claimReceiptTaskSuccess(message))
+    .mergeMap(action => from([action,
+        this.receiptActions.findAssignedReceiptTasks(),
+        this.receiptActions.findPooledReceiptTasks()
+      ]
+    ));
 
   @Effect() releaseReceiptTask$ = this.actions$
     .ofType(ReceiptActions.RELEASE_RECEIPT_TASK)
-    .map(action => action.payload);
-  // todo
-    // .switchMap(receipt => this.billingService.startReceiptTask(receipt))
-    // .map(task => this.receiptActions.startReceiptTaskSuccess(task));
+    .map(action => action.payload)
+    .switchMap(receiptTask => this.billingService.releaseReceiptTask(receiptTask))
+    .map(message => this.receiptActions.releaseReceiptTaskSuccess(message))
+    .mergeMap(action => from([action,
+        this.receiptActions.findAssignedReceiptTasks(),
+        this.receiptActions.findPooledReceiptTasks()
+      ]
+    ));
 
   @Effect() updateReceipt$ = this.actions$
     .ofType(ReceiptActions.UPDATE_RECEIPT)
     .map(action => action.payload)
     .switchMap(receipt => this.billingService.updateReceipt(receipt))
     .map(receipt => this.receiptActions.updateReceiptSuccess(receipt));
-  
-  @Effect() claimReceiptTask$ = this.actions$
-      .ofType(ReceiptActions.CLAIM_RECEIPT_TASK)
+
+  @Effect() addReceiptItem$ =
+    this.actions$
+      .ofType(ReceiptActions.ADD_RECEIPT_ITEM)
       .map(action => action.payload)
-      .switchMap(receiptTask => this.billingService.claimReceiptTask(receiptTask))
-      .map(message => this.receiptActions.claimReceiptTaskSuccess(message))
-      .mergeMap(action => from([action,
-          this.receiptActions.findAssignedReceiptTasks(),
-          this.receiptActions.findPooledReceiptTasks()
-        ]
-      ));
+      .switchMap(payload => this.billingService.addReceiptItem(payload.receipt, payload.item))
+      .map(message => this.receiptActions.addReceiptItemSuccess(message))
+      .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+      .map(state => state[1])
+      .map(receipt => this.receiptActions.findReceiptItems(receipt));
+
+  @Effect() updateReceiptItem$ = this.actions$
+    .ofType(ReceiptActions.UPDATE_RECEIPT_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.billingService.updateReceiptItem(payload.receipt, payload.item))
+    .map(message => this.receiptActions.updateReceiptItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+    .map(state => state[1])
+    .map(receipt => this.receiptActions.findReceiptItems(receipt));
+
+  @Effect() deleteReceiptItem$ = this.actions$
+    .ofType(ReceiptActions.DELETE_RECEIPT_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.billingService.deleteReceiptItem(payload.receipt, payload.item))
+    .map(message => this.receiptActions.deleteReceiptItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+    .map(state => state[1])
+    .map(receipt => this.receiptActions.findReceiptItems(receipt));
+
+
 }

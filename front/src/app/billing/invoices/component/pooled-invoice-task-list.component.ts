@@ -1,10 +1,6 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {InvoiceTask} from "../invoice-task.interface";
-import {Observable} from "rxjs/Observable";
 import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {BillingModuleState} from "../../index";
-import {InvoiceActions} from "../invoice.action";
 
 @Component({
   selector: 'pams-pooled-invoice-task-list',

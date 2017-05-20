@@ -14,11 +14,13 @@ import java.math.BigDecimal;
 public class ReceiptItem extends MetaObject {
 
     private String description;
-    private BigDecimal amount;
-    private BigDecimal debitAmount;
-    private BigDecimal creditAmount;
-    private boolean readOnly;
-    private ChargeCode sodoCode;
+    private BigDecimal dueAmount;
+    private BigDecimal totalAmount;
+    private BigDecimal adjustedAmount;
+    private BigDecimal appliedAmount;
+    private BigDecimal price;
+    private Integer unit;
+    private ChargeCode chargeCode;
 
     public String getDescription() {
         return description;
@@ -28,44 +30,60 @@ public class ReceiptItem extends MetaObject {
         this.description = description;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public boolean isReadOnly() {
-        return readOnly;
-    }
-
-    public void setReadOnly(boolean readOnly) {
-        this.readOnly = readOnly;
-    }
-
     public ChargeCode getChargeCode() {
-        return sodoCode;
+        return chargeCode;
     }
 
     public void setChargeCode(ChargeCode sodoCode) {
-        this.sodoCode = sodoCode;
+        this.chargeCode = sodoCode;
     }
 
-    public BigDecimal getDebitAmount() {
-        return debitAmount;
+    public BigDecimal getDueAmount() {
+        return dueAmount;
     }
 
-    public void setDebitAmount(BigDecimal debitAmount) {
-        this.debitAmount = debitAmount;
+    public void setDueAmount(BigDecimal dueAmount) {
+        this.dueAmount = dueAmount;
     }
 
-    public BigDecimal getCreditAmount() {
-        return creditAmount;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setCreditAmount(BigDecimal creditAmount) {
-        this.creditAmount = creditAmount;
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public BigDecimal getAdjustedAmount() {
+        return adjustedAmount;
+    }
+
+    public void setAdjustedAmount(BigDecimal adjustedAmount) {
+        this.adjustedAmount = adjustedAmount;
+    }
+
+    public BigDecimal getAppliedAmount() {
+        return appliedAmount;
+    }
+
+    public void setAppliedAmount(BigDecimal appliedAmount) {
+        this.appliedAmount = appliedAmount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Integer unit) {
+        this.unit = unit;
     }
 
     @JsonCreator

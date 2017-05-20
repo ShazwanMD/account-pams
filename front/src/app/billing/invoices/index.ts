@@ -21,7 +21,7 @@ import {InvoiceTaskViewPage} from "./invoice-task-view.page";
 import {InvoiceTaskCreatorDialog} from "./dialog/invoice-task-creator.dialog";
 import {AccountSubModule} from "../../account/accounts/index";
 import {AccountService} from "../../../services/account.service";
-import {InvoiceItemComponent} from "./component/invoice-item-list.component";
+import {InvoiceItemListComponent} from "./component/invoice-item-list.component";
 import {ChargeCodeSubModule} from "../../account/charge-codes/index";
 import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 import {InvoiceVerifyTaskPanel} from "./panel/invoice-verify-task.panel";
@@ -56,7 +56,7 @@ import {InvoiceStatusComponent} from "./component/invoice-status.component";
     InvoiceVerifyTaskPanel,
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
-    InvoiceItemComponent,
+    InvoiceItemListComponent,
     InvoiceSelectComponent,
     InvoiceStatusComponent,
   ],

@@ -1,10 +1,6 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {ReceiptTask} from "../receipt-task.interface";
-import {Observable} from "rxjs/Observable";
 import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {BillingModuleState} from "../../index";
-import {ReceiptActions} from "../receipt.action";
 
 @Component({
   selector: 'pams-pooled-receipt-task-list',

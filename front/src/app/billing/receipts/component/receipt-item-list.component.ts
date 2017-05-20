@@ -1,25 +1,25 @@
 import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
-import {InvoiceItem} from "../invoice-item.interface";
-import {InvoiceItemEditorDialog} from "../dialog/invoice-item-editor.dialog";
+import {ReceiptItem} from "../receipt-item.interface";
+import {ReceiptItemEditorDialog} from "../dialog/receipt-item-editor.dialog";
 import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BillingModuleState} from "../../index";
 import {Store} from "@ngrx/store";
-import {InvoiceActions} from "../invoice.action";
-import {Invoice} from "../invoice.interface";
+import {ReceiptActions} from "../receipt.action";
+import {Receipt} from "../receipt.interface";
 
 @Component({
-  selector: 'pams-invoice-item-list',
-  templateUrl: './invoice-item-list.component.html',
+  selector: 'pams-receipt-item-list',
+  templateUrl: './receipt-item-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceItemListComponent implements OnInit {
+export class ReceiptItemListComponent implements OnInit {
 
-  @Input() invoice: Invoice;
-  @Input() invoiceItems: InvoiceItem[];
+  @Input() receipt: Receipt;
+  @Input() receiptItems: ReceiptItem[];
 
-  private selectedRows: InvoiceItem[];
-  private editorDialogRef: MdDialogRef<InvoiceItemEditorDialog>;
+  private selectedRows: ReceiptItem[];
+  private editorDialogRef: MdDialogRef<ReceiptItemEditorDialog>;
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'chargeCode.description', label: 'Charge Code Description'},
@@ -29,7 +29,7 @@ export class InvoiceItemListComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private actions: InvoiceActions,
+              private actions: ReceiptActions,
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
@@ -37,35 +37,34 @@ export class InvoiceItemListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedRows = this.invoiceItems.filter(value => value.selected);
+    this.selectedRows = this.receiptItems.filter(value => value.selected);
   }
 
   createDialog(): void {
     this.showDialog(null);
   }
 
-  edit(invoiceItem: InvoiceItem): void {
-    this.showDialog(invoiceItem);
+  edit(receiptItem: ReceiptItem): void {
+    this.showDialog(receiptItem);
   }
 
   delete(): void {
     console.log("length: " + this.selectedRows.length);
     for (var i = 0; i < this.selectedRows.length; i++) {
-      this.store.dispatch(this.actions.deleteInvoiceItem(this.invoice, this.selectedRows[i]));
+      this.store.dispatch(this.actions.deleteReceiptItem(this.receipt, this.selectedRows[i]));
     }
   }
 
   filter(): void {
   }
 
-  selectRow(invoiceItem: InvoiceItem): void {
+  selectRow(receiptItem: ReceiptItem): void {
   }
 
-  selectAllRows(invoiceItems: InvoiceItem[]): void {
+  selectAllRows(receiptItems: ReceiptItem[]): void {
   }
 
-
-  showDialog(invoiceItem: InvoiceItem): void {
+  showDialog(receiptItem: ReceiptItem): void {
     console.log("showDialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -73,9 +72,9 @@ export class InvoiceItemListComponent implements OnInit {
     config.width = '50%';
     config.height = '60%';
     config.position = {top: '0px'};
-    this.editorDialogRef = this.dialog.open(InvoiceItemEditorDialog, config);
-    this.editorDialogRef.componentInstance.invoice = this.invoice;
-    if (invoiceItem) this.editorDialogRef.componentInstance.invoiceItem = invoiceItem; // set
+    this.editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
+    this.editorDialogRef.componentInstance.receipt = this.receipt;
+    if (receiptItem) this.editorDialogRef.componentInstance.receiptItem = receiptItem; // set
     this.editorDialogRef.afterClosed().subscribe(res => {
       console.log("close dialog");
     });

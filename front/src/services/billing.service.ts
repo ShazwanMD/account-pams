@@ -222,8 +222,39 @@ export class BillingService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateReceipt(receipt: Receipt): Observable<Boolean> {
+  updateReceipt(receipt: Receipt): Observable<String> {
     return this.http.put(environment.endpoint + '/api/billing/receipts', JSON.stringify(receipt))
-      .flatMap(data => Observable.of(true));
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  addReceiptItem(receipt: Receipt, item: ReceiptItem): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/receipts/' + receipt.referenceNo + '/receiptItems' , JSON.stringify(item), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  updateReceiptItem(receipt: Receipt, item: ReceiptItem){
+    console.log("saving receipt item" + item.id);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.put(environment.endpoint + '/api/billing/receipts/' + receipt.referenceNo + '/receiptItems/' + item.id,  JSON.stringify(item), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  deleteReceiptItem(receipt: Receipt, item: ReceiptItem) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.delete(environment.endpoint + '/api/billing/receipts/' + receipt.referenceNo + '/receiptItems/' + item.id, options)
+      .flatMap((res: Response) => Observable.of(res.text()));
   }
 }

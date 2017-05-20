@@ -3,8 +3,12 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ReceiptItem} from "../receipt-item.interface";
+import {Receipt} from "../receipt.interface";
+import {BillingModuleState} from "../../index";
+import {MdDialogRef} from "@angular/material";
+import {ReceiptActions} from "../receipt.action";
+import {Store} from "@ngrx/store";
 import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
-
 
 @Component({
   selector: 'pams-receipt-item-editor',
@@ -14,38 +18,46 @@ import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
 export class ReceiptItemEditorDialog implements OnInit {
 
   private editForm: FormGroup;
-
-  private selectedChargeCode: ChargeCode;
-  private chargeCodes: ChargeCode[] = <ChargeCode[]> [];
+  private edit: boolean = false;
+  private _receipt:Receipt;
+  private _receiptItem:ReceiptItem;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private viewContainerRef: ViewContainerRef) {
+              private viewContainerRef: ViewContainerRef,
+              private store: Store<BillingModuleState>,
+              private actions:ReceiptActions,
+              private dialog: MdDialogRef<ReceiptItemEditorDialog>) {
+  }
+
+  set receipt(value: Receipt) {
+    this._receipt = value;
   }
 
   set receiptItem(value: ReceiptItem) {
     this.receiptItem = value;
+    this.edit = true;
   }
 
   ngOnInit(): void {
     this.editForm = this.formBuilder.group(<ReceiptItem>{
       id: null,
       description: '',
-      amount: 0,
-      balanceAmount: 0,
+      totalAmount: 0,
+      adjustedAmount: 0,
+      appliedAmount: 0,
+      dueAmount: 0,
+      unit: 0,
+      price: 0,
+      chargeCode:<ChargeCode>{},
     });
-
-    // this.editForm.patchValue(this.receiptItem);
+    if (this.edit) this.editForm.patchValue(this._receiptItem);
   }
 
-  // save(receipt: Receipt, isValid: boolean) {
-  //   this.submitted = true; // set form submit to true
-  //   this._receiptService.startReceiptTask(receipt).subscribe(res => {
-  //     let snackBarRef = this._snackBar.open("Receipt started", "OK");
-  //     snackBarRef.afterDismissed().subscribe(() => {
-  //       this.goBack();
-  //     });
-  //   });
-  // }
+  submit(item: ReceiptItem, isValid: boolean) {
+    if (!item.id) this.store.dispatch(this.actions.addReceiptItem(this._receipt, item));
+    else  this.store.dispatch(this.actions.updateReceiptItem(this._receipt, item));
+    this.dialog.close();
+  }
 }
