@@ -38,18 +38,18 @@ export class DebitNoteActions {
     };
   }
 
-  static SAVE_DEBIT_NOTE = '[DebitNote] Save DebitNote';
-  saveDebitNote(debitNote): Action {
+  static START_DEBIT_NOTE_TASK = '[DebitNote] Start DebitNote Task';
+  startDebitNoteTask(debitNote): Action {
     return {
-      type: DebitNoteActions.SAVE_DEBIT_NOTE,
+      type: DebitNoteActions.START_DEBIT_NOTE_TASK,
       payload: debitNote
     };
   }
 
-  static SAVE_DEBIT_NOTE_SUCCESS = '[DebitNote] Save DebitNote Success';
-  saveDebitNoteSuccess(debitNote): Action {
+  static START_DEBIT_NOTE_TASK_SUCCESS = '[DebitNote] Start DebitNote Task Success';
+  startDebitNoteTaskSuccess(debitNote): Action {
     return {
-      type: DebitNoteActions.SAVE_DEBIT_NOTE_SUCCESS,
+      type: DebitNoteActions.START_DEBIT_NOTE_TASK_SUCCESS,
       payload: debitNote
     };
   }
