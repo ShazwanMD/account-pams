@@ -8,7 +8,9 @@
     <div layout="column" layout-gt-md="row" class="inset">
       <div flex-gt-md="70">
         <pams-promo-code [promoCode]="promoCode$ | async"></pams-promo-code>
-        <pams-promo-code-item-list  [promoCodeItems]="promoCodeItems$ | async"></pams-promo-code-item-list>
+        <pams-promo-code-item-list
+          [promoCode]="promoCode$ | async"
+          [promoCodeItems]="promoCodeItems$ | async"></pams-promo-code-item-list>
       </div>
 
       <div flex-gt-md="30">
@@ -18,22 +20,10 @@
           <md-divider></md-divider>
 
           <md-nav-list flex dense>
-            <md-list-item [routerLink]="['/promoCodes-reopen', promoCode?.code]">
+            <md-list-item (click)="deactivate()">
               <md-icon md-list-avatar>gavel</md-icon>
               <h4 md-line>Deactivate</h4>
               <p md-line>Deactivate this promoCode</p>
-            </md-list-item>
-            <md-divider></md-divider>
-            <h3 md-subheader>Notification</h3>
-            <md-list-item>
-              <md-icon md-list-avatar>visibility</md-icon>
-              <h4 md-line>Watch</h4>
-              <p md-line>Watch this promoCode</p>
-            </md-list-item>
-            <md-list-item>
-              <md-icon md-list-avatar>email</md-icon>
-              <h4 md-line>Share</h4>
-              <p md-line>Share this promoCode with others</p>
             </md-list-item>
           </md-nav-list>
         </md-card>

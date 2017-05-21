@@ -41,5 +41,9 @@ export class PromoCodeDetailPage implements OnInit {
   goBack(route: string): void {
     this.router.navigate(['/marketing']);
   }
+
+  deactivate():void {
+    // todo
+  }
 }
 

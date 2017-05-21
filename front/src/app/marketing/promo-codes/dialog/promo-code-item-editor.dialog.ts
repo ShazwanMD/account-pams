@@ -19,9 +19,9 @@ import {PromoCode} from "../promo-code.interface";
 export class PromoCodeItemEditorDialog implements OnInit {
 
   private editForm: FormGroup;
+  private edit: boolean = false;
   private _promoCodeItem: PromoCodeItem;
   private _promoCode: PromoCode;
-  private edit: boolean = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
