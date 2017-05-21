@@ -1,6 +1,38 @@
 <md-card>
   <md-card-title>{{settlement.description}}</md-card-title>
   <md-card-subtitle>{{settlement.referenceNo}}</md-card-subtitle>
+
+  <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+    <div layout="column" flex>
+      <md-list dense>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{settlement?.referenceNo}}</h4>
+          <p md-line>Reference No</p>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{settlement?.sourceNo}}</h4>
+          <p md-line>Source No</p>
+        </md-list-item>
+      </md-list>
+    </div>
+    <div layout="column" flex>
+      <md-list dense>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{settlement?.academicSession?.code}}</h4>
+          <p md-line>Session</p>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{settlement?.executed}}</h4>
+          <p md-line>Executed</p>
+        </md-list-item>
+      </md-list>
+    </div>
+  </div>
+
   <md-card-actions>
   </md-card-actions>
 </md-card>
