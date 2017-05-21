@@ -17,7 +17,6 @@ export class AssignedCreditNoteTaskListComponent {
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
-    {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''}
   ];
@@ -27,7 +26,7 @@ export class AssignedCreditNoteTaskListComponent {
 
   viewTask(task: CreditNote): void {
     console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing invoice", "OK");
+    let snackBarRef = this.snackBar.open("Viewing credit note", "OK");
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(task);
     });
