@@ -230,7 +230,12 @@ export class AccountService {
   }
 
   saveAccount(account: Account): Observable<Boolean> {
-    return this.http.post(environment.endpoint + '/api/account/accounts', JSON.stringify(account))
+      let headers = new Headers({
+          'Content-Type': 'application/json',
+          //'Authorization': 'Bearer ' + this.authService.token
+        });
+        let options = new RequestOptions({headers: headers});
+      return this.http.post(environment.endpoint + '/api/account/accounts', JSON.stringify(account), options)
       .flatMap(data => Observable.of(true));
   }
 
