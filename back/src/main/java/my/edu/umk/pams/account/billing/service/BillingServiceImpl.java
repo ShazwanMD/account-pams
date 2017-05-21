@@ -214,6 +214,7 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void attach(AcInvoice invoice, AcAccount account) throws Exception {
 		List<AcAccountCharge> charges = accountChargeDao.find(account);
+		LOG.debug("found {} charges for account {}", charges.size(), account.getCode());
 		for (AcAccountCharge charge : charges) {
 			if (null == charge.getInvoice()) {
 				LOG.debug("Attaching charge refno : {} to invoice refno: {}",

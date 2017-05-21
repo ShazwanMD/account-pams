@@ -38,6 +38,7 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
                 .findFeeScheduleByCohortCodeAndStudyMode(admissionCharge.getCohortCode(), admissionCharge.getStudyMode());
 
         List<AcFeeScheduleItem> scheduleItems = accountService.findFeeScheduleItems(feeSchedule);
+        LOG.debug("found {} schedule items ", scheduleItems.size());
         for (AcFeeScheduleItem scheduleItem : scheduleItems) {
             AcInvoiceItem item = new AcInvoiceItemImpl();
             item.setDescription(String.format("Admission Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
