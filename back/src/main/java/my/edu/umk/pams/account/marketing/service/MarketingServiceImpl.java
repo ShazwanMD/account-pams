@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.marketing.dao.AcPromoCodeDao;
 import my.edu.umk.pams.account.marketing.model.AcPromoCode;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeItem;
+import my.edu.umk.pams.account.marketing.model.AcPromoCodeItemImpl;
 import my.edu.umk.pams.account.marketing.model.AcPromoCodeType;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static my.edu.umk.pams.account.AccountConstants.PROMO_CODE_REFERENCE_NO;
 
@@ -95,6 +93,17 @@ public class MarketingServiceImpl implements MarketingService {
         // save
         promoCodeDao.saveOrUpdate(promoCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
+        sessionFactory.getCurrentSession().refresh(promoCode);
+
+        // add items
+        for (int i = 0; i < promoCode.getQuantity(); i++) {
+            AcPromoCodeItem item = new AcPromoCodeItemImpl();
+            item.setCode(UUID.randomUUID().toString().substring(0,8));
+            item.setApplied(false);
+            promoCodeDao.addItem(promoCode, item, securityService.getCurrentUser());
+        }
+        sessionFactory.getCurrentSession().flush();
+
         return referenceNo;
     }
 

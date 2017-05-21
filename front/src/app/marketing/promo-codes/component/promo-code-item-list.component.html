@@ -35,5 +35,10 @@
         <span flex="40">{{value}}</span>
       </div>
     </template>
+    <template tdDataTableTemplate="applied" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <md-icon *ngIf="value" class="md-24 tc-grey-700">done</md-icon>
+      </div>
+    </template>
   </td-data-table>
 </md-card>

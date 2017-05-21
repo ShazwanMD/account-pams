@@ -23,7 +23,7 @@ export class PromoCodeItemListComponent implements OnInit {
   private editorDialogRef: MdDialogRef<PromoCodeItemEditorDialog>;
   private columns: any[] = [
     {name: 'code', label: 'Code'},
-    //{name: 'applied', label: 'Applied'},
+    {name: 'applied', label: 'Applied'},
     {name: 'sourceNo', label: 'SourceNo'},
     {name: 'account.code', label: 'Account'},
     {name: 'action', label: ''}
