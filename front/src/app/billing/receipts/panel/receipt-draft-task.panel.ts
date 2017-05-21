@@ -9,6 +9,7 @@ import {ReceiptTaskState} from "../receipt-task.reducer";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {BillingModuleState} from "../../index";
+import {PromoCodeApplicatorDialog} from "../dialog/promo-code-applicator.dialog";
 
 
 @Component({
@@ -45,6 +46,17 @@ export class ReceiptDraftTaskPanel implements OnInit {
     config.position = {top: '0px'};
     let editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
     editorDialogRef.componentInstance.receiptItem = item;
+  }
+
+  applyPromoCode() {
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.viewContainerRef;
+    config.role = 'dialog';
+    config.width = '70%';
+    config.height = '60%';
+    config.position = {top: '0px'};
+    let editorDialogRef = this.dialog.open(PromoCodeApplicatorDialog, config);
+    editorDialogRef.componentInstance.receipt = this.receiptTask.receipt;
   }
 
   register() {

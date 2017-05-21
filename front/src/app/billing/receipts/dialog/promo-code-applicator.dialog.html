@@ -1,0 +1,16 @@
+<h2 md-dialog-title>Promo Code</h2>
+<md-dialog-content>
+  <form [formGroup]="applyForm">
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Promo Code"
+               formControlName="promoCode"/>
+      </md-input-container>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="apply(applyForm.value, applyForm.valid)">Apply</button>
+</md-dialog-actions>
+
