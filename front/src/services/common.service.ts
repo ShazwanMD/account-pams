@@ -68,16 +68,46 @@ export class CommonService {
   // ====================================================================================================
 
   findCohortCodes(): Observable<CohortCode[]> {
-    console.log("findCohortCodes");
-    return this.http.get(environment.endpoint + '/api/common/cohortCodes')
-      .map((res: Response) => <CohortCode[]>res.json());
-  }
+      console.log("findCohortCodes");
+      return this.http.get(environment.endpoint + '/api/common/cohortCodes')
+        .map((res: Response) => <CohortCode[]>res.json());
+    }
 
-  findCohortCodeByCode(code: string): Observable<CohortCode> {
-    console.log("findCohortCodeByCode");
-    return this.http.get(environment.endpoint + '/api/common/cohortCodes/' + code)
-      .map((res: Response) => <CohortCode>res.json());
-  }
+    findCohortCodeByCode(code: string): Observable<CohortCode> {
+      console.log("findCohortCodeByCode");
+      return this.http.get(environment.endpoint + '/api/common/cohortCodes/' + code)
+        .map((res: Response) => <CohortCode>res.json());
+    }
+  
+  saveCohortCode(code: CohortCode) {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.post(environment.endpoint + '/api/common/cohortCodes', JSON.stringify(code), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
+    removeCohortCode(code: CohortCode) {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.delete(environment.endpoint + '/api/common/cohortCodes/' + code.code, options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
+   updateCohortCode(code: CohortCode) {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.put(environment.endpoint + '/api/common/cohortCodes/' + code.code, JSON.stringify(code), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
 
   // ====================================================================================================
   // FACULTY CODES
@@ -206,6 +236,5 @@ export class CommonService {
     return this.http.get(environment.endpoint + '/api/common/stateCodes/' + code)
       .map((res: Response) => <StateCode>res.json());
   }
-
 
 }

@@ -7,6 +7,7 @@ import {SetupModule} from './index';
 import {Routes, RouterModule} from '@angular/router';
 import {SetupPage} from "./setup.page";
 import {CountryCodeListPage} from './country-codes/country-code-list.page';
+import { CohortCodeListPage } from "./cohort-codes/cohort-code-list.page";
 
 
 export const SetupModuleRoutes: Routes = [
@@ -14,6 +15,7 @@ export const SetupModuleRoutes: Routes = [
     path: 'setup', component: SetupPage,
     children: [
       {path: 'country-codes', component: CountryCodeListPage},
+      {path: 'cohort-codes', component: CohortCodeListPage},
       {path: 'state-codes', component: StateCodeListPage},
       {path: 'program-codes', component: ProgramCodeListPage},
       {path: 'faculty-codes', component: FacultyCodeListPage},

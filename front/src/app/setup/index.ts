@@ -1,3 +1,8 @@
+import { CohortCodeEditorDialog } from './cohort-codes/dialog/cohort-code-editor.dialog';
+import { CohortCodeListPage } from './cohort-codes/cohort-code-list.page';
+import { CohortCode } from './../common/cohort-codes/cohort-code.interface';
+import { CommonModuleState } from './../common/index';
+import {CommonModule} from "../common/index";
 import { BankCodeListPage } from './bank-codes/bank-code-list.page';
 import { BankCode } from './../common/bank-codes/bank-code.interface';
 import { AccountModule } from './../account/index';
@@ -36,39 +41,32 @@ import {CountryCode} from "../common/country-codes/country-code.interface";
 import {StateCode} from "../common/state-codes/state-code.interface";
 import {ProgramCode} from "../common/program-codes/program-code.interface";
 import {bankCodeListReducer, BankCodeListState} from "./bank-codes/bank-code-list.reducer";
+import {cohortCodeListReducer, CohortCodeListState} from "./cohort-codes/cohort-code-list.reducer";
+
+
+
 
 
 
 export interface SetupModuleState {
   title:TitleState;
   bankCodes: BankCodeListState;
-  countryCodes : CountryCodeListState;
-  stateCodes : StateCodeListState;
-  programCodes : ProgramCodeListState;
-  facultyCodes : FacultyCodeListState;
-  studyModes : StudyModeListState;
+  cohortCodes: CohortCodeListState;
+
 };
 
 export const INITIAL_SETUP_STATE: SetupModuleState =
   <SetupModuleState>{
     title:'Setup Codes',
     bankCodes: <BankCode[]>[],
-    programCodes: <ProgramCode[]>[],
-    stateCodes: <StateCode[]>[],
-    countryCodes: <CountryCode[]>[],
-    facultyCodes: <FacultyCode[]>[],
-    studyModes: <StudyMode[]>[],
+    cohortCodes: <CohortCode[]>[],
   };
 
 
 export const setupModuleReducers = {
   title:titleReducer,
   bankCodes: bankCodeListReducer,
-  countryCodes: countryCodeListReducer,
-  stateCodes: stateCodeListReducer,
-  programCodes: programCodeListReducer,
-  facultyCodes: facultyCodeListReducer,
-  studyModes: studyModeListReducer,
+  cohortCodes: cohortCodeListReducer,
 }
 
 
@@ -78,6 +76,7 @@ export const setupModuleReducers = {
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
+    CommonModule.forRoot(),  
     EffectsModule.run(SetupEffects),
   ],
   declarations: [
@@ -88,6 +87,7 @@ export const setupModuleReducers = {
     ProgramCodeListPage,
     FacultyCodeListPage,
     StudyModeListPage,
+    CohortCodeListPage,
 
     // dialog
     BankCodeEditorDialog,
@@ -96,6 +96,7 @@ export const setupModuleReducers = {
     ProgramCodeCreatorDialog,
     FacultyCodeCreatorDialog,
     StudyModeCreatorDialog,
+    CohortCodeEditorDialog,
 
 
   ],
@@ -107,6 +108,7 @@ export const setupModuleReducers = {
     ProgramCodeCreatorDialog,
     FacultyCodeCreatorDialog,
     StudyModeCreatorDialog,
+    CohortCodeEditorDialog,
 
   ],
 
@@ -117,7 +119,7 @@ export class SetupModule {
       ngModule: SetupModule,
       providers: [
         appRoutingProviders,
-        SetupActions,
+        SetupActions
       ],
     };
   }
