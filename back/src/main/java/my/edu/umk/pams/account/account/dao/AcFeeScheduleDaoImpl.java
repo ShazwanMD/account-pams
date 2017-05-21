@@ -49,6 +49,7 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
                 "and sa.studyMode = :studyMode " +
                 "and sa.metadata.state = :state");
         query.setEntity("cohortCode", cohortCode);
+        query.setEntity("studyMode", studyMode);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
         return (AcFeeSchedule) query.uniqueResult();
