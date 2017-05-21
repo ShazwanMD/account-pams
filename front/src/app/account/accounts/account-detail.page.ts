@@ -46,7 +46,7 @@ export class AccountDetailPage implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: { code: string }) => {
       let code: string = params.code;
-      this.store.dispatch(this.actions.findAccount(code));
+      this.store.dispatch(this.actions.findAccountByCode(code));
     });
   }
 
