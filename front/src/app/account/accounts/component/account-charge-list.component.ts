@@ -20,7 +20,7 @@ export class AccountChargeListComponent {
     {name: 'chargeType', label: 'Type'},
     {name: 'session.code', label: 'Session'},
     {name: 'amount', label: 'Amount'},
-    {name: 'invoice', label: 'Invoiced'},
+    {name: 'invoiced', label: 'Invoiced'},
     {name: 'action', label: ''}
   ];
 

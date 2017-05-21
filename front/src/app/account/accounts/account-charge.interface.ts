@@ -6,7 +6,9 @@ export interface AccountCharge extends MetaObject {
   sourceNo: string;
   description: string;
   amount: number;
-  invoiced: boolean;
   chargeType: AccountChargeType;
   session: AcademicSession;
+
+  // transient
+  invoiced?: boolean;
 }
