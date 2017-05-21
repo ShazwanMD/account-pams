@@ -17,16 +17,17 @@ import static java.util.stream.Collectors.toList;
 @Component("identityTransformer")
 public class IdentityTransformer {
 
-    public Staff toStaffVo(AcStaff staff) {
-        Staff m = new Staff();
-        m.setId(staff.getId());
-        m.setIdentityNo(staff.getIdentityNo());
-        m.setName(staff.getName());
-        m.setEmail(staff.getEmail());
-        m.setMobile(staff.getMobile());
-        m.setPhone(staff.getPhone());
-        m.setFax(staff.getFax());
-        return m;
+    public Staff toStaffVo(AcStaff e) {
+        Staff vo = new Staff();
+        vo.setId(e.getId());
+        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        vo.setIdentityNo(e.getIdentityNo());
+        vo.setName(e.getName());
+        vo.setEmail(e.getEmail());
+        vo.setMobile(e.getMobile());
+        vo.setPhone(e.getPhone());
+        vo.setFax(e.getFax());
+        return vo;
     }
 
     public List<Staff> toStaffVos(List<AcStaff> staffs) {
@@ -36,16 +37,17 @@ public class IdentityTransformer {
         return vos;
     }
 
-    public Student toStudentVo(AcStudent student) {
-        Student m = new Student();
-        m.setId(student.getId());
-        m.setIdentityNo(student.getIdentityNo());
-        m.setName(student.getName());
-        m.setEmail(student.getEmail());
-        m.setMobile(student.getMobile());
-        m.setPhone(student.getPhone());
-        m.setFax(student.getFax());
-        return m;
+    public Student toStudentVo(AcStudent e) {
+        Student vo = new Student();
+        vo.setId(e.getId());
+        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        vo.setIdentityNo(e.getIdentityNo());
+        vo.setName(e.getName());
+        vo.setEmail(e.getEmail());
+        vo.setMobile(e.getMobile());
+        vo.setPhone(e.getPhone());
+        vo.setFax(e.getFax());
+        return vo;
     }
 
     public List<Student> toStudentVos(List<AcStudent> students) {
@@ -56,16 +58,17 @@ public class IdentityTransformer {
     }
 
     public Sponsor toSponsorVo(AcSponsor e) {
-        Sponsor m = new Sponsor();
-        m.setId(e.getId());
-        m.setIdentityNo(e.getIdentityNo());
-        m.setName(e.getName());
-        m.setEmail(e.getEmail());
-        m.setMobile(e.getMobile());
-        m.setPhone(e.getPhone());
-        m.setFax(e.getFax());
-        m.setActorType(ActorType.get(e.getActorType().ordinal()));
-        return m;
+        Sponsor vo = new Sponsor();
+        vo.setId(e.getId());
+        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        vo.setIdentityNo(e.getIdentityNo());
+        vo.setName(e.getName());
+        vo.setEmail(e.getEmail());
+        vo.setMobile(e.getMobile());
+        vo.setPhone(e.getPhone());
+        vo.setFax(e.getFax());
+        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        return vo;
     }
 
     public List<Sponsor> toSponsorVos(List<AcSponsor> sponsors) {
@@ -87,6 +90,8 @@ public class IdentityTransformer {
         return toSponsorVo((AcSponsor) actor);
         else if(actor instanceof AcStaff)
         return toStaffVo((AcStaff) actor);
+        else if(actor instanceof AcStudent)
+        return toStudentVo((AcStudent) actor);
         else return null;
     }
 }
