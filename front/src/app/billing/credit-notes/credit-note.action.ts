@@ -29,7 +29,7 @@ export class CreditNoteActions {
     };
   }
 
-  static FIND_CREDIT_NOTE_SUCCESS = '[DebitNote] Find DebitNote Success';
+  static FIND_CREDIT_NOTE_SUCCESS = '[CreditNote] Find DebitNote Success';
   findCreditNoteSuccess(creditNote): Action {
     console.log("findCreditNoteSuccess");
     return {
@@ -37,6 +37,25 @@ export class CreditNoteActions {
       payload: creditNote
     };
   }
+
+    static START_CREDIT_NOTE_TASK = '[CreditNote] Start CreditNote Task';
+
+  startCreditNoteTask(creditNote): Action {
+    return {
+      type: CreditNoteActions.START_CREDIT_NOTE_TASK,
+      payload: creditNote
+    };
+  }
+
+  static START_CREDIT_NOTE_TASK_SUCCESS = '[CreditNote] Start CreditNote Task Success';
+
+  startCreditNoteTaskSuccess(referenceNo): Action {
+    return {
+      type: CreditNoteActions.START_CREDIT_NOTE_TASK_SUCCESS,
+      payload: referenceNo
+    };
+  }
+
 
   static SAVE_CREDIT_NOTE = '[CreditNote] Save CreditNote';
   saveCreditNote(creditNote): Action {
