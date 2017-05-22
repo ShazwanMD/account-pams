@@ -287,7 +287,38 @@ export class BillingService {
         //'Authorization': 'Bearer ' + this.authService.token
       });
       let options = new RequestOptions({headers: headers});
-      return this.http.put(environment.endpoint + '/api/billing/creditNotes/' + creditNote.code + '/creditNotes/' + creditNote.id,  JSON.stringify(creditNote), options)
+      return this.http.put(environment.endpoint + '/api/billing/creditNotes/' + creditNote.id,  JSON.stringify(creditNote), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+  
+  // ====================================================================================================
+  // DEBIT NOTE
+  // ====================================================================================================
+  
+  findDebitNoteByReferenceNo(referenceNo: string): Observable<DebitNote> {
+      return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + referenceNo)
+        .map((res: Response) => <CreditNote>res.json());
+    }
+  
+  startDebitNoteTask(debitNote: DebitNote): Observable<String> {
+      console.log("debitNote: " + debitNote);
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.post(environment.endpoint + '/api/billing/debitNotes/startTask', JSON.stringify(debitNote), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
+  updateDebitNote(debitNote: DebitNote){
+        console.log("saving creditNote" + debitNote.id);
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.put(environment.endpoint + '/api/billing/debitNotes/' + debitNote.id,  JSON.stringify(debitNote), options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
 
