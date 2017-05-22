@@ -354,7 +354,22 @@ public class BillingController {
         debitNotes.setTotalAmount(BigDecimal.ZERO);
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNotes), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateDebitNote(@PathVariable String referenceNo, @RequestBody DebitNote vo) {
+        dummyLogin();
 
+        AcDebitNote debitNotes = billingService.findDebitNoteByReferenceNo(referenceNo);
+        debitNotes.setReferenceNo(vo.getReferenceNo());
+        debitNotes.setSourceNo(vo.getSourceNo());
+        debitNotes.setAuditNo(vo.getAuditNo());
+        debitNotes.setDescription(vo.getDescription());
+        debitNotes.setTotalAmount(BigDecimal.ZERO);
+        billingService.updateDebitNote(debitNotes);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
