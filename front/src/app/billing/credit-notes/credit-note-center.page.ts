@@ -9,6 +9,7 @@ import { BillingModuleState } from "../index";
 import { CreditNote } from "./credit-note.interface";
 import { CreditNoteCreatorDialog } from "./dialog/credit-note-creator.dialog";
 import { CreditNoteActions } from "./credit-note.action";
+import { CreditNoteTask } from "./credit-note-task.interface";
 //import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 
 
@@ -21,7 +22,9 @@ import { CreditNoteActions } from "./credit-note.action";
 export class CreditNoteCenterPage implements OnInit {
 
     private CREDIT_NOTES = "billingModuleState.creditNotes".split(".");
-    private creditNotes$: Observable<CreditNote[]>;
+    private creditNotes$: Observable<CreditNoteTask[]>;
+    private assignedCreditNoteTasks$: Observable<CreditNoteTask[]>;
+    private pooledCreditNoteTasks$: Observable<CreditNoteTask[]>;
     private creatorDialogRef: MdDialogRef<CreditNoteCreatorDialog>;
 
     constructor(private router: Router,
@@ -37,6 +40,11 @@ export class CreditNoteCenterPage implements OnInit {
     goBack(route: string): void {
         this.router.navigate(['/credit-notes']);
     }
+
+    view(task: CreditNoteTask) {
+    console.log("CreditNote: " + task.taskId);
+    this.router.navigate(['/billing/credit-notes/view-task', task.taskId]);
+  }
 
   
  showDialog(): void {
