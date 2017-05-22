@@ -43,7 +43,7 @@ export class DebitNoteCreatorDialog implements OnInit {
   }
 
   save(debitNote: DebitNote, isValid: boolean): void{
-    console.log("saving fee");
+    console.log("saving debit note");
     this.store.dispatch(this.actions.startDebitNoteTask(debitNote));
     this.dialog.close();
   }

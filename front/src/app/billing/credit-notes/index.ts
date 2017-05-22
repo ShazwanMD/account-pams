@@ -15,8 +15,7 @@ import { CreditNoteCreatorDialog } from "./dialog/credit-note-creator.dialog";
 import { CreditNoteActions } from "./credit-note.action";
 import { InvoiceSubModule } from "../invoices/index";
 import { AssignedCreditNoteTaskListComponent } from "./component/assigned-credit-note-task-list.component";
-//import { CreditNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
-//import { CreditNoteActions } from "./debit-note.action";
+import { PooledCreditNoteTaskListComponent } from "./component/pooled-credit-note-task-list.component";
 
 
 @NgModule({
@@ -37,9 +36,12 @@ import { AssignedCreditNoteTaskListComponent } from "./component/assigned-credit
 //component
 CreditNoteCreatorDialog,
 AssignedCreditNoteTaskListComponent,
+PooledCreditNoteTaskListComponent,
+
   ],
   exports: [
     //ChargeCodeSelectComponent,
+
   ],
   entryComponents: [
   CreditNoteCreatorDialog,

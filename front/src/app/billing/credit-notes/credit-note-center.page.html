@@ -27,55 +27,13 @@
        <md-card>
       <md-tab-group [selectedIndex]="0">
         <md-tab label="Assigned">
-      <td-data-table
-        [data]="creditNotes$ | async"
-        [columns]="columns"
-        [sortBy]="summary"
-        [sortOrder]="ASC"
-        [sortable]="false"
-        [multiple]="false"
-        [selectable]="false"
-        (rowSelect)="view.emit($event)" dense>
-        <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <span flex>{{value}}</span>
-          </div>
-        </template>
-        <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <a md-button color="accent" class="text-upper" [routerLink]="['/billing/debit-notes', row['code']]">
-              <span>View</span>
-            </a>
-          </div>
-        </template>
-      </td-data-table>
-
+      <pams-assigned-credit-note-task-list>
+       </pams-assigned-credit-note-task-list>
       <md-divider></md-divider>
         </md-tab>
         <md-tab label="Pooled">
-           <td-data-table
-        [data]="creditNotes$ | async"
-        [columns]="columns"
-        [sortBy]="summary"
-        [sortOrder]="ASC"
-        [sortable]="false"
-        [multiple]="false"
-        [selectable]="false"
-        (rowSelect)="view.emit($event)" dense>
-        <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <span flex>{{value}}</span>
-          </div>
-        </template>
-        <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <a md-button color="accent" class="text-upper" [routerLink]="['/billing/debit-notes', row['code']]">
-              <span>View</span>
-            </a>
-          </div>
-        </template>
-      </td-data-table>
-
+      <pams-pooled-credit-note-task-list>
+       </pams-pooled-credit-note-task-list>
         </md-tab>
       </md-tab-group>
     </md-card>
