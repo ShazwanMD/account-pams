@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.web.module.billing.controller;
 
 import my.edu.umk.pams.account.AccountConstants;
+import my.edu.umk.pams.account.billing.model.AcCreditNote;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
@@ -188,6 +189,32 @@ public class BillingTransformer {
     
     public DebitNote toDebitNoteVo(AcDebitNote e) {
     	DebitNote vo = new DebitNote();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDescription(e.getDescription());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+    
+    public CreditNote toDebitNoteVos(AcCreditNote e) {
+    	CreditNote vo = new CreditNote();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDescription(e.getDescription());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+    
+    public CreditNote toDebitNoteVo(AcCreditNote e) {
+    	CreditNote vo = new CreditNote();
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
