@@ -373,17 +373,13 @@ public class BillingController {
     //  CREDIT NOTE
     // ==================================================================================================== //
 
-    @RequestMapping(value = "/creditNotes/", method = RequestMethod.GET)
-    public ResponseEntity<List<CreditNote>> findCreditNotes(AcInvoice invoice) {
-        List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
+    @RequestMapping(value = "invoices/{referenceNo}/creditNotes", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNote>> findCreditNotesByInvoice(@PathVariable String referenceNo) {
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+    	List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
         return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.GET)
-    public ResponseEntity<CreditNote> CreditNote(@PathVariable String referenceNo) {
-    	AcCreditNote creditNotes = (AcCreditNote) billingService.findCreditNoteByReferenceNo(referenceNo);
-        return new ResponseEntity<CreditNote>(billingTransformer.toCreditNoteVo(creditNotes), HttpStatus.OK);
-    }
+    
 
     @RequestMapping(value = "/creditNotes/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startCreditNoteTask(@RequestBody CreditNote vo) throws Exception {
