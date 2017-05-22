@@ -200,7 +200,7 @@ public class BillingTransformer {
         return vo;
     }
     
-    public CreditNote toDebitNoteVos(AcCreditNote e) {
+    public CreditNote toCreditNoteVos(AcCreditNote e) {
     	CreditNote vo = new CreditNote();
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
@@ -213,7 +213,7 @@ public class BillingTransformer {
         return vo;
     }
     
-    public CreditNote toDebitNoteVo(AcCreditNote e) {
+    public CreditNote toCreditNoteVo(AcCreditNote e) {
     	CreditNote vo = new CreditNote();
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
