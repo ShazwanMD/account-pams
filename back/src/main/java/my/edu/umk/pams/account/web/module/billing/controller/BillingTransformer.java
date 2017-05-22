@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.web.module.billing.controller;
 
 import my.edu.umk.pams.account.AccountConstants;
+import my.edu.umk.pams.account.billing.model.AcCreditNote;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
@@ -198,6 +199,32 @@ public class BillingTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
+    
+    public CreditNote toCreditNoteVos(AcCreditNote e) {
+    	CreditNote vo = new CreditNote();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDescription(e.getDescription());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+    
+    public CreditNote toCreditNoteVo(AcCreditNote e) {
+    	CreditNote vo = new CreditNote();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDescription(e.getDescription());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
 
     public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
         return tasks.stream()
@@ -239,5 +266,11 @@ public class BillingTransformer {
         return journals.stream()
                 .map((task) -> toDebitNoteVos(task))
                 .collect(toCollection(() -> new ArrayList<DebitNote>()));
+    }
+    
+    public List<CreditNote> toCreditNoteVos(List<AcCreditNote> journals) {
+        return journals.stream()
+                .map((task) -> toCreditNoteVos(task))
+                .collect(toCollection(() -> new ArrayList<CreditNote>()));
     }
 }
