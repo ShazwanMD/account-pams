@@ -1,6 +1,7 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {CreditNote} from "../credit-note.interface";
-import {MdSnackBar} from "@angular/material";
+import { MdSnackBar } from "@angular/material";
+import { CreditNoteTask } from "../credit-note-task.interface";
 
 @Component({
   selector: 'pams-assigned-credit-note-task-list',
@@ -9,12 +10,11 @@ import {MdSnackBar} from "@angular/material";
 })
 export class AssignedCreditNoteTaskListComponent {
 
-  @Input() creditNoteTasks: CreditNote[];
-  @Output() view = new EventEmitter<CreditNote>();
+  @Input() creditNoteTasks: CreditNoteTask[];
+  @Output() view = new EventEmitter<CreditNoteTask>();
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
-    {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
@@ -24,7 +24,7 @@ export class AssignedCreditNoteTaskListComponent {
   constructor(private snackBar: MdSnackBar) {
   }
 
-  viewTask(task: CreditNote): void {
+  viewTask(task: CreditNoteTask): void {
     console.log("Emitting task");
     let snackBarRef = this.snackBar.open("Viewing credit note", "OK");
     snackBarRef.afterDismissed().subscribe(() => {

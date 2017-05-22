@@ -46,7 +46,7 @@ export class CreditNoteCreatorDialog implements OnInit {
 
   save(creditNote: CreditNote, isValid: boolean): void {
     console.log("saving fee");
-    this.store.dispatch(this.actions.saveCreditNote(creditNote));
+    this.store.dispatch(this.actions.startCreditNoteTask(creditNote));
     this.dialog.close();
   }
 }
