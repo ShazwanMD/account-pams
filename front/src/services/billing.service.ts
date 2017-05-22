@@ -9,6 +9,8 @@ import {InvoiceItem} from "../app/billing/invoices/invoice-item.interface";
 import {ReceiptTask} from "../app/billing/receipts/receipt-task.interface";
 import {Receipt} from "../app/billing/receipts/receipt.interface";
 import {ReceiptItem} from "../app/billing/receipts/receipt-item.interface";
+import {CreditNote} from "../app/billing/credit-notes/credit-note.interface";
+import {DebitNote} from "../app/billing/debit-notes/debit-note.interface";
 
 @Injectable()
 export class BillingService {
@@ -257,4 +259,36 @@ export class BillingService {
     return this.http.delete(environment.endpoint + '/api/billing/receipts/' + receipt.referenceNo + '/receiptItems/' + item.id, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+  
+  // ====================================================================================================
+  // CREDIT NOTE
+  // ====================================================================================================
+  
+  findCreditNoteByReferenceNo(referenceNo: string): Observable<CreditNote> {
+      return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + referenceNo)
+        .map((res: Response) => <CreditNote>res.json());
+    }
+  
+  startCreditNoteTask(creditNote: CreditNote): Observable<String> {
+      console.log("creditNote: " + creditNote);
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.post(environment.endpoint + '/api/billing/creditNotes/startTask', JSON.stringify(creditNote), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
+  updateCreditNote(creditNote: CreditNote){
+        console.log("saving creditNote" + creditNote.id);
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.put(environment.endpoint + '/api/billing/creditNotes/' + creditNote.code + '/creditNotes/' + creditNote.id,  JSON.stringify(creditNote), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
 }
