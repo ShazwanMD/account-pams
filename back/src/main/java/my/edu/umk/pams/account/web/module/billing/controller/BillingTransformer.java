@@ -267,4 +267,10 @@ public class BillingTransformer {
                 .map((task) -> toDebitNoteVos(task))
                 .collect(toCollection(() -> new ArrayList<DebitNote>()));
     }
+    
+    public List<CreditNote> toCreditNoteVos(List<AcCreditNote> journals) {
+        return journals.stream()
+                .map((task) -> toCreditNoteVos(task))
+                .collect(toCollection(() -> new ArrayList<CreditNote>()));
+    }
 }
