@@ -39,6 +39,10 @@ export class SettlementItemListComponent implements OnInit{
   ngOnInit(): void {
     this.selectedRows = this.settlementItems.filter(value => value.selected);
   }
+  
+  disableButton() {
+    return this.selectedRows.length != 1;
+  }
 
   edit(settlementItem: SettlementItem): void {
     // this.showDialog(settlementItem);
