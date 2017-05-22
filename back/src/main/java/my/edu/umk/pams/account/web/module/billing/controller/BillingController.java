@@ -369,6 +369,48 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
+    // ==================================================================================================== //
+    //  CREDIT NOTE
+    // ==================================================================================================== //
+
+    @RequestMapping(value = "/creditNotes/", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNote>> findCreditNotes(AcInvoice invoice) {
+        List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
+        return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<CreditNote> CreditNote(@PathVariable String referenceNo) {
+    	AcCreditNote creditNotes = (AcCreditNote) billingService.findCreditNoteByReferenceNo(referenceNo);
+        return new ResponseEntity<CreditNote>(billingTransformer.toCreditNoteVo(creditNotes), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/creditNotes/startTask", method = RequestMethod.POST)
+    public ResponseEntity<String> startCreditNoteTask(@RequestBody CreditNote vo) throws Exception {
+        dummyLogin();
+
+        AcCreditNote creditNotes = new AcCreditNoteImpl();
+        creditNotes.setReferenceNo(vo.getReferenceNo());
+        creditNotes.setSourceNo(vo.getSourceNo());
+        creditNotes.setAuditNo(vo.getAuditNo());
+        creditNotes.setDescription(vo.getDescription());
+        creditNotes.setTotalAmount(BigDecimal.ZERO);
+        return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNotes), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateCreditNote(@PathVariable String referenceNo, @RequestBody CreditNote vo) {
+        dummyLogin();
+
+        AcCreditNote creditNotes = billingService.findCreditNoteByReferenceNo(referenceNo);
+        creditNotes.setReferenceNo(vo.getReferenceNo());
+        creditNotes.setSourceNo(vo.getSourceNo());
+        creditNotes.setAuditNo(vo.getAuditNo());
+        creditNotes.setDescription(vo.getDescription());
+        creditNotes.setTotalAmount(BigDecimal.ZERO);
+        billingService.updateCreditNote(creditNotes);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
     
     // ====================================================================================================
     // PRIVATE METHODS
