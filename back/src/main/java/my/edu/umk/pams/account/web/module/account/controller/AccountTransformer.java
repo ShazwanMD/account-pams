@@ -110,6 +110,7 @@ public class AccountTransformer {
         m.setAmount(e.getAmount());
         m.setChargeType(AccountChargeType.get(e.getChargeType().ordinal()));
         m.setSession(toAcademicSessionVo(e.getSession()));
+        m.setInvoiced(null != e.getInvoice());
         return m;
     }
 

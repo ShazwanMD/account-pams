@@ -9,8 +9,9 @@
       <div flex-gt-md="70">
         <pams-account [account]="account$ | async"></pams-account>
         <pams-account-activity-list [transactions]="accountTransactions$ | async"></pams-account-activity-list>
-        <pams-account-charge-list [account]="account$ | async" [charges]="accountCharges$   | async"></pams-account-charge-list>
-        <pams-account-waiver-list [waivers]="accountWaivers$   | async"></pams-account-waiver-list>
+        <pams-account-charge-list [account]="account$ | async"
+                                  [charges]="accountCharges$ | async"></pams-account-charge-list>
+        <pams-account-waiver-list [waivers]="accountWaivers$ | async"></pams-account-waiver-list>
       </div>
 
       <div flex-gt-md="30">

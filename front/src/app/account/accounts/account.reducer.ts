@@ -9,7 +9,7 @@ const initialState: AccountState = <Account>{};
 
 export function accountReducer(state = initialState, action: Action): AccountState {
   switch (action.type) {
-    case AccountActions.FIND_ACCOUNT_SUCCESS: {
+    case AccountActions.FIND_ACCOUNT_BY_CODE_SUCCESS: {
       return action.payload;
     }
     default: {

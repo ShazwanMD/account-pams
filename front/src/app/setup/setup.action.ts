@@ -341,4 +341,84 @@ export class SetupActions {
     };
   }
 
+  static SAVE_COHORT_CODE = '[Setup] Save Cohort Code';
+
+  saveCohortCode(code): Action {
+    console.log("saveCohortCode");
+    return {
+      type: SetupActions.SAVE_COHORT_CODE,
+      payload: code
+    };
+  }
+
+  static SAVE_COHORT_CODE_SUCCESS = '[Setup] Save Cohort Code Success';
+
+  saveCohortCodeSuccess(message): Action {
+    console.log("saveCohortCodeSuccess");
+    return {
+      type: SetupActions.SAVE_COHORT_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+  static FIND_COHORT_CODES = '[Common] Find CohortCodes';
+
+  findCohortCodes(): Action {
+    console.log("findCohortCodes");
+    return {
+      type: SetupActions.FIND_COHORT_CODES,
+    };
+  }
+
+  static FIND_COHORT_CODES_SUCCESS = '[Common] Find CohortCodes Success';
+
+  findCohortCodesSuccess(codes): Action {
+    console.log("findCohortCodesSuccess");
+    return {
+      type: SetupActions.FIND_COHORT_CODES_SUCCESS,
+      payload: codes
+    };
+  }
+
+  static REMOVE_COHORT_CODE = '[Setup] Remove Cohort Code';
+
+  removeCohortCode(code): Action {
+    console.log("removeCohortCode");
+    return {
+      type: SetupActions.REMOVE_COHORT_CODE,
+      payload: code
+    };
+  }
+
+  static REMOVE_COHORT_CODE_SUCCESS = '[Setup] Remove Cohort Code Success';
+
+  removeCohortCodeSuccess(message): Action {
+    console.log("removeCohortCodeSuccess");
+    return {
+      type: SetupActions.REMOVE_COHORT_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+  static UPDATE_COHORT_CODE = '[Setup] Update Cohort Code';
+
+  updateCohortCode(code): Action {
+    console.log("updateCohortCode");
+    return {
+      type: SetupActions.UPDATE_COHORT_CODE,
+      payload: code
+    };
+  }
+
+  static UPDATE_COHORT_CODE_SUCCESS = '[Setup] Update Cohort Code Success';
+
+  updateCohortCodeSuccess(message): Action {
+    console.log("updateCohortCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_COHORT_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+
 }

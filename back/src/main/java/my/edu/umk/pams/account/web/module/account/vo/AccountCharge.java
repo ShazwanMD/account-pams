@@ -19,6 +19,8 @@ public class AccountCharge extends MetaObject{
     private AccountChargeType chargeType;
     private AcademicSession session;
 
+    // transient
+    private boolean invoiced;
 
     public String getReferenceNo() {
         return referenceNo;
@@ -66,6 +68,14 @@ public class AccountCharge extends MetaObject{
 
     public void setSession(AcademicSession session) {
         this.session = session;
+    }
+
+    public boolean isInvoiced() {
+        return invoiced;
+    }
+
+    public void setInvoiced(boolean invoiced) {
+        this.invoiced = invoiced;
     }
 
     @JsonCreator

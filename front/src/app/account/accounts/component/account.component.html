@@ -1,6 +1,37 @@
 <md-card>
   <md-card-title>#{{account.code}}: {{account.name}}</md-card-title>
   <md-card-subtitle>{{account.email}}</md-card-subtitle>
+  <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+    <div layout="column" flex>
+      <md-list dense>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{account?.actor?.identityNo}}</h4>
+          <p md-line>Identity</p>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{account?.actor?.actorType}}</h4>
+          <p md-line>Type</p>
+        </md-list-item>
+      </md-list>
+    </div>
+    <div layout="column" flex>
+      <md-list dense>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{account?.actor?.email}}</h4>
+          <p md-line>Email</p>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{account?.actor?.phone}}</h4>
+          <p md-line>Phone</p>
+        </md-list-item>
+      </md-list>
+    </div>
+  </div>
+
   <md-card-actions>
   </md-card-actions>
 </md-card>

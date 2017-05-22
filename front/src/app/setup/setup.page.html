@@ -3,13 +3,18 @@
   <td-layout-manage-list #list title="Manage" logo="path/to/toolbar-logo.svg">
 
     <md-toolbar td-sidenav-content>
-      <span>Setup Menu</span>
+      <span>Account Setup Menu</span>
     </md-toolbar>
 
     <md-nav-list td-sidenav-content dense>
-      <a md-list-item [routerLink]="['bank-codes']">
+
+      <a md-list-item [routerLink]="['/setup/bank-codes']">
         <md-icon>label</md-icon>
         Bank Code
+      </a>
+      <a md-list-item [routerLink]="['/setup/cohort-codes']">
+        <md-icon>label</md-icon>
+        Cohort Code
       </a>
       <a md-list-item [routerLink]="['/setup/graduate-centres']">
         <md-icon>label</md-icon>
@@ -28,7 +33,7 @@
         Faculty Code
       </a>
     </md-nav-list>
-    <div toolbar-buttons layout="row" layout-align="start center" flex>
+  <div toolbar-buttons layout="row" layout-align="start center" flex>
       <span flex>{{title$ | async}}</span>
     </div>
 

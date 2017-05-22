@@ -105,4 +105,31 @@ export class SetupEffects {
     .map(message => this.setupActions.saveStudyModeSuccess(message))
     .mergeMap(action => from([action, this.setupActions.findStudyModes()]));
 
+  @Effect() findCohortCodes$ = this.actions$
+  .ofType(SetupActions.FIND_COHORT_CODES)
+  .map(action => action.payload)
+  .switchMap(() => this.commonService.findCohortCodes())
+  .map(codes => this.setupActions.findCohortCodesSuccess(codes));
+
+@Effect() saveCohortCodes$ = this.actions$
+  .ofType(SetupActions.SAVE_COHORT_CODE)
+  .map(action => action.payload)
+  .switchMap(payload => this.commonService.saveCohortCode(payload))
+  .map(message => this.setupActions.saveCohortCodeSuccess(message))
+  .mergeMap(action => from([action, this.setupActions.findCohortCodes()]));
+
+@Effect() updateCohortCodes$ = this.actions$
+  .ofType(SetupActions.UPDATE_COHORT_CODE)
+  .map(action => action.payload)
+  .switchMap(payload => this.commonService.updateCohortCode(payload))
+  .map(message => this.setupActions.updateCohortCodeSuccess(message))
+  .mergeMap(action => from([action, this.setupActions.findCohortCodes()]));
+
+@Effect() removeCohortCode$ = this.actions$
+  .ofType(SetupActions.REMOVE_COHORT_CODE)
+  .map(action => action.payload)
+  .switchMap(payload => this.commonService.removeCohortCode(payload))
+  .map(message => this.setupActions.removeCohortCodeSuccess(message))
+  .mergeMap(action => from([action, this.setupActions.findCohortCodes()]));
+ 
 }

@@ -1,0 +1,40 @@
+<md-card class="">
+  <td-search-box class="push-left push-right"
+                 placeholder="search"
+                 [alwaysVisible]="true"
+                 (searchDebounce)="filter($event)">
+
+  </td-search-box>
+
+  <td-data-table
+    [data]="cohortCodes$ | async"
+    [columns]="columns"
+    [sortBy]="summary"
+    [sortOrder]="ASC"
+    [sortable]="false"
+    [multiple]="false"
+    [selectable]="false"
+    (rowSelect)="view.emit($event)" dense>
+    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <span flex>{{value}}</span>
+      </div>
+    </template>
+    <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <button md-icon-button [md-menu-trigger-for]="menu">
+          <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu x-position="before" #menu="mdMenu">
+          <button md-menu-item (click)="editDialog(row)">Edit</button>
+          <button md-menu-item (click)="delete(row)">Delete</button>
+        </md-menu>
+      </div>
+    </template>
+
+  </td-data-table>
+</md-card>
+
+<a md-fab color="accent" class="mat-fab-top-right" (click)="createDialog()">
+  <md-icon>add</md-icon>
+</a>

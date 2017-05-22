@@ -38,7 +38,7 @@ public class CommonController {
     @RequestMapping(value = "/cohortCodes", method = RequestMethod.GET)
     public ResponseEntity<List<CohortCode>> findCohortCodes() {
         return new ResponseEntity<List<CohortCode>>(commonTransformer.toCohortCodeVos(
-                commonService.findCohortCodes()), HttpStatus.OK);
+                commonService.findCohortCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/cohortCodes/{code}", method = RequestMethod.GET)

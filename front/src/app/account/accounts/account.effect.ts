@@ -5,6 +5,7 @@ import {AccountService} from "../../../services/account.service";
 import {from} from "rxjs/observable/from";
 import {AccountModuleState} from "../index";
 import {Store} from "@ngrx/store";
+import {Account} from "./account.interface";
 
 
 @Injectable()
@@ -30,11 +31,11 @@ export class AccountEffects {
     .switchMap(filter => this.accountService.findAccountsByFilter(filter))
     .map(accounts => this.accountActions.findAccountsSuccess(accounts));
 
-  @Effect() findAccount$ = this.actions$
-    .ofType(AccountActions.FIND_ACCOUNT)
+  @Effect() findAccountByCode$ = this.actions$
+    .ofType(AccountActions.FIND_ACCOUNT_BY_CODE)
     .map(action => action.payload)
     .switchMap(code => this.accountService.findAccountByCode(code))
-    .map(account => this.accountActions.findAccountSuccess(account))
+    .map(account => this.accountActions.findAccountByCodeSuccess(account))
     .mergeMap(action => from([action,
       this.accountActions.findAccountTransactions(action.payload),
       this.accountActions.findAccountCharges(action.payload)
@@ -71,8 +72,5 @@ export class AccountEffects {
     .map(message => this.accountActions.addAdmissionChargeSuccess(message))
     .withLatestFrom(this.store$.select(...this.ACCOUNT))
     .map(state => state[1])
-    .mergeMap(account => from([account,
-      this.accountActions.findAccountTransactions(account),
-      this.accountActions.findAccountCharges(account)
-    ]));
+    .map((account:Account) => this.accountActions.findAccountByCode(account.code));
 }

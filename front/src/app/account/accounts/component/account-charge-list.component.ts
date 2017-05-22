@@ -16,13 +16,21 @@ export class AccountChargeListComponent {
   @Input() account: Account;
   @Input() charges: AccountCharge[];
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
+  private columns: any[] = [
+    {name: 'chargeType', label: 'Type'},
+    {name: 'session.code', label: 'Session'},
+    {name: 'amount', label: 'Amount'},
+    {name: 'invoiced', label: 'Invoiced'},
+    {name: 'action', label: ''}
+  ];
 
   constructor(private actions: AccountActions,
               private store: Store<AccountModuleState>,
               private vcf: ViewContainerRef,
-              private dialog: MdDialog) {}
+              private dialog: MdDialog) {
+  }
 
-  showAdmissionChargeDialog():void{
+  showAdmissionChargeDialog(): void {
     console.log("show dialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;

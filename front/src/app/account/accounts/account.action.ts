@@ -37,19 +37,19 @@ export class AccountActions {
     };
   }
 
-  static FIND_ACCOUNT = '[Account] Find Account';
-  findAccount(code): Action {
+  static FIND_ACCOUNT_BY_CODE = '[Account] Find Account By Code';
+  findAccountByCode(code): Action {
     return {
-      type: AccountActions.FIND_ACCOUNT,
+      type: AccountActions.FIND_ACCOUNT_BY_CODE,
       payload: code
     };
   }
 
-  static FIND_ACCOUNT_SUCCESS = '[Account] Find Account Success';
-  findAccountSuccess(account): Action {
+  static FIND_ACCOUNT_BY_CODE_SUCCESS = '[Account] Find Account By Code Success';
+  findAccountByCodeSuccess(account): Action {
     console.log("findAccountSuccess");
     return {
-      type: AccountActions.FIND_ACCOUNT_SUCCESS,
+      type: AccountActions.FIND_ACCOUNT_BY_CODE_SUCCESS,
       payload: account
     };
   }

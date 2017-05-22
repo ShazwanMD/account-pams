@@ -1,6 +1,32 @@
 <md-card>
   <md-card-title>#{{promoCode.referenceNo}}: {{promoCode.description}}</md-card-title>
   <md-card-subtitle>{{promoCode.value}}</md-card-subtitle>
+
+  <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+    <div layout="column" flex>
+      <md-list dense>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{promoCode?.referenceNo}}</h4>
+          <p md-line>Reference No</p>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{promoCode?.quantity}}</h4>
+          <p md-line>Quantity</p>
+        </md-list-item>
+      </md-list>
+    </div>
+    <div layout="column" flex>
+      <md-list dense>
+        <md-list-item>
+          <md-icon md-list-icon>local_offer</md-icon>
+          <h4 md-line>{{promoCode?.value}}</h4>
+          <p md-line>Value</p>
+        </md-list-item>
+      </md-list>
+    </div>
+  </div>
   <md-card-actions>
   </md-card-actions>
 </md-card>
