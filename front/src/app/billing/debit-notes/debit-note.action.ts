@@ -21,6 +21,24 @@ export class DebitNoteActions {
       payload: debitNotes
     };
   }
+  
+  static FIND_DEBIT_NOTE_BY_ID = '[Receipt] Find Receipt By Id';
+
+  findDebitNoteById(id): Action {
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_BY_ID,
+      payload: id
+    };
+  }
+
+  static FIND_DEBIT_NOTE_BY_ID_SUCCESS = '[Receipt] Find Receipt By Id Success';
+
+  findDebitNoteByIdSuccess(debitNote): Action {
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_BY_ID_SUCCESS,
+      payload: debitNote
+    };
+  }
 
   static FIND_DEBIT_NOTES_BY_REFERENCE_NO = '[DebitNote] Find DebitNotes By reference No';
 
@@ -39,6 +57,26 @@ export class DebitNoteActions {
     return {
       type: DebitNoteActions.FIND_DEBIT_NOTES_BY_REFERENCE_NO_SUCCESS,
       payload: debitNote
+    };
+  }
+  
+  static FIND_DEBIT_NOTE_TASK_BY_TASK_ID = '[DebitNote] Find DebitNote Task By Task Id';
+
+  findDebitNoteTaskByTaskId(taskId): Action {
+    console.log("findDebitNoteTaskByTaskId");
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_TASK_BY_TASK_ID,
+      payload: taskId
+    };
+  }
+
+  static FIND_DEBIT_NOTE_TASK_BY_TASK_ID_SUCCESS = '[DebitNote] Find DebitNote Task By Task Id Success';
+
+  findDebitNoteTaskByTaskIdSuccess(task): Action {
+    console.log("findDebitNoteTaskByTaskIdSuccess");
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_TASK_BY_TASK_ID_SUCCESS,
+      payload: task
     };
   }
   

@@ -355,6 +355,13 @@ public class BillingController {
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNotes), HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/debitNotes/startTask/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<DebitNoteTask> findDebitNoteByTaskId(@PathVariable String taskId) {
+        return new ResponseEntity<DebitNoteTask>(billingTransformer.toDebitNoteTaskVo(
+                        billingService.findDebitNoteTaskByTaskId(taskId)), HttpStatus.OK);
+    }
+
+    
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateDebitNote(@PathVariable String referenceNo, @RequestBody DebitNote vo) {
         dummyLogin();
@@ -397,6 +404,12 @@ public class BillingController {
         creditNotes.setDescription(vo.getDescription());
         creditNotes.setTotalAmount(BigDecimal.ZERO);
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNotes), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/creditNotes/startTask/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<CreditNoteTask> findCreditNoteByTaskId(@PathVariable String taskId) {
+        return new ResponseEntity<CreditNoteTask>(billingTransformer.toCreditNoteTaskVo(
+                        billingService.findCreditNoteTaskByTaskId(taskId)), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.PUT)

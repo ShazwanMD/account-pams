@@ -22,6 +22,8 @@ import {ReceiptTask} from "./receipts/receipt-task.interface";
 import {Receipt} from "./receipts/receipt.interface";
 import {invoiceItemListReducer, InvoiceItemListState} from "./invoices/invoice-item-list.reducer";
 import {invoiceListReducer, InvoiceListState} from "./invoices/invoice-list.reducer";
+import {DebitNoteTaskState, debitNoteTaskReducer} from "./debit-notes/debit-note-task.reducer";
+import {debitNoteReducer, DebitNoteState} from "./debit-notes/debit-note.reducer";
 import {
   assignedInvoiceTaskListReducer,
   InvoiceTaskListState,
@@ -35,6 +37,8 @@ import { DebitNoteSubModule } from "./debit-notes/index";
 import { CreditNoteSubModule } from "./credit-notes/index";
 import { InvoiceTaskListComponent } from "./invoices/component/invoice-task-list.component";
 import {receiptItemListReducer, ReceiptItemListState} from "./receipts/receipt-item-list.reducer";
+import { DebitNoteTask } from "./debit-notes/debit-note-task.interface";
+import { DebitNote } from "./debit-notes/debit-note.interface";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -48,6 +52,8 @@ export interface BillingModuleState {
   receiptTask: ReceiptTaskState;
   receipt: ReceiptState;
   receiptItems: ReceiptItemListState;
+  debitNote: DebitNoteState;
+  debitNoteTask: DebitNoteTaskState;
 }
 ;
 
@@ -64,6 +70,8 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     receiptTask: <ReceiptTask>{},
     receipt: <Receipt>{},
     receiptItems: [],
+    debitNoteTask: <DebitNoteTask>{},
+    debitNote: <DebitNote>{},
   };
 
 export const billingModuleReducers = {
@@ -78,6 +86,8 @@ export const billingModuleReducers = {
   receiptTask: receiptTaskReducer,
   receipts: receiptReducer,
   receiptItems: receiptItemListReducer,
+  debitNoteTask: debitNoteTaskReducer,
+  debitNote: debitNoteReducer,
 };
 
 @NgModule({

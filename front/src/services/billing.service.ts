@@ -11,6 +11,8 @@ import {Receipt} from "../app/billing/receipts/receipt.interface";
 import {ReceiptItem} from "../app/billing/receipts/receipt-item.interface";
 import {CreditNote} from "../app/billing/credit-notes/credit-note.interface";
 import {DebitNote} from "../app/billing/debit-notes/debit-note.interface";
+import { CreditNoteTask } from "../app/billing/credit-notes/credit-note-task.interface";
+import { DebitNoteTask } from "../app/billing/debit-notes/debit-note-task.interface";
 
 @Injectable()
 export class BillingService {
@@ -275,6 +277,12 @@ export class BillingService {
         .map((res: Response) => <CreditNote>res.json());
     }
   
+  findCreditNoteTaskByTaskId(taskId: string): Observable<CreditNoteTask> {
+      console.log("findCreditNoteTaskByTaskId");
+      return this.http.get(environment.endpoint + '/api/billing/creditNotes/viewTask/' + taskId)
+        .map((res: Response) => <CreditNoteTask>res.json());
+    }
+  
   startCreditNoteTask(creditNote: CreditNote): Observable<String> {
       console.log("creditNote: " + creditNote);
       let headers = new Headers({
@@ -310,6 +318,12 @@ export class BillingService {
   findDebitNoteByReferenceNo(referenceNo: string): Observable<DebitNote> {
       return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + referenceNo)
         .map((res: Response) => <CreditNote>res.json());
+    }
+  
+  findDebitNoteTaskByTaskId(taskId: string): Observable<DebitNoteTask> {
+      console.log("findDebitNoteTaskByTaskId");
+      return this.http.get(environment.endpoint + '/api/billing/debitNotes/viewTask/' + taskId)
+        .map((res: Response) => <DebitNoteTask>res.json());
     }
   
   startDebitNoteTask(debitNote: DebitNote): Observable<String> {
