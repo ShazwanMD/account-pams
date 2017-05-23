@@ -50,6 +50,10 @@ export class FeeScheduleItemListComponent implements OnInit{
     }
   }
 
+   disableButton() {
+    return this.selectedRows.length != 1;
+  }
+
   filter(): void {
   }
 
