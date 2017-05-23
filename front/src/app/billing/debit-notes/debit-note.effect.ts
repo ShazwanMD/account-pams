@@ -28,6 +28,12 @@ export class DebitNoteEffects {
     .map(action => action.payload)
     .switchMap(referenceNo => this.billingService.findDebitNoteByReferenceNo(referenceNo))
     .map(debitNote => this.debitNoteActions.findDebitNoteByReferenceNoSuccess(debitNote));
+
+    @Effect() findDebitNoteTaskByTaskId = this.actions$
+    .ofType(DebitNoteActions.FIND_DEBIT_NOTE_TASK_BY_TASK_ID)
+    .map(action => action.payload)
+    .switchMap(taskId => this.billingService.findDebitNoteTaskByTaskId(taskId))
+    .map(task => this.debitNoteActions.findDebitNoteTaskByTaskIdSuccess(task));
     
     @Effect() startDebitNoteTask$ = this.actions$
     .ofType(DebitNoteActions.START_DEBIT_NOTE_TASK)
