@@ -22,7 +22,7 @@ export class DebitNoteActions {
     };
   }
   
-  static FIND_DEBIT_NOTE_BY_ID = '[Receipt] Find Receipt By Id';
+  static FIND_DEBIT_NOTE_BY_ID = '[DebitNote] Find DebitNote By Id';
 
   findDebitNoteById(id): Action {
     return {
@@ -31,7 +31,7 @@ export class DebitNoteActions {
     };
   }
 
-  static FIND_DEBIT_NOTE_BY_ID_SUCCESS = '[Receipt] Find Receipt By Id Success';
+  static FIND_DEBIT_NOTE_BY_ID_SUCCESS = '[DebitNote] Find DebitNote By Id Success';
 
   findDebitNoteByIdSuccess(debitNote): Action {
     return {
