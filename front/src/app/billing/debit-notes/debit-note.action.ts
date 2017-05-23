@@ -42,6 +42,26 @@ export class DebitNoteActions {
     };
   }
   
+  static FIND_DEBIT_NOTE_TASK_BY_TASK_ID = '[DebitNote] Find DebitNote Task By Task Id';
+
+  findDebitNoteTaskByTaskId(taskId): Action {
+    console.log("findDebitNoteTaskByTaskId");
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_TASK_BY_TASK_ID,
+      payload: taskId
+    };
+  }
+
+  static FIND_DEBIT_NOTE_TASK_BY_TASK_ID_SUCCESS = '[DebitNote] Find DebitNote Task By Task Id Success';
+
+  findDebitNoteTaskByTaskIdSuccess(task): Action {
+    console.log("findDebitNoteTaskByTaskIdSuccess");
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_TASK_BY_TASK_ID_SUCCESS,
+      payload: task
+    };
+  }
+  
   static START_DEBIT_NOTE_TASK = '[DebitNote] Start DebitNote Task';
   startDebitNoteTask(debitNote): Action {
     return {
