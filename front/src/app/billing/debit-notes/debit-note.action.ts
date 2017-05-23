@@ -21,6 +21,24 @@ export class DebitNoteActions {
       payload: debitNotes
     };
   }
+  
+  static FIND_DEBIT_NOTE_BY_ID = '[Receipt] Find Receipt By Id';
+
+  findDebitNoteById(id): Action {
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_BY_ID,
+      payload: id
+    };
+  }
+
+  static FIND_DEBIT_NOTE_BY_ID_SUCCESS = '[Receipt] Find Receipt By Id Success';
+
+  findDebitNoteByIdSuccess(debitNote): Action {
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_BY_ID_SUCCESS,
+      payload: debitNote
+    };
+  }
 
   static FIND_DEBIT_NOTES_BY_REFERENCE_NO = '[DebitNote] Find DebitNotes By reference No';
 
