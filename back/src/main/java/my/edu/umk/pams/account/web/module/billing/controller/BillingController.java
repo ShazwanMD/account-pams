@@ -337,7 +337,7 @@ public class BillingController {
     }
 
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.GET)
-    public ResponseEntity<DebitNote> DebitNote(@PathVariable String referenceNo) {
+    public ResponseEntity<DebitNote> findDebitNoteByReferenceNo(@PathVariable String referenceNo) {
         AcDebitNote debitNotes = (AcDebitNote) billingService.findDebitNoteByReferenceNo(referenceNo);
         return new ResponseEntity<DebitNote>(billingTransformer.toDebitNoteVo(debitNotes), HttpStatus.OK);
     }
@@ -373,6 +373,12 @@ public class BillingController {
     //  CREDIT NOTE
     // ==================================================================================================== //
 
+    @RequestMapping(value = "/creditNotes/", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNote>> findCreditNotes(AcInvoice invoice) {
+        List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
+        return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "invoices/{referenceNo}/creditNotes", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNote>> findCreditNotesByInvoice(@PathVariable String referenceNo) {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
@@ -380,7 +386,6 @@ public class BillingController {
         return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
     }
     
-
     @RequestMapping(value = "/creditNotes/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startCreditNoteTask(@RequestBody CreditNote vo) throws Exception {
         dummyLogin();
