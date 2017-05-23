@@ -200,6 +200,25 @@ public class BillingTransformer {
         return vo;
     }
     
+    public DebitNoteTask toDebitNoteTaskVo(Task t) {
+        Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
+        AcDebitNote debitNote = billingService.findDebitNoteById((Long) vars.get(AccountConstants.DEBIT_NOTE_ID));
+
+        DebitNoteTask task = new DebitNoteTask();
+        task.setId(debitNote.getId());
+        task.setTaskId(t.getId());
+        task.setReferenceNo(debitNote.getReferenceNo());
+        task.setSourceNo(debitNote.getSourceNo());
+        task.setDescription(debitNote.getDescription());
+        task.setTaskName(t.getName());
+        task.setAssignee(task.getAssignee());
+        task.setCandidate(task.getCandidate());
+        task.setDebitNote(toDebitNoteVo(debitNote));
+        task.setFlowState(FlowState.get(debitNote.getFlowdata().getState().ordinal()));
+        task.setMetaState(MetaState.get(debitNote.getMetadata().getState().ordinal()));
+        return task;
+    }
+    
     public CreditNote toCreditNoteVos(AcCreditNote e) {
     	CreditNote vo = new CreditNote();
         vo.setId(e.getId());
@@ -224,6 +243,25 @@ public class BillingTransformer {
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
+    }
+    
+    public CreditNoteTask toCreditNoteTaskVo(Task t) {
+        Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
+        AcCreditNote creditNote = billingService.findCreditNoteById((Long) vars.get(AccountConstants.CREDIT_NOTE_ID));
+
+        CreditNoteTask task = new CreditNoteTask();
+        task.setId(creditNote.getId());
+        task.setTaskId(t.getId());
+        task.setReferenceNo(creditNote.getReferenceNo());
+        task.setSourceNo(creditNote.getSourceNo());
+        task.setDescription(creditNote.getDescription());
+        task.setTaskName(t.getName());
+        task.setAssignee(task.getAssignee());
+        task.setCandidate(task.getCandidate());
+        task.setCreditNote(toCreditNoteVo(creditNote));
+        task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));
+        task.setMetaState(MetaState.get(creditNote.getMetadata().getState().ordinal()));
+        return task;
     }
 
     public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
