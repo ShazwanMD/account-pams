@@ -264,6 +264,12 @@ export class BillingService {
   // CREDIT NOTE
   // ====================================================================================================
   
+  findCreditNotes(invoice: Invoice): Observable<CreditNote> {
+      console.log("findCreditNotes");
+      return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + invoice)
+        .map((res: Response) => <CreditNote>res.json());
+    }
+  
   findCreditNoteByReferenceNo(referenceNo: string): Observable<CreditNote> {
       return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + referenceNo)
         .map((res: Response) => <CreditNote>res.json());
@@ -294,6 +300,12 @@ export class BillingService {
   // ====================================================================================================
   // DEBIT NOTE
   // ====================================================================================================
+  
+  findDebitNotes(invoice: Invoice): Observable<DebitNote> {
+      console.log("findDebitNotes");
+      return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + invoice)
+        .map((res: Response) => <DebitNote>res.json());
+    }
   
   findDebitNoteByReferenceNo(referenceNo: string): Observable<DebitNote> {
       return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + referenceNo)
