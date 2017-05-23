@@ -6,7 +6,7 @@ export type CreditNoteTaskState = CreditNoteTask;
 
 const initialState: CreditNoteTaskState = <CreditNoteTaskState>{};
 
-export function debitNoteTaskReducer(state = initialState, action: Action): CreditNoteTaskState {
+export function creditNoteTaskReducer(state = initialState, action: Action): CreditNoteTaskState {
   switch (action.type) {
     case CreditNoteActions.FIND_CREDIT_NOTE_TASK_BY_TASK_ID_SUCCESS: {
       return action.payload;
