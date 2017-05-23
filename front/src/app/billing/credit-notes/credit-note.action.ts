@@ -89,10 +89,10 @@ export class CreditNoteActions {
 
   static START_CREDIT_NOTE_TASK_SUCCESS = '[CreditNote] Start CreditNote Task Success';
 
-  startCreditNoteTaskSuccess(referenceNo): Action {
+  startCreditNoteTaskSuccess(creditNote): Action {
     return {
       type: CreditNoteActions.START_CREDIT_NOTE_TASK_SUCCESS,
-      payload: referenceNo
+      payload: creditNote
     };
   }
 
