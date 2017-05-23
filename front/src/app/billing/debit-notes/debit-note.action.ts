@@ -5,15 +5,16 @@ import {Action} from '@ngrx/store';
 export class DebitNoteActions {
 
   static FIND_DEBIT_NOTES = '[DebitNote] Find DebitNotes';
-  findDebitNotes(): Action {
+  findDebitNotes(invoice): Action {
     return {
-      type: DebitNoteActions.FIND_DEBIT_NOTES
+      type: DebitNoteActions.FIND_DEBIT_NOTES,
+      payload: invoice
     };
   }
 
   static FIND_DEBIT_NOTES_SUCCESS = '[DebitNote] Find DebitNotes Success';
   findDebitNotesSuccess(debitNotes): Action {
-    console.log("findChargeCodesSuccess");
+    console.log("findDebitNotesSuccess");
     console.log("DebitNotes: " + debitNotes.length);
     return {
       type: DebitNoteActions.FIND_DEBIT_NOTES_SUCCESS,
@@ -21,23 +22,26 @@ export class DebitNoteActions {
     };
   }
 
-  static FIND_DEBIT_NOTE = '[DebitNote] Find DebitNote';
-  findDebitNote(code): Action {
+  static FIND_DEBIT_NOTES_BY_REFERENCE_NO = '[DebitNote] Find DebitNotes By reference No';
+
+  findDebitNoteByReferenceNo(referenceNo): Action {
+    console.log("findDebitNoteByReferenceNo");
     return {
-      type: DebitNoteActions.FIND_DEBIT_NOTE,
-      payload: code
+      type: DebitNoteActions.FIND_DEBIT_NOTES_BY_REFERENCE_NO,
+      payload: referenceNo
     };
   }
 
-  static FIND_DEBIT_NOTE_SUCCESS = '[DebitNote] Find DebitNote Success';
-  findChargeCodeSuccess(debitNote): Action {
-    console.log("findDebitNoteSuccess");
+  static FIND_DEBIT_NOTES_BY_REFERENCE_NO_SUCCESS = '[DebitNote] Find DebitNotes By reference No Success';
+
+  findDebitNoteByReferenceNoSuccess(debitNote): Action {
+    console.log("findDebitNoteByReferenceNoSuccess");
     return {
-      type: DebitNoteActions.FIND_DEBIT_NOTE_SUCCESS,
+      type: DebitNoteActions.FIND_DEBIT_NOTES_BY_REFERENCE_NO_SUCCESS,
       payload: debitNote
     };
   }
-
+  
   static START_DEBIT_NOTE_TASK = '[DebitNote] Start DebitNote Task';
   startDebitNoteTask(debitNote): Action {
     return {
@@ -70,19 +74,19 @@ export class DebitNoteActions {
     };
   }
 
-  static REMOVE_DEBIT_NOTE = '[DebitNote] Remove DebitNote';
-  removeDebitNote(debitNote): Action {
-    return {
-      type: DebitNoteActions.REMOVE_DEBIT_NOTE,
-      payload: debitNote
-    };
-  }
-
-  static REMOVE_DEBIT_NOTE_SUCCESS = '[DebitNote] Remove DebitNote Success';
-  removeDebitNoteSuccess(debitNote): Action {
-    return {
-      type: DebitNoteActions.REMOVE_DEBIT_NOTE_SUCCESS,
-      payload: debitNote
-    };
-  }
+//  static REMOVE_DEBIT_NOTE = '[DebitNote] Remove DebitNote';
+//  removeDebitNote(debitNote): Action {
+//    return {
+//      type: DebitNoteActions.REMOVE_DEBIT_NOTE,
+//      payload: debitNote
+//    };
+//  }
+//
+//  static REMOVE_DEBIT_NOTE_SUCCESS = '[DebitNote] Remove DebitNote Success';
+//  removeDebitNoteSuccess(debitNote): Action {
+//    return {
+//      type: DebitNoteActions.REMOVE_DEBIT_NOTE_SUCCESS,
+//      payload: debitNote
+//    };
+//  }
 }
