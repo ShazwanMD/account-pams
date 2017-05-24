@@ -12,7 +12,16 @@ import java.math.BigDecimal;
  */
 public class FeeScheduleItem extends MetaObject {
     private BigDecimal amount;
+    private String description;
     private ChargeCode chargeCode;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public BigDecimal getAmount() {
         return amount;

@@ -21,6 +21,14 @@ public interface AcFeeScheduleItem extends AcMetaObject{
      *
      * @return
      */
+    String getDescription();
+
+    void setDescription(String description);
+
+    /**
+     *
+     * @return
+     */
     AcChargeCode getChargeCode();
 
     void setChargeCode(AcChargeCode chargeCode);

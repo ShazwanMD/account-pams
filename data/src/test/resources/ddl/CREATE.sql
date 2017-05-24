@@ -457,6 +457,7 @@
 
     create table AC_FEE_SCDL_ITEM (
         ID int8 not null,
+        DESCRIPTION varchar(255) not null,
         AMOUNT numeric(19, 2) not null,
         C_TS timestamp,
         C_ID int8,

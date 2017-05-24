@@ -22,6 +22,9 @@ public class AcFeeScheduleItemImpl implements AcFeeScheduleItem {
     @Column(name = "AMOUNT", nullable = false)
     private BigDecimal amount;
 
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String description;
+
     @NotNull
     @OneToOne(targetEntity = AcChargeCodeImpl.class)
     @JoinColumn(name = "CHARGE_CODE_ID")
@@ -41,6 +44,16 @@ public class AcFeeScheduleItemImpl implements AcFeeScheduleItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
