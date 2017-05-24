@@ -248,23 +248,6 @@ public class AccountController {
                 .toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/{code}/admissionCharges", method = RequestMethod.POST)
-    public ResponseEntity<String> addAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
-        dummyLogin();
-
-        AcAccount account = accountService.findAccountByCode(code);
-        AcAdmissionCharge admissionCharge = new AcAdmissionChargeImpl();
-        admissionCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
-        admissionCharge.setSourceNo(vo.getSourceNo());
-        admissionCharge.setDescription(vo.getDescription());
-        admissionCharge.setAmount(vo.getAmount());
-        admissionCharge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-        admissionCharge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-        admissionCharge.setSession(accountService.findCurrentAcademicSession()); // todo:
-        accountService.addAccountCharge(account, admissionCharge);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/accounts/{code}/enrollmentCharge", method = RequestMethod.POST)
     public ResponseEntity<String> addEnrollmentCharge(@PathVariable String code, @RequestBody EnrollmentCharge vo) {
         AcAccount account = accountService.findAccountByCode(code);
@@ -307,6 +290,37 @@ public class AccountController {
         accountService.addAccountTransaction(account, transaction);
     }
 
+    // ==================================================================================================== //
+    // ADMISSION CHARGE
+    // ==================================================================================================== //
+
+    @RequestMapping(value = "/accounts/{code}/admissionCharges", method = RequestMethod.POST)
+    public ResponseEntity<String> addAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
+        dummyLogin();
+
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAdmissionCharge admissionCharge = new AcAdmissionChargeImpl();
+        admissionCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+        admissionCharge.setSourceNo(vo.getSourceNo());
+        admissionCharge.setDescription(vo.getDescription());
+        admissionCharge.setAmount(vo.getAmount());
+        admissionCharge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+        admissionCharge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+        admissionCharge.setSession(accountService.findCurrentAcademicSession()); // todo:
+        accountService.addAccountCharge(account, admissionCharge);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+   
+    @RequestMapping(value = "/accounts/{code}/admissionCharges/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> removeAdmissionCharge(@PathVariable String code, @PathVariable Long id) {
+    dummyLogin();
+	
+	AcAccount account = accountService.findAccountByCode(code);
+	AcAdmissionCharge admissionCharge = (AcAdmissionCharge) accountService.findAccountById(id);
+	accountService.deleteAccountCharge(account, admissionCharge);
+	return new ResponseEntity<String>("Success", HttpStatus.OK);
+	}
+    
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
