@@ -73,4 +73,13 @@ export class AccountEffects {
     .withLatestFrom(this.store$.select(...this.ACCOUNT))
     .map(state => state[1])
     .map((account:Account) => this.accountActions.findAccountByCode(account.code));
+
+  @Effect() removeAdmissionCharge$ = this.actions$
+    .ofType(AccountActions.REMOVE_ADMISSION_CHARGE)
+   .map(action => action.payload)
+    .switchMap(payload => this.accountService.removeAdmissionCharge(payload.account, payload.charge))
+    .map(message => this.accountActions.removeAdmissionChargeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map(state => state[1])
+    .map((account:Account) => this.accountActions.findAccountByCode(account.code));
 }
