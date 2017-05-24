@@ -8,9 +8,9 @@
       <md-icon class="md-24 tc-grey-700">add</md-icon>
     </button>
     <!-- pending -->
-    <!--<button md-button class="md-icon-button" (click)="edit(row)">-->
-      <!--<md-icon class="md-24 tc-grey-700">edit</md-icon>-->
-    <!--</button>-->
+  <button md-button class="md-icon-button" (click)="edit()"  [disabled]="disableButton()">
+      <md-icon class="md-24 tc-grey-700">edit</md-icon>
+    </button>
     <button md-button class="md-icon-button" (click)="delete(selectedRows)">
       <md-icon class="md-24 tc-grey-700">delete</md-icon>
     </button>
