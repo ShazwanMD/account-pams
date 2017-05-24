@@ -26,10 +26,17 @@
     <div layout="row" layout-wrap></div>
 
     <md-card>
-      <td-search-box class="push-left push-right"
-                     placeholder="search account"
-                     [alwaysVisible]="true"
-                     (searchDebounce)="filterAccounts($event)"></td-search-box>
+      <div layout="row" class="pad-bottom" flex>
+                    <md-input-container flex>
+                      <input type="text" mdInput placeholder="Search Here" [formControl]="myControl" [mdAutocomplete]="auto" flex/>
+                    </md-input-container>
+                    <md-autocomplete #auto="mdAutocomplete" 
+                    				[displayWith]="displayFn">
+					   <md-option *ngFor="let accounts$ of filteredOptions | async" [value]="accounts$">
+					      {{ accounts$.name }}
+					   </md-option>
+					</md-autocomplete>
+                  </div>
       <md-divider></md-divider>
       <td-data-table
   [data]="accounts$ | async" 

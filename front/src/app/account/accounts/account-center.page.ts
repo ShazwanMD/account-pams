@@ -16,16 +16,20 @@ import {Account} from "./account.interface";
 import {AccountActions} from "./account.action";
 import {AccountModuleState} from "../index";
 import {AccountCreatorDialog} from "./dialog/account-creator.dialog";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: 'pams-account-center',
   templateUrl: './account-center.page.html',
+  
 })
 
 export class AccountCenterPage implements OnInit {
 
   @Input() accounts: Account[];
   @Output() view = new EventEmitter<Account>();
+  
+  myControl = new FormControl();
 
   private ACCOUNTS: string[] = "accountModuleState.accounts".split(".");
   private accounts$: Observable<Account[]>;
@@ -39,7 +43,9 @@ export class AccountCenterPage implements OnInit {
     {name: 'email', label: 'Email'},
     {name: 'action', label: ''}
   ];
-
+  
+  filteredOptions: Observable<Account[]>;
+  
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: AccountActions,
@@ -57,12 +63,12 @@ export class AccountCenterPage implements OnInit {
     console.log("account: " + account.id);
     this.router.navigate(['/accounts-detail', account.id]);
   }
-
-  filterAccounts(filter: string): void {
-    console.log("filtering: " + filter);
-    if (filter) this.store.dispatch(this.actions.findAccountsByFilter(filter));
-    else this.store.dispatch(this.actions.findAccounts())
-  }
+  
+//  filterAccounts(filter: string): void {
+//    console.log("filtering: " + filter);
+//    if (filter) this.store.dispatch(this.actions.findAccountsByFilter(filter));
+//    else this.store.dispatch(this.actions.findAccounts())
+//  }
 
   showDialog(): void {
     console.log("showDialog");
@@ -78,9 +84,21 @@ export class AccountCenterPage implements OnInit {
       // load something here
     });
   }
-
+  
   ngOnInit(): void {
     this.store.dispatch(this.actions.findAccounts());
+    this.filteredOptions = this.myControl.valueChanges
+    .startWith(null)
+    .map(account => account && typeof account === 'object' ? account.name : account)
+    .map(name => name ? this.filter(name) : this.columns.slice());
   }
+  
+  filter(name: string): Account[] {
+          return this.columns.filter(accounts$ => new RegExp(`^${name}`, 'gi').test(accounts$.name)); 
+       }
+
+  displayFn(account: Account) {
+          return account ? account.name : account;
+   }
 }
 
