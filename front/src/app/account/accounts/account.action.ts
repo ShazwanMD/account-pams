@@ -209,6 +209,24 @@ export class AccountActions {
     };
   }
 
+   static REMOVE_ADMISSION_CHARGE = '[Admission] Remove AdmissionCharge';
+
+  removeAdmissionCharge(account, charge): Action {
+    return {
+      type: AccountActions.REMOVE_ADMISSION_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+  static REMOVE_ADMISSION_CHARGE_SUCCESS = '[Admission] Remove AdmissionCharge Success';
+
+  removeAdmissionChargeSuccess(message): Action {
+    return {
+      type: AccountActions.REMOVE_ADMISSION_CHARGE_SUCCESS,
+      payload: message
+    };
+  }
+
   static ADD_ACCOUNT_TRANSACTION_ = '[Account] Add AccountTransaction ';
 
   addAccountTransaction(account, accountTransaction): Action {
