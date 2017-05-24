@@ -10,8 +10,6 @@ import { CreditNote } from "./credit-note.interface";
 import { CreditNoteCreatorDialog } from "./dialog/credit-note-creator.dialog";
 import { CreditNoteActions } from "./credit-note.action";
 import { CreditNoteTask } from "./credit-note-task.interface";
-//import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
-
 
 
 @Component({
