@@ -15,6 +15,7 @@ import {Account} from "../account.interface";
 export class AccountChargeListComponent {
   @Input() account: Account;
   @Input() charges: AccountCharge[];
+
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
   private columns: any[] = [
     {name: 'chargeType', label: 'Type'},
@@ -28,6 +29,10 @@ export class AccountChargeListComponent {
               private store: Store<AccountModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
+  }
+
+  delete(account: Account, accountCharge: AccountCharge): void {
+    this.store.dispatch(this.actions.removeAdmissionCharge(account, accountCharge))
   }
 
   showAdmissionChargeDialog(): void {
