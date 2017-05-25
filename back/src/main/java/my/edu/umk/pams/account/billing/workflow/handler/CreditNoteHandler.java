@@ -15,6 +15,8 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 import static my.edu.umk.pams.account.AccountConstants.CREDIT_NOTE_PROCESS_KEY;
+import static my.edu.umk.pams.account.AccountConstants.CREDIT_NOTE_PROCESS_NAME;
+import static my.edu.umk.pams.account.AccountConstants.CREDIT_NOTE_RESOURCE_PATH;
 
 /**
  * @author PAMS
@@ -55,12 +57,12 @@ public class CreditNoteHandler implements DocumentHandler<AcCreditNote> {
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
 
         // start only when we don't have one
-//        long count = query.processDefinitionKey(CREDIT_NOTE_PROCESS_KEY).count();
-//        if (count < 1) {
-//            deployment
-//                    .addClasspathResource(CREDIT_NOTE_RESOURCE_PATH)
-//                    .name(CREDIT_NOTE_PROCESS_NAME)
-//                    .deploy();
-//        }
+        long count = query.processDefinitionKey(CREDIT_NOTE_PROCESS_KEY).count();
+        if (count < 1) {
+            deployment
+                    .addClasspathResource(CREDIT_NOTE_RESOURCE_PATH)
+                    .name(CREDIT_NOTE_PROCESS_NAME)
+                    .deploy();
+        }
     }
 }
