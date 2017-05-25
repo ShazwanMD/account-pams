@@ -1,13 +1,8 @@
 import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
 import {PromoCodeItem} from "../promo-code-item.interface";
 import {PromoCodeItemEditorDialog} from "../dialog/promo-code-item-editor.dialog";
-import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from "@angular/material";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MarketingModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import {PromoCodeActions} from "../promo-code.action";
+import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
 import {PromoCode} from "../promo-code.interface";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'pams-promo-code-item-list',
@@ -28,40 +23,25 @@ export class PromoCodeItemListComponent implements OnInit {
     {name: 'account.code', label: 'Account'},
     {name: 'action', label: ''}
   ];
-  private PROMO_CODE = "marketingModuleState.promoCode".split(".");
-  private promoCode$: Observable<PromoCode>;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private actions: PromoCodeActions,
-              private store: Store<MarketingModuleState>,
-              private vcf: ViewContainerRef,
-              private dialog: MdDialog,
-              private snackbar: MdSnackBar) {
-      this.promoCode$ = this.store.select(...this.PROMO_CODE)
+  constructor(private vcf: ViewContainerRef,
+              private dialog: MdDialog) {
   }
 
   ngOnInit(): void {
-    this.selectedRows = this.promoCodeItems.filter(value => {console.log("selected value",value)}/*value.selected*/);
+      this.selectedRows = this.promoCodeItems.filter(value => value.selected);
   }
 
-  createDialog(): void {
-    this.promoCode$.subscribe(promoCode => this.showDialog(promoCode,null));
+  create(): void {
+      this.showDialog(null);
   }
-
+  
   edit(promoCodeItem: PromoCodeItem): void {
-    this.promoCode$.subscribe(promoCode => this.showDialog(promoCode,promoCodeItem));
+      this.showDialog(promoCodeItem);
   }
 
-  delete(): void {
-    console.log("length: " + this.selectedRows.length);
-    for (var i = 0; i < this.selectedRows.length; i++) {
-      this.store.dispatch(this.actions.deletePromoCodeItem(this.promoCode, this.selectedRows[i]));
-    }
-  }
-
-   disableButton() {
-    return this.selectedRows.length != 1;
+  remove(promoCodeItem: PromoCodeItem): void {
+      console.log("delete", this.promoCode, promoCodeItem);
   }
 
   filter(): void {
@@ -74,8 +54,7 @@ export class PromoCodeItemListComponent implements OnInit {
   }
 
 
-  showDialog(promoCode: PromoCode, promoCodeItem: PromoCodeItem): void {
-    console.log("showDialog",promoCode);
+  showDialog(promoCodeItem: PromoCodeItem): void {
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -83,10 +62,10 @@ export class PromoCodeItemListComponent implements OnInit {
     config.height = '60%';
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(PromoCodeItemEditorDialog, config);
-    this.editorDialogRef.componentInstance.promoCode = promoCode;
-    if (promoCodeItem) this.editorDialogRef.componentInstance.promoCodeItem = promoCodeItem; // set
+    this.editorDialogRef.componentInstance.setPromoCode = this.promoCode;
+    this.editorDialogRef.componentInstance.setPromoCodeItem = promoCodeItem;
     this.editorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+      this.selectedRows = [];
     });
   }
 }

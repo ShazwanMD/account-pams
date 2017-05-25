@@ -19,9 +19,8 @@ import {PromoCode} from "../promo-code.interface";
 export class PromoCodeItemEditorDialog implements OnInit {
 
   private editForm: FormGroup;
-  private edit: boolean = false;
-  private _promoCodeItem: PromoCodeItem;
-  private _promoCode: PromoCode;
+  private promoCodeItem: PromoCodeItem;
+  private promoCode: PromoCode;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -32,13 +31,12 @@ export class PromoCodeItemEditorDialog implements OnInit {
               private dialog: MdDialogRef<PromoCodeItemEditorDialog>) {
   }
 
-  set promoCodeItem(value: PromoCodeItem) {
-    this._promoCodeItem = value;
-    this.edit = true;
+  set setPromoCodeItem(promoCodeItem: PromoCodeItem) {
+    this.promoCodeItem = promoCodeItem;
   }
 
-  set promoCode(value: PromoCode) {
-    this._promoCode = value;
+  set setPromoCode(promoCode: PromoCode) {
+    this.promoCode = promoCode;
   }
 
   ngOnInit(): void {
@@ -49,13 +47,13 @@ export class PromoCodeItemEditorDialog implements OnInit {
       sourceNo: 0,
       account: <Account>{},
     });
-    if (this.edit) this.editForm.patchValue(this._promoCodeItem);
-    console.log(this._promoCode)
+    this.editForm.patchValue(this.promoCodeItem);
+    this.editForm.controls['account'].patchValue(this.promoCodeItem.account);
   }
 
-  submit(item: PromoCodeItem, isValid: boolean) {
-    if (!item.id) this.store.dispatch(this.actions.addPromoCodeItem(this._promoCode, item));
-    else  this.store.dispatch(this.actions.updatePromoCodeItem(this._promoCode, item));
+  submit(promoCodeItem: PromoCodeItem, isValid: boolean) {
+    if (!promoCodeItem.id) this.store.dispatch(this.actions.addPromoCodeItem(this.promoCode, promoCodeItem));
+    else  this.store.dispatch(this.actions.updatePromoCodeItem(this.promoCode, promoCodeItem));
     this.dialog.close();
   }
 }
