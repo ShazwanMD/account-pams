@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.account.service;
 import my.edu.umk.pams.account.account.dao.*;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
@@ -184,9 +185,15 @@ public class AccountServiceImpl implements AccountService {
         return feeScheduleDao.findByCode(code);
     }
 
+    @Deprecated
     @Override
     public AcFeeSchedule findFeeScheduleByCohortCodeAndStudyMode(AcCohortCode cohortCode,AcStudyMode studyMode) {
         return feeScheduleDao.findByCohortCodeAndStudyMode(cohortCode, studyMode);
+    }
+    @Deprecated
+    @Override
+    public AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode,AcResidencyCode residencyCode, AcStudyMode studyMode) {
+        return feeScheduleDao.findByCohortCodeAndResidencyCodeAndStudyMode(cohortCode, residencyCode, studyMode);
     }
 
     @Override

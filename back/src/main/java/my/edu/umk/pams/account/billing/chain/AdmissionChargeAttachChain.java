@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
+import my.edu.umk.pams.account.identity.model.AcStudent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,10 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
 
         AcAdmissionCharge admissionCharge = ((AcAdmissionCharge) charge);
         AcFeeSchedule feeSchedule = accountService
-                .findFeeScheduleByCohortCodeAndStudyMode(admissionCharge.getCohortCode(), admissionCharge.getStudyMode());
+                .findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(
+                        admissionCharge.getCohortCode(),
+                        ((AcStudent) invoice.getAccount().getActor()).getResidencyCode(),
+                        admissionCharge.getStudyMode());
 
         List<AcFeeScheduleItem> scheduleItems = accountService.findFeeScheduleItems(feeSchedule);
         LOG.debug("found {} schedule items ", scheduleItems.size());

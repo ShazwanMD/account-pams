@@ -17,6 +17,7 @@ public interface AcFeeScheduleDao extends GenericDao<Long, AcFeeSchedule> {
 
     AcFeeSchedule findByCode(String code);
 
+    @Deprecated
     AcFeeSchedule findByCohortCodeAndStudyMode(AcCohortCode cohortCode, AcStudyMode studyMode);
 
     AcFeeSchedule findByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode, AcResidencyCode residencyCode, AcStudyMode studyMode);
