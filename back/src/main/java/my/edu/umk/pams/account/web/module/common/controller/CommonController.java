@@ -3,11 +3,7 @@ package my.edu.umk.pams.account.web.module.common.controller;
 import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
-import my.edu.umk.pams.account.web.module.common.vo.BankCode;
-import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
-import my.edu.umk.pams.account.web.module.common.vo.FacultyCode;
-import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
-
+import my.edu.umk.pams.account.web.module.common.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,6 +71,55 @@ public class CommonController {
 
         AcCohortCode cohortCode = commonService.findCohortCodeByCode(code);
         commonService.removeCohortCode(cohortCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+
+
+    //====================================================================================================
+    // RESIDENCY_CODE
+    //====================================================================================================
+
+    @RequestMapping(value = "/residencyCodes", method = RequestMethod.GET)
+    public ResponseEntity<List<ResidencyCode>> findResidencyCodes() {
+        return new ResponseEntity<List<ResidencyCode>>(commonTransformer.toResidencyCodeVos(
+                commonService.findResidencyCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/residencyCodes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<ResidencyCode> findResidencyCodeByCode(@PathVariable String code) {
+        return new ResponseEntity<ResidencyCode>(commonTransformer.toResidencyCodeVo(
+                commonService.findResidencyCodeByCode(code)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/residencyCodes", method = RequestMethod.POST)
+    public ResponseEntity<String> saveResidencyCode(@RequestBody ResidencyCode vo) {
+        dummyLogin();
+
+        AcResidencyCode residencyCode = new AcResidencyCodeImpl();
+        residencyCode.setCode(vo.getCode());
+        residencyCode.setDescription(vo.getDescription());
+        commonService.saveResidencyCode(residencyCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/residencyCodes/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateResidencyCode(@PathVariable String code, @RequestBody ResidencyCode vo) {
+        dummyLogin();
+
+        AcResidencyCode residencyCode = commonService.findResidencyCodeById(vo.getId());
+        residencyCode.setCode(vo.getCode());
+        residencyCode.setDescription(vo.getDescription());
+        commonService.updateResidencyCode(residencyCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/residencyCodes/{code}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeResidencyCode(@PathVariable String code) {
+        dummyLogin();
+
+        AcResidencyCode residencyCode = commonService.findResidencyCodeByCode(code);
+        commonService.removeResidencyCode(residencyCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 

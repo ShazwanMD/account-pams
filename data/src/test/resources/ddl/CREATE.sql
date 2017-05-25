@@ -451,14 +451,15 @@
         M_ST int4,
         TOTAL_AMOUNT numeric(19, 2) not null,
         COHORT_CODE_ID int8 not null,
+        RESIDENCY_CODE_ID int8 not null,
         STUDY_MODE_ID int8 not null,
         primary key (ID)
     );
 
     create table AC_FEE_SCDL_ITEM (
         ID int8 not null,
-        DESCRIPTION varchar(255) not null,
         AMOUNT numeric(19, 2) not null,
+        DESCRIPTION varchar(255) not null,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -839,6 +840,7 @@
         STUDENT_STATUS int4,
         ID int8 not null,
         COHORT_CODE_ID int8,
+        RESIDENCY_CODE_ID int8,
         primary key (ID)
     );
 
@@ -1173,6 +1175,11 @@
         references AC_CHRT_CODE;
 
     alter table AC_FEE_SCDL
+        add constraint FKE76F478E4BFE1A48
+        foreign key (RESIDENCY_CODE_ID)
+        references AC_RSCY_CODE;
+
+    alter table AC_FEE_SCDL
         add constraint FKE76F478E7B24A766
         foreign key (STUDY_MODE_ID)
         references AC_STDY_MODE;
@@ -1327,6 +1334,11 @@
         add constraint FKE62B74A818CFEEEC
         foreign key (COHORT_CODE_ID)
         references AC_CHRT_CODE;
+
+    alter table AC_STDN
+        add constraint FKE62B74A84BFE1A48
+        foreign key (RESIDENCY_CODE_ID)
+        references AC_RSCY_CODE;
 
     alter table AC_STDN
         add constraint FKE62B74A8565BDDFC

@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.model;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
@@ -26,6 +27,10 @@ public interface AcFeeSchedule extends AcMetaObject{
     AcCohortCode getCohortCode();
 
     void setCohortCode(AcCohortCode cohortCode);
+
+    AcResidencyCode getResidencyCode();
+
+    void setResidencyCode(AcResidencyCode residencyCode);
 
     AcStudyMode getStudyMode();
 

@@ -2,6 +2,8 @@ package my.edu.umk.pams.account.identity.model;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
+import my.edu.umk.pams.account.common.model.AcResidencyCode;
+import my.edu.umk.pams.account.common.model.AcResidencyCodeImpl;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,11 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
 	@OneToOne(targetEntity = AcCohortCodeImpl.class)
 	@JoinColumn(name = "COHORT_CODE_ID", nullable = true) // todo(uda): set to false
 	private AcCohortCode cohortCode;
+
+	@NotNull
+	@OneToOne(targetEntity = AcResidencyCodeImpl.class)
+	@JoinColumn(name = "RESIDENCY_CODE_ID", nullable = true) // todo(uda): set to false
+	private AcResidencyCode residencyCode;
 
 	public AcStudentImpl() {
 		setActorType(AcActorType.STUDENT);
@@ -57,6 +64,15 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
 	@Override
 	public void setCohortCode(AcCohortCode cohortCode) {
 		this.cohortCode = cohortCode;
+	}
+
+	@Override
+	public AcResidencyCode getResidencyCode() {
+		return residencyCode;
+	}
+
+	public void setResidencyCode(AcResidencyCode residencyCode) {
+		this.residencyCode = residencyCode;
 	}
 
 	@Override

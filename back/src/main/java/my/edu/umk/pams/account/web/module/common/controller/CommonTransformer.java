@@ -1,14 +1,7 @@
 package my.edu.umk.pams.account.web.module.common.controller;
 
-import my.edu.umk.pams.account.common.model.AcBankCode;
-import my.edu.umk.pams.account.common.model.AcCohortCode;
-import my.edu.umk.pams.account.common.model.AcFacultyCode;
-import my.edu.umk.pams.account.common.model.AcStudyMode;
-import my.edu.umk.pams.account.web.module.common.vo.BankCode;
-import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
-import my.edu.umk.pams.account.web.module.common.vo.FacultyCode;
-import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
-
+import my.edu.umk.pams.account.common.model.*;
+import my.edu.umk.pams.account.web.module.common.vo.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -35,6 +28,25 @@ public class CommonTransformer {
     public List<CohortCode> toCohortCodeVos(List<AcCohortCode> e) {
         List<CohortCode> vos = e.stream()
                 .map((e1) -> toCohortCodeVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
+
+    //====================================================================================================
+    // RESIDENCY CODE
+    //====================================================================================================
+
+    public ResidencyCode toResidencyCodeVo(AcResidencyCode e) {
+        ResidencyCode vo = new ResidencyCode();
+        vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setDescription(e.getDescription());
+        return vo;
+    }
+
+    public List<ResidencyCode> toResidencyCodeVos(List<AcResidencyCode> e) {
+        List<ResidencyCode> vos = e.stream()
+                .map((e1) -> toResidencyCodeVo(e1))
                 .collect(Collectors.toList());
         return vos;
     }
