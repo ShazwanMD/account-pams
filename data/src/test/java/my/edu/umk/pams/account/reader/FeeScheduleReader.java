@@ -31,8 +31,8 @@ public class FeeScheduleReader {
     @Rollback(false)
     public void loadDataTempatan() throws IOException {
         try {
-            File out = new File("C:/Projects/GitLab/UMK/account/data/src/site/AC_FEE_SCDL_DOMESTIC.sql");
-            File file = new File("C:/Projects/GitLab/UMK/account/data/src/site/cps-normalizatize table.xlsx");
+            File out = new File("C:/Users/UMK-PEJA/git/account/data/src/site/AC_FEE_SCDL_DOMESTIC.sql");
+            File file = new File("C:/Users/UMK-PEJA/git/account/data/src/site/cps-normalizatize table.xlsx");
             FileWriter writer = new FileWriter(out);
             Workbook workbook = WorkbookFactory.create(new FileInputStream(file));
             LOG.debug("number of sheets: " + workbook.getNumberOfSheets());
@@ -49,18 +49,26 @@ public class FeeScheduleReader {
                         + "1,"
                         + "CURRENT_TIMESTAMP,"
                         + "1); \n\n\n\n\n");
+                
+                
 
 
                 int lastRowNum = sheet.getLastRowNum();
                 for (int j = 5; j < lastRowNum; j++) {
                     Row row = sheet.getRow(j);
                     if (row != null) {
-                        LOG.debug(toString(row.getCell(0)));
-                        LOG.debug(toString(row.getCell(1)));
-                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID, SCHEDULE_ID, AMOUNT ) VALUES ("
+                    // LOG.debug(toString(row.getCell(0)));
+                       LOG.debug(toString(row.getCell(1)));
+                    	//LOG.debug(toString(row.getCell(2)));
+                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,SCHEDULE_ID, AMOUNT,C_TS,C_ID,M_ST) VALUES ("
                                 + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
                                 + "'" + toString(row.getCell(0)) + "',"
-                                + "'" + toString(row.getCell(1)) + "');\n");
+                                + "3,"
+                                + "'" + toString(row.getCell(1)) + "',"
+                        		+ "CURRENT_TIMESTAMP,"
+                        		+ "1,"
+                        		+ "1);"
+                        		+ "\n\n");
                     }
                 }
             }
@@ -75,7 +83,7 @@ public class FeeScheduleReader {
     @Rollback(false)
     public void loadDataInternational() throws IOException {
         try {
-            File out = new File("C:/Users/UMK-PEJA/git/account/data/src/site/AC_FEE_SCDL_INTERNATIONAL.sql");
+        	File out = new File("C:/Users/UMK-PEJA/git/account/data/src/site/AC_FEE_SCDL_INTERNATIONAL.sql");
             File file = new File("C:/Users/UMK-PEJA/git/account/data/src/site/cps-normalizatize table.xlsx");
             FileWriter writer = new FileWriter(out);
             Workbook workbook = WorkbookFactory.create(new FileInputStream(file));
@@ -94,9 +102,10 @@ public class FeeScheduleReader {
                     if (row != null) {
                         LOG.debug(toString(row.getCell(0)));
                         LOG.debug(toString(row.getCell(2)));
-                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID, SCHEDULE_ID, AMOUNT ) VALUES ("
+                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION, SCHEDULE_ID, AMOUNT ) VALUES ("
                                 + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
                                 + "'" + toString(row.getCell(0)) + "',"
+                                + "3,"
                                 + "'" + toString(row.getCell(2)) + "'); \n");
                     }
                 }
