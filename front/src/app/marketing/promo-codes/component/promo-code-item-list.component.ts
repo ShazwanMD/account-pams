@@ -1,4 +1,7 @@
 import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
+import {MarketingModuleState} from "../../index";
+import {Store} from "@ngrx/store";
+import {PromoCodeActions} from "../promo-code.action";
 import {PromoCodeItem} from "../promo-code-item.interface";
 import {PromoCodeItemEditorDialog} from "../dialog/promo-code-item-editor.dialog";
 import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
@@ -25,6 +28,8 @@ export class PromoCodeItemListComponent implements OnInit {
   ];
 
   constructor(private vcf: ViewContainerRef,
+          private store: Store<MarketingModuleState>,
+          private actions:PromoCodeActions,
               private dialog: MdDialog) {
   }
 
@@ -41,7 +46,7 @@ export class PromoCodeItemListComponent implements OnInit {
   }
 
   remove(promoCodeItem: PromoCodeItem): void {
-      console.log("delete", this.promoCode, promoCodeItem);
+      this.store.dispatch(this.actions.deletePromoCodeItem(this.promoCode, promoCodeItem));
   }
 
   filter(): void {
