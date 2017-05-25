@@ -17,11 +17,14 @@ import {facultyCodeListReducer, FacultyCodeListState} from "./faculty-codes/facu
 import {FacultyCodeSelectComponent} from "./faculty-codes/component/faculty-code-select.component";
 import {StudyModeSelectComponent} from "./study-modes/component/study-mode-select.component";
 import {studyModeListReducer, StudyModeListState} from "../setup/study-modes/study-mode-list.reducer";
+import {residencyCodeListReducer, ResidencyCodeListState} from "./residency-codes/residency-code-list.reducer";
+import {ResidencyCodeSelectComponent} from "./residency-codes/component/residency-code-select.component";
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
   facultyCodes: CohortCodeListState;
   studyModes: StudyModeListState;
+  residencyCodes: ResidencyCodeListState;
 }
 ;
 
@@ -30,6 +33,7 @@ export const commonModuleReducers = {
   cohortCodes: cohortCodeListReducer,
   facultyCodes: facultyCodeListReducer,
   studyModes: studyModeListReducer,
+  residencyCodes: residencyCodeListReducer,
 };
 
 @NgModule({
@@ -44,11 +48,13 @@ export const commonModuleReducers = {
     CohortCodeSelectComponent,
     FacultyCodeSelectComponent,
     StudyModeSelectComponent,
+    ResidencyCodeSelectComponent,
   ],
   exports: [
     CohortCodeSelectComponent,
     FacultyCodeSelectComponent,
     StudyModeSelectComponent,
+    ResidencyCodeSelectComponent,
 ],
 })
 export class CommonModule {
