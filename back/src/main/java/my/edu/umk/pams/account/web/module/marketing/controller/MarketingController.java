@@ -123,7 +123,7 @@ public class MarketingController {
         e.setCode(item.getCode());
         e.setSourceNo(item.getSourceNo());
         e.setPromoCode(promoCode);
-        //e.setAccount(accountService.findAccountById(item.getAccount().getId()));
+        e.setAccount(accountService.findAccountById(item.getAccount().getId()));
         marketingService.addPromoCodeItem(promoCode, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -137,6 +137,7 @@ public class MarketingController {
         e.setCode(item.getCode());
         e.setSourceNo(item.getSourceNo());
         e.setPromoCode(promoCode);
+        e.setAccount(accountService.findAccountById(item.getAccount().getId()));
         marketingService.updatePromoCodeItem(promoCode, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
