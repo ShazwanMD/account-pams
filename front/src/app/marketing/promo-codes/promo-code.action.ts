@@ -70,6 +70,7 @@ export class PromoCodeActions {
 
   static FIND_PROMO_CODE_ITEMS = '[PromoCode] Find PromoCode Items';
   findPromoCodeItems(promoCode): Action {
+    console.log("findPromoCodeItems");
     return {
       type: PromoCodeActions.FIND_PROMO_CODE_ITEMS,
       payload: promoCode
@@ -78,7 +79,7 @@ export class PromoCodeActions {
 
   static FIND_PROMO_CODE_ITEMS_SUCCESS = '[PromoCode] Find PromoCode Items Success';
   findPromoCodeItemsSuccess(items): Action {
-    console.log("findPromoCodeTransactionsSuccess");
+    console.log("findPromoCodeItemsSuccess");
     return {
       type: PromoCodeActions.FIND_PROMO_CODE_ITEMS_SUCCESS,
       payload: items
@@ -117,7 +118,7 @@ export class PromoCodeActions {
       payload: promoCode
     };
   }
-  
+
   static ADD_PROMO_CODE_ITEM = '[PromoCode] Add PromoCode Item';
 
   addPromoCodeItem(promoCode, promoCodeItem): Action {
@@ -135,7 +136,7 @@ export class PromoCodeActions {
       payload: message
     };
   }
-  
+
   static UPDATE_PROMO_CODE_ITEM = '[PromoCode] Update PromoCode Item';
 
   updatePromoCodeItem(promoCode, promoCodeItem): Action {
@@ -153,7 +154,7 @@ export class PromoCodeActions {
       payload: message
     };
   }
-  
+
   static DELETE_PROMO_CODE_ITEM = '[PromoCode] Delete PromoCode Item';
 
   deletePromoCodeItem(promoCode, promoCodeItem): Action {

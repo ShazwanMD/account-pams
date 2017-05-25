@@ -7,25 +7,11 @@
                placeholder="Code"
                formControlName="code"/>
       </md-input-container>
-    </div><!--
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput
-               placeholder="Applied"
-               formControlName="applied">
-      </md-input-container>
-    </div>-->
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput
-               placeholder="SourceNo"
-               formControlName="sourceNo">
-      </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <pams-account-select
         [placeholder]="'Account'"
-        [innerFormControl]="editForm.controls['account']"></pams-account-select>
+        [innerFormControl]="editForm.controls.account"></pams-account-select>
     </div>
   </form>
 </md-dialog-content>

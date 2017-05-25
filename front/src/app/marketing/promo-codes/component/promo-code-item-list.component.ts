@@ -28,25 +28,25 @@ export class PromoCodeItemListComponent implements OnInit {
   ];
 
   constructor(private vcf: ViewContainerRef,
-          private store: Store<MarketingModuleState>,
-          private actions:PromoCodeActions,
+              private store: Store<MarketingModuleState>,
+              private actions: PromoCodeActions,
               private dialog: MdDialog) {
   }
 
   ngOnInit(): void {
-      this.selectedRows = this.promoCodeItems.filter(value => value.selected);
+    this.selectedRows = this.promoCodeItems.filter(value => value.selected);
   }
 
   create(): void {
-      this.showDialog(null);
+    this.showDialog(null);
   }
-  
+
   edit(promoCodeItem: PromoCodeItem): void {
-      this.showDialog(promoCodeItem);
+    this.showDialog(promoCodeItem);
   }
 
   remove(promoCodeItem: PromoCodeItem): void {
-      this.store.dispatch(this.actions.deletePromoCodeItem(this.promoCode, promoCodeItem));
+    this.store.dispatch(this.actions.deletePromoCodeItem(this.promoCode, promoCodeItem));
   }
 
   filter(): void {
@@ -58,7 +58,6 @@ export class PromoCodeItemListComponent implements OnInit {
   selectAllRows(promoCodeItems: PromoCodeItem[]): void {
   }
 
-
   showDialog(promoCodeItem: PromoCodeItem): void {
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -67,8 +66,8 @@ export class PromoCodeItemListComponent implements OnInit {
     config.height = '60%';
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(PromoCodeItemEditorDialog, config);
-    this.editorDialogRef.componentInstance.setPromoCode = this.promoCode;
-    this.editorDialogRef.componentInstance.setPromoCodeItem = promoCodeItem;
+    this.editorDialogRef.componentInstance.promoCode = this.promoCode;
+    if (promoCodeItem) this.editorDialogRef.componentInstance.promoCodeItem = promoCodeItem;
     this.editorDialogRef.afterClosed().subscribe(res => {
       this.selectedRows = [];
     });

@@ -10,7 +10,7 @@ import {MarketingModuleState} from "../index";
 @Injectable()
 export class PromoCodeEffects {
   private PROMO_CODE = "marketingModuleState.promoCode".split(".");
-  
+
   constructor(private router: Router,
               private actions$: Actions,
               private promoCodeActions: PromoCodeActions,
@@ -48,17 +48,13 @@ export class PromoCodeEffects {
     .map(action => action.payload)
     .switchMap(promoCode => this.marketingService.initPromoCode(promoCode))
     .map(() => this.promoCodeActions.findPromoCodes());
-    // .mergeMap(action => {
-    //   from([action, this.router.navigate(['/marketing/promo-codes', action.payload])])
-    // });
-
 
   @Effect() updatePromoCode$ = this.actions$
     .ofType(PromoCodeActions.UPDATE_PROMO_CODE)
     .map(action => action.payload)
     .switchMap(promoCode => this.marketingService.updatePromoCode(promoCode))
     .map(promoCode => this.promoCodeActions.updatePromoCodeSuccess(promoCode));
-  
+
   @Effect() addPromoCodeItem$ =
       this.actions$
         .ofType(PromoCodeActions.ADD_PROMO_CODE_ITEM)

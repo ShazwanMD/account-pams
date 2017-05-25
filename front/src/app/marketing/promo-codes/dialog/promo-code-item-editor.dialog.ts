@@ -19,41 +19,42 @@ import {PromoCode} from "../promo-code.interface";
 export class PromoCodeItemEditorDialog implements OnInit {
 
   private editForm: FormGroup;
-  private promoCodeItem: PromoCodeItem;
-  private promoCode: PromoCode;
+  private _promoCodeItem: PromoCodeItem;
+  private _promoCode: PromoCode;
+  private edit: boolean = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private viewContainerRef: ViewContainerRef,
               private store: Store<MarketingModuleState>,
-              private actions:PromoCodeActions,
+              private actions: PromoCodeActions,
               private dialog: MdDialogRef<PromoCodeItemEditorDialog>) {
   }
 
-  set setPromoCodeItem(promoCodeItem: PromoCodeItem) {
-    this.promoCodeItem = promoCodeItem;
+  set promoCodeItem(promoCodeItem: PromoCodeItem) {
+    this._promoCodeItem = promoCodeItem;
+    this.edit = true;
   }
 
-  set setPromoCode(promoCode: PromoCode) {
-    this.promoCode = promoCode;
+  set promoCode(promoCode: PromoCode) {
+    this._promoCode = promoCode;
   }
 
   ngOnInit(): void {
     this.editForm = this.formBuilder.group(<PromoCodeItem>{
       id: null,
       code: '',
-      //applied: 0,
+      applied: false,
       sourceNo: 0,
       account: <Account>{},
     });
-    this.editForm.patchValue(this.promoCodeItem);
-    this.editForm.controls['account'].patchValue(this.promoCodeItem.account);
+    if (this.edit) this.editForm.patchValue(this._promoCodeItem);
   }
 
   submit(promoCodeItem: PromoCodeItem, isValid: boolean) {
-    if (!promoCodeItem.id) this.store.dispatch(this.actions.addPromoCodeItem(this.promoCode, promoCodeItem));
-    else  this.store.dispatch(this.actions.updatePromoCodeItem(this.promoCode, promoCodeItem));
+    if (!this.edit) this.store.dispatch(this.actions.addPromoCodeItem(this._promoCode, promoCodeItem));
+    else  this.store.dispatch(this.actions.updatePromoCodeItem(this._promoCode, promoCodeItem));
     this.dialog.close();
   }
 }
