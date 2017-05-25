@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.identity.model;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcResidencyCode;
 
 import java.util.List;
 
@@ -32,6 +33,14 @@ public interface AcStudent extends AcActor {
 	AcCohortCode getCohortCode();
 
 	void setCohortCode(AcCohortCode cohortCode);
+
+	/**
+	 *
+	 * @return
+	 */
+	AcResidencyCode getResidencyCode();
+
+	void setResidencyCode(AcResidencyCode residencyCode);
 
 	/**
 	 *

@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.account.dao;
 import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.account.model.AcFeeScheduleItem;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
@@ -16,7 +17,10 @@ public interface AcFeeScheduleDao extends GenericDao<Long, AcFeeSchedule> {
 
     AcFeeSchedule findByCode(String code);
 
-    AcFeeSchedule findByCohortCodeAndStudyMode(AcCohortCode cohortCode,AcStudyMode studyMode);
+    @Deprecated
+    AcFeeSchedule findByCohortCodeAndStudyMode(AcCohortCode cohortCode, AcStudyMode studyMode);
+
+    AcFeeSchedule findByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode, AcResidencyCode residencyCode, AcStudyMode studyMode);
 
     AcFeeScheduleItem findItemById(Long id);
 

@@ -6,4 +6,7 @@ export interface PromoCodeItem extends MetaObject{
   applied:boolean;
   sourceNo:number;
   account?:Account;
+  
+//selection
+  selected?:boolean;
 }

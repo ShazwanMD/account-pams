@@ -63,7 +63,7 @@ export class PromoCodeEffects {
       this.actions$
         .ofType(PromoCodeActions.ADD_PROMO_CODE_ITEM)
         .map(action => action.payload)
-        .switchMap(payload => this.marketingService.addPromoCodeItem(payload.promoCode, payload.item))
+        .switchMap(payload => this.marketingService.addPromoCodeItem(payload.promoCode, payload.promoCodeItem))
         .map(message => this.promoCodeActions.addPromoCodeItemSuccess(message))
         .withLatestFrom(this.store$.select(...this.PROMO_CODE))
         .map(state => state[1])
@@ -72,7 +72,7 @@ export class PromoCodeEffects {
     @Effect() updatePromoCodeItem$ = this.actions$
       .ofType(PromoCodeActions.UPDATE_PROMO_CODE_ITEM)
       .map(action => action.payload)
-      .switchMap(payload => this.marketingService.updatePromoCodeItem(payload.promoCode, payload.item))
+      .switchMap(payload => this.marketingService.updatePromoCodeItem(payload.promoCode, payload.promoCodeItem))
       .map(message => this.promoCodeActions.updatePromoCodeItemSuccess(message))
       .withLatestFrom(this.store$.select(...this.PROMO_CODE))
       .map(state => state[1])
@@ -81,7 +81,7 @@ export class PromoCodeEffects {
     @Effect() deletePromoCodeItem$ = this.actions$
       .ofType(PromoCodeActions.DELETE_PROMO_CODE_ITEM)
       .map(action => action.payload)
-      .switchMap(payload => this.marketingService.deletePromoCodeItem(payload.promoCode, payload.item))
+      .switchMap(payload => this.marketingService.deletePromoCodeItem(payload.promoCode, payload.promoCodeItem))
       .map(message => this.promoCodeActions.deletePromoCodeItemSuccess(message))
       .withLatestFrom(this.store$.select(...this.PROMO_CODE))
       .map(state => state[1])
