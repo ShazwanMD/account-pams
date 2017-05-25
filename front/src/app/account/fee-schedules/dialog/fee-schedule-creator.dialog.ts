@@ -10,7 +10,7 @@ import {AccountModuleState} from "../../index";
 import {FeeScheduleActions} from "../fee-schedule.action";
 import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 import {StudyMode} from "../../../common/study-modes/study-mode.interface";
-
+import {ResidencyCode} from "../../../common/residency-codes/residency-code.interface";
 
 @Component({
   selector: 'pams-fee-schedule-creator',
@@ -35,6 +35,7 @@ export class FeeScheduleCreatorDialog implements OnInit {
       id: null,
       code: '',
       description: '',
+      residencyCode: <ResidencyCode>{},
       cohortCode: <CohortCode>{},
       studyMode: <StudyMode>{},
     });

@@ -18,6 +18,12 @@
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom pad-top">
+      <pams-residency-code-select
+        [placeholder]="'Select Residency'"
+        [innerFormControl]="createForm.controls['residencyCode']">
+      </pams-residency-code-select>
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
       <pams-cohort-code-select
         [placeholder]="'Select Cohort'"
         [innerFormControl]="createForm.controls['cohortCode']">
