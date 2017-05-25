@@ -57,34 +57,33 @@ export class MarketingService {
     //   .flatMap(data => Observable.of(true));
   }
   
-  addPromoCodeItem(promoCode: PromoCode, item: PromoCodeItem): Observable<String> {
+  addPromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem): Observable<String> {
       let headers = new Headers({
         'Content-Type': 'application/json',
         //'Authorization': 'Bearer ' + this.authService.token
       });
       let options = new RequestOptions({headers: headers});
-      return this.http.post(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems' , JSON.stringify(item), options)
+      return this.http.post(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems' , JSON.stringify(promoCodeItem), options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
     
-    updatePromoCodeItem(promoCode: PromoCode, item: PromoCodeItem){
-        console.log("saving promoCode item" + item.id);
+    updatePromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem){
       let headers = new Headers({
         'Content-Type': 'application/json',
         //'Authorization': 'Bearer ' + this.authService.token
       });
       let options = new RequestOptions({headers: headers});
-      return this.http.put(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + item.id,  JSON.stringify(item), options)
+      return this.http.put(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + promoCodeItem.id,  JSON.stringify(promoCodeItem), options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
     
-    deletePromoCodeItem(promoCode: PromoCode, item: PromoCodeItem) {
+    deletePromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem) {
         let headers = new Headers({
             'Content-Type': 'application/json',
             //'Authorization': 'Bearer ' + this.authService.token
           });
           let options = new RequestOptions({headers: headers});
-         return this.http.delete(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + item.id, options)
+         return this.http.delete(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + promoCodeItem.id, options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
 }

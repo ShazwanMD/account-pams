@@ -120,10 +120,10 @@ export class PromoCodeActions {
   
   static ADD_PROMO_CODE_ITEM = '[PromoCode] Add PromoCode Item';
 
-  addPromoCodeItem(promoCode, item): Action {
+  addPromoCodeItem(promoCode, promoCodeItem): Action {
     return {
       type: PromoCodeActions.ADD_PROMO_CODE_ITEM,
-      payload: {promoCode:promoCode, item:item}
+      payload: {promoCode:promoCode, promoCodeItem:promoCodeItem}
     };
   }
 
@@ -138,10 +138,10 @@ export class PromoCodeActions {
   
   static UPDATE_PROMO_CODE_ITEM = '[PromoCode] Update PromoCode Item';
 
-  updatePromoCodeItem(promoCode, item): Action {
+  updatePromoCodeItem(promoCode, promoCodeItem): Action {
     return {
       type: PromoCodeActions.UPDATE_PROMO_CODE_ITEM,
-      payload: {promoCode:promoCode, item:item}
+      payload: {promoCode:promoCode, promoCodeItem:promoCodeItem}
     };
   }
 
@@ -156,10 +156,10 @@ export class PromoCodeActions {
   
   static DELETE_PROMO_CODE_ITEM = '[PromoCode] Delete PromoCode Item';
 
-  deletePromoCodeItem(promoCode, item): Action {
+  deletePromoCodeItem(promoCode, promoCodeItem): Action {
     return {
       type: PromoCodeActions.DELETE_PROMO_CODE_ITEM,
-      payload: {promoCode:promoCode, item:item}
+      payload: {promoCode:promoCode, promoCodeItem:promoCodeItem}
     };
   }
 
