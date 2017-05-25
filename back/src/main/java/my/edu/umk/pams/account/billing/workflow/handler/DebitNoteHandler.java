@@ -55,12 +55,12 @@ public class DebitNoteHandler implements DocumentHandler<AcDebitNote> {
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
 
         // start only when we don't have one
-//        long count = query.processDefinitionKey(DEBIT_NOTE_PROCESS_KEY).count();
-//        if (count < 1) {
-//            deployment
-//                    .addClasspathResource(DEBIT_NOTE_RESOURCE_PATH)
-//                    .name(DEBIT_NOTE_PROCESS_NAME)
-//                    .deploy();
-//        }
+        long count = query.processDefinitionKey(DEBIT_NOTE_PROCESS_KEY).count();
+        if (count < 1) {
+            deployment
+                    .addClasspathResource(DEBIT_NOTE_RESOURCE_PATH)
+                    .name(DEBIT_NOTE_PROCESS_NAME)
+                    .deploy();
+        }
     }
 }
