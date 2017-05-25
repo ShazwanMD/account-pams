@@ -18,14 +18,12 @@ export class MarketingService {
   // ====================================================================================================
 
   findPromoCodeByReferenceNo(referenceNo: string): Observable<PromoCode> {
-    console.log("encoded uri: " + encodeURI(referenceNo));
-    return this.http.get(environment.endpoint + '/api/marketing/promoCodes/' + encodeURI(referenceNo))
+    return this.http.get(environment.endpoint + '/api/marketing/promoCodes/' + referenceNo)
       .map((res: Response) => <PromoCode>res.json());
   }
 
   findPromoCodeById(id: string): Observable<PromoCode> {
-    console.log("encoded uri: " + encodeURI(id));
-    return this.http.get(environment.endpoint + '/api/marketing/promoCodes/' + encodeURI(id))
+    return this.http.get(environment.endpoint + '/api/marketing/promoCodes/' + id)
       .map((res: Response) => <PromoCode>res.json());
   }
 
@@ -56,7 +54,7 @@ export class MarketingService {
     // return this.http.put(environment.endpoint + '/api/marketing/promoCodes', JSON.stringify(settlement))
     //   .flatMap(data => Observable.of(true));
   }
-  
+
   addPromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem): Observable<String> {
       let headers = new Headers({
         'Content-Type': 'application/json',
@@ -66,7 +64,7 @@ export class MarketingService {
       return this.http.post(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems' , JSON.stringify(promoCodeItem), options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
-    
+
     updatePromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem){
       let headers = new Headers({
         'Content-Type': 'application/json',
@@ -76,7 +74,7 @@ export class MarketingService {
       return this.http.put(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + promoCodeItem.id,  JSON.stringify(promoCodeItem), options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
-    
+
     deletePromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem) {
         let headers = new Headers({
             'Content-Type': 'application/json',
