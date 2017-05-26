@@ -31,7 +31,7 @@ export class ResidencyCodeListPage implements OnInit {
   }
  
    ngOnInit(): void {
-    //this.store.dispatch(this.actions.findResidencyCodes())
+    this.store.dispatch(this.actions.findResidencyCodes())
     this.store.dispatch(this.actions.changeTitle("Residency Codes"))
   }
 

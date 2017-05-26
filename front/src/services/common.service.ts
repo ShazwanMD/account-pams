@@ -10,6 +10,7 @@ import {ProgramCode} from "../app/common/program-codes/program-code.interface";
 import {StudyMode} from "../app/common/study-modes/study-mode.interface";
 import {StateCode} from "../app/common/state-codes/state-code.interface";
 import {BankCode} from "../app/common/bank-codes/bank-code.interface";
+import {ResidencyCode} from "../app/common/residency-codes/residency-code.interface";
 
 @Injectable()
 export class CommonService {
@@ -177,6 +178,16 @@ export class CommonService {
     return this.http.delete(environment.endpoint + '/api/common/programCodes/' + code.code, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+
+  // ====================================================================================================
+  // RESIDENCY CODES
+  // ====================================================================================================
+
+  findResidencyCodes(): Observable<ResidencyCode[]> {
+      console.log("findResidencyCodes");
+      return this.http.get(environment.endpoint + '/api/common/residencyCodes')
+        .map((res: Response) => <ResidencyCode[]>res.json());
+    }
 
 
   // ====================================================================================================

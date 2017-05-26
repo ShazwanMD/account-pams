@@ -105,6 +105,12 @@ export class SetupEffects {
     .map(message => this.setupActions.saveStudyModeSuccess(message))
     .mergeMap(action => from([action, this.setupActions.findStudyModes()]));
 
+  @Effect() findResidencyCodes$ = this.actions$
+  .ofType(SetupActions.FIND_RESIDENCY_CODES)
+  .map(action => action.payload)
+  .switchMap(() => this.commonService.findResidencyCodes())
+  .map(codes => this.setupActions.findResidencyCodesSuccess(codes));
+
   @Effect() findCohortCodes$ = this.actions$
   .ofType(SetupActions.FIND_COHORT_CODES)
   .map(action => action.payload)
