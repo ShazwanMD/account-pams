@@ -302,6 +302,25 @@ export class SetupActions {
     };
   }
 
+  static FIND_RESIDENCY_CODES = '[Common] Find Residency Codes';
+
+  findResidencyCodes(): Action {
+    console.log("findResidencyCodes");
+    return {
+      type: SetupActions.FIND_RESIDENCY_CODES,
+    };
+  }
+
+  static FIND_RESIDENCY_CODES_SUCCESS = '[Common] Find Residency Codes Success';
+
+  findResidencyCodesSuccess(codes): Action {
+    console.log("findResidencyCodesSuccess");
+    return {
+      type: SetupActions.FIND_RESIDENCY_CODES_SUCCESS,
+      payload: codes
+    };
+  }
+
   static SAVE_STUDY_MODE = '[Setup] Save Study Mode';
 
   saveStudyMode(code): Action {

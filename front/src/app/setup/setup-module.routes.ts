@@ -8,7 +8,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {SetupPage} from "./setup.page";
 import {CountryCodeListPage} from './country-codes/country-code-list.page';
 import { CohortCodeListPage } from "./cohort-codes/cohort-code-list.page";
-
+import { ResidencyCodeListPage } from "./residency-codes/residency-code-list.page";
 
 export const SetupModuleRoutes: Routes = [
   {
@@ -19,6 +19,7 @@ export const SetupModuleRoutes: Routes = [
       {path: 'state-codes', component: StateCodeListPage},
       {path: 'program-codes', component: ProgramCodeListPage},
       {path: 'faculty-codes', component: FacultyCodeListPage},
+      {path: 'residency-codes', component: ResidencyCodeListPage},
       {path: 'study-modes', component: StudyModeListPage},
       {path: 'bank-codes', component: BankCodeListPage},
     ]
