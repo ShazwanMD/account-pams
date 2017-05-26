@@ -13,7 +13,7 @@ import { ResidencyCode } from "../residency-code.interface";
 })
 export class ResidencyCodeSelectComponent implements OnInit {
 
-  private RESIDENCY_CODES = "commonModuleState.cohortCodes".split(".");
+  private RESIDENCY_CODES = "commonModuleState.residencyCodes".split(".");
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   residencyCodes$: Observable<ResidencyCode[]>;
