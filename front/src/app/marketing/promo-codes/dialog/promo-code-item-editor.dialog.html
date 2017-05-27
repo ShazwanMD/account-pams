@@ -11,7 +11,8 @@
     <div layout="row" class="pad-bottom">
       <pams-account-select
         [placeholder]="'Account'"
-        [innerFormControl]="editForm.controls['account']"></pams-account-select>
+        [innerFormControl]="editForm.controls['account']"
+        [preSelected]="_promoCodeItem?.account"></pams-account-select>
     </div>
   </form>
 </md-dialog-content>

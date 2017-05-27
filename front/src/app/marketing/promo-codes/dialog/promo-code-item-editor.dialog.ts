@@ -49,7 +49,14 @@ export class PromoCodeItemEditorDialog implements OnInit {
       sourceNo: 0,
       account: <Account>{},
     });
-    if (this.edit) this.editForm.patchValue(this._promoCodeItem);
+    
+    if(this._promoCodeItem){
+        this.editForm.patchValue(this._promoCodeItem);
+        /*
+         * below line expected to assign default selected option to account select component but it's not :~)
+         * */
+        //this.editForm.controls['account'].patchValue(this._promoCodeItem.account);
+    }
   }
 
   submit(promoCodeItem: PromoCodeItem, isValid: boolean) {
