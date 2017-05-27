@@ -67,7 +67,7 @@ export class PromoCodeItemListComponent implements OnInit {
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(PromoCodeItemEditorDialog, config);
     this.editorDialogRef.componentInstance.promoCode = this.promoCode;
-    if (promoCodeItem) this.editorDialogRef.componentInstance.promoCodeItem = promoCodeItem;
+    this.editorDialogRef.componentInstance.promoCodeItem = promoCodeItem;
     this.editorDialogRef.afterClosed().subscribe(res => {
       this.selectedRows = [];
     });
