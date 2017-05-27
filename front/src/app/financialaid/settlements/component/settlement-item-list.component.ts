@@ -19,7 +19,7 @@ export class SettlementItemListComponent implements OnInit{
   @Input() settlement: Settlement;
   @Input() settlementItems: SettlementItem[];
 
-  private creatorDialogRef: MdDialogRef<SettlementItemDialog>;
+  private editorDialogRef: MdDialogRef<SettlementItemDialog>;
   private selectedRows: SettlementItem[];
   private columns: any[] = [
     {name: 'account', label: 'Account'},
@@ -40,20 +40,18 @@ export class SettlementItemListComponent implements OnInit{
     this.selectedRows = this.settlementItems.filter(value => value.selected);
   }
   
-  disableButton() {
-    return this.selectedRows.length != 1;
-  }
-
-  edit(settlementItem: SettlementItem): void {
-    // this.showDialog(settlementItem);
-  }
-
-  delete(): void {
-    console.log("length: " + this.selectedRows.length);
-    for (var i = 0; i < this.selectedRows.length; i++) {
-      // this.store.dispatch(this.actions.deleteSettlementItem(this.settlement, this.selectedRows[i]));
+  create(): void {
+      this.showDialog(null);
     }
-  }
+
+    edit(settlementItem: SettlementItem): void {
+      this.showDialog(settlementItem);
+    }
+
+    remove(settlementItem: SettlementItem): void {
+        this.store.dispatch(this.actions.deleteSettlementItem(this.settlement, settlementItem));
+        this.selectedRows = [];
+    }
 
   filter(): void {
   }
@@ -64,20 +62,18 @@ export class SettlementItemListComponent implements OnInit{
   selectAllRows(settlementItems: SettlementItem[]): void {
   }
 
-  showDialog(): void {
+  showDialog(settlementItem: SettlementItem): void {
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '40%';
+    config.height = '60%';
     config.position = {top: '65px'};
-    this.creatorDialogRef = this.dialog.open(SettlementItemDialog, config);
-    this.creatorDialogRef.componentInstance.setReferenceNo = this.settlement.referenceNo;
-
-    // close
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
-      // load something here
+    this.editorDialogRef = this.dialog.open(SettlementItemDialog, config);
+    this.editorDialogRef.componentInstance.settlement = this.settlement;
+    this.editorDialogRef.componentInstance.settlementItem = settlementItem;
+    this.editorDialogRef.afterClosed().subscribe(res => {
+        this.selectedRows = [];
     });
   }
 }
