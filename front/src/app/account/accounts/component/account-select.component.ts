@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChange} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {Account} from "../account.interface";
 import {AccountActions} from "../account.action";
@@ -12,9 +12,10 @@ import {AccountModuleState} from "../../index";
   templateUrl: './account-select.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountSelectComponent implements OnInit, OnChanges {
+export class AccountSelectComponent implements OnInit {
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
+  @Input() preSelected: Account;
 
   private ACCOUNTS: string[] = "accountModuleState.accounts".split(".");
   private accounts$: Observable<Account[]>;
@@ -26,15 +27,12 @@ export class AccountSelectComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log("ngOnInit");
     this.store.dispatch(this.actions.findAccounts());
-    console.log("selected:" + this.selected.code);
-  }
-
-  ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-    console.log("ngOnChanges");
-    if (changes['innerFormControl'] && this.innerFormControl.value) {
-      this.selected = <Account>this.innerFormControl.value;
+    
+    if(this.preSelected){
+        this.accounts$.subscribe(accounts => {
+            this.selected = accounts.find(account => account.id == this.preSelected.id);
+        })
     }
   }
 
