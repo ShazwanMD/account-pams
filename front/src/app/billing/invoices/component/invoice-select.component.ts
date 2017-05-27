@@ -16,7 +16,9 @@ export class InvoiceSelectComponent implements OnInit {
   private INVOICES = "billingModuleState.invoices".split(".");
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
+  @Input() preSelected: Invoice;
   private invoices$: Observable<Invoice[]>;
+  private selected: Invoice;
 
   constructor(private store: Store<BillingModuleState>,
               private actions: InvoiceActions) {
@@ -25,6 +27,12 @@ export class InvoiceSelectComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(this.actions.findCompletedInvoices());
+    
+    if(this.preSelected){
+        this.invoices$.subscribe(invoices => {
+            this.selected = invoices.find(invoice => invoice.id == this.preSelected.id);
+        })
+    }
   }
 
   selectChangeEvent(event: Invoice) {
