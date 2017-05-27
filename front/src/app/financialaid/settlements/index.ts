@@ -24,6 +24,7 @@ import {SettlementItemListComponent} from "./component/settlement-item-list.comp
 import {SettlementListComponent} from "./component/settlement-list.component";
 import {SettlementItemDialog} from "./dialog/settlement-item.dialog";
 import {AccountSubModule} from "../../account/accounts/index";
+import {InvoiceSubModule} from "../../billing/invoices/index";
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import {AccountSubModule} from "../../account/accounts/index";
     AcademicSessionSubModule.forRoot(),
     EffectsModule.run(SettlementEffects),
     AccountSubModule.forRoot(),
+    InvoiceSubModule.forRoot(),
   ],
   declarations: [
     // page
