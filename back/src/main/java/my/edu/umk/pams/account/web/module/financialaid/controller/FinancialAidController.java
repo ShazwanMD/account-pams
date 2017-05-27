@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.web.module.financialaid.controller;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.service.CommonService;
@@ -44,6 +45,9 @@ public class FinancialAidController {
 
     @Autowired
     private AccountService accountService;
+    
+    @Autowired
+    private BillingService billingService;
 
     @Autowired
     private FinancialAidService financialAidService;
@@ -88,7 +92,7 @@ public class FinancialAidController {
         return new ResponseEntity<List<SettlementItem>>(financialAidTransformer
                 .toSettlementItemVos(financialAidService.findSettlementItems(settlement)), HttpStatus.OK);
     }
-
+/*
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.POST)
     public void updateSettlementItems(@PathVariable String referenceNo, @RequestBody SettlementItem item) {
         dummyLogin();
@@ -107,6 +111,7 @@ public class FinancialAidController {
             financialAidService.updateSettlementItem(settlement, e);
         }
     }
+    */
 
     @Deprecated
     @RequestMapping(value = "/settlements/init", method = RequestMethod.POST)
@@ -170,6 +175,54 @@ public class FinancialAidController {
         LOG.debug("referenceNo {}", referenceNo);
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         financialAidService.executeSettlement(settlement);
+    }
+    
+    @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.POST)
+    public ResponseEntity<String> addSettlementItem(@PathVariable String referenceNo, @RequestBody SettlementItem item) {
+        dummyLogin();
+        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
+        AcSettlementItem e = new AcSettlementItemImpl();
+        
+        e.setSettlement(settlement);
+        e.setBalanceAmount(item.getBalanceAmount());
+        //e.setStatus(AcSettlementStatus.NEW);
+        
+        if(null != item.getInvoice() && null != item.getInvoice().getId())
+            e.setInvoice(billingService.findInvoiceById(item.getInvoice().getId()));
+        
+        if(null != item.getAccount() && null != item.getAccount().getId())
+            e.setAccount(accountService.findAccountById(item.getAccount().getId()));
+        
+        financialAidService.addSettlementItem(settlement, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/settlements/{referenceNo}/settlementItems/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateSettlementItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody SettlementItem item) {
+        dummyLogin();
+        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
+        AcSettlementItem e = financialAidService.findSettlementItemById(item.getId());
+        
+        e.setSettlement(settlement);
+        e.setBalanceAmount(item.getBalanceAmount());
+        
+        if(null != item.getInvoice() && null != item.getInvoice().getId())
+            e.setInvoice(billingService.findInvoiceById(item.getInvoice().getId()));
+        
+        if(null != item.getAccount() && null != item.getAccount().getId())
+            e.setAccount(accountService.findAccountById(item.getAccount().getId()));
+        
+        financialAidService.updateSettlementItem(settlement, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/settlements/{referenceNo}/settlementItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteSettlementItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        dummyLogin();
+        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
+        AcSettlementItem e = financialAidService.findSettlementItemById(id);
+        financialAidService.deleteSettlementItem(settlement, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     // ====================================================================================================

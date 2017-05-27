@@ -96,4 +96,32 @@ export class SettlementEffects {
     .withLatestFrom(this.store$.select(...this.SETTLEMENT))
     .map(state => state[1])
     .map((settlement: Settlement) => this.settlementActions.findSettlementByReferenceNo(settlement.referenceNo));
+  
+  @Effect() addSettlementItem$ =
+      this.actions$
+        .ofType(SettlementActions.ADD_SETTLEMENT_ITEM)
+        .map(action => action.payload)
+        .switchMap(payload => this.financialaidService.addSettlementItem(payload.settlement, payload.settlementItem))
+        .map(message => this.settlementActions.addSettlementItemSuccess(message))
+        .withLatestFrom(this.store$.select(...this.SETTLEMENT))
+        .map(state => state[1])
+        .map(settlement => this.settlementActions.findSettlementItems(settlement));
+
+    @Effect() updateSettlementItem$ = this.actions$
+      .ofType(SettlementActions.UPDATE_SETTLEMENT_ITEM)
+      .map(action => action.payload)
+      .switchMap(payload => this.financialaidService.updateSettlementItem(payload.settlement, payload.settlementItem))
+      .map(message => this.settlementActions.updateSettlementItemSuccess(message))
+      .withLatestFrom(this.store$.select(...this.SETTLEMENT))
+      .map(state => state[1])
+      .map(settlement => this.settlementActions.findSettlementItems(settlement));
+
+    @Effect() deleteSettlementItem$ = this.actions$
+      .ofType(SettlementActions.DELETE_SETTLEMENT_ITEM)
+      .map(action => action.payload)
+      .switchMap(payload => this.financialaidService.deleteSettlementItem(payload.settlement, payload.settlementItem))
+      .map(message => this.settlementActions.deleteSettlementItemSuccess(message))
+      .withLatestFrom(this.store$.select(...this.SETTLEMENT))
+      .map(state => state[1])
+      .map(settlement => this.settlementActions.findSettlementItems(settlement));
   }

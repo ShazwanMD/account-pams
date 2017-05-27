@@ -202,10 +202,55 @@ export class SettlementActions {
   }
 
   static ADD_SETTLEMENT_ITEM = '[Settlement] Add Settlement Item';
-  addSettlementItem(referenceNo, settlementItem): Action {
+  addSettlementItem(settlement, settlementItem): Action {
     return {
       type: SettlementActions.ADD_SETTLEMENT_ITEM,
-      payload: {referenceNo: referenceNo, settlementItem: settlementItem}
+      payload: {settlement: settlement, settlementItem: settlementItem}
+    };
+  }
+  
+  static ADD_SETTLEMENT_ITEM_SUCCESS = '[Settlement] Add Settlement Item Success';
+
+  addSettlementItemSuccess(message): Action {
+    return {
+      type: SettlementActions.ADD_SETTLEMENT_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+
+  static UPDATE_SETTLEMENT_ITEM = '[Settlement] Update Settlement Item';
+
+  updateSettlementItem(settlement, settlementItem): Action {
+    return {
+      type: SettlementActions.UPDATE_SETTLEMENT_ITEM,
+      payload: {settlement:settlement, settlementItem:settlementItem}
+    };
+  }
+
+  static UPDATE_SETTLEMENT_ITEM_SUCCESS = '[Settlement] Update Settlement Item Success';
+
+  updateSettlementItemSuccess(message): Action {
+    return {
+      type: SettlementActions.UPDATE_SETTLEMENT_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+
+  static DELETE_SETTLEMENT_ITEM = '[Settlement] Delete Settlement Item';
+
+  deleteSettlementItem(settlement, settlementItem): Action {
+    return {
+      type: SettlementActions.DELETE_SETTLEMENT_ITEM,
+      payload: {settlement:settlement, settlementItem:settlementItem}
+    };
+  }
+
+  static DELETE_SETTLEMENT_ITEM_SUCCESS = '[Settlement] Add Settlement Item Success';
+
+  deleteSettlementItemSuccess(message): Action {
+    return {
+      type: SettlementActions.DELETE_SETTLEMENT_ITEM_SUCCESS,
+      payload: message
     };
   }
 }

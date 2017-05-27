@@ -120,6 +120,36 @@ export class FinancialaidService {
     return this.http.post(environment.endpoint + '/api/financialaid/settlements/'+ settlement.referenceNo +'/execute', null)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+  
+  addSettlementItem(settlement: Settlement, settlementItem: SettlementItem): Observable<String> {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.post(environment.endpoint + '/api/financialaid/settlements/' + settlement.referenceNo + '/settlementItems' , JSON.stringify(settlementItem), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
+    updateSettlementItem(settlement: Settlement, settlementItem: SettlementItem){
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.put(environment.endpoint + '/api/financialaid/settlements/' + settlement.referenceNo + '/settlementItems/' + settlementItem.id,  JSON.stringify(settlementItem), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
+    deleteSettlementItem(settlement: Settlement, settlementItem: SettlementItem) {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            //'Authorization': 'Bearer ' + this.authService.token
+          });
+          let options = new RequestOptions({headers: headers});
+         return this.http.delete(environment.endpoint + '/api/financialaid/settlements/' + settlement.referenceNo + '/settlementItems/' + settlementItem.id, options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
 
   // ====================================================================================================
   // WAIVER APPLICATION
