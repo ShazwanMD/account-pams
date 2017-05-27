@@ -321,6 +321,46 @@ export class SetupActions {
     };
   }
 
+  static SAVE_RESIDENCY_CODE = '[Setup] Save Residency Code';
+
+  saveResidencyCode(code): Action {
+    console.log("saveResidencyCode");
+    return {
+      type: SetupActions.SAVE_RESIDENCY_CODE,
+      payload: code
+    };
+  }
+
+  static SAVE_RESIDENCY_CODE_SUCCESS = '[Setup] Save Residency Code Success';
+
+  saveResidencyCodeSuccess(message): Action {
+    console.log("saveResidencyCodeSuccess");
+    return {
+      type: SetupActions.SAVE_RESIDENCY_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+  static UPDATE_RESIDENCY_CODE = '[Setup] Update Residency Code';
+
+  updateResidencyCode(code): Action {
+    console.log("updateResidencyCode");
+    return {
+      type: SetupActions.UPDATE_RESIDENCY_CODE,
+      payload: code
+    };
+  }
+
+  static UPDATE_RESIDENCY_CODE_SUCCESS = '[Setup] Update Residency Code  Success';
+
+  updateResidencyCodeSuccess(message): Action {
+    console.log("updateResidencyCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_RESIDENCY_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
   static SAVE_STUDY_MODE = '[Setup] Save Study Mode';
 
   saveStudyMode(code): Action {

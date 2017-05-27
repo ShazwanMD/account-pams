@@ -137,5 +137,19 @@ export class SetupEffects {
   .switchMap(payload => this.commonService.removeCohortCode(payload))
   .map(message => this.setupActions.removeCohortCodeSuccess(message))
   .mergeMap(action => from([action, this.setupActions.findCohortCodes()]));
+
+@Effect() saveResidencyCodes$ = this.actions$
+  .ofType(SetupActions.SAVE_RESIDENCY_CODE)
+  .map(action => action.payload)
+  .switchMap(payload => this.commonService.saveResidencyCode(payload))
+  .map(message => this.setupActions.saveResidencyCodeSuccess(message))
+  .mergeMap(action => from([action, this.setupActions.findResidencyCodes()]));
+
+@Effect() updateResidencyCodes$ = this.actions$
+  .ofType(SetupActions.UPDATE_RESIDENCY_CODE)
+  .map(action => action.payload)
+  .switchMap(payload => this.commonService.updateResidencyCode(payload))
+  .map(message => this.setupActions.updateResidencyCodeSuccess(message))
+  .mergeMap(action => from([action, this.setupActions.findResidencyCodes()]));
  
 }
