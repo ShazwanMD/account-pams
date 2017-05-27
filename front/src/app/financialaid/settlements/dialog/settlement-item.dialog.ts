@@ -23,8 +23,8 @@ import {Account} from "../../../account/accounts/account.interface";
 export class SettlementItemDialog implements OnInit {
 
   private editForm: FormGroup;
-  //private _settlementItem: SettlementItem;
-  private referenceNo: String;
+  private _settlement: Settlement;
+  private _settlementItem: SettlementItem;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -34,30 +34,30 @@ export class SettlementItemDialog implements OnInit {
               private actions:SettlementActions,
               private dialog: MdDialogRef<SettlementItemDialog>) {
   }
-/*
-  set settlementItem(value: SettlementItem) {
-    this._settlementItem = value;
-  }
-*/
-  set setReferenceNo(referenceNo: String) {
-    this.referenceNo = referenceNo;
-  }
 
+  set settlement(settlement: Settlement) {
+    this._settlement = settlement;
+  }
+  
+  set settlementItem(settlementItem: SettlementItem) {
+      this._settlementItem = settlementItem;
+    }
+  
   ngOnInit(): void {
     this.editForm = this.formBuilder.group(<SettlementItem>{
-      balanceAmount: 0,
+      id:null,
+        balanceAmount: 0,
       account: <Account>{},
       invoice: <Invoice>{},
     });
-    // this.editForm.patchValue(this.settlementItem);
+    
+    if(this._settlementItem)
+        this.editForm.patchValue(this._settlementItem);
   }
 
   save(settlementItem: SettlementItem, isValid: boolean) {
-    this.store.dispatch(this.actions.addSettlementItem(this.referenceNo, settlementItem));
-    this.close();
-  }
-
-  close(): void {
-    this.dialog.close();
+      if (!settlementItem.id) this.store.dispatch(this.actions.addSettlementItem(this._settlement, settlementItem));
+      else  this.store.dispatch(this.actions.updateSettlementItem(this._settlement, settlementItem));
+      this.dialog.close();
   }
 }
