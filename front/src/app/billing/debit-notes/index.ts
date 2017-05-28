@@ -14,7 +14,10 @@ import {IdentityModule} from "../../identity/index";
 import { DebitNoteCenterPage } from "./debit-note-center.page";
 import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 import { DebitNoteActions } from "./debit-note.action";
-import {InvoiceSubModule} from "../invoices/index"
+import { InvoiceSubModule } from "../invoices/index"
+import { AssignedDebitNoteTaskListComponent } from "./component/assigned-debit-note-task-list.component";
+import { PooledDebitNoteTaskListComponent } from "./component/pooled-debit-note-task-list.component";
+
 
 
 @NgModule({
@@ -34,6 +37,9 @@ import {InvoiceSubModule} from "../invoices/index"
 
 //component
 DebitNoteCreatorDialog,
+AssignedDebitNoteTaskListComponent,
+PooledDebitNoteTaskListComponent,
+
   ],
   exports: [
     //ChargeCodeSelectComponent,
