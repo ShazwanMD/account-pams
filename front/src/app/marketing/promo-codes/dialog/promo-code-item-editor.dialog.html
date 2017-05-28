@@ -18,7 +18,7 @@
 </md-dialog-content>
 <md-dialog-actions align="end">
   <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
-    {{edit ? 'Update' : 'Save'}}
+    {{_promoCodeItem?.id ? 'Update' : 'Create'}}
   </button>
 </md-dialog-actions>
 
