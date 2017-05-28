@@ -205,7 +205,7 @@ export class CommonService {
         //'Authorization': 'Bearer ' + this.authService.token
       });
       let options = new RequestOptions({headers: headers});
-      return this.http.put(environment.endpoint + '/api/common/ResidencyCodes/' + code.code, JSON.stringify(code), options)
+      return this.http.put(environment.endpoint + '/api/common/residencyCodes/' + code.code, JSON.stringify(code), options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
 
