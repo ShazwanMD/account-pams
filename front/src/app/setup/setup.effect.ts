@@ -19,7 +19,7 @@ export class SetupEffects {
     .map(action => action.payload)
     .map(payload => this.setupActions.changeTitleSuccess(payload));
 
-  @Effect() findBankCode$ = this.actions$
+  @Effect() findBankCodes$ = this.actions$
     .ofType(SetupActions.FIND_BANK_CODES)
     .map(action => action.payload)
     .switchMap(() => this.commonService.findBankCodes())
@@ -39,13 +39,12 @@ export class SetupEffects {
     .map(message => this.setupActions.updateBankCodeSuccess(message))
     .mergeMap(action => from([action, this.setupActions.findBankCodes()]));
 
-  @Effect() removeBankCode$ = this.actions$
+  @Effect() removeBankCodes$ = this.actions$
     .ofType(SetupActions.REMOVE_BANK_CODE)
     .map(action => action.payload)
     .switchMap(payload => this.commonService.removeBankCode(payload))
     .map(message => this.setupActions.removeBankCodeSuccess(message))
     .mergeMap(action => from([action, this.setupActions.findBankCodes()]));
-
 
   @Effect() findCountryCodes$ = this.actions$
     .ofType(SetupActions.FIND_COUNTRY_CODES)
