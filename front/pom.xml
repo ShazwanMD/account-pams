@@ -123,7 +123,7 @@
                   <goal>npm</goal>
                 </goals>
                 <configuration>
-                  <arguments>install --prefix /home/jenkins/.jenkins/</arguments>
+                  <arguments>run-script install--ci</arguments>
                 </configuration>
               </execution>
               <execution>
