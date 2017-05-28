@@ -116,7 +116,7 @@ export const setupModuleReducers = {
     FacultyCodeCreatorDialog,
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
-
+    ResidencyCodeEditorDialog,
   ],
 
 })

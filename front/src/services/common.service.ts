@@ -205,10 +205,19 @@ export class CommonService {
         //'Authorization': 'Bearer ' + this.authService.token
       });
       let options = new RequestOptions({headers: headers});
-      return this.http.put(environment.endpoint + '/api/common/ResidencyCodes/' + code.code, JSON.stringify(code), options)
+      return this.http.put(environment.endpoint + '/api/common/residencyCodes/' + code.code, JSON.stringify(code), options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
 
+   removeResidencyCode(code: ResidencyCode) {
+       let headers = new Headers({
+         'Content-Type': 'application/json',
+         //'Authorization': 'Bearer ' + this.authService.token
+       });
+       let options = new RequestOptions({headers: headers});
+       return this.http.delete(environment.endpoint + '/api/common/residencyCodes/' + code.code, options)
+         .flatMap((res: Response) => Observable.of(res.text()));
+     }
   // ====================================================================================================
   // STUDY MODE
   // ====================================================================================================
