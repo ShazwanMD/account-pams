@@ -22,6 +22,42 @@ export class DebitNoteActions {
     };
   }
   
+  static FIND_ASSIGNED_DEBIT_NOTES_TASKS = '[Invoice] Find Assigned DebitNotes Tasks';
+
+  findAssignedDebitNoteTasks(): Action {
+    return {
+      type: DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTES_TASKS
+    };
+  }
+
+  static FIND_ASSIGNED_DEBIT_NOTES_TASKS_SUCCESS = '[Invoice] Find Assigned DebitNotes Tasks Success';
+
+  findAssignedDebitNoteTasksSuccess(tasks): Action {
+    console.log("findAssignedDebitNoteTasksSuccess");
+    return {
+      type: DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTES_TASKS_SUCCESS,
+      payload: tasks
+    };
+  }
+
+  static FIND_POOLED_DEBIT_NOTES_TASKS = '[Invoice] Find Pooled DebitNotes Tasks';
+
+  findPooledDebitNoteTasks(): Action {
+    return {
+      type: DebitNoteActions.FIND_POOLED_DEBIT_NOTES_TASKS
+    };
+  }
+
+  static FIND_POOLED_DEBIT_NOTES_TASKS_SUCCESS = '[Invoice] Find Pooled DebitNotes Tasks Success';
+
+  findPooledDebitNoteeTasksSuccess(tasks): Action {
+    console.log("findAssignedDebitNoteTasksSuccess");
+    return {
+      type: DebitNoteActions.FIND_POOLED_DEBIT_NOTES_TASKS_SUCCESS,
+      payload: tasks
+    };
+  }
+
   static FIND_DEBIT_NOTE_BY_ID = '[DebitNote] Find DebitNote By Id';
 
   findDebitNoteById(id): Action {
