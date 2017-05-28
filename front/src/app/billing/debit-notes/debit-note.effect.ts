@@ -35,12 +35,23 @@ export class DebitNoteEffects {
     .switchMap(taskId => this.billingService.findDebitNoteTaskByTaskId(taskId))
     .map(task => this.debitNoteActions.findDebitNoteTaskByTaskIdSuccess(task));
     
-    @Effect() startDebitNoteTask$ = this.actions$
+    // @Effect() startDebitNoteTask$ = this.actions$
+    // .ofType(DebitNoteActions.START_DEBIT_NOTE_TASK)
+    // .map(action => action.payload)
+    // .switchMap(debitNote => this.billingService.startDebitNoteTask(debitNote))
+    // .map(debitNote => this.debitNoteActions.startDebitNoteTaskSuccess(debitNote));
+
+  @Effect() startDebitNoteTask$ = this.actions$
     .ofType(DebitNoteActions.START_DEBIT_NOTE_TASK)
     .map(action => action.payload)
     .switchMap(debitNote => this.billingService.startDebitNoteTask(debitNote))
-    .map(debitNote => this.debitNoteActions.startDebitNoteTaskSuccess(debitNote));
-    
+    .map(referenceNo => this.debitNoteActions.startDebitNoteTaskSuccess(referenceNo))
+    .mergeMap(action => from([action,
+        this.debitNoteActions.findAssignedDebitNoteTasks(),
+        this.debitNoteActions.findPooledDebitNoteTasks()
+      ]
+    ));
+
     @Effect() updateDebitNote$ = this.actions$
     .ofType(DebitNoteActions.UPDATE_DEBIT_NOTE)
     .map(action => action.payload)
