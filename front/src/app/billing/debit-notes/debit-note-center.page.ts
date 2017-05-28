@@ -9,6 +9,7 @@ import { BillingModuleState } from "../index";
 import { DebitNote } from "./debit-note.interface";
 import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 import { DebitNoteTask } from "./debit-note-task.interface";
+import { DebitNoteActions } from "./debit-note.action";
 
 
 @Component({
@@ -26,7 +27,7 @@ export class DebitNoteCenterPage implements OnInit {
 
     constructor(private router: Router,
         private route: ActivatedRoute,
-        //private actions: ChargeCodeActions,
+        private actions: DebitNoteActions,
         private store: Store<BillingModuleState>,
         private vcf: ViewContainerRef,
         private dialog: MdDialog) {
@@ -60,8 +61,9 @@ export class DebitNoteCenterPage implements OnInit {
     }
  
     ngOnInit(): void {
-       // console.log("abc")
-       //this.store.dispatch(this.actions.findChargeCodes());
-    }
+    console.log("find assigned debit note tasks");
+    this.store.dispatch(this.actions.findAssignedDebitNoteTasks());
+    this.store.dispatch(this.actions.findPooledDebitNoteTasks());
+  }
 }
 
