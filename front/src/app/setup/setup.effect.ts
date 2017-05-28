@@ -151,5 +151,12 @@ export class SetupEffects {
   .switchMap(payload => this.commonService.updateResidencyCode(payload))
   .map(message => this.setupActions.updateResidencyCodeSuccess(message))
   .mergeMap(action => from([action, this.setupActions.findResidencyCodes()]));
+
+@Effect() removeResidencyCode$ = this.actions$
+.ofType(SetupActions.REMOVE_RESIDENCY_CODE)
+.map(action => action.payload)
+.switchMap(payload => this.commonService.removeResidencyCode(payload))
+.map(message => this.setupActions.removeResidencyCodeSuccess(message))
+.mergeMap(action => from([action, this.setupActions.findResidencyCodes()]));
  
 }
