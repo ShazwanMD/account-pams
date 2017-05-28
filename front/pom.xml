@@ -123,7 +123,7 @@
                   <goal>npm</goal>
                 </goals>
                 <configuration>
-                  <arguments>run-script install--ci</arguments>
+                  <arguments>run-script install-ci</arguments>
                 </configuration>
               </execution>
               <execution>
