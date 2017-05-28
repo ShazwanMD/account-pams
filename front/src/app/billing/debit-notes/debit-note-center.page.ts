@@ -40,7 +40,7 @@ export class DebitNoteCenterPage implements OnInit {
 
     view(task: DebitNoteTask) {
     console.log("CreditNote: " + task.taskId);
-    this.router.navigate(['/billing/credit-notes/view-task', task.taskId]);
+    this.router.navigate(['/billing/debit-notes/view-task', task.taskId]);
   }
 
   
