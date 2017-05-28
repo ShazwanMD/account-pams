@@ -44,6 +44,11 @@ export class ResidencyCodeListPage implements OnInit {
    editDialog(code:ResidencyCode): void {
      this.showDialog(code);
    }
+   
+
+   delete(code: ResidencyCode): void {
+     this.store.dispatch(this.actions.removeResidencyCode(code))
+   }
 
    filter(): void {
    }
