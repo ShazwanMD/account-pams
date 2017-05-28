@@ -42,7 +42,10 @@ import {StateCode} from "../common/state-codes/state-code.interface";
 import {ProgramCode} from "../common/program-codes/program-code.interface";
 import {bankCodeListReducer, BankCodeListState} from "./bank-codes/bank-code-list.reducer";
 import {cohortCodeListReducer, CohortCodeListState} from "./cohort-codes/cohort-code-list.reducer";
-
+import { ResidencyCodeListState, residencyCodeListReducer } from "../common/residency-codes/residency-code-list.reducer";
+import { ResidencyCode } from "../common/residency-codes/residency-code.interface";
+import { ResidencyCodeListPage } from "./residency-codes/residency-code-list.page";
+import {ResidencyCodeEditorDialog} from "./residency-codes/dialog/residency-code-editor.dialog";
 
 
 
@@ -52,6 +55,7 @@ export interface SetupModuleState {
   title:TitleState;
   bankCodes: BankCodeListState;
   cohortCodes: CohortCodeListState;
+  residencyCodes: ResidencyCodeListState;
 
 };
 
@@ -60,6 +64,7 @@ export const INITIAL_SETUP_STATE: SetupModuleState =
     title:'Setup Codes',
     bankCodes: <BankCode[]>[],
     cohortCodes: <CohortCode[]>[],
+    residencyCodes: <ResidencyCode[]>[],
   };
 
 
@@ -67,6 +72,7 @@ export const setupModuleReducers = {
   title:titleReducer,
   bankCodes: bankCodeListReducer,
   cohortCodes: cohortCodeListReducer,
+  residencyCodes: residencyCodeListReducer,
 }
 
 
@@ -88,6 +94,7 @@ export const setupModuleReducers = {
     FacultyCodeListPage,
     StudyModeListPage,
     CohortCodeListPage,
+    ResidencyCodeListPage,
 
     // dialog
     BankCodeEditorDialog,
@@ -97,7 +104,7 @@ export const setupModuleReducers = {
     FacultyCodeCreatorDialog,
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
-
+    ResidencyCodeEditorDialog,
 
   ],
   exports: [],
