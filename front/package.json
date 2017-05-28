@@ -9,6 +9,8 @@
     "reusable"
   ],
   "scripts": {
+    "get-prefix": "npm config get prefix",
+    "get-cache": "npm config get cache",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "reinstall": "rm -rf node_modules tmp deploy dist && npm i",
