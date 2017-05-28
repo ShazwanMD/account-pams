@@ -238,7 +238,7 @@ public class CommonController {
     @RequestMapping(value = "/bankCodes", method = RequestMethod.GET)
     public ResponseEntity<List<BankCode>> findBankCodes() {
         return new ResponseEntity<List<BankCode>>(commonTransformer.toBankCodeVos(
-                commonService.findBankCodes()), HttpStatus.OK);
+                commonService.findBankCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/bankCodes/{code}", method = RequestMethod.GET)
@@ -261,10 +261,10 @@ public class CommonController {
     }
     
     @RequestMapping(value = "/bankCodes/{code}", method = RequestMethod.PUT)
-    public ResponseEntity<String>updateBankCode(@PathVariable String code, @RequestBody BankCode vo) {
+    public ResponseEntity<String> updateBankCode(@PathVariable String code, @RequestBody BankCode vo) {
         dummyLogin();
 
-        AcBankCode bankCode  = commonService.findBankCodeByCode(code);
+        AcBankCode bankCode = commonService.findBankCodeById(vo.getId());
         bankCode.setCode(vo.getCode());
         bankCode.setName(vo.getName());
         bankCode.setSwiftCode(vo.getSwiftCode());
@@ -273,7 +273,6 @@ public class CommonController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-
     @RequestMapping(value = "/bankCodes/{code}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeBankCode(@PathVariable String code) {
         dummyLogin();
@@ -281,5 +280,5 @@ public class CommonController {
         AcBankCode bankCode = commonService.findBankCodeByCode(code);
         commonService.removeBankCode(bankCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }    
+    }
 }
