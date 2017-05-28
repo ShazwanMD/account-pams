@@ -1,8 +1,10 @@
 <md-card>
-  <md-card-title>Items</md-card-title>
-  <md-card-subtitle>Promo code items</md-card-subtitle>
-  <md-divider></md-divider>
   <div toolbar-buttons layout="row" layout-align="start center" flex>
+    <md-card-title>Items
+    </md-card-title>
+    <md-chip-list *ngIf="promoCodeItems?.length > 0">
+      <md-chip color="accent">{{promoCodeItems?.length}}</md-chip>
+    </md-chip-list>
     <span flex></span>
     <button md-button class="md-icon-button" (click)="create()">
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 0}">add</md-icon>
