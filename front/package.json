@@ -19,7 +19,6 @@
     "test": "ng test --code-coverage --single-run",
     "build": "ng build --base-href ./",
     "build-ci": "ng build --base-href ./ --environment=ci",
-    "install-ci": "npm install --prefix /home/jenkins/.jenkins/",
     "serve": "ng serve",
     "ghpages-deploy": "ng build --base-href /covalent-quickstart/ --aot -prod --sourcemap=false && bash scripts/ghpages-deploy"
   },

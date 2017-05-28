@@ -122,9 +122,6 @@
                 <goals>
                   <goal>npm</goal>
                 </goals>
-                <configuration>
-                  <arguments>run-script install-ci</arguments>
-                </configuration>
               </execution>
               <execution>
                 <id>build</id>
