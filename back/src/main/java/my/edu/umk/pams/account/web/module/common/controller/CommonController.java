@@ -230,17 +230,6 @@ public class CommonController {
         commonService.removeFacultyCode(facultyCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-
-    // ====================================================================================================
-    // RESIDENCY CODES
-    //====================================================================================================
-
-    @RequestMapping(value = "/residencyCodes", method = RequestMethod.GET)
-    public ResponseEntity<List<ResidencyCode>> findResidencyCodes() {
-        return new ResponseEntity<List<ResidencyCode>>(commonTransformer.toResidencyCodeVos(
-                commonService.findResidencyCodes()), HttpStatus.OK);
-    }
-
     
     //====================================================================================================
     // BANK_CODE
