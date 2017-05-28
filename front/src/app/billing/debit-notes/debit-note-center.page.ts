@@ -8,6 +8,7 @@ import { Observable } from "rxjs";
 import { BillingModuleState } from "../index";
 import { DebitNote } from "./debit-note.interface";
 import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
+import { DebitNoteTask } from "./debit-note-task.interface";
 
 
 @Component({
@@ -18,7 +19,9 @@ import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
 export class DebitNoteCenterPage implements OnInit {
 
     private DEBIT_NOTES = "billingModuleState.debitnotes".split(".");
-    private debitnotes$: Observable<DebitNote[]>;
+    private debitnotes$: Observable<DebitNoteTask[]>;
+    private assignedDebitNoteTasks$: Observable<DebitNoteTask[]>;
+    private pooledDebitNoteTasks$: Observable<DebitNoteTask[]>;
     private creatorDialogRef: MdDialogRef<DebitNoteCreatorDialog>;
 
     constructor(private router: Router,
