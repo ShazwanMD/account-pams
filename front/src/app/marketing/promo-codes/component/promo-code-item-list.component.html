@@ -5,13 +5,13 @@
   <div toolbar-buttons layout="row" layout-align="start center" flex>
     <span flex></span>
     <button md-button class="md-icon-button" (click)="create()">
-      <md-icon class="md-24 tc-grey-700">add</md-icon>
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 0}">add</md-icon>
     </button>
-  	<button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
-      <md-icon class="md-24 tc-grey-700">edit</md-icon>
+    <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
     </button>
     <button md-button class="md-icon-button" (click)="remove(selectedRows[0])" [disabled]="selectedRows.length != 1">
-      <md-icon class="md-24 tc-grey-700">delete</md-icon>
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">delete</md-icon>
     </button>
   </div>
   <md-divider></md-divider>
