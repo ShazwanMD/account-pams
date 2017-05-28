@@ -360,6 +360,26 @@ export class SetupActions {
       payload: message
     };
   }
+  
+  static REMOVE_RESIDENCY_CODE = '[Setup] Remove Residency Code';
+
+  removeResidencyCode(code): Action {
+    console.log("updateResidencyCode");
+    return {
+      type: SetupActions.REMOVE_RESIDENCY_CODE,
+      payload: code
+    };
+  }
+
+  static REMOVE_RESIDENCY_CODE_SUCCESS = '[Setup] Remove Residency Code  Success';
+
+  removeResidencyCodeSuccess(message): Action {
+    console.log("updateResidencyCodeSuccess");
+    return {
+      type: SetupActions.REMOVE_RESIDENCY_CODE_SUCCESS,
+      payload: message
+    };
+  }
 
   static SAVE_STUDY_MODE = '[Setup] Save Study Mode';
 

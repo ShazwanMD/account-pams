@@ -21,7 +21,6 @@ export class PromoCodeItemEditorDialog implements OnInit {
   private editForm: FormGroup;
   private _promoCodeItem: PromoCodeItem;
   private _promoCode: PromoCode;
-  private edit: boolean = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -34,7 +33,6 @@ export class PromoCodeItemEditorDialog implements OnInit {
 
   set promoCodeItem(promoCodeItem: PromoCodeItem) {
     this._promoCodeItem = promoCodeItem;
-    this.edit = true;
   }
 
   set promoCode(promoCode: PromoCode) {
@@ -60,7 +58,7 @@ export class PromoCodeItemEditorDialog implements OnInit {
   }
 
   submit(promoCodeItem: PromoCodeItem, isValid: boolean) {
-    if (!this.edit) this.store.dispatch(this.actions.addPromoCodeItem(this._promoCode, promoCodeItem));
+    if (!promoCodeItem.id) this.store.dispatch(this.actions.addPromoCodeItem(this._promoCode, promoCodeItem));
     else  this.store.dispatch(this.actions.updatePromoCodeItem(this._promoCode, promoCodeItem));
     this.dialog.close();
   }
