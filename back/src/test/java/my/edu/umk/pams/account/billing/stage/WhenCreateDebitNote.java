@@ -28,8 +28,8 @@ public class WhenCreateDebitNote extends Stage<WhenCreateDebitNote> {
 	@As("create debit note")
 	public WhenCreateDebitNote Create_debit_note(){
 		
-		String referenceNo = "drn";
-		String description = "dde";
+		String referenceNo = "DTNT008";
+		String description = "debit note";
 		Date issuedDate = new Date();
 		
 		AcDebitNote debitNote = new AcDebitNoteImpl();
