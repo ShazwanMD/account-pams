@@ -7,12 +7,12 @@
     <button md-button class="md-icon-button" (click)="showAdmissionChargeDialog()">
       <md-icon class="md-24 tc-grey-700">add</md-icon>
     </button>
-    <!--<button md-button class="md-icon-button" (click)="edit()">
+    <button md-button class="md-icon-button" (click)="edit()">
       <md-icon class="md-24 tc-grey-700">edit</md-icon>
     </button>
     <button md-button class="md-icon-button" (click)="delete(selectedRows)">
       <md-icon class="md-24 tc-grey-700">delete</md-icon>
-    </button>-->
+    </button>
   </div>
   <md-divider></md-divider>
   <td-data-table
@@ -38,10 +38,6 @@
       <button md-icon-button [md-menu-trigger-for]="menu">
         <md-icon>more_vert</md-icon>
       </button>
-      <md-menu x-position="before" #menu="mdMenu">
-        <button md-menu-item (click)="editDialog(row)">Edit</button>
-        <button md-menu-item (click)="delete(row)">Delete</button>
-      </md-menu>
     </div>
   </template>
   </td-data-table>
