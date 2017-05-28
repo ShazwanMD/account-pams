@@ -43,6 +43,7 @@ import {CreditNoteTaskState, creditNoteTaskReducer} from "./credit-notes/credit-
 import {CreditNoteState, creditNoteReducer} from "./credit-notes/credit-note.reducer";
 import { CreditNoteTask } from "./credit-notes/credit-note-task.interface";
 import { CreditNote } from "./credit-notes/credit-note.interface";
+import { DebitNoteTaskListState, assignedDebitNoteTaskListReducer, pooledDebitNoteTaskListReducer } from "./debit-notes/debit-note-task-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -56,6 +57,8 @@ export interface BillingModuleState {
   receiptTask: ReceiptTaskState;
   receipt: ReceiptState;
   receiptItems: ReceiptItemListState;
+  assignedDebitNoteTasks: DebitNoteTaskListState;
+  pooledDebitNoteTasks: DebitNoteTaskListState;
   debitNote: DebitNoteState;
   debitNoteTask: DebitNoteTaskState;
   creditNote: CreditNoteState;
@@ -76,6 +79,8 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     receiptTask: <ReceiptTask>{},
     receipt: <Receipt>{},
     receiptItems: [],
+    assignedDebitNoteTasks: [],
+    pooledDebitNoteTasks: [],
     debitNoteTask: <DebitNoteTask>{},
     debitNote: <DebitNote>{},
     creditNoteTask: <CreditNoteTask>{},
@@ -94,6 +99,8 @@ export const billingModuleReducers = {
   receiptTask: receiptTaskReducer,
   receipts: receiptReducer,
   receiptItems: receiptItemListReducer,
+  assignedDebitNoteTasks: assignedDebitNoteTaskListReducer,
+  pooledDebitNoteTasks: pooledDebitNoteTaskListReducer,
   debitNoteTask: debitNoteTaskReducer,
   debitNote: debitNoteReducer,
   creditNoteTask: creditNoteTaskReducer,
