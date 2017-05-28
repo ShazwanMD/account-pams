@@ -11,4 +11,7 @@ export interface AccountCharge extends MetaObject {
 
   // transient
   invoiced?: boolean;
+
+    // selection
+  selected?:boolean;
 }

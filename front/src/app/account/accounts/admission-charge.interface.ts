@@ -4,4 +4,7 @@ import {CohortCode} from "../../common/cohort-codes/cohort-code.interface";
 export interface AdmissionCharge extends AccountCharge {
   studyMode?: StudyMode;
   cohortCode?: CohortCode;
+
+ // selection
+  selected?:boolean;
 }

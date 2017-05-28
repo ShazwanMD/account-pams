@@ -37,7 +37,6 @@ export class AccountSelectComponent implements OnInit {
   }
 
   selectChangeEvent(event: Account) {
-    console.log("selectChangeEvent");
     this.innerFormControl.setValue(event, {emitEvent: false});
     this.selected = event;
   }
