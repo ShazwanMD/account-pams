@@ -117,31 +117,14 @@
                 </goals>
               </execution>
               <execution>
-                <id>get-npm-prefix</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <configuration>
-                  <arguments>get-prefix</arguments>
-                </configuration>
-              </execution>
-              <execution>
-                <id>get-npm-cache</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <configuration>
-                  <arguments>get-cache</arguments>
-                </configuration>
-              </execution>
-              <execution>
                 <id>npm install</id>
                 <phase>generate-sources</phase>
                 <goals>
                   <goal>npm</goal>
                 </goals>
+                <configuration>
+                  <arguments>install --prefix /home/jenkins/.jenkins/</arguments>
+                </configuration>
               </execution>
               <execution>
                 <id>build</id>

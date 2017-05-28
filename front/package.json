@@ -9,8 +9,6 @@
     "reusable"
   ],
   "scripts": {
-    "get-prefix": "npm config get prefix",
-    "get-cache": "npm config get cache",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "reinstall": "rm -rf node_modules tmp deploy dist && npm i",
@@ -21,6 +19,7 @@
     "test": "ng test --code-coverage --single-run",
     "build": "ng build --base-href ./",
     "build-ci": "ng build --base-href ./ --environment=ci",
+    "install-ci": "npm install --prefix /home/jenkins/.jenkins/",
     "serve": "ng serve",
     "ghpages-deploy": "ng build --base-href /covalent-quickstart/ --aot -prod --sourcemap=false && bash scripts/ghpages-deploy"
   },
