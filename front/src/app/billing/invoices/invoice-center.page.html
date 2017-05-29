@@ -27,17 +27,17 @@
         <md-tab label="Assigned">
           <pams-assigned-invoice-task-list
             [invoiceTasks]="assignedInvoiceTasks$ | async"
-            (view)="view($event)"></pams-assigned-invoice-task-list>
+            (view)="viewTask($event)"></pams-assigned-invoice-task-list>
         </md-tab>
         <md-tab label="Pooled">
           <pams-pooled-invoice-task-list
             [invoiceTasks]="pooledInvoiceTasks$ | async"
-            (claim)="claim($event)"></pams-pooled-invoice-task-list>
+            (claim)="claimTask($event)"></pams-pooled-invoice-task-list>
         </md-tab>
         <md-tab label="Archived">
           <pams-archived-invoice-list
             [invoices]="archivedInvoices$ | async"
-            (view)="view($event)"></pams-archived-invoice-list>
+            (view)="viewInvoice($event)"></pams-archived-invoice-list>
         </md-tab>
       </md-tab-group>
     </md-card>

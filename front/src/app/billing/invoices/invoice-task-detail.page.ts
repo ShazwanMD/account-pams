@@ -1,7 +1,4 @@
-import {
-  Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef
-} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {InvoiceTask} from "./invoice-task.interface";
 import {InvoiceActions} from "./invoice.action";
@@ -11,23 +8,23 @@ import {Store} from "@ngrx/store";
 
 
 @Component({
-  selector: 'pams-invoice-iew',
-  templateUrl: './invoice-view.page.html',
+  selector: 'pams-invoice-task-detail',
+  templateUrl: './invoice-task-detail.page.html',
 })
-export class InvoiceTaskViewPage implements OnInit {
+export class InvoiceTaskDetailPage implements OnInit {
 
-  private INVOICE = "billingModuleState.invoice".split(".");
+  private INVOICE_TASK = "billingModuleState.invoiceTask".split(".");
   private invoiceTask$: Observable<InvoiceTask>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private actions: InvoiceActions) {
-    this.invoiceTask$ = this.store.select(...this.INVOICE)
+    this.invoiceTask$ = this.store.select(...this.INVOICE_TASK)
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: {taskId: string}) => {
+    this.route.params.subscribe((params: { taskId: string }) => {
       let taskId: string = params.taskId;
       this.store.dispatch(this.actions.findInvoiceTaskByTaskId(taskId));
     });

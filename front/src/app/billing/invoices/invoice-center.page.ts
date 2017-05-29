@@ -8,6 +8,7 @@ import {InvoiceTask} from "./invoice-task.interface";
 import {BillingModuleState} from "../index";
 import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
 import {InvoiceTaskCreatorDialog} from "./dialog/invoice-task-creator.dialog";
+import {Invoice} from "./invoice.interface";
 
 @Component({
   selector: 'pams-invoice-center',
@@ -39,14 +40,19 @@ export class InvoiceCenterPage implements OnInit {
     this.router.navigate(['/invoices']);
   }
 
-  claim(task: InvoiceTask) {
+  claimTask(task: InvoiceTask) {
     console.log("invoice: " + task.taskId);
     this.store.dispatch(this.actions.claimInvoiceTask(task));
   }
 
-  view(task: InvoiceTask) {
+  viewTask(task: InvoiceTask) {
     console.log("invoice: " + task.taskId);
-    this.router.navigate(['/billing/invoices/view-task', task.taskId]);
+    this.router.navigate(['/billing/invoices/invoice-task-detail', task.taskId]);
+  }
+
+  viewInvoice(invoice: Invoice) {
+    console.log("invoice: " + invoice.referenceNo);
+    this.router.navigate(['/billing/invoices/invoice-detail', invoice.referenceNo]);
   }
 
   showDialog(): void {

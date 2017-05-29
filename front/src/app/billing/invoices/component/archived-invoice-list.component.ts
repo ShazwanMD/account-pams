@@ -27,9 +27,10 @@ export class ArchivedInvoiceListComponent {
   }
 
   viewInvoice(invoice: Invoice): void {
+    console.log("Emitting task");
     let snackBarRef = this.snackBar.open("Viewing invoice", "OK");
     snackBarRef.afterDismissed().subscribe(() => {
-      // do something
+      this.view.emit(invoice);
     });
   }
 }

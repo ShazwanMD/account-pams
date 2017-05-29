@@ -33,24 +33,27 @@ import {
   assignedReceiptTaskListReducer, pooledReceiptTaskListReducer,
   ReceiptTaskListState
 } from "./receipts/receipt-task-list.reducer";
-import { DebitNoteSubModule } from "./debit-notes/index";
-import { CreditNoteSubModule } from "./credit-notes/index";
-import { InvoiceTaskListComponent } from "./invoices/component/invoice-task-list.component";
+import {DebitNoteSubModule} from "./debit-notes/index";
+import {CreditNoteSubModule} from "./credit-notes/index";
 import {receiptItemListReducer, ReceiptItemListState} from "./receipts/receipt-item-list.reducer";
-import { DebitNoteTask } from "./debit-notes/debit-note-task.interface";
-import { DebitNote } from "./debit-notes/debit-note.interface";
+import {DebitNoteTask} from "./debit-notes/debit-note-task.interface";
+import {DebitNote} from "./debit-notes/debit-note.interface";
 import {CreditNoteTaskState, creditNoteTaskReducer} from "./credit-notes/credit-note-task.reducer";
 import {CreditNoteState, creditNoteReducer} from "./credit-notes/credit-note.reducer";
-import { CreditNoteTask } from "./credit-notes/credit-note-task.interface";
-import { CreditNote } from "./credit-notes/credit-note.interface";
-import { DebitNoteTaskListState, assignedDebitNoteTaskListReducer, pooledDebitNoteTaskListReducer } from "./debit-notes/debit-note-task-list.reducer";
+import {CreditNoteTask} from "./credit-notes/credit-note-task.interface";
+import {CreditNote} from "./credit-notes/credit-note.interface";
+import {
+  DebitNoteTaskListState,
+  assignedDebitNoteTaskListReducer,
+  pooledDebitNoteTaskListReducer
+} from "./debit-notes/debit-note-task-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
   pooledInvoiceTasks: InvoiceTaskListState;
   archivedInvoices: InvoiceListState;
   invoiceTask: InvoiceTaskState;
-  invoices:InvoiceListState;
+  invoices: InvoiceListState;
   invoice: InvoiceState;
   invoiceItems: InvoiceItemListState;
   assignedReceiptTasks: ReceiptTaskListState;
@@ -73,7 +76,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     pooledInvoiceTasks: [],
     archivedInvoices: [],
     invoiceTask: <InvoiceTask>{},
-    invoices:<Invoice[]>[],
+    invoices: <Invoice[]>[],
     invoice: <Invoice>{},
     invoiceItems: [],
     assignedReceiptTasks: [],
@@ -95,7 +98,7 @@ export const billingModuleReducers = {
   archivedInvoices: archivedInvoiceListReducer,
   invoiceTask: invoiceTaskReducer,
   invoices: invoiceListReducer,
-  invoice:invoiceReducer,
+  invoice: invoiceReducer,
   invoiceItems: invoiceItemListReducer,
   assignedReceiptTasks: assignedReceiptTaskListReducer,
   pooledReceiptTasks: pooledReceiptTaskListReducer,

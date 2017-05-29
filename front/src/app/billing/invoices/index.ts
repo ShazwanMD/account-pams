@@ -17,7 +17,8 @@ import {InvoiceDraftTaskPanel} from "./panel/invoice-draft-task.panel";
 import {InvoiceRegisterTaskPanel} from "./panel/invoice-register-task.panel";
 import {InvoiceItemEditorDialog} from "./dialog/invoice-item-editor.dialog";
 import {InvoiceTaskWorkflowPanel} from "./panel/invoice-task-workflow.panel";
-import {InvoiceTaskViewPage} from "./invoice-task-view.page";
+import {InvoiceTaskDetailPage} from "./invoice-task-detail.page";
+import {InvoiceDetailPage} from "./invoice-detail.page";
 import {InvoiceTaskCreatorDialog} from "./dialog/invoice-task-creator.dialog";
 import {AccountSubModule} from "../../account/accounts/index";
 import {AccountService} from "../../../services/account.service";
@@ -46,7 +47,8 @@ import {ArchivedInvoiceListComponent} from "./component/archived-invoice-list.co
   declarations: [
     // page
     InvoiceCenterPage,
-    InvoiceTaskViewPage,
+    InvoiceTaskDetailPage,
+    InvoiceDetailPage,
 
     // components
     AssignedInvoiceTaskListComponent,
