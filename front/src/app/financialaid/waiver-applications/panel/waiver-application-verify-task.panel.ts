@@ -36,6 +36,6 @@ export class WaiverApplicationVerifyTaskPanel implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/billing/waiverApplications']);
+      this.router.navigate(['/financialaid/waiver-applications']);
   }
 }
