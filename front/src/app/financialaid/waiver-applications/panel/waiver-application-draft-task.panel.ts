@@ -29,6 +29,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
+      //this.store.dispatch(this.actions.findW(this.invoice))
   }
 
   register() {
@@ -37,7 +38,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/billing/waiverApplications']);
+    this.router.navigate(['/financialaid/waiver-applications']);
   }
 
   showDialog(): void {
@@ -56,6 +57,5 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
       // load something here
     });
   }
-
 
 }

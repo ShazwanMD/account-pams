@@ -62,6 +62,6 @@ export class WaiverApplicationCenterPage implements OnInit {
   ngOnInit(): void {
     console.log("find assigned/pooled waiver application tasks");
     this.store.dispatch(this.actions.findAssignedWaiverApplicationTasks());
-    // this.store.dispatch(this.actions.findPooledWaiverApplicationTasks());
+    this.store.dispatch(this.actions.findPooledWaiverApplicationTasks());
   }
 }
