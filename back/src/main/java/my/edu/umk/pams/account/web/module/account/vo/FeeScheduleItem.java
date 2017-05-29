@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 public class FeeScheduleItem extends MetaObject {
     private BigDecimal amount;
     private String description;
+    private Integer ordinal;
     private ChargeCode chargeCode;
 
     public String getDescription() {
@@ -21,6 +22,14 @@ public class FeeScheduleItem extends MetaObject {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getOrdinal() {
+        return ordinal;
+    }
+
+    public void setOrdinal(Integer ordinal) {
+        this.ordinal = ordinal;
     }
 
     public BigDecimal getAmount() {

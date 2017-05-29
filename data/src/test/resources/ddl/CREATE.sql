@@ -467,6 +467,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
+        ORDINAL int4,
         CHARGE_CODE_ID int8,
         SCHEDULE_ID int8,
         primary key (ID)

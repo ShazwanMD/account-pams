@@ -7,10 +7,16 @@ import java.math.BigDecimal;
 /**
  * @author PAMS
  */
-public interface AcFeeScheduleItem extends AcMetaObject{
+public interface AcFeeScheduleItem extends AcMetaObject {
 
     /**
-     *
+     * @return
+     */
+    Integer getOrdinal();
+
+    void setOrdinal(Integer ordinal);
+
+    /**
      * @return
      */
     BigDecimal getAmount();
@@ -18,7 +24,6 @@ public interface AcFeeScheduleItem extends AcMetaObject{
     void setAmount(BigDecimal amount);
 
     /**
-     *
      * @return
      */
     String getDescription();
@@ -26,7 +31,6 @@ public interface AcFeeScheduleItem extends AcMetaObject{
     void setDescription(String description);
 
     /**
-     *
      * @return
      */
     AcChargeCode getChargeCode();
@@ -34,7 +38,6 @@ public interface AcFeeScheduleItem extends AcMetaObject{
     void setChargeCode(AcChargeCode chargeCode);
 
     /**
-     *
      * @return
      */
     AcFeeSchedule getSchedule();

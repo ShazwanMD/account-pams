@@ -92,26 +92,6 @@ public class FinancialAidController {
         return new ResponseEntity<List<SettlementItem>>(financialAidTransformer
                 .toSettlementItemVos(financialAidService.findSettlementItems(settlement)), HttpStatus.OK);
     }
-/*
-    @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.POST)
-    public void updateSettlementItems(@PathVariable String referenceNo, @RequestBody SettlementItem item) {
-        dummyLogin();
-        AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
-        if (null == item.getId()) { // new
-            AcSettlementItem e = new AcSettlementItemImpl();
-            e.setBalanceAmount(item.getBalanceAmount());
-            // todo: e.setAccount();
-            // todo: e.setStatus();
-            financialAidService.addSettlementItem(settlement, e);
-        } else { // update
-            AcSettlementItem e = financialAidService.findSettlementItemById(item.getId());
-            e.setBalanceAmount(item.getBalanceAmount());
-            // todo: e.setAccount();
-            // todo: e.setStatus();
-            financialAidService.updateSettlementItem(settlement, e);
-        }
-    }
-    */
 
     @Deprecated
     @RequestMapping(value = "/settlements/init", method = RequestMethod.POST)

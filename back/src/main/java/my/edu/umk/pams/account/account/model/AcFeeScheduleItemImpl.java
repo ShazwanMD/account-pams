@@ -19,6 +19,9 @@ public class AcFeeScheduleItemImpl implements AcFeeScheduleItem {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "ORDINAL", nullable = false)
+    private Integer ordinal;
+
     @Column(name = "AMOUNT", nullable = false)
     private BigDecimal amount;
 
@@ -44,6 +47,16 @@ public class AcFeeScheduleItemImpl implements AcFeeScheduleItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public Integer getOrdinal() {
+        return ordinal;
+    }
+
+    @Override
+    public void setOrdinal(Integer ordinal) {
+        this.ordinal = ordinal;
     }
 
     @Override

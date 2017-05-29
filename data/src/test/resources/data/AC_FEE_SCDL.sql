@@ -32,14 +32,14 @@ VALUES (nextval('SQ_AC_FEE_SCDL'),
         'YB2-FIAT-PHD-0001-CHRT-201720181', 'YURAN BERULANG COHORT FIAT-PHD-0001-CHRT-201720181', 2442.00,
         1, 1, CURRENT_TIMESTAMP);
 
-INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, description, amount, m_st, c_id, c_ts)
+INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, ORDINAL, description, amount, m_st, c_id, c_ts)
 values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
-        (select ID FROM ac_chrg_code where code = 'TMGSEB-MBA-00-H79321'), 'my description 3', 1000.00,
+        (select ID FROM ac_chrg_code where code = 'TMGSEB-MBA-00-H79321'), 1, 'my description 3', 1000.00,
         1, 1, CURRENT_TIMESTAMP);
 
-INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, description, amount, m_st, c_id, c_ts)
+INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, ORDINAL, description, amount, m_st, c_id, c_ts)
 values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
-        (select ID FROM ac_chrg_code where code = 'TMGSEB-MBA-00-H79330'), 'my description 4', 1442.00,
+        (select ID FROM ac_chrg_code where code = 'TMGSEB-MBA-00-H79330'), 1, 'my description 4', 1442.00,
         1, 1, CURRENT_TIMESTAMP);
 
 

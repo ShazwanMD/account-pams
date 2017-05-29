@@ -96,10 +96,8 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     private BillingService billingService;
 
     // ====================================================================================================
-    // //
     // SETTLEMENT
     // ====================================================================================================
-    // //
 
     @Override
     public AcSettlement findSettlementById(Long id) {
