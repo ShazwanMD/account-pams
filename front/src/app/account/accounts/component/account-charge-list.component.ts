@@ -1,4 +1,5 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
+import {Component, Input, EventEmitter, OnInit, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 import {AccountCharge} from "../account-charge.interface";
 import {AdmissionChargeDialog} from "../dialog/admission-charge.dialog";
 import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
@@ -17,6 +18,7 @@ export class AccountChargeListComponent {
   @Input() charges: AccountCharge[];
 
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
+  private selectedRows: AccountCharge[];
   private columns: any[] = [
     {name: 'chargeType', label: 'Type'},
     {name: 'session.code', label: 'Session'},
@@ -25,11 +27,17 @@ export class AccountChargeListComponent {
     {name: 'action', label: ''}
   ];
 
-  constructor(private actions: AccountActions,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private actions: AccountActions,
               private store: Store<AccountModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
   }
+
+  // ngOnInit(): void {
+  //   this.selectedRows = this.charges.filter(value => value.selected);
+  // }
 
   delete(account: Account, accountCharge: AccountCharge): void {
     this.store.dispatch(this.actions.removeAdmissionCharge(account, accountCharge))

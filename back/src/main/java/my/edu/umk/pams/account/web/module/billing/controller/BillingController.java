@@ -341,7 +341,21 @@ public class BillingController {
         AcDebitNote debitNotes = (AcDebitNote) billingService.findDebitNoteByReferenceNo(referenceNo);
         return new ResponseEntity<DebitNote>(billingTransformer.toDebitNoteVo(debitNotes), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/debitNotes/assignedTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<DebitNoteTask>> findAssignedDebitNotes() {
+        dummyLogin();
+        List<Task> tasks = billingService.findAssignedDebitNoteTasks(0, 100);
+        return new ResponseEntity<List<DebitNoteTask>>(billingTransformer.toDebitNoteTaskVos(tasks), HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/debitNotes/pooledTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<DebitNoteTask>> findPooledDebitNotes() {
+        dummyLogin();
+        List<Task> tasks = billingService.findPooledDebitNoteTasks(0, 100);
+        return new ResponseEntity<List<DebitNoteTask>>(billingTransformer.toDebitNoteTaskVos(tasks), HttpStatus.OK);
+    }
+        
     @RequestMapping(value = "/debitNotes/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startDebitNoteTask(@RequestBody DebitNote vo) throws Exception {
         dummyLogin();

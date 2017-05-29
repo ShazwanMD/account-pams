@@ -300,6 +300,12 @@ public class BillingTransformer {
                 .collect(toCollection(() -> new ArrayList<ReceiptItem>()));
     }
 
+    public List<DebitNoteTask> toDebitNoteTaskVos(List<Task> tasks) {
+        return tasks.stream()
+                .map((task) -> toDebitNoteTaskVo(task))
+                .collect(toCollection(() -> new ArrayList<DebitNoteTask>()));
+    }
+    
     public List<DebitNote> toDebitNoteVos(List<AcDebitNote> journals) {
         return journals.stream()
                 .map((task) -> toDebitNoteVos(task))

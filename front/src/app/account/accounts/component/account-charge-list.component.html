@@ -21,8 +21,12 @@
     [sortBy]="summary"
     [sortOrder]="ASC"
     [sortable]="false"
-    [multiple]="false"
-    [selectable]="false" dense>
+    [multiple]="true"
+    [selectable]="true"
+    [(ngModel)]="selectedRows"
+    (rowSelect)="selectRow($event)"
+    (selectAll)="selectAllRows($event)"
+    dense>
     <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
       <div layout="row">
         <span flex>{{value}}</span>
@@ -34,11 +38,6 @@
       </div>
     </template>
       <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
-    <div layout="row">
-      <button md-icon-button [md-menu-trigger-for]="menu">
-        <md-icon>more_vert</md-icon>
-      </button>
-    </div>
   </template>
   </td-data-table>
 </md-card>
