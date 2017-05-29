@@ -46,6 +46,7 @@ export class FeeScheduleItemEditorDialog implements OnInit {
     this.editForm = this.formBuilder.group(<FeeScheduleItem>{
       id: null,
       description: '',
+      ordinal:0,
       amount: 0,
       balanceAmount: 0,
       chargeCode: <ChargeCode>{},
@@ -54,6 +55,7 @@ export class FeeScheduleItemEditorDialog implements OnInit {
   }
 
   save(item: FeeScheduleItem, isValid: boolean) {
+    item.description = item.chargeCode.description;
     this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item))
     this.close();
   }

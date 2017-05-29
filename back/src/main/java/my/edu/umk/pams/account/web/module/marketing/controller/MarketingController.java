@@ -151,22 +151,7 @@ public class MarketingController {
         marketingService.deletePromoCodeItem(promoCode, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-/*
-    @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems", method = RequestMethod.POST)
-    public void updatePromoCodeItems(@PathVariable String referenceNo, @RequestBody PromoCodeItem item) {
-        dummyLogin();
-        AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
-        if (null == item.getId()) { // new
-            AcPromoCodeItem e = new AcPromoCodeItemImpl();
-            e.setAccount(accountService.findAccountById(item.getAccount().getId()));
-            marketingService.addPromoCodeItem(promoCode, e);
-        } else { // update
-            AcPromoCodeItem e = marketingService.findPromoCodeItemById(item.getId());
-            e.setAccount(accountService.findAccountById(item.getAccount().getId()));
-            marketingService.updatePromoCodeItem(promoCode, e);
-        }
-    }
-*/
+
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================

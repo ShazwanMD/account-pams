@@ -3,6 +3,7 @@ import {ChargeCode} from "../charge-codes/charge-code.interface";
 export interface FeeScheduleItem extends MetaObject {
   amount: number;
   description:string;
+  ordinal:number;
   chargeCode: ChargeCode;
 
   // selection

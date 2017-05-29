@@ -1,17 +1,19 @@
 <md-card class="">
-  <md-card-title>Items</md-card-title>
-  <md-card-subtitle>List of fee items schedules</md-card-subtitle>
-  <md-divider></md-divider>
   <div toolbar-buttons layout="row" layout-align="start center" flex>
+    <md-card-title>Items
+    </md-card-title>
+    <md-chip-list *ngIf="promoCodeItems?.length > 0">
+      <md-chip color="accent">{{promoCodeItems?.length}}</md-chip>
+    </md-chip-list>
     <span flex></span>
-    <button md-button class="md-icon-button" (click)="showDialog()">
-      <md-icon class="md-24 tc-grey-700">add</md-icon>
+    <button md-button class="md-icon-button" (click)="create()">
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 0}">add</md-icon>
     </button>
-   <button md-button class="md-icon-button" (click)="edit()"  [disabled]="disableButton()">
-      <md-icon class="md-24 tc-grey-700">edit</md-icon>
+    <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
     </button>
-    <button md-button class="md-icon-button" (click)="delete(selectedRows)">
-      <md-icon class="md-24 tc-grey-700">delete</md-icon>
+    <button md-button class="md-icon-button" (click)="delete(selectedRows[0])" [disabled]="selectedRows.length != 1">
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">delete</md-icon>
     </button>
   </div>
   <md-divider></md-divider>

@@ -24,7 +24,7 @@ export class ResidencyCodeSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(this.actions.findCohortCodes());
+    this.store.dispatch(this.actions.findResidencyCodes());
   }
 
   selectChangeEvent(event: ResidencyCode) {

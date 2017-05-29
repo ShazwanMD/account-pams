@@ -43,6 +43,7 @@ export class FeeScheduleCreatorDialog implements OnInit {
 
   save(feeSchedule: FeeSchedule, isValid: boolean): void {
     console.log("saving fee");
+    feeSchedule.code = "YB-" + feeSchedule.studyMode.code + "-" + feeSchedule.residencyCode.code + "-" + feeSchedule.cohortCode.code;
     this.store.dispatch(this.actions.saveFeeSchedule(feeSchedule));
     this.dialog.close();
   }

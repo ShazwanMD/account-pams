@@ -127,6 +127,8 @@ public class AccountTransformer {
         FeeScheduleItem m = new FeeScheduleItem();
         m.setId(e.getId());
         m.setAmount(e.getAmount());
+        m.setOrdinal(e.getOrdinal());
+        m.setDescription(e.getDescription());
         m.setChargeCode(toChargeCodeVo(e.getChargeCode()));
         return m;
     }

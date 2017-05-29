@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.web.module.account.vo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
+import my.edu.umk.pams.account.web.module.common.vo.ResidencyCode;
 import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class FeeSchedule {
     private Long id;
     private String code;
     private String description;
+    private ResidencyCode residencyCode;
     private CohortCode cohortCode;
     private StudyMode studyMode;
 
@@ -53,6 +55,14 @@ public class FeeSchedule {
 
     public void setStudyMode(StudyMode studyMode) {
         this.studyMode = studyMode;
+    }
+
+    public ResidencyCode getResidencyCode() {
+        return residencyCode;
+    }
+
+    public void setResidencyCode(ResidencyCode residencyCode) {
+        this.residencyCode = residencyCode;
     }
 
     @JsonCreator

@@ -14,7 +14,7 @@ import {Store} from "@ngrx/store";
   templateUrl: './fee-schedule-item-list.component.html',
 })
 
-export class FeeScheduleItemListComponent implements OnInit{
+export class FeeScheduleItemListComponent implements OnInit {
 
   @Input() feeSchedule: FeeSchedule;
   @Input() feeScheduleItems: FeeScheduleItem[];
@@ -23,6 +23,7 @@ export class FeeScheduleItemListComponent implements OnInit{
   private selectedRows: FeeScheduleItem[];
   private columns: any[] = [
     {name: 'chargeCode', label: 'ChargeCode'},
+    {name: 'ordinal', label: 'Semester'},
     {name: 'amount', label: 'Amount'},
     {name: 'action', label: ''}
   ];
@@ -43,33 +44,26 @@ export class FeeScheduleItemListComponent implements OnInit{
     // this.showDialog(scheduleItem);
   }
 
-  delete(): void {
-    console.log("length: " + this.selectedRows.length);
-    for (var i = 0; i < this.selectedRows.length; i++) {
-       this.store.dispatch(this.actions.deleteFeeScheduleItem(this.feeSchedule, this.selectedRows[i]));
-    }
-  }
-
-   disableButton() {
-    return this.selectedRows.length != 1;
+  delete(scheduleItem: FeeScheduleItem): void {
+    this.store.dispatch(this.actions.deleteFeeScheduleItem(this.feeSchedule, scheduleItem));
   }
 
   filter(): void {
   }
 
-  selectRow(scheduleItem: FeeScheduleItem): void {
+  selectRow(item: FeeScheduleItem): void {
   }
 
-  selectAllRows(scheduleItems: FeeScheduleItem[]): void {
+  selectAllRows(item: FeeScheduleItem[]): void {
   }
 
-  showDialog(): void {
+  create(): void {
     console.log("showDialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '40%';
+    config.height = '60%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(FeeScheduleItemEditorDialog, config);
     this.creatorDialogRef.componentInstance.feeSchedule = this.feeSchedule;

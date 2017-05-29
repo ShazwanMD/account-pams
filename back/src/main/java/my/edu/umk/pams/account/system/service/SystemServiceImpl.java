@@ -275,7 +275,7 @@ public class SystemServiceImpl implements SystemService {
 
             // update
             referenceNo.setCurrentValue(newValue);
-            referenceNoDao.save(referenceNo, Util.getCurrentUser());
+            referenceNoDao.update(referenceNo, Util.getCurrentUser());
             sessionFactory.getCurrentSession().flush();
 
             Date now = new Date();

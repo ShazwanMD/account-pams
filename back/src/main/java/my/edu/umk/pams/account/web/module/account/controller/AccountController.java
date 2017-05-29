@@ -92,6 +92,7 @@ public class AccountController {
         feeSchedule.setCode(vo.getCode());
         feeSchedule.setDescription(vo.getDescription());
         feeSchedule.setTotalAmount(BigDecimal.ZERO); // todo
+        feeSchedule.setResidencyCode(commonService.findResidencyCodeById(vo.getResidencyCode().getId()));
         feeSchedule.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
         feeSchedule.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
         accountService.saveFeeSchedule(feeSchedule);
@@ -114,7 +115,9 @@ public class AccountController {
         dummyLogin();
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         AcFeeScheduleItem e = new AcFeeScheduleItemImpl();
+        e.setDescription(item.getDescription());
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setOrdinal(item.getOrdinal());
         e.setAmount(item.getAmount());
         accountService.addFeeScheduleItem(feeSchedule, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -126,6 +129,7 @@ public class AccountController {
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         AcFeeScheduleItem e = accountService.findFeeScheduleItemById(item.getId());
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setOrdinal(item.getOrdinal());
         e.setAmount(item.getAmount());
         accountService.updateFeeScheduleItem(feeSchedule, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);

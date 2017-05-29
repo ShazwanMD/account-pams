@@ -28,7 +28,14 @@ export interface CommonModuleState {
 }
 ;
 
-export const INITIAL_COMMON_STATE: CommonModuleState = <CommonModuleState>{};
+export const INITIAL_COMMON_STATE: CommonModuleState =
+  <CommonModuleState>{
+    cohortCodes: [],
+    facultyCodes: [],
+    studyModes: [],
+    residencyCodes: []
+  };
+
 export const commonModuleReducers = {
   cohortCodes: cohortCodeListReducer,
   facultyCodes: facultyCodeListReducer,
@@ -55,7 +62,7 @@ export const commonModuleReducers = {
     FacultyCodeSelectComponent,
     StudyModeSelectComponent,
     ResidencyCodeSelectComponent,
-],
+  ],
 })
 export class CommonModule {
   static forRoot(): ModuleWithProviders {

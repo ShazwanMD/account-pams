@@ -4,20 +4,12 @@
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput
-               placeholder="code"
-               formControlName="code"
-               flex/>
-      </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput
                placeholder="description"
                formControlName="description"
                flex/>
       </md-input-container>
     </div>
-    <div layout="row" class="pad-bottom pad-top">
+    <div layout="row" class="pad-bottom">
       <pams-residency-code-select
         [placeholder]="'Select Residency'"
         [innerFormControl]="createForm.controls['residencyCode']">

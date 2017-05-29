@@ -45,9 +45,9 @@ export class PromoCodeItemListComponent implements OnInit {
     this.showDialog(promoCodeItem);
   }
 
-  remove(promoCodeItem: PromoCodeItem): void {
-      this.store.dispatch(this.actions.deletePromoCodeItem(this.promoCode, promoCodeItem));
-      this.selectedRows = [];
+  delete(promoCodeItem: PromoCodeItem): void {
+    this.store.dispatch(this.actions.deletePromoCodeItem(this.promoCode, promoCodeItem));
+    this.selectedRows = [];
   }
 
   filter(): void {

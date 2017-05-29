@@ -19,31 +19,14 @@
       <div flex-gt-md="30">
         <md-card>
           <md-card-title>Action</md-card-title>
-          <md-card-subtitle>Actions available on current account</md-card-subtitle>
+          <md-card-subtitle>Actions available on current schedule</md-card-subtitle>
           <md-divider></md-divider>
 
           <md-nav-list flex dense>
-            <md-list-item [routerLink]="['/accounts-resolve', account?.code]">
-              <md-icon md-list-avatar>done_all</md-icon>
-              <h4 md-line>Resolve</h4>
-              <p md-line>Resolve this account</p>
-            </md-list-item>
             <md-list-item [routerLink]="['/accounts-reopen', account?.code]">
               <md-icon md-list-avatar>gavel</md-icon>
-              <h4 md-line>Deactivate</h4>
-              <p md-line>Deactivate this account</p>
-            </md-list-item>
-            <md-divider></md-divider>
-            <h3 md-subheader>Notification</h3>
-            <md-list-item>
-              <md-icon md-list-avatar>visibility</md-icon>
-              <h4 md-line>Watch</h4>
-              <p md-line>Watch this account</p>
-            </md-list-item>
-            <md-list-item>
-              <md-icon md-list-avatar>email</md-icon>
-              <h4 md-line>Share</h4>
-              <p md-line>Share this account with others</p>
+              <h4 md-line>Edit</h4>
+              <p md-line>Edit this schedule</p>
             </md-list-item>
           </md-nav-list>
         </md-card>
