@@ -24,6 +24,11 @@ export class InvoiceEffects {
     .switchMap(() => this.billingService.findCompletedInvoices())
     .map(invoices => this.invoiceActions.findCompletedInvoicesSuccess(invoices));
 
+  @Effect() findArchivedInvoices$ = this.actions$
+    .ofType(InvoiceActions.FIND_ARCHIVED_INVOICES)
+    .switchMap(() => this.billingService.findArchivedInvoices())
+    .map(invoices => this.invoiceActions.findArchivedInvoicesSuccess(invoices));
+
   @Effect() findAssignedInvoiceTasks$ = this.actions$
     .ofType(InvoiceActions.FIND_ASSIGNED_INVOICE_TASKS)
     .switchMap(() => this.billingService.findAssignedInvoiceTasks())

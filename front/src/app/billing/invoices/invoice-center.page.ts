@@ -18,8 +18,10 @@ export class InvoiceCenterPage implements OnInit {
 
   private ASSIGNED_INVOICE_TASKS = "billingModuleState.assignedInvoiceTasks".split(".");
   private POOLED_INVOICE_TASKS = "billingModuleState.pooledInvoiceTasks".split(".");
+  private ARCHIVED_INVOICES = "billingModuleState.archivedInvoices".split(".");
   private assignedInvoiceTasks$: Observable<InvoiceTask[]>;
   private pooledInvoiceTasks$: Observable<InvoiceTask[]>;
+  private archivedInvoices$: Observable<InvoiceTask[]>;
   private creatorDialogRef: MdDialogRef<InvoiceTaskCreatorDialog>;
 
   constructor(private router: Router,
@@ -30,6 +32,7 @@ export class InvoiceCenterPage implements OnInit {
               private dialog: MdDialog) {
     this.assignedInvoiceTasks$ = this.store.select(...this.ASSIGNED_INVOICE_TASKS);
     this.pooledInvoiceTasks$ = this.store.select(...this.POOLED_INVOICE_TASKS);
+    this.archivedInvoices$ = this.store.select(...this.ARCHIVED_INVOICES);
   }
 
   goBack(route: string): void {
@@ -65,6 +68,7 @@ export class InvoiceCenterPage implements OnInit {
     console.log("find assigned invoice tasks");
     this.store.dispatch(this.actions.findAssignedInvoiceTasks());
     this.store.dispatch(this.actions.findPooledInvoiceTasks());
+    this.store.dispatch(this.actions.findArchivedInvoices());
   }
 }
 

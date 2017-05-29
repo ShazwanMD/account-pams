@@ -22,6 +22,24 @@ export class InvoiceActions {
     };
   }
 
+  static FIND_ARCHIVED_INVOICES = '[Invoice] Find Archived Invoices';
+
+  findArchivedInvoices(): Action {
+    return {
+      type: InvoiceActions.FIND_ARCHIVED_INVOICES
+    };
+  }
+
+  static FIND_ARCHIVED_INVOICES_SUCCESS = '[Invoice] Find Archived Invoices Success';
+
+  findArchivedInvoicesSuccess(invoices): Action {
+    console.log("findArchivedInvoicesSuccess");
+    return {
+      type: InvoiceActions.FIND_ARCHIVED_INVOICES_SUCCESS,
+      payload: invoices
+    };
+  }
+
 
   static FIND_ASSIGNED_INVOICE_TASKS = '[Invoice] Find Assigned Invoice Tasks';
 
@@ -261,7 +279,7 @@ export class InvoiceActions {
       payload: message
     };
   }
-  
+
   static DELETE_INVOICE_ITEM = '[Invoice] Delete Invoice Item';
 
   deleteInvoiceItem(invoice, item): Action {
@@ -279,7 +297,7 @@ export class InvoiceActions {
       payload: message
     };
   }
-  
+
   static UPDATE_INVOICE_ITEM = '[Invoice] Update Invoice Item';
 
   updateInvoiceItem(invoice, item): Action {

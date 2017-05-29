@@ -32,6 +32,13 @@ export class BillingService {
       .map((res: Response) => <Invoice[]>res.json());
   }
 
+  // todo: this goes thru ACL
+  findArchivedInvoices(): Observable<Invoice[]> {
+    console.log("findArchivedInvoices");
+    return this.http.get(environment.endpoint + '/api/billing/invoices/state/COMPLETED')
+      .map((res: Response) => <Invoice[]>res.json());
+  }
+
   findAssignedInvoiceTasks(): Observable<InvoiceTask[]> {
     console.log("findAssignedInvoiceTasks");
     return this.http.get(environment.endpoint + '/api/billing/invoices/assignedTasks')
@@ -261,28 +268,28 @@ export class BillingService {
     return this.http.delete(environment.endpoint + '/api/billing/receipts/' + receipt.referenceNo + '/receiptItems/' + item.id, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-  
+
   // ====================================================================================================
   // CREDIT NOTE
   // ====================================================================================================
-  
+
   findCreditNotes(invoice: Invoice): Observable<CreditNote> {
       console.log("findCreditNotes");
       return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + invoice)
         .map((res: Response) => <CreditNote>res.json());
     }
-  
+
   findCreditNoteByReferenceNo(referenceNo: string): Observable<CreditNote> {
       return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + referenceNo)
         .map((res: Response) => <CreditNote>res.json());
     }
-  
+
   findCreditNoteTaskByTaskId(taskId: string): Observable<CreditNoteTask> {
       console.log("findCreditNoteTaskByTaskId");
       return this.http.get(environment.endpoint + '/api/billing/creditNotes/viewTask/' + taskId)
         .map((res: Response) => <CreditNoteTask>res.json());
     }
-  
+
   startCreditNoteTask(creditNote: CreditNote): Observable<String> {
       console.log("creditNote: " + creditNote);
       let headers = new Headers({
@@ -304,28 +311,28 @@ export class BillingService {
       return this.http.put(environment.endpoint + '/api/billing/creditNotes/' + creditNote.id,  JSON.stringify(creditNote), options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
-  
+
   // ====================================================================================================
   // DEBIT NOTE
   // ====================================================================================================
-  
+
   findDebitNotes(invoice: Invoice): Observable<DebitNote> {
       console.log("findDebitNotes");
       return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + invoice)
         .map((res: Response) => <DebitNote>res.json());
     }
-  
+
   findDebitNoteByReferenceNo(referenceNo: string): Observable<DebitNote> {
       return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + referenceNo)
         .map((res: Response) => <CreditNote>res.json());
     }
-  
+
   findDebitNoteTaskByTaskId(taskId: string): Observable<DebitNoteTask> {
       console.log("findDebitNoteTaskByTaskId");
       return this.http.get(environment.endpoint + '/api/billing/debitNotes/viewTask/' + taskId)
         .map((res: Response) => <DebitNoteTask>res.json());
     }
-  
+
   startDebitNoteTask(debitNote: DebitNote): Observable<String> {
       console.log("debitNote: " + debitNote);
       let headers = new Headers({

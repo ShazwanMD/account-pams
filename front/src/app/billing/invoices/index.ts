@@ -29,6 +29,7 @@ import {AssignedInvoiceTaskListComponent} from "./component/assigned-invoice-tas
 import {PooledInvoiceTaskListComponent} from "./component/pooled-invoice-task-list.component";
 import {InvoiceSelectComponent} from "./component/invoice-select.component";
 import {InvoiceStatusComponent} from "./component/invoice-status.component";
+import {ArchivedInvoiceListComponent} from "./component/archived-invoice-list.component";
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {InvoiceStatusComponent} from "./component/invoice-status.component";
     // components
     AssignedInvoiceTaskListComponent,
     PooledInvoiceTaskListComponent,
+    ArchivedInvoiceListComponent,
     InvoiceTaskWorkflowPanel,
     InvoiceDraftTaskPanel,
     InvoiceRegisterTaskPanel,
