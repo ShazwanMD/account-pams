@@ -35,15 +35,28 @@ export class AccountChargeListComponent {
               private dialog: MdDialog) {
   }
 
-  // ngOnInit(): void {
-  //   this.selectedRows = this.charges.filter(value => value.selected);
-  // }
+  ngOnInit(): void {
+    this.selectedRows = this.charges.filter(value => value.selected);
+  }
+
+  edit(accountCharge: AccountCharge): void {
+  }
 
   delete(account: Account, accountCharge: AccountCharge): void {
     this.store.dispatch(this.actions.removeAdmissionCharge(account, accountCharge))
   }
 
-  showAdmissionChargeDialog(): void {
+  filter(): void {
+  }
+
+  selectRow(accountCharge: AccountCharge): void {
+  }
+
+  selectAllRows(accountCharge: AccountCharge[]): void {
+  }
+
+
+  createAdmissionChargeDialog(): void {
     console.log("show dialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
