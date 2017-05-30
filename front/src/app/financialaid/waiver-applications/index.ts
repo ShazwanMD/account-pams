@@ -24,6 +24,7 @@ import {WaiverApplicationCheckTaskPanel} from "./panel/waiver-application-check-
 import {WaiverApplicationVerifyTaskPanel} from "./panel/waiver-application-verify-task.panel";
 import {WaiverApplicationRegisterTaskPanel} from "./panel/waiver-application-register-task.panel";
 import {WaiverApplicationEditorDialog} from "./dialog/waiver-application-editor.dialog";
+import {WaiverApplicationStatusComponent} from "./component/waiver-application-status.component";
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import {WaiverApplicationEditorDialog} from "./dialog/waiver-application-editor.
     WaiverApplicationRegisterTaskPanel,
     WaiverApplicationVerifyTaskPanel,
     WaiverApplicationCheckTaskPanel,
+    WaiverApplicationStatusComponent,
 
     // dialog
     WaiverApplicationCreatorDialog,
