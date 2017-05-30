@@ -30,7 +30,8 @@ import {AssignedInvoiceTaskListComponent} from "./component/assigned-invoice-tas
 import {PooledInvoiceTaskListComponent} from "./component/pooled-invoice-task-list.component";
 import {InvoiceSelectComponent} from "./component/invoice-select.component";
 import {InvoiceStatusComponent} from "./component/invoice-status.component";
-import {ArchivedInvoiceListComponent} from "./component/archived-invoice-list.component";
+import { ArchivedInvoiceListComponent } from "./component/archived-invoice-list.component";
+import { InvoiceDebitNoteCreatorDialog } from "./dialog/invoice-debit-note-creator.dialog";
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import {ArchivedInvoiceListComponent} from "./component/archived-invoice-list.co
     InvoiceItemListComponent,
     InvoiceSelectComponent,
     InvoiceStatusComponent,
+    InvoiceDebitNoteCreatorDialog
   ],
   exports: [
     InvoiceSelectComponent,
@@ -74,6 +76,7 @@ import {ArchivedInvoiceListComponent} from "./component/archived-invoice-list.co
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
     InvoiceSelectComponent,
+    InvoiceDebitNoteCreatorDialog
   ],
 
 })
