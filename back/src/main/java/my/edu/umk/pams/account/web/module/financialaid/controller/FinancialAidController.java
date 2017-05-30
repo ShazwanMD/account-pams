@@ -249,7 +249,7 @@ public class FinancialAidController {
         AcAccount account = accountService.findAccountById(vo.getAccount().getId());
         AcWaiverApplication waiverApplication = new AcWaiverApplicationImpl();
         waiverApplication.setDescription(vo.getDescription());
-        waiverApplication.setWaivedAmount(BigDecimal.ZERO);
+        waiverApplication.setWaivedAmount(vo.getWaivedAmount());
         waiverApplication.setGracedAmount(BigDecimal.ZERO);
         waiverApplication.setEffectiveBalance(accountService.sumEffectiveBalanceAmount(account, academicSession));
         waiverApplication.setBalance(accountService.sumBalanceAmount(account));
