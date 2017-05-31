@@ -1,16 +1,21 @@
 <md-card>
   <md-card-title>Account Waivers</md-card-title>
-  <md-card-subtitle>List of account waivers</md-card-subtitle>
+  <md-card-subtitle>List of account waiverss</md-card-subtitle>
   <md-divider></md-divider>
-  <md-list dense>
-    <template let-waiver let-last="last" ngFor [ngForOf]="waivers">
-      <md-list-item layout-align="row">
-        <h3 md-line>{{waiver.sourceNo}}</h3>
-        <p md-line> {{waiver.sourceNo}} </p>
-        <span flex="50" class="md-body-1 text-right">{{waiver.session.code}}</span>
-        <span flex="30" class="md-body-1 text-right">{{waiver.amount | currency:'MYR':true:'1.2-2'}}</span>
-      </md-list-item>
-      <md-divider *ngIf="!last"></md-divider>
+  <td-data-table
+    [data]="waivers"
+    [columns]="columns"
+    [sortBy]="summary"
+    [sortOrder]="ASC"
+    [sortable]="false"
+    [multiple]="false"
+    [selectable]="false"
+    (rowSelect)="view.emit($event)" dense>
+
+    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <span flex>{{value}}</span>
+      </div>
     </template>
-  </md-list>
+  </td-data-table>
 </md-card>
