@@ -1,7 +1,7 @@
 package my.edu.umk.pams.account.reader;
 
-//import my.edu.umk.pams.account.account.model.AcChargeCode;
-//import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.data.ProgramGenerator;
 
@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.tngtech.jgiven.annotation.Pending;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,8 +33,8 @@ public class FeeScheduleReader {
     private static final Logger LOG = LoggerFactory.getLogger(ProgramGenerator.class);
     private static final String[] COURSES = {"FKP-FULLTIME"};
     
-  //  @Autowired
-  //  private AccountService accountService;
+    @Autowired
+    private AccountService accountService;
 
     @Test
     @Rollback(false)
@@ -43,10 +45,8 @@ public class FeeScheduleReader {
             FileWriter writer = new FileWriter(out);
             Workbook workbook = WorkbookFactory.create(new FileInputStream(file));
             LOG.debug("number of sheets: " + workbook.getNumberOfSheets());
-            
-          //  AcChargeCode code = accountService.findChargeCodeByCode("TABPPS-PCA-00-H79325");
-           // LOG.debug( "CODE CODE ID--: "+code.getDescription());
-        
+           
+
             for (int i = 0; i < COURSES.length; i++) {
                 String course = COURSES[i];
                 Sheet sheet = workbook.getSheet(course);
@@ -67,14 +67,22 @@ public class FeeScheduleReader {
                 for (int j = 7; j < 19; j++) {
                     Row row = sheet.getRow(j);
                     if (row != null) {
-                       LOG.debug(toString(row.getCell(0)));
-                       LOG.debug(toString(row.getCell(1)));
-                    	//LOG.debug(toString(row.getCell(2)));
-                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,ORDINAL,SCHEDULE_ID, AMOUNT,C_TS,C_ID,M_ST) VALUES ("
+                        LOG.debug(toString(row.getCell(0)));
+                        LOG.debug(toString(row.getCell(1)));
+                    	LOG.debug(toString(row.getCell(2)));
+                       
+       
+                       AcChargeCode code = accountService.findChargeCodeByCode(toString(row.getCell(3)));
+                       //LOG.debug( "CODE CODE ID--: "+code.getDescription());
+                       LOG.debug( "Charge Code ID--: "+code.getId());
+                       LOG.debug( "Chage Code Desc--: "+code.getDescription());
+                       
+                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,ORDINAL,SCHEDULE_ID,CHARGE_CODE_ID, AMOUNT,C_TS,C_ID,M_ST) VALUES ("
                                 + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
                                 + "'" + toString(row.getCell(0)) + "',"
                                 + "'" + toString(row.getCell(4)) + "',"
                                 + "1,"
+                                + "'" + code.getId()+ "',"
                                 + "'" + toString(row.getCell(1)) + "',"
                                 + "CURRENT_TIMESTAMP,"
                         		+ "1,"

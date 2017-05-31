@@ -26,6 +26,8 @@
         <postgresql.version>42.0.0</postgresql.version>
         <slf4j-api.version>1.6.1</slf4j-api.version>
         <velocity.version>1.7</velocity.version>
+         <poi.version>3.8</poi.version>
+        <poi-ooxml.version>3.8-beta4</poi-ooxml.version>
     </properties>
 
     <dependencies>
@@ -364,6 +366,18 @@
             <version>0.14.1</version>
             <scope>test</scope>
         </dependency>
+        
+            <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi-ooxml.version}</version>
+        </dependency>
+        
     </dependencies>
 
     <dependencyManagement>
