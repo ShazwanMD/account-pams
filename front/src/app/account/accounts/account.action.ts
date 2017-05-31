@@ -93,7 +93,7 @@ export class AccountActions {
 
   static FIND_ACCOUNT_WAIVERS = '[Account] Find Account Waivers';
   findAccountWaivers(account): Action {
-    console.log("findAccountWaivers");
+    console.log("findAccountWaivers :"+account.code);
     return {
       type: AccountActions.FIND_ACCOUNT_WAIVERS,
       payload: account
@@ -102,7 +102,7 @@ export class AccountActions {
 
   static FIND_ACCOUNT_WAIVERS_SUCCESS = '[Account] Find Account Waivers Success';
   findAccountWaiversSuccess(accountWaivers): Action {
-    console.log("findAccountWaiversSuccess");
+    console.log("findAccountWaiversSuccess"+accountWaivers.id);
     return {
       type: AccountActions.FIND_ACCOUNT_WAIVERS_SUCCESS,
       payload: accountWaivers
