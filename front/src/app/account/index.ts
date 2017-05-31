@@ -30,6 +30,7 @@ import {feeScheduleItemListReducer, FeeScheduleItemListState} from "./fee-schedu
 import {feeScheduleListReducer, FeeScheduleListState} from "./fee-schedules/fee-schedule-list.reducer";
 import {accountChargeListReducer, AccountChargeListState} from "./accounts/account-charge-list.reducer";
 import {ChargeCodeSelectComponent} from "./charge-codes/component/charge-code-select.component";
+import {accountWaiverReducer, AccountWaiverState} from "./accounts/account-waivers.reducer";
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -43,6 +44,7 @@ export interface AccountModuleState {
   feeSchedules: FeeScheduleListState;
   feeSchedule: FeeScheduleState;
   feeScheduleItems: FeeScheduleItemListState;
+  accountWaiver: AccountWaiverState;
 }
 ;
 
@@ -59,6 +61,7 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     feeSchedules: [],
     feeSchedule: {},
     feeScheduleItems: [],
+    accountWaiver: [],
   };
 
 export const accountModuleReducers = {
@@ -73,6 +76,7 @@ export const accountModuleReducers = {
   feeSchedules: feeScheduleListReducer,
   feeSchedule: feeScheduleReducer,
   feeScheduleItems: feeScheduleItemListReducer,
+  accountWaiver: accountWaiverReducer,
 };
 
 @NgModule({

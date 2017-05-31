@@ -222,7 +222,7 @@ export class AccountService {
   }
 
   findAccountWaivers(account: Account): Observable<AccountWaiver[]> {
-    console.log("findAccountWaivers");
+    console.log("findAccountWaivers :" + account.code);
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
     return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountWaivers")
