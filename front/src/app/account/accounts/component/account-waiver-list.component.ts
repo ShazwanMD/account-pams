@@ -22,7 +22,7 @@ export class AccountWaiverListComponent implements OnInit {
   private columns: any[] = [
        {name: 'sourceNo', label: 'Source No'},
        {name: 'amount', label: 'Amount'},
-       {name: 'AcademicSession.session', label: 'Session'},
+       {name: 'session.code', label: 'Session'},
        {name: 'action', label: ''}
   ];
   
