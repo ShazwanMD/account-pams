@@ -330,11 +330,15 @@ public class BillingController {
     //  DEBIT NOTE
     // ==================================================================================================== //
 
-    @RequestMapping(value = "/debitNotes/", method = RequestMethod.GET)
-    public ResponseEntity<List<DebitNote>> findDebitNotes(AcInvoice invoice) {
+    @RequestMapping(value = "/invoice/{referenceNo}/debitNotes/", method = RequestMethod.GET)
+    public ResponseEntity<List<DebitNote>> findDebitNotes(@PathVariable String referenceNo) {
+    	
+    	AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+    	
         List<AcDebitNote> debitNotes = billingService.findDebitNotes(invoice);
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
+    
 
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.GET)
     public ResponseEntity<DebitNote> findDebitNoteByReferenceNo(@PathVariable String referenceNo) {

@@ -142,6 +142,8 @@ public interface BillingService {
     AcDebitNote findDebitNoteByReferenceNo(String referenceNo);
 
     List<AcDebitNote> findDebitNotes(AcInvoice invoice);
+    
+    List<AcDebitNote> findDebitNotes(AcInvoice invoice, String filter, Integer offset, Integer limit);
 
     Integer countDebitNote(AcInvoice invoice);
 

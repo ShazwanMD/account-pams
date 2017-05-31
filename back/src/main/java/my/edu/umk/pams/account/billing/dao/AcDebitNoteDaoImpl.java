@@ -68,5 +68,20 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
         Long count = (Long) query.uniqueResult();
         return count.intValue() > 0; // > 0 = true, <=0  false
     }
+    
+    @Override
+    public List<AcDebitNote> find(AcInvoice invoice, String filter, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcDebitNote i where " +
+                // todo(uda): filter
+                "i.invoice = :invoice " +
+                "i.metadata.state = :state ");
+        query.setEntity("invoice", invoice);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcDebitNote>) query.list();
+    }
+    
+
 
 }

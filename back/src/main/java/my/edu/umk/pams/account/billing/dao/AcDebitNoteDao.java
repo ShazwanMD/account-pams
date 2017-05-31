@@ -17,6 +17,8 @@ public interface AcDebitNoteDao extends GenericDao<Long, AcDebitNote>{
     AcDebitNote findByReferenceNo(String referenceNo);
 
     List<AcDebitNote> find(AcInvoice invoice);
+    
+    List<AcDebitNote> find(AcInvoice invoice, String filter, Integer offset, Integer limit);
 
     // ====================================================================================================
     // HELPER

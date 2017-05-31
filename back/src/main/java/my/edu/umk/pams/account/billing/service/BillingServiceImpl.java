@@ -520,6 +520,12 @@ public class BillingServiceImpl implements BillingService {
 	public List<AcDebitNote> findDebitNotes(AcInvoice invoice) {
 		return debitNoteDao.find(invoice);
 	}
+	
+	@Override
+	public List<AcDebitNote> findDebitNotes(AcInvoice invoice, String filter, Integer offset, Integer limit) {
+		return debitNoteDao.find(invoice, filter, offset, limit);
+	}
+
 
 	@Override
 	public boolean hasDebitNote(AcInvoice invoice) {
