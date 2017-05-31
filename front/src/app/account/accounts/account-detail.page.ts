@@ -23,7 +23,7 @@ export class AccountDetailPage implements OnInit {
   private ACCOUNT: string[] = "accountModuleState.account".split(".");
   private ACCOUNT_TRANSACTIONS: string[] = "accountModuleState.accountTransactions".split(".");
   private ACCOUNT_CHARGES: string[] = "accountModuleState.accountCharges".split(".");
-  private ACCOUNT_WAIVERS: string[] = "accountModuleState.accountWaivers".split(".");
+  private ACCOUNT_WAIVERS: string[] = "accountModuleState.accountWaiver".split(".");
   private account$: Observable<Account>;
   private accountTransactions$: Observable<AccountTransaction[]>;
   private accountCharges$: Observable<AccountCharge[]>;
