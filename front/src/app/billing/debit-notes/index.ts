@@ -11,13 +11,13 @@ import {CommonService} from '../../../services';
 import {IdentityService} from '../../../services';
 import {AccountService} from "../../../services/account.service";
 import {IdentityModule} from "../../identity/index";
-import { DebitNoteCenterPage } from "./debit-note-center.page";
-import { DebitNoteCreatorDialog } from "./dialog/debit-note-creator.dialog";
-import { DebitNoteActions } from "./debit-note.action";
-import { InvoiceSubModule } from "../invoices/index"
-import { AssignedDebitNoteTaskListComponent } from "./component/assigned-debit-note-task-list.component";
-import { PooledDebitNoteTaskListComponent } from "./component/pooled-debit-note-task-list.component";
-
+import {DebitNoteCenterPage} from "./debit-note-center.page";
+import {DebitNoteCreatorDialog} from "./dialog/debit-note-creator.dialog";
+import {DebitNoteActions} from "./debit-note.action";
+import {InvoiceSubModule} from "../invoices/index"
+import {AssignedDebitNoteTaskListComponent} from "./component/assigned-debit-note-task-list.component";
+import {PooledDebitNoteTaskListComponent} from "./component/pooled-debit-note-task-list.component";
+import {DebitNoteEffects} from "./debit-note.effect";
 
 
 @NgModule({
@@ -27,22 +27,20 @@ import { PooledDebitNoteTaskListComponent } from "./component/pooled-debit-note-
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     IdentityModule.forRoot(),
-    InvoiceSubModule.forRoot(),
-    //EffectsModule.run(ChargeCodeEffects),
+    EffectsModule.run(DebitNoteEffects),
   ],
   declarations: [
-  //page
-  DebitNoteCenterPage,
-    
+    //page
+    DebitNoteCenterPage,
 
-//component
-DebitNoteCreatorDialog,
-AssignedDebitNoteTaskListComponent,
-PooledDebitNoteTaskListComponent,
+    //component
+    DebitNoteCreatorDialog,
+    AssignedDebitNoteTaskListComponent,
+    PooledDebitNoteTaskListComponent,
 
   ],
   exports: [
-    //ChargeCodeSelectComponent,
+    DebitNoteCreatorDialog,
   ],
   entryComponents: [
     DebitNoteCreatorDialog,

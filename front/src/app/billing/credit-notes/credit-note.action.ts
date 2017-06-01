@@ -5,6 +5,7 @@ import {Action} from '@ngrx/store';
 export class CreditNoteActions {
 
   static FIND_CREDIT_NOTES = '[CreditNote] Find CreditNotes';
+
   findCreditNotes(): Action {
     return {
       type: CreditNoteActions.FIND_CREDIT_NOTES
@@ -12,6 +13,7 @@ export class CreditNoteActions {
   }
 
   static FIND_CREDIT_NOTES_SUCCESS = '[CreditNote] Find CreditNotes Success';
+
   findCreditNotesSuccess(creditNotes): Action {
     console.log("findCreditNotesSuccess");
     console.log("CreditNote: " + creditNotes.length);
@@ -20,6 +22,7 @@ export class CreditNoteActions {
       payload: creditNotes
     };
   }
+
   static FIND_CREDIT_NOTE_BY_ID = '[CreditNote] Find CreditNote By Id';
 
   findCreditNoteById(id): Action {
@@ -57,7 +60,7 @@ export class CreditNoteActions {
       payload: creditNote
     };
   }
-  
+
   static FIND_CREDIT_NOTE_TASK_BY_TASK_ID = '[CreditNote] Find CreditNote Task By Task Id';
 
   findCreditNoteTaskByTaskId(taskId): Action {
@@ -78,7 +81,7 @@ export class CreditNoteActions {
     };
   }
 
-    static START_CREDIT_NOTE_TASK = '[CreditNote] Start CreditNote Task';
+  static START_CREDIT_NOTE_TASK = '[CreditNote] Start CreditNote Task';
 
   startCreditNoteTask(creditNote): Action {
     return {
@@ -98,6 +101,7 @@ export class CreditNoteActions {
 
 
   static SAVE_CREDIT_NOTE = '[CreditNote] Save CreditNote';
+
   saveCreditNote(creditNote): Action {
     return {
       type: CreditNoteActions.SAVE_CREDIT_NOTE,
@@ -106,6 +110,7 @@ export class CreditNoteActions {
   }
 
   static SAVE_CREDIT_NOTE_SUCCESS = '[CreditNote] Save CreditNote Success';
+
   saveCreditNoteSuccess(creditNote): Action {
     return {
       type: CreditNoteActions.SAVE_CREDIT_NOTE_SUCCESS,
@@ -114,6 +119,7 @@ export class CreditNoteActions {
   }
 
   static UPDATE_CREDIT_NOTE = '[CreditNote] Update CreditNote';
+
   updateCreditNote(creditNote): Action {
     return {
       type: CreditNoteActions.UPDATE_CREDIT_NOTE,
@@ -122,6 +128,7 @@ export class CreditNoteActions {
   }
 
   static UPDATE_CREDIT_NOTE_SUCCESS = '[CreditNote] Update CreditNote Success';
+
   updateCreditNoteSuccess(creditNote): Action {
     return {
       type: CreditNoteActions.UPDATE_CREDIT_NOTE_SUCCESS,
@@ -130,6 +137,7 @@ export class CreditNoteActions {
   }
 
   static REMOVE_CREDIT_NOTE = '[CreditNote] Remove CreditNote';
+
   removeCreditNote(creditNote): Action {
     return {
       type: CreditNoteActions.REMOVE_CREDIT_NOTE,
@@ -138,6 +146,7 @@ export class CreditNoteActions {
   }
 
   static REMOVE_CREDIT_NOTE_SUCCESS = '[CreditNote] Remove CreditNote Success';
+
   removeCreditNoteSuccess(creditNote): Action {
     return {
       type: CreditNoteActions.REMOVE_CREDIT_NOTE_SUCCESS,

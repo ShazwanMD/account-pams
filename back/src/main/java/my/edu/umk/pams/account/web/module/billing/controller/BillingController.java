@@ -365,7 +365,6 @@ public class BillingController {
         dummyLogin();
 
         AcDebitNote debitNotes = new AcDebitNoteImpl();
-        debitNotes.setReferenceNo(vo.getReferenceNo());
         debitNotes.setSourceNo(vo.getSourceNo());
         debitNotes.setAuditNo(vo.getAuditNo());
         debitNotes.setDescription(vo.getDescription());

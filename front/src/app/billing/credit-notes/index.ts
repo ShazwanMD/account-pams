@@ -8,14 +8,15 @@ import {EffectsModule} from "@ngrx/effects";
 import {CovalentCoreModule} from '@covalent/core';
 
 import {CommonService} from '../../../services';
-import { IdentityService, AccountService } from '../../../services';
+import {IdentityService, AccountService} from '../../../services';
 import {IdentityModule} from "../../identity/index";
-import { CreditNoteCenterPage } from "./credit-note-center.page";
-import { CreditNoteCreatorDialog } from "./dialog/credit-note-creator.dialog";
-import { CreditNoteActions } from "./credit-note.action";
-import { InvoiceSubModule } from "../invoices/index";
-import { AssignedCreditNoteTaskListComponent } from "./component/assigned-credit-note-task-list.component";
-import { PooledCreditNoteTaskListComponent } from "./component/pooled-credit-note-task-list.component";
+import {CreditNoteCenterPage} from "./credit-note-center.page";
+import {CreditNoteCreatorDialog} from "./dialog/credit-note-creator.dialog";
+import {CreditNoteActions} from "./credit-note.action";
+import {InvoiceSubModule} from "../invoices/index";
+import {AssignedCreditNoteTaskListComponent} from "./component/assigned-credit-note-task-list.component";
+import {PooledCreditNoteTaskListComponent} from "./component/pooled-credit-note-task-list.component";
+import {CreditNoteEffects} from "./credit-note.effect";
 
 
 @NgModule({
@@ -25,26 +26,23 @@ import { PooledCreditNoteTaskListComponent } from "./component/pooled-credit-not
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     IdentityModule.forRoot(),
-    InvoiceSubModule.forRoot(),
-    //EffectsModule.run(ChargeCodeEffects),
+    EffectsModule.run(CreditNoteEffects),
   ],
   declarations: [
-  //page
-  CreditNoteCenterPage,
-    
+    //page
+    CreditNoteCenterPage,
 
-//component
-CreditNoteCreatorDialog,
-AssignedCreditNoteTaskListComponent,
-PooledCreditNoteTaskListComponent,
+    //component
+    CreditNoteCreatorDialog,
+    AssignedCreditNoteTaskListComponent,
+    PooledCreditNoteTaskListComponent,
 
   ],
   exports: [
-    //ChargeCodeSelectComponent,
-
+    CreditNoteCreatorDialog,
   ],
   entryComponents: [
-  CreditNoteCreatorDialog,
+    CreditNoteCreatorDialog,
   ],
 
 })

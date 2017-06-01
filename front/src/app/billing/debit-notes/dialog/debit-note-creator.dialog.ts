@@ -1,15 +1,13 @@
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
-import {Sponsor} from "../../../identity/sponsor.interface";
 import {DebitNote} from "../debit-note.interface";
 import {BillingModuleState} from "../../index";
-import { DebitNoteActions } from "../debit-note.action";
-import { Invoice } from "../../invoices/invoice.interface";
-//import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
+import {DebitNoteActions} from "../debit-note.action";
+import {Invoice} from "../../invoices/invoice.interface";
 
 
 @Component({
@@ -19,6 +17,7 @@ import { Invoice } from "../../invoices/invoice.interface";
 
 export class DebitNoteCreatorDialog implements OnInit {
 
+  private _invoice: Invoice;
   private createForm: FormGroup;
 
   constructor(private router: Router,
@@ -30,20 +29,29 @@ export class DebitNoteCreatorDialog implements OnInit {
               private dialog: MdDialogRef<DebitNoteCreatorDialog>) {
   }
 
+  set invoice(value: Invoice) {
+    this._invoice = value;
+  }
+
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<DebitNote>{
       id: null,
       code: '',
       description: '',
       referenceNo: '',
-      sourceNo:'',
-      totalAmount:0,
+      sourceNo: '',
+      totalAmount: 0,
       invoice: <Invoice>{},
     });
+    this.createForm.patchValue({invoice: this._invoice});
   }
 
-  save(debitNote: DebitNote, isValid: boolean): void{
-    console.log("saving debit note");
+  save(debitNote: DebitNote, isValid: boolean): void {
+    console.log("start debit note");
+    debitNote.sourceNo = this._invoice.referenceNo;
+    console.log("sourceNo: " + debitNote.sourceNo);
+    console.log("invoice: " + this._invoice.referenceNo);
+
     this.store.dispatch(this.actions.startDebitNoteTask(debitNote));
     this.dialog.close();
   }

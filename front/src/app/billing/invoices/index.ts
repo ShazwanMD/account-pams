@@ -30,11 +30,12 @@ import {AssignedInvoiceTaskListComponent} from "./component/assigned-invoice-tas
 import {PooledInvoiceTaskListComponent} from "./component/pooled-invoice-task-list.component";
 import {InvoiceSelectComponent} from "./component/invoice-select.component";
 import {InvoiceStatusComponent} from "./component/invoice-status.component";
-import { ArchivedInvoiceListComponent } from "./component/archived-invoice-list.component";
-import { InvoiceDebitNoteCreatorDialog } from "./dialog/invoice-debit-note-creator.dialog";
-import { InvoiceCreditNoteCreatorDialog } from "./dialog/invoice-credit-note-creator.dialog";
-import { InvoiceDebitNoteListComponent } from "./component/invoice-debit-note-list.component";
-import { InvoiceCreditNoteListComponent } from "./component/invoice-credit-note-list.component";
+import {ArchivedInvoiceListComponent} from "./component/archived-invoice-list.component";
+import {InvoiceDebitNoteListComponent} from "./component/invoice-debit-note-list.component";
+import {InvoiceCreditNoteListComponent} from "./component/invoice-credit-note-list.component";
+import {InvoiceActionComponent} from "./component/invoice-action.component";
+import {CreditNoteSubModule} from "../credit-notes/index";
+import {DebitNoteSubModule} from "../debit-notes/index";
 
 
 @NgModule({
@@ -43,10 +44,12 @@ import { InvoiceCreditNoteListComponent } from "./component/invoice-credit-note-
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    EffectsModule.run(InvoiceEffects),
     AccountSubModule.forRoot(),
     AcademicSessionSubModule.forRoot(),
     ChargeCodeSubModule.forRoot(),
+    CreditNoteSubModule.forRoot(),
+    DebitNoteSubModule.forRoot(),
+    EffectsModule.run(InvoiceEffects),
   ],
   declarations: [
     // page
@@ -69,8 +72,9 @@ import { InvoiceCreditNoteListComponent } from "./component/invoice-credit-note-
     InvoiceStatusComponent,
     InvoiceDebitNoteListComponent,
     InvoiceCreditNoteListComponent,
-    InvoiceDebitNoteCreatorDialog,
-    InvoiceCreditNoteCreatorDialog
+    InvoiceActionComponent,
+
+    // dialog
   ],
   exports: [
     InvoiceSelectComponent,
@@ -82,8 +86,6 @@ import { InvoiceCreditNoteListComponent } from "./component/invoice-credit-note-
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
     InvoiceSelectComponent,
-    InvoiceDebitNoteCreatorDialog,
-    InvoiceCreditNoteCreatorDialog
   ],
 
 })
