@@ -33,6 +33,8 @@ import {InvoiceStatusComponent} from "./component/invoice-status.component";
 import { ArchivedInvoiceListComponent } from "./component/archived-invoice-list.component";
 import { InvoiceDebitNoteCreatorDialog } from "./dialog/invoice-debit-note-creator.dialog";
 import { InvoiceCreditNoteCreatorDialog } from "./dialog/invoice-credit-note-creator.dialog";
+import { InvoiceDebitNoteListComponent } from "./component/invoice-debit-note-list.component";
+import { InvoiceCreditNoteListComponent } from "./component/invoice-credit-note-list.component";
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { InvoiceCreditNoteCreatorDialog } from "./dialog/invoice-credit-note-cre
     InvoiceItemListComponent,
     InvoiceSelectComponent,
     InvoiceStatusComponent,
+    InvoiceDebitNoteListComponent,
+    InvoiceCreditNoteListComponent,
     InvoiceDebitNoteCreatorDialog,
     InvoiceCreditNoteCreatorDialog
   ],
