@@ -1,10 +1,8 @@
 package my.edu.umk.pams.account.reader;
 
-import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.data.ProgramGenerator;
-
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.junit.Test;
@@ -15,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.tngtech.jgiven.annotation.Pending;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,8 +36,8 @@ public class FeeScheduleReader {
     @Rollback(false)
     public void loadDataTempatan() throws IOException {
         try {
-            File out = new File("C:/Users/UMK-PEJA/git/account/data/src/site/AC_FEE_SCDL_DOMESTIC.sql");
-            File file = new File("C:/Users/UMK-PEJA/git/account/data/src/site/cps-normalizatize table.xlsx");
+            File out = new File("C:/Projects/GitLab/UMK/account/data/src/site/AC_FEE_SCDL_DOMESTIC.sql");
+            File file = new File("C:/Projects/GitLab/UMK/account/data/src/site/cps-normalizatize table.xlsx");
             FileWriter writer = new FileWriter(out);
             Workbook workbook = WorkbookFactory.create(new FileInputStream(file));
             LOG.debug("number of sheets: " + workbook.getNumberOfSheets());
@@ -70,19 +66,21 @@ public class FeeScheduleReader {
                         LOG.debug(toString(row.getCell(0)));
                         LOG.debug(toString(row.getCell(1)));
                     	LOG.debug(toString(row.getCell(2)));
+
+                    	// ni boleh buang
+                        // boleh pindah balik masuk /data
+//                       AcChargeCode code = accountService.findChargeCodeByCode(toString(row.getCell(3)));
+//                       LOG.debug( "CODE CODE ID--: "+code.getDescription());
+//                       LOG.debug( "Charge Code ID--: "+code.getId());
+//                       LOG.debug( "Chage Code Desc--: "+code.getDescription());
                        
-       
-                       AcChargeCode code = accountService.findChargeCodeByCode(toString(row.getCell(3)));
-                       //LOG.debug( "CODE CODE ID--: "+code.getDescription());
-                       LOG.debug( "Charge Code ID--: "+code.getId());
-                       LOG.debug( "Chage Code Desc--: "+code.getDescription());
-                       
-                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,ORDINAL,SCHEDULE_ID,CHARGE_CODE_ID, AMOUNT,C_TS,C_ID,M_ST) VALUES ("
+                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,ORDINAL,SCHEDULE_ID,CHARGE_CODE_ID, AMOUNT,C_TS,C_ID,M_ST) \n" +
+                                " VALUES ("
                                 + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
                                 + "'" + toString(row.getCell(0)) + "',"
-                                + "'" + toString(row.getCell(4)) + "',"
+                                + toString(row.getCell(4), true) + ","
                                 + "1,"
-                                + "'" + code.getId()+ "',"
+                                + "(SELECT ID FROM AC_CHRG_CODE WHERE CODE = '" + row.getCell(3)+"'),"
                                 + "'" + toString(row.getCell(1)) + "',"
                                 + "CURRENT_TIMESTAMP,"
                         		+ "1,"
@@ -156,11 +154,21 @@ public class FeeScheduleReader {
         return "";
     }
 
+    private String toString(Cell cell, boolean removeDecimal) {
+        if (cell.getCellType() == 1)
+            return cell.getStringCellValue();
+        if (cell.getCellType() == 0)
+            return Integer.toString((int) cell.getNumericCellValue());
+        if (cell.getCellType() == 2)
+            return "";
+        return "";
+    }
+
     private String getCell(Sheet sheet, int rowIndex, int colIndex) {
         Row row = sheet.getRow(rowIndex);
         Cell cell = row.getCell(colIndex);
-       // LOG.debug("cell: " + cell.getCellType());
-       // LOG.debug("row :"+row.getRowNum());
+        LOG.debug("cell: " + cell.getCellType());
+        LOG.debug("row :"+row.getRowNum());
    
         return toString(cell);
     }
