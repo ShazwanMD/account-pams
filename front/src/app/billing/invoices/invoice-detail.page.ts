@@ -6,7 +6,8 @@ import {Observable} from "rxjs";
 import {BillingModuleState} from "../index";
 import {Store} from "@ngrx/store";
 import {InvoiceItem} from "./invoice-item.interface";
-import {MdDialogRef, MdDialog} from "@angular/material";
+import { MdDialogRef, MdDialog } from "@angular/material";
+import { DebitNote } from "../debit-notes/debit-note.interface";
 
 
 @Component({
@@ -17,8 +18,10 @@ export class InvoiceDetailPage implements OnInit {
 
   private INVOICE = "billingModuleState.invoice".split(".");
   private INVOICE_ITEMS = "billingModuleState.invoiceItems".split(".");
+  private DEBIT_NOTES = "billingModuleState.debitNoteList".split(".");
   private invoice$: Observable<InvoiceTask>;
   private invoiceItems$: Observable<InvoiceItem[]>;
+  private debitNotes$: Observable<DebitNote[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -28,6 +31,7 @@ export class InvoiceDetailPage implements OnInit {
               private actions: InvoiceActions) {
     this.invoice$ = this.store.select(...this.INVOICE)
     this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
+    this.debitNotes$ = this.store.select(...this.DEBIT_NOTES);
   }
 
   ngOnInit(): void {

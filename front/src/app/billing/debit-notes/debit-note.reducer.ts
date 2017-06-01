@@ -14,6 +14,7 @@ export function debitNoteReducer(state = initialState, action: Action): DebitNot
     case DebitNoteActions.FIND_DEBIT_NOTES_BY_REFERENCE_NO_SUCCESS: {
       return action.payload;
     }
+
     default: {
       return state;
     }

@@ -6,6 +6,7 @@ import {BillingService} from "../../../services/billing.service";
 import {BillingModuleState} from "../index";
 import {Store} from "@ngrx/store";
 import 'rxjs/add/operator/withLatestFrom';
+import { DebitNoteActions } from "../debit-notes/debit-note.action";
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class InvoiceEffects {
 
   constructor(private actions$: Actions,
               private invoiceActions: InvoiceActions,
+              private debitNoteActions: DebitNoteActions,
               private billingService: BillingService,
               private store$: Store<BillingModuleState>) {
   }
@@ -51,7 +53,8 @@ export class InvoiceEffects {
     .map(action => action.payload)
     .switchMap(referenceNo => this.billingService.findInvoiceByReferenceNo(referenceNo))
     .map(invoice => this.invoiceActions.findInvoiceByReferenceNoSuccess(invoice))
-    .mergeMap(action => from([action, this.invoiceActions.findInvoiceItems(action.payload)]));
+    .mergeMap(action => from([action, this.invoiceActions.findInvoiceItems(action.payload)]))
+    .mergeMap(action => from([action, this.debitNoteActions.findDebitNotes(action.payload)]));
 
   @Effect() findInvoiceItems$ = this.actions$
     .ofType(InvoiceActions.FIND_INVOICE_ITEMS)

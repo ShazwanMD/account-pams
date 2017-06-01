@@ -316,11 +316,17 @@ export class BillingService {
   // DEBIT NOTE
   // ====================================================================================================
 
-  findDebitNotes(invoice: Invoice): Observable<DebitNote> {
+  findDebitNotes(invoice: Invoice): Observable<DebitNote[]> {
     console.log("findDebitNotes");
-    return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + invoice)
-      .map((res: Response) => <DebitNote>res.json());
+    return this.http.get(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + "/debitNotes")
+      .map((res: Response) => <DebitNote[]>res.json());
   }
+
+  // findSpmResultsByIntakeApplication(application: IntakeApplication): Observable<SpmResult[]> {
+  //   console.log("findSpmResults");
+  //   return this.http.get(environment.endpoint + '/api/application/intakeApplications/' + application.referenceNo + "/spmResults")
+  //     .map((res: Response) => <SpmResult[]>res.json());
+  // }
 
   findDebitNoteByReferenceNo(referenceNo: string): Observable<DebitNote> {
     return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + referenceNo)
