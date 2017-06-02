@@ -5,6 +5,7 @@ import {Action} from '@ngrx/store';
 export class DebitNoteActions {
 
   static FIND_DEBIT_NOTES = '[DebitNote] Find DebitNotes';
+
   findDebitNotes(debitNote): Action {
     return {
       type: DebitNoteActions.FIND_DEBIT_NOTES,
@@ -12,9 +13,8 @@ export class DebitNoteActions {
     };
   }
 
-
-
   static FIND_DEBIT_NOTES_SUCCESS = '[DebitNote] Find DebitNotes Success';
+
   findDebitNotesSuccess(debitNotes): Action {
     console.log("findDebitNotesSuccess");
     console.log("DebitNotes: " + debitNotes.length);
@@ -23,7 +23,6 @@ export class DebitNoteActions {
       payload: debitNotes
     };
   }
-
 
   static FIND_ARCHIVED_DEBIT_NOTES = '[DebitNote] Find Archived Debit_notes';
 
@@ -78,8 +77,6 @@ export class DebitNoteActions {
       payload: tasks
     };
   }
-
-
 
 
   static FIND_DEBIT_NOTE_BY_ID = '[DebitNote] Find DebitNote By Id';
@@ -141,6 +138,7 @@ export class DebitNoteActions {
   }
 
   static START_DEBIT_NOTE_TASK = '[DebitNote] Start DebitNote Task';
+
   startDebitNoteTask(debitNote): Action {
     return {
       type: DebitNoteActions.START_DEBIT_NOTE_TASK,
@@ -149,6 +147,7 @@ export class DebitNoteActions {
   }
 
   static START_DEBIT_NOTE_TASK_SUCCESS = '[DebitNote] Start DebitNote Task Success';
+
   startDebitNoteTaskSuccess(debitNote): Action {
     return {
       type: DebitNoteActions.START_DEBIT_NOTE_TASK_SUCCESS,
@@ -156,7 +155,62 @@ export class DebitNoteActions {
     };
   }
 
+  static COMPLETE_DEBIT_NOTE_TASK = '[DebitNote] Complete DebitNote Task';
+
+  completeDebitNoteTask(debitNote): Action {
+    return {
+      type: DebitNoteActions.COMPLETE_DEBIT_NOTE_TASK,
+      payload: debitNote
+    };
+  }
+
+  static COMPLETE_DEBIT_NOTE_TASK_SUCCESS = '[DebitNote] Complete DebitNote Task Success';
+
+  completeDebitNoteTaskSuccess(message): Action {
+    return {
+      type: DebitNoteActions.COMPLETE_DEBIT_NOTE_TASK_SUCCESS,
+      payload: message
+    };
+  }
+
+  static CLAIM_DEBIT_NOTE_TASK = '[DebitNote] Assign DebitNote Task';
+
+  claimDebitNoteTask(debitNote): Action {
+    return {
+      type: DebitNoteActions.CLAIM_DEBIT_NOTE_TASK,
+      payload: debitNote
+    };
+  }
+
+  static CLAIM_DEBIT_NOTE_TASK_SUCCESS = '[DebitNote] Assign DebitNote Task Success';
+
+  claimDebitNoteTaskSuccess(task): Action {
+    return {
+      type: DebitNoteActions.CLAIM_DEBIT_NOTE_TASK_SUCCESS,
+      payload: task
+    };
+  }
+
+  static RELEASE_DEBIT_NOTE_TASK = '[DebitNote] Release DebitNote Task';
+
+  releaseDebitNoteTask(debitNote): Action {
+    return {
+      type: DebitNoteActions.RELEASE_DEBIT_NOTE_TASK,
+      payload: debitNote
+    };
+  }
+
+  static RELEASE_DEBIT_NOTE_TASK_SUCCESS = '[DebitNote] Release DebitNote Task Success';
+
+  releaseDebitNoteTaskSuccess(task): Action {
+    return {
+      type: DebitNoteActions.RELEASE_DEBIT_NOTE_TASK_SUCCESS,
+      payload: task
+    };
+  }
+
   static UPDATE_DEBIT_NOTE = '[DebitNote] Update DebitNote';
+
   updateDebitNote(debitNote): Action {
     return {
       type: DebitNoteActions.UPDATE_DEBIT_NOTE,
@@ -165,6 +219,7 @@ export class DebitNoteActions {
   }
 
   static UPDATE_DEBIT_NOTE_SUCCESS = '[DebitNote] Update DebitNote Success';
+
   updateDebitNoteSuccess(debitNote): Action {
     return {
       type: DebitNoteActions.UPDATE_DEBIT_NOTE_SUCCESS,

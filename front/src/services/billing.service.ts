@@ -350,6 +350,39 @@ export class BillingService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
+
+  completeDebitNoteTask(debitNoteTask: DebitNoteTask): Observable<String> {
+    console.log("TaskId: " + debitNoteTask.taskId);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/debitNotes/completeTask', JSON.stringify(debitNoteTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  claimDebitNoteTask(debitNoteTask: DebitNoteTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/debitNotes/claimTask', JSON.stringify(debitNoteTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  releaseDebitNoteTask(debitNoteTask: DebitNoteTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/debitNotes/releaseTask', JSON.stringify(debitNoteTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+
   updateDebitNote(debitNote: DebitNote) {
     console.log("saving creditNote" + debitNote.id);
     let headers = new Headers({
@@ -360,5 +393,4 @@ export class BillingService {
     return this.http.put(environment.endpoint + '/api/billing/debitNotes/' + debitNote.id, JSON.stringify(debitNote), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-
 }
