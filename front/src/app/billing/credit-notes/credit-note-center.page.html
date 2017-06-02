@@ -24,22 +24,27 @@
     <div layout="row" layout-wrap>
     </div>
 
-       <md-card>
+    <md-card>
       <md-tab-group [selectedIndex]="0">
         <md-tab label="Assigned">
-      <pams-assigned-credit-note-task-list
-        [creditNoteTasks]="assignedCreditNoteTasks$ | async"
-        (view)="view($event)"></pams-assigned-credit-note-task-list>
-      <md-divider></md-divider>
+          <pams-assigned-credit-note-task-list
+            [creditNoteTasks]="assignedCreditNoteTasks$ | async"
+            (view)="view($event)"></pams-assigned-credit-note-task-list>
+          <md-divider></md-divider>
         </md-tab>
         <md-tab label="Pooled">
-      <pams-pooled-credit-note-task-list
-        [creditNoteTasks]="pooledCreditNoteTasks$ | async"
-        (view)="view($event)">
-       </pams-pooled-credit-note-task-list>
+          <pams-pooled-credit-note-task-list
+            [creditNoteTasks]="pooledCreditNoteTasks$ | async"
+            (view)="view($event)">
+          </pams-pooled-credit-note-task-list>
+        </md-tab>
+        <md-tab label="Archived">
+          <pams-archived-credit-note-list
+            [creditNotes]="archivedCreditNotes$ | async"
+            (view)="viewCreditNote($event)"></pams-archived-credit-note-list>
         </md-tab>
       </md-tab-group>
     </md-card>
-    
+
   </td-layout-manage-list>
 </td-layout-nav>

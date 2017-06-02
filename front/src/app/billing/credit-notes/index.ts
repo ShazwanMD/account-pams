@@ -17,6 +17,7 @@ import {InvoiceSubModule} from "../invoices/index";
 import {AssignedCreditNoteTaskListComponent} from "./component/assigned-credit-note-task-list.component";
 import {PooledCreditNoteTaskListComponent} from "./component/pooled-credit-note-task-list.component";
 import {CreditNoteEffects} from "./credit-note.effect";
+import {ArchivedCreditNoteListComponent} from "./component/archived-credit-note-list.component";
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {CreditNoteEffects} from "./credit-note.effect";
     CreditNoteCreatorDialog,
     AssignedCreditNoteTaskListComponent,
     PooledCreditNoteTaskListComponent,
+    ArchivedCreditNoteListComponent,
 
   ],
   exports: [

@@ -3,13 +3,13 @@ import {MdSnackBar} from "@angular/material";
 import {CreditNote} from "../credit-note.interface";
 
 @Component({
-  selector: 'pams-archived-credit-list',
-  templateUrl: './archived-credit-list.component.html',
+  selector: 'pams-archived-credit-note-list',
+  templateUrl: './archived-credit-note-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchivedCreditNoteListComponent {
 
-  @Input() credits: CreditNote[];
+  @Input() creditNotes: CreditNote[];
   @Output() view = new EventEmitter<CreditNote>();
 
   private columns: any[] = [

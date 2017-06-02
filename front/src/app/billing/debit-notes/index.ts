@@ -18,6 +18,7 @@ import {InvoiceSubModule} from "../invoices/index"
 import {AssignedDebitNoteTaskListComponent} from "./component/assigned-debit-note-task-list.component";
 import {PooledDebitNoteTaskListComponent} from "./component/pooled-debit-note-task-list.component";
 import {DebitNoteEffects} from "./debit-note.effect";
+import {ArchivedDebitNoteListComponent} from "./component/archived-debit-note-list.component";
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {DebitNoteEffects} from "./debit-note.effect";
     DebitNoteCreatorDialog,
     AssignedDebitNoteTaskListComponent,
     PooledDebitNoteTaskListComponent,
+    ArchivedDebitNoteListComponent,
 
   ],
   exports: [

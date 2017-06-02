@@ -3,13 +3,13 @@ import {MdSnackBar} from "@angular/material";
 import {DebitNote} from "../debit-note.interface";
 
 @Component({
-  selector: 'pams-archived-debit-list',
-  templateUrl: './archived-debit-list.component.html',
+  selector: 'pams-archived-debit-note-list',
+  templateUrl: './archived-debit-note-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchivedDebitNoteListComponent {
 
-  @Input() debits: DebitNote[];
+  @Input() debitNotes: DebitNote[];
   @Output() view = new EventEmitter<DebitNote>();
 
   private columns: any[] = [
