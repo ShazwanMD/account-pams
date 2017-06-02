@@ -17,11 +17,11 @@ export class DebitNoteEffects {
                 private store$: Store<BillingModuleState>) {
     }
     
-  /*  @Effect() findDebitNotes$ = this.actions$
+    @Effect() findDebitNotes$ = this.actions$
     .ofType(DebitNoteActions.FIND_DEBIT_NOTES)
     .map(action => action.payload)
     .switchMap(invoice => this.billingService.findDebitNotes(invoice))
-    .map(debitNotes => this.debitNoteActions.findDebitNotesSuccess(debitNotes)); */
+    .map(debitNotes => this.debitNoteActions.findDebitNotesSuccess(debitNotes)); 
     
     @Effect() findDebitNoteByReferenceNo$ = this.actions$
     .ofType(DebitNoteActions.FIND_DEBIT_NOTES_BY_REFERENCE_NO)
