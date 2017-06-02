@@ -14,20 +14,20 @@
     <!--
     ====================================================================================================
     == VARIABLE:
-    == credit noteId: credit note id
+    == creditNoteId: creditNote id
     ====================================================================================================
     -->
 
-    <process id="credit_note_workflow" name="Billing credit Note Workflow">
+    <process id="credit_note_workflow" name="Billing CreditNote Workflow">
 
         <startEvent id="start"/>
 
-        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="creditNote_draft_ST"/>
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="creditNote_draft_ST"/>
 
         <!--
         ====================================================================================================
         == STATE : DRAFTED
-        == SERVICE TASK : draft a credit note
+        == SERVICE TASK : draft a creditNote
         == USER TASK :
         ====================================================================================================
         -->
@@ -35,11 +35,26 @@
         <serviceTask id="creditNote_draft_ST"
                      activiti:expression="#{creditNote_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow2.3" sourceRef="creditNote_draft_ST" targetRef="creditNote_register_ST"/>
+        <sequenceFlow id="flow1.1" sourceRef="creditNote_draft_ST" targetRef="creditNote_draft_UT"/>
+
+        <userTask id="creditNote_draft_UT" name="my.edu.umk.pams.account.billing.model.AcCreditNote:DRAFTED"
+                  activiti:assignee="${userCreator}">
+            <documentation>
+                Draft CreditNote
+            </documentation>
+        </userTask>
+
+        <sequenceFlow id="flow1.2" sourceRef="creditNote_draft_UT" targetRef="creditNote_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow1.3" sourceRef="creditNote_draft_UT" targetRef="creditNote_register_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
         <!--
         ====================================================================================================
         == STATE : REGISTERED
-        == SERVICE TASK : register a credit note
+        == SERVICE TASK : register a creditNote
         == USER TASK :
         ====================================================================================================
         -->
@@ -48,24 +63,56 @@
                      activiti:expression="#{creditNote_register_ST.execute(execution)}"/>
 
 
-        <sequenceFlow id="flow3.3" sourceRef="creditNote_register_ST" targetRef="creditNote_verify_ST"/>
+        <sequenceFlow id="flow3.1" sourceRef="creditNote_register_ST" targetRef="creditNote_register_UT"/>
+
+        <userTask id="creditNote_register_UT" name="my.edu.umk.pams.account.billing.model.AcCreditNote:REGISTERED"
+                  activiti:candidateGroups="${creditNoteRouter.findRegistererCandidates(creditNoteId)}">
+            <documentation>
+                Register CreditNote
+            </documentation>
+        </userTask>
+
+        <!-- accept -->
+        <sequenceFlow id="flow3.2" sourceRef="creditNote_register_UT" targetRef="creditNote_verify_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!-- delete -->
+        <sequenceFlow id="flow3.4" sourceRef="creditNote_register_UT" targetRef="creditNote_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
         <!--
         ====================================================================================================
         == STATE : VERIFIED
-        == SERVICE TASK : verify a credit note
+        == SERVICE TASK : verify a creditNote
         == USER TASK :
         ====================================================================================================
         -->
         <serviceTask id="creditNote_verify_ST"
                      activiti:expression="#{creditNote_verify_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow4.2" sourceRef="creditNote_verify_ST" targetRef="creditNote_approve_ST"/>
+        <sequenceFlow id="flow4.1" sourceRef="creditNote_verify_ST" targetRef="creditNote_verify_UT"/>
 
+        <userTask id="creditNote_verify_UT" name="my.edu.umk.pams.account.billing.model.AcCreditNote:VERIFIED"
+                  activiti:candidateGroups="${creditNoteRouter.findVerifierCandidates(creditNoteId)}">
+            <documentation>
+                Verify CreditNote
+            </documentation>
+
+        </userTask>
+
+        <sequenceFlow id="flow4.2" sourceRef="creditNote_verify_UT" targetRef="creditNote_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow4.3" sourceRef="creditNote_verify_UT" targetRef="creditNote_approve_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
 
         <!--
         ====================================================================================================
         == STATE : REMOVED
-        == SERVICE TASK : removed a credit note
+        == SERVICE TASK : removed a creditNote
         == USER TASK :
         ====================================================================================================
         -->
@@ -77,7 +124,7 @@
         <!--
         ====================================================================================================
         == STATE : APPROVED
-        == SERVICE TASK : approve a credit note
+        == SERVICE TASK : approve a creditNote
         == USER TASK :
         ====================================================================================================
         -->
@@ -89,7 +136,7 @@
         <!--
         ====================================================================================================
         == STATE : COMPLETED
-        == SERVICE TASK : complete a credit note
+        == SERVICE TASK : complete a creditNote
         == USER TASK :
         ====================================================================================================
         -->
