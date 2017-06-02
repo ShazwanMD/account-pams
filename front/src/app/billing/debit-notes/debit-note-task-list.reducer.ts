@@ -9,7 +9,7 @@ const initialState: DebitNoteTaskListState = <DebitNoteTask[]>[];
 
 export function assignedDebitNoteTaskListReducer(state = initialState, action: Action): DebitNoteTaskListState {
   switch (action.type) {
-    case DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTES_TASKS_SUCCESS: {
+    case DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTE_TASKS_SUCCESS: {
       return action.payload;
     }
     default: {
@@ -20,7 +20,7 @@ export function assignedDebitNoteTaskListReducer(state = initialState, action: A
 
 export function pooledDebitNoteTaskListReducer(state = initialState, action: Action): DebitNoteTaskListState {
   switch (action.type) {
-    case DebitNoteActions.FIND_POOLED_DEBIT_NOTES_TASKS_SUCCESS: {
+    case DebitNoteActions.FIND_POOLED_DEBIT_NOTE_TASKS_SUCCESS: {
       return action.payload;
     }
     default: {

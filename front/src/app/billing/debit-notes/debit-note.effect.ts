@@ -17,17 +17,25 @@ export class DebitNoteEffects {
               private store$: Store<BillingModuleState>) {
   }
 
-  @Effect() findDebitNotes$ = this.actions$
-    .ofType(DebitNoteActions.FIND_DEBIT_NOTES)
-    .map(action => action.payload)
-    .switchMap(debitNote => this.billingService.findDebitNotes(debitNote))
-    .map(debitNotes => this.debitNoteActions.findDebitNotesSuccess(debitNotes));
+  @Effect() findCompletedDebitNotes$ = this.actions$
+    .ofType(DebitNoteActions.FIND_COMPLETED_DEBIT_NOTES)
+    .switchMap(() => this.billingService.findCompletedDebitNotes())
+    .map(debitNotes => this.debitNoteActions.findCompletedDebitNotesSuccess(debitNotes));
 
-  @Effect() findDebitNoteByReferenceNo$ = this.actions$
-    .ofType(DebitNoteActions.FIND_DEBIT_NOTES_BY_REFERENCE_NO)
-    .map(action => action.payload)
-    .switchMap(referenceNo => this.billingService.findDebitNoteByReferenceNo(referenceNo))
-    .map(debitNote => this.debitNoteActions.findDebitNoteByReferenceNoSuccess(debitNote));
+  @Effect() findArchivedDebitNotes$ = this.actions$
+    .ofType(DebitNoteActions.FIND_ARCHIVED_DEBIT_NOTES)
+    .switchMap(() => this.billingService.findArchivedDebitNotes())
+    .map(debitNotes => this.debitNoteActions.findArchivedDebitNotesSuccess(debitNotes));
+
+  @Effect() findAssignedDebitNoteTasks$ = this.actions$
+    .ofType(DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTE_TASKS)
+    .switchMap(() => this.billingService.findAssignedDebitNoteTasks())
+    .map(debitNotes => this.debitNoteActions.findAssignedDebitNoteTasksSuccess(debitNotes));
+
+  @Effect() findPooledDebitNoteTasks$ = this.actions$
+    .ofType(DebitNoteActions.FIND_POOLED_DEBIT_NOTE_TASKS)
+    .switchMap(() => this.billingService.findPooledDebitNoteTasks())
+    .map(debitNotes => this.debitNoteActions.findPooledDebitNoteTasksSuccess(debitNotes));
 
   @Effect() findDebitNoteTaskByTaskId = this.actions$
     .ofType(DebitNoteActions.FIND_DEBIT_NOTE_TASK_BY_TASK_ID)
@@ -35,6 +43,11 @@ export class DebitNoteEffects {
     .switchMap(taskId => this.billingService.findDebitNoteTaskByTaskId(taskId))
     .map(task => this.debitNoteActions.findDebitNoteTaskByTaskIdSuccess(task));
 
+  @Effect() findDebitNoteByReferenceNo$ = this.actions$
+    .ofType(DebitNoteActions.FIND_DEBIT_NOTE_BY_REFERENCE_NO)
+    .map(action => action.payload)
+    .switchMap(referenceNo => this.billingService.findDebitNoteByReferenceNo(referenceNo))
+    .map(debitNote => this.debitNoteActions.findDebitNoteByReferenceNoSuccess(debitNote));
 
   @Effect() startDebitNoteTask$ = this.actions$
     .ofType(DebitNoteActions.START_DEBIT_NOTE_TASK)
@@ -85,5 +98,4 @@ export class DebitNoteEffects {
     .map(action => action.payload)
     .switchMap(debitNote => this.billingService.updateDebitNote(debitNote))
     .map(debitNote => this.debitNoteActions.updateDebitNoteSuccess(debitNote));
-
 }

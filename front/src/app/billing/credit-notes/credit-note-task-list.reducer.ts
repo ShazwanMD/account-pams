@@ -9,7 +9,7 @@ const initialState: CreditNoteTaskListState = <CreditNoteTask[]>[];
 
 export function assignedCreditNoteTaskListReducer(state = initialState, action: Action): CreditNoteTaskListState {
   switch (action.type) {
-    case CreditNoteActions.FIND_ASSIGNED_CREDIT_NOTES_TASKS_SUCCESS: {
+    case CreditNoteActions.FIND_ASSIGNED_CREDIT_NOTE_TASKS_SUCCESS: {
       return action.payload;
     }
     default: {
@@ -20,7 +20,7 @@ export function assignedCreditNoteTaskListReducer(state = initialState, action: 
 
 export function pooledCreditNoteTaskListReducer(state = initialState, action: Action): CreditNoteTaskListState {
   switch (action.type) {
-    case CreditNoteActions.FIND_POOLED_CREDIT_NOTES_TASKS_SUCCESS: {
+    case CreditNoteActions.FIND_POOLED_CREDIT_NOTE_TASKS_SUCCESS: {
       return action.payload;
     }
     default: {

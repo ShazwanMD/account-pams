@@ -24,6 +24,25 @@ export class DebitNoteActions {
     };
   }
 
+  static FIND_COMPLETED_DEBIT_NOTES = '[DebitNote] Find Completed DebitNotes';
+
+  findCompletedDebitNotes(): Action {
+    return {
+      type: DebitNoteActions.FIND_COMPLETED_DEBIT_NOTES
+    };
+  }
+
+  static FIND_COMPLETED_DEBIT_NOTES_SUCCESS = '[DebitNote] Find Completed DebitNotes Success';
+
+  findCompletedDebitNotesSuccess(debitNotes): Action {
+    console.log("findCompletedDebitNotesSuccess");
+    return {
+      type: DebitNoteActions.FIND_COMPLETED_DEBIT_NOTES_SUCCESS,
+      payload: debitNotes
+    };
+  }
+
+
   static FIND_ARCHIVED_DEBIT_NOTES = '[DebitNote] Find Archived Debit_notes';
 
   findArchivedDebitNotes(): Action {
@@ -42,38 +61,38 @@ export class DebitNoteActions {
     };
   }
 
-  static FIND_ASSIGNED_DEBIT_NOTES_TASKS = '[DebitNote] Find Assigned DebitNotes Tasks';
+  static FIND_ASSIGNED_DEBIT_NOTE_TASKS = '[DebitNote] Find Assigned DebitNotes Tasks';
 
   findAssignedDebitNoteTasks(): Action {
     return {
-      type: DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTES_TASKS
+      type: DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTE_TASKS
     };
   }
 
-  static FIND_ASSIGNED_DEBIT_NOTES_TASKS_SUCCESS = '[DebitNote] Find Assigned DebitNotes Tasks Success';
+  static FIND_ASSIGNED_DEBIT_NOTE_TASKS_SUCCESS = '[DebitNote] Find Assigned DebitNotes Tasks Success';
 
   findAssignedDebitNoteTasksSuccess(tasks): Action {
     console.log("findAssignedDebitNoteTasksSuccess");
     return {
-      type: DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTES_TASKS_SUCCESS,
+      type: DebitNoteActions.FIND_ASSIGNED_DEBIT_NOTE_TASKS_SUCCESS,
       payload: tasks
     };
   }
 
-  static FIND_POOLED_DEBIT_NOTES_TASKS = '[DebitNote] Find Pooled DebitNotes Tasks';
+  static FIND_POOLED_DEBIT_NOTE_TASKS = '[DebitNote] Find Pooled DebitNotes Tasks';
 
   findPooledDebitNoteTasks(): Action {
     return {
-      type: DebitNoteActions.FIND_POOLED_DEBIT_NOTES_TASKS
+      type: DebitNoteActions.FIND_POOLED_DEBIT_NOTE_TASKS
     };
   }
 
-  static FIND_POOLED_DEBIT_NOTES_TASKS_SUCCESS = '[DebitNote] Find Pooled DebitNotes Tasks Success';
+  static FIND_POOLED_DEBIT_NOTE_TASKS_SUCCESS = '[DebitNote] Find Pooled DebitNotes Tasks Success';
 
-  findPooledDebitNoteeTasksSuccess(tasks): Action {
+  findPooledDebitNoteTasksSuccess(tasks): Action {
     console.log("findAssignedDebitNoteTasksSuccess");
     return {
-      type: DebitNoteActions.FIND_POOLED_DEBIT_NOTES_TASKS_SUCCESS,
+      type: DebitNoteActions.FIND_POOLED_DEBIT_NOTE_TASKS_SUCCESS,
       payload: tasks
     };
   }
@@ -97,22 +116,22 @@ export class DebitNoteActions {
     };
   }
 
-  static FIND_DEBIT_NOTES_BY_REFERENCE_NO = '[DebitNote] Find DebitNotes By reference No';
+  static FIND_DEBIT_NOTE_BY_REFERENCE_NO = '[DebitNote] Find DebitNotes By reference No';
 
   findDebitNoteByReferenceNo(referenceNo): Action {
     console.log("findDebitNoteByReferenceNo");
     return {
-      type: DebitNoteActions.FIND_DEBIT_NOTES_BY_REFERENCE_NO,
+      type: DebitNoteActions.FIND_DEBIT_NOTE_BY_REFERENCE_NO,
       payload: referenceNo
     };
   }
 
-  static FIND_DEBIT_NOTES_BY_REFERENCE_NO_SUCCESS = '[DebitNote] Find DebitNotes By reference No Success';
+  static FIND_DEBIT_NOTE_BY_REFERENCE_NO_SUCCESS = '[DebitNote] Find DebitNotes By reference No Success';
 
   findDebitNoteByReferenceNoSuccess(debitNote): Action {
     console.log("findDebitNoteByReferenceNoSuccess");
     return {
-      type: DebitNoteActions.FIND_DEBIT_NOTES_BY_REFERENCE_NO_SUCCESS,
+      type: DebitNoteActions.FIND_DEBIT_NOTE_BY_REFERENCE_NO_SUCCESS,
       payload: debitNote
     };
   }
@@ -226,20 +245,4 @@ export class DebitNoteActions {
       payload: debitNote
     };
   }
-
-//  static REMOVE_DEBIT_NOTE = '[DebitNote] Remove DebitNote';
-//  removeDebitNote(debitNote): Action {
-//    return {
-//      type: DebitNoteActions.REMOVE_DEBIT_NOTE,
-//      payload: debitNote
-//    };
-//  }
-//
-//  static REMOVE_DEBIT_NOTE_SUCCESS = '[DebitNote] Remove DebitNote Success';
-//  removeDebitNoteSuccess(debitNote): Action {
-//    return {
-//      type: DebitNoteActions.REMOVE_DEBIT_NOTE_SUCCESS,
-//      payload: debitNote
-//    };
-//  }
 }

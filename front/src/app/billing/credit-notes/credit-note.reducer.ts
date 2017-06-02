@@ -11,7 +11,7 @@ export function creditNoteReducer(state = initialState, action: Action): CreditN
     case CreditNoteActions.FIND_CREDIT_NOTE_BY_ID_SUCCESS: {
       return action.payload;
     }
-    case CreditNoteActions.FIND_CREDIT_NOTES_BY_REFERENCE_NO_SUCCESS: {
+    case CreditNoteActions.FIND_CREDIT_NOTE_BY_REFERENCE_NO_SUCCESS: {
       return action.payload;
     }
     default: {

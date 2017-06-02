@@ -273,15 +273,29 @@ export class BillingService {
   // CREDIT NOTE
   // ====================================================================================================
 
-  findCreditNotes(invoice: Invoice): Observable<CreditNote> {
-    console.log("findCreditNotes");
-    return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + invoice)
-      .map((res: Response) => <CreditNote>res.json());
+  findCompletedCreditNotes(): Observable<CreditNote[]> {
+    console.log("findCompletedCreditNotes");
+    return this.http.get(environment.endpoint + '/api/billing/creditNotes/state/COMPLETED')
+      .map((res: Response) => <CreditNote[]>res.json());
   }
 
-  findCreditNoteByReferenceNo(referenceNo: string): Observable<CreditNote> {
-    return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + referenceNo)
-      .map((res: Response) => <CreditNote>res.json());
+  // todo: this goes thru ACL
+  findArchivedCreditNotes(): Observable<CreditNote[]> {
+    console.log("findArchivedCreditNotes");
+    return this.http.get(environment.endpoint + '/api/billing/creditNotes/state/COMPLETED')
+      .map((res: Response) => <CreditNote[]>res.json());
+  }
+
+  findAssignedCreditNoteTasks(): Observable<CreditNoteTask[]> {
+    console.log("findAssignedCreditNoteTasks");
+    return this.http.get(environment.endpoint + '/api/billing/creditNotes/assignedTasks')
+      .map((res: Response) => <CreditNoteTask[]>res.json());
+  }
+
+  findPooledCreditNoteTasks(): Observable<CreditNoteTask[]> {
+    console.log("findPooledCreditNoteTasks");
+    return this.http.get(environment.endpoint + '/api/billing/creditNotes/pooledTasks')
+      .map((res: Response) => <CreditNoteTask[]>res.json());
   }
 
   findCreditNoteTaskByTaskId(taskId: string): Observable<CreditNoteTask> {
@@ -290,14 +304,56 @@ export class BillingService {
       .map((res: Response) => <CreditNoteTask>res.json());
   }
 
+  findCreditNoteByReferenceNo(referenceNo: string): Observable<CreditNote> {
+    return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + referenceNo)
+      .map((res: Response) => <CreditNote>res.json());
+  }
+
+  findCreditNoteByTaskId(taskId: string): Observable<CreditNote> {
+    return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + taskId)
+      .map((res: Response) => <CreditNote>res.json());
+  }
+
   startCreditNoteTask(creditNote: CreditNote): Observable<String> {
     console.log("creditNote: " + creditNote);
-     let headers = new Headers({
+    let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/billing/creditNotes/startTask', JSON.stringify(creditNote), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+
+  completeCreditNoteTask(creditNoteTask: CreditNoteTask): Observable<String> {
+    console.log("TaskId: " + creditNoteTask.taskId);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/creditNotes/completeTask', JSON.stringify(creditNoteTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  claimCreditNoteTask(creditNoteTask: CreditNoteTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/creditNotes/claimTask', JSON.stringify(creditNoteTask), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  releaseCreditNoteTask(creditNoteTask: CreditNoteTask): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/billing/creditNotes/releaseTask', JSON.stringify(creditNoteTask), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
@@ -316,27 +372,45 @@ export class BillingService {
   // DEBIT NOTE
   // ====================================================================================================
 
-  // findDebitNotes(invoice: Invoice): Observable<DebitNote[]> {
-  //   console.log("findDebitNotes");
-  //   return this.http.get(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + "/debitNotes")
-  //     .map((res: Response) => <DebitNote[]>res.json());
-  // }
-
-  findDebitNotes(invoice: Invoice): Observable<DebitNote[]> {
-    console.log("findDebitNotes");
-    return this.http.get(environment.endpoint + '/api/billing/invoice/' + invoice.referenceNo + "/debitNotes/")
+  findCompletedDebitNotes(): Observable<DebitNote[]> {
+    console.log("findCompletedDebitNotes");
+    return this.http.get(environment.endpoint + '/api/billing/debitNotes/state/COMPLETED')
       .map((res: Response) => <DebitNote[]>res.json());
   }
 
-  findDebitNoteByReferenceNo(referenceNo: string): Observable<DebitNote> {
-    return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + referenceNo)
-      .map((res: Response) => <CreditNote>res.json());
+  // todo: this goes thru ACL
+  findArchivedDebitNotes(): Observable<DebitNote[]> {
+    console.log("findArchivedDebitNotes");
+    return this.http.get(environment.endpoint + '/api/billing/debitNotes/state/COMPLETED')
+      .map((res: Response) => <DebitNote[]>res.json());
+  }
+
+  findAssignedDebitNoteTasks(): Observable<DebitNoteTask[]> {
+    console.log("findAssignedDebitNoteTasks");
+    return this.http.get(environment.endpoint + '/api/billing/debitNotes/assignedTasks')
+      .map((res: Response) => <DebitNoteTask[]>res.json());
+  }
+
+  findPooledDebitNoteTasks(): Observable<DebitNoteTask[]> {
+    console.log("findPooledDebitNoteTasks");
+    return this.http.get(environment.endpoint + '/api/billing/debitNotes/pooledTasks')
+      .map((res: Response) => <DebitNoteTask[]>res.json());
   }
 
   findDebitNoteTaskByTaskId(taskId: string): Observable<DebitNoteTask> {
     console.log("findDebitNoteTaskByTaskId");
     return this.http.get(environment.endpoint + '/api/billing/debitNotes/viewTask/' + taskId)
       .map((res: Response) => <DebitNoteTask>res.json());
+  }
+
+  findDebitNoteByReferenceNo(referenceNo: string): Observable<DebitNote> {
+    return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + referenceNo)
+      .map((res: Response) => <DebitNote>res.json());
+  }
+
+  findDebitNoteByTaskId(taskId: string): Observable<DebitNote> {
+    return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + taskId)
+      .map((res: Response) => <DebitNote>res.json());
   }
 
   startDebitNoteTask(debitNote: DebitNote): Observable<String> {
@@ -349,7 +423,6 @@ export class BillingService {
     return this.http.post(environment.endpoint + '/api/billing/debitNotes/startTask', JSON.stringify(debitNote), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-
 
   completeDebitNoteTask(debitNoteTask: DebitNoteTask): Observable<String> {
     console.log("TaskId: " + debitNoteTask.taskId);
@@ -381,7 +454,6 @@ export class BillingService {
     return this.http.post(environment.endpoint + '/api/billing/debitNotes/releaseTask', JSON.stringify(debitNoteTask), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-
 
   updateDebitNote(debitNote: DebitNote) {
     console.log("saving creditNote" + debitNote.id);
