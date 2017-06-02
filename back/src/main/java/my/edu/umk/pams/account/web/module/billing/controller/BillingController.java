@@ -332,9 +332,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoice/{referenceNo}/debitNotes/", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNote>> findDebitNotes(@PathVariable String referenceNo) {
-    	
     	AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-    	
         List<AcDebitNote> debitNotes = billingService.findDebitNotes(invoice);
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
@@ -364,12 +362,13 @@ public class BillingController {
     public ResponseEntity<String> startDebitNoteTask(@RequestBody DebitNote vo) throws Exception {
         dummyLogin();
 
-        AcDebitNote debitNotes = new AcDebitNoteImpl();
-        debitNotes.setSourceNo(vo.getSourceNo());
-        debitNotes.setAuditNo(vo.getAuditNo());
-        debitNotes.setDescription(vo.getDescription());
-        debitNotes.setTotalAmount(BigDecimal.ZERO);
-        return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNotes), HttpStatus.OK);
+        AcDebitNote debitNote = new AcDebitNoteImpl();
+        debitNote.setSourceNo(vo.getSourceNo());
+        debitNote.setAuditNo(vo.getAuditNo());
+        debitNote.setDescription(vo.getDescription());
+        debitNote.setTotalAmount(BigDecimal.ZERO);
+        debitNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+        return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNote), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/debitNotes/startTask/{taskId}", method = RequestMethod.GET)
@@ -414,13 +413,14 @@ public class BillingController {
     public ResponseEntity<String> startCreditNoteTask(@RequestBody CreditNote vo) throws Exception {
         dummyLogin();
 
-        AcCreditNote creditNotes = new AcCreditNoteImpl();
-        creditNotes.setReferenceNo(vo.getReferenceNo());
-        creditNotes.setSourceNo(vo.getSourceNo());
-        creditNotes.setAuditNo(vo.getAuditNo());
-        creditNotes.setDescription(vo.getDescription());
-        creditNotes.setTotalAmount(BigDecimal.ZERO);
-        return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNotes), HttpStatus.OK);
+        AcCreditNote creditNote = new AcCreditNoteImpl();
+        creditNote.setReferenceNo(vo.getReferenceNo());
+        creditNote.setSourceNo(vo.getSourceNo());
+        creditNote.setAuditNo(vo.getAuditNo());
+        creditNote.setDescription(vo.getDescription());
+        creditNote.setTotalAmount(BigDecimal.ZERO);
+        creditNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+        return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/creditNotes/startTask/{taskId}", method = RequestMethod.GET)

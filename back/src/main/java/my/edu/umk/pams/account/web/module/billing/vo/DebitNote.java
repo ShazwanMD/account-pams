@@ -2,8 +2,6 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
 
 import java.io.IOException;
@@ -19,8 +17,8 @@ public class DebitNote extends Document {
 	private String auditNo;
 	private String description;
 	private BigDecimal totalAmount = new BigDecimal(0.00);
+	private Invoice invoice;
 
-	
 	public String getReferenceNo() {
 		return referenceNo;
 	}
@@ -59,6 +57,14 @@ public class DebitNote extends Document {
 
 	public void setTotalAmount(BigDecimal totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 
 	@JsonCreator
