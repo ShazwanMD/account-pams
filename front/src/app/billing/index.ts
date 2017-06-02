@@ -2,9 +2,7 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../app.routes';
-
 import {CovalentCoreModule} from '@covalent/core';
-
 import {CommonService} from '../../services';
 import {IdentityService} from '../../services';
 
@@ -40,7 +38,10 @@ import {DebitNoteTask} from "./debit-notes/debit-note-task.interface";
 import {DebitNote} from "./debit-notes/debit-note.interface";
 import {CreditNoteTaskState, creditNoteTaskReducer} from "./credit-notes/credit-note-task.reducer";
 import {CreditNoteState, creditNoteReducer} from "./credit-notes/credit-note.reducer";
-import {DebitNoteListState, debitNoteListReducer} from "./invoices/debit-note-list.reducer";
+import {
+  DebitNoteListState,
+  archivedDebitNoteListReducer
+} from "./debit-notes/debit-note-list.reducer";
 import {CreditNoteTask} from "./credit-notes/credit-note-task.interface";
 import {CreditNote} from "./credit-notes/credit-note.interface";
 import {
@@ -48,6 +49,11 @@ import {
   assignedDebitNoteTaskListReducer,
   pooledDebitNoteTaskListReducer
 } from "./debit-notes/debit-note-task-list.reducer";
+import {
+  assignedCreditNoteTaskListReducer, CreditNoteTaskListState,
+  pooledCreditNoteTaskListReducer
+} from "./credit-notes/credit-note-task-list.reducer";
+import {archivedCreditNoteListReducer, CreditNoteListState} from "./credit-notes/credit-note-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -64,9 +70,13 @@ export interface BillingModuleState {
   receiptItems: ReceiptItemListState;
   assignedDebitNoteTasks: DebitNoteTaskListState;
   pooledDebitNoteTasks: DebitNoteTaskListState;
+  archivedDebitNotes: DebitNoteListState;
   debitNote: DebitNoteState;
   debitNoteList: DebitNoteListState;
   debitNoteTask: DebitNoteTaskState;
+  assignedCreditNoteTasks: CreditNoteTaskListState;
+  pooledCreditNoteTasks: CreditNoteTaskListState;
+  archivedCreditNotes: CreditNoteListState;
   creditNote: CreditNoteState;
   creditNoteTask: CreditNoteTaskState;
 }
@@ -103,7 +113,7 @@ export const billingModuleReducers = {
   invoices: invoiceListReducer,
   invoice: invoiceReducer,
   invoiceItems: invoiceItemListReducer,
-  debitNoteList: debitNoteListReducer,
+  //todo: debitNoteList: debitNoteListReducer,
   assignedReceiptTasks: assignedReceiptTaskListReducer,
   pooledReceiptTasks: pooledReceiptTaskListReducer,
   receiptTask: receiptTaskReducer,
@@ -111,8 +121,12 @@ export const billingModuleReducers = {
   receiptItems: receiptItemListReducer,
   assignedDebitNoteTasks: assignedDebitNoteTaskListReducer,
   pooledDebitNoteTasks: pooledDebitNoteTaskListReducer,
+  archivedDebitNotes: archivedDebitNoteListReducer,
   debitNoteTask: debitNoteTaskReducer,
   debitNote: debitNoteReducer,
+  assignedCreditNoteTasks: assignedCreditNoteTaskListReducer,
+  pooledCreditNoteTasks: pooledCreditNoteTaskListReducer,
+  archivedCreditNotes: archivedCreditNoteListReducer,
   creditNoteTask: creditNoteTaskReducer,
   creditNote: creditNoteReducer,
 };

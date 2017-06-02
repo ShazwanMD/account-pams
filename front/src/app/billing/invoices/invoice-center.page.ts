@@ -22,7 +22,7 @@ export class InvoiceCenterPage implements OnInit {
   private ARCHIVED_INVOICES = "billingModuleState.archivedInvoices".split(".");
   private assignedInvoiceTasks$: Observable<InvoiceTask[]>;
   private pooledInvoiceTasks$: Observable<InvoiceTask[]>;
-  private archivedInvoices$: Observable<InvoiceTask[]>;
+  private archivedInvoices$: Observable<Invoice[]>;
   private creatorDialogRef: MdDialogRef<InvoiceTaskCreatorDialog>;
 
   constructor(private router: Router,

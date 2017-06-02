@@ -5,14 +5,14 @@ import {Action} from '@ngrx/store';
 export class DebitNoteActions {
 
   static FIND_DEBIT_NOTES = '[DebitNote] Find DebitNotes';
-  findDebitNotes(invoice): Action {
+  findDebitNotes(debitNote): Action {
     return {
       type: DebitNoteActions.FIND_DEBIT_NOTES,
-      payload: invoice
+      payload: debitNote
     };
   }
 
-  
+
 
   static FIND_DEBIT_NOTES_SUCCESS = '[DebitNote] Find DebitNotes Success';
   findDebitNotesSuccess(debitNotes): Action {
@@ -23,8 +23,27 @@ export class DebitNoteActions {
       payload: debitNotes
     };
   }
-  
-  static FIND_ASSIGNED_DEBIT_NOTES_TASKS = '[Invoice] Find Assigned DebitNotes Tasks';
+
+
+  static FIND_ARCHIVED_DEBIT_NOTES = '[DebitNote] Find Archived Debit_notes';
+
+  findArchivedDebitNotes(): Action {
+    return {
+      type: DebitNoteActions.FIND_ARCHIVED_DEBIT_NOTES
+    };
+  }
+
+  static FIND_ARCHIVED_DEBIT_NOTES_SUCCESS = '[DebitNote] Find Archived Debit_notes Success';
+
+  findArchivedDebitNotesSuccess(debit_notes): Action {
+    console.log("findArchivedDebit_notesSuccess");
+    return {
+      type: DebitNoteActions.FIND_ARCHIVED_DEBIT_NOTES_SUCCESS,
+      payload: debit_notes
+    };
+  }
+
+  static FIND_ASSIGNED_DEBIT_NOTES_TASKS = '[DebitNote] Find Assigned DebitNotes Tasks';
 
   findAssignedDebitNoteTasks(): Action {
     return {
@@ -32,7 +51,7 @@ export class DebitNoteActions {
     };
   }
 
-  static FIND_ASSIGNED_DEBIT_NOTES_TASKS_SUCCESS = '[Invoice] Find Assigned DebitNotes Tasks Success';
+  static FIND_ASSIGNED_DEBIT_NOTES_TASKS_SUCCESS = '[DebitNote] Find Assigned DebitNotes Tasks Success';
 
   findAssignedDebitNoteTasksSuccess(tasks): Action {
     console.log("findAssignedDebitNoteTasksSuccess");
@@ -42,7 +61,7 @@ export class DebitNoteActions {
     };
   }
 
-  static FIND_POOLED_DEBIT_NOTES_TASKS = '[Invoice] Find Pooled DebitNotes Tasks';
+  static FIND_POOLED_DEBIT_NOTES_TASKS = '[DebitNote] Find Pooled DebitNotes Tasks';
 
   findPooledDebitNoteTasks(): Action {
     return {
@@ -50,7 +69,7 @@ export class DebitNoteActions {
     };
   }
 
-  static FIND_POOLED_DEBIT_NOTES_TASKS_SUCCESS = '[Invoice] Find Pooled DebitNotes Tasks Success';
+  static FIND_POOLED_DEBIT_NOTES_TASKS_SUCCESS = '[DebitNote] Find Pooled DebitNotes Tasks Success';
 
   findPooledDebitNoteeTasksSuccess(tasks): Action {
     console.log("findAssignedDebitNoteTasksSuccess");
@@ -59,6 +78,9 @@ export class DebitNoteActions {
       payload: tasks
     };
   }
+
+
+
 
   static FIND_DEBIT_NOTE_BY_ID = '[DebitNote] Find DebitNote By Id';
 
@@ -97,7 +119,7 @@ export class DebitNoteActions {
       payload: debitNote
     };
   }
-  
+
   static FIND_DEBIT_NOTE_TASK_BY_TASK_ID = '[DebitNote] Find DebitNote Task By Task Id';
 
   findDebitNoteTaskByTaskId(taskId): Action {
@@ -117,7 +139,7 @@ export class DebitNoteActions {
       payload: task
     };
   }
-  
+
   static START_DEBIT_NOTE_TASK = '[DebitNote] Start DebitNote Task';
   startDebitNoteTask(debitNote): Action {
     return {

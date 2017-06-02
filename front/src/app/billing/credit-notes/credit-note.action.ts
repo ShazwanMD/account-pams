@@ -5,23 +5,82 @@ import {Action} from '@ngrx/store';
 export class CreditNoteActions {
 
   static FIND_CREDIT_NOTES = '[CreditNote] Find CreditNotes';
-
-  findCreditNotes(): Action {
+  findCreditNotes(creditNote): Action {
     return {
-      type: CreditNoteActions.FIND_CREDIT_NOTES
+      type: CreditNoteActions.FIND_CREDIT_NOTES,
+      payload: creditNote
     };
   }
 
-  static FIND_CREDIT_NOTES_SUCCESS = '[CreditNote] Find CreditNotes Success';
 
+
+  static FIND_CREDIT_NOTES_SUCCESS = '[CreditNote] Find CreditNotes Success';
   findCreditNotesSuccess(creditNotes): Action {
     console.log("findCreditNotesSuccess");
-    console.log("CreditNote: " + creditNotes.length);
+    console.log("CreditNotes: " + creditNotes.length);
     return {
       type: CreditNoteActions.FIND_CREDIT_NOTES_SUCCESS,
       payload: creditNotes
     };
   }
+
+
+  static FIND_ARCHIVED_CREDIT_NOTES = '[CreditNote] Find Archived Credit_notes';
+
+  findArchivedCreditNotes(): Action {
+    return {
+      type: CreditNoteActions.FIND_ARCHIVED_CREDIT_NOTES
+    };
+  }
+
+  static FIND_ARCHIVED_CREDIT_NOTES_SUCCESS = '[CreditNote] Find Archived Credit_notes Success';
+
+  findArchivedCreditNotesSuccess(credit_notes): Action {
+    console.log("findArchivedCredit_notesSuccess");
+    return {
+      type: CreditNoteActions.FIND_ARCHIVED_CREDIT_NOTES_SUCCESS,
+      payload: credit_notes
+    };
+  }
+
+  static FIND_ASSIGNED_CREDIT_NOTES_TASKS = '[CreditNote] Find Assigned CreditNotes Tasks';
+
+  findAssignedCreditNoteTasks(): Action {
+    return {
+      type: CreditNoteActions.FIND_ASSIGNED_CREDIT_NOTES_TASKS
+    };
+  }
+
+  static FIND_ASSIGNED_CREDIT_NOTES_TASKS_SUCCESS = '[CreditNote] Find Assigned CreditNotes Tasks Success';
+
+  findAssignedCreditNoteTasksSuccess(tasks): Action {
+    console.log("findAssignedCreditNoteTasksSuccess");
+    return {
+      type: CreditNoteActions.FIND_ASSIGNED_CREDIT_NOTES_TASKS_SUCCESS,
+      payload: tasks
+    };
+  }
+
+  static FIND_POOLED_CREDIT_NOTES_TASKS = '[CreditNote] Find Pooled CreditNotes Tasks';
+
+  findPooledCreditNoteTasks(): Action {
+    return {
+      type: CreditNoteActions.FIND_POOLED_CREDIT_NOTES_TASKS
+    };
+  }
+
+  static FIND_POOLED_CREDIT_NOTES_TASKS_SUCCESS = '[CreditNote] Find Pooled CreditNotes Tasks Success';
+
+  findPooledCreditNoteeTasksSuccess(tasks): Action {
+    console.log("findAssignedCreditNoteTasksSuccess");
+    return {
+      type: CreditNoteActions.FIND_POOLED_CREDIT_NOTES_TASKS_SUCCESS,
+      payload: tasks
+    };
+  }
+
+
+
 
   static FIND_CREDIT_NOTE_BY_ID = '[CreditNote] Find CreditNote By Id';
 
@@ -41,7 +100,7 @@ export class CreditNoteActions {
     };
   }
 
-  static FIND_CREDIT_NOTES_BY_REFERENCE_NO = '[CreditNote] Find CreditNote By reference No';
+  static FIND_CREDIT_NOTES_BY_REFERENCE_NO = '[CreditNote] Find CreditNotes By reference No';
 
   findCreditNoteByReferenceNo(referenceNo): Action {
     console.log("findCreditNoteByReferenceNo");
@@ -51,7 +110,7 @@ export class CreditNoteActions {
     };
   }
 
-  static FIND_CREDIT_NOTES_BY_REFERENCE_NO_SUCCESS = '[CreditNote] Find CreditNote By reference No Success';
+  static FIND_CREDIT_NOTES_BY_REFERENCE_NO_SUCCESS = '[CreditNote] Find CreditNotes By reference No Success';
 
   findCreditNoteByReferenceNoSuccess(creditNote): Action {
     console.log("findCreditNoteByReferenceNoSuccess");
@@ -82,7 +141,6 @@ export class CreditNoteActions {
   }
 
   static START_CREDIT_NOTE_TASK = '[CreditNote] Start CreditNote Task';
-
   startCreditNoteTask(creditNote): Action {
     return {
       type: CreditNoteActions.START_CREDIT_NOTE_TASK,
@@ -91,7 +149,6 @@ export class CreditNoteActions {
   }
 
   static START_CREDIT_NOTE_TASK_SUCCESS = '[CreditNote] Start CreditNote Task Success';
-
   startCreditNoteTaskSuccess(creditNote): Action {
     return {
       type: CreditNoteActions.START_CREDIT_NOTE_TASK_SUCCESS,
@@ -99,27 +156,7 @@ export class CreditNoteActions {
     };
   }
 
-
-  static SAVE_CREDIT_NOTE = '[CreditNote] Save CreditNote';
-
-  saveCreditNote(creditNote): Action {
-    return {
-      type: CreditNoteActions.SAVE_CREDIT_NOTE,
-      payload: creditNote
-    };
-  }
-
-  static SAVE_CREDIT_NOTE_SUCCESS = '[CreditNote] Save CreditNote Success';
-
-  saveCreditNoteSuccess(creditNote): Action {
-    return {
-      type: CreditNoteActions.SAVE_CREDIT_NOTE_SUCCESS,
-      payload: creditNote
-    };
-  }
-
   static UPDATE_CREDIT_NOTE = '[CreditNote] Update CreditNote';
-
   updateCreditNote(creditNote): Action {
     return {
       type: CreditNoteActions.UPDATE_CREDIT_NOTE,
@@ -128,7 +165,6 @@ export class CreditNoteActions {
   }
 
   static UPDATE_CREDIT_NOTE_SUCCESS = '[CreditNote] Update CreditNote Success';
-
   updateCreditNoteSuccess(creditNote): Action {
     return {
       type: CreditNoteActions.UPDATE_CREDIT_NOTE_SUCCESS,
@@ -136,21 +172,19 @@ export class CreditNoteActions {
     };
   }
 
-  static REMOVE_CREDIT_NOTE = '[CreditNote] Remove CreditNote';
-
-  removeCreditNote(creditNote): Action {
-    return {
-      type: CreditNoteActions.REMOVE_CREDIT_NOTE,
-      payload: creditNote
-    };
-  }
-
-  static REMOVE_CREDIT_NOTE_SUCCESS = '[CreditNote] Remove CreditNote Success';
-
-  removeCreditNoteSuccess(creditNote): Action {
-    return {
-      type: CreditNoteActions.REMOVE_CREDIT_NOTE_SUCCESS,
-      payload: creditNote
-    };
-  }
+//  static REMOVE_CREDIT_NOTE = '[CreditNote] Remove CreditNote';
+//  removeCreditNote(creditNote): Action {
+//    return {
+//      type: CreditNoteActions.REMOVE_CREDIT_NOTE,
+//      payload: creditNote
+//    };
+//  }
+//
+//  static REMOVE_CREDIT_NOTE_SUCCESS = '[CreditNote] Remove CreditNote Success';
+//  removeCreditNoteSuccess(creditNote): Action {
+//    return {
+//      type: CreditNoteActions.REMOVE_CREDIT_NOTE_SUCCESS,
+//      payload: creditNote
+//    };
+//  }
 }
