@@ -14,20 +14,20 @@
     <!--
     ====================================================================================================
     == VARIABLE:
-    == debit noteId: debit note id
+    == debitNoteId: debitNote id
     ====================================================================================================
     -->
 
-    <process id="debit_note_workflow" name="Billing Debit Note Workflow">
+    <process id="debit_note_workflow" name="Billing DebitNote Workflow">
 
         <startEvent id="start"/>
 
-        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="debitNote_draft_ST"/>
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="debitNote_draft_ST"/>
 
         <!--
         ====================================================================================================
         == STATE : DRAFTED
-        == SERVICE TASK : draft a debit note
+        == SERVICE TASK : draft a debitNote
         == USER TASK :
         ====================================================================================================
         -->
@@ -35,11 +35,26 @@
         <serviceTask id="debitNote_draft_ST"
                      activiti:expression="#{debitNote_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow2.3" sourceRef="debitNote_draft_ST" targetRef="debitNote_register_ST"/>
+        <sequenceFlow id="flow1.1" sourceRef="debitNote_draft_ST" targetRef="debitNote_draft_UT"/>
+
+        <userTask id="debitNote_draft_UT" name="my.edu.umk.pams.account.billing.model.AcDebitNote:DRAFTED"
+                  activiti:assignee="${userCreator}">
+            <documentation>
+                Draft DebitNote
+            </documentation>
+        </userTask>
+
+        <sequenceFlow id="flow1.2" sourceRef="debitNote_draft_UT" targetRef="debitNote_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow1.3" sourceRef="debitNote_draft_UT" targetRef="debitNote_register_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
         <!--
         ====================================================================================================
         == STATE : REGISTERED
-        == SERVICE TASK : register a debit note
+        == SERVICE TASK : register a debitNote
         == USER TASK :
         ====================================================================================================
         -->
@@ -48,24 +63,57 @@
                      activiti:expression="#{debitNote_register_ST.execute(execution)}"/>
 
 
-        <sequenceFlow id="flow3.3" sourceRef="debitNote_register_ST" targetRef="debitNote_verify_ST"/>
+        <sequenceFlow id="flow3.1" sourceRef="debitNote_register_ST" targetRef="debitNote_register_UT"/>
+
+        <userTask id="debitNote_register_UT" name="my.edu.umk.pams.account.billing.model.AcDebitNote:REGISTERED"
+                  activiti:candidateGroups="${debitNoteRouter.findRegistererCandidates(debitNoteId)}">
+            <documentation>
+                Register DebitNote
+            </documentation>
+
+        </userTask>
+
+        <!-- accept -->
+        <sequenceFlow id="flow3.2" sourceRef="debitNote_register_UT" targetRef="debitNote_verify_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!-- delete -->
+        <sequenceFlow id="flow3.4" sourceRef="debitNote_register_UT" targetRef="debitNote_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
         <!--
         ====================================================================================================
         == STATE : VERIFIED
-        == SERVICE TASK : verify a debit note
+        == SERVICE TASK : verify a debitNote
         == USER TASK :
         ====================================================================================================
         -->
         <serviceTask id="debitNote_verify_ST"
                      activiti:expression="#{debitNote_verify_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow4.2" sourceRef="debitNote_verify_ST" targetRef="debitNote_approve_ST"/>
+        <sequenceFlow id="flow4.1" sourceRef="debitNote_verify_ST" targetRef="debitNote_verify_UT"/>
 
+        <userTask id="debitNote_verify_UT" name="my.edu.umk.pams.account.billing.model.AcDebitNote:VERIFIED"
+                  activiti:candidateGroups="${debitNoteRouter.findVerifierCandidates(debitNoteId)}">
+            <documentation>
+                Verify DebitNote
+            </documentation>
+
+        </userTask>
+
+        <sequenceFlow id="flow4.2" sourceRef="debitNote_verify_UT" targetRef="debitNote_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow4.3" sourceRef="debitNote_verify_UT" targetRef="debitNote_approve_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
 
         <!--
         ====================================================================================================
         == STATE : REMOVED
-        == SERVICE TASK : removed a debit note
+        == SERVICE TASK : removed a debitNote
         == USER TASK :
         ====================================================================================================
         -->
@@ -77,7 +125,7 @@
         <!--
         ====================================================================================================
         == STATE : APPROVED
-        == SERVICE TASK : approve a debit note
+        == SERVICE TASK : approve a debitNote
         == USER TASK :
         ====================================================================================================
         -->
@@ -89,7 +137,7 @@
         <!--
         ====================================================================================================
         == STATE : COMPLETED
-        == SERVICE TASK : complete a debit note
+        == SERVICE TASK : complete a debitNote
         == USER TASK :
         ====================================================================================================
         -->
