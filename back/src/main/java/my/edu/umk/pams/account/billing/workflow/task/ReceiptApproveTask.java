@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
+import my.edu.umk.pams.account.billing.event.ReceiptApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -10,6 +11,7 @@ import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -27,7 +29,9 @@ public class ReceiptApproveTask extends BpmnActivityBehavior implements Activity
 
     @Autowired
     private SecurityService securityService;
-
+    
+    @Autowired
+    private ApplicationContext applicationContext;
 
     public void execute(ActivityExecution execution) throws Exception {
         // retrieve receipt from variable
@@ -45,9 +49,7 @@ public class ReceiptApproveTask extends BpmnActivityBehavior implements Activity
         receipt.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
         receipt.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateReceipt(receipt);
-        
         billingService.post(receipt);
-
-        // todo(uda): upper approve
+        applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
     }
 }
