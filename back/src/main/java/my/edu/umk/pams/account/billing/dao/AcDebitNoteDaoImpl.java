@@ -1,15 +1,20 @@
 package my.edu.umk.pams.account.billing.dao;
 
-import my.edu.umk.pams.account.billing.model.AcCreditNote;
-import my.edu.umk.pams.account.billing.model.AcDebitNote;
-import my.edu.umk.pams.account.billing.model.AcDebitNoteImpl;
-import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
+import my.edu.umk.pams.account.core.AcMetaState;
+import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
+import my.edu.umk.pams.account.identity.model.AcUser;
+import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
@@ -36,6 +41,12 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
     }
 
     @Override
+    public AcDebitNoteItem findItemById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcDebitNoteItem) session.get(AcDebitNoteItemImpl.class, id);
+    }
+
+    @Override
     public List<AcDebitNote> find(AcInvoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select i from AcDebitNote i where " +
@@ -48,12 +59,59 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
     }
 
     @Override
+    public List<AcDebitNote> findByFlowState(AcFlowState flowState) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcDebitNote i where " +
+                "i.flowdata.state = :flowState " +
+                "and i.metadata.state = :metaState ");
+        query.setInteger("flowState", flowState.ordinal());
+        query.setInteger("metaState", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcDebitNote>) query.list();
+    }
+
+    @Override
+    public List<AcDebitNoteItem> findItems(AcDebitNote debitNote) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ii from AcDebitNoteItem ii where " +
+                "ii.debitNote = :debitNote " +
+                "and ii.metadata.state = :state ");
+        query.setEntity("debitNote", debitNote);
+        query.setInteger("state", ACTIVE.ordinal());
+        return (List<AcDebitNoteItem>) query.list();
+    }
+
+    @Override
+    public List<AcDebitNoteItem> findItems(AcDebitNote debitNote, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ii from AcDebitNoteItem ii where " +
+                "ii.debitNote = :debitNote " +
+                "and ii.metadata.state = :state ");
+        query.setEntity("debitNote", debitNote);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<AcDebitNoteItem>) query.list();
+    }
+
+    @Override
     public Integer count(AcInvoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count(i) from AcDebitNote i where " +
                 "i.invoice=:invoice " +
                 "and i.metadata.state = :state ");
         query.setEntity("invoice", invoice);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
+    }
+
+    @Override
+    public Integer countItem(AcDebitNote debitNote) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(ii) from AcDebitNoteItem ii where " +
+                "ii.debitNote=:debitNote " +
+                "and ii.metadata.state = :state ");
+        query.setEntity("debitNote", debitNote);
         query.setInteger("state", ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
@@ -71,27 +129,60 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
     }
 
     @Override
-    public List<AcDebitNote> find(AcInvoice invoice, String filter, Integer offset, Integer limit) {
+    public void addItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user) {
+        Validate.notNull(debitNote, "DebitNote should not be null");
+        Validate.notNull(item, "Item member should not be null");
+
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select i from AcDebitNote i where " +
-                // todo(uda): filter
-                "i.invoice = :invoice " +
-                "i.metadata.state = :state ");
-        query.setEntity("invoice", invoice);
-        query.setInteger("state", ACTIVE.ordinal());
-        query.setCacheable(true);
-        return (List<AcDebitNote>) query.list();
+        item.setDebitNote(debitNote);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(ACTIVE);
+        item.setMetadata(metadata);
+
+        session.save(item);
     }
 
     @Override
-    public List<AcDebitNote> findByFlowState(AcFlowState flowState) {
+    public void updateItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user) {
+        Validate.notNull(debitNote, "DebitNote should not be null");
+        Validate.notNull(item, "Item member should not be null");
+
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select i from AcDebitNote i where " +
-                "i.flowdata.state = :flowState " +
-                "and i.metadata.state = :metaState ");
-        query.setInteger("flowState", flowState.ordinal());
-        query.setInteger("metaState", ACTIVE.ordinal());
-        query.setCacheable(true);
-        return (List<AcDebitNote>) query.list();
+        item.setDebitNote(debitNote);
+
+        AcMetadata metadata = debitNote.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(ACTIVE);
+        item.setMetadata(metadata);
+
+        session.update(item);
+    }
+
+    @Override
+    public void removeItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user) {
+        Validate.notNull(debitNote, "DebitNote should not be null");
+        Validate.notNull(item, "Item member should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcMetadata metadata = debitNote.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.INACTIVE);
+        item.setMetadata(metadata);
+
+        session.update(item);
+    }
+
+    @Override
+    public void deleteItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user) {
+        Validate.notNull(debitNote, "DebitNote should not be null");
+        Validate.notNull(item, "DebitNote Item should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(item);
     }
 }

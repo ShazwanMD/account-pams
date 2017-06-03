@@ -1,9 +1,9 @@
 package my.edu.umk.pams.account.billing.dao;
 
-import my.edu.umk.pams.account.billing.model.AcDebitNote;
-import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
+import my.edu.umk.pams.account.identity.model.AcUser;
 
 import java.util.List;
 
@@ -17,11 +17,15 @@ public interface AcDebitNoteDao extends GenericDao<Long, AcDebitNote> {
     // ====================================================================================================
     AcDebitNote findByReferenceNo(String referenceNo);
 
+    AcDebitNoteItem findItemById(Long id);
+
     List<AcDebitNote> find(AcInvoice invoice);
 
-    List<AcDebitNote> find(AcInvoice invoice, String filter, Integer offset, Integer limit);
-
     List<AcDebitNote> findByFlowState(AcFlowState flowState);
+
+    List<AcDebitNoteItem> findItems(AcDebitNote debitNote);
+
+    List<AcDebitNoteItem> findItems(AcDebitNote debitNote, Integer offset, Integer limit);
 
     // ====================================================================================================
     // HELPER
@@ -29,9 +33,21 @@ public interface AcDebitNoteDao extends GenericDao<Long, AcDebitNote> {
 
     Integer count(AcInvoice invoice);
 
+    Integer countItem(AcDebitNote debitNote);
+
     boolean hasDebitNote(AcInvoice invoice);
 
     // ====================================================================================================
     // CRUDS
     // ====================================================================================================
+
+    void addItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user);
+
+    void updateItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user);
+
+    void removeItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user);
+
+    void deleteItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user);
+
+
 }
