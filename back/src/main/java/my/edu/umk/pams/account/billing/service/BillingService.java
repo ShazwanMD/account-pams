@@ -240,4 +240,6 @@ public interface BillingService {
     Integer countReceipt(AcReceiptType type, String filter);
 
     Integer countReceiptItem(AcReceipt receipt);
+
+    void post(AcReceipt receipt);
 }
