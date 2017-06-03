@@ -12,7 +12,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author PAMS
@@ -29,7 +28,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
     public void onApplicationEvent(ReceiptEvent event) {
         if (event instanceof ReceiptApprovedEvent) {
             AcReceipt receipt = event.getReceipt();
-            Set<AcInvoice> invoices = receipt.getInvoices();
+            List<AcInvoice> invoices = receipt.getInvoices();
             for (AcInvoice invoice : invoices) {
                 List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
                 for (AcInvoiceItem invoiceItem : invoiceItems) {
