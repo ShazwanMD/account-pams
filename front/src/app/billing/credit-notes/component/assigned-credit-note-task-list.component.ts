@@ -1,5 +1,4 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {CreditNote} from "../credit-note.interface";
 import { MdSnackBar } from "@angular/material";
 import { CreditNoteTask } from "../credit-note-task.interface";
 

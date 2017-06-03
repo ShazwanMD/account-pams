@@ -503,6 +503,24 @@ public class BillingServiceImpl implements BillingService {
         sessionFactory.getCurrentSession().flush();
     }
 
+    @Override
+    public void addDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
+        debitNoteDao.addItem(debitNote, debitNoteItem, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
+        debitNoteDao.updateItem(debitNote, debitNoteItem, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void deleteDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
+        debitNoteDao.deleteItem(debitNote, debitNoteItem, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
 
     // finder
 
@@ -610,6 +628,24 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public void updateCreditNote(AcCreditNote creditNote) {
         creditNoteDao.update(creditNote, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void addCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
+        creditNoteDao.addItem(creditNote, creditNoteItem, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
+        creditNoteDao.updateItem(creditNote, creditNoteItem, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void deleteCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
+        creditNoteDao.deleteItem(creditNote, creditNoteItem, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 

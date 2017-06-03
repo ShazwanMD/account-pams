@@ -134,6 +134,13 @@ public interface BillingService {
 
     void updateDebitNote(AcDebitNote debitNote);
 
+    void addDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem);
+
+    void updateDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem);
+
+    void deleteDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem);
+
+
     // ==================================================================================================== //
     // DEBIT NOTE
     // ==================================================================================================== //
@@ -177,6 +184,12 @@ public interface BillingService {
     void saveCreditNote(AcCreditNote creditNote);
 
     void updateCreditNote(AcCreditNote creditNote);
+
+    void addCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem);
+
+    void updateCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem);
+
+    void deleteCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem);
 
     // ==================================================================================================== //
     // CREDIT NOTE

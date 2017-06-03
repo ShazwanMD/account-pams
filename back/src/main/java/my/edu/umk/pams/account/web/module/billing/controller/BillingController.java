@@ -377,6 +377,51 @@ public class BillingController {
         return new ResponseEntity<DebitNote>(billingTransformer.toDebitNoteVo(debitNotes), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/debitNotes/{referenceNo}/debitNoteItems", method = RequestMethod.GET)
+    public ResponseEntity<List<DebitNoteItem>> findDebitNoteItems(@PathVariable String referenceNo) {
+        dummyLogin();
+        AcDebitNote debitNote = billingService.findDebitNoteByReferenceNo(referenceNo);
+        return new ResponseEntity<List<DebitNoteItem>>(billingTransformer
+                .toDebitNoteItemVos(billingService.findDebitNoteItems(debitNote)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/debitNotes/{referenceNo}/debitNoteItems", method = RequestMethod.POST)
+    public ResponseEntity<String> addDebitNoteItem(@PathVariable String referenceNo, @RequestBody DebitNoteItem item) {
+        dummyLogin();
+
+        LOG.debug("referenceNo: {}", referenceNo);
+        LOG.debug("chargeCode: {}", item.getChargeCode().getCode());
+
+        AcDebitNote debitNote = billingService.findDebitNoteByReferenceNo(referenceNo);
+        AcDebitNoteItem e = new AcDebitNoteItemImpl();
+        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setAmount(item.getAmount());
+        e.setDescription(item.getDescription());
+        billingService.addDebitNoteItem(debitNote, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/debitNotes/{referenceNo}/debitNoteItems/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateDebitNoteItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody DebitNoteItem item) {
+        dummyLogin();
+        AcDebitNote debitNote = billingService.findDebitNoteByReferenceNo(referenceNo);
+        AcDebitNoteItem e = billingService.findDebitNoteItemById(item.getId());
+        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setAmount(item.getAmount());
+        e.setDescription(item.getDescription());
+        billingService.updateDebitNoteItem(debitNote, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/debitNotes/{referenceNo}/debitNoteItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteDebitNoteItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        dummyLogin();
+        AcDebitNote debitNote = billingService.findDebitNoteByReferenceNo(referenceNo);
+        AcDebitNoteItem e = billingService.findDebitNoteItemById(id);
+        billingService.deleteDebitNoteItem(debitNote, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/debitNotes/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNoteTask>> findAssignedDebitNotes() {
         dummyLogin();
@@ -429,11 +474,13 @@ public class BillingController {
     //  CREDIT NOTE
     // ==================================================================================================== //
 
-    @RequestMapping(value = "/creditNotes/", method = RequestMethod.GET)
-    public ResponseEntity<List<CreditNote>> findCreditNotes(AcInvoice invoice) {
+    @RequestMapping(value = "/invoice/{referenceNo}/creditNotes/", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNote>> findCreditNotes(@PathVariable String referenceNo) {
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
         return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/creditNotes/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNote>> findCreditNotesByFlowState(@PathVariable String state) {
@@ -448,12 +495,69 @@ public class BillingController {
         return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<CreditNote> findCreditNoteByReferenceNo(@PathVariable String referenceNo) {
+        AcCreditNote creditNotes = (AcCreditNote) billingService.findCreditNoteByReferenceNo(referenceNo);
+        return new ResponseEntity<CreditNote>(billingTransformer.toCreditNoteVo(creditNotes), HttpStatus.OK);
+    }
 
-    @RequestMapping(value = "invoices/{referenceNo}/creditNotes", method = RequestMethod.GET)
-    public ResponseEntity<List<CreditNote>> findCreditNotesByInvoice(@PathVariable String referenceNo) {
-        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-        List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
-        return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
+    @RequestMapping(value = "/creditNotes/{referenceNo}/creditNoteItems", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNoteItem>> findCreditNoteItems(@PathVariable String referenceNo) {
+        dummyLogin();
+        AcCreditNote creditNote = billingService.findCreditNoteByReferenceNo(referenceNo);
+        return new ResponseEntity<List<CreditNoteItem>>(billingTransformer
+                .toCreditNoteItemVos(billingService.findCreditNoteItems(creditNote)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/creditNotes/{referenceNo}/creditNoteItems", method = RequestMethod.POST)
+    public ResponseEntity<String> addCreditNoteItem(@PathVariable String referenceNo, @RequestBody CreditNoteItem item) {
+        dummyLogin();
+
+        LOG.debug("referenceNo: {}", referenceNo);
+        LOG.debug("chargeCode: {}", item.getChargeCode().getCode());
+
+        AcCreditNote creditNote = billingService.findCreditNoteByReferenceNo(referenceNo);
+        AcCreditNoteItem e = new AcCreditNoteItemImpl();
+        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setAmount(item.getAmount());
+        e.setDescription(item.getDescription());
+        billingService.addCreditNoteItem(creditNote, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/creditNotes/{referenceNo}/creditNoteItems/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateCreditNoteItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody CreditNoteItem item) {
+        dummyLogin();
+        AcCreditNote creditNote = billingService.findCreditNoteByReferenceNo(referenceNo);
+        AcCreditNoteItem e = billingService.findCreditNoteItemById(item.getId());
+        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setAmount(item.getAmount());
+        e.setDescription(item.getDescription());
+        billingService.updateCreditNoteItem(creditNote, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/creditNotes/{referenceNo}/creditNoteItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteCreditNoteItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        dummyLogin();
+        AcCreditNote creditNote = billingService.findCreditNoteByReferenceNo(referenceNo);
+        AcCreditNoteItem e = billingService.findCreditNoteItemById(id);
+        billingService.deleteCreditNoteItem(creditNote, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/creditNotes/assignedTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNoteTask>> findAssignedCreditNotes() {
+        dummyLogin();
+        List<Task> tasks = billingService.findAssignedCreditNoteTasks(0, 100);
+        return new ResponseEntity<List<CreditNoteTask>>(billingTransformer.toCreditNoteTaskVos(tasks), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/creditNotes/pooledTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNoteTask>> findPooledCreditNotes() {
+        dummyLogin();
+        List<Task> tasks = billingService.findPooledCreditNoteTasks(0, 100);
+        return new ResponseEntity<List<CreditNoteTask>>(billingTransformer.toCreditNoteTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/creditNotes/startTask", method = RequestMethod.POST)
@@ -461,7 +565,6 @@ public class BillingController {
         dummyLogin();
 
         AcCreditNote creditNote = new AcCreditNoteImpl();
-        creditNote.setReferenceNo(vo.getReferenceNo());
         creditNote.setSourceNo(vo.getSourceNo());
         creditNote.setAuditNo(vo.getAuditNo());
         creditNote.setDescription(vo.getDescription());
@@ -475,6 +578,7 @@ public class BillingController {
         return new ResponseEntity<CreditNoteTask>(billingTransformer.toCreditNoteTaskVo(
                 billingService.findCreditNoteTaskByTaskId(taskId)), HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateCreditNote(@PathVariable String referenceNo, @RequestBody CreditNote vo) {
