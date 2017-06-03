@@ -139,6 +139,8 @@ public interface BillingService {
 
     AcDebitNote findDebitNoteById(Long id);
 
+    AcDebitNoteItem findDebitNoteItemById(Long id);
+
     AcDebitNote findDebitNoteByReferenceNo(String referenceNo);
 
     List<AcDebitNote> findDebitNotes(AcInvoice invoice);
@@ -146,6 +148,8 @@ public interface BillingService {
     List<AcDebitNote> findDebitNotes(AcInvoice invoice, String filter, Integer offset, Integer limit);
 
     List<AcDebitNote> findDebitNotesByFlowState(AcFlowState flowState);
+
+    List<AcDebitNoteItem> findDebitNoteItems(AcDebitNote debitNote);
 
     Integer countDebitNote(AcInvoice invoice);
 
@@ -179,11 +183,15 @@ public interface BillingService {
 
     AcCreditNote findCreditNoteById(Long id);
 
+    AcCreditNoteItem findCreditNoteItemById(Long id);
+
     AcCreditNote findCreditNoteByReferenceNo(String referenceNo);
 
     List<AcCreditNote> findCreditNotes(AcInvoice invoice);
 
     List<AcCreditNote> findCreditNotesByFlowState(AcFlowState flowState);
+
+    List<AcCreditNoteItem> findCreditNoteItems(AcCreditNote creditNote);
 
     Integer countCreditNote(AcInvoice invoice);
 

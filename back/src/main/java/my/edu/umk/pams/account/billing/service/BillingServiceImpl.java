@@ -512,6 +512,11 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    public AcDebitNoteItem findDebitNoteItemById(Long id) {
+        return debitNoteDao.findItemById(id);
+    }
+
+    @Override
     public AcDebitNote findDebitNoteByReferenceNo(String referenceNo) {
         return debitNoteDao.findByReferenceNo(referenceNo);
     }
@@ -523,12 +528,17 @@ public class BillingServiceImpl implements BillingService {
 
     @Override
     public List<AcDebitNote> findDebitNotes(AcInvoice invoice, String filter, Integer offset, Integer limit) {
-        return debitNoteDao.find(invoice, filter, offset, limit);
+        return debitNoteDao.find(invoice);
     }
 
     @Override
     public List<AcDebitNote> findDebitNotesByFlowState(AcFlowState flowState) {
         return debitNoteDao.findByFlowState(flowState);
+    }
+
+    @Override
+    public List<AcDebitNoteItem> findDebitNoteItems(AcDebitNote debitNote) {
+        return debitNoteDao.findItems(debitNote);
     }
 
 
@@ -612,6 +622,11 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    public AcCreditNoteItem findCreditNoteItemById(Long id) {
+        return creditNoteDao.findItemById(id);
+    }
+
+    @Override
     public AcCreditNote findCreditNoteByReferenceNo(String referenceNo) {
         return creditNoteDao.findByReferenceNo(referenceNo);
     }
@@ -624,6 +639,11 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public List<AcCreditNote> findCreditNotesByFlowState(AcFlowState flowState) {
         return creditNoteDao.findByFlowState(flowState);
+    }
+
+    @Override
+    public List<AcCreditNoteItem> findCreditNoteItems(AcCreditNote creditNote) {
+        return creditNoteDao.findItems(creditNote);
     }
 
     @Override
