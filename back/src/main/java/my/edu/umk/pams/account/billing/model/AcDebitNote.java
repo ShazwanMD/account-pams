@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.core.model.AcDocument;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author PAMS
@@ -17,6 +18,10 @@ public interface AcDebitNote extends AcDocument{
     Date getIssuedDate();
 
     void setIssuedDate(Date issuedDate);
+
+    List<AcDebitNoteItem> getItems();
+
+    void setItems(List<AcDebitNoteItem> items);
 
     AcInvoice getInvoice();
 

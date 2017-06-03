@@ -41,6 +41,12 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
     }
 
     @Override
+    public AcCreditNoteItem findItemById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcCreditNoteItem) session.get(AcCreditNoteItemImpl.class, id);
+    }
+
+    @Override
     public List<AcCreditNote> find(AcInvoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select i from AcCreditNote i where " +
@@ -65,12 +71,47 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
     }
 
     @Override
+    public List<AcCreditNoteItem> findItems(AcCreditNote creditNote) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ii from AcCreditNoteItem ii where " +
+                "ii.creditNote = :creditNote " +
+                "and ii.metadata.state = :state ");
+        query.setEntity("creditNote", creditNote);
+        query.setInteger("state", ACTIVE.ordinal());
+        return (List<AcCreditNoteItem>) query.list();
+    }
+
+    @Override
+    public List<AcCreditNoteItem> findItems(AcCreditNote creditNote, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ii from AcCreditNoteItem ii where " +
+                "ii.creditNote = :creditNote " +
+                "and ii.metadata.state = :state ");
+        query.setEntity("creditNote", creditNote);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<AcCreditNoteItem>) query.list();
+    }
+
+    @Override
     public Integer count(AcInvoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count(i) from AcCreditNote i where " +
                 "i.invoice=:invoice " +
                 "and i.metadata.state = :state ");
         query.setEntity("invoice", invoice);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
+    }
+
+    @Override
+    public Integer countItem(AcCreditNote creditNote) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(ii) from AcCreditNoteItem ii where " +
+                "ii.creditNote=:creditNote " +
+                "and ii.metadata.state = :state ");
+        query.setEntity("creditNote", creditNote);
         query.setInteger("state", ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
@@ -85,5 +126,63 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
         query.setInteger("state", ACTIVE.ordinal());
         Long count = (Long) query.uniqueResult();
         return count.intValue() > 0; // > 0 = true, <=0  false
+    }
+
+    @Override
+    public void addItem(AcCreditNote creditNote, AcCreditNoteItem item, AcUser user) {
+        Validate.notNull(creditNote, "CreditNote should not be null");
+        Validate.notNull(item, "Item member should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        item.setCreditNote(creditNote);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(ACTIVE);
+        item.setMetadata(metadata);
+
+        session.save(item);
+    }
+
+    @Override
+    public void updateItem(AcCreditNote creditNote, AcCreditNoteItem item, AcUser user) {
+        Validate.notNull(creditNote, "CreditNote should not be null");
+        Validate.notNull(item, "Item member should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        item.setCreditNote(creditNote);
+
+        AcMetadata metadata = creditNote.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(ACTIVE);
+        item.setMetadata(metadata);
+
+        session.update(item);
+    }
+
+    @Override
+    public void removeItem(AcCreditNote creditNote, AcCreditNoteItem item, AcUser user) {
+        Validate.notNull(creditNote, "CreditNote should not be null");
+        Validate.notNull(item, "Item member should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcMetadata metadata = creditNote.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.INACTIVE);
+        item.setMetadata(metadata);
+
+        session.update(item);
+    }
+
+    @Override
+    public void deleteItem(AcCreditNote creditNote, AcCreditNoteItem item, AcUser user) {
+        Validate.notNull(creditNote, "CreditNote should not be null");
+        Validate.notNull(item, "CreditNote Item should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(item);
     }
 }

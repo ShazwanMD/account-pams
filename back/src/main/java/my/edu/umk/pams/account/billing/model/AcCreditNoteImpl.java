@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author PAMS
@@ -47,6 +48,9 @@ public class AcCreditNoteImpl implements AcCreditNote {
 
     @Column(name = "REMOVE_COMMENT")
     private String removeComment;
+
+    @OneToMany(targetEntity = AcCreditNoteItemImpl.class, mappedBy = "creditNote")
+    private List<AcCreditNoteItem> items;
 
     @ManyToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
@@ -145,6 +149,16 @@ public class AcCreditNoteImpl implements AcCreditNote {
     @Override
     public void setRemoveComment(String removeComment) {
         this.removeComment = removeComment;
+    }
+
+    @Override
+    public List<AcCreditNoteItem> getItems() {
+        return items;
+    }
+
+    @Override
+    public void setItems(List<AcCreditNoteItem> items) {
+        this.items = items;
     }
 
     @Override
