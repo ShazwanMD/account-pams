@@ -2,7 +2,6 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../app.routes';
-import {environment} from '../../../environments/environment';
 import {EffectsModule} from "@ngrx/effects";
 
 import {CovalentCoreModule} from '@covalent/core';
@@ -14,11 +13,11 @@ import {IdentityModule} from "../../identity/index";
 import {DebitNoteCenterPage} from "./debit-note-center.page";
 import {DebitNoteCreatorDialog} from "./dialog/debit-note-creator.dialog";
 import {DebitNoteActions} from "./debit-note.action";
-import {InvoiceSubModule} from "../invoices/index"
 import {AssignedDebitNoteTaskListComponent} from "./component/assigned-debit-note-task-list.component";
 import {PooledDebitNoteTaskListComponent} from "./component/pooled-debit-note-task-list.component";
 import {DebitNoteEffects} from "./debit-note.effect";
 import {ArchivedDebitNoteListComponent} from "./component/archived-debit-note-list.component";
+import {DebitNoteTaskDetailPage} from "./debit-note-task-detail.page";
 
 
 @NgModule({
@@ -33,6 +32,7 @@ import {ArchivedDebitNoteListComponent} from "./component/archived-debit-note-li
   declarations: [
     //page
     DebitNoteCenterPage,
+    DebitNoteTaskDetailPage,
 
     //component
     DebitNoteCreatorDialog,

@@ -49,6 +49,7 @@ export class CreditNoteCreatorDialog implements OnInit {
   save(creditNote: CreditNote, isValid: boolean): void {
     console.log("start credit note");
     creditNote.sourceNo = this._invoice.referenceNo;
+
     console.log("sourceNo: " + creditNote.sourceNo);
     console.log("invoice: " + this._invoice.referenceNo);
 

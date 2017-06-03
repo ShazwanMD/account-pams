@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.billing.dao;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcReceiptType;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
@@ -27,6 +28,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     List<AcReceipt> find(AcReceiptType type, Integer offset, Integer limit);
 
     List<AcReceipt> find(AcReceiptType type, String filter, Integer offset, Integer limit);
+
+    List<AcReceipt> findByFlowState(AcFlowState flowState);
 
     List<AcReceiptItem> findItems(AcReceipt receipt);
 
@@ -53,4 +56,5 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     void removeItem(AcReceipt receipt, AcReceiptItem item, AcUser user);
 
     void deleteItem(AcReceipt receipt, AcReceiptItem item, AcUser user);
+
 }

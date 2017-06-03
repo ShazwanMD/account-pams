@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.billing.dao;
 
 import my.edu.umk.pams.account.billing.model.*;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -105,6 +106,19 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
+        query.setCacheable(true);
+        return (List<AcReceipt>) query.list();
+    }
+
+    @Override
+    public List<AcReceipt> findByFlowState(AcFlowState flowState) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select r from AcReceipt r where " +
+                "and r.flowdata.state = :flowState " +
+                "and r.metadata.state = :metaState " +
+                "order by r.id desc");
+        query.setInteger("flowState", flowState.ordinal());
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
         return (List<AcReceipt>) query.list();
     }

@@ -41,7 +41,7 @@ public interface BillingService {
     void addInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem);
 
     void updateInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem);
-    
+
     void deleteInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem);
 
     void attach(AcInvoice invoice, AcAccountCharge charge) throws Exception;
@@ -69,7 +69,7 @@ public interface BillingService {
     List<AcInvoice> findInvoices(String filter, Integer offset, Integer limit);
 
     List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit);
-    
+
     List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState);
 
     List<AcInvoice> findUnpaidInvoices(AcAccount account, Integer offset, Integer limit);
@@ -105,7 +105,7 @@ public interface BillingService {
     BigDecimal sumUnpaidInvoice(AcAccountCharge charge);
 
     boolean hasBalance(AcAcademicSession academicSession, AcActor actor);
-    
+
     AcInvoice executeInvoice();
 
     void executeScheduler();
@@ -142,8 +142,10 @@ public interface BillingService {
     AcDebitNote findDebitNoteByReferenceNo(String referenceNo);
 
     List<AcDebitNote> findDebitNotes(AcInvoice invoice);
-    
+
     List<AcDebitNote> findDebitNotes(AcInvoice invoice, String filter, Integer offset, Integer limit);
+
+    List<AcDebitNote> findDebitNotesByFlowState(AcFlowState flowState);
 
     Integer countDebitNote(AcInvoice invoice);
 
@@ -181,6 +183,8 @@ public interface BillingService {
 
     List<AcCreditNote> findCreditNotes(AcInvoice invoice);
 
+    List<AcCreditNote> findCreditNotesByFlowState(AcFlowState flowState);
+
     Integer countCreditNote(AcInvoice invoice);
 
     boolean hasCreditNote(AcInvoice invoice);
@@ -196,12 +200,6 @@ public interface BillingService {
     List<Task> findAssignedReceiptTasks(Integer offset, Integer limit);
 
     List<Task> findPooledReceiptTasks(Integer offset, Integer limit);
-
-    @Deprecated // double check
-    void initReceipt(AcReceipt receipt);
-
-    @Deprecated // double check
-    void executeReceipt(AcReceipt receipt);
 
     String startReceiptTask(AcReceipt receipt);
 
@@ -233,6 +231,8 @@ public interface BillingService {
 
     List<AcReceipt> findReceipts(AcReceiptType type, String filter, Integer offset, Integer limit);
 
+    List<AcReceipt> findReceiptsByFlowState(AcFlowState flowState);
+
     List<AcReceiptItem> findReceiptItems(AcReceipt receipt);
 
     Integer countReceipt(AcReceiptType type);
@@ -240,5 +240,4 @@ public interface BillingService {
     Integer countReceipt(AcReceiptType type, String filter);
 
     Integer countReceiptItem(AcReceipt receipt);
-
 }

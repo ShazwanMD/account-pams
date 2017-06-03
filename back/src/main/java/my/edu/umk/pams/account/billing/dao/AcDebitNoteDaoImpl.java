@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.billing.model.AcCreditNote;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcDebitNoteImpl;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -68,7 +69,7 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
         Long count = (Long) query.uniqueResult();
         return count.intValue() > 0; // > 0 = true, <=0  false
     }
-    
+
     @Override
     public List<AcDebitNote> find(AcInvoice invoice, String filter, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
@@ -81,7 +82,16 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
         query.setCacheable(true);
         return (List<AcDebitNote>) query.list();
     }
-    
 
-
+    @Override
+    public List<AcDebitNote> findByFlowState(AcFlowState flowState) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcDebitNote i where " +
+                "i.flowdata.state = :flowState " +
+                "and i.metadata.state = :metaState ");
+        query.setInteger("flowState", flowState.ordinal());
+        query.setInteger("metaState", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcDebitNote>) query.list();
+    }
 }

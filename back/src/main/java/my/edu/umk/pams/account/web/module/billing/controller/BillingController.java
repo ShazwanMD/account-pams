@@ -76,6 +76,19 @@ public class BillingController {
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/invoices/state/{state}", method = RequestMethod.GET)
+    public ResponseEntity<List<Invoice>> findInvoicesByFlowState(@PathVariable String state) {
+        List<AcInvoice> invoices = billingService.findInvoicesByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
+    }
+
+    // todo: archive will be using ACL
+    @RequestMapping(value = "/invoices/archived", method = RequestMethod.GET)
+    public ResponseEntity<List<Invoice>> findArchivedInvoices(@PathVariable String state) {
+        List<AcInvoice> invoices = billingService.findInvoicesByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/invoices/{referenceNo}", method = RequestMethod.GET)
     public ResponseEntity<Invoice> findInvoiceByReferenceNo(@PathVariable String referenceNo) {
         AcInvoice invoice = (AcInvoice) billingService.findInvoiceByReferenceNo(referenceNo);
@@ -194,12 +207,6 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/invoices/state/{state}", method = RequestMethod.GET)
-    public ResponseEntity<List<Invoice>> findInvoicesByFlowState(@PathVariable String state) {
-        List<AcInvoice> invoices = billingService.findInvoicesByFlowState(AcFlowState.valueOf(state));
-        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
-    }
-
     // ==================================================================================================== //
     //  RECEIPT
     // ==================================================================================================== //
@@ -207,6 +214,19 @@ public class BillingController {
     @RequestMapping(value = "/receipts/", method = RequestMethod.GET)
     public ResponseEntity<List<Receipt>> findReceipts() {
         List<AcReceipt> receipts = billingService.findReceipts("%", 0, 100);
+        return new ResponseEntity<List<Receipt>>(billingTransformer.toReceiptVos(receipts), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/receipts/state/{state}", method = RequestMethod.GET)
+    public ResponseEntity<List<Receipt>> findReceiptsByFlowState(@PathVariable String state) {
+        List<AcReceipt> receipts = billingService.findReceiptsByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<Receipt>>(billingTransformer.toReceiptVos(receipts), HttpStatus.OK);
+    }
+
+    // todo: archive will be using ACL
+    @RequestMapping(value = "/receipts/archived", method = RequestMethod.GET)
+    public ResponseEntity<List<Receipt>> findArchivedReceipts(@PathVariable String state) {
+        List<AcReceipt> receipts = billingService.findReceiptsByFlowState(AcFlowState.valueOf(state));
         return new ResponseEntity<List<Receipt>>(billingTransformer.toReceiptVos(receipts), HttpStatus.OK);
     }
 
@@ -332,18 +352,31 @@ public class BillingController {
 
     @RequestMapping(value = "/invoice/{referenceNo}/debitNotes/", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNote>> findDebitNotes(@PathVariable String referenceNo) {
-    	AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         List<AcDebitNote> debitNotes = billingService.findDebitNotes(invoice);
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
-    
+
+
+    @RequestMapping(value = "/debitNotes/state/{state}", method = RequestMethod.GET)
+    public ResponseEntity<List<DebitNote>> findDebitNotesByFlowState(@PathVariable String state) {
+        List<AcDebitNote> debitNotes = billingService.findDebitNotesByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
+    }
+
+    // todo: archive will be using ACL
+    @RequestMapping(value = "/debitNotes/archived", method = RequestMethod.GET)
+    public ResponseEntity<List<DebitNote>> findArchivedDebitNotes(@PathVariable String state) {
+        List<AcDebitNote> debitNotes = billingService.findDebitNotesByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.GET)
     public ResponseEntity<DebitNote> findDebitNoteByReferenceNo(@PathVariable String referenceNo) {
         AcDebitNote debitNotes = (AcDebitNote) billingService.findDebitNoteByReferenceNo(referenceNo);
         return new ResponseEntity<DebitNote>(billingTransformer.toDebitNoteVo(debitNotes), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/debitNotes/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNoteTask>> findAssignedDebitNotes() {
         dummyLogin();
@@ -357,7 +390,7 @@ public class BillingController {
         List<Task> tasks = billingService.findPooledDebitNoteTasks(0, 100);
         return new ResponseEntity<List<DebitNoteTask>>(billingTransformer.toDebitNoteTaskVos(tasks), HttpStatus.OK);
     }
-        
+
     @RequestMapping(value = "/debitNotes/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startDebitNoteTask(@RequestBody DebitNote vo) throws Exception {
         dummyLogin();
@@ -370,14 +403,14 @@ public class BillingController {
         debitNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNote), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/debitNotes/startTask/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<DebitNoteTask> findDebitNoteByTaskId(@PathVariable String taskId) {
         return new ResponseEntity<DebitNoteTask>(billingTransformer.toDebitNoteTaskVo(
-                        billingService.findDebitNoteTaskByTaskId(taskId)), HttpStatus.OK);
+                billingService.findDebitNoteTaskByTaskId(taskId)), HttpStatus.OK);
     }
 
-    
+
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateDebitNote(@PathVariable String referenceNo, @RequestBody DebitNote vo) {
         dummyLogin();
@@ -401,14 +434,28 @@ public class BillingController {
         List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
         return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
     }
-    
+
+    @RequestMapping(value = "/creditNotes/state/{state}", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNote>> findCreditNotesByFlowState(@PathVariable String state) {
+        List<AcCreditNote> creditNotes = billingService.findCreditNotesByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
+    }
+
+    // todo: archive will be using ACL
+    @RequestMapping(value = "/creditNotes/archived", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNote>> findArchivedCreditNotes(@PathVariable String state) {
+        List<AcCreditNote> creditNotes = billingService.findCreditNotesByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
+    }
+
+
     @RequestMapping(value = "invoices/{referenceNo}/creditNotes", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNote>> findCreditNotesByInvoice(@PathVariable String referenceNo) {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-    	List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
+        List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
         return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/creditNotes/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startCreditNoteTask(@RequestBody CreditNote vo) throws Exception {
         dummyLogin();
@@ -422,13 +469,13 @@ public class BillingController {
         creditNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/creditNotes/startTask/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<CreditNoteTask> findCreditNoteByTaskId(@PathVariable String taskId) {
         return new ResponseEntity<CreditNoteTask>(billingTransformer.toCreditNoteTaskVo(
-                        billingService.findCreditNoteTaskByTaskId(taskId)), HttpStatus.OK);
+                billingService.findCreditNoteTaskByTaskId(taskId)), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateCreditNote(@PathVariable String referenceNo, @RequestBody CreditNote vo) {
         dummyLogin();
@@ -442,7 +489,7 @@ public class BillingController {
         billingService.updateCreditNote(creditNotes);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-    
+
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================

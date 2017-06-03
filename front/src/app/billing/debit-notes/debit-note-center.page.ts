@@ -17,8 +17,8 @@ import {DebitNote} from "./debit-note.interface";
 
 export class DebitNoteCenterPage implements OnInit {
 
-  private POOLED_DEBIT_NOTE_TASKS: string[] = "billingModuleState.assignedDebitNoteTasks".split(".");
-  private ASSIGNED_DEBIT_NOTE_TASKS: string[] = "billingModuleState.pooledDebitNoteTasks".split(".");
+  private POOLED_DEBIT_NOTE_TASKS: string[] = "billingModuleState.pooledDebitNoteTasks".split(".");
+  private ASSIGNED_DEBIT_NOTE_TASKS: string[] = "billingModuleState.assignedDebitNoteTasks".split(".");
   private ARCHIVED_DEBIT_NOTES: string[] = "billingModuleState.archivedDebitNotes".split(".");
   private assignedDebitNoteTasks$: Observable<DebitNoteTask[]>;
   private pooledDebitNoteTasks$: Observable<DebitNoteTask[]>;
@@ -34,7 +34,13 @@ export class DebitNoteCenterPage implements OnInit {
     this.assignedDebitNoteTasks$ = this.store.select(...this.ASSIGNED_DEBIT_NOTE_TASKS);
     this.pooledDebitNoteTasks$ = this.store.select(...this.POOLED_DEBIT_NOTE_TASKS);
     this.archivedDebitNotes$ = this.store.select(...this.ARCHIVED_DEBIT_NOTES);
+  }
 
+  ngOnInit(): void {
+    console.log("find assigned debit note tasks");
+    this.store.dispatch(this.actions.findAssignedDebitNoteTasks());
+    this.store.dispatch(this.actions.findPooledDebitNoteTasks());
+    this.store.dispatch(this.actions.findArchivedDebitNotes());
   }
 
   goBack(route: string): void {
@@ -60,13 +66,6 @@ export class DebitNoteCenterPage implements OnInit {
       console.log("close dialog");
       // load something here
     });
-  }
-
-  ngOnInit(): void {
-    console.log("find assigned debit note tasks");
-    this.store.dispatch(this.actions.findAssignedDebitNoteTasks());
-    this.store.dispatch(this.actions.findPooledDebitNoteTasks());
-    this.store.dispatch(this.actions.findArchivedDebitNotes());
   }
 }
 

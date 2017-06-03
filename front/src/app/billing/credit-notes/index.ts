@@ -2,7 +2,6 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../app.routes';
-import {environment} from '../../../environments/environment';
 import {EffectsModule} from "@ngrx/effects";
 
 import {CovalentCoreModule} from '@covalent/core';
@@ -13,11 +12,11 @@ import {IdentityModule} from "../../identity/index";
 import {CreditNoteCenterPage} from "./credit-note-center.page";
 import {CreditNoteCreatorDialog} from "./dialog/credit-note-creator.dialog";
 import {CreditNoteActions} from "./credit-note.action";
-import {InvoiceSubModule} from "../invoices/index";
 import {AssignedCreditNoteTaskListComponent} from "./component/assigned-credit-note-task-list.component";
 import {PooledCreditNoteTaskListComponent} from "./component/pooled-credit-note-task-list.component";
 import {CreditNoteEffects} from "./credit-note.effect";
 import {ArchivedCreditNoteListComponent} from "./component/archived-credit-note-list.component";
+import {CreditNoteTaskDetailPage} from "./credit-note-task-detail.page";
 
 
 @NgModule({
@@ -32,6 +31,7 @@ import {ArchivedCreditNoteListComponent} from "./component/archived-credit-note-
   declarations: [
     //page
     CreditNoteCenterPage,
+    CreditNoteTaskDetailPage,
 
     //component
     CreditNoteCreatorDialog,

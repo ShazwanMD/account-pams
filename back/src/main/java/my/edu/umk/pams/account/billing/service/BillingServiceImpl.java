@@ -526,6 +526,11 @@ public class BillingServiceImpl implements BillingService {
 		return debitNoteDao.find(invoice, filter, offset, limit);
 	}
 
+	@Override
+	public List<AcDebitNote> findDebitNotesByFlowState(AcFlowState flowState) {
+		return debitNoteDao.findByFlowState(flowState);
+	}
+
 
 	@Override
 	public boolean hasDebitNote(AcInvoice invoice) {
@@ -617,6 +622,11 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
+	public List<AcCreditNote> findCreditNotesByFlowState(AcFlowState flowState) {
+		return creditNoteDao.findByFlowState(flowState);
+	}
+
+	@Override
 	public boolean hasCreditNote(AcInvoice invoice) {
 		return creditNoteDao.hasCreditNote(invoice);
 	}
@@ -650,72 +660,6 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<Task> findPooledReceiptTasks(Integer offset, Integer limit) {
 		return workflowService.findPooledTasks(AcReceipt.class.getName(), offset, limit);
-	}
-
-	@Override
-	public void initReceipt(AcReceipt receipt) {
-		// prepare reference no generator
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("academicSession", academicSessionDao.findCurrentSession());
-		String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.RECEIPT_REFERENCE_NO, map);
-		receipt.setReferenceNo(referenceNo);
-		LOG.debug("Processing process receipting with refNo {}", referenceNo);
-
-		// generate receipt no
-		Map<String, Object> maps = new HashMap<String, Object>();
-		maps.put("academicSession", academicSessionDao.findCurrentSession());
-		String receiptNo = systemService.generateFormattedReferenceNo(AccountConstants.RECEIPT_RECEIPT_NO, maps);
-		receipt.setReceiptNo(receiptNo);
-		LOG.debug("Processing process receipting with receiptNo {}", receiptNo);
-
-		// save
-		receiptDao.saveOrUpdate(receipt, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();
-
-		List<AcInvoice> invoice = invoiceDao.find(true, receipt.getAccount(), 0, 0);
-		for (AcInvoice invc : invoice) {
-			
-			List<AcInvoiceItem> invoiceItem = invoiceDao.findItems(invc);
-			for (AcInvoiceItem invcItem : invoiceItem) {
-				AcReceiptItem item = new AcReceiptItemImpl();
-				item.setAdjustedAmount(BigDecimal.ZERO);
-				item.setAppliedAmount(BigDecimal.ZERO);
-				item.setChargeCode(invcItem.getChargeCode());
-				item.setDueAmount(BigDecimal.ZERO);
-				item.setTotalAmount(BigDecimal.ZERO);
-				item.setReceipt(receipt);
-				item.setInvoice(invc);
-				addReceiptItem(receipt, item);
-				
-			}
-		}
-
-		sessionFactory.getCurrentSession().flush();
-	}
-
-	@Override
-	public void executeReceipt(AcReceipt receipt) {
-		
-		LOG.debug("Receipt "+ receipt.getReceiptNo());
-		AcAcademicSession academicSession = academicSessionDao.findCurrentSession();
-		List<AcReceiptItem> rcpt = receiptDao.findItems(receipt);
-		
-		for (AcReceiptItem item : rcpt) {
-
-			LOG.debug("account "+ receipt.getAccount().getCode());
-			
-			AcAccountTransaction transaction = new AcAccountTransactionImpl(); 
-			transaction.setAccount(receipt.getAccount());
-			transaction.setAmount(receipt.getTotalAmount());
-			transaction.setChargeCode(item.getChargeCode());
-			transaction.setSession(academicSession);
-			transaction.setTransactionCode(AcAccountTransactionCode.RECEIPT);
-			transaction.setSourceNo(receipt.getSourceNo());
-			transaction.setPostedDate(receipt.getReceivedDate());
-			accountDao.addTransaction(receipt.getAccount(), transaction, securityService.getCurrentUser());
-		}
-		
-		sessionFactory.getCurrentSession().flush();
 	}
 
 	@Override
@@ -803,6 +747,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<AcReceipt> findReceipts(AcReceiptType type, String filter, Integer offset, Integer limit) {
 		return receiptDao.find(type, filter, offset, limit);
+	}
+
+	@Override
+	public List<AcReceipt> findReceiptsByFlowState(AcFlowState flowState) {
+		return receiptDao.findByFlowState(flowState);
 	}
 
 	@Override

@@ -72,7 +72,6 @@ export interface BillingModuleState {
   pooledDebitNoteTasks: DebitNoteTaskListState;
   archivedDebitNotes: DebitNoteListState;
   debitNote: DebitNoteState;
-  debitNoteList: DebitNoteListState;
   debitNoteTask: DebitNoteTaskState;
   assignedCreditNoteTasks: CreditNoteTaskListState;
   pooledCreditNoteTasks: CreditNoteTaskListState;
@@ -99,8 +98,12 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     receiptItems: [],
     assignedDebitNoteTasks: [],
     pooledDebitNoteTasks: [],
+    archivedDebitNotes: [],
     debitNoteTask: <DebitNoteTask>{},
     debitNote: <DebitNote>{},
+    assignedCreditNoteTasks: [],
+    pooledCreditNoteTasks: [],
+    archivedCreditNotes: [],
     creditNoteTask: <CreditNoteTask>{},
     creditNote: <CreditNote>{},
   };
@@ -113,7 +116,6 @@ export const billingModuleReducers = {
   invoices: invoiceListReducer,
   invoice: invoiceReducer,
   invoiceItems: invoiceItemListReducer,
-  //todo: debitNoteList: debitNoteListReducer,
   assignedReceiptTasks: assignedReceiptTaskListReducer,
   pooledReceiptTasks: pooledReceiptTaskListReducer,
   receiptTask: receiptTaskReducer,
