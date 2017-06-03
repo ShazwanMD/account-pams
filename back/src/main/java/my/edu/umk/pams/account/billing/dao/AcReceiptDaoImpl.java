@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.dao;
 
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
@@ -62,6 +63,17 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         query.setString("receiptNo", receiptNo);
         return (AcReceipt) query.uniqueResult();
     }
+    
+    @Override
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcReceiptItem ri where " +
+                "ri.chargeCode = :chargeCode " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("chargeCode", chargeCode);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcReceiptItem) query.uniqueResult();
+	}
 
     @Override
     public List<AcReceipt> find(String filter, Integer offset, Integer limit) {
@@ -248,4 +260,5 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
     }
+
 }
