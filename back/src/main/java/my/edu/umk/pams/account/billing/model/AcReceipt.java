@@ -50,5 +50,5 @@ public interface AcReceipt extends AcDocument{
 
     void setAccount(AcAccount account);
     
-    Set<AcInvoice> getInvoices();
+    List<AcInvoice> getInvoices();
 }

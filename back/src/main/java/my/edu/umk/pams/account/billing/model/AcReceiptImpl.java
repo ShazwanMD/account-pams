@@ -84,7 +84,7 @@ public class AcReceiptImpl implements AcReceipt {
             @JoinColumn(name = "RECEIPT_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "INVOICE_ID",
                     nullable = false, updatable = false)})
-    private Set<AcInvoice> invoices;
+    private List<AcInvoice> invoices;
 
 	@Embedded
 	private AcMetadata metadata;
@@ -248,7 +248,7 @@ public class AcReceiptImpl implements AcReceipt {
 	}
 	
 	@Override
-	public Set<AcInvoice> getInvoices() {
+	public List<AcInvoice> getInvoices() {
 		return invoices;
 	}
 
