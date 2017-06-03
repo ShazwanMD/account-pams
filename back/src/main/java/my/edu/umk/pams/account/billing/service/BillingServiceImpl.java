@@ -753,6 +753,11 @@ public class BillingServiceImpl implements BillingService {
     public AcReceiptItem findReceiptItemById(Long id) {
         return receiptDao.findItemById(id);
     }
+    
+    @Override
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
+		return receiptDao.findReceiptItemByChargeCode(chargeCode);
+	}
 
     @Override
     public List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit) {
@@ -778,7 +783,7 @@ public class BillingServiceImpl implements BillingService {
     public List<AcReceiptItem> findReceiptItems(AcReceipt receipt) {
         return receiptDao.findItems(receipt);
     }
-
+    
     @Override
     public Integer countReceipt(AcReceiptType type) {
         return receiptDao.count(type);
@@ -854,4 +859,5 @@ public class BillingServiceImpl implements BillingService {
         map.put(WorkflowConstants.CANCEL_DECISION, false);
         return map;
     }
+
 }

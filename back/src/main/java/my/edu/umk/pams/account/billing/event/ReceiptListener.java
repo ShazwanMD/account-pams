@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.billing.event;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.security.event.AccessListener;
 import org.slf4j.Logger;
@@ -32,12 +33,12 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
             for (AcInvoice invoice : invoices) {
                 List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
                 for (AcInvoiceItem invoiceItem : invoiceItems) {
-//                    // find matching receipt item
-//                    AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode());
-//                    // knock off
-//                    invoiceItem.setBalanceAmount(
-//                            invoice.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
-//                    billingService.updateInvoiceItem(invoice, invoiceItem);
+                    // find matching receipt item
+                    AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode());
+                    // knock off
+                    invoiceItem.setBalanceAmount(
+                            invoice.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
+                    billingService.updateInvoiceItem(invoice, invoiceItem);
                 }
             }
         }

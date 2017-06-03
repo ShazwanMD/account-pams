@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.model.AcActor;
@@ -233,6 +234,8 @@ public interface BillingService {
 
     AcReceiptItem findReceiptItemById(Long id);
 
+	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode);
+
     List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit);
 
     List<AcReceipt> findReceipts(AcReceiptType type, Integer offset, Integer limit);
@@ -250,4 +253,5 @@ public interface BillingService {
     Integer countReceiptItem(AcReceipt receipt);
 
     void post(AcReceipt receipt);
+
 }
