@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.core.model.AcDocument;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author PAMS
@@ -48,4 +49,6 @@ public interface AcReceipt extends AcDocument{
     AcAccount getAccount();
 
     void setAccount(AcAccount account);
+    
+    Set<AcInvoice> getInvoices();
 }

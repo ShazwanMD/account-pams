@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity(name = "AcReceipt")
@@ -77,6 +78,13 @@ public class AcReceiptImpl implements AcReceipt {
 
 	@OneToMany(targetEntity = AcReceiptItemImpl.class, mappedBy = "receipt")
 	private List<AcReceiptItem> items;
+	
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcInvoiceImpl.class)
+    @JoinTable(name = "AC_RCPT_INVC", joinColumns = {
+            @JoinColumn(name = "RECEIPT_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "INVOICE_ID",
+                    nullable = false, updatable = false)})
+    private Set<AcInvoice> invoices;
 
 	@Embedded
 	private AcMetadata metadata;
@@ -237,6 +245,11 @@ public class AcReceiptImpl implements AcReceipt {
 	@Override
 	public void setItems(List<AcReceiptItem> items) {
 		this.items = items;
+	}
+	
+	@Override
+	public Set<AcInvoice> getInvoices() {
+		return invoices;
 	}
 
 	@Override
