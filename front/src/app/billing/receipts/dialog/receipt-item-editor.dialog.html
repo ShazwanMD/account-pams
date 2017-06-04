@@ -61,6 +61,11 @@
         [placeholder]="'Charge Code'"
         [innerFormControl]="editForm.controls['chargeCode']"></pams-charge-code-select>
     </div>
+    <div layout="row" class="pad-bottom">
+      <pams-invoice-select
+        [placeholder]="'Invoice'"
+        [innerFormControl]="editForm.controls['invoice']"></pams-invoice-select>
+    </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">

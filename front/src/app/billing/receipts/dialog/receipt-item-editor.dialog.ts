@@ -9,6 +9,7 @@ import {MdDialogRef} from "@angular/material";
 import {ReceiptActions} from "../receipt.action";
 import {Store} from "@ngrx/store";
 import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
+import {Invoice} from "../../invoices/invoice.interface";
 
 @Component({
   selector: 'pams-receipt-item-editor',
@@ -51,6 +52,7 @@ export class ReceiptItemEditorDialog implements OnInit {
       unit: 0,
       price: 0,
       chargeCode:<ChargeCode>{},
+      invoice: <Invoice>{},
     });
     if (this.edit) this.editForm.patchValue(this._receiptItem);
   }
