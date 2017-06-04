@@ -344,13 +344,14 @@ public class AccountController {
 	// }
 	//
 	@RequestMapping(value = "/accounts/{code}/admissionCharges/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Boolean> removeAdmissionCharge(@PathVariable String code, @PathVariable Long id) {
+	public ResponseEntity<String> removeAdmissionCharge(@PathVariable String code, @PathVariable Long id) {
 		dummyLogin();
 
 		AcAccount account = accountService.findAccountByCode(code);
-		AcAdmissionCharge admissionCharge = (AcAdmissionCharge) accountService.findAccountChargeById(id);
+		AcAccountCharge admissionCharge = accountService.findAccountChargeById(id);
 		accountService.deleteAccountCharge(account, admissionCharge);
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		LOG.debug("admissionCharge " + id + " is deleted");
+		return new ResponseEntity<>("Removed", HttpStatus.OK);
 	}
 
 	// ====================================================================================================

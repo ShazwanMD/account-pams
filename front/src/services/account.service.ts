@@ -281,7 +281,7 @@ export class AccountService {
         //'Authorization': 'Bearer ' + this.authService.token
         });
         let options = new RequestOptions({headers: headers});
-    return this.http.delete(environment.endpoint + '/api/application/accounts/' + account.code + '/admisionCharges/' + charge.id)
+    return this.http.delete(environment.endpoint + '/api/account/accounts/' + account.code + '/admissionCharges/' + charge.id, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 

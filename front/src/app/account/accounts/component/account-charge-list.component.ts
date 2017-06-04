@@ -47,6 +47,7 @@ export class AccountChargeListComponent {
 
   delete(account: Account, accountCharge: AccountCharge): void {
     this.store.dispatch(this.actions.removeAdmissionCharge(account, accountCharge))
+    this.selectedRows = [];
   }
 
   filter(): void {

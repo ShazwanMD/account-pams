@@ -93,7 +93,7 @@ export class AccountActions {
 
   static FIND_ACCOUNT_WAIVERS = '[Account] Find Account Waivers';
   findAccountWaivers(account): Action {
-    console.log("findAccountWaivers :"+account.code);
+    console.log("findAccountWaivers: " + account.code);
     return {
       type: AccountActions.FIND_ACCOUNT_WAIVERS,
       payload: account
@@ -102,7 +102,7 @@ export class AccountActions {
 
   static FIND_ACCOUNT_WAIVERS_SUCCESS = '[Account] Find Account Waivers Success';
   findAccountWaiversSuccess(accountWaivers): Action {
-    console.log("findAccountWaiversSuccess"+accountWaivers.id);
+    console.log("findAccountWaiversSuccess: " + accountWaivers.id);
     return {
       type: AccountActions.FIND_ACCOUNT_WAIVERS_SUCCESS,
       payload: accountWaivers
@@ -212,6 +212,7 @@ export class AccountActions {
    static REMOVE_ADMISSION_CHARGE = '[Admission] Remove AdmissionCharge';
 
   removeAdmissionCharge(account, charge): Action {
+    console.log('remove admissionCharge');
     return {
       type: AccountActions.REMOVE_ADMISSION_CHARGE,
       payload: {account:account, charge:charge}
@@ -221,6 +222,7 @@ export class AccountActions {
   static REMOVE_ADMISSION_CHARGE_SUCCESS = '[Admission] Remove AdmissionCharge Success';
 
   removeAdmissionChargeSuccess(message): Action {
+    console.log('remove admissionCharge SUCCESS');
     return {
       type: AccountActions.REMOVE_ADMISSION_CHARGE_SUCCESS,
       payload: message
@@ -236,7 +238,7 @@ export class AccountActions {
     };
   }
 
-  static ADD_ACCOUNT_TRANSACTION_SUCCESS = '[Account] Add AccountTransaction  Success';
+  static ADD_ACCOUNT_TRANSACTION_SUCCESS = '[Account] Add AccountTransaction Success';
 
   addAccountTransactionSuccess(message): Action {
     return {
