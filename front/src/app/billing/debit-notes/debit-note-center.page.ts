@@ -48,10 +48,14 @@ export class DebitNoteCenterPage implements OnInit {
   }
 
   view(task: DebitNoteTask) {
-    console.log("CreditNote: " + task.taskId);
-    this.router.navigate(['/billing/debit-notes/view-task', task.taskId]);
+    console.log("DebitNote: " + task.taskId);
+    this.router.navigate(['/billing/debit-notes/debit-note-task-detail', task.taskId]);
+
   }
 
+  viewDebitNote(debitNote: DebitNote) {
+    this.router.navigate(['/billing/debit-notes/debit-note-detail', debitNote.referenceNo]);
+  }    
 
   showDialog(): void {
     console.log("showDialog");

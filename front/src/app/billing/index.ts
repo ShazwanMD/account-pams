@@ -101,6 +101,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     archivedDebitNotes: [],
     debitNoteTask: <DebitNoteTask>{},
     debitNote: <DebitNote>{},
+    DebitNoteItems: [],
     assignedCreditNoteTasks: [],
     pooledCreditNoteTasks: [],
     archivedCreditNotes: [],
