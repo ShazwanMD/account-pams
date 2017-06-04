@@ -20,7 +20,8 @@ export class AccountChargeListComponent {
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
   private selectedRows: AccountCharge[];
   private columns: any[] = [
-    {name: 'chargeType', label: 'Type'},
+    {name: 'sourceNo', label: 'Source No'},
+    {name: 'chargeType', label: 'Type'},   
     {name: 'session.code', label: 'Session'},
     {name: 'amount', label: 'Amount'},
     {name: 'invoiced', label: 'Invoiced'},
