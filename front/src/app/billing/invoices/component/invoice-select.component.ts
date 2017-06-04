@@ -26,7 +26,7 @@ export class InvoiceSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(this.actions.findApprovedInvoices());
+    this.store.dispatch(this.actions.findCompletedInvoices());
     
     if(this.preSelected){
         this.invoices$.subscribe(invoices => {

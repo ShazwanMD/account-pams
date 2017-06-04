@@ -4,20 +4,20 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class InvoiceActions {
 
-  static FIND_APPROVED_INVOICES = '[Invoice] Find Approved Invoices';
+  static FIND_COMPLETED_INVOICES = '[Invoice] Find Completed Invoices';
 
-  findApprovedInvoices(): Action {
+  findCompletedInvoices(): Action {
     return {
-      type: InvoiceActions.FIND_APPROVED_INVOICES
+      type: InvoiceActions.FIND_COMPLETED_INVOICES
     };
   }
 
-  static FIND_APPROVED_INVOICES_SUCCESS = '[Invoice] Find Approved Invoices Success';
+  static FIND_COMPLETED_INVOICES_SUCCESS = '[Invoice] Find Completed Invoices Success';
 
-  findApprovedInvoicesSuccess(invoices): Action {
-    console.log("findApprovedInvoicesSuccess");
+  findCompletedInvoicesSuccess(invoices): Action {
+    console.log("findCompletedInvoicesSuccess");
     return {
-      type: InvoiceActions.FIND_APPROVED_INVOICES_SUCCESS,
+      type: InvoiceActions.FIND_COMPLETED_INVOICES_SUCCESS,
       payload: invoices
     };
   }

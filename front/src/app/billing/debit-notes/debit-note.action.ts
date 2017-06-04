@@ -24,20 +24,20 @@ export class DebitNoteActions {
     };
   }
 
-  static FIND_APPROVED_DEBIT_NOTES = '[DebitNote] Find Approved DebitNotes';
+  static FIND_COMPLETED_DEBIT_NOTES = '[DebitNote] Find Completed DebitNotes';
 
-  findApprovedDebitNotes(): Action {
+  findCompletedDebitNotes(): Action {
     return {
-      type: DebitNoteActions.FIND_APPROVED_DEBIT_NOTES
+      type: DebitNoteActions.FIND_COMPLETED_DEBIT_NOTES
     };
   }
 
-  static FIND_APPROVED_DEBIT_NOTES_SUCCESS = '[DebitNote] Find Approved DebitNotes Success';
+  static FIND_COMPLETED_DEBIT_NOTES_SUCCESS = '[DebitNote] Find Completed DebitNotes Success';
 
-  findApprovedDebitNotesSuccess(debitNotes): Action {
-    console.log("findApprovedDebitNotesSuccess");
+  findCompletedDebitNotesSuccess(debitNotes): Action {
+    console.log("findCompletedDebitNotesSuccess");
     return {
-      type: DebitNoteActions.FIND_APPROVED_DEBIT_NOTES_SUCCESS,
+      type: DebitNoteActions.FIND_COMPLETED_DEBIT_NOTES_SUCCESS,
       payload: debitNotes
     };
   }

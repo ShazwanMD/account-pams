@@ -24,20 +24,20 @@ export class CreditNoteActions {
     };
   }
 
-  static FIND_APPROVED_CREDIT_NOTES = '[CreditNote] Find Approved CreditNotes';
+  static FIND_COMPLETED_CREDIT_NOTES = '[CreditNote] Find Completed CreditNotes';
 
-  findApprovedCreditNotes(): Action {
+  findCompletedCreditNotes(): Action {
     return {
-      type: CreditNoteActions.FIND_APPROVED_CREDIT_NOTES
+      type: CreditNoteActions.FIND_COMPLETED_CREDIT_NOTES
     };
   }
 
-  static FIND_APPROVED_CREDIT_NOTES_SUCCESS = '[CreditNote] Find Approved CreditNotes Success';
+  static FIND_COMPLETED_CREDIT_NOTES_SUCCESS = '[CreditNote] Find Completed CreditNotes Success';
 
-  findApprovedCreditNotesSuccess(creditNotes): Action {
-    console.log("findApprovedCreditNotesSuccess");
+  findCompletedCreditNotesSuccess(creditNotes): Action {
+    console.log("findCompletedCreditNotesSuccess");
     return {
-      type: CreditNoteActions.FIND_APPROVED_CREDIT_NOTES_SUCCESS,
+      type: CreditNoteActions.FIND_COMPLETED_CREDIT_NOTES_SUCCESS,
       payload: creditNotes
     };
   }
