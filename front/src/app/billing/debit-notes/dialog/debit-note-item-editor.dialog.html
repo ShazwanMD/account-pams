@@ -1,0 +1,24 @@
+<h2 md-dialog-title>Invoice Item Editor</h2>
+<md-dialog-content>
+  <form [formGroup]="editForm">
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Description"
+               formControlName="description">
+      </md-input-container>
+    </div>
+  <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Total Amount"
+               formControlName="totalAmount">
+      </md-input-container>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
+</md-dialog-actions>
