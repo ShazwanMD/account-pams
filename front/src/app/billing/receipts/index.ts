@@ -27,7 +27,7 @@ import {ReceiptItemListComponent} from "./component/receipt-item-list.component"
 import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 import {ChargeCodeSubModule} from "../../account/charge-codes/index";
 import {PromoCodeApplicatorDialog} from "./dialog/promo-code-applicator.dialog";
-
+import {InvoiceSubModule} from "../../billing/invoices/index";
 
 @NgModule({
   imports: [
@@ -39,6 +39,7 @@ import {PromoCodeApplicatorDialog} from "./dialog/promo-code-applicator.dialog";
     AccountSubModule.forRoot(),
     AcademicSessionSubModule.forRoot(),
     ChargeCodeSubModule.forRoot(),
+    InvoiceSubModule.forRoot(),
   ],
   declarations: [
     // page
