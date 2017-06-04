@@ -17,7 +17,14 @@ import {AssignedDebitNoteTaskListComponent} from "./component/assigned-debit-not
 import {PooledDebitNoteTaskListComponent} from "./component/pooled-debit-note-task-list.component";
 import {DebitNoteEffects} from "./debit-note.effect";
 import {ArchivedDebitNoteListComponent} from "./component/archived-debit-note-list.component";
-import {DebitNoteTaskDetailPage} from "./debit-note-task-detail.page";
+import { DebitNoteTaskDetailPage } from "./debit-note-task-detail.page";
+import { DebitNoteRegisterTaskPanel } from "./panel/debit-note-register-task.panel";
+import { DebitNoteItemEditorDialog } from "./dialog/debit-note-item-editor.dialog";
+import { DebitNoteDetailPage } from "./debit-note-detail.page";
+import { DebitNoteDraftTaskPanel } from "./panel/debit-note-draft-task.panel";
+import { DebitNoteVerifyTaskPanel } from "./panel/debit-note-verify-task.panel";
+import { DebitNoteTaskWorkflowPanel } from "./panel/debit-note-task-workflow.panel";
+import { DebitNoteStatusComponent } from "./component/debit-note-status.component";
 
 
 @NgModule({
@@ -33,12 +40,21 @@ import {DebitNoteTaskDetailPage} from "./debit-note-task-detail.page";
     //page
     DebitNoteCenterPage,
     DebitNoteTaskDetailPage,
+    DebitNoteDetailPage,
 
     //component
     DebitNoteCreatorDialog,
     AssignedDebitNoteTaskListComponent,
     PooledDebitNoteTaskListComponent,
     ArchivedDebitNoteListComponent,
+    DebitNoteRegisterTaskPanel,
+    DebitNoteItemEditorDialog,
+    DebitNoteDraftTaskPanel,
+    DebitNoteRegisterTaskPanel,
+    DebitNoteVerifyTaskPanel,
+    DebitNoteTaskWorkflowPanel,
+    DebitNoteStatusComponent,
+    
 
   ],
   exports: [
@@ -46,6 +62,12 @@ import {DebitNoteTaskDetailPage} from "./debit-note-task-detail.page";
   ],
   entryComponents: [
     DebitNoteCreatorDialog,
+    DebitNoteRegisterTaskPanel,
+    DebitNoteItemEditorDialog,
+    DebitNoteDraftTaskPanel,
+    DebitNoteRegisterTaskPanel,
+    DebitNoteVerifyTaskPanel,
+
   ],
 
 })
