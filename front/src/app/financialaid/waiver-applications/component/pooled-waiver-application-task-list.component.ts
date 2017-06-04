@@ -14,7 +14,7 @@ export class PooledWaiverApplicationTaskListComponent {
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
-    {name: 'accountCode', label: 'Account'},
+    {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'balanceAmount', label: 'Balance Amount'},

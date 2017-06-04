@@ -28,9 +28,9 @@ export class BillingService {
   // ====================================================================================================
 
 
-  findCompletedInvoices(): Observable<Invoice[]> {
-    console.log("findCompletedInvoices");
-    return this.http.get(environment.endpoint + '/api/billing/invoices/state/COMPLETED')
+  findApprovedInvoices(): Observable<Invoice[]> {
+    console.log("findApprovedInvoices");
+    return this.http.get(environment.endpoint + '/api/billing/invoices/state/APPROVED')
       .map((res: Response) => <Invoice[]>res.json());
   }
 
@@ -275,9 +275,9 @@ export class BillingService {
   // CREDIT NOTE
   // ====================================================================================================
 
-  findCompletedCreditNotes(): Observable<CreditNote[]> {
-    console.log("findCompletedCreditNotes");
-    return this.http.get(environment.endpoint + '/api/billing/creditNotes/state/COMPLETED')
+  findApprovedCreditNotes(): Observable<CreditNote[]> {
+    console.log("findApprovedCreditNotes");
+    return this.http.get(environment.endpoint + '/api/billing/creditNotes/state/APPROVED')
       .map((res: Response) => <CreditNote[]>res.json());
   }
 
@@ -406,9 +406,9 @@ export class BillingService {
   // DEBIT NOTE
   // ====================================================================================================
 
-  findCompletedDebitNotes(): Observable<DebitNote[]> {
-    console.log("findCompletedDebitNotes");
-    return this.http.get(environment.endpoint + '/api/billing/debitNotes/state/COMPLETED')
+  findApprovedDebitNotes(): Observable<DebitNote[]> {
+    console.log("findApprovedDebitNotes");
+    return this.http.get(environment.endpoint + '/api/billing/debitNotes/state/APPROVED')
       .map((res: Response) => <DebitNote[]>res.json());
   }
 

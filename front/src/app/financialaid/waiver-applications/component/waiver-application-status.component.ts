@@ -8,5 +8,5 @@ import {WaiverApplication} from "../waiver-application.interface";
 
 })
 export class WaiverApplicationStatusComponent {
-  @Input() waiverApplication: WaiverApplication;
+  @Input() waiverApplication: WaiverApplication[];
 }

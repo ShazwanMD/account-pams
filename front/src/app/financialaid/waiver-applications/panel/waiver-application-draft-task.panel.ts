@@ -6,6 +6,8 @@ import {WaiverApplicationActions} from "../waiver-application.action";
 import {Store} from "@ngrx/store";
 import {FinancialaidModuleState} from "../../index";
 import {WaiverApplicationEditorDialog} from "../dialog/waiver-application-editor.dialog";
+import { Observable } from "rxjs/Observable";
+import { WaiverApplication } from "../waiver-application.interface";
 
 
 @Component({
@@ -16,6 +18,9 @@ import {WaiverApplicationEditorDialog} from "../dialog/waiver-application-editor
 export class WaiverApplicationDraftTaskPanel implements OnInit {
 
   @Input() waiverApplicationTask: WaiverApplicationTask;
+  
+  private WAIVER_APPLICATION: string[] = "financialaidModuleState.waiverApplication".split(".");
+  private waiverApplication$: Observable<WaiverApplication>;
   private creatorDialogRef: MdDialogRef<WaiverApplicationEditorDialog>;
 
   constructor(private router: Router,
@@ -26,6 +31,8 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
               private dialog: MdDialog,
               private vcf: ViewContainerRef,
               private snackBar: MdSnackBar) {
+      
+      this.waiverApplication$ = this.store.select(...this.WAIVER_APPLICATION);
   }
 
   ngOnInit(): void {
