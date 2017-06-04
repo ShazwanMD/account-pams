@@ -1,0 +1,62 @@
+<div md-content flex md-scroll-y>
+  <div layout="column" layout-gt-md="row" class="inset">
+    <div flex-gt-md="70">
+      <md-card>
+        <md-card-title>{{debitNoteTask?.referenceNo}}</md-card-title>
+        <md-card-subtitle>{{debitNoteTask?.description}}</md-card-subtitle>
+
+        <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{debitNoteTask?.referenceNo}}</h4>
+                <p md-line>Reference No</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{debitNoteTask?.accountCode}}</h4>
+                <p md-line>Account</p>
+              </md-list-item>
+            </md-list>
+          </div>
+        </div>
+        <md-card-actions>
+
+        </md-card-actions>
+      </md-card>
+
+      <!--<pams-debit-note-item-list
+        [debitNote]="debitNoteTask.debitNote"
+        [debitNoteItems]="debitNoteItems$ | async">
+      </pams-debit-note-item-list>-->
+
+    </div>
+    <div flex-gt-md="30">
+
+      <pams-debit-note-status [debitNote]="debitNoteTask.debitNote"></pams-debit-note-status>
+
+      <md-card>
+        <md-card-title>Action</md-card-title>
+        <md-card-subtitle>Actions available on current debit note</md-card-subtitle>
+        <md-divider></md-divider>
+        <md-nav-list dense>
+          <md-list-item (click)="register()">
+            <md-icon md-list-avatar>done</md-icon>
+            <h4 md-line>Register</h4>
+            <p md-line>Register this invoice</p>
+          </md-list-item>
+          <md-list-item>
+            <md-icon md-list-avatar>remove_circle</md-icon>
+            <h4 md-line>Remove</h4>
+            <p md-line>Remove this invoice</p>
+          </md-list-item>
+        </md-nav-list>
+      </md-card>
+    </div>
+  </div>
+</div>
