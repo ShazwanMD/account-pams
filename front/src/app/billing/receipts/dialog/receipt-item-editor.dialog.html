@@ -64,7 +64,8 @@
     <div layout="row" class="pad-bottom">
       <pams-invoice-select
         [placeholder]="'Invoice'"
-        [innerFormControl]="editForm.controls['invoice']"></pams-invoice-select>
+        [innerFormControl]="editForm.controls['invoice']"
+        [receipt]="_receipt"></pams-invoice-select>
     </div>
   </form>
 </md-dialog-content>
