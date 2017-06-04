@@ -162,6 +162,7 @@ public class BillingTransformer {
         vo.setAuditNo(e.getAuditNo());
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
+        vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
@@ -175,6 +176,7 @@ public class BillingTransformer {
         vo.setAuditNo(e.getAuditNo());
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
+        vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
