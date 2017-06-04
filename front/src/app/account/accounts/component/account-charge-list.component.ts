@@ -21,6 +21,7 @@ export class AccountChargeListComponent {
   private selectedRows: AccountCharge[];
   private columns: any[] = [
     {name: 'sourceNo', label: 'Source No'},
+    {name: 'referenceNo', label: 'Reference No'},
     {name: 'description', label: 'Description'},
     {name: 'chargeType', label: 'Type'},   
     {name: 'session.code', label: 'Session'},
