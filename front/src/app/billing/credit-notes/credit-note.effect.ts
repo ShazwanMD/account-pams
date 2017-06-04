@@ -17,10 +17,10 @@ export class CreditNoteEffects {
               private store$: Store<BillingModuleState>) {
   }
 
-  @Effect() findCompletedCreditNotes$ = this.actions$
-    .ofType(CreditNoteActions.FIND_COMPLETED_CREDIT_NOTES)
-    .switchMap(() => this.billingService.findCompletedCreditNotes())
-    .map(creditNotes => this.creditNoteActions.findCompletedCreditNotesSuccess(creditNotes));
+  @Effect() findApprovedCreditNotes$ = this.actions$
+    .ofType(CreditNoteActions.FIND_APPROVED_CREDIT_NOTES)
+    .switchMap(() => this.billingService.findApprovedCreditNotes())
+    .map(creditNotes => this.creditNoteActions.findApprovedCreditNotesSuccess(creditNotes));
 
   @Effect() findArchivedCreditNotes$ = this.actions$
     .ofType(CreditNoteActions.FIND_ARCHIVED_CREDIT_NOTES)

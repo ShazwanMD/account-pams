@@ -19,7 +19,7 @@ export function archivedInvoiceListReducer(state = initialState, action: Action)
 
 export function invoiceListReducer(state = initialState, action: Action): InvoiceListState {
   switch (action.type) {
-    case InvoiceActions.FIND_COMPLETED_INVOICES_SUCCESS: {
+    case InvoiceActions.FIND_APPROVED_INVOICES_SUCCESS: {
       return action.payload;
     }
     default: {
