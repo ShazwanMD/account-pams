@@ -107,6 +107,8 @@ public class AccountTransformer {
         AccountCharge m = new AccountCharge();
         m.setId(e.getId());
         m.setSourceNo(e.getSourceNo());
+        m.setReferenceNo(e.getReferenceNo());
+        m.setDescription(e.getDescription());
         m.setAmount(e.getAmount());
         m.setChargeType(AccountChargeType.get(e.getChargeType().ordinal()));
         m.setSession(toAcademicSessionVo(e.getSession()));
