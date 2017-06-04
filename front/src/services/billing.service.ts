@@ -15,6 +15,7 @@ import {CreditNoteTask} from "../app/billing/credit-notes/credit-note-task.inter
 import {DebitNoteTask} from "../app/billing/debit-notes/debit-note-task.interface";
 import {DebitNoteItem} from "../app/billing/debit-notes/debit-note-item.interface";
 import {CreditNoteItem} from "../app/billing/credit-notes/credit-note-item.interface";
+import {Account} from "../app/account/accounts/account.interface";
 
 @Injectable()
 export class BillingService {
@@ -33,6 +34,12 @@ export class BillingService {
     return this.http.get(environment.endpoint + '/api/billing/invoices/state/COMPLETED')
       .map((res: Response) => <Invoice[]>res.json());
   }
+  
+  findUnpaidInvoices(account: Account): Observable<Invoice[]> {
+      console.log("findUnpaidInvoices");
+      return this.http.get(environment.endpoint + '/api/billing/invoices/unpaidInvoices/' + account.code)
+        .map((res: Response) => <Invoice[]>res.json());
+    }
 
   // todo: this goes thru ACL
   findArchivedInvoices(): Observable<Invoice[]> {

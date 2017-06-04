@@ -21,10 +21,16 @@ export class InvoiceEffects {
               private store$: Store<BillingModuleState>) {
   }
 
+  @Effect() findUnpaidInvoices$ = this.actions$
+    .ofType(InvoiceActions.FIND_UNPAID_INVOICES)
+    .map(action => action.payload)
+    .switchMap(account => this.billingService.findUnpaidInvoices(account))
+    .map(invoices => this.invoiceActions.findUnpaidInvoicesSuccess(invoices));
+  
   @Effect() findCompletedInvoices$ = this.actions$
-    .ofType(InvoiceActions.FIND_COMPLETED_INVOICES)
-    .switchMap(() => this.billingService.findCompletedInvoices())
-    .map(invoices => this.invoiceActions.findCompletedInvoicesSuccess(invoices));
+  .ofType(InvoiceActions.FIND_COMPLETED_INVOICES)
+  .switchMap(() => this.billingService.findCompletedInvoices())
+  .map(invoices => this.invoiceActions.findCompletedInvoicesSuccess(invoices));
 
   @Effect() findArchivedInvoices$ = this.actions$
     .ofType(InvoiceActions.FIND_ARCHIVED_INVOICES)

@@ -5,7 +5,7 @@ import {FormControl} from "@angular/forms";
 import { BillingModuleState } from "../../index";
 import { Invoice } from "../invoice.interface";
 import { InvoiceActions } from "../invoice.action";
-
+import {Receipt} from "../../receipts/receipt.interface";
 
 @Component({
   selector: 'pams-invoice-select',
@@ -17,6 +17,7 @@ export class InvoiceSelectComponent implements OnInit {
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   @Input() preSelected: Invoice;
+  @Input() receipt: Receipt;
   private invoices$: Observable<Invoice[]>;
   private selected: Invoice;
 
@@ -26,7 +27,10 @@ export class InvoiceSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(this.actions.findCompletedInvoices());
+    if(this.receipt)
+        this.store.dispatch(this.actions.findUnpaidInvoices(this.receipt.account));
+    else
+        this.store.dispatch(this.actions.findCompletedInvoices());
     
     if(this.preSelected){
         this.invoices$.subscribe(invoices => {

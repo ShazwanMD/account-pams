@@ -22,6 +22,9 @@ export function invoiceListReducer(state = initialState, action: Action): Invoic
     case InvoiceActions.FIND_COMPLETED_INVOICES_SUCCESS: {
       return action.payload;
     }
+    case InvoiceActions.FIND_UNPAID_INVOICES_SUCCESS: {
+        return action.payload;
+      }
     default: {
       return state;
     }

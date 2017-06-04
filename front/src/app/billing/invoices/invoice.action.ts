@@ -4,6 +4,25 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class InvoiceActions {
 
+  static FIND_UNPAID_INVOICES = '[Invoice] Find Unpaid Invoices';
+
+  findUnpaidInvoices(account): Action {
+    return {
+      type: InvoiceActions.FIND_UNPAID_INVOICES,
+      payload: account
+    };
+  }
+
+  static FIND_UNPAID_INVOICES_SUCCESS = '[Invoice] Find Unpaid Invoices Success';
+
+  findUnpaidInvoicesSuccess(invoices): Action {
+    console.log("findUnpaidInvoicesSuccess");
+    return {
+      type: InvoiceActions.FIND_UNPAID_INVOICES_SUCCESS,
+      payload: invoices
+    };
+  }
+  
   static FIND_COMPLETED_INVOICES = '[Invoice] Find Completed Invoices';
 
   findCompletedInvoices(): Action {

@@ -94,6 +94,13 @@ public class BillingController {
         AcInvoice invoice = (AcInvoice) billingService.findInvoiceByReferenceNo(referenceNo);
         return new ResponseEntity<Invoice>(billingTransformer.toInvoiceVo(invoice), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/invoices/unpaidInvoices/{code}", method = RequestMethod.GET)
+    public ResponseEntity<List<Invoice>> findUnpaidInvoices(@PathVariable String code) {
+    	AcAccount account = accountService.findAccountByCode(code);
+        List<AcInvoice> invoices = billingService.findUnpaidInvoices(account, 0, 100);
+        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/invoices/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<Invoice> updateInvoice(@PathVariable String referenceNo, @RequestBody Invoice vo) {
