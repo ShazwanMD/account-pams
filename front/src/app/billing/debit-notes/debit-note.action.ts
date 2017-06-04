@@ -136,6 +136,17 @@ export class DebitNoteActions {
     };
   }
 
+    static FIND_DEBIT_NOTE_ITEMS = '[Invoice] Find Invoice Items';
+
+  findDebitNoteItems(debitNote): Action {
+    console.log("findDebitNoteItems for debitNote: " + debitNote);
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_ITEMS,
+      payload: debitNote
+    };
+  }
+
+
   static FIND_DEBIT_NOTE_TASK_BY_TASK_ID = '[DebitNote] Find DebitNote Task By Task Id';
 
   findDebitNoteTaskByTaskId(taskId): Action {
@@ -228,6 +239,25 @@ export class DebitNoteActions {
     };
   }
 
+  
+  static ADD_DEBIT_NOTE_ITEM = '[DebitNote] Add DebitNote Item';
+
+  addDebitNoteItem(debitNote, item): Action {
+    return {
+      type: DebitNoteActions.ADD_DEBIT_NOTE_ITEM,
+      payload: {debitNote:debitNote, item:item}
+    };
+  }
+
+  static ADD_DEBIT_NOTE_ITEM_SUCCESS = '[DebitNote] Add DebitNote Item Success';
+
+  addDebitNoteItemSuccess(message): Action {
+    return {
+      type: DebitNoteActions.ADD_DEBIT_NOTE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+
   static UPDATE_DEBIT_NOTE = '[DebitNote] Update DebitNote';
 
   updateDebitNote(debitNote): Action {
@@ -243,6 +273,24 @@ export class DebitNoteActions {
     return {
       type: DebitNoteActions.UPDATE_DEBIT_NOTE_SUCCESS,
       payload: debitNote
+    };
+  }
+
+  static UPDATE_DEBIT_NOTE_ITEM = '[DebitNote] Update DebitNote Item';
+
+  updateDebitNoteItem(debitNote, item): Action {
+    return {
+      type: DebitNoteActions.UPDATE_DEBIT_NOTE_ITEM,
+      payload: {debitNote:debitNote, item:item}
+    };
+  }
+
+  static UPDATE_DEBIT_NOTE_ITEM_SUCCESS = '[Invoice] Update DebitNote Item Success';
+
+  updateDebitNoteItemSuccess(message): Action {
+    return {
+      type: DebitNoteActions.UPDATE_DEBIT_NOTE_ITEM_SUCCESS,
+      payload: message
     };
   }
 }
