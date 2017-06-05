@@ -43,7 +43,7 @@ export class AccountChargeListComponent {
   }
 
   edit(account: Account, accountCharge: AccountCharge): void {
-    this.store.dispatch(this.actions.updateAdmissionCharge(account, accountCharge))
+    this.createAdmissionChargeDialog(account, accountCharge);
     this.selectedRows = [];
   }
 
@@ -62,7 +62,7 @@ export class AccountChargeListComponent {
   }
 
 
-  createAdmissionChargeDialog(): void {
+  createAdmissionChargeDialog(account: Account, accountCharge: AccountCharge): void {
     console.log("show dialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
