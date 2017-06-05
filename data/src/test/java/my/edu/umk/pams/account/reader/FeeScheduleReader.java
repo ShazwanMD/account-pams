@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -62,18 +61,20 @@ public class FeeScheduleReader {
                         + "CURRENT_TIMESTAMP,"
                         + "1); \n\n\n\n\n");
                 
-              //  int lastRowNum = sheet.getLastRowNum();
-                //for (int j = 7; j < lastRowNum; j++) {
+          //    int lastRowNum = sheet.getLastRowNum();
+              //  for (int j = 7; j < lastRowNum; j++) {
                 for (int j = 7; j < 19; j++) {
                     Row row = sheet.getRow(j);
                     if (row != null) {
                        LOG.debug(toString(row.getCell(0)));
                        LOG.debug(toString(row.getCell(1)));
-                    	//LOG.debug(toString(row.getCell(2)));
-                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,ORDINAL,SCHEDULE_ID, AMOUNT,C_TS,C_ID,M_ST) VALUES ("
+                      LOG.debug(toString(row.getCell(2)));
+                                   
+                      
+                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,SCHEDULE_ID, AMOUNT,C_TS,C_ID,M_ST) VALUES ("
                                 + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
                                 + "'" + toString(row.getCell(0)) + "',"
-                                + "'" + toString(row.getCell(4)) + "',"
+                             //   + "'" + toString(row.getCell(4)) + "',"
                                 + "1,"
                                 + "'" + toString(row.getCell(1)) + "',"
                                 + "CURRENT_TIMESTAMP,"
@@ -121,8 +122,8 @@ public class FeeScheduleReader {
                 for (int j = 7; j < lastRowNum; j++) {
                     Row row = sheet.getRow(j);
                     if (row != null) {
-                        LOG.debug(toString(row.getCell(0)));
-                        LOG.debug(toString(row.getCell(2)));
+                     //   LOG.debug(toString(row.getCell(0)));
+                      //  LOG.debug(toString(row.getCell(2)));
                         writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION, SCHEDULE_ID, AMOUNT ) VALUES ("
                                 + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
                                 + "'" + toString(row.getCell(0)) + "',"
