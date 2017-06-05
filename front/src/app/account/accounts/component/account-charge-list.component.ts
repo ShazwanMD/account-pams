@@ -50,11 +50,6 @@ export class AccountChargeListComponent {
   }
 
   edit(account: Account, accountCharge: AccountCharge): void {
-    // console.log("aaaaaaaaaaaaaaaaa");
-    // this.store.dispatch(this.actions.updateAdmissionCharge(account, accountCharge))
-    // console.log("bbbbbbbbbbbbbbbbbbb");
-    // this.selectedRows = [];
-    // console.log("ccccccccccccccccccc");
     this.editAdmissionCharge(account, accountCharge);
   }
 
