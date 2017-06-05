@@ -7,6 +7,8 @@ import {AccountActions} from "../account.action";
 import {AccountModuleState} from "../../index";
 import {Store} from "@ngrx/store";
 import {Account} from "../account.interface";
+import {AdmissionCharge} from "../admission-charge.interface";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'pams-account-charge-list',
@@ -17,6 +19,8 @@ export class AccountChargeListComponent {
   @Input() account: Account;
   @Input() charges: AccountCharge[];
 
+  private ADMISSION_CHARGES: string[] = "accountModuleState.admissionCharge".split(".");
+  admissionCharges$: Observable<AdmissionCharge[]>;
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
   private selectedRows: AccountCharge[];
   private columns: any[] = [
@@ -36,6 +40,7 @@ export class AccountChargeListComponent {
               private store: Store<AccountModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
+  this.admissionCharges$ = this.store.select(...this.ADMISSION_CHARGES);
   }
 
   ngOnInit(): void {
