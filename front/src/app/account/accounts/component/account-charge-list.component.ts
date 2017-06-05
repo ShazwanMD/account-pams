@@ -2,6 +2,7 @@ import {Component, Input, EventEmitter, OnInit, ChangeDetectionStrategy, ViewCon
 import {Router, ActivatedRoute} from '@angular/router';
 import {AccountCharge} from "../account-charge.interface";
 import {AdmissionChargeDialog} from "../dialog/admission-charge.dialog";
+import {AdmissionChargeEditorDialog} from "../dialog/admission-charge-editor.dialog";
 import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
 import {AccountActions} from "../account.action";
 import {AccountModuleState} from "../../index";
@@ -22,6 +23,7 @@ export class AccountChargeListComponent {
   private ADMISSION_CHARGES: string[] = "accountModuleState.admissionCharge".split(".");
   admissionCharges$: Observable<AdmissionCharge[]>;
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
+  private editorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
   private selectedRows: AccountCharge[];
   private columns: any[] = [
     {name: 'sourceNo', label: 'Source No'},
@@ -48,8 +50,7 @@ export class AccountChargeListComponent {
   }
 
   edit(account: Account, accountCharge: AccountCharge): void {
-    this.createAdmissionChargeDialog(account, accountCharge);
-    this.selectedRows = [];
+    this.editAdmissionCharge(account, accountCharge);
   }
 
   delete(account: Account, accountCharge: AccountCharge): void {
@@ -79,6 +80,21 @@ export class AccountChargeListComponent {
     this.creatorDialogRef.afterClosed().subscribe(res => {
       console.log("close dialog");
       // load something here
+    });
+  }
+
+  editAdmissionCharge(account, accountCharge): void {
+    console.log("Edit");
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '90%';
+    config.position = {top: '0px'};
+    this.editorDialogRef = this.dialog.open(AdmissionChargeEditorDialog, config);
+    if (account) this.editorDialogRef.componentInstance.admissionCharge= account; // set
+    this.editorDialogRef.afterClosed().subscribe(res => {
+      console.log("close editor dialog");
     });
   }
 
