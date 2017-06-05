@@ -22,6 +22,7 @@ export class AdmissionChargeEditorDialog implements OnInit {
 
   private editorForm: FormGroup;
   private edit: boolean = false;
+  private _account  : Account;
   private _accountCharge  : AccountCharge;
 
   constructor(private router: Router,
@@ -33,6 +34,11 @@ export class AdmissionChargeEditorDialog implements OnInit {
               private actions: AccountActions) {
   }
 
+  set account(value: Account) {
+    this._account = value;
+    this.edit = true;
+  }
+  
   set admissionCharge(value: AdmissionCharge) {
     this._accountCharge = value;
     this.edit = true;
@@ -49,8 +55,6 @@ export class AdmissionChargeEditorDialog implements OnInit {
       cohortCode:<CohortCode>{},
       session: <AcademicSession>{}
     });
-
-
     if (this.edit) this.editorForm.patchValue(this._accountCharge);
   }
 
