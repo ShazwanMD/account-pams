@@ -17,7 +17,7 @@ import { DebitNoteActions } from "../debit-note.action";
 
 export class DebitNoteDraftTaskPanel implements OnInit {
 
-  private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
+  private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItemList".split(".");
   @Input() debitNoteTask: DebitNoteTask;
   debitNoteItems$: Observable<DebitNoteItem[]>;
 
@@ -32,7 +32,8 @@ export class DebitNoteDraftTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findDebitNoteItems(this.debitNoteTask.DebitNote))
+    console.log("reference no "+this.debitNoteTask.referenceNo);
+    this.store.dispatch(this.actions.findDebitNoteItems(this.debitNoteTask))
   }
 
   editItem(item: DebitNoteItem) {
