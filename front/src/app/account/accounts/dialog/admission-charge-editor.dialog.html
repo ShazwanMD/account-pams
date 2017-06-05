@@ -1,25 +1,25 @@
 <h2 md-dialog-title>Admission Charge Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editorForm">
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex mdTooltip="Source Number" mdTooltipPosition="below" class="text-upper">
-        <input mdInput #description
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
                placeholder="SourceNo"
                formControlName="sourceNo"
                flex/>
       </md-input-container>
     </div>
-        <div layout="row" class="pad-bottom">
-      <md-input-container flex mdTooltip="xx" mdTooltipPosition="below" class="text-upper">
-        <input mdInput #description
+        <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
                placeholder="Description"
                formControlName="description"
                flex/>
       </md-input-container>
     </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex mdTooltip="Amount" mdTooltipPosition="below" class="text-upper">
-        <input mdInput #email
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
                placeholder="Amount"
                formControlName="amount"
                flex/>
@@ -31,25 +31,25 @@
      <div layout="row" class="pad-bottom pad-top">
       <pams-cohort-code-select
         [placeholder]="'Select Cohort'"
-        [innerFormControl]="createForm.controls['cohortCode']">
+        [innerFormControl]="editorForm.controls['cohortCode']">
       </pams-cohort-code-select>
     </div>
     <div layout="row" class="pad-bottom pad-top">
       <pams-academic-session-select
         [placeholder]="'Select Academic Session'"
-        [innerFormControl]="createForm.controls['session']">
+        [innerFormControl]="editorForm.controls['session']">
       </pams-academic-session-select>
       </div>
       <div layout="row" class="pad-bottom pad-top">
       <pams-study-mode-select
         [placeholder]="'Select Study Mode'"
-        [innerFormControl]="createForm.controls['studyMode']">
+        [innerFormControl]="editorForm.controls['studyMode']">
       </pams-study-mode-select>
       </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="submit(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)">Save</button>
 </md-dialog-actions>
 
 
