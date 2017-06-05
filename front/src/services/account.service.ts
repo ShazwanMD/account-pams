@@ -276,15 +276,16 @@ export class AccountService {
   }
 
     updateAdmissionCharge(account: Account, charge: AdmissionCharge): Observable<String> {
-      console.log("saving Admission Charge");
     let headers = new Headers({
       'Content-Type': 'application/json',
       //'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
-    return this.http.put(environment.endpoint + '/api/account/accounts/' + account.code + '/admissionCharges', JSON.stringify(charge), options)
+    return this.http.put(environment.endpoint + '/api/account/accounts/' + account.code + '/admissionCharges/' + charge.id, JSON.stringify(charge), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+
+
 
   removeAdmissionCharge(account: Account, charge: AdmissionCharge): Observable<String> {
         let headers = new Headers({
