@@ -24,6 +24,7 @@ import {AccountActivityListComponent} from "./component/account-activity-list.co
 import {AccountChargeListComponent} from "./component/account-charge-list.component";
 import {AccountWaiverListComponent} from "./component/account-waiver-list.component";
 import {AdmissionChargeDialog} from "./dialog/admission-charge.dialog";
+import {AdmissionChargeEditorDialog} from "./dialog/admission-charge-editor.dialog";
 import {CommonModule} from "../../common/index";
 import {AcademicSessionSubModule} from "../academic-sessions/index";
 
@@ -55,6 +56,7 @@ import {AcademicSessionSubModule} from "../academic-sessions/index";
     AccountSelectComponent,
     AccountCreatorDialog,
     AdmissionChargeDialog,
+    AdmissionChargeEditorDialog,
 
   ],
   exports: [
@@ -64,6 +66,7 @@ import {AcademicSessionSubModule} from "../academic-sessions/index";
   entryComponents: [
     AccountCreatorDialog,
     AdmissionChargeDialog,
+    AdmissionChargeEditorDialog,
   ],
 
 })
