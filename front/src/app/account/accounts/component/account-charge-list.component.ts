@@ -42,7 +42,9 @@ export class AccountChargeListComponent {
     this.selectedRows = this.charges.filter(value => value.selected);
   }
 
-  edit(accountCharge: AccountCharge): void {
+  edit(account: Account, accountCharge: AccountCharge): void {
+    this.store.dispatch(this.actions.updateAdmissionCharge(account, accountCharge))
+    this.selectedRows = [];
   }
 
   delete(account: Account, accountCharge: AccountCharge): void {
