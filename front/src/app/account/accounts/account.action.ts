@@ -209,6 +209,25 @@ export class AccountActions {
     };
   }
 
+  static UPDATE_ADMISSION_CHARGE = '[Admission] Update AdmissionCharge';
+
+  updateAdmissionCharge(account, charge): Action {
+    return {
+      type: AccountActions.UPDATE_ADMISSION_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+  static UPDATE_ADMISSION_CHARGE_SUCCESS = '[Admission] Update AdmissionCharge  Success';
+
+  updateAdmissionChargeSuccess(message): Action {
+      console.log("updateAdmissionChargeSuccess");
+    return {
+      type: AccountActions.UPDATE_ADMISSION_CHARGE,
+      payload: message
+    };
+  }
+
    static REMOVE_ADMISSION_CHARGE = '[Admission] Remove AdmissionCharge';
 
   removeAdmissionCharge(account, charge): Action {

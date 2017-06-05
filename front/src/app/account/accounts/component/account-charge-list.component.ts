@@ -42,7 +42,9 @@ export class AccountChargeListComponent {
     this.selectedRows = this.charges.filter(value => value.selected);
   }
 
-  edit(accountCharge: AccountCharge): void {
+  edit(account: Account, accountCharge: AccountCharge): void {
+    this.createAdmissionChargeDialog(account, accountCharge);
+    this.selectedRows = [];
   }
 
   delete(account: Account, accountCharge: AccountCharge): void {
@@ -60,7 +62,7 @@ export class AccountChargeListComponent {
   }
 
 
-  createAdmissionChargeDialog(): void {
+  createAdmissionChargeDialog(account: Account, accountCharge: AccountCharge): void {
     console.log("show dialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;

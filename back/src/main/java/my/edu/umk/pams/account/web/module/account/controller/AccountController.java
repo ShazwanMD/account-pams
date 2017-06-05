@@ -330,19 +330,24 @@ public class AccountController {
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
 
-	// @RequestMapping(value = "/accounts/{id}/admissionCharges/{referenceNo}",
-	// method = RequestMethod.DELETE)
-	// public ResponseEntity<String> removeAdmissionCharge(@PathVariable String
-	// referenceNo) {
-	// dummyLogin();
-	//
-	// AcAccount account = accountService.findAccountByCode(referenceNo);
-	// AcAdmissionCharge admissionCharge = (AcAdmissionCharge)
-	// accountService.findAccountChargeByReferenceNo(referenceNo);
-	// accountService.deleteAccountCharge(account, admissionCharge);
-	// return new ResponseEntity<String>("Success", HttpStatus.OK);
-	// }
-	//
+	@RequestMapping(value = "/accounts/{code}/admissionCharges/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
+		dummyLogin();
+		// what can we update
+		AcAccount account = accountService.findAccountByCode(code);
+		AcAccountCharge admissionCharge = accountService.findAccountChargeById(vo.getId());
+		admissionCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		admissionCharge.setSourceNo(vo.getSourceNo());
+		admissionCharge.setDescription(vo.getDescription());
+		admissionCharge.setAmount(vo.getAmount());
+		((AcAdmissionCharge) admissionCharge).setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+		((AcAdmissionCharge) admissionCharge).setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+		admissionCharge.setSession(accountService.findCurrentAcademicSession());
+		accountService.updateAccountCharge(account, admissionCharge);
+		return new ResponseEntity<String>("Success", HttpStatus.OK);
+	}
+
+	
 	@RequestMapping(value = "/accounts/{code}/admissionCharges/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> removeAdmissionCharge(@PathVariable String code, @PathVariable Long id) {
 		dummyLogin();
