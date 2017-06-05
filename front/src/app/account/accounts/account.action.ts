@@ -212,6 +212,7 @@ export class AccountActions {
   static UPDATE_ADMISSION_CHARGE = '[Admission] Update AdmissionCharge';
 
   updateAdmissionCharge(account, charge): Action {
+    console.log("updateAdmissionCharge");
     return {
       type: AccountActions.UPDATE_ADMISSION_CHARGE,
       payload: {account:account, charge:charge}
