@@ -238,6 +238,8 @@ public interface AccountService {
 
     // todo: return refno
     void addAccountCharge(AcAccount acAccount, AcAccountCharge charge);
+    
+    void updateAccountCharge(AcAccount account, AcAccountCharge charge);
 
     void deleteAccountCharge(AcAccount acAccount, AcAccountCharge charge);
 
