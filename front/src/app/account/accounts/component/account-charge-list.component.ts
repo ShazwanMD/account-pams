@@ -2,6 +2,7 @@ import {Component, Input, EventEmitter, OnInit, ChangeDetectionStrategy, ViewCon
 import {Router, ActivatedRoute} from '@angular/router';
 import {AccountCharge} from "../account-charge.interface";
 import {AdmissionChargeDialog} from "../dialog/admission-charge.dialog";
+import {AdmissionChargeEditorDialog} from "../dialog/admission-charge-editor.dialog";
 import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
 import {AccountActions} from "../account.action";
 import {AccountModuleState} from "../../index";
@@ -48,7 +49,7 @@ export class AccountChargeListComponent {
   }
 
   edit(account: Account, accountCharge: AccountCharge): void {
-    this.createAdmissionChargeDialog(account, accountCharge);
+    this.store.dispatch(this.actions.updateAdmissionCharge(account, accountCharge))
     this.selectedRows = [];
   }
 
