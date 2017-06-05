@@ -25,6 +25,7 @@ import { DebitNoteDraftTaskPanel } from "./panel/debit-note-draft-task.panel";
 import { DebitNoteVerifyTaskPanel } from "./panel/debit-note-verify-task.panel";
 import { DebitNoteTaskWorkflowPanel } from "./panel/debit-note-task-workflow.panel";
 import { DebitNoteStatusComponent } from "./component/debit-note-status.component";
+import { DebitNoteItemListComponent } from "./component/debit-note-item-list.component";
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { DebitNoteStatusComponent } from "./component/debit-note-status.componen
     DebitNoteVerifyTaskPanel,
     DebitNoteTaskWorkflowPanel,
     DebitNoteStatusComponent,
+    DebitNoteItemListComponent,
     
 
   ],
@@ -67,6 +69,7 @@ import { DebitNoteStatusComponent } from "./component/debit-note-status.componen
     DebitNoteDraftTaskPanel,
     DebitNoteRegisterTaskPanel,
     DebitNoteVerifyTaskPanel,
+    DebitNoteItemListComponent,
 
   ],
 

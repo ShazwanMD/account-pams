@@ -417,7 +417,7 @@ export class BillingService {
     return this.http.get(environment.endpoint + '/api/billing/invoice/' + invoice.referenceNo + "/debitNotes/")
       .map((res: Response) => <DebitNote[]>res.json());
   }
-
+  
   findCompletedDebitNotes(): Observable<DebitNote[]> {
     console.log("findCompletedDebitNotes");
     return this.http.get(environment.endpoint + '/api/billing/debitNotes/state/COMPLETED')
@@ -458,6 +458,19 @@ export class BillingService {
     return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + taskId)
       .map((res: Response) => <DebitNote>res.json());
   }
+
+  // findReceiptItems(receipt: Receipt): Observable<ReceiptItem[]> {
+  //   console.log("findReceiptItems");
+  //   return this.http.get(environment.endpoint + '/api/billing/receipts/' + receipt.referenceNo + "/receiptItems")
+  //     .map((res: Response) => <ReceiptItem[]>res.json());
+  // }
+
+  findDebitNoteItems(debitNote: DebitNote): Observable<DebitNoteItem[]> {
+    console.log("findDebitNoteItems");
+    return this.http.get(environment.endpoint + '/api/billing/debitNotes/' + debitNote.referenceNo + "/debitNoteItems")
+      .map((res: Response) => <DebitNoteItem[]>res.json());
+  }
+
 
   startDebitNoteTask(debitNote: DebitNote): Observable<String> {
     console.log("debitNote: " + debitNote);
