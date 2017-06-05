@@ -56,6 +56,12 @@ export class DebitNoteEffects {
     .switchMap(referenceNo => this.billingService.findDebitNoteByReferenceNo(referenceNo))
     .map(debitNote => this.debitNoteActions.findDebitNoteByReferenceNoSuccess(debitNote));
 
+@Effect() findDebitNoteItems$ = this.actions$
+    .ofType(DebitNoteActions.FIND_DEBIT_NOTE_ITEMS)
+    .map(action => action.payload)
+    .switchMap(debitNote => this.billingService.findDebitNoteItems(debitNote))
+    .map(items => this.debitNoteActions.findDebitNoteItemsSuccess(items));
+
   @Effect() startDebitNoteTask$ = this.actions$
     .ofType(DebitNoteActions.START_DEBIT_NOTE_TASK)
     .map(action => action.payload)
