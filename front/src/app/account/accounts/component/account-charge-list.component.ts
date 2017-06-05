@@ -49,8 +49,12 @@ export class AccountChargeListComponent {
     this.selectedRows = this.charges.filter(value => value.selected);
   }
 
-  edit(account: Account, accountCharge: AccountCharge): void {
+  /*edit(account: Account, accountCharge: AccountCharge): void {
     this.editAdmissionCharge(account, accountCharge);
+  }*/
+
+   edit(accountCharge: AdmissionCharge): void {
+     this.showDialog(accountCharge);
   }
 
   delete(account: Account, accountCharge: AccountCharge): void {
@@ -61,13 +65,17 @@ export class AccountChargeListComponent {
   filter(): void {
   }
 
+  create(): void {
+     this.showDialog(null);
+  }
+
   selectRow(accountCharge: AccountCharge): void {
   }
 
   selectAllRows(accountCharge: AccountCharge[]): void {
   }
 
-  createAdmissionChargeDialog(account, accountCharge): void {
+ /* createAdmissionChargeDialog(account, accountCharge): void {
     console.log("show dialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -81,9 +89,9 @@ export class AccountChargeListComponent {
       console.log("close dialog");
       // load something here
     });
-  }
+  }*/
 
-  editAdmissionCharge(account, accountCharge): void {
+/*  editAdmissionCharge(account, accountCharge): void {
     console.log("Edit");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -98,4 +106,20 @@ export class AccountChargeListComponent {
     });
   }
 
+}*/
+
+showDialog(admissionCharge:AdmissionCharge): void {
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '60%';
+    config.position = {top: '65px'};
+    this.editorDialogRef = this.dialog.open(AdmissionChargeEditorDialog, config);
+    this.editorDialogRef.componentInstance.account = this.account
+    if (admissionCharge) this.editorDialogRef.componentInstance.admissionCharge = admissionCharge;
+    this.editorDialogRef.afterClosed().subscribe(res => {
+        this.selectedRows = [];
+    });
+  }
 }
