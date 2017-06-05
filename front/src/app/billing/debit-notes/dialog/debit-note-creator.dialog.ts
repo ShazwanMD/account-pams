@@ -36,7 +36,6 @@ export class DebitNoteCreatorDialog implements OnInit {
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<DebitNote>{
       id: null,
-      code: '',
       description: '',
       referenceNo: '',
       sourceNo: '',
