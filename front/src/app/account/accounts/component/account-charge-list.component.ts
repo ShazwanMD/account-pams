@@ -66,8 +66,7 @@ export class AccountChargeListComponent {
   selectAllRows(accountCharge: AccountCharge[]): void {
   }
 
-
-  createAdmissionChargeDialog(account: Account, accountCharge: AccountCharge): void {
+  createAdmissionChargeDialog(account, accountCharge): void {
     console.log("show dialog");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
