@@ -24,6 +24,28 @@ export class DebitNoteActions {
     };
   }
 
+
+  static FIND_DEBIT_NOTES_BY_INVOICE = '[Invoice] Find Invoice';
+
+  findDebitNotesByInvoice(invoice): Action {
+    console.log("findDebitNotesByInvoice");
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTES_BY_INVOICE,
+      payload: invoice
+    };
+  }
+
+  static FIND_DEBIT_NOTES_BY_INVOICE_SUCCESS = '[Intake Application] Find Invoice Success';
+
+  findDebitNotesByInvoiceSuccess(debitNotes): Action {
+    console.log("findDebitNotesByInvoiceSuccess");
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTES_BY_INVOICE_SUCCESS,
+      payload: debitNotes
+    };
+  }
+  
+
   static FIND_COMPLETED_DEBIT_NOTES = '[DebitNote] Find Completed DebitNotes';
 
   findCompletedDebitNotes(): Action {

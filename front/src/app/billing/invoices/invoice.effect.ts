@@ -61,6 +61,7 @@ export class InvoiceEffects {
     .map(invoice => this.invoiceActions.findInvoiceByReferenceNoSuccess(invoice))
     .mergeMap(action => from([action, this.invoiceActions.findInvoiceItems(action.payload)]))
     .mergeMap(action => from([action, this.debitNoteActions.findDebitNotes(action.payload)]));
+//    .mergeMap(action => from([action, this.debitNoteActions.findDebitNotesByInvoice(action.payload)]));
 
   @Effect() findInvoiceItems$ = this.actions$
     .ofType(InvoiceActions.FIND_INVOICE_ITEMS)

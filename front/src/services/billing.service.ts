@@ -412,6 +412,11 @@ export class BillingService {
   // ====================================================================================================
   // DEBIT NOTE
   // ====================================================================================================
+  findDebitNotesbyInvoice(invoice: Invoice): Observable<DebitNote[]> {
+    console.log("findDebitNotes");
+    return this.http.get(environment.endpoint + '/api/billing/invoice/' + invoice.referenceNo + "/debitNotes/")
+      .map((res: Response) => <DebitNote[]>res.json());
+  }
 
   findCompletedDebitNotes(): Observable<DebitNote[]> {
     console.log("findCompletedDebitNotes");

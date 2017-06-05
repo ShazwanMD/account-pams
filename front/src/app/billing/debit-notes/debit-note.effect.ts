@@ -17,6 +17,13 @@ export class DebitNoteEffects {
               private store$: Store<BillingModuleState>) {
   }
 
+
+    @Effect() findDebitNotesByInvoice$ = this.actions$
+    .ofType(DebitNoteActions.FIND_DEBIT_NOTES_SUCCESS)
+    .map(action => action.payload)
+    .switchMap(invoice => this.billingService.findDebitNotesbyInvoice(invoice))
+    .map(debitNotes => this.debitNoteActions.findDebitNotesSuccess(debitNotes));
+
   @Effect() findCompletedDebitNotes$ = this.actions$
     .ofType(DebitNoteActions.FIND_COMPLETED_DEBIT_NOTES)
     .switchMap(() => this.billingService.findCompletedDebitNotes())
