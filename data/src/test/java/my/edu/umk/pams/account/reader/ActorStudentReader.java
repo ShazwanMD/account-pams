@@ -1,6 +1,6 @@
 package my.edu.umk.pams.account.reader;
 
-import my.edu.umk.pams.account.account.service.AccountService;
+
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.data.ProgramGenerator;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,20 +23,17 @@ import java.io.IOException;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
-public class FeeScheduleReader {
+public class ActorStudentReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProgramGenerator.class);
     private static final String[] COURSES = {"FKP-FULLTIME"};
-    
-    @Autowired
-    private AccountService accountService;
 
     @Test
     @Rollback(false)
     public void loadDataTempatan() throws IOException {
         try {
            // File out = new File("C:/Projects/GitLab/UMK/account/data/src/site/AC_FEE_SCDL_DOMESTIC.sql");
-          File out = new File("C:/Users/UMK-PEJA/git/account/data/src/site/AC_FEE_SCDL_DOMESTIC.sql");
+          File out = new File("C:/Users/UMK-PEJA/git/account/data/src/site/AC_ACTR.sql");
         	// File file = new File("C:/Projects/GitLab/UMK/account/data/src/site/cps-normalizatize table.xlsx");
           File file = new File("C:/Users/UMK-PEJA/git/account/data/src/site/cps-normalizatize table.xlsx");
         	
