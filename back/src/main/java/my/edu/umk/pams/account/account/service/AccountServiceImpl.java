@@ -592,6 +592,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void updateAccountCharge(AcAccount account, AcAccountCharge charge) {
+    accountDao.updateCharge(account, charge, securityService.getCurrentUser());
+    sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
     public void deleteAccountCharge(AcAccount account, AcAccountCharge charge) {
         accountDao.deleteCharge(account, charge, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
