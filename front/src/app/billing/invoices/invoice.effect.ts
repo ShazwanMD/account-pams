@@ -80,14 +80,15 @@ export class InvoiceEffects {
       ]
     ));
 
-  @Effect() completeInvoiceTask$ = this.actions$
+@Effect() completeInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.COMPLETE_INVOICE_TASK)
     .map(action => action.payload)
     .switchMap(invoiceTask => this.billingService.completeInvoiceTask(invoiceTask))
     .map(message => this.invoiceActions.completeInvoiceTaskSuccess(message))
     .mergeMap(action => from([action,
         this.invoiceActions.findAssignedInvoiceTasks(),
-        this.invoiceActions.findPooledInvoiceTasks()
+        this.invoiceActions.findPooledInvoiceTasks(),
+        this.invoiceActions.findArchivedInvoices()
       ]
     ));
 
