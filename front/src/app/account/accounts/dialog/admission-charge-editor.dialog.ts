@@ -23,7 +23,8 @@ export class AdmissionChargeEditorDialog implements OnInit {
   private editorForm: FormGroup;
   private edit: boolean = false;
   private _account  : Account;
-  private _accountCharge  : AccountCharge;
+  private _admissionCharge  : AdmissionCharge;
+
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -36,11 +37,11 @@ export class AdmissionChargeEditorDialog implements OnInit {
 
   set account(value: Account) {
     this._account = value;
-    this.edit = true;
+    
   }
   
   set admissionCharge(value: AdmissionCharge) {
-    this._accountCharge = value;
+    this._admissionCharge = value;
     this.edit = true;
   }
 
@@ -55,12 +56,16 @@ export class AdmissionChargeEditorDialog implements OnInit {
       cohortCode:<CohortCode>{},
       session: <AcademicSession>{}
     });
-    if (this.edit) this.editorForm.patchValue(this._accountCharge);
+    if (this.edit) this.editorForm.patchValue(this._admissionCharge);
   }
 
-  submit(account: Account, charge: AdmissionCharge, isValid: boolean) {
-    if (!charge.id) this.store.dispatch(this.actions.addAdmissionCharge(account, charge));
-    else  this.store.dispatch(this.actions.updateAdmissionCharge(account, charge));
+
+
+  submit(charge: AdmissionCharge, isValid: boolean) {
+    if (this.edit) this.store.dispatch(this.actions.updateAdmissionCharge(this._account, charge));
+    else  this.store.dispatch(this.actions.addAdmissionCharge(this._account, charge));
     this.dialog.close();
   }
 }
+ 
+
