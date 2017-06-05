@@ -29,7 +29,13 @@ export class AccountStatusComponent {
   }
   
   getWaived(){
+      
       let effectiveBalance = 0;
+
+      if(!this.getSum()){
+          effectiveBalance = this.account.balance;
+      }
+      else
       effectiveBalance = this.account.balance-this.getSum();
       
       return effectiveBalance;
