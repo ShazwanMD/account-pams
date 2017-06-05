@@ -158,13 +158,23 @@ export class DebitNoteActions {
     };
   }
 
-    static FIND_DEBIT_NOTE_ITEMS = '[Invoice] Find Invoice Items';
+    static FIND_DEBIT_NOTE_ITEMS = '[DebitNote] Find DebitNote Items';
 
   findDebitNoteItems(debitNote): Action {
     console.log("findDebitNoteItems for debitNote: " + debitNote);
     return {
       type: DebitNoteActions.FIND_DEBIT_NOTE_ITEMS,
       payload: debitNote
+    };
+  }
+
+    static FIND_DEBIT_NOTE_ITEMS_SUCCESS = '[DebitNote] Find DebitNote Items Success';
+
+  findDebitNoteItemsSuccess(items): Action {
+    console.log("findDebitNoteItemsSuccess");
+    return {
+      type: DebitNoteActions.FIND_DEBIT_NOTE_ITEMS_SUCCESS,
+      payload: items
     };
   }
 
