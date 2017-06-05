@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.web.module.core.vo;
 
+import java.math.BigDecimal;
 
 public class Task {
 
@@ -11,6 +12,7 @@ public class Task {
     private String description;
     private String candidate;
     private String assignee;
+    private BigDecimal totalAmount = new BigDecimal(0.00);
     private FlowState flowState;
     private MetaState metaState;
 
@@ -77,8 +79,17 @@ public class Task {
     public void setAssignee(String assignee) {
         this.assignee = assignee;
     }
+    
 
-    public FlowState getFlowState() {
+    public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public FlowState getFlowState() {
         return flowState;
     }
 
