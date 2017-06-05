@@ -358,7 +358,7 @@ public class BillingController {
     // ==================================================================================================== //
 
     @RequestMapping(value = "/invoice/{referenceNo}/debitNotes/", method = RequestMethod.GET)
-    public ResponseEntity<List<DebitNote>> findDebitNotes(@PathVariable String referenceNo) {
+    public ResponseEntity<List<DebitNote>> findDebitNotesByInvoice(@PathVariable String referenceNo) {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         List<AcDebitNote> debitNotes = billingService.findDebitNotes(invoice);
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
@@ -456,12 +456,11 @@ public class BillingController {
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNote), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/debitNotes/startTask/{taskId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/debitNotes/viewTask/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<DebitNoteTask> findDebitNoteByTaskId(@PathVariable String taskId) {
         return new ResponseEntity<DebitNoteTask>(billingTransformer.toDebitNoteTaskVo(
                 billingService.findDebitNoteTaskByTaskId(taskId)), HttpStatus.OK);
     }
-
 
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateDebitNote(@PathVariable String referenceNo, @RequestBody DebitNote vo) {
