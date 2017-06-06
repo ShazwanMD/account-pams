@@ -1,17 +1,13 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-//import {InvoiceItem} from "../invoice-item.interface";
 import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-//import {InvoiceItemEditorDialog} from "../dialog/invoice-item-editor.dialog";
-//import {InvoiceTask} from "../invoice-task.interface";
-//import {InvoiceActions} from "../invoice.action";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
-import { BillingModuleState } from "../../index";
-import { DebitNoteItem } from "../debit-note-item.interface";
-import { DebitNoteTask } from "../debit-note-task.interface";
-import { DebitNoteActions } from "../debit-note.action";
-import { DebitNoteItemEditorDialog } from "../dialog/debit-note-item-editor.dialog";
+import {BillingModuleState} from "../../index";
+import {DebitNoteTask} from "../debit-note-task.interface";
+import {DebitNoteItem} from "../debit-note-item.interface";
+import {DebitNoteItemEditorDialog} from "../dialog/debit-note-item-editor.dialog";
+import {DebitNoteActions} from "../debit-note.action";
 
 
 @Component({
@@ -22,8 +18,8 @@ import { DebitNoteItemEditorDialog } from "../dialog/debit-note-item-editor.dial
 export class DebitNoteVerifyTaskPanel implements OnInit {
 
   private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
-  private debitNoteItems$: Observable<DebitNoteItem[]>;
   @Input() debitNoteTask: DebitNoteTask;
+  debitNoteItems$: Observable<DebitNoteItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -36,7 +32,8 @@ export class DebitNoteVerifyTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findDebitNoteItems(this.debitNoteTask.DebitNote))
+    console.log("reference no " + this.debitNoteTask.referenceNo);
+    this.store.dispatch(this.actions.findDebitNoteItems(this.debitNoteTask))
   }
 
   editItem(item: DebitNoteItem) {

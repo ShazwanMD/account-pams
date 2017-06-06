@@ -38,5 +38,8 @@ public class DebitNoteApproveTask extends BpmnActivityBehavior
         debitNote.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
         debitNote.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateDebitNote(debitNote);
+
+        billingService.post(debitNote);
+
     }
 }

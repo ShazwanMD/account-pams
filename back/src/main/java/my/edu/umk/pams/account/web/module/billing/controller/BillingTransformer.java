@@ -202,6 +202,7 @@ public class BillingTransformer {
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
         vo.setAuditNo(e.getAuditNo());
+        vo.setAccountCode(e.getInvoice().getAccount().getCode());
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
@@ -231,6 +232,7 @@ public class BillingTransformer {
         task.setTaskId(t.getId());
         task.setReferenceNo(debitNote.getReferenceNo());
         task.setSourceNo(debitNote.getSourceNo());
+        task.setAccountCode(debitNote.getInvoice().getAccount().getCode());
         task.setDescription(debitNote.getDescription());
         task.setTotalAmount(debitNote.getTotalAmount());
         task.setTaskName(t.getName());

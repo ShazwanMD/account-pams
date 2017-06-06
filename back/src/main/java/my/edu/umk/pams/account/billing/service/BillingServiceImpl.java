@@ -566,6 +566,22 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    public void post(AcDebitNote debitNote) {
+        List<AcDebitNoteItem> items = findDebitNoteItems(debitNote);
+        for (AcDebitNoteItem item : items) {
+            AcAccountTransaction tx = new AcAccountTransactionImpl();
+            tx.setSession(debitNote.getInvoice().getSession());
+            tx.setChargeCode(item.getChargeCode());
+            tx.setPostedDate(new Date());
+            tx.setSourceNo(debitNote.getReferenceNo());
+            tx.setTransactionCode(AcAccountTransactionCode.DEBIT_NOTE);
+            tx.setAccount(debitNote.getInvoice().getAccount());
+            tx.setAmount(item.getAmount());
+            accountService.addAccountTransaction(debitNote.getInvoice().getAccount(), tx);
+        }
+    }
+
+    @Override
     public Integer countDebitNote(AcInvoice invoice) {
         return debitNoteDao.count(invoice);
     }
@@ -789,11 +805,11 @@ public class BillingServiceImpl implements BillingService {
     public AcReceiptItem findReceiptItemById(Long id) {
         return receiptDao.findItemById(id);
     }
-    
+
     @Override
-	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
-		return receiptDao.findReceiptItemByChargeCode(chargeCode);
-	}
+    public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
+        return receiptDao.findReceiptItemByChargeCode(chargeCode);
+    }
 
     @Override
     public List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit) {
@@ -819,7 +835,7 @@ public class BillingServiceImpl implements BillingService {
     public List<AcReceiptItem> findReceiptItems(AcReceipt receipt) {
         return receiptDao.findItems(receipt);
     }
-    
+
     @Override
     public Integer countReceipt(AcReceiptType type) {
         return receiptDao.count(type);

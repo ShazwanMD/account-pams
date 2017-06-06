@@ -1,17 +1,13 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-//import {InvoiceItem} from "../invoice-item.interface";
 import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-//import {InvoiceItemEditorDialog} from "../dialog/invoice-item-editor.dialog";
-//import {InvoiceTask} from "../invoice-task.interface";
-//import {InvoiceActions} from "../invoice.action";
 import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
 import {BillingModuleState} from "../../index";
-import { Observable } from "rxjs/Observable";
-import { DebitNoteItem } from "../debit-note-item.interface";
-import { DebitNoteTask } from "../debit-note-task.interface";
-import { DebitNoteItemEditorDialog } from "../dialog/debit-note-item-editor.dialog";
-import { DebitNoteActions } from "../debit-note.action";
+import {DebitNoteTask} from "../debit-note-task.interface";
+import {DebitNoteItem} from "../debit-note-item.interface";
+import {DebitNoteItemEditorDialog} from "../dialog/debit-note-item-editor.dialog";
+import {DebitNoteActions} from "../debit-note.action";
 
 
 @Component({
@@ -19,9 +15,9 @@ import { DebitNoteActions } from "../debit-note.action";
   templateUrl: './debit-note-register-task.panel.html',
 })
 
-export class DebitNoteRegisterTaskPanel {
+export class DebitNoteRegisterTaskPanel implements OnInit {
 
-  private DEBITNOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
+  private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
   @Input() debitNoteTask: DebitNoteTask;
   debitNoteItems$: Observable<DebitNoteItem[]>;
 
@@ -32,11 +28,12 @@ export class DebitNoteRegisterTaskPanel {
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private snackBar: MdSnackBar) {
-    this.debitNoteItems$ = this.store.select(...this.DEBITNOTE_ITEMS);
+    this.debitNoteItems$ = this.store.select(...this.DEBIT_NOTE_ITEMS);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findDebitNoteItems(this.debitNoteTask.DebitNote))
+    console.log("reference no " + this.debitNoteTask.referenceNo);
+    this.store.dispatch(this.actions.findDebitNoteItems(this.debitNoteTask))
   }
 
   editItem(item: DebitNoteItem) {

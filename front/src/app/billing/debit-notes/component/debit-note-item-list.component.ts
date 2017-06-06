@@ -21,10 +21,9 @@ export class DebitNoteItemListComponent implements OnInit {
   private selectedRows: DebitNoteItem[];
   private editorDialogRef: MdDialogRef<DebitNoteItemEditorDialog>;
   private columns: any[] = [
-    {name: 'referenceNo', label: 'ReferenceNo'},
+    {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'description', label: 'Description'},
-    {name: 'totalAmount', label: 'Total Amount'},
-    {name: 'flowState', label: 'Status'},
+    {name: 'amount', label: 'Amount'},
     {name: 'action', label: ''}
   ];
 

@@ -19,6 +19,9 @@ public class DebitNote extends Document {
 	private BigDecimal totalAmount = new BigDecimal(0.00);
 	private Invoice invoice;
 
+	// denormalized
+	private String accountCode;
+
 	public String getReferenceNo() {
 		return referenceNo;
 	}
@@ -65,6 +68,14 @@ public class DebitNote extends Document {
 
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
+	}
+
+	public String getAccountCode() {
+		return accountCode;
+	}
+
+	public void setAccountCode(String accountCode) {
+		this.accountCode = accountCode;
 	}
 
 	@JsonCreator

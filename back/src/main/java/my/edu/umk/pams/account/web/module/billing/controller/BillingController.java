@@ -462,6 +462,30 @@ public class BillingController {
                 billingService.findDebitNoteTaskByTaskId(taskId)), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/debitNotes/claimTask", method = RequestMethod.POST)
+    public ResponseEntity<String> claimDebitNoteTask(@RequestBody DebitNoteTask vo) {
+        dummyLogin();
+        Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
+        workflowService.claimTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/debitNotes/releaseTask", method = RequestMethod.POST)
+    public ResponseEntity<String> releaseDebitNoteTask(@RequestBody DebitNoteTask vo) {
+        dummyLogin();
+        Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
+        workflowService.releaseTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/debitNotes/completeTask", method = RequestMethod.POST)
+    public ResponseEntity<String> completeDebitNoteTask(@RequestBody DebitNoteTask vo) {
+        dummyLogin();
+        Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
+        workflowService.completeTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateDebitNote(@PathVariable String referenceNo, @RequestBody DebitNote vo) {
         dummyLogin();
@@ -584,6 +608,14 @@ public class BillingController {
     public ResponseEntity<CreditNoteTask> findCreditNoteByTaskId(@PathVariable String taskId) {
         return new ResponseEntity<CreditNoteTask>(billingTransformer.toCreditNoteTaskVo(
                 billingService.findCreditNoteTaskByTaskId(taskId)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/creditNotes/completeTask", method = RequestMethod.POST)
+    public ResponseEntity<String> completeCreditNoteTask(@RequestBody CreditNoteTask vo) {
+        dummyLogin();
+        Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
+        workflowService.completeTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
 

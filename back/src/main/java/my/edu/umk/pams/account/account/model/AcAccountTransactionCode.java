@@ -3,10 +3,12 @@ package my.edu.umk.pams.account.account.model;
 /**
  * @author PAMS
  */
-public enum  AcAccountTransactionCode {
+public enum AcAccountTransactionCode {
     INVOICE,  // 0
     RECEIPT,  // 1
     VOUCHER,  // 2
     REFUND,   // 3
-    ADHOC,   // 3
+    DEBIT_NOTE,   // 4
+    CREDIT_NOTE,   // 5
+    ADHOC,   // 6
 }

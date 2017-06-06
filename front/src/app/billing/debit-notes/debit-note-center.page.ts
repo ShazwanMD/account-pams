@@ -8,6 +8,7 @@ import {DebitNoteCreatorDialog} from "./dialog/debit-note-creator.dialog";
 import {DebitNoteTask} from "./debit-note-task.interface";
 import {DebitNoteActions} from "./debit-note.action";
 import {DebitNote} from "./debit-note.interface";
+import {InvoiceTask} from "../invoices/invoice-task.interface";
 
 
 @Component({
@@ -47,15 +48,20 @@ export class DebitNoteCenterPage implements OnInit {
     this.router.navigate(['/debit-notes']);
   }
 
-  view(task: DebitNoteTask) {
+  viewTask(task: DebitNoteTask) {
     console.log("DebitNote: " + task.taskId);
     this.router.navigate(['/billing/debit-notes/debit-note-task-detail', task.taskId]);
 
   }
 
+  claimTask(task: DebitNoteTask) {
+    console.log("invoice: " + task.taskId);
+    this.store.dispatch(this.actions.claimDebitNoteTask(task));
+  }
+
   viewDebitNote(debitNote: DebitNote) {
     this.router.navigate(['/billing/debit-notes/debit-note-detail', debitNote.referenceNo]);
-  }    
+  }
 
   showDialog(): void {
     console.log("showDialog");

@@ -17,7 +17,7 @@ import { DebitNoteActions } from "../debit-note.action";
 
 export class DebitNoteDraftTaskPanel implements OnInit {
 
-  private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItemList".split(".");
+  private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
   @Input() debitNoteTask: DebitNoteTask;
   debitNoteItems$: Observable<DebitNoteItem[]>;
 

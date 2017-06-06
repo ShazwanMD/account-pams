@@ -6,6 +6,17 @@ public class DebitNoteTask extends Task {
 
     private DebitNote debitNote;
 
+    // denormalize
+    private String accountCode;
+
+    public String getAccountCode() {
+        return accountCode;
+    }
+
+    public void setAccountCode(String accountCode) {
+        this.accountCode = accountCode;
+    }
+
     public DebitNote getDebitNote() {
         return debitNote;
     }

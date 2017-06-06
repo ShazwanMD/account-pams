@@ -163,6 +163,8 @@ public interface BillingService {
 
     boolean hasDebitNote(AcInvoice invoice);
 
+    void post(AcDebitNote debitNote);
+
 
     // ==================================================================================================== //
     // CREDIT NOTE

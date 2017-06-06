@@ -29,13 +29,13 @@
         <md-tab label="Assigned">
           <pams-assigned-debit-note-task-list
             [debitNoteTasks]="assignedDebitNoteTasks$ | async"
-            (view)="view($event)"></pams-assigned-debit-note-task-list>
+            (view)="viewTask($event)"></pams-assigned-debit-note-task-list>
           <md-divider></md-divider>
         </md-tab>
         <md-tab label="Pooled">
           <pams-pooled-debit-note-task-list
             [debitNoteTasks]="pooledDebitNoteTasks$ | async"
-            (view)="view($event)">
+            (claim)="claimTask($event)">
           </pams-pooled-debit-note-task-list>
         </md-tab>
         <md-tab label="Archived">

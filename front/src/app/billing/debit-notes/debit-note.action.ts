@@ -44,7 +44,7 @@ export class DebitNoteActions {
       payload: debitNotes
     };
   }
-  
+
 
   static FIND_COMPLETED_DEBIT_NOTES = '[DebitNote] Find Completed DebitNotes';
 
@@ -271,7 +271,7 @@ export class DebitNoteActions {
     };
   }
 
-  
+
   static ADD_DEBIT_NOTE_ITEM = '[DebitNote] Add DebitNote Item';
 
   addDebitNoteItem(debitNote, item): Action {
@@ -322,6 +322,23 @@ export class DebitNoteActions {
   updateDebitNoteItemSuccess(message): Action {
     return {
       type: DebitNoteActions.UPDATE_DEBIT_NOTE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+  static DELETE_DEBIT_NOTE_ITEM = '[DebitNote] Delete DebitNote Item';
+
+  deleteDebitNoteItem(debitNote, item): Action {
+    return {
+      type: DebitNoteActions.DELETE_DEBIT_NOTE_ITEM,
+      payload: {debitNote:debitNote, item:item}
+    };
+  }
+
+  static DELETE_DEBIT_NOTE_ITEM_SUCCESS = '[Invoice] Delete DebitNote Item Success';
+
+  deleteDebitNoteItemSuccess(message): Action {
+    return {
+      type: DebitNoteActions.DELETE_DEBIT_NOTE_ITEM_SUCCESS,
       payload: message
     };
   }

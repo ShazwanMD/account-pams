@@ -74,7 +74,7 @@ export interface BillingModuleState {
   archivedDebitNotes: DebitNoteListState;
   debitNote: DebitNoteState;
   debitNoteTask: DebitNoteTaskState;
-  debitNoteItemList: DebitNoteItemListState;
+  debitNoteItems: DebitNoteItemListState;
   assignedCreditNoteTasks: CreditNoteTaskListState;
   pooledCreditNoteTasks: CreditNoteTaskListState;
   archivedCreditNotes: CreditNoteListState;
@@ -103,8 +103,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     archivedDebitNotes: [],
     debitNoteTask: <DebitNoteTask>{},
     debitNote: <DebitNote>{},
-    DebitNoteItems: [],
-    debitNoteItemList: [],
+    debitNoteItems: [],
     assignedCreditNoteTasks: [],
     pooledCreditNoteTasks: [],
     archivedCreditNotes: [],
@@ -130,7 +129,7 @@ export const billingModuleReducers = {
   archivedDebitNotes: archivedDebitNoteListReducer,
   debitNoteTask: debitNoteTaskReducer,
   debitNote: debitNoteReducer,
-  debitNoteItemList: debitNoteItemListReducer,
+  debitNoteItems: debitNoteItemListReducer,
   assignedCreditNoteTasks: assignedCreditNoteTaskListReducer,
   pooledCreditNoteTasks: pooledCreditNoteTaskListReducer,
   archivedCreditNotes: archivedCreditNoteListReducer,

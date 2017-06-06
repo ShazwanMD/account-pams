@@ -18,7 +18,7 @@ export class DebitNoteEffects {
   }
 
 
-    @Effect() findDebitNotesByInvoice$ = this.actions$
+  @Effect() findDebitNotesByInvoice$ = this.actions$
     .ofType(DebitNoteActions.FIND_DEBIT_NOTES_SUCCESS)
     .map(action => action.payload)
     .switchMap(invoice => this.billingService.findDebitNotesbyInvoice(invoice))
@@ -56,7 +56,7 @@ export class DebitNoteEffects {
     .switchMap(referenceNo => this.billingService.findDebitNoteByReferenceNo(referenceNo))
     .map(debitNote => this.debitNoteActions.findDebitNoteByReferenceNoSuccess(debitNote));
 
-@Effect() findDebitNoteItems$ = this.actions$
+  @Effect() findDebitNoteItems$ = this.actions$
     .ofType(DebitNoteActions.FIND_DEBIT_NOTE_ITEMS)
     .map(action => action.payload)
     .switchMap(debitNote => this.billingService.findDebitNoteItems(debitNote))
@@ -111,4 +111,34 @@ export class DebitNoteEffects {
     .map(action => action.payload)
     .switchMap(debitNote => this.billingService.updateDebitNote(debitNote))
     .map(debitNote => this.debitNoteActions.updateDebitNoteSuccess(debitNote));
+
+  @Effect() addDebitNoteItem$ =
+    this.actions$
+      .ofType(DebitNoteActions.ADD_DEBIT_NOTE_ITEM)
+      .map(action => action.payload)
+      .switchMap(payload => this.billingService.addDebitNoteItem(payload.debitNote, payload.item))
+      .map(message => this.debitNoteActions.addDebitNoteItemSuccess(message))
+      .withLatestFrom(this.store$.select(...this.DEBIT_NOTE_TASK))
+      .map(state => state[1])
+      .map(debitNote => this.debitNoteActions.findDebitNoteItems(debitNote));
+
+  @Effect() updateDebitNoteItem$ = this.actions$
+    .ofType(DebitNoteActions.UPDATE_DEBIT_NOTE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.billingService.updateDebitNoteItem(payload.debitNote, payload.item))
+    .map(message => this.debitNoteActions.updateDebitNoteItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.DEBIT_NOTE_TASK))
+    .map(state => state[1])
+    .map(debitNote => this.debitNoteActions.findDebitNoteItems(debitNote));
+
+  @Effect() deleteDebitNoteItem$ = this.actions$
+    .ofType(DebitNoteActions.DELETE_DEBIT_NOTE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.billingService.deleteDebitNoteItem(payload.debitNote, payload.item))
+    .map(message => this.debitNoteActions.deleteDebitNoteItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.DEBIT_NOTE_TASK))
+    .map(state => state[1])
+    .map(debitNote => this.debitNoteActions.findDebitNoteItems(debitNote));
+
+
 }

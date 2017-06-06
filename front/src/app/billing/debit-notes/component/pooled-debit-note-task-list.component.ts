@@ -11,7 +11,7 @@ import { DebitNoteTask } from "../debit-note-task.interface";
 export class PooledDebitNoteTaskListComponent {
 
   @Input() debitNoteTasks: DebitNoteTask[];
-  @Output() view = new EventEmitter<DebitNoteTask>();
+  @Output() claim = new EventEmitter<DebitNoteTask>();
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
@@ -25,11 +25,11 @@ export class PooledDebitNoteTaskListComponent {
   constructor(private snackBar: MdSnackBar) {
   }
 
-  viewTask(task: DebitNoteTask): void {
+  claimTask(task: DebitNoteTask): void {
     console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing debit note", "OK");
+    let snackBarRef = this.snackBar.open("Claiming invoice", "OK");
     snackBarRef.afterDismissed().subscribe(() => {
-      this.view.emit(task);
+      this.claim.emit(task);
     });
   }
 }
