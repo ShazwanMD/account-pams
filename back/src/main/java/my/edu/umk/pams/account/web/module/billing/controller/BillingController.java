@@ -579,7 +579,8 @@ public class BillingController {
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/creditNotes/startTask/{taskId}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/creditNotes/viewTask/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<CreditNoteTask> findCreditNoteByTaskId(@PathVariable String taskId) {
         return new ResponseEntity<CreditNoteTask>(billingTransformer.toCreditNoteTaskVo(
                 billingService.findCreditNoteTaskByTaskId(taskId)), HttpStatus.OK);

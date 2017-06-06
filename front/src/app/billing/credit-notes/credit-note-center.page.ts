@@ -17,8 +17,8 @@ import {CreditNote} from "./credit-note.interface";
 
 export class CreditNoteCenterPage implements OnInit {
 
-  private POOLED_CREDIT_NOTE_TASKS: string[] = "billingModuleState.assignedCreditNoteTasks".split(".");
-  private ASSIGNED_CREDIT_NOTE_TASKS: string[] = "billingModuleState.pooledCreditNoteTasks".split(".");
+  private POOLED_CREDIT_NOTE_TASKS: string[] = "billingModuleState.pooledCreditNoteTasks".split(".");
+  private ASSIGNED_CREDIT_NOTE_TASKS: string[] = "billingModuleState.assignedCreditNoteTasks".split(".");
   private ARCHIVED_CREDIT_NOTES: string[] = "billingModuleState.archivedCreditNotes".split(".");
   private assignedCreditNoteTasks$: Observable<CreditNoteTask[]>;
   private pooledCreditNoteTasks$: Observable<CreditNoteTask[]>;
@@ -43,7 +43,7 @@ export class CreditNoteCenterPage implements OnInit {
 
   view(task: CreditNoteTask) {
     console.log("CreditNote: " + task.taskId);
-    this.router.navigate(['/billing/credit-notes/view-task', task.taskId]);
+    this.router.navigate(['/billing/credit-notes/credit-note-task-detail', task.taskId]);
   }
 
 
