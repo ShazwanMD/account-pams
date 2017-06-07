@@ -10,6 +10,7 @@ import { MdDialogRef, MdDialog } from "@angular/material";
 import { DebitNote } from "../debit-notes/debit-note.interface";
 import { DebitNoteItem } from "./debit-note-item.interface";
 import { DebitNoteActions } from "./debit-note.action";
+import { DebitNoteTask } from "./debit-note-task.interface";
 
 
 @Component({
@@ -18,9 +19,9 @@ import { DebitNoteActions } from "./debit-note.action";
 })
 export class DebitNoteDetailPage implements OnInit {
 
-  private DEBIT_NOTES = "billingModuleState.debitNoteList".split(".");
+  private DEBIT_NOTES = "billingModuleState.debitNote".split(".");
   private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
-  private debitNotes$: Observable<DebitNote[]>;
+  private debitNotes$: Observable<DebitNoteTask[]>;
   private debitNoteItems$: Observable<DebitNoteItem[]>;
 
   constructor(private router: Router,

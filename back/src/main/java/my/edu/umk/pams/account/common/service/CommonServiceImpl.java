@@ -49,6 +49,9 @@ public class CommonServiceImpl implements CommonService {
 
     @Autowired
     private AcStudyModeDao studyModeDao;
+    
+    @Autowired
+    private AcTaxCodeDao taxCodeDao;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -705,6 +708,59 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public void removeStudyMode(AcStudyMode studyMode) {
         studyModeDao.remove(studyMode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    //====================================================================================================
+    // TAX CODE
+    //====================================================================================================
+
+    @Override
+    public AcTaxCode findTaxCodeById(Long id) {
+        return taxCodeDao.findById(id);
+    }
+
+    @Override
+    public AcTaxCode findTaxCodeByCode(String code) {
+        return taxCodeDao.findByCode(code);
+    }
+
+    @Override
+    public List<AcTaxCode> findTaxCodes() {
+        return taxCodeDao.find();
+    }
+
+    @Override
+    public List<AcTaxCode> findTaxCodes(String filter, Integer offset, Integer limit) {
+        return taxCodeDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public Integer countTaxCode() {
+        return taxCodeDao.count();
+    }
+
+    @Override
+    public Integer countTaxCode(String filter) {
+        return taxCodeDao.count(filter);
+    }
+
+
+    @Override
+    public void saveTaxCode(AcTaxCode taxCode) {
+    	taxCodeDao.save(taxCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateTaxCode(AcTaxCode taxCode) {
+    	taxCodeDao.update(taxCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeTaxCode(AcTaxCode taxCode) {
+    	taxCodeDao.remove(taxCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 

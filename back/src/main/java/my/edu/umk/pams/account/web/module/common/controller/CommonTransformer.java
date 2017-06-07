@@ -109,5 +109,29 @@ public class CommonTransformer {
                 .collect(Collectors.toList());
         return vos;
     }
+    
+    //====================================================================================================
+    // RESIDENCY CODE
+    //====================================================================================================
+
+    public TaxCode toTaxCodeVo(AcTaxCode e) {
+    	TaxCode vo = new TaxCode();
+        vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setDescription(e.getDescription());
+        vo.setAccrualType(e.getAccrualType());
+        vo.setPurposeType(e.getPurposeType());
+        vo.setRate(e.getRate());
+        vo.setTaxRate(e.getTaxRate());
+        vo.setTaxType(e.getTaxType());
+        return vo;
+    }
+
+    public List<TaxCode> toTaxCodeVos(List<AcTaxCode> e) {
+        List<TaxCode> vos = e.stream()
+                .map((e1) -> toTaxCodeVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
 
 }

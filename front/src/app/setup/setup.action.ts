@@ -499,5 +499,82 @@ export class SetupActions {
     };
   }
 
+  static FIND_TAX_CODES = '[Common] Find Tax Codes';
 
+  findTaxCodes(): Action {
+    console.log("findTaxCodes");
+    return {
+      type: SetupActions.FIND_TAX_CODES,
+    };
+  }
+
+  static FIND_TAX_CODES_SUCCESS = '[Common] Find Tax Codes Success';
+
+  findTaxCodesSuccess(codes): Action {
+    console.log("findTaxCodesSuccess");
+    return {
+      type: SetupActions.FIND_TAX_CODES_SUCCESS,
+      payload: codes
+    };
+  }
+  
+  static SAVE_TAX_CODE = '[Setup] Save Tax Code';
+
+  saveTaxCode(code): Action {
+    console.log("saveTaxCode");
+    return {
+      type: SetupActions.SAVE_TAX_CODE,
+      payload: code
+    };
+  }
+
+  static SAVE_TAX_CODE_SUCCESS = '[Setup] Save Tax Code Success';
+
+  saveTaxCodeSuccess(message): Action {
+    console.log("saveTaxCodeSuccess");
+    return {
+      type: SetupActions.SAVE_TAX_CODE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static UPDATE_TAX_CODE = '[Setup] Update Tax Code';
+
+  updateTaxCode(code): Action {
+    console.log("updateTaxCode");
+    return {
+      type: SetupActions.UPDATE_TAX_CODE,
+      payload: code
+    };
+  }
+
+  static UPDATE_TAX_CODE_SUCCESS = '[Setup] Update Tax Code  Success';
+
+  updateTaxCodeSuccess(message): Action {
+    console.log("updateTaxCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_TAX_CODE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static REMOVE_TAX_CODE = '[Setup] Remove Tax Code';
+
+  removeTaxCode(code): Action {
+    console.log("updateTaxCode");
+    return {
+      type: SetupActions.REMOVE_TAX_CODE,
+      payload: code
+    };
+  }
+
+  static REMOVE_TAX_CODE_SUCCESS = '[Setup] Remove Tax Code  Success';
+
+  removeTaxCodeSuccess(message): Action {
+    console.log("updateTaxCodeSuccess");
+    return {
+      type: SetupActions.REMOVE_TAX_CODE_SUCCESS,
+      payload: message
+    };
+  }
 }
