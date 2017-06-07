@@ -281,5 +281,25 @@ public interface CommonService {
 
     void removeStudyMode(AcStudyMode studyMode);
 
+    //====================================================================================================
+    // TAX CODE
+    //====================================================================================================
 
+    AcTaxCode findTaxCodeById(Long id);
+
+    AcTaxCode findTaxCodeByCode(String code);
+
+    List<AcTaxCode> findTaxCodes();
+
+    List<AcTaxCode> findTaxCodes(String filter, Integer offset, Integer limit);
+
+    Integer countTaxCode();
+
+    Integer countTaxCode(String filter);
+
+    void saveTaxCode(AcTaxCode taxCode);
+
+    void updateTaxCode(AcTaxCode taxCode);
+
+    void removeTaxCode(AcTaxCode taxCode);
 }

@@ -46,6 +46,10 @@ import { ResidencyCodeListState, residencyCodeListReducer } from "../common/resi
 import { ResidencyCode } from "../common/residency-codes/residency-code.interface";
 import { ResidencyCodeListPage } from "./residency-codes/residency-code-list.page";
 import {ResidencyCodeEditorDialog} from "./residency-codes/dialog/residency-code-editor.dialog";
+import { TaxCodeListState, taxCodeListReducer } from "../common/tax-codes/tax-code-list.reducer";
+import { TaxCode } from "../common/tax-codes/tax-code.interface";
+import { TaxCodeListPage } from "./tax-codes/tax-code-list.page";
+import { TaxCodeEditorDialog } from "./tax-codes/dialog/tax-code-editor.dialog";
 
 
 
@@ -56,6 +60,7 @@ export interface SetupModuleState {
   bankCodes: BankCodeListState;
   cohortCodes: CohortCodeListState;
   residencyCodes: ResidencyCodeListState;
+  taxCodes: TaxCodeListState;
 
 };
 
@@ -65,6 +70,7 @@ export const INITIAL_SETUP_STATE: SetupModuleState =
     bankCodes: <BankCode[]>[],
     cohortCodes: <CohortCode[]>[],
     residencyCodes: <ResidencyCode[]>[],
+    taxCodes: <TaxCode[]>[],
   };
 
 
@@ -73,6 +79,7 @@ export const setupModuleReducers = {
   bankCodes: bankCodeListReducer,
   cohortCodes: cohortCodeListReducer,
   residencyCodes: residencyCodeListReducer,
+  taxCodes: taxCodeListReducer,
 }
 
 
@@ -95,6 +102,7 @@ export const setupModuleReducers = {
     StudyModeListPage,
     CohortCodeListPage,
     ResidencyCodeListPage,
+    TaxCodeListPage,
 
     // dialog
     BankCodeEditorDialog,
@@ -105,7 +113,7 @@ export const setupModuleReducers = {
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
     ResidencyCodeEditorDialog,
-
+    TaxCodeEditorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -117,6 +125,7 @@ export const setupModuleReducers = {
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
     ResidencyCodeEditorDialog,
+    TaxCodeEditorDialog,
   ],
 
 })
