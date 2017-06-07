@@ -17,7 +17,7 @@ public class AcTaxCodeImpl implements AcTaxCode {
 
     @Id
     @Column(name = "ID", nullable = false)
-    @GeneratedValue(generator = "SQ_AC_TAX_CODEE")
+    @GeneratedValue(generator = "SQ_AC_TAX_CODE")
     @SequenceGenerator(name = "SQ_AC_TAX_CODE", sequenceName = "SQ_AC_TAX_CODE", allocationSize = 1)
     private Long id;
 
