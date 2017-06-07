@@ -54,7 +54,9 @@ export class DebitNoteEffects {
     .ofType(DebitNoteActions.FIND_DEBIT_NOTE_BY_REFERENCE_NO)
     .map(action => action.payload)
     .switchMap(referenceNo => this.billingService.findDebitNoteByReferenceNo(referenceNo))
-    .map(debitNote => this.debitNoteActions.findDebitNoteByReferenceNoSuccess(debitNote));
+    .map(debitNote => this.debitNoteActions.findDebitNoteByReferenceNoSuccess(debitNote))
+    .mergeMap(action => from([action, this.debitNoteActions.findDebitNoteItems(action.payload)]))
+    .mergeMap(action => from([action, this.debitNoteActions.findDebitNotes(action.payload)]));
 
   @Effect() findDebitNoteItems$ = this.actions$
     .ofType(DebitNoteActions.FIND_DEBIT_NOTE_ITEMS)
@@ -80,7 +82,8 @@ export class DebitNoteEffects {
     .map(message => this.debitNoteActions.completeDebitNoteTaskSuccess(message))
     .mergeMap(action => from([action,
         this.debitNoteActions.findAssignedDebitNoteTasks(),
-        this.debitNoteActions.findPooledDebitNoteTasks()
+        this.debitNoteActions.findPooledDebitNoteTasks(),
+         this.debitNoteActions.findArchivedDebitNotes()
       ]
     ));
 
@@ -92,6 +95,7 @@ export class DebitNoteEffects {
     .mergeMap(action => from([action,
         this.debitNoteActions.findAssignedDebitNoteTasks(),
         this.debitNoteActions.findPooledDebitNoteTasks()
+       
       ]
     ));
 

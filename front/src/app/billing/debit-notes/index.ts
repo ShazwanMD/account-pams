@@ -69,6 +69,7 @@ import {ChargeCodeSubModule} from "../../account/charge-codes/index";
     DebitNoteRegisterTaskPanel,
     DebitNoteItemEditorDialog,
     DebitNoteDraftTaskPanel,
+    DebitNoteStatusComponent,
     DebitNoteRegisterTaskPanel,
     DebitNoteVerifyTaskPanel,
     DebitNoteItemListComponent,
