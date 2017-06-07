@@ -18,7 +18,7 @@ import { DebitNoteActions } from "./debit-note.action";
 })
 export class DebitNoteDetailPage implements OnInit {
 
-  private DEBIT_NOTES = "billingModuleState.debitNoteList".split(".");
+  private DEBIT_NOTES = "billingModuleState.debitNote".split(".");
   private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
   private debitNotes$: Observable<DebitNote[]>;
   private debitNoteItems$: Observable<DebitNoteItem[]>;
