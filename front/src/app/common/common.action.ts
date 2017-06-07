@@ -141,5 +141,28 @@ export class CommonActions {
       payload: codes
     };
   }
+  
+  // ====================================================================================================
+  // TAX CODES
+  // ====================================================================================================
+
+  static FIND_TAX_CODES = '[Common] Find Tax Codes';
+
+  findTaxCodes(): Action {
+    console.log("findTaxCodes");
+    return {
+      type: CommonActions.FIND_TAX_CODES,
+    };
+  }
+
+  static FIND_TAX_CODES_SUCCESS = '[Common] Find Tax Codes Success';
+
+  findTaxCodesSuccess(codes): Action {
+    console.log("findTaxCodesSuccess");
+    return {
+      type: CommonActions.FIND_TAX_CODES_SUCCESS,
+      payload: codes
+    };
+  }
 
 }
