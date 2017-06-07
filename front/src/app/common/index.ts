@@ -20,6 +20,7 @@ import {studyModeListReducer, StudyModeListState} from "../setup/study-modes/stu
 import {residencyCodeListReducer, ResidencyCodeListState} from "./residency-codes/residency-code-list.reducer";
 import {ResidencyCodeSelectComponent} from "./residency-codes/component/residency-code-select.component";
 import {taxCodeListReducer, TaxCodeListState} from "./tax-codes/tax-code-list.reducer";
+import { TaxCodeSelectComponent } from "./tax-codes/component/tax-code-select.component";
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
@@ -60,12 +61,14 @@ export const commonModuleReducers = {
     FacultyCodeSelectComponent,
     StudyModeSelectComponent,
     ResidencyCodeSelectComponent,
+    TaxCodeSelectComponent,
   ],
   exports: [
     CohortCodeSelectComponent,
     FacultyCodeSelectComponent,
     StudyModeSelectComponent,
     ResidencyCodeSelectComponent,
+    TaxCodeSelectComponent,
   ],
 })
 export class CommonModule {
