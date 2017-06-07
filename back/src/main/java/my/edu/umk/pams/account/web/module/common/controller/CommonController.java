@@ -281,4 +281,63 @@ public class CommonController {
         commonService.removeBankCode(bankCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    //====================================================================================================
+    // TAX_CODE
+    //====================================================================================================
+
+    @RequestMapping(value = "/taxCodes", method = RequestMethod.GET)
+    public ResponseEntity<List<TaxCode>> findTaxCodes() {
+        return new ResponseEntity<List<TaxCode>>(commonTransformer.toTaxCodeVos(
+                commonService.findTaxCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/taxCodes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<TaxCode> findTaxCodeByCode(@PathVariable String code) {
+        return new ResponseEntity<TaxCode>(commonTransformer.toTaxCodeVo(
+                commonService.findTaxCodeByCode(code)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/taxCodes", method = RequestMethod.POST)
+    public ResponseEntity<String> saveTaxCode(@RequestBody TaxCode vo) {
+        dummyLogin();
+
+        AcTaxCode taxCode = new AcTaxCodeImpl();
+        taxCode.setCode(vo.getCode());
+        taxCode.setDescription(vo.getDescription());
+        taxCode.setAccrualType(vo.getAccrualType());
+        taxCode.setPurposeType(vo.getPurposeType());
+        taxCode.setRate(vo.getRate());
+        taxCode.setTaxRate(vo.getTaxRate());
+        taxCode.setTaxType(vo.getTaxType());
+        commonService.saveTaxCode(taxCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/taxCodes/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateTaxCode(@PathVariable String code, @RequestBody TaxCode vo) {
+        dummyLogin();
+
+        AcTaxCode taxCode = commonService.findTaxCodeById(vo.getId());
+        taxCode.setCode(vo.getCode());
+        taxCode.setDescription(vo.getDescription());
+        taxCode.setAccrualType(vo.getAccrualType());
+        taxCode.setPurposeType(vo.getPurposeType());
+        taxCode.setRate(vo.getRate());
+        taxCode.setTaxRate(vo.getTaxRate());
+        taxCode.setTaxType(vo.getTaxType());
+        commonService.updateTaxCode(taxCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/taxCodes/{code}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeTaxCode(@PathVariable String code) {
+        dummyLogin();
+
+        AcTaxCode taxCode = commonService.findTaxCodeByCode(code);
+        commonService.removeTaxCode(taxCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+
 }
