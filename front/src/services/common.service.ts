@@ -11,6 +11,7 @@ import {StudyMode} from "../app/common/study-modes/study-mode.interface";
 import {StateCode} from "../app/common/state-codes/state-code.interface";
 import {BankCode} from "../app/common/bank-codes/bank-code.interface";
 import {ResidencyCode} from "../app/common/residency-codes/residency-code.interface";
+import {TaxCode} from "../app/common/tax-codes/tax-code.interface";
 
 @Injectable()
 export class CommonService {
@@ -276,5 +277,45 @@ export class CommonService {
     return this.http.get(environment.endpoint + '/api/common/stateCodes/' + code)
       .map((res: Response) => <StateCode>res.json());
   }
+  
+  // ====================================================================================================
+  // TAX CODES
+  // ====================================================================================================
+
+  findTaxCodes(): Observable<TaxCode[]> {
+      console.log("findTaxCodes");
+      return this.http.get(environment.endpoint + '/api/common/taxCodes')
+        .map((res: Response) => <ResidencyCode[]>res.json());
+    }
+
+  saveTaxCode(code: TaxCode) {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.post(environment.endpoint + '/api/common/taxCodes', JSON.stringify(code), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
+   updateTaxCode(code: TaxCode) {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.put(environment.endpoint + '/api/common/taxCodes/' + code.code, JSON.stringify(code), options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+
+   removeTaxCode(code: TaxCode) {
+       let headers = new Headers({
+         'Content-Type': 'application/json',
+         //'Authorization': 'Bearer ' + this.authService.token
+       });
+       let options = new RequestOptions({headers: headers});
+       return this.http.delete(environment.endpoint + '/api/common/taxCodes/' + code.code, options)
+         .flatMap((res: Response) => Observable.of(res.text()));
+     }
 
 }
