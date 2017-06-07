@@ -19,12 +19,14 @@ import {StudyModeSelectComponent} from "./study-modes/component/study-mode-selec
 import {studyModeListReducer, StudyModeListState} from "../setup/study-modes/study-mode-list.reducer";
 import {residencyCodeListReducer, ResidencyCodeListState} from "./residency-codes/residency-code-list.reducer";
 import {ResidencyCodeSelectComponent} from "./residency-codes/component/residency-code-select.component";
+import {taxCodeListReducer, TaxCodeListState} from "./tax-codes/tax-code-list.reducer";
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
   facultyCodes: CohortCodeListState;
   studyModes: StudyModeListState;
   residencyCodes: ResidencyCodeListState;
+  taxCodes: TaxCodeListState;
 }
 ;
 
@@ -33,7 +35,8 @@ export const INITIAL_COMMON_STATE: CommonModuleState =
     cohortCodes: [],
     facultyCodes: [],
     studyModes: [],
-    residencyCodes: []
+    residencyCodes: [],
+    taxCodes: []
   };
 
 export const commonModuleReducers = {
@@ -41,6 +44,7 @@ export const commonModuleReducers = {
   facultyCodes: facultyCodeListReducer,
   studyModes: studyModeListReducer,
   residencyCodes: residencyCodeListReducer,
+  taxCodes: taxCodeListReducer,
 };
 
 @NgModule({
