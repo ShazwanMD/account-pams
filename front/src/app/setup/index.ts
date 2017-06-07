@@ -49,6 +49,7 @@ import {ResidencyCodeEditorDialog} from "./residency-codes/dialog/residency-code
 import { TaxCodeListState, taxCodeListReducer } from "../common/tax-codes/tax-code-list.reducer";
 import { TaxCode } from "../common/tax-codes/tax-code.interface";
 import { TaxCodeListPage } from "./tax-codes/tax-code-list.page";
+import { TaxCodeEditorDialog } from "./tax-codes/dialog/tax-code-editor.dialog";
 
 
 
@@ -112,7 +113,7 @@ export const setupModuleReducers = {
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
     ResidencyCodeEditorDialog,
-
+    TaxCodeEditorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -124,6 +125,7 @@ export const setupModuleReducers = {
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
     ResidencyCodeEditorDialog,
+    TaxCodeEditorDialog,
   ],
 
 })
