@@ -82,7 +82,8 @@ export class DebitNoteEffects {
     .map(message => this.debitNoteActions.completeDebitNoteTaskSuccess(message))
     .mergeMap(action => from([action,
         this.debitNoteActions.findAssignedDebitNoteTasks(),
-        this.debitNoteActions.findPooledDebitNoteTasks()
+        this.debitNoteActions.findPooledDebitNoteTasks(),
+         this.debitNoteActions.findArchivedDebitNotes()
       ]
     ));
 
@@ -94,6 +95,7 @@ export class DebitNoteEffects {
     .mergeMap(action => from([action,
         this.debitNoteActions.findAssignedDebitNoteTasks(),
         this.debitNoteActions.findPooledDebitNoteTasks()
+       
       ]
     ));
 
