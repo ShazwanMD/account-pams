@@ -10,8 +10,8 @@
     <md-icon>more_vert</md-icon>
         </button>
     <md-menu x-position="before" #menu="mdMenu">
-      <button md-menu-item (click)="create()">Add Admission Charge</button>
-      <button md-menu-item (click)="create()">Add Compound Charge</button>
+      <button md-menu-item (click)="addAdmission()">Add Admission Charge</button>
+      <button md-menu-item (click)="addCompound()">Add Compound Charge</button>
     </md-menu>
     <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
     <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
