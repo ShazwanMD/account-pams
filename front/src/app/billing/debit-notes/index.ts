@@ -26,7 +26,8 @@ import {DebitNoteVerifyTaskPanel} from "./panel/debit-note-verify-task.panel";
 import {DebitNoteTaskWorkflowPanel} from "./panel/debit-note-task-workflow.panel";
 import {DebitNoteStatusComponent} from "./component/debit-note-status.component";
 import {DebitNoteItemListComponent} from "./component/debit-note-item-list.component";
-import {ChargeCodeSubModule} from "../../account/charge-codes/index";
+import { ChargeCodeSubModule } from "../../account/charge-codes/index";
+import { DebitNoteActionComponent } from "./component/debit-note-action.component";
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import {ChargeCodeSubModule} from "../../account/charge-codes/index";
     DebitNoteTaskWorkflowPanel,
     DebitNoteStatusComponent,
     DebitNoteItemListComponent,
+    DebitNoteActionComponent,
 
 
   ],
@@ -73,6 +75,7 @@ import {ChargeCodeSubModule} from "../../account/charge-codes/index";
     DebitNoteRegisterTaskPanel,
     DebitNoteVerifyTaskPanel,
     DebitNoteItemListComponent,
+    DebitNoteActionComponent,
 
   ],
 
