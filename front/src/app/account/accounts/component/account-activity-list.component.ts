@@ -11,7 +11,7 @@ export class AccountActivityListComponent {
 
   private columns: any[] = [
     {name: 'sourceNo', label: 'Source'},
-    {name: 'chargeCode.code', label: 'ChargeCode'},
+    {name: 'chargeCode.description', label: 'ChargeCode'},
     {name: 'session.code', label: 'Session'},
     {name: 'amount', label: 'Amount'},
     {name: 'action', label: ''}
