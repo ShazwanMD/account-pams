@@ -61,9 +61,9 @@ public class FeeScheduleReader {
                         + "CURRENT_TIMESTAMP,"
                         + "1); \n\n\n\n\n");
                 
-          //    int lastRowNum = sheet.getLastRowNum();
-              //  for (int j = 7; j < lastRowNum; j++) {
-                for (int j = 7; j < 19; j++) {
+            int lastRowNum = sheet.getLastRowNum();
+               for (int j = 7; j < lastRowNum; j++) {
+               // for (int j = 7; j < 19; j++) {
                     Row row = sheet.getRow(j);
                     if (row != null) {
                        LOG.debug(toString(row.getCell(0)));
@@ -71,7 +71,7 @@ public class FeeScheduleReader {
                       LOG.debug(toString(row.getCell(2)));
                                    
                       
-                        writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,SCHEDULE_ID, AMOUNT,C_TS,C_ID,M_ST) VALUES ("
+                        writer.write(j+"INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,SCHEDULE_ID, AMOUNT,C_TS,C_ID,M_ST) VALUES ("
                                 + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
                                 + "'" + toString(row.getCell(0)) + "',"
                              //   + "'" + toString(row.getCell(4)) + "',"
