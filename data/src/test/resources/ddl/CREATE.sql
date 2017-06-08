@@ -200,6 +200,22 @@
         primary key (ID)
     );
 
+    create table AC_CDIT_NOTE_ITEM (
+        ID int8 not null,
+        AMOUNT numeric(19, 2),
+        DESCRIPTION varchar(255),
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        CHARGE_CODE_ID int8,
+        CREDIT_NOTE_ID int8,
+        primary key (ID)
+    );
+
     create table AC_CHRG_CODE (
         ID int8 not null,
         CHARGE_TYPE int4 not null,
@@ -356,6 +372,22 @@
         primary key (ID)
     );
 
+    create table AC_DBIT_NOTE_ITEM (
+        ID int8 not null,
+        AMOUNT numeric(19, 2),
+        DESCRIPTION varchar(255),
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        CHARGE_CODE_ID int8,
+        DEBIT_NOTE_ID int8,
+        primary key (ID)
+    );
+
     create table AC_DSCT_CODE (
         ID int8 not null,
         CODE varchar(255) not null,
@@ -467,7 +499,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
-        ORDINAL int4,
+        ORDINAL int4 not null,
         CHARGE_CODE_ID int8,
         SCHEDULE_ID int8,
         primary key (ID)
@@ -675,7 +707,7 @@
         M_ST int4,
         SOURCE_NO varchar(255),
         ACCOUNT_ID int8,
-        PROMO_CODE_ID int8,
+        PROMO_CODE_ID int8 not null,
         primary key (ID)
     );
 
@@ -731,6 +763,20 @@
         TOTAL_APPLIED numeric(19, 2),
         TOTAL_RECEIVED numeric(19, 2),
         ACCOUNT_ID int8,
+        primary key (ID)
+    );
+
+    create table AC_RCPT_INVC (
+        ID int8 not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        INVOICE_ID int8,
+        RECEIPT_ID int8,
         primary key (ID)
     );
 
@@ -930,6 +976,25 @@
         primary key (ID)
     );
 
+    create table AC_TAX_CODE (
+        ID int8 not null,
+        ACCRUAL_TYPE varchar(255) not null,
+        CODE varchar(255) not null,
+        DESCRIPTION varchar(255) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        PURPOSE_TYPE varchar(255) not null,
+        RATE varchar(255) not null,
+        TAX_RATE varchar(255) not null,
+        TAX_TYPE varchar(255) not null,
+        primary key (ID)
+    );
+
     create table AC_USER (
         EMAIL varchar(255) not null,
         PASSWORD varchar(255),
@@ -1100,6 +1165,16 @@
         foreign key (INVOICE_ID)
         references AC_INVC;
 
+    alter table AC_CDIT_NOTE_ITEM
+        add constraint FK1A85D1CA65B1C0CE
+        foreign key (CHARGE_CODE_ID)
+        references AC_CHRG_CODE;
+
+    alter table AC_CDIT_NOTE_ITEM
+        add constraint FK1A85D1CAE81112AA
+        foreign key (CREDIT_NOTE_ID)
+        references AC_CDIT_NOTE;
+
     alter table AC_CHRG_CODE
         add constraint uc_AC_CHRG_CODE_1 unique (CODE);
 
@@ -1139,6 +1214,16 @@
         add constraint FK67CF286B7580D95D
         foreign key (INVOICE_ID)
         references AC_INVC;
+
+    alter table AC_DBIT_NOTE_ITEM
+        add constraint FK1F5D8E6765B1C0CE
+        foreign key (CHARGE_CODE_ID)
+        references AC_CHRG_CODE;
+
+    alter table AC_DBIT_NOTE_ITEM
+        add constraint FK1F5D8E67DB3A24B6
+        foreign key (DEBIT_NOTE_ID)
+        references AC_DBIT_NOTE;
 
     alter table AC_DSCT_CODE
         add constraint uc_AC_DSCT_CODE_1 unique (CODE);
@@ -1275,6 +1360,16 @@
         foreign key (ACCOUNT_ID)
         references AC_ACCT;
 
+    alter table AC_RCPT_INVC
+        add constraint FK5DB7BCBF7580D95D
+        foreign key (INVOICE_ID)
+        references AC_INVC;
+
+    alter table AC_RCPT_INVC
+        add constraint FK5DB7BCBFBC4EFBFD
+        foreign key (RECEIPT_ID)
+        references AC_RCPT;
+
     alter table AC_RCPT_ITEM
         add constraint FK5DB7D14065B1C0CE
         foreign key (CHARGE_CODE_ID)
@@ -1396,6 +1491,9 @@
         foreign key (COUNTRY_CODE_ID)
         references AC_CNTY_CODE;
 
+    alter table AC_TAX_CODE
+        add constraint uc_AC_TAX_CODE_1 unique (CODE);
+
     alter table AC_USER
         add constraint uc_AC_USER_1 unique (EMAIL);
 
@@ -1437,6 +1535,8 @@
 
     create sequence SQ_AC_CDIT_NOTE;
 
+    create sequence SQ_AC_CDIT_NOTE_ITEM;
+
     create sequence SQ_AC_CHRG_CODE;
 
     create sequence SQ_AC_CHRT_CODE;
@@ -1452,6 +1552,8 @@
     create sequence SQ_AC_CVRG;
 
     create sequence SQ_AC_DBIT_NOTE;
+
+    create sequence SQ_AC_DBIT_NOTE_ITEM;
 
     create sequence SQ_AC_DSCT_CODE;
 
@@ -1487,6 +1589,8 @@
 
     create sequence SQ_AC_RCPT;
 
+    create sequence SQ_AC_RCPT_INVC;
+
     create sequence SQ_AC_RFRN_NO;
 
     create sequence SQ_AC_RSCY_CODE;
@@ -1504,6 +1608,8 @@
     create sequence SQ_AC_STLT_ITEM;
 
     create sequence SQ_AC_STTE_CODE;
+
+    create sequence SQ_AC_TAX_CODE;
 
     create sequence SQ_AC_WAVR_APLN;
 
