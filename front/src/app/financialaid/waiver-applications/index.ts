@@ -20,7 +20,6 @@ import {PooledWaiverApplicationTaskListComponent} from "./component/pooled-waive
 import {WaiverApplicationDraftTaskPanel} from "./panel/waiver-application-draft-task.panel";
 import {WaiverApplicationTaskWorkflowPanel} from "./panel/waiver-application-task-workflow.panel";
 import {WaiverApplicationTaskViewPage} from "./waiver-application-task-view.page";
-import {WaiverApplicationCheckTaskPanel} from "./panel/waiver-application-check-task.panel";
 import {WaiverApplicationVerifyTaskPanel} from "./panel/waiver-application-verify-task.panel";
 import {WaiverApplicationRegisterTaskPanel} from "./panel/waiver-application-register-task.panel";
 import {WaiverApplicationEditorDialog} from "./dialog/waiver-application-editor.dialog";
@@ -50,7 +49,6 @@ import {WaiverApplicationStatusComponent} from "./component/waiver-application-s
     WaiverApplicationDraftTaskPanel,
     WaiverApplicationRegisterTaskPanel,
     WaiverApplicationVerifyTaskPanel,
-    WaiverApplicationCheckTaskPanel,
     WaiverApplicationStatusComponent,
 
     // dialog
@@ -64,7 +62,6 @@ import {WaiverApplicationStatusComponent} from "./component/waiver-application-s
     WaiverApplicationDraftTaskPanel,
     WaiverApplicationRegisterTaskPanel,
     WaiverApplicationVerifyTaskPanel,
-    WaiverApplicationCheckTaskPanel,
   ],
 
 })
