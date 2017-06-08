@@ -3,12 +3,14 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AccountCharge} from "../account-charge.interface";
 import {AdmissionChargeDialog} from "../dialog/admission-charge.dialog";
 import {AdmissionChargeEditorDialog} from "../dialog/admission-charge-editor.dialog";
+import {CompoundChargeEditorDialog} from "../dialog/compound-charge-editor.dialog";
 import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
 import {AccountActions} from "../account.action";
 import {AccountModuleState} from "../../index";
 import {Store} from "@ngrx/store";
 import {Account} from "../account.interface";
 import {AdmissionCharge} from "../admission-charge.interface";
+import {CompoundCharge} from "../compound-charge.interface";
 import {Observable} from "rxjs/Observable";
 
 @Component({
@@ -24,6 +26,7 @@ export class AccountChargeListComponent {
   admissionCharges$: Observable<AdmissionCharge[]>;
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
   private editorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
+  private editorCompoundDialogRef: MdDialogRef<CompoundChargeEditorDialog>;
   private selectedRows: AccountCharge[];
   private columns: any[] = [
     {name: 'sourceNo', label: 'Source No'},
@@ -48,13 +51,9 @@ export class AccountChargeListComponent {
   ngOnInit(): void {
     this.selectedRows = this.charges.filter(value => value.selected);
   }
-
-  /*edit(account: Account, accountCharge: AccountCharge): void {
-    this.editAdmissionCharge(account, accountCharge);
-  }*/
-
+  
    edit(accountCharge: AdmissionCharge): void {
-     this.showDialog(accountCharge);
+     this.AdmissionChargeDialog(accountCharge);
   }
 
   delete(account: Account, accountCharge: AccountCharge): void {
@@ -65,8 +64,8 @@ export class AccountChargeListComponent {
   filter(): void {
   }
 
-  create(): void {
-     this.showDialog(null);
+  addAdmission(): void {
+     this.AdmissionChargeDialog(null);
   }
 
   selectRow(accountCharge: AccountCharge): void {
@@ -75,40 +74,7 @@ export class AccountChargeListComponent {
   selectAllRows(accountCharge: AccountCharge[]): void {
   }
 
- /* createAdmissionChargeDialog(account, accountCharge): void {
-    console.log("show dialog");
-    let config = new MdDialogConfig();
-    config.viewContainerRef = this.vcf;
-    config.role = 'dialog';
-    config.width = '50%';
-    config.height = '90%';
-    config.position = {top: '0px'};
-    this.creatorDialogRef = this.dialog.open(AdmissionChargeDialog, config);
-    this.creatorDialogRef.componentInstance.account = this.account;
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
-      // load something here
-    });
-  }*/
-
-/*  editAdmissionCharge(account, accountCharge): void {
-    console.log("Edit");
-    let config = new MdDialogConfig();
-    config.viewContainerRef = this.vcf;
-    config.role = 'dialog';
-    config.width = '50%';
-    config.height = '90%';
-    config.position = {top: '0px'};
-    this.editorDialogRef = this.dialog.open(AdmissionChargeEditorDialog, config);
-    if (account) this.editorDialogRef.componentInstance.admissionCharge= account; // set
-    this.editorDialogRef.afterClosed().subscribe(res => {
-      console.log("close editor dialog");
-    });
-  }
-
-}*/
-
-showDialog(admissionCharge:AdmissionCharge): void {
+AdmissionChargeDialog(admissionCharge:AdmissionCharge): void {
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -121,5 +87,24 @@ showDialog(admissionCharge:AdmissionCharge): void {
     this.editorDialogRef.afterClosed().subscribe(res => {
         this.selectedRows = [];
     });
+  }
+
+  addCompound(): void {
+     this.CompoundChargeDialog(null);
+  }
+
+  CompoundChargeDialog(compoundCharge:CompoundCharge): void {
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '60%';
+    config.position = {top: '65px'};
+    this.editorCompoundDialogRef = this.dialog.open(CompoundChargeEditorDialog, config);
+    this.editorCompoundDialogRef.componentInstance.account = this.account
+    // if (compoundCharge) this.editorCompoundDialogRef.componentInstance.compoundCharge = compoundCharge;
+    // this.editorCompoundDialogRef.afterClosed().subscribe(res => {
+    //     this.selectedRows = [];
+    // });
   }
 }
