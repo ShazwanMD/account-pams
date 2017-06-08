@@ -8,7 +8,6 @@ import {WaiverApplicationDraftTaskPanel} from "./waiver-application-draft-task.p
 import {FlowState} from "../../../core/flow-state.enum";
 import {WaiverApplicationRegisterTaskPanel} from "./waiver-application-register-task.panel";
 import {WaiverApplicationVerifyTaskPanel} from "./waiver-application-verify-task.panel";
-import {WaiverApplicationCheckTaskPanel} from "./waiver-application-check-task.panel";
 
 
 @Component({
@@ -43,9 +42,6 @@ export class WaiverApplicationTaskWorkflowPanel implements OnInit {
             break;
           case FlowState.VERIFIED:
             componentFactory = this.cfr.resolveComponentFactory(WaiverApplicationVerifyTaskPanel);
-            break;
-          case FlowState.CHECKED:
-            componentFactory = this.cfr.resolveComponentFactory(WaiverApplicationCheckTaskPanel);
             break;
         }
         this.componentRef = this.taskPanel.createComponent(componentFactory);
