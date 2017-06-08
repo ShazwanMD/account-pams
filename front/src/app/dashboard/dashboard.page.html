@@ -1,0 +1,13 @@
+<td-layout-nav toolbarTitle="Dashboard">
+  <div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+	<div flex-gt-sm="40">
+      <md-card>
+          <pams-task-list
+            [tasks]="tasks$ | async"
+            (view)="view($event)">
+          </pams-task-list>
+        <md-divider></md-divider>
+      </md-card>
+    </div>
+  </div>
+</td-layout-nav>

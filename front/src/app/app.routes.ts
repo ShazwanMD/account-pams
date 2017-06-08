@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {MainComponent} from './main/main.component';
 import {LoginComponent} from './login/login.component';
 import {HomeModuleRoutes} from "./home/home-module.routes";
+import {DashboardModuleRoutes} from "./dashboard/dashboard-module.routes";
 import {AccountModuleRoutes} from "./account/account-module.routes";
 import {BillingModuleRoutes} from "./billing/billing-module.routes";
 import {FinancialaidModuleRoutes} from "./financialaid/financialaid-module.routes";
@@ -14,6 +15,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
+      ...DashboardModuleRoutes,
       ...HomeModuleRoutes,
       ...AccountModuleRoutes,
       ...BillingModuleRoutes,
