@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import { MdSnackBar } from "@angular/material";
-import { CreditNoteTask } from "../credit-note-task.interface";
+import {MdSnackBar} from "@angular/material";
+import {CreditNoteTask} from "../credit-note-task.interface";
 
 @Component({
   selector: 'pams-assigned-credit-note-task-list',
