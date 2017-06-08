@@ -1,6 +1,7 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {MdSnackBar} from "@angular/material";
-import {DebitNote} from "../debit-note.interface";
+import { DebitNote } from "../debit-note.interface";
+import { DebitNoteTask } from "../debit-note-task.interface";
 
 @Component({
   selector: 'pams-archived-debit-note-list',
@@ -9,7 +10,7 @@ import {DebitNote} from "../debit-note.interface";
 })
 export class ArchivedDebitNoteListComponent {
 
-  @Input() debitNotes: DebitNote[];
+  @Input() debitNotes: DebitNoteTask[];
   @Output() view = new EventEmitter<DebitNote>();
 
   private columns: any[] = [
