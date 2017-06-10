@@ -9,9 +9,9 @@ import org.activiti.engine.impl.interceptor.SessionFactory;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * @author canang technologies
  * @since 2/1/14
  */
-@Configuration
+@TestConfiguration
 public class TestWorkflowConfig {
 
     @Autowired

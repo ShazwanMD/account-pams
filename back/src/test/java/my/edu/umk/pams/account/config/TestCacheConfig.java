@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.config;
 
 import com.google.common.collect.Lists;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.EnableCaching;
@@ -9,7 +10,6 @@ import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.cache.interceptor.*;
 import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author canang technologies
  * @since 4/1/2015
  */
-@Configuration
+@TestConfiguration
 @EnableCaching
 public class TestCacheConfig implements CachingConfigurer {
 
