@@ -10,6 +10,7 @@ import {ChargeCodeActions} from "../charge-code.action";
 @Component({
   selector: 'pams-charge-code-select',
   templateUrl: './charge-code-select.component.html',
+  styleUrls: ['./charge-code-select.scss'],
 })
 export class ChargeCodeSelectComponent implements OnInit {
 
