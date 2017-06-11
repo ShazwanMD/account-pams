@@ -1,5 +1,5 @@
 import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 import {Observable} from "rxjs";
 import { Task } from "../core/task.interface";
 import { TaskList } from "./task-list.interface";
@@ -19,13 +19,13 @@ import { InvoiceActions } from "../billing/invoices/invoice.action";
 })
 
 export class DashboardPage implements OnInit {
-  private POOLED_CREDIT_NOTE_TASKS: string[] = "billingModuleState.pooledCreditNoteTasks".split(".");
-  private POOLED_DEBIT_NOTE_TASKS: string[] = "billingModuleState.pooledDebitNoteTasks".split(".");
-  private POOLED_INVOICE_TASKS = "billingModuleState.pooledInvoiceTasks".split(".");
+  private CREDIT_NOTES: string[] = "billingModuleState.assignedCreditNoteTasks".split(".");
+  private DEBIT_NOTES: string[] = "billingModuleState.assignedDebitNoteTasks".split(".");
+  private INVOICES = "billingModuleState.assignedInvoiceTasks".split(".");
 
-  private pooledCreditNoteTasks$: Observable<CreditNoteTask[]>;
-  private pooledDebitNoteTasks$: Observable<DebitNoteTask[]>;
-  private pooledInvoiceTasks$: Observable<InvoiceTask[]>;
+  private creditNotes$: Observable<CreditNoteTask[]>;
+  private debitNotes$: Observable<DebitNoteTask[]>;
+  private invoices$: Observable<InvoiceTask[]>;
 
   private tasks$: Observable<TaskList>;
 
@@ -33,44 +33,42 @@ export class DashboardPage implements OnInit {
               private billingStore: Store<BillingModuleState>,
               private creditNoteActions: CreditNoteActions,
               private debitNoteActions: DebitNoteActions,
-              private invoiceActions: InvoiceActions,
-              private route: ActivatedRoute) {
-      this.pooledCreditNoteTasks$ = this.billingStore.select(...this.POOLED_CREDIT_NOTE_TASKS);
-      this.pooledDebitNoteTasks$ = this.billingStore.select(...this.POOLED_DEBIT_NOTE_TASKS);
-      this.pooledInvoiceTasks$ = this.billingStore.select(...this.POOLED_INVOICE_TASKS);
+              private invoiceActions: InvoiceActions) {
+      this.creditNotes$ = this.billingStore.select(...this.CREDIT_NOTES);
+      this.debitNotes$ = this.billingStore.select(...this.DEBIT_NOTES);
+      this.invoices$ = this.billingStore.select(...this.INVOICES);
       
       this.tasks$ = Observable
       .combineLatest(
-          this.pooledCreditNoteTasks$,
-          this.pooledDebitNoteTasks$,
-          this.pooledInvoiceTasks$,
+          this.creditNotes$,
+          this.debitNotes$,
+          this.invoices$,
           (
-                  pooledCreditNoteTasks : Array<Task>,
-                  pooledDebitNoteTasks : Array<Task>,
-                  pooledInvoiceTasks : Array<Task>
+              creditNotes : Array<Task>,
+              debitNotes : Array<Task>,
+              invoices : Array<Task>
           ) => {
-              
-              console.log(pooledInvoiceTasks)
+              const tasks = [creditNotes, debitNotes, invoices];
+              const combined = [].concat(...tasks);
               return {
-                  list: pooledInvoiceTasks,
-                  tasks: pooledInvoiceTasks,
-                  total: pooledInvoiceTasks.length,
+                  list: combined,
+                  total: combined.length,
               }
           }
       );
   }
 
   ngOnInit(): void {
-      console.log("find pooled tasks");
-      //this.store.dispatch(this.actions.findAssignedCreditNoteTasks());
-      this.billingStore.dispatch(this.creditNoteActions.findPooledCreditNoteTasks());
-      this.billingStore.dispatch(this.debitNoteActions.findPooledDebitNoteTasks());
-      this.billingStore.dispatch(this.invoiceActions.findPooledInvoiceTasks());
-      //this.store.dispatch(this.actions.findArchivedCreditNotes());
+      this.billingStore.dispatch(this.creditNoteActions.findAssignedCreditNoteTasks());
+      this.billingStore.dispatch(this.debitNoteActions.findAssignedDebitNoteTasks());
+      this.billingStore.dispatch(this.invoiceActions.findAssignedInvoiceTasks());
     }
   
-  view(task: Task) {
-      console.log("taskId: " + task.taskId);
-      this.router.navigate(['/billing/credit-notes/credit-note-task-detail', task.taskId]);
+  viewTask(task: Task) {
+      console.log("task",task);
+      let uri = task['invoice'] ? '/invoices/invoice-task-detail' :
+                  task['debitNote'] ? '/debit-notes/debit-note-task-detail' :
+                  task['creditNote'] ? '/credit-notes/credit-note-task-detail' : null;
+      this.router.navigate(['/billing' + uri, task.taskId]);
     }
 }
