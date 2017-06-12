@@ -126,6 +126,16 @@ public class WorkflowServiceImpl implements WorkflowService {
         return taskService.getIdentityLinksForTask(task.getId());
     }
 
+    @Override
+    public List<Task> findAssignedTasks(Integer offset, Integer limit) {
+        log.debug("finding assigned task for user: " + Util.getCurrentUser().getName());
+        TaskQuery taskQuery = taskService.createTaskQuery();
+        taskQuery.taskAssignee(Util.getCurrentUser().getName());
+        taskQuery.orderByTaskCreateTime();
+        taskQuery.desc();
+        return taskQuery.list();
+    }
+
 
     /**
      * find task
@@ -202,6 +212,17 @@ public class WorkflowServiceImpl implements WorkflowService {
         taskQuery.desc();
         return taskQuery.list();
     }
+
+    @Override
+    public List<Task> findPooledTasks(Integer offset, Integer limit) {
+        log.debug("finding pooled task for user: " + Util.getCurrentUser().getName());
+        TaskQuery taskQuery = taskService.createTaskQuery();
+        taskQuery.taskCandidateUser(Util.getCurrentUser().getName());
+        taskQuery.orderByTaskCreateTime();
+        taskQuery.desc();
+        return taskQuery.listPage(offset, limit);
+    }
+
 
     /**
      * find pooled task

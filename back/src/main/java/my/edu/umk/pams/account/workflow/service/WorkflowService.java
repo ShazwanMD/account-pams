@@ -25,11 +25,15 @@ public interface WorkflowService {
 
     List<IdentityLink> getIdentityLinksForTask(Task task);
 
+    List<Task> findAssignedTasks(Integer offset, Integer limit);
+
     List<Task> findAssignedTasks(String taskPrefix, Integer offset, Integer limit);
 
     List<Task> findAssignedTasks(String filter, String taskPrefix, Integer offset, Integer limit);
 
     List<Task> findAssignedTasks(String name, String value, String taskPrefix, Integer offset, Integer limit);
+
+    List<Task> findPooledTasks(Integer offset, Integer limit);
 
     List<Task> findPooledTasks(String taskPrefix, Integer offset, Integer limit);
 
