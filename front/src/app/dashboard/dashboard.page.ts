@@ -19,30 +19,62 @@ import { InvoiceActions } from "../billing/invoices/invoice.action";
 })
 
 export class DashboardPage implements OnInit {
-  private CREDIT_NOTES: string[] = "billingModuleState.assignedCreditNoteTasks".split(".");
-  private DEBIT_NOTES: string[] = "billingModuleState.assignedDebitNoteTasks".split(".");
-  private INVOICES = "billingModuleState.assignedInvoiceTasks".split(".");
+  private ASSIGNED_CREDIT_NOTES: string[] = "billingModuleState.assignedCreditNoteTasks".split(".");
+  private ASSIGNED_DEBIT_NOTES: string[] = "billingModuleState.assignedDebitNoteTasks".split(".");
+  private ASSIGNED_INVOICES: string[] = "billingModuleState.assignedInvoiceTasks".split(".");
+  
+  private POOLED_CREDIT_NOTES: string[] = "billingModuleState.pooledCreditNoteTasks".split(".");
+  private POOLED_DEBIT_NOTES: string[] = "billingModuleState.pooledDebitNoteTasks".split(".");
+  private POOLED_INVOICES: string[] = "billingModuleState.pooledInvoiceTasks".split(".");
 
-  private creditNotes$: Observable<CreditNoteTask[]>;
-  private debitNotes$: Observable<DebitNoteTask[]>;
-  private invoices$: Observable<InvoiceTask[]>;
+  private assignedCreditNotes$: Observable<CreditNoteTask[]>;
+  private assignedDebitNotes$: Observable<DebitNoteTask[]>;
+  private assignedInvoices$: Observable<InvoiceTask[]>;
+  
+  private pooledCreditNotes$: Observable<CreditNoteTask[]>;
+  private pooledDebitNotes$: Observable<DebitNoteTask[]>;
+  private pooledInvoices$: Observable<InvoiceTask[]>;
 
-  private tasks$: Observable<TaskList>;
+  private assignedTasks$: Observable<TaskList>;
+  private pooledTasks$: Observable<TaskList>;
 
   constructor(private router: Router,
               private billingStore: Store<BillingModuleState>,
               private creditNoteActions: CreditNoteActions,
               private debitNoteActions: DebitNoteActions,
               private invoiceActions: InvoiceActions) {
-      this.creditNotes$ = this.billingStore.select(...this.CREDIT_NOTES);
-      this.debitNotes$ = this.billingStore.select(...this.DEBIT_NOTES);
-      this.invoices$ = this.billingStore.select(...this.INVOICES);
+      this.assignedCreditNotes$ = this.billingStore.select(...this.ASSIGNED_CREDIT_NOTES);
+      this.assignedDebitNotes$ = this.billingStore.select(...this.ASSIGNED_DEBIT_NOTES);
+      this.assignedInvoices$ = this.billingStore.select(...this.ASSIGNED_INVOICES);
       
-      this.tasks$ = Observable
+      this.pooledCreditNotes$ = this.billingStore.select(...this.POOLED_CREDIT_NOTES);
+      this.pooledDebitNotes$ = this.billingStore.select(...this.POOLED_DEBIT_NOTES);
+      this.pooledInvoices$ = this.billingStore.select(...this.POOLED_INVOICES);
+      
+      this.assignedTasks$ = Observable
       .combineLatest(
-          this.creditNotes$,
-          this.debitNotes$,
-          this.invoices$,
+          this.assignedCreditNotes$,
+          this.assignedDebitNotes$,
+          this.assignedInvoices$,
+          (
+              creditNotes : Array<Task>,
+              debitNotes : Array<Task>,
+              invoices : Array<Task>
+          ) => {
+              const tasks = [creditNotes, debitNotes, invoices];
+              const combined = [].concat(...tasks);
+              return {
+                  list: combined,
+                  total: combined.length,
+              }
+          }
+      );
+      
+      this.pooledTasks$ = Observable
+      .combineLatest(
+          this.pooledCreditNotes$,
+          this.pooledDebitNotes$,
+          this.pooledInvoices$,
           (
               creditNotes : Array<Task>,
               debitNotes : Array<Task>,
@@ -62,9 +94,21 @@ export class DashboardPage implements OnInit {
       this.billingStore.dispatch(this.creditNoteActions.findAssignedCreditNoteTasks());
       this.billingStore.dispatch(this.debitNoteActions.findAssignedDebitNoteTasks());
       this.billingStore.dispatch(this.invoiceActions.findAssignedInvoiceTasks());
+      
+      this.billingStore.dispatch(this.creditNoteActions.findPooledCreditNoteTasks());
+      this.billingStore.dispatch(this.debitNoteActions.findPooledDebitNoteTasks());
+      this.billingStore.dispatch(this.invoiceActions.findPooledInvoiceTasks());
     }
   
-  viewTask(task: Task) {
+  viewAssignedTask(task: Task) {
+      console.log("task",task);
+      let uri = task['invoice'] ? '/invoices/invoice-task-detail' :
+                  task['debitNote'] ? '/debit-notes/debit-note-task-detail' :
+                  task['creditNote'] ? '/credit-notes/credit-note-task-detail' : null;
+      this.router.navigate(['/billing' + uri, task.taskId]);
+    }
+  
+  viewPooledTask(task: Task) {
       console.log("task",task);
       let uri = task['invoice'] ? '/invoices/invoice-task-detail' :
                   task['debitNote'] ? '/debit-notes/debit-note-task-detail' :

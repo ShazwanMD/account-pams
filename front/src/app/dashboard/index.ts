@@ -6,8 +6,8 @@ import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../services';
 import {IdentityService, BillingService} from '../../services';
 import { DashboardPage } from "./dashboard.page";
-import {TaskListComponent} from "./component/task-list.component";
-
+import {PooledTaskListComponent} from "./component/pooled-task-list.component";
+import {AssignedTaskListComponent} from "./component/assigned-task-list.component";
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import {TaskListComponent} from "./component/task-list.component";
     // page
     DashboardPage,
     
-    TaskListComponent,
+    PooledTaskListComponent,
+    AssignedTaskListComponent,
   ],
   exports: [],
   entryComponents: [],

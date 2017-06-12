@@ -2,10 +2,19 @@
   <div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
 	<div flex-gt-sm="40">
       <md-card>
-          <pams-task-list
-            [tasks]="tasks$ | async"
-            (view)="viewTask($event)">
-          </pams-task-list>
+          <pams-assigned-task-list
+            [tasks]="assignedTasks$ | async"
+            (view)="viewAssignedTask($event)">
+          </pams-assigned-task-list>
+        <md-divider></md-divider>
+      </md-card>
+    </div>
+    <div flex-gt-sm="40">
+      <md-card>
+          <pams-pooled-task-list
+            [tasks]="pooledTasks$ | async"
+            (view)="viewPooledTask($event)">
+          </pams-pooled-task-list>
         <md-divider></md-divider>
       </md-card>
     </div>
