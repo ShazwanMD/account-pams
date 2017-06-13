@@ -16,6 +16,7 @@ import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.dao.AcSettlementDao;
+import my.edu.umk.pams.account.financialaid.dao.AcShortTermLoanDao;
 import my.edu.umk.pams.account.financialaid.dao.AcWaiverApplicationDao;
 import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.identity.dao.AcStudentDao;
@@ -70,6 +71,9 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Autowired
     private AcAcademicSessionDao academicSessionDao;
+    
+    @Autowired
+    private AcShortTermLoanDao shortTermLoanDao;
 
     @Autowired
     private SecurityService securityService;
@@ -376,6 +380,38 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         return waiverApplicationDao.count(academicSession);
     }
 
+    // ====================================================================================================
+    // SHORT TERM LOAN
+    // ====================================================================================================
+    
+    @Override
+    public AcShortTermLoan findShortTermLoanByReferenceNo(String referenceNo) {
+        return shortTermLoanDao.findByReferenceNo(referenceNo);
+    }
+    
+    @Override
+    public List<AcShortTermLoan> findShortTermLoans(AcAcademicSession academicSession, Integer offset, Integer limit) {
+        return shortTermLoanDao.find(academicSession, offset, limit);
+    }
+    
+    @Override
+    public void addShortTermLoan(AcShortTermLoan shortTermLoan) {
+    	shortTermLoanDao.addShortTermLoan(shortTermLoan, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateShortTermLoan(AcShortTermLoan shortTermLoan) {
+    	shortTermLoanDao.updateShortTermLoan(shortTermLoan, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void deleteShortTermLoan(AcShortTermLoan shortTermLoan) {
+    	shortTermLoanDao.deleteShortTermLoan(shortTermLoan, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
