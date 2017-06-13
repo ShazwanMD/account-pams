@@ -17,7 +17,7 @@ import { CreditNoteItemEditorDialog } from "../dialog/credit-note-item-editor.di
 
 export class CreditNoteVerifyTaskPanel implements OnInit {
 
- private CREDIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
+ private CREDIT_NOTE_ITEMS = "billingModuleState.creditNoteItems".split(".");
   @Input() creditNoteTask: CreditNoteTask;
   creditNoteItems$: Observable<CreditNoteItem[]>;
 
