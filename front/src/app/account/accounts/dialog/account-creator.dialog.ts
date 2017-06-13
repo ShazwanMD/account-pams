@@ -33,7 +33,6 @@ export class AccountCreatorDialog implements OnInit {
       description: '',
       name:'',
       email:'',
-      balanceAmount:0,
       actor:<Actor>{},
     });
   }
