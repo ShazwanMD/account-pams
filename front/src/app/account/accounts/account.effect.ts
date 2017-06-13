@@ -64,7 +64,8 @@ export class AccountEffects {
     .ofType(AccountActions.SAVE_ACCOUNT)
     .map(action => action.payload)
     .switchMap(account => this.accountService.saveAccount(account))
-    .map(account => this.accountActions.saveAccountSuccess(account));
+    .map(account => this.accountActions.saveAccountSuccess(account))
+    .mergeMap(action => from([action, this.accountActions.findAccounts()]));
 
   @Effect() updateAccount$ = this.actions$
     .ofType(AccountActions.UPDATE_ACCOUNT)
