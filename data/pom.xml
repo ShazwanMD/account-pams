@@ -310,6 +310,7 @@
                                 <srcFile>src/test/resources/data/AC_PRGM_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_CHRT_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_STDY_MODE.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_TAX_CODE.sql</srcFile>
 
                                 <!--IDENTITY-->
                                 <srcFile>src/test/resources/data/AC_PCPL.sql</srcFile>
