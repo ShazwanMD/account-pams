@@ -10,7 +10,7 @@ import { CreditNoteTask } from "../credit-note-task.interface";
 })
 export class PooledCreditNoteTaskListComponent {
 
-  @Input() creditNoteTasks: CreditNote[];
+  @Input() creditNoteTasks: CreditNoteTask[];
   @Output() claim = new EventEmitter<CreditNoteTask>();
 
   private columns: any[] = [

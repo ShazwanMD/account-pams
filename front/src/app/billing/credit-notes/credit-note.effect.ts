@@ -47,7 +47,9 @@ export class CreditNoteEffects {
     .ofType(CreditNoteActions.FIND_CREDIT_NOTE_BY_REFERENCE_NO)
     .map(action => action.payload)
     .switchMap(referenceNo => this.billingService.findCreditNoteByReferenceNo(referenceNo))
-    .map(creditNote => this.creditNoteActions.findCreditNoteByReferenceNoSuccess(creditNote));
+    .map(creditNote => this.creditNoteActions.findCreditNoteByReferenceNoSuccess(creditNote))
+    .mergeMap(action => from([action, this.creditNoteActions.findCreditNoteItems(action.payload)]))
+    .mergeMap(action => from([action, this.creditNoteActions.findCreditNotes(action.payload)]));
 
   @Effect() startCreditNoteTask$ = this.actions$
     .ofType(CreditNoteActions.START_CREDIT_NOTE_TASK)
