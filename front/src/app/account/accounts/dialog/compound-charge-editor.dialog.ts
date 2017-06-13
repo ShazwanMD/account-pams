@@ -5,7 +5,6 @@ import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
 import {AccountActions} from "../account.action";
 import {AccountModuleState} from "../../index";
-import {AdmissionCharge} from "../admission-charge.interface";
 import {StudyMode} from "../../../common/study-modes/study-mode.interface";
 import {AcademicSession} from "../../academic-sessions/academic-session.interface";
 import {Account} from "../account.interface";
@@ -14,8 +13,8 @@ import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'pams-admission-charge-editor',
-  templateUrl: './admission-charge-editor.dialog.html',
+  selector: 'pams-compound-charge-editor',
+  templateUrl: './compound-charge-editor.dialog.html',
 })
 
 export class CompoundChargeEditorDialog implements OnInit {
@@ -44,10 +43,14 @@ export class CompoundChargeEditorDialog implements OnInit {
     this.compoundCharge = value;
     this.edit = true;
   }
-
+  
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group(<CompoundCharge>{
       id:null,
+      referenceNo: '',
+      sourceNo: '',
+      description:'',
+      amount: 0,
       compoundCode : '',
       compoundDescription : '',
     });
