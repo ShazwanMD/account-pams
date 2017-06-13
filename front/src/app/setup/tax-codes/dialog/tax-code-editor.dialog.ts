@@ -40,11 +40,7 @@ export class TaxCodeEditorDialog implements OnInit {
       id: null,
       code: '',
       description: '',
-      accrualType: '',
-      purposeType: '',
-      rate: '',
       taxRate: '',
-      taxType: '',
     });
 
     if (this.edit) this.editorForm.patchValue(this._taxCode);
