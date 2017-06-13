@@ -11,10 +11,6 @@ public class TaxCode {
 	private String code;
 	private String taxRate;
 	private String description;
-	private String accrualType;
-	private String taxType;
-	private String rate;
-	private String purposeType;
 
 	public Long getId() {
 		return id;
@@ -47,39 +43,6 @@ public class TaxCode {
 	public void setTaxRate(String taxRate) {
 		this.taxRate = taxRate;
 	}
-
-	public String getAccrualType() {
-		return accrualType;
-	}
-
-	public void setAccrualType(String accrualType) {
-		this.accrualType = accrualType;
-	}
-
-	public String getTaxType() {
-		return taxType;
-	}
-
-	public void setTaxType(String taxType) {
-		this.taxType = taxType;
-	}
-
-	public String getRate() {
-		return rate;
-	}
-
-	public void setRate(String rate) {
-		this.rate = rate;
-	}
-
-	public String getPurposeType() {
-		return purposeType;
-	}
-
-	public void setPurposeType(String purposeType) {
-		this.purposeType = purposeType;
-	}
-	
 
     @JsonCreator
     public static TaxCode create(String jsonString) {
