@@ -1,6 +1,7 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {CreditNote} from "../credit-note.interface";
 import {MdSnackBar} from "@angular/material";
+import { CreditNoteTask } from "../credit-note-task.interface";
 
 @Component({
   selector: 'pams-pooled-credit-note-task-list',
@@ -10,7 +11,7 @@ import {MdSnackBar} from "@angular/material";
 export class PooledCreditNoteTaskListComponent {
 
   @Input() creditNoteTasks: CreditNote[];
-  @Output() view = new EventEmitter<CreditNote>();
+  @Output() claim = new EventEmitter<CreditNoteTask>();
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
@@ -24,11 +25,11 @@ export class PooledCreditNoteTaskListComponent {
   constructor(private snackBar: MdSnackBar) {
   }
 
-  viewTask(task: CreditNote): void {
+ claimTask(task: CreditNoteTask): void {
     console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing credit note", "OK");
+    let snackBarRef = this.snackBar.open("Claiming invoice", "OK");
     snackBarRef.afterDismissed().subscribe(() => {
-      this.view.emit(task);
+      this.claim.emit(task);
     });
   }
 }
