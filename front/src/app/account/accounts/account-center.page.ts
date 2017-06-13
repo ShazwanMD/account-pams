@@ -87,18 +87,7 @@ export class AccountCenterPage implements OnInit {
   
   ngOnInit(): void {
     this.store.dispatch(this.actions.findAccounts());
-    this.filteredOptions = this.myControl.valueChanges
-    .startWith(null)
-    .map(account => account && typeof account === 'object' ? account.name : account)
-    .map(name => name ? this.filter(name) : this.columns.slice());
   }
-  
-  filter(name: string): Account[] {
-          return this.columns.filter(accounts$ => new RegExp(`^${name}`, 'gi').test(accounts$.name)); 
-       }
 
-  displayFn(account: Account) {
-          return account ? account.name : account;
-   }
 }
 
