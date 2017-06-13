@@ -10,4 +10,8 @@ public enum  AcAccountChargeType {
     ENROLLMENT_LATE,
     SECURITY,
     STUDENT_AFFAIRS;
+
+	public static AcAccountChargeType get(int index) {
+        return values()[index];
+    }
 }
