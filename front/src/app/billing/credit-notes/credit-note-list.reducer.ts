@@ -11,6 +11,10 @@ export function archivedCreditNoteListReducer(state = initialState, action: Acti
     case CreditNoteActions.FIND_ARCHIVED_CREDIT_NOTES_SUCCESS: {
       return action.payload;
     }
+
+    case CreditNoteActions.FIND_CREDIT_NOTES_BY_INVOICE_SUCCESS: {
+      return action.payload;
+    }
     default: {
       return state;
     }
