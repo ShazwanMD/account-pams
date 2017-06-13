@@ -143,11 +143,18 @@
 
     create table AC_ADMN_CHRG (
         ID int8 not null,
+		COMPOUND_CODE varchar(255),
+		COMPOUND_DESCRIPTION varchar(255),
+        primary key (ID)
+    );
+
+    create table AC_CMPD_CHRG (
+        ID int8 not null,
         COHORT_CODE_ID int8,
         STUDY_MODE_ID int8,
         primary key (ID)
     );
-
+    
     create table AC_AUDT (
         ID int8 not null,
         CLASS_NAME varchar(255) not null,
@@ -1134,6 +1141,12 @@
         add constraint FK441AF3D8ACE4F811 
         foreign key (ID) 
         references AC_ACCT_CHRG;
+        
+    alter table AC_CMPD_CHRG 
+        add constraint FK441AF3D8ACE4F701 
+        foreign key (ID) 
+        references AC_ACCT_CHRG;
+
 
     alter table AC_BANK_CODE 
         add constraint uc_AC_BANK_CODE_1 unique (CODE);
