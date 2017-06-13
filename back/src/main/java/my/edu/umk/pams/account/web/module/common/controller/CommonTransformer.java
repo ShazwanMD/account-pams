@@ -119,11 +119,7 @@ public class CommonTransformer {
         vo.setId(e.getId());
         vo.setCode(e.getCode());
         vo.setDescription(e.getDescription());
-        vo.setAccrualType(e.getAccrualType());
-        vo.setPurposeType(e.getPurposeType());
-        vo.setRate(e.getRate());
         vo.setTaxRate(e.getTaxRate());
-        vo.setTaxType(e.getTaxType());
         return vo;
     }
 

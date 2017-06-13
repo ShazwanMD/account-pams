@@ -38,7 +38,7 @@ public class AcTaxCodeDaoImpl extends GenericDaoSupport<Long, AcTaxCode> impleme
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcTaxCode s where " +
                 "(upper(s.code) like upper(:filter) " +
-                "or upper(s.name) like upper(:filter)) " +
+                "or upper(s.description) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setString("filter", WILDCARD + filter + WILDCARD);
         query.setInteger("state", my.edu.umk.pams.account.core.AcMetaState.ACTIVE.ordinal());
