@@ -55,7 +55,7 @@ import {
 } from "./credit-notes/credit-note-task-list.reducer";
 import { archivedCreditNoteListReducer, CreditNoteListState } from "./credit-notes/credit-note-list.reducer";
 import { debitNoteItemListReducer, DebitNoteItemListState } from "./debit-notes/debit-note-item-list.reducer";
-import { CreditNoteItemListState } from "./credit-notes/credit-note-item-list.reducer";
+import { CreditNoteItemListState, creditNoteItemListReducer } from "./credit-notes/credit-note-item-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -138,6 +138,7 @@ export const billingModuleReducers = {
   archivedCreditNotes: archivedCreditNoteListReducer,
   creditNoteTask: creditNoteTaskReducer,
   creditNote: creditNoteReducer,
+  creditNoteItem: creditNoteItemListReducer,
 };
 
 @NgModule({
