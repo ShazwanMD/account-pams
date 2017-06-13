@@ -14,20 +14,4 @@ public interface AcTaxCode extends my.edu.umk.pams.account.core.AcMetaObject {
 
     void setDescription(String description);
     
-    String getAccrualType();
-
-    void setAccrualType(String accrualType);
-
-    String getTaxType();
-
-    void setTaxType(String taxType);
-    
-    String getRate();
-    
-    void setRate(String rate);
-    
-    String getPurposeType();
-    
-    void setPurposeType(String purposeType);
-
 }
