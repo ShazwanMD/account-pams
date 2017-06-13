@@ -35,7 +35,7 @@
         <md-tab label="Pooled">
           <pams-pooled-credit-note-task-list
             [creditNoteTasks]="pooledCreditNoteTasks$ | async"
-            (view)="view($event)">
+            (claim)="claimTask($event)">
           </pams-pooled-credit-note-task-list>
         </md-tab>
         <md-tab label="Archived">

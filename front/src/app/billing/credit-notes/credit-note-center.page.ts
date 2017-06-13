@@ -37,6 +37,13 @@ export class CreditNoteCenterPage implements OnInit {
 
   }
 
+  ngOnInit(): void {
+    console.log("find assigned credit note tasks");
+    this.store.dispatch(this.actions.findAssignedCreditNoteTasks());
+    this.store.dispatch(this.actions.findPooledCreditNoteTasks());
+    this.store.dispatch(this.actions.findArchivedCreditNotes());
+  }
+
   goBack(route: string): void {
     this.router.navigate(['/credit-notes']);
   }
@@ -44,6 +51,15 @@ export class CreditNoteCenterPage implements OnInit {
   view(task: CreditNoteTask) {
     console.log("CreditNote: " + task.taskId);
     this.router.navigate(['/billing/credit-notes/credit-note-task-detail', task.taskId]);
+  }
+
+  claimTask(task: CreditNoteTask) {
+    console.log("credit note: " + task.taskId);
+    this.store.dispatch(this.actions.claimCreditNoteTask(task));
+  }
+
+  viewCreditNote(creditNote: CreditNote) {
+    this.router.navigate(['/billing/credit-notes/credit-note-detail', creditNote.referenceNo]);
   }
 
 
@@ -62,11 +78,6 @@ export class CreditNoteCenterPage implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    console.log("find assigned credit note tasks");
-    this.store.dispatch(this.actions.findAssignedCreditNoteTasks());
-    this.store.dispatch(this.actions.findPooledCreditNoteTasks());
-    this.store.dispatch(this.actions.findArchivedCreditNotes());
-  }
+  
 }
 
