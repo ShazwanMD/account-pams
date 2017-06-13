@@ -311,7 +311,7 @@ public class AccountController {
 	// //
 	// ADMISSION CHARGE
 	// ====================================================================================================
-	// //
+	// 
 
 	@RequestMapping(value = "/accounts/{code}/admissionCharges", method = RequestMethod.POST)
 	public ResponseEntity<String> addAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
@@ -358,6 +358,62 @@ public class AccountController {
 		LOG.debug("admissionCharge " + id + " is deleted");
 		return new ResponseEntity<>("Removed", HttpStatus.OK);
 	}
+	
+
+	// ====================================================================================================
+	// //
+	// COMPOUND CHARGE
+	// ====================================================================================================
+	// 
+
+	@RequestMapping(value = "/accounts/{code}/compoundCharges", method = RequestMethod.POST)
+	public ResponseEntity<String> addCompoundCharge(@PathVariable String code, @RequestBody CompoundCharge vo) {
+		dummyLogin();
+
+		AcAccount account = accountService.findAccountByCode(code);
+		AcCompoundCharge compoundCharge = new AcCompoundChargeImpl();
+		compoundCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		compoundCharge.setSourceNo(vo.getSourceNo());
+		compoundCharge.setDescription(vo.getDescription());
+		compoundCharge.setAmount(vo.getAmount());
+		compoundCharge.setCompoundCode(vo.getCompoundCode());
+		compoundCharge.setCompoundDescription(vo.getCompoundDescription());
+		compoundCharge.setSession(accountService.findCurrentAcademicSession());
+		compoundCharge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+		accountService.addAccountCharge(account, compoundCharge);
+		return new ResponseEntity<String>("Success", HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/accounts/{code}/compoundCharges/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateCompoundCharge(@PathVariable Long id, @PathVariable String code, @RequestBody CompoundCharge vo) {
+		dummyLogin();
+		// what can we update
+		AcAccount account = accountService.findAccountByCode(code);
+		AcAccountCharge compoundCharge = accountService.findAccountChargeById(vo.getId());
+		compoundCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		compoundCharge.setSourceNo(vo.getSourceNo());
+		compoundCharge.setDescription(vo.getDescription());
+		compoundCharge.setAmount(vo.getAmount());
+		((AcCompoundCharge) compoundCharge).setCompoundCode(vo.getCompoundCode());
+		((AcCompoundCharge) compoundCharge).setCompoundDescription(vo.getCompoundDescription());
+		compoundCharge.setSession(accountService.findCurrentAcademicSession());
+		compoundCharge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+		accountService.updateAccountCharge(account, compoundCharge);
+		return new ResponseEntity<String>("Success", HttpStatus.OK);
+	}
+
+	
+	@RequestMapping(value = "/accounts/{code}/compoundCharges/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> removeCompoundCharge(@PathVariable String code, @PathVariable Long id) {
+		dummyLogin();
+
+		AcAccount account = accountService.findAccountByCode(code);
+		AcAccountCharge compoundCharge = accountService.findAccountChargeById(id);
+		accountService.deleteAccountCharge(account, compoundCharge);
+		LOG.debug("compoundCharge " + id + " is deleted");
+		return new ResponseEntity<>("Removed", HttpStatus.OK);
+	}
+
 
 	// ====================================================================================================
 	// PRIVATE METHODS

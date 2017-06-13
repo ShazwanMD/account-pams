@@ -4,10 +4,10 @@ import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/materi
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {BillingModuleState} from "../../index";
-import {CreditNoteTask} from "../credit-note-task.interface";
-import {CreditNoteItem} from "../credit-note-item.interface";
-import {CreditNoteItemEditorDialog} from "../dialog/credit-note-item-editor.dialog";
-import {CreditNoteActions} from "../credit-note.action";
+import { CreditNoteItem } from "../credit-note-item.interface";
+import { CreditNoteActions } from "../credit-note.action";
+import { CreditNoteTask } from "../credit-note-task.interface";
+import { CreditNoteItemEditorDialog } from "../dialog/credit-note-item-editor.dialog";
 
 
 @Component({
@@ -17,11 +17,11 @@ import {CreditNoteActions} from "../credit-note.action";
 
 export class CreditNoteVerifyTaskPanel implements OnInit {
 
-  private CREDIT_NOTE_ITEMS = "billingModuleState.creditNoteItems".split(".");
+ private CREDIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
   @Input() creditNoteTask: CreditNoteTask;
   creditNoteItems$: Observable<CreditNoteItem[]>;
 
-  constructor(private router: Router,
+ constructor(private router: Router,
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
               private actions: CreditNoteActions,
@@ -31,12 +31,12 @@ export class CreditNoteVerifyTaskPanel implements OnInit {
     this.creditNoteItems$ = this.store.select(...this.CREDIT_NOTE_ITEMS);
   }
 
-  ngOnInit(): void {
+ ngOnInit(): void {
     console.log("reference no " + this.creditNoteTask.referenceNo);
     this.store.dispatch(this.actions.findCreditNoteItems(this.creditNoteTask))
   }
 
-  editItem(item: CreditNoteItem) {
+ editItem(item: CreditNoteItem) {
     let config = new MdDialogConfig();
     config.viewContainerRef = this.viewContainerRef;
     config.role = 'dialog';
@@ -47,12 +47,12 @@ export class CreditNoteVerifyTaskPanel implements OnInit {
     editorDialogRef.componentInstance.creditNoteItem = item;
   }
 
-  approve() {
+ approve() {
     this.store.dispatch(this.actions.completeCreditNoteTask(this.creditNoteTask));
     this.goBack();
   }
 
-  goBack(): void {
+ goBack(): void {
     this.router.navigate(['/billing/credit-notes']);
   }
 }
