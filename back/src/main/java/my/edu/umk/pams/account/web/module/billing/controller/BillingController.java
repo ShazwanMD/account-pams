@@ -575,6 +575,14 @@ public class BillingController {
         billingService.deleteCreditNoteItem(creditNote, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/creditNotes/claimTask", method = RequestMethod.POST)
+    public ResponseEntity<String> claimCreditNoteTask(@RequestBody CreditNoteTask vo) {
+        dummyLogin();
+        Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
+        workflowService.claimTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/creditNotes/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNoteTask>> findAssignedCreditNotes() {
