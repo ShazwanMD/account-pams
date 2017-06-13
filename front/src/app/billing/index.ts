@@ -55,6 +55,7 @@ import {
 } from "./credit-notes/credit-note-task-list.reducer";
 import { archivedCreditNoteListReducer, CreditNoteListState } from "./credit-notes/credit-note-list.reducer";
 import { debitNoteItemListReducer, DebitNoteItemListState } from "./debit-notes/debit-note-item-list.reducer";
+import { CreditNoteItemListState } from "./credit-notes/credit-note-item-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -80,6 +81,7 @@ export interface BillingModuleState {
   archivedCreditNotes: CreditNoteListState;
   creditNote: CreditNoteState;
   creditNoteTask: CreditNoteTaskState;
+  creditNoteItem: CreditNoteItemListState;
 }
 ;
 
@@ -107,6 +109,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     assignedCreditNoteTasks: [],
     pooledCreditNoteTasks: [],
     archivedCreditNotes: [],
+    creditNoteItem: [],
     creditNoteTask: <CreditNoteTask>{},
     creditNote: <CreditNote>{},
   };
