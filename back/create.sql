@@ -1020,8 +1020,8 @@
 
     create table AC_TAX_CODE (
         ID int8 not null,
-        ACCRUAL_TYPE varchar(255) not null,
         CODE varchar(255) not null,
+        TAX_RATE varchar(255) not null,
         DESCRIPTION varchar(255) not null,
         C_TS timestamp,
         C_ID int8,
@@ -1030,10 +1030,6 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
-        PURPOSE_TYPE varchar(255) not null,
-        RATE varchar(255) not null,
-        TAX_RATE varchar(255) not null,
-        TAX_TYPE varchar(255) not null,
         primary key (ID)
     );
 
