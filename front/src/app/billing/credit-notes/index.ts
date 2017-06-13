@@ -17,6 +17,13 @@ import {PooledCreditNoteTaskListComponent} from "./component/pooled-credit-note-
 import {CreditNoteEffects} from "./credit-note.effect";
 import {ArchivedCreditNoteListComponent} from "./component/archived-credit-note-list.component";
 import {CreditNoteTaskDetailPage} from "./credit-note-task-detail.page";
+import {CreditNoteDraftTaskPanel} from "./panel/credit-note-draft-task.panel";
+import {CreditNoteVerifyTaskPanel} from "./panel/credit-note-verify-task.panel";
+import {CreditNoteTaskWorkflowPanel} from "./panel/credit-note-task-workflow.panel";
+import {CreditNoteRegisterTaskPanel} from "./panel/credit-note-register-task.panel";
+import {CreditNoteDetailPage} from "./credit-note-detail.page";
+import {CreditNoteItemListComponent} from "./component/credit-note-item-list.component";
+import {CreditNoteStatusComponent} from "./component/credit-note-status.component";
 
 
 @NgModule({
@@ -32,12 +39,19 @@ import {CreditNoteTaskDetailPage} from "./credit-note-task-detail.page";
     //page
     CreditNoteCenterPage,
     CreditNoteTaskDetailPage,
+    CreditNoteDetailPage,
 
     //component
     CreditNoteCreatorDialog,
     AssignedCreditNoteTaskListComponent,
     PooledCreditNoteTaskListComponent,
     ArchivedCreditNoteListComponent,
+    CreditNoteStatusComponent,
+    CreditNoteItemListComponent,
+    CreditNoteDraftTaskPanel,
+    CreditNoteRegisterTaskPanel,
+    CreditNoteVerifyTaskPanel,
+    CreditNoteTaskWorkflowPanel,
 
   ],
   exports: [
@@ -45,6 +59,11 @@ import {CreditNoteTaskDetailPage} from "./credit-note-task-detail.page";
   ],
   entryComponents: [
     CreditNoteCreatorDialog,
+    CreditNoteDraftTaskPanel,
+    CreditNoteRegisterTaskPanel,
+    CreditNoteVerifyTaskPanel,
+    CreditNoteTaskWorkflowPanel,
+
   ],
 
 })

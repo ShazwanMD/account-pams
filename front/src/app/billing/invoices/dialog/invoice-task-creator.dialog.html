@@ -1,32 +1,21 @@
 <h2 md-dialog-title>Invoice Task Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #description
-               placeholder="description"
-               formControlName="description"
-               flex/>
+               placeholder="Description"
+               formControlName="description"/>
       </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput #sourceNo
-               placeholder="sourceNo"
-               formControlName="sourceNo"
-               flex/>
-      </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom pad-top">
+
       <pams-account-select
         [placeholder]="'Select Account'"
-        [innerFormControl]="createForm.controls['account']">
+        [innerFormControl]="createForm.controls['account']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-account-select>
-    </div>
-    <div layout="row" class="pad-bottom pad-top">
+
       <pams-academic-session-select
         [placeholder]="'Select Session'"
-        [innerFormControl]="createForm.controls['academicSession']">
+        [innerFormControl]="createForm.controls['academicSession']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-academic-session-select>
     </div>
   </form>

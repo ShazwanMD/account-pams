@@ -33,22 +33,6 @@ public class AcTaxCodeImpl implements AcTaxCode {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
     
-    @NotNull
-    @Column(name = "ACCRUAL_TYPE", nullable = false)
-    private String accrualType;
-    
-    @NotNull
-    @Column(name = "TAX_TYPE", nullable = false)
-    private String taxType;
-    
-    @NotNull
-    @Column(name = "RATE", nullable = false)
-    private String rate;
-    
-    @NotNull
-    @Column(name = "PURPOSE_TYPE", nullable = false)
-    private String purposeType;
-
     @Embedded
     private AcMetadata metadata;
 
@@ -90,46 +74,6 @@ public class AcTaxCodeImpl implements AcTaxCode {
 	@Override
 	public void setTaxRate(String taxRate) {
 		this.taxRate = taxRate;
-	}
-
-	@Override
-	public String getAccrualType() {
-		return accrualType;
-	}
-
-	@Override
-	public void setAccrualType(String accrualType) {
-		this.accrualType = accrualType;
-	}
-
-	@Override
-	public String getTaxType() {
-		return taxType;
-	}
-
-	@Override
-	public void setTaxType(String taxType) {
-		this.taxType = taxType;
-	}
-
-	@Override
-	public String getRate() {
-		return rate;
-	}
-
-	@Override
-	public void setRate(String rate) {
-		this.rate = rate;
-	}
-
-	@Override
-	public String getPurposeType() {
-		return purposeType;
-	}
-
-	@Override
-	public void setPurposeType(String purposeType) {
-		this.purposeType = purposeType;
 	}
 	
     @Override

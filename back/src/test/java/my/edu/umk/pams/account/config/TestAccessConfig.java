@@ -4,10 +4,10 @@ import my.edu.umk.pams.account.security.integration.AcAclPermissionEvaluator;
 import my.edu.umk.pams.account.security.integration.AcMutableAclService;
 import my.edu.umk.pams.account.security.integration.AcPermissionFactory;
 import my.edu.umk.pams.account.security.integration.AcSidRetrievalStrategy;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.acls.domain.*;
 import org.springframework.security.acls.jdbc.BasicLookupStrategy;
 import org.springframework.security.acls.jdbc.LookupStrategy;
@@ -20,7 +20,7 @@ import javax.sql.DataSource;
  * @author canang technologies
  * @since 1/13/14
  */
-@Configuration
+@TestConfiguration
 public class TestAccessConfig {
 
     @Bean

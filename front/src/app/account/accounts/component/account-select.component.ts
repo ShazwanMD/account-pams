@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {Account} from "../account.interface";
 import {AccountActions} from "../account.action";
@@ -10,7 +10,7 @@ import {AccountModuleState} from "../../index";
 @Component({
   selector: 'pams-account-select',
   templateUrl: './account-select.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./account-select.scss'],
 })
 export class AccountSelectComponent implements OnInit {
   @Input() placeholder: string;
@@ -28,11 +28,11 @@ export class AccountSelectComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(this.actions.findAccounts());
-    
-    if(this.preSelected){
-        this.accounts$.subscribe(accounts => {
-            this.selected = accounts.find(account => account.id == this.preSelected.id);
-        })
+
+    if (this.preSelected) {
+      this.accounts$.subscribe(accounts => {
+        this.selected = accounts.find(account => account.id == this.preSelected.id);
+      })
     }
   }
 

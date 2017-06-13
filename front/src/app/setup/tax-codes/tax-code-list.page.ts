@@ -23,11 +23,7 @@ export class TaxCodeListPage implements OnInit {
   private columns: any[] = [
     {name: 'code', label: 'Code'},
     {name: 'description', label: 'Description'},
-    {name: 'accrualType', label: 'Accrual Type'},
-    {name: 'purposeType', label: 'Purpose Type'},
-    {name: 'rate', label: 'Rate'},
     {name: 'taxRate', label: 'Tax Rate'},
-    {name: 'taxType', label: 'Tax Type'},
     {name: 'action', label: ''}
   ];
 

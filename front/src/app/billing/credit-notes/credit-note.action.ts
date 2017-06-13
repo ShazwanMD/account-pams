@@ -136,6 +136,26 @@ export class CreditNoteActions {
     };
   }
 
+    static FIND_CREDIT_NOTE_ITEMS = '[CreditNote] Find CreditNote Items';
+
+  findCreditNoteItems(creditNote): Action {
+    console.log("findCreditNoteItems for creditNote: " + creditNote);
+    return {
+      type: CreditNoteActions.FIND_CREDIT_NOTE_ITEMS,
+      payload: creditNote
+    };
+  }
+
+    static FIND_CREDIT_NOTE_ITEMS_SUCCESS = '[CreditNote] Find CreditNote Items Success';
+
+  findCreditNoteItemsSuccess(items): Action {
+    console.log("findCreditNoteItemsSuccess");
+    return {
+      type: CreditNoteActions.FIND_CREDIT_NOTE_ITEMS_SUCCESS,
+      payload: items
+    };
+  }
+
   static FIND_CREDIT_NOTE_TASK_BY_TASK_ID = '[CreditNote] Find CreditNote Task By Task Id';
 
   findCreditNoteTaskByTaskId(taskId): Action {

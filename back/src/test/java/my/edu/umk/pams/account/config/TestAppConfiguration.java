@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.config;
 import com.tngtech.jgiven.integration.spring.EnableJGiven;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
@@ -10,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@Configuration
+@TestConfiguration
 @EnableJGiven
 @EnableWebSecurity
 @EnableScheduling

@@ -1,25 +1,27 @@
 <h2 md-dialog-title>Fee Schedule Item Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editForm">
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <md-input-container fxFlex="calc(50%-25px)">
         <input mdInput
+               type="number"
                placeholder="Amount"
                formControlName="amount">
       </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+
+      <md-input-container fxFlex="calc(50%-25px)">
         <input mdInput
+               type="number"
                placeholder="Semester"
                formControlName="ordinal">
       </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
+
       <pams-charge-code-select
         [placeholder]="'Charge Code'"
-        [innerFormControl]="editForm.controls['chargeCode']"></pams-charge-code-select>
+        [innerFormControl]="editForm.controls['chargeCode']" fxFlex="calc(100%-25px)" class="pad-bottom">
+      </pams-charge-code-select>
     </div>
+
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">

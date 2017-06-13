@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.financialaid.model.AcShortTermLoan;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import org.activiti.engine.task.Task;
@@ -96,4 +97,18 @@ public interface FinancialAidService {
     Integer countWaiverApplication(String filter);
 
     Integer countWaiverApplication(AcAcademicSession academicSession);
+    
+    // ==================================================================================================== //
+    // SHORT TERM LOAN
+    // ==================================================================================================== //
+    
+    AcShortTermLoan findShortTermLoanByReferenceNo(String referenceNo);
+    
+    List<AcShortTermLoan> findShortTermLoans(AcAcademicSession academicSession, Integer offset, Integer limit);
+    
+    void addShortTermLoan(AcShortTermLoan shortTermLoan);
+
+    void updateShortTermLoan(AcShortTermLoan shortTermLoan);
+
+    void deleteShortTermLoan(AcShortTermLoan shortTermLoan);
 }

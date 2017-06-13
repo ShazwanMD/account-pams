@@ -12,7 +12,6 @@ import {CovalentMarkdownModule} from '@covalent/markdown';
 import {CovalentChartsModule} from '@covalent/charts';
 import {AppComponent} from './app.component';
 import {MainComponent} from './main/main.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginComponent} from './login/login.component';
 import {appRoutes, appRoutingProviders} from './app.routes';
 
@@ -31,6 +30,7 @@ import {
 import {MarketingModule, INITIAL_MARKETING_STATE, marketingModuleReducers} from "./marketing/index";
 import {IdentityModule, identityModuleReducers, IdentityModuleState, INITIAL_IDENTITY_STATE} from "./identity/index";
 import {CommonModule, commonModuleReducers, CommonModuleState, INITIAL_COMMON_STATE} from "./common/index";
+import {DashboardModule} from "./dashboard/index";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -80,7 +80,6 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     AppComponent,
     MainComponent,
     HomeComponent,
-    DashboardComponent,
     LoginComponent,
 
   ], // directives, components, and pipes owned by this NgModule
@@ -107,6 +106,7 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     FinancialaidModule.forRoot(),
     MarketingModule.forRoot(),
     SetupModule.forRoot(),
+    DashboardModule.forRoot(),
   ], // modules needed to run this module
   providers: [
     appRoutingProviders,

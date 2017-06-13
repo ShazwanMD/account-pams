@@ -3,8 +3,8 @@ package my.edu.umk.pams.account.config;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.authentication.dao.SystemWideSaltSource;
@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  */
-@Configuration
+@TestConfiguration
 public class TestSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
