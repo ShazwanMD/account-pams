@@ -305,11 +305,7 @@ public class CommonController {
         AcTaxCode taxCode = new AcTaxCodeImpl();
         taxCode.setCode(vo.getCode());
         taxCode.setDescription(vo.getDescription());
-        taxCode.setAccrualType(vo.getAccrualType());
-        taxCode.setPurposeType(vo.getPurposeType());
-        taxCode.setRate(vo.getRate());
         taxCode.setTaxRate(vo.getTaxRate());
-        taxCode.setTaxType(vo.getTaxType());
         commonService.saveTaxCode(taxCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -321,11 +317,7 @@ public class CommonController {
         AcTaxCode taxCode = commonService.findTaxCodeById(vo.getId());
         taxCode.setCode(vo.getCode());
         taxCode.setDescription(vo.getDescription());
-        taxCode.setAccrualType(vo.getAccrualType());
-        taxCode.setPurposeType(vo.getPurposeType());
-        taxCode.setRate(vo.getRate());
         taxCode.setTaxRate(vo.getTaxRate());
-        taxCode.setTaxType(vo.getTaxType());
         commonService.updateTaxCode(taxCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
