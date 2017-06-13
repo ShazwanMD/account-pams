@@ -1,6 +1,8 @@
 package my.edu.umk.pams.account.workflow.service;
 
 import my.edu.umk.pams.account.core.model.AcDocument;
+import my.edu.umk.pams.account.identity.model.AcUser;
+
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 
@@ -25,7 +27,7 @@ public interface WorkflowService {
 
     List<IdentityLink> getIdentityLinksForTask(Task task);
 
-    List<Task> findAssignedTasks(Integer offset, Integer limit);
+    List<Task> findAssignedTasks(AcUser user, Integer offset, Integer limit);
 
     List<Task> findAssignedTasks(String taskPrefix, Integer offset, Integer limit);
 
