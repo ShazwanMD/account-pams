@@ -1,3 +1,5 @@
+{{creditNotes | json}}
+
 <td-data-table
   [data]="creditNoteTasks"
   [columns]="columns"
@@ -14,8 +16,8 @@
   </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
-      <a md-button color="accent" class="text-upper" [routerLink]="['/billing/credit-notes', row['referenceNo']]">
-        <span>View</span>
+      <a md-button color="accent" class="text-upper" (click)="claimTask(row)">
+        <span>Claim</span>
       </a>
     </div>
   </template>
