@@ -79,7 +79,7 @@ AdmissionChargeDialog(admissionCharge:AdmissionCharge): void {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '60%';
+    config.height = '70%';
     config.position = {top: '65px'};
     this.editorDialogRef = this.dialog.open(AdmissionChargeEditorDialog, config);
     this.editorDialogRef.componentInstance.account = this.account
@@ -98,13 +98,13 @@ AdmissionChargeDialog(admissionCharge:AdmissionCharge): void {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '60%';
+    config.height = '70%';
     config.position = {top: '65px'};
     this.editorCompoundDialogRef = this.dialog.open(CompoundChargeEditorDialog, config);
     this.editorCompoundDialogRef.componentInstance.account = this.account
-    // if (compoundCharge) this.editorCompoundDialogRef.componentInstance.compoundCharge = compoundCharge;
-    // this.editorCompoundDialogRef.afterClosed().subscribe(res => {
-    //     this.selectedRows = [];
-    // });
+    if (compoundCharge) this.editorCompoundDialogRef.componentInstance.compoundCharge = compoundCharge;
+    this.editorCompoundDialogRef.afterClosed().subscribe(res => {
+        this.selectedRows = [];
+    });
   }
 }
