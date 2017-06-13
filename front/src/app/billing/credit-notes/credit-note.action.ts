@@ -24,6 +24,27 @@ export class CreditNoteActions {
     };
   }
 
+   static FIND_CREDIT_NOTES_BY_INVOICE = '[Invoice] Find Invoice';
+
+  findCreditNotesByInvoice(invoice): Action {
+    console.log("findCreditNotesByInvoice");
+    return {
+      type: CreditNoteActions.FIND_CREDIT_NOTES_BY_INVOICE,
+      payload: invoice
+    };
+  }
+
+  static FIND_CREDIT_NOTES_BY_INVOICE_SUCCESS = '[CreditNote] Find Invoice Success';
+
+  findCreditNotesByInvoiceSuccess(creditNotes): Action {
+    console.log("findCreditNotesByInvoiceSuccess");
+    return {
+      type: CreditNoteActions.FIND_CREDIT_NOTES_BY_INVOICE_SUCCESS,
+      payload: creditNotes
+    };
+  }
+
+
   static FIND_COMPLETED_CREDIT_NOTES = '[CreditNote] Find Completed CreditNotes';
 
   findCompletedCreditNotes(): Action {
@@ -223,10 +244,10 @@ export class CreditNoteActions {
 
   static CLAIM_CREDIT_NOTE_TASK_SUCCESS = '[CreditNote] Assign CreditNote Task Success';
 
-  claimCreditNoteTaskSuccess(task): Action {
+  claimCreditNoteTaskSuccess(message): Action {
     return {
       type: CreditNoteActions.CLAIM_CREDIT_NOTE_TASK_SUCCESS,
-      payload: task
+      payload: message
     };
   }
 
