@@ -242,7 +242,7 @@ public class FinancialAidController {
     }
 
     @RequestMapping(value = "/waiverApplications/startTask", method = RequestMethod.POST)
-    public void startWaiverApplicationTask(@RequestBody WaiverApplication vo) throws Exception {
+    public ResponseEntity<String> startWaiverApplicationTask(@RequestBody WaiverApplication vo) throws Exception {
         dummyLogin();
 
         AcAcademicSession academicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
@@ -255,7 +255,7 @@ public class FinancialAidController {
         waiverApplication.setBalance(accountService.sumBalanceAmount(account));
         waiverApplication.setAccount(account);
         waiverApplication.setSession(academicSession);
-        financialAidService.startWaiverApplicationTask(waiverApplication);
+        return new ResponseEntity<String>(financialAidService.startWaiverApplicationTask(waiverApplication), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/waiverApplications/viewTask/{taskId}", method = RequestMethod.GET)

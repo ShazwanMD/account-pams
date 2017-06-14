@@ -320,9 +320,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
     @Override
     public String startWaiverApplicationTask(AcWaiverApplication application) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("academicSession", accountService.findCurrentAcademicSession());
-        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.WAIVER_APPLICATION_REFERENCE_NO, map);
+        String referenceNo = systemService.generateReferenceNo(AccountConstants.WAIVER_APPLICATION_REFERENCE_NO);
         application.setReferenceNo(referenceNo);
         LOG.debug("Processing application with refNo {}", referenceNo);
 
