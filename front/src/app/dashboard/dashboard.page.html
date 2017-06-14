@@ -13,7 +13,8 @@
       <md-card>
           <pams-pooled-task-list
             [tasks]="pooledTasks$ | async"
-            (view)="viewPooledTask($event)">
+            (view)="viewPooledTask($event)"
+            (claim)="claimTask($event)">
           </pams-pooled-task-list>
         <md-divider></md-divider>
       </md-card>
