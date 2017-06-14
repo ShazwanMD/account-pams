@@ -108,6 +108,26 @@ export class DashboardPage implements OnInit {
       this.router.navigate(['/billing' + uri, task.taskId]);
     }
   
+  claimTask(task: Task) {
+      console.log("task",task);
+//      let action = task['invoice'] ? this.billingStore.dispatch(this.invoiceActions.claimInvoiceTask(task)) :
+//      task['debitNote'] ? this.billingStore.dispatch(this.debitNoteActions.claimDebitNoteTask(task)) :
+//      task['creditNote'] ? this.billingStore.dispatch(this.creditNoteActions.claimCreditNoteTask(task)) : undefined;
+      
+      this.billingStore.dispatch(
+          task['invoice'] ? this.invoiceActions.claimInvoiceTask(task) :
+          task['debitNote'] ? this.debitNoteActions.claimDebitNoteTask(task) :
+          task['creditNote'] ? this.creditNoteActions.claimCreditNoteTask(task) : null
+      );
+      
+//      if(task['invoice'])
+//          this.billingStore.dispatch(this.invoiceActions.claimInvoiceTask(task));
+//      else if(task['debitNote'])
+//          this.billingStore.dispatch(this.debitNoteActions.claimDebitNoteTask(task));
+//      else if(task['creditNote'])
+//          this.billingStore.dispatch(this.creditNoteActions.claimCreditNoteTask(task));
+    }
+  
   viewPooledTask(task: Task) {
       console.log("task",task);
       let uri = task['invoice'] ? '/invoices/invoice-task-detail' :
