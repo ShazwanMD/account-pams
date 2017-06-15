@@ -115,7 +115,7 @@ export class CreditNoteEffects {
     .switchMap(creditNote => this.billingService.updateCreditNote(creditNote))
     .map(creditNote => this.creditNoteActions.updateCreditNoteSuccess(creditNote));
 
-    @Effect() addCreditNoteItem$ =
+  /*  @Effect() addCreditNoteItem$ =
     this.actions$
       .ofType(CreditNoteActions.ADD_CREDIT_NOTE_ITEM)
       .map(action => action.payload)
@@ -142,9 +142,5 @@ export class CreditNoteEffects {
     .withLatestFrom(this.store$.select(...this.CREDIT_NOTE_TASK))
     .map(state => state[1])
     .map(creditNote => this.creditNoteActions.findCreditNoteItems(creditNote));
-
-
-
-
-
+*/
 }
