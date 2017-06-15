@@ -23,7 +23,9 @@ export class AccountChargeListComponent {
   @Input() charges: AccountCharge[];
 
   private ADMISSION_CHARGES: string[] = "accountModuleState.admissionCharge".split(".");
+  private COMPOUND_CHARGES: string[] = "accountModuleState.compoundCharge".split(".");
   admissionCharges$: Observable<AdmissionCharge[]>;
+  compoundCharges$: Observable<CompoundCharge[]>;
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
   private editorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
   private editorCompoundDialogRef: MdDialogRef<CompoundChargeEditorDialog>;
@@ -46,6 +48,7 @@ export class AccountChargeListComponent {
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
   this.admissionCharges$ = this.store.select(...this.ADMISSION_CHARGES);
+  this.compoundCharges$ = this.store.select(...this.COMPOUND_CHARGES);
   }
 
   ngOnInit(): void {
