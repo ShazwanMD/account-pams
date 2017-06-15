@@ -5,11 +5,8 @@ import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
 import {AccountActions} from "../account.action";
 import {AccountModuleState} from "../../index";
-import {StudyMode} from "../../../common/study-modes/study-mode.interface";
-import {AcademicSession} from "../../academic-sessions/academic-session.interface";
 import {Account} from "../account.interface";
 import {CompoundCharge} from "../compound-charge.interface";
-import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -56,11 +53,9 @@ export class CompoundChargeEditorDialog implements OnInit {
     });
     if (this.edit) this.editorForm.patchValue(this._compoundCharge);
   }
-
-
-
+  
   submit(charge: CompoundCharge, isValid: boolean) {
-    if (this.edit) this.store.dispatch(this.actions.updateAdmissionCharge(this._account, charge));
+    if (this.edit) this.store.dispatch(this.actions.updateCompoundCharge(this._account, charge));
     else  this.store.dispatch(this.actions.addAccountCharge(this._account, charge));
     this.dialog.close();
   }
