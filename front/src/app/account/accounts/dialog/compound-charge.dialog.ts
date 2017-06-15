@@ -5,16 +5,15 @@ import {Store} from "@ngrx/store";
 import {MdDialogRef} from "@angular/material";
 import {AccountActions} from "../account.action";
 import {AccountModuleState} from "../../index";
-import {Account} from "../account.interface";
 import {CompoundCharge} from "../compound-charge.interface";
+import {Account} from "../account.interface";
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'pams-compound-charge-editor',
-  templateUrl: './compound-charge-editor.dialog.html',
+  selector: 'pams-compound-charge',
+  templateUrl: './compound-charge.dialog.html',
 })
-
-export class CompoundChargeEditorDialog implements OnInit {
+export class CompoundChargeDialog implements OnInit {
 
   private editorForm: FormGroup;
   private edit: boolean = false;
@@ -26,7 +25,7 @@ export class CompoundChargeEditorDialog implements OnInit {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private viewContainerRef: ViewContainerRef,
-              private dialog: MdDialogRef<CompoundChargeEditorDialog>,
+              private dialog: MdDialogRef<CompoundChargeDialog>,
               private store: Store<AccountModuleState>,
               private actions: AccountActions) {
   }
@@ -35,7 +34,7 @@ export class CompoundChargeEditorDialog implements OnInit {
     this._account = value;
     
   }
-  
+
   set compoundCharge(value: CompoundCharge) {
     this.compoundCharge = value;
     this.edit = true;
@@ -51,14 +50,11 @@ export class CompoundChargeEditorDialog implements OnInit {
       compoundCode : '',
       compoundDescription : '',
     });
-    if (this.edit) this.editorForm.patchValue(this._compoundCharge);
   }
-  
-  submit(charge: CompoundCharge, isValid: boolean) {
-    if (this.edit) this.store.dispatch(this.actions.updateCompoundCharge(this._account, charge));
-    else  this.store.dispatch(this.actions.addAccountCharge(this._account, charge));
+
+  save(charge: CompoundCharge, isValid: boolean) {
+    console.log("account: " + charge.amount);
+    this.store.dispatch(this.actions.addCompoundCharge(this._account, charge));
     this.dialog.close();
   }
 }
- 
-

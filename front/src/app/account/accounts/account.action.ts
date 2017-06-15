@@ -81,6 +81,24 @@ export class AccountActions {
     };
   }
 
+    static FIND_COMPOUND_CHARGES = '[Account] Find Compound Charges';
+  findCompoundCharges(account): Action {
+    console.log("findCompoundCharges");
+    return {
+      type: AccountActions.FIND_COMPOUND_CHARGES,
+      payload: account
+    };
+  }
+
+    static FIND_COMPOUND_CHARGES_SUCCESS = '[Account] Find Compound Charges Success';
+  findCompoundChargesSuccess(accountCharges): Action {
+    console.log("findCompoundChargesSuccess");
+    return {
+      type: AccountActions.FIND_COMPOUND_CHARGES_SUCCESS,
+      payload: accountCharges
+    };
+  }
+
   static FIND_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Account Charges Success';
   findAccountChargesSuccess(accountCharges): Action {
     console.log("findAccountChargesSuccess");
@@ -263,6 +281,64 @@ export class AccountActions {
   addAccountTransactionSuccess(message): Action {
     return {
       type: AccountActions.ADD_ACCOUNT_TRANSACTION_SUCCESS,
+      payload: message
+    };
+  }
+
+  static ADD_COMPOUND_CHARGE = '[Compound] Add CompoundCharge ';
+
+  addCompoundCharge(account, charge): Action {
+    return {
+      type: AccountActions.ADD_COMPOUND_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+static ADD_COMPOUND_CHARGE_SUCCESS = '[Compound] Add CompoundCharge  Success';
+
+  addCompoundChargeSuccess(message): Action {
+    return {
+      type: AccountActions.ADD_COMPOUND_CHARGE_SUCCESS,
+      payload: message
+    };
+  }
+  
+ static UPDATE_COMPOUND_CHARGE = '[Compound] Update CompoundCharge';
+
+  updateCompoundCharge(account, charge): Action {
+    console.log("updateAdmissionCharge");
+    return {
+      type: AccountActions.UPDATE_COMPOUND_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+  static UPDATE_COMPOUND_CHARGE_SUCCESS = '[Compound] Update CompoundCharge  Success';
+
+  updateCompoundChargeSuccess(message): Action {
+      console.log("updateCompoundChargeSuccess");
+    return {
+      type: AccountActions.UPDATE_COMPOUND_CHARGE,
+      payload: message
+    };
+  }
+  
+   static REMOVE_COMPOUND_CHARGE = '[Compound] Remove CompoundCharge';
+
+  removeCompoundCharge(account, charge): Action {
+    console.log('remove CompoundCharge');
+    return {
+      type: AccountActions.REMOVE_COMPOUND_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+  static REMOVE_COMPOUND_CHARGE_SUCCESS = '[Compound] Remove CompoundCharge Success';
+
+  removeCompoundChargeSuccess(message): Action {
+    console.log('remove CompoundCharge SUCCESS');
+    return {
+      type: AccountActions.REMOVE_COMPOUND_CHARGE_SUCCESS,
       payload: message
     };
   }

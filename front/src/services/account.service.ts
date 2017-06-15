@@ -12,6 +12,7 @@ import {FeeScheduleItem} from "../app/account/fee-schedules/fee-schedule-item.in
 import {AccountCharge} from "../app/account/accounts/account-charge.interface";
 import {AccountWaiver} from "../app/account/accounts/account-waiver.interface";
 import {AdmissionCharge} from "../app/account/accounts/admission-charge.interface";
+import {CompoundCharge} from "../app/account/accounts/compound-charge.interface";
 import {EnrollmentCharge} from "../app/account/accounts/enrollment-charge.interface";
 
 @Injectable()
@@ -221,6 +222,14 @@ export class AccountService {
       .map((res: Response) => <AccountCharge[]>res.json());
   }
 
+    findCompoundCharges(account: Account): Observable<CompoundCharge[]> {
+    console.log("findCompoundCharges");
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountCompound")
+      .map((res: Response) => <CompoundCharge[]>res.json());
+  }
+
   findAccountWaivers(account: Account): Observable<AccountWaiver[]> {
     console.log("findAccountWaivers :" + account.code);
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
@@ -294,6 +303,36 @@ export class AccountService {
         });
         let options = new RequestOptions({headers: headers});
     return this.http.delete(environment.endpoint + '/api/account/accounts/' + account.code + '/admissionCharges/' + charge.id, options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  addCompoundCharge(account: Account, charge:CompoundCharge ): Observable<String> {
+    console.log("saving Compound charge");
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/compoundCharges', JSON.stringify(charge), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+      updateCompoundCharge(account: Account, charge: CompoundCharge): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.put(environment.endpoint + '/api/account/accounts/' + account.code + '/compoundCharges/' + charge.id, JSON.stringify(charge), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+  
+    removeCompoundCharge(account: Account, charge: CompoundCharge): Observable<String> {
+        let headers = new Headers({
+         'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + this.authService.token
+        });
+        let options = new RequestOptions({headers: headers});
+    return this.http.delete(environment.endpoint + '/api/account/accounts/' + account.code + '/compoundCharges/' + charge.id, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
