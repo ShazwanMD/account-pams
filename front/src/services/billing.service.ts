@@ -282,6 +282,12 @@ export class BillingService {
   // CREDIT NOTE
   // ====================================================================================================
 
+   findCreditNotesbyInvoice(invoice: Invoice): Observable<CreditNote[]> {
+    console.log("findDebitNotes");
+    return this.http.get(environment.endpoint + '/api/billing/invoice/' + invoice.referenceNo + "/creditNotes/")
+      .map((res: Response) => <CreditNote[]>res.json());
+  }
+  
   findCompletedCreditNotes(): Observable<CreditNote[]> {
     console.log("findCompletedCreditNotes");
     return this.http.get(environment.endpoint + '/api/billing/creditNotes/state/COMPLETED')
@@ -322,6 +328,13 @@ export class BillingService {
     return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + taskId)
       .map((res: Response) => <CreditNote>res.json());
   }
+
+  findCreditNoteItems(creditNote: CreditNote): Observable<CreditNoteItem[]> {
+    console.log("findCreditNoteItems");
+    return this.http.get(environment.endpoint + '/api/billing/creditNotes/' + creditNote.referenceNo + "/creditNoteItems")
+      .map((res: Response) => <CreditNoteItem[]>res.json());
+  }
+
 
   startCreditNoteTask(creditNote: CreditNote): Observable<String> {
     console.log("creditNote: " + creditNote);
