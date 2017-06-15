@@ -48,13 +48,13 @@ export class CreditNoteCenterPage implements OnInit {
     this.router.navigate(['/credit-notes']);
   }
 
-  view(task: CreditNoteTask) {
+  viewTask(task: CreditNoteTask) {
     console.log("CreditNote: " + task.taskId);
     this.router.navigate(['/billing/credit-notes/credit-note-task-detail', task.taskId]);
   }
 
   claimTask(task: CreditNoteTask) {
-    console.log("credit note: " + task.taskId);
+    console.log("invoice: " + task.taskId);
     this.store.dispatch(this.actions.claimCreditNoteTask(task));
   }
 
