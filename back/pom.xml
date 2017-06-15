@@ -26,7 +26,7 @@
         <postgresql.version>42.0.0</postgresql.version>
         <slf4j-api.version>1.6.1</slf4j-api.version>
         <velocity.version>1.7</velocity.version>
-         <poi.version>3.8</poi.version>
+        <poi.version>3.8</poi.version>
         <poi-ooxml.version>3.8-beta4</poi-ooxml.version>
     </properties>
 
@@ -226,6 +226,11 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search-orm</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
         <dependency>
