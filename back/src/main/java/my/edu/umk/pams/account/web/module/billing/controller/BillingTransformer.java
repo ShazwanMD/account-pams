@@ -92,6 +92,7 @@ public class BillingTransformer {
         vo.setBalanceAmount(e.getBalanceAmount());
         vo.setPaid(e.isPaid());
         vo.setIssuedDate(e.getIssuedDate());
+        vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
