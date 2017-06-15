@@ -20,12 +20,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         return internalResourceViewResolver;
     }
 
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        return resolver;
-    }
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
