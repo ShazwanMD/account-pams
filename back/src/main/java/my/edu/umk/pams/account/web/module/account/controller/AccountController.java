@@ -9,16 +9,24 @@ import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.web.module.account.vo.*;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -50,10 +58,8 @@ public class AccountController {
 	private AuthenticationManager authenticationManager;
 
 	// ====================================================================================================
-	// //
 	// ADMISSION SESSION
 	// ====================================================================================================
-	// //
 	@RequestMapping(value = "/academicSessions", method = RequestMethod.GET)
 	public ResponseEntity<List<AcademicSession>> findAcademicSessions() {
 		List<AcAcademicSession> academicSessions = accountService.findAcademicSessions("%", 0, 100);
@@ -69,10 +75,8 @@ public class AccountController {
 	}
 
 	// ====================================================================================================
-	// //
 	// FEE SCHEDULE
 	// ====================================================================================================
-	// //
 
 	@RequestMapping(value = "/feeSchedules", method = RequestMethod.GET)
 	public ResponseEntity<List<FeeSchedule>> findFeeSchedules() {
@@ -153,11 +157,27 @@ public class AccountController {
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
 
+
+	@RequestMapping(value = "/feeSchedules/{code}/upload", method = RequestMethod.POST)
+	public ResponseEntity<String> uploadFeeSchedule(@PathVariable String code, @RequestParam("file") MultipartFile file) {
+		dummyLogin();
+		LOG.debug("BackEnd:{}", file.getName());
+		// todo(faizal): parse excel
+		return new ResponseEntity<String>("Success", HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/feeSchedules/{code}/download", method = RequestMethod.GET)
+	public ResponseEntity downloadGradebook(@PathVariable String code) {
+		dummyLogin();
+		ByteArrayResource resource = null;
+		return ResponseEntity.ok()
+				.header("Content-Disposition", "attachment; filename=" + code + ".xlsx")
+				.body(resource);
+	}
+
 	// ====================================================================================================
-	// //
 	// CHARGE CODE
 	// ====================================================================================================
-	// //
 	@RequestMapping(value = "/chargeCodes", method = RequestMethod.GET)
 	public ResponseEntity<List<ChargeCode>> findChargeCodes() {
 		List<AcChargeCode> chargeCodes = accountService.findChargeCodes("%", 0, 100);
@@ -204,10 +224,8 @@ public class AccountController {
 	}
 
 	// ====================================================================================================
-	// //
 	// ACCOUNT
 	// ====================================================================================================
-	// //
 
 	@RequestMapping(value = "/accounts", method = RequestMethod.GET)
 	public ResponseEntity<List<Account>> findAccounts() {
@@ -308,10 +326,8 @@ public class AccountController {
 	}
 
 	// ====================================================================================================
-	// //
 	// ADMISSION CHARGE
 	// ====================================================================================================
-	// 
 
 	@RequestMapping(value = "/accounts/{code}/admissionCharges", method = RequestMethod.POST)
 	public ResponseEntity<String> addAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
@@ -361,10 +377,8 @@ public class AccountController {
 	
 
 	// ====================================================================================================
-	// //
 	// COMPOUND CHARGE
 	// ====================================================================================================
-	// 
 
 	@RequestMapping(value = "/accounts/{code}/compoundCharges", method = RequestMethod.POST)
 	public ResponseEntity<String> addCompoundCharge(@PathVariable String code, @RequestBody CompoundCharge vo) {
