@@ -52,9 +52,9 @@ export class CreditNoteItemEditorDialog implements OnInit {
   }
 
   submit(item: CreditNoteItem, isValid: boolean) {
-    // item.description = item.chargeCode.description;
-    // if (!item.id) this.store.dispatch(this.actions.addCreditNoteItem(this._creditNote, item));
-    // else  this.store.dispatch(this.actions.updateCreditNoteItem(this._creditNote, item));
-    // this.dialog.close();
+    item.description = item.chargeCode.description;
+    if (!item.id) this.store.dispatch(this.actions.addCreditNoteItem(this._creditNote, item));
+    else  this.store.dispatch(this.actions.updateCreditNoteItem(this._creditNote, item));
+    this.dialog.close();
   }
 }
