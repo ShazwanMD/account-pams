@@ -53,6 +53,12 @@ export class AccountEffects {
     .map(action => action.payload)
     .switchMap(account => this.accountService.findAccountCharges(account))
     .map(charges => this.accountActions.findAccountChargesSuccess(charges));
+
+  @Effect() findCompoundCharges$ = this.actions$
+    .ofType(AccountActions.FIND_COMPOUND_CHARGES)
+    .map(action => action.payload)
+    .switchMap(account => this.accountService.findCompoundCharges(account))
+    .map(charges => this.accountActions.findCompoundChargesSuccess(charges));
   
   @Effect() findAccountWaivers$ = this.actions$
   .ofType(AccountActions.FIND_ACCOUNT_WAIVERS)
