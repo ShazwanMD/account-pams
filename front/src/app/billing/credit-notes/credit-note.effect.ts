@@ -17,7 +17,14 @@ export class CreditNoteEffects {
               private store$: Store<BillingModuleState>) {
   }
 
-  @Effect() findCompletedCreditNotes$ = this.actions$
+ 
+  @Effect() findCreditNotesByInvoice$ = this.actions$
+    .ofType(CreditNoteActions.FIND_CREDIT_NOTES_SUCCESS)
+    .map(action => action.payload)
+    .switchMap(invoice => this.billingService.findCreditNotesbyInvoice(invoice))
+    .map(creditNotes => this.creditNoteActions.findCreditNotesSuccess(creditNotes));
+ 
+ @Effect() findCompletedCreditNotes$ = this.actions$
     .ofType(CreditNoteActions.FIND_COMPLETED_CREDIT_NOTES)
     .switchMap(() => this.billingService.findCompletedCreditNotes())
     .map(creditNotes => this.creditNoteActions.findCompletedCreditNotesSuccess(creditNotes));
@@ -51,6 +58,12 @@ export class CreditNoteEffects {
     .mergeMap(action => from([action, this.creditNoteActions.findCreditNoteItems(action.payload)]))
     .mergeMap(action => from([action, this.creditNoteActions.findCreditNotes(action.payload)]));
 
+  @Effect() findCreditNoteItems$ = this.actions$
+    .ofType(CreditNoteActions.FIND_CREDIT_NOTE_ITEMS)
+    .map(action => action.payload)
+    .switchMap(creditNote => this.billingService.findCreditNoteItems(creditNote))
+    .map(items => this.creditNoteActions.findCreditNoteItemsSuccess(items));
+  
   @Effect() startCreditNoteTask$ = this.actions$
     .ofType(CreditNoteActions.START_CREDIT_NOTE_TASK)
     .map(action => action.payload)
@@ -69,7 +82,8 @@ export class CreditNoteEffects {
     .map(message => this.creditNoteActions.completeCreditNoteTaskSuccess(message))
     .mergeMap(action => from([action,
         this.creditNoteActions.findAssignedCreditNoteTasks(),
-        this.creditNoteActions.findPooledCreditNoteTasks()
+        this.creditNoteActions.findPooledCreditNoteTasks(),
+        this.creditNoteActions.findArchivedCreditNotes()
       ]
     ));
 
@@ -100,4 +114,37 @@ export class CreditNoteEffects {
     .map(action => action.payload)
     .switchMap(creditNote => this.billingService.updateCreditNote(creditNote))
     .map(creditNote => this.creditNoteActions.updateCreditNoteSuccess(creditNote));
+
+    @Effect() addCreditNoteItem$ =
+    this.actions$
+      .ofType(CreditNoteActions.ADD_CREDIT_NOTE_ITEM)
+      .map(action => action.payload)
+      .switchMap(payload => this.billingService.addCreditNoteItem(payload.creditNote, payload.item))
+      .map(message => this.creditNoteActions.addCreditNoteItemSuccess(message))
+      .withLatestFrom(this.store$.select(...this.CREDIT_NOTE_TASK))
+      .map(state => state[1])
+      .map(creditNote => this.creditNoteActions.findCreditNoteItems(creditNote));
+
+  @Effect() updateCreditNoteItem$ = this.actions$
+    .ofType(CreditNoteActions.UPDATE_CREDIT_NOTE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.billingService.updateCreditNoteItem(payload.creditNote, payload.item))
+    .map(message => this.creditNoteActions.updateCreditNoteItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.CREDIT_NOTE_TASK))
+    .map(state => state[1])
+    .map(creditNote => this.creditNoteActions.findCreditNoteItems(creditNote));
+
+  @Effect() deleteCreditNoteItem$ = this.actions$
+    .ofType(CreditNoteActions.DELETE_CREDIT_NOTE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.billingService.deleteCreditNoteItem(payload.creditNote, payload.item))
+    .map(message => this.creditNoteActions.deleteCreditNoteItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.CREDIT_NOTE_TASK))
+    .map(state => state[1])
+    .map(creditNote => this.creditNoteActions.findCreditNoteItems(creditNote));
+
+
+
+
+
 }
