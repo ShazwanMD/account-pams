@@ -23,7 +23,7 @@ export class AccountChargeListComponent {
   @Input() charges: AccountCharge[];
 
   private ADMISSION_CHARGES: string[] = "accountModuleState.admissionCharge".split(".");
-  private COMPOUND_CHARGES: string[] = "accountModuleState.compoundCharge".split(".");
+  private COMPOUND_CHARGES: string[] = "accountModuleState.compoundCharges".split(".");
   admissionCharges$: Observable<AdmissionCharge[]>;
   compoundCharges$: Observable<CompoundCharge[]>;
   private creatorDialogRef: MdDialogRef<AdmissionChargeDialog>;
