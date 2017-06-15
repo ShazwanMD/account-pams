@@ -222,6 +222,14 @@ export class AccountService {
       .map((res: Response) => <AccountCharge[]>res.json());
   }
 
+    findCompoundCharges(account: Account): Observable<CompoundCharge[]> {
+    console.log("findCompoundCharges");
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountCompound")
+      .map((res: Response) => <CompoundCharge[]>res.json());
+  }
+
   findAccountWaivers(account: Account): Observable<AccountWaiver[]> {
     console.log("findAccountWaivers :" + account.code);
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
