@@ -24,6 +24,8 @@ import {CreditNoteRegisterTaskPanel} from "./panel/credit-note-register-task.pan
 import {CreditNoteDetailPage} from "./credit-note-detail.page";
 import {CreditNoteItemListComponent} from "./component/credit-note-item-list.component";
 import {CreditNoteStatusComponent} from "./component/credit-note-status.component";
+import { CreditNoteItemEditorDialog } from "./dialog/credit-note-item-editor.dialog";
+import { ChargeCodeSubModule } from "../../account/charge-codes/index";
 
 
 @NgModule({
@@ -32,6 +34,7 @@ import {CreditNoteStatusComponent} from "./component/credit-note-status.componen
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
+    ChargeCodeSubModule.forRoot(),
     IdentityModule.forRoot(),
     EffectsModule.run(CreditNoteEffects),
   ],
@@ -52,6 +55,7 @@ import {CreditNoteStatusComponent} from "./component/credit-note-status.componen
     CreditNoteRegisterTaskPanel,
     CreditNoteVerifyTaskPanel,
     CreditNoteTaskWorkflowPanel,
+    CreditNoteItemEditorDialog,
 
   ],
   exports: [
@@ -60,9 +64,13 @@ import {CreditNoteStatusComponent} from "./component/credit-note-status.componen
   entryComponents: [
     CreditNoteCreatorDialog,
     CreditNoteDraftTaskPanel,
-    CreditNoteRegisterTaskPanel,
     CreditNoteVerifyTaskPanel,
-    CreditNoteTaskWorkflowPanel,
+    CreditNoteRegisterTaskPanel,
+    CreditNoteItemEditorDialog,
+    CreditNoteStatusComponent,
+    CreditNoteItemListComponent,
+    
+ 
 
   ],
 
