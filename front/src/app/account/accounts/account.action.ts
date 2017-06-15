@@ -81,6 +81,24 @@ export class AccountActions {
     };
   }
 
+    static FIND_COMPOUND_CHARGES = '[Account] Find Compound Charges';
+  findCompoundCharges(account): Action {
+    console.log("findCompoundCharges");
+    return {
+      type: AccountActions.FIND_COMPOUND_CHARGES,
+      payload: account
+    };
+  }
+
+    static FIND_COMPOUND_CHARGES_SUCCESS = '[Account] Find Compound Charges Success';
+  findCompoundChargesSuccess(accountCharges): Action {
+    console.log("findCompoundChargesSuccess");
+    return {
+      type: AccountActions.FIND_COMPOUND_CHARGES_SUCCESS,
+      payload: accountCharges
+    };
+  }
+
   static FIND_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Account Charges Success';
   findAccountChargesSuccess(accountCharges): Action {
     console.log("findAccountChargesSuccess");
