@@ -100,5 +100,32 @@ export class AccountEffects {
     .withLatestFrom(this.store$.select(...this.ACCOUNT))
     .map(state => state[1])
     .map((account:Account) => this.accountActions.findAccountByCode(account.code));
+
+    @Effect() addCompoundCharge$ = this.actions$
+    .ofType(AccountActions.ADD_COMPOUND_CHARGE)
+    .map(action => action.payload)
+    .switchMap(payload => this.accountService.addCompoundCharge(payload.account, payload.charge))
+    .map(message => this.accountActions.addCompoundChargeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map(state => state[1])
+    .map((account:Account) => this.accountActions.findAccountByCode(account.code));
+
+  @Effect() removeCompoundCharge$ = this.actions$
+    .ofType(AccountActions.REMOVE_COMPOUND_CHARGE)
+   .map(action => action.payload)
+    .switchMap(payload => this.accountService.removeCompoundCharge(payload.account, payload.charge))
+    .map(message => this.accountActions.removeCompoundChargeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map(state => state[1])
+    .map((account:Account) => this.accountActions.findAccountByCode(account.code));
+
+  @Effect() updateCompoundCharge$ = this.actions$
+    .ofType(AccountActions.UPDATE_COMPOUND_CHARGE)
+   .map(action => action.payload)
+    .switchMap(payload => this.accountService.updateCompoundCharge(payload.account, payload.charge))
+    .map(message => this.accountActions.updateCompoundChargeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map(state => state[1])
+    .map((account:Account) => this.accountActions.findAccountByCode(account.code));
 }
 
