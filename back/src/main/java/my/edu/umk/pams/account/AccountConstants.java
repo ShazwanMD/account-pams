@@ -13,6 +13,7 @@ public interface AccountConstants {
     public static final String CREDIT_NOTE_ID = "creditNoteId";
     public static final String WAIVER_APPLICATION_ID = "waiverApplicationId";
     public static final String REFUND_APPLICATION_ID = "refundApplicationId";
+    public static final String SHORT_TERM_LOAN_ID = "shortTermLoanId"; 
 
     public static final String PROMO_CODE_REFERENCE_NO = "AcPromoCode.referenceNo";
     public static final String SETTLEMENT_REFERENCE_NO = "AcSettlement.referenceNo";
