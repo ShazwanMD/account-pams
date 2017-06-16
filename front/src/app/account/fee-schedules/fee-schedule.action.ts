@@ -5,6 +5,7 @@ import {Action} from '@ngrx/store';
 export class FeeScheduleActions {
 
   static FIND_FEE_SCHEDULES = '[FeeSchedule] Find FeeSchedules';
+
   findFeeSchedules(): Action {
     return {
       type: FeeScheduleActions.FIND_FEE_SCHEDULES
@@ -12,6 +13,7 @@ export class FeeScheduleActions {
   }
 
   static FIND_FEE_SCHEDULES_SUCCESS = '[FeeSchedule] Find FeeSchedules Success';
+
   findFeeSchedulesSuccess(feeSchedules): Action {
     console.log("findFeeSchedulesSuccess");
     console.log("feeSchedules: " + feeSchedules.length);
@@ -22,6 +24,7 @@ export class FeeScheduleActions {
   }
 
   static FIND_FEE_SCHEDULE_BY_CODE = '[FeeSchedule] Find FeeSchedule By Code';
+
   findFeeScheduleByCode(code): Action {
     return {
       type: FeeScheduleActions.FIND_FEE_SCHEDULE_BY_CODE,
@@ -30,6 +33,7 @@ export class FeeScheduleActions {
   }
 
   static FIND_FEE_SCHEDULE_BY_CODE_SUCCESS = '[FeeSchedule] Find FeeSchedule By Code Success';
+
   findFeeScheduleByCodeSuccess(feeSchedule): Action {
     console.log("findFeeScheduleByCodeSuccess");
     return {
@@ -39,6 +43,7 @@ export class FeeScheduleActions {
   }
 
   static FIND_FEE_SCHEDULE_ITEMS = '[FeeSchedule] Find FeeSchedule Items';
+
   findFeeScheduleItems(feeSchedule): Action {
     console.log("findFeeScheduleItems");
     return {
@@ -48,6 +53,7 @@ export class FeeScheduleActions {
   }
 
   static FIND_FEE_SCHEDULE_ITEMS_SUCCESS = '[FeeSchedule] Find FeeSchedule Items Success';
+
   findFeeScheduleItemsSuccess(feeScheduleItems): Action {
     console.log("findFeeScheduleItemsSuccess");
     return {
@@ -57,6 +63,7 @@ export class FeeScheduleActions {
   }
 
   static SAVE_FEE_SCHEDULE = '[FeeSchedule] Save FeeSchedule';
+
   saveFeeSchedule(feeSchedule): Action {
     console.log("saveFeeSchedule");
     return {
@@ -66,6 +73,7 @@ export class FeeScheduleActions {
   }
 
   static SAVE_FEE_SCHEDULE_SUCCESS = '[FeeSchedule] Save FeeSchedule Success';
+
   saveFeeScheduleSuccess(feeSchedule): Action {
     return {
       type: FeeScheduleActions.SAVE_FEE_SCHEDULE_SUCCESS,
@@ -74,6 +82,7 @@ export class FeeScheduleActions {
   }
 
   static UPDATE_FEE_SCHEDULE = '[FeeSchedule] Update FeeSchedule';
+
   updateFeeSchedule(feeSchedule): Action {
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE,
@@ -82,6 +91,7 @@ export class FeeScheduleActions {
   }
 
   static UPDATE_FEE_SCHEDULE_SUCCESS = '[FeeSchedule] Update FeeSchedule Success';
+
   updateFeeScheduleSuccess(feeSchedule): Action {
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_SUCCESS,
@@ -90,6 +100,7 @@ export class FeeScheduleActions {
   }
 
   static REMOVE_FEE_SCHEDULE = '[FeeSchedule] Remove FeeSchedule';
+
   removeFeeSchedule(feeSchedule): Action {
     return {
       type: FeeScheduleActions.REMOVE_FEE_SCHEDULE,
@@ -98,6 +109,7 @@ export class FeeScheduleActions {
   }
 
   static REMOVE_FEE_SCHEDULE_SUCCESS = '[FeeSchedule] Remove FeeSchedule Success';
+
   removeFeeScheduleSuccess(feeSchedule): Action {
     return {
       type: FeeScheduleActions.REMOVE_FEE_SCHEDULE_SUCCESS,
@@ -110,7 +122,7 @@ export class FeeScheduleActions {
   addFeeScheduleItem(feeSchedule, item): Action {
     return {
       type: FeeScheduleActions.ADD_FEE_SCHEDULE_ITEM,
-      payload: {feeSchedule:feeSchedule, item:item}
+      payload: {feeSchedule: feeSchedule, item: item}
     };
   }
 
@@ -128,7 +140,7 @@ export class FeeScheduleActions {
   deleteFeeScheduleItem(feeSchedule, item): Action {
     return {
       type: FeeScheduleActions.DELETE_FEE_SCHEDULE_ITEM,
-      payload: {feeSchedule:feeSchedule, item:item}
+      payload: {feeSchedule: feeSchedule, item: item}
     };
   }
 
@@ -146,7 +158,7 @@ export class FeeScheduleActions {
   updateFeeScheduleItem(feeSchedule, item): Action {
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM,
-      payload: {feeSchedule:feeSchedule, item:item}
+      payload: {feeSchedule: feeSchedule, item: item}
     };
   }
 
@@ -160,4 +172,39 @@ export class FeeScheduleActions {
   }
 
 
+  static UPLOAD_FEE_SCHEDULE = '[FeeSchedule] Upload fee_schedule';
+
+  uploadFeeSchedule(schedule, file): Action {
+    return {
+      type: FeeScheduleActions.UPLOAD_FEE_SCHEDULE,
+      payload: {schedule: schedule, file: file},
+    };
+  }
+
+  static UPLOAD_FEE_SCHEDULE_SUCCESS = '[FeeSchedule] Upload FeeSchedule Success';
+
+  uploadFeeScheduleSuccess(schedule): Action {
+    return {
+      type: FeeScheduleActions.UPLOAD_FEE_SCHEDULE_SUCCESS,
+      payload: schedule,
+    };
+  }
+
+  static DOWNLOAD_FEE_SCHEDULE = '[FeeSchedule] Download FeeSchedule';
+
+  downloadFeeSchedule(schedule): Action {
+    return {
+      type: FeeScheduleActions.DOWNLOAD_FEE_SCHEDULE,
+      payload: schedule,
+    };
+  }
+
+  static DOWNLOAD_FEE_SCHEDULE_SUCCESS = '[FeeSchedule] Download FeeSchedule Success';
+
+  downloadFeeScheduleSuccess(schedule): Action {
+    return {
+      type: FeeScheduleActions.DOWNLOAD_FEE_SCHEDULE_SUCCESS,
+      payload: schedule,
+    };
+  }
 }

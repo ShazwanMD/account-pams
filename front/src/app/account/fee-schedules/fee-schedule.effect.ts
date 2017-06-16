@@ -76,5 +76,20 @@ export class FeeScheduleEffects {
     .map(state => state[1])
     .map(feeSchedule => this.feeScheduleActions.findFeeScheduleItems(feeSchedule));
 
+  @Effect() uploadFeeSchedule$ = this.actions$
+    .ofType(FeeScheduleActions.UPLOAD_FEE_SCHEDULE)
+    .map(action => action.payload)
+    .switchMap(payload => this.accountService.uploadFeeSchedule(payload.offering, payload.file))
+    .map(message => this.feeScheduleActions.uploadFeeScheduleSuccess(message));
+
+  @Effect() downloadFeeSchedule$ = this.actions$
+    .ofType(FeeScheduleActions.DOWNLOAD_FEE_SCHEDULE)
+    .map(action => action.payload)
+    .switchMap(offering => this.accountService.downloadFeeSchedule(offering))
+    .map(blob => {
+      let url = window.URL.createObjectURL(blob);
+      window.open(url)
+    }).ignoreElements();
+
 
 }

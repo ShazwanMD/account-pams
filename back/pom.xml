@@ -326,6 +326,11 @@
             <version>1.0.5.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.4.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>
@@ -371,8 +376,8 @@
             <version>0.14.1</version>
             <scope>test</scope>
         </dependency>
-        
-            <dependency>
+
+        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>${poi.version}</version>
@@ -382,7 +387,7 @@
             <artifactId>poi-ooxml</artifactId>
             <version>${poi-ooxml.version}</version>
         </dependency>
-        
+
     </dependencies>
 
     <dependencyManagement>
@@ -398,6 +403,7 @@
     </dependencyManagement>
 
     <repositories>
+
         <repository>
             <id>repo.spring.io.milestone</id>
             <name>Spring Framework Maven Milestone Repository</name>
@@ -408,7 +414,6 @@
             <name>Mvn-Repo</name>
             <url>https://mvnrepository.com/artifact</url>
         </repository>
-
         <repository>
             <id>Activiti</id>
             <url>http://maven.alfresco.com/nexus/content/repositories/activiti</url>
@@ -419,11 +424,15 @@
         </repository>
         <repository>
             <id>JasperPublicRepo</id>
-            <url>https://jaspersoft.artifactoryonline.com/jaspersoft/repo/</url>
+            <url>http://jaspersoft.artifactoryonline.com/jaspersoft/jaspersoft-repo</url>
         </repository>
         <repository>
             <id>CanangPublicRepo</id>
             <url>http://canang.com.my/maven/</url>
+        </repository>
+        <repository>
+            <id>Liferay</id>
+            <url>https://repository.liferay.com/nexus/content/groups/public</url>
         </repository>
     </repositories>
     <build>
@@ -440,7 +449,9 @@
                     <execution>
                         <id>copy-resources</id>
                         <phase>prepare-package</phase>
-                        <goals><goal>copy-resources</goal></goals>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
                         <configuration>
                             <outputDirectory>${basedir}/target/classes/static/report</outputDirectory>
                             <resources>
