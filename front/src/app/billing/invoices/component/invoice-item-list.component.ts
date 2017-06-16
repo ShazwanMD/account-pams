@@ -1,12 +1,12 @@
 import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
-import {InvoiceItem} from "../invoice-item.interface";
-import {InvoiceItemEditorDialog} from "../dialog/invoice-item-editor.dialog";
-import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from "@angular/material";
-import {ActivatedRoute, Router} from "@angular/router";
-import {BillingModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import {InvoiceActions} from "../invoice.action";
-import {Invoice} from "../invoice.interface";
+import {InvoiceItem} from '../invoice-item.interface';
+import {InvoiceItemEditorDialog} from '../dialog/invoice-item-editor.dialog';
+import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BillingModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import {InvoiceActions} from '../invoice.action';
+import {Invoice} from '../invoice.interface';
 
 @Component({
   selector: 'pams-invoice-item-list',
@@ -15,17 +15,17 @@ import {Invoice} from "../invoice.interface";
 })
 export class InvoiceItemListComponent implements OnInit {
 
-  @Input() invoice: Invoice;
-  @Input() invoiceItems: InvoiceItem[];
-
   private selectedRows: InvoiceItem[];
   private editorDialogRef: MdDialogRef<InvoiceItemEditorDialog>;
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'chargeCode.description', label: 'Charge Code Description'},
     {name: 'amount', label: 'Amount'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() invoice: Invoice;
+  @Input() invoiceItems: InvoiceItem[];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -37,7 +37,7 @@ export class InvoiceItemListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedRows = this.invoiceItems.filter(value => value.selected);
+    this.selectedRows = this.invoiceItems.filter((value) => value.selected);
   }
 
   createDialog(): void {
@@ -49,10 +49,11 @@ export class InvoiceItemListComponent implements OnInit {
   }
 
   delete(): void {
-    console.log("length: " + this.selectedRows.length);
-    for (var i = 0; i < this.selectedRows.length; i++) {
+    console.log('length: ' + this.selectedRows.length);
+    for (let i: number = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.deleteInvoiceItem(this.invoice, this.selectedRows[i]));
     }
+    this.selectedRows = [];
   }
 
   filter(): void {
@@ -64,9 +65,8 @@ export class InvoiceItemListComponent implements OnInit {
   selectAllRows(invoiceItems: InvoiceItem[]): void {
   }
 
-
   showDialog(invoiceItem: InvoiceItem): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -76,8 +76,8 @@ export class InvoiceItemListComponent implements OnInit {
     this.editorDialogRef = this.dialog.open(InvoiceItemEditorDialog, config);
     this.editorDialogRef.componentInstance.invoice = this.invoice;
     if (invoiceItem) this.editorDialogRef.componentInstance.invoiceItem = invoiceItem; // set
-    this.editorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.editorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
     });
   }
 }
