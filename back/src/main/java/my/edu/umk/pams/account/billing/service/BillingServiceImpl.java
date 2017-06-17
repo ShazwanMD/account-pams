@@ -26,6 +26,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.model.AcConfiguration;
 import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableQuery;
 import my.edu.umk.pams.account.workflow.service.WorkflowConstants;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.activiti.engine.task.Task;
@@ -276,6 +277,11 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit) {
         return invoiceDao.find(account, offset, limit);
+    }
+    
+    @Override
+    public List<AcInvoice> findInvoicesByFullText(CovalentDatatableQuery query) {
+        return invoiceDao.find(query);
     }
 
     @Override

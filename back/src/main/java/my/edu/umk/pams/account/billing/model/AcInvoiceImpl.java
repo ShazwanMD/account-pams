@@ -6,6 +6,11 @@ import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +18,7 @@ import java.util.List;
 /**
  * @author PAMS
  */
+@Indexed
 @Entity(name = "AcInvoice")
 @Table(name = "AC_INVC")
 public class AcInvoiceImpl implements AcInvoice {
@@ -23,60 +29,77 @@ public class AcInvoiceImpl implements AcInvoice {
     @SequenceGenerator(name = "SQ_AC_INVC", sequenceName = "SQ_AC_INVC", allocationSize = 1)
     private Long id;
 
+    @Field
     @NotNull
     @Column(name = "REFERENCE_NO")
     private String referenceNo;
 
+    @Field
     @Column(name = "INVOICE_NO")
     private String invoiceNo;
 
+    @Field
     @Column(name = "SOURCE_NO")
     private String sourceNo;
 
+    @Field
     @Column(name = "AUDIT_NO")
     private String auditNo;
 
+    @Field
     @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Field
     @Column(name = "TOTAL_AMOUNT")
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
+    @Field
     @Column(name = "BALANCE_AMOUNT")
     private BigDecimal balanceAmount = BigDecimal.ZERO;
 
+    @Field
     @Column(name = "PAID")
     private boolean paid = false;
 
+    @Field
     @NotNull
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
 
+    @Field
     @Column(name = "CANCEL_COMMENT")
     private String cancelComment;
 
+    @Field
     @Column(name = "REMOVE_COMMENT")
     private String removeComment;
 
+    @IndexedEmbedded
     @ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
 
+    @IndexedEmbedded
     @NotNull
     @OneToOne(targetEntity = AcAcademicSessionImpl.class)
     @JoinColumn(name = "SESSION_ID")
     private AcAcademicSession session;
 
+    @IndexedEmbedded
     @OneToMany(targetEntity = AcInvoiceItemImpl.class, mappedBy = "invoice")
     private List<AcInvoiceItem> items;
 
+    @IndexedEmbedded
     @OneToMany(targetEntity = AcAccountChargeImpl.class, mappedBy = "invoice", fetch = FetchType.LAZY)
     private List<AcAccountCharge> charges;
 
+    @IndexedEmbedded
     @OneToMany(targetEntity = AcDebitNoteImpl.class, mappedBy = "invoice", fetch = FetchType.LAZY)
     private List<AcDebitNote> debitNotes;
 
+    @IndexedEmbedded
     @OneToMany(targetEntity = AcCreditNoteImpl.class, mappedBy = "invoice", fetch = FetchType.LAZY)
     private List<AcCreditNote> creditNotes;
 

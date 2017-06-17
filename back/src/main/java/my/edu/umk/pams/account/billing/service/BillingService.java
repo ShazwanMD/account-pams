@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableQuery;
 
 import org.activiti.engine.task.Task;
 
@@ -71,7 +72,9 @@ public interface BillingService {
 
     List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit);
 
-    List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState);
+	List<AcInvoice> findInvoicesByFullText(CovalentDatatableQuery query);
+
+	List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState);
 
     List<AcInvoice> findUnpaidInvoices(AcAccount account, Integer offset, Integer limit);
 
@@ -268,5 +271,6 @@ public interface BillingService {
     Integer countReceiptItem(AcReceipt receipt);
 
     void post(AcReceipt receipt);
+
 
 }

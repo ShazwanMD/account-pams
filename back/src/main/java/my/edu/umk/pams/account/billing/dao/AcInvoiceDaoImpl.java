@@ -11,16 +11,27 @@ import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableColumn;
+import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableQuery;
+
 import org.apache.commons.lang.Validate;
+import org.apache.lucene.search.BooleanClause.Occur;
+import org.apache.lucene.search.BooleanQuery;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.BooleanJunction;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
@@ -122,8 +133,37 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
                 // todo(uda): filter
                 "i.metadata.state = :state ");
         query.setInteger("state", ACTIVE.ordinal());
-        query.setCacheable(true);
+//        query.setCacheable(true);
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
         return (List<AcInvoice>) query.list();
+    }
+    
+    @Override
+    public List<AcInvoice> findFullText(CovalentDatatableQuery query) {
+    	Session session = sessionFactory.getCurrentSession();
+    	FullTextSession fts = Search.getFullTextSession(session);
+    	QueryBuilder qb = fts.getSearchFactory().buildQueryBuilder().forEntity(AcInvoice.class).get();
+    	
+    	int columnsLength = query.getColumns().size();
+    	String searchTerm = "*"+ query.getSearchTerm() + "*";
+    	BooleanQuery bq = new BooleanQuery();
+    	
+    	for(int i=0; i<columnsLength; i++){
+    		bq.add(
+    				qb.keyword().wildcard()
+    					.onField(query.getColumns().get(i).getName())
+    					.matching(searchTerm)
+    					.createQuery(),
+    				Occur.SHOULD
+    		);
+    	}
+    	
+    	Query ftq = fts.createFullTextQuery(bq, AcInvoice.class)
+    					.setFirstResult(query.getCurrentPage())
+    					.setMaxResults(query.getPageSize());
+    	
+    	return (List<AcInvoice>) ftq.list();
     }
 
     @Override

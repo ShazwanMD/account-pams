@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
+import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableQuery;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
 import org.activiti.engine.task.Task;
@@ -70,9 +71,21 @@ public class BillingController {
     //  INVOICE
     // ==================================================================================================== //
 
-    @RequestMapping(value = "/invoices/", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoices", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findInvoices() {
         List<AcInvoice> invoices = billingService.findInvoices("%", 0, 100);
+        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/invoices/datatable/covalent", method = RequestMethod.POST)
+    public ResponseEntity<List<Invoice>> findInvoicesWithCovalentDatatable(@RequestBody CovalentDatatableQuery query) {
+        List<AcInvoice> invoices = billingService.findInvoicesByFullText(query);
+        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/invoices/{filter}/{offset}/{limit}", method = RequestMethod.GET)
+    public ResponseEntity<List<Invoice>> findInvoicesWithFilterAndPagination(@PathVariable String filter, @PathVariable Integer offset, @PathVariable Integer limit) {
+        List<AcInvoice> invoices = billingService.findInvoices(filter, offset, limit);
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 
