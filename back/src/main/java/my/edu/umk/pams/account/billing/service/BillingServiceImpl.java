@@ -281,7 +281,7 @@ public class BillingServiceImpl implements BillingService {
     
     @Override
     public List<AcInvoice> findInvoicesByFullText(CovalentDatatableQuery query) {
-        return invoiceDao.find(query);
+        return invoiceDao.findFullText(query);
     }
 
     @Override
