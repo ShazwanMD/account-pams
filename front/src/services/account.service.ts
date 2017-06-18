@@ -14,6 +14,7 @@ import {AccountWaiver} from "../app/account/accounts/account-waiver.interface";
 import {AdmissionCharge} from "../app/account/accounts/admission-charge.interface";
 import {CompoundCharge} from "../app/account/accounts/compound-charge.interface";
 import {EnrollmentCharge} from "../app/account/accounts/enrollment-charge.interface";
+import { ActorType } from "../app/identity/actor-type.enum";
 
 @Injectable()
 export class AccountService {
@@ -226,6 +227,30 @@ export class AccountService {
       .map((res: Response) => <Account>res.json());
   }
 
+  findAccountsByActor(): Observable<Account[]> {
+      console.log("findAccountsByActor");
+      // let headers = new Headers({'Authorization': 'Bearer TODO'});
+      // let options = new RequestOptions({headers: headers});
+      return this.http.get(environment.endpoint + '/api/account/accounts/byActor/student')
+        .map((res: Response) => <Account[]>res.json());
+  }
+  
+  findAccountsByActorSponsor(): Observable<Account[]> {
+      console.log("findAccountsByActorSponsor");
+      // let headers = new Headers({'Authorization': 'Bearer TODO'});
+      // let options = new RequestOptions({headers: headers});
+      return this.http.get(environment.endpoint + '/api/account/accounts/byActor/sponsor')
+        .map((res: Response) => <Account[]>res.json());
+  }
+  
+  findAccountsByActorStaff(): Observable<Account[]> {
+      console.log("findAccountsByActorStaff");
+      // let headers = new Headers({'Authorization': 'Bearer TODO'});
+      // let options = new RequestOptions({headers: headers});
+      return this.http.get(environment.endpoint + '/api/account/accounts/byActor/staff')
+        .map((res: Response) => <Account[]>res.json());
+  }
+  
   findAccountTransactions(account: Account): Observable<AccountTransaction[]> {
     console.log("findAccountTransactions");
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
