@@ -28,6 +28,7 @@ import {AcademicSessionSubModule} from "../../account/academic-sessions/index";
 import {ChargeCodeSubModule} from "../../account/charge-codes/index";
 import {PromoCodeApplicatorDialog} from "./dialog/promo-code-applicator.dialog";
 import {InvoiceSubModule} from "../../billing/invoices/index";
+import {PipeModule} from "../../app.pipe.module";
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import {InvoiceSubModule} from "../../billing/invoices/index";
     AcademicSessionSubModule.forRoot(),
     ChargeCodeSubModule.forRoot(),
     InvoiceSubModule.forRoot(),
+    PipeModule
   ],
   declarations: [
     // page
