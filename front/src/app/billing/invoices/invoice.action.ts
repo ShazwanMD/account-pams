@@ -9,35 +9,35 @@ export class InvoiceActions {
   findUnpaidInvoices(account): Action {
     return {
       type: InvoiceActions.FIND_UNPAID_INVOICES,
-      payload: account
+      payload: account,
     };
   }
 
   static FIND_UNPAID_INVOICES_SUCCESS = '[Invoice] Find Unpaid Invoices Success';
 
   findUnpaidInvoicesSuccess(invoices): Action {
-    console.log("findUnpaidInvoicesSuccess");
+    console.log('findUnpaidInvoicesSuccess');
     return {
       type: InvoiceActions.FIND_UNPAID_INVOICES_SUCCESS,
-      payload: invoices
+      payload: invoices,
     };
   }
-  
+
   static FIND_COMPLETED_INVOICES = '[Invoice] Find Completed Invoices';
 
   findCompletedInvoices(): Action {
     return {
-      type: InvoiceActions.FIND_COMPLETED_INVOICES
+      type: InvoiceActions.FIND_COMPLETED_INVOICES,
     };
   }
 
   static FIND_COMPLETED_INVOICES_SUCCESS = '[Invoice] Find Completed Invoices Success';
 
   findCompletedInvoicesSuccess(invoices): Action {
-    console.log("findCompletedInvoicesSuccess");
+    console.log('findCompletedInvoicesSuccess');
     return {
       type: InvoiceActions.FIND_COMPLETED_INVOICES_SUCCESS,
-      payload: invoices
+      payload: invoices,
     };
   }
 
@@ -45,36 +45,35 @@ export class InvoiceActions {
 
   findArchivedInvoices(): Action {
     return {
-      type: InvoiceActions.FIND_ARCHIVED_INVOICES
+      type: InvoiceActions.FIND_ARCHIVED_INVOICES,
     };
   }
 
   static FIND_ARCHIVED_INVOICES_SUCCESS = '[Invoice] Find Archived Invoices Success';
 
   findArchivedInvoicesSuccess(invoices): Action {
-    console.log("findArchivedInvoicesSuccess");
+    console.log('findArchivedInvoicesSuccess');
     return {
       type: InvoiceActions.FIND_ARCHIVED_INVOICES_SUCCESS,
-      payload: invoices
+      payload: invoices,
     };
   }
-
 
   static FIND_ASSIGNED_INVOICE_TASKS = '[Invoice] Find Assigned Invoice Tasks';
 
   findAssignedInvoiceTasks(): Action {
     return {
-      type: InvoiceActions.FIND_ASSIGNED_INVOICE_TASKS
+      type: InvoiceActions.FIND_ASSIGNED_INVOICE_TASKS,
     };
   }
 
   static FIND_ASSIGNED_INVOICE_TASKS_SUCCESS = '[Invoice] Find Assigned Invoice Tasks Success';
 
   findAssignedInvoiceTasksSuccess(tasks): Action {
-    console.log("findAssignedInvoiceTasksSuccess");
+    console.log('findAssignedInvoiceTasksSuccess');
     return {
       type: InvoiceActions.FIND_ASSIGNED_INVOICE_TASKS_SUCCESS,
-      payload: tasks
+      payload: tasks,
     };
   }
 
@@ -82,37 +81,37 @@ export class InvoiceActions {
 
   findPooledInvoiceTasks(): Action {
     return {
-      type: InvoiceActions.FIND_POOLED_INVOICE_TASKS
+      type: InvoiceActions.FIND_POOLED_INVOICE_TASKS,
     };
   }
 
   static FIND_POOLED_INVOICE_TASKS_SUCCESS = '[Invoice] Find Pooled Invoice Tasks Success';
 
   findPooledInvoiceTasksSuccess(tasks): Action {
-    console.log("findAssignedInvoiceTasksSuccess");
+    console.log('findAssignedInvoiceTasksSuccess');
     return {
       type: InvoiceActions.FIND_POOLED_INVOICE_TASKS_SUCCESS,
-      payload: tasks
+      payload: tasks,
     };
   }
 
   static FIND_INVOICE_TASK_BY_TASK_ID = '[Invoice] Find Invoice Task By Task Id';
 
   findInvoiceTaskByTaskId(taskId): Action {
-    console.log("findInvoiceTaskByTaskId");
+    console.log('findInvoiceTaskByTaskId');
     return {
       type: InvoiceActions.FIND_INVOICE_TASK_BY_TASK_ID,
-      payload: taskId
+      payload: taskId,
     };
   }
 
   static FIND_INVOICE_TASK_BY_TASK_ID_SUCCESS = '[Invoice] Find Invoice Task By Task Id Success';
 
   findInvoiceTaskByTaskIdSuccess(task): Action {
-    console.log("findInvoiceTaskByTaskIdSuccess");
+    console.log('findInvoiceTaskByTaskIdSuccess');
     return {
       type: InvoiceActions.FIND_INVOICE_TASK_BY_TASK_ID_SUCCESS,
-      payload: task
+      payload: task,
     };
   }
 
@@ -121,7 +120,7 @@ export class InvoiceActions {
   startInvoiceTask(invoice): Action {
     return {
       type: InvoiceActions.START_INVOICE_TASK,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -130,7 +129,7 @@ export class InvoiceActions {
   startInvoiceTaskSuccess(referenceNo): Action {
     return {
       type: InvoiceActions.START_INVOICE_TASK_SUCCESS,
-      payload: referenceNo
+      payload: referenceNo,
     };
   }
 
@@ -139,7 +138,7 @@ export class InvoiceActions {
   completeInvoiceTask(invoice): Action {
     return {
       type: InvoiceActions.COMPLETE_INVOICE_TASK,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -148,7 +147,7 @@ export class InvoiceActions {
   completeInvoiceTaskSuccess(message): Action {
     return {
       type: InvoiceActions.COMPLETE_INVOICE_TASK_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
@@ -157,7 +156,7 @@ export class InvoiceActions {
   claimInvoiceTask(invoice): Action {
     return {
       type: InvoiceActions.CLAIM_INVOICE_TASK,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -166,7 +165,7 @@ export class InvoiceActions {
   claimInvoiceTaskSuccess(task): Action {
     return {
       type: InvoiceActions.CLAIM_INVOICE_TASK_SUCCESS,
-      payload: task
+      payload: task,
     };
   }
 
@@ -175,7 +174,7 @@ export class InvoiceActions {
   releaseInvoiceTask(invoice): Action {
     return {
       type: InvoiceActions.RELEASE_INVOICE_TASK,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -184,7 +183,7 @@ export class InvoiceActions {
   releaseInvoiceTaskSuccess(task): Action {
     return {
       type: InvoiceActions.RELEASE_INVOICE_TASK_SUCCESS,
-      payload: task
+      payload: task,
     };
   }
 
@@ -193,7 +192,7 @@ export class InvoiceActions {
   findInvoiceById(id): Action {
     return {
       type: InvoiceActions.FIND_INVOICE_BY_ID,
-      payload: id
+      payload: id,
     };
   }
 
@@ -202,7 +201,7 @@ export class InvoiceActions {
   findInvoiceByIdSuccess(invoice): Action {
     return {
       type: InvoiceActions.FIND_INVOICE_BY_ID_SUCCESS,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -211,7 +210,7 @@ export class InvoiceActions {
   findInvoiceByReferenceNo(referenceNo): Action {
     return {
       type: InvoiceActions.FIND_INVOICE_BY_REFERENCE_NO,
-      payload: referenceNo
+      payload: referenceNo,
     };
   }
 
@@ -220,37 +219,36 @@ export class InvoiceActions {
   findInvoiceByReferenceNoSuccess(invoice): Action {
     return {
       type: InvoiceActions.FIND_INVOICE_BY_REFERENCE_NO_SUCCESS,
-      payload: invoice
+      payload: invoice,
     };
   }
 
   static FIND_INVOICE_ITEMS = '[Invoice] Find Invoice Items';
 
   findInvoiceItems(invoice): Action {
-    console.log("findInvoiceItems for invoice: " + invoice);
+    console.log('findInvoiceItems for invoice: ' + invoice);
     return {
       type: InvoiceActions.FIND_INVOICE_ITEMS,
-      payload: invoice
+      payload: invoice,
     };
   }
 
   static FIND_INVOICE_ITEMS_SUCCESS = '[Invoice] Find Invoice Items Success';
 
   findInvoiceItemsSuccess(items): Action {
-    console.log("findInvoiceItemsSuccess");
+    console.log('findInvoiceItemsSuccess');
     return {
       type: InvoiceActions.FIND_INVOICE_ITEMS_SUCCESS,
-      payload: items
+      payload: items,
     };
   }
-
 
   static UPDATE_INVOICE = '[Invoice] Update Invoice';
 
   updateInvoice(invoice): Action {
     return {
       type: InvoiceActions.UPDATE_INVOICE,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -259,7 +257,7 @@ export class InvoiceActions {
   updateInvoiceSuccess(invoice): Action {
     return {
       type: InvoiceActions.UPDATE_INVOICE_SUCCESS,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -268,7 +266,7 @@ export class InvoiceActions {
   removeInvoice(invoice): Action {
     return {
       type: InvoiceActions.REMOVE_INVOICE,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -277,7 +275,7 @@ export class InvoiceActions {
   removeInvoiceSuccess(invoice): Action {
     return {
       type: InvoiceActions.REMOVE_INVOICE_SUCCESS,
-      payload: invoice
+      payload: invoice,
     };
   }
 
@@ -286,7 +284,7 @@ export class InvoiceActions {
   addInvoiceItem(invoice, item): Action {
     return {
       type: InvoiceActions.ADD_INVOICE_ITEM,
-      payload: {invoice:invoice, item:item}
+      payload: {invoice: invoice, item: item},
     };
   }
 
@@ -295,7 +293,7 @@ export class InvoiceActions {
   addInvoiceItemSuccess(message): Action {
     return {
       type: InvoiceActions.ADD_INVOICE_ITEM_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
@@ -304,7 +302,7 @@ export class InvoiceActions {
   deleteInvoiceItem(invoice, item): Action {
     return {
       type: InvoiceActions.DELETE_INVOICE_ITEM,
-      payload: {invoice:invoice, item:item}
+      payload: {invoice: invoice, item: item},
     };
   }
 
@@ -313,7 +311,7 @@ export class InvoiceActions {
   deleteInvoiceItemSuccess(message): Action {
     return {
       type: InvoiceActions.DELETE_INVOICE_ITEM_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
@@ -322,7 +320,7 @@ export class InvoiceActions {
   updateInvoiceItem(invoice, item): Action {
     return {
       type: InvoiceActions.UPDATE_INVOICE_ITEM,
-      payload: {invoice:invoice, item:item}
+      payload: {invoice: invoice, item: item},
     };
   }
 
@@ -331,8 +329,47 @@ export class InvoiceActions {
   updateInvoiceItemSuccess(message): Action {
     return {
       type: InvoiceActions.UPDATE_INVOICE_ITEM_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
+  static FIND_DEBIT_NOTES_BY_INVOICE = '[Invoice] Find Debit Notes By Invoice';
+
+  findDebitNotesByInvoice(invoice): Action {
+    console.log('findDebitNotesByInvoice for invoice: ' + invoice.referenceNo);
+    return {
+      type: InvoiceActions.FIND_DEBIT_NOTES_BY_INVOICE,
+      payload: invoice,
+    };
+  }
+
+  static FIND_DEBIT_NOTES_BY_INVOICE_SUCCESS = '[Invoice] Find debit Notes By Invoice Success';
+
+  findDebitNotesByInvoiceSuccess(notes): Action {
+    console.log('findDebitNotesByInvoice');
+    return {
+      type: InvoiceActions.FIND_DEBIT_NOTES_BY_INVOICE_SUCCESS,
+      payload: notes,
+    };
+  }
+
+  static FIND_CREDIT_NOTES_BY_INVOICE = '[Invoice] Find Credit Notes By Invoice';
+
+  findCreditNotesByInvoice(invoice): Action {
+    console.log('findCreditNotesByInvoice for invoice: ' + invoice.referenceNo);
+    return {
+      type: InvoiceActions.FIND_CREDIT_NOTES_BY_INVOICE,
+      payload: invoice,
+    };
+  }
+
+  static FIND_CREDIT_NOTES_BY_INVOICE_SUCCESS = '[Invoice] Find credit Notes By Invoice Success';
+
+  findCreditNotesByInvoiceSuccess(notes): Action {
+    console.log('findCreditNotesByInvoice');
+    return {
+      type: InvoiceActions.FIND_CREDIT_NOTES_BY_INVOICE_SUCCESS,
+      payload: notes,
+    };
+  }
 }
