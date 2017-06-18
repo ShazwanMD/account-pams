@@ -54,6 +54,10 @@
         AMOUNT numeric(19, 2) not null,
         CHARGE_TYPE int4 not null,
         DESCRIPTION varchar(255) not null,
+        COHORT_CODE_ID int8,
+        STUDY_MODE_ID int8,
+        DOC DATE not null,
+        ORDINAL int8,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -143,15 +147,15 @@
 
     create table AC_ADMN_CHRG (
         ID int8 not null,
-		COMPOUND_CODE varchar(255),
-		COMPOUND_DESCRIPTION varchar(255),
+        COHORT_CODE_ID int8,
+        STUDY_MODE_ID int8,
         primary key (ID)
     );
 
     create table AC_CMPD_CHRG (
-        ID int8 not null,
-        COHORT_CODE_ID int8,
-        STUDY_MODE_ID int8,
+		ID int8 not null,
+		COMPOUND_CODE varchar(255),
+		COMPOUND_DESCRIPTION varchar(255),
         primary key (ID)
     );
     

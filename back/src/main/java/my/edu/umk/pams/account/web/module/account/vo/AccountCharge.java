@@ -2,10 +2,14 @@ package my.edu.umk.pams.account.web.module.account.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
+import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author PAMS
@@ -18,6 +22,10 @@ public class AccountCharge extends MetaObject{
     private BigDecimal amount;
     private AccountChargeType chargeType;
     private AcademicSession session;
+    private CohortCode cohortCode;
+    private StudyMode studyMode;
+    private Date doc;
+    private Integer ordinal;
 
     // transient
     private boolean invoiced;
@@ -78,7 +86,39 @@ public class AccountCharge extends MetaObject{
         this.invoiced = invoiced;
     }
 
-    @JsonCreator
+        public CohortCode getCohortCode() {
+		return cohortCode;
+	}
+
+	public void setCohortCode(CohortCode cohortCode) {
+		this.cohortCode = cohortCode;
+	}
+
+	public StudyMode getStudyMode() {
+		return studyMode;
+	}
+
+	public void setStudyMode(StudyMode studyMode) {
+		this.studyMode = studyMode;
+	}
+
+	public Date getDoc() {
+		return doc;
+	}
+
+	public void setDoc(Date doc) {
+		this.doc = doc;
+	}
+
+	public Integer getOrdinal() {
+		return ordinal;
+	}
+
+	public void setOrdinal(Integer ordinal) {
+		this.ordinal = ordinal;
+	}
+
+	@JsonCreator
     public static AccountCharge create(String jsonString) {
         AccountCharge o = null;
         try {
