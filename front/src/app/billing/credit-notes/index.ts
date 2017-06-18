@@ -26,6 +26,7 @@ import {CreditNoteItemListComponent} from "./component/credit-note-item-list.com
 import {CreditNoteStatusComponent} from "./component/credit-note-status.component";
 import { CreditNoteItemEditorDialog } from "./dialog/credit-note-item-editor.dialog";
 import { ChargeCodeSubModule } from "../../account/charge-codes/index";
+import {PipeModule} from "../../app.pipe.module";
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { ChargeCodeSubModule } from "../../account/charge-codes/index";
     ChargeCodeSubModule.forRoot(),
     IdentityModule.forRoot(),
     EffectsModule.run(CreditNoteEffects),
+    PipeModule,
   ],
   declarations: [
     //page

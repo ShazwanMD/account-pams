@@ -30,6 +30,7 @@ import {WaiverApplicationTask} from "./waiver-applications/waiver-application-ta
 import {AccountSubModule} from "../account/accounts/index";
 import {Settlement} from "./settlements/settlement.interface";
 import {SettlementItem} from "./settlements/settlement-item.interface";
+import {PipeModule} from "../app.pipe.module";
 
 export interface FinancialaidModuleState {
   assignedWaiverApplicationTasks: WaiverApplicationTaskListState;
@@ -71,6 +72,7 @@ export const financialaidModuleReducers = {
     CovalentCoreModule.forRoot(),
     SettlementSubModule.forRoot(),
     WaiverApplicationSubModule.forRoot(),
+    PipeModule
   ],
   declarations: [
     // page

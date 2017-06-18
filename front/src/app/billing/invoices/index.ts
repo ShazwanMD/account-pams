@@ -36,6 +36,7 @@ import {InvoiceCreditNoteListComponent} from "./component/invoice-credit-note-li
 import {InvoiceActionComponent} from "./component/invoice-action.component";
 import {CreditNoteSubModule} from "../credit-notes/index";
 import {DebitNoteSubModule} from "../debit-notes/index";
+import {PipeModule} from "../../app.pipe.module";
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {DebitNoteSubModule} from "../debit-notes/index";
     CreditNoteSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
     EffectsModule.run(InvoiceEffects),
+    PipeModule
   ],
   declarations: [
     // page

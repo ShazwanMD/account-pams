@@ -1,6 +1,6 @@
 <md-card class="bgc-green-600" flex>
   <md-card-content class="text-center">
-    <div class="md-display-1">{{ receipt?.flowState}}</div>
+    <div class="md-display-1">{{ receipt?.flowState | flowStatePipe}}</div>
     <div layout="column" layout-padding>
       <div class="md-subhead tc-grey-100">{{receipt?.status}}</div>
       <div class="md-caption  tc-grey-100">Some Status</div>
