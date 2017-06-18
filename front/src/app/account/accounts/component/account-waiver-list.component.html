@@ -1,21 +1,16 @@
-<md-card>
-  <md-card-title>Account Waivers</md-card-title>
-  <!--  <md-card-subtitle>List of account waiverss</md-card-subtitle> -->
-  <md-divider></md-divider>
-  <td-data-table
-    [data]="waivers"
-    [columns]="columns"
-    [sortBy]="summary"
-    [sortOrder]="ASC"
-    [sortable]="false"
-    [multiple]="false"
-    [selectable]="false"
-    (rowSelect)="view.emit($event)" dense>
+<td-data-table
+  [data]="waivers"
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  (rowSelect)="view.emit($event)" dense>
 
-    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-      <div layout="row">
-        <span flex>{{value}}</span>
-      </div>
-    </template>
-  </td-data-table>
-</md-card>
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex>{{value}}</span>
+    </div>
+  </template>
+</td-data-table>

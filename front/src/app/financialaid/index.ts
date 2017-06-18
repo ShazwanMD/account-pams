@@ -72,7 +72,7 @@ export const financialaidModuleReducers = {
     CovalentCoreModule.forRoot(),
     SettlementSubModule.forRoot(),
     WaiverApplicationSubModule.forRoot(),
-    PipeModule
+    PipeModule.forRoot(),
   ],
   declarations: [
     // page
