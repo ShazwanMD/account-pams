@@ -185,12 +185,6 @@ public class AccountServiceImpl implements AccountService {
         return feeScheduleDao.findByCode(code);
     }
 
-    @Deprecated
-    @Override
-    public AcFeeSchedule findFeeScheduleByCohortCodeAndStudyMode(AcCohortCode cohortCode,AcStudyMode studyMode) {
-        return feeScheduleDao.findByCohortCodeAndStudyMode(cohortCode, studyMode);
-    }
-    @Deprecated
     @Override
     public AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode,AcResidencyCode residencyCode, AcStudyMode studyMode) {
         return feeScheduleDao.findByCohortCodeAndResidencyCodeAndStudyMode(cohortCode, residencyCode, studyMode);

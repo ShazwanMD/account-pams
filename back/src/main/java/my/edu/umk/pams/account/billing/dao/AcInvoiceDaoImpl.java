@@ -39,10 +39,10 @@ import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
  * @author PAMS
  */
 @Repository("acInvoiceDao")
-public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> implements AcInvoiceDao{
+public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> implements AcInvoiceDao {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AcInvoiceDaoImpl .class);
-	
+    private static final Logger LOG = LoggerFactory.getLogger(AcInvoiceDaoImpl.class);
+
     public AcInvoiceDaoImpl() {
         super(AcInvoiceImpl.class);
     }
@@ -75,7 +75,7 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         query.setInteger("state", ACTIVE.ordinal());
         return (List<AcInvoice>) query.list();
     }
-    
+
     @Override
     public List<AcInvoice> findByFlowState(AcFlowState acFlowState) {
         Session session = sessionFactory.getCurrentSession();
@@ -133,37 +133,32 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
                 // todo(uda): filter
                 "i.metadata.state = :state ");
         query.setInteger("state", ACTIVE.ordinal());
-//        query.setCacheable(true);
+        query.setCacheable(true);
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<AcInvoice>) query.list();
     }
-    
-    @Override
+
+    public List<AcInvoice> findFullText(String term, Integer limit, Integer offset, String... columns) {
+        return null;
+    }
+
     public List<AcInvoice> findFullText(CovalentDatatableQuery query) {
-    	Session session = sessionFactory.getCurrentSession();
-    	FullTextSession fts = Search.getFullTextSession(session);
-    	QueryBuilder qb = fts.getSearchFactory().buildQueryBuilder().forEntity(AcInvoice.class).get();
-    	
-    	int columnsLength = query.getColumns().size();
-    	String searchTerm = "*"+ query.getSearchTerm() + "*";
-    	BooleanQuery bq = new BooleanQuery();
-    	
-    	for(int i=0; i<columnsLength; i++){
-    		bq.add(
-    				qb.keyword().wildcard()
-    					.onField(query.getColumns().get(i).getName())
-    					.matching(searchTerm)
-    					.createQuery(),
-    				Occur.SHOULD
-    		);
-    	}
-    	
-    	Query ftq = fts.createFullTextQuery(bq, AcInvoice.class)
-    					.setFirstResult(query.getCurrentPage())
-    					.setMaxResults(query.getPageSize());
-    	
-    	return (List<AcInvoice>) ftq.list();
+        Session session = sessionFactory.getCurrentSession();
+        FullTextSession fts = Search.getFullTextSession(session);
+        QueryBuilder qb = fts.getSearchFactory().buildQueryBuilder().forEntity(AcInvoice.class).get();
+
+        String searchTerm = "*" + query.getSearchTerm() + "*";
+        org.apache.lucene.search.Query bq = qb.keyword()
+                .onFields("description")
+                .matching(searchTerm)
+                .createQuery();
+
+        Query ftq = fts.createFullTextQuery(bq, AcInvoice.class)
+                .setFirstResult(query.getCurrentPage())
+                .setMaxResults(query.getPageSize());
+
+        return (List<AcInvoice>) ftq.list();
     }
 
     @Override
@@ -231,7 +226,7 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         query.setInteger("state", ACTIVE.ordinal());
         return (List<AcInvoiceItem>) query.list();
     }
-    
+
 //    @Override
 //    public List<AcInvoiceTransaction> findTransactions(AcInvoice invoice) {
 //        Session session = sessionFactory.getCurrentSession();
@@ -475,8 +470,8 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
     }
 
     @Override
-    public void deleteItem(AcInvoice invoice, AcInvoiceItem item, AcUser user){
-    	Validate.notNull(invoice, "Invoice should not be null");
+    public void deleteItem(AcInvoice invoice, AcInvoiceItem item, AcUser user) {
+        Validate.notNull(invoice, "Invoice should not be null");
         Validate.notNull(item, "Invoice Item should not be null");
 
         Session session = sessionFactory.getCurrentSession();
