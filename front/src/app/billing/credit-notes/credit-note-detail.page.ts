@@ -7,7 +7,6 @@ import {BillingModuleState} from "../index";
 import {Store} from "@ngrx/store";
 //import {InvoiceItem} from "./invoice-item.interface";
 import { MdDialogRef, MdDialog } from "@angular/material";
-import { DebitNote } from "../debit-notes/debit-note.interface";
 import { CreditNoteTask } from "./credit-note-task.interface";
 import { CreditNoteItem } from "./credit-note-item.interface";
 import { CreditNoteActions } from "./credit-note.action";
@@ -19,8 +18,8 @@ import { CreditNoteActions } from "./credit-note.action";
 })
 export class CreditNoteDetailPage implements OnInit {
 
-  private CREDIT_NOTES = "billingModuleState.debitNote".split(".");
-  private CREDIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
+  private CREDIT_NOTES = "billingModuleState.creditNote".split(".");
+  private CREDIT_NOTE_ITEMS = "billingModuleState.creditNoteItems".split(".");
   private creditNotes$: Observable<CreditNoteTask[]>;
   private creditNoteItems$: Observable<CreditNoteItem[]>;
 
