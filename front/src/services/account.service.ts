@@ -283,6 +283,27 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
+  updateAccountCharge(account: Account, charge: AdmissionCharge): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.put(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/' + charge.id, JSON.stringify(charge), options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  removeAccountCharge(account: Account, charge: AdmissionCharge): Observable<String> {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ' + this.authService.token
+    });
+    let options = new RequestOptions({headers: headers});
+    return this.http.delete(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/' + charge.id, options)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+
   addAccountWaiver(account: Account, waiver: AccountWaiver): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
