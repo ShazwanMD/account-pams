@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
+import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.web.module.account.vo.*;
@@ -246,6 +247,27 @@ public class AccountController {
 		return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/accounts/byActor/student", method = RequestMethod.GET)
+	public ResponseEntity<List<Account>> findAccountsByActor() {
+		List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.STUDENT, 0, 100);
+		List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
+		return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/accounts/byActor/sponsor", method = RequestMethod.GET)
+	public ResponseEntity<List<Account>> findAccountsByActorSponsor() {
+		List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.SPONSOR, 0, 100);
+		List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
+		return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/accounts/byActor/staff", method = RequestMethod.GET)
+	public ResponseEntity<List<Account>> findAccountsByActorStaff() {
+		List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.STAFF, 0, 100);
+		List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
+		return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/accounts", method = RequestMethod.POST)
 	public ResponseEntity<String> saveAccount(@RequestBody Account vo) {
 		dummyLogin();

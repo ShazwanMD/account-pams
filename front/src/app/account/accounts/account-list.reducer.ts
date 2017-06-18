@@ -33,6 +33,15 @@ export function accountListReducer(state = initialState, action: Action): Accoun
         return account.id !== action.payload.id;
       });
     }
+    case AccountActions.FIND_ACCOUNTS_BY_ACTOR_SUCCESS: {
+        return action.payload;
+      }
+    case AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS: {
+        return action.payload;
+      }
+    case AccountActions.FIND_ACCOUNTS_BY_ACTOR_STAFF_SUCCESS: {
+        return action.payload;
+      }
     default: {
       return state;
     }

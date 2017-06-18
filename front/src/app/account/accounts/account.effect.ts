@@ -31,6 +31,24 @@ export class AccountEffects {
     .switchMap(filter => this.accountService.findAccountsByFilter(filter))
     .map(accounts => this.accountActions.findAccountsSuccess(accounts));
 
+  @Effect() findAccountsByActor$ = this.actions$
+  .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR)
+  .map(action => action.payload)
+  .switchMap(actorType => this.accountService.findAccountsByActor())
+  .map(accounts => this.accountActions.findAccountsByActorSuccess(accounts));
+  
+  @Effect() findAccountsByActorSponsor$ = this.actions$
+  .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR)
+  .map(action => action.payload)
+  .switchMap(actorType => this.accountService.findAccountsByActorSponsor())
+  .map(accounts => this.accountActions.findAccountsByActorSponsorSuccess(accounts));
+  
+  @Effect() findAccountsByActorStaff$ = this.actions$
+  .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR_STAFF)
+  .map(action => action.payload)
+  .switchMap(actorType => this.accountService.findAccountsByActorStaff())
+  .map(accounts => this.accountActions.findAccountsByActorStaffSuccess(accounts));
+  
   @Effect() findAccountByCode$ = this.actions$
     .ofType(AccountActions.FIND_ACCOUNT_BY_CODE)
     .map(action => action.payload)
