@@ -144,4 +144,23 @@ public interface SystemService {
 
     // TODO:
     void sendWithAttachment(String email, String s, String s1, String s2, String s3, HashMap<String, Object> vars);
+
+
+    //====================================================================================================
+    // EMAIL QUEUE
+    //====================================================================================================
+
+    List<AcEmailQueue> findEmailQueues();
+
+    List<AcEmailQueue> findEmailQueues(AcEmailQueueStatus status);
+
+    List<AcEmailQueue> findEmailQueues(AcEmailQueueStatus status, Integer offset, Integer limit);
+
+    Integer countEmailQueue();
+
+    void saveEmailQueue(AcEmailQueue emailQueue);
+
+    void updateEmailQueue(AcEmailQueue emailQueue);
+
+    void sendEmail();
 }
