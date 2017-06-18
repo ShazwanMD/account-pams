@@ -1,12 +1,12 @@
 import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
-import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from "@angular/material";
-import {ActivatedRoute, Router} from "@angular/router";
-import {BillingModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import { DebitNote } from "../debit-note.interface";
-import { DebitNoteItem } from "../debit-note-item.interface";
-import { DebitNoteActions } from "../debit-note.action";
-import { DebitNoteItemEditorDialog } from "../dialog/debit-note-item-editor.dialog";
+import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BillingModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import { DebitNote } from '../debit-note.interface';
+import { DebitNoteItem } from '../debit-note-item.interface';
+import { DebitNoteActions } from '../debit-note.action';
+import { DebitNoteItemEditorDialog } from '../dialog/debit-note-item-editor.dialog';
 
 @Component({
   selector: 'pams-debit-note-item-list',
@@ -24,7 +24,7 @@ export class DebitNoteItemListComponent implements OnInit {
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Amount'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
   constructor(private router: Router,
@@ -37,7 +37,7 @@ export class DebitNoteItemListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedRows = this.debitNoteItems.filter(value => value.selected);
+    this.selectedRows = this.debitNoteItems.filter((value) => value.selected);
   }
 
   createDialog(): void {
@@ -64,9 +64,8 @@ export class DebitNoteItemListComponent implements OnInit {
   selectAllRows(debitNoteItems: DebitNoteItem[]): void {
   }
 
-
   showDialog(debitNoteItem: DebitNoteItem): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -74,10 +73,10 @@ export class DebitNoteItemListComponent implements OnInit {
     config.height = '60%';
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(DebitNoteItemEditorDialog, config);
-    this.editorDialogRef.componentInstance.debitNote= this.debitNote;
+    this.editorDialogRef.componentInstance.debitNote = this.debitNote;
     if (debitNoteItem) this.editorDialogRef.componentInstance.debitNoteItem = debitNoteItem; // set
-    this.editorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.editorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
     });
   }
 }
