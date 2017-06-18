@@ -1,15 +1,12 @@
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {Account} from "../account.interface";
-import {Actor} from "../../../identity/actor.interface";
-import {AccountActions} from "../account.action";
-import {AccountModuleState} from "../../index";
-import {IdentityService} from "../../../../services/identity.service";
-
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {Account} from '../account.interface';
+import {Actor} from '../../../identity/actor.interface';
+import {AccountActions} from '../account.action';
+import {AccountModuleState} from '../../index';
 
 @Component({
   selector: 'pams-account-creator',
@@ -27,18 +24,18 @@ export class AccountCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<Account>{
-      id: null,
+    this.createForm = this.formBuilder.group({
+      id: undefined,
       code: '',
       description: '',
-      name:'',
-      email:'',
-      actor:<Actor>{},
+      name: '',
+      email: '',
+      actor: <Actor>{},
     });
   }
 
   save(account: Account, isValid: boolean) {
-    console.log("account: " + account.name);
+    console.log('account: ' + account.name);
     this.store.dispatch(this.actions.saveAccount(account));
     this.dialog.close();
   }

@@ -10,10 +10,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * TODO: postedDate??
  * @author PAMS
  */
-public interface AcAccountCharge extends AcMetaObject{
+public interface AcAccountCharge extends AcMetaObject {
 
     String getReferenceNo();
 
@@ -31,9 +30,17 @@ public interface AcAccountCharge extends AcMetaObject{
 
     void setAmount(BigDecimal amount);
 
+    void setChargeDate(Date chargeDate);
+
+    Date getChargeDate();
+
+    Integer getOrdinal();
+
+    void setOrdinal(Integer ordinal);
+
     AcAccountChargeType getChargeType();
-    
-    AcAccountChargeType getChargeType(String i);
+
+    void setChargeType(AcAccountChargeType chargeType);
 
     AcAccount getAccount();
 
@@ -46,7 +53,7 @@ public interface AcAccountCharge extends AcMetaObject{
     AcInvoice getInvoice();
 
     void setInvoice(AcInvoice invoice);
-    
+
     AcCohortCode getCohortCode();
 
     void setCohortCode(AcCohortCode cohortCode);
@@ -55,13 +62,5 @@ public interface AcAccountCharge extends AcMetaObject{
 
     void setStudyMode(AcStudyMode studyMode);
 
-	void setDoc(Date doc);
 
-	Date getDoc();
-   
-    Integer getOrdinal();
-
-    void setOrdinal(Integer ordinal);
-
-	void setChargeType(AcAccountChargeType chargeType);
 }

@@ -1,15 +1,15 @@
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {AccountActions} from "../account.action";
-import {AccountModuleState} from "../../index";
-import {AdmissionCharge} from "../admission-charge.interface";
-import {StudyMode} from "../../../common/study-modes/study-mode.interface";
-import {AcademicSession} from "../../academic-sessions/academic-session.interface";
-import {Account} from "../account.interface";
-import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {AccountActions} from '../account.action';
+import {AccountModuleState} from '../../index';
+import {StudyMode} from '../../../common/study-modes/study-mode.interface';
+import {AcademicSession} from '../../academic-sessions/academic-session.interface';
+import {Account} from '../account.interface';
+import {CohortCode} from '../../../common/cohort-codes/cohort-code.interface';
+import {AccountCharge} from '../account-charge.interface';
 
 @Component({
   selector: 'pams-admission-charge',
@@ -18,7 +18,7 @@ import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
 export class AdmissionChargeDialog implements OnInit {
 
   private createForm: FormGroup;
-  private _account : Account;
+  private _account: Account;
 
   constructor(private formBuilder: FormBuilder,
               private store: Store<AccountModuleState>,
@@ -31,21 +31,21 @@ export class AdmissionChargeDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<AdmissionCharge>{
-      id:null,
+    this.createForm = this.formBuilder.group({
+      id: undefined,
       referenceNo: '',
       sourceNo: '',
-      description:'',
+      description: '',
       amount: 0,
       studyMode: <StudyMode>{},
-      cohortCode:<CohortCode>{},
-      session: <AcademicSession>{}
+      cohortCode: <CohortCode>{},
+      session: <AcademicSession>{},
     });
   }
 
-  save(charge: AdmissionCharge, isValid: boolean) {
-    console.log("account: " + charge.amount);
-    this.store.dispatch(this.actions.addAdmissionCharge(this._account, charge));
+  save(charge: AccountCharge, isValid: boolean) {
+    console.log('account: ' + charge.amount);
+    this.store.dispatch(this.actions.addAccountCharge(this._account, charge));
     this.dialog.close();
   }
 }

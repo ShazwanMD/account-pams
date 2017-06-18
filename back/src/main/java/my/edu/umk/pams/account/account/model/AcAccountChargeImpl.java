@@ -15,12 +15,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 /**
  * @author PAMS
  */
 @Entity(name = "AcAccountCharge")
 @Table(name = "AC_ACCT_CHRG")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class AcAccountChargeImpl implements AcAccountCharge {
 
     @Id
@@ -45,21 +45,25 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     private BigDecimal amount = BigDecimal.ZERO;
 
     @NotNull
+    @Column(name = "ORDINAL", nullable = false, columnDefinition = "int default 0")
+    private Integer ordinal = 0;
+
+    @NotNull
+    @Column(name = "CHARGE_DATE", nullable = false)
+    private Date chargeDate;
+
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "CHARGE_TYPE")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private AcAccountChargeType chargeType;
-    
-    @NotNull
-    @Column(name = "DOC", nullable = false)
-    private Date doc;
 
     @NotNull
     @ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
 
-	@NotNull
+    @NotNull
     @ManyToOne(targetEntity = AcAcademicSessionImpl.class)
     @JoinColumn(name = "SESSION_ID", nullable = false)
     private AcAcademicSession session;
@@ -67,52 +71,18 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @ManyToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID", nullable = true)
     private AcInvoice invoice;
-    
+
     @NotNull
     @OneToOne(targetEntity = AcStudyModeImpl.class)
     @JoinColumn(name = "STUDY_MODE_ID")
     private AcStudyMode studyMode;
-    
-    @NotNull
-    @Column(name = "ORDINAL", nullable = false, columnDefinition = "int default 0")
-    private Integer ordinal = 0;
 
     @NotNull
     @OneToOne(targetEntity = AcCohortCodeImpl.class)
     @JoinColumn(name = "COHORT_CODE_ID")
     private AcCohortCode cohortCode;
 
-    @Override
-    public AcStudyMode getStudyMode() {
-		return studyMode;
-	}
-    
-    @Override
-    public Date getDoc() {
-		return doc;
-	}
-
-    @Override
-    public void setDoc(Date doc) {
-		this.doc = doc;
-	}
-
-    @Override
-    public void setStudyMode(AcStudyMode studyMode) {
-		this.studyMode = studyMode;
-	}
-
-	@Override
-	public AcCohortCode getCohortCode() {
-		return cohortCode;
-	}
-
-	@Override
-	public void setCohortCode(AcCohortCode cohortCode) {
-		this.cohortCode = cohortCode;
-	}
-	
-	@Embedded
+    @Embedded
     private AcMetadata metadata;
 
     @Override
@@ -164,18 +134,37 @@ public class AcAccountChargeImpl implements AcAccountCharge {
         this.amount = amount;
     }
 
-    
     @Override
     public Integer getOrdinal() {
-		return ordinal;
-	}
+        return ordinal;
+    }
 
     @Override
     public void setOrdinal(Integer ordinal) {
-		this.ordinal = ordinal;
-	}
+        this.ordinal = ordinal;
+    }
 
-	@Override
+    @Override
+    public Date getChargeDate() {
+        return chargeDate;
+    }
+
+    @Override
+    public void setChargeDate(Date chargeDate) {
+        this.chargeDate = chargeDate;
+    }
+
+    @Override
+    public AcAccountChargeType getChargeType() {
+        return chargeType;
+    }
+
+    @Override
+    public void setChargeType(AcAccountChargeType chargeType) {
+        this.chargeType = chargeType;
+    }
+
+    @Override
     public AcAccount getAccount() {
         return account;
     }
@@ -206,6 +195,26 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     }
 
     @Override
+    public AcStudyMode getStudyMode() {
+        return studyMode;
+    }
+
+    @Override
+    public void setStudyMode(AcStudyMode studyMode) {
+        this.studyMode = studyMode;
+    }
+
+    @Override
+    public AcCohortCode getCohortCode() {
+        return cohortCode;
+    }
+
+    @Override
+    public void setCohortCode(AcCohortCode cohortCode) {
+        this.cohortCode = cohortCode;
+    }
+
+    @Override
     public AcMetadata getMetadata() {
         return metadata;
     }
@@ -219,20 +228,4 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     public Class<?> getInterfaceClass() {
         return AcAccountCharge.class;
     }
-
-    @Override
-    public void setChargeType(AcAccountChargeType chargeType) {
-		this.chargeType = chargeType;
-	}
-    
-    @Override
-    public AcAccountChargeType getChargeType() {
-		return chargeType;
-	}
-    
-	@Override
-	public AcAccountChargeType getChargeType(String i) {
-		return chargeType.valueOf(i);
-	}
-
 }

@@ -1,20 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Response, Http, RequestOptions, Headers, ResponseContentType} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
-import {Account} from "../app/account/accounts/account.interface";
-import {Observable} from "rxjs";
-import {environment} from "../environments/environment";
-import {ChargeCode} from "../app/account/charge-codes/charge-code.interface";
+import {Account} from '../app/account/accounts/account.interface';
+import {Observable} from 'rxjs';
+import {environment} from '../environments/environment';
+import {ChargeCode} from '../app/account/charge-codes/charge-code.interface';
 import {FeeSchedule} from '../app/account/fee-schedules/fee-schedule.interface';
-import {AccountTransaction} from "../app/account/accounts/account-transaction.interface";
-import {AcademicSession} from "../app/account/academic-sessions/academic-session.interface";
-import {FeeScheduleItem} from "../app/account/fee-schedules/fee-schedule-item.interface";
-import {AccountCharge} from "../app/account/accounts/account-charge.interface";
-import {AccountWaiver} from "../app/account/accounts/account-waiver.interface";
-import {AdmissionCharge} from "../app/account/accounts/admission-charge.interface";
-import {CompoundCharge} from "../app/account/accounts/compound-charge.interface";
-import {EnrollmentCharge} from "../app/account/accounts/enrollment-charge.interface";
-import { ActorType } from "../app/identity/actor-type.enum";
+import {AccountTransaction} from '../app/account/accounts/account-transaction.interface';
+import {AcademicSession} from '../app/account/academic-sessions/academic-session.interface';
+import {FeeScheduleItem} from '../app/account/fee-schedules/fee-schedule-item.interface';
+import {AccountCharge} from '../app/account/accounts/account-charge.interface';
+import {AccountWaiver} from '../app/account/accounts/account-waiver.interface';
 
 @Injectable()
 export class AccountService {
@@ -41,16 +37,16 @@ export class AccountService {
   }
 
   findFeeScheduleItems(feeSchedule: FeeSchedule): Observable<FeeScheduleItem[]> {
-    console.log("findFeeScheduleItems");
-    return this.http.get(environment.endpoint + '/api/account/feeSchedules/' + feeSchedule.code + "/feeScheduleItems")
+    console.log('findFeeScheduleItems');
+    return this.http.get(environment.endpoint + '/api/account/feeSchedules/' + feeSchedule.code + '/feeScheduleItems')
       .map((res: Response) => <FeeScheduleItem[]>res.json());
   }
 
   saveFeeSchedule(feeSchedule: FeeSchedule): Observable<String> {
-    console.log("saveFeeSchedule", feeSchedule);
+    console.log('saveFeeSchedule', feeSchedule);
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/account/feeSchedules', JSON.stringify(feeSchedule), options)
@@ -60,7 +56,7 @@ export class AccountService {
   updateFeeSchedule(feeSchedule: FeeSchedule): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.put(environment.endpoint + '/api/account/feeSchedules', JSON.stringify(feeSchedule))
@@ -70,7 +66,7 @@ export class AccountService {
   addFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/account/feeSchedules/' + feeSchedule.code + '/feeScheduleItems', JSON.stringify(item), options)
@@ -78,10 +74,10 @@ export class AccountService {
   }
 
   updateFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem) {
-    console.log("saving feeSchedule item" + item.id);
+    console.log('saving feeSchedule item' + item.id);
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.put(environment.endpoint + '/api/account/feeSchedules/' + feeSchedule.code + '/feeScheduleItems/' + item.id, JSON.stringify(item), options)
@@ -91,7 +87,7 @@ export class AccountService {
   deleteFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem) {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.delete(environment.endpoint + '/api/account/feeSchedules/' + feeSchedule.code + '/feeScheduleItems/' + item.id, options)
@@ -102,11 +98,11 @@ export class AccountService {
     console.log('uploadFeeSchedule');
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     let formData = new FormData();
-    formData.append("file", file);
+    formData.append('file', file);
     return this.http.post(environment.endpoint + '/api/account/feeSchedules/' + schedule.code + '/upload', formData)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
@@ -137,10 +133,10 @@ export class AccountService {
   }
 
   saveChargeCode(code: ChargeCode): Observable<String> {
-    console.log("saving chargecode");
+    console.log('saving chargecode');
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/account/chargeCodes', JSON.stringify(code), options)
@@ -148,10 +144,10 @@ export class AccountService {
   }
 
   updateChargeCode(code: ChargeCode) {
-    console.log("saving chargecode" + code.id);
+    console.log('saving chargecode' + code.id);
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.put(environment.endpoint + '/api/account/chargeCodes/' + code.code, JSON.stringify(code), options)
@@ -161,7 +157,7 @@ export class AccountService {
   removeChargeCode(code: ChargeCode) {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.delete(environment.endpoint + '/api/account/chargeCodes/' + code.code, options)
@@ -173,7 +169,7 @@ export class AccountService {
   // ====================================================================================================
 
   findAcademicSessions(): Observable<AcademicSession[]> {
-    console.log("findAcademicSessions");
+    console.log('findAcademicSessions');
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
     return this.http.get(environment.endpoint + '/api/account/academicSessions')
@@ -183,28 +179,27 @@ export class AccountService {
   findAcademicSessionByCode(code: string): Observable<AcademicSession> {
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
-    console.log("encoded uri: " + encodeURI(code))
+    console.log('encoded uri: ' + encodeURI(code));
     return this.http.get(environment.endpoint + '/api/account/academicSessions/' + encodeURI(code))
       .map((res: Response) => <AcademicSession>res.json());
   }
 
   saveAcademicSession(academicSession: AcademicSession): Observable<Boolean> {
     return this.http.post(environment.endpoint + '/api/account/academicSessions', JSON.stringify(academicSession))
-      .flatMap(data => Observable.of(true));
+      .flatMap((data) => Observable.of(true));
   }
 
   updateAcademicSession(academicSession: AcademicSession): Observable<Boolean> {
     return this.http.put(environment.endpoint + '/api/account/academicSessions', JSON.stringify(academicSession))
-      .flatMap(data => Observable.of(true));
+      .flatMap((data) => Observable.of(true));
   }
-
 
   // ====================================================================================================
   // ACCOUNT
   // ====================================================================================================
 
   findAccounts(): Observable<Account[]> {
-    console.log("findAccounts");
+    console.log('findAccounts');
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
     return this.http.get(environment.endpoint + '/api/account/accounts')
@@ -212,7 +207,7 @@ export class AccountService {
   }
 
   findAccountsByFilter(filter: string): Observable<Account[]> {
-    console.log("findAccountsByFilter");
+    console.log('findAccountsByFilter');
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
     return this.http.get(environment.endpoint + '/api/account/accounts/byFilter/' + filter)
@@ -222,172 +217,111 @@ export class AccountService {
   findAccountByCode(code: string): Observable<Account> {
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
-    console.log("encoded uri: " + encodeURI(code))
+    console.log('encoded uri: ' + encodeURI(code));
     return this.http.get(environment.endpoint + '/api/account/accounts/' + encodeURI(code))
       .map((res: Response) => <Account>res.json());
   }
 
   findAccountsByActor(): Observable<Account[]> {
-      console.log("findAccountsByActor");
-      // let headers = new Headers({'Authorization': 'Bearer TODO'});
-      // let options = new RequestOptions({headers: headers});
-      return this.http.get(environment.endpoint + '/api/account/accounts/byActor/student')
-        .map((res: Response) => <Account[]>res.json());
-  }
-  
-  findAccountsByActorSponsor(): Observable<Account[]> {
-      console.log("findAccountsByActorSponsor");
-      // let headers = new Headers({'Authorization': 'Bearer TODO'});
-      // let options = new RequestOptions({headers: headers});
-      return this.http.get(environment.endpoint + '/api/account/accounts/byActor/sponsor')
-        .map((res: Response) => <Account[]>res.json());
-  }
-  
-  findAccountsByActorStaff(): Observable<Account[]> {
-      console.log("findAccountsByActorStaff");
-      // let headers = new Headers({'Authorization': 'Bearer TODO'});
-      // let options = new RequestOptions({headers: headers});
-      return this.http.get(environment.endpoint + '/api/account/accounts/byActor/staff')
-        .map((res: Response) => <Account[]>res.json());
-  }
-  
-  findAccountTransactions(account: Account): Observable<AccountTransaction[]> {
-    console.log("findAccountTransactions");
+    console.log('findAccountsByActor');
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
-    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountTransactions")
+    return this.http.get(environment.endpoint + '/api/account/accounts/byActor/student')
+      .map((res: Response) => <Account[]>res.json());
+  }
+
+  findAccountsByActorSponsor(): Observable<Account[]> {
+    console.log('findAccountsByActorSponsor');
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/byActor/sponsor')
+      .map((res: Response) => <Account[]>res.json());
+  }
+
+  findAccountsByActorStaff(): Observable<Account[]> {
+    console.log('findAccountsByActorStaff');
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/byActor/staff')
+      .map((res: Response) => <Account[]>res.json());
+  }
+
+  findAccountTransactions(account: Account): Observable<AccountTransaction[]> {
+    console.log('findAccountTransactions');
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountTransactions')
       .map((res: Response) => <AccountTransaction[]>res.json());
   }
 
   findAccountCharges(account: Account): Observable<AccountCharge[]> {
-    console.log("findAccountCharges");
+    console.log('findAccountCharges');
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
-    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountCharges")
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges')
       .map((res: Response) => <AccountCharge[]>res.json());
   }
 
-  findCompoundCharges(account: Account): Observable<CompoundCharge[]> {
-    console.log("findCompoundCharges");
-    // let headers = new Headers({'Authorization': 'Bearer TODO'});
-    // let options = new RequestOptions({headers: headers});
-    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountCompound")
-      .map((res: Response) => <CompoundCharge[]>res.json());
-  }
-
   findAccountWaivers(account: Account): Observable<AccountWaiver[]> {
-    console.log("findAccountWaivers :" + account.code);
+    console.log('findAccountWaivers :' + account.code);
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
-    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + "/accountWaivers")
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountWaivers')
       .map((res: Response) => <AccountWaiver[]>res.json());
   }
 
   saveAccount(account: Account): Observable<Boolean> {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/account/accounts', JSON.stringify(account), options)
-      .flatMap(data => Observable.of(true));
+      .flatMap((data) => Observable.of(true));
   }
 
   updateAccount(account: Account): Observable<Boolean> {
     return this.http.put(environment.endpoint + '/api/account/accounts', JSON.stringify(account))
-      .flatMap(data => Observable.of(true));
-  }
-
-  addAccountCharge(account: Account, charge: AccountCharge): Observable<String> {
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
-    });
-    let options = new RequestOptions({headers: headers});
-    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges', JSON.stringify(charge), options)
-      .flatMap((res: Response) => Observable.of(res.text()));
+      .flatMap((data) => Observable.of(true));
   }
 
   addAccountWaiver(account: Account, waiver: AccountWaiver): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/accountWaivers', JSON.stringify(waiver), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  addAdmissionCharge(account: Account, charge: AdmissionCharge): Observable<String> {
-    console.log("saving admission charge");
+  addAccountCharge(account: Account, charge: AccountCharge): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
-    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/admissionCharges', JSON.stringify(charge), options)
+    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges', JSON.stringify(charge), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateAdmissionCharge(account: Account, charge: AdmissionCharge): Observable<String> {
+  updateAccountCharge(account: Account, charge: AccountCharge): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
-    return this.http.put(environment.endpoint + '/api/account/accounts/' + account.code + '/admissionCharges/' + charge.id, JSON.stringify(charge), options)
+    return this.http.put(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/' + charge.id, JSON.stringify(charge), options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-
-  removeAdmissionCharge(account: Account, charge: AdmissionCharge): Observable<String> {
+  removeAccountCharge(account: Account, charge: AccountCharge): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
+      // 'Authorization': 'Bearer ' + this.authService.token
     });
     let options = new RequestOptions({headers: headers});
-    return this.http.delete(environment.endpoint + '/api/account/accounts/' + account.code + '/admissionCharges/' + charge.id, options)
-      .flatMap((res: Response) => Observable.of(res.text()));
-  }
-
-  addCompoundCharge(account: Account, charge: CompoundCharge): Observable<String> {
-    console.log("saving Compound charge");
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
-    });
-    let options = new RequestOptions({headers: headers});
-    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/compoundCharges', JSON.stringify(charge), options)
-      .flatMap((res: Response) => Observable.of(res.text()));
-  }
-
-  updateCompoundCharge(account: Account, charge: CompoundCharge): Observable<String> {
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
-    });
-    let options = new RequestOptions({headers: headers});
-    return this.http.put(environment.endpoint + '/api/account/accounts/' + account.code + '/compoundCharges/' + charge.id, JSON.stringify(charge), options)
-      .flatMap((res: Response) => Observable.of(res.text()));
-  }
-
-  removeCompoundCharge(account: Account, charge: CompoundCharge): Observable<String> {
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
-    });
-    let options = new RequestOptions({headers: headers});
-    return this.http.delete(environment.endpoint + '/api/account/accounts/' + account.code + '/compoundCharges/' + charge.id, options)
-      .flatMap((res: Response) => Observable.of(res.text()));
-  }
-
-  addEnrollmentCharge(account: Account, charge: EnrollmentCharge): Observable<String> {
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
-    });
-    let options = new RequestOptions({headers: headers});
-    return this.http.post(environment.endpoint + '/api/account/accounts/' + account.code + '/enrollmentCharges', JSON.stringify(charge), options)
+    return this.http.delete(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/' + charge.id, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 }

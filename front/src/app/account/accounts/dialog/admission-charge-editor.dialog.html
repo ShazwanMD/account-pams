@@ -1,4 +1,4 @@
-<h2 md-dialog-title>Admission Charge Editor</h2>
+<h2 md-dialog-title>Admission Charge</h2>
 <md-dialog-content>
   <form [formGroup]="editorForm">
     <div layout="row" class="inset" flex>
@@ -9,7 +9,7 @@
                flex/>
       </md-input-container>
     </div>
-        <div layout="row" class="inset" flex>
+    <div layout="row" class="inset" flex>
       <md-input-container flex>
         <input mdInput
                placeholder="Description"
@@ -25,10 +25,18 @@
                flex/>
       </md-input-container>
     </div>
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Semester"
+               formControlName="ordinal"
+               flex/>
+      </md-input-container>
+    </div>
 
     <!-- select cohort, session, studymode -->
 
-     <div layout="row" class="pad-bottom pad-top">
+    <div layout="row" class="pad-bottom pad-top">
       <pams-cohort-code-select
         [placeholder]="'Select Cohort'"
         [innerFormControl]="editorForm.controls['cohortCode']">
@@ -39,13 +47,13 @@
         [placeholder]="'Select Academic Session'"
         [innerFormControl]="editorForm.controls['session']">
       </pams-academic-session-select>
-      </div>
-      <div layout="row" class="pad-bottom pad-top">
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
       <pams-study-mode-select
         [placeholder]="'Select Study Mode'"
         [innerFormControl]="editorForm.controls['studyMode']">
       </pams-study-mode-select>
-      </div>
+    </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">

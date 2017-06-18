@@ -1,13 +1,13 @@
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {AccountActions} from "../account.action";
-import {AccountModuleState} from "../../index";
-import {CompoundCharge} from "../compound-charge.interface";
-import {Account} from "../account.interface";
-import { Router, ActivatedRoute } from "@angular/router";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {AccountActions} from '../account.action';
+import {AccountModuleState} from '../../index';
+import {Account} from '../account.interface';
+import {Router, ActivatedRoute} from '@angular/router';
+import {AccountCharge} from '../account-charge.interface';
 
 @Component({
   selector: 'pams-compound-charge',
@@ -17,9 +17,8 @@ export class CompoundChargeDialog implements OnInit {
 
   private editorForm: FormGroup;
   private edit: boolean = false;
-  private _account  : Account;
-  private _compoundCharge  : CompoundCharge;
-
+  private _account: Account;
+  private _accountCharge: AccountCharge;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -32,29 +31,29 @@ export class CompoundChargeDialog implements OnInit {
 
   set account(value: Account) {
     this._account = value;
-    
+
   }
 
-  set compoundCharge(value: CompoundCharge) {
-    this.compoundCharge = value;
+  set accountCharge(value: AccountCharge) {
+    this.accountCharge = value;
     this.edit = true;
   }
-  
+
   ngOnInit(): void {
-    this.editorForm = this.formBuilder.group(<CompoundCharge>{
-      id:null,
+    this.editorForm = this.formBuilder.group({
+      id: undefined,
       referenceNo: '',
       sourceNo: '',
-      description:'',
+      description: '',
       amount: 0,
-      compoundCode : '',
-      compoundDescription : '',
+      compoundCode: '',
+      compoundDescription: '',
     });
   }
 
-  save(charge: CompoundCharge, isValid: boolean) {
-    console.log("account: " + charge.amount);
-    this.store.dispatch(this.actions.addCompoundCharge(this._account, charge));
+  save(charge: AccountCharge, isValid: boolean) {
+    console.log('account: ' + charge.amount);
+    this.store.dispatch(this.actions.addAccountCharge(this._account, charge));
     this.dialog.close();
   }
 }
