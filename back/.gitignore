@@ -115,3 +115,7 @@ local.properties
 ### Schema generator template
 #create.sql
 /target/
+
+
+### hibernate searc
+/hibernate-search
