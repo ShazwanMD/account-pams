@@ -209,6 +209,46 @@ export class AccountActions {
     };
   }
 
+  static UPDATE_ACCOUNT_CHARGE = '[Account] Update AccountCharge';
+
+  updateAccountCharge(account, charge): Action {
+    console.log("updateAccountCharge");
+    return {
+      type: AccountActions.UPDATE_ACCOUNT_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+  static UPDATE_ACCOUNT_CHARGE_SUCCESS = '[Account] Update AccountCharge  Success';
+
+  updateAccountChargeSuccess(message): Action {
+      console.log("updateAccountChargeSuccess");
+    return {
+      type: AccountActions.UPDATE_ACCOUNT_CHARGE,
+      payload: message
+    };
+  }
+
+   static REMOVE_ACCOUNT_CHARGE = '[Account] Remove AccountCharge';
+
+  removeAccountCharge(account, charge): Action {
+    console.log('remove AccountCharge');
+    return {
+      type: AccountActions.REMOVE_ACCOUNT_CHARGE,
+      payload: {account:account, charge:charge}
+    };
+  }
+
+  static REMOVE_ACCOUNT_CHARGE_SUCCESS = '[Account] Remove AccountCharge Success';
+
+  removeAccountChargeSuccess(message): Action {
+    console.log('remove AccountCharge SUCCESS');
+    return {
+      type: AccountActions.REMOVE_ACCOUNT_CHARGE_SUCCESS,
+      payload: message
+    };
+  }
+
   static ADD_ADMISSION_CHARGE = '[Admission] Add AdmissionCharge ';
 
   addAdmissionCharge(account, charge): Action {
