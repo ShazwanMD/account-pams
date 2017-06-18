@@ -17,6 +17,7 @@ import {AccountActions} from "./account.action";
 import {AccountModuleState} from "../index";
 import {AccountCreatorDialog} from "./dialog/account-creator.dialog";
 import { FormControl } from "@angular/forms";
+import { ActorType } from "../../identity/actor-type.enum";
 
 @Component({
   selector: 'pams-account-center',
@@ -35,6 +36,8 @@ export class AccountCenterPage implements OnInit {
   private accounts$: Observable<Account[]>;
   private creatorDialogRef: MdDialogRef<AccountCreatorDialog>;
 
+  private selectedTab = 0;
+  
   text: string;
 
   private columns: any[] = [
@@ -85,8 +88,15 @@ export class AccountCenterPage implements OnInit {
     });
   }
   
+  onSelectChange = ($event: any): void => {
+      if($event.index==0) {this.store.dispatch(this.actions.findAccountsByActor())};
+      if ($event.index==1) {this.store.dispatch(this.actions.findAccountsByActorSponsor())};
+    }
+  
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findAccounts());
+    //this.store.dispatch(this.actions.findAccounts());
+   this.store.dispatch(this.actions.findAccountsByActor());  
+    
   }
 
 }

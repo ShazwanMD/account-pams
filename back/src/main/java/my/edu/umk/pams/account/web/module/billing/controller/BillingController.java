@@ -630,6 +630,14 @@ public class BillingController {
         return new ResponseEntity<CreditNoteTask>(billingTransformer.toCreditNoteTaskVo(
                 billingService.findCreditNoteTaskByTaskId(taskId)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/creditNotes/releaseTask", method = RequestMethod.POST)
+    public ResponseEntity<String> releaseCreditNoteTask(@RequestBody CreditNoteTask vo) {
+        dummyLogin();
+        Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
+        workflowService.releaseTask(task);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/creditNotes/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeCreditNoteTask(@RequestBody CreditNoteTask vo) {
