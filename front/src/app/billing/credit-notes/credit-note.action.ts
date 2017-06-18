@@ -269,6 +269,24 @@ export class CreditNoteActions {
     };
   }
 
+  static ADD_CREDIT_NOTE_ITEM = '[CreditNote] Add CreditNote Item';
+
+  addCreditNoteItem(creditNote, item): Action {
+    return {
+      type: CreditNoteActions.ADD_CREDIT_NOTE_ITEM,
+      payload: {debitNote:creditNote, item:item}
+    };
+  }
+
+  static ADD_CREDIT_NOTE_ITEM_SUCCESS = '[CreditNote] Add CreditNote Item Success';
+
+  addCreditNoteItemSuccess(message): Action {
+    return {
+      type: CreditNoteActions.ADD_CREDIT_NOTE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+
   static UPDATE_CREDIT_NOTE = '[CreditNote] Update CreditNote';
 
   updateCreditNote(creditNote): Action {
