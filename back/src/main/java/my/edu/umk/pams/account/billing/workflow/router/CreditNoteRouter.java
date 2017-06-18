@@ -36,4 +36,18 @@ public class CreditNoteRouter extends RouterServiceSupport{
 
         return Arrays.asList(candidate);
     }
+
+    public List<String> findVerifierCandidates(Long creditNoteId) {
+        Validate.notNull(creditNoteId, "Id must not be null");
+
+        String candidate = null;
+
+        AcCreditNote creditNote = billingService.findCreditNoteById(creditNoteId);
+        candidate = "GRP_ADM";
+
+        // publish access event
+        // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
+
+        return Arrays.asList(candidate);
+    }
 }

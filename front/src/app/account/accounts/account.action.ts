@@ -36,7 +36,52 @@ export class AccountActions {
       payload: accounts
     };
   }
+  
+  static FIND_ACCOUNTS_BY_ACTOR = '[Account] Find Accounts By Actor Student';
+  findAccountsByActor(): Action {
+    return {
+      type: AccountActions.FIND_ACCOUNTS_BY_ACTOR,
+    };
+  }
 
+  static FIND_ACCOUNTS_BY_ACTOR_SUCCESS = '[Account] Find Accounts By Actor Student Success';
+  findAccountsByActorSuccess(accounts): Action {
+    return {
+      type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SUCCESS,
+      payload: accounts
+    };
+  }
+  
+  static FIND_ACCOUNTS_BY_ACTOR_SPONSOR = '[Account] Find Accounts By Actor Sponsor';
+  findAccountsByActorSponsor(): Action {
+    return {
+      type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR,
+    };
+  }
+
+  static FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS = '[Account] Find Accounts By Actor Sponsor Success';
+  findAccountsByActorSponsorSuccess(accounts): Action {
+    return {
+      type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS,
+      payload: accounts
+    };
+  }
+
+  static FIND_ACCOUNTS_BY_ACTOR_STAFF = '[Account] Find Accounts By Actor Staff';
+  findAccountsByActorStaff(): Action {
+    return {
+      type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_STAFF,
+    };
+  }
+
+  static FIND_ACCOUNTS_BY_ACTOR_STAFF_SUCCESS = '[Account] Find Accounts By Actor Staff Success';
+  findAccountsByActorStaffSuccess(accounts): Action {
+    return {
+      type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_STAFF_SUCCESS,
+      payload: accounts
+    };
+  }
+  
   static FIND_ACCOUNT_BY_CODE = '[Account] Find Account By Code';
   findAccountByCode(code): Action {
     return {
