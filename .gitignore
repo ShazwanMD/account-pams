@@ -140,6 +140,14 @@ local.properties
 .scala_dependencies
 .worksheet
 
-# Hibernate Search segments
-segments_1
+# Hibernate Search Indexes
+segments_*
 segments.gen
+*.fdt
+*.fdx
+*.fnm
+*.frq
+*.nrm
+*.prx
+*.tii
+*.tis

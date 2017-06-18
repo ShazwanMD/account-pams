@@ -86,9 +86,15 @@ export class FeeScheduleEffects {
     .ofType(FeeScheduleActions.DOWNLOAD_FEE_SCHEDULE)
     .map(action => action.payload)
     .switchMap(offering => this.accountService.downloadFeeSchedule(offering))
-    .map(blob => {
-      let url = window.URL.createObjectURL(blob);
-      window.open(url)
+    .map(file => {
+      let url = URL.createObjectURL(file);
+      let a = document.createElement('a');
+      a.href = url ;
+      a.download = file.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }).ignoreElements();
 
 
