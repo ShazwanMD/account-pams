@@ -29,7 +29,7 @@
         <md-tab label="Assigned">
           <pams-assigned-credit-note-task-list
             [creditNoteTasks]="assignedCreditNoteTasks$ | async"
-            (view)="view($event)"></pams-assigned-credit-note-task-list>
+            (view)="viewTask($event)"></pams-assigned-credit-note-task-list>
           <md-divider></md-divider>
         </md-tab>
         <md-tab label="Pooled">
