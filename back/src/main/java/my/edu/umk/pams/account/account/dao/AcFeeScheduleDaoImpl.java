@@ -43,20 +43,6 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
     }
 
     @Override
-    public AcFeeSchedule findByCohortCodeAndStudyMode(AcCohortCode cohortCode, AcStudyMode studyMode) {
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sa from AcFeeSchedule sa where " +
-                "sa.cohortCode = :cohortCode " +
-                "and sa.studyMode = :studyMode " +
-                "and sa.metadata.state = :state");
-        query.setEntity("cohortCode", cohortCode);
-        query.setEntity("studyMode", studyMode);
-        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
-        query.setCacheable(true);
-        return (AcFeeSchedule) query.uniqueResult();
-    }
-
-    @Override
     public AcFeeSchedule findByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode, AcResidencyCode residencyCode, AcStudyMode studyMode) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sa from AcFeeSchedule sa where " +
