@@ -304,4 +304,22 @@ export class CreditNoteActions {
       payload: creditNote
     };
   }
+
+  static UPDATE_CREDIT_NOTE_ITEM = '[CreditNote] Update CreditNote Item';
+
+  updateCreditNoteItem(creditNote, item): Action {
+    return {
+      type: CreditNoteActions.UPDATE_CREDIT_NOTE_ITEM,
+      payload: {debitNote:creditNote, item:item}
+    };
+  }
+
+  static UPDATE_CREDIT_NOTE_ITEM_SUCCESS = '[Invoice] Update CreditNote Item Success';
+
+  updateCreditNoteItemSuccess(message): Action {
+    return {
+      type: CreditNoteActions.UPDATE_CREDIT_NOTE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
 }
