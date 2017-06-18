@@ -56,6 +56,7 @@ import {
 import { archivedCreditNoteListReducer, CreditNoteListState } from "./credit-notes/credit-note-list.reducer";
 import { debitNoteItemListReducer, DebitNoteItemListState } from "./debit-notes/debit-note-item-list.reducer";
 import { CreditNoteItemListState, creditNoteItemListReducer } from "./credit-notes/credit-note-item-list.reducer";
+import {PipeModule} from "../app.pipe.module";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -151,6 +152,7 @@ export const billingModuleReducers = {
     ReceiptSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
     CreditNoteSubModule.forRoot(),
+    PipeModule
   ],
   declarations: [
     // page

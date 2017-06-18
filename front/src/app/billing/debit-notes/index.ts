@@ -28,6 +28,7 @@ import {DebitNoteStatusComponent} from "./component/debit-note-status.component"
 import {DebitNoteItemListComponent} from "./component/debit-note-item-list.component";
 import { ChargeCodeSubModule } from "../../account/charge-codes/index";
 import { DebitNoteActionComponent } from "./component/debit-note-action.component";
+import {PipeModule} from "../../app.pipe.module";
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { DebitNoteActionComponent } from "./component/debit-note-action.componen
     ChargeCodeSubModule.forRoot(),
     IdentityModule.forRoot(),
     EffectsModule.run(DebitNoteEffects),
+    PipeModule
   ],
   declarations: [
     //page
