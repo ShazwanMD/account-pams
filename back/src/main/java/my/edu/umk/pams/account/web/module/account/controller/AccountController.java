@@ -304,12 +304,22 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/account/{code}/accountCharges", method = RequestMethod.POST)
-	public void addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
+	public ResponseEntity<String> addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
 		dummyLogin();
 		AcAccount account = accountService.findAccountByCode(code);
-		AcAdmissionChargeImpl charge = new AcAdmissionChargeImpl();
+		AcAccountCharge charge = new AcAccountChargeImpl();
+		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		charge.setSourceNo(vo.getSourceNo());
+		charge.setDescription(vo.getDescription());
 		charge.setAmount(vo.getAmount());
+		charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+		charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+		charge.setSession(accountService.findCurrentAcademicSession()); // todo:
+		charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+		charge.setDoc(vo.getDoc());
+		charge.setOrdinal(vo.getOrdinal());
 		accountService.addAccountCharge(account, charge);
+		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
