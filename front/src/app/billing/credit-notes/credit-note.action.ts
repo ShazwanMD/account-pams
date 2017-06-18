@@ -269,6 +269,24 @@ export class CreditNoteActions {
     };
   }
 
+  static ADD_CREDIT_NOTE_ITEM = '[CreditNote] Add CreditNote Item';
+
+  addCreditNoteItem(creditNote, item): Action {
+    return {
+      type: CreditNoteActions.ADD_CREDIT_NOTE_ITEM,
+      payload: {debitNote:creditNote, item:item}
+    };
+  }
+
+  static ADD_CREDIT_NOTE_ITEM_SUCCESS = '[CreditNote] Add CreditNote Item Success';
+
+  addCreditNoteItemSuccess(message): Action {
+    return {
+      type: CreditNoteActions.ADD_CREDIT_NOTE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
+
   static UPDATE_CREDIT_NOTE = '[CreditNote] Update CreditNote';
 
   updateCreditNote(creditNote): Action {
@@ -284,6 +302,24 @@ export class CreditNoteActions {
     return {
       type: CreditNoteActions.UPDATE_CREDIT_NOTE_SUCCESS,
       payload: creditNote
+    };
+  }
+
+  static UPDATE_CREDIT_NOTE_ITEM = '[CreditNote] Update CreditNote Item';
+
+  updateCreditNoteItem(creditNote, item): Action {
+    return {
+      type: CreditNoteActions.UPDATE_CREDIT_NOTE_ITEM,
+      payload: {debitNote:creditNote, item:item}
+    };
+  }
+
+  static UPDATE_CREDIT_NOTE_ITEM_SUCCESS = '[Invoice] Update CreditNote Item Success';
+
+  updateCreditNoteItemSuccess(message): Action {
+    return {
+      type: CreditNoteActions.UPDATE_CREDIT_NOTE_ITEM_SUCCESS,
+      payload: message
     };
   }
 }
