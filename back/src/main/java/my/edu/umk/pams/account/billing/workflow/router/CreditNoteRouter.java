@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.workflow.router;
 
+import my.edu.umk.pams.account.billing.model.AcCreditNote;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.router.RouterServiceSupport;
@@ -28,6 +29,20 @@ public class CreditNoteRouter extends RouterServiceSupport{
 
         String candidate = null;
         AcDebitNote creditNote = billingService.findDebitNoteById(creditNoteId);
+        candidate = "GRP_ADM";
+
+        // publish access event
+        // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
+
+        return Arrays.asList(candidate);
+    }
+
+    public List<String> findVerifierCandidates(Long creditNoteId) {
+        Validate.notNull(creditNoteId, "Id must not be null");
+
+        String candidate = null;
+
+        AcCreditNote creditNote = billingService.findCreditNoteById(creditNoteId);
         candidate = "GRP_ADM";
 
         // publish access event
