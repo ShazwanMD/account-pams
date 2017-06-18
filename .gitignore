@@ -139,3 +139,7 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+# Hibernate Search segments
+segments_1
+segments.gen
