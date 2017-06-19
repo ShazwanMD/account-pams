@@ -3,11 +3,13 @@ package my.edu.umk.pams.account.financialaid.dao;
 import java.util.List;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
 import my.edu.umk.pams.account.financialaid.model.AcShortTermLoan;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
-public interface AcShortTermLoanDao {
+public interface AcShortTermLoanDao extends GenericDao<Long, AcShortTermLoan>{
 	
     // ====================================================================================================
     // FINDER
