@@ -20,8 +20,9 @@ import {Observable} from "rxjs/Observable";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountChargeListComponent implements OnInit {
-  @Input() accountCharge: AccountCharge;
   @Input() account: Account;
+  @Input() charges: AccountCharge[];
+
   private creatorSecurityDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
   // private creatorDiplomaDialogRef: MdDialogRef<DiplomaResultEditorDialog>;
   // private creatorStpmDialogRef: MdDialogRef<StpmResultEditorDialog>;
