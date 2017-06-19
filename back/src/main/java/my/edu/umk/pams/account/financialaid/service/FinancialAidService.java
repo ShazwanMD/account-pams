@@ -1,8 +1,10 @@
 package my.edu.umk.pams.account.financialaid.service;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
 import my.edu.umk.pams.account.financialaid.model.AcShortTermLoan;
@@ -88,6 +90,8 @@ public interface FinancialAidService {
     AcWaiverApplication findWaiverApplicationById(Long id);
 
     AcWaiverApplication findWaiverApplicationByReferenceNo(String referenceNo);
+    
+    List<AcWaiverApplication> findWaiverApplicationsByFlowState(AcFlowState acFlowState);
 
     List<AcWaiverApplication> findWaiverApplications(String filter, Integer offset, Integer limit);
 
