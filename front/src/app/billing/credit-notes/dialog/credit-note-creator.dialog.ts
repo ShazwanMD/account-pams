@@ -8,6 +8,7 @@ import {BillingModuleState} from "../../index";
 import {CreditNote} from "../credit-note.interface";
 import {CreditNoteActions} from "../credit-note.action";
 import {Invoice} from "../../invoices/invoice.interface";
+import { ChargeCode } from "../../../account/charge-codes/charge-code.interface";
 
 
 @Component({
@@ -41,6 +42,7 @@ export class CreditNoteCreatorDialog implements OnInit {
       referenceNo: '',
       sourceNo: '',
       totalAmount: 0,
+      chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     });
     this.createForm.patchValue({invoice: this._invoice});

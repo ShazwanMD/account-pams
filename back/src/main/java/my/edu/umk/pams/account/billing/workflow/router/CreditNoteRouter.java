@@ -28,7 +28,7 @@ public class CreditNoteRouter extends RouterServiceSupport{
         Validate.notNull(creditNoteId, "Id must not be null");
 
         String candidate = null;
-        AcDebitNote creditNote = billingService.findDebitNoteById(creditNoteId);
+        AcCreditNote creditNote = billingService.findCreditNoteById(creditNoteId);
         candidate = "GRP_ADM";
 
         // publish access event

@@ -8,6 +8,7 @@ import {DebitNote} from "../debit-note.interface";
 import {BillingModuleState} from "../../index";
 import {DebitNoteActions} from "../debit-note.action";
 import {Invoice} from "../../invoices/invoice.interface";
+import { ChargeCode } from "../../../account/charge-codes/charge-code.interface";
 
 
 @Component({
@@ -40,6 +41,7 @@ export class DebitNoteCreatorDialog implements OnInit {
       referenceNo: '',
       sourceNo: '',
       totalAmount: 0,
+      chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     });
     this.createForm.patchValue({invoice: this._invoice});

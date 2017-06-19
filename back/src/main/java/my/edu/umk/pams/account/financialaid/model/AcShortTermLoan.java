@@ -37,4 +37,6 @@ public interface AcShortTermLoan extends AcDocument{
     
     void setStatus(AcShortTermLoanStatus status);
 
+	void setId(Long id);
+
 }
