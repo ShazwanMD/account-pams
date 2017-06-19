@@ -359,6 +359,7 @@ public class AccountController {
 		charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
 		charge.setDoc(vo.getDoc());
 		charge.setOrdinal(vo.getOrdinal());
+		charge.setCode(vo.getCode());
 		accountService.updateAccountCharge(account, charge);
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
