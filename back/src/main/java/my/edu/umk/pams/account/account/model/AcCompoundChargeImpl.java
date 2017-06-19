@@ -10,8 +10,9 @@ import javax.validation.constraints.NotNull;
 /**
  * @author PAMS
  */
-@Entity(name = "AcCompoundCharge")
-@Table(name = "AC_CMPD_CHRG")
+@Deprecated
+//@Entity(name = "AcCompoundCharge")
+//@Table(name = "AC_CMPD_CHRG")
 //@Inheritance(strategy = InheritanceType.JOINED)
 public class AcCompoundChargeImpl extends AcAccountChargeImpl implements AcCompoundCharge {
 

@@ -1,17 +1,16 @@
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {AccountActions} from "../account.action";
-import {AccountModuleState} from "../../index";
-import {AdmissionCharge} from "../admission-charge.interface";
-import {StudyMode} from "../../../common/study-modes/study-mode.interface";
-import {AcademicSession} from "../../academic-sessions/academic-session.interface";
-import {Account} from "../account.interface";
-import {AccountCharge} from "../account-charge.interface";
-import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
-import { Router, ActivatedRoute } from "@angular/router";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {AccountActions} from '../account.action';
+import {AccountModuleState} from '../../index';
+import {StudyMode} from '../../../common/study-modes/study-mode.interface';
+import {AcademicSession} from '../../academic-sessions/academic-session.interface';
+import {Account} from '../account.interface';
+import {CohortCode} from '../../../common/cohort-codes/cohort-code.interface';
+import {Router, ActivatedRoute} from '@angular/router';
+import {AccountCharge} from '../account-charge.interface';
 
 @Component({
   selector: 'pams-admission-charge-editor',
@@ -22,9 +21,8 @@ export class AdmissionChargeEditorDialog implements OnInit {
 
   private editorForm: FormGroup;
   private edit: boolean = false;
-  private _account  : Account;
-  private _admissionCharge  : AdmissionCharge;
-
+  private _account: Account;
+  private _accountCharge: AccountCharge;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -37,35 +35,39 @@ export class AdmissionChargeEditorDialog implements OnInit {
 
   set account(value: Account) {
     this._account = value;
-    
+
   }
-  
-  set admissionCharge(value: AdmissionCharge) {
-    this._admissionCharge = value;
+
+  set accountCharge(value: AccountCharge) {
+    this._accountCharge = value;
     this.edit = true;
   }
 
   ngOnInit(): void {
-    this.editorForm = this.formBuilder.group(<AdmissionCharge>{
-      id:null,
+    this.editorForm = this.formBuilder.group({
+      id: undefined,
       referenceNo: '',
       sourceNo: '',
-      description:'',
+      description: '',
       amount: 0,
+      ordinal: 0,
       studyMode: <StudyMode>{},
-      cohortCode:<CohortCode>{},
-      session: <AcademicSession>{}
+      cohortCode: <CohortCode>{},
+      session: <AcademicSession>{},
     });
-    if (this.edit) this.editorForm.patchValue(this._admissionCharge);
+
+    if (this.edit) {
+      this.editorForm.patchValue(this._accountCharge);
+    }
   }
 
-
-
-  submit(charge: AdmissionCharge, isValid: boolean) {
-    if (this.edit) this.store.dispatch(this.actions.updateAdmissionCharge(this._account, charge));
-    else  this.store.dispatch(this.actions.addAdmissionCharge(this._account, charge));
+  submit(charge: AccountCharge, isValid: boolean): void {
+    if (this.edit) {
+      this.store.dispatch(this.actions.updateAccountCharge(this._account, charge));
+    } else {
+      this.store.dispatch(this.actions.addAccountCharge(this._account, charge));
+    }
     this.dialog.close();
   }
 }
- 
 

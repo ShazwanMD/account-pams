@@ -24,6 +24,7 @@ public interface AccountConstants {
     public static final String DEBIT_NOTE_REFERENCE_NO = "AcDebitNote.referenceNo";
     public static final String CREDIT_NOTE_REFERENCE_NO = "AcCreditNote.referenceNo";
     public static final String WAIVER_APPLICATION_REFERENCE_NO = "AcWaiverApplication.referenceNo";
+    public static final String SHORT_TERM_LOAN_REFERENCE_NO = "AcShortTermLoan.referenceNo";
 
     public static final String INVOICE_PROCESS_KEY = "invoice_workflow";
     public static final String INVOICE_RESOURCE_PATH = "invoice.bpmn20.xml";
@@ -45,6 +46,10 @@ public interface AccountConstants {
     public static final String WAIVER_APPLICATION_RESOURCE_PATH = "waiver_application.bpmn20.xml";
     public static final String WAIVER_APPLICATION_PROCESS_NAME = "waiver_application";
 
+    public static final String SHORT_TERM_LOAN_PROCESS_KEY = "short_term_loan_workflow";
+    public static final String SHORT_TERM_LOAN_RESOURCE_PATH = "short_term_loan.bpmn20.xml";
+    public static final String SHORT_TERM_LOAN_PROCESS_NAME = "short_term_loan";
+    
     public static final String LAST_ENROLLMENT_DATE = "account.last.enrollmentDate";
 
 }

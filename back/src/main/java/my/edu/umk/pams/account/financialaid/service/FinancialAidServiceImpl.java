@@ -44,6 +44,7 @@ import java.util.Map;
 
 import static my.edu.umk.pams.account.AccountConstants.SETTLEMENT_REFERENCE_NO;
 import static my.edu.umk.pams.account.AccountConstants.WAIVER_APPLICATION_ID;
+import static my.edu.umk.pams.account.AccountConstants.SHORT_TERM_LOAN_ID;
 
 /**
  * @author PAMS
@@ -383,6 +384,62 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     // ====================================================================================================
     
     @Override
+    public AcShortTermLoan findShortTermLoanByTaskId(String taskId) {
+        Task task = workflowService.findTask(taskId);
+        Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+        return shortTermLoanDao.findById((Long) map.get(SHORT_TERM_LOAN_ID));
+    }
+
+    @Override
+    public Task findShortTermLoanTaskByTaskId(String taskId) {
+        return workflowService.findTask(taskId);
+    }
+
+    @Override
+    public List<Task> findAssignedShortTermLoanTasks(Integer offset, Integer limit) {
+        return workflowService.findAssignedTasks(AcShortTermLoan.class.getName(), offset, limit);
+    }
+
+    @Override
+    public List<Task> findPooledShortTermLoanTasks(Integer offset, Integer limit) {
+        return workflowService.findPooledTasks(AcShortTermLoan.class.getName(), offset, limit);
+    }
+
+    @Override
+    public String startShortTermLoanTask(AcShortTermLoan shortTermLoan) {
+        String referenceNo = systemService.generateReferenceNo(AccountConstants.SHORT_TERM_LOAN_REFERENCE_NO);
+        shortTermLoan.setReferenceNo(referenceNo);
+        LOG.debug("Processing application with refNo {}", referenceNo);
+
+        shortTermLoanDao.saveOrUpdate(shortTermLoan, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+        sessionFactory.getCurrentSession().refresh(shortTermLoan);
+
+        workflowService.processWorkflow(shortTermLoan, prepareVariables(shortTermLoan));
+        return referenceNo;
+    }
+
+    @Override
+    public void updateShortTermLoanTask(AcShortTermLoan shortTermLoan) {
+    	shortTermLoanDao.update(shortTermLoan, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void cancelShortTermLoan(AcShortTermLoan shortTermLoan) {
+    	shortTermLoan.getFlowdata().setState(AcFlowState.CANCELLED);
+    	shortTermLoan.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+    	shortTermLoan.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+        shortTermLoanDao.update(shortTermLoan, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public AcShortTermLoan findShortTermLoanById(Long id) {
+        return shortTermLoanDao.findById(id);
+    }
+    
+    @Override
     public AcShortTermLoan findShortTermLoanByReferenceNo(String referenceNo) {
         return shortTermLoanDao.findByReferenceNo(referenceNo);
     }
@@ -444,6 +501,16 @@ public class FinancialAidServiceImpl implements FinancialAidService {
         map.put(WAIVER_APPLICATION_ID, application.getId());
         map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
         map.put(WorkflowConstants.REFERENCE_NO, application.getReferenceNo());
+        map.put(WorkflowConstants.REMOVE_DECISION, false);
+        map.put(WorkflowConstants.CANCEL_DECISION, false);
+        return map;
+    }
+    
+    private Map<String, Object> prepareVariables(AcShortTermLoan shortTermLoan) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put(SHORT_TERM_LOAN_ID, shortTermLoan.getId());
+        map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+        map.put(WorkflowConstants.REFERENCE_NO, shortTermLoan.getReferenceNo());
         map.put(WorkflowConstants.REMOVE_DECISION, false);
         map.put(WorkflowConstants.CANCEL_DECISION, false);
         return map;

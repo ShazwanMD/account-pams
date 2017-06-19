@@ -1,18 +1,14 @@
 import {Component, Input, EventEmitter, OnInit, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {AccountCharge} from "../account-charge.interface";
-import {AdmissionChargeDialog} from "../dialog/admission-charge.dialog";
-import {AdmissionChargeEditorDialog} from "../dialog/admission-charge-editor.dialog";
-import {SecurityChargeEditorDialog} from "../dialog/security-charge-editor.dialog";
-import {CompoundChargeEditorDialog} from "../dialog/compound-charge-editor.dialog";
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {AccountActions} from "../account.action";
-import {AccountModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import {Account} from "../account.interface";
-import {AdmissionCharge} from "../admission-charge.interface";
-import {CompoundCharge} from "../compound-charge.interface";
-import {Observable} from "rxjs/Observable";
+import {AccountCharge} from '../account-charge.interface';
+import {AdmissionChargeEditorDialog} from '../dialog/admission-charge-editor.dialog';
+import {CompoundChargeEditorDialog} from '../dialog/compound-charge-editor.dialog';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {AccountActions} from '../account.action';
+import {AccountModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import {Account} from '../account.interface';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'pams-account-charge-list',
@@ -20,96 +16,95 @@ import {Observable} from "rxjs/Observable";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountChargeListComponent implements OnInit {
-  @Input() accountCharge: AccountCharge;
-  @Input() account: Account;
-  private creatorSecurityDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
-  // private creatorDiplomaDialogRef: MdDialogRef<DiplomaResultEditorDialog>;
-  // private creatorStpmDialogRef: MdDialogRef<StpmResultEditorDialog>;
-  // private creatorSpmDialogRef: MdDialogRef<SpmResultEditorDialog>;
+
+  private ADMISSION_CHARGES: string[] = 'accountModuleState.accountCharge'.split('.');
+  private COMPOUND_CHARGES: string[] = 'accountModuleState.compoundCharges'.split('.');
+  private admissionCharges$: Observable<AccountCharge[]>;
+  private compoundCharges$: Observable<AccountCharge[]>;
+  private editorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
+  private editorCompoundDialogRef: MdDialogRef<CompoundChargeEditorDialog>;
+  private selectedRows: AccountCharge[];
   private columns: any[] = [
     {name: 'sourceNo', label: 'Source No'},
     {name: 'referenceNo', label: 'Reference No'},
-    {name: 'code', label: 'Section Code'},
     {name: 'description', label: 'Description'},
-    {name: 'chargeType', label: 'Type'},   
+    {name: 'chargeType', label: 'Type'},
     {name: 'session.code', label: 'Session'},
-    {name: 'cohort.code', label: 'Cohort'},
-    {name: 'studyMode.code', label: 'Study Mode'},
     {name: 'amount', label: 'Amount'},
     {name: 'invoiced', label: 'Invoiced'},
-    {name: 'doc', label: 'Date of Charge'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
-  // baru
-  constructor(private actions: AccountActions,
-    private vcf: ViewContainerRef,
-    private store: Store<AccountModuleState>,
-    private dialog: MdDialog) {
+  @Input() account: Account;
+  @Input() charges: AccountCharge[];
+
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private actions: AccountActions,
+              private store: Store<AccountModuleState>,
+              private vcf: ViewContainerRef,
+              private dialog: MdDialog) {
+    this.admissionCharges$ = this.store.select(...this.ADMISSION_CHARGES);
+    this.compoundCharges$ = this.store.select(...this.COMPOUND_CHARGES);
   }
+
   ngOnInit(): void {
+    this.selectedRows = this.charges.filter((value) => value.selected);
   }
-  createSecurity(): void {
-    this.showDialog1(null);
+
+  edit(accountCharge: AccountCharge): void {
+    this.showAdmissionDialog(accountCharge);
   }
-  // createSpm(): void {
-  //   this.showDialog2(null);
-  // }
-  // createDiploma(): void {
-  //   this.showDialog3(null);
-  // }
-  // createStpm(): void {
-  //   this.showDialog4(null);
-  // }
+
+  delete(account: Account, accountCharge: AccountCharge): void {
+    this.store.dispatch(this.actions.removeAccountCharge(account, accountCharge));
+    this.selectedRows = [];
+  }
+
   filter(): void {
   }
-  showDialog1(securityCharge: AccountCharge): void {
+
+  addAdmission(): void {
+    this.showAdmissionDialog(null);
+  }
+
+  selectRow(accountCharge: AccountCharge): void {
+  }
+
+  selectAllRows(accountCharge: AccountCharge[]): void {
+  }
+
+  showAdmissionDialog(admissionCharge: AccountCharge): void {
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
-    config.height = '60%';
-    config.position = { top: '65px' };
-    this.creatorSecurityDialogRef = this.dialog.open(SecurityChargeEditorDialog, config);
-    this.creatorSecurityDialogRef.componentInstance.account = this.account;
-    this.creatorSecurityDialogRef.afterClosed().subscribe(res => {
+    config.height = '70%';
+    config.position = {top: '65px'};
+    this.editorDialogRef = this.dialog.open(AdmissionChargeEditorDialog, config);
+    this.editorDialogRef.componentInstance.account = this.account;
+    if (admissionCharge) this.editorDialogRef.componentInstance.accountCharge = admissionCharge;
+    this.editorDialogRef.afterClosed().subscribe((res) => {
+      this.selectedRows = [];
     });
   }
-  // showDialog2(spmResult: Result): void {
-  //   let config = new MdDialogConfig();
-  //   config.viewContainerRef = this.vcf;
-  //   config.role = 'dialog';
-  //   config.width = '50%';
-  //   config.height = '60%';
-  //   config.position = { top: '65px' };
-  //   this.creatorSpmDialogRef = this.dialog.open(SpmResultEditorDialog, config);
-  //   this.creatorSpmDialogRef.componentInstance.intakeApplication = this.intakeApplication;
-  //   this.creatorSpmDialogRef.afterClosed().subscribe(res => {
-  //   });
-  // }
-  // showDialog3(diplomaResult: Result): void {
-  //   let config = new MdDialogConfig();
-  //   config.viewContainerRef = this.vcf;
-  //   config.role = 'dialog';
-  //   config.width = '50%';
-  //   config.height = '60%';
-  //   config.position = { top: '65px' };
-  //   this.creatorDiplomaDialogRef = this.dialog.open(DiplomaResultEditorDialog, config);
-  //   this.creatorDiplomaDialogRef.componentInstance.intakeApplication = this.intakeApplication;
-  //   this.creatorDiplomaDialogRef.afterClosed().subscribe(res => {
-  //   });
-  // }
-  // showDialog4(stpmResult: Result): void {
-  //   let config = new MdDialogConfig();
-  //   config.viewContainerRef = this.vcf;
-  //   config.role = 'dialog';
-  //   config.width = '50%';
-  //   config.height = '60%';
-  //   config.position = { top: '65px' };
-  //   this.creatorStpmDialogRef = this.dialog.open(StpmResultEditorDialog, config);
-  //   this.creatorStpmDialogRef.componentInstance.intakeApplication = this.intakeApplication;
-  //   this.creatorStpmDialogRef.afterClosed().subscribe(res => {
-  //   });
-  // }
-  // 
+
+  addCompound(): void {
+    this.CompoundChargeDialog(null);
+  }
+
+  CompoundChargeDialog(compoundCharge: AccountCharge): void {
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '70%';
+    config.position = {top: '65px'};
+    this.editorCompoundDialogRef = this.dialog.open(CompoundChargeEditorDialog, config);
+    this.editorCompoundDialogRef.componentInstance.account = this.account;
+    if (compoundCharge) this.editorCompoundDialogRef.componentInstance.accountCharge = compoundCharge;
+    this.editorCompoundDialogRef.afterClosed().subscribe((res) => {
+      this.selectedRows = [];
+    });
+  }
 }
