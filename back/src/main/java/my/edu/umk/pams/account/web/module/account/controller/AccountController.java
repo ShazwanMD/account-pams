@@ -344,6 +344,37 @@ public class AccountController {
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/account/{code}/accountCharges/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
+		dummyLogin();
+		AcAccount account = accountService.findAccountByCode(code);
+		AcAccountCharge charge = new AcAccountChargeImpl();
+		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		charge.setSourceNo(vo.getSourceNo());
+		charge.setDescription(vo.getDescription());
+		charge.setAmount(vo.getAmount());
+		charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+		charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+		charge.setSession(accountService.findCurrentAcademicSession()); // todo:
+		charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+		charge.setDoc(vo.getDoc());
+		charge.setOrdinal(vo.getOrdinal());
+		charge.setCode(vo.getCode());
+		accountService.updateAccountCharge(account, charge);
+		return new ResponseEntity<String>("Success", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/account/{code}/accountCharges/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable Long id) {
+		dummyLogin();
+
+		AcAccount account = accountService.findAccountByCode(code);
+		AcAccountCharge charge = accountService.findAccountChargeById(id);
+		accountService.deleteAccountCharge(account, charge);
+		LOG.debug("AccountCharge " + id + " is deleted");
+		return new ResponseEntity<>("Removed", HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
 	public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo) {
 		dummyLogin();
