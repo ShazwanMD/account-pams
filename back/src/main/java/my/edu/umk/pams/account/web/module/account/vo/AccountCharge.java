@@ -26,6 +26,7 @@ public class AccountCharge extends MetaObject{
     private StudyMode studyMode;
     private Date doc;
     private Integer ordinal;
+    private String code;
 
     // transient
     private boolean invoiced;
@@ -116,6 +117,14 @@ public class AccountCharge extends MetaObject{
 
 	public void setOrdinal(Integer ordinal) {
 		this.ordinal = ordinal;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	@JsonCreator
