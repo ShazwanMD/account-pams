@@ -316,6 +316,13 @@ public class AccountController {
         return new ResponseEntity<List<AccountWaiver>>(
                 accountTransformer.toAccountWaiverVos(accountService.findAccountWaivers(account)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/accounts/{code}/accountShortTermLoans", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountShortTermLoan>> findAccountShortTermLoans(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountShortTermLoan>>(
+                accountTransformer.toAccountShortTermLoanVos(accountService.findAccountShortTermLoans(account)), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
     public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo) {

@@ -116,7 +116,7 @@ public class AccountTransformer {
         m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
         m.setDoc(e.getChargeDate());
         m.setOrdinal(e.getOrdinal());
-        m.setCode(e.getCode());
+        //m.setCode(e.getCohortCode());
         m.setInvoiced(null != e.getInvoice());
         return m;
     }
@@ -137,6 +137,15 @@ public class AccountTransformer {
         m.setOrdinal(e.getOrdinal());
         m.setDescription(e.getDescription());
         m.setChargeCode(toChargeCodeVo(e.getChargeCode()));
+        return m;
+    }
+    
+    public AccountShortTermLoan toAccountShortTermLoanVo(AcAccountSTL e) {
+    	AccountShortTermLoan m = new AccountShortTermLoan();
+        m.setId(e.getId());
+        m.setSourceNo(e.getSourceNo());
+        m.setAmount(e.getAmount());
+        m.setSession(toAcademicSessionVo(e.getSession()));
         return m;
     }
 
@@ -162,6 +171,12 @@ public class AccountTransformer {
         return accounts.stream()
                 .map((accountTx) -> toAccountWaiverVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountWaiver>()));
+    }
+    
+    public List<AccountShortTermLoan> toAccountShortTermLoanVos(List<AcAccountSTL> accounts) {
+        return accounts.stream()
+                .map((accountTx) -> toAccountShortTermLoanVo(accountTx))
+                .collect(toCollection(() -> new ArrayList<AccountShortTermLoan>()));
     }
 
     public List<FeeScheduleItem> toFeeScheduleItemVos(List<AcFeeScheduleItem> items) {

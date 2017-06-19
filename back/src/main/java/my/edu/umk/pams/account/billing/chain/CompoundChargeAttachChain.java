@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 /**
  */
-@Component("securityChargeAttachChain")
+@Component("compoundChargeAttachChain")
 public class CompoundChargeAttachChain extends ChainSupport<ChargeContext> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CompoundChargeAttachChain.class);

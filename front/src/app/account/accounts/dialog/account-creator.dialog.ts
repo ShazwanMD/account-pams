@@ -7,6 +7,7 @@ import {Account} from '../account.interface';
 import {Actor} from '../../../identity/actor.interface';
 import {AccountActions} from '../account.action';
 import {AccountModuleState} from '../../index';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'pams-account-creator',

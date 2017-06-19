@@ -8,7 +8,7 @@ import {Store} from "@ngrx/store";
 import {AccountModuleState} from "../../index";
 import {MdDialogRef} from "@angular/material";
 import {AccountActions} from "../account.action";
-import {AccountChargeType} from "../account-charge-type.enum";
+
 @Component({
   selector: 'pams-security-charge-editor',
   templateUrl: './security-charge-editor.dialog.html',
@@ -38,10 +38,9 @@ export class SecurityChargeEditorDialog implements OnInit {
     this.editForm = this.formBuilder.group({
       id:undefined,
       sourceNo: '',
-      description:'',
+      description:'', 
       amount: 0,
       ordinal: 0,
-      chargeType: AccountChargeType.SECURITY,
       code: '',
       doc: null,
  
