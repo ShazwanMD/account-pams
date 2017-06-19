@@ -34,7 +34,7 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
         if (!AcAccountChargeType.ADMISSION.equals(charge.getChargeType()))
             return false;
 
-        AcAdmissionCharge admissionCharge = ((AcAdmissionCharge) charge);
+        AcAccountCharge admissionCharge = charge;
         AcFeeSchedule feeSchedule = accountService
                 .findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(
                         admissionCharge.getCohortCode(),

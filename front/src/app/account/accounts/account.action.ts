@@ -36,7 +36,7 @@ export class AccountActions {
       payload: accounts
     };
   }
-  
+
   static FIND_ACCOUNTS_BY_ACTOR = '[Account] Find Accounts By Actor Student';
   findAccountsByActor(): Action {
     return {
@@ -51,7 +51,7 @@ export class AccountActions {
       payload: accounts
     };
   }
-  
+
   static FIND_ACCOUNTS_BY_ACTOR_SPONSOR = '[Account] Find Accounts By Actor Sponsor';
   findAccountsByActorSponsor(): Action {
     return {
@@ -81,7 +81,7 @@ export class AccountActions {
       payload: accounts
     };
   }
-  
+
   static FIND_ACCOUNT_BY_CODE = '[Account] Find Account By Code';
   findAccountByCode(code): Action {
     return {
@@ -277,7 +277,7 @@ export class AccountActions {
    static REMOVE_ACCOUNT_CHARGE = '[Account] Remove AccountCharge';
 
   removeAccountCharge(account, charge): Action {
-    console.log('remove AccountCharge');
+    console.log('remove accountCharge');
     return {
       type: AccountActions.REMOVE_ACCOUNT_CHARGE,
       payload: {account:account, charge:charge}
@@ -287,67 +287,9 @@ export class AccountActions {
   static REMOVE_ACCOUNT_CHARGE_SUCCESS = '[Account] Remove AccountCharge Success';
 
   removeAccountChargeSuccess(message): Action {
-    console.log('remove AccountCharge SUCCESS');
+    console.log('remove accountCharge SUCCESS');
     return {
       type: AccountActions.REMOVE_ACCOUNT_CHARGE_SUCCESS,
-      payload: message
-    };
-  }
-
-  static ADD_ADMISSION_CHARGE = '[Admission] Add AdmissionCharge ';
-
-  addAdmissionCharge(account, charge): Action {
-    return {
-      type: AccountActions.ADD_ADMISSION_CHARGE,
-      payload: {account:account, charge:charge}
-    };
-  }
-
-  static ADD_ADMISSION_CHARGE_SUCCESS = '[Admission] Add AdmissionCharge  Success';
-
-  addAdmissionChargeSuccess(message): Action {
-    return {
-      type: AccountActions.ADD_ADMISSION_CHARGE_SUCCESS,
-      payload: message
-    };
-  }
-
-  static UPDATE_ADMISSION_CHARGE = '[Admission] Update AdmissionCharge';
-
-  updateAdmissionCharge(account, charge): Action {
-    console.log("updateAdmissionCharge");
-    return {
-      type: AccountActions.UPDATE_ADMISSION_CHARGE,
-      payload: {account:account, charge:charge}
-    };
-  }
-
-  static UPDATE_ADMISSION_CHARGE_SUCCESS = '[Admission] Update AdmissionCharge  Success';
-
-  updateAdmissionChargeSuccess(message): Action {
-      console.log("updateAdmissionChargeSuccess");
-    return {
-      type: AccountActions.UPDATE_ADMISSION_CHARGE,
-      payload: message
-    };
-  }
-
-   static REMOVE_ADMISSION_CHARGE = '[Admission] Remove AdmissionCharge';
-
-  removeAdmissionCharge(account, charge): Action {
-    console.log('remove admissionCharge');
-    return {
-      type: AccountActions.REMOVE_ADMISSION_CHARGE,
-      payload: {account:account, charge:charge}
-    };
-  }
-
-  static REMOVE_ADMISSION_CHARGE_SUCCESS = '[Admission] Remove AdmissionCharge Success';
-
-  removeAdmissionChargeSuccess(message): Action {
-    console.log('remove admissionCharge SUCCESS');
-    return {
-      type: AccountActions.REMOVE_ADMISSION_CHARGE_SUCCESS,
       payload: message
     };
   }
@@ -366,64 +308,6 @@ export class AccountActions {
   addAccountTransactionSuccess(message): Action {
     return {
       type: AccountActions.ADD_ACCOUNT_TRANSACTION_SUCCESS,
-      payload: message
-    };
-  }
-
-  static ADD_COMPOUND_CHARGE = '[Compound] Add CompoundCharge ';
-
-  addCompoundCharge(account, charge): Action {
-    return {
-      type: AccountActions.ADD_COMPOUND_CHARGE,
-      payload: {account:account, charge:charge}
-    };
-  }
-
-static ADD_COMPOUND_CHARGE_SUCCESS = '[Compound] Add CompoundCharge  Success';
-
-  addCompoundChargeSuccess(message): Action {
-    return {
-      type: AccountActions.ADD_COMPOUND_CHARGE_SUCCESS,
-      payload: message
-    };
-  }
-  
- static UPDATE_COMPOUND_CHARGE = '[Compound] Update CompoundCharge';
-
-  updateCompoundCharge(account, charge): Action {
-    console.log("updateAdmissionCharge");
-    return {
-      type: AccountActions.UPDATE_COMPOUND_CHARGE,
-      payload: {account:account, charge:charge}
-    };
-  }
-
-  static UPDATE_COMPOUND_CHARGE_SUCCESS = '[Compound] Update CompoundCharge  Success';
-
-  updateCompoundChargeSuccess(message): Action {
-      console.log("updateCompoundChargeSuccess");
-    return {
-      type: AccountActions.UPDATE_COMPOUND_CHARGE,
-      payload: message
-    };
-  }
-  
-   static REMOVE_COMPOUND_CHARGE = '[Compound] Remove CompoundCharge';
-
-  removeCompoundCharge(account, charge): Action {
-    console.log('remove CompoundCharge');
-    return {
-      type: AccountActions.REMOVE_COMPOUND_CHARGE,
-      payload: {account:account, charge:charge}
-    };
-  }
-
-  static REMOVE_COMPOUND_CHARGE_SUCCESS = '[Compound] Remove CompoundCharge Success';
-
-  removeCompoundChargeSuccess(message): Action {
-    console.log('remove CompoundCharge SUCCESS');
-    return {
-      type: AccountActions.REMOVE_COMPOUND_CHARGE_SUCCESS,
       payload: message
     };
   }

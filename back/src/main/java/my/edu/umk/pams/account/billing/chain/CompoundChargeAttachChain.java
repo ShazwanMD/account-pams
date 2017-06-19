@@ -2,7 +2,7 @@ package my.edu.umk.pams.account.billing.chain;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
-import my.edu.umk.pams.account.account.model.AcEnrollmentLateCharge;
+import my.edu.umk.pams.account.account.model.AcSecurityCharge;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 
 /**
  */
-@Component("enrollmentLateChargeAttachChain")
-public class EnrollmentLateChargeAttachChain extends ChainSupport<ChargeContext> {
+@Component("securityChargeAttachChain")
+public class CompoundChargeAttachChain extends ChainSupport<ChargeContext> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EnrollmentLateChargeAttachChain.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CompoundChargeAttachChain.class);
 
     @Override
     public boolean process(ChargeContext context) throws Exception {
@@ -23,18 +23,16 @@ public class EnrollmentLateChargeAttachChain extends ChainSupport<ChargeContext>
         AcInvoice invoice = context.getInvoice();
         AcAccountCharge charge = context.getCharge();
 
-        if (!AcAccountChargeType.ENROLLMENT_LATE.equals(charge.getChargeType()))
+        if (!AcAccountChargeType.SECURITY.equals(charge.getChargeType()))
             return false;
 
         LOG.debug("Attaching {} to {} ", charge.getReferenceNo(), invoice.getReferenceNo());
 
-        AcEnrollmentLateCharge enrollmentLateCharge = ((AcEnrollmentLateCharge) charge);
-
+        AcSecurityCharge securityCharge = ((AcSecurityCharge) charge);
         AcInvoiceItem item = new AcInvoiceItemImpl();
-        item.setDescription(String.format("Enrollment Late Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
+        item.setDescription(String.format("Security Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
         item.setAmount(charge.getAmount());
-        // todo(uda): translate
-        // item.setChargeCode(enrollmentLateCharge.getChargeCode());
+        item.setChargeCode(securityCharge.getChargeCode());
         item.setInvoice(invoice);
         invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
 

@@ -6,8 +6,9 @@ import javax.validation.constraints.NotNull;
 /**
  * @author PAMS
  */
-@Entity(name = "AcSecurityCharge")
-@Table(name = "AC_SCTY_CHRG")
+@Deprecated
+//@Entity(name = "AcSecurityCharge")
+//@Table(name = "AC_SCTY_CHRG")
 public class AcSecurityChargeImpl extends AcAccountChargeImpl implements AcSecurityCharge {
 
     @NotNull

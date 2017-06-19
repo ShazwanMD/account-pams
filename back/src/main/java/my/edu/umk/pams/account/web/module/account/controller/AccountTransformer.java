@@ -114,7 +114,7 @@ public class AccountTransformer {
         m.setSession(toAcademicSessionVo(e.getSession()));
         m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
         m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
-        m.setDoc(e.getDoc());
+        m.setDoc(e.getChargeDate());
         m.setOrdinal(e.getOrdinal());
         m.setCode(e.getCode());
         m.setInvoiced(null != e.getInvoice());

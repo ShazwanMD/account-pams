@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.common.model.AcStudyMode;
 /**
  * @author PAMS
  */
+@Deprecated
 public interface AcAdmissionCharge extends AcAccountCharge {
 
     /**
