@@ -17,6 +17,7 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
+import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 @Entity(name = "AcShortTermLoan")
@@ -60,95 +61,147 @@ public class AcShortTermLoanImpl implements AcShortTermLoan{
     private AcMetadata metadata;
 
     @Override
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Override
+	public void setId(Long id) {
+		this.id = id;
+	}
 
     @Override
     public String getReferenceNo() {
-        return referenceNo;
-    }
+		return referenceNo;
+	}
 
     @Override
-    public void setReferenceNo(String referenceNo) {
-        this.referenceNo = referenceNo;
-    }
+	public void setReferenceNo(String referenceNo) {
+		this.referenceNo = referenceNo;
+	}
 
     @Override
     public String getSourceNo() {
-        return sourceNo;
-    }
+		return sourceNo;
+	}
 
     @Override
     public void setSourceNo(String sourceNo) {
-        this.sourceNo = sourceNo;
-    }
+		this.sourceNo = sourceNo;
+	}
 
     @Override
     public String getDescription() {
-        return description;
-    }
+		return description;
+	}
 
     @Override
     public void setDescription(String description) {
-        this.description = description;
-    }
-    
+		this.description = description;
+	}
+
     @Override
     public AcAcademicSession getSession() {
-        return session;
-    }
+		return session;
+	}
 
     @Override
     public void setSession(AcAcademicSession session) {
-        this.session = session;
-    }
-    
+		this.session = session;
+	}
+
     @Override
     public AcAccount getAccount() {
-        return account;
-    }
+		return account;
+	}
 
+    @Override
     public void setAccount(AcAccount account) {
-        this.account = account;
-    }
+		this.account = account;
+	}
 
     @Override
     public BigDecimal getAmount() {
-        return amount;
-    }
+		return amount;
+	}
 
     @Override
     public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-    
-    @Override
-    public AcShortTermLoanStatus getStatus() {
-        return status;
-    }
+		this.amount = amount;
+	}
 
     @Override
-    public void setStatus(AcShortTermLoanStatus status) {
-        this.status = status;
-    }
-    
-    @Override
-    public AcMetadata getMetadata() {
-        return metadata;
-    }
+	public AcShortTermLoanStatus getStatus() {
+		return status;
+	}
 
     @Override
-    public void setMetadata(AcMetadata metadata) {
-        this.metadata = metadata;
-    }
+	public void setStatus(AcShortTermLoanStatus status) {
+		this.status = status;
+	}
 
     @Override
-    public Class<?> getInterfaceClass() {
-        return AcShortTermLoan.class;
-    }
+	public AcMetadata getMetadata() {
+		return metadata;
+	}
+
+    @Override
+	public void setMetadata(AcMetadata metadata) {
+		this.metadata = metadata;
+	}
+
+	@Override
+	public String getAuditNo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAuditNo(String auditNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRemoveComment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRemoveComment(String removeComment) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCancelComment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCancelComment(String cancelComment) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public AcFlowdata getFlowdata() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setFlowdata(AcFlowdata flowdata) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Class<?> getInterfaceClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}  
+
 }
