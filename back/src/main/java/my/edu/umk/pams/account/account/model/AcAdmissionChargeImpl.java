@@ -14,8 +14,9 @@ import javax.validation.constraints.NotNull;
 /**
  * @author PAMS
  */
-@Entity(name = "AcAdmissionCharge")
-@Table(name = "AC_ADMN_CHRG")
+@Deprecated
+//@Entity(name = "AcAdmissionCharge")
+//@Table(name = "AC_ADMN_CHRG")
 public class AcAdmissionChargeImpl extends AcAccountChargeImpl implements AcAdmissionCharge {
 
     @NotNull

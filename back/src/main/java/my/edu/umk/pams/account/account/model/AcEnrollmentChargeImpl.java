@@ -6,8 +6,9 @@ import javax.persistence.Table;
 /**
  * @author PAMS
  */
-@Entity(name = "AcEnrollmentCharge")
-@Table(name = "AC_ENMT_CHRG")
+@Deprecated
+//@Entity(name = "AcEnrollmentCharge")
+//@Table(name = "AC_ENMT_CHRG")
 public class AcEnrollmentChargeImpl extends AcAccountChargeImpl implements AcEnrollmentCharge {
 
     public AcEnrollmentChargeImpl() {
