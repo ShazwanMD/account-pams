@@ -22,9 +22,11 @@ import {AccountCreatorDialog} from "./dialog/account-creator.dialog";
 import {IdentityModule} from "../../identity/index";
 import {AccountActivityListComponent} from "./component/account-activity-list.component";
 import {AccountChargeListComponent} from "./component/account-charge-list.component";
+import {SecurityChargeComponent} from "./component/security-charge.component";
 import {AccountWaiverListComponent} from "./component/account-waiver-list.component";
 import {AdmissionChargeDialog} from "./dialog/admission-charge.dialog";
 import {AdmissionChargeEditorDialog} from "./dialog/admission-charge-editor.dialog";
+import {SecurityChargeEditorDialog} from "./dialog/security-charge-editor.dialog";
 import {CompoundChargeEditorDialog} from "./dialog/compound-charge-editor.dialog";
 import {CommonModule} from "../../common/index";
 import {AcademicSessionSubModule} from "../academic-sessions/index";
@@ -52,12 +54,14 @@ import {AcademicSessionSubModule} from "../academic-sessions/index";
     AccountStatusComponent,
     AccountActivityListComponent,
     AccountChargeListComponent,
+    SecurityChargeComponent,
     AccountWaiverListComponent,
     AccountComboBoxComponent,
     AccountSelectComponent,
     AccountCreatorDialog,
     AdmissionChargeDialog,
     AdmissionChargeEditorDialog,
+    SecurityChargeEditorDialog,
     CompoundChargeEditorDialog,
 
   ],
@@ -69,6 +73,7 @@ import {AcademicSessionSubModule} from "../academic-sessions/index";
     AccountCreatorDialog,
     AdmissionChargeDialog,
     AdmissionChargeEditorDialog,
+    SecurityChargeEditorDialog,
     CompoundChargeEditorDialog,
   ],
 
