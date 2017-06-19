@@ -7,6 +7,7 @@ import {Observable} from "rxjs/Observable";
 import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
 import {WaiverApplicationCreatorDialog} from "./dialog/waiver-application-creator.dialog";
 import {WaiverApplicationActions} from "./waiver-application.action";
+import { WaiverApplication } from "./waiver-application.interface";
 
 
 @Component({
@@ -18,10 +19,12 @@ export class WaiverApplicationCenterPage implements OnInit {
 
   private ASSIGNED_WAIVER_APPLICATION_TASKS = "financialaidModuleState.assignedWaiverApplicationTasks".split(".")
   private POOLED_WAIVER_APPLICATION_TASKS = "financialaidModuleState.pooledWaiverApplicationTasks".split(".")
+  private ARCHIVED_WAIVER_APPLICATIONS = "billingModuleState.archivedWaiverApplications".split(".");
   private creatorDialogRef: MdDialogRef<WaiverApplicationCreatorDialog>;
 
   private assignedWaiverApplicationTasks$: Observable<WaiverApplicationTask>;
   private pooledWaiverApplicationTasks$: Observable<WaiverApplicationTask>;
+  private archivedWaiverApplications$: Observable<WaiverApplication>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -32,6 +35,7 @@ export class WaiverApplicationCenterPage implements OnInit {
 
     this.assignedWaiverApplicationTasks$ = this.store.select(...this.ASSIGNED_WAIVER_APPLICATION_TASKS);
     this.pooledWaiverApplicationTasks$ = this.store.select(...this.POOLED_WAIVER_APPLICATION_TASKS);
+    this.archivedWaiverApplications$ = this.store.select(...this.ARCHIVED_WAIVER_APPLICATIONS);
   }
 
   showDialog(): void {
@@ -58,10 +62,15 @@ export class WaiverApplicationCenterPage implements OnInit {
     this.router.navigate(['/financialaid/waiver-applications/view-task', task.taskId]);
   }
 
+  viewWaiverApplication(waiverApplication: WaiverApplication) {
+      console.log("WaiverApplication: " + waiverApplication.referenceNo);
+      this.router.navigate(['/financialaid/waiver-applications/invoice-detail', waiverApplication.referenceNo]);
+  }
 
   ngOnInit(): void {
     console.log("find assigned/pooled waiver application tasks");
     this.store.dispatch(this.actions.findAssignedWaiverApplicationTasks());
     this.store.dispatch(this.actions.findPooledWaiverApplicationTasks());
+    this.store.dispatch(this.actions.findArchivedWaiverApplications());
   }
 }
