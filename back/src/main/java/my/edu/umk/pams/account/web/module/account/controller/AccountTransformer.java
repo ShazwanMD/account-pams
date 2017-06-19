@@ -142,7 +142,7 @@ public class AccountTransformer {
     
     public AccountShortTermLoan toAccountShortTermLoanVo(AcAccountSTL e) {
     	AccountShortTermLoan m = new AccountShortTermLoan();
-        m.setId(e.getId());
+    //	m.setId(e.getId());
         m.setSourceNo(e.getSourceNo());
         m.setAmount(e.getAmount());
         m.setSession(toAcademicSessionVo(e.getSession()));
