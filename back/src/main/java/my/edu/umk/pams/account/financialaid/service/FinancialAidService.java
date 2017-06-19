@@ -62,7 +62,6 @@ public interface FinancialAidService {
 
     void deleteSettlementItem(AcSettlement settlement, AcSettlementItem item);
 
-
     // ==================================================================================================== //
     // WAIVER APPLICATION
     // ==================================================================================================== //
@@ -101,6 +100,27 @@ public interface FinancialAidService {
     // ==================================================================================================== //
     // SHORT TERM LOAN
     // ==================================================================================================== //
+
+    // workflow
+    AcShortTermLoan findShortTermLoanByTaskId(String taskId);
+
+    Task findShortTermLoanTaskByTaskId(String taskId);
+
+    List<Task> findAssignedShortTermLoanTasks(Integer offset, Integer limit);
+
+    List<Task> findPooledShortTermLoanTasks(Integer offset, Integer limit);
+
+    String startShortTermLoanTask(AcShortTermLoan shortTermLoan);
+
+    void updateShortTermLoanTask(AcShortTermLoan shortTermLoan);
+
+    void cancelShortTermLoan(AcShortTermLoan shortTermLoan);
+    
+    // ==================================================================================================== //
+    // SHORT TERM LOAN
+    // ==================================================================================================== //
+    
+    AcShortTermLoan findShortTermLoanById(Long id);
     
     AcShortTermLoan findShortTermLoanByReferenceNo(String referenceNo);
     
