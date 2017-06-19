@@ -41,6 +41,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AcFeeScheduleDao feeScheduleDao;
+    
+    @Autowired
+    private AcAccountSTLDao shortTermLoanDao;
 
     @Autowired
     private AcAcademicSessionDao academicSessionDao;
@@ -640,6 +643,52 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void removeAccountWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver) {
         accountDao.addWaiver(account, academicSession, waiver, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    // ==================================================================================================== //
+    //  ACCOUNT SHORT TERM LOAN
+    // ==================================================================================================== //
+
+    @Override
+    public AcAccountSTL findAccountShortTermLoanById(Long id) {
+        return shortTermLoanDao.findById(id);
+    }
+
+    @Override
+    public AcAccountSTL findAccountShortTermLoanByReferenceNo(String referenceNo) {
+        return shortTermLoanDao.findByReferenceNo(referenceNo);
+    }
+
+    @Override
+    public List<AcAccountSTL> findAccountShortTermLoans(AcAccount account) {
+        return shortTermLoanDao.find(account);
+    }
+
+    @Override
+    public List<AcAccountSTL> findAccountShortTermLoans(AcAcademicSession academicSession, AcAccount account) {
+        return shortTermLoanDao.find(academicSession, account);
+    }
+
+    @Override
+    public Integer countAccountShortTermLoan(AcAcademicSession academicSession, AcAccount account) {
+        return shortTermLoanDao.count(academicSession, account);
+    }
+
+    @Override
+    public boolean isAccountShortTermLoanExists(AcAccount account, String sourceNo) {
+        return shortTermLoanDao.isShortTermlLoanExists(account, sourceNo);
+    }
+
+    @Override
+    public void addShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan) {
+    	accountDao.addShortTermLoan(account, academicSession, shortTermLoan, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan) {
+    	accountDao.addShortTermLoan(account, academicSession, shortTermLoan, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
