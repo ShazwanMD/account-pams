@@ -13,6 +13,7 @@ import {AccountActions} from './account.action';
 import {AccountEffects} from './account.effect';
 import {AccountCenterPage} from './account-center.page';
 import {AccountListComponent} from './component/account-list.component';
+import {SecurityChargeComponent} from './component/security-charge.component'
 import {AccountDetailPage} from './account-detail.page';
 import {AccountComponent} from './component/account.component';
 import {AccountStatusComponent} from './component/account-status.component';
@@ -51,6 +52,7 @@ import {AcademicSessionSubModule} from '../academic-sessions/index';
     AccountStatusComponent,
     AccountActivityListComponent,
     AccountChargeListComponent,
+    SecurityChargeComponent,
     AccountWaiverListComponent,
     AccountComboBoxComponent,
     AccountSelectComponent,
@@ -63,6 +65,7 @@ import {AcademicSessionSubModule} from '../academic-sessions/index';
   exports: [
     AccountComboBoxComponent,
     AccountSelectComponent,
+    SecurityChargeComponent,
   ],
   entryComponents: [
     AccountCreatorDialog,
