@@ -53,6 +53,7 @@
         ID int8 not null,
         AMOUNT numeric(19, 2) not null,
         CHARGE_TYPE int4 not null,
+        CODE varchar(255),
         DESCRIPTION varchar(255) not null,
         COHORT_CODE_ID int8,
         STUDY_MODE_ID int8,
