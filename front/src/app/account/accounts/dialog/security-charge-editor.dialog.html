@@ -1,0 +1,61 @@
+<h2 md-dialog-title>Security Charge</h2>
+<md-dialog-content>
+  <form [formGroup]="editForm">
+    <md-card>
+<!---->
+ <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="SourceNo"
+               formControlName="sourceNo"
+               flex/>
+      </md-input-container>
+  </div>
+  <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Section Code"
+               formControlName="code"
+               flex/>
+      </md-input-container>
+  </div>
+        <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Section Description"
+               formControlName="description"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Amount"
+               formControlName="amount"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container flex>
+         <input mdInput type="number" 
+         placeholder="Ordinal" 
+         formControlName="ordinal" 
+         flex/>
+         </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container flex>
+         <input mdInput type="date" 
+         placeholder="Date of Charge" 
+         formControlName="doc" 
+         flex/>
+         </md-input-container>
+    </div>
+    </md-card>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
+</md-dialog-actions>
