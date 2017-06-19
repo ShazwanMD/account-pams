@@ -90,8 +90,10 @@ public interface FinancialAidService {
     AcWaiverApplication findWaiverApplicationById(Long id);
 
     AcWaiverApplication findWaiverApplicationByReferenceNo(String referenceNo);
-    
+
     List<AcWaiverApplication> findWaiverApplicationsByFlowState(AcFlowState acFlowState);
+
+    List<AcWaiverApplication> findWaiverApplicationsByFlowStates(AcFlowState... acFlowState);
 
     List<AcWaiverApplication> findWaiverApplications(String filter, Integer offset, Integer limit);
 
@@ -100,7 +102,7 @@ public interface FinancialAidService {
     Integer countWaiverApplication(String filter);
 
     Integer countWaiverApplication(AcAcademicSession academicSession);
-    
+
     // ==================================================================================================== //
     // SHORT TERM LOAN
     // ==================================================================================================== //
@@ -119,17 +121,17 @@ public interface FinancialAidService {
     void updateShortTermLoanTask(AcShortTermLoan shortTermLoan);
 
     void cancelShortTermLoan(AcShortTermLoan shortTermLoan);
-    
+
     // ==================================================================================================== //
     // SHORT TERM LOAN
     // ==================================================================================================== //
-    
+
     AcShortTermLoan findShortTermLoanById(Long id);
-    
+
     AcShortTermLoan findShortTermLoanByReferenceNo(String referenceNo);
-    
+
     List<AcShortTermLoan> findShortTermLoans(AcAcademicSession academicSession, Integer offset, Integer limit);
-    
+
     void addShortTermLoan(AcShortTermLoan shortTermLoan);
 
     void updateShortTermLoan(AcShortTermLoan shortTermLoan);

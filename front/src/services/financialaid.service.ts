@@ -120,7 +120,7 @@ export class FinancialaidService {
     return this.http.post(environment.endpoint + '/api/financialaid/settlements/'+ settlement.referenceNo +'/execute', null)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-  
+
   addSettlementItem(settlement: Settlement, settlementItem: SettlementItem): Observable<String> {
       let headers = new Headers({
         'Content-Type': 'application/json',
@@ -191,10 +191,10 @@ export class FinancialaidService {
 
   findArchivedWaiverApplications(): Observable<WaiverApplication[]> {
       console.log('findArchivedWaiverApplications');
-      return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/state/COMPLETED')
+      return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/archived')
         .map((res: Response) => <WaiverApplication[]>res.json());
     }
-  
+
   startWaiverApplicationTask(waiverApplication: WaiverApplication): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',

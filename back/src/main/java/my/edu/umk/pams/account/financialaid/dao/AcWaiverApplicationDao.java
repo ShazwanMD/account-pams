@@ -20,6 +20,8 @@ public interface AcWaiverApplicationDao extends GenericDao<Long, AcWaiverApplica
     
     List<AcWaiverApplication> findByFlowState(AcFlowState acFlowState);
 
+    List<AcWaiverApplication> findByFlowStates(AcFlowState... acFlowState);
+
     List<AcWaiverApplication> find(AcAcademicSession academicSession, Integer offset, Integer limit);
 
     // ====================================================================================================

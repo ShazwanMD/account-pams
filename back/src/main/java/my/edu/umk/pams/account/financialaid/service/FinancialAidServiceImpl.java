@@ -364,6 +364,11 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     }
 
     @Override
+    public List<AcWaiverApplication> findWaiverApplicationsByFlowStates(AcFlowState... acFlowState) {
+    	return waiverApplicationDao.findByFlowStates(acFlowState);
+    }
+
+    @Override
     public List<AcWaiverApplication> findWaiverApplications(String filter, Integer offset, Integer limit) {
         return waiverApplicationDao.find(offset, limit);
     }

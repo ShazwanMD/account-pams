@@ -50,7 +50,7 @@ public class FinancialAidController {
 
     @Autowired
     private AccountService accountService;
-    
+
     @Autowired
     private BillingService billingService;
 
@@ -161,23 +161,23 @@ public class FinancialAidController {
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         financialAidService.executeSettlement(settlement);
     }
-    
+
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.POST)
     public ResponseEntity<String> addSettlementItem(@PathVariable String referenceNo, @RequestBody SettlementItem item) {
         dummyLogin();
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         AcSettlementItem e = new AcSettlementItemImpl();
-        
+
         e.setSettlement(settlement);
         e.setBalanceAmount(item.getBalanceAmount());
         //e.setStatus(AcSettlementStatus.NEW);
-        
-        if(null != item.getInvoice() && null != item.getInvoice().getId())
+
+        if (null != item.getInvoice() && null != item.getInvoice().getId())
             e.setInvoice(billingService.findInvoiceById(item.getInvoice().getId()));
-        
-        if(null != item.getAccount() && null != item.getAccount().getId())
+
+        if (null != item.getAccount() && null != item.getAccount().getId())
             e.setAccount(accountService.findAccountById(item.getAccount().getId()));
-        
+
         financialAidService.addSettlementItem(settlement, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -187,16 +187,16 @@ public class FinancialAidController {
         dummyLogin();
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         AcSettlementItem e = financialAidService.findSettlementItemById(item.getId());
-        
+
         e.setSettlement(settlement);
         e.setBalanceAmount(item.getBalanceAmount());
-        
-        if(null != item.getInvoice() && null != item.getInvoice().getId())
+
+        if (null != item.getInvoice() && null != item.getInvoice().getId())
             e.setInvoice(billingService.findInvoiceById(item.getInvoice().getId()));
-        
-        if(null != item.getAccount() && null != item.getAccount().getId())
+
+        if (null != item.getAccount() && null != item.getAccount().getId())
             e.setAccount(accountService.findAccountById(item.getAccount().getId()));
-        
+
         financialAidService.updateSettlementItem(settlement, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -245,17 +245,19 @@ public class FinancialAidController {
         List<Task> tasks = financialAidService.findPooledWaiverApplicationTasks(0, 100);
         return new ResponseEntity<List<WaiverApplicationTask>>(financialAidTransformer.toWaiverApplicationTaskVos(tasks), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/waiverApplications/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<WaiverApplication>> findWaiverApplicationsByFlowState(@PathVariable String state) {
-    	List<AcWaiverApplication> waiverApplications = financialAidService.findWaiverApplicationsByFlowState(AcFlowState.valueOf(state));
-    	return new ResponseEntity<List<WaiverApplication>>(financialAidTransformer.toWaiverApplicationVos(waiverApplications), HttpStatus.OK);
-    }
-    
-    @RequestMapping(value = "/waiverApplications/archived", method = RequestMethod.GET)
-    public ResponseEntity<List<WaiverApplication>> findArchivedWaiverApplications(@PathVariable String state) {
         List<AcWaiverApplication> waiverApplications = financialAidService.findWaiverApplicationsByFlowState(AcFlowState.valueOf(state));
         return new ResponseEntity<List<WaiverApplication>>(financialAidTransformer.toWaiverApplicationVos(waiverApplications), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverApplications/archived", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverApplication>> findArchivedWaiverApplications() {
+        List<AcWaiverApplication> waiverApplications = financialAidService
+                .findWaiverApplicationsByFlowStates(AcFlowState.COMPLETED, AcFlowState.CANCELLED, AcFlowState.REMOVED);
+        return new ResponseEntity<List<WaiverApplication>>(financialAidTransformer
+                .toWaiverApplicationVos(waiverApplications), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/waiverApplications/startTask", method = RequestMethod.POST)
