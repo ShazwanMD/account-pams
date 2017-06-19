@@ -12,10 +12,10 @@ export class WaiverApplicationEffects {
               private financialaidService: FinancialaidService) {
   }
 
-  // @Effect() findCompletedWaiverApplications$ = this.actions$
-  //   .ofType(WaiverApplicationActions.FIND_COMPLETED_WAIVER_APPLICATIONS)
-  //   .switchMap(() => this.financialaidService.findCompletedWaiverApplications())
-  //   .map(applications => this.waiverApplicationActions.findCompletedWaiverApplicationSuccess(applications));
+  @Effect() findCompletedWaiverApplications$ = this.actions$
+  .ofType(WaiverApplicationActions.FIND_COMPLETED_WAIVER_APPLICATIONS)
+  .switchMap(() => this.financialaidService.findCompletedWaiverApplications())
+  .map(invoices => this.waiverApplicationActions.findCompletedWaiverApplicationsSuccess(invoices));
 
   @Effect() findAssignedWaiverApplicationTasks$ = this.actions$
     .ofType(WaiverApplicationActions.FIND_ASSIGNED_WAIVER_APPLICATION_TASKS)
@@ -41,6 +41,11 @@ export class WaiverApplicationEffects {
     .map(waiverApplication => this.waiverApplicationActions.findWaiverApplicationByReferenceNoSuccess(waiverApplication))
     .mergeMap(action => from([action, this.waiverApplicationActions.findWaiverApplicationItems(action.payload)]));
 
+  @Effect() findArchivedWaiverApplications$ = this.actions$
+  .ofType(WaiverApplicationActions.FIND_ARCHIVED_WAIVER_APPLICATIONS)
+  .switchMap(() => this.financialaidService.findArchivedWaiverApplications())
+  .map(invoices => this.waiverApplicationActions.findArchivedWaiverApplicationsSuccess(invoices));
+  
   @Effect() startWaiverApplicationTask$ = this.actions$
     .ofType(WaiverApplicationActions.START_WAIVER_APPLICATION_TASK)
     .map(action => action.payload)
@@ -59,7 +64,8 @@ export class WaiverApplicationEffects {
     .map(message => this.waiverApplicationActions.completeWaiverApplicationTaskSuccess(message))
     .mergeMap(action => from([action,
         this.waiverApplicationActions.findAssignedWaiverApplicationTasks(),
-        this.waiverApplicationActions.findPooledWaiverApplicationTasks()
+        this.waiverApplicationActions.findPooledWaiverApplicationTasks(),
+        this.waiverApplicationActions.findArchivedWaiverApplications()
       ]
     ));
 

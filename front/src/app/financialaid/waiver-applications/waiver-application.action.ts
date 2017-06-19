@@ -125,6 +125,24 @@ export class WaiverApplicationActions {
     };
   }
 
+  static FIND_COMPLETED_WAIVER_APPLICATIONS = '[WaiverApplication] Find Completed WaiverApplications';
+
+  findCompletedWaiverApplications(): Action {
+    return {
+      type: WaiverApplicationActions.FIND_COMPLETED_WAIVER_APPLICATIONS,
+    };
+  }
+
+  static FIND_COMPLETED_WAIVER_APPLICATIONS_SUCCESS = '[WaiverApplication] Find Completed WaiverApplications Success';
+
+  findCompletedWaiverApplicationsSuccess(invoices): Action {
+    console.log('findCompletedInvoicesSuccess');
+    return {
+      type: WaiverApplicationActions.FIND_COMPLETED_WAIVER_APPLICATIONS_SUCCESS,
+      payload: invoices,
+    };
+  }
+  
   static FIND_WAIVER_APPLICATION_BY_ID_SUCCESS = '[WaiverApplication] Find WaiverApplication By Id Success';
   findWaiverApplicationByIdSuccess(invoice): Action {
     return {
@@ -166,6 +184,23 @@ export class WaiverApplicationActions {
     };
   }
 
+  static FIND_ARCHIVED_WAIVER_APPLICATIONS = '[WaiverApplication] Find Archived WaiverApplications';
+
+  findArchivedWaiverApplications(): Action {
+    return {
+      type: WaiverApplicationActions.FIND_ARCHIVED_WAIVER_APPLICATIONS,
+    };
+  }
+
+  static FIND_ARCHIVED_WAIVER_APPLICATIONS_SUCCESS = '[WaiverApplication] Find Archived WaiverApplications Success';
+
+  findArchivedWaiverApplicationsSuccess(invoices): Action {
+    console.log('findArchivedInvoicesSuccess');
+    return {
+      type: WaiverApplicationActions.FIND_ARCHIVED_WAIVER_APPLICATIONS_SUCCESS,
+      payload: invoices,
+    };
+  }
 
   static UPDATE_WAIVER_APPLICATION = '[WaiverApplication] Update WaiverApplication';
   updateWaiverApplication(invoice): Action {
