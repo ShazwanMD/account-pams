@@ -25,32 +25,32 @@
 
     <md-card>
 
-      <td-search-box class="push-left push-right" placeholder="search" [alwaysVisible]="true" (searchDebounce)="filter($event)">
-
-      </td-search-box>
-
-
       <div toolbar-buttons layout="row" layout-align="start center" flex>
-        <button md-button class="md-icon-button" (click)="download()">
-      <md-icon class="md-24 tc-grey-700">file_download</md-icon>
-    </button>
-        <div layout="column" class="pad-right" flex>
-          <div layout="row">
-            <td-file-upload #fileUpload (upload)="upload($event)" defaultColor="accent" activeColor="warn" cancelColor="primary">
-              <md-icon>file_upload</md-icon>
-              <span>{{ fileUpload.files?.name }}</span>
-              <template td-file-input-label>
-                <md-icon>attach_file</md-icon>
-                <span>Choose a file...</span>
-              </template>
-            </td-file-upload>
-          </div>
-        </div>
+             <button md-button class="md-icon-button" (click)="download()">
+                <md-icon class="md-24 tc-grey-700">file_download</md-icon>
+              </button>
+              
+              <div layout="column" class="pad-right" flex>
+                <div layout="row">
+                  <td-file-upload #fileUpload (upload)="upload($event)" defaultColor="accent" activeColor="warn" cancelColor="primary">
+                    <md-icon>file_upload</md-icon>
+                    <span>{{ fileUpload.files?.name }}</span>
+                    <template td-file-input-label>
+                      <md-icon>attach_file</md-icon>
+                      <span>Choose a file...</span>
+                    </template>
+                  </td-file-upload>
+                </div>
+              </div>
 
       </div>
 
       <pams-fee-schedule-list [feeSchedules]="feeSchedules$ | async">
       </pams-fee-schedule-list>
+
+      <td-search-box class="push-left push-right" placeholder="search" [alwaysVisible]="true" (searchDebounce)="filter($event)">
+      </td-search-box>
+
     </md-card>
   </td-layout-manage-list>
 </td-layout-nav>
