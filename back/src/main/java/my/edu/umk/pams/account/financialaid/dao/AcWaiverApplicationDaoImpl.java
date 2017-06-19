@@ -72,19 +72,14 @@ public class AcWaiverApplicationDaoImpl extends GenericDaoSupport<Long, AcWaiver
     }
 
     @Override
-    public List<AcWaiverApplication> findByFlowStates(AcFlowState... acFlowState) {
-        List<Integer> flowStates = new ArrayList<Integer>();
-        for (AcFlowState flowState : acFlowState) {
-            flowStates.add(flowState.ordinal());
-        }
-
+    public List<AcWaiverApplication> findByFlowStates(AcFlowState... flowState) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select a from AcWaiverApplication a where " +
                 "a.metadata.state = :state " +
                 "and a.flowdata.state in (:flowStates)");
         query.setCacheable(true);
         query.setInteger("state", ACTIVE.ordinal());
-        query.setParameterList("flowStates", flowStates);
+        query.setParameterList("flowStates", flowState);
         return (List<AcWaiverApplication>) query.list();
     }
 
