@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef, Input } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
@@ -14,7 +14,7 @@ import {FeeScheduleCreatorDialog} from "./dialog/fee-schedule-creator.dialog";
 })
 
 export class FeeScheduleCenterPage implements OnInit {
-
+@Input() feeSchedule:FeeSchedule;
   private FEE_SCHEDULES: string[] = "accountModuleState.feeSchedules".split(".");
   private feeSchedules$: Observable<FeeSchedule[]>;
   private creatorDialogRef: MdDialogRef<FeeScheduleCreatorDialog>;
@@ -52,6 +52,16 @@ export class FeeScheduleCenterPage implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(this.actions.findFeeSchedules());
+  }
+
+    download(): void {
+    this.store.dispatch(this.actions.downloadFeeSchedule(this.feeSchedule));
+  }
+
+  upload(file: File): void {
+    console.log("feeSchedule", file);
+    this.store.dispatch(this.actions.uploadFeeSchedule(this.feeSchedule,file));
+
   }
 }
 
