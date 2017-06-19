@@ -34,15 +34,17 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
 
     List<AcInvoice> find(boolean paid, AcAccount account, Integer offset, Integer limit);
 
-	List<AcInvoice> findFullText(CovalentDatatableQuery query);
+    List<AcInvoice> findFullText(CovalentDatatableQuery query);
 
-	List<AcInvoiceItem> findItems(AcInvoice invoice);
+    List<AcInvoiceItem> findItems(AcInvoice invoice);
 
     List<AcInvoiceItem> findItems(AcInvoice invoice, Integer offset, Integer limit);
 
     List<AcInvoiceItem> findSortedItems(AcInvoice invoice);
-    
+
     List<AcInvoice> findByFlowState(AcFlowState acFlowState);
+
+    List<AcInvoice> findByFlowStates(AcFlowState... acFlowState);
 
 //    List<AcInvoiceTransaction> findTransactions(AcInvoice invoice);
 //

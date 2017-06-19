@@ -89,6 +89,18 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
     }
 
     @Override
+    public List<AcInvoice> findByFlowStates(AcFlowState... flowStates) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcInvoice s where " +
+                "s.metadata.state = :state " +
+                "and s.flowdata.state in (:flowStates)");
+        query.setCacheable(true);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setParameterList("flowStates", flowStates);
+        return (List<AcInvoice>) query.list();
+    }
+
+    @Override
     public List<AcInvoice> findManyInvoiceBySourceNo(String sourceNo) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcInvoice s where " +

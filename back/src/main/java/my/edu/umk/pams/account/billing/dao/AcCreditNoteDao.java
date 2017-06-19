@@ -23,6 +23,8 @@ public interface AcCreditNoteDao extends GenericDao<Long, AcCreditNote> {
 
     List<AcCreditNote> findByFlowState(AcFlowState flowState);
 
+    List<AcCreditNote> findByFlowStates(AcFlowState... flowStates);
+
     List<AcCreditNoteItem> findItems(AcCreditNote creditNote);
 
     List<AcCreditNoteItem> findItems(AcCreditNote creditNote, Integer offset, Integer limit);

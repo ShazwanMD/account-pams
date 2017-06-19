@@ -71,6 +71,18 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
     }
 
     @Override
+    public List<AcDebitNote> findByFlowStates(AcFlowState... flowStates) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcDebitNote i where " +
+                "i.flowdata.state in (:flowStates) " +
+                "and i.metadata.state = :metaState ");
+        query.setParameterList("flowStates", flowStates);
+        query.setInteger("metaState", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcDebitNote>) query.list();
+    }
+
+    @Override
     public List<AcDebitNoteItem> findItems(AcDebitNote debitNote) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select ii from AcDebitNoteItem ii where " +

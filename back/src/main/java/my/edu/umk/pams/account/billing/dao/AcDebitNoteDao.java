@@ -23,6 +23,8 @@ public interface AcDebitNoteDao extends GenericDao<Long, AcDebitNote> {
 
     List<AcDebitNote> findByFlowState(AcFlowState flowState);
 
+    List<AcDebitNote> findByFlowStates(AcFlowState... flowStates);
+
     List<AcDebitNoteItem> findItems(AcDebitNote debitNote);
 
     List<AcDebitNoteItem> findItems(AcDebitNote debitNote, Integer offset, Integer limit);

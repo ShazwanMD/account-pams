@@ -71,6 +71,18 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
     }
 
     @Override
+    public List<AcCreditNote> findByFlowStates(AcFlowState... flowStates) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcCreditNote i where " +
+                "i.flowdata.state in (:flowStates) " +
+                "and i.metadata.state = :metaState ");
+        query.setParameterList("flowStates", flowStates);
+        query.setInteger("metaState", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcCreditNote>) query.list();
+    }
+
+    @Override
     public List<AcCreditNoteItem> findItems(AcCreditNote creditNote) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select ii from AcCreditNoteItem ii where " +
