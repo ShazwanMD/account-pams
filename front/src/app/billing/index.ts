@@ -6,57 +6,59 @@ import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../services';
 import {IdentityService} from '../../services';
 
-import {BillingPage} from "./billing.page";
-import {BillingService} from "../../services/billing.service";
-import {InvoiceTaskState, invoiceTaskReducer} from "./invoices/invoice-task.reducer";
-import {InvoiceState, invoiceReducer} from "./invoices/invoice.reducer";
-import {InvoiceSubModule} from "./invoices/index";
-import {InvoiceTask} from "./invoices/invoice-task.interface";
-import {Invoice} from "./invoices/invoice.interface";
-import {receiptTaskReducer, ReceiptTaskState} from "./receipts/receipt-task.reducer";
-import {receiptReducer, ReceiptState} from "./receipts/receipt.reducer";
-import {ReceiptSubModule} from "./receipts/index";
-import {ReceiptTask} from "./receipts/receipt-task.interface";
-import {Receipt} from "./receipts/receipt.interface";
-import {invoiceItemListReducer, InvoiceItemListState} from "./invoices/invoice-item-list.reducer";
-import {archivedInvoiceListReducer, invoiceListReducer, InvoiceListState} from "./invoices/invoice-list.reducer";
-import {DebitNoteTaskState, debitNoteTaskReducer} from "./debit-notes/debit-note-task.reducer";
-import {debitNoteReducer, DebitNoteState} from "./debit-notes/debit-note.reducer";
+import {BillingPage} from './billing.page';
+import {BillingService} from '../../services/billing.service';
+import {InvoiceTaskState, invoiceTaskReducer} from './invoices/invoice-task.reducer';
+import {InvoiceState, invoiceReducer} from './invoices/invoice.reducer';
+import {InvoiceSubModule} from './invoices/index';
+import {InvoiceTask} from './invoices/invoice-task.interface';
+import {Invoice} from './invoices/invoice.interface';
+import {receiptTaskReducer, ReceiptTaskState} from './receipts/receipt-task.reducer';
+import {receiptReducer, ReceiptState} from './receipts/receipt.reducer';
+import {ReceiptSubModule} from './receipts/index';
+import {ReceiptTask} from './receipts/receipt-task.interface';
+import {Receipt} from './receipts/receipt.interface';
+import {invoiceItemListReducer, InvoiceItemListState} from './invoices/invoice-item-list.reducer';
+import {archivedInvoiceListReducer, invoiceListReducer, InvoiceListState} from './invoices/invoice-list.reducer';
+import {DebitNoteTaskState, debitNoteTaskReducer} from './debit-notes/debit-note-task.reducer';
+import {debitNoteReducer, DebitNoteState} from './debit-notes/debit-note.reducer';
 import {
   assignedInvoiceTaskListReducer,
   InvoiceTaskListState,
-  pooledInvoiceTaskListReducer
-} from "./invoices/invoice-task-list.reducer";
+  pooledInvoiceTaskListReducer,
+} from './invoices/invoice-task-list.reducer';
 import {
   assignedReceiptTaskListReducer, pooledReceiptTaskListReducer,
-  ReceiptTaskListState
-} from "./receipts/receipt-task-list.reducer";
-import {DebitNoteSubModule} from "./debit-notes/index";
-import {CreditNoteSubModule} from "./credit-notes/index";
-import {receiptItemListReducer, ReceiptItemListState} from "./receipts/receipt-item-list.reducer";
-import {DebitNoteTask} from "./debit-notes/debit-note-task.interface";
-import {DebitNote} from "./debit-notes/debit-note.interface";
-import {CreditNoteTaskState, creditNoteTaskReducer} from "./credit-notes/credit-note-task.reducer";
-import {CreditNoteState, creditNoteReducer} from "./credit-notes/credit-note.reducer";
+  ReceiptTaskListState,
+} from './receipts/receipt-task-list.reducer';
+import {DebitNoteSubModule} from './debit-notes/index';
+import {CreditNoteSubModule} from './credit-notes/index';
+import {receiptItemListReducer, ReceiptItemListState} from './receipts/receipt-item-list.reducer';
+import {DebitNoteTask} from './debit-notes/debit-note-task.interface';
+import {DebitNote} from './debit-notes/debit-note.interface';
+import {CreditNoteTaskState, creditNoteTaskReducer} from './credit-notes/credit-note-task.reducer';
+import {CreditNoteState, creditNoteReducer} from './credit-notes/credit-note.reducer';
 import {
   DebitNoteListState,
-  archivedDebitNoteListReducer
-} from "./debit-notes/debit-note-list.reducer";
-import {CreditNoteTask} from "./credit-notes/credit-note-task.interface";
-import {CreditNote} from "./credit-notes/credit-note.interface";
+  archivedDebitNoteListReducer,
+} from './debit-notes/debit-note-list.reducer';
+import {CreditNoteTask} from './credit-notes/credit-note-task.interface';
+import {CreditNote} from './credit-notes/credit-note.interface';
 import {
   DebitNoteTaskListState,
   assignedDebitNoteTaskListReducer,
-  pooledDebitNoteTaskListReducer
-} from "./debit-notes/debit-note-task-list.reducer";
+  pooledDebitNoteTaskListReducer,
+} from './debit-notes/debit-note-task-list.reducer';
 import {
   assignedCreditNoteTaskListReducer, CreditNoteTaskListState,
-  pooledCreditNoteTaskListReducer
-} from "./credit-notes/credit-note-task-list.reducer";
-import { archivedCreditNoteListReducer, CreditNoteListState } from "./credit-notes/credit-note-list.reducer";
-import { debitNoteItemListReducer, DebitNoteItemListState } from "./debit-notes/debit-note-item-list.reducer";
-import { CreditNoteItemListState, creditNoteItemListReducer } from "./credit-notes/credit-note-item-list.reducer";
-import {PipeModule} from "../app.pipe.module";
+  pooledCreditNoteTaskListReducer,
+} from './credit-notes/credit-note-task-list.reducer';
+import {archivedCreditNoteListReducer, CreditNoteListState} from './credit-notes/credit-note-list.reducer';
+import {debitNoteItemListReducer, DebitNoteItemListState} from './debit-notes/debit-note-item-list.reducer';
+import {CreditNoteItemListState, creditNoteItemListReducer} from './credit-notes/credit-note-item-list.reducer';
+import {PipeModule} from '../app.pipe.module';
+import {invoiceCreditNoteListReducer, InvoiceCreditNoteListState} from './invoices/invoice-credit-note-list.reducer';
+import {invoiceDebitNoteListReducer, InvoiceDebitNoteListState} from './invoices/invoice-debit-note-list.reducer';
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -66,6 +68,8 @@ export interface BillingModuleState {
   invoices: InvoiceListState;
   invoice: InvoiceState;
   invoiceItems: InvoiceItemListState;
+  invoiceDebitNotes: InvoiceDebitNoteListState;
+  invoiceCreditNotes: InvoiceCreditNoteListState;
   assignedReceiptTasks: ReceiptTaskListState;
   pooledReceiptTasks: ReceiptTaskListState;
   receiptTask: ReceiptTaskState;
@@ -82,7 +86,7 @@ export interface BillingModuleState {
   archivedCreditNotes: CreditNoteListState;
   creditNote: CreditNoteState;
   creditNoteTask: CreditNoteTaskState;
-  creditNoteItem: CreditNoteItemListState;
+  creditNoteItems: CreditNoteItemListState;
 }
 ;
 
@@ -95,6 +99,8 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     invoices: <Invoice[]>[],
     invoice: <Invoice>{},
     invoiceItems: [],
+    invoiceDebitNotes: [],
+    invoiceCreditNotes: [],
     debitNoteList: [],
     assignedReceiptTasks: [],
     pooledReceiptTasks: [],
@@ -110,9 +116,9 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     assignedCreditNoteTasks: [],
     pooledCreditNoteTasks: [],
     archivedCreditNotes: [],
-    creditNoteItem: [],
     creditNoteTask: <CreditNoteTask>{},
     creditNote: <CreditNote>{},
+    creditNoteItems: [],
   };
 
 export const billingModuleReducers = {
@@ -123,6 +129,8 @@ export const billingModuleReducers = {
   invoices: invoiceListReducer,
   invoice: invoiceReducer,
   invoiceItems: invoiceItemListReducer,
+  invoiceDebitNotes: invoiceDebitNoteListReducer,
+  invoiceCreditNotes: invoiceCreditNoteListReducer,
   assignedReceiptTasks: assignedReceiptTaskListReducer,
   pooledReceiptTasks: pooledReceiptTaskListReducer,
   receiptTask: receiptTaskReducer,
@@ -139,7 +147,7 @@ export const billingModuleReducers = {
   archivedCreditNotes: archivedCreditNoteListReducer,
   creditNoteTask: creditNoteTaskReducer,
   creditNote: creditNoteReducer,
-  creditNoteItem: creditNoteItemListReducer,
+  creditNoteItems: creditNoteItemListReducer,
 };
 
 @NgModule({
@@ -152,7 +160,7 @@ export const billingModuleReducers = {
     ReceiptSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
     CreditNoteSubModule.forRoot(),
-    PipeModule
+    PipeModule,
   ],
   declarations: [
     // page

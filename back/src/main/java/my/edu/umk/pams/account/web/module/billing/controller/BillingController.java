@@ -76,13 +76,13 @@ public class BillingController {
         List<AcInvoice> invoices = billingService.findInvoices("%", 0, 100);
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/invoices/datatable/covalent", method = RequestMethod.POST)
     public ResponseEntity<List<Invoice>> findInvoicesWithCovalentDatatable(@RequestBody CovalentDatatableQuery query) {
         List<AcInvoice> invoices = billingService.findInvoicesByFullText(query);
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/invoices/{filter}/{offset}/{limit}", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findInvoicesWithFilterAndPagination(@PathVariable String filter, @PathVariable Integer offset, @PathVariable Integer limit) {
         List<AcInvoice> invoices = billingService.findInvoices(filter, offset, limit);
@@ -107,10 +107,10 @@ public class BillingController {
         AcInvoice invoice = (AcInvoice) billingService.findInvoiceByReferenceNo(referenceNo);
         return new ResponseEntity<Invoice>(billingTransformer.toInvoiceVo(invoice), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/invoices/unpaidInvoices/{code}", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findUnpaidInvoices(@PathVariable String code) {
-    	AcAccount account = accountService.findAccountByCode(code);
+        AcAccount account = accountService.findAccountByCode(code);
         List<AcInvoice> invoices = billingService.findUnpaidInvoices(account, 0, 100);
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
@@ -164,6 +164,26 @@ public class BillingController {
         AcInvoiceItem e = billingService.findInvoiceItemById(id);
         billingService.deleteInvoiceItem(invoice, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/invoices/{referenceNo}/debitNotes", method = RequestMethod.GET)
+    public ResponseEntity<List<DebitNote>> findDebitNotesByInvoice(@PathVariable String referenceNo) {
+        dummyLogin();
+
+        LOG.debug("referenceNo: {}", referenceNo);
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        return new ResponseEntity<List<DebitNote>>(billingTransformer
+                .toDebitNoteVos(billingService.findDebitNotes(invoice)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/invoices/{referenceNo}/creditNotes", method = RequestMethod.GET)
+    public ResponseEntity<List<CreditNote>> findCreditNotesByInvoice(@PathVariable String referenceNo) {
+        dummyLogin();
+
+        LOG.debug("referenceNo: {}", referenceNo);
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        return new ResponseEntity<List<CreditNote>>(billingTransformer
+                .toCreditNoteVos(billingService.findCreditNotes(invoice)), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/assignedTasks", method = RequestMethod.GET)
@@ -370,13 +390,6 @@ public class BillingController {
     //  DEBIT NOTE
     // ==================================================================================================== //
 
-    @RequestMapping(value = "/invoice/{referenceNo}/debitNotes/", method = RequestMethod.GET)
-    public ResponseEntity<List<DebitNote>> findDebitNotesByInvoice(@PathVariable String referenceNo) {
-        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-        List<AcDebitNote> debitNotes = billingService.findDebitNotes(invoice);
-        return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
-    }
-
 
     @RequestMapping(value = "/debitNotes/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNote>> findDebitNotesByFlowState(@PathVariable String state) {
@@ -517,14 +530,6 @@ public class BillingController {
     //  CREDIT NOTE
     // ==================================================================================================== //
 
-    @RequestMapping(value = "/invoice/{referenceNo}/creditNotes/", method = RequestMethod.GET)
-    public ResponseEntity<List<CreditNote>> findCreditNotes(@PathVariable String referenceNo) {
-        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-        List<AcCreditNote> creditNotes = billingService.findCreditNotes(invoice);
-        return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
-    }
-
-
     @RequestMapping(value = "/creditNotes/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNote>> findCreditNotesByFlowState(@PathVariable String state) {
         List<AcCreditNote> creditNotes = billingService.findCreditNotesByFlowState(AcFlowState.valueOf(state));
@@ -588,7 +593,7 @@ public class BillingController {
         billingService.deleteCreditNoteItem(creditNote, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/creditNotes/claimTask", method = RequestMethod.POST)
     public ResponseEntity<String> claimCreditNoteTask(@RequestBody CreditNoteTask vo) {
         dummyLogin();
@@ -630,7 +635,7 @@ public class BillingController {
         return new ResponseEntity<CreditNoteTask>(billingTransformer.toCreditNoteTaskVo(
                 billingService.findCreditNoteTaskByTaskId(taskId)), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/creditNotes/releaseTask", method = RequestMethod.POST)
     public ResponseEntity<String> releaseCreditNoteTask(@RequestBody CreditNoteTask vo) {
         dummyLogin();

@@ -1,5 +1,5 @@
 import { NgModule }      from '@angular/core';
-import {FlowStatePipe} from "./core/flow-state.pipe";
+import {FlowStatePipe} from './core/flow-state.pipe';
 
 @NgModule({
     imports:        [],

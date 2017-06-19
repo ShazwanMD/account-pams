@@ -6,7 +6,7 @@ import {BillingService} from "../../../services/billing.service";
 import {BillingModuleState} from "../index";
 import {Store} from "@ngrx/store";
 import 'rxjs/add/operator/withLatestFrom';
-import { DebitNoteActions } from "../debit-notes/debit-note.action";
+import {DebitNoteActions} from "../debit-notes/debit-note.action";
 
 
 @Injectable()
@@ -28,9 +28,9 @@ export class InvoiceEffects {
     .map(invoices => this.invoiceActions.findUnpaidInvoicesSuccess(invoices));
 
   @Effect() findCompletedInvoices$ = this.actions$
-  .ofType(InvoiceActions.FIND_COMPLETED_INVOICES)
-  .switchMap(() => this.billingService.findCompletedInvoices())
-  .map(invoices => this.invoiceActions.findCompletedInvoicesSuccess(invoices));
+    .ofType(InvoiceActions.FIND_COMPLETED_INVOICES)
+    .switchMap(() => this.billingService.findCompletedInvoices())
+    .map(invoices => this.invoiceActions.findCompletedInvoicesSuccess(invoices));
 
   @Effect() findArchivedInvoices$ = this.actions$
     .ofType(InvoiceActions.FIND_ARCHIVED_INVOICES)
@@ -59,9 +59,12 @@ export class InvoiceEffects {
     .map(action => action.payload)
     .switchMap(referenceNo => this.billingService.findInvoiceByReferenceNo(referenceNo))
     .map(invoice => this.invoiceActions.findInvoiceByReferenceNoSuccess(invoice))
-    .mergeMap(action => from([action, this.invoiceActions.findInvoiceItems(action.payload)]))
-    .mergeMap(action => from([action, this.debitNoteActions.findDebitNotes(action.payload)]));
-//    .mergeMap(action => from([action, this.debitNoteActions.findDebitNotesByInvoice(action.payload)]));
+    .mergeMap(action => from([
+      action,
+      this.invoiceActions.findInvoiceItems(action.payload),
+      this.invoiceActions.findDebitNotesByInvoice(action.payload),
+      this.invoiceActions.findCreditNotesByInvoice(action.payload),
+    ]))
 
   @Effect() findInvoiceItems$ = this.actions$
     .ofType(InvoiceActions.FIND_INVOICE_ITEMS)
@@ -76,11 +79,11 @@ export class InvoiceEffects {
     .map(referenceNo => this.invoiceActions.startInvoiceTaskSuccess(referenceNo))
     .mergeMap(action => from([action,
         this.invoiceActions.findAssignedInvoiceTasks(),
-        this.invoiceActions.findPooledInvoiceTasks()
-      ]
+        this.invoiceActions.findPooledInvoiceTasks(),
+      ],
     ));
 
-@Effect() completeInvoiceTask$ = this.actions$
+  @Effect() completeInvoiceTask$ = this.actions$
     .ofType(InvoiceActions.COMPLETE_INVOICE_TASK)
     .map(action => action.payload)
     .switchMap(invoiceTask => this.billingService.completeInvoiceTask(invoiceTask))
@@ -147,5 +150,17 @@ export class InvoiceEffects {
     .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
     .map(state => state[1])
     .map(invoice => this.invoiceActions.findInvoiceItems(invoice));
+
+  @Effect() findDebitNotesByInvoice = this.actions$
+    .ofType(InvoiceActions.FIND_DEBIT_NOTES_BY_INVOICE)
+    .map(action => action.payload)
+    .switchMap(invoice => this.billingService.findDebitNotesByInvoice(invoice))
+    .map(notes => this.invoiceActions.findDebitNotesByInvoiceSuccess(notes));
+
+  @Effect() findCreditNotesByInvoice = this.actions$
+    .ofType(InvoiceActions.FIND_CREDIT_NOTES_BY_INVOICE)
+    .map(action => action.payload)
+    .switchMap(invoice => this.billingService.findCreditNotesByInvoice(invoice))
+    .map(notes => this.invoiceActions.findCreditNotesByInvoiceSuccess(notes));
 
 }

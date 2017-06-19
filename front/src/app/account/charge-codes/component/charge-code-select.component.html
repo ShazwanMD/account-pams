@@ -1,7 +1,6 @@
 <md-select
   [placeholder]="placeholder"
   (change)="selectChangeEvent($event.value)" flex>
-
   <md-option *ngFor="let chargeCode of chargeCodes$ | async" [value]="chargeCode">
     {{chargeCode.code}}: {{chargeCode.description}} {{chargeCode.priority}}
   </md-option>

@@ -102,8 +102,7 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     CommonModule.forRoot(),
 
-    PipeModule,
-
+    PipeModule.forRoot(),
     IdentityModule.forRoot(),
     AccountModule.forRoot(),
     BillingModule.forRoot(),

@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import { BillingModuleState } from "../../index";
-import { DebitNoteTask } from "../debit-note-task.interface";
-import { DebitNoteItem } from "../debit-note-item.interface";
-import { DebitNoteItemEditorDialog } from "../dialog/debit-note-item-editor.dialog";
-import { DebitNoteActions } from "../debit-note.action";
-
+import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../../index';
+import {DebitNoteTask} from '../debit-note-task.interface';
+import {DebitNoteItem} from '../debit-note-item.interface';
+import {DebitNoteItemEditorDialog} from '../dialog/debit-note-item-editor.dialog';
+import {DebitNoteActions} from '../debit-note.action';
 
 @Component({
   selector: 'pams-debit-note-draft-task',
@@ -17,7 +16,7 @@ import { DebitNoteActions } from "../debit-note.action";
 
 export class DebitNoteDraftTaskPanel implements OnInit {
 
-  private DEBIT_NOTE_ITEMS = "billingModuleState.debitNoteItems".split(".");
+  private DEBIT_NOTE_ITEMS: string[] = 'billingModuleState.debitNoteItems'.split('.');
   @Input() debitNoteTask: DebitNoteTask;
   debitNoteItems$: Observable<DebitNoteItem[]>;
 
@@ -32,8 +31,8 @@ export class DebitNoteDraftTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("reference no "+this.debitNoteTask.referenceNo);
-    this.store.dispatch(this.actions.findDebitNoteItems(this.debitNoteTask))
+    console.log('reference no ' + this.debitNoteTask.referenceNo);
+    this.store.dispatch(this.actions.findDebitNoteItems(this.debitNoteTask));
   }
 
   editItem(item: DebitNoteItem) {
@@ -47,7 +46,7 @@ export class DebitNoteDraftTaskPanel implements OnInit {
     editorDialogRef.componentInstance.debitNoteItem = item;
   }
 
-  register() {
+  register(): void {
     this.store.dispatch(this.actions.completeDebitNoteTask(this.debitNoteTask));
     this.goBack();
   }

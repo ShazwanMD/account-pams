@@ -1,6 +1,12 @@
 <md-card>
-  <md-card-title>Credit Notes</md-card-title>
-  <md-card-subtitle>List of Credit Notes</md-card-subtitle>
+  <div toolbar-buttons layout="row" layout-align="start center" flex>
+    <md-card-title>Credit Notes
+    </md-card-title>
+    <md-chip-list *ngIf="creditNotes?.length > 0">
+      <md-chip color="accent">{{creditNotes?.length}}</md-chip>
+    </md-chip-list>
+    <span flex></span>
+  </div>
   <md-divider></md-divider>
   <td-data-table
     [data]="debitNotes"
@@ -11,7 +17,6 @@
     [multiple]="false"
     [selectable]="false"
     (rowSelect)="view.emit($event)" dense>
-
     <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
       <div layout="row">
         <span flex>{{value}}</span>
