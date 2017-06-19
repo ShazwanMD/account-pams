@@ -97,6 +97,33 @@ export class AccountEffects {
     .switchMap(account => this.accountService.updateAccount(account))
     .map(account => this.accountActions.updateAccountSuccess(account));
 
+    @Effect() addAccountCharge$ = this.actions$
+    .ofType(AccountActions.ADD_ACCOUNT_CHARGE)
+    .map(action => action.payload)
+    .switchMap(payload => this.accountService.addAccountCharge(payload.account, payload.charge))
+    .map(message => this.accountActions.addAccountChargeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map(state => state[1])
+    .map((account:Account) => this.accountActions.findAccountByCode(account.code));
+
+  @Effect() removeAccountCharge$ = this.actions$
+    .ofType(AccountActions.REMOVE_ACCOUNT_CHARGE)
+   .map(action => action.payload)
+    .switchMap(payload => this.accountService.removeAccountCharge(payload.account, payload.charge))
+    .map(message => this.accountActions.removeAccountChargeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map(state => state[1])
+    .map((account:Account) => this.accountActions.findAccountByCode(account.code));
+
+  @Effect() updateAccountCharge$ = this.actions$
+    .ofType(AccountActions.UPDATE_ACCOUNT_CHARGE)
+   .map(action => action.payload)
+    .switchMap(payload => this.accountService.updateAccountCharge(payload.account, payload.charge))
+    .map(message => this.accountActions.updateAccountChargeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map(state => state[1])
+    .map((account:Account) => this.accountActions.findAccountByCode(account.code));
+
   @Effect() addAdmissionCharge$ = this.actions$
     .ofType(AccountActions.ADD_ADMISSION_CHARGE)
     .map(action => action.payload)

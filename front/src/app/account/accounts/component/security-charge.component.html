@@ -1,0 +1,36 @@
+<td-expansion-panel label="Security Charge">
+  <md-dialog-actions align="end">
+    <button md-button class="md-icon-button" (click)="editDialog()">
+      <md-icon>edit</md-icon>
+    </button>
+    <button md-button class="md-icon-button" (click)="delete()">
+      <md-icon>delete</md-icon>
+    </button>
+  </md-dialog-actions>
+    <div layout="column" class="inset">
+      <div layout="row" class="pad-bottom">
+        <span flex="20">Source No</span>
+        <span>{{accountCharge.sourceNo}}</span>
+      </div>
+      <div layout="row" class="pad-bottom">
+        <span flex="20">Section Code</span>
+        <span>{{accountCharge.code}}</span>
+      </div>
+      <div layout="row" class="pad-bottom">
+        <span flex="20">Section Description</span>
+        <span>{{accountCharge.description}}</span>
+      </div>
+      <div layout="row" class="pad-bottom">
+        <span flex="20">Amount</span>
+        <span>{{accountCharge.amount}}</span>
+      </div>
+        <div layout="row" class="pad-bottom">
+        <span flex="20">Compound Date</span>
+        <span>{{accountCharge.date}}</span>
+      </div>
+        <div layout="row" class="pad-bottom">
+        <span flex="20">Ordinal</span>
+        <span>{{accountCharge.ordinal}}</span>
+      </div>
+    </div>
+  </td-expansion-panel>

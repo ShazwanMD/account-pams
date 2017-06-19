@@ -37,6 +37,10 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     private String sourceNo;
 
     @NotNull
+    @Column(name = "CODE")
+    private String code;
+    
+    @NotNull
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
@@ -93,6 +97,16 @@ public class AcAccountChargeImpl implements AcAccountCharge {
 	}
 
     @Override
+    public String getCode() {
+		return code;
+	}
+
+    @Override
+    public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Override
     public void setDoc(Date doc) {
 		this.doc = doc;
 	}
