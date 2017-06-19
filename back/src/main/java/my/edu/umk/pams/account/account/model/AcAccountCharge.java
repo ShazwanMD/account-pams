@@ -64,4 +64,8 @@ public interface AcAccountCharge extends AcMetaObject{
     void setOrdinal(Integer ordinal);
 
 	void setChargeType(AcAccountChargeType chargeType);
+
+	String getCode();
+
+	void setCode(String code);
 }
