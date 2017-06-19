@@ -1,41 +1,41 @@
-<md-card>
-  <div toolbar-buttons layout="row" layout-align="start center" flex>
-    <md-card-title>Charges
-    </md-card-title>
-    <md-chip-list *ngIf="charges?.length > 0">
-      <md-chip color="accent">{{charges?.length}}</md-chip>
-    </md-chip-list>
-    <span flex></span>
-    <button md-icon-button [md-menu-trigger-for]="menu">
+<div toolbar-buttons layout="row" layout-align="start center" flex>
+  <md-card-title>Account Charges 
+  </md-card-title>
+  <md-chip-list *ngIf="accountCharges?.length > 0">
+    <md-chip color="accent">{{accountCharges?.length}}</md-chip>
+  </md-chip-list>
+  <span flex></span>
+  <button md-icon-button [md-menu-trigger-for]="menu">
     <md-icon>add</md-icon>
-        </button>
-    <md-menu x-position="before" #menu="mdMenu">
-      <button md-menu-item (click)="addAdmission()">Add Admission Charge</button>
-      <button md-menu-item (click)="addCompound()">Add Compound Charge</button>
-    </md-menu>
-
-    <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
-    <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
   </button>
-    <button md-button class="md-icon-button" (click)="delete(account, selectedRows[0])" [disabled]="selectedRows.length != 1">
-    <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">delete</md-icon>
-  </button>
-
-  </div>
-  <md-divider></md-divider>
-  <td-data-table [data]="charges" [columns]="columns" [sortBy]="summary" [sortOrder]="ASC" [sortable]="false" [multiple]="true"
-    [selectable]="true" [(ngModel)]="selectedRows" (rowSelect)="selectRow($event)" (selectAll)="selectAllRows($event)" dense>
-    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-      <div layout="row">
-        <span flex>{{value}}</span>
-      </div>
-    </template>
-    <template tdDataTableTemplate="invoiced" let-value="value" let-row="row" let-column="column">
-      <div layout="row">
-        <md-icon *ngIf="value" class="md-24 tc-grey-700">done</md-icon>
-      </div>
-    </template>
-    <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
-    </template>
-  </td-data-table>
-</md-card>
+  <md-menu x-position="before" #menu="mdMenu">
+    <button md-menu-item (click)="createSecurity()">Add Security Charge</button>
+    <!--<button md-menu-item (click)="createDiploma()">Add Diploma Result</button>
+    <button md-menu-item (click)="createStpm()">Add STPM Result</button>
+    <button md-menu-item (click)="createSpm()">Add SPM Result</button>-->
+  </md-menu>
+</div>
+<md-divider></md-divider>
+<!-- contoh -->
+<template let-result let-last="last" ngFor [ngForOf]="results">
+  <pams-security-charge
+    [account]="Account"
+    [accountCharge]="accountCharge" *ngIf="accountCharge.chargeType === 'SECURITY'">
+  </pams-security-charge>
+  <!--
+   Bachelor Result 
+  <pams-bachelor-result
+    [intakeApplication]="intakeApplication"
+    [result]="result" *ngIf="result.resultType === 'BACHELOR'">
+  </pams-bachelor-result>
+  <!-- STPM Result 
+   <pams-stpm-result
+    [intakeApplication]="intakeApplication"
+    [result]="result" *ngIf="result.resultType === 'STPM'">
+  </pams-stpm-result>
+  <!-- Diploma Result 
+   <pams-diploma-result
+    [intakeApplication]="intakeApplication"
+    [result]="result" *ngIf="result.resultType === 'DIPLOMA'">
+  </pams-diploma-result>-->
+</template>
