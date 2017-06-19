@@ -3,16 +3,21 @@ package my.edu.umk.pams.account.web.module.financialaid.controller;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.account.web.module.billing.vo.DebitNote;
+import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
 import my.edu.umk.pams.account.web.module.financialaid.vo.Settlement;
 import my.edu.umk.pams.account.web.module.financialaid.vo.SettlementItem;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
@@ -239,6 +244,18 @@ public class FinancialAidController {
         dummyLogin();
         List<Task> tasks = financialAidService.findPooledWaiverApplicationTasks(0, 100);
         return new ResponseEntity<List<WaiverApplicationTask>>(financialAidTransformer.toWaiverApplicationTaskVos(tasks), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverApplications/state/{state}", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverApplication>> findWaiverApplicationsByFlowState(@PathVariable String state) {
+    	List<AcWaiverApplication> waiverApplications = financialAidService.findWaiverApplicationsByFlowState(AcFlowState.valueOf(state));
+    	return new ResponseEntity<List<WaiverApplication>>(financialAidTransformer.toWaiverApplicationVos(waiverApplications), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverApplications/archived", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverApplication>> findArchivedWaiverApplications(@PathVariable String state) {
+        List<AcWaiverApplication> waiverApplications = financialAidService.findWaiverApplicationsByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<WaiverApplication>>(financialAidTransformer.toWaiverApplicationVos(waiverApplications), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/waiverApplications/startTask", method = RequestMethod.POST)

@@ -189,6 +189,12 @@ export class FinancialaidService {
       .map((res: Response) => <WaiverApplication>res.json());
   }
 
+  findArchivedWaiverApplications(): Observable<WaiverApplication[]> {
+      console.log('findArchivedWaiverApplications');
+      return this.http.get(environment.endpoint + '/api/financialaid/waiverApplications/state/COMPLETED')
+        .map((res: Response) => <WaiverApplication[]>res.json());
+    }
+  
   startWaiverApplicationTask(waiverApplication: WaiverApplication): Observable<String> {
     let headers = new Headers({
       'Content-Type': 'application/json',
