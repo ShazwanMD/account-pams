@@ -1,17 +1,18 @@
 <h2 md-dialog-title>Invoice Item Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editForm">
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <pams-charge-code-select
+        [placeholder]="'Charge Code'"
+        [innerFormControl]="editForm.controls['chargeCode']"
+        fxFlex="calc(70%-25px)">
+      </pams-charge-code-select>
+
+      <md-input-container fxFlex="calc(30%-25px)">
         <input mdInput
                placeholder="Amount"
                formControlName="amount">
       </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <pams-charge-code-select
-        [placeholder]="'Charge Code'"
-        [innerFormControl]="editForm.controls['chargeCode']"></pams-charge-code-select>
     </div>
   </form>
 </md-dialog-content>

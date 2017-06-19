@@ -111,11 +111,15 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  downloadFeeSchedule(schedule: FeeSchedule): Observable<Blob> {
+  downloadFeeSchedule(schedule: FeeSchedule): Observable<File> {
     console.log('downloadFeeSchedule');
     let options = new RequestOptions({responseType: ResponseContentType.ArrayBuffer});
     return this.http.get(environment.endpoint + '/api/account/feeSchedules/' + schedule.code + '/download', options)
-      .map((res: Response) => new Blob([res.arrayBuffer()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+      .map((res: Response) => {
+        let type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        let filename = schedule.code + '.xlsx';
+        return new File([res.arrayBuffer()], filename, {type: type});
+    });
   }
 
   // ====================================================================================================

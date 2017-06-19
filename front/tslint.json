@@ -29,7 +29,7 @@
       "spaces"
     ],
     "interface-name": [
-      true,
+      false,
       "always-prefix"
     ],
     "jsdoc-format": true,

@@ -24,6 +24,7 @@ import {WaiverApplicationVerifyTaskPanel} from "./panel/waiver-application-verif
 import {WaiverApplicationRegisterTaskPanel} from "./panel/waiver-application-register-task.panel";
 import {WaiverApplicationEditorDialog} from "./dialog/waiver-application-editor.dialog";
 import {WaiverApplicationStatusComponent} from "./component/waiver-application-status.component";
+import {PipeModule} from "../../app.pipe.module";
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import {WaiverApplicationStatusComponent} from "./component/waiver-application-s
     AccountSubModule.forRoot(),
     IdentityModule.forRoot(),
     CommonModule.forRoot(),
+    PipeModule.forRoot(),
     AcademicSessionSubModule.forRoot(),
     EffectsModule.run(WaiverApplicationEffects),
   ],

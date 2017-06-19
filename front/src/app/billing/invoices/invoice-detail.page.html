@@ -48,11 +48,10 @@
           [debitNotes]="debitNotes$ | async">
         </pams-invoice-debit-note-list>
 
-        <pams-invoice-credit-note-list>
-          <!--[invoice]="invoice$ | async"
-          [invoiceItems]="invoiceItems$ | async">-->
+        <pams-invoice-credit-note-list
+          [invoice]="invoice$ | async"
+          [creditNotes]="creditNotes$ | async">
         </pams-invoice-credit-note-list>
-
 
       </div>
       <div flex-gt-md="30">

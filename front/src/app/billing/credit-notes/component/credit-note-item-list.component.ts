@@ -1,12 +1,12 @@
 import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
-import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from "@angular/material";
-import {ActivatedRoute, Router} from "@angular/router";
-import {BillingModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import {CreditNote} from "../credit-note.interface";
-import {CreditNoteItem} from "../credit-note-item.interface";
-import {CreditNoteActions} from "../credit-note.action";
-import {CreditNoteItemEditorDialog} from "../dialog/credit-note-item-editor.dialog";
+import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BillingModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import {CreditNote} from '../credit-note.interface';
+import {CreditNoteItem} from '../credit-note-item.interface';
+import {CreditNoteActions} from '../credit-note.action';
+import {CreditNoteItemEditorDialog} from '../dialog/credit-note-item-editor.dialog';
 
 @Component({
   selector: 'pams-credit-note-item-list',
@@ -15,17 +15,17 @@ import {CreditNoteItemEditorDialog} from "../dialog/credit-note-item-editor.dial
 })
 export class CreditNoteItemListComponent implements OnInit {
 
-  @Input() creditNote: CreditNote;
-  @Input() creditNoteItems: CreditNoteItem[];
-
   private selectedRows: CreditNoteItem[];
   private editorDialogRef: MdDialogRef<CreditNoteItemEditorDialog>;
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Amount'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() creditNote: CreditNote;
+  @Input() creditNoteItems: CreditNoteItem[];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -37,7 +37,7 @@ export class CreditNoteItemListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedRows = this.creditNoteItems.filter(value => value.selected);
+    this.selectedRows = this.creditNoteItems.filter((value) => value.selected);
   }
 
   createDialog(): void {
@@ -64,9 +64,8 @@ export class CreditNoteItemListComponent implements OnInit {
   selectAllRows(creditNoteItems: CreditNoteItem[]): void {
   }
 
-
   showDialog(creditNoteItem: CreditNoteItem): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -76,8 +75,8 @@ export class CreditNoteItemListComponent implements OnInit {
     this.editorDialogRef = this.dialog.open(CreditNoteItemEditorDialog, config);
     this.editorDialogRef.componentInstance.creditNote = this.creditNote;
     if (creditNoteItem) this.editorDialogRef.componentInstance.creditNoteItem = creditNoteItem; // set
-    this.editorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.editorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
     });
   }
 }

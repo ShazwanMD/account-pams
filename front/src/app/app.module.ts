@@ -31,6 +31,7 @@ import {MarketingModule, INITIAL_MARKETING_STATE, marketingModuleReducers} from 
 import {IdentityModule, identityModuleReducers, IdentityModuleState, INITIAL_IDENTITY_STATE} from "./identity/index";
 import {CommonModule, commonModuleReducers, CommonModuleState, INITIAL_COMMON_STATE} from "./common/index";
 import {DashboardModule} from "./dashboard/index";
+import {PipeModule} from "./app.pipe.module";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -100,6 +101,8 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     StoreModule.provideStore(applicationReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     CommonModule.forRoot(),
+
+    PipeModule.forRoot(),
     IdentityModule.forRoot(),
     AccountModule.forRoot(),
     BillingModule.forRoot(),

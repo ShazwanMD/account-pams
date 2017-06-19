@@ -1,20 +1,14 @@
 <h2 md-dialog-title>Debit Note Item Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editForm">
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput
-               placeholder="Description"
-               formControlName="description">
-      </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
       <pams-charge-code-select
         [placeholder]="'Charge Code'"
-        [innerFormControl]="editForm.controls['chargeCode']"></pams-charge-code-select>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+        [innerFormControl]="editForm.controls['chargeCode']"
+        fxFlex="calc(100%-25px)"
+        class="pad-bottom">
+      </pams-charge-code-select>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput
                placeholder="Amount"
                formControlName="amount">
