@@ -106,4 +106,8 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     void updateAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
 
     void deleteTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
+    
+    void addShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan, AcUser user);
+
+    void deleteShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan, AcUser user);
 }

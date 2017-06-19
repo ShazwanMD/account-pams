@@ -10,6 +10,15 @@ export class FlowStatePipe implements PipeTransform {
             case FlowState.DRAFTED : {
                 return 'New';
             }
+            case FlowState.REGISTERED : {
+                return 'Preparer';
+            }
+            case FlowState.VERIFIED : {
+                return 'Reviewver';
+            }
+            case FlowState.APPROVED : {
+                return 'Posted';
+            }
             case FlowState.COMPLETED : {
                 return 'Final';
             }

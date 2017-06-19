@@ -5,8 +5,9 @@ import java.math.BigDecimal;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.AcMetaObject;
+import my.edu.umk.pams.account.core.model.AcDocument;
 
-public interface AcShortTermLoan extends AcMetaObject{
+public interface AcShortTermLoan extends AcDocument{
 
     String getReferenceNo();
 

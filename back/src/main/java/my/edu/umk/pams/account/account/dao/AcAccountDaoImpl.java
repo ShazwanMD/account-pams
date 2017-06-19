@@ -496,6 +496,32 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Session session = sessionFactory.getCurrentSession();
         session.delete(transaction);
     }
+    
+    @Override
+    public void addShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan, AcUser user) {
+        Validate.notNull(account, "Account should not be null");
+        Validate.notNull(shortTermLoan, "Waiver should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        shortTermLoan.setAccount(account);
+        shortTermLoan.setSession(academicSession);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        shortTermLoan.setMetadata(metadata);
+        session.save(shortTermLoan);
+    }
+
+    @Override
+    public void deleteShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan, AcUser user) {
+        Validate.notNull(account, "Account should not be null");
+        Validate.notNull(shortTermLoan, "Waiver should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(shortTermLoan);
+    }
 
     // todo(uda): vo account tx
 

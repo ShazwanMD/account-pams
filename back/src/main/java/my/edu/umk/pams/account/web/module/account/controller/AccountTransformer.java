@@ -116,6 +116,7 @@ public class AccountTransformer {
         m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
         m.setDoc(e.getChargeDate());
         m.setOrdinal(e.getOrdinal());
+        m.setCode(e.getCode());
         m.setInvoiced(null != e.getInvoice());
         return m;
     }
