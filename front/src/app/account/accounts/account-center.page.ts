@@ -66,12 +66,6 @@ export class AccountCenterPage implements OnInit {
     console.log("account: " + account.id);
     this.router.navigate(['/accounts-detail', account.id]);
   }
-  
-//  filterAccounts(filter: string): void {
-//    console.log("filtering: " + filter);
-//    if (filter) this.store.dispatch(this.actions.findAccountsByFilter(filter));
-//    else this.store.dispatch(this.actions.findAccounts())
-//  }
 
   showDialog(): void {
     console.log("showDialog");
@@ -89,12 +83,11 @@ export class AccountCenterPage implements OnInit {
   }
   
   onSelectChange = ($event: any): void => {
-      if($event.index==0) {this.store.dispatch(this.actions.findAccountsByActor())};
-      if ($event.index==1) {this.store.dispatch(this.actions.findAccountsByActorSponsor())};
+      if($event.index===0) {this.store.dispatch(this.actions.findAccountsByActor())};
+      if($event.index===1) {this.store.dispatch(this.actions.findAccountsByActorSponsor())};
     }
   
   ngOnInit(): void {
-    //this.store.dispatch(this.actions.findAccounts());
    this.store.dispatch(this.actions.findAccountsByActor());  
     
   }
