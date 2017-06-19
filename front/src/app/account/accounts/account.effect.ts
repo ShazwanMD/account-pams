@@ -82,11 +82,7 @@ export class AccountEffects {
     .map((action) => action.payload)
     .switchMap((account) => this.accountService.saveAccount(account))
     .map((account) => this.accountActions.saveAccountSuccess(account))
-<<<<<<< HEAD
     .mergeMap((action) => from([action, this.accountActions.findAccountsByActor()]));
-=======
-    .mergeMap((action) => from([action, this.accountActions.findAccounts()]));
->>>>>>> branch 'master' of http://119.110.101.9/pams/account.git
 
   @Effect() updateAccount$ = this.actions$
     .ofType(AccountActions.UPDATE_ACCOUNT)
