@@ -357,6 +357,11 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     public AcWaiverApplication findWaiverApplicationByReferenceNo(String referenceNo) {
         return waiverApplicationDao.findByReferenceNo(referenceNo);
     }
+    
+    @Override
+    public List<AcWaiverApplication> findWaiverApplicationsByFlowState(AcFlowState acFlowState) {
+    	return waiverApplicationDao.findByFlowState(acFlowState);
+    }
 
     @Override
     public List<AcWaiverApplication> findWaiverApplications(String filter, Integer offset, Integer limit) {

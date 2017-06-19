@@ -1,6 +1,8 @@
 package my.edu.umk.pams.account.financialaid.dao;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
@@ -11,6 +13,8 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 import java.util.List;
 
@@ -53,6 +57,17 @@ public class AcWaiverApplicationDaoImpl extends GenericDaoSupport<Long, AcWaiver
         return (List<AcWaiverApplication>) query.list();
     }
 
+    @Override
+    public List<AcWaiverApplication> findByFlowState(AcFlowState acFlowState) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select a from AcWaiverApplication a where " +
+                "a.metadata.state = :state " +
+                "and a.flowdata.state = :flowState");
+        query.setCacheable(true);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setInteger("flowState", acFlowState.ordinal());
+        return (List<AcWaiverApplication>) query.list();
+    }
 
     // ====================================================================================================
     // HELPER
