@@ -5,7 +5,13 @@ package my.edu.umk.pams.account.web.module.account.vo;
  */
 public enum AccountChargeType {
     ADMISSION,
-    COMPOUND;
+    ACADEMIC_LATE,
+    ENROLLMENT,
+    ENROLLMENT_LATE,
+    SECURITY,
+    COMPOUND,
+    STUDENT_AFFAIRS;
+	
 
     public static AccountChargeType get(int index){
         return values()[index];
