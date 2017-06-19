@@ -31,12 +31,16 @@ import {AccountSubModule} from "../account/accounts/index";
 import {Settlement} from "./settlements/settlement.interface";
 import {SettlementItem} from "./settlements/settlement-item.interface";
 import {PipeModule} from "../app.pipe.module";
+import {WaiverApplicationListState, archivedWaiverApplicationListReducer, waiverApplicationListReducer} from "./waiver-applications/waiver-application-list.reducer";
+import { WaiverApplication } from "./waiver-applications/waiver-application.interface";
 
 export interface FinancialaidModuleState {
   assignedWaiverApplicationTasks: WaiverApplicationTaskListState;
   pooledWaiverApplicationTasks: WaiverApplicationTaskListState;
+  archivedWaiverApplications: WaiverApplicationListState;
   waiverApplicationTask: WaiverApplicationTaskState;
   waiverApplication: WaiverApplicationState;
+  waiverApplications: WaiverApplicationListState;
   settlements: SettlementListState;
   settlement: SettlementState;
   settlementItems: SettlementItemListState;
@@ -47,8 +51,10 @@ export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState =
   <FinancialaidModuleState>{
     assignedWaiverApplicationTasks: [],
     pooledWaiverApplicationTasks: [],
+    archivedWaiverApplications: [],
     waiverApplicationTask: <WaiverApplicationTask>{},
     waiverApplication: {},
+    waiverApplications: <WaiverApplication[]>[],
     settlements: <Settlement[]>[],
     settlement: <Settlement>{},
     settlementItems: <SettlementItem[]>[],
@@ -57,8 +63,10 @@ export const INITIAL_FINANCIALAID_STATE: FinancialaidModuleState =
 export const financialaidModuleReducers = {
   assignedWaiverApplicationTasks: assignedWaiverApplicationTaskListReducer,
   pooledWaiverApplicationTasks: pooledWaiverApplicationTaskListReducer,
+  archivedWaiverApplications: archivedWaiverApplicationListReducer,
   waiverApplicationTask: waiverApplicationTaskReducer,
   waiverApplication: waiverApplicationReducer,
+  waiverApplications: waiverApplicationListReducer,
   settlements: settlementListReducer,
   settlement: settlementReducer,
   settlementItems: settlementItemListReducer

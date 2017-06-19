@@ -25,6 +25,7 @@ import {WaiverApplicationRegisterTaskPanel} from "./panel/waiver-application-reg
 import {WaiverApplicationEditorDialog} from "./dialog/waiver-application-editor.dialog";
 import {WaiverApplicationStatusComponent} from "./component/waiver-application-status.component";
 import {PipeModule} from "../../app.pipe.module";
+import {ArchivedWaiverApplicationListComponent} from "./component/archived-waiver-application-list.component";
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import {PipeModule} from "../../app.pipe.module";
     WaiverApplicationRegisterTaskPanel,
     WaiverApplicationVerifyTaskPanel,
     WaiverApplicationStatusComponent,
+    ArchivedWaiverApplicationListComponent,
 
     // dialog
     WaiverApplicationCreatorDialog,

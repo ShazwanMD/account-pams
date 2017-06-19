@@ -34,6 +34,11 @@
             [waiverApplicationTasks]="pooledWaiverApplicationTasks$ | async"
             (claim)="claim($event)"></pams-pooled-waiver-application-task-list>
         </md-tab>
+        <md-tab label="Archived">
+          <pams-archived-waiver-application-list
+            [waiverApplications]="archivedWaiverApplications$ | async"
+            (view)="viewWaiverApplication($event)"></pams-archived-waiver-application-list>
+        </md-tab>
       </md-tab-group>
     </md-card>
 
