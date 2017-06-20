@@ -8,7 +8,6 @@ import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.model.AcActor;
-import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableQuery;
 
 import org.activiti.engine.task.Task;
 
@@ -71,8 +70,8 @@ public interface BillingService {
     List<AcInvoice> findInvoices(String filter, Integer offset, Integer limit);
 
     List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit);
-
-	List<AcInvoice> findInvoicesByFullText(CovalentDatatableQuery query);
+    
+    List<AcInvoice> findInvoices(String term, Integer offset, Integer limit, List<String> columns);
 
 	List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState);
 

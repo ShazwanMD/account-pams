@@ -9,8 +9,9 @@ import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.account.util.DaoQuery;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
-import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableQuery;
+import my.edu.umk.pams.account.web.module.util.vo.CovalentDtQuery;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
 import org.activiti.engine.task.Task;
@@ -77,9 +78,9 @@ public class BillingController {
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/invoices/datatable/covalent", method = RequestMethod.POST)
-    public ResponseEntity<List<Invoice>> findInvoicesWithCovalentDatatable(@RequestBody CovalentDatatableQuery query) {
-        List<AcInvoice> invoices = billingService.findInvoicesByFullText(query);
+    @RequestMapping(value = "/invoices/dt/covalent", method = RequestMethod.POST)
+    public ResponseEntity<List<Invoice>> findInvoicesWithCovalentDtQuery(@RequestBody CovalentDtQuery query) {
+        List<AcInvoice> invoices = billingService.findInvoices(query.getSearchTerm(), query.getCurrentPage(), query.getPageSize(), DaoQuery.format(query.getColumns()));
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 
