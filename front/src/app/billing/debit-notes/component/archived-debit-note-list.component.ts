@@ -16,6 +16,7 @@ export class ArchivedDebitNoteListComponent {
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'sourceNo', label: 'Invoice'},
+    {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
