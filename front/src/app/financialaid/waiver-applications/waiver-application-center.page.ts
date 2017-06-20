@@ -19,7 +19,7 @@ export class WaiverApplicationCenterPage implements OnInit {
 
   private ASSIGNED_WAIVER_APPLICATION_TASKS = "financialaidModuleState.assignedWaiverApplicationTasks".split(".")
   private POOLED_WAIVER_APPLICATION_TASKS = "financialaidModuleState.pooledWaiverApplicationTasks".split(".")
-  private ARCHIVED_WAIVER_APPLICATIONS = "billingModuleState.archivedWaiverApplications".split(".");
+  private ARCHIVED_WAIVER_APPLICATIONS = "financialaidModuleState.archivedWaiverApplications".split(".");
   private creatorDialogRef: MdDialogRef<WaiverApplicationCreatorDialog>;
 
   private assignedWaiverApplicationTasks$: Observable<WaiverApplicationTask>;

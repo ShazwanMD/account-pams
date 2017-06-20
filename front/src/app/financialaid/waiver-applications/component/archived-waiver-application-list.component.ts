@@ -16,7 +16,7 @@ export class ArchivedWaiverApplicationListComponent {
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
-    {name: 'application.waivedAmount', label: 'Waived Amount'},
+    {name: 'waivedAmount', label: 'Waived Amount'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''}
   ];
