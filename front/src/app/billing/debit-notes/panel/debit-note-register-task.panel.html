@@ -5,13 +5,36 @@
         <md-card-title>{{debitNoteTask?.referenceNo}}</md-card-title>
         <md-card-subtitle>{{debitNoteTask?.description}}</md-card-subtitle>
 
-        <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+            <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
           <div layout="column" flex>
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{debitNoteTask?.referenceNo}}</h4>
                 <p md-line>Reference No</p>
+              </md-list-item>
+            </md-list>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{debitNoteTask?.totalAmount}}</h4>
+                <p md-line>Total Amount</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{debitNoteTask?.sourceNo}}</h4>
+                <p md-line>Invoice</p>
+              </md-list-item>
+            </md-list>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{debitNoteTask?.flowState}}</h4>
+                <p md-line>Status</p>
               </md-list-item>
             </md-list>
           </div>
