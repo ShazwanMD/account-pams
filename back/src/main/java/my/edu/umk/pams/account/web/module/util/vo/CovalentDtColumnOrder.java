@@ -1,6 +1,6 @@
 package my.edu.umk.pams.account.web.module.util.vo;
 
-public class CovalentDatatableColumnOrder {
+public class CovalentDtColumnOrder {
 
     private Integer column;
     private String order;
