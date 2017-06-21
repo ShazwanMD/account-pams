@@ -1,6 +1,7 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {MdSnackBar} from "@angular/material";
 import {CreditNote} from "../credit-note.interface";
+import { CreditNoteTask } from "../credit-note-task.interface";
 
 @Component({
   selector: 'pams-archived-credit-note-list',
@@ -9,12 +10,13 @@ import {CreditNote} from "../credit-note.interface";
 })
 export class ArchivedCreditNoteListComponent {
 
-  @Input() creditNotes: CreditNote[];
+  @Input() creditNotes: CreditNoteTask[];
   @Output() view = new EventEmitter<CreditNote>();
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'sourceNo', label: 'Invoice'},
+    {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
