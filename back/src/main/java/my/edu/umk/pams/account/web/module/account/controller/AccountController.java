@@ -305,7 +305,7 @@ public class AccountController {
         enrollmentCharge.setSourceNo(vo.getSourceNo());
         enrollmentCharge.setDescription(vo.getDescription());
         enrollmentCharge.setAmount(vo.getAmount());
-        enrollmentCharge.setSession(accountService.findCurrentAcademicSession()); // todo:
+      //  enrollmentCharge.setSession(accountService.findCurrentAcademicSession()); // todo:
         accountService.addAccountCharge(account, enrollmentCharge);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -341,75 +341,136 @@ public class AccountController {
     // ACCOUNT CHARGE
     // ====================================================================================================
 
-    // todo: generate account charge reference no
+//    // todo: generate account charge reference no
+//    @RequestMapping(value = "/accounts/{code}/accountCharges", method = RequestMethod.POST)
+//    public ResponseEntity<String> addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
+//        dummyLogin();
+//
+//        AcAccount account = accountService.findAccountByCode(code);
+//        AcAccountCharge charge = new AcAccountChargeImpl();
+//        switch (vo.getChargeType()) {
+//            case ADMISSION:
+//                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+//                charge.setSourceNo(vo.getSourceNo());
+//                charge.setDescription(vo.getDescription());
+//                charge.setAmount(vo.getAmount());
+//                charge.setOrdinal(vo.getOrdinal());
+//                charge.setChargeDate(vo.getChargeDate());
+//                charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+//                charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+//                charge.setSession(accountService.findCurrentAcademicSession());
+//                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+//                break;
+//            case COMPOUND:
+//                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+//                charge.setSourceNo(vo.getSourceNo());
+//                charge.setDescription(vo.getDescription());
+//                charge.setAmount(vo.getAmount());
+//                charge.setChargeDate(vo.getChargeDate());
+//                charge.setSession(accountService.findCurrentAcademicSession());
+//                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+//                break;
+//            case SECURITY:
+//                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+//                charge.setSourceNo(vo.getSourceNo());
+//                charge.setDescription(vo.getDescription());
+//                charge.setOrdinal(vo.getOrdinal());
+//                charge.setChargeDate(vo.getChargeDate());
+//                charge.setSession(accountService.findCurrentAcademicSession());
+//                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+//                break;    
+//        }
+//        accountService.addAccountCharge(account, charge);
+//        return new ResponseEntity<String>("Success", HttpStatus.OK);
+//    }
+
+//    @RequestMapping(value = "/account/{code}/accountCharges", method = RequestMethod.POST)
+//    public ResponseEntity<String> addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
+//    	dummyLogin();
+//    	AcAccount account = accountService.findAccountByCode(code);
+//    	AcAccountCharge charge = new AcAccountChargeImpl();
+//    	charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+//    	charge.setSourceNo(vo.getSourceNo());
+//    	charge.setDescription(vo.getDescription());
+//    	charge.setAmount(vo.getAmount());
+//    	charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+//    	charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+//    	charge.setSession(accountService.findCurrentAcademicSession()); // todo:
+//    	charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+//    	charge.setChargeDate(vo.getChargeDate());
+////    	charge.setOrdinal(vo.getOrdinal());
+//    	accountService.addAccountCharge(account, charge);
+//	return new ResponseEntity<String>("Success", HttpStatus.OK);
+//   	}
+//    
+//    // todo: use reference no
+//    @RequestMapping(value = "/accounts/{code}/accountCharges/{id}", method = RequestMethod.PUT)
+//    public ResponseEntity<String> updateAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
+//        dummyLogin();
+//
+//        AcAccount account = accountService.findAccountByCode(code);
+//        AcAccountCharge charge = accountService.findAccountChargeById(vo.getId());
+//        switch (vo.getChargeType()) {
+//            case ADMISSION:
+//                charge.setSourceNo(vo.getSourceNo());
+//                charge.setDescription(vo.getDescription());
+//                charge.setAmount(vo.getAmount());
+//                charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+//                charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+//               // charge.setSession(accountService.findCurrentAcademicSession());
+//                break;
+//            case COMPOUND:
+//                charge.setSourceNo(vo.getSourceNo());
+//                charge.setDescription(vo.getDescription());
+//                charge.setAmount(vo.getAmount());
+//               // charge.setSession(accountService.findCurrentAcademicSession());
+//                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+//                break;
+//        }
+//
+//        accountService.updateAccountCharge(account, charge);
+//        return new ResponseEntity<String>("Success", HttpStatus.OK);
+//    }
+
+    
     @RequestMapping(value = "/accounts/{code}/accountCharges", method = RequestMethod.POST)
     public ResponseEntity<String> addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
-        dummyLogin();
-
-        AcAccount account = accountService.findAccountByCode(code);
-        AcAccountCharge charge = new AcAccountChargeImpl();
-        switch (vo.getChargeType()) {
-            case ADMISSION:
-                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
-                charge.setSourceNo(vo.getSourceNo());
-                charge.setDescription(vo.getDescription());
-                charge.setAmount(vo.getAmount());
-                charge.setOrdinal(vo.getOrdinal());
-                charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-                charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-                charge.setSession(accountService.findCurrentAcademicSession());
-                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                break;
-            case COMPOUND:
-                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
-                charge.setSourceNo(vo.getSourceNo());
-                charge.setDescription(vo.getDescription());
-                charge.setAmount(vo.getAmount());
-                charge.setSession(accountService.findCurrentAcademicSession());
-                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                break;
- /*todo azieta   case SECURITY:
-                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
-                charge.setSourceNo(vo.getSourceNo());
-                charge.setDescription(vo.getDescription());
-                charge.setAmount(vo.getAmount());
-                charge.setSession(accountService.findCurrentAcademicSession());
-                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                break;    */
-        }
+		dummyLogin();
+		AcAccount account = accountService.findAccountByCode(code);
+		AcAccountCharge charge = new AcAccountChargeImpl();
+		// switch (vo.getChargeType()) {
+		// case ADMISSION:
+		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		charge.setSourceNo(vo.getSourceNo());
+		charge.setDescription(vo.getDescription());
+		charge.setAmount(vo.getAmount());
+		charge.setOrdinal(vo.getOrdinal());
+		charge.setChargeDate(vo.getChargeDate());
+		charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+		charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+		charge.setSession(accountService.findCurrentAcademicSession());
+		charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+		/*
+		 * break; case COMPOUND: charge.setReferenceNo("REFNO/" +
+		 * System.currentTimeMillis()); charge.setSourceNo(vo.getSourceNo());
+		 * charge.setDescription(vo.getDescription());
+		 * charge.setAmount(vo.getAmount());
+		 * charge.setSession(accountService.findCurrentAcademicSession());
+		 * charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().
+		 * ordinal())); break; /*todo azieta case SECURITY:
+		 * charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+		 * charge.setSourceNo(vo.getSourceNo());
+		 * charge.setDescription(vo.getDescription());
+		 * charge.setAmount(vo.getAmount());
+		 * charge.setSession(accountService.findCurrentAcademicSession());
+		 * charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().
+		 * ordinal())); break; }
+		 */
         accountService.addAccountCharge(account, charge);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    // todo: use reference no
-    @RequestMapping(value = "/accounts/{code}/accountCharges/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
-        dummyLogin();
-
-        AcAccount account = accountService.findAccountByCode(code);
-        AcAccountCharge charge = accountService.findAccountChargeById(vo.getId());
-        switch (vo.getChargeType()) {
-            case ADMISSION:
-                charge.setSourceNo(vo.getSourceNo());
-                charge.setDescription(vo.getDescription());
-                charge.setAmount(vo.getAmount());
-                charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-                charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-                charge.setSession(accountService.findCurrentAcademicSession());
-                break;
-            case COMPOUND:
-                charge.setSourceNo(vo.getSourceNo());
-                charge.setDescription(vo.getDescription());
-                charge.setAmount(vo.getAmount());
-                charge.setSession(accountService.findCurrentAcademicSession());
-                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                break;
-        }
-
-        accountService.updateAccountCharge(account, charge);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
+    
     // todo: use reference no
     @RequestMapping(value = "/accounts/{code}/accountCharges/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable Long id) {
