@@ -356,7 +356,9 @@ public class AccountController {
                 charge.setAmount(vo.getAmount());
                 charge.setOrdinal(vo.getOrdinal());
                 charge.setChargeDate(vo.getChargeDate());
+                if(null != vo.getCohortCode())
                 charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if(null != vo.getStudyMode()) 
                 charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
