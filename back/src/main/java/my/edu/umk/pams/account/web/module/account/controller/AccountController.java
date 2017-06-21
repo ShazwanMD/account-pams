@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.web.module.account.controller;
 
+import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
@@ -7,6 +8,7 @@ import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
+import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +24,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author PAMS
@@ -40,6 +45,9 @@ public class AccountController {
 
     @Autowired
     private CommonService commonService;
+
+    @Autowired
+    private SystemService systemService;
 
     @Autowired
     private IdentityService identityService;
@@ -297,17 +305,12 @@ public class AccountController {
                 accountTransformer.toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/{code}/enrollmentCharge", method = RequestMethod.POST)
-    public ResponseEntity<String> addEnrollmentCharge(@PathVariable String code, @RequestBody EnrollmentCharge vo) {
+    @RequestMapping(value = "/accounts/{code}/accountCharges/chargeType/{chargeType}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountCharge>> findAccountCharges(@PathVariable String code, @PathVariable String chargeType) {
         AcAccount account = accountService.findAccountByCode(code);
-        AcEnrollmentCharge enrollmentCharge = new AcEnrollmentChargeImpl();
-        enrollmentCharge.setReferenceNo("REFNO/" + System.currentTimeMillis());
-        enrollmentCharge.setSourceNo(vo.getSourceNo());
-        enrollmentCharge.setDescription(vo.getDescription());
-        enrollmentCharge.setAmount(vo.getAmount());
-      //  enrollmentCharge.setSession(accountService.findCurrentAcademicSession()); // todo:
-        accountService.addAccountCharge(account, enrollmentCharge);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+        return new ResponseEntity<List<AccountCharge>>(
+                accountTransformer.toAccountChargeVos(accountService
+                        .findAccountCharges(account, AcAccountChargeType.valueOf(chargeType))), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{code}/accountWaivers", method = RequestMethod.GET)
@@ -316,13 +319,14 @@ public class AccountController {
         return new ResponseEntity<List<AccountWaiver>>(
                 accountTransformer.toAccountWaiverVos(accountService.findAccountWaivers(account)), HttpStatus.OK);
     }
-    
-    @RequestMapping(value = "/accounts/{code}/accountShortTermLoans", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountShortTermLoan>> findAccountShortTermLoans(@PathVariable String code) {
-        AcAccount account = accountService.findAccountByCode(code);
-        return new ResponseEntity<List<AccountShortTermLoan>>(
-                accountTransformer.toAccountShortTermLoanVos(accountService.findAccountShortTermLoans(account)), HttpStatus.OK);
-    }
+
+    @Deprecated // todo(hajar): do we need this?
+//    @RequestMapping(value = "/accounts/{code}/accountShortTermLoans", method = RequestMethod.GET)
+//    public ResponseEntity<List<AccountShortTermLoan>> findAccountShortTermLoans(@PathVariable String code) {
+//        AcAccount account = accountService.findAccountByCode(code);
+//        return new ResponseEntity<List<AccountShortTermLoan>>(
+//                accountTransformer.toAccountShortTermLoanVos(accountService.findAccountShortTermLoans(account)), HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
     public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo) {
@@ -348,23 +352,26 @@ public class AccountController {
 
         AcAccount account = accountService.findAccountByCode(code);
         AcAccountCharge charge = new AcAccountChargeImpl();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("academicSession", accountService.findCurrentAcademicSession());
+        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHAEGE_REFRENCE_NO, map);
         switch (vo.getChargeType()) {
             case ADMISSION:
-                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+                charge.setReferenceNo(referenceNo);
                 charge.setSourceNo(vo.getSourceNo());
                 charge.setDescription(vo.getDescription());
                 charge.setAmount(vo.getAmount());
                 charge.setOrdinal(vo.getOrdinal());
                 charge.setChargeDate(vo.getChargeDate());
-                if(null != vo.getCohortCode())
-                charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-                if(null != vo.getStudyMode()) 
-                charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+                if (null != vo.getCohortCode())
+                    charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if (null != vo.getStudyMode())
+                    charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 break;
             case COMPOUND:
-                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+                charge.setReferenceNo(referenceNo);
                 charge.setSourceNo(vo.getSourceNo());
                 charge.setDescription(vo.getDescription());
                 charge.setAmount(vo.getAmount());
@@ -373,28 +380,25 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 break;
             case SECURITY:
-                charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
+                charge.setReferenceNo(referenceNo);
                 charge.setSourceNo(vo.getSourceNo());
                 charge.setDescription(vo.getDescription());
-                charge.setOrdinal(vo.getOrdinal());
                 charge.setChargeDate(vo.getChargeDate());
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                break;    
+                break;
         }
         accountService.addAccountCharge(account, charge);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-
-    
     // todo: use reference no
-/*    @RequestMapping(value = "/accounts/{code}/accountCharges/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateAdmissionCharge(@PathVariable String code, @RequestBody AdmissionCharge vo) {
+/*    @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateAdmissionCharge(@PathVariable String code, @PathVariable String referenceNo, @RequestBody AdmissionCharge vo) {
         dummyLogin();
 
         AcAccount account = accountService.findAccountByCode(code);
-        AcAccountCharge charge = accountService.findAccountChargeById(vo.getId());
+        AcAccountCharge charge = accountService.findAccountChargeByReferenceNo(referenceNo);
         switch (vo.getChargeType()) {
             case ADMISSION:
                 charge.setSourceNo(vo.getSourceNo());
@@ -417,18 +421,15 @@ public class AccountController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-*/    
- 
+*/
 
-    
-    // todo: use reference no
-    @RequestMapping(value = "/accounts/{code}/accountCharges/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable Long id) {
+    @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable String referenceNo) {
         dummyLogin();
         AcAccount account = accountService.findAccountByCode(code);
-        AcAccountCharge admissionCharge = accountService.findAccountChargeById(id);
+        AcAccountCharge admissionCharge = accountService.findAccountChargeByReferenceNo(referenceNo);
         accountService.deleteAccountCharge(account, admissionCharge);
-        LOG.debug("account charge " + id + " is deleted");
+        LOG.debug("account charge " + referenceNo + " is deleted");
         return new ResponseEntity<>("Removed", HttpStatus.OK);
     }
 

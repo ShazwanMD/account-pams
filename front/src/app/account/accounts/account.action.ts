@@ -117,42 +117,41 @@ export class AccountActions {
     };
   }
 
-  static FIND_ACCOUNT_CHARGES = '[Account] Find Account Charges';
-  findAccountCharges(account): Action {
-    console.log("findAccountCharges");
+  static FIND_SECURITY_ACCOUNT_CHARGES = '[Account] Find Security Account Charges';
+  findSecurityAccountCharges(account): Action {
+    console.log("findSecurityAccountCharges");
     return {
-      type: AccountActions.FIND_ACCOUNT_CHARGES,
+      type: AccountActions.FIND_SECURITY_ACCOUNT_CHARGES,
       payload: account
     };
   }
 
-    static FIND_COMPOUND_CHARGES = '[Account] Find Compound Charges';
-  findCompoundCharges(account): Action {
-    console.log("findCompoundCharges");
+  static FIND_SECURITY_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Security Account Charges Success';
+  findSecurityAccountChargesSuccess(accountCharges): Action {
+    console.log("findSecurityAccountChargesSuccess");
     return {
-      type: AccountActions.FIND_COMPOUND_CHARGES,
+      type: AccountActions.FIND_SECURITY_ACCOUNT_CHARGES_SUCCESS,
+      payload: accountCharges
+    };
+  }
+
+  static FIND_ADMISSION_ACCOUNT_CHARGES = '[Account] Find Admission Account Charges';
+  findAdmissionAccountCharges(account): Action {
+    console.log("findAdmissionAccountCharges");
+    return {
+      type: AccountActions.FIND_ADMISSION_ACCOUNT_CHARGES,
       payload: account
     };
   }
 
-    static FIND_COMPOUND_CHARGES_SUCCESS = '[Account] Find Compound Charges Success';
-  findCompoundChargesSuccess(accountCharges): Action {
-    console.log("findCompoundChargesSuccess");
+  static FIND_ADMISSION_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Admission Account Charges Success';
+  findAdmissionAccountChargesSuccess(accountCharges): Action {
+    console.log("findAdmissionAccountChargesSuccess");
     return {
-      type: AccountActions.FIND_COMPOUND_CHARGES_SUCCESS,
+      type: AccountActions.FIND_ADMISSION_ACCOUNT_CHARGES_SUCCESS,
       payload: accountCharges
     };
   }
-
-  static FIND_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Account Charges Success';
-  findAccountChargesSuccess(accountCharges): Action {
-    console.log("findAccountChargesSuccess");
-    return {
-      type: AccountActions.FIND_ACCOUNT_CHARGES_SUCCESS,
-      payload: accountCharges
-    };
-  }
-
 
   static FIND_ACCOUNT_WAIVERS = '[Account] Find Account Waivers';
   findAccountWaivers(account): Action {

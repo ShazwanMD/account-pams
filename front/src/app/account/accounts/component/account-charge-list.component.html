@@ -9,15 +9,55 @@
     <md-icon>add</md-icon>
   </button>
   <md-menu x-position="before" #menu="mdMenu">
-    <button md-menu-item (click)="createSecurityCharge()">Security Charge</button>
-    <button md-menu-item (click)="createAdmissionCharge()">Admission Charge</button>
+    <button md-menu-item (click)="showSecurityChargeDialog()">Security Charge</button>
+    <button md-menu-item (click)="showAdmissionChargeDialog()">Admission Charge</button>
   </md-menu>
 </div>
 <md-divider></md-divider>
-<!-- contoh -->
-<template let-result let-last="last" ngFor [ngForOf]="charges">
-  <pams-security-charge
-    [account]="Account"
-    [accountCharge]="accountCharge" *ngIf="accountCharge.chargeType === 'SECURITY'">
-  </pams-security-charge>
-</template>
+
+<!--todo(azieta): componentize later-->
+<div toolbar-buttons layout="row" layout-align="start center" flex>
+  <md-card-title>Security Charges
+  </md-card-title>
+  <md-chip-list *ngIf="securityAccountCharges?.length > 0">
+    <md-chip color="accent">{{securityAccountCharges?.length}}</md-chip>
+  </md-chip-list>
+  <span flex></span>
+</div>
+<td-data-table
+  [data]="securityAccountCharges"
+  [columns]="securityChargeColumns"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  dense>
+
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex>{{value}}</span>
+    </div>
+  </template>
+</td-data-table>
+
+<div toolbar-buttons layout="row" layout-align="start center" flex>
+  <md-card-title>Admission
+  </md-card-title>
+  <md-chip-list *ngIf="admissionAccountCharges?.length > 0">
+    <md-chip color="accent">{{admissionAccountCharges?.length}}</md-chip>
+  </md-chip-list>
+  <span flex></span>
+</div>
+<td-data-table
+  [data]="admissionAccountCharges"
+  [columns]="admissionChargeColumns"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  dense>
+
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex>{{value}}</span>
+    </div>
+  </template>
+</td-data-table>

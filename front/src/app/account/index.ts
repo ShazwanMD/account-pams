@@ -8,29 +8,33 @@ import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../services';
 import {IdentityService} from '../../services';
 
-import {AccountPage} from "./account.page";
-import {AccountService} from "../../services/account.service";
-import {AccountSubModule} from "./accounts/index";
-import {AccountListState, accountListReducer} from "./accounts/account-list.reducer";
-import {accountReducer, AccountState} from "./accounts/account.reducer";
-import {AccountTransactionListState, accountTransactionListReducer} from "./accounts/account-transaction-list.reducer";
-import {IdentityModule} from "../identity/index";
-import {chargeCodeReducer, ChargeCodeState} from "./charge-codes/charge-code.reducer";
-import {chargeCodeListReducer, ChargeCodeListState} from "./charge-codes/charge-code-list.reducer";
-import {ChargeCodeSubModule} from "./charge-codes/index";
+import {AccountPage} from './account.page';
+import {AccountService} from '../../services/account.service';
+import {AccountSubModule} from './accounts/index';
+import {AccountListState, accountListReducer} from './accounts/account-list.reducer';
+import {accountReducer, AccountState} from './accounts/account.reducer';
+import {AccountTransactionListState, accountTransactionListReducer} from './accounts/account-transaction-list.reducer';
+import {IdentityModule} from '../identity/index';
+import {chargeCodeReducer, ChargeCodeState} from './charge-codes/charge-code.reducer';
+import {chargeCodeListReducer, ChargeCodeListState} from './charge-codes/charge-code-list.reducer';
+import {ChargeCodeSubModule} from './charge-codes/index';
 import {
   academicSessionListReducer,
-  AcademicSessionListState
-} from "./academic-sessions/component/academic-session-list.reducer";
-import {academicSessionReducer, AcademicSessionState} from "./academic-sessions/academic-session.reducer";
-import {AcademicSessionSubModule} from "./academic-sessions/index";
-import {FeeScheduleSubModule} from "./fee-schedules/index";
-import {feeScheduleReducer, FeeScheduleState} from "./fee-schedules/fee-schedule.reducer";
-import {feeScheduleItemListReducer, FeeScheduleItemListState} from "./fee-schedules/fee-schedule-item-list.reducer";
-import {feeScheduleListReducer, FeeScheduleListState} from "./fee-schedules/fee-schedule-list.reducer";
-import {accountChargeListReducer, AccountChargeListState} from "./accounts/account-charge-list.reducer";
-import {ChargeCodeSelectComponent} from "./charge-codes/component/charge-code-select.component";
-import {accountWaiverReducer, AccountWaiverState} from "./accounts/account-waivers.reducer";
+  AcademicSessionListState,
+} from './academic-sessions/component/academic-session-list.reducer';
+import {academicSessionReducer, AcademicSessionState} from './academic-sessions/academic-session.reducer';
+import {AcademicSessionSubModule} from './academic-sessions/index';
+import {FeeScheduleSubModule} from './fee-schedules/index';
+import {feeScheduleReducer, FeeScheduleState} from './fee-schedules/fee-schedule.reducer';
+import {feeScheduleItemListReducer, FeeScheduleItemListState} from './fee-schedules/fee-schedule-item-list.reducer';
+import {feeScheduleListReducer, FeeScheduleListState} from './fee-schedules/fee-schedule-list.reducer';
+import {
+  AccountChargeListState,
+  admissionAccountChargeListReducer,
+  securityAccountChargeListReducer,
+} from './accounts/account-charge-list.reducer';
+import {ChargeCodeSelectComponent} from './charge-codes/component/charge-code-select.component';
+import {accountWaiverReducer, AccountWaiverState} from './accounts/account-waivers.reducer';
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -38,6 +42,8 @@ export interface AccountModuleState {
   accounts: AccountListState;
   account: AccountState;
   accountTransactions: AccountTransactionListState;
+  securityAccountCharges: AccountChargeListState;
+  admissionAccountCharges: AccountChargeListState;
   accountCharges: AccountChargeListState;
   chargeCode: ChargeCodeState;
   chargeCodes: ChargeCodeListState;
@@ -55,7 +61,8 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accounts: [],
     account: {},
     accountTransactions: [],
-    accountCharges: [],
+    securityAccountCharges: [],
+    admissionAccountCharges: [],
     chargeCodes: [],
     chargeCode: {},
     feeSchedules: [],
@@ -70,7 +77,8 @@ export const accountModuleReducers = {
   accounts: accountListReducer,
   account: accountReducer,
   accountTransactions: accountTransactionListReducer,
-  accountCharges: accountChargeListReducer,
+  securityAccountCharges: securityAccountChargeListReducer,
+  admissionAccountCharges: admissionAccountChargeListReducer,
   chargeCodes: chargeCodeListReducer,
   chargeCode: chargeCodeReducer,
   feeSchedules: feeScheduleListReducer,

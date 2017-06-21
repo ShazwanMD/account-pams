@@ -1,8 +1,8 @@
 <h2 md-dialog-title>Waiver Application Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editForm">
-    <div layout="row" class="pad-bottom">
-      <md-input-container  flex>
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput
                placeholder="Waived Amount"
                formControlName="waivedAmount"

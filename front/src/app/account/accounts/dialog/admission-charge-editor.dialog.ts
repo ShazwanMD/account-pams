@@ -11,6 +11,7 @@ import {Account} from '../account.interface';
 import {CohortCode} from '../../../common/cohort-codes/cohort-code.interface';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AccountCharge} from '../account-charge.interface';
+import {AccountChargeType} from '../account-charge-type.enum';
 
 @Component({
   selector: 'pams-admission-charge-editor',
@@ -46,11 +47,12 @@ export class AdmissionChargeEditorDialog implements OnInit {
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group({
       id: undefined,
-      referenceNo: '',
       sourceNo: '',
       description: '',
       amount: 0,
       ordinal: 0,
+      chargeDate: undefined,
+      chargeType: AccountChargeType.ADMISSION,
       studyMode: <StudyMode>{},
       cohortCode: <CohortCode>{},
       session: <AcademicSession>{},

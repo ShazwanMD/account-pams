@@ -2,13 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {FinancialaidModuleState} from "../../index";
-import {WaiverApplicationActions} from "../waiver-application.action";
-import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
-import {WaiverApplication} from "../waiver-application.interface";
-import {Account} from "../../../account/accounts/account.interface";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {FinancialaidModuleState} from '../../index';
+import {WaiverApplicationActions} from '../waiver-application.action';
+import {AcademicSession} from '../../../account/academic-sessions/academic-session.interface';
+import {WaiverApplication} from '../waiver-application.interface';
+import {Account} from '../../../account/accounts/account.interface';
 
 @Component({
   selector: 'pams-waiver-application',
@@ -30,12 +30,12 @@ export class WaiverApplicationCreatorDialog implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<WaiverApplication>{
-      referenceNo:'',
+      referenceNo: '',
       sourceNo: '',
       description: '',
       reason: '',
       waivedAmount: 0,
-      account:<Account>{},
+      account: <Account>{},
       academicSession: <AcademicSession>{},
     });
   }

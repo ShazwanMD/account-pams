@@ -1,42 +1,38 @@
 <h2 md-dialog-title>Waiver Application Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-   <div layout="row" class="pad-bottom pad-top">
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
       <pams-account-select
         [placeholder]="'Select Account'"
-        [innerFormControl]="createForm.controls['account']">
+        [innerFormControl]="createForm.controls['account']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-account-select>
-    </div>
-    <div layout="row" class="pad-bottom pad-top">
+
       <pams-academic-session-select
         [placeholder]="'Select Academic Session'"
-        [innerFormControl]="createForm.controls['academicSession']">
+        [innerFormControl]="createForm.controls['academicSession']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-academic-session-select>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container  flex>
+
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #description
                placeholder="description"
-               formControlName="description"
-               flex/>
+               formControlName="description"/>
       </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container  flex>
+
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #reason
                placeholder="reason"
                formControlName="reason"
-               flex/>
+               fxFlex="calc(100%-25px)"/>
       </md-input-container>
-    </div>
 
-    <div layout="row" class="pad-bottom">
-      <md-input-container  flex>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #reason
                placeholder="Waived amount"
                formControlName="waivedAmount"
                type="number"
-               flex/>
+               fxFlex="calc(100%-25px)"/>
       </md-input-container>
     </div>
   </form>

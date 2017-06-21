@@ -1,14 +1,13 @@
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {FinancialaidModuleState} from "../index";
-import {Store} from "@ngrx/store";
-import {WaiverApplicationTask} from "./waiver-application-task.interface";
-import {Observable} from "rxjs/Observable";
-import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
-import {WaiverApplicationCreatorDialog} from "./dialog/waiver-application-creator.dialog";
-import {WaiverApplicationActions} from "./waiver-application.action";
-import { WaiverApplication } from "./waiver-application.interface";
-
+import {FinancialaidModuleState} from '../index';
+import {Store} from '@ngrx/store';
+import {WaiverApplicationTask} from './waiver-application-task.interface';
+import {Observable} from 'rxjs/Observable';
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {WaiverApplicationCreatorDialog} from './dialog/waiver-application-creator.dialog';
+import {WaiverApplicationActions} from './waiver-application.action';
+import {WaiverApplication} from './waiver-application.interface';
 
 @Component({
   selector: 'pams-waiver-application-center',
@@ -17,9 +16,9 @@ import { WaiverApplication } from "./waiver-application.interface";
 
 export class WaiverApplicationCenterPage implements OnInit {
 
-  private ASSIGNED_WAIVER_APPLICATION_TASKS = "financialaidModuleState.assignedWaiverApplicationTasks".split(".")
-  private POOLED_WAIVER_APPLICATION_TASKS = "financialaidModuleState.pooledWaiverApplicationTasks".split(".")
-  private ARCHIVED_WAIVER_APPLICATIONS = "financialaidModuleState.archivedWaiverApplications".split(".");
+  private ASSIGNED_WAIVER_APPLICATION_TASKS: string[] = 'financialaidModuleState.assignedWaiverApplicationTasks'.split('.');
+  private POOLED_WAIVER_APPLICATION_TASKS: string[] = 'financialaidModuleState.pooledWaiverApplicationTasks'.split('.');
+  private ARCHIVED_WAIVER_APPLICATIONS: string[] = 'financialaidModuleState.archivedWaiverApplications'.split('.');
   private creatorDialogRef: MdDialogRef<WaiverApplicationCreatorDialog>;
 
   private assignedWaiverApplicationTasks$: Observable<WaiverApplicationTask>;
@@ -43,32 +42,32 @@ export class WaiverApplicationCenterPage implements OnInit {
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '70%';
-    config.height = '80%';
+    config.height = '60%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(WaiverApplicationCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
 
   claim(task: WaiverApplicationTask) {
-    console.log("waiverApplication: " + task.taskId);
+    console.log('waiverApplication: ' + task.taskId);
     this.store.dispatch(this.actions.claimWaiverApplicationTask(task));
   }
 
   view(task: WaiverApplicationTask) {
-    console.log("waiverApplication: " + task.taskId);
+    console.log('waiverApplication: ' + task.taskId);
     this.router.navigate(['/financialaid/waiver-applications/view-task', task.taskId]);
   }
 
   viewWaiverApplication(waiverApplication: WaiverApplication) {
-      console.log("WaiverApplication: " + waiverApplication.referenceNo);
-      this.router.navigate(['/financialaid/waiver-applications/waiver-application-detail', waiverApplication.referenceNo]);
+    console.log('WaiverApplication: ' + waiverApplication.referenceNo);
+    this.router.navigate(['/financialaid/waiver-applications/waiver-application-detail', waiverApplication.referenceNo]);
   }
 
   ngOnInit(): void {
-    console.log("find assigned/pooled waiver application tasks");
+    console.log('find assigned/pooled waiver application tasks');
     this.store.dispatch(this.actions.findAssignedWaiverApplicationTasks());
     this.store.dispatch(this.actions.findPooledWaiverApplicationTasks());
     this.store.dispatch(this.actions.findArchivedWaiverApplications());

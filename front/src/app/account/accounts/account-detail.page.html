@@ -8,27 +8,31 @@
     <div layout="column" layout-gt-md="row" class="inset">
       <div flex-gt-md="70">
         <pams-account [account]="account$ | async"></pams-account>
-        
-    <md-card>
-      <md-tab-group [selectedIndex]="0">
-        <md-tab label="Account Activities">
-        <pams-account-activity-list [transactions]="accountTransactions$ | async"></pams-account-activity-list>
-        </md-tab>
 
-        <md-tab label="Charges">
-        <pams-account-charge-list [account]="account$ | async" [charges]="accountCharges$ | async"></pams-account-charge-list>
-        </md-tab>
+        <md-card>
+          <md-tab-group [selectedIndex]="0">
+            <md-tab label="Account Activities">
+              <pams-account-activity-list [transactions]="accountTransactions$ | async"></pams-account-activity-list>
+            </md-tab>
 
-        <md-tab label="Waivers">
-        <pams-account-waiver-list [waivers]="accountWaivers$ | async"></pams-account-waiver-list>
-        </md-tab>
-        </md-tab-group>
-      </md-card>
+            <md-tab label="Charges">
+              <pams-account-charge-list
+                [account]="account$ | async"
+                [admissionAccountCharges]="admissionAccountCharges$ | async"
+                [securityAccountCharges]="securityAccountCharges$ | async">
+              </pams-account-charge-list>
+            </md-tab>
+
+            <md-tab label="Waivers">
+              <pams-account-waiver-list [waivers]="accountWaivers$ | async"></pams-account-waiver-list>
+            </md-tab>
+          </md-tab-group>
+        </md-card>
       </div>
 
       <div flex-gt-md="30">
         <pams-account-status [account]="account$ | async"
-        					 [waivers]="accountWaivers$ | async"></pams-account-status>
+                             [waivers]="accountWaivers$ | async"></pams-account-status>
 
         <md-card>
           <md-card-title>Action</md-card-title>

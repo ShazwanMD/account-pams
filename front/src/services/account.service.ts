@@ -259,19 +259,30 @@ export class AccountService {
       .map((res: Response) => <AccountTransaction[]>res.json());
   }
 
-  findAccountChargesByType(account: Account, chargeType: AccountChargeType): Observable<AccountCharge[]> {
-    console.log('findAccountCharges');
-    // let headers = new Headers({'Authorization': 'Bearer TODO'});
-    // let options = new RequestOptions({headers: headers});
-    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/chargeType/' + chargeType.toString())
-      .map((res: Response) => <AccountCharge[]>res.json());
-  }
-
+  // generic account charges
   findAccountCharges(account: Account): Observable<AccountCharge[]> {
     console.log('findAccountCharges');
     // let headers = new Headers({'Authorization': 'Bearer TODO'});
     // let options = new RequestOptions({headers: headers});
     return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges')
+      .map((res: Response) => <AccountCharge[]>res.json());
+  }
+
+  findSecurityAccountCharges(account: Account): Observable<AccountCharge[]> {
+    console.log('findSecurityAccountCharges');
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/chargeType/'
+      + 'SECURITY')
+      .map((res: Response) => <AccountCharge[]>res.json());
+  }
+
+  findAdmissionAccountCharges(account: Account): Observable<AccountCharge[]> {
+    console.log('findAdmissionAccountCharges');
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/chargeType/'
+      + 'ADMISSION')
       .map((res: Response) => <AccountCharge[]>res.json());
   }
 
