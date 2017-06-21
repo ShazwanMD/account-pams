@@ -11,6 +11,7 @@ import {AcademicSession} from '../app/account/academic-sessions/academic-session
 import {FeeScheduleItem} from '../app/account/fee-schedules/fee-schedule-item.interface';
 import {AccountCharge} from '../app/account/accounts/account-charge.interface';
 import {AccountWaiver} from '../app/account/accounts/account-waiver.interface';
+import {AccountChargeType} from "../app/account/accounts/account-charge-type.enum";
 
 @Injectable()
 export class AccountService {
@@ -115,7 +116,7 @@ export class AccountService {
         let type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
         let filename = schedule.code + '.xlsx';
         return new File([res.arrayBuffer()], filename, {type: type});
-    });
+      });
   }
 
   // ====================================================================================================
@@ -256,6 +257,14 @@ export class AccountService {
     // let options = new RequestOptions({headers: headers});
     return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountTransactions')
       .map((res: Response) => <AccountTransaction[]>res.json());
+  }
+
+  findAccountChargesByType(account: Account, chargeType: AccountChargeType): Observable<AccountCharge[]> {
+    console.log('findAccountCharges');
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/chargeType/' + chargeType.toString())
+      .map((res: Response) => <AccountCharge[]>res.json());
   }
 
   findAccountCharges(account: Account): Observable<AccountCharge[]> {

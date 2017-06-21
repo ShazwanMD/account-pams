@@ -20,35 +20,35 @@ import {Observable} from "rxjs/Observable";
 export class AccountChargeListComponent implements OnInit {
 	@Input() account: Account;
 	@Input() charges: AccountCharge[];
-	
+
 	private creatorSecurityDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
-	
+
 	private columns: any[] = [
      {name: 'sourceNo', label: 'Source No'},
-     {name: 'referenceNo', label: 'Reference No'}, 
+     {name: 'referenceNo', label: 'Reference No'},
      {name: 'code', label: 'Section Code'},
-     {name: 'description', label: 'Description'},	 
-     {name: 'chargeType', label: 'Type'},   
-     {name: 'session.code', label: 'Session'},	 
-     {name: 'cohort.code', label: 'Cohort'},	 
+     {name: 'description', label: 'Description'},
+     {name: 'chargeType', label: 'Type'},
+     {name: 'session.code', label: 'Session'},
+     {name: 'cohort.code', label: 'Cohort'},
      {name: 'studyMode.code', label: 'Study Mode'},
      {name: 'amount', label: 'Amount'},
-     {name: 'invoiced', label: 'Invoiced'},	 
-     {name: 'chargeDate', label: 'Date of Charge'},	 
+     {name: 'invoiced', label: 'Invoiced'},
+     {name: 'chargeDate', label: 'Date of Charge'},
      {name: 'action', label: ''}
   ];
-  
-	constructor(private actions: AccountActions,	 
-    private vcf: ViewContainerRef,	 
-    private store: Store<AccountModuleState>,	 
+
+	constructor(private actions: AccountActions,
+    private vcf: ViewContainerRef,
+    private store: Store<AccountModuleState>,
     private dialog: MdDialog) {
   }
   ngOnInit(): void {
   }
-  createSecurity(): void {
+  createSecurityCharge(): void {
     this.showDialog1(null);
   }
-  
+
   filter(): void {
   }
   showDialog1(securityCharge: AccountCharge): void {
