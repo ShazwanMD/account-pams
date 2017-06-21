@@ -6,6 +6,5 @@ export interface CreditNote extends MetaObject {
   sourceNo: string;
   description:string;
   totalAmount:number;
-  accountCode: string;
   invoice?:Invoice;
 }
