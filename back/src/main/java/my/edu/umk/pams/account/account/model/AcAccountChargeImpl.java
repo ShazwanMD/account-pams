@@ -37,6 +37,10 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     private String sourceNo;
 
     @NotNull
+    @Column(name = "CODE")
+    private String code;
+    
+    @NotNull
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
@@ -44,12 +48,12 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @Column(name = "AMOUNT", nullable = false)
     private BigDecimal amount = BigDecimal.ZERO;
 
-    @NotNull
-    @Column(name = "ORDINAL", nullable = false, columnDefinition = "int default 0")
+//    @NotNull
+    @Column(name = "ORDINAL", columnDefinition = "int default 0")
     private Integer ordinal = 0;
 
-    @NotNull
-    @Column(name = "CHARGE_DATE", nullable = false)
+//    @NotNull
+    @Column(name = "CHARGE_DATE")
     private Date chargeDate;
 
     @NotNull
@@ -63,9 +67,9 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
 
-    @NotNull
+  
     @ManyToOne(targetEntity = AcAcademicSessionImpl.class)
-    @JoinColumn(name = "SESSION_ID", nullable = false)
+    @JoinColumn(name = "SESSION_ID", nullable = true)
     private AcAcademicSession session;
 
     @ManyToOne(targetEntity = AcInvoiceImpl.class)
@@ -113,8 +117,18 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     public void setSourceNo(String sourceNo) {
         this.sourceNo = sourceNo;
     }
+    
+    @Override
+    public String getCode() {
+		return code;
+	}
 
     @Override
+    public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Override
     public String getDescription() {
         return description;
     }

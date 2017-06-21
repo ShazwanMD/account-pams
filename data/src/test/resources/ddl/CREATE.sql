@@ -17,7 +17,7 @@
     create table AC_ACCT_CHRG (
         ID int8 not null,
         AMOUNT numeric(19, 2) not null,
-        CHARGE_DATE timestamp not null,
+        CHARGE_DATE timestamp,
         CHARGE_TYPE int4,
         DESCRIPTION varchar(255) not null,
         C_TS timestamp,
@@ -27,13 +27,13 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
-        ORDINAL int default 0 not null,
+        ORDINAL int default 0,
         REFERENCE_NO varchar(255) not null,
         SOURCE_NO varchar(255) not null,
         ACCOUNT_ID int8,
         COHORT_CODE_ID int8,
         INVOICE_ID int8,
-        SESSION_ID int8 not null,
+        SESSION_ID int8,
         STUDY_MODE_ID int8,
         primary key (ID)
     );
