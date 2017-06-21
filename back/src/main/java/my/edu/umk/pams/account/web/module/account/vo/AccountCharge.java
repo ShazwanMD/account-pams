@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.web.module.account.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
@@ -24,7 +25,8 @@ public class AccountCharge extends MetaObject{
     private AcademicSession session;
     private CohortCode cohortCode;
     private StudyMode studyMode;
-    private Date doc;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date chargeDate;
     private Integer ordinal;
     private String code;
 
@@ -103,12 +105,13 @@ public class AccountCharge extends MetaObject{
 		this.studyMode = studyMode;
 	}
 
-	public Date getDoc() {
-		return doc;
+	
+	public Date getChargeDate() {
+		return chargeDate;
 	}
 
-	public void setDoc(Date doc) {
-		this.doc = doc;
+	public void setChargeDate(Date chargeDate) {
+		this.chargeDate = chargeDate;
 	}
 
 	public Integer getOrdinal() {
