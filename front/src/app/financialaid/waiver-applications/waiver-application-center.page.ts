@@ -64,7 +64,7 @@ export class WaiverApplicationCenterPage implements OnInit {
 
   viewWaiverApplication(waiverApplication: WaiverApplication) {
       console.log("WaiverApplication: " + waiverApplication.referenceNo);
-      this.router.navigate(['/financialaid/waiver-applications/invoice-detail', waiverApplication.referenceNo]);
+      this.router.navigate(['/financialaid/waiver-applications/waiver-application-detail', waiverApplication.referenceNo]);
   }
 
   ngOnInit(): void {
