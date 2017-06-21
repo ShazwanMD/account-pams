@@ -10,6 +10,7 @@ export interface AccountCharge extends MetaObject {
   amount: number;
   chargeType: AccountChargeType;
   session: AcademicSession;
+  chargeDate: Date;
 
   // admission
   studyMode?: StudyMode;
