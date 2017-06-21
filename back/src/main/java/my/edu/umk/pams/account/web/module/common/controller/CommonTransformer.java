@@ -18,6 +18,7 @@ public class CommonTransformer {
     //====================================================================================================
 
     public CohortCode toCohortCodeVo(AcCohortCode e) {
+    	if(null == e) return null;
         CohortCode vo = new CohortCode();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
@@ -56,6 +57,7 @@ public class CommonTransformer {
     //====================================================================================================
 
     public StudyMode toStudyModeVo(AcStudyMode e) {
+    	if(null == e) return null;
         StudyMode vo = new StudyMode();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
