@@ -11,28 +11,18 @@ import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcUser;
-import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableColumn;
-import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableQuery;
+import my.edu.umk.pams.account.util.DaoQuery;
 
 import org.apache.commons.lang.Validate;
-import org.apache.lucene.search.BooleanClause.Occur;
-import org.apache.lucene.search.BooleanQuery;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.query.dsl.BooleanJunction;
-import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 /**
@@ -151,26 +141,22 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         return (List<AcInvoice>) query.list();
     }
 
-    public List<AcInvoice> findFullText(String term, Integer limit, Integer offset, String... columns) {
-        return null;
-    }
-
-    public List<AcInvoice> findFullText(CovalentDatatableQuery query) {
-        Session session = sessionFactory.getCurrentSession();
-        FullTextSession fts = Search.getFullTextSession(session);
-        QueryBuilder qb = fts.getSearchFactory().buildQueryBuilder().forEntity(AcInvoice.class).get();
-
-        String searchTerm = "*" + query.getSearchTerm() + "*";
-        org.apache.lucene.search.Query bq = qb.keyword()
-                .onFields("description")
-                .matching(searchTerm)
-                .createQuery();
-
-        Query ftq = fts.createFullTextQuery(bq, AcInvoice.class)
-                .setFirstResult(query.getCurrentPage())
-                .setMaxResults(query.getPageSize());
-
-        return (List<AcInvoice>) ftq.list();
+    public List<AcInvoice> find(String term, Integer offset, Integer limit, List<String> columns) {
+    	Session session = sessionFactory.getCurrentSession();
+    	
+    	String sql = "select i from AcInvoice i ";
+    	sql += DaoQuery.buildFilteringSql(columns, "like");
+    	sql += "and i.metadata.state = :state";
+    	
+        Query query = session.createQuery(sql);
+        
+        DaoQuery.setFilteringTerm(query, columns, "%" + term + "%");
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        query.setCacheable(true);
+        
+        return (List<AcInvoice>) query.list();
     }
 
     @Override

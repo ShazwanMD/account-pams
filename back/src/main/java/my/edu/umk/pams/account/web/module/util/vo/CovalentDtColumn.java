@@ -1,6 +1,6 @@
 package my.edu.umk.pams.account.web.module.util.vo;
 
-public class CovalentDatatableColumn {
+public class CovalentDtColumn {
 	private String name;
 	private boolean searchable;
 	private boolean sortable;

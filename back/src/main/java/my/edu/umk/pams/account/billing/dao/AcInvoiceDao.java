@@ -7,7 +7,6 @@ import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
-import my.edu.umk.pams.account.web.module.util.vo.CovalentDatatableQuery;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
 
     List<AcInvoice> find(boolean paid, AcAccount account, Integer offset, Integer limit);
 
-    List<AcInvoice> findFullText(CovalentDatatableQuery query);
+    List<AcInvoice> find(String term, Integer offset, Integer limit, List<String> columns);
 
     List<AcInvoiceItem> findItems(AcInvoice invoice);
 

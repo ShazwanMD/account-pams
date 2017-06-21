@@ -2,13 +2,13 @@ package my.edu.umk.pams.account.web.module.util.vo;
 
 import java.util.List;
 
-public class CovalentDatatableQuery {
+public class CovalentDtQuery {
 
     private String searchTerm;
     private Integer currentPage;
     private Integer pageSize;
-    private CovalentDatatableColumnOrder sort;
-    private List<CovalentDatatableColumn> columns;
+    private CovalentDtColumnOrder sort;
+    private List<CovalentDtColumn> columns;
     
 	public String getSearchTerm() {
 		return searchTerm;
@@ -28,16 +28,16 @@ public class CovalentDatatableQuery {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-	public CovalentDatatableColumnOrder getSort() {
+	public CovalentDtColumnOrder getSort() {
 		return sort;
 	}
-	public void setSort(CovalentDatatableColumnOrder sort) {
+	public void setSort(CovalentDtColumnOrder sort) {
 		this.sort = sort;
 	}
-	public List<CovalentDatatableColumn> getColumns() {
+	public List<CovalentDtColumn> getColumns() {
 		return columns;
 	}
-	public void setColumns(List<CovalentDatatableColumn> columns) {
+	public void setColumns(List<CovalentDtColumn> columns) {
 		this.columns = columns;
 	}
 

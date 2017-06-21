@@ -195,7 +195,7 @@ export class WaiverApplicationActions {
   static FIND_ARCHIVED_WAIVER_APPLICATIONS_SUCCESS = '[WaiverApplication] Find Archived WaiverApplications Success';
 
   findArchivedWaiverApplicationsSuccess(invoices): Action {
-    console.log('findArchivedInvoicesSuccess');
+    console.log('findArchivedWaiverApplicationsSuccess');
     return {
       type: WaiverApplicationActions.FIND_ARCHIVED_WAIVER_APPLICATIONS_SUCCESS,
       payload: invoices,
