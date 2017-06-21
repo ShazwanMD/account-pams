@@ -26,6 +26,7 @@ import {AccountChargeListComponent} from './component/account-charge-list.compon
 import {AccountWaiverListComponent} from './component/account-waiver-list.component';
 import {AdmissionChargeDialog} from './dialog/admission-charge.dialog';
 import {AdmissionChargeEditorDialog} from './dialog/admission-charge-editor.dialog';
+import {SecurityChargeEditorDialog} from './dialog/security-charge-editor.dialog';
 import {CompoundChargeEditorDialog} from './dialog/compound-charge-editor.dialog';
 import {CommonModule} from '../../common/index';
 import {AcademicSessionSubModule} from '../academic-sessions/index';
@@ -59,6 +60,7 @@ import {AcademicSessionSubModule} from '../academic-sessions/index';
     AccountCreatorDialog,
     AdmissionChargeDialog,
     AdmissionChargeEditorDialog,
+    SecurityChargeEditorDialog,
     CompoundChargeEditorDialog,
 
   ],
@@ -72,6 +74,7 @@ import {AcademicSessionSubModule} from '../academic-sessions/index';
     AdmissionChargeDialog,
     AdmissionChargeEditorDialog,
     CompoundChargeEditorDialog,
+    SecurityChargeEditorDialog,
   ],
 
 })
