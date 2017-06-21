@@ -62,5 +62,8 @@ public interface AcAccountCharge extends AcMetaObject {
 
     void setStudyMode(AcStudyMode studyMode);
 
+	String getCode();
+
+	void setCode(String code);
 
 }
