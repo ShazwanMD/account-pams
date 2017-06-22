@@ -14,57 +14,11 @@
   </md-menu>
 </div>
 <md-divider></md-divider>
-
-<!--todo(azieta): componentize later
-<div toolbar-buttons layout="row" layout-align="start center" flex>
-  <md-card-title>Security Charges
-  </md-card-title>
-  <md-chip-list *ngIf="securityAccountCharges?.length > 0">
-    <md-chip color="accent">{{securityAccountCharges?.length}}</md-chip>
-  </md-chip-list>
-  <span flex></span>
-</div>
-<td-data-table
-  [data]="securityAccountCharges"
-  [columns]="securityChargeColumns"
-  [sortable]="false"
-  [multiple]="false"
-  [selectable]="false"
-  dense>
-
-  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-    <div layout="row">
-      <span flex>{{value}}</span>
-    </div>
-  </template>
-</td-data-table>-->
-
-<template let-accountCharge let-last="last" ngFor [ngForOf]="securityAccountCharges">
-  <pams-security-charge
-    [account]="account"
-    [accountCharge]="accountCharge" *ngIf="accountCharge.chargeType === 'SECURITY'">
-  </pams-security-charge>
-</template>
-
-<div toolbar-buttons layout="row" layout-align="start center" flex>
-  <md-card-title>Admission
-  </md-card-title>
-  <md-chip-list *ngIf="admissionAccountCharges?.length > 0">
-    <md-chip color="accent">{{admissionAccountCharges?.length}}</md-chip>
-  </md-chip-list>
-  <span flex></span>
-</div>
-<td-data-table
-  [data]="admissionAccountCharges"
-  [columns]="admissionChargeColumns"
-  [sortable]="false"
-  [multiple]="false"
-  [selectable]="false"
-  dense>
-
-  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-    <div layout="row">
-      <span flex>{{value}}</span>
-    </div>
-  </template>
-</td-data-table>
+<pams-security-charge
+  [account]="account"
+  [securityAccountCharges]="securityAccountCharges">
+</pams-security-charge>
+<!--<pams-admission-charge
+  [account]="account"
+  [accountCharge]="admissionAccountCharges">
+</pams-admission-charge>-->
