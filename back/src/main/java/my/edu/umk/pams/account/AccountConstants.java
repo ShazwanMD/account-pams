@@ -25,7 +25,7 @@ public interface AccountConstants {
     public static final String CREDIT_NOTE_REFERENCE_NO = "AcCreditNote.referenceNo";
     public static final String WAIVER_APPLICATION_REFERENCE_NO = "AcWaiverApplication.referenceNo";
     public static final String SHORT_TERM_LOAN_REFERENCE_NO = "AcShortTermLoan.referenceNo";
-    public static final String ACCOUNT_CHAEGE_REFRENCE_NO = "AcAccountCharge.referenceNo";
+    public static final String ACCOUNT_CHARGE_REFRENCE_NO = "AcAccountCharge.referenceNo";
 
     public static final String INVOICE_PROCESS_KEY = "invoice_workflow";
     public static final String INVOICE_RESOURCE_PATH = "invoice.bpmn20.xml";

@@ -42,6 +42,10 @@ public class AcDebitNoteImpl implements AcDebitNote {
     @NotNull
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
+    
+//  @NotNull
+    @Column(name = "DEBITNOTE_DATE")
+    private Date debitNoteDate;
 
     @Column(name = "CANCEL_COMMENT")
     private String cancelComment;
@@ -131,6 +135,16 @@ public class AcDebitNoteImpl implements AcDebitNote {
         this.issuedDate = issuedDate;
     }
 
+    @Override
+    public Date getDebitNoteDate() {
+        return debitNoteDate;
+    }
+
+    @Override
+    public void setDebitNoteDate(Date debitNoteDate) {
+        this.debitNoteDate = debitNoteDate;
+    }
+    
     @Override
     public String getCancelComment() {
         return cancelComment;

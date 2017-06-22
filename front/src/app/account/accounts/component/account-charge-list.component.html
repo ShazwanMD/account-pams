@@ -15,7 +15,7 @@
 </div>
 <md-divider></md-divider>
 
-<!--todo(azieta): componentize later-->
+<!--todo(azieta): componentize later
 <div toolbar-buttons layout="row" layout-align="start center" flex>
   <md-card-title>Security Charges
   </md-card-title>
@@ -37,7 +37,14 @@
       <span flex>{{value}}</span>
     </div>
   </template>
-</td-data-table>
+</td-data-table>-->
+
+<template let-accountCharge let-last="last" ngFor [ngForOf]="securityAccountCharges">
+  <pams-security-charge
+    [account]="account"
+    [accountCharge]="accountCharge" *ngIf="accountCharge.chargeType === 'SECURITY'">
+  </pams-security-charge>
+</template>
 
 <div toolbar-buttons layout="row" layout-align="start center" flex>
   <md-card-title>Admission
