@@ -382,6 +382,7 @@ public class AccountController {
             case SECURITY:
                 charge.setReferenceNo(referenceNo);
                 charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
                 charge.setDescription(vo.getDescription());
                 charge.setChargeDate(vo.getChargeDate());
                 charge.setSession(accountService.findCurrentAcademicSession());
