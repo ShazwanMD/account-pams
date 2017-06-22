@@ -42,6 +42,7 @@ export class CreditNoteCreatorDialog implements OnInit {
       referenceNo: '',
       sourceNo: '',
       totalAmount: 0,
+      creditNoteDate: undefined,
       //chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     });
