@@ -41,6 +41,7 @@ export class DebitNoteCreatorDialog implements OnInit {
       referenceNo: '',
       sourceNo: '',
       totalAmount: 0,
+      debitNoteDate: undefined,
       //chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     });

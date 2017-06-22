@@ -42,6 +42,10 @@ public class AcCreditNoteImpl implements AcCreditNote {
     @NotNull
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
+    
+//  @NotNull
+    @Column(name = "CREDITNOTE_DATE")
+    private Date creditNoteDate;
 
     @Column(name = "CANCEL_COMMENT")
     private String cancelComment;
@@ -129,6 +133,16 @@ public class AcCreditNoteImpl implements AcCreditNote {
     @Override
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
+    }
+    
+    @Override
+    public Date getCreditNoteDate() {
+        return creditNoteDate;
+    }
+
+    @Override
+    public void setCreditNoteDate(Date creditNoteDate) {
+        this.creditNoteDate = creditNoteDate;
     }
 
     @Override

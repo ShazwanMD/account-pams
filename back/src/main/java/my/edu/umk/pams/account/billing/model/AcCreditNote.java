@@ -25,4 +25,9 @@ public interface AcCreditNote extends AcDocument {
     AcInvoice getInvoice();
 
     void setInvoice(AcInvoice invoice);
+    
+    Date getCreditNoteDate();
+    
+    void setCreditNoteDate(Date creditNoteDate);
+
 }
