@@ -11,7 +11,7 @@ import {Account} from "../account.interface";
   templateUrl: './security-charge.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SecurityChargeComponent {
+export class SecurityChargeComponent implements OnInit{
   private editorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
   private securityChargeColumns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
@@ -22,30 +22,48 @@ export class SecurityChargeComponent {
     {name: 'invoiced', label: 'Invoiced'},
     {name: 'action', label: ''},
   ];
-  @Input() securityAccountCharges: AccountCharge;
+  @Input() securityAccountCharges: AccountCharge[];
   @Input() account: Account;
+
+  private selectedRows: AccountCharge[];
+
   constructor(private actions: AccountActions,
               private vcf: ViewContainerRef,
               private store: Store<AccountModuleState>,
               private dialog: MdDialog) {
   }
-  delete(): void {
-      this.store.dispatch(this.actions.removeAccountCharge(this.securityAccountCharges, this.account));
+    ngOnInit(): void {
+    this.selectedRows = this.securityAccountCharges.filter((value) => value.selected);
   }
-  editDialog(): void {
+  delete(): void {
+      console.log('length: ' + this.selectedRows.length);
+      for (let i: number = 0; i < this.selectedRows.length; i++) {
+      this.store.dispatch(this.actions.removeAccountCharge(this.account, this.selectedRows[i]));
+    }
+    this.selectedRows = [];
+  }
+    edit(securityAccountCharges: AccountCharge): void {
+    this.showDialog(securityAccountCharges);
+  }
+
+ selectRow(securityAccountCharges: AccountCharge): void {
+  }
+  selectAllRows(securityAccountCharges: AccountCharge[]): void {
+  }
+
+showDialog(securityAccountCharges: AccountCharge): void {
     console.log('showDialog');
-    let config: MdDialogConfig = new MdDialogConfig();
+    let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
-    config.width = '70%';
-    config.height = '65%';
-    config.position = {top: '0px'};
+    config.width = '50%';
+    config.height = '60%';
+    config.position = {top: '65px'};
     this.editorDialogRef = this.dialog.open(SecurityChargeEditorDialog, config);
-    this.editorDialogRef.componentInstance.accountCharge = this.securityAccountCharges;
     this.editorDialogRef.componentInstance.account = this.account;
+    if (securityAccountCharges) this.editorDialogRef.componentInstance.accountCharge = securityAccountCharges;
     this.editorDialogRef.afterClosed().subscribe((res) => {
       console.log('close dialog');
-      // load something here
     });
   }
 }
