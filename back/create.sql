@@ -185,6 +185,7 @@
     create table AC_CDIT_NOTE (
         ID int8 not null,
         AUDIT_NO varchar(255),
+        CREDITNOTE_DATE timestamp,
         CANCEL_COMMENT varchar(255),
         DESCRIPTION varchar(255),
         AV_TS timestamp,
@@ -356,6 +357,7 @@
 
     create table AC_DBIT_NOTE (
         ID int8 not null,
+        DEBITNOTE_DATE timestamp,
         AUDIT_NO varchar(255),
         CANCEL_COMMENT varchar(255),
         DESCRIPTION varchar(255),
