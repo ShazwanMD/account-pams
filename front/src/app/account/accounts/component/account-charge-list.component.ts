@@ -16,17 +16,6 @@ import {AdmissionChargeEditorDialog} from '../dialog/admission-charge-editor.dia
 export class AccountChargeListComponent implements OnInit {
   private securityCreatorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
   private admissionCreatorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
-
-  private securityChargeColumns: any[] = [
-    {name: 'referenceNo', label: 'Reference No'},
-    {name: 'sourceNo', label: 'Source No'},
-    {name: 'session.code', label: 'Session'},
-    {name: 'amount', label: 'Amount'},
-    {name: 'chargeDate', label: 'Date of Charge'},
-    {name: 'invoiced', label: 'Invoiced'},
-    {name: 'action', label: ''},
-  ];
-
   private admissionChargeColumns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
     {name: 'sourceNo', label: 'Source No'},
