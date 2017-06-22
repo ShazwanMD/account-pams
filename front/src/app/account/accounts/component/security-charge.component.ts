@@ -13,7 +13,7 @@ import {Account} from "../account.interface";
 })
 export class SecurityChargeComponent {
   private editorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
-    private securityChargeColumns: any[] = [
+  private securityChargeColumns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
     {name: 'sourceNo', label: 'Source No'},
     {name: 'session.code', label: 'Session'},
@@ -22,17 +22,15 @@ export class SecurityChargeComponent {
     {name: 'invoiced', label: 'Invoiced'},
     {name: 'action', label: ''},
   ];
-  
-  @Input() accountCharge: AccountCharge;
+  @Input() securityAccountCharges: AccountCharge;
   @Input() account: Account;
-
   constructor(private actions: AccountActions,
               private vcf: ViewContainerRef,
               private store: Store<AccountModuleState>,
               private dialog: MdDialog) {
   }
   delete(): void {
-      this.store.dispatch(this.actions.removeAccountCharge(this.accountCharge, this.account));
+      this.store.dispatch(this.actions.removeAccountCharge(this.securityAccountCharges, this.account));
   }
   editDialog(): void {
     console.log('showDialog');
@@ -43,7 +41,7 @@ export class SecurityChargeComponent {
     config.height = '65%';
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(SecurityChargeEditorDialog, config);
-    this.editorDialogRef.componentInstance.accountCharge = this.accountCharge
+    this.editorDialogRef.componentInstance.accountCharge = this.securityAccountCharges;
     this.editorDialogRef.componentInstance.account = this.account;
     this.editorDialogRef.afterClosed().subscribe((res) => {
       console.log('close dialog');
