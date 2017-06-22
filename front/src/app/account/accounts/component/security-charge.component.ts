@@ -13,7 +13,16 @@ import {Account} from "../account.interface";
 })
 export class SecurityChargeComponent {
   private editorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
-
+    private securityChargeColumns: any[] = [
+    {name: 'referenceNo', label: 'Reference No'},
+    {name: 'sourceNo', label: 'Source No'},
+    {name: 'session.code', label: 'Session'},
+    {name: 'amount', label: 'Amount'},
+    {name: 'chargeDate', label: 'Date of Charge'},
+    {name: 'invoiced', label: 'Invoiced'},
+    {name: 'action', label: ''},
+  ];
+  
   @Input() accountCharge: AccountCharge;
   @Input() account: Account;
 
