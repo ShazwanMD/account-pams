@@ -354,7 +354,7 @@ public class AccountController {
         AcAccountCharge charge = new AcAccountChargeImpl();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("academicSession", accountService.findCurrentAcademicSession());
-        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHAEGE_REFRENCE_NO, map);
+        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO, map);
         switch (vo.getChargeType()) {
             case ADMISSION:
                 charge.setReferenceNo(referenceNo);
