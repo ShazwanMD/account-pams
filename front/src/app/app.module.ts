@@ -32,6 +32,7 @@ import {IdentityModule, identityModuleReducers, IdentityModuleState, INITIAL_IDE
 import {CommonModule, commonModuleReducers, CommonModuleState, INITIAL_COMMON_STATE} from "./common/index";
 import {DashboardModule} from "./dashboard/index";
 import {PipeModule} from "./app.pipe.module";
+import {environment} from "../environments/environment";
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -99,7 +100,7 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     NgxChartsModule,
 
     StoreModule.provideStore(applicationReducer),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    environment.imports,
     CommonModule.forRoot(),
 
     PipeModule.forRoot(),
