@@ -40,6 +40,5 @@ export class AccountCreatorDialog implements OnInit {
     console.log('account: ' + account.name);
     this.store.dispatch(this.actions.saveAccount(account));
     this.dialog.close();
-    this.router.navigate(['/account/accounts']);
   }
 }
