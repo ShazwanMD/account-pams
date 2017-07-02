@@ -12,6 +12,7 @@ export interface CreditNoteTask extends Document {
   description: string;
   totalAmount: number;
   issuedDate: number;
+  creditNoteDate : Date;
   creditNote: CreditNote;
   flowState: FlowState;
 }
