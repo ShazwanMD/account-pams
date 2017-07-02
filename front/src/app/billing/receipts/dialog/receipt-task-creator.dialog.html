@@ -1,8 +1,14 @@
 <h2 md-dialog-title>Receipt Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-     <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-account-select fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px"
+        [placeholder]="'Select Account'"
+        [innerFormControl]="createForm.controls['account']">
+      </pams-account-select>
+    </div>
+     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #referenceNo
                placeholder="Reference No"
                formControlName="referenceNo"
@@ -11,7 +17,7 @@
    </md-input-container>
    </div>
         <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #receiptNo
                placeholder="Receipt No"
                formControlName="receiptNo"
@@ -20,7 +26,7 @@
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #sourceNo
                placeholder="Source No"
                formControlName="sourceNo"
@@ -29,7 +35,7 @@
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #auditNo
                placeholder="Audit No"
                formControlName="auditNo"
@@ -38,7 +44,7 @@
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #description
                placeholder="Description"
                formControlName="description"
@@ -47,7 +53,7 @@
       </md-input-container>
     </div>
          <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #totalApplied
                placeholder="Total Applied"
                formControlName="totalApplied"
@@ -56,7 +62,7 @@
       </md-input-container>
     </div>
      <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #totalReceived
                placeholder="Total Received"
                formControlName="totalReceived"
@@ -65,19 +71,13 @@
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-input-container flex>
+      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #totalAmount
                placeholder="Total Amount"
                formControlName="totalAmount"
                value="TotalAmount"
                flex/>
       </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom pad-top">
-      <pams-account-select
-        [placeholder]="'Select Account'"
-        [innerFormControl]="createForm.controls['account']">
-      </pams-account-select>
     </div>
   </form>
 </md-dialog-content>
