@@ -16,18 +16,6 @@ import {AdmissionChargeEditorDialog} from '../dialog/admission-charge-editor.dia
 export class AccountChargeListComponent implements OnInit {
   private securityCreatorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
   private admissionCreatorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
-  private admissionChargeColumns: any[] = [
-    {name: 'referenceNo', label: 'Reference No'},
-    {name: 'sourceNo', label: 'Source No'},
-    {name: 'session.code', label: 'Session'},
-    {name: 'ordinal', label: 'Semester'},
-    {name: 'cohortCode.code', label: 'Cohort'},
-    {name: 'studyMode.descriptionEn', label: 'Study Mode'},
-    {name: 'amount', label: 'Amount'},
-    {name: 'chargeDate', label: 'Date of Charge'},
-    {name: 'invoiced', label: 'Invoiced'},
-    {name: 'action', label: ''},
-  ];
 
   @Input() account: Account;
   @Input() admissionAccountCharges: AccountCharge[];
@@ -61,7 +49,7 @@ export class AccountChargeListComponent implements OnInit {
     });
   }
 
-  showAdmissionChargeDialog(securityCharge: AccountCharge): void {
+  showAdmissionChargeDialog(charge: AccountCharge): void {
     let config: MdDialogConfig = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';

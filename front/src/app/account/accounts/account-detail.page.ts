@@ -10,7 +10,6 @@ import {AccountTransaction} from './account-transaction.interface';
 import {AccountModuleState} from '../index';
 import {AccountCharge} from './account-charge.interface';
 import {AccountWaiver} from './account-waiver.interface';
-import {AdmissionChargeDialog} from './dialog/admission-charge.dialog';
 
 @Component({
   selector: 'pams-account-detail',
