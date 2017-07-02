@@ -253,6 +253,7 @@ public class BillingTransformer {
         vo.setAuditNo(e.getAuditNo());
         vo.setAccountCode(e.getInvoice().getAccount().getCode());
         vo.setDescription(e.getDescription());
+        vo.setCreditNoteDate(e.getCreditNoteDate());
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
@@ -288,6 +289,7 @@ public class BillingTransformer {
         task.setTotalAmount(creditNote.getTotalAmount());
         task.setAccountCode(creditNote.getInvoice().getAccount().getCode());
         task.setAssignee(task.getAssignee());
+        task.setCreditNoteDate(task.getCreditNoteDate());
         task.setCandidate(task.getCandidate());
         task.setCreditNote(toCreditNoteVo(creditNote));
         task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));
