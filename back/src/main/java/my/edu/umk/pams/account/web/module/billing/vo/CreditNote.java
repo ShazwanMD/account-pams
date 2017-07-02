@@ -19,6 +19,7 @@ public class CreditNote extends Document {
 	private Date creditNoteDate;
 	private BigDecimal totalAmount = new BigDecimal(0.00);
 	private Invoice invoice;
+	private String accountCode;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -74,6 +75,14 @@ public class CreditNote extends Document {
 
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
+	}
+	
+	public String getAccountCode() {
+		return accountCode;
+	}
+
+	public void setAccountCode(String accountCode) {
+		this.accountCode = accountCode;
 	}
 
 	@JsonCreator
