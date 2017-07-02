@@ -394,35 +394,53 @@ public class AccountController {
     }
 
     // todo: use reference no
-/*    @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateAdmissionCharge(@PathVariable String code, @PathVariable String referenceNo, @RequestBody AdmissionCharge vo) {
+    @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateAccountCharge(@PathVariable String code, @PathVariable String referenceNo, @RequestBody AccountCharge vo) {
         dummyLogin();
-
+        
         AcAccount account = accountService.findAccountByCode(code);
         AcAccountCharge charge = accountService.findAccountChargeByReferenceNo(referenceNo);
         switch (vo.getChargeType()) {
-            case ADMISSION:
-                charge.setSourceNo(vo.getSourceNo());
-                charge.setDescription(vo.getDescription());
-                charge.setAmount(vo.getAmount());
+        case ADMISSION:
+      //      charge.setReferenceNo(vo.getReferenceNo());
+            charge.setSourceNo(vo.getSourceNo());
+            charge.setDescription(vo.getDescription());
+            charge.setAmount(vo.getAmount());
+            charge.setOrdinal(vo.getOrdinal());
+            charge.setChargeDate(vo.getChargeDate());
+            if (null != vo.getCohortCode())
                 charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+            if (null != vo.getStudyMode())
                 charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-               // charge.setSession(accountService.findCurrentAcademicSession());
-                break;
-            case COMPOUND:
-                charge.setSourceNo(vo.getSourceNo());
-                charge.setDescription(vo.getDescription());
-                charge.setAmount(vo.getAmount());
-               // charge.setSession(accountService.findCurrentAcademicSession());
-                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                break;
-        }
+            charge.setSession(accountService.findCurrentAcademicSession());
+            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+            break;
+        case COMPOUND:
+      //      charge.setReferenceNo(vo.getReferenceNo());
+            charge.setSourceNo(vo.getSourceNo());
+            charge.setDescription(vo.getDescription());
+            charge.setAmount(vo.getAmount());
+            charge.setChargeDate(vo.getChargeDate());
+            charge.setSession(accountService.findCurrentAcademicSession());
+            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+            break;
+        case SECURITY:
+        	
+       //     charge.setReferenceNo(vo.getReferenceNo());
+            charge.setSourceNo(vo.getSourceNo());
+            charge.setAmount(vo.getAmount());
+            charge.setDescription(vo.getDescription());
+            charge.setChargeDate(vo.getChargeDate());
+            charge.setSession(accountService.findCurrentAcademicSession());
+            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+            break;
+    }
 
         accountService.updateAccountCharge(account, charge);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-*/
+
 
     @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable String referenceNo) {
