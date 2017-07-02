@@ -6,19 +6,19 @@
         <md-card-subtitle>{{creditNoteTask?.description}}</md-card-subtitle>
 
         <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
-          <div layout="column" flex>
+         <div layout="column" flex>
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{creditNoteTask?.referenceNo}}</h4>
-                <p md-line>Reference No</p>
+                <h4 md-line>{{creditNoteTask?.creditNoteDate}}</h4>
+                <p md-line>Date</p>
               </md-list-item>
             </md-list>
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{creditNoteTask?.totalAmount}}</h4>
-                <p md-line>Total Amount</p>
+                <h4 md-line>{{creditNoteTask?.referenceNo}}</h4>
+                <p md-line>Reference No</p>
               </md-list-item>
             </md-list>
           </div>
@@ -44,6 +44,13 @@
                 <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{creditNoteTask?.accountCode}}</h4>
                 <p md-line>Account</p>
+              </md-list-item>
+            </md-list>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{creditNoteTask?.totalAmount}}</h4>
+                <p md-line>Total Amount</p>
               </md-list-item>
             </md-list>
           </div>
