@@ -25,12 +25,12 @@ public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCha
     }
 
     @Override
-    public AcAccountCharge findByReferenceNo(String refNo) {
+    public AcAccountCharge findByReferenceNo(String referenceNo) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sa from AcAccountCharge sa where " +
-                "sa.referenceNo = :refNo " +
+                "sa.referenceNo = :referenceNo " +
                 "and sa.metadata.state = :state");
-        query.setString("refNo", refNo);
+        query.setString("referenceNo", referenceNo);
         query.setCacheable(true);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return (AcAccountCharge) query.uniqueResult();
