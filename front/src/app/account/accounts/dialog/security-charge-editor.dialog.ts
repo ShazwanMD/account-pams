@@ -41,6 +41,7 @@ export class SecurityChargeEditorDialog implements OnInit {
   ngOnInit(): void {
     this.editForm = this.formBuilder.group({
       id: undefined,
+      referenceNo: '',
       sourceNo: '',
       description: '',
       amount: 0,
