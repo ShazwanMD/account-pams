@@ -46,6 +46,7 @@ export class AccountActions {
 
   static FIND_ACCOUNTS_BY_ACTOR_SUCCESS = '[Account] Find Accounts By Actor Student Success';
   findAccountsByActorSuccess(accounts): Action {
+      console.log("findAccountsByActorSuccess");
     return {
       type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SUCCESS,
       payload: accounts
@@ -54,6 +55,7 @@ export class AccountActions {
 
   static FIND_ACCOUNTS_BY_ACTOR_SPONSOR = '[Account] Find Accounts By Actor Sponsor';
   findAccountsByActorSponsor(): Action {
+      
     return {
       type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR,
     };
@@ -61,6 +63,7 @@ export class AccountActions {
 
   static FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS = '[Account] Find Accounts By Actor Sponsor Success';
   findAccountsByActorSponsorSuccess(accounts): Action {
+      console.log("findAccountsByActorSponsorSuccess");
     return {
       type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS,
       payload: accounts
