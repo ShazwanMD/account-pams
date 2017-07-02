@@ -16,11 +16,15 @@
   <td-data-table
   [data]="securityAccountCharges"
   [columns]="securityChargeColumns"
+   [sortBy]="summary"
+  [sortOrder]="ASC"
   [sortable]="false"
-  [multiple]="false"
-  [selectable]="false"
+  [multiple]="true"
+  [selectable]="true"
+  [(ngModel)]="selectedRows"
+  (rowSelect)="selectRow($event)"
+  (selectAll)="selectAllRows($event)"
   dense>
-
   <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <span flex>{{value}}</span>
