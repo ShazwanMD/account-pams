@@ -1,6 +1,9 @@
 package my.edu.umk.pams.account.web.module.billing.vo;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import my.edu.umk.pams.account.web.module.core.vo.Task;
 
@@ -11,6 +14,9 @@ public class CreditNoteTask extends Task {
     private String accountCode;
     
     private BigDecimal totalAmount = new BigDecimal(0.00);
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date creditNoteDate;
     
 
     public CreditNote getCreditNote() {
@@ -35,6 +41,14 @@ public class CreditNoteTask extends Task {
 
 	public void setTotalAmount(BigDecimal totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+	
+	public Date getCreditNoteDate() {
+		return creditNoteDate;
+	}
+	
+	public void setCreditNoteDate(Date creditNoteDate) {
+		this.creditNoteDate = creditNoteDate;
 	}
     
 }
