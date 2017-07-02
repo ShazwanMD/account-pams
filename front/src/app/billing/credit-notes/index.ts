@@ -27,6 +27,7 @@ import {CreditNoteStatusComponent} from "./component/credit-note-status.componen
 import { CreditNoteItemEditorDialog } from "./dialog/credit-note-item-editor.dialog";
 import { ChargeCodeSubModule } from "../../account/charge-codes/index";
 import {PipeModule} from "../../app.pipe.module";
+import { CreditNoteActionComponent } from "./component/credit-note-action.component";
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import {PipeModule} from "../../app.pipe.module";
     CreditNoteVerifyTaskPanel,
     CreditNoteTaskWorkflowPanel,
     CreditNoteItemEditorDialog,
+    CreditNoteActionComponent,
 
   ],
   exports: [
@@ -71,6 +73,7 @@ import {PipeModule} from "../../app.pipe.module";
     CreditNoteItemEditorDialog,
     CreditNoteStatusComponent,
     CreditNoteItemListComponent,
+    CreditNoteActionComponent,
     
  
 
