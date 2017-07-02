@@ -24,12 +24,14 @@ import {IdentityModule} from '../../identity/index';
 import {AccountActivityListComponent} from './component/account-activity-list.component';
 import {AccountChargeListComponent} from './component/account-charge-list.component';
 import {AccountWaiverListComponent} from './component/account-waiver-list.component';
+import {AccountStudentListComponent} from './component/account-student-list.component';
 import {AdmissionChargeDialog} from './dialog/admission-charge.dialog';
 import {AdmissionChargeEditorDialog} from './dialog/admission-charge-editor.dialog';
 import {SecurityChargeEditorDialog} from './dialog/security-charge-editor.dialog';
 import {CompoundChargeEditorDialog} from './dialog/compound-charge-editor.dialog';
 import {CommonModule} from '../../common/index';
 import {AcademicSessionSubModule} from '../academic-sessions/index';
+import { AccountSponsorListComponent } from "./component/account-sponsor-list.component";
 
 @NgModule({
   imports: [
@@ -62,6 +64,8 @@ import {AcademicSessionSubModule} from '../academic-sessions/index';
     AdmissionChargeEditorDialog,
     SecurityChargeEditorDialog,
     CompoundChargeEditorDialog,
+    AccountStudentListComponent,
+    AccountSponsorListComponent,
 
   ],
   exports: [

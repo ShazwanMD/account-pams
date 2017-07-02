@@ -17,7 +17,7 @@ import {AccountActions} from "./account.action";
 import {AccountModuleState} from "../index";
 import {AccountCreatorDialog} from "./dialog/account-creator.dialog";
 import { FormControl } from "@angular/forms";
-import { ActorType } from "../../identity/actor-type.enum";
+import { Actor } from "../../identity/actor.interface";
 
 @Component({
   selector: 'pams-account-center',
@@ -27,35 +27,26 @@ import { ActorType } from "../../identity/actor-type.enum";
 
 export class AccountCenterPage implements OnInit {
 
-  @Input() accounts: Account[];
+  @Input() account: Account;
   @Output() view = new EventEmitter<Account>();
-  
-  myControl = new FormControl();
 
   private ACCOUNTS: string[] = "accountModuleState.accounts".split(".");
-  private accounts$: Observable<Account[]>;
+  private ACCOUNT_STUDENT_LIST: string[] = 'accountModuleState.accountStudentList'.split('.');
+  private ACCOUNT_SPONSOR_LIST: string[] = 'accountModuleState.accountSponsorList'.split('.');
+
   private creatorDialogRef: MdDialogRef<AccountCreatorDialog>;
+  private accountStudentList$: Observable<Account[]>;
+  private accountSponsorList$: Observable<Account[]>;
 
-  private selectedTab = 0;
-  
-  text: string;
-
-  private columns: any[] = [
-    {name: 'code', label: 'Code'},
-    {name: 'name', label: 'Name'},
-    {name: 'email', label: 'Email'},
-    {name: 'action', label: ''}
-  ];
-  
-  filteredOptions: Observable<Account[]>;
-  
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: AccountActions,
               private store: Store<AccountModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog) {
-    this.accounts$ = this.store.select(...this.ACCOUNTS);
+
+    this.accountStudentList$ = this.store.select(...this.ACCOUNT_STUDENT_LIST);
+    this.accountSponsorList$ = this.store.select(...this.ACCOUNT_SPONSOR_LIST);
   }
 
   goBack(route: string): void {
@@ -82,14 +73,9 @@ export class AccountCenterPage implements OnInit {
     });
   }
   
-  onSelectChange = ($event: any): void => {
-      if($event.index===0) {this.store.dispatch(this.actions.findAccountsByActor())};
-      if($event.index===1) {this.store.dispatch(this.actions.findAccountsByActorSponsor())};
-    }
-  
   ngOnInit(): void {
-   this.store.dispatch(this.actions.findAccountsByActor());  
-    
+  this.store.dispatch(this.actions.findAccountsByActor());  
+  this.store.dispatch(this.actions.findAccountsByActorSponsor());   
   }
 
 }
