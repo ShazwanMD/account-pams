@@ -8,19 +8,19 @@ export class FlowStatePipe implements PipeTransform {
         if (!value) return value;
         switch (FlowState[value.toString()]) {
             case FlowState.DRAFTED : {
-                return 'New';
+                return 'NEW';
             }
             case FlowState.REGISTERED : {
-                return 'Preparer';
+                return 'PREPARER';
             }
             case FlowState.VERIFIED : {
-                return 'Reviewver';
+                return 'REVIEWER';
             }
             case FlowState.APPROVED : {
-                return 'Posted';
+                return 'POSTED';
             }
             case FlowState.COMPLETED : {
-                return 'Final';
+                return 'FINAL';
             }
             default: {
                 return value;
