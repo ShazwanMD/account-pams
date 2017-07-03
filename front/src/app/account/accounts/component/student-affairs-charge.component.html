@@ -1,6 +1,5 @@
-<div toolbar-buttons layout="row" layout-align="start center" flex>
-  <md-card-title>Student Affairs Charges
-  </md-card-title>
+  <td-expansion-panel label="Student Affairs Charges">
+    <div toolbar-buttons layout="row" layout-align="start center" flex>
   <md-chip-list *ngIf="studentAffairsAccountCharges?.length > 0">
     <md-chip color="accent">{{studentAffairsAccountCharges?.length}}</md-chip>
   </md-chip-list>
@@ -11,8 +10,8 @@
  <button md-button class="md-icon-button" (click)="delete()">
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length > 0}">delete</md-icon>
     </button>
-</div>
-
+    </div>
+    
   <td-data-table
   [data]="studentAffairsAccountCharges"
   [columns]="studentAffairsChargeColumns"
@@ -31,3 +30,4 @@
     </div>
   </template>
 </td-data-table>
+</td-expansion-panel>
