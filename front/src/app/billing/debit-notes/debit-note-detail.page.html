@@ -14,22 +14,22 @@
           <md-card-subtitle>{{(debitNotes$|async)?.description}}</md-card-subtitle>
 
           <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
-            <div layout="column" flex>
-              <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(debitNotes$|async)?.referenceNo}}</h4>
-                  <p md-line>Reference No</p>
-                </md-list-item>
-              </md-list>
-              <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(debitNotes$|async)?.totalAmount}}</h4>
-                  <p md-line>Total Amount</p>
-                </md-list-item>
-              </md-list>
-            </div>
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{(debitNotes$|async)?.debitNoteDate}}</h4>
+                <p md-line>Date</p>
+              </md-list-item>
+            </md-list>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{(debitNotes$|async)?.referenceNo}}</h4>
+                <p md-line>Reference No</p>
+              </md-list-item>
+            </md-list>
+          </div>
             <div layout="column" flex>
               <md-list dense>
                 <md-list-item>
@@ -50,8 +50,15 @@
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{debitNoteTask?.accountCode}}</h4>
+                <h4 md-line>{{(debitNotes$|async)?.accountCode}}</h4>
                 <p md-line>Account</p>
+              </md-list-item>
+              </md-list>
+              <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{(debitNotes$|async)?.accountName}}</h4>
+                <p md-line>Total Amount</p>
               </md-list-item>
             </md-list>
           </div>
