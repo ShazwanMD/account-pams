@@ -411,7 +411,6 @@ public class AccountController {
         AcAccountCharge charge = accountService.findAccountChargeByReferenceNo(referenceNo);
         switch (vo.getChargeType()) {
         case ADMISSION:
-      //      charge.setReferenceNo(vo.getReferenceNo());
             charge.setSourceNo(vo.getSourceNo());
             charge.setDescription(vo.getDescription());
             charge.setAmount(vo.getAmount());
@@ -425,7 +424,6 @@ public class AccountController {
             charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
             break;
         case COMPOUND:
-      //      charge.setReferenceNo(vo.getReferenceNo());
             charge.setSourceNo(vo.getSourceNo());
             charge.setDescription(vo.getDescription());
             charge.setAmount(vo.getAmount());
@@ -434,8 +432,14 @@ public class AccountController {
             charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
             break;
         case SECURITY:
-        	
-       //     charge.setReferenceNo(vo.getReferenceNo());
+            charge.setSourceNo(vo.getSourceNo());
+            charge.setAmount(vo.getAmount());
+            charge.setDescription(vo.getDescription());
+            charge.setChargeDate(vo.getChargeDate());
+            charge.setSession(accountService.findCurrentAcademicSession());
+            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+            break;
+        case STUDENT_AFFAIRS:	
             charge.setSourceNo(vo.getSourceNo());
             charge.setAmount(vo.getAmount());
             charge.setDescription(vo.getDescription());
