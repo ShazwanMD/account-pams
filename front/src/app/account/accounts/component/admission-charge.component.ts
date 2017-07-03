@@ -14,6 +14,7 @@ import {Account} from "../account.interface";
 export class AdmissionChargeComponent implements OnInit{
   private editorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
   private admissionChargeColumns: any[] = [
+    {name: 'referenceNo', label: 'Reference No'},
     {name: 'sourceNo', label: 'Source No'},
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Amount'},
