@@ -1,12 +1,13 @@
 import {Component, Input, OnInit, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {AccountCharge} from '../account-charge.interface';
-import {SecurityChargeEditorDialog} from '../dialog/security-charge-editor.dialog';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
 import {AccountModuleState} from '../../index';
 import {Store} from '@ngrx/store';
 import {Account} from '../account.interface';
+import {SecurityChargeEditorDialog} from '../dialog/security-charge-editor.dialog';
 import {AdmissionChargeEditorDialog} from '../dialog/admission-charge-editor.dialog';
+import {StudentAffairsChargeEditorDialog} from '../dialog/student-affairs-charge-editor.dialog';
 
 @Component({
   selector: 'pams-account-charge-list',
@@ -16,10 +17,12 @@ import {AdmissionChargeEditorDialog} from '../dialog/admission-charge-editor.dia
 export class AccountChargeListComponent implements OnInit {
   private securityCreatorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
   private admissionCreatorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
+  private studentAffairsCreatorDialogRef: MdDialogRef<StudentAffairsChargeEditorDialog>;
 
   @Input() account: Account;
   @Input() admissionAccountCharges: AccountCharge[];
   @Input() securityAccountCharges: AccountCharge[];
+  @Input() studentAffairsAccountCharges: AccountCharge[];
 
   constructor(private actions: AccountActions,
               private vcf: ViewContainerRef,
@@ -59,6 +62,20 @@ export class AccountChargeListComponent implements OnInit {
     this.admissionCreatorDialogRef = this.dialog.open(AdmissionChargeEditorDialog, config);
     this.admissionCreatorDialogRef.componentInstance.account = this.account;
     this.admissionCreatorDialogRef.afterClosed().subscribe((res) => {
+      // no op
+    });
+  }
+
+    showStudentAffairsChargeDialog(charge: AccountCharge): void {
+    let config: MdDialogConfig = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '60%';
+    config.position = {top: '65px'};
+    this.studentAffairsCreatorDialogRef = this.dialog.open(StudentAffairsChargeEditorDialog, config);
+    this.studentAffairsCreatorDialogRef.componentInstance.account = this.account;
+    this.studentAffairsCreatorDialogRef.afterClosed().subscribe((res) => {
       // no op
     });
   }
