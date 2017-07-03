@@ -32,6 +32,7 @@ import {
   AccountChargeListState,
   admissionAccountChargeListReducer,
   securityAccountChargeListReducer,
+  studentAffairsAccountChargeListReducer,
 } from './accounts/account-charge-list.reducer';
 import {ChargeCodeSelectComponent} from './charge-codes/component/charge-code-select.component';
 import {accountWaiverReducer, AccountWaiverState} from './accounts/account-waivers.reducer';
@@ -47,6 +48,7 @@ export interface AccountModuleState {
   accountTransactions: AccountTransactionListState;
   securityAccountCharges: AccountChargeListState;
   admissionAccountCharges: AccountChargeListState;
+  studentAffairsAccountCharges : AccountChargeListState;
   accountCharges: AccountChargeListState;
   chargeCode: ChargeCodeState;
   chargeCodes: ChargeCodeListState;
@@ -56,6 +58,7 @@ export interface AccountModuleState {
   accountWaiver: AccountWaiverState;
   accountStudentList: AccountStudentListState;
  accountSponsorList: AccountSponsorListState;
+ 
 }
 ;
 
@@ -68,6 +71,7 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accountTransactions: [],
     securityAccountCharges: [],
     admissionAccountCharges: [],
+    studentAffairsAccountCharges: [],
     chargeCodes: [],
     chargeCode: {},
     feeSchedules: [],
@@ -86,6 +90,7 @@ export const accountModuleReducers = {
   accountTransactions: accountTransactionListReducer,
   securityAccountCharges: securityAccountChargeListReducer,
   admissionAccountCharges: admissionAccountChargeListReducer,
+  studentAffairsAccountCharges: studentAffairsAccountChargeListReducer,
   chargeCodes: chargeCodeListReducer,
   chargeCode: chargeCodeReducer,
   feeSchedules: feeScheduleListReducer,
