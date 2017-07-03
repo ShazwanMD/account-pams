@@ -8,5 +8,6 @@ export interface DebitNote extends MetaObject {
   totalAmount:number;
   accountCode: string;
   debitNoteDate : Date;
+  accountName: string;
   invoice?:Invoice;
 }

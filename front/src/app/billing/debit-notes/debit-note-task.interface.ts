@@ -13,5 +13,6 @@ export interface DebitNoteTask extends Document {
   totalAmount: number;
   issuedDate: number;
   debitNote: DebitNote;
+  accountName: string;
   flowState: FlowState;
 }
