@@ -57,6 +57,7 @@ export class AccountEffects {
       this.accountActions.findAccountTransactions(action.payload),
       this.accountActions.findSecurityAccountCharges(action.payload),
       this.accountActions.findAdmissionAccountCharges(action.payload),
+      this.accountActions.findStudentAffairsAccountCharges(action.payload),
       this.accountActions.findAccountWaivers(action.payload),
     ]));
 
@@ -77,6 +78,12 @@ export class AccountEffects {
     .map((action) => action.payload)
     .switchMap((account) => this.accountService.findAdmissionAccountCharges(account))
     .map((charges) => this.accountActions.findAdmissionAccountChargesSuccess(charges));
+
+  @Effect() findStudentAffairsAccountCharges$ = this.actions$
+    .ofType(AccountActions.FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findStudentAffairsAccountCharges(account))
+    .map((charges) => this.accountActions.findStudentAffairsAccountChargesSuccess(charges));
 
   @Effect() findAccountWaivers$ = this.actions$
   .ofType(AccountActions.FIND_ACCOUNT_WAIVERS)
@@ -113,7 +120,6 @@ export class AccountEffects {
     .withLatestFrom(this.store$.select(...this.ACCOUNT))
     .map((state) => state[1])
     .map((account: Account) => this.accountActions.findAccountByCode(account.code));
-
 
   @Effect() removeAccountCharge$ = this.actions$
     .ofType(AccountActions.REMOVE_ACCOUNT_CHARGE)

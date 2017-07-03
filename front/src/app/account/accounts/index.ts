@@ -14,7 +14,8 @@ import {AccountEffects} from './account.effect';
 import {AccountCenterPage} from './account-center.page';
 import {AccountListComponent} from './component/account-list.component';
 import {SecurityChargeComponent} from './component/security-charge.component';
-import {AdmissionChargeComponent} from './component/admission-charge.component'
+import {AdmissionChargeComponent} from './component/admission-charge.component';
+import {StudentAffairsChargeComponent} from './component/student-affairs-charge.component';
 import {AccountDetailPage} from './account-detail.page';
 import {AccountComponent} from './component/account.component';
 import {AccountStatusComponent} from './component/account-status.component';
@@ -28,6 +29,7 @@ import {AccountWaiverListComponent} from './component/account-waiver-list.compon
 import {AccountStudentListComponent} from './component/account-student-list.component';
 import {AdmissionChargeEditorDialog} from './dialog/admission-charge-editor.dialog';
 import {SecurityChargeEditorDialog} from './dialog/security-charge-editor.dialog';
+import {StudentAffairsChargeEditorDialog} from './dialog/student-affairs-charge-editor.dialog';
 import {CompoundChargeEditorDialog} from './dialog/compound-charge-editor.dialog';
 import {CommonModule} from '../../common/index';
 import {AcademicSessionSubModule} from '../academic-sessions/index';
@@ -57,12 +59,14 @@ import { AccountSponsorListComponent } from "./component/account-sponsor-list.co
     AccountChargeListComponent,
     SecurityChargeComponent,
     AdmissionChargeComponent,
+    StudentAffairsChargeComponent,
     AccountWaiverListComponent,
     AccountComboBoxComponent,
     AccountSelectComponent,
     AccountCreatorDialog,
     AdmissionChargeEditorDialog,
     SecurityChargeEditorDialog,
+    StudentAffairsChargeEditorDialog,
     CompoundChargeEditorDialog,
     AccountStudentListComponent,
     AccountSponsorListComponent,
@@ -73,10 +77,12 @@ import { AccountSponsorListComponent } from "./component/account-sponsor-list.co
     AccountSelectComponent,
     SecurityChargeComponent,
     AdmissionChargeComponent,
+    StudentAffairsChargeComponent,
   ],
   entryComponents: [
     AccountCreatorDialog,
     AdmissionChargeEditorDialog,
+    StudentAffairsChargeEditorDialog,
     CompoundChargeEditorDialog,
     SecurityChargeEditorDialog,
   ],

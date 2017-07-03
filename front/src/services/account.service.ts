@@ -277,6 +277,15 @@ export class AccountService {
       .map((res: Response) => <AccountCharge[]>res.json());
   }
 
+  findStudentAffairsAccountCharges(account: Account): Observable<AccountCharge[]> {
+    console.log('findStudentAffairsAccountCharges');
+    // let headers = new Headers({'Authorization': 'Bearer TODO'});
+    // let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.endpoint + '/api/account/accounts/' + account.code + '/accountCharges/chargeType/'
+      + 'STUDENT_AFFAIRS')
+      .map((res: Response) => <AccountCharge[]>res.json());
+  }
+
   findAdmissionAccountCharges(account: Account): Observable<AccountCharge[]> {
     console.log('findAdmissionAccountCharges');
     // let headers = new Headers({'Authorization': 'Bearer TODO'});

@@ -388,6 +388,15 @@ public class AccountController {
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 break;
+            case STUDENT_AFFAIRS:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
+                charge.setDescription(vo.getDescription());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
         }
         accountService.addAccountCharge(account, charge);
         return new ResponseEntity<String>("Success", HttpStatus.OK);

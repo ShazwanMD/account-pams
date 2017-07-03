@@ -30,3 +30,14 @@ export function admissionAccountChargeListReducer(state = initialState, action: 
     }
   }
 }
+
+export function studentAffairsAccountChargeListReducer(state = initialState, action: Action): AccountChargeListState {
+  switch (action.type) {
+    case AccountActions.FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES_SUCCESS: {
+      return action.payload;
+    }
+    default: {
+      return state;
+    }
+  }
+}
