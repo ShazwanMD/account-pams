@@ -156,6 +156,24 @@ export class AccountActions {
     };
   }
 
+  static FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES = '[Account] Find Student Affairs Account Charges';
+  findStudentAffairsAccountCharges(account): Action {
+    console.log("findStudentAffairsAccountCharges");
+    return {
+      type: AccountActions.FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES,
+      payload: account
+    };
+  }
+
+  static FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Student Affairs Account Charges Success';
+  findStudentAffairsAccountChargesSuccess(accountCharges): Action {
+    console.log("findStudentAffairsAccountChargesSuccess");
+    return {
+      type: AccountActions.FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES_SUCCESS,
+      payload: accountCharges
+    };
+  }
+
   static FIND_ACCOUNT_WAIVERS = '[Account] Find Account Waivers';
   findAccountWaivers(account): Action {
     console.log("findAccountWaivers: " + account.code);
