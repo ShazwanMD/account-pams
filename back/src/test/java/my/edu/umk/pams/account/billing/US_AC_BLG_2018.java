@@ -8,11 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 /*
  * As a bursary i should be able to use surplus so that i can knockoff any upcoming student fee
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_BLG_2018	extends	SpringScenarioTest<GivenIAmBursary, WhenICheckInvoice, ThenICanSeeOutstandingBalance> {
 
