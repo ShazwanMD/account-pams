@@ -41,3 +41,14 @@ export function studentAffairsAccountChargeListReducer(state = initialState, act
     }
   }
 }
+
+export function loanAccountChargeListReducer(state = initialState, action: Action): AccountChargeListState {
+  switch (action.type) {
+    case AccountActions.FIND_LOAN_ACCOUNT_CHARGES_SUCCESS: {
+      return action.payload;
+    }
+    default: {
+      return state;
+    }
+  }
+}
