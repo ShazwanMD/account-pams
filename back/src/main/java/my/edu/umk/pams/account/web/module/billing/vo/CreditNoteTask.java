@@ -18,6 +18,8 @@ public class CreditNoteTask extends Task {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date creditNoteDate;
     
+    private String accountName;
+    
 
     public CreditNote getCreditNote() {
         return creditNote;
@@ -49,6 +51,14 @@ public class CreditNoteTask extends Task {
 	
 	public void setCreditNoteDate(Date creditNoteDate) {
 		this.creditNoteDate = creditNoteDate;
+	}
+	
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
     
 }
