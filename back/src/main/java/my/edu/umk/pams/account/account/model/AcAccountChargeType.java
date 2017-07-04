@@ -10,7 +10,8 @@ public enum  AcAccountChargeType {
     ENROLLMENT_LATE,
     SECURITY,
     COMPOUND,
-    STUDENT_AFFAIRS;
+    STUDENT_AFFAIRS,
+    LOAN;
 	
 
 	public static AcAccountChargeType get(int index) {
