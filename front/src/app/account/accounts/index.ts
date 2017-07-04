@@ -15,6 +15,7 @@ import {AccountCenterPage} from './account-center.page';
 import {AccountListComponent} from './component/account-list.component';
 import {SecurityChargeComponent} from './component/security-charge.component';
 import {AdmissionChargeComponent} from './component/admission-charge.component';
+import {LoanChargeComponent} from './component/loan-charge.component';
 import {StudentAffairsChargeComponent} from './component/student-affairs-charge.component';
 import {AccountDetailPage} from './account-detail.page';
 import {AccountComponent} from './component/account.component';
@@ -28,6 +29,7 @@ import {AccountChargeListComponent} from './component/account-charge-list.compon
 import {AccountWaiverListComponent} from './component/account-waiver-list.component';
 import {AccountStudentListComponent} from './component/account-student-list.component';
 import {AdmissionChargeEditorDialog} from './dialog/admission-charge-editor.dialog';
+import {LoanChargeEditorDialog} from './dialog/loan-charge-editor.dialog';
 import {SecurityChargeEditorDialog} from './dialog/security-charge-editor.dialog';
 import {StudentAffairsChargeEditorDialog} from './dialog/student-affairs-charge-editor.dialog';
 import {CompoundChargeEditorDialog} from './dialog/compound-charge-editor.dialog';
@@ -59,12 +61,14 @@ import { AccountSponsorListComponent } from "./component/account-sponsor-list.co
     AccountChargeListComponent,
     SecurityChargeComponent,
     AdmissionChargeComponent,
+    LoanChargeComponent,
     StudentAffairsChargeComponent,
     AccountWaiverListComponent,
     AccountComboBoxComponent,
     AccountSelectComponent,
     AccountCreatorDialog,
     AdmissionChargeEditorDialog,
+    LoanChargeEditorDialog,
     SecurityChargeEditorDialog,
     StudentAffairsChargeEditorDialog,
     CompoundChargeEditorDialog,
@@ -77,11 +81,13 @@ import { AccountSponsorListComponent } from "./component/account-sponsor-list.co
     AccountSelectComponent,
     SecurityChargeComponent,
     AdmissionChargeComponent,
+    LoanChargeComponent,
     StudentAffairsChargeComponent,
   ],
   entryComponents: [
     AccountCreatorDialog,
     AdmissionChargeEditorDialog,
+    LoanChargeEditorDialog,
     StudentAffairsChargeEditorDialog,
     CompoundChargeEditorDialog,
     SecurityChargeEditorDialog,
