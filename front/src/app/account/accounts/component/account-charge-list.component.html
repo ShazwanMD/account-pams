@@ -12,6 +12,7 @@
     <button md-menu-item (click)="showSecurityChargeDialog()">Security Charge</button>
     <button md-menu-item (click)="showAdmissionChargeDialog()">Admission Charge</button>
     <button md-menu-item (click)="showStudentAffairsChargeDialog()">Student Affairs Charge</button>
+    <button md-menu-item (click)="showLoanChargeDialog()">Loan Charge</button>
   </md-menu>
 </div>
 <md-divider></md-divider>
@@ -27,3 +28,7 @@
   [account]="account"
   [admissionAccountCharges]="admissionAccountCharges">
 </pams-admission-charge>
+<pams-loan-charge
+  [account]="account"
+  [loanAccountCharges]="loanAccountCharges">
+</pams-loan-charge>
