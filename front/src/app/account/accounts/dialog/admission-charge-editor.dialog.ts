@@ -47,6 +47,7 @@ export class AdmissionChargeEditorDialog implements OnInit {
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group({
       id: undefined,
+      referenceNo:'',
       sourceNo: '',
       description: '',
       amount: 0,
