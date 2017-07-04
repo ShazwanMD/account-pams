@@ -17,6 +17,7 @@ export class AdmissionChargeComponent implements OnInit{
     {name: 'referenceNo', label: 'Reference No'},
     {name: 'sourceNo', label: 'Source No'},
     {name: 'description', label: 'Description'},
+    {name: 'ordinal', label: 'Semester'},
     {name: 'amount', label: 'Amount'},
     {name: 'chargeDate', label: 'Date of Charge'},
     {name: 'session.code', label: 'Session'},
