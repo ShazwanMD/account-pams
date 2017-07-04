@@ -242,6 +242,7 @@ public class BillingTransformer {
         task.setAccountName(debitNote.getInvoice().getAccount().getActor().getName());
         task.setDescription(debitNote.getDescription());
         task.setDebitNoteDate(task.getDebitNoteDate());
+        task.setTotalAmount(debitNote.getTotalAmount());
         task.setTaskName(t.getName());
         task.setAssignee(task.getAssignee());
         task.setCandidate(task.getCandidate());
