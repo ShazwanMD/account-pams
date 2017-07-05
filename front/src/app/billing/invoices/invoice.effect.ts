@@ -117,6 +117,12 @@ export class InvoiceEffects {
       ]
     ));
 
+  @Effect() cancelInvoice$ = this.actions$
+  .ofType(InvoiceActions.CANCEL_INVOICE)
+  .map(action => action.payload)
+  .switchMap(invoice => this.billingService.cancelInvoice(invoice))
+  .map(invoice => this.invoiceActions.cancelInvoiceSuccess(invoice));
+  
   @Effect() updateInvoice$ = this.actions$
     .ofType(InvoiceActions.UPDATE_INVOICE)
     .map(action => action.payload)

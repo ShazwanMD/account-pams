@@ -7,13 +7,16 @@ import {Store} from "@ngrx/store";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CreditNoteCreatorDialog} from "../../credit-notes/dialog/credit-note-creator.dialog";
 import {DebitNoteCreatorDialog} from "../../debit-notes/dialog/debit-note-creator.dialog";
+
 @Component({
   selector: 'pams-invoice-action',
   templateUrl: './invoice-action.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceActionComponent {
+  
   @Input() invoice: Invoice;
+  
 
   private debitCreatorDialogRef: MdDialogRef<DebitNoteCreatorDialog>;
   private creditCreatorDialogRef: MdDialogRef<CreditNoteCreatorDialog>;
@@ -57,4 +60,6 @@ export class InvoiceActionComponent {
       // load something here
     });
   }
+  
+
 }
