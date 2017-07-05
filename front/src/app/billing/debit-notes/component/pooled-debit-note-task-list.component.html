@@ -14,6 +14,12 @@
             <span flex>{{value}}</span>
           </div>
         </template>
+         <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['totalAmount'] | currency:'MYR':true:'1.2-2'}}</div>
+  </template>
+          <template tdDataTableTemplate="flowState" let-value="value" let-row="row" let-column="column">
+      <div layout="row">{{row['flowState'] | flowStatePipe }}</div>
+      </template>
         <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
           <div layout="row">
             <a md-button color="accent" class="text-upper" (click)="claimTask(row)">

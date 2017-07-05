@@ -15,7 +15,7 @@ public class CreditNoteTask extends Task {
     
     private BigDecimal totalAmount = new BigDecimal(0.00);
     
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date creditNoteDate;
     
     private String accountName;
