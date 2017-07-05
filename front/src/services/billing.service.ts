@@ -122,6 +122,16 @@ export class BillingService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
+  cancelInvoice(invoice: Invoice) {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        // 'Authorization': 'Bearer ' + this.authService.token
+      });
+      let options = new RequestOptions({headers: headers});
+      return this.http.delete(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo, options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+  
   updateInvoice(invoice: Invoice): Observable<String> {
     return this.http.put(environment.endpoint + '/api/billing/invoices', JSON.stringify(invoice))
       .flatMap((res: Response) => Observable.of(res.text()));
