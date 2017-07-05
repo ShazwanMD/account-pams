@@ -156,6 +156,24 @@ export class AccountActions {
     };
   }
 
+  static FIND_LOAN_ACCOUNT_CHARGES = '[Account] Find Loan Account Charges';
+  findLoanAccountCharges(account): Action {
+    console.log("findLoanAccountCharges");
+    return {
+      type: AccountActions.FIND_LOAN_ACCOUNT_CHARGES,
+      payload: account
+    };
+  }
+
+  static FIND_LOAN_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Loan Account Charges Success';
+  findLoanAccountChargesSuccess(accountCharges): Action {
+    console.log("findLoanAccountChargesSuccess");
+    return {
+      type: AccountActions.FIND_LOAN_ACCOUNT_CHARGES_SUCCESS,
+      payload: accountCharges
+    };
+  }
+
   static FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES = '[Account] Find Student Affairs Account Charges';
   findStudentAffairsAccountCharges(account): Action {
     console.log("findStudentAffairsAccountCharges");

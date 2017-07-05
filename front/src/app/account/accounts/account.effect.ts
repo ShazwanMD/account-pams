@@ -58,6 +58,7 @@ export class AccountEffects {
       this.accountActions.findSecurityAccountCharges(action.payload),
       this.accountActions.findAdmissionAccountCharges(action.payload),
       this.accountActions.findStudentAffairsAccountCharges(action.payload),
+      this.accountActions.findLoanAccountCharges(action.payload),
       this.accountActions.findAccountWaivers(action.payload),
     ]));
 
@@ -78,6 +79,12 @@ export class AccountEffects {
     .map((action) => action.payload)
     .switchMap((account) => this.accountService.findAdmissionAccountCharges(account))
     .map((charges) => this.accountActions.findAdmissionAccountChargesSuccess(charges));
+
+  @Effect() findLoanAccountCharges$ = this.actions$
+    .ofType(AccountActions.FIND_LOAN_ACCOUNT_CHARGES)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findLoanAccountCharges(account))
+    .map((charges) => this.accountActions.findLoanAccountChargesSuccess(charges));
 
   @Effect() findStudentAffairsAccountCharges$ = this.actions$
     .ofType(AccountActions.FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES)

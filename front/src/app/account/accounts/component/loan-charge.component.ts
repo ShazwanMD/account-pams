@@ -1,4 +1,4 @@
-import {AdmissionChargeEditorDialog} from '../dialog/admission-charge-editor.dialog';
+import {LoanChargeEditorDialog} from '../dialog/loan-charge-editor.dialog';
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, OnInit, ViewContainerRef} from '@angular/core';
 import {AccountActions} from "../account.action";
 import {Store} from '@ngrx/store';
@@ -7,17 +7,16 @@ import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {AccountCharge} from "../account-charge.interface";
 import {Account} from "../account.interface";
 @Component({
-  selector: 'pams-admission-charge',
-  templateUrl: './admission-charge.component.html',
+  selector: 'pams-loan-charge',
+  templateUrl: './loan-charge.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdmissionChargeComponent implements OnInit{
-  private editorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
-  private admissionChargeColumns: any[] = [
+export class LoanChargeComponent implements OnInit{
+  private editorDialogRef: MdDialogRef<LoanChargeEditorDialog>;
+  private loanChargeColumns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
     {name: 'sourceNo', label: 'Source No'},
     {name: 'description', label: 'Description'},
-    {name: 'ordinal', label: 'Semester'},
     {name: 'amount', label: 'Amount'},
     {name: 'chargeDate', label: 'Date of Charge'},
     {name: 'session.code', label: 'Session'},
@@ -27,7 +26,7 @@ export class AdmissionChargeComponent implements OnInit{
     {name: 'action', label: ''},
   ];
 
-  @Input() admissionAccountCharges: AccountCharge[];
+  @Input() loanAccountCharges: AccountCharge[];
   @Input() account: Account;
 
   private selectedRows: AccountCharge[];
@@ -38,7 +37,7 @@ export class AdmissionChargeComponent implements OnInit{
               private dialog: MdDialog) {
   }
     ngOnInit(): void {
-    this.selectedRows = this.admissionAccountCharges.filter((value) => value.selected);
+    this.selectedRows = this.loanAccountCharges.filter((value) => value.selected);
   }
   delete(): void {
       console.log('length: ' + this.selectedRows.length);
@@ -47,16 +46,16 @@ export class AdmissionChargeComponent implements OnInit{
     }
     this.selectedRows = [];
   }
-    edit(admissionAccountCharges: AccountCharge): void {
-    this.showDialog(admissionAccountCharges);
+    edit(loanAccountCharges: AccountCharge): void {
+    this.showDialog(loanAccountCharges);
   }
 
- selectRow(admissionAccountCharges: AccountCharge): void {
+ selectRow(loanAccountCharges: AccountCharge): void {
   }
-  selectAllRows(admissionAccountCharges: AccountCharge[]): void {
+  selectAllRows(loanAccountCharges: AccountCharge[]): void {
   }
 
-showDialog(admissionAccountCharges: AccountCharge): void {
+showDialog(loanAccountCharges: AccountCharge): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -64,9 +63,9 @@ showDialog(admissionAccountCharges: AccountCharge): void {
     config.width = '50%';
     config.height = '60%';
     config.position = {top: '65px'};
-    this.editorDialogRef = this.dialog.open(AdmissionChargeEditorDialog, config);
+    this.editorDialogRef = this.dialog.open(LoanChargeEditorDialog, config);
     this.editorDialogRef.componentInstance.account = this.account;
-    if (admissionAccountCharges) this.editorDialogRef.componentInstance.accountCharge = admissionAccountCharges;
+    if (loanAccountCharges) this.editorDialogRef.componentInstance.accountCharge = loanAccountCharges;
     this.editorDialogRef.afterClosed().subscribe((res) => {
       console.log('close dialog');
     });
