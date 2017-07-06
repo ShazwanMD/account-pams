@@ -243,6 +243,24 @@ export class InvoiceActions {
     };
   }
 
+  static CANCEL_INVOICE = '[Invoice] Cancel Invoice';
+
+  cancelInvoice(invoice): Action {
+    return {
+      type: InvoiceActions.CANCEL_INVOICE,
+      payload: invoice,
+    };
+  }
+
+  static CANCEL_INVOICE_SUCCESS = '[Invoice] Cancel Invoice Success';
+
+  cancelInvoiceSuccess(invoice): Action {
+    return {
+      type: InvoiceActions.CANCEL_INVOICE_SUCCESS,
+      payload: invoice,
+    };
+  }
+  
   static UPDATE_INVOICE = '[Invoice] Update Invoice';
 
   updateInvoice(invoice): Action {

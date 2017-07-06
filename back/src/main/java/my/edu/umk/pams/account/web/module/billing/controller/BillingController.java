@@ -129,6 +129,15 @@ public class BillingController {
         return new ResponseEntity<List<InvoiceItem>>(billingTransformer
                 .toInvoiceItemVos(billingService.findInvoiceItems(invoice)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/invoices/{referenceNo}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> cancelInvoice(@PathVariable String referenceNo) {
+        dummyLogin();
+
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        billingService.cancelInvoice(invoice);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.POST)
     public ResponseEntity<String> addInvoiceItem(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
