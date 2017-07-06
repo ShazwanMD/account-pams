@@ -122,7 +122,7 @@ public class BillingController {
         return new ResponseEntity<Invoice>(billingTransformer.toInvoiceVo(invoice), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/invoices/{referenceNo}/cancel", method = RequestMethod.PUT)
+    @RequestMapping(value = "/invoices/{referenceNo}/cancel", method = RequestMethod.POST)
     public ResponseEntity<String> cancelInvoice(@PathVariable String referenceNo) {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         billingService.cancelInvoice(invoice);
