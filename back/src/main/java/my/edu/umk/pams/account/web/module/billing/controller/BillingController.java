@@ -124,6 +124,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}/cancel", method = RequestMethod.POST)
     public ResponseEntity<String> cancelInvoice(@PathVariable String referenceNo) {
+    	dummyLogin();
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         billingService.cancelInvoice(invoice);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
