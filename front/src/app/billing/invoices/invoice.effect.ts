@@ -13,6 +13,7 @@ import {DebitNoteActions} from "../debit-notes/debit-note.action";
 export class InvoiceEffects {
 
   private INVOICE_TASK: string[] = "billingModuleState.invoiceTask".split(".");
+  private INVOICE: string[] = 'billingModuleState.invoice'.split('.');
 
   constructor(private actions$: Actions,
               private invoiceActions: InvoiceActions,
@@ -37,6 +38,11 @@ export class InvoiceEffects {
     .switchMap(() => this.billingService.findArchivedInvoices())
     .map(invoices => this.invoiceActions.findArchivedInvoicesSuccess(invoices));
 
+//  @Effect() findCancelInvoices$ = this.actions$
+//  .ofType(InvoiceActions.FIND_CANCELED_INVOICES)
+//  .switchMap(() => this.billingService.findCancelInvoices())
+//  .map(invoices => this.invoiceActions.findCancelInvoicesSuccess(invoices));
+  
   @Effect() findAssignedInvoiceTasks$ = this.actions$
     .ofType(InvoiceActions.FIND_ASSIGNED_INVOICE_TASKS)
     .switchMap(() => this.billingService.findAssignedInvoiceTasks())
@@ -122,6 +128,9 @@ export class InvoiceEffects {
   .map(action => action.payload)
   .switchMap(invoice => this.billingService.cancelInvoice(invoice))
   .map(invoice => this.invoiceActions.cancelInvoiceSuccess(invoice));
+//  .withLatestFrom(this.store$.select(...this.INVOICE))
+//  .map(state => state[1])
+//  .map(invoice => this.invoiceActions.findInvoiceByReferenceNo(invoice));
   
   @Effect() updateInvoice$ = this.actions$
     .ofType(InvoiceActions.UPDATE_INVOICE)
