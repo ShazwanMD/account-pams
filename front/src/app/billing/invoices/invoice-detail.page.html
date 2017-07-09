@@ -77,16 +77,6 @@
       <div flex-gt-md="30">
         <pams-invoice-status [invoice]="invoice$ | async"></pams-invoice-status>
         <pams-invoice-action [invoice]="invoice$ | async"></pams-invoice-action>
-      
-      <md-card>
-	  <md-nav-list dense>
-	    <md-list-item (click)="cancelDialog()">
-	      <md-icon md-list-avatar>remove_circle</md-icon>
-	        <h4 md-line>Cancel</h4>
-	        <p md-line>Cancel this invoice</p>
-	   </md-list-item>
-	  </md-nav-list>
-	</md-card>
 	</div>
     </div>
   </div>

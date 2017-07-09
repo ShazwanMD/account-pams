@@ -33,6 +33,12 @@ export class BillingService {
     return this.http.get(environment.endpoint + '/api/billing/invoices/state/COMPLETED')
       .map((res: Response) => <Invoice[]>res.json());
   }
+  
+  findCancelInvoices(): Observable<Invoice[]> {
+      console.log('findCancelInvoices');
+      return this.http.get(environment.endpoint + '/api/billing/invoices/state/CANCELLED')
+        .map((res: Response) => <Invoice[]>res.json());
+  }
 
   findUnpaidInvoices(account: Account): Observable<Invoice[]> {
     console.log('findUnpaidInvoices');
@@ -46,7 +52,7 @@ export class BillingService {
     return this.http.get(environment.endpoint + '/api/billing/invoices/state/COMPLETED')
       .map((res: Response) => <Invoice[]>res.json());
   }
-
+  
   findAssignedInvoiceTasks(): Observable<InvoiceTask[]> {
     console.log('findAssignedInvoiceTasks');
     return this.http.get(environment.endpoint + '/api/billing/invoices/assignedTasks')
@@ -122,13 +128,13 @@ export class BillingService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  cancelInvoice(invoice: Invoice) {
+  cancelInvoice(invoice: Invoice): Observable<String> {
       let headers = new Headers({
         'Content-Type': 'application/json',
         // 'Authorization': 'Bearer ' + this.authService.token
       });
       let options = new RequestOptions({headers: headers});
-      return this.http.delete(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo, options)
+      return this.http.post(environment.endpoint + '/api/billing/invoices/' + invoice.referenceNo + '/cancel', JSON.stringify(invoice),options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
   

@@ -105,7 +105,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}", method = RequestMethod.GET)
     public ResponseEntity<Invoice> findInvoiceByReferenceNo(@PathVariable String referenceNo) {
-        AcInvoice invoice = (AcInvoice) billingService.findInvoiceByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         return new ResponseEntity<Invoice>(billingTransformer.toInvoiceVo(invoice), HttpStatus.OK);
     }
 
@@ -118,8 +118,16 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<Invoice> updateInvoice(@PathVariable String referenceNo, @RequestBody Invoice vo) {
-        AcInvoice invoice = (AcInvoice) billingService.findInvoiceByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         return new ResponseEntity<Invoice>(billingTransformer.toInvoiceVo(invoice), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/invoices/{referenceNo}/cancel", method = RequestMethod.POST)
+    public ResponseEntity<String> cancelInvoice(@PathVariable String referenceNo) {
+    	dummyLogin();
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        billingService.cancelInvoice(invoice);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.GET)
@@ -128,15 +136,6 @@ public class BillingController {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         return new ResponseEntity<List<InvoiceItem>>(billingTransformer
                 .toInvoiceItemVos(billingService.findInvoiceItems(invoice)), HttpStatus.OK);
-    }
-    
-    @RequestMapping(value = "/invoices/{referenceNo}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> cancelInvoice(@PathVariable String referenceNo) {
-        dummyLogin();
-
-        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-        billingService.cancelInvoice(invoice);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.POST)
@@ -282,13 +281,13 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/{referenceNo}", method = RequestMethod.GET)
     public ResponseEntity<Receipt> findReceiptByReferenceNo(@PathVariable String referenceNo) {
-        AcReceipt receipt = (AcReceipt) billingService.findReceiptByReferenceNo(referenceNo);
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         return new ResponseEntity<Receipt>(billingTransformer.toReceiptVo(receipt), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/receipts/{referenceNo}", method = RequestMethod.POST)
     public ResponseEntity<Receipt> updateReceipt(@PathVariable String referenceNo, @RequestBody Receipt vo) {
-        AcReceipt receipt = (AcReceipt) billingService.findReceiptByReferenceNo(referenceNo);
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         return new ResponseEntity<Receipt>(billingTransformer.toReceiptVo(receipt), HttpStatus.OK);
     }
 
@@ -416,7 +415,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.GET)
     public ResponseEntity<DebitNote> findDebitNoteByReferenceNo(@PathVariable String referenceNo) {
-        AcDebitNote debitNotes = (AcDebitNote) billingService.findDebitNoteByReferenceNo(referenceNo);
+        AcDebitNote debitNotes = billingService.findDebitNoteByReferenceNo(referenceNo);
         return new ResponseEntity<DebitNote>(billingTransformer.toDebitNoteVo(debitNotes), HttpStatus.OK);
     }
 
@@ -487,8 +486,7 @@ public class BillingController {
         debitNote.setSourceNo(vo.getSourceNo());
         debitNote.setAuditNo(vo.getAuditNo());
         debitNote.setDescription(vo.getDescription());
-        //debitNote.setTotalAmount(BigDecimal.ZERO);
-        debitNote.setTotalAmount(vo.getTotalAmount());
+        debitNote.setTotalAmount(BigDecimal.ZERO);
         debitNote.setDebitNoteDate(vo.getDebitNoteDate());
         debitNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNote), HttpStatus.OK);
@@ -533,8 +531,7 @@ public class BillingController {
         debitNotes.setSourceNo(vo.getSourceNo());
         debitNotes.setAuditNo(vo.getAuditNo());
         debitNotes.setDescription(vo.getDescription());
-        //debitNotes.setTotalAmount(BigDecimal.ZERO);
-        debitNotes.setTotalAmount(vo.getTotalAmount());
+        debitNotes.setTotalAmount(BigDecimal.ZERO);
         billingService.updateDebitNote(debitNotes);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -558,7 +555,7 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.GET)
     public ResponseEntity<CreditNote> findCreditNoteByReferenceNo(@PathVariable String referenceNo) {
-        AcCreditNote creditNotes = (AcCreditNote) billingService.findCreditNoteByReferenceNo(referenceNo);
+        AcCreditNote creditNotes = billingService.findCreditNoteByReferenceNo(referenceNo);
         return new ResponseEntity<CreditNote>(billingTransformer.toCreditNoteVo(creditNotes), HttpStatus.OK);
     }
 
@@ -638,8 +635,7 @@ public class BillingController {
         creditNote.setAuditNo(vo.getAuditNo());
         creditNote.setDescription(vo.getDescription());
         creditNote.setCreditNoteDate(vo.getCreditNoteDate());
-        //creditNote.setTotalAmount(BigDecimal.ZERO);
-        creditNote.setTotalAmount(vo.getTotalAmount());
+        creditNote.setTotalAmount(BigDecimal.ZERO);
         creditNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
@@ -677,8 +673,7 @@ public class BillingController {
         creditNotes.setSourceNo(vo.getSourceNo());
         creditNotes.setAuditNo(vo.getAuditNo());
         creditNotes.setDescription(vo.getDescription());
-        //creditNotes.setTotalAmount(BigDecimal.ZERO);
-        creditNotes.setTotalAmount(vo.getTotalAmount());
+        creditNotes.setTotalAmount(BigDecimal.ZERO);
         billingService.updateCreditNote(creditNotes);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
