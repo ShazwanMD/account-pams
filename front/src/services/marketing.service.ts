@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Response, Http, Headers, RequestOptions} from '@angular/http';
+import {Response} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
-import {Observable} from "rxjs";
-import {environment} from "../environments/environment";
-import {PromoCodeItem} from "../app/marketing/promo-codes/promo-code-item.interface";
-import {PromoCode} from "../app/marketing/promo-codes/promo-code.interface";
+import {Observable} from 'rxjs';
+import {environment} from '../environments/environment';
+import {PromoCodeItem} from '../app/marketing/promo-codes/promo-code-item.interface';
+import {PromoCode} from '../app/marketing/promo-codes/promo-code.interface';
 
 @Injectable()
 export class MarketingService {
 
-  constructor(private http: Http,
-              private _http: HttpInterceptorService) {
+  private MARKETING_API: string = environment.endpoint + '/api/marketing';
+
+  constructor(private _http: HttpInterceptorService) {
   }
 
   // ====================================================================================================
@@ -18,70 +19,50 @@ export class MarketingService {
   // ====================================================================================================
 
   findPromoCodeByReferenceNo(referenceNo: string): Observable<PromoCode> {
-    return this.http.get(environment.endpoint + '/api/marketing/promoCodes/' + referenceNo)
+    return this._http.get(this.MARKETING_API + '/promoCodes/' + referenceNo)
       .map((res: Response) => <PromoCode>res.json());
   }
 
   findPromoCodeById(id: string): Observable<PromoCode> {
-    return this.http.get(environment.endpoint + '/api/marketing/promoCodes/' + id)
+    return this._http.get(this.MARKETING_API + '/promoCodes/' + id)
       .map((res: Response) => <PromoCode>res.json());
   }
 
   findPromoCodes(): Observable<PromoCode[]> {
-    console.log("findPromoCodes");
-    return this.http.get(environment.endpoint + '/api/marketing/promoCodes')
+    console.log('findPromoCodes');
+    return this._http.get(this.MARKETING_API + '/promoCodes')
       .map((res: Response) => <PromoCode[]>res.json());
   }
 
   findPromoCodeItems(promoCode: PromoCode): Observable<PromoCodeItem[]> {
-    console.log("findPromoCodeItems");
-    return this.http.get(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + "/promoCodeItems")
+    console.log('findPromoCodeItems');
+    return this._http.get(this.MARKETING_API + '/promoCodes/' + promoCode.referenceNo + '/promoCodeItems')
       .map((res: Response) => <PromoCodeItem[]>res.json());
   }
 
   initPromoCode(promoCode: PromoCode): Observable<String> {
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ' + this.authService.token
-    });
-    let options = new RequestOptions({headers: headers});
-    return this.http.post(environment.endpoint + '/api/marketing/promoCodes/init', JSON.stringify(promoCode), options)
-      .flatMap((res:Response) => Observable.of(res.text()));
+    return this._http.post(this.MARKETING_API + '/promoCodes/init', JSON.stringify(promoCode))
+      .flatMap((res: Response) => Observable.of(res.text()));
   }
 
   updatePromoCode(promoCode: PromoCode): Observable<Boolean> {
     return Observable.of(true);
-    // return this.http.put(environment.endpoint + '/api/marketing/promoCodes', JSON.stringify(settlement))
+    // return this._http.put(this.MARKETING_API + '/promoCodes', JSON.stringify(settlement))
     //   .flatMap(data => Observable.of(true));
   }
 
   addPromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem): Observable<String> {
-      let headers = new Headers({
-        'Content-Type': 'application/json',
-        //'Authorization': 'Bearer ' + this.authService.token
-      });
-      let options = new RequestOptions({headers: headers});
-      return this.http.post(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems' , JSON.stringify(promoCodeItem), options)
-        .flatMap((res: Response) => Observable.of(res.text()));
-    }
+    return this._http.post(this.MARKETING_API + '/promoCodes/' + promoCode.referenceNo + '/promoCodeItems', JSON.stringify(promoCodeItem))
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
 
-    updatePromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem){
-      let headers = new Headers({
-        'Content-Type': 'application/json',
-        //'Authorization': 'Bearer ' + this.authService.token
-      });
-      let options = new RequestOptions({headers: headers});
-      return this.http.put(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + promoCodeItem.id,  JSON.stringify(promoCodeItem), options)
-        .flatMap((res: Response) => Observable.of(res.text()));
-    }
+  updatePromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem) {
+    return this._http.put(this.MARKETING_API + '/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + promoCodeItem.id, JSON.stringify(promoCodeItem))
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
 
-    deletePromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem) {
-        let headers = new Headers({
-            'Content-Type': 'application/json',
-            //'Authorization': 'Bearer ' + this.authService.token
-          });
-          let options = new RequestOptions({headers: headers});
-         return this.http.delete(environment.endpoint + '/api/marketing/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + promoCodeItem.id, options)
-        .flatMap((res: Response) => Observable.of(res.text()));
-    }
+  deletePromoCodeItem(promoCode: PromoCode, promoCodeItem: PromoCodeItem) {
+    return this._http.delete(this.MARKETING_API + '/promoCodes/' + promoCode.referenceNo + '/promoCodeItems/' + promoCodeItem.id)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
 }
