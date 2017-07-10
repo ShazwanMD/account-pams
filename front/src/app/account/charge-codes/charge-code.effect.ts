@@ -42,9 +42,6 @@ export class ChargeCodeEffects {
     .switchMap(payload => this.accountService.updateChargeCode(payload))
     .map(message => this.chargeCodeActions.updateChargeCodeSuccess(message))
     .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]))
-    .withLatestFrom(this.store$.select(...this.CHARGE_CODE))
-    .map((state) => state[1])
-    .map((chargeCode: ChargeCode) => this.chargeCodeActions.findChargeCodeByCode(chargeCode.code));
 
   @Effect() removeChargeCode$ = this.actions$
     .ofType(ChargeCodeActions.REMOVE_CHARGE_CODE)

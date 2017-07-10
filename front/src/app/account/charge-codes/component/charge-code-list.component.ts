@@ -1,51 +1,48 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, OnInit, ViewContainerRef} from '@angular/core';
-import {ChargeCode} from "../charge-code.interface";
-import {Store} from "@ngrx/store";
-import {ChargeCodeActions} from "../charge-code.action";
-import {AccountModuleState} from "../../index";
-import {MdDialogRef, MdDialogConfig, MdDialog} from "@angular/material";
-import {ChargeCodeEditorDialog} from "../dialog/charge-code-editor.dialog";
-import {Observable} from "rxjs/Observable";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
-
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy,
+  OnInit,
+  AfterViewInit,
+  ViewContainerRef,
+} from '@angular/core';
+import {ChargeCode} from '../charge-code.interface';
+import {Store} from '@ngrx/store';
+import {ChargeCodeActions} from '../charge-code.action';
+import {AccountModuleState} from '../../index';
+import {MdDialogRef, MdDialogConfig, MdDialog} from '@angular/material';
+import {ChargeCodeEditorDialog} from '../dialog/charge-code-editor.dialog';
+import {Observable} from 'rxjs/Observable';
+import {
+  TdDataTableService,
+  TdDataTableSortingOrder,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent,
+} from '@covalent/core';
 
 @Component({
   selector: 'pams-charge-code-list',
   templateUrl: './charge-code-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChargeCodeListComponent {
+export class ChargeCodeListComponent implements AfterViewInit {
 
-  @Input() chargeCodes: ChargeCode[];
-  @Output() view = new EventEmitter<ChargeCode>();
-
-  private CHARGE_CODES: string[] = "accountModuleState.chargeCodes".split(".");
-  chargeCodes$: Observable<ChargeCode[]>;
+  private CHARGE_CODES: string[] = 'accountModuleState.chargeCodes'.split('.');
+  private chargeCodes$: Observable<ChargeCode[]>;
   private editorDialogRef: MdDialogRef<ChargeCodeEditorDialog>;
   private columns: any[] = [
     {name: 'code', label: 'Code'},
     {name: 'description', label: 'Description'},
     {name: 'priority', label: 'Priority'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
-  constructor(private store: Store<AccountModuleState>,
-              private actions: ChargeCodeActions,
-              private vcf: ViewContainerRef,
-              private dialog: MdDialog,
-              private _dataTableService: TdDataTableService) {
-              this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
-  }
+  @Input() chargeCodes: ChargeCode[];
+  @Output() view: EventEmitter<ChargeCode> = new EventEmitter<ChargeCode>();
 
-  editDialog(code: ChargeCode): void {
-    this.showDialog(code);
-  }
-
-  delete(code: ChargeCode): void {
-    this.store.dispatch(this.actions.removeChargeCode(code))
-  }
-
-filteredData: any[];
+  filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';
   fromRow: number = 1;
@@ -54,11 +51,26 @@ filteredData: any[];
   sortBy: string = 'code';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    
+  constructor(private store: Store<AccountModuleState>,
+              private actions: ChargeCodeActions,
+              private vcf: ViewContainerRef,
+              private dialog: MdDialog,
+              private _dataTableService: TdDataTableService) {
+    this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
+  }
+
   ngAfterViewInit(): void {
     this.filteredData = this.chargeCodes;
     this.filteredTotal = this.chargeCodes.length;
     this.filter();
+  }
+
+  editDialog(code: ChargeCode): void {
+    this.showDialog(code);
+  }
+
+  delete(code: ChargeCode): void {
+    this.store.dispatch(this.actions.removeChargeCode(code));
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -80,6 +92,7 @@ filteredData: any[];
   }
 
   filter(): void {
+    console.log('filter');
     let newData: any[] = this.chargeCodes;
     newData = this._dataTableService.filterData(newData, this.searchTerm, true);
     this.filteredTotal = newData.length;
@@ -89,17 +102,19 @@ filteredData: any[];
   }
 
   private showDialog(code: ChargeCode): void {
-    console.log("create");
-    let config = new MdDialogConfig();
+    console.log('create');
+    let config: MdDialogConfig = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '70%';
     config.height = '65%';
     config.position = {top: '0px'};
     this.editorDialogRef = this.dialog.open(ChargeCodeEditorDialog, config);
-    if (code) this.editorDialogRef.componentInstance.chargeCode = code; // set
-    this.editorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    if (code) {
+      this.editorDialogRef.componentInstance.chargeCode = code;
+    }
+    this.editorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
     });
   }
 }
