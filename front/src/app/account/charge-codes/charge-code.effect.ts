@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Effect, Actions} from '@ngrx/effects';
 import {from} from "rxjs/observable/from";
 import {ChargeCodeActions} from "./charge-code.action";
+import {ChargeCode} from "./charge-code.interface";
 import {AccountService} from "../../../services/account.service";
 import {AccountModuleState} from "../index";
 import {Store} from "@ngrx/store";
@@ -40,7 +41,10 @@ export class ChargeCodeEffects {
     .map(action => action.payload)
     .switchMap(payload => this.accountService.updateChargeCode(payload))
     .map(message => this.chargeCodeActions.updateChargeCodeSuccess(message))
-    .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]));
+    .mergeMap(action => from([action, this.chargeCodeActions.findChargeCodes()]))
+    .withLatestFrom(this.store$.select(...this.CHARGE_CODE))
+    .map((state) => state[1])
+    .map((chargeCode: ChargeCode) => this.chargeCodeActions.findChargeCodeByCode(chargeCode.code));
 
   @Effect() removeChargeCode$ = this.actions$
     .ofType(ChargeCodeActions.REMOVE_CHARGE_CODE)
