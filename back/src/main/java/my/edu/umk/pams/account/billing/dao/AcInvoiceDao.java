@@ -43,7 +43,7 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
 
     List<AcInvoice> findByFlowState(AcFlowState acFlowState);
 
-    List<AcInvoice> findByFlowStates(AcFlowState... acFlowState);
+    List<AcInvoice> findByFlowStates(AcFlowState... flowStates);
 
 //    List<AcInvoiceTransaction> findTransactions(AcInvoice invoice);
 //
