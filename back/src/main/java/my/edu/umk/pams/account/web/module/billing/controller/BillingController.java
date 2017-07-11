@@ -99,7 +99,7 @@ public class BillingController {
     }
 
     // todo: archive will be using ACL
-    @RequestMapping(value = "/invoices/archived ", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoices/archived", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findArchivedInvoices() {
     	dummyLogin();
         List<AcInvoice> invoices = billingService.findInvoicesByFlowStates(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
