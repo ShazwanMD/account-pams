@@ -486,7 +486,8 @@ public class BillingController {
         debitNote.setSourceNo(vo.getSourceNo());
         debitNote.setAuditNo(vo.getAuditNo());
         debitNote.setDescription(vo.getDescription());
-        debitNote.setTotalAmount(BigDecimal.ZERO);
+        //debitNote.setTotalAmount(BigDecimal.ZERO);
+        debitNote.setTotalAmount(vo.getTotalAmount());
         debitNote.setDebitNoteDate(vo.getDebitNoteDate());
         debitNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNote), HttpStatus.OK);
