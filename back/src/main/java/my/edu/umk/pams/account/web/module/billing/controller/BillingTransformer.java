@@ -203,7 +203,9 @@ public class BillingTransformer {
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
         vo.setAuditNo(e.getAuditNo());
+        vo.setDebitNoteDate(e.getDebitNoteDate());
         vo.setAccountCode(e.getInvoice().getAccount().getCode());
+        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
@@ -219,6 +221,8 @@ public class BillingTransformer {
         vo.setAuditNo(e.getAuditNo());
         vo.setDebitNoteDate(e.getDebitNoteDate());
         vo.setDescription(e.getDescription());
+        vo.setAccountCode(e.getInvoice().getAccount().getCode());
+        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
@@ -235,7 +239,10 @@ public class BillingTransformer {
         task.setReferenceNo(debitNote.getReferenceNo());
         task.setSourceNo(debitNote.getSourceNo());
         task.setAccountCode(debitNote.getInvoice().getAccount().getCode());
+        task.setAccountName(debitNote.getInvoice().getAccount().getActor().getName());
         task.setDescription(debitNote.getDescription());
+        task.setDebitNoteDate(task.getDebitNoteDate());
+        task.setTotalAmount(debitNote.getTotalAmount());
         task.setTaskName(t.getName());
         task.setAssignee(task.getAssignee());
         task.setCandidate(task.getCandidate());
@@ -251,7 +258,10 @@ public class BillingTransformer {
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
         vo.setAuditNo(e.getAuditNo());
+        vo.setAccountCode(e.getInvoice().getAccount().getCode());
+        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
         vo.setDescription(e.getDescription());
+        vo.setCreditNoteDate(e.getCreditNoteDate());
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
@@ -264,6 +274,8 @@ public class BillingTransformer {
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
         vo.setAuditNo(e.getAuditNo());
+        vo.setAccountCode(e.getInvoice().getAccount().getCode());
+        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
         vo.setDescription(e.getDescription());
         vo.setCreditNoteDate(e.getCreditNoteDate());
         vo.setTotalAmount(e.getTotalAmount());
@@ -283,7 +295,11 @@ public class BillingTransformer {
         task.setSourceNo(creditNote.getSourceNo());
         task.setDescription(creditNote.getDescription());
         task.setTaskName(t.getName());
+        task.setTotalAmount(creditNote.getTotalAmount());
+        task.setAccountCode(creditNote.getInvoice().getAccount().getCode());
+        task.setAccountName(creditNote.getInvoice().getAccount().getActor().getName());
         task.setAssignee(task.getAssignee());
+        task.setCreditNoteDate(task.getCreditNoteDate());
         task.setCandidate(task.getCandidate());
         task.setCreditNote(toCreditNoteVo(creditNote));
         task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));

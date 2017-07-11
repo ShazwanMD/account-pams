@@ -2,7 +2,7 @@
   <div layout="column" layout-gt-md="row" class="inset">
     <div flex-gt-md="70">
       <md-card>
-        <md-card-title>{{debitNoteTask?.referenceNo}}</md-card-title>
+        <md-card-title>{{debitNoteTask?.referenceNo}}:{{debitNoteTask?.accountName}}</md-card-title>
         <md-card-subtitle>{{debitNoteTask?.description}}</md-card-subtitle>
 
         <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
@@ -10,15 +10,15 @@
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{debitNoteTask?.referenceNo}}</h4>
-                <p md-line>Reference No</p>
+                <h4 md-line>{{debitNoteTask?.debitNote?.debitNoteDate}}</h4>
+                <p md-line>Date</p>
               </md-list-item>
             </md-list>
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{debitNoteTask?.totalAmount}}</h4>
-                <p md-line>Total Amount</p>
+                <h4 md-line>{{debitNoteTask?.referenceNo}}</h4>
+                <p md-line>Reference No</p>
               </md-list-item>
             </md-list>
           </div>
@@ -44,6 +44,13 @@
                 <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{debitNoteTask?.accountCode}}</h4>
                 <p md-line>Account</p>
+              </md-list-item>
+            </md-list>
+            <md-list dense>
+            <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{debitNoteTask?.totalAmount|currency:'MYR':true:'1.2-2'}}</h4>
+                <p md-line>Total Amount</p>
               </md-list-item>
             </md-list>
           </div>

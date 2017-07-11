@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.tngtech.jgiven.integration.spring.SpringScenarioTest;
 
@@ -16,7 +16,7 @@ import my.edu.umk.pams.bdd.stage.GivenIAmStudent;
 import my.edu.umk.pams.bdd.tags.Issue;
 
 @Issue("PAMSU-40")
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class US_AC_ACT_3006 extends SpringScenarioTest<GivenIAmStudent, WhenViewFeesStatement, ThenCanMakePayment> {
 

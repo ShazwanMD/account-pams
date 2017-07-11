@@ -57,6 +57,8 @@ export class AccountEffects {
       this.accountActions.findAccountTransactions(action.payload),
       this.accountActions.findSecurityAccountCharges(action.payload),
       this.accountActions.findAdmissionAccountCharges(action.payload),
+      this.accountActions.findStudentAffairsAccountCharges(action.payload),
+      this.accountActions.findLoanAccountCharges(action.payload),
       this.accountActions.findAccountWaivers(action.payload),
     ]));
 
@@ -78,6 +80,18 @@ export class AccountEffects {
     .switchMap((account) => this.accountService.findAdmissionAccountCharges(account))
     .map((charges) => this.accountActions.findAdmissionAccountChargesSuccess(charges));
 
+  @Effect() findLoanAccountCharges$ = this.actions$
+    .ofType(AccountActions.FIND_LOAN_ACCOUNT_CHARGES)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findLoanAccountCharges(account))
+    .map((charges) => this.accountActions.findLoanAccountChargesSuccess(charges));
+
+  @Effect() findStudentAffairsAccountCharges$ = this.actions$
+    .ofType(AccountActions.FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findStudentAffairsAccountCharges(account))
+    .map((charges) => this.accountActions.findStudentAffairsAccountChargesSuccess(charges));
+
   @Effect() findAccountWaivers$ = this.actions$
   .ofType(AccountActions.FIND_ACCOUNT_WAIVERS)
   .map((action) => action.payload)
@@ -88,8 +102,7 @@ export class AccountEffects {
     .ofType(AccountActions.SAVE_ACCOUNT)
     .map((action) => action.payload)
     .switchMap((account) => this.accountService.saveAccount(account))
-    .map((account) => this.accountActions.saveAccountSuccess(account))
-    .mergeMap((action) => from([action, this.accountActions.findAccountsByActor()]));
+    .map((account) => this.accountActions.saveAccountSuccess(account));
 
   @Effect() updateAccount$ = this.actions$
     .ofType(AccountActions.UPDATE_ACCOUNT)
@@ -114,7 +127,6 @@ export class AccountEffects {
     .withLatestFrom(this.store$.select(...this.ACCOUNT))
     .map((state) => state[1])
     .map((account: Account) => this.accountActions.findAccountByCode(account.code));
-
 
   @Effect() removeAccountCharge$ = this.actions$
     .ofType(AccountActions.REMOVE_ACCOUNT_CHARGE)

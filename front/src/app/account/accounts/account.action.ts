@@ -46,6 +46,7 @@ export class AccountActions {
 
   static FIND_ACCOUNTS_BY_ACTOR_SUCCESS = '[Account] Find Accounts By Actor Student Success';
   findAccountsByActorSuccess(accounts): Action {
+      console.log("findAccountsByActorSuccess");
     return {
       type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SUCCESS,
       payload: accounts
@@ -54,6 +55,7 @@ export class AccountActions {
 
   static FIND_ACCOUNTS_BY_ACTOR_SPONSOR = '[Account] Find Accounts By Actor Sponsor';
   findAccountsByActorSponsor(): Action {
+      
     return {
       type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR,
     };
@@ -61,6 +63,7 @@ export class AccountActions {
 
   static FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS = '[Account] Find Accounts By Actor Sponsor Success';
   findAccountsByActorSponsorSuccess(accounts): Action {
+      console.log("findAccountsByActorSponsorSuccess");
     return {
       type: AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS,
       payload: accounts
@@ -149,6 +152,42 @@ export class AccountActions {
     console.log("findAdmissionAccountChargesSuccess");
     return {
       type: AccountActions.FIND_ADMISSION_ACCOUNT_CHARGES_SUCCESS,
+      payload: accountCharges
+    };
+  }
+
+  static FIND_LOAN_ACCOUNT_CHARGES = '[Account] Find Loan Account Charges';
+  findLoanAccountCharges(account): Action {
+    console.log("findLoanAccountCharges");
+    return {
+      type: AccountActions.FIND_LOAN_ACCOUNT_CHARGES,
+      payload: account
+    };
+  }
+
+  static FIND_LOAN_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Loan Account Charges Success';
+  findLoanAccountChargesSuccess(accountCharges): Action {
+    console.log("findLoanAccountChargesSuccess");
+    return {
+      type: AccountActions.FIND_LOAN_ACCOUNT_CHARGES_SUCCESS,
+      payload: accountCharges
+    };
+  }
+
+  static FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES = '[Account] Find Student Affairs Account Charges';
+  findStudentAffairsAccountCharges(account): Action {
+    console.log("findStudentAffairsAccountCharges");
+    return {
+      type: AccountActions.FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES,
+      payload: account
+    };
+  }
+
+  static FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Student Affairs Account Charges Success';
+  findStudentAffairsAccountChargesSuccess(accountCharges): Action {
+    console.log("findStudentAffairsAccountChargesSuccess");
+    return {
+      type: AccountActions.FIND_STUDENT_AFFAIRS_ACCOUNT_CHARGES_SUCCESS,
       payload: accountCharges
     };
   }

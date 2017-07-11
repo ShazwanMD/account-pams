@@ -24,14 +24,34 @@
               </md-list>
             </div>
             <div layout="column" flex>
-              <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(invoice$|async)?.accountCode}}</h4>
-                  <p md-line>Account</p>
-                </md-list-item>
-              </md-list>
-            </div>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{(invoice$|async)?.issuedDate | date: 'dd-MMM-yyyy'}}</h4>
+                <p md-line>Date</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          </div>
+          <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{(invoice$|async)?.account?.name}}</h4>
+                <p md-line>Student Name</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{(invoice$|async)?.account?.code}}</h4>
+                <p md-line>Account</p>
+              </md-list-item>
+            </md-list>
+          </div>
           </div>
           <md-card-actions>
 
@@ -57,7 +77,7 @@
       <div flex-gt-md="30">
         <pams-invoice-status [invoice]="invoice$ | async"></pams-invoice-status>
         <pams-invoice-action [invoice]="invoice$ | async"></pams-invoice-action>
-      </div>
+	</div>
     </div>
   </div>
 </td-layout-nav>

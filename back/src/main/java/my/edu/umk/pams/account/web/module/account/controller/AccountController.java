@@ -388,6 +388,28 @@ public class AccountController {
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 break;
+            case STUDENT_AFFAIRS:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
+                charge.setDescription(vo.getDescription());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case LOAN:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setChargeDate(vo.getChargeDate());
+                if (null != vo.getCohortCode())
+                    charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if (null != vo.getStudyMode())
+                    charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
         }
         accountService.addAccountCharge(account, charge);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -402,7 +424,6 @@ public class AccountController {
         AcAccountCharge charge = accountService.findAccountChargeByReferenceNo(referenceNo);
         switch (vo.getChargeType()) {
         case ADMISSION:
-      //      charge.setReferenceNo(vo.getReferenceNo());
             charge.setSourceNo(vo.getSourceNo());
             charge.setDescription(vo.getDescription());
             charge.setAmount(vo.getAmount());
@@ -416,7 +437,6 @@ public class AccountController {
             charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
             break;
         case COMPOUND:
-      //      charge.setReferenceNo(vo.getReferenceNo());
             charge.setSourceNo(vo.getSourceNo());
             charge.setDescription(vo.getDescription());
             charge.setAmount(vo.getAmount());
@@ -425,12 +445,31 @@ public class AccountController {
             charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
             break;
         case SECURITY:
-        	
-       //     charge.setReferenceNo(vo.getReferenceNo());
             charge.setSourceNo(vo.getSourceNo());
             charge.setAmount(vo.getAmount());
             charge.setDescription(vo.getDescription());
             charge.setChargeDate(vo.getChargeDate());
+            charge.setSession(accountService.findCurrentAcademicSession());
+            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+            break;
+        case STUDENT_AFFAIRS:	
+            charge.setSourceNo(vo.getSourceNo());
+            charge.setAmount(vo.getAmount());
+            charge.setDescription(vo.getDescription());
+            charge.setChargeDate(vo.getChargeDate());
+            charge.setSession(accountService.findCurrentAcademicSession());
+            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+            break;
+        case LOAN:
+            charge.setReferenceNo(referenceNo);
+            charge.setSourceNo(vo.getSourceNo());
+            charge.setDescription(vo.getDescription());
+            charge.setAmount(vo.getAmount());
+            charge.setChargeDate(vo.getChargeDate());
+            if (null != vo.getCohortCode())
+                charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+            if (null != vo.getStudyMode())
+                charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
             charge.setSession(accountService.findCurrentAcademicSession());
             charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
             break;

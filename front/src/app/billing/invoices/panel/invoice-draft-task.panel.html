@@ -19,6 +19,26 @@
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{invoiceTask?.issuedDate | date: 'dd-MMM-yyyy'}}</h4>
+                <p md-line>Date</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          </div>
+          <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{invoiceTask?.invoice?.account?.name}}</h4>
+                <p md-line>Student Name</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{invoiceTask?.accountCode}}</h4>
                 <p md-line>Account</p>
               </md-list-item>
@@ -48,8 +68,8 @@
         <md-nav-list dense>
           <md-list-item (click)="register()">
             <md-icon md-list-avatar>done</md-icon>
-            <h4 md-line>Register</h4>
-            <p md-line>Register this invoice</p>
+            <h4 md-line>Preparer</h4>
+            <p md-line>Preparer this invoice</p>
           </md-list-item>
           <md-list-item>
             <md-icon md-list-avatar>remove_circle</md-icon>

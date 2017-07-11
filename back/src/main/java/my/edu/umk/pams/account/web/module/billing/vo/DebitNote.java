@@ -18,13 +18,14 @@ public class DebitNote extends Document {
 	private String sourceNo;
 	private String auditNo;
 	private String description;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date debitNoteDate;
 	private BigDecimal totalAmount = new BigDecimal(0.00);
 	private Invoice invoice;
 
 	// denormalized
 	private String accountCode;
+	private String accountName;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -88,6 +89,14 @@ public class DebitNote extends Document {
 
 	public void setAccountCode(String accountCode) {
 		this.accountCode = accountCode;
+	}
+	
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
 	@JsonCreator

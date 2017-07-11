@@ -7,13 +7,17 @@ import {Store} from "@ngrx/store";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CreditNoteCreatorDialog} from "../../credit-notes/dialog/credit-note-creator.dialog";
 import {DebitNoteCreatorDialog} from "../../debit-notes/dialog/debit-note-creator.dialog";
+import { TdDialogService } from "@covalent/core";
+
 @Component({
   selector: 'pams-invoice-action',
   templateUrl: './invoice-action.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceActionComponent {
+  
   @Input() invoice: Invoice;
+  
 
   private debitCreatorDialogRef: MdDialogRef<DebitNoteCreatorDialog>;
   private creditCreatorDialogRef: MdDialogRef<CreditNoteCreatorDialog>;
@@ -23,6 +27,7 @@ export class InvoiceActionComponent {
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
+              private _dialogService: TdDialogService,
               private actions: InvoiceActions) {
   }
 
@@ -57,4 +62,23 @@ export class InvoiceActionComponent {
       // load something here
     });
   }
+  
+  cancelDialog(): void {
+      console.log(this.invoice.referenceNo);
+      this._dialogService.openConfirm({
+        message: 'Cancel Invoice '+ this.invoice.referenceNo +' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.vcf,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.cancelInvoice(this.invoice));
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    
+  }
+
 }

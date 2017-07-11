@@ -5,5 +5,6 @@ export enum AccountChargeType {
     ENROLLMENT_LATE,
     SECURITY,
     COMPOUND,
-    STUDENT_AFFAIRS
+    STUDENT_AFFAIRS,
+    LOAN,
 }

@@ -13,7 +13,10 @@ import {AccountActions} from './account.action';
 import {AccountEffects} from './account.effect';
 import {AccountCenterPage} from './account-center.page';
 import {AccountListComponent} from './component/account-list.component';
-import {SecurityChargeComponent} from './component/security-charge.component'
+import {SecurityChargeComponent} from './component/security-charge.component';
+import {AdmissionChargeComponent} from './component/admission-charge.component';
+import {LoanChargeComponent} from './component/loan-charge.component';
+import {StudentAffairsChargeComponent} from './component/student-affairs-charge.component';
 import {AccountDetailPage} from './account-detail.page';
 import {AccountComponent} from './component/account.component';
 import {AccountStatusComponent} from './component/account-status.component';
@@ -24,12 +27,15 @@ import {IdentityModule} from '../../identity/index';
 import {AccountActivityListComponent} from './component/account-activity-list.component';
 import {AccountChargeListComponent} from './component/account-charge-list.component';
 import {AccountWaiverListComponent} from './component/account-waiver-list.component';
-import {AdmissionChargeDialog} from './dialog/admission-charge.dialog';
+import {AccountStudentListComponent} from './component/account-student-list.component';
 import {AdmissionChargeEditorDialog} from './dialog/admission-charge-editor.dialog';
+import {LoanChargeEditorDialog} from './dialog/loan-charge-editor.dialog';
 import {SecurityChargeEditorDialog} from './dialog/security-charge-editor.dialog';
+import {StudentAffairsChargeEditorDialog} from './dialog/student-affairs-charge-editor.dialog';
 import {CompoundChargeEditorDialog} from './dialog/compound-charge-editor.dialog';
 import {CommonModule} from '../../common/index';
 import {AcademicSessionSubModule} from '../academic-sessions/index';
+import { AccountSponsorListComponent } from "./component/account-sponsor-list.component";
 
 @NgModule({
   imports: [
@@ -54,25 +60,35 @@ import {AcademicSessionSubModule} from '../academic-sessions/index';
     AccountActivityListComponent,
     AccountChargeListComponent,
     SecurityChargeComponent,
+    AdmissionChargeComponent,
+    LoanChargeComponent,
+    StudentAffairsChargeComponent,
     AccountWaiverListComponent,
     AccountComboBoxComponent,
     AccountSelectComponent,
     AccountCreatorDialog,
-    AdmissionChargeDialog,
     AdmissionChargeEditorDialog,
+    LoanChargeEditorDialog,
     SecurityChargeEditorDialog,
+    StudentAffairsChargeEditorDialog,
     CompoundChargeEditorDialog,
+    AccountStudentListComponent,
+    AccountSponsorListComponent,
 
   ],
   exports: [
     AccountComboBoxComponent,
     AccountSelectComponent,
     SecurityChargeComponent,
+    AdmissionChargeComponent,
+    LoanChargeComponent,
+    StudentAffairsChargeComponent,
   ],
   entryComponents: [
     AccountCreatorDialog,
-    AdmissionChargeDialog,
     AdmissionChargeEditorDialog,
+    LoanChargeEditorDialog,
+    StudentAffairsChargeEditorDialog,
     CompoundChargeEditorDialog,
     SecurityChargeEditorDialog,
   ],

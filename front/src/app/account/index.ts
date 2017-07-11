@@ -32,9 +32,14 @@ import {
   AccountChargeListState,
   admissionAccountChargeListReducer,
   securityAccountChargeListReducer,
+  studentAffairsAccountChargeListReducer,
+  loanAccountChargeListReducer,
 } from './accounts/account-charge-list.reducer';
 import {ChargeCodeSelectComponent} from './charge-codes/component/charge-code-select.component';
 import {accountWaiverReducer, AccountWaiverState} from './accounts/account-waivers.reducer';
+import {accountStudentListReducer, AccountStudentListState} from './accounts/account-student-list.reducer';
+import {accountSponsorListReducer, AccountSponsorListState} from './accounts/account-sponsor-list.reducer';
+import {Account} from "./accounts/account.interface";
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -44,6 +49,8 @@ export interface AccountModuleState {
   accountTransactions: AccountTransactionListState;
   securityAccountCharges: AccountChargeListState;
   admissionAccountCharges: AccountChargeListState;
+  loanAccountCharges: AccountChargeListState;
+  studentAffairsAccountCharges : AccountChargeListState;
   accountCharges: AccountChargeListState;
   chargeCode: ChargeCodeState;
   chargeCodes: ChargeCodeListState;
@@ -51,6 +58,9 @@ export interface AccountModuleState {
   feeSchedule: FeeScheduleState;
   feeScheduleItems: FeeScheduleItemListState;
   accountWaiver: AccountWaiverState;
+  accountStudentList: AccountStudentListState;
+ accountSponsorList: AccountSponsorListState;
+ 
 }
 ;
 
@@ -63,12 +73,16 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accountTransactions: [],
     securityAccountCharges: [],
     admissionAccountCharges: [],
+    loanAccountCharges: [],
+    studentAffairsAccountCharges: [],
     chargeCodes: [],
     chargeCode: {},
     feeSchedules: [],
     feeSchedule: {},
     feeScheduleItems: [],
     accountWaiver: [],
+    accountStudentList: [],
+    accountSponsorList: [],
   };
 
 export const accountModuleReducers = {
@@ -79,12 +93,16 @@ export const accountModuleReducers = {
   accountTransactions: accountTransactionListReducer,
   securityAccountCharges: securityAccountChargeListReducer,
   admissionAccountCharges: admissionAccountChargeListReducer,
+  loanAccountCharges: loanAccountChargeListReducer,
+  studentAffairsAccountCharges: studentAffairsAccountChargeListReducer,
   chargeCodes: chargeCodeListReducer,
   chargeCode: chargeCodeReducer,
   feeSchedules: feeScheduleListReducer,
   feeSchedule: feeScheduleReducer,
   feeScheduleItems: feeScheduleItemListReducer,
   accountWaiver: accountWaiverReducer,
+  accountStudentList: accountStudentListReducer,
+  accountSponsorList: accountSponsorListReducer,
 };
 
 @NgModule({

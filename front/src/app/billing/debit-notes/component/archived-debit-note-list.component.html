@@ -1,19 +1,26 @@
+<div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+    <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)" [alwaysVisible]="true" flex>
+    </td-search-box>
+</div>
+<md-divider></md-divider>
 <td-data-table
-  [data]="debitNotes"
-  [columns]="columns"
-  [sortBy]="summary"
-  [sortOrder]="ASC"
-  [sortable]="false"
-  [multiple]="false"
-  [selectable]="false"
-  (rowSelect)="view.emit($event)" dense>
+    #dataTable
+	[data]="filteredData" 
+    [columns]="columns"
+    [sortable]="true"
+    [sortBy]="sortBy"
+    [sortOrder]="sortOrder"
+    (sortChange)="sort($event)">
   <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <span flex>{{value}}</span>
     </div>
-  </template>
+ </template>
   <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['totalAmount'] | currency:'MYR':true:'1.2-2'}}</div>
+  </template>
+    <template tdDataTableTemplate="flowState" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['flowState'] | flowStatePipe }}</div>
   </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
@@ -23,3 +30,10 @@
     </div>
   </template>
 </td-data-table>
+<div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+    <h3>No results to display.</h3>
+</div> 
+<td-paging-bar #pagingBar [pageSizes]="[10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
+    <span td-paging-bar-label hide-xs>Row per page:</span>
+    {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+</td-paging-bar>

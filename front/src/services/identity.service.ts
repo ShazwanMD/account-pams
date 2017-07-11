@@ -1,52 +1,53 @@
 import {Injectable} from '@angular/core';
-import {Response, Http} from '@angular/http';
+import {Response} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
-import {Observable} from "rxjs";
-import {Actor} from "../app/identity/actor.interface";
-import {environment} from "../environments/environment";
-import {Sponsor} from "../app/identity/sponsor.interface";
-import {Student} from "../app/identity/student.interface";
+import {Observable} from 'rxjs';
+import {Actor} from '../app/identity/actor.interface';
+import {environment} from '../environments/environment';
+import {Sponsor} from '../app/identity/sponsor.interface';
+import {Student} from '../app/identity/student.interface';
 
 @Injectable()
 export class IdentityService {
 
-  constructor(private http: Http,
-              private _http: HttpInterceptorService) {
+  private IDENTITY_API: string = environment.endpoint + '/api/identity';
+
+  constructor(private _http: HttpInterceptorService) {
   }
 
   findActors(): Observable<Actor[]> {
-    console.log("findActors");
-    return this.http.get(environment.endpoint + '/api/identity/actors')
+    console.log('findActors');
+    return this._http.get(this.IDENTITY_API + '/actors')
       .map((res: Response) => <Actor[]>res.json());
   }
 
   findActorByIdentityNo(identityNo: string): Observable<Actor> {
-    console.log("findActorByIdenittyNo");
-    return this.http.get(environment.endpoint + '/api/identity/actors/' + identityNo)
+    console.log('findActorByIdenittyNo');
+    return this._http.get(this.IDENTITY_API + '/actors/' + identityNo)
       .map((res: Response) => <Actor>res.json());
   }
 
   findStudents(): Observable<Student[]> {
-    console.log("findStudents");
-    return this.http.get(environment.endpoint + '/api/identity/students')
+    console.log('findStudents');
+    return this._http.get(this.IDENTITY_API + '/students')
       .map((res: Response) => <Student[]>res.json());
   }
 
   findStudentByIdentityNo(identityNo: string): Observable<Student> {
-    console.log("findStudentByIdenittyNo");
-    return this.http.get(environment.endpoint + '/api/identity/students/' + identityNo)
+    console.log('findStudentByIdenittyNo');
+    return this._http.get(this.IDENTITY_API + '/students/' + identityNo)
       .map((res: Response) => <Student>res.json());
   }
 
   findSponsors(): Observable<Sponsor[]> {
-    console.log("findSponsors");
-    return this.http.get(environment.endpoint + '/api/identity/sponsors')
+    console.log('findSponsors');
+    return this._http.get(this.IDENTITY_API + '/sponsors')
       .map((res: Response) => <Sponsor[]>res.json());
   }
 
   findSponsorByIdentityNo(identityNo: string): Observable<Sponsor> {
-    console.log("findSponsorByIdenittyNo");
-    return this.http.get(environment.endpoint + '/api/identity/sponsors/' + identityNo)
+    console.log('findSponsorByIdenittyNo');
+    return this._http.get(this.IDENTITY_API + '/sponsors/' + identityNo)
       .map((res: Response) => <Sponsor>res.json());
   }
 }
