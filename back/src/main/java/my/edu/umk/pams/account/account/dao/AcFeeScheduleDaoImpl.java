@@ -86,7 +86,8 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcFeeScheduleItem s where " +
                 "s.schedule = :schedule " +
-                "and s.metadata.state = :state ");
+                "and s.metadata.state = :state " +
+                "order by s.ordinal asc");
         query.setEntity("schedule", schedule);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
