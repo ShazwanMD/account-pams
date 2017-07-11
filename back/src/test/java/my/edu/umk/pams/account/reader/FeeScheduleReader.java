@@ -37,13 +37,12 @@ public class FeeScheduleReader {
     @Rollback(false)
     public void loadDataTempatan() throws IOException {
         try {
-            File out = new File("C:/Projects/GitLab/UMK/account/data/src/site/FKP-PHD-0001-CHRT-201720181.sql");
-            File file = new File("C:/Projects/GitLab/UMK/account/data/src/site/DATA CPS/FKP-PHD-0001-CHRT-201720181.xlsx");
+            File out = new File("C:/Projects/GitLab/UMK/account/data/src/site/FKP-PHD-0001-CHRT-201720181(UDATEST).sql");
+            File file = new File("C:/Projects/GitLab/UMK/account/data/src/site/DATA CPS/FKP-PHD-0001-CHRT-201720181(UDATEST).xlsx");
 
             FileWriter writer = new FileWriter(out);
             Workbook workbook = WorkbookFactory.create(new FileInputStream(file));
             LOG.debug("number of sheets: " + workbook.getNumberOfSheets());
-
 
             for (int i = 0; i < COHORTS.length; i++) {
                 String cohort = COHORTS[i];

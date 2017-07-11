@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -102,6 +103,8 @@ public interface AccountService {
     void updateFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item);
 
     void deleteFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item);
+
+    void parseFeeSchedule(InputStream inputStream);
 
     // ==================================================================================================== //
     // ACCOUNT

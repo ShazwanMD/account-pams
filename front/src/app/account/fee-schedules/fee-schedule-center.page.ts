@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef, Input } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {AccountModuleState} from "../index";
-import {FeeSchedule} from "./fee-schedule.interface";
-import {FeeScheduleActions} from "./fee-schedule.action";
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {FeeScheduleCreatorDialog} from "./dialog/fee-schedule-creator.dialog";
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {AccountModuleState} from '../index';
+import {FeeSchedule} from './fee-schedule.interface';
+import {FeeScheduleActions} from './fee-schedule.action';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {FeeScheduleCreatorDialog} from './dialog/fee-schedule-creator.dialog';
 
 @Component({
   selector: 'pams-fee-schedule-center',
@@ -14,8 +14,8 @@ import {FeeScheduleCreatorDialog} from "./dialog/fee-schedule-creator.dialog";
 })
 
 export class FeeScheduleCenterPage implements OnInit {
-@Input() feeSchedule:FeeSchedule;
-  private FEE_SCHEDULES: string[] = "accountModuleState.feeSchedules".split(".");
+@Input() feeSchedule: FeeSchedule;
+  private FEE_SCHEDULES: string[] = 'accountModuleState.feeSchedules'.split('.');
   private feeSchedules$: Observable<FeeSchedule[]>;
   private creatorDialogRef: MdDialogRef<FeeScheduleCreatorDialog>;
 
@@ -29,7 +29,7 @@ export class FeeScheduleCenterPage implements OnInit {
   }
 
   showDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -37,8 +37,8 @@ export class FeeScheduleCenterPage implements OnInit {
     config.height = '65%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(FeeScheduleCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
@@ -59,9 +59,8 @@ export class FeeScheduleCenterPage implements OnInit {
   }
 
   upload(file: File): void {
-    console.log("feeSchedule", file);
-    this.store.dispatch(this.actions.uploadFeeSchedule(this.feeSchedule,file));
-
+    console.log('feeSchedule', file);
+    this.store.dispatch(this.actions.uploadFeeSchedule(file));
   }
 }
 

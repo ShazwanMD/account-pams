@@ -5,9 +5,17 @@ import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
+import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.security.service.SecurityService;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -41,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AcFeeScheduleDao feeScheduleDao;
-    
+
     @Autowired
     private AcAccountSTLDao shortTermLoanDao;
 
@@ -50,6 +61,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private CommonService commonService;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -189,7 +203,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode,AcResidencyCode residencyCode, AcStudyMode studyMode) {
+    public AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode, AcResidencyCode residencyCode, AcStudyMode studyMode) {
         return feeScheduleDao.findByCohortCodeAndResidencyCodeAndStudyMode(cohortCode, residencyCode, studyMode);
     }
 
@@ -235,13 +249,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void saveFeeSchedule(AcFeeSchedule schedule) {
-        feeScheduleDao.save(schedule,securityService.getCurrentUser());
+        feeScheduleDao.save(schedule, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void updateFeeSchedule(AcFeeSchedule schedule) {
-        feeScheduleDao.update(schedule,securityService.getCurrentUser());
+        feeScheduleDao.update(schedule, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -267,6 +281,80 @@ public class AccountServiceImpl implements AccountService {
     public void deleteFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item) {
         feeScheduleDao.deleteItem(schedule, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void parseFeeSchedule(InputStream inputStream) {
+        try {
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            int numberOfSheets = workbook.getNumberOfSheets();
+            LOG.debug("number of sheets: " + numberOfSheets);
+
+            for (int i = 0; i < numberOfSheets; i++) {
+                Sheet sheet = workbook.getSheetAt(i);
+//                writer.write("INSERT INTO AC_FEE_SCDL (ID,RESIDENCY_CODE_ID, COHORT_CODE_ID, STUDY_MODE_ID, CODE, DESCRIPTION, TOTAL_AMOUNT, M_ST, C_TS,C_ID) VALUES (\n"
+//                        + "nextval('SQ_AC_FEE_SCDL'),"
+//                        + "(SELECT ID from AC_RSCY_CODE where code ='" + getCell(sheet, 3, 1) + "' ),"
+//                        + "(SELECT ID FROM AC_CHRT_CODE WHERE CODE = '" + getCell(sheet, 1, 1) + "' ),"
+//                        + "(SELECT ID FROM AC_STDY_MODE WHERE CODE = '" + getCell(sheet, 2, 1) + "' ),"
+//                        + "'YB-" + getCell(sheet, 1, 1) + "',"
+//                        + "'" + getCell(sheet, 0, 1) + "',"
+//                        + "0.00,"
+//                        + "1,"
+//                        + "CURRENT_TIMESTAMP,"
+//                        + "1); \n\n\n\n\n");
+                AcFeeSchedule schedule = new AcFeeScheduleImpl();
+                schedule.setResidencyCode(commonService.findResidencyCodeByCode(getCell(sheet, 3, 1)));
+                schedule.setCohortCode(commonService.findCohortCodeByCode(getCell(sheet, 1, 1)));
+                schedule.setStudyMode(commonService.findStudyModeByCode(getCell(sheet, 2, 1)));
+                schedule.setCode(getCell(sheet, 1, 1));
+                schedule.setDescription(getCell(sheet, 0, 1));
+                schedule.setTotalAmount(BigDecimal.ZERO);
+                feeScheduleDao.save(schedule, securityService.getCurrentUser());
+                sessionFactory.getCurrentSession().flush();
+                sessionFactory.getCurrentSession().refresh(schedule);
+
+                int lastRowNum = sheet.getLastRowNum();
+                for (int j = 7; j < lastRowNum; j++) {
+                    Row row = sheet.getRow(j);
+                    if (row != null) {
+                        LOG.debug(toString(row.getCell(0)));
+                        LOG.debug(toString(row.getCell(1)));
+                        LOG.debug(toString(row.getCell(2)));
+
+                        if (!toString(row.getCell(0)).startsWith("YURAN SEMESTER")
+                                || toString(row.getCell(0)).startsWith("Jumlah")) {
+                            AcFeeScheduleItem item = new AcFeeScheduleItemImpl();
+                            item.setDescription(toString(row.getCell(0)));
+                            item.setOrdinal(Integer.valueOf(toString(row.getCell(4), true)));
+                            item.setChargeCode(findChargeCodeByCode(toString(row.getCell(3))));
+                            item.setAmount(new BigDecimal(toString(row.getCell(1))));
+                            item.setSchedule(schedule);
+                            feeScheduleDao.addItem(schedule, item, securityService.getCurrentUser());
+                            sessionFactory.getCurrentSession().flush();
+
+//                            writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,ORDINAL,SCHEDULE_ID,CHARGE_CODE_ID, AMOUNT,C_TS,C_ID,M_ST) \n" +
+//                                    " VALUES ("
+//                                    + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
+//                                    + "'" + toString(row.getCell(0)) + "',"
+//                                    + toString(row.getCell(4), true) + ","
+//                                    + "currval('SQ_AC_FEE_SCDL'),"
+//                                    + "(SELECT ID FROM AC_CHRG_CODE WHERE CODE = '" + row.getCell(3) + "'),"
+//                                    + "'" + toString(row.getCell(1)) + "',"
+//                                    + "CURRENT_TIMESTAMP,"
+//                                    + "1,"
+//                                    + "1);"
+//                                    + "\n\n");
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+        } catch (InvalidFormatException e) {
+            LOG.error(e.getMessage());
+        }
+
     }
 
     // ==================================================================================================== //
@@ -302,7 +390,8 @@ public class AccountServiceImpl implements AccountService {
 
     // todo(uda): decorate
     @Override
-    public List<AcAccount> findAccounts(String filter, AcActorType actorType, Integer offset, Integer limit) {
+    public List<AcAccount> findAccounts(String filter, AcActorType actorType, Integer
+            offset, Integer limit) {
         return accountDao.find(filter, actorType, offset, limit);
     }
 
@@ -352,7 +441,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
+    public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession
+            academicSession) {
         return accountDao.sumBalanceAmount(account)
                 .subtract(accountDao.sumWaiverAmount(account, academicSession));
     }
@@ -363,17 +453,20 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountTransaction> findAccountTransactions(AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountTransaction> findAccountTransactions(AcAccount account, Integer
+            offset, Integer limit) {
         return accountDao.findAccountTransactions(account, offset, limit);
     }
 
     @Override
-    public List<AcAccountTransaction> findAccountTransactions(AcAcademicSession academicSession, AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountTransaction> findAccountTransactions(AcAcademicSession
+                                                                      academicSession, AcAccount account, Integer offset, Integer limit) {
         return accountDao.findAccountTransactions(academicSession, account, offset, limit);
     }
 
     @Override
-    public List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount
+            account, Integer offset, Integer limit) {
         return accountDao.findAccountTransactions(filter, account, offset, limit);
     }
 
@@ -431,7 +524,7 @@ public class AccountServiceImpl implements AccountService {
         accountDao.deleteTransaction(account, transaction, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-    
+
     // ==================================================================================================== //
     // ACCOUNT CHARGE
     // TODO: refactored per new  account
@@ -453,7 +546,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountCharge> findAttachedAccountCharges(AcAcademicSession academicSession, AcAccount account) {
+    public List<AcAccountCharge> findAttachedAccountCharges(AcAcademicSession
+                                                                    academicSession, AcAccount account) {
         return chargeDao.findAttached(academicSession, account);
     }
 
@@ -463,7 +557,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountCharge> findDetachedAccountCharges(AcAcademicSession academicSession, AcAccount account) {
+    public List<AcAccountCharge> findDetachedAccountCharges(AcAcademicSession
+                                                                    academicSession, AcAccount account) {
         return chargeDao.findDetached(academicSession, account);
     }
 
@@ -473,17 +568,20 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountCharge> findAccountCharges(AcAccount account, AcAccountChargeType... chargeTypes) {
+    public List<AcAccountCharge> findAccountCharges(AcAccount account, AcAccountChargeType...
+            chargeTypes) {
         return chargeDao.find(account, chargeTypes);
     }
 
     @Override
-    public List<AcAccountCharge> findAccountCharges(AcAcademicSession academicSession, AcAccount account) {
+    public List<AcAccountCharge> findAccountCharges(AcAcademicSession
+                                                            academicSession, AcAccount account) {
         return chargeDao.find(academicSession, account);
     }
 
     @Override
-    public List<AcAccountCharge> findAccountCharges(AcAcademicSession academicSession, AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountCharge> findAccountCharges(AcAcademicSession
+                                                            academicSession, AcAccount account, Integer offset, Integer limit) {
         return chargeDao.find(academicSession, account, offset, limit);
     }
 
@@ -493,7 +591,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountCharge> findAccountCharges(AcAcademicSession academicSession, AcAccountChargeType... chargeType) {
+    public List<AcAccountCharge> findAccountCharges(AcAcademicSession
+                                                            academicSession, AcAccountChargeType... chargeType) {
         return chargeDao.find(academicSession, chargeType);
     }
 
@@ -508,32 +607,38 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountCharge> findAccountCharges(AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountCharge> findAccountCharges(AcAccount account, Integer offset, Integer
+            limit) {
         return chargeDao.find(account, offset, limit);
     }
 
     @Override
-    public List<AcAccountCharge> findUnpaidAccountCharges(AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountCharge> findUnpaidAccountCharges(AcAccount account, Integer
+            offset, Integer limit) {
         return chargeDao.find(account, offset, limit); // TODO unpaid
     }
 
     @Override
-    public List<AcAccountCharge> findPaidAccountCharges(AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountCharge> findPaidAccountCharges(AcAccount account, Integer
+            offset, Integer limit) {
         return chargeDao.find(account, offset, limit); // TODO paid
     }
 
     @Override
-    public List<AcAccountCharge> findAccountCharges(String filter, AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountCharge> findAccountCharges(String filter, AcAccount account, Integer
+            offset, Integer limit) {
         return chargeDao.find(account);
     }
 
     @Override
-    public List<AcAccountCharge> findUnpaidAccountCharges(String filter, AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountCharge> findUnpaidAccountCharges(String filter, AcAccount
+            account, Integer offset, Integer limit) {
         return chargeDao.find(account);
     }
 
     @Override
-    public List<AcAccountCharge> findPaidAccountCharges(String filter, AcAccount account, Integer offset, Integer limit) {
+    public List<AcAccountCharge> findPaidAccountCharges(String filter, AcAccount
+            account, Integer offset, Integer limit) {
         return chargeDao.find(account);
     }
 
@@ -558,7 +663,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Integer countAttachedAccountCharge(AcAcademicSession academicSession, AcAccount account) {
+    public Integer countAttachedAccountCharge(AcAcademicSession academicSession, AcAccount
+            account) {
         return chargeDao.countAttached(academicSession, account);
     }
 
@@ -568,7 +674,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Integer countDetachedAccountCharge(AcAcademicSession academicSession, AcAccount account) {
+    public Integer countDetachedAccountCharge(AcAcademicSession academicSession, AcAccount
+            account) {
         return chargeDao.countDetached(academicSession, account);
     }
 
@@ -578,7 +685,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean isAccountChargeExists(AcAccount account, AcAccountChargeType chargeType, AcAcademicSession academicSession) {
+    public boolean isAccountChargeExists(AcAccount account, AcAccountChargeType
+            chargeType, AcAcademicSession academicSession) {
         return chargeDao.isChargeExists(account, academicSession, chargeType);
     }
 
@@ -590,10 +698,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void updateAccountCharge(AcAccount account, AcAccountCharge charge) {
-    accountDao.updateCharge(account, charge, securityService.getCurrentUser());
-    sessionFactory.getCurrentSession().flush();
+        accountDao.updateCharge(account, charge, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
     }
-    
+
     @Override
     public void deleteAccountCharge(AcAccount account, AcAccountCharge charge) {
         accountDao.deleteCharge(account, charge, securityService.getCurrentUser());
@@ -620,7 +728,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountWaiver> findAccountWaivers(AcAcademicSession academicSession, AcAccount account) {
+    public List<AcAccountWaiver> findAccountWaivers(AcAcademicSession
+                                                            academicSession, AcAccount account) {
         return waiverDao.find(academicSession, account);
     }
 
@@ -635,17 +744,19 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void addAccountWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver) {
+    public void addAccountWaiver(AcAccount account, AcAcademicSession
+            academicSession, AcAccountWaiver waiver) {
         accountDao.addWaiver(account, academicSession, waiver, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void removeAccountWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver) {
+    public void removeAccountWaiver(AcAccount account, AcAcademicSession
+            academicSession, AcAccountWaiver waiver) {
         accountDao.addWaiver(account, academicSession, waiver, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-    
+
     // ==================================================================================================== //
     //  ACCOUNT SHORT TERM LOAN
     // ==================================================================================================== //
@@ -666,12 +777,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountSTL> findAccountShortTermLoans(AcAcademicSession academicSession, AcAccount account) {
+    public List<AcAccountSTL> findAccountShortTermLoans(AcAcademicSession
+                                                                academicSession, AcAccount account) {
         return shortTermLoanDao.find(academicSession, account);
     }
 
     @Override
-    public Integer countAccountShortTermLoan(AcAcademicSession academicSession, AcAccount account) {
+    public Integer countAccountShortTermLoan(AcAcademicSession academicSession, AcAccount
+            account) {
         return shortTermLoanDao.count(academicSession, account);
     }
 
@@ -681,15 +794,48 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void addShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan) {
-    	accountDao.addShortTermLoan(account, academicSession, shortTermLoan, securityService.getCurrentUser());
+    public void addShortTermLoan(AcAccount account, AcAcademicSession
+            academicSession, AcAccountSTL shortTermLoan) {
+        accountDao.addShortTermLoan(account, academicSession, shortTermLoan, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void removeShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan) {
-    	accountDao.addShortTermLoan(account, academicSession, shortTermLoan, securityService.getCurrentUser());
+    public void removeShortTermLoan(AcAccount account, AcAcademicSession
+            academicSession, AcAccountSTL shortTermLoan) {
+        accountDao.addShortTermLoan(account, academicSession, shortTermLoan, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
+
+
+
+    private String toString(Cell cell) {
+        if (cell.getCellType() == 1)
+            return cell.getStringCellValue();
+        if (cell.getCellType() == 0)
+            return Double.toString(cell.getNumericCellValue());
+        if (cell.getCellType() == 2)
+            return "";
+        return "";
+    }
+
+    private String toString(Cell cell, boolean removeDecimal) {
+        if (cell.getCellType() == 1)
+            return cell.getStringCellValue();
+        if (cell.getCellType() == 0)
+            return Integer.toString((int) cell.getNumericCellValue());
+        if (cell.getCellType() == 2)
+            return "";
+        return "";
+    }
+
+    private String getCell(Sheet sheet, int rowIndex, int colIndex) {
+        Row row = sheet.getRow(rowIndex);
+        Cell cell = row.getCell(colIndex);
+        // LOG.debug("cell: " + cell.getCellType());
+        //  LOG.debug("row :"+row.getRowNum());
+
+        return toString(cell);
+    }
 }

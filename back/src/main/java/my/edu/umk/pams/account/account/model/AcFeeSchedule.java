@@ -35,4 +35,12 @@ public interface AcFeeSchedule extends AcMetaObject{
     AcStudyMode getStudyMode();
 
     void setStudyMode(AcStudyMode studyMode);
+
+    // peperiksaan tesis amount
+    // peperiksaan tesis chargeCode
+    // convocation amount'
+    // convocation charge code
+    // alumni amount
+    // alumni charge code
+
 }
