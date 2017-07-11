@@ -637,6 +637,7 @@ public class BillingController {
         creditNote.setDescription(vo.getDescription());
         creditNote.setCreditNoteDate(vo.getCreditNoteDate());
         creditNote.setTotalAmount(BigDecimal.ZERO);
+        creditNote.setTotalAmount(vo.getTotalAmount());
         creditNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
@@ -675,6 +676,7 @@ public class BillingController {
         creditNotes.setAuditNo(vo.getAuditNo());
         creditNotes.setDescription(vo.getDescription());
         creditNotes.setTotalAmount(BigDecimal.ZERO);
+        creditNotes.setTotalAmount(vo.getTotalAmount());
         billingService.updateCreditNote(creditNotes);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
