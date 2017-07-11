@@ -50,7 +50,7 @@ export class BillingService {
   // todo: this goes thru ACL
   findArchivedInvoices(): Observable<Invoice[]> {
     console.log('findArchivedInvoices');
-    return this._http.get(this.BILLING_API + '/invoices/state/COMPLETED')
+    return this._http.get(this.BILLING_API + '/invoices/archived' )
       .map((res: Response) => <Invoice[]>res.json());
   }
 

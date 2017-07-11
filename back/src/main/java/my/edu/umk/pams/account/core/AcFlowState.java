@@ -5,7 +5,7 @@ package my.edu.umk.pams.account.core;
  * @since 20/4/2015.
  */
 public enum AcFlowState {
-    NEW,                    // 1
+    NEW,                    // 0
     DRAFTED,                // 1
     REQUESTED,              // 2
     REGISTERED,             // 3
@@ -18,9 +18,9 @@ public enum AcFlowState {
     SELECTED,               // 10
     EVALUATED,              // 11
     PUBLISHED,              // 12
-    CANCELLED,              // 12
-    REJECTED,               // 13
-    REMOVED,                // 14
+    CANCELLED,              // 13
+    REJECTED,               // 14
+    REMOVED,                // 15
     COMPLETED,              // 16
     ARCHIVED;               // 17
 
