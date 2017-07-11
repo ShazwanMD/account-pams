@@ -13,23 +13,14 @@
       <md-divider></md-divider>
     </md-nav-list>
 
-    <div toolbar-buttons layout="row" layout-align="start center" flex>
-      <span flex>Fee Schedule Center</span>
-      <button md-button class="md-icon-button">
-        <md-icon class="md-24">settings</md-icon>
-      </button>
-      <button md-button class="md-icon-button">
-        <md-icon class="md-24">more_vert</md-icon>
-      </button>
-    </div>
+
 
     <md-card>
-
-      <div toolbar-buttons layout="row" layout-align="start center" flex>
+          <div toolbar-buttons layout="row" layout-align="start center" flex>
              <button md-button class="md-icon-button" (click)="download()">
                 <md-icon class="md-24 tc-grey-700">file_download</md-icon>
               </button>
-              
+
               <div layout="column" class="pad-right" flex>
                 <div layout="row">
                   <td-file-upload #fileUpload (upload)="upload($event)" defaultColor="accent" activeColor="warn" cancelColor="primary">
@@ -44,13 +35,34 @@
               </div>
 
       </div>
+       <div>
 
       <pams-fee-schedule-list [feeSchedules]="feeSchedules$ | async">
       </pams-fee-schedule-list>
 
-      <td-search-box class="push-left push-right" placeholder="search" [alwaysVisible]="true" (searchDebounce)="filter($event)">
-      </td-search-box>
-
+        <td-search-box class="push-left push-right" placeholder="search" [alwaysVisible]="true" (searchDebounce)="filter($event)">
+              </td-search-box>
+        </div>
     </md-card>
+    <md-card>
+   <p>Select Event: {{fileSelectMultipleMsg}}</p>
+<p>Upload Event: {{fileUploadMultipleMsg}}</p>
+<td-file-upload #fileMultipleUpload (select)="selectMultipleEvent($event)" (upload)="uploadMultipleEvent($event)" (cancel)="cancelMultipleEvent()"
+                accept=".sql" defaultColor="accent" activeColor="warn" cancelColor="primary" multiple [disabled]="disabled">
+  <md-icon>file_upload</md-icon>
+  <span>
+    {{ fileMultipleUpload.files?.name || fileMultipleUpload.files?.length }} <span *ngIf="fileMultipleUpload.files?.length">files selected</span>
+  </span>
+  <ng-template td-file-input-label>
+    <md-icon>attach_file</md-icon><span>Choose multiple .sql files...</span>
+  </ng-template>
+</td-file-upload>
+    </md-card>
+
+        
+
+     
+
+
   </td-layout-manage-list>
 </td-layout-nav>
