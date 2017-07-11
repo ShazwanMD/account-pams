@@ -117,5 +117,15 @@ local.properties
 /target/
 
 
-### hibernate searc
-/hibernate-search
+# Hibernate Search Indexes
+segments_*
+segments.gen
+write.lock
+*.fdt
+*.fdx
+*.fnm
+*.frq
+*.nrm
+*.prx
+*.tii
+*.tis
