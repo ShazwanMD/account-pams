@@ -320,7 +320,6 @@ public class AccountServiceImpl implements AccountService {
                     if (row != null) {
                         LOG.debug(toString(row.getCell(0)));
                         LOG.debug(toString(row.getCell(1)));
-                        LOG.debug(toString(row.getCell(2)));
 
                         if (!toString(row.getCell(0)).startsWith("YURAN SEMESTER")
                                 || toString(row.getCell(0)).startsWith("Jumlah")) {
