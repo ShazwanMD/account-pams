@@ -23,6 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -159,10 +160,16 @@ public class AccountController {
     }
 
 
-    @RequestMapping(value = "/feeSchedules/{code}/upload", method = RequestMethod.POST)
-    public ResponseEntity<String> uploadFeeSchedule(@PathVariable String code, @RequestParam("file") MultipartFile file) {
+    @RequestMapping(value = "/feeSchedules/upload", method = RequestMethod.POST)
+    public ResponseEntity<String> uploadFeeSchedule(@RequestParam("file") MultipartFile file) {
         dummyLogin();
         LOG.debug("BackEnd:{}", file.getName());
+
+        try {
+            accountService.parseFeeSchedule(file.getInputStream());
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+        }
         // todo(faizal): parse excel
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
