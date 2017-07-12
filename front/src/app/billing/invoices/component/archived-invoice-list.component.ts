@@ -14,6 +14,7 @@ export class ArchivedInvoiceListComponent {
   @Output() view = new EventEmitter<Invoice>();
 
   private columns: any[] = [
+    {name: 'issuedDate', label: 'Date'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
