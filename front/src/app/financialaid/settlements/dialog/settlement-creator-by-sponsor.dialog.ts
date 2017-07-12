@@ -32,6 +32,7 @@ export class SettlementCreatorBySponsorDialog implements OnInit {
     this.createForm = this.formBuilder.group(<SettlementCreator>{
       sourceNo: '',
       description: '',
+      issuedDate: undefined,
       sponsor: <Sponsor>{},
       academicSession: <AcademicSession>{},
     });
