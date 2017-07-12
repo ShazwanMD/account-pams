@@ -10,6 +10,7 @@ import {MdSnackBar, MdSnackBarRef, SimpleSnackBar} from '@angular/material';
 export class PooledInvoiceTaskListComponent {
 
   private columns: any[] = [
+    {name: 'issuedDate', label: 'Date'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},

@@ -2,12 +2,6 @@
 <md-dialog-content>
   <form [formGroup]="createForm">
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput #description
-               placeholder="Description"
-               formControlName="description"/>
-      </md-input-container>
-
       <pams-account-select
         [placeholder]="'Select Account'"
         [innerFormControl]="createForm.controls['account']" fxFlex="calc(100%-25px)" class="pad-bottom">
@@ -17,6 +11,19 @@
         [placeholder]="'Select Session'"
         [innerFormControl]="createForm.controls['academicSession']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-academic-session-select>
+      
+      <md-input-container fxFlex="calc(100%-25px)">
+        <input mdInput #description
+               placeholder="Description"
+               formControlName="description"/>
+      </md-input-container>
+      
+      <md-input-container fxFlex="calc(100%-25px)">
+        <input mdInput type="date"
+               placeholder="Date of Invoice"
+               formControlName="issuedDate"
+               flex/>
+      </md-input-container>
     </div>
   </form>
 </md-dialog-content>

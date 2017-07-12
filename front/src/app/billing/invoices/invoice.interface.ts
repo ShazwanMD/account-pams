@@ -9,6 +9,7 @@ export interface Invoice extends MetaObject {
   sourceNo: string;
   description: string;
   paid: Boolean;
+  issuedDate: Date;
   totalPretaxAmount: number;
   totalTaxAmount: number;
   totalAmount: number;

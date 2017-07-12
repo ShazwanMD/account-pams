@@ -13,6 +13,7 @@ export class AssignedInvoiceTaskListComponent {
   @Output() view = new EventEmitter<InvoiceTask>();
 
   private columns: any[] = [
+    {name: 'issuedDate', label: 'Date'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
