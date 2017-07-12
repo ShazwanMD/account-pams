@@ -5,9 +5,17 @@ import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
+import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.security.service.SecurityService;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -50,6 +61,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private CommonService commonService;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -267,6 +281,79 @@ public class AccountServiceImpl implements AccountService {
     public void deleteFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item) {
         feeScheduleDao.deleteItem(schedule, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void parseFeeSchedule(InputStream inputStream) {
+        try {
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            int numberOfSheets = workbook.getNumberOfSheets();
+            LOG.debug("number of sheets: " + numberOfSheets);
+
+            for (int i = 0; i < numberOfSheets; i++) {
+                Sheet sheet = workbook.getSheetAt(i);
+//                writer.write("INSERT INTO AC_FEE_SCDL (ID,RESIDENCY_CODE_ID, COHORT_CODE_ID, STUDY_MODE_ID, CODE, DESCRIPTION, TOTAL_AMOUNT, M_ST, C_TS,C_ID) VALUES (\n"
+//                        + "nextval('SQ_AC_FEE_SCDL'),"
+//                        + "(SELECT ID from AC_RSCY_CODE where code ='" + getCell(sheet, 3, 1) + "' ),"
+//                        + "(SELECT ID FROM AC_CHRT_CODE WHERE CODE = '" + getCell(sheet, 1, 1) + "' ),"
+//                        + "(SELECT ID FROM AC_STDY_MODE WHERE CODE = '" + getCell(sheet, 2, 1) + "' ),"
+//                        + "'YB-" + getCell(sheet, 1, 1) + "',"
+//                        + "'" + getCell(sheet, 0, 1) + "',"
+//                        + "0.00,"
+//                        + "1,"
+//                        + "CURRENT_TIMESTAMP,"
+//                        + "1); \n\n\n\n\n");
+                AcFeeSchedule schedule = new AcFeeScheduleImpl();
+                schedule.setResidencyCode(commonService.findResidencyCodeByCode(getCell(sheet, 3, 1)));
+                schedule.setCohortCode(commonService.findCohortCodeByCode(getCell(sheet, 1, 1)));
+                schedule.setStudyMode(commonService.findStudyModeByCode(getCell(sheet, 2, 1)));
+                schedule.setCode(getCell(sheet, 1, 1));
+                schedule.setDescription(getCell(sheet, 0, 1));
+                schedule.setTotalAmount(BigDecimal.ZERO);
+                feeScheduleDao.save(schedule, securityService.getCurrentUser());
+                sessionFactory.getCurrentSession().flush();
+                sessionFactory.getCurrentSession().refresh(schedule);
+
+                int lastRowNum = sheet.getLastRowNum();
+                for (int j = 7; j < lastRowNum; j++) {
+                    Row row = sheet.getRow(j);
+                    if (row != null) {
+                        LOG.debug(toString(row.getCell(0)));
+                        LOG.debug(toString(row.getCell(1)));
+
+                        if (!toString(row.getCell(0)).startsWith("YURAN SEMESTER")
+                                || toString(row.getCell(0)).startsWith("Jumlah")) {
+                            AcFeeScheduleItem item = new AcFeeScheduleItemImpl();
+                            item.setDescription(toString(row.getCell(0)));
+                            item.setOrdinal(Integer.valueOf(toString(row.getCell(4), true)));
+                            item.setChargeCode(findChargeCodeByCode(toString(row.getCell(3))));
+                            item.setAmount(new BigDecimal(toString(row.getCell(1))));
+                            item.setSchedule(schedule);
+                            feeScheduleDao.addItem(schedule, item, securityService.getCurrentUser());
+                            sessionFactory.getCurrentSession().flush();
+
+//                            writer.write("INSERT INTO AC_FEE_SCDL_ITEM (ID,DESCRIPTION,ORDINAL,SCHEDULE_ID,CHARGE_CODE_ID, AMOUNT,C_TS,C_ID,M_ST) \n" +
+//                                    " VALUES ("
+//                                    + "nextval('SQ_AC_FEE_SCDL_ITEM'),"
+//                                    + "'" + toString(row.getCell(0)) + "',"
+//                                    + toString(row.getCell(4), true) + ","
+//                                    + "currval('SQ_AC_FEE_SCDL'),"
+//                                    + "(SELECT ID FROM AC_CHRG_CODE WHERE CODE = '" + row.getCell(3) + "'),"
+//                                    + "'" + toString(row.getCell(1)) + "',"
+//                                    + "CURRENT_TIMESTAMP,"
+//                                    + "1,"
+//                                    + "1);"
+//                                    + "\n\n");
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+        } catch (InvalidFormatException e) {
+            LOG.error(e.getMessage());
+        }
+
     }
 
     // ==================================================================================================== //
@@ -692,4 +779,35 @@ public class AccountServiceImpl implements AccountService {
         sessionFactory.getCurrentSession().flush();
     }
 
+
+
+
+    private String toString(Cell cell) {
+        if (cell.getCellType() == 1)
+            return cell.getStringCellValue();
+        if (cell.getCellType() == 0)
+            return Double.toString(cell.getNumericCellValue());
+        if (cell.getCellType() == 2)
+            return "";
+        return "";
+    }
+
+    private String toString(Cell cell, boolean removeDecimal) {
+        if (cell.getCellType() == 1)
+            return cell.getStringCellValue();
+        if (cell.getCellType() == 0)
+            return Integer.toString((int) cell.getNumericCellValue());
+        if (cell.getCellType() == 2)
+            return "";
+        return "";
+    }
+
+    private String getCell(Sheet sheet, int rowIndex, int colIndex) {
+        Row row = sheet.getRow(rowIndex);
+        Cell cell = row.getCell(colIndex);
+        // LOG.debug("cell: " + cell.getCellType());
+        //  LOG.debug("row :"+row.getRowNum());
+
+        return toString(cell);
+    }
 }
