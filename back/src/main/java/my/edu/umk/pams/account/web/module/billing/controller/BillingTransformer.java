@@ -241,7 +241,7 @@ public class BillingTransformer {
         task.setAccountCode(debitNote.getInvoice().getAccount().getCode());
         task.setAccountName(debitNote.getInvoice().getAccount().getActor().getName());
         task.setDescription(debitNote.getDescription());
-        task.setDebitNoteDate(task.getDebitNoteDate());
+        task.setDebitNoteDate(debitNote.getDebitNoteDate());
         task.setTotalAmount(debitNote.getTotalAmount());
         task.setTaskName(t.getName());
         task.setAssignee(task.getAssignee());
@@ -299,7 +299,7 @@ public class BillingTransformer {
         task.setAccountCode(creditNote.getInvoice().getAccount().getCode());
         task.setAccountName(creditNote.getInvoice().getAccount().getActor().getName());
         task.setAssignee(task.getAssignee());
-        task.setCreditNoteDate(task.getCreditNoteDate());
+        task.setCreditNoteDate(creditNote.getCreditNoteDate());
         task.setCandidate(task.getCandidate());
         task.setCreditNote(toCreditNoteVo(creditNote));
         task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));
