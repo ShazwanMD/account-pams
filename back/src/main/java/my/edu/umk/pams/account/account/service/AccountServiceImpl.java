@@ -322,7 +322,7 @@ public class AccountServiceImpl implements AccountService {
                         LOG.debug(toString(row.getCell(1)));
 
                         if (!toString(row.getCell(0)).startsWith("YURAN SEMESTER")
-                                || toString(row.getCell(0)).startsWith("Jumlah")) {
+                                || !toString(row.getCell(0)).startsWith("Jumlah")) {
                             AcFeeScheduleItem item = new AcFeeScheduleItemImpl();
                             item.setDescription(toString(row.getCell(0)));
                             item.setOrdinal(Integer.valueOf(toString(row.getCell(4), true)));
