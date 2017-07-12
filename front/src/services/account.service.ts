@@ -3,7 +3,7 @@ import {RequestOptions, Response, ResponseContentType} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Account} from '../app/account/accounts/account.interface';
 import {Observable} from 'rxjs';
-import {Http} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import {environment} from '../environments/environment';
 import {ChargeCode} from '../app/account/charge-codes/charge-code.interface';
 import {FeeSchedule} from '../app/account/fee-schedules/fee-schedule.interface';
@@ -57,13 +57,13 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem) {
+  updateFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem): Observable<String> {
     console.log('saving feeSchedule item' + item.id);
     return this._http.put(this.ACCOUNT_API + '/feeSchedules/' + feeSchedule.code + '/feeScheduleItems/' + item.id, JSON.stringify(item))
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  deleteFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem) {
+  deleteFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem): Observable<String> {
     return this._http.delete(this.ACCOUNT_API + '/feeSchedules/' + feeSchedule.code + '/feeScheduleItems/' + item.id)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
