@@ -490,6 +490,7 @@ public class BillingController {
         debitNote.setAuditNo(vo.getAuditNo());
         debitNote.setDescription(vo.getDescription());
         debitNote.setTotalAmount(BigDecimal.ZERO);
+        debitNote.setTotalAmount(vo.getTotalAmount());
         debitNote.setDebitNoteDate(vo.getDebitNoteDate());
         debitNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNote), HttpStatus.OK);
@@ -535,6 +536,7 @@ public class BillingController {
         debitNotes.setAuditNo(vo.getAuditNo());
         debitNotes.setDescription(vo.getDescription());
         debitNotes.setTotalAmount(BigDecimal.ZERO);
+        debitNotes.setTotalAmount(vo.getTotalAmount());
         billingService.updateDebitNote(debitNotes);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
