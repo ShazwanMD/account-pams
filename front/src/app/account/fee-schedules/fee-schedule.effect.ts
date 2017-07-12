@@ -79,7 +79,7 @@ export class FeeScheduleEffects {
   @Effect() uploadFeeSchedule$ = this.actions$
     .ofType(FeeScheduleActions.UPLOAD_FEE_SCHEDULE)
     .map(action => action.payload)
-    .switchMap(payload => this.accountService.uploadFeeSchedule(payload.offering, payload.file))
+    .switchMap(file => this.accountService.uploadFeeSchedule(file))
     .map(message => this.feeScheduleActions.uploadFeeScheduleSuccess(message));
 
   @Effect() downloadFeeSchedule$ = this.actions$

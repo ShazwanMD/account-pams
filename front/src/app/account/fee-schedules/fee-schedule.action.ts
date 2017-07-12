@@ -174,10 +174,10 @@ export class FeeScheduleActions {
 
   static UPLOAD_FEE_SCHEDULE = '[FeeSchedule] Upload fee_schedule';
 
-  uploadFeeSchedule(schedule, file): Action {
+  uploadFeeSchedule(file): Action {
     return {
       type: FeeScheduleActions.UPLOAD_FEE_SCHEDULE,
-      payload: {schedule: schedule, file: file},
+      payload: file,
     };
   }
 
