@@ -6,10 +6,12 @@ import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.core.AcFlowState;
+import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.util.DaoQuery;
+import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
 import my.edu.umk.pams.account.web.module.util.vo.CovalentDtQuery;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
@@ -97,9 +99,10 @@ public class BillingController {
     }
 
     // todo: archive will be using ACL
-    @RequestMapping(value = "/invoices/archived ", method = RequestMethod.GET)
-    public ResponseEntity<List<Invoice>> findArchivedInvoices(@PathVariable String state) {
-        List<AcInvoice> invoices = billingService.findInvoicesByFlowState(AcFlowState.valueOf(state));
+    @RequestMapping(value = "/invoices/archived", method = RequestMethod.GET)
+    public ResponseEntity<List<Invoice>> findArchivedInvoices() {
+    	dummyLogin();
+        List<AcInvoice> invoices = billingService.findInvoicesByFlowStates(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 
@@ -218,7 +221,7 @@ public class BillingController {
         invoice.setDescription(vo.getDescription());
         invoice.setTotalAmount(BigDecimal.ZERO);
         invoice.setBalanceAmount(BigDecimal.ZERO);
-        invoice.setIssuedDate(new Date());
+        invoice.setIssuedDate(vo.getIssuedDate());
         invoice.setPaid(false);
         invoice.setSession(accountService.findCurrentAcademicSession());
         invoice.setAccount(account);
@@ -486,7 +489,7 @@ public class BillingController {
         debitNote.setSourceNo(vo.getSourceNo());
         debitNote.setAuditNo(vo.getAuditNo());
         debitNote.setDescription(vo.getDescription());
-        //debitNote.setTotalAmount(BigDecimal.ZERO);
+        debitNote.setTotalAmount(BigDecimal.ZERO);
         debitNote.setTotalAmount(vo.getTotalAmount());
         debitNote.setDebitNoteDate(vo.getDebitNoteDate());
         debitNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
@@ -533,6 +536,7 @@ public class BillingController {
         debitNotes.setAuditNo(vo.getAuditNo());
         debitNotes.setDescription(vo.getDescription());
         debitNotes.setTotalAmount(BigDecimal.ZERO);
+        debitNotes.setTotalAmount(vo.getTotalAmount());
         billingService.updateDebitNote(debitNotes);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -637,6 +641,7 @@ public class BillingController {
         creditNote.setDescription(vo.getDescription());
         creditNote.setCreditNoteDate(vo.getCreditNoteDate());
         creditNote.setTotalAmount(BigDecimal.ZERO);
+        creditNote.setTotalAmount(vo.getTotalAmount());
         creditNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
@@ -675,6 +680,7 @@ public class BillingController {
         creditNotes.setAuditNo(vo.getAuditNo());
         creditNotes.setDescription(vo.getDescription());
         creditNotes.setTotalAmount(BigDecimal.ZERO);
+        creditNotes.setTotalAmount(vo.getTotalAmount());
         billingService.updateCreditNote(creditNotes);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

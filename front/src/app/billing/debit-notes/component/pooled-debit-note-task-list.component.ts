@@ -33,7 +33,7 @@ export class PooledDebitNoteTaskListComponent {
 
   claimTask(task: DebitNoteTask): void {
     console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Claiming debit note", "OK");
+    let snackBarRef = this.snackBar.open("Claiming invoice", "OK");
     snackBarRef.afterDismissed().subscribe(() => {
       this.claim.emit(task);
     });

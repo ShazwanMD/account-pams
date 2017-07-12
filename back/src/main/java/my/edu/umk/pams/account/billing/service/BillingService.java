@@ -74,6 +74,8 @@ public interface BillingService {
     List<AcInvoice> findInvoices(String term, Integer offset, Integer limit, List<String> columns);
 
 	List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState);
+	
+	List<AcInvoice> findInvoicesByFlowStates(AcFlowState... flowStates );
 
     List<AcInvoice> findUnpaidInvoices(AcAccount account, Integer offset, Integer limit);
 

@@ -38,6 +38,7 @@ export class InvoiceTaskCreatorDialog implements OnInit {
             totalAmount: 0,
             balanceAmount: 0,
             paid: false,
+            issuedDate: undefined,
             account: <Account>{},
             academicSession: <AcademicSession>{},
         } );

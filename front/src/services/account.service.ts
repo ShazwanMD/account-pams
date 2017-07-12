@@ -3,7 +3,6 @@ import {RequestOptions, Response, ResponseContentType} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Account} from '../app/account/accounts/account.interface';
 import {Observable} from 'rxjs';
-import {Http, Headers} from '@angular/http';
 import {environment} from '../environments/environment';
 import {ChargeCode} from '../app/account/charge-codes/charge-code.interface';
 import {FeeSchedule} from '../app/account/fee-schedules/fee-schedule.interface';
@@ -18,8 +17,7 @@ export class AccountService {
 
   private ACCOUNT_API: string = environment.endpoint + '/api/account';
 
-  constructor(private _http: HttpInterceptorService,
-              private http: Http) {
+  constructor(private _http: HttpInterceptorService) {
   }
 
   // ====================================================================================================
@@ -68,15 +66,11 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  uploadFeeSchedule(file: File): Observable<String> {
+  uploadFeeSchedule(schedule: FeeSchedule, file: File): Observable<String> {
     console.log('uploadFeeSchedule');
-    let headers: Headers = new Headers({
-      'Content-Type': 'application/json',
-    });
-    let options: RequestOptions = new RequestOptions({headers: headers});
-    let formData: FormData = new FormData();
+    let formData = new FormData();
     formData.append('file', file);
-    return this.http.post(this.ACCOUNT_API + '/feeSchedules/upload', formData)
+    return this._http.post(this.ACCOUNT_API + '/feeSchedules/' + schedule.code + '/upload', formData)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 

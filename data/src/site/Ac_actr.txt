@@ -1,3 +1,0 @@
-INSERT INTO ac_actr (ID,actor_type,address,email,fax, identity_no,mobile,name,phone,C_TS,C_ID,d_ts,m_id,M_ST)
- VALUES (nextval('SQ_AC_FEE_SCDL_ITEM'),1,'PT 32, RPT Kampung Sungai Peria, 18000 Kuala Krai, Kelantan.','a11e015f@siswa.umk.edu.my','','A11E015F','017-4008585','Ahmad Firdause b Md Fadzil','017-4008585',CURRENT_TIMESTAMP,1,'','',1);
-
