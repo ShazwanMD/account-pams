@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.account.vo.AcademicSession;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
-
+import java.util.Date;
 import java.io.IOException;
 
 /**
@@ -16,6 +16,7 @@ public class Settlement extends MetaObject{
     private String sourceNo;
     private String description;
     private boolean executed;
+    private Date issuedDate;
     private AcademicSession academicSession;
 
     public String getReferenceNo() {
@@ -48,6 +49,14 @@ public class Settlement extends MetaObject{
 
     public void setExecuted(boolean executed) {
         this.executed = executed;
+    }
+    
+    public Date getIssuedDate() {
+        return issuedDate;
+    }
+
+    public void setIssuedDate(Date issuedDate) {
+        this.issuedDate = issuedDate;
     }
 
     public AcademicSession getAcademicSession() {

@@ -109,7 +109,7 @@ public class FinancialAidController {
         acSettlement.setReferenceNo(vo.getReferenceNo());
         acSettlement.setDescription(vo.getDescription());
         acSettlement.setSession(acAcademicSession);
-
+        acSettlement.setIssuedDate(vo.getIssuedDate());
         String referenceNo = financialAidService.initSettlement(acSettlement);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
@@ -123,7 +123,7 @@ public class FinancialAidController {
         AcSettlement settlement = new AcSettlementImpl();
         settlement.setDescription(vo.getDescription());
         settlement.setSession(acAcademicSession);
-
+        settlement.setIssuedDate(vo.getIssuedDate());
         String referenceNo = financialAidService.initSettlementBySponsor(settlement, sponsor);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
@@ -137,6 +137,7 @@ public class FinancialAidController {
         AcSettlement settlement = new AcSettlementImpl();
         settlement.setDescription(vo.getDescription());
         settlement.setSession(acAcademicSession);
+        settlement.setIssuedDate(vo.getIssuedDate());
         String referenceNo = financialAidService.initSettlementByCohortCode(settlement, cohortCode);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }
@@ -150,6 +151,7 @@ public class FinancialAidController {
         AcSettlement settlement = new AcSettlementImpl();
         settlement.setDescription(vo.getDescription());
         settlement.setSession(acAcademicSession);
+        settlement.setIssuedDate(vo.getIssuedDate());
         String referenceNo = financialAidService.initSettlementByFacultyCode(settlement, facultyCode);
         return new ResponseEntity<String>(referenceNo, HttpStatus.OK);
     }

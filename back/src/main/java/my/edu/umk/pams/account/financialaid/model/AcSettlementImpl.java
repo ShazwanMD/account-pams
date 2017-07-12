@@ -6,6 +6,10 @@ import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.search.annotations.Field;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +44,11 @@ public class AcSettlementImpl implements AcSettlement {
     @NotNull
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
+    
+    @Field
+    @NotNull
+    @Column(name = "ISSUED_DATE")
+    private Date issuedDate;
 
     @Column(name = "EXECUTED")
     private boolean executed = false;
@@ -102,6 +111,16 @@ public class AcSettlementImpl implements AcSettlement {
     @Override
     public void setExecuted(boolean executed) {
         this.executed = executed;
+    }
+    
+    @Override
+    public Date getIssuedDate() {
+        return issuedDate;
+    }
+
+    @Override
+    public void setIssuedDate(Date issuedDate) {
+        this.issuedDate = issuedDate;
     }
 
     @Override

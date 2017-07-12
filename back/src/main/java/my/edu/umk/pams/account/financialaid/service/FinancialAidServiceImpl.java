@@ -227,7 +227,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
                 invoice.setReferenceNo(referenceNo);
                 invoice.setAccount(item.getAccount());
                 invoice.setSession(settlement.getSession());
-                invoice.setIssuedDate(new Date());
+                invoice.setIssuedDate(settlement.getIssuedDate());
                 invoice.setTotalAmount(BigDecimal.ZERO);
                 invoice.setBalanceAmount(BigDecimal.ZERO);
                 invoice.setPaid(false);
