@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.financialaid.model;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,10 @@ public interface AcSettlement extends AcMetaObject{
     String getDescription();
 
     void setDescription(String description);
+    
+    Date getIssuedDate();
+
+    void setIssuedDate(Date issuedDate);
 
     boolean isExecuted();
 

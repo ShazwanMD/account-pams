@@ -93,6 +93,7 @@ public class FinancialAidTransformer {
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
+        vo.setIssuedDate(e.getIssuedDate());
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
@@ -104,6 +105,7 @@ public class FinancialAidTransformer {
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
         vo.setExecuted(e.isExecuted());
+        vo.setIssuedDate(e.getIssuedDate());
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;

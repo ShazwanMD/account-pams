@@ -5,17 +5,9 @@ import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
-import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.security.service.SecurityService;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -61,9 +50,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private SecurityService securityService;
-
-    @Autowired
-    private CommonService commonService;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -283,6 +269,7 @@ public class AccountServiceImpl implements AccountService {
         sessionFactory.getCurrentSession().flush();
     }
 
+<<<<<<< HEAD
     @Override
     public void parseFeeSchedule(InputStream inputStream) {
         try {
@@ -355,6 +342,8 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
+=======
+>>>>>>> 825a9f45fcdd8d689815194fee567a3d4f03f8d9
     // ==================================================================================================== //
     // ACCOUNT
     // ==================================================================================================== //
@@ -778,35 +767,4 @@ public class AccountServiceImpl implements AccountService {
         sessionFactory.getCurrentSession().flush();
     }
 
-
-
-
-    private String toString(Cell cell) {
-        if (cell.getCellType() == 1)
-            return cell.getStringCellValue();
-        if (cell.getCellType() == 0)
-            return Double.toString(cell.getNumericCellValue());
-        if (cell.getCellType() == 2)
-            return "";
-        return "";
-    }
-
-    private String toString(Cell cell, boolean removeDecimal) {
-        if (cell.getCellType() == 1)
-            return cell.getStringCellValue();
-        if (cell.getCellType() == 0)
-            return Integer.toString((int) cell.getNumericCellValue());
-        if (cell.getCellType() == 2)
-            return "";
-        return "";
-    }
-
-    private String getCell(Sheet sheet, int rowIndex, int colIndex) {
-        Row row = sheet.getRow(rowIndex);
-        Cell cell = row.getCell(colIndex);
-        // LOG.debug("cell: " + cell.getCellType());
-        //  LOG.debug("row :"+row.getRowNum());
-
-        return toString(cell);
-    }
 }
