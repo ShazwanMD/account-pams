@@ -32,6 +32,7 @@ export class SettlementCreatorByCohortDialog implements OnInit {
     this.createForm = this.formBuilder.group(<SettlementCreator>{
       sourceNo: '',
       description: '',
+      issuedDate: undefined,
       cohortCode: <CohortCode>{},
       academicSession: <AcademicSession>{},
     });

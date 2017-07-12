@@ -9,5 +9,5 @@ export interface SettlementCreator {
   facultyCode?:FacultyCode;
   cohortCode?:CohortCode;
   academicSession?:AcademicSession;
-
+  issuedDate: Date;
 }
