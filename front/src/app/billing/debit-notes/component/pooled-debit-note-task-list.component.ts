@@ -17,6 +17,7 @@ export class PooledDebitNoteTaskListComponent {
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
+    {name: 'debitNoteDate', label: 'Date'},
     {name: 'sourceNo', label: 'Invoice'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
