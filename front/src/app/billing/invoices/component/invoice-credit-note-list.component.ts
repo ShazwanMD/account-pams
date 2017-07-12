@@ -10,6 +10,7 @@ import {Invoice} from '../invoice.interface';
 export class InvoiceCreditNoteListComponent {
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
+    {name: 'creditNoteDate', label: 'Date'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},

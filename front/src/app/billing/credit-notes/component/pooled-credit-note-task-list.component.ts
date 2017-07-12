@@ -18,6 +18,7 @@ export class PooledCreditNoteTaskListComponent {
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
+    {name: 'creditNoteDate', label: 'Date'},
     {name: 'sourceNo', label: 'Invoice'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
