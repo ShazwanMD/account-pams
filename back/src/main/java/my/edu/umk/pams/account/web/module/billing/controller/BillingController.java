@@ -221,7 +221,7 @@ public class BillingController {
         invoice.setDescription(vo.getDescription());
         invoice.setTotalAmount(BigDecimal.ZERO);
         invoice.setBalanceAmount(BigDecimal.ZERO);
-        invoice.setIssuedDate(new Date());
+        invoice.setIssuedDate(vo.getIssuedDate());
         invoice.setPaid(false);
         invoice.setSession(accountService.findCurrentAcademicSession());
         invoice.setAccount(account);
