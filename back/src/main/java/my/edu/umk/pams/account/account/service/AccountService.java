@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -102,6 +103,8 @@ public interface AccountService {
     void updateFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item);
 
     void deleteFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item);
+
+    void parseFeeSchedule(InputStream inputStream);
 
     // ==================================================================================================== //
     // ACCOUNT
@@ -235,7 +238,7 @@ public interface AccountService {
 
     // todo: return refno
     void addAccountCharge(AcAccount acAccount, AcAccountCharge charge);
-    
+
     void updateAccountCharge(AcAccount account, AcAccountCharge charge);
 
     void deleteAccountCharge(AcAccount acAccount, AcAccountCharge charge);
@@ -259,7 +262,7 @@ public interface AccountService {
     void addAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
 
     void removeAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
-    
+
     // ==================================================================================================== //
     //  ACCOUNT SHORT TERM LOAN
     // ==================================================================================================== //
