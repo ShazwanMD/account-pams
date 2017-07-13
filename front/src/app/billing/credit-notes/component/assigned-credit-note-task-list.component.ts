@@ -15,8 +15,8 @@ export class AssignedCreditNoteTaskListComponent {
   @Output() view = new EventEmitter<CreditNoteTask>();
 
   private columns: any[] = [
-    {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'creditNoteDate', label: 'Date'},
+    {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'sourceNo', label: 'Invoice'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
