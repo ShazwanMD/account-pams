@@ -16,8 +16,8 @@ export class AssignedDebitNoteTaskListComponent {
   @Output() view = new EventEmitter<DebitNoteTask>();
 
   private columns: any[] = [
-    {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'debitNoteDate', label: 'Date'},
+    {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'sourceNo', label: 'Invoice'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},

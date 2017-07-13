@@ -9,8 +9,8 @@ import {Invoice} from '../invoice.interface';
 })
 export class InvoiceDebitNoteListComponent {
   private columns: any[] = [
-    {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'debitNoteDate', label: 'Date'},
+    {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},

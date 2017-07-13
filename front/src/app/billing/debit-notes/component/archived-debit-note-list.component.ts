@@ -16,8 +16,8 @@ export class ArchivedDebitNoteListComponent {
   @Output() view = new EventEmitter<DebitNote>();
 
   private columns: any[] = [
-    {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'debitNoteDate', label: 'Date'},
+    {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'sourceNo', label: 'Invoice'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
