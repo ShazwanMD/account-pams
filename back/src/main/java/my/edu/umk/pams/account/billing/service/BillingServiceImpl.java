@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.account.service.AccountServiceImpl;
 import my.edu.umk.pams.account.billing.chain.ChargeAttachProcessor;
 import my.edu.umk.pams.account.billing.chain.ChargeContext;
 import my.edu.umk.pams.account.billing.chain.ChargeDetachProcessor;
+import my.edu.umk.pams.account.billing.dao.AcAdvancePaymentDao;
 import my.edu.umk.pams.account.billing.dao.AcCreditNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcDebitNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
@@ -22,6 +23,7 @@ import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.model.AcConfiguration;
@@ -83,6 +85,9 @@ public class BillingServiceImpl implements BillingService {
 
     @Autowired
     private AcCohortCodeDao cohortCodeDao;
+    
+    @Autowired
+    private AcAdvancePaymentDao advancePaymentDao;
 
     @Autowired
     private ChargeAttachProcessor attachProcessor;
@@ -921,5 +926,37 @@ public class BillingServiceImpl implements BillingService {
         map.put(WorkflowConstants.CANCEL_DECISION, false);
         return map;
     }
+
+    // ==================================================================================================== //
+    // ADVANCE PAYMENT
+    // ==================================================================================================== //
+    
+	@Override
+	public AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo) {
+		return advancePaymentDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public boolean hasAdvancePayment(AcAdvancePayment advancePayment) {
+		return advancePaymentDao.hasAdvancePayment(advancePayment);
+	}
+
+	@Override
+	public void addAdvancePayment(AcAdvancePayment advancePayment, AcUser user) {
+		advancePaymentDao.save(advancePayment, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateAdvancePayment(AcAdvancePayment advancePayment, AcUser user) {
+		advancePaymentDao.update(advancePayment, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();	
+	}
+
+	@Override
+	public void removeAdvancePayment(AcAdvancePayment advancePayment, AcUser user) {
+		advancePaymentDao.remove(advancePayment, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
 
 }
