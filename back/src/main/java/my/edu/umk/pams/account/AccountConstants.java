@@ -14,6 +14,7 @@ public interface AccountConstants {
     public static final String WAIVER_APPLICATION_ID = "waiverApplicationId";
     public static final String REFUND_APPLICATION_ID = "refundApplicationId";
     public static final String SHORT_TERM_LOAN_ID = "shortTermLoanId"; 
+    public static final String ADVANCE_PAYMENT_ID = "advancePaymentId";
 
     public static final String PROMO_CODE_REFERENCE_NO = "AcPromoCode.referenceNo";
     public static final String SETTLEMENT_REFERENCE_NO = "AcSettlement.referenceNo";
@@ -26,6 +27,7 @@ public interface AccountConstants {
     public static final String WAIVER_APPLICATION_REFERENCE_NO = "AcWaiverApplication.referenceNo";
     public static final String SHORT_TERM_LOAN_REFERENCE_NO = "AcShortTermLoan.referenceNo";
     public static final String ACCOUNT_CHARGE_REFRENCE_NO = "AcAccountCharge.referenceNo";
+    public static final String ADVANCE_PAYMENT_REFRENCE_NO = "AcAdvancePayment.referenceNo";
 
     public static final String INVOICE_PROCESS_KEY = "invoice_workflow";
     public static final String INVOICE_RESOURCE_PATH = "invoice.bpmn20.xml";
