@@ -10,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
 
@@ -48,7 +50,8 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment{
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
     
-    @ManyToOne(targetEntity = AcInvoiceImpl.class)
+    @NotNull
+    @OneToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
