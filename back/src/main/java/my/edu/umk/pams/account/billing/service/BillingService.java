@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcUser;
 
 import org.activiti.engine.task.Task;
 
@@ -273,5 +274,18 @@ public interface BillingService {
 
     void post(AcReceipt receipt);
 
+    // ==================================================================================================== //
+    // ADVANCE PAYMENT
+    // ==================================================================================================== //
+
+    AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo);
+
+    boolean hasAdvancePayment(AcAdvancePayment advancePayment);
+    
+    void addAdvancePayment(AcAdvancePayment advancePayment, AcUser user);
+
+    void updateAdvancePayment(AcAdvancePayment advancePayment, AcUser user);
+
+    void removeAdvancePayment(AcAdvancePayment advancePayment, AcUser user);
 
 }
