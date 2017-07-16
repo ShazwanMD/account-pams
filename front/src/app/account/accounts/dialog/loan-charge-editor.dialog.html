@@ -2,52 +2,60 @@
 <md-dialog-content>
   <form [formGroup]="editorForm">
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput
                placeholder="SourceNo"
                formControlName="sourceNo"
                flex/>
       </md-input-container>
+      </div>
+      <div>
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput
                placeholder="Description"
                formControlName="description"
                flex/>
       </md-input-container>
+      </div>
+      <div>
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput
                placeholder="Amount"
                formControlName="amount"
                flex/>
       </md-input-container>
+      </div>
+      <div>
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput type="date"
                placeholder="Date of Charge"
                formControlName="chargeDate"
                flex/>
       </md-input-container>
-
+      </div>
       <!-- select cohort, session, studymode -->
 
+      <div>
       <pams-cohort-code-select
         [placeholder]="'Select Cohort'"
         [innerFormControl]="editorForm.controls['cohortCode']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-cohort-code-select>
-
+      </div>
+      <div>
       <pams-academic-session-select
         [placeholder]="'Select Academic Session'"
         [innerFormControl]="editorForm.controls['session']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-academic-session-select>
-
+      </div>
+      <div>
       <pams-study-mode-select
         [placeholder]="'Select Study Mode'"
         [innerFormControl]="editorForm.controls['studyMode']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-study-mode-select>
-    </div>
+      </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
