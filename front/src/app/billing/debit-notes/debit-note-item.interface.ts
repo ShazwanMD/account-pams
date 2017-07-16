@@ -4,6 +4,7 @@ export interface DebitNoteItem extends MetaObject {
   description: string;
   amount: number;
   chargeCode:ChargeCode;
+  debitNoteItemDate : Date;
 
   // selection
   selected?:boolean;
