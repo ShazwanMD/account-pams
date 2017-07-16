@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import my.edu.umk.pams.account.billing.model.AcRefundPayment;
 import my.edu.umk.pams.account.billing.model.AcRefundPaymentImpl;
@@ -17,6 +18,7 @@ import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
+@Repository("acRefundPaymentDao")
 public class AcRefundPaymentDaoImpl extends GenericDaoSupport<Long, AcRefundPayment> implements AcRefundPaymentDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AcRefundPaymentDaoImpl.class);
