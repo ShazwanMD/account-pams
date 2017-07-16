@@ -46,6 +46,7 @@ export class DebitNoteItemEditorDialog implements OnInit {
       description: '',
       amount: 0,
       chargeCode: <ChargeCode>{},
+      debitNoteItemDate: undefined,
     });
     if (this.edit) this.editForm.patchValue(this._debitNoteItem);
   }

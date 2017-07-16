@@ -410,6 +410,7 @@
         ID int8 not null,
         AMOUNT numeric(19, 2),
         DESCRIPTION varchar(255),
+        DEBITNOTEITEM_DATE timestamp,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,

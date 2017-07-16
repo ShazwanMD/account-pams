@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.core.AcMetadata;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author PAMS
@@ -36,6 +37,10 @@ public class AcDebitNoteItemImpl implements AcDebitNoteItem {
     @ManyToOne(targetEntity = AcDebitNoteImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "DEBIT_NOTE_ID")
     private AcDebitNote debitNote;
+    
+//  @NotNull
+    @Column(name = "DEBITNOTEITEM_DATE")
+    private Date debitNoteItemDate;
 
     @Embedded
     private AcMetadata metadata;
@@ -97,6 +102,16 @@ public class AcDebitNoteItemImpl implements AcDebitNoteItem {
     @Override
     public void setMetadata(AcMetadata metadata) {
         this.metadata = metadata;
+    }
+    
+    @Override
+    public Date getDebitNoteItemDate() {
+        return debitNoteItemDate;
+    }
+
+    @Override
+    public void setDebitNoteItemDate(Date debitNoteItemDate) {
+        this.debitNoteItemDate = debitNoteItemDate;
     }
 
     @Override
