@@ -441,6 +441,7 @@ public class BillingController {
         AcDebitNoteItem e = new AcDebitNoteItemImpl();
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
+        e.setDebitNoteItemDate(item.getDebitNoteItemDate());
         e.setDescription(item.getDescription());
         billingService.addDebitNoteItem(debitNote, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -454,6 +455,7 @@ public class BillingController {
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
         e.setDescription(item.getDescription());
+        e.setDebitNoteItemDate(item.getDebitNoteItemDate());
         billingService.updateDebitNoteItem(debitNote, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
