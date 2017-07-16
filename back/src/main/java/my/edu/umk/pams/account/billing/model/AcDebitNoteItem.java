@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author PAMS
@@ -25,4 +26,8 @@ public interface AcDebitNoteItem extends AcMetaObject {
     AcDebitNote getDebitNote();
 
     void setDebitNote(AcDebitNote debitNote);
+    
+    Date getDebitNoteItemDate();
+    
+    void setDebitNoteItemDate(Date debitNoteItemDate);
 }
