@@ -14,19 +14,22 @@
                placeholder="Description"
                formControlName="description" flex/>
       </md-input-container>
-		
+		</div>
+      <div>
       <md-input-container fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px">
         <input mdInput #name
                placeholder="Name"
                formControlName="name" flex/>
       </md-input-container>
-
+		</div>
+      <div>
       <md-input-container fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px">
         <input mdInput #email
                placeholder="Email"
                formControlName="email" flex/>
       </md-input-container>
-    
+    	</div>
+      <div>
      <pams-actor-select fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px"
         [placeholder]="'Student/Sponsor'"
         [innerFormControl]="createForm.controls['actor']" flex>
