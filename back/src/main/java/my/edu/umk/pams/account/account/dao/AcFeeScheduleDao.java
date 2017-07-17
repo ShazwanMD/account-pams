@@ -40,5 +40,5 @@ public interface AcFeeScheduleDao extends GenericDao<Long, AcFeeSchedule> {
 
     void deleteItem(AcFeeSchedule account, AcFeeScheduleItem item, AcUser user);
     
-    BigDecimal sumTotalAmount(AcFeeSchedule schedule);
+    BigDecimal sumTotalAmount(AcFeeSchedule schedule, AcUser user);
 }
