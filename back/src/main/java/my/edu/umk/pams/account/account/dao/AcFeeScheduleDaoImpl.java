@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -150,6 +151,9 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
         metadata.setState(AcMetaState.ACTIVE);
         item.setMetadata(metadata);
         session.save(item);
+        
+        schedule.setTotalAmount(sumTotalAmount(schedule));
+        session.update(schedule);
     }
 
     @Override
@@ -175,5 +179,18 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcFeeSchedule schedule) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.amount) from AcFeeScheduleItem a where " +
+                "a.schedule = :schedule " +
+                "and a.metadata.state = :state ");
+        query.setEntity("schedule", schedule);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
     }
 }
