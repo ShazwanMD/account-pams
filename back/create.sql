@@ -261,6 +261,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
+        TAX_CODE_ID int8,
         PRIORITY int4 not null,
         primary key (ID)
     );
