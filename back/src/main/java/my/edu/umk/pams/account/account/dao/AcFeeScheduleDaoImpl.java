@@ -152,7 +152,7 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
         item.setMetadata(metadata);
         session.save(item);
         
-        schedule.setTotalAmount(sumTotalAmount(schedule));
+        schedule.setTotalAmount(sumTotalAmount(schedule, user));
         session.update(schedule);
     }
 
@@ -182,7 +182,7 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
     }
     
     @Override
-    public BigDecimal sumTotalAmount(AcFeeSchedule schedule) {
+    public BigDecimal sumTotalAmount(AcFeeSchedule schedule, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.amount) from AcFeeScheduleItem a where " +
                 "a.schedule = :schedule " +
