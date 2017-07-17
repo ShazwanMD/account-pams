@@ -36,7 +36,7 @@ export class ChargeCodeListComponent implements AfterViewInit {
     {name: 'code', label: 'Code'},
     {name: 'description', label: 'Description'},
     {name: 'priority', label: 'Priority'},
-    {name: 'taxCode', label: 'Tax Code'},
+    // {name: 'taxCode', label: 'Tax Code'},
     {name: 'action', label: ''},
   ];
 
