@@ -95,7 +95,7 @@ public class CommonTransformer {
     // BANK CODE
     //====================================================================================================
     public BankCode toBankCodeVo(AcBankCode e) {
-
+    	if(null == e) return null;
         BankCode vo = new BankCode();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
@@ -113,7 +113,7 @@ public class CommonTransformer {
     }
     
     //====================================================================================================
-    // RESIDENCY CODE
+    // TAX CODE
     //====================================================================================================
 
     public TaxCode toTaxCodeVo(AcTaxCode e) {
