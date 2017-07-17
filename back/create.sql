@@ -261,6 +261,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
+        TAX_CODE_ID int8,
         PRIORITY int4 not null,
         primary key (ID)
     );
@@ -410,6 +411,7 @@
         ID int8 not null,
         AMOUNT numeric(19, 2),
         DESCRIPTION varchar(255),
+        DEBITNOTEITEM_DATE timestamp,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,

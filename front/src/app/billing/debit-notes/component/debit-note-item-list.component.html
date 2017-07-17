@@ -36,5 +36,8 @@
         <span flex="40">{{value}}</span>
       </div>
     </template>
+  <template tdDataTableTemplate="debitNoteItemDate" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['debitNoteItemDate'] | date: 'dd-MMM-yyyy'}}</div>
+  </template>
   </td-data-table>
 

@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.dao;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -433,6 +435,9 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         item.setMetadata(metadata);
 
         session.save(item);
+        
+        invoice.setTotalAmount(sumTotalAmount(invoice, user));
+        session.update(invoice);
     }
 
     @Override
@@ -474,6 +479,19 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcInvoice invoice, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.amount) from AcInvoiceItem a where " +
+                "a.invoice = :invoice " +
+                "and a.metadata.state = :state ");
+        query.setEntity("invoice", invoice);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
     }
 //    @Override
 //    public void addTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user) {

@@ -14,7 +14,9 @@ import my.edu.umk.pams.account.billing.dao.AcAdvancePaymentDao;
 import my.edu.umk.pams.account.billing.dao.AcCreditNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcDebitNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
+import my.edu.umk.pams.account.billing.dao.AcKnockoffDao;
 import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
+import my.edu.umk.pams.account.billing.dao.AcRefundPaymentDao;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.common.dao.AcCohortCodeDao;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
@@ -88,6 +90,12 @@ public class BillingServiceImpl implements BillingService {
     
     @Autowired
     private AcAdvancePaymentDao advancePaymentDao;
+    
+    @Autowired
+    private AcKnockoffDao knockoffDao;
+    
+    @Autowired
+    private AcRefundPaymentDao refundPaymentDao;
 
     @Autowired
     private ChargeAttachProcessor attachProcessor;
@@ -956,6 +964,70 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void removeAdvancePayment(AcAdvancePayment advancePayment, AcUser user) {
 		advancePaymentDao.remove(advancePayment, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+    // ==================================================================================================== //
+    // KNOCKOFF
+    // ==================================================================================================== //
+    
+	@Override
+	public AcKnockoff findKnockoffByReferenceNo(String referenceNo) {
+		return knockoffDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public boolean hasKnockoff(AcKnockoff knockoff) {
+		return knockoffDao.hasKnockoff(knockoff);
+	}
+
+	@Override
+	public void addKnockoff(AcKnockoff knockoff, AcUser user) {
+		knockoffDao.save(knockoff, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateKnockoff(AcKnockoff knockoff, AcUser user) {
+		knockoffDao.update(knockoff, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();	
+	}
+
+	@Override
+	public void removeKnockoff(AcKnockoff knockoff, AcUser user) {
+		knockoffDao.remove(knockoff, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+    // ==================================================================================================== //
+    // REFUND PAYMENT
+    // ==================================================================================================== //
+    
+	@Override
+	public AcRefundPayment findRefundPaymentByReferenceNo(String referenceNo) {
+		return refundPaymentDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public boolean hasRefundPayment(AcRefundPayment refund) {
+		return refundPaymentDao.hasRefundPayment(refund);
+	}
+
+	@Override
+	public void addRefundPayment(AcRefundPayment refund, AcUser user) {
+		refundPaymentDao.save(refund, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateRefundPayment(AcRefundPayment refund, AcUser user) {
+		refundPaymentDao.update(refund, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();	
+	}
+
+	@Override
+	public void removeRefundPayment(AcRefundPayment refund, AcUser user) {
+		refundPaymentDao.remove(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
 

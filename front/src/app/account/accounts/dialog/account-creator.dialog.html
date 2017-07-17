@@ -2,33 +2,37 @@
 <md-dialog-content>
   <form [formGroup]="createForm">
       <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <md-input-container fxFlex="calc(100%-25px)">
+      <md-input-container fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px">
         <input mdInput #code
                placeholder="Code"
-               formControlName="code"/>
+               formControlName="code" flex/>
       </md-input-container>
-      
-      <md-input-container fxFlex="calc(100%-25px)">
+      </div>
+      <div>
+      <md-input-container fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px">
         <input mdInput #description
                placeholder="Description"
-               formControlName="description"/>
+               formControlName="description" flex/>
       </md-input-container>
-
-      <md-input-container fxFlex="calc(100%-25px)">
+		</div>
+      <div>
+      <md-input-container fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px">
         <input mdInput #name
                placeholder="Name"
-               formControlName="name"/>
+               formControlName="name" flex/>
       </md-input-container>
-
-      <md-input-container fxFlex="calc(100%-25px)">
+		</div>
+      <div>
+      <md-input-container fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px">
         <input mdInput #email
                placeholder="Email"
-               formControlName="email"/>
+               formControlName="email" flex/>
       </md-input-container>
-    
+    	</div>
+      <div>
      <pams-actor-select fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px"
         [placeholder]="'Student/Sponsor'"
-        [innerFormControl]="createForm.controls['actor']">
+        [innerFormControl]="createForm.controls['actor']" flex>
       </pams-actor-select>
       </div>
   </form>

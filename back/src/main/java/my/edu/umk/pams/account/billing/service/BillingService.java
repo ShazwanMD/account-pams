@@ -288,4 +288,31 @@ public interface BillingService {
 
     void removeAdvancePayment(AcAdvancePayment advancePayment, AcUser user);
 
+    // ==================================================================================================== //
+    // KNOCKOFF
+    // ==================================================================================================== //
+
+    AcKnockoff findKnockoffByReferenceNo(String referenceNo);
+
+    boolean hasKnockoff(AcKnockoff knockoff);
+    
+    void addKnockoff(AcKnockoff knockoff, AcUser user);
+
+    void updateKnockoff(AcKnockoff knockoff, AcUser user);
+
+    void removeKnockoff(AcKnockoff knockoff, AcUser user);
+    
+    // ==================================================================================================== //
+    // REFUND PAYMENT
+    // ==================================================================================================== //
+
+    AcRefundPayment findRefundPaymentByReferenceNo(String referenceNo);
+
+    boolean hasRefundPayment(AcRefundPayment refund);
+    
+    void addRefundPayment(AcRefundPayment refund, AcUser user);
+
+    void updateRefundPayment(AcRefundPayment refund, AcUser user);
+
+    void removeRefundPayment(AcRefundPayment refund, AcUser user);
 }
