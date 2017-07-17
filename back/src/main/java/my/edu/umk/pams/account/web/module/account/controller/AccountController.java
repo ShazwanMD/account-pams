@@ -200,6 +200,8 @@ public class AccountController {
         chargeCode.setCode(vo.getCode());
         chargeCode.setDescription(vo.getDescription());
         chargeCode.setPriority(vo.getPriority());
+        if (null != vo.getTaxCode())
+        	chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getId()));
         accountService.saveChargeCode(chargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

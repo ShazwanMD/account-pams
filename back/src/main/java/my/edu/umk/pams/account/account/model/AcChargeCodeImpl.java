@@ -1,5 +1,9 @@
 package my.edu.umk.pams.account.account.model;
 
+import my.edu.umk.pams.account.common.model.AcStudyMode;
+import my.edu.umk.pams.account.common.model.AcStudyModeImpl;
+import my.edu.umk.pams.account.common.model.AcTaxCode;
+import my.edu.umk.pams.account.common.model.AcTaxCodeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -31,6 +35,10 @@ public class AcChargeCodeImpl implements AcChargeCode {
 
     @Column(name = "PRIORITY", nullable = false)
     private Integer priority;
+    
+    @OneToOne(targetEntity = AcTaxCodeImpl.class)
+    @JoinColumn(name = "TAX_CODE_ID")
+    private AcTaxCode taxCode;
 
     @Embedded
     private AcMetadata metadata;
@@ -85,8 +93,18 @@ public class AcChargeCodeImpl implements AcChargeCode {
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
+    
+    @Override
+    public AcTaxCode getTaxCode() {
+		return taxCode;
+	}
 
     @Override
+    public void setTaxCode(AcTaxCode taxCode) {
+		this.taxCode = taxCode;
+	}
+
+	@Override
     public AcMetadata getMetadata() {
         return metadata;
     }

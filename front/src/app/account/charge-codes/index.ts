@@ -17,6 +17,7 @@ import {ChargeCodeActions} from "./charge-code.action";
 import {ChargeCodeCenterPage} from "./charge-code-center.page";
 import {ChargeCodeListComponent} from "./component/charge-code-list.component";
 import {ChargeCodeEditorDialog} from "./dialog/charge-code-editor.dialog";
+import { CommonModule } from "../../common/index";
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {ChargeCodeEditorDialog} from "./dialog/charge-code-editor.dialog";
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     IdentityModule.forRoot(),
+    CommonModule.forRoot(),
     EffectsModule.run(ChargeCodeEffects),
   ],
   declarations: [
