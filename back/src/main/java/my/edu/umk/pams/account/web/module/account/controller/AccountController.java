@@ -119,7 +119,7 @@ public class AccountController {
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         feeSchedule.setCode(vo.getCode());
         feeSchedule.setDescription(vo.getDescription());
-        feeSchedule.setTotalAmount(BigDecimal.ZERO); // todo
+        feeSchedule.setTotalAmount(vo.getTotalAmount()); 
         accountService.updateFeeSchedule(feeSchedule);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -127,6 +127,7 @@ public class AccountController {
     @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.POST)
     public ResponseEntity<String> addFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
         dummyLogin();
+        LOG.debug("amount :"+item.getAmount());
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         AcFeeScheduleItem e = new AcFeeScheduleItemImpl();
         e.setDescription(item.getDescription());
