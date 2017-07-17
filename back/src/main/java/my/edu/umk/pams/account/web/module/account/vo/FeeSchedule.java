@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.web.module.common.vo.ResidencyCode;
 import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class FeeSchedule {
 
@@ -16,6 +17,7 @@ public class FeeSchedule {
     private ResidencyCode residencyCode;
     private CohortCode cohortCode;
     private StudyMode studyMode;
+    private BigDecimal totalAmount;
 
     public Long getId() {
         return id;
@@ -63,6 +65,14 @@ public class FeeSchedule {
 
     public void setResidencyCode(ResidencyCode residencyCode) {
         this.residencyCode = residencyCode;
+    }
+    
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     @JsonCreator
