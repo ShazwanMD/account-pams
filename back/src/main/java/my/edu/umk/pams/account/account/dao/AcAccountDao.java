@@ -73,7 +73,6 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 
     BigDecimal sumAccountTransaction(AcAccount account, AcAcademicSession academicSession);
 
-
     // check
     boolean hasAccount(AcActor actor);
 
