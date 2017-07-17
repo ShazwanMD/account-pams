@@ -117,6 +117,7 @@ public class CommonTransformer {
     //====================================================================================================
 
     public TaxCode toTaxCodeVo(AcTaxCode e) {
+    	if(null == e) return null;
     	TaxCode vo = new TaxCode();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
