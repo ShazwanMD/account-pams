@@ -12,8 +12,8 @@
     <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
     </button>
-    <button md-button class="md-icon-button" (click)="delete(selectedRows[0])" [disabled]="selectedRows.length != 1">
-      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">delete</md-icon>
+    <button md-button class="md-icon-button" (click)="delete()">
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length > 0}">delete</md-icon>
     </button>
   </div>
   <md-divider></md-divider>
@@ -35,6 +35,8 @@
       <div layout="row">
         <span flex="40">{{value}}</span>
       </div>
-    </template>
+    </template>  <template tdDataTableTemplate="creditNoteItemDate" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['creditNoteItemDate'] | date: 'dd-MMM-yyyy'}}</div>
+  </template>
   </td-data-table>
 
