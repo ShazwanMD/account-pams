@@ -275,20 +275,6 @@ public interface BillingService {
     void post(AcReceipt receipt);
 
     // ==================================================================================================== //
-    // ADVANCE PAYMENT
-    // ==================================================================================================== //
-
-    AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo);
-
-    boolean hasAdvancePayment(AcAdvancePayment advancePayment);
-    
-    void addAdvancePayment(AcAdvancePayment advancePayment, AcUser user);
-
-    void updateAdvancePayment(AcAdvancePayment advancePayment, AcUser user);
-
-    void removeAdvancePayment(AcAdvancePayment advancePayment, AcUser user);
-
-    // ==================================================================================================== //
     // KNOCKOFF
     // ==================================================================================================== //
 
