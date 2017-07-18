@@ -53,11 +53,6 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
-    @NotNull
-    @OneToOne(targetEntity = AcAdvancePaymentImpl.class)
-    @JoinColumn(name = "ADVANCE_PAYMENT_ID")
-    private AcAdvancePayment advancePayment;
-    
     @Column(name = "CANCEL_COMMENT")
     private String cancelComment;
 
@@ -177,16 +172,6 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
     public void setInvoice(AcInvoice invoice) {
         this.invoice = invoice;
     }
-
-	@Override
-	public AcAdvancePayment getAdvancePayment() {
-		return advancePayment;
-	}
-
-	@Override
-	public void setAdvancePayment(AcAdvancePayment advancePayment) {
-		this.advancePayment = advancePayment;
-	}
 	
     @Override
     public AcMetadata getMetadata() {
