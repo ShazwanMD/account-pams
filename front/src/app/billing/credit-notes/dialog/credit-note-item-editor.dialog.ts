@@ -46,6 +46,7 @@ export class CreditNoteItemEditorDialog implements OnInit {
       id: null,
       description: '',
       amount: 0,
+      creditNoteItemDate: undefined,
       chargeCode: <ChargeCode>{},
     });
     if (this.edit) this.editForm.patchValue(this._creditNoteItem);
