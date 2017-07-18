@@ -1,6 +1,10 @@
 package my.edu.umk.pams.account.web.module.core.vo;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import my.edu.umk.pams.account.web.module.billing.vo.ReceiptType;
+import my.edu.umk.pams.account.web.module.common.vo.PaymentMethod;
 
 public class Task {
 
@@ -15,6 +19,10 @@ public class Task {
     private BigDecimal totalAmount = new BigDecimal(0.00);
     private FlowState flowState;
     private MetaState metaState;
+    
+    private Date receivedDate;
+    private PaymentMethod paymentMethod;
+    private ReceiptType receiptType;
 
     public Long getId() {
         return id;
@@ -88,6 +96,30 @@ public class Task {
 	public void setTotalAmount(BigDecimal totalAmount) {
 		this.totalAmount = totalAmount;
 	}
+	
+	public Date getReceivedDate() {
+		return receivedDate;
+	}
+
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
+	}
+	
+	public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+    
+	public ReceiptType getReceiptType() {
+        return receiptType;
+    }
+
+    public void setReceiptType(ReceiptType receiptType) {
+        this.receiptType = receiptType;
+    }
 
 	public FlowState getFlowState() {
         return flowState;
