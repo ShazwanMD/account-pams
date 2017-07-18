@@ -14,7 +14,7 @@ export interface ReceiptTask extends Document{
   description: string;
   receipt: Receipt;
   flowState:FlowState;
-  receivedDate: Date;
+  receivedDate: number;
   receiptType: ReceiptType;
   paymentMethod: PaymentMethod;
 }
