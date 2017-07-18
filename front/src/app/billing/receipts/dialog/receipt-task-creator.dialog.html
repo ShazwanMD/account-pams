@@ -1,31 +1,29 @@
 <h2 md-dialog-title>Receipt Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-    <div layout="row" class="pad-bottom pad-top">
-      <pams-account-select fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px"
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <pams-account-select 
         [placeholder]="'Select Account'"
-        [innerFormControl]="createForm.controls['account']">
+        [innerFormControl]="createForm.controls['account']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-account-select>
     </div>
-     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+     <div>
       <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput #referenceNo
-               placeholder="Reference No"
-               formControlName="referenceNo"
-               value="ReferenceNo"
-               flex/>
-   </md-input-container>
-   </div>
-        <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput #receiptNo
-               placeholder="Receipt No"
-               formControlName="receiptNo"
-               value="ReceiptNo"
+        <input mdInput type="date"
+               placeholder="Date of Receipt"
+               formControlName="receivedDate"
                flex/>
       </md-input-container>
+   </div>
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <pams-receipt-type-select 
+        [placeholder]="'Select Receipt Type'"
+        [innerFormControl]="createForm.controls['receiptType']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
+      </pams-receipt-type-select>
     </div>
-    <div layout="row" class="pad-bottom">
+      <div layout="row" class="pad-bottom">
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #sourceNo
                placeholder="Source No"
@@ -34,14 +32,12 @@
                flex/>
       </md-input-container>
     </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput #auditNo
-               placeholder="Audit No"
-               formControlName="auditNo"
-               value="AuditNo"
-               flex/>
-      </md-input-container>
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <pams-payment-method-select 
+        [placeholder]="'Select Payment Method'"
+        [innerFormControl]="createForm.controls['paymentMethod']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
+      </pams-payment-method-select>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container fxFlex="calc(100%-25px)">
