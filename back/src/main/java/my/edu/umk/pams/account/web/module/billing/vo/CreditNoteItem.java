@@ -1,12 +1,14 @@
 package my.edu.umk.pams.account.web.module.billing.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author PAMS
@@ -19,6 +21,8 @@ public class CreditNoteItem extends MetaObject {
     private BigDecimal creditAmount;
     private boolean readOnly;
     private ChargeCode sodoCode;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date creditNoteItemDate;
 
     public String getDescription() {
         return description;
@@ -67,6 +71,14 @@ public class CreditNoteItem extends MetaObject {
     public void setCreditAmount(BigDecimal creditAmount) {
         this.creditAmount = creditAmount;
     }
+    
+    public Date getCreditNoteItemDate() {
+		return creditNoteItemDate;
+	}
+	
+	public void setCreditNoteItemDate(Date creditNoteItemDate) {
+		this.creditNoteItemDate = creditNoteItemDate;
+	}
 
     @JsonCreator
     public static CreditNoteItem create(String jsonString) {

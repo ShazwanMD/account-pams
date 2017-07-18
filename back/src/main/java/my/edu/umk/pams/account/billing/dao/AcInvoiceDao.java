@@ -93,7 +93,8 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
     
     BigDecimal sumTotalAmount(AcInvoice invoice, AcUser user);
 
-
+    BigDecimal sumBalanceAmount(AcAccount account, AcUser user);
+    
 //    void addTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user);
 //
 //    void updateTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user);

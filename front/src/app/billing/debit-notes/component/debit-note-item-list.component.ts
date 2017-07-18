@@ -49,12 +49,13 @@ export class DebitNoteItemListComponent implements OnInit {
     this.showDialog(debitNoteItems);
   }
 
-  // delete(): void {
-  //   console.log("length: " + this.selectedRows.length);
-  //   for (var i = 0; i < this.selectedRows.length; i++) {
-  //     this.store.dispatch(this.actions.deletedebitNoteItems(this.debitNote, this.selectedRows[i]));
-  //   }
-  // }
+   delete(): void {
+     console.log("length: " + this.selectedRows.length);
+     for (let i = 0; i < this.selectedRows.length; i++) {
+       this.store.dispatch(this.actions.deleteDebitNoteItem(this.debitNote, this.selectedRows[i]));
+     }
+     this.selectedRows = [];
+   }
 
   filter(): void {
   }

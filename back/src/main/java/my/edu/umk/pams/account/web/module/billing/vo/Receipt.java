@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.edu.umk.pams.account.web.module.account.vo.Account;
+import my.edu.umk.pams.account.web.module.common.vo.PaymentMethod;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class Receipt extends Document {
 	private BigDecimal totalAmount = new BigDecimal(0.00);
 	private Date receivedDate;
 	private Account account;
+	private PaymentMethod paymentMethod;
+	private ReceiptType receiptType;
 	
 	public String getReferenceNo() {
 		return referenceNo;
@@ -104,6 +107,22 @@ public class Receipt extends Document {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+    
+	public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+    
+	public ReceiptType getReceiptType() {
+        return receiptType;
+    }
+
+    public void setReceiptType(ReceiptType receiptType) {
+        this.receiptType = receiptType;
     }
 
 	@JsonCreator

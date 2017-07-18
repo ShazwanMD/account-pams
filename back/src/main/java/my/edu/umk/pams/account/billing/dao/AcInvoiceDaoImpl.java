@@ -492,7 +492,23 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
+        
     }
+    
+    @Override
+    public BigDecimal sumBalanceAmount(AcAccount account, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.totalAmount) from AcInvoice a where " +
+                "a.account = :account " +
+        		"and a.paid = false" +
+                "and a.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
 //    @Override
 //    public void addTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user) {
 //        Validate.notNull(invoice, "Invoice should not be null");

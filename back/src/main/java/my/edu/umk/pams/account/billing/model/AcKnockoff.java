@@ -22,8 +22,4 @@ public interface AcKnockoff extends AcDocument {
     AcInvoice getInvoice();
 
     void setInvoice(AcInvoice invoice);
-    
-    AcAdvancePayment getAdvancePayment();
-    
-    void setAdvancePayment(AcAdvancePayment advancePayment);
 }

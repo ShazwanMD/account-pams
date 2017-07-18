@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.core.AcMetadata;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author PAMS
@@ -36,6 +37,11 @@ public class AcCreditNoteItemImpl implements AcCreditNoteItem {
     @ManyToOne(targetEntity = AcCreditNoteImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "CREDIT_NOTE_ID")
     private AcCreditNote creditNote;
+    
+//  @NotNull
+    @Column(name = "CREDITNOTEITEM_DATE")
+    private Date creditNoteItemDate;
+
 
     @Embedded
     private AcMetadata metadata;
@@ -98,6 +104,17 @@ public class AcCreditNoteItemImpl implements AcCreditNoteItem {
     public void setMetadata(AcMetadata metadata) {
         this.metadata = metadata;
     }
+    
+    @Override
+    public Date getCreditNoteItemDate() {
+        return creditNoteItemDate;
+    }
+
+    @Override
+    public void setCreditNoteItemDate(Date creditNoteItemDate) {
+        this.creditNoteItemDate = creditNoteItemDate;
+    }
+
 
     @Override
     public Class<?> getInterfaceClass() {

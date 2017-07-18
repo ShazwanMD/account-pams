@@ -18,6 +18,7 @@ export class CreditNoteItemListComponent implements OnInit {
   private selectedRows: CreditNoteItem[];
   private editorDialogRef: MdDialogRef<CreditNoteItemEditorDialog>;
   private columns: any[] = [
+    {name: 'creditNoteItemDate', label: 'Date'},
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Amount'},
@@ -48,12 +49,13 @@ export class CreditNoteItemListComponent implements OnInit {
     this.showDialog(creditNoteItems);
   }
 
-  // delete(): void {
-  //   console.log("length: " + this.selectedRows.length);
-  //   for (var i = 0; i < this.selectedRows.length; i++) {
-  //     this.store.dispatch(this.actions.deletecreditNoteItems(this.creditNote, this.selectedRows[i]));
-  //   }
-  // }
+  delete(): void {
+     console.log("length: " + this.selectedRows.length);
+     for (let i = 0; i < this.selectedRows.length; i++) {
+       this.store.dispatch(this.actions.deleteCreditNoteItem(this.creditNote, this.selectedRows[i]));
+     }
+     this.selectedRows = [];
+   }
 
   filter(): void {
   }

@@ -4,7 +4,9 @@ import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.web.module.account.controller.AccountTransformer;
+import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
+import my.edu.umk.pams.account.web.module.common.vo.PaymentMethod;
 import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
@@ -129,6 +131,7 @@ public class BillingTransformer {
         vo.setId(e.getId());
         vo.setAmount(e.getAmount());
         vo.setDescription(e.getDescription());
+        vo.setCreditNoteItemDate(e.getCreditNoteItemDate());
         vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) < 0 ? e.getAmount().negate() : null);
         vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) > 0 ? e.getAmount() : null);
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
@@ -165,6 +168,8 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
+        vo.setPaymentMethod(PaymentMethod.get(e.getPaymentMethod().ordinal()));
+        vo.setReceiptType(ReceiptType.get(e.getReceiptType().ordinal()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
@@ -179,6 +184,8 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
+        vo.setPaymentMethod(PaymentMethod.get(e.getPaymentMethod().ordinal()));
+        vo.setReceiptType(ReceiptType.get(e.getReceiptType().ordinal()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
@@ -306,19 +313,6 @@ public class BillingTransformer {
         task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(creditNote.getMetadata().getState().ordinal()));
         return task;
-    }
-    
-    public AdvancePayment toAdvancePaymentVo(AcAdvancePayment e) {
-    	AdvancePayment vo = new AdvancePayment();
-        vo.setId(e.getId());
-        vo.setReferenceNo(e.getReferenceNo());
-        vo.setSourceNo(e.getSourceNo());
-        vo.setAuditNo(e.getAuditNo());
-        vo.setDescription(e.getDescription());
-        vo.setAmount(e.getAmount());
-        //vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        //vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        return vo;
     }
 
     public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
