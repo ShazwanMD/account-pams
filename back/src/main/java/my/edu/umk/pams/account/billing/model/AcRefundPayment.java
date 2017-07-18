@@ -22,8 +22,4 @@ public interface AcRefundPayment extends AcDocument {
     AcInvoice getInvoice();
 
     void setInvoice(AcInvoice invoice);
-    
-    AcAdvancePayment getAdvancePayment();
-    
-    void setAdvancePayment(AcAdvancePayment advancePayment);
 }
