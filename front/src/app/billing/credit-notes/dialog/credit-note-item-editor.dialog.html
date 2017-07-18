@@ -1,6 +1,12 @@
 <h2 md-dialog-title>Credit Note Item Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editForm">
+        <md-input-container flex>
+        <input mdInput type="date"
+               placeholder="Date"
+               formControlName="creditNoteItemDate"
+               flex/>
+      </md-input-container>
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
       <pams-charge-code-select
         [placeholder]="'Charge Code'"
