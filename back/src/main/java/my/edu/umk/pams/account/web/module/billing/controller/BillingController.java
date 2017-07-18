@@ -586,6 +586,7 @@ public class BillingController {
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
         e.setDescription(item.getDescription());
+        e.setCreditNoteItemDate(item.getCreditNoteItemDate());
         billingService.addCreditNoteItem(creditNote, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -598,6 +599,7 @@ public class BillingController {
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
         e.setDescription(item.getDescription());
+        e.setCreditNoteItemDate(item.getCreditNoteItemDate());
         billingService.updateCreditNoteItem(creditNote, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

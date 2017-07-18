@@ -129,6 +129,7 @@ public class BillingTransformer {
         vo.setId(e.getId());
         vo.setAmount(e.getAmount());
         vo.setDescription(e.getDescription());
+        vo.setCreditNoteItemDate(e.getCreditNoteItemDate());
         vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) < 0 ? e.getAmount().negate() : null);
         vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) > 0 ? e.getAmount() : null);
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
