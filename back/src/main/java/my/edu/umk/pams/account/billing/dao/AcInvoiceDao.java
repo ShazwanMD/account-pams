@@ -2,12 +2,14 @@ package my.edu.umk.pams.account.billing.dao;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -88,8 +90,11 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
     void removeItem(AcInvoice invoice, AcInvoiceItem item, AcUser user);
 
     void deleteItem(AcInvoice invoice, AcInvoiceItem item, AcUser user);
+    
+    BigDecimal sumTotalAmount(AcInvoice invoice, AcUser user);
 
-
+    BigDecimal sumBalanceAmount(AcAccount account, AcUser user);
+    
 //    void addTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user);
 //
 //    void updateTransaction(AcInvoice invoice, AcInvoiceTransaction transaction, AcUser user);

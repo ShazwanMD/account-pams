@@ -10,7 +10,6 @@ import my.edu.umk.pams.account.account.service.AccountServiceImpl;
 import my.edu.umk.pams.account.billing.chain.ChargeAttachProcessor;
 import my.edu.umk.pams.account.billing.chain.ChargeContext;
 import my.edu.umk.pams.account.billing.chain.ChargeDetachProcessor;
-import my.edu.umk.pams.account.billing.dao.AcAdvancePaymentDao;
 import my.edu.umk.pams.account.billing.dao.AcCreditNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcDebitNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
@@ -87,9 +86,6 @@ public class BillingServiceImpl implements BillingService {
 
     @Autowired
     private AcCohortCodeDao cohortCodeDao;
-    
-    @Autowired
-    private AcAdvancePaymentDao advancePaymentDao;
     
     @Autowired
     private AcKnockoffDao knockoffDao;
@@ -934,39 +930,7 @@ public class BillingServiceImpl implements BillingService {
         map.put(WorkflowConstants.CANCEL_DECISION, false);
         return map;
     }
-
-    // ==================================================================================================== //
-    // ADVANCE PAYMENT
-    // ==================================================================================================== //
     
-	@Override
-	public AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo) {
-		return advancePaymentDao.findByReferenceNo(referenceNo);
-	}
-
-	@Override
-	public boolean hasAdvancePayment(AcAdvancePayment advancePayment) {
-		return advancePaymentDao.hasAdvancePayment(advancePayment);
-	}
-
-	@Override
-	public void addAdvancePayment(AcAdvancePayment advancePayment, AcUser user) {
-		advancePaymentDao.save(advancePayment, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();
-	}
-
-	@Override
-	public void updateAdvancePayment(AcAdvancePayment advancePayment, AcUser user) {
-		advancePaymentDao.update(advancePayment, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();	
-	}
-
-	@Override
-	public void removeAdvancePayment(AcAdvancePayment advancePayment, AcUser user) {
-		advancePaymentDao.remove(advancePayment, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();
-	}
-	
     // ==================================================================================================== //
     // KNOCKOFF
     // ==================================================================================================== //

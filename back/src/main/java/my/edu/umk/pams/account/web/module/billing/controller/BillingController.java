@@ -689,16 +689,6 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
-    // ==================================================================================================== //
-    //  ADVANCE PAYMENT
-    // ==================================================================================================== //
-
-    @RequestMapping(value = "/advancePayments/{referenceNo}", method = RequestMethod.GET)
-    public ResponseEntity<AdvancePayment> findAdvancePaymentByReferenceNo(@PathVariable String referenceNo) {
-        AcAdvancePayment advancePayments = billingService.findAdvancePaymentByReferenceNo(referenceNo);
-        return new ResponseEntity<AdvancePayment>(billingTransformer.toAdvancePaymentVo(advancePayments), HttpStatus.OK);
-    }
-    
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================

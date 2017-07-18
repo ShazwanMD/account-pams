@@ -308,19 +308,6 @@ public class BillingTransformer {
         task.setMetaState(MetaState.get(creditNote.getMetadata().getState().ordinal()));
         return task;
     }
-    
-    public AdvancePayment toAdvancePaymentVo(AcAdvancePayment e) {
-    	AdvancePayment vo = new AdvancePayment();
-        vo.setId(e.getId());
-        vo.setReferenceNo(e.getReferenceNo());
-        vo.setSourceNo(e.getSourceNo());
-        vo.setAuditNo(e.getAuditNo());
-        vo.setDescription(e.getDescription());
-        vo.setAmount(e.getAmount());
-        //vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        //vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        return vo;
-    }
 
     public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
         return tasks.stream()

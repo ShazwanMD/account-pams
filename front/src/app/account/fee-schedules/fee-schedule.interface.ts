@@ -8,4 +8,5 @@ export  interface FeeSchedule extends MetaObject {
   residencyCode: ResidencyCode;
   cohortCode: CohortCode;
   studyMode: StudyMode;
+  totalAmount: number;
 }

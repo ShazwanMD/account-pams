@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -38,4 +39,6 @@ public interface AcFeeScheduleDao extends GenericDao<Long, AcFeeSchedule> {
     void updateItem(AcFeeSchedule account, AcFeeScheduleItem item, AcUser user);
 
     void deleteItem(AcFeeSchedule account, AcFeeScheduleItem item, AcUser user);
+    
+    BigDecimal sumTotalAmount(AcFeeSchedule schedule, AcUser user);
 }

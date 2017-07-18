@@ -7,6 +7,7 @@ import {MdDialogRef} from "@angular/material";
 import {ChargeCode} from "../charge-code.interface";
 import {ChargeCodeActions} from "../charge-code.action";
 import {AccountModuleState} from "../../index";
+import {TaxCode} from '../../../common/tax-codes/tax-code.interface';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class ChargeCodeCreatorDialog implements OnInit {
       code: '',
       description:'',
       priority:0,
+      taxCode:<TaxCode>{},
     });
   }
 
