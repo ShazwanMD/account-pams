@@ -6,6 +6,8 @@ import { MdDialogRef } from "@angular/material";
 import { Store } from "@ngrx/store";
 import { SetupModuleState } from "../../../setup/index";
 import { ChargeCodeActions } from "../charge-code.action";
+import {TaxCode} from '../../../common/tax-codes/tax-code.interface';
+
 
 @Component({
   selector: 'pams-charge-code-editor',
@@ -38,6 +40,7 @@ export class ChargeCodeEditorDialog implements OnInit {
       code: '',
       description: '',
       priority: 0,
+      taxCode:<TaxCode>{},
     });
 
     if (this.edit) this.editorForm.patchValue(this._chargeCode);
