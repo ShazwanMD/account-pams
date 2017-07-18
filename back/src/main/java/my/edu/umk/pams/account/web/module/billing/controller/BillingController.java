@@ -1,9 +1,11 @@
 package my.edu.umk.pams.account.web.module.billing.controller;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.common.model.AcPaymentMethod;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.model.AcActorType;
@@ -359,11 +361,14 @@ public class BillingController {
         receipt.setReceiptNo(vo.getReceiptNo());
         receipt.setSourceNo(vo.getSourceNo());
         receipt.setAuditNo(vo.getAuditNo());
+        receipt.setReceivedDate(vo.getReceivedDate());
         receipt.setDescription(vo.getDescription());
         receipt.setTotalApplied(vo.getTotalApplied());
         receipt.setTotalReceived(vo.getTotalReceived());
         receipt.setTotalAmount(vo.getTotalAmount());
         receipt.setAccount(account);
+        receipt.setReceiptType(AcReceiptType.get(vo.getReceiptType().ordinal()));
+        receipt.setPaymentMethod(AcPaymentMethod.get(vo.getPaymentMethod().ordinal()));
         return new ResponseEntity<String>(billingService.startReceiptTask(receipt), HttpStatus.OK);
     }
 
