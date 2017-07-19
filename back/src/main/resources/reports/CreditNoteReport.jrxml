@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CreditNoteReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7847bac-ec0c-4da3-ba0c-6ccd4a1d0e5d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="30"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Table 1" uuid="f9b14143-da80-4009-b659-ffaed878d507">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     ac_cdit_note."id" AS ac_cdit_note_id,
+     ac_cdit_note."creditnote_date" AS ac_cdit_note_creditnote_date,
+     ac_cdit_note."audit_no" AS ac_cdit_note_audit_no,
+     ac_cdit_note."cancel_comment" AS ac_cdit_note_cancel_comment,
+     ac_cdit_note."description" AS ac_cdit_note_description,
+     ac_cdit_note."av_ts" AS ac_cdit_note_av_ts,
+     ac_cdit_note."av_id" AS ac_cdit_note_av_id,
+     ac_cdit_note."cl_id" AS ac_cdit_note_cl_id,
+     ac_cdit_note."cl_ts" AS ac_cdit_note_cl_ts,
+     ac_cdit_note."ck_ts" AS ac_cdit_note_ck_ts,
+     ac_cdit_note."ck_id" AS ac_cdit_note_ck_id,
+     ac_cdit_note."dt_ts" AS ac_cdit_note_dt_ts,
+     ac_cdit_note."dt_id" AS ac_cdit_note_dt_id,
+     ac_cdit_note."ev_ts" AS ac_cdit_note_ev_ts,
+     ac_cdit_note."ev_id" AS ac_cdit_note_ev_id,
+     ac_cdit_note."pr_ts" AS ac_cdit_note_pr_ts,
+     ac_cdit_note."pr_id" AS ac_cdit_note_pr_id,
+     ac_cdit_note."ps_ts" AS ac_cdit_note_ps_ts,
+     ac_cdit_note."ps_id" AS ac_cdit_note_ps_id,
+     ac_cdit_note."rg_ts" AS ac_cdit_note_rg_ts,
+     ac_cdit_note."rg_id" AS ac_cdit_note_rg_id,
+     ac_cdit_note."rm_ts" AS ac_cdit_note_rm_ts,
+     ac_cdit_note."rm_id" AS ac_cdit_note_rm_id,
+     ac_cdit_note."rq_ts" AS ac_cdit_note_rq_ts,
+     ac_cdit_note."rq_id" AS ac_cdit_note_rq_id,
+     ac_cdit_note."sl_ts" AS ac_cdit_note_sl_ts,
+     ac_cdit_note."sl_id" AS ac_cdit_note_sl_id,
+     ac_cdit_note."fd_st" AS ac_cdit_note_fd_st,
+     ac_cdit_note."up_ts" AS ac_cdit_note_up_ts,
+     ac_cdit_note."up_id" AS ac_cdit_note_up_id,
+     ac_cdit_note."uv_ts" AS ac_cdit_note_uv_ts,
+     ac_cdit_note."uv_id" AS ac_cdit_note_uv_id,
+     ac_cdit_note."vf_ts" AS ac_cdit_note_vf_ts,
+     ac_cdit_note."vf_id" AS ac_cdit_note_vf_id,
+     ac_cdit_note."issued_date" AS ac_cdit_note_issued_date,
+     ac_cdit_note."c_ts" AS ac_cdit_note_c_ts,
+     ac_cdit_note."c_id" AS ac_cdit_note_c_id,
+     ac_cdit_note."d_ts" AS ac_cdit_note_d_ts,
+     ac_cdit_note."d_id" AS ac_cdit_note_d_id,
+     ac_cdit_note."m_ts" AS ac_cdit_note_m_ts,
+     ac_cdit_note."m_id" AS ac_cdit_note_m_id,
+     ac_cdit_note."m_st" AS ac_cdit_note_m_st,
+     ac_cdit_note."reference_no" AS ac_cdit_note_reference_no,
+     ac_cdit_note."remove_comment" AS ac_cdit_note_remove_comment,
+     ac_cdit_note."source_no" AS ac_cdit_note_source_no,
+     ac_cdit_note."total_amount" AS ac_cdit_note_total_amount,
+     ac_cdit_note."invoice_id" AS ac_cdit_note_invoice_id,
+     ac_cdit_note_item."id" AS ac_cdit_note_item_id,
+     ac_cdit_note_item."amount" AS ac_cdit_note_item_amount,
+     ac_cdit_note_item."description" AS ac_cdit_note_item_description,
+     ac_cdit_note_item."c_ts" AS ac_cdit_note_item_c_ts,
+     ac_cdit_note_item."c_id" AS ac_cdit_note_item_c_id,
+     ac_cdit_note_item."d_ts" AS ac_cdit_note_item_d_ts,
+     ac_cdit_note_item."d_id" AS ac_cdit_note_item_d_id,
+     ac_cdit_note_item."m_ts" AS ac_cdit_note_item_m_ts,
+     ac_cdit_note_item."m_id" AS ac_cdit_note_item_m_id,
+     ac_cdit_note_item."m_st" AS ac_cdit_note_item_m_st,
+     ac_cdit_note_item."charge_code_id" AS ac_cdit_note_item_charge_code_id,
+     ac_cdit_note_item."credit_note_id" AS ac_cdit_note_item_credit_note_id,
+     ac_cdit_note_item."creditnoteitem_date" AS ac_cdit_note_item_creditnoteitem_date
+FROM
+     "public"."ac_cdit_note" ac_cdit_note INNER JOIN "public"."ac_cdit_note_item" ac_cdit_note_item ON ac_cdit_note."id" = ac_cdit_note_item."credit_note_id"]]>
+		</queryString>
+		<field name="ac_cdit_note_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_creditnote_date" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_audit_no" class="java.lang.String"/>
+		<field name="ac_cdit_note_cancel_comment" class="java.lang.String"/>
+		<field name="ac_cdit_note_description" class="java.lang.String"/>
+		<field name="ac_cdit_note_av_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_av_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_cl_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_cl_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_ck_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_ck_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_dt_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_dt_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_ev_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_ev_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_pr_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_pr_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_ps_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_ps_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_rg_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_rg_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_rm_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_rm_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_rq_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_rq_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_sl_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_sl_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_fd_st" class="java.lang.Integer"/>
+		<field name="ac_cdit_note_up_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_up_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_uv_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_uv_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_vf_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_vf_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_issued_date" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_c_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_c_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_d_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_d_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_m_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_m_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_m_st" class="java.lang.Integer"/>
+		<field name="ac_cdit_note_reference_no" class="java.lang.String"/>
+		<field name="ac_cdit_note_remove_comment" class="java.lang.String"/>
+		<field name="ac_cdit_note_source_no" class="java.lang.String"/>
+		<field name="ac_cdit_note_total_amount" class="java.math.BigDecimal"/>
+		<field name="ac_cdit_note_invoice_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_item_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_item_amount" class="java.math.BigDecimal"/>
+		<field name="ac_cdit_note_item_description" class="java.lang.String"/>
+		<field name="ac_cdit_note_item_c_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_item_c_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_item_d_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_item_d_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_item_m_ts" class="java.sql.Timestamp"/>
+		<field name="ac_cdit_note_item_m_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_item_m_st" class="java.lang.Integer"/>
+		<field name="ac_cdit_note_item_charge_code_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_item_credit_note_id" class="java.lang.Long"/>
+		<field name="ac_cdit_note_item_creditnoteitem_date" class="java.sql.Timestamp"/>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     ac_actr."id" AS ac_actr_id,
+     ac_actr."actor_type" AS ac_actr_actor_type,
+     ac_actr."address" AS ac_actr_address,
+     ac_actr."email" AS ac_actr_email,
+     ac_actr."fax" AS ac_actr_fax,
+     ac_actr."identity_no" AS ac_actr_identity_no,
+     ac_actr."c_ts" AS ac_actr_c_ts,
+     ac_actr."c_id" AS ac_actr_c_id,
+     ac_actr."d_ts" AS ac_actr_d_ts,
+     ac_actr."d_id" AS ac_actr_d_id,
+     ac_actr."m_ts" AS ac_actr_m_ts,
+     ac_actr."m_id" AS ac_actr_m_id,
+     ac_actr."m_st" AS ac_actr_m_st,
+     ac_actr."mobile" AS ac_actr_mobile,
+     ac_actr."name" AS ac_actr_name,
+     ac_actr."phone" AS ac_actr_phone,
+     ac_cdit_note."id" AS ac_cdit_note_id,
+     ac_cdit_note."creditnote_date" AS ac_cdit_note_creditnote_date,
+     ac_cdit_note."audit_no" AS ac_cdit_note_audit_no,
+     ac_cdit_note."cancel_comment" AS ac_cdit_note_cancel_comment,
+     ac_cdit_note."description" AS ac_cdit_note_description,
+     ac_cdit_note."av_ts" AS ac_cdit_note_av_ts,
+     ac_cdit_note."av_id" AS ac_cdit_note_av_id,
+     ac_cdit_note."cl_id" AS ac_cdit_note_cl_id,
+     ac_cdit_note."cl_ts" AS ac_cdit_note_cl_ts,
+     ac_cdit_note."ck_ts" AS ac_cdit_note_ck_ts,
+     ac_cdit_note."ck_id" AS ac_cdit_note_ck_id,
+     ac_cdit_note."dt_ts" AS ac_cdit_note_dt_ts,
+     ac_cdit_note."dt_id" AS ac_cdit_note_dt_id,
+     ac_cdit_note."ev_ts" AS ac_cdit_note_ev_ts,
+     ac_cdit_note."ev_id" AS ac_cdit_note_ev_id,
+     ac_cdit_note."pr_ts" AS ac_cdit_note_pr_ts,
+     ac_cdit_note."pr_id" AS ac_cdit_note_pr_id,
+     ac_cdit_note."ps_ts" AS ac_cdit_note_ps_ts,
+     ac_cdit_note."ps_id" AS ac_cdit_note_ps_id,
+     ac_cdit_note."rg_ts" AS ac_cdit_note_rg_ts,
+     ac_cdit_note."rg_id" AS ac_cdit_note_rg_id,
+     ac_cdit_note."rm_ts" AS ac_cdit_note_rm_ts,
+     ac_cdit_note."rm_id" AS ac_cdit_note_rm_id,
+     ac_cdit_note."rq_ts" AS ac_cdit_note_rq_ts,
+     ac_cdit_note."rq_id" AS ac_cdit_note_rq_id,
+     ac_cdit_note."sl_ts" AS ac_cdit_note_sl_ts,
+     ac_cdit_note."sl_id" AS ac_cdit_note_sl_id,
+     ac_cdit_note."fd_st" AS ac_cdit_note_fd_st,
+     ac_cdit_note."up_ts" AS ac_cdit_note_up_ts,
+     ac_cdit_note."up_id" AS ac_cdit_note_up_id,
+     ac_cdit_note."uv_ts" AS ac_cdit_note_uv_ts,
+     ac_cdit_note."uv_id" AS ac_cdit_note_uv_id,
+     ac_cdit_note."vf_ts" AS ac_cdit_note_vf_ts,
+     ac_cdit_note."vf_id" AS ac_cdit_note_vf_id,
+     ac_cdit_note."issued_date" AS ac_cdit_note_issued_date,
+     ac_cdit_note."c_ts" AS ac_cdit_note_c_ts,
+     ac_cdit_note."c_id" AS ac_cdit_note_c_id,
+     ac_cdit_note."d_ts" AS ac_cdit_note_d_ts,
+     ac_cdit_note."d_id" AS ac_cdit_note_d_id,
+     ac_cdit_note."m_ts" AS ac_cdit_note_m_ts,
+     ac_cdit_note."m_id" AS ac_cdit_note_m_id,
+     ac_cdit_note."m_st" AS ac_cdit_note_m_st,
+     ac_cdit_note."reference_no" AS ac_cdit_note_reference_no,
+     ac_cdit_note."remove_comment" AS ac_cdit_note_remove_comment,
+     ac_cdit_note."source_no" AS ac_cdit_note_source_no,
+     ac_cdit_note."total_amount" AS ac_cdit_note_total_amount,
+     ac_cdit_note."invoice_id" AS ac_cdit_note_invoice_id,
+     ac_cdit_note_item_A."id" AS ac_cdit_note_item_A_id,
+     ac_cdit_note_item_A."amount" AS ac_cdit_note_item_A_amount,
+     ac_cdit_note_item_A."description" AS ac_cdit_note_item_A_description,
+     ac_cdit_note_item_A."c_ts" AS ac_cdit_note_item_A_c_ts,
+     ac_cdit_note_item_A."c_id" AS ac_cdit_note_item_A_c_id,
+     ac_cdit_note_item_A."d_ts" AS ac_cdit_note_item_A_d_ts,
+     ac_cdit_note_item_A."d_id" AS ac_cdit_note_item_A_d_id,
+     ac_cdit_note_item_A."m_ts" AS ac_cdit_note_item_A_m_ts,
+     ac_cdit_note_item_A."m_id" AS ac_cdit_note_item_A_m_id,
+     ac_cdit_note_item_A."m_st" AS ac_cdit_note_item_A_m_st,
+     ac_cdit_note_item_A."charge_code_id" AS ac_cdit_note_item_A_charge_code_id,
+     ac_cdit_note_item_A."credit_note_id" AS ac_cdit_note_item_A_credit_note_id,
+     ac_cdit_note_item_A."creditnoteitem_date" AS ac_cdit_note_item_A_creditnoteitem_date
+FROM
+     "public"."ac_cdit_note" ac_cdit_note INNER JOIN "public"."ac_cdit_note_item" ac_cdit_note_item_A ON ac_cdit_note."id" = ac_cdit_note_item_A."credit_note_id",
+     "public"."ac_actr" ac_actr]]>
+	</queryString>
+	<field name="ac_actr_id" class="java.lang.Long"/>
+	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
+	<field name="ac_actr_address" class="java.lang.String"/>
+	<field name="ac_actr_email" class="java.lang.String"/>
+	<field name="ac_actr_fax" class="java.lang.String"/>
+	<field name="ac_actr_identity_no" class="java.lang.String"/>
+	<field name="ac_actr_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_c_id" class="java.lang.Long"/>
+	<field name="ac_actr_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_d_id" class="java.lang.Long"/>
+	<field name="ac_actr_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_m_id" class="java.lang.Long"/>
+	<field name="ac_actr_m_st" class="java.lang.Integer"/>
+	<field name="ac_actr_mobile" class="java.lang.String"/>
+	<field name="ac_actr_name" class="java.lang.String"/>
+	<field name="ac_actr_phone" class="java.lang.String"/>
+	<field name="ac_cdit_note_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_creditnote_date" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_audit_no" class="java.lang.String"/>
+	<field name="ac_cdit_note_cancel_comment" class="java.lang.String"/>
+	<field name="ac_cdit_note_description" class="java.lang.String"/>
+	<field name="ac_cdit_note_av_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_av_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_cl_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_cl_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_ck_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_ck_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_dt_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_dt_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_ev_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_ev_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_pr_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_pr_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_ps_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_ps_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_rg_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_rg_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_rm_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_rm_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_rq_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_rq_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_sl_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_sl_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_fd_st" class="java.lang.Integer"/>
+	<field name="ac_cdit_note_up_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_up_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_uv_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_uv_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_vf_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_vf_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_issued_date" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_c_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_d_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_m_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_m_st" class="java.lang.Integer"/>
+	<field name="ac_cdit_note_reference_no" class="java.lang.String"/>
+	<field name="ac_cdit_note_remove_comment" class="java.lang.String"/>
+	<field name="ac_cdit_note_source_no" class="java.lang.String"/>
+	<field name="ac_cdit_note_total_amount" class="java.math.BigDecimal"/>
+	<field name="ac_cdit_note_invoice_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_item_a_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_item_a_amount" class="java.math.BigDecimal"/>
+	<field name="ac_cdit_note_item_a_description" class="java.lang.String"/>
+	<field name="ac_cdit_note_item_a_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_item_a_c_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_item_a_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_item_a_d_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_item_a_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_item_a_m_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_item_a_m_st" class="java.lang.Integer"/>
+	<field name="ac_cdit_note_item_a_charge_code_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_item_a_credit_note_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_item_a_creditnoteitem_date" class="java.sql.Timestamp"/>
+	<variable name="variable1" class="java.lang.String" resetType="Column" calculation="Sum"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="167" splitType="Stretch">
+			<image>
+				<reportElement x="247" y="0" width="150" height="90" uuid="b6be1df0-b2cf-4d98-a9eb-6cb76cd2f120"/>
+				<imageExpression><![CDATA["C:\\Users\\aidamardiana\\Desktop\\logo-umk.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="204" y="94" width="126" height="44" uuid="dd8e0fde-2b26-407a-8a61-d0b8ad8aa2e5"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KARUNG BERKUNCI 36 16100 PENGKALAN CHEPA
+KELANTAN, MALAYSIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="139" width="143" height="16" uuid="f2c79b78-0409-4d1f-8da5-fc1fe677fd95"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TELEFON: (+609)-7717101]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="139" width="143" height="16" uuid="a17afa7d-1b54-441b-b59b-e6bd3a6fe72a"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[http:www.umk.edu.my]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="139" width="143" height="16" uuid="fd916624-0677-4ab6-87cf-580bfe4a997b"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TELEFAX: (+609) -771710]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="154" width="555" height="1" uuid="5e2bc11f-01c9-46c5-99dd-d53b31334e2b"/>
+			</line>
+			<line>
+				<reportElement x="0" y="158" width="555" height="1" uuid="299c649e-881e-4727-b4f3-cd43a439a84f"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="84" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="10" y="10" width="347" height="65" uuid="84a24024-7154-45ee-b8fb-6b7a621bff67"/>
+			</rectangle>
+			<textField>
+				<reportElement x="20" y="21" width="100" height="15" uuid="4875a52b-eaa2-48df-941a-ec5b8260a99c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="38" width="100" height="15" uuid="cd7263fc-f194-4728-b20f-ab38f8dabd89"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_actr_address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="376" y="18" width="77" height="15" uuid="1e939529-eae0-42aa-804f-b4a42bb4c9ec"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NOTA KREDIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="35" width="77" height="15" uuid="6c6f93c4-87e1-4680-82af-85e667484e38"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CUST ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="52" width="77" height="15" uuid="56b9efe8-3b28-4701-b41c-748542ba168e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TARIKH]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="18" width="94" height="15" uuid="0b232331-83b1-43ef-950b-180ea6185caf"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_cdit_note_reference_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="35" width="94" height="15" uuid="0e9722e2-0859-4533-abab-c294295bf062"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="460" y="51" width="94" height="15" uuid="173dfc2a-54ef-4904-a5a7-4ec21eed09dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="41">
+			<componentElement>
+				<reportElement key="table 10" style="table 10" x="10" y="0" width="540" height="41" uuid="5c3fe920-f01c-4ff6-a010-658a36d172bc"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table 1" uuid="9d90eb91-30d8-4838-ba11-e480be4369ba">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="45" uuid="ab08cc33-1d23-4cc5-a856-24f7ee76f4f9">
+						<jr:columnHeader style="table 10_CH" height="17" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="45" height="17" uuid="931dd226-0409-428e-9bed-6b50783b0917"/>
+								<textElement>
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Bil]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="257" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="45" height="50" uuid="8466f73c-527d-4bcb-bfb2-8d147b295527"/>
+								<textFieldExpression><![CDATA[$F{ac_cdit_note_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="418" uuid="b5ce9cd3-5a23-48d8-b5aa-88acb890ef99">
+						<jr:columnHeader style="table 10_CH" height="17" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="17" uuid="e3992a8e-f11b-4750-9f6c-60583ddc186b"/>
+								<textElement>
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Perihal]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="257" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="418" height="25" uuid="13717cd9-814d-49fb-9f22-8cda266ccaba"/>
+								<textFieldExpression><![CDATA[$F{ac_cdit_note_description}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="273" y="232" width="138" height="25" uuid="dc6324db-9519-4e57-a93e-f817b42e0f80"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Jumlah]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="e6f5ef60-879d-48d7-949d-382d3798152a">
+						<jr:columnHeader style="table 10_CH" height="17" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="17" uuid="5ee00a68-ef29-471b-8277-a05cea67e3b6"/>
+								<textElement>
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Amount]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="257" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="50" uuid="d5893d2c-bca6-43cb-b7b0-9313e8ec32d8"/>
+								<textFieldExpression><![CDATA[$F{ac_cdit_note_total_amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="21" y="0" width="100" height="20" uuid="080b6826-f2c8-4cdb-bcaa-642d5bdc67a3"/>
+				<text><![CDATA[Disediakan Oleh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="0" width="100" height="20" uuid="c0c6976a-fc82-4aa6-92b2-3a5fa206dfe5"/>
+				<text><![CDATA[Disahkan Oleh]]></text>
+			</staticText>
+			<line>
+				<reportElement x="20" y="35" width="150" height="1" uuid="1c92b662-c519-41f1-897c-504d2f48ae58"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<line>
+				<reportElement x="376" y="-42" width="150" height="1" uuid="869f0ee1-7991-4d1b-acfd-94fea96748ad"/>
+			</line>
+			<staticText>
+				<reportElement x="20" y="-43" width="100" height="15" uuid="0b62eb26-0af2-40e0-bdcb-4d838b372b5f"/>
+				<text><![CDATA[Penolong Akauntan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="-40" width="100" height="15" uuid="efcb5cd7-b96b-4627-9e1d-81094d44625e"/>
+				<text><![CDATA[Timbalan Bendahari]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="-28" width="176" height="15" uuid="7ef3f1a8-09eb-44f9-bc1a-07a42c69334f"/>
+				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="-28" width="176" height="15" uuid="1b1223b9-9834-46d5-8424-3efa02450b7f"/>
+				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
