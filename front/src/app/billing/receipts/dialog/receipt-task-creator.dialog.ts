@@ -9,6 +9,8 @@ import {Account} from "../../../account/accounts/account.interface";
 import {ReceiptActions} from "../receipt.action";
 import {BillingModuleState} from "../../index";
 import {Receipt} from "../receipt.interface";
+import { ReceiptType } from "../receipt-type.enum";
+import { PaymentMethod } from "../../../common/payment-method.enum";
 
 
 @Component({
@@ -33,6 +35,7 @@ export class ReceiptTaskCreatorDialog implements OnInit {
     this.createForm = this.formBuilder.group(<Receipt>{
       id: null,
       referenceNo: '',
+      receivedDate: undefined,
       receiptNo:'',
       sourceNo:'',
       auditNo:'',
@@ -41,6 +44,8 @@ export class ReceiptTaskCreatorDialog implements OnInit {
       totalReceived:0,
       totalAmount:0,
       account:<Account>{},
+      receiptType: <ReceiptType>{},
+      paymentMethod: <PaymentMethod>{},
     });
   }
 

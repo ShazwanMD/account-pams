@@ -13,8 +13,12 @@ export class AssignedReceiptTaskListComponent {
   @Output() view = new EventEmitter<ReceiptTask>();
 
   private columns: any[] = [
-    {name: 'referenceNo', label: 'ReferenceNo'},
+    {name: 'receivedDate', label: 'Date'},
+    {name: 'referenceNo', label: 'Reference No'},
     {name: 'description', label: 'Description'},
+    {name: 'receiptType', label: 'Receipt Type'},
+    {name: 'paymentMethod', label: 'Payment Method'},
+    {name: 'sourceNo', label: 'Source No'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''}
   ];

@@ -39,7 +39,10 @@ public class AcChargeCodeImpl implements AcChargeCode {
     @OneToOne(targetEntity = AcTaxCodeImpl.class)
     @JoinColumn(name = "TAX_CODE_ID")
     private AcTaxCode taxCode;
-
+    
+    @Column(name = "INCLUSIVE")
+    private Boolean inclusive;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -102,6 +105,16 @@ public class AcChargeCodeImpl implements AcChargeCode {
     @Override
     public void setTaxCode(AcTaxCode taxCode) {
 		this.taxCode = taxCode;
+	}
+    
+    @Override
+    public Boolean getInclusive() {
+		return inclusive;
+	}
+
+    @Override
+    public void setInclusive(Boolean inclusive) {
+		this.inclusive = inclusive;
 	}
 
 	@Override

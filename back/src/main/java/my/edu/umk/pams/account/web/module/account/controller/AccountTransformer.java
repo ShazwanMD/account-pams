@@ -55,6 +55,7 @@ public class AccountTransformer {
         m.setDescription(e.getDescription());
         m.setPriority(e.getPriority());
         m.setTaxCode(commonTransformer.toTaxCodeVo(e.getTaxCode()));
+        m.setInclusive(e.getInclusive());
         return m;
     }
 

@@ -26,4 +26,9 @@ public interface AcChargeCode extends AcMetaObject{
     void setTaxCode(AcTaxCode taxCode);
 
     AcTaxCode getTaxCode();
+
+	Boolean getInclusive();
+
+	void setInclusive(Boolean inclusive);
+
 }

@@ -228,6 +228,7 @@
         M_ST int4,
         TAX_CODE_ID int8,
         PRIORITY int4 not null,
+        INCLUSIVE boolean,
         primary key (ID)
     );
 
