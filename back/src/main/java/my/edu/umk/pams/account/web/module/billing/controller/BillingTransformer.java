@@ -153,6 +153,9 @@ public class BillingTransformer {
         task.setAssignee(task.getAssignee());
         task.setCandidate(task.getCandidate());
         task.setReceipt(toReceiptVo(receipt));
+        task.setReceivedDate(receipt.getReceivedDate());
+        task.setPaymentMethod(PaymentMethod.get(receipt.getPaymentMethod().ordinal()));
+        task.setReceiptType(ReceiptType.get(receipt.getReceiptType().ordinal()));
         task.setFlowState(FlowState.get(receipt.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(receipt.getMetadata().getState().ordinal()));
         return task;
@@ -167,6 +170,7 @@ public class BillingTransformer {
         vo.setAuditNo(e.getAuditNo());
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
+        vo.setReceivedDate(e.getReceivedDate());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setPaymentMethod(PaymentMethod.get(e.getPaymentMethod().ordinal()));
         vo.setReceiptType(ReceiptType.get(e.getReceiptType().ordinal()));
@@ -184,6 +188,7 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
+        vo.setReceivedDate(e.getReceivedDate());
         vo.setPaymentMethod(PaymentMethod.get(e.getPaymentMethod().ordinal()));
         vo.setReceiptType(ReceiptType.get(e.getReceiptType().ordinal()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));

@@ -1,4 +1,4 @@
-<h2 md-dialog-title>Charge Code Editorxxx</h2>
+<h2 md-dialog-title>Charge Code Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editorForm">
     <div layout="row" class="inset" flex>
@@ -26,6 +26,13 @@
                flex/>
       </md-input-container>
     </div>
+    <div>
+    <pams-tax-code-select
+        [placeholder]="'Tax Code'"
+        [innerFormControl]="editorForm.controls['taxCode']"
+        fxFlex="calc(70%-25px)">
+      </pams-tax-code-select>
+  </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">

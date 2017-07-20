@@ -38,6 +38,7 @@ export class ChargeCodeListComponent implements AfterViewInit {
     {name: 'priority', label: 'Priority'},
     {name: 'taxCode.code', label: 'Tax Code'},
     {name: 'taxCode.taxRate', label: 'Tax Rate'},
+    {name: 'inclusive', label: 'Inclusive'},
     {name: 'action', label: ''},
   ];
 
