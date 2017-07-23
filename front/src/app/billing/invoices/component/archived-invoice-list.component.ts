@@ -19,7 +19,6 @@ export class ArchivedInvoiceListComponent {
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
-    {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''}
   ];
