@@ -3,6 +3,8 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ public class DebitNote extends Document {
 	private String sourceNo;
 	private String auditNo;
 	private String description;
+	private ChargeCode sodoCode;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date debitNoteDate;
 	private BigDecimal totalAmount = new BigDecimal(0.00);
@@ -82,6 +85,14 @@ public class DebitNote extends Document {
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
 	}
+	
+    public ChargeCode getChargeCode() {
+        return sodoCode;
+    }
+
+    public void setChargeCode(ChargeCode sodoCode) {
+        this.sodoCode = sodoCode;
+    }
 
 	public String getAccountCode() {
 		return accountCode;
