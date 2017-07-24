@@ -80,4 +80,9 @@ export class ReceiptDraftTaskPanel implements OnInit {
   goBack(): void {
     this.router.navigate(['/billing/receipts']);
   }
+  
+  viewInvoice(invoice: Invoice) {
+      console.log("invoice: " + invoice.referenceNo);
+      this.router.navigate(['billing/receipts/view-item', invoice.referenceNo]);
+    }
 }
