@@ -10,7 +10,10 @@ import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {BillingModuleState} from "../../index";
 import {PromoCodeApplicatorDialog} from "../dialog/promo-code-applicator.dialog";
-
+import { AccountModuleState } from "../../../account/index";
+import { Invoice } from "../../invoices/invoice.interface";
+import {Account} from "../../../account/accounts/account.interface";
+import { InvoiceActions } from "../../invoices/invoice.action";
 
 @Component({
   selector: 'pams-receipt-draft-task',
@@ -20,21 +23,31 @@ import {PromoCodeApplicatorDialog} from "../dialog/promo-code-applicator.dialog"
 export class ReceiptDraftTaskPanel implements OnInit {
 
   private RECEIPT_ITEMS = "billingModuleState.receiptItems".split(".");
+  private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
+  private INVOICES: string[] = 'billingModuleState.invoices'.split('.');
+
   @Input() receiptTask: ReceiptTask;
   receiptItems$: Observable<ReceiptItem[]>;
-
+  private account$: Observable<Account>;
+  private invoices$: Observable<Invoice[]>;
+  
   constructor(private router: Router,
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
               private actions: ReceiptActions,
+              private action: InvoiceActions,
               private store: Store<BillingModuleState>,
+              private stores: Store<AccountModuleState>,
               private dialog: MdDialog,
               private snackBar: MdSnackBar) {
     this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
+    this.account$ = this.stores.select(...this.ACCOUNT);
+    this.invoices$ = this.store.select(...this.INVOICES);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt))
+    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
+    this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
   }
 
   editItem(item: ReceiptItem) {

@@ -8,6 +8,7 @@ import {ReceiptTask} from "./receipt-task.interface";
 import {BillingModuleState} from "../index";
 import {ReceiptTaskCreatorDialog} from "./dialog/receipt-task-creator.dialog";
 import {MdDialogRef, MdDialog, MdDialogConfig} from "@angular/material";
+import { Receipt } from "./receipt.interface";
 
 @Component({
   selector: 'pams-receipt-center',
@@ -18,8 +19,10 @@ export class ReceiptCenterPage implements OnInit {
 
   private ASSIGNED_RECEIPT_TASKS = "billingModuleState.assignedReceiptTasks".split(".");
   private POOLED_RECEIPT_TASKS = "billingModuleState.pooledReceiptTasks".split(".");
+  private ARCHIVED_RECEIPTS = "billingModuleState.archivedReceipts".split(".");
   private assignedReceiptTasks$: Observable<ReceiptTask[]>;
   private pooledReceiptTasks$: Observable<ReceiptTask[]>;
+  private archivedReceipts$: Observable<Receipt[]>;
   private creatorDialogRef: MdDialogRef<ReceiptTaskCreatorDialog>;
 
   constructor(private router: Router,
@@ -30,6 +33,7 @@ export class ReceiptCenterPage implements OnInit {
               private dialog: MdDialog) {
     this.assignedReceiptTasks$ = this.store.select(...this.ASSIGNED_RECEIPT_TASKS);
     this.pooledReceiptTasks$ = this.store.select(...this.POOLED_RECEIPT_TASKS);
+    this.archivedReceipts$ = this.store.select(...this.ARCHIVED_RECEIPTS);
   }
 
   goBack(route: string): void {

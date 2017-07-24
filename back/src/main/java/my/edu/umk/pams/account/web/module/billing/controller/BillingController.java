@@ -500,6 +500,7 @@ public class BillingController {
         debitNote.setTotalAmount(vo.getTotalAmount());
         debitNote.setDebitNoteDate(vo.getDebitNoteDate());
         debitNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+        debitNote.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNote), HttpStatus.OK);
     }
 
