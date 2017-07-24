@@ -29,12 +29,28 @@
         </md-card-actions>
       </md-card>
 
-      <pams-receipt-item-list
+     <!--   <pams-receipt-item-list
         [receipt]="receiptTask.receipt"
         [receiptItems]="receiptItems$ | async">
 
-      </pams-receipt-item-list>
+      </pams-receipt-item-list> -->
+      
 
+		<md-card>
+          <md-tab-group [selectedIndex]="0">
+            <md-tab label="Invoices">
+              <pams-invoice-unpaid-list
+			      [account]="account$ | async"
+			      [invoices]="invoices$ | async"
+			      (view)="viewInvoice($event)">
+			      </pams-invoice-unpaid-list>
+            </md-tab>
+
+            <md-tab label="Charges">
+
+            </md-tab>
+          </md-tab-group>
+        </md-card>
     </div>
     <div flex-gt-md="30">
 

@@ -160,6 +160,12 @@ export class BillingService {
     return this._http.get(this.BILLING_API + '/receipts/pooledTasks')
       .map((res: Response) => <ReceiptTask[]>res.json());
   }
+  
+  findArchivedReceipts(): Observable<Receipt[]> {
+      console.log('findArchivedReceipts');
+      return this._http.get(this.BILLING_API + '/receipts/archived' )
+        .map((res: Response) => <Receipt[]>res.json());
+    }
 
   findReceiptTaskByTaskId(taskId: string): Observable<ReceiptTask> {
     console.log('findReceiptTaskByTaskId');

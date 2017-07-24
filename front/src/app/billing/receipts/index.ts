@@ -22,6 +22,7 @@ import {ReceiptEffects} from "./receipt.effect";
 import {EffectsModule} from "@ngrx/effects";
 import {AssignedReceiptTaskListComponent} from "./component/assigned-receipt-task-list.component";
 import {PooledReceiptTaskListComponent} from "./component/pooled-receipt-task-list.component";
+import {ArchivedReceiptListComponent} from "./component/archived-receipt-list.component";
 import {ReceiptStatusComponent} from "./component/receipt-status.component";
 import {ReceiptTypeSelectComponent} from "./component/receipt-type-select.component";
 import {PaymentMethodSelectComponent} from "./component/payment-method-select.component";
@@ -53,6 +54,7 @@ import {PipeModule} from "../../app.pipe.module";
     // components
     AssignedReceiptTaskListComponent,
     PooledReceiptTaskListComponent,
+    ArchivedReceiptListComponent,
     ReceiptTaskWorkflowPanel,
     ReceiptDraftTaskPanel,
     ReceiptRegisterTaskPanel,

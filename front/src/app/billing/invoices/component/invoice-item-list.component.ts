@@ -20,6 +20,9 @@ export class InvoiceItemListComponent implements OnInit {
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'chargeCode.description', label: 'Charge Code Description'},
+    {name: 'chargeCode.taxCode.code', label: 'Tax Code'},
+    {name: 'chargeCode.taxCode.taxRate', label: 'Tax Rate'},
+    {name: 'chargeCode.inclusive', label: 'Inclusive'},
     {name: 'amount', label: 'Amount'},
     {name: 'action', label: ''},
   ];

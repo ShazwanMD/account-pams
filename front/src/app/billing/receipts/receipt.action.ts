@@ -58,6 +58,24 @@ export class ReceiptActions {
       payload: tasks
     };
   }
+  
+  static FIND_ARCHIVED_RECEIPT = '[Receipt] Find Archived Receipt';
+
+  findArchivedReceipts(): Action {
+    return {
+      type: ReceiptActions.FIND_ARCHIVED_RECEIPT
+    };
+  }
+
+  static FIND_ARCHIVED_RECEIPT_SUCCESS = '[Receipt] Find Archived Receipt Success';
+
+  findArchivedReceiptsSuccess(receipt): Action {
+    console.log("findArchivedReceiptsSuccess");
+    return {
+      type: ReceiptActions.FIND_ARCHIVED_RECEIPT_SUCCESS,
+      payload: receipt
+    };
+  }
 
   static FIND_RECEIPT_TASK_BY_TASK_ID = '[Receipt] Find Receipt Task By Task Id';
 

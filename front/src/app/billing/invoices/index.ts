@@ -37,7 +37,8 @@ import {InvoiceActionComponent} from "./component/invoice-action.component";
 import {CreditNoteSubModule} from "../credit-notes/index";
 import {DebitNoteSubModule} from "../debit-notes/index";
 import {PipeModule} from "../../app.pipe.module";
-
+import { InvoiceUnpaidListComponent } from "./component/invoice-unpaid-list.component";
+import { InvoiceItemPaidListComponent } from "./component/invoice-item-paid-list.component";
 
 @NgModule({
   imports: [
@@ -75,11 +76,15 @@ import {PipeModule} from "../../app.pipe.module";
     InvoiceDebitNoteListComponent,
     InvoiceCreditNoteListComponent,
     InvoiceActionComponent,
+    InvoiceUnpaidListComponent,
+    InvoiceItemPaidListComponent,
 
     // dialog
   ],
   exports: [
     InvoiceSelectComponent,
+    InvoiceUnpaidListComponent,
+    InvoiceItemPaidListComponent,
   ],
   entryComponents: [
     InvoiceDraftTaskPanel,
