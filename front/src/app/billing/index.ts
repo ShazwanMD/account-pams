@@ -59,6 +59,7 @@ import {CreditNoteItemListState, creditNoteItemListReducer} from './credit-notes
 import {PipeModule} from '../app.pipe.module';
 import {invoiceCreditNoteListReducer, InvoiceCreditNoteListState} from './invoices/invoice-credit-note-list.reducer';
 import {invoiceDebitNoteListReducer, InvoiceDebitNoteListState} from './invoices/invoice-debit-note-list.reducer';
+import {archivedReceiptListReducer, ReceiptListState} from './receipts/receipt-list.reducer';
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -72,6 +73,7 @@ export interface BillingModuleState {
   invoiceCreditNotes: InvoiceCreditNoteListState;
   assignedReceiptTasks: ReceiptTaskListState;
   pooledReceiptTasks: ReceiptTaskListState;
+  archivedReceipts: ReceiptListState;
   receiptTask: ReceiptTaskState;
   receipt: ReceiptState;
   receiptItems: ReceiptItemListState;
@@ -104,6 +106,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     debitNoteList: [],
     assignedReceiptTasks: [],
     pooledReceiptTasks: [],
+    archivedReceipts: [],
     receiptTask: <ReceiptTask>{},
     receipt: <Receipt>{},
     receiptItems: [],
@@ -133,6 +136,7 @@ export const billingModuleReducers = {
   invoiceCreditNotes: invoiceCreditNoteListReducer,
   assignedReceiptTasks: assignedReceiptTaskListReducer,
   pooledReceiptTasks: pooledReceiptTaskListReducer,
+  archivedReceipts: archivedReceiptListReducer,
   receiptTask: receiptTaskReducer,
   receipts: receiptReducer,
   receiptItems: receiptItemListReducer,
