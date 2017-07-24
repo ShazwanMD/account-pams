@@ -194,6 +194,7 @@
         REMOVE_COMMENT varchar(255),
         SOURCE_NO varchar(255),
         TOTAL_AMOUNT numeric(19, 2),
+        CHARGE_CODE_ID int8,
         INVOICE_ID int8,
         primary key (ID)
     );
@@ -369,6 +370,7 @@
         REMOVE_COMMENT varchar(255),
         SOURCE_NO varchar(255),
         TOTAL_AMOUNT numeric(19, 2),
+        CHARGE_CODE_ID int8,
         INVOICE_ID int8,
         primary key (ID)
     );
