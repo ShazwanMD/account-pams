@@ -66,11 +66,11 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  uploadFeeSchedule(schedule: FeeSchedule, file: File): Observable<String> {
+  uploadFeeSchedule(file: File): Observable<String> {
     console.log('uploadFeeSchedule');
-    let formData = new FormData();
+    let formData: FormData = new FormData();
     formData.append('file', file);
-    return this._http.post(this.ACCOUNT_API + '/feeSchedules/' + schedule.code + '/upload', formData)
+    return this._http.post(this.ACCOUNT_API + '/feeSchedules/upload', formData)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 

@@ -60,7 +60,7 @@ export class FeeScheduleCenterPage implements OnInit {
 
   upload(file: File): void {
     console.log("feeSchedule", file);
-    this.store.dispatch(this.actions.uploadFeeSchedule(this.feeSchedule,file));
+    this.store.dispatch(this.actions.uploadFeeSchedule(file));
 
   }
 }
