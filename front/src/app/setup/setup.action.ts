@@ -577,4 +577,85 @@ export class SetupActions {
       payload: message
     };
   }
+
+    static SAVE_SECURITY_CHARGES_CODE = '[Setup] Save Security Charges Code';
+
+  saveSecurityChargesCode(code): Action {
+    console.log("saveSecurityChargesCode");
+    return {
+      type: SetupActions.SAVE_SECURITY_CHARGES_CODE,
+      payload: code
+    };
+  }
+
+  static SAVE_SECURITY_CHARGES_CODE_SUCCESS = '[Setup] Save Security Charges Success';
+
+  saveSecurityChargesCodeSuccess(message): Action {
+    console.log("saveSecurityChargesCodeSuccess");
+    return {
+      type: SetupActions.SAVE_SECURITY_CHARGES_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+    static UPDATE_SECURITY_CHARGES_CODE = '[Setup] Update Security Charges Code';
+
+  updateSecurityChargesCode(code): Action {
+    console.log("updateSecurityChargesCode");
+    return {
+      type: SetupActions.UPDATE_SECURITY_CHARGES_CODE,
+      payload: code
+    };
+  }
+
+  static UPDATE_SECURITY_CHARGES_CODE_SUCCESS  = '[Setup] Update Security Charges Code  Success';
+
+  updateSecurityChargesCodeSuccess(message): Action {
+    console.log("updateSecurityChargesCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_SECURITY_CHARGES_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+  
+  static FIND_SECURITY_CHARGES_CODES = '[Setup] Find Security Charges Codes';
+
+  findSecurityChargesCodes(): Action {
+    console.log("findSecurityChargesCodes");
+    return {
+      type: SetupActions.FIND_SECURITY_CHARGES_CODES,
+    };
+  }
+
+  static FIND_SECURITY_CHARGES_CODES_SUCCESS = '[Setup] Find Security Charges Codes Success';
+
+  findSecurityChargesCodesSuccess(codes): Action {
+    console.log("findSecurityChargesCodesSuccess");
+    return {
+      type: SetupActions.FIND_SECURITY_CHARGES_CODES_SUCCESS,
+      payload: codes
+    };
+  }
+
+  static REMOVE_SECURITY_CHARGES_CODE = '[Setup] Remove Security Charges Code';
+
+  removeSecurityChargesCode(code): Action {
+    console.log("removeSecurityChargesCode");
+    return {
+      type: SetupActions.REMOVE_SECURITY_CHARGES_CODE,
+      payload: code
+    };
+  }
+
+  static REMOVE_SECURITY_CHARGES_CODE_SUCCESS = '[Setup] Remove Security Charges Code  Success';
+
+  removeSecurityChargesCodeSuccess(message): Action {
+    console.log("removeSecurityChargesCodeSuccess");
+    return {
+      type: SetupActions.REMOVE_SECURITY_CHARGES_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
 }
