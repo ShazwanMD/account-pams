@@ -42,7 +42,7 @@ export class DebitNoteCreatorDialog implements OnInit {
       sourceNo: '',
       totalAmount: 0,
       debitNoteDate: undefined,
-      //chargeCode: <ChargeCode>{},
+      chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     });
     this.createForm.patchValue({invoice: this._invoice});
