@@ -16,7 +16,7 @@ import {Account} from "../../../account/accounts/account.interface";
 export class InvoiceUnpaidListComponent {
 
   @Input() invoices: Invoice[];
-  @Output() view = new EventEmitter<Invoice>();
+  @Output() paid = new EventEmitter<Invoice>();
   @Input() account: Account;
 
   private columns: any[] = [
@@ -36,9 +36,9 @@ export class InvoiceUnpaidListComponent {
 
   viewInvoice(invoice: Invoice): void {
     console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing invoice", "OK");
+    let snackBarRef = this.snackBar.open("Paid invoice", "OK");
     snackBarRef.afterDismissed().subscribe(() => {
-      this.view.emit(invoice);
+      this.paid.emit(invoice);
     });
   }
   

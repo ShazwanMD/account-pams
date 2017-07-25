@@ -1,3 +1,13 @@
+<md-card>
+  <div toolbar-buttons layout="row" layout-align="start center" flex>
+    <md-card-title>Items
+    </md-card-title>
+    <md-chip-list *ngIf="invoiceItems?.length > 0">
+      <md-chip color="accent">{{invoiceItems?.length}}</md-chip>
+    </md-chip-list>
+    <span flex></span>
+  </div>
+  <md-divider></md-divider>
   <td-data-table
     #dataTable
     [data]="invoiceItems"
@@ -17,4 +27,5 @@
       </div>
     </template>
   </td-data-table>
+  </md-card>
 

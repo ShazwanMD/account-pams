@@ -39,6 +39,7 @@ import {DebitNoteSubModule} from "../debit-notes/index";
 import {PipeModule} from "../../app.pipe.module";
 import { InvoiceUnpaidListComponent } from "./component/invoice-unpaid-list.component";
 import { InvoiceItemPaidListComponent } from "./component/invoice-item-paid-list.component";
+import { ReceiptItemDetailPage } from "../receipts/receipt-item-detail.page";
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { InvoiceItemPaidListComponent } from "./component/invoice-item-paid-list
     InvoiceCenterPage,
     InvoiceTaskDetailPage,
     InvoiceDetailPage,
+    ReceiptItemDetailPage,
 
     // components
     AssignedInvoiceTaskListComponent,
