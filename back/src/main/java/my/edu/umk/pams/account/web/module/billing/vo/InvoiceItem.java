@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
+import my.edu.umk.pams.account.web.module.common.vo.TaxCode;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
 import java.io.IOException;
@@ -18,7 +19,8 @@ public class InvoiceItem extends MetaObject {
     private BigDecimal debitAmount;
     private BigDecimal creditAmount;
     private boolean readOnly;
-    private ChargeCode sodoCode;
+    private ChargeCode chargeCode;
+    private TaxCode taxCode;
 
     public String getDescription() {
         return description;
@@ -45,11 +47,19 @@ public class InvoiceItem extends MetaObject {
     }
 
     public ChargeCode getChargeCode() {
-        return sodoCode;
+        return chargeCode;
     }
 
     public void setChargeCode(ChargeCode sodoCode) {
-        this.sodoCode = sodoCode;
+        this.chargeCode = sodoCode;
+    }
+
+    public TaxCode getTaxCode() {
+        return taxCode;
+    }
+
+    public void setTaxCode(TaxCode taxCode) {
+        this.taxCode = taxCode;
     }
 
     public BigDecimal getDebitAmount() {

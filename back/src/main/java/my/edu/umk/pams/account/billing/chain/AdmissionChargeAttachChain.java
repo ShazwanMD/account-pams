@@ -50,9 +50,14 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
         for (AcFeeScheduleItem scheduleItem : scheduleItems) {
             AcInvoiceItem item = new AcInvoiceItemImpl();
             item.setDescription(String.format("Admission Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
+            // todo(hajar): pretax, tax, total
+//            item.setPretaxAmount(ZERO);
+//            item.setTaxAmount(ZERO);
+//            item.setTotalAmount(ZERO);
             item.setAmount(scheduleItem.getAmount());
             item.setBalanceAmount(scheduleItem.getAmount());
             item.setChargeCode(scheduleItem.getChargeCode());
+            item.setTaxCode(scheduleItem.getChargeCode().getTaxCode());
             item.setInvoice(invoice);
             totalAmount = totalAmount.add(scheduleItem.getAmount());
             invoiceDao.addItem(invoice, item, securityService.getCurrentUser());

@@ -62,6 +62,7 @@ public class WhenIMakeInvoiceWithChargeCode extends
 
 		chargeCode = accountService.findChargeCodeByCode(code);
 		invoiceItem.setChargeCode(chargeCode);
+		invoiceItem.setTaxCode(chargeCode.getTaxCode());
 		billingService.addInvoiceItem(invoice, invoiceItem);
 
 		return self();
