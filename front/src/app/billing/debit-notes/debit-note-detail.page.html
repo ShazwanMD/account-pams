@@ -12,6 +12,7 @@
         <md-card>
           <md-card-title>{{(debitNotes$|async)?.referenceNo}}:{{(debitNotes$|async)?.accountName}}</md-card-title>
           <md-card-subtitle>{{(debitNotes$|async)?.description}}</md-card-subtitle>
+          <md-card-subtitle>{{(debitNotes$|async)?.chargeCode?.description}}</md-card-subtitle>
 
           <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
           <div layout="column" flex>
