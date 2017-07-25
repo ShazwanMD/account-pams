@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.web.module.common.vo.*;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -129,6 +130,31 @@ public class CommonTransformer {
     public List<TaxCode> toTaxCodeVos(List<AcTaxCode> e) {
         List<TaxCode> vos = e.stream()
                 .map((e1) -> toTaxCodeVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
+    
+    //====================================================================================================
+    // SECURITY CHARGES CODE
+    //====================================================================================================
+
+    public SecurityChargesCode toSecurityChargesCodeVo(AcSecurityChargesCode e) {
+    	if(null == e) return null;
+    	SecurityChargesCode vo = new SecurityChargesCode();
+        vo.setId(e.getId());
+        vo.setSection(e.getSection());
+        vo.setDescription(e.getDescription());
+        vo.setOffense(e.getOffense());
+        vo.setOffenseDescription(e.getOffenseDescription());
+        vo.setAmount(e.getAmount());
+        vo.setAmountDescription(e.getAmountDescription());
+        vo.setActive(e.getActive());
+        return vo;
+    }
+
+    public List<SecurityChargesCode> toSecurityChargesCodeVos(List<AcSecurityChargesCode> e) {
+        List<SecurityChargesCode> vos = e.stream()
+                .map((e1) -> toSecurityChargesCodeVo(e1))
                 .collect(Collectors.toList());
         return vos;
     }

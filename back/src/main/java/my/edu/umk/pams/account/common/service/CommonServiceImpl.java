@@ -52,6 +52,9 @@ public class CommonServiceImpl implements CommonService {
     
     @Autowired
     private AcTaxCodeDao taxCodeDao;
+    
+    @Autowired
+    private AcSecurityChargesCodeDao securityChargesCodeDao;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -764,5 +767,57 @@ public class CommonServiceImpl implements CommonService {
         sessionFactory.getCurrentSession().flush();
     }
 
+    
+    //====================================================================================================
+    // SECURITY CHARGES CODE 
+    //====================================================================================================
+    
+    @Override
+    public AcSecurityChargesCode findSecurityChargesCodeById(Long id) {
+        return securityChargesCodeDao.findById(id);
+    }
 
+    @Override
+    public AcSecurityChargesCode findSecurityChargesCodeByCode(String code) {
+        return securityChargesCodeDao.findByCode(code);
+    }
+
+    @Override
+    public List<AcSecurityChargesCode> findSecurityChargesCode() {
+        return securityChargesCodeDao.find();
+    }
+
+    @Override
+    public List<AcSecurityChargesCode> findSecurityChargesCode(String filter, Integer offset, Integer limit) {
+        return securityChargesCodeDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public Integer countSecurityChargesCode() {
+        return securityChargesCodeDao.count();
+    }
+
+    @Override
+    public Integer countSecurityChargesCode(String filter) {
+        return securityChargesCodeDao.count(filter);
+    }
+
+
+    @Override
+    public void saveSecurityChargesCode(AcSecurityChargesCode securityChargesCode) {
+    	securityChargesCodeDao.save(securityChargesCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateSecurityChargesCode(AcSecurityChargesCode securityChargesCode) {
+    	securityChargesCodeDao.update(securityChargesCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeSecurityChargesCode(AcSecurityChargesCode securityChargesCode) {
+    	securityChargesCodeDao.remove(securityChargesCode, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
 }

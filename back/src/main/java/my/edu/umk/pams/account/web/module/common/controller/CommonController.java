@@ -330,6 +330,65 @@ public class CommonController {
         commonService.removeTaxCode(taxCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    //====================================================================================================
+    // SECURITY CHARGES CODE
+    //====================================================================================================
+
+    @RequestMapping(value = "/securityChargesCode", method = RequestMethod.GET)
+    public ResponseEntity<List<SecurityChargesCode>> findSecurityChargesCode() {
+        return new ResponseEntity<List<SecurityChargesCode>>(commonTransformer.toSecurityChargesCodeVos(
+                commonService.findSecurityChargesCode()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/securityChargesCode/{code}", method = RequestMethod.GET)
+    public ResponseEntity<SecurityChargesCode> findSecurityChargesCode(@PathVariable String code) {
+        return new ResponseEntity<SecurityChargesCode>(commonTransformer.toSecurityChargesCodeVo(
+                commonService.findSecurityChargesCodeByCode(code)), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/securityChargesCode", method = RequestMethod.POST)
+    public ResponseEntity<String> saveSecurityChargesCode(@RequestBody SecurityChargesCode vo) {
+        dummyLogin();
+
+        AcSecurityChargesCode securityChargesCode = new AcSecurityChargesCodeImpl();
+        securityChargesCode.setSection(vo.getSection());
+        securityChargesCode.setDescription(vo.getDescription());
+        securityChargesCode.setOffense(vo.getOffense());
+        securityChargesCode.setOffenseDescription(vo.getOffenseDescription());
+        securityChargesCode.setAmount(vo.getAmount());
+        securityChargesCode.setAmountDescription(vo.getAmountDescription());
+        securityChargesCode.setActive(vo.getActive());
+        commonService.saveSecurityChargesCode(securityChargesCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/securityChargesCode/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateSecurityChargesCode(@PathVariable String code, @RequestBody SecurityChargesCode vo) {
+        dummyLogin();
+
+        AcSecurityChargesCode securityChargesCode = new AcSecurityChargesCodeImpl();
+        securityChargesCode.setSection(vo.getSection());
+        securityChargesCode.setDescription(vo.getDescription());
+        securityChargesCode.setOffense(vo.getOffense());
+        securityChargesCode.setOffenseDescription(vo.getOffenseDescription());
+        securityChargesCode.setAmount(vo.getAmount());
+        securityChargesCode.setAmountDescription(vo.getAmountDescription());
+        securityChargesCode.setActive(vo.getActive());
+        commonService.updateSecurityChargesCode(securityChargesCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/securityChargesCode/{code}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeSecurityChargesCode(@PathVariable String code) {
+        dummyLogin();
+
+        AcSecurityChargesCode securityChargesCode = commonService.findSecurityChargesCodeByCode(code);
+        commonService.removeSecurityChargesCode(securityChargesCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
 
 
 }

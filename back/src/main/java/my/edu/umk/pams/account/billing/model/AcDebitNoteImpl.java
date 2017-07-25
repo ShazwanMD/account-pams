@@ -67,6 +67,10 @@ public class AcDebitNoteImpl implements AcDebitNote {
     @JoinColumn(name = "CHARGE_CODE_ID")
     private AcChargeCode chargeCode;
 
+    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
+    @JoinColumn(name = "CHARGE_CODE_ID")
+    private AcChargeCode chargeCode;
+
     @Embedded
     private AcMetadata metadata;
 
@@ -141,6 +145,14 @@ public class AcDebitNoteImpl implements AcDebitNote {
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
     }
+
+    public AcChargeCode getChargeCode(){
+        return chargeCode;
+    };
+
+    public void setChargeCode(AcChargeCode chargeCode) {
+        this.chargeCode = chargeCode;
+    };
 
     @Override
     public Date getDebitNoteDate() {
