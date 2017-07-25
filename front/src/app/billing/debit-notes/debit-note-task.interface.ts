@@ -1,6 +1,7 @@
 import {FlowState} from "../../core/flow-state.enum";
 import { Document } from "../../core/document.interface";
 import { DebitNote } from "./debit-note.interface";
+import { ChargeCode } from "../../account/charge-codes/charge-code.interface";
 export interface DebitNoteTask extends Document {
   taskId: string;
   taskName: string;
@@ -15,4 +16,5 @@ export interface DebitNoteTask extends Document {
   debitNote: DebitNote;
   accountName: string;
   flowState: FlowState;
+  chargeCode:ChargeCode;
 }
