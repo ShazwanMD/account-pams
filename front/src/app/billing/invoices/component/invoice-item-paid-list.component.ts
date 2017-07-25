@@ -7,6 +7,8 @@ import {BillingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
 import {InvoiceActions} from '../invoice.action';
 import {Invoice} from '../invoice.interface';
+import { ReceiptActions } from "../../receipts/receipt.action";
+import { Receipt } from "../../receipts/receipt.interface";
 
 @Component({
   selector: 'pams-invoice-item-paid-list',
@@ -17,10 +19,23 @@ export class InvoiceItemPaidListComponent implements OnInit{
 
   @Input() invoice: Invoice;
   @Input() invoiceItems: InvoiceItem[];
+  @Input() receipt: Receipt;
+  
+  private selectedRows: InvoiceItem[];
+  
+  private columns: any[] = [
+                            {name: 'chargeCode.code', label: 'Charge Code'},
+                            {name: 'chargeCode.description', label: 'Charge Code Description'},
+                            {name: 'chargeCode.taxCode.code', label: 'Tax Code'},
+                            {name: 'chargeCode.taxCode.taxRate', label: 'Tax Rate'},
+                            {name: 'chargeCode.inclusive', label: 'Inclusive'},
+                            {name: 'amount', label: 'Amount'},
+                            {name: 'action', label: ''},
+                          ];
 
   constructor(private router: Router,
           private route: ActivatedRoute,
-          private actions: InvoiceActions,
+          private actions: ReceiptActions,
           private store: Store<BillingModuleState>,
           private vcf: ViewContainerRef,
           private dialog: MdDialog,
@@ -28,9 +43,8 @@ export class InvoiceItemPaidListComponent implements OnInit{
     }
     
   ngOnInit(): void {
-      this.route.params.subscribe((params: { referenceNo: string }) => {
-        let referenceNo: string = params.referenceNo;
-        this.store.dispatch(this.actions.findInvoiceByReferenceNo(referenceNo));
-      });
-  }
+      //this.selectedRows = this.invoiceItems.filter((value) => value.selected);
+      
+    }
+
 }

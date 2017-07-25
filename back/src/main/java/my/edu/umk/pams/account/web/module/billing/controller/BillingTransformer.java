@@ -264,6 +264,7 @@ public class BillingTransformer {
         task.setDebitNote(toDebitNoteVo(debitNote));
         task.setFlowState(FlowState.get(debitNote.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(debitNote.getMetadata().getState().ordinal()));
+        task.setChargeCode(accountTransformer.toChargeCodeVo(debitNote.getChargeCode()));
         return task;
     }
 

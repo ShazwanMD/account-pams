@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.Task;
 
 public class DebitNoteTask extends Task {
@@ -13,6 +14,7 @@ public class DebitNoteTask extends Task {
     // denormalize
     private String accountCode;
     private String accountName;
+    private ChargeCode sodoCode;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date debitNoteDate;
@@ -48,4 +50,12 @@ public class DebitNoteTask extends Task {
 	public void setDebitNoteDate(Date debitNoteDate) {
 		this.debitNoteDate = debitNoteDate;
 	}
+	
+	public ChargeCode getChargeCode() {
+        return sodoCode;
+    }
+
+    public void setChargeCode(ChargeCode sodoCode) {
+        this.sodoCode = sodoCode;
+    }
 }

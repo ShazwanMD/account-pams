@@ -19,6 +19,7 @@ import my.edu.umk.pams.account.billing.dao.AcRefundPaymentDao;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.common.dao.AcCohortCodeDao;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
@@ -798,6 +799,12 @@ public class BillingServiceImpl implements BillingService {
         receiptDao.deleteItem(receipt, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+    
+    @Override
+    public void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice) {
+    	receiptDao.addReceiptInvoice(receipt, invoice, securityService.getCurrentUser());
+    	sessionFactory.getCurrentSession().flush();
+    }
 
     // ====================================================================================================
     // //
@@ -884,6 +891,47 @@ public class BillingServiceImpl implements BillingService {
             tx.setAmount(item.getTotalAmount().negate());
             accountService.addAccountTransaction(receipt.getAccount(), tx);
         }
+    }
+    
+    @Override
+    public void calculateChargeInvoice(AcReceipt receipt, AcAccount account){
+
+    	List<AcInvoice> invoices = invoiceDao.find(account);
+    	for (AcInvoice invoice : invoices) {
+    		
+	    	List<AcInvoiceItem> invoiceItems = invoiceDao.findItems(invoice);
+	    	
+	    	for (AcInvoiceItem invoiceItem : invoiceItems) {
+	            AcReceiptItem item = new AcReceiptItemImpl();
+	            item.setAppliedAmount(BigDecimal.ZERO);
+	            item.setChargeCode(invoiceItem.getChargeCode());
+	            item.setInvoice(invoice);
+	            item.setReceipt(receipt);
+	            item.setTotalAmount(invoiceItem.getAmount());
+	            addReceiptItem(receipt, item); 
+	        }
+    	}
+    	
+    	sessionFactory.getCurrentSession().flush();
+    	
+    }
+    
+    @Override
+    public void calculateCharge(AcReceipt receipt, AcAccount account){
+    	List<AcAccountCharge> charges = accountChargeDao.find(account);
+    	
+    	for (AcAccountCharge charge : charges) {
+            AcReceiptItem item = new AcReceiptItemImpl();
+            item.setAppliedAmount(BigDecimal.ZERO);
+            //item.setChargeCode(charge.get);
+            //item.setInvoice(invoice);
+            item.setReceipt(receipt);
+            item.setTotalAmount(charge.getAmount());
+            addReceiptItem(receipt, item); 
+        }
+    	
+    	sessionFactory.getCurrentSession().flush();
+    	
     }
 
     // ====================================================================================================

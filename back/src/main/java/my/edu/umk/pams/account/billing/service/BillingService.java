@@ -241,6 +241,8 @@ public interface BillingService {
     void updateReceiptItem(AcReceipt receipt, AcReceiptItem item);
 
     void deleteReceiptItem(AcReceipt receipt, AcReceiptItem item);
+    
+    void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
 
     // ==================================================================================================== //
     // RECEIPT
@@ -273,6 +275,10 @@ public interface BillingService {
     Integer countReceiptItem(AcReceipt receipt);
 
     void post(AcReceipt receipt);
+    
+    void calculateChargeInvoice(AcReceipt receipt, AcAccount account);
+    
+    void calculateCharge(AcReceipt receipt, AcAccount account);
 
     // ==================================================================================================== //
     // KNOCKOFF
