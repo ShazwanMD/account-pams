@@ -1,4 +1,4 @@
-import {MetaState} from "./meta-state.enum";
+import {MetaState} from './meta-state.enum';
 export interface MetaObject {
   id: number;
   metaState?: MetaState;
