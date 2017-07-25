@@ -260,5 +260,27 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
     }
+    
+    @Override
+    public void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice, AcUser user) {
+        LOG.info("Receipt id : " + receipt.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(receipt, "Receipt cannot be null");
+        Validate.notNull(invoice, "Invoice cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcReceiptInvoice receiptItem = new AcReceiptInvoiceImpl();
+        receiptItem.setReceipt(receipt);
+        receiptItem.setInvoice(invoice);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        receiptItem.setMetadata(metadata);
+        session.saveOrUpdate(receiptItem);
+    }
 
 }
