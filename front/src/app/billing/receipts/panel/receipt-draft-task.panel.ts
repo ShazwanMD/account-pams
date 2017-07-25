@@ -1,19 +1,19 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ReceiptItem} from "../receipt-item.interface";
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {ReceiptItemEditorDialog} from "../dialog/receipt-item-editor.dialog";
-import {ReceiptTask} from "../receipt-task.interface";
-import {ReceiptActions} from "../receipt.action";
-import {ReceiptTaskState} from "../receipt-task.reducer";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../../index";
-import {PromoCodeApplicatorDialog} from "../dialog/promo-code-applicator.dialog";
-import { AccountModuleState } from "../../../account/index";
-import { Invoice } from "../../invoices/invoice.interface";
-import {Account} from "../../../account/accounts/account.interface";
-import { InvoiceActions } from "../../invoices/invoice.action";
+import {ReceiptItem} from '../receipt-item.interface';
+import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {ReceiptItemEditorDialog} from '../dialog/receipt-item-editor.dialog';
+import {ReceiptTask} from '../receipt-task.interface';
+import {ReceiptActions} from '../receipt.action';
+import {ReceiptTaskState} from '../receipt-task.reducer';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../../index';
+import {PromoCodeApplicatorDialog} from '../dialog/promo-code-applicator.dialog';
+import {AccountModuleState} from '../../../account/index';
+import {Invoice} from '../../invoices/invoice.interface';
+import {Account} from '../../../account/accounts/account.interface';
+import {InvoiceActions} from '../../invoices/invoice.action';
 
 @Component({
   selector: 'pams-receipt-draft-task',
@@ -22,15 +22,15 @@ import { InvoiceActions } from "../../invoices/invoice.action";
 
 export class ReceiptDraftTaskPanel implements OnInit {
 
-  private RECEIPT_ITEMS = "billingModuleState.receiptItems".split(".");
+  private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split('.');
   private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
   private INVOICES: string[] = 'billingModuleState.invoices'.split('.');
-
-  @Input() receiptTask: ReceiptTask;
-  receiptItems$: Observable<ReceiptItem[]>;
   private account$: Observable<Account>;
   private invoices$: Observable<Invoice[]>;
-  
+  private receiptItems$: Observable<ReceiptItem[]>;
+
+  @Input() receiptTask: ReceiptTask;
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
@@ -80,12 +80,12 @@ export class ReceiptDraftTaskPanel implements OnInit {
   goBack(): void {
     this.router.navigate(['/billing/receipts']);
   }
-  
+
   viewInvoice(invoice: Invoice) {
-      
-      this.store.dispatch(this.actions.addReceiptInvoiceItems(this.receiptTask.receipt, invoice));
-      
-      console.log("invoice: " + invoice.referenceNo);
-      this.router.navigate(['billing/receipts/view-item', invoice.referenceNo]);
-    }
+
+    this.store.dispatch(this.actions.addReceiptInvoiceItems(this.receiptTask.receipt, invoice));
+
+    console.log('invoice: ' + invoice.referenceNo);
+    this.router.navigate(['billing/receipts/view-item', invoice.referenceNo]);
+  }
 }

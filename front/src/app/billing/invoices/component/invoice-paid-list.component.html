@@ -1,0 +1,24 @@
+<td-data-table
+  [data]="invoices"
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  (rowSelect)="view.emit($event)" dense>
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex>{{value}}</span>
+    </div>
+  </template>
+  <template tdDataTableTemplate="issuedDate" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['issuedDate'] | date: 'dd-MMM-yyyy'}}</div>
+  </template>
+  <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['totalAmount'] | currency:'MYR':true:'1.2-2'}}</div>
+  </template>
+  <template tdDataTableTemplate="balanceAmount" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['balanceAmount'] | currency:'MYR':true:'1.2-2'}}</div>
+  </template>
+</td-data-table>

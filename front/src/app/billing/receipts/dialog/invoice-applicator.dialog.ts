@@ -8,15 +8,17 @@ import {BillingModuleState} from '../../index';
 import {MdDialogRef} from '@angular/material';
 import {ReceiptActions} from '../receipt.action';
 import {Store} from '@ngrx/store';
-import {ChargeCode} from '../../../account/charge-codes/charge-code.interface';
+import {Invoice} from "../../invoices/invoice.interface";
 
 @Component({
-  selector: 'pams-promo-code-applicator',
-  templateUrl: './promo-code-applicator.dialog.html',
+  selector: 'pams-invoice-applicator',
+  templateUrl: './invoice-applicator.dialog.html',
 })
 
-export class PromoCodeApplicatorDialog implements OnInit {
+export class InvoiceApplicatorDialog implements OnInit {
 
+  private SELECTED_INVOICE: string[] = 'billingModuleState.selectedInvoice'.split('.');
+  private SELECTED_INVOICE_ITEMS: string[] = 'billingModuleState.selectedInvoiceItems'.split('.');
   private applyForm: FormGroup;
   private _receipt: Receipt;
 
@@ -26,7 +28,7 @@ export class PromoCodeApplicatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
               private actions: ReceiptActions,
-              private dialog: MdDialogRef<PromoCodeApplicatorDialog>) {
+              private dialog: MdDialogRef<InvoiceApplicatorDialog>) {
   }
 
   set receipt(value: Receipt) {
@@ -34,14 +36,10 @@ export class PromoCodeApplicatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.applyForm = this.formBuilder.group({
-      promoCode: '',
-    });
+    this.applyForm = this.formBuilder.group({});
   }
 
-  // todo(sahir): action, service, back end
-  submit(item: ReceiptItem, isValid: boolean) {
-    // this.store.dispatch(this.actions.applyPromoCode(this._receipt, promoCode);
-    this.dialog.close();
+  submit(isValid: boolean): void {
+    // do something
   }
 }

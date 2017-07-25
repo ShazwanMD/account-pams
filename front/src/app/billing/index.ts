@@ -77,6 +77,8 @@ export interface BillingModuleState {
   receiptTask: ReceiptTaskState;
   receipt: ReceiptState;
   receiptItems: ReceiptItemListState;
+  // selectedInvoice: // previewed invoice to be applied
+  // selectedInvoiceItems: // previewed invoice item to be applied
   assignedDebitNoteTasks: DebitNoteTaskListState;
   pooledDebitNoteTasks: DebitNoteTaskListState;
   archivedDebitNotes: DebitNoteListState;
