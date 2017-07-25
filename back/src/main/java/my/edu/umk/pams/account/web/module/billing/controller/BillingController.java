@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcPaymentMethod;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.core.AcFlowState;
+import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
@@ -332,6 +333,17 @@ public class BillingController {
         e.setDescription(vo.getDescription());
         billingService.updateReceiptItem(receipt, e);
     }
+    
+    @RequestMapping(value = "/receipts/{receiptNo}/invoice/{referenceNo}", method = RequestMethod.POST)
+    public void addReceiptInvoiceItems(@PathVariable String receiptNo, @PathVariable String referenceNo) {
+        dummyLogin();
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(receiptNo);
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        AcReceiptInvoice e = new AcReceiptInvoiceImpl();
+        e.setReceipt(receipt);
+        e.setInvoice(invoice);
+        billingService.addReceiptInvoice(receipt, invoice);
+    }
 
     @RequestMapping(value = "/receipts/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<ReceiptTask>> findAssignedReceipts() {
@@ -401,6 +413,18 @@ public class BillingController {
         Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/account", method = RequestMethod.POST)
+    public void calculateChargeInvoice(@PathVariable String referenceNo, @RequestBody Account vo) {
+        dummyLogin();
+        LOG.debug("referenceNo {}", referenceNo);
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        LOG.debug("receiptNo {}", receipt);
+        AcAccount account = accountService.findAccountByCode(receipt.getAccount().getCode());
+        LOG.debug("account {}", account);
+        billingService.calculateChargeInvoice(receipt, account);
     }
 
     // ==================================================================================================== //

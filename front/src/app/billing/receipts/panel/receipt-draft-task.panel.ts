@@ -82,6 +82,9 @@ export class ReceiptDraftTaskPanel implements OnInit {
   }
   
   viewInvoice(invoice: Invoice) {
+      
+      this.store.dispatch(this.actions.addReceiptInvoiceItems(this.receiptTask.receipt, invoice));
+      
       console.log("invoice: " + invoice.referenceNo);
       this.router.navigate(['billing/receipts/view-item', invoice.referenceNo]);
     }

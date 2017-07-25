@@ -165,4 +165,27 @@ export class CommonActions {
     };
   }
 
+   // ====================================================================================================
+  // SECURITY CHARGES CODE
+  // ====================================================================================================
+
+  static FIND_SECURITY_CHARGES_CODES = '[Common] Find Security Charges Codes';
+
+  findSecurityChargesCodes(): Action {
+    console.log("findSecurityChargesCodes");
+    return {
+      type: CommonActions.FIND_SECURITY_CHARGES_CODES,
+    };
+  }
+
+  static FIND_SECURITY_CHARGES_CODES_SUCCESS = '[Common] Find Security Charges Codes Success';
+
+  findSecurityChargesCodesSuccess(codes): Action {
+    console.log("findSecurityChargesCodesSuccess");
+    return {
+      type: CommonActions.FIND_SECURITY_CHARGES_CODES_SUCCESS,
+      payload: codes
+    };
+  }
+
 }

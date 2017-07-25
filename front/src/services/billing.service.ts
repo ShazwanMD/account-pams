@@ -233,6 +233,16 @@ export class BillingService {
     return this._http.delete(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptItems/' + item.id)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+  
+  calculateChargeInvoice(receipt: Receipt): Observable<String> {
+      return this._http.post(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/account', null)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+  
+  addReceiptInvoiceItems(receipt: Receipt, invoice: Invoice): Observable<String> {
+      return this._http.post(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/invoice/'+ invoice.referenceNo, JSON.stringify(invoice))
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
 
   // ====================================================================================================
   // CREDIT NOTE

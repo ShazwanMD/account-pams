@@ -42,7 +42,7 @@
               <pams-invoice-unpaid-list
 			      [account]="account$ | async"
 			      [invoices]="invoices$ | async"
-			      (view)="viewInvoice($event)">
+			      (paid)="viewInvoice($event)">
 			      </pams-invoice-unpaid-list>
             </md-tab>
 
@@ -51,6 +51,7 @@
             </md-tab>
           </md-tab-group>
         </md-card>
+        
     </div>
     <div flex-gt-md="30">
 

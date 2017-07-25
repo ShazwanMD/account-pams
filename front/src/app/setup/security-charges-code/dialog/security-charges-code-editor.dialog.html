@@ -1,0 +1,65 @@
+<h2 md-dialog-title>Security Charges Code</h2>
+<md-dialog-content>
+  <form [formGroup]="editorForm">
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Compound Section"
+               formControlName="section"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Compound Description"
+               formControlName="description"
+               flex/>
+      </md-input-container>
+    </div>
+      <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Compound Offense"
+               formControlName="offense"
+               flex/>
+      </md-input-container>
+    </div>
+          <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Compound Offense Description"
+               formControlName="offenseDescription"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Compound Amount"
+               formControlName="amount"
+               flex/>
+      </md-input-container>
+    </div>
+      <div layout="row" class="inset" flex>
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Compound Amount Description"
+               formControlName="amountDescription"
+               flex/>
+      </md-input-container>
+    </div>
+   <div layout="row" class="pad-bottom">
+       <md-checkbox formControlName="active">
+                  <div layout="column" flex>
+                    Active
+                  </div>
+        </md-checkbox> 
+  </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
+</md-dialog-actions>

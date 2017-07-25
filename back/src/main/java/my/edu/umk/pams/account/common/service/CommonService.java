@@ -312,7 +312,7 @@ public interface CommonService {
 
     AcSecurityChargesCode findSecurityChargesCodeByCode(String code);
 
-    List<AcSecurityChargesCode> findSecurityChargesCode();
+    List<AcSecurityChargesCode> findSecurityChargesCodes();
 
     List<AcSecurityChargesCode> findSecurityChargesCode(String filter, Integer offset, Integer limit);
 

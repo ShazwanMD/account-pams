@@ -184,4 +184,31 @@ export class SetupEffects {
         .switchMap( payload => this.commonService.removeTaxCode( payload ) )
         .map( message => this.setupActions.removeTaxCodeSuccess( message ) )
         .mergeMap( action => from( [action, this.setupActions.findTaxCodes()] ) );
+
+        @Effect() findSecurityChargesCodes$ = this.actions$
+        .ofType( SetupActions.FIND_SECURITY_CHARGES_CODES)
+        .map( action => action.payload )
+        .switchMap(() => this.commonService.findSecurityChargesCodes() )
+        .map( codes => this.setupActions.findSecurityChargesCodesSuccess( codes ) );
+
+    @Effect() saveSecurityChargesCode$ = this.actions$
+        .ofType( SetupActions.SAVE_SECURITY_CHARGES_CODE)
+        .map( action => action.payload )
+        .switchMap( payload => this.commonService.saveSecurityChargesCode(payload) )
+        .map( message => this.setupActions.saveSecurityChargesCodeSuccess( message ) )
+        .mergeMap( action => from( [action, this.setupActions.findSecurityChargesCodes()] ) );
+
+    @Effect() updateSecurityChargesCode$ = this.actions$
+        .ofType( SetupActions.UPDATE_SECURITY_CHARGES_CODE )
+        .map( action => action.payload )
+        .switchMap( payload => this.commonService.updateSecurityChargesCode( payload ) )
+        .map( message => this.setupActions.updateSecurityChargesCodeSuccess( message ) )
+        .mergeMap( action => from( [action, this.setupActions.findSecurityChargesCodes()] ) );
+
+    @Effect() removeSecurityChargeCode$ = this.actions$
+        .ofType( SetupActions.REMOVE_SECURITY_CHARGES_CODE )
+        .map( action => action.payload )
+        .switchMap( payload => this.commonService.removeSecurityChargesCode( payload ) )
+        .map( message => this.setupActions.removeSecurityChargesCodeSuccess( message ) )
+        .mergeMap( action => from( [action, this.setupActions.findSecurityChargesCodes()] ) );
 }
