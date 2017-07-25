@@ -335,10 +335,10 @@ public class CommonController {
     // SECURITY CHARGES CODE
     //====================================================================================================
 
-    @RequestMapping(value = "/securityChargesCode", method = RequestMethod.GET)
+    @RequestMapping(value = "/securityChargesCodes", method = RequestMethod.GET)
     public ResponseEntity<List<SecurityChargesCode>> findSecurityChargesCode() {
         return new ResponseEntity<List<SecurityChargesCode>>(commonTransformer.toSecurityChargesCodeVos(
-                commonService.findSecurityChargesCode()), HttpStatus.OK);
+                commonService.findSecurityChargesCodes()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/securityChargesCode/{code}", method = RequestMethod.GET)
@@ -365,10 +365,10 @@ public class CommonController {
     }
 
     @RequestMapping(value = "/securityChargesCode/{code}", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateSecurityChargesCode(@PathVariable String code, @RequestBody SecurityChargesCode vo) {
+    public ResponseEntity<String> updateSecurityChargesCode(@PathVariable Long id, @RequestBody SecurityChargesCode vo) {
         dummyLogin();
 
-        AcSecurityChargesCode securityChargesCode = new AcSecurityChargesCodeImpl();
+        AcSecurityChargesCode securityChargesCode = commonService.findSecurityChargesCodeById(id);
         securityChargesCode.setSection(vo.getSection());
         securityChargesCode.setDescription(vo.getDescription());
         securityChargesCode.setOffense(vo.getOffense());
