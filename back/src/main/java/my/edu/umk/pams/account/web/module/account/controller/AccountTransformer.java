@@ -169,6 +169,17 @@ public class AccountTransformer {
         m.setSession(toAcademicSessionVo(e.getSession()));
         return m;
     }
+    
+    public AccountActivity toAccountActivityVo(AccountActivity e) {
+        if (null == e) return null;
+        AccountActivity m = new AccountActivity();
+        m.setId(e.getId());
+        m.setSourceNo(e.getSourceNo());
+        m.setTotalAmount(e.getTotalAmount());
+        m.setTransactionCode(e.getTransactionCode());
+        m.setTransactionCodeOrdinal(e.getTransactionCodeOrdinal());
+        return m;
+    }
 
     public List<Account> toAccountVos(List<AcAccount> accounts) {
         return accounts.stream()
@@ -210,5 +221,11 @@ public class AccountTransformer {
         return academicSessions.stream()
                 .map((task) -> toAcademicSessionVo(task))
                 .collect(toCollection(() -> new ArrayList<AcademicSession>()));
+    }
+    
+    public List<AccountActivity> toAccountActivityVos(List<AccountActivity> accountActivities) {
+        return accountActivities.stream()
+                .map((accountTx) -> toAccountActivityVo(accountTx))
+                .collect(toCollection(() -> new ArrayList<AccountActivity>()));
     }
 }
