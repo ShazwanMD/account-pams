@@ -653,6 +653,7 @@ public class BillingController {
         creditNote.setTotalAmount(BigDecimal.ZERO);
         creditNote.setTotalAmount(vo.getTotalAmount());
         creditNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+        creditNote.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
 
