@@ -209,6 +209,23 @@ export class AccountActions {
       payload: accountWaivers
     };
   }
+  
+  static FIND_INVOICES_BY_ACCOUNT = '[Account] Find Invoices By account';
+  findInvoicesByAccount(account): Action {
+    return {
+      type: AccountActions.FIND_INVOICES_BY_ACCOUNT,
+      payload: account
+    };
+  }
+
+  static FIND_INVOICES_BY_ACCOUNT_SUCCESS = '[Account] Find Accounts By Actor Student Success';
+  findInvoicesByAccountSuccess(accounts): Action {
+      console.log("findAccountsByActorSuccess");
+    return {
+      type: AccountActions.FIND_INVOICES_BY_ACCOUNT_SUCCESS,
+      payload: accounts
+    };
+  }
 
   static SAVE_ACCOUNT = '[Account] Save Account';
   saveAccount(account): Action {
