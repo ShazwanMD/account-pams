@@ -11,7 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import static java.math.BigDecimal.ZERO;
 
 /**
  * @author PAMS
@@ -43,19 +46,25 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
 
         List<AcFeeScheduleItem> scheduleItems = accountService.findFeeScheduleItems(feeSchedule);
         LOG.debug("found {} schedule items ", scheduleItems.size());
+        BigDecimal totalAmount = ZERO;
         for (AcFeeScheduleItem scheduleItem : scheduleItems) {
             AcInvoiceItem item = new AcInvoiceItemImpl();
             item.setDescription(String.format("Admission Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
+            // todo(hajar): pretax, tax, total
+//            item.setPretaxAmount(ZERO);
+//            item.setTaxAmount(ZERO);
+//            item.setTotalAmount(ZERO);
             item.setAmount(scheduleItem.getAmount());
             item.setBalanceAmount(scheduleItem.getAmount());
             item.setChargeCode(scheduleItem.getChargeCode());
+            item.setTaxCode(scheduleItem.getChargeCode().getTaxCode());
             item.setInvoice(invoice);
+            totalAmount = totalAmount.add(scheduleItem.getAmount());
             invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
             sessionFactory.getCurrentSession().flush();
         }
-
-        invoice.setTotalAmount(invoice.getTotalAmount().add(admissionCharge.getAmount()));
-        invoice.setBalanceAmount(invoice.getBalanceAmount().add(admissionCharge.getAmount()));
+        invoice.setTotalAmount(invoice.getTotalAmount().add(totalAmount));
+        invoice.setBalanceAmount(invoice.getBalanceAmount().add(totalAmount));
         admissionCharge.setInvoice(invoice);
         accountChargeDao.update(admissionCharge, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();

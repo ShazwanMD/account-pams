@@ -42,8 +42,8 @@ public class DatasourceConfig {
         properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.format_sql", "true");
         properties.put("javax.persistence.validation.mode", "none");
-        properties.put("hibernate.search.default.directory_provider", "filesystem");
-        properties.put("hibernate.search.default.indexBase", "${user.home}/hibernate-search");
+//        properties.put("hibernate.search.default.directory_provider", "filesystem");
+//        properties.put("hibernate.search.default.indexBase", "${user.home}/hibernate-search");
         return properties;
     }
 

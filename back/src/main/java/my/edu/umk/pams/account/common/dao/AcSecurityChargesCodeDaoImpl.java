@@ -25,9 +25,8 @@ public class AcSecurityChargesCodeDaoImpl extends GenericDaoSupport<Long, AcSecu
     @Override
     public AcSecurityChargesCode findByCode(String code) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from AcSecurityChargesCode s where s.code = :code and  " +
+        Query query = session.createQuery("select s from AcSecurityChargesCode s where " +
                 " s.metadata.state = :state");
-        query.setString("code", code);
         query.setCacheable(true);
         query.setInteger("state", my.edu.umk.pams.account.core.AcMetaState.ACTIVE.ordinal());
         return (AcSecurityChargesCode) query.uniqueResult();
@@ -37,10 +36,7 @@ public class AcSecurityChargesCodeDaoImpl extends GenericDaoSupport<Long, AcSecu
     public List<AcSecurityChargesCode> find(String filter, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcSecurityChargesCode s where " +
-                "(upper(s.code) like upper(:filter) " +
-                "or upper(s.description) like upper(:filter)) " +
-                "and s.metadata.state = :state ");
-        query.setString("filter", WILDCARD + filter + WILDCARD);
+                " s.metadata.state = :state");
         query.setInteger("state", my.edu.umk.pams.account.core.AcMetaState.ACTIVE.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);

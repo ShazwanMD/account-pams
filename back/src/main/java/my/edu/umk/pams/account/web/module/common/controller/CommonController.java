@@ -335,10 +335,10 @@ public class CommonController {
     // SECURITY CHARGES CODE
     //====================================================================================================
 
-    @RequestMapping(value = "/securityChargesCode", method = RequestMethod.GET)
+    @RequestMapping(value = "/securityChargesCodes", method = RequestMethod.GET)
     public ResponseEntity<List<SecurityChargesCode>> findSecurityChargesCode() {
         return new ResponseEntity<List<SecurityChargesCode>>(commonTransformer.toSecurityChargesCodeVos(
-                commonService.findSecurityChargesCode()), HttpStatus.OK);
+                commonService.findSecurityChargesCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/securityChargesCode/{code}", method = RequestMethod.GET)
@@ -364,11 +364,11 @@ public class CommonController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/securityChargesCode/{code}", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateSecurityChargesCode(@PathVariable String code, @RequestBody SecurityChargesCode vo) {
+    @RequestMapping(value = "/securityChargesCode/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateSecurityChargesCode(@PathVariable Long id, @RequestBody SecurityChargesCode vo) {
         dummyLogin();
 
-        AcSecurityChargesCode securityChargesCode = new AcSecurityChargesCodeImpl();
+        AcSecurityChargesCode securityChargesCode = commonService.findSecurityChargesCodeById(id);
         securityChargesCode.setSection(vo.getSection());
         securityChargesCode.setDescription(vo.getDescription());
         securityChargesCode.setOffense(vo.getOffense());
@@ -380,11 +380,10 @@ public class CommonController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/securityChargesCode/{code}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> removeSecurityChargesCode(@PathVariable String code) {
+    @RequestMapping(value = "/securityChargesCode/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeSecurityChargesCode(@PathVariable Long id) {
         dummyLogin();
-
-        AcSecurityChargesCode securityChargesCode = commonService.findSecurityChargesCodeByCode(code);
+        AcSecurityChargesCode securityChargesCode = commonService.findSecurityChargesCodeById(id);
         commonService.removeSecurityChargesCode(securityChargesCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

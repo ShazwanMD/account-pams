@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Account} from "../account.interface";
-import {AccountActions} from "../account.action";
-import {Store} from "@ngrx/store";
-import {FormControl} from "@angular/forms";
-import {AccountModuleState} from "../../index";
-
+import {Observable} from 'rxjs';
+import {Account} from '../account.interface';
+import {AccountActions} from '../account.action';
+import {Store} from '@ngrx/store';
+import {FormControl} from '@angular/forms';
+import {AccountModuleState} from '../../index';
 
 @Component({
   selector: 'pams-account-select',
@@ -13,26 +12,26 @@ import {AccountModuleState} from "../../index";
   styleUrls: ['./account-select.scss'],
 })
 export class AccountSelectComponent implements OnInit {
+
+  private ACCOUNTS: string[] = 'accountModuleState.accounts'.split('.');
+  private accounts$: Observable<Account[]>;
+  private selected: Account;
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   @Input() preSelected: Account;
-
-  private ACCOUNTS: string[] = "accountModuleState.accounts".split(".");
-  private accounts$: Observable<Account[]>;
-  private selected: Account;
 
   constructor(private store: Store<AccountModuleState>,
               private actions: AccountActions) {
     this.accounts$ = this.store.select(...this.ACCOUNTS);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.dispatch(this.actions.findAccounts());
 
     if (this.preSelected) {
-      this.accounts$.subscribe(accounts => {
-        this.selected = accounts.find(account => account.id == this.preSelected.id);
-      })
+      this.accounts$.subscribe((accounts) => {
+        this.selected = accounts.find((account) => account.id == this.preSelected.id);
+      });
     }
   }
 

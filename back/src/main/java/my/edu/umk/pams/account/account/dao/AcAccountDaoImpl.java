@@ -290,21 +290,16 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
-    public BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession) {
+    public BigDecimal sumWaiverAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(w.amount) from AcAccountWaiver w where " +
                 "w.account = :account " +
-                "and w.session = :academicSession  " +
                 "and w.metadata.state = :state ");
         query.setEntity("account", account);
-        query.setEntity("academicSession", academicSession);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
-        else {
-            if (((BigDecimal) result).compareTo(BigDecimal.ZERO) < 0) return (BigDecimal) result;
-            else return BigDecimal.ZERO;
-        }
+        else return (BigDecimal) result;
     }
 
     @Override

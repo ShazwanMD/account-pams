@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.account.vo.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -119,7 +121,7 @@ public class AccountController {
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         feeSchedule.setCode(vo.getCode());
         feeSchedule.setDescription(vo.getDescription());
-        feeSchedule.setTotalAmount(vo.getTotalAmount()); 
+        feeSchedule.setTotalAmount(vo.getTotalAmount());
         accountService.updateFeeSchedule(feeSchedule);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -127,7 +129,7 @@ public class AccountController {
     @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.POST)
     public ResponseEntity<String> addFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
         dummyLogin();
-        LOG.debug("amount :"+item.getAmount());
+        LOG.debug("amount :" + item.getAmount());
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         AcFeeScheduleItem e = new AcFeeScheduleItemImpl();
         e.setDescription(item.getDescription());
@@ -159,12 +161,15 @@ public class AccountController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-
-    @RequestMapping(value = "/feeSchedules/{code}/upload", method = RequestMethod.POST)
-    public ResponseEntity<String> uploadFeeSchedule(@PathVariable String code, @RequestParam("file") MultipartFile file) {
+    @RequestMapping(value = "/feeSchedules/upload", method = RequestMethod.POST)
+    public ResponseEntity<String> uploadFeeSchedule(@RequestParam("file") MultipartFile file) {
         dummyLogin();
-        LOG.debug("BackEnd:{}", file.getName());
-        // todo(faizal): parse excel
+        try {
+            LOG.debug("BackEnd:{}", file.getName());
+            accountService.parseFeeSchedule(file.getInputStream());
+        } catch (IOException e) {
+            LOG.error("error", e);
+        }
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
@@ -201,7 +206,7 @@ public class AccountController {
         chargeCode.setDescription(vo.getDescription());
         chargeCode.setPriority(vo.getPriority());
         if (null != vo.getTaxCode())
-        	chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
+            chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
         chargeCode.setInclusive(vo.getInclusive());
         accountService.saveChargeCode(chargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -216,7 +221,7 @@ public class AccountController {
         chargeCode.setDescription(vo.getDescription());
         chargeCode.setPriority(vo.getPriority());
         if (null != vo.getTaxCode())
-        	chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
+            chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
         accountService.updateChargeCode(chargeCode);
         chargeCode.setInclusive(vo.getInclusive());
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -426,66 +431,65 @@ public class AccountController {
     @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateAccountCharge(@PathVariable String code, @PathVariable String referenceNo, @RequestBody AccountCharge vo) {
         dummyLogin();
-        
+
         AcAccount account = accountService.findAccountByCode(code);
         AcAccountCharge charge = accountService.findAccountChargeByReferenceNo(referenceNo);
         switch (vo.getChargeType()) {
-        case ADMISSION:
-            charge.setSourceNo(vo.getSourceNo());
-            charge.setDescription(vo.getDescription());
-            charge.setAmount(vo.getAmount());
-            charge.setOrdinal(vo.getOrdinal());
-            charge.setChargeDate(vo.getChargeDate());
-            if (null != vo.getCohortCode())
-                charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-            if (null != vo.getStudyMode())
-                charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-            charge.setSession(accountService.findCurrentAcademicSession());
-            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-            break;
-        case COMPOUND:
-            charge.setSourceNo(vo.getSourceNo());
-            charge.setDescription(vo.getDescription());
-            charge.setAmount(vo.getAmount());
-            charge.setChargeDate(vo.getChargeDate());
-            charge.setSession(accountService.findCurrentAcademicSession());
-            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-            break;
-        case SECURITY:
-            charge.setSourceNo(vo.getSourceNo());
-            charge.setAmount(vo.getAmount());
-            charge.setDescription(vo.getDescription());
-            charge.setChargeDate(vo.getChargeDate());
-            charge.setSession(accountService.findCurrentAcademicSession());
-            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-            break;
-        case STUDENT_AFFAIRS:	
-            charge.setSourceNo(vo.getSourceNo());
-            charge.setAmount(vo.getAmount());
-            charge.setDescription(vo.getDescription());
-            charge.setChargeDate(vo.getChargeDate());
-            charge.setSession(accountService.findCurrentAcademicSession());
-            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-            break;
-        case LOAN:
-            charge.setReferenceNo(referenceNo);
-            charge.setSourceNo(vo.getSourceNo());
-            charge.setDescription(vo.getDescription());
-            charge.setAmount(vo.getAmount());
-            charge.setChargeDate(vo.getChargeDate());
-            if (null != vo.getCohortCode())
-                charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-            if (null != vo.getStudyMode())
-                charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-            charge.setSession(accountService.findCurrentAcademicSession());
-            charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-            break;
-    }
+            case ADMISSION:
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setOrdinal(vo.getOrdinal());
+                charge.setChargeDate(vo.getChargeDate());
+                if (null != vo.getCohortCode())
+                    charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if (null != vo.getStudyMode())
+                    charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case COMPOUND:
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case SECURITY:
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
+                charge.setDescription(vo.getDescription());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case STUDENT_AFFAIRS:
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
+                charge.setDescription(vo.getDescription());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case LOAN:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setChargeDate(vo.getChargeDate());
+                if (null != vo.getCohortCode())
+                    charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if (null != vo.getStudyMode())
+                    charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+        }
 
         accountService.updateAccountCharge(account, charge);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-
 
 
     @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.DELETE)

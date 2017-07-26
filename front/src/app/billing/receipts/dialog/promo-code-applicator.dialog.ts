@@ -2,13 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ReceiptItem} from "../receipt-item.interface";
-import {Receipt} from "../receipt.interface";
-import {BillingModuleState} from "../../index";
-import {MdDialogRef} from "@angular/material";
-import {ReceiptActions} from "../receipt.action";
-import {Store} from "@ngrx/store";
-import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
+import {ReceiptItem} from '../receipt-item.interface';
+import {Receipt} from '../receipt.interface';
+import {BillingModuleState} from '../../index';
+import {MdDialogRef} from '@angular/material';
+import {ReceiptActions} from '../receipt.action';
+import {Store} from '@ngrx/store';
+import {ChargeCode} from '../../../account/charge-codes/charge-code.interface';
 
 @Component({
   selector: 'pams-promo-code-applicator',

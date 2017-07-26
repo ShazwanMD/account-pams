@@ -2,6 +2,8 @@ package my.edu.umk.pams.account.billing.model;
 
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
+import my.edu.umk.pams.account.common.model.AcTaxCode;
+import my.edu.umk.pams.account.common.model.AcTaxCodeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -34,6 +36,11 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
     @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "CHARGE_CODE_ID")
     private AcChargeCode chargeCode;
+
+    @NotNull
+    @ManyToOne(targetEntity = AcTaxCodeImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "Tax_CODE_ID")
+    private AcTaxCode taxCode;
 
     @NotNull
     @ManyToOne(targetEntity = AcInvoiceImpl.class, fetch = FetchType.EAGER)
@@ -90,6 +97,15 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
     @Override
     public void setChargeCode(AcChargeCode chargeCode) {
         this.chargeCode = chargeCode;
+    }
+
+    @Override
+    public AcTaxCode getTaxCode() {
+        return taxCode;
+    }
+
+    public void setTaxCode(AcTaxCode taxCode) {
+        this.taxCode = taxCode;
     }
 
     @Override

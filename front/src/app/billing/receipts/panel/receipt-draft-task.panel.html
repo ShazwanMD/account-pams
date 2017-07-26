@@ -19,7 +19,7 @@
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{receiptTask?.receipt?.account?.code}}</h4>
+                <h4 md-line>{{receiptTask?.receipt?.account?.code}} - {{receiptTask?.receipt?.account?.name}}</h4>
                 <p md-line>Account</p>
               </md-list-item>
             </md-list>
@@ -29,28 +29,55 @@
         </md-card-actions>
       </md-card>
 
-     <!--   <pams-receipt-item-list
-        [receipt]="receiptTask.receipt"
-        [receiptItems]="receiptItems$ | async">
+      <!-- version baru -->
+      <div layout="column" layout-gt-md="row">
+        <div flex-gt-md="50">
+          <pams-receipt-item-list
+            [receipt]="receiptTask.receipt"
+            [receiptItems]="receiptItems$ | async">
+          </pams-receipt-item-list>
+        </div>
+        <div flex-gt-md="50">
+          <md-card>
+            <md-card-title>Unpaid Invoices</md-card-title>
+            <pams-invoice-unpaid-list
+              [account]="account$ | async"
+              [invoices]="invoices$ | async"
+              (apply)="viewInvoice($event)">
+            </pams-invoice-unpaid-list>
+          </md-card>
+          <md-card>
+            <md-card-title>Paid Invoices</md-card-title>
+            <pams-invoice-paid-list
+              [account]="account$ | async"
+              [invoices]="invoices$ | async">
+            </pams-invoice-paid-list>
+          </md-card>
 
-      </pams-receipt-item-list> -->
-      
+        </div>
+      </div>
 
-		<md-card>
-          <md-tab-group [selectedIndex]="0">
-            <md-tab label="Invoices">
-              <pams-invoice-unpaid-list
-			      [account]="account$ | async"
-			      [invoices]="invoices$ | async"
-			      (view)="viewInvoice($event)">
-			      </pams-invoice-unpaid-list>
-            </md-tab>
 
-            <md-tab label="Charges">
+      <!-- version lama -->
+      <!--<md-card>-->
+      <!--<md-tab-group [selectedIndex]="0">-->
 
-            </md-tab>
-          </md-tab-group>
-        </md-card>
+      <!--<md-tab label="Item">-->
+      <!--</md-tab>-->
+      <!--<md-tab label="Outstanding Invoices">-->
+      <!--<pams-invoice-unpaid-list-->
+      <!--[account]="account$ | async"-->
+      <!--[invoices]="invoices$ | async"-->
+      <!--(apply)="viewInvoice($event)">-->
+      <!--</pams-invoice-unpaid-list>-->
+      <!--</md-tab>-->
+
+      <!--<md-tab label="Paid Invoices">-->
+
+      <!--</md-tab>-->
+      <!--</md-tab-group>-->
+      <!--</md-card>-->
+
     </div>
     <div flex-gt-md="30">
 

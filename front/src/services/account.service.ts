@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {RequestOptions, Response, ResponseContentType} from '@angular/http';
+import {RequestOptions, Response, ResponseContentType, Headers} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Account} from '../app/account/accounts/account.interface';
 import {Observable} from 'rxjs';
@@ -66,17 +66,20 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  uploadFeeSchedule(schedule: FeeSchedule, file: File): Observable<String> {
+  uploadFeeSchedule(file: File): Observable<String> {
     console.log('uploadFeeSchedule');
-    let formData = new FormData();
+    let formData: FormData = new FormData();
     formData.append('file', file);
-    return this._http.post(this.ACCOUNT_API + '/feeSchedules/' + schedule.code + '/upload', formData)
+    let headers: Headers = new Headers();
+    headers.set('Accept', 'application/json');
+    let options: RequestOptions = new RequestOptions({headers: headers});
+    return this._http.post(this.ACCOUNT_API + '/feeSchedules/upload', formData, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
   downloadFeeSchedule(schedule: FeeSchedule): Observable<File> {
     console.log('downloadFeeSchedule');
-    let options = new RequestOptions({responseType: ResponseContentType.ArrayBuffer});
+    let options: RequestOptions = new RequestOptions({responseType: ResponseContentType.ArrayBuffer});
     return this._http.get(this.ACCOUNT_API + '/feeSchedules/' + schedule.code + '/download', options)
       .map((res: Response) => {
         let type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';

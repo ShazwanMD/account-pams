@@ -315,5 +315,41 @@ export class ReceiptActions {
       payload: message
     };
   }
+  
+  static CALCULATE_CHARGE_INVOICE = '[Receipt] Add Receipt Item';
+
+  calculateChargeInvoice(receipt): Action {
+    return {
+      type: ReceiptActions.CALCULATE_CHARGE_INVOICE,
+      payload: {receipt:receipt}
+    };
+  }
+
+  static CALCULATE_CHARGE_INVOICE_SUCCESS = '[Receipt]  Add Receipt Item Success';
+
+  calculateChargeInvoiceSuccess(message): Action {
+    return {
+      type: ReceiptActions.CALCULATE_CHARGE_INVOICE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static ADD_RECEIPT_INVOICE_ITEM = '[Receipt] Add Receipt Item';
+
+  addReceiptInvoiceItems(receipt, invoice): Action {
+    return {
+      type: ReceiptActions.ADD_RECEIPT_INVOICE_ITEM,
+      payload: {receipt:receipt, invoice:invoice}
+    };
+  }
+
+  static ADD_RECEIPT_INVOICE_ITEM_SUCCESS = '[Receipt] Add Receipt Item Success';
+
+  addReceiptInvoiceItemsSuccess(message): Action {
+    return {
+      type: ReceiptActions.ADD_RECEIPT_INVOICE_ITEM_SUCCESS,
+      payload: message
+    };
+  }
 
 }
