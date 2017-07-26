@@ -40,9 +40,9 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 
     List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount account, Integer offset, Integer limit);
 
-    List<AcAccountActivityImpl> findAccountActivities(AcAccount account);
+    List<AcAccountActivity> findAccountActivities(AcAccount account);
 
-    List<AcAccountActivityImpl> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
 
     // ====================================================================================================
     // HELPER

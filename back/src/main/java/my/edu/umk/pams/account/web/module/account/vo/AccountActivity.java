@@ -12,7 +12,7 @@ public class AccountActivity {
 
 	    private Long id;
 	    private String sourceNo;
-	    private AcAccountTransactionCode transactionCode;
+	    private AccountTransactionCode transactionCode;
 	    private BigDecimal totalAmount;
 
 	    //transient
@@ -34,11 +34,11 @@ public class AccountActivity {
 	        this.sourceNo = sourceNo;
 	    }
 
-	    public AcAccountTransactionCode getTransactionCode() {
+	    public AccountTransactionCode getTransactionCode() {
 	        return transactionCode;
 	    }
 
-	    public void setTransactionCode(AcAccountTransactionCode transactionCode) {
+	    public void setTransactionCode(AccountTransactionCode transactionCode) {
 	        this.transactionCode = transactionCode;
 	    }
 

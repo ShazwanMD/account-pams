@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toCollection;
@@ -170,13 +171,13 @@ public class AccountTransformer {
         return m;
     }
     
-    public AccountActivity toAccountActivityVo(AccountActivity e) {
+    public AccountActivity toAccountActivityVo(AcAccountActivity e) {
         if (null == e) return null;
         AccountActivity m = new AccountActivity();
         m.setId(e.getId());
         m.setSourceNo(e.getSourceNo());
         m.setTotalAmount(e.getTotalAmount());
-        m.setTransactionCode(e.getTransactionCode());
+        m.setTransactionCode(AccountTransactionCode.get(e.getTransactionCode().ordinal()));
         m.setTransactionCodeOrdinal(e.getTransactionCodeOrdinal());
         return m;
     }
@@ -223,9 +224,11 @@ public class AccountTransformer {
                 .collect(toCollection(() -> new ArrayList<AcademicSession>()));
     }
     
-    public List<AccountActivity> toAccountActivityVos(List<AccountActivity> accountActivities) {
+    public List<AccountActivity> toAccountActivityVos(List<AcAccountActivity> accountActivities) {
         return accountActivities.stream()
                 .map((accountTx) -> toAccountActivityVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountActivity>()));
     }
+
+
 }

@@ -478,12 +478,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountActivityImpl> findAccountActivities(AcAccount account) {
+    public List<AcAccountActivity> findAccountActivities(AcAccount account) {
         return accountDao.findAccountActivities(account);
     }
 
     @Override
-    public List<AcAccountActivityImpl> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
+    public List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
         return accountDao.findAccountActivities(academicSession, account);
     }
 
