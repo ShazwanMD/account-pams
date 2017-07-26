@@ -62,10 +62,10 @@ public class AcDebitNoteImpl implements AcDebitNote {
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
-    @NotNull
-    @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "CHARGE_CODE_ID")
-    private AcChargeCode chargeCode;
+//    @NotNull
+//    @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "CHARGE_CODE_ID")
+//    private AcChargeCode chargeCode;
 
     @ManyToOne(targetEntity = AcChargeCodeImpl.class)
     @JoinColumn(name = "CHARGE_CODE_ID")
@@ -146,10 +146,12 @@ public class AcDebitNoteImpl implements AcDebitNote {
         this.issuedDate = issuedDate;
     }
 
+    @Override
     public AcChargeCode getChargeCode(){
         return chargeCode;
     };
 
+    @Override
     public void setChargeCode(AcChargeCode chargeCode) {
         this.chargeCode = chargeCode;
     };
@@ -203,17 +205,7 @@ public class AcDebitNoteImpl implements AcDebitNote {
     public void setInvoice(AcInvoice invoice) {
         this.invoice = invoice;
     }
-    
-    @Override
-    public AcChargeCode getChargeCode() {
-		return chargeCode;
-	}
-
-    @Override
-	public void setChargeCode(AcChargeCode chargeCode) {
-		this.chargeCode = chargeCode;
-	}
-
+   
 	@Override
     public AcMetadata getMetadata() {
         return metadata;
