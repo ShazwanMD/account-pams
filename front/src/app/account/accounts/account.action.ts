@@ -209,6 +209,59 @@ export class AccountActions {
       payload: accountWaivers
     };
   }
+  
+  static FIND_INVOICES_BY_ACCOUNT = '[Account] Find Invoices By account';
+  findInvoicesByAccount(account): Action {
+    return {
+      type: AccountActions.FIND_INVOICES_BY_ACCOUNT,
+      payload: account
+    };
+  }
+
+  static FIND_INVOICES_BY_ACCOUNT_SUCCESS = '[Account] Find Accounts By Actor Student Success';
+  findInvoicesByAccountSuccess(accounts): Action {
+      console.log("findAccountsByActorSuccess");
+    return {
+      type: AccountActions.FIND_INVOICES_BY_ACCOUNT_SUCCESS,
+      payload: accounts
+    };
+  }
+  
+  static FIND_ACCOUNT_ACTIVITIES = '[Account] Find Account Activities';
+  findAccountActivities(account): Action {
+    console.log("findAccountActivities");
+    return {
+      type: AccountActions.FIND_ACCOUNT_ACTIVITIES,
+      payload: account
+    };
+  }
+
+  static FIND_ACCOUNT_ACTIVITIES_SUCCESS = '[Account] Find Account Activities Success';
+  findAccountActivitiesSuccess(account): Action {
+    console.log("findAccountTransactionsSuccess");
+    return {
+      type: AccountActions.FIND_ACCOUNT_ACTIVITIES_SUCCESS,
+      payload: account
+    };
+  }
+  
+  static FIND_ACCOUNT_ACTIVITIES_BY_SESSION = '[Account] Find Account Activities';
+  findAccountActivitiesByAcademicSession(account): Action {
+    console.log("findAccountActivitiesByAcademicSession");
+    return {
+      type: AccountActions.FIND_ACCOUNT_ACTIVITIES_BY_SESSION,
+      payload: account
+    };
+  }
+
+  static FIND_ACCOUNT_ACTIVITIES_BY_SESSION_SUCCESS = '[Account] Find Account Activities Success';
+  findAccountActivitiesByAcademicSessionSuccess(account): Action {
+    console.log("findAccountActivitiesByAcademicSessionSuccess");
+    return {
+      type: AccountActions.FIND_ACCOUNT_ACTIVITIES_BY_SESSION_SUCCESS,
+      payload: account
+    };
+  }
 
   static SAVE_ACCOUNT = '[Account] Save Account';
   saveAccount(account): Action {

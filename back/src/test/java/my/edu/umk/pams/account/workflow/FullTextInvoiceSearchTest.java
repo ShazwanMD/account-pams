@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.workflow;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
@@ -117,13 +118,17 @@ public class FullTextInvoiceSearchTest {
 
         // add items to invoice
         AcInvoiceItem item1 = new AcInvoiceItemImpl();
-        item1.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
+        AcChargeCode chargeCode = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321");
+        item1.setChargeCode(chargeCode);
+        item1.setTaxCode(chargeCode.getTaxCode());
         item1.setDescription("YURAN PENDAFTARAN");
         item1.setAmount(BigDecimal.valueOf(2000.00));
         billingService.addInvoiceItem(draftedInvoice, item1);
 
+        AcChargeCode chargeCode2 = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331");
         AcInvoiceItem item2 = new AcInvoiceItemImpl();
-        item2.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331"));
+        item2.setChargeCode(chargeCode2);
+        item2.setTaxCode(chargeCode2.getTaxCode());
         item2.setDescription("YURAN KAD MATRIK");
         item2.setAmount(BigDecimal.valueOf(20.00));
         billingService.addInvoiceItem(draftedInvoice, item2);

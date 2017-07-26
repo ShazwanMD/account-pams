@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {RequestOptions, Response, ResponseContentType} from '@angular/http';
+import {RequestOptions, Response, ResponseContentType, Headers} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Account} from '../app/account/accounts/account.interface';
 import {Observable} from 'rxjs';
@@ -11,6 +11,7 @@ import {AcademicSession} from '../app/account/academic-sessions/academic-session
 import {FeeScheduleItem} from '../app/account/fee-schedules/fee-schedule-item.interface';
 import {AccountCharge} from '../app/account/accounts/account-charge.interface';
 import {AccountWaiver} from '../app/account/accounts/account-waiver.interface';
+import {AccountActivity} from '../app/account/accounts/account-activity.interface';
 
 @Injectable()
 export class AccountService {
@@ -66,17 +67,20 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  uploadFeeSchedule(schedule: FeeSchedule, file: File): Observable<String> {
+  uploadFeeSchedule(file: File): Observable<String> {
     console.log('uploadFeeSchedule');
-    let formData = new FormData();
+    let formData: FormData = new FormData();
     formData.append('file', file);
-    return this._http.post(this.ACCOUNT_API + '/feeSchedules/' + schedule.code + '/upload', formData)
+    let headers: Headers = new Headers();
+    headers.set('Accept', 'application/json');
+    let options: RequestOptions = new RequestOptions({headers: headers});
+    return this._http.post(this.ACCOUNT_API + '/feeSchedules/upload', formData, options)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
   downloadFeeSchedule(schedule: FeeSchedule): Observable<File> {
     console.log('downloadFeeSchedule');
-    let options = new RequestOptions({responseType: ResponseContentType.ArrayBuffer});
+    let options: RequestOptions = new RequestOptions({responseType: ResponseContentType.ArrayBuffer});
     return this._http.get(this.ACCOUNT_API + '/feeSchedules/' + schedule.code + '/download', options)
       .map((res: Response) => {
         let type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
@@ -223,11 +227,23 @@ export class AccountService {
       .map((res: Response) => <AccountCharge[]>res.json());
   }
 
-  findAccountWaivers(account: Account): Observable<AccountWaiver[]> {
-    console.log('findAccountWaivers :' + account.code);
-    return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/accountWaivers')
-      .map((res: Response) => <AccountWaiver[]>res.json());
+  findAccountActivities(account: Account): Observable<AccountActivity[]> {
+    console.log('findAccountActivities :' + account.code);
+    return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/accountActivities')
+      .map((res: Response) => <AccountActivity[]>res.json());
   }
+  
+  findAccountActivitiesByAcademicSession(account: Account): Observable<AccountActivity[]> {
+      console.log('findAccountActivities :' + account.code);
+      return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/academicSessions')
+        .map((res: Response) => <AccountActivity[]>res.json());
+    }
+  
+  findAccountWaivers(account: Account): Observable<AccountWaiver[]> {
+      console.log('findAccountWaivers :' + account.code);
+      return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/accountWaivers')
+        .map((res: Response) => <AccountWaiver[]>res.json());
+    }
 
   saveAccount(account: Account): Observable<Boolean> {
     return this._http.post(this.ACCOUNT_API + '/accounts', JSON.stringify(account))

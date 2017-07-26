@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.web.module.billing.controller;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
@@ -95,6 +96,12 @@ public class BillingController {
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/invoices/account/{code}", method = RequestMethod.GET)
+    public ResponseEntity<List<Invoice>> findInvoicesByAccount(@PathVariable String code) {
+        List<AcInvoice> invoices = billingService.findInvoices(code, 0, 100);
+        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/invoices/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findInvoicesByFlowState(@PathVariable String state) {
         List<AcInvoice> invoices = billingService.findInvoicesByFlowState(AcFlowState.valueOf(state));
@@ -151,11 +158,14 @@ public class BillingController {
         LOG.debug("referenceNo: {}", referenceNo);
         LOG.debug("chargeCode: {}", item.getChargeCode().getCode());
 
+        AcChargeCode chargeCode = accountService.findChargeCodeById(item.getChargeCode().getId());
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = new AcInvoiceItemImpl();
-        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
-        e.setAmount(item.getAmount());
         e.setDescription(item.getDescription());
+        e.setChargeCode(chargeCode);
+        e.setTaxCode(chargeCode.getTaxCode());
+        e.setAmount(item.getAmount());
+        //todo(hajar): pretax, tax, total
         billingService.addInvoiceItem(invoice, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -163,11 +173,14 @@ public class BillingController {
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody InvoiceItem item) {
         dummyLogin();
+        AcChargeCode chargeCode = accountService.findChargeCodeById(item.getChargeCode().getId());
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
-        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
-        e.setAmount(item.getAmount());
+        e.setChargeCode(chargeCode);
+        e.setTaxCode(chargeCode.getTaxCode());
         e.setDescription(item.getDescription());
+        e.setAmount(item.getAmount());
+        // todo(hajar);pretax, tax, total
         billingService.updateInvoiceItem(invoice, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -677,6 +690,7 @@ public class BillingController {
         creditNote.setTotalAmount(BigDecimal.ZERO);
         creditNote.setTotalAmount(vo.getTotalAmount());
         creditNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+        creditNote.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
 

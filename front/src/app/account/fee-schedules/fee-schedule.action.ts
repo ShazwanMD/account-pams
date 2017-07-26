@@ -167,17 +167,17 @@ export class FeeScheduleActions {
   updateFeeScheduleItemSuccess(message): Action {
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
 
-  static UPLOAD_FEE_SCHEDULE = '[FeeSchedule] Upload fee_schedule';
+  static UPLOAD_FEE_SCHEDULE = '[FeeSchedule] Upload FeeSchedule';
 
-  uploadFeeSchedule(schedule, file): Action {
+  uploadFeeSchedule(file): Action {
     return {
       type: FeeScheduleActions.UPLOAD_FEE_SCHEDULE,
-      payload: {schedule: schedule, file: file},
+      payload: file,
     };
   }
 

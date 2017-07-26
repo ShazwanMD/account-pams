@@ -15,6 +15,18 @@ public interface AcSettlementItem extends AcMetaObject {
 
     void setBalanceAmount(BigDecimal balanceAmount);
 
+    BigDecimal getLoanAmount();
+
+    void setLoanAmount(BigDecimal loanAmount);
+
+    BigDecimal getFeeAmount();
+
+    void setFeeAmount(BigDecimal feeAmount);
+    
+    BigDecimal getNettAmount();
+
+    void setNettAmount(BigDecimal nettAmount);
+    
     void setStatus(AcSettlementStatus status);
 
     AcSettlementStatus getStatus();

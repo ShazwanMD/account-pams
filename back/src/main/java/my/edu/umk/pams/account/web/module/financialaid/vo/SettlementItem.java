@@ -15,6 +15,9 @@ import java.math.BigDecimal;
 public class SettlementItem extends MetaObject {
 
     private BigDecimal balanceAmount;
+    private BigDecimal nettAmount;
+    private BigDecimal loanAmount;
+    private BigDecimal feeAmount;
     private Account account;
     private Invoice invoice;
 
@@ -24,6 +27,30 @@ public class SettlementItem extends MetaObject {
 
     public void setBalanceAmount(BigDecimal balanceAmount) {
         this.balanceAmount = balanceAmount;
+    }
+
+    public BigDecimal getNettAmount() {
+        return nettAmount;
+    }
+
+    public void setNettAmount(BigDecimal nettAmount) {
+        this.nettAmount = nettAmount;
+    }
+
+    public BigDecimal getLoanAmount() {
+        return loanAmount;
+    }
+
+    public void setLoanAmount(BigDecimal loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    public BigDecimal getFeeAmount() {
+        return feeAmount;
+    }
+
+    public void setFeeAmount(BigDecimal feeAmount) {
+        this.feeAmount = feeAmount;
     }
 
     public Account getAccount() {

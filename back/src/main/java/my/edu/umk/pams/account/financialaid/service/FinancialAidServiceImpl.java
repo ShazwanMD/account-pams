@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.dao.AcAcademicSessionDao;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
@@ -238,12 +239,15 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
                 // create item here
                 List<AcInvoice> invc = invoiceDao.find(item.getAccount());
+                AcChargeCode dummyChargeCode = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331");
                 for (AcInvoice invce : invc) {
                     AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();
+                    invoiceItem.setDescription("");
+                    invoiceItem.setChargeCode(dummyChargeCode);
+                    invoiceItem.setTaxCode(dummyChargeCode.getTaxCode());
                     invoiceItem.setBalanceAmount(BigDecimal.ZERO);
                     invoiceItem.setAmount(BigDecimal.ZERO);
-                    invoiceItem.setDescription("");
-                    invoiceItem.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331"));
+                    // todo(hajar): pretax, tax, total
                     invoiceItem.setInvoice(invce);
                     invoiceDao.addItem(invce, invoiceItem, securityService.getCurrentUser());
                 }

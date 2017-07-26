@@ -16,5 +16,4 @@ export interface Invoice extends MetaObject {
   balanceAmount: number;
   academicSession: AcademicSession;
   account: Account;
-  
 }

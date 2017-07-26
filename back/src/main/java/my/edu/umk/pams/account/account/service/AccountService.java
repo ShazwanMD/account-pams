@@ -136,7 +136,7 @@ public interface AccountService {
 
     BigDecimal sumBalanceAmount(AcAccount account);
 
-    BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession);
+    BigDecimal sumWaiverAmount(AcAccount account);
 
     BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession);
 
@@ -148,9 +148,9 @@ public interface AccountService {
 
     List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount account, Integer offset, Integer limit);
 
-//    List<AcAccountActivity> findAccountActivities(AcAccount account);
-//
-//    List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    List<AcAccountActivity> findAccountActivities(AcAccount account);
+
+    List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
 
     Integer countAccountTransaction(AcAccount account);
 

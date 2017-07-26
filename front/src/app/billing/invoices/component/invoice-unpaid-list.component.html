@@ -23,8 +23,8 @@
   </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
-      <a md-button color="accent" class="text-upper" (click)="viewInvoice(row)">
-        <span>Paid</span>
+      <a md-button color="accent" class="text-upper" (click)="showApplyInvoiceDialog(row)">
+        <span>Apply</span>
       </a>
     </div>
   </template>

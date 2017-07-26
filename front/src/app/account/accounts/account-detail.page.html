@@ -12,7 +12,9 @@
         <md-card>
           <md-tab-group [selectedIndex]="0">
             <md-tab label="Account Activities">
-              <pams-account-activity-list [transactions]="accountTransactions$ | async"></pams-account-activity-list>
+              <pams-account-activity-list 
+              [transactions]="accountTransactions$ | async"
+              ></pams-account-activity-list>
             </md-tab>
 
             <md-tab label="Charges">
@@ -33,8 +35,7 @@
       </div>
 
       <div flex-gt-md="30">
-        <pams-account-status [account]="account$ | async"
-                             [waivers]="accountWaivers$ | async"></pams-account-status>
+        <pams-account-status [account]="account$ | async"></pams-account-status>
 
         <md-card>
           <md-card-title>Action</md-card-title>

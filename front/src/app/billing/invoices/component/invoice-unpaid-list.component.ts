@@ -1,12 +1,13 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {InvoiceTask} from "../invoice-task.interface";
-import {Store} from "@ngrx/store";
-import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from "@angular/material";
-import {Invoice} from "../invoice.interface";
-import { InvoiceActions } from "../invoice.action";
-import { BillingModuleState } from "../../index";
-import { Observable } from "rxjs/Observable";
-import {Account} from "../../../account/accounts/account.interface";
+import {InvoiceTask} from '../invoice-task.interface';
+import {Store} from '@ngrx/store';
+import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
+import {Invoice} from '../invoice.interface';
+import {InvoiceActions} from '../invoice.action';
+import {BillingModuleState} from '../../index';
+import {Observable} from 'rxjs/Observable';
+import {Account} from '../../../account/accounts/account.interface';
+import {InvoiceApplicatorDialog} from "../../receipts/dialog/invoice-applicator.dialog";
 
 @Component({
   selector: 'pams-invoice-unpaid-list',
@@ -15,31 +16,37 @@ import {Account} from "../../../account/accounts/account.interface";
 })
 export class InvoiceUnpaidListComponent {
 
-  @Input() invoices: Invoice[];
-  @Output() paid = new EventEmitter<Invoice>();
-  @Input() account: Account;
-
   private columns: any[] = [
     {name: 'issuedDate', label: 'Date'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'balanceAmount', label: 'Balance Amount'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
-  
-  
+  private creatorDialogRef: MdDialogRef<InvoiceApplicatorDialog>;
 
-  constructor(private snackBar: MdSnackBar) {
-      
-    }
+  @Input() invoices: Invoice[];
+  @Output() apply: EventEmitter<Invoice> = new EventEmitter<Invoice>();
+  @Input() account: Account;
 
-  viewInvoice(invoice: Invoice): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Paid invoice", "OK");
-    snackBarRef.afterDismissed().subscribe(() => {
-      this.paid.emit(invoice);
+  constructor(private snackBar: MdSnackBar,
+              private vcf: ViewContainerRef,
+              private dialog: MdDialog) {
+    // no op
+  }
+
+  showApplyInvoiceDialog(invoice: Invoice): void {
+    console.log('showDialog');
+    let config: MdDialogConfig = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '65%';
+    config.position = {top: '0px'};
+    this.creatorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
     });
   }
-  
 }

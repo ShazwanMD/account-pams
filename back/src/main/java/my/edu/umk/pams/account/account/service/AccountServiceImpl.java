@@ -447,14 +447,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession) {
-        return accountDao.sumWaiverAmount(account, academicSession);
+    public BigDecimal sumWaiverAmount(AcAccount account) {
+        return accountDao.sumWaiverAmount(account);
     }
 
     @Override
     public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
         return accountDao.sumBalanceAmount(account)
-                .subtract(accountDao.sumWaiverAmount(account, academicSession));
+                .subtract(accountDao.sumWaiverAmount(account));
     }
 
     @Override
@@ -477,16 +477,15 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.findAccountTransactions(filter, account, offset, limit);
     }
 
-    // todo(uda): vo
-//    @Override
-//    public List<AcAccountActivity> findAccountActivities(AcAccount account) {
-//        return accountDao.findAccountActivities(account);
-//    }
-//
-//    @Override
-//    public List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
-//        return accountDao.findAccountActivities(academicSession, account);
-//    }
+    @Override
+    public List<AcAccountActivity> findAccountActivities(AcAccount account) {
+        return accountDao.findAccountActivities(account);
+    }
+
+    @Override
+    public List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
+        return accountDao.findAccountActivities(academicSession, account);
+    }
 
     @Override
     public Integer countAccountTransaction(AcAccount account) {

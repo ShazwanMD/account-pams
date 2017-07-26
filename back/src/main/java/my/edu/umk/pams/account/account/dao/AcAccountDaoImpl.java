@@ -7,9 +7,13 @@ import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.model.AcUser;
+
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.transform.AliasToBeanResultTransformer;
+import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -166,6 +170,55 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
+    public List<AcAccountActivity> findAccountActivities(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
+                "  SOURCE_NO as sourceNo, \n" +
+                "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
+                "  SUM(AMOUNT) as amount \n" +
+                "FROM AC_ACCT_TRSN\n" +
+                "GROUP BY \n" +
+                "  SOURCE_NO, \n" +
+                "  TRANSACTION_CODE");
+        sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
+        sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
+        sqlQuery.addScalar("amount", StandardBasicTypes.BIG_DECIMAL);
+        sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityImpl.class));
+        List<AcAccountActivity> results = sqlQuery.list();
+        // unpack id
+        for (AcAccountActivity holder : results) {
+            holder.setTransactionCode(AcAccountTransactionCode.get(holder.getTransactionCodeOrdinal()));
+        }
+        return results;
+    }
+
+    @Override
+    public List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
+        // todo(hajar): tambah academicSession code in query
+        Session session = sessionFactory.getCurrentSession();
+        SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
+                "  SOURCE_NO as sourceNo, \n" +
+                "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
+                "  SUM(AMOUNT) as amount \n" +
+                "FROM AC_ACCT_TRSN\n" +
+                "INNER JOIN AC_ACDM_SESN ON AC_ACCT_TRSN.SESSION_ID = AC_ACDM_SESN.ID" +
+                "GROUP BY \n" +
+                "  SOURCE_NO, \n" +
+                "  TRANSACTION_CODE");
+        sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
+        sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
+        sqlQuery.addScalar("amount", StandardBasicTypes.BIG_DECIMAL);
+        sqlQuery.addScalar("academicSession", StandardBasicTypes.STRING);
+        sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityImpl.class));
+        List<AcAccountActivity> results = sqlQuery.list();
+        // unpack id
+        for (AcAccountActivity holder : results) {
+            holder.setTransactionCode(AcAccountTransactionCode.get(holder.getTransactionCodeOrdinal()));
+        }
+        return results;
+    }
+
+    @Override
     public Integer count(String filter) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count(s) from AcAccount s where " +
@@ -290,21 +343,16 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
-    public BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession) {
+    public BigDecimal sumWaiverAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(w.amount) from AcAccountWaiver w where " +
                 "w.account = :account " +
-                "and w.session = :academicSession  " +
                 "and w.metadata.state = :state ");
         query.setEntity("account", account);
-        query.setEntity("academicSession", academicSession);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
-        else {
-            if (((BigDecimal) result).compareTo(BigDecimal.ZERO) < 0) return (BigDecimal) result;
-            else return BigDecimal.ZERO;
-        }
+        else return (BigDecimal) result;
     }
 
     @Override
@@ -496,7 +544,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Session session = sessionFactory.getCurrentSession();
         session.delete(transaction);
     }
-    
+
     @Override
     public void addShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan, AcUser user) {
         Validate.notNull(account, "Account should not be null");

@@ -15,81 +15,81 @@ import java.util.Date;
 /**
  * @author PAMS
  */
-public class AccountCharge extends MetaObject{
+public class AccountCharge extends MetaObject {
 
-    private String referenceNo;
-    private String sourceNo;
-    private String description;
-    private BigDecimal amount;
-    private AccountChargeType chargeType;
-    private AcademicSession session;
-    private CohortCode cohortCode;
-    private StudyMode studyMode;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date chargeDate;
-    private Integer ordinal;
-    private String code;
+	private String referenceNo;
+	private String sourceNo;
+	private String description;
+	private BigDecimal amount;
+	private AccountChargeType chargeType;
+	private AcademicSession session;
+	private CohortCode cohortCode;
+	private StudyMode studyMode;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date chargeDate;
+	private Integer ordinal;
+	private String code;
 
-    // transient
-    private boolean invoiced;
+	// transient
+	private boolean invoiced;
 
-    public String getReferenceNo() {
-        return referenceNo;
-    }
+	public String getReferenceNo() {
+		return referenceNo;
+	}
 
-    public void setReferenceNo(String referenceNo) {
-        this.referenceNo = referenceNo;
-    }
+	public void setReferenceNo(String referenceNo) {
+		this.referenceNo = referenceNo;
+	}
 
-    public String getSourceNo() {
-        return sourceNo;
-    }
+	public String getSourceNo() {
+		return sourceNo;
+	}
 
-    public void setSourceNo(String sourceNo) {
-        this.sourceNo = sourceNo;
-    }
+	public void setSourceNo(String sourceNo) {
+		this.sourceNo = sourceNo;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public BigDecimal getAmount() {
+		return amount;
+	}
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
 
-    public AccountChargeType getChargeType() {
-        return chargeType;
-    }
+	public AccountChargeType getChargeType() {
+		return chargeType;
+	}
 
-    public void setChargeType(AccountChargeType chargeType) {
-        this.chargeType = chargeType;
-    }
+	public void setChargeType(AccountChargeType chargeType) {
+		this.chargeType = chargeType;
+	}
 
-    public AcademicSession getSession() {
-        return session;
-    }
+	public AcademicSession getSession() {
+		return session;
+	}
 
-    public void setSession(AcademicSession session) {
-        this.session = session;
-    }
+	public void setSession(AcademicSession session) {
+		this.session = session;
+	}
 
-    public boolean isInvoiced() {
-        return invoiced;
-    }
+	public boolean isInvoiced() {
+		return invoiced;
+	}
 
-    public void setInvoiced(boolean invoiced) {
-        this.invoiced = invoiced;
-    }
+	public void setInvoiced(boolean invoiced) {
+		this.invoiced = invoiced;
+	}
 
-        public CohortCode getCohortCode() {
+	public CohortCode getCohortCode() {
 		return cohortCode;
 	}
 
@@ -105,7 +105,6 @@ public class AccountCharge extends MetaObject{
 		this.studyMode = studyMode;
 	}
 
-	
 	public Date getChargeDate() {
 		return chargeDate;
 	}
@@ -131,14 +130,14 @@ public class AccountCharge extends MetaObject{
 	}
 
 	@JsonCreator
-    public static AccountCharge create(String jsonString) {
-        AccountCharge o = null;
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            o = mapper.readValue(jsonString, AccountCharge.class);
-        } catch (IOException e) {
-            // handle
-        }
-        return o;
-    }
+	public static AccountCharge create(String jsonString) {
+		AccountCharge o = null;
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			o = mapper.readValue(jsonString, AccountCharge.class);
+		} catch (IOException e) {
+			// handle
+		}
+		return o;
+	}
 }

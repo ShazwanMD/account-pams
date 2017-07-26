@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.web.module.account.controller.AccountTransformer;
 import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
+import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
 import my.edu.umk.pams.account.web.module.common.vo.PaymentMethod;
 import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
@@ -42,6 +43,9 @@ public class BillingTransformer {
 
     @Autowired
     private AccountTransformer accountTransformer;
+
+    @Autowired
+    private CommonTransformer commonTransformer;
 
 
     public InvoiceTask toInvoiceTaskVo(Task t) {
@@ -108,6 +112,7 @@ public class BillingTransformer {
         vo.setDebitAmount(e.getAmount().compareTo(BigDecimal.ZERO) < 0 ? e.getAmount().negate() : null);
         vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) > 0 ? e.getAmount() : null);
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
+        vo.setTaxCode(commonTransformer.toTaxCodeVo(e.getTaxCode()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
@@ -281,6 +286,7 @@ public class BillingTransformer {
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         return vo;
     }
 
@@ -297,6 +303,7 @@ public class BillingTransformer {
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         return vo;
     }
 
@@ -320,6 +327,7 @@ public class BillingTransformer {
         task.setCreditNote(toCreditNoteVo(creditNote));
         task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(creditNote.getMetadata().getState().ordinal()));
+        task.setChargeCode(accountTransformer.toChargeCodeVo(creditNote.getChargeCode()));
         return task;
     }
 

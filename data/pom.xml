@@ -305,12 +305,13 @@
 
                                 <!--COMMON-->
                                 <srcFile>src/test/resources/data/AC_RSCY_CODE.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_TAX_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_CHRG_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_FCTY_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_PRGM_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_CHRT_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_STDY_MODE.sql</srcFile>
-                                <srcFile>src/test/resources/data/AC_TAX_CODE.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_SCTY_CHRG_CODE.sql</srcFile>
 
                                 <!--IDENTITY-->
                                 <srcFile>src/test/resources/data/AC_PCPL.sql</srcFile>

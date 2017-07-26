@@ -40,10 +40,9 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 
     List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount account, Integer offset, Integer limit);
 
-    // todo(uda): vo for account tx
-//    List<AcAccountActivity> findAccountActivities(AcAccount account);
-//
-//    List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    List<AcAccountActivity> findAccountActivities(AcAccount account);
+
+    List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
 
     // ====================================================================================================
     // HELPER
@@ -67,7 +66,7 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 
     BigDecimal sumCreditAmount(AcAccount account);
 
-    BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession);
+    BigDecimal sumWaiverAmount(AcAccount account);
 
     BigDecimal sumAccountTransaction(AcAccount account);
 
@@ -105,8 +104,10 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     void updateAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
 
     void deleteTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
-    
+
+    @Deprecated
     void addShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan, AcUser user);
 
+    @Deprecated
     void deleteShortTermLoan(AcAccount account, AcAcademicSession academicSession, AcAccountSTL shortTermLoan, AcUser user);
 }

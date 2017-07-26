@@ -36,13 +36,13 @@ export class SecurityChargesCodeListPage implements OnInit{
   private securityChargesCodes$: Observable<SecurityChargesCode[]>;
   private creatorDialogRef: MdDialogRef<SecurityChargesCodeEditorDialog>;
   private columns: any[] = [
-    {name: 'section', label: 'Section'},
-    {name: 'description', label: 'Description'},
-    {name: 'offense', label: 'Offense'},
-    {name: 'offenseDescription', label: 'Offense Description'},
-    {name: 'amountDescription', label: 'Amount Description'},
-    {name: 'amount', label: 'Amount'},
-    {name: 'active', label: 'Active'},
+    {name: 'section', label: 'Compound Section'},
+    {name: 'description', label: 'Compound Description'},
+    {name: 'offense', label: 'Compound Offense'},
+    {name: 'offenseDescription', label: 'Compound Offense Description'},
+    {name: 'amountDescription', label: 'Compound Amount Description'},
+    {name: 'amount', label: 'Compound Amount'},
+    {name: 'active', label: 'Compound Active'},
     {name: 'action', label: ''}
   ];
 

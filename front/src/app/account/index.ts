@@ -40,6 +40,7 @@ import {accountWaiverReducer, AccountWaiverState} from './accounts/account-waive
 import {accountStudentListReducer, AccountStudentListState} from './accounts/account-student-list.reducer';
 import {accountSponsorListReducer, AccountSponsorListState} from './accounts/account-sponsor-list.reducer';
 import {Account} from "./accounts/account.interface";
+import {accountActivityListReducer, AccountActivityListState} from './accounts/account-activity.reducer';
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -59,8 +60,8 @@ export interface AccountModuleState {
   feeScheduleItems: FeeScheduleItemListState;
   accountWaiver: AccountWaiverState;
   accountStudentList: AccountStudentListState;
- accountSponsorList: AccountSponsorListState;
- 
+  accountSponsorList: AccountSponsorListState;
+  accountActivities: AccountActivityListState;
 }
 ;
 
@@ -83,6 +84,7 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accountWaiver: [],
     accountStudentList: [],
     accountSponsorList: [],
+    accountActivities: [],
   };
 
 export const accountModuleReducers = {
@@ -103,6 +105,7 @@ export const accountModuleReducers = {
   accountWaiver: accountWaiverReducer,
   accountStudentList: accountStudentListReducer,
   accountSponsorList: accountSponsorListReducer,
+  accountActivities: accountActivityListReducer,
 };
 
 @NgModule({

@@ -76,6 +76,11 @@ export class BillingService {
     return this._http.get(this.BILLING_API + '/invoices/' + referenceNo)
       .map((res: Response) => <Invoice>res.json());
   }
+  
+  findInvoicesByAccount(code: string): Observable<Invoice> {
+      return this._http.get(this.BILLING_API + '/invoices/account/' + code)
+        .map((res: Response) => <Invoice>res.json());
+    }
 
   findInvoiceByTaskId(taskId: string): Observable<Invoice> {
     return this._http.get(this.BILLING_API + '/invoices/' + taskId)
