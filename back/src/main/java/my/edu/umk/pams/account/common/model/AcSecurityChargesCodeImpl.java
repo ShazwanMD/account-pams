@@ -24,7 +24,7 @@ public class AcSecurityChargesCodeImpl implements AcSecurityChargesCode {
     private Long id;
 
     @NotNull
-    @Column(name = "SECTION", unique = true, nullable = false)
+    @Column(name = "SECTION", nullable = false)
     private String section;
 
     @NotNull
