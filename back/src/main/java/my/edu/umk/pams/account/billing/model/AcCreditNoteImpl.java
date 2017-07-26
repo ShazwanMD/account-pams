@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.billing.model;
 
+import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
 
@@ -59,6 +61,10 @@ public class AcCreditNoteImpl implements AcCreditNote {
     @ManyToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
+    
+    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
+    @JoinColumn(name = "CHARGE_CODE_ID")
+    private AcChargeCode chargeCode;
 
     @Embedded
     private AcMetadata metadata;
@@ -204,6 +210,16 @@ public class AcCreditNoteImpl implements AcCreditNote {
     public void setFlowdata(AcFlowdata flowdata) {
         this.flowdata = flowdata;
     }
+    
+    @Override
+    public AcChargeCode getChargeCode(){
+        return chargeCode;
+    };
+
+    @Override
+    public void setChargeCode(AcChargeCode chargeCode) {
+        this.chargeCode = chargeCode;
+    };
 
     @Override
     public Class<?> getInterfaceClass() {
