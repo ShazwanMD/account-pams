@@ -16,27 +16,4 @@ import {AccountModuleState} from '../../index';
 })
 export class AccountStatusComponent {
   @Input() account: Account;
-  @Input() waivers: AccountWaiver[];
-
-  getSum(): number {
-    let sum: number = 0;
-    for (let i: number = 0; i < this.waivers.length; i++) {
-      if (this.waivers[i].amount) {
-        sum += this.waivers[i].amount;
-      }
-      return sum;
-    }
-  }
-
-  // todo(hajar): kenapa tak decorate je?
-  // todo(hajar): decorate account utk dapatkan waived and balance
-  getWaived(): number {
-    let effectiveBalance: number = 0;
-    if (!this.getSum()) {
-      effectiveBalance = this.account.balance;
-    } else {
-      effectiveBalance = this.account.balance - this.getSum();
-    }
-    return effectiveBalance;
-  }
 }
