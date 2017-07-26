@@ -12,6 +12,9 @@ export function accountReducer(state = initialState, action: Action): AccountSta
     case AccountActions.FIND_ACCOUNT_BY_CODE_SUCCESS: {
       return action.payload;
     }
+    case AccountActions.FIND_INVOICES_BY_ACCOUNT_SUCCESS: {
+        return action.payload;
+      }
     default: {
       return state;
     }
