@@ -96,6 +96,12 @@ public class BillingController {
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/invoices/account/{code}", method = RequestMethod.GET)
+    public ResponseEntity<List<Invoice>> findInvoicesByAccount(@PathVariable String code) {
+        List<AcInvoice> invoices = billingService.findInvoices(code, 0, 100);
+        return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/invoices/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findInvoicesByFlowState(@PathVariable String state) {
         List<AcInvoice> invoices = billingService.findInvoicesByFlowState(AcFlowState.valueOf(state));
