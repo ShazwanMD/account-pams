@@ -1281,9 +1281,6 @@
     alter table AC_RSCY_CODE
         add constraint UK_4g6qbgh5rriyhydf0yf8orkbo unique (CODE);
 
-    alter table AC_SCTY_CHRG_CODE
-        add constraint UK_e2ry635tfo7uboeoal25iddfp unique (SECTION);
-
     alter table AC_STDY_CNTR_CODE
         add constraint UK_gg5t5jjhlycdxkmqqt41fd32t unique (CODE);
 
