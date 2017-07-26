@@ -447,14 +447,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public BigDecimal sumWaiverAmount(AcAccount account, AcAcademicSession academicSession) {
-        return accountDao.sumWaiverAmount(account, academicSession);
+    public BigDecimal sumWaiverAmount(AcAccount account) {
+        return accountDao.sumWaiverAmount(account);
     }
 
     @Override
     public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
         return accountDao.sumBalanceAmount(account)
-                .subtract(accountDao.sumWaiverAmount(account, academicSession));
+                .subtract(accountDao.sumWaiverAmount(account));
     }
 
     @Override
