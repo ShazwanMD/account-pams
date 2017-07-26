@@ -148,9 +148,9 @@ public interface AccountService {
 
     List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount account, Integer offset, Integer limit);
 
-//    List<AcAccountActivity> findAccountActivities(AcAccount account);
-//
-//    List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    List<AcAccountActivityImpl> findAccountActivities(AcAccount account);
+
+    List<AcAccountActivityImpl> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
 
     Integer countAccountTransaction(AcAccount account);
 
