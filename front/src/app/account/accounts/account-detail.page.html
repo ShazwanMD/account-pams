@@ -12,7 +12,9 @@
         <md-card>
           <md-tab-group [selectedIndex]="0">
             <md-tab label="Account Activities">
-              <pams-account-activity-list [transactions]="accountTransactions$ | async"></pams-account-activity-list>
+              <pams-account-activity-list 
+              [transactions]="accountTransactions$ | async"
+              ></pams-account-activity-list>
             </md-tab>
 
             <md-tab label="Charges">

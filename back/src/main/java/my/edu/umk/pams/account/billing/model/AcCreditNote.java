@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.model;
 
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.core.model.AcDocument;
 
 import java.math.BigDecimal;
@@ -29,5 +30,9 @@ public interface AcCreditNote extends AcDocument {
     Date getCreditNoteDate();
     
     void setCreditNoteDate(Date creditNoteDate);
+    
+    AcChargeCode getChargeCode();
+
+    void setChargeCode(AcChargeCode chargeCode);
 
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.Task;
 
 public class CreditNoteTask extends Task {
@@ -19,6 +20,7 @@ public class CreditNoteTask extends Task {
 	private Date creditNoteDate;
     
     private String accountName;
+    private ChargeCode sodoCode;
     
 
     public CreditNote getCreditNote() {
@@ -60,6 +62,14 @@ public class CreditNoteTask extends Task {
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
+	
+	public ChargeCode getChargeCode() {
+        return sodoCode;
+    }
+
+    public void setChargeCode(ChargeCode sodoCode) {
+        this.sodoCode = sodoCode;
+    }
     
 }
 

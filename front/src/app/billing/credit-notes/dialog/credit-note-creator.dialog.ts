@@ -45,7 +45,7 @@ export class CreditNoteCreatorDialog implements OnInit {
       accountCode: '',
       creditNoteDate: undefined,
       accountName:'',
-      //chargeCode: <ChargeCode>{},
+      chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     });
     this.createForm.patchValue({invoice: this._invoice});

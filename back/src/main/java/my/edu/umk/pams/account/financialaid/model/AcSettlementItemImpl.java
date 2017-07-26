@@ -31,6 +31,15 @@ public class AcSettlementItemImpl implements AcSettlementItem {
     @Column(name = "BALANCE_AMOUNT", nullable = false)
     private BigDecimal balanceAmount = BigDecimal.ZERO;
 
+    @Column(name = "LOAN_AMOUNT", nullable = false)
+    private BigDecimal loanAmount = BigDecimal.ZERO;
+
+    @Column(name = "FEE_AMOUNT", nullable = false)
+    private BigDecimal feeAmount = BigDecimal.ZERO;
+
+    @Column(name = "NETT_AMOUNT", nullable = false)
+    private BigDecimal nettAmount = BigDecimal.ZERO;
+
     @NotNull
     @OneToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
@@ -89,6 +98,36 @@ public class AcSettlementItemImpl implements AcSettlementItem {
     @Override
     public void setBalanceAmount(BigDecimal balanceAmount) {
         this.balanceAmount = balanceAmount;
+    }
+
+    @Override
+    public BigDecimal getLoanAmount() {
+        return loanAmount;
+    }
+
+    @Override
+    public void setLoanAmount(BigDecimal loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    @Override
+    public BigDecimal getFeeAmount() {
+        return feeAmount;
+    }
+
+    @Override
+    public void setFeeAmount(BigDecimal feeAmount) {
+        this.feeAmount = feeAmount;
+    }
+
+    @Override
+    public BigDecimal getNettAmount() {
+        return nettAmount;
+    }
+
+    @Override
+    public void setNettAmount(BigDecimal nettAmount) {
+        this.nettAmount = nettAmount;
     }
 
     @Override

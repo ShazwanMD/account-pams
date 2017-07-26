@@ -3,6 +3,8 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
 
 import java.io.IOException;
@@ -21,6 +23,7 @@ public class CreditNote extends Document {
 	private Invoice invoice;
 	private String accountCode;
 	private String accountName;
+	private ChargeCode sodoCode;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -85,6 +88,14 @@ public class CreditNote extends Document {
 	public void setAccountCode(String accountCode) {
 		this.accountCode = accountCode;
 	}
+	
+	public ChargeCode getChargeCode() {
+        return sodoCode;
+    }
+
+    public void setChargeCode(ChargeCode sodoCode) {
+        this.sodoCode = sodoCode;
+    }
 	
 	public String getAccountName() {
 		return accountName;
