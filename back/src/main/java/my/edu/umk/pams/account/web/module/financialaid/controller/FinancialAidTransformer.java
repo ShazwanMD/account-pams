@@ -16,6 +16,7 @@ import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
+
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -112,12 +113,14 @@ public class FinancialAidTransformer {
     }
 
     public SettlementItem toSettlementItemVo(AcSettlementItem e) {
-        // todo(uda): more properties
         SettlementItem vo = new SettlementItem();
         vo.setId(e.getId());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         vo.setBalanceAmount(e.getBalanceAmount());
+        vo.setNettAmount(e.getNettAmount());
+        vo.setLoanAmount(e.getLoanAmount());
+        vo.setFeeAmount(e.getFeeAmount());
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
@@ -139,6 +142,7 @@ public class FinancialAidTransformer {
                 .map((entry) -> toSettlementItemVo(entry))
                 .collect(toCollection(() -> new ArrayList<SettlementItem>()));
     }
+
     public List<WaiverApplication> toWaiverApplicationVos(List<AcWaiverApplication> entries) {
         return entries.stream()
                 .map((entry) -> toWaiverApplicationVo(entry))
