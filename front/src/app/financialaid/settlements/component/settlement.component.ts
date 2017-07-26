@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {Settlement} from "../settlement.interface";
+import {Settlement} from '../../../shared/model/financialaid/settlement.interface';
 
 @Component({
   selector: 'pams-settlement',

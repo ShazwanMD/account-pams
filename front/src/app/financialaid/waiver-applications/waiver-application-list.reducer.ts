@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {WaiverApplication} from "./waiver-application.interface";
-import {WaiverApplicationActions} from "./waiver-application.action";
+import {WaiverApplicationActions} from './waiver-application.action';
+import {WaiverApplication} from '../../shared/model/financialaid/waiver-application.interface';
 
 export type WaiverApplicationListState = WaiverApplication[];
 

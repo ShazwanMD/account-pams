@@ -1,7 +1,6 @@
 import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
-import {Account} from "./account.interface";
-import {AccountActions} from "./account.action";
+import {Account} from '../../shared/model/account/account.interface';
+import {AccountActions} from './account.action';
 
 export type AccountStudentListState = Account[];
 

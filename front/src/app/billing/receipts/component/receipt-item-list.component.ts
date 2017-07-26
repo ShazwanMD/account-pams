@@ -1,12 +1,12 @@
 import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
-import {ReceiptItem} from "../receipt-item.interface";
-import {ReceiptItemEditorDialog} from "../dialog/receipt-item-editor.dialog";
-import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from "@angular/material";
-import {ActivatedRoute, Router} from "@angular/router";
-import {BillingModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import {ReceiptActions} from "../receipt.action";
-import {Receipt} from "../receipt.interface";
+import {ReceiptItemEditorDialog} from '../dialog/receipt-item-editor.dialog';
+import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BillingModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import {ReceiptActions} from '../receipt.action';
+import {Receipt} from '../../../shared/model/billing/receipt.interface';
+import {ReceiptItem} from '../../../shared/model/billing/receipt-item.interface';
 
 @Component({
   selector: 'pams-receipt-item-list',
@@ -15,17 +15,17 @@ import {Receipt} from "../receipt.interface";
 })
 export class ReceiptItemListComponent implements OnInit {
 
-  @Input() receipt: Receipt;
-  @Input() receiptItems: ReceiptItem[];
-
   private selectedRows: ReceiptItem[];
   private editorDialogRef: MdDialogRef<ReceiptItemEditorDialog>;
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'chargeCode.description', label: 'Charge Code Description'},
     {name: 'amount', label: 'Amount'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() receipt: Receipt;
+  @Input() receiptItems: ReceiptItem[];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -37,7 +37,7 @@ export class ReceiptItemListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedRows = this.receiptItems.filter(value => value.selected);
+    this.selectedRows = this.receiptItems.filter((value) => value.selected);
   }
 
   createDialog(): void {
@@ -49,8 +49,8 @@ export class ReceiptItemListComponent implements OnInit {
   }
 
   delete(): void {
-    console.log("length: " + this.selectedRows.length);
-    for (var i = 0; i < this.selectedRows.length; i++) {
+    console.log('length: ' + this.selectedRows.length);
+    for (let i = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.deleteReceiptItem(this.receipt, this.selectedRows[i]));
     }
   }
@@ -65,7 +65,7 @@ export class ReceiptItemListComponent implements OnInit {
   }
 
   showDialog(receiptItem: ReceiptItem): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -75,8 +75,8 @@ export class ReceiptItemListComponent implements OnInit {
     this.editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
     this.editorDialogRef.componentInstance.receipt = this.receipt;
     if (receiptItem) this.editorDialogRef.componentInstance.receiptItem = receiptItem; // set
-    this.editorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.editorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
     });
   }
 }

@@ -1,13 +1,12 @@
 import {
   Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit
+  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit,
 } from '@angular/core';
-import {Observable} from "rxjs";
-import {ReceiptTask} from "../receipt-task.interface";
-import {ReceiptDraftTaskPanel} from "./receipt-draft-task.panel";
-import {FlowState} from "../../../core/flow-state.enum";
-import {ReceiptRegisterTaskPanel} from "./receipt-register-task.panel";
-
+import {Observable} from 'rxjs';
+import {ReceiptDraftTaskPanel} from './receipt-draft-task.panel';
+import {FlowState} from '../../../core/flow-state.enum';
+import {ReceiptRegisterTaskPanel} from './receipt-register-task.panel';
+import {ReceiptTask} from '../../../shared/model/billing/receipt-task.interface';
 
 @Component({
   selector: 'pams-receipt-task-workflow',
@@ -26,10 +25,10 @@ export class ReceiptTaskWorkflowPanel implements OnInit {
 
   ngOnInit(): void {
     let componentFactory;
-    this.receiptTaskObservable.subscribe(task => {
+    this.receiptTaskObservable.subscribe((task) => {
       if (task.flowState) {
 
-        console.log("task flowState: " + task.flowState);
+        console.log('task flowState: ' + task.flowState);
         if (this.componentRef) this.componentRef.destroy();
         switch (FlowState[task.flowState.toString()]) {
           case FlowState.DRAFTED:

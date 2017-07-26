@@ -3,8 +3,8 @@ import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/materi
 import {ActivatedRoute, Router} from '@angular/router';
 import {BillingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
-import {CreditNote} from '../credit-note.interface';
-import {CreditNoteItem} from '../credit-note-item.interface';
+import {CreditNote} from '../../../shared/model/billing/credit-note.interface';
+import {CreditNoteItem} from '../../../shared/model/billing/credit-note-item.interface';
 import {CreditNoteActions} from '../credit-note.action';
 import {CreditNoteItemEditorDialog} from '../dialog/credit-note-item-editor.dialog';
 

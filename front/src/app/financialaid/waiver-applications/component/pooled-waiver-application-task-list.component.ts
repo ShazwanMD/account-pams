@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from "@angular/material";
-import {WaiverApplicationTask} from "../waiver-application-task.interface";
+import {WaiverApplicationTask} from "../../../shared/model/financialaid/waiver-application-task.interface";
 import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
 
 @Component({

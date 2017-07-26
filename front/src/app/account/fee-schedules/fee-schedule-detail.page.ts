@@ -1,14 +1,14 @@
 import {Component, OnInit, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {FeeSchedule} from "./fee-schedule.interface";
-import {FeeScheduleItem} from "./fee-schedule-item.interface";
-import {FeeScheduleActions} from "./fee-schedule.action";
-import {AccountModuleState} from "../index";
-import {FeeScheduleItemEditorDialog} from "./dialog/fee-schedule-item-editor.dialog";
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {FeeScheduleActions} from './fee-schedule.action';
+import {AccountModuleState} from '../index';
+import {FeeScheduleItemEditorDialog} from './dialog/fee-schedule-item-editor.dialog';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {FeeSchedule} from '../../shared/model/account/fee-schedule.interface';
+import {FeeScheduleItem} from '../../shared/model/account/fee-schedule-item.interface';
 
 @Component({
   selector: 'pams-fee-schedule-detail',
@@ -17,8 +17,8 @@ import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
 
 export class FeeScheduleDetailPage implements OnInit {
 
-  private FEE_SCHEDULE: string[] = "accountModuleState.feeSchedule".split(".");
-  private FEE_SCHEDULE_ITEMS: string[] = "accountModuleState.feeScheduleItems".split(".");
+  private FEE_SCHEDULE: string[] = 'accountModuleState.feeSchedule'.split('.');
+  private FEE_SCHEDULE_ITEMS: string[] = 'accountModuleState.feeScheduleItems'.split('.');
   private feeSchedule$: Observable<FeeSchedule>;
   private feeScheduleItems$: Observable<FeeScheduleItem[]>;
 
@@ -40,9 +40,8 @@ export class FeeScheduleDetailPage implements OnInit {
     });
   }
 
-
   goBack(route: string): void {
     this.router.navigate(['/feeSchedules']);
   }
 }
-
+

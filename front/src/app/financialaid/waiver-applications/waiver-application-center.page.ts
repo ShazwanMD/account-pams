@@ -2,12 +2,12 @@ import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} fro
 import {Router, ActivatedRoute} from '@angular/router';
 import {FinancialaidModuleState} from '../index';
 import {Store} from '@ngrx/store';
-import {WaiverApplicationTask} from './waiver-application-task.interface';
 import {Observable} from 'rxjs/Observable';
 import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
 import {WaiverApplicationCreatorDialog} from './dialog/waiver-application-creator.dialog';
 import {WaiverApplicationActions} from './waiver-application.action';
-import {WaiverApplication} from './waiver-application.interface';
+import {WaiverApplicationTask} from '../../shared/model/financialaid/waiver-application-task.interface';
+import {WaiverApplication} from '../../shared/model/financialaid/waiver-application.interface';
 
 @Component({
   selector: 'pams-waiver-application-center',

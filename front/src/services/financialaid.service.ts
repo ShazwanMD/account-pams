@@ -3,14 +3,14 @@ import {Response} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
-import {Settlement} from '../app/financialaid/settlements/settlement.interface';
-import {SettlementItem} from '../app/financialaid/settlements/settlement-item.interface';
-import {WaiverApplicationTask} from '../app/financialaid/waiver-applications/waiver-application-task.interface';
-import {WaiverApplication} from '../app/financialaid/waiver-applications/waiver-application.interface';
-import {Sponsor} from '../app/identity/sponsor.interface';
+import {Settlement} from '../app/shared/model/financialaid/settlement.interface';
+import {SettlementItem} from '../app/shared/model/financialaid/settlement-item.interface';
+import {WaiverApplicationTask} from '../app/shared/model/financialaid/waiver-application-task.interface';
+import {WaiverApplication} from '../app/shared/model/financialaid/waiver-application.interface';
+import {Sponsor} from '../app/shared/model/identity/sponsor.interface';
 import {FacultyCode} from '../app/common/faculty-codes/faculty-code.interface';
 import {CohortCode} from '../app/common/cohort-codes/cohort-code.interface';
-import {SettlementCreator} from '../app/financialaid/settlements/settlement-creator.interface';
+import {SettlementCreator} from '../app/shared/model/financialaid/settlement-creator.interface';
 
 @Injectable()
 export class FinancialaidService {

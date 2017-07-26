@@ -1,9 +1,8 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {MdSnackBar} from "@angular/material";
-import { DebitNote } from "../debit-note.interface";
-import { DebitNoteTask } from "../debit-note-task.interface";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
+import {MdSnackBar} from '@angular/material';
+import { DebitNote } from '../../../shared/model/billing/debit-note.interface';
+import { DebitNoteTask } from '../../../shared/model/billing/debit-note-task.interface';
+import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from '@covalent/core';
 
 @Component({
   selector: 'pams-archived-debit-note-list',
@@ -11,9 +10,6 @@ import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEven
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchivedDebitNoteListComponent {
-
-  @Input() debitNotes: DebitNoteTask[];
-  @Output() view = new EventEmitter<DebitNote>();
 
   private columns: any[] = [
     {name: 'debitNoteDate', label: 'Date'},
@@ -24,16 +20,19 @@ export class ArchivedDebitNoteListComponent {
     {name: 'chargeCode.description', label: 'Charge Code'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() debitNotes: DebitNoteTask[];
+  @Output() view = new EventEmitter<DebitNote>();
 
   constructor(private snackBar: MdSnackBar,
           private _dataTableService: TdDataTableService) {
   }
 
   viewDebitNote(debit: DebitNote): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing debit note", "OK");
+    console.log('Emitting task');
+    let snackBarRef = this.snackBar.open('Viewing debit note', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(debit);
     });
@@ -48,7 +47,6 @@ export class ArchivedDebitNoteListComponent {
     sortBy: string = 'referenceNo';
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-      
     ngAfterViewInit(): void {
       this.filteredData = this.debitNotes;
       this.filteredTotal = this.debitNotes.length;

@@ -1,14 +1,13 @@
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../index";
-import {CreditNoteCreatorDialog} from "./dialog/credit-note-creator.dialog";
-import {CreditNoteTask} from "./credit-note-task.interface";
-import {CreditNoteActions} from "./credit-note.action";
-import {CreditNote} from "./credit-note.interface";
-
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../index';
+import {CreditNoteCreatorDialog} from './dialog/credit-note-creator.dialog';
+import {CreditNoteActions} from './credit-note.action';
+import {CreditNoteTask} from '../../shared/model/billing/credit-note-task.interface';
+import {CreditNote} from '../../shared/model/billing/credit-note.interface';
 
 @Component({
   selector: 'pams-credit-note-center',
@@ -17,9 +16,9 @@ import {CreditNote} from "./credit-note.interface";
 
 export class CreditNoteCenterPage implements OnInit {
 
-  private POOLED_CREDIT_NOTE_TASKS: string[] = "billingModuleState.pooledCreditNoteTasks".split(".");
-  private ASSIGNED_CREDIT_NOTE_TASKS: string[] = "billingModuleState.assignedCreditNoteTasks".split(".");
-  private ARCHIVED_CREDIT_NOTES: string[] = "billingModuleState.archivedCreditNotes".split(".");
+  private POOLED_CREDIT_NOTE_TASKS: string[] = 'billingModuleState.pooledCreditNoteTasks'.split('.');
+  private ASSIGNED_CREDIT_NOTE_TASKS: string[] = 'billingModuleState.assignedCreditNoteTasks'.split('.');
+  private ARCHIVED_CREDIT_NOTES: string[] = 'billingModuleState.archivedCreditNotes'.split('.');
   private assignedCreditNoteTasks$: Observable<CreditNoteTask[]>;
   private pooledCreditNoteTasks$: Observable<CreditNoteTask[]>;
   private archivedCreditNotes$: Observable<CreditNote[]>;
@@ -38,7 +37,7 @@ export class CreditNoteCenterPage implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("find assigned credit note tasks");
+    console.log('find assigned credit note tasks');
     this.store.dispatch(this.actions.findAssignedCreditNoteTasks());
     this.store.dispatch(this.actions.findPooledCreditNoteTasks());
     this.store.dispatch(this.actions.findArchivedCreditNotes());
@@ -49,12 +48,12 @@ export class CreditNoteCenterPage implements OnInit {
   }
 
   viewTask(task: CreditNoteTask) {
-    console.log("CreditNote: " + task.taskId);
+    console.log('CreditNote: ' + task.taskId);
     this.router.navigate(['/billing/credit-notes/credit-note-task-detail', task.taskId]);
   }
 
   claimTask(task: CreditNoteTask) {
-    console.log("invoice: " + task.taskId);
+    console.log('invoice: ' + task.taskId);
     this.store.dispatch(this.actions.claimCreditNoteTask(task));
   }
 
@@ -62,9 +61,8 @@ export class CreditNoteCenterPage implements OnInit {
     this.router.navigate(['/billing/credit-notes/credit-note-detail', creditNote.referenceNo]);
   }
 
-
   showDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -72,12 +70,11 @@ export class CreditNoteCenterPage implements OnInit {
     config.height = '60%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(CreditNoteCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
 
-  
 }
-
+

@@ -2,13 +2,12 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {ChargeCode} from "../charge-code.interface";
-import {ChargeCodeActions} from "../charge-code.action";
-import {AccountModuleState} from "../../index";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {ChargeCode} from '../../../shared/model/account/charge-code.interface';
+import {ChargeCodeActions} from '../charge-code.action';
+import {AccountModuleState} from '../../index';
 import {TaxCode} from '../../../common/tax-codes/tax-code.interface';
-
 
 @Component({
   selector: 'pams-charge-code-creator',
@@ -32,15 +31,15 @@ export class ChargeCodeCreatorDialog implements OnInit {
     this.createForm = this.formBuilder.group(<ChargeCode>{
       id: null,
       code: '',
-      description:'',
-      priority:0,
-      taxCode:<TaxCode>{},
+      description: '',
+      priority: 0,
+      taxCode: <TaxCode>{},
       inclusive: false,
     });
   }
 
   save(chargeCode: ChargeCode, isValid: boolean): void {
-    console.log("saving fee");
+    console.log('saving fee');
     this.store.dispatch(this.actions.saveChargeCode(chargeCode));
     this.dialog.close();
   }

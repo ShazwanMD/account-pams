@@ -1,8 +1,13 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {MdSnackBar} from "@angular/material";
-import {WaiverApplicationTask} from "../waiver-application-task.interface";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
+import {MdSnackBar} from '@angular/material';
+import {WaiverApplicationTask} from '../../../shared/model/financialaid/waiver-application-task.interface';
+import {Router, ActivatedRoute} from '@angular/router';
+import {
+  TdDataTableService,
+  TdDataTableSortingOrder,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent,
+} from '@covalent/core';
 
 @Component({
   selector: 'pams-assigned-waiver-application-task-list',
@@ -11,32 +16,32 @@ import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEven
 })
 export class AssignedWaiverApplicationTaskListComponent {
 
-  @Input() waiverApplicationTasks: WaiverApplicationTask[];
-  @Output() view = new EventEmitter<WaiverApplicationTask>();
-
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'application.waivedAmount', label: 'Waived Amount'},
     {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
+  @Input() waiverApplicationTasks: WaiverApplicationTask[];
+  @Output() view = new EventEmitter<WaiverApplicationTask>();
+
   constructor(private snackBar: MdSnackBar,
-          private router: Router,
-          private route: ActivatedRoute,
-          private _dataTableService: TdDataTableService) {
+              private router: Router,
+              private route: ActivatedRoute,
+              private _dataTableService: TdDataTableService) {
   }
 
   viewTask(task: WaiverApplicationTask): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing waiverApplication", "OK");
+    console.log('Emitting task');
+    let snackBarRef = this.snackBar.open('Viewing waiverApplication', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(task);
     });
   }
-  
+
   filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';
@@ -46,7 +51,6 @@ export class AssignedWaiverApplicationTaskListComponent {
   sortBy: string = 'referenceNo';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    
   ngAfterViewInit(): void {
     this.filteredData = this.waiverApplicationTasks;
     this.filteredTotal = this.waiverApplicationTasks.length;

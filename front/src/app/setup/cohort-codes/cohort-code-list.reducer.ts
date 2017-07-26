@@ -1,6 +1,6 @@
-import { CohortCode } from './../../common/cohort-codes/cohort-code.interface';
+import { CohortCode } from '../../common/cohort-codes/cohort-code.interface';
 import {Action} from '@ngrx/store';
-import {SetupActions} from "../setup.action";
+import {SetupActions} from '../setup.action';
 
 export type CohortCodeListState = CohortCode[];
 

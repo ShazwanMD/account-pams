@@ -1,14 +1,13 @@
 import {
   Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef
+  ComponentFactoryResolver, ComponentRef,
 } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {WaiverApplicationTask} from "./waiver-application-task.interface";
-import {Observable} from "rxjs";
-import {FinancialaidModuleState} from "../index";
-import {Store} from "@ngrx/store";
-import {WaiverApplicationActions} from "./waiver-application.action";
-
+import {Observable} from 'rxjs';
+import {FinancialaidModuleState} from '../index';
+import {Store} from '@ngrx/store';
+import {WaiverApplicationActions} from './waiver-application.action';
+import {WaiverApplicationTask} from '../../shared/model/financialaid/waiver-application-task.interface';
 
 @Component({
   selector: 'pams-waiver-application-task-iew',
@@ -16,14 +15,14 @@ import {WaiverApplicationActions} from "./waiver-application.action";
 })
 export class WaiverApplicationTaskViewPage implements OnInit {
 
-  private INVOICE_TASK = "financialaidModuleState.waiverApplicationTask".split(".");
+  private INVOICE_TASK = 'financialaidModuleState.waiverApplicationTask'.split('.');
   private waiverApplicationTask$: Observable<WaiverApplicationTask>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<FinancialaidModuleState>,
               private actions: WaiverApplicationActions) {
-    this.waiverApplicationTask$ = this.store.select(...this.INVOICE_TASK)
+    this.waiverApplicationTask$ = this.store.select(...this.INVOICE_TASK);
   }
 
   ngOnInit(): void {
@@ -37,5 +36,4 @@ export class WaiverApplicationTaskViewPage implements OnInit {
     this.router.navigate(['/financialaid/waiverApplications']);
   }
 }
-
-
+

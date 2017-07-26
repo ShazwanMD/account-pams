@@ -1,15 +1,13 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ReceiptItem} from "../receipt-item.interface";
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {ReceiptItemEditorDialog} from "../dialog/receipt-item-editor.dialog";
-import {ReceiptTask} from "../receipt-task.interface";
-import {ReceiptActions} from "../receipt.action";
-import {ReceiptTaskState} from "../receipt-task.reducer";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../../index";
-
+import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {ReceiptItemEditorDialog} from '../dialog/receipt-item-editor.dialog';
+import {ReceiptActions} from '../receipt.action';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../../index';
+import {ReceiptTask} from '../../../shared/model/billing/receipt-task.interface';
+import {ReceiptItem} from '../../../shared/model/billing/receipt-item.interface';
 
 @Component({
   selector: 'pams-receipt-register-task',
@@ -18,7 +16,7 @@ import {BillingModuleState} from "../../index";
 
 export class ReceiptRegisterTaskPanel implements OnInit {
 
-  private RECEIPT_ITEMS = "billingModuleState.receiptItems".split(".");
+  private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split('.');
   @Input() receiptTask: ReceiptTask;
   receiptItems$: Observable<ReceiptItem[]>;
 
@@ -33,7 +31,7 @@ export class ReceiptRegisterTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt))
+    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
   }
 
   editItem(item: ReceiptItem) {

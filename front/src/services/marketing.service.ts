@@ -3,8 +3,8 @@ import {Response} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
-import {PromoCodeItem} from '../app/marketing/promo-codes/promo-code-item.interface';
-import {PromoCode} from '../app/marketing/promo-codes/promo-code.interface';
+import {PromoCodeItem} from '../app/shared/model/marketing/promo-code-item.interface';
+import {PromoCode} from '../app/shared/model/marketing/promo-code.interface';
 
 @Injectable()
 export class MarketingService {

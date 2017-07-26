@@ -1,13 +1,12 @@
 import {Component, ViewContainerRef, OnInit, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {Settlement} from "../settlement.interface";
-import {SettlementActions} from "../settlement.action";
-import {SettlementItemDialog} from "../dialog/settlement-item.dialog";
-import {SettlementItem} from "../settlement-item.interface";
-import {FinancialaidModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {Settlement} from '../../../shared/model/financialaid/settlement.interface';
+import {SettlementActions} from '../settlement.action';
+import {SettlementItemDialog} from '../dialog/settlement-item.dialog';
+import {SettlementItem} from '../../../shared/model/financialaid/settlement-item.interface';
+import {FinancialaidModuleState} from '../../index';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'pams-settlement-item-list',
@@ -16,17 +15,17 @@ import {Store} from "@ngrx/store";
 
 export class SettlementItemListComponent implements OnInit{
 
-  @Input() settlement: Settlement;
-  @Input() settlementItems: SettlementItem[];
-
   private editorDialogRef: MdDialogRef<SettlementItemDialog>;
   private selectedRows: SettlementItem[];
   private columns: any[] = [
     {name: 'account', label: 'Account'},
     {name: 'invoice', label: 'Invoice'},
     {name: 'balanceAmount', label: 'Balance Amount'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() settlement: Settlement;
+  @Input() settlementItems: SettlementItem[];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -37,9 +36,9 @@ export class SettlementItemListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.selectedRows = this.settlementItems.filter(value => value.selected);
+    this.selectedRows = this.settlementItems.filter((value) => value.selected);
   }
-  
+
   create(): void {
       this.showDialog(null);
     }
@@ -72,7 +71,7 @@ export class SettlementItemListComponent implements OnInit{
     this.editorDialogRef = this.dialog.open(SettlementItemDialog, config);
     this.editorDialogRef.componentInstance.settlement = this.settlement;
     this.editorDialogRef.componentInstance.settlementItem = settlementItem;
-    this.editorDialogRef.afterClosed().subscribe(res => {
+    this.editorDialogRef.afterClosed().subscribe((res) => {
         this.selectedRows = [];
     });
   }

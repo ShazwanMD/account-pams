@@ -1,8 +1,8 @@
 import {Action} from '@ngrx/store';
 
 import * as _ from 'lodash';
-import {ActorActions} from "./actor.action";
-import {Actor} from "./actor.interface";
+import {ActorActions} from './actor.action';
+import {Actor} from '../shared/model/identity/actor.interface';
 
 export type ActorListState = Actor[];
 
@@ -24,13 +24,13 @@ export function actorListReducer(state = initialState, action: Action): ActorLis
         return [
           ...state.slice(0, index),
           action.payload,
-          ...state.slice(index + 1)
+          ...state.slice(index + 1),
         ];
       }
       return state;
     }
     case ActorActions.REMOVE_ACTOR_SUCCESS: {
-      return state.filter(actor => {
+      return state.filter((actor) => {
         return actor.id !== action.payload.id;
       });
     }

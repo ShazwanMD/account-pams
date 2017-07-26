@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {ReceiptTask} from "../receipt-task.interface";
-import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from "@angular/material";
+import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
+import {ReceiptTask} from '../../../shared/model/billing/receipt-task.interface';
 
 @Component({
   selector: 'pams-pooled-receipt-task-list',
@@ -16,15 +16,15 @@ export class PooledReceiptTaskListComponent {
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'description', label: 'Description'},
     {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
   constructor(private snackBar: MdSnackBar) {
   }
 
   claimTask(task: ReceiptTask): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Claiming receipt", "OK");
+    console.log('Emitting task');
+    let snackBarRef = this.snackBar.open('Claiming receipt', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.claim.emit(task);
     });

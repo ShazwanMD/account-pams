@@ -1,16 +1,13 @@
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from "@ngrx/store";
-import { MdDialogRef } from "@angular/material";
-import { AcademicSession } from "../../../account/academic-sessions/academic-session.interface";
-import { Account } from "../../../account/accounts/account.interface";
-import { InvoiceActions } from "../invoice.action";
-import { BillingModuleState } from "../../index";
-import { Invoice } from "../invoice.interface";
-import { AccountService } from "../../../../services/account.service";
-
+import { Store } from '@ngrx/store';
+import { MdDialogRef } from '@angular/material';
+import { AcademicSession } from '../../../shared/model/account/academic-session.interface';
+import { Account } from '../../../shared/model/account/account.interface';
+import { InvoiceActions } from '../invoice.action';
+import { BillingModuleState } from '../../index';
+import { Invoice } from '../../../shared/model/billing/invoice.interface';
 
 @Component( {
     selector: 'pams-invoice-task-creator',
@@ -45,8 +42,8 @@ export class InvoiceTaskCreatorDialog implements OnInit {
     }
 
     save( invoice: Invoice, isValid: boolean ) {
-        console.log( "invoice: " + invoice.description );
-        console.log( "account: " + invoice.account.code );
+        console.log( 'invoice: ' + invoice.description );
+        console.log( 'account: ' + invoice.account.code );
         this.store.dispatch( this.actions.startInvoiceTask( invoice ) );
         this.dialog.close();
     }

@@ -1,14 +1,17 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {ActivatedRoute, Router} from "@angular/router";
-import { MdDialogConfig, MdDialogRef, MdDialog } from "@angular/material";
-import {Account} from "../account.interface";
-import {AccountActions} from "../account.action";
-import { AccountModuleState } from "../../index";
-import { Actor } from "../../../identity/actor.interface";
-import { ActorType } from "../../../identity/actor-type.enum";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
-
+import {Store} from '@ngrx/store';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {Account} from '../../../shared/model/account/account.interface';
+import {AccountActions} from '../account.action';
+import {AccountModuleState} from '../../index';
+import {
+  TdDataTableService,
+  TdDataTableSortingOrder,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent,
+} from '@covalent/core';
+import {Actor} from '../../../shared/model/identity/actor.interface';
 
 @Component({
   selector: 'pams-account-sponsor-list',
@@ -17,30 +20,30 @@ import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEven
 })
 export class AccountSponsorListComponent {
 
+  private columns: any[] = [
+    {name: 'code', label: 'Code'},
+    {name: 'name', label: 'Name'},
+    {name: 'email', label: 'Email'},
+    {name: 'action', label: ''},
+  ];
+
   @Input() actor: Actor;
   @Input() accountSponsorList: Account[];
-  
-private columns: any[] = [
-{name: 'code', label: 'Code'},
-{name: 'name', label: 'Name'},
-{name: 'email', label: 'Email'},
-{name: 'action', label: ''}
-];
 
   constructor(private router: Router,
-          private route: ActivatedRoute,
-          private actions: AccountActions,
-          private store: Store<AccountModuleState>,
-          private vcf: ViewContainerRef,
-          private dialog: MdDialog,
-          private _dataTableService: TdDataTableService) {}
-  
+              private route: ActivatedRoute,
+              private actions: AccountActions,
+              private store: Store<AccountModuleState>,
+              private vcf: ViewContainerRef,
+              private dialog: MdDialog,
+              private _dataTableService: TdDataTableService) {
+  }
+
   viewAccount(account: Account) {
-      console.log("account: " + account.id);
-      this.router.navigate(['/accounts-detail', account.id]);
-    }
-  
-  
+    console.log('account: ' + account.id);
+    this.router.navigate(['/accounts-detail', account.id]);
+  }
+
   filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';
@@ -50,7 +53,6 @@ private columns: any[] = [
   sortBy: string = 'code';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    
   ngAfterViewInit(): void {
     this.filteredData = this.accountSponsorList;
     this.filteredTotal = this.accountSponsorList.length;

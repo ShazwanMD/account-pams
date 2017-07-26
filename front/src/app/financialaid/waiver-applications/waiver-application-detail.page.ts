@@ -2,10 +2,10 @@ import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import { WaiverApplication } from "./waiver-application.interface";
 import {MdDialogRef, MdDialog} from '@angular/material';
-import {FinancialaidModuleState} from "../index";
-import { WaiverApplicationActions } from "./waiver-application.action";
+import {FinancialaidModuleState} from '../index';
+import {WaiverApplicationActions} from './waiver-application.action';
+import {WaiverApplication} from '../../shared/model/financialaid/waiver-application.interface';
 
 @Component({
   selector: 'pams-waiver-application-detail',
@@ -37,4 +37,4 @@ export class WaiverApplicationDetailPage implements OnInit {
     this.router.navigate(['/financialaid/waiver-applications']);
   }
 }
-
+

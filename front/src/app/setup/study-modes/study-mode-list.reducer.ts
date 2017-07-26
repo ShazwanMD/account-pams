@@ -1,8 +1,6 @@
-import { StudyMode } from './../../common/study-modes/study-mode.interface';
+import { StudyMode } from '../../common/study-modes/study-mode.interface';
 import {Action} from '@ngrx/store';
-import {SetupActions} from "../setup.action";
-
-
+import {SetupActions} from '../setup.action';
 
 export type StudyModeListState = StudyMode[];
 

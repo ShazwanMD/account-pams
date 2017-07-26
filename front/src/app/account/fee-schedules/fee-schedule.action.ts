@@ -8,18 +8,18 @@ export class FeeScheduleActions {
 
   findFeeSchedules(): Action {
     return {
-      type: FeeScheduleActions.FIND_FEE_SCHEDULES
+      type: FeeScheduleActions.FIND_FEE_SCHEDULES,
     };
   }
 
   static FIND_FEE_SCHEDULES_SUCCESS = '[FeeSchedule] Find FeeSchedules Success';
 
   findFeeSchedulesSuccess(feeSchedules): Action {
-    console.log("findFeeSchedulesSuccess");
-    console.log("feeSchedules: " + feeSchedules.length);
+    console.log('findFeeSchedulesSuccess');
+    console.log('feeSchedules: ' + feeSchedules.length);
     return {
       type: FeeScheduleActions.FIND_FEE_SCHEDULES_SUCCESS,
-      payload: feeSchedules
+      payload: feeSchedules,
     };
   }
 
@@ -28,47 +28,47 @@ export class FeeScheduleActions {
   findFeeScheduleByCode(code): Action {
     return {
       type: FeeScheduleActions.FIND_FEE_SCHEDULE_BY_CODE,
-      payload: code
+      payload: code,
     };
   }
 
   static FIND_FEE_SCHEDULE_BY_CODE_SUCCESS = '[FeeSchedule] Find FeeSchedule By Code Success';
 
   findFeeScheduleByCodeSuccess(feeSchedule): Action {
-    console.log("findFeeScheduleByCodeSuccess");
+    console.log('findFeeScheduleByCodeSuccess');
     return {
       type: FeeScheduleActions.FIND_FEE_SCHEDULE_BY_CODE_SUCCESS,
-      payload: feeSchedule
+      payload: feeSchedule,
     };
   }
 
   static FIND_FEE_SCHEDULE_ITEMS = '[FeeSchedule] Find FeeSchedule Items';
 
   findFeeScheduleItems(feeSchedule): Action {
-    console.log("findFeeScheduleItems");
+    console.log('findFeeScheduleItems');
     return {
       type: FeeScheduleActions.FIND_FEE_SCHEDULE_ITEMS,
-      payload: feeSchedule
+      payload: feeSchedule,
     };
   }
 
   static FIND_FEE_SCHEDULE_ITEMS_SUCCESS = '[FeeSchedule] Find FeeSchedule Items Success';
 
   findFeeScheduleItemsSuccess(feeScheduleItems): Action {
-    console.log("findFeeScheduleItemsSuccess");
+    console.log('findFeeScheduleItemsSuccess');
     return {
       type: FeeScheduleActions.FIND_FEE_SCHEDULE_ITEMS_SUCCESS,
-      payload: feeScheduleItems
+      payload: feeScheduleItems,
     };
   }
 
   static SAVE_FEE_SCHEDULE = '[FeeSchedule] Save FeeSchedule';
 
   saveFeeSchedule(feeSchedule): Action {
-    console.log("saveFeeSchedule");
+    console.log('saveFeeSchedule');
     return {
       type: FeeScheduleActions.SAVE_FEE_SCHEDULE,
-      payload: feeSchedule
+      payload: feeSchedule,
     };
   }
 
@@ -77,7 +77,7 @@ export class FeeScheduleActions {
   saveFeeScheduleSuccess(feeSchedule): Action {
     return {
       type: FeeScheduleActions.SAVE_FEE_SCHEDULE_SUCCESS,
-      payload: feeSchedule
+      payload: feeSchedule,
     };
   }
 
@@ -86,7 +86,7 @@ export class FeeScheduleActions {
   updateFeeSchedule(feeSchedule): Action {
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE,
-      payload: feeSchedule
+      payload: feeSchedule,
     };
   }
 
@@ -95,7 +95,7 @@ export class FeeScheduleActions {
   updateFeeScheduleSuccess(feeSchedule): Action {
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_SUCCESS,
-      payload: feeSchedule
+      payload: feeSchedule,
     };
   }
 
@@ -104,7 +104,7 @@ export class FeeScheduleActions {
   removeFeeSchedule(feeSchedule): Action {
     return {
       type: FeeScheduleActions.REMOVE_FEE_SCHEDULE,
-      payload: feeSchedule
+      payload: feeSchedule,
     };
   }
 
@@ -113,7 +113,7 @@ export class FeeScheduleActions {
   removeFeeScheduleSuccess(feeSchedule): Action {
     return {
       type: FeeScheduleActions.REMOVE_FEE_SCHEDULE_SUCCESS,
-      payload: feeSchedule
+      payload: feeSchedule,
     };
   }
 
@@ -122,7 +122,7 @@ export class FeeScheduleActions {
   addFeeScheduleItem(feeSchedule, item): Action {
     return {
       type: FeeScheduleActions.ADD_FEE_SCHEDULE_ITEM,
-      payload: {feeSchedule: feeSchedule, item: item}
+      payload: {feeSchedule: feeSchedule, item: item},
     };
   }
 
@@ -131,7 +131,7 @@ export class FeeScheduleActions {
   addFeeScheduleItemSuccess(message): Action {
     return {
       type: FeeScheduleActions.ADD_FEE_SCHEDULE_ITEM_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
@@ -140,7 +140,7 @@ export class FeeScheduleActions {
   deleteFeeScheduleItem(feeSchedule, item): Action {
     return {
       type: FeeScheduleActions.DELETE_FEE_SCHEDULE_ITEM,
-      payload: {feeSchedule: feeSchedule, item: item}
+      payload: {feeSchedule: feeSchedule, item: item},
     };
   }
 
@@ -149,7 +149,7 @@ export class FeeScheduleActions {
   deleteFeeScheduleItemSuccess(message): Action {
     return {
       type: FeeScheduleActions.DELETE_FEE_SCHEDULE_ITEM_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
@@ -158,7 +158,7 @@ export class FeeScheduleActions {
   updateFeeScheduleItem(feeSchedule, item): Action {
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM,
-      payload: {feeSchedule: feeSchedule, item: item}
+      payload: {feeSchedule: feeSchedule, item: item},
     };
   }
 
@@ -170,7 +170,6 @@ export class FeeScheduleActions {
       payload: message,
     };
   }
-
 
   static UPLOAD_FEE_SCHEDULE = '[FeeSchedule] Upload FeeSchedule';
 

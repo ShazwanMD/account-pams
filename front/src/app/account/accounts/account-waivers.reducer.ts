@@ -1,7 +1,6 @@
 import {Action} from '@ngrx/store';
-import {AccountActions} from "./account.action";
-import {AccountWaiver} from "./account-waiver.interface";
-import {Actor} from "../../identity/actor.interface";
+import {AccountActions} from './account.action';
+import {AccountWaiver} from '../../shared/model/account/account-waiver.interface';
 
 export type AccountWaiverState = AccountWaiver[];
 

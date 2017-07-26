@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {DebitNoteTask} from "./debit-note-task.interface";
-import {DebitNoteActions} from "./debit-note.action";
+import {DebitNoteActions} from './debit-note.action';
+import {DebitNoteTask} from '../../shared/model/billing/debit-note-task.interface';
 
 export type DebitNoteTaskState = DebitNoteTask;
 

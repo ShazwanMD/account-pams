@@ -1,11 +1,11 @@
 import {StudentAffairsChargeEditorDialog} from '../dialog/student-affairs-charge-editor.dialog';
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, OnInit, ViewContainerRef} from '@angular/core';
-import {AccountActions} from "../account.action";
+import {AccountActions} from '../account.action';
 import {Store} from '@ngrx/store';
-import {AccountModuleState} from "../../index";
+import {AccountModuleState} from '../../index';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
-import {AccountCharge} from "../account-charge.interface";
-import {Account} from "../account.interface";
+import {Account} from '../../../shared/model/account/account.interface';
+import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
 @Component({
   selector: 'pams-student-affairs-charge',
   templateUrl: './student-affairs-charge.component.html',
@@ -40,7 +40,7 @@ export class StudentAffairsChargeComponent implements OnInit{
       for (let i: number = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.removeAccountCharge(this.account, this.selectedRows[i]));
     }
-    this.selectedRows = [];
+      this.selectedRows = [];
   }
     edit(studentAffairsAccountCharges: AccountCharge): void {
     this.showDialog(studentAffairsAccountCharges);

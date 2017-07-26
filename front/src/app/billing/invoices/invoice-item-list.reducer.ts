@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {InvoiceActions} from "./invoice.action";
-import {InvoiceItem} from "./invoice-item.interface";
+import {InvoiceActions} from './invoice.action';
+import {InvoiceItem} from '../../shared/model/billing/invoice-item.interface';
 
 export type InvoiceItemListState = InvoiceItem[];
 

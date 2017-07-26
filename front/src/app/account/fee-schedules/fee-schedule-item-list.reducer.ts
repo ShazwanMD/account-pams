@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {FeeScheduleItem} from "./fee-schedule-item.interface";
-import {FeeScheduleActions} from "./fee-schedule.action";
+import {FeeScheduleItem} from '../../shared/model/account/fee-schedule-item.interface';
+import {FeeScheduleActions} from './fee-schedule.action';
 
 export type FeeScheduleItemListState = FeeScheduleItem[];
 

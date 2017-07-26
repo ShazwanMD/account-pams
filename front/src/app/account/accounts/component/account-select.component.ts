@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Account} from '../account.interface';
+import {Account} from '../../../shared/model/account/account.interface';
 import {AccountActions} from '../account.action';
 import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';

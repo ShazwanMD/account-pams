@@ -39,7 +39,7 @@ import {ChargeCodeSelectComponent} from './charge-codes/component/charge-code-se
 import {accountWaiverReducer, AccountWaiverState} from './accounts/account-waivers.reducer';
 import {accountStudentListReducer, AccountStudentListState} from './accounts/account-student-list.reducer';
 import {accountSponsorListReducer, AccountSponsorListState} from './accounts/account-sponsor-list.reducer';
-import {Account} from "./accounts/account.interface";
+import {Account} from "../shared/model/account/account.interface";
 import {accountActivityListReducer, AccountActivityListState} from './accounts/account-activity.reducer';
 
 export interface AccountModuleState {

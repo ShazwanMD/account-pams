@@ -1,14 +1,13 @@
-import { StateCode } from './../../../common/state-codes/state-code.interface';
+import { StateCode } from '../../../common/state-codes/state-code.interface';
 
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {SetupModuleState} from "../../index";
-import {SetupActions} from "../../setup.action";
-
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {SetupModuleState} from '../../index';
+import {SetupActions} from '../../setup.action';
 
 @Component({
   selector: 'pams-state-code-creator',
@@ -25,7 +24,7 @@ export class StateCodeCreatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private dialog: MdDialogRef<StateCodeCreatorDialog>,
               private store: Store<SetupModuleState>,
-              private actions: SetupActions
+              private actions: SetupActions,
   ) {
   }
 
@@ -38,7 +37,6 @@ export class StateCodeCreatorDialog implements OnInit {
       descriptionMs: '',
       descriptionEn: '',
       prefix: '',
-     
 
     });
   }

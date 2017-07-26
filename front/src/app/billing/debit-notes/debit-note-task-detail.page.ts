@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {DebitNoteTask} from "./debit-note-task.interface";
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../index";
-import {Store} from "@ngrx/store";
-import {DebitNoteActions} from "./debit-note.action";
-
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../index';
+import {Store} from '@ngrx/store';
+import {DebitNoteActions} from './debit-note.action';
+import {DebitNoteTask} from '../../shared/model/billing/debit-note-task.interface';
 
 @Component({
   selector: 'pams-debit-note-task-detail',
@@ -13,14 +12,14 @@ import {DebitNoteActions} from "./debit-note.action";
 })
 export class DebitNoteTaskDetailPage implements OnInit {
 
-  private DEBIT_NOTE_TASK = "billingModuleState.debitNoteTask".split(".");
+  private DEBIT_NOTE_TASK = 'billingModuleState.debitNoteTask'.split('.');
   private debitNoteTask$: Observable<DebitNoteTask>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private actions: DebitNoteActions) {
-    this.debitNoteTask$ = this.store.select(...this.DEBIT_NOTE_TASK)
+    this.debitNoteTask$ = this.store.select(...this.DEBIT_NOTE_TASK);
   }
 
   ngOnInit(): void {
@@ -34,5 +33,4 @@ export class DebitNoteTaskDetailPage implements OnInit {
     this.router.navigate(['/billing/debit-notes']);
   }
 }
-
-
+

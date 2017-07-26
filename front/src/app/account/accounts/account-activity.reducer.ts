@@ -2,9 +2,9 @@ import {Action} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
 import * as _ from 'lodash';
-import {Account} from "./account.interface";
+import {Account} from "../../shared/model/account/account.interface";
 import {AccountActions} from "./account.action";
-import {AccountActivity} from "./account-activity.interface";
+import {AccountActivity} from "../../shared/model/account/account-activity.interface";
 
 export type AccountActivityListState = AccountActivity[];
 

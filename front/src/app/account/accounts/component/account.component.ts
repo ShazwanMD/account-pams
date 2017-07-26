@@ -1,5 +1,5 @@
 import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
-import {Account} from "../account.interface";
+import {Account} from '../../../shared/model/account/account.interface';
 
 @Component({
   selector: 'pams-account',

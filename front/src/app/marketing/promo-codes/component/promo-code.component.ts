@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {PromoCode} from "../promo-code.interface";
+import {PromoCode} from '../../../shared/model/marketing/promo-code.interface';
 
 @Component({
   selector: 'pams-promo-code',

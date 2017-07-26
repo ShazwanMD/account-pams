@@ -1,12 +1,12 @@
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {ChargeCode} from "./charge-code.interface";
-import {ChargeCodeActions} from "./charge-code.action";
-import {AccountModuleState} from "../index";
-import {ChargeCodeCreatorDialog} from "./dialog/charge-code-creator.dialog";
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {ChargeCodeActions} from './charge-code.action';
+import {AccountModuleState} from '../index';
+import {ChargeCodeCreatorDialog} from './dialog/charge-code-creator.dialog';
+import {ChargeCode} from '../../shared/model/account/charge-code.interface';
 
 @Component({
   selector: 'pams-charge-code-center',
@@ -15,7 +15,7 @@ import {ChargeCodeCreatorDialog} from "./dialog/charge-code-creator.dialog";
 
 export class ChargeCodeCenterPage implements OnInit {
 
-  private CHARGE_CODES: string[] = "accountModuleState.chargeCodes".split(".");
+  private CHARGE_CODES: string[] = 'accountModuleState.chargeCodes'.split('.');
   private chargeCodes$: Observable<ChargeCode[]>;
   private creatorDialogRef: MdDialogRef<ChargeCodeCreatorDialog>;
 
@@ -33,7 +33,7 @@ export class ChargeCodeCenterPage implements OnInit {
   }
 
   showDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -50,4 +50,4 @@ export class ChargeCodeCenterPage implements OnInit {
     this.store.dispatch(this.actions.findChargeCodes());
   }
 }
-
+

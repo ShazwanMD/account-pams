@@ -3,19 +3,19 @@ import {Response} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
-import {InvoiceTask} from '../app/billing/invoices/invoice-task.interface';
-import {Invoice} from '../app/billing/invoices/invoice.interface';
-import {InvoiceItem} from '../app/billing/invoices/invoice-item.interface';
-import {ReceiptTask} from '../app/billing/receipts/receipt-task.interface';
-import {Receipt} from '../app/billing/receipts/receipt.interface';
-import {ReceiptItem} from '../app/billing/receipts/receipt-item.interface';
-import {CreditNote} from '../app/billing/credit-notes/credit-note.interface';
-import {DebitNote} from '../app/billing/debit-notes/debit-note.interface';
-import {CreditNoteTask} from '../app/billing/credit-notes/credit-note-task.interface';
-import {DebitNoteTask} from '../app/billing/debit-notes/debit-note-task.interface';
-import {DebitNoteItem} from '../app/billing/debit-notes/debit-note-item.interface';
-import {CreditNoteItem} from '../app/billing/credit-notes/credit-note-item.interface';
-import {Account} from '../app/account/accounts/account.interface';
+import {InvoiceTask} from '../app/shared/model/billing/invoice-task.interface';
+import {Invoice} from '../app/shared/model/billing/invoice.interface';
+import {InvoiceItem} from '../app/shared/model/billing/invoice-item.interface';
+import {ReceiptTask} from '../app/shared/model/billing/receipt-task.interface';
+import {Receipt} from '../app/shared/model/billing/receipt.interface';
+import {ReceiptItem} from '../app/shared/model/billing/receipt-item.interface';
+import {CreditNote} from '../app/shared/model/billing/credit-note.interface';
+import {DebitNote} from '../app/shared/model/billing/debit-note.interface';
+import {CreditNoteTask} from '../app/shared/model/billing/credit-note-task.interface';
+import {DebitNoteTask} from '../app/shared/model/billing/debit-note-task.interface';
+import {DebitNoteItem} from '../app/shared/model/billing/debit-note-item.interface';
+import {CreditNoteItem} from '../app/shared/model/billing/credit-note-item.interface';
+import {Account} from '../app/shared/model/account/account.interface';
 
 @Injectable()
 export class BillingService {
@@ -76,7 +76,7 @@ export class BillingService {
     return this._http.get(this.BILLING_API + '/invoices/' + referenceNo)
       .map((res: Response) => <Invoice>res.json());
   }
-  
+
   findInvoicesByAccount(code: string): Observable<Invoice> {
       return this._http.get(this.BILLING_API + '/invoices/account/' + code)
         .map((res: Response) => <Invoice>res.json());
@@ -165,7 +165,7 @@ export class BillingService {
     return this._http.get(this.BILLING_API + '/receipts/pooledTasks')
       .map((res: Response) => <ReceiptTask[]>res.json());
   }
-  
+
   findArchivedReceipts(): Observable<Receipt[]> {
       console.log('findArchivedReceipts');
       return this._http.get(this.BILLING_API + '/receipts/archived' )
@@ -238,12 +238,12 @@ export class BillingService {
     return this._http.delete(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptItems/' + item.id)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
-  
+
   calculateChargeInvoice(receipt: Receipt): Observable<String> {
       return this._http.post(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/account', null)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
-  
+
   addReceiptInvoiceItems(receipt: Receipt, invoice: Invoice): Observable<String> {
       return this._http.post(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/invoice/'+ invoice.referenceNo, JSON.stringify(invoice))
         .flatMap((res: Response) => Observable.of(res.text()));

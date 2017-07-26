@@ -8,14 +8,13 @@ import {
   AfterViewInit,
   ViewContainerRef,
 } from '@angular/core';
-import { ResidencyCode } from './../../common/residency-codes/residency-code.interface';
-import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {SetupActions} from "../setup.action";
-import {SetupModuleState} from "../index";
-import {Observable} from "rxjs/Observable";
-import { TaxCode} from "../../common/tax-codes/tax-code.interface";
-import { TaxCodeEditorDialog } from "./dialog/tax-code-editor.dialog";
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {SetupActions} from '../setup.action';
+import {SetupModuleState} from '../index';
+import {Observable} from 'rxjs/Observable';
+import { TaxCode} from '../../common/tax-codes/tax-code.interface';
+import { TaxCodeEditorDialog } from './dialog/tax-code-editor.dialog';
 import {
   TdDataTableService,
   TdDataTableSortingOrder,
@@ -30,15 +29,15 @@ import {
 })
 export class TaxCodeListPage implements OnInit {
 
-  private TAX_CODES = "setupModuleState.taxCodes".split(".");
-  
-  private taxCodes$:Observable<TaxCode[]>;
+  private TAX_CODES = 'setupModuleState.taxCodes'.split('.');
+
+  private taxCodes$: Observable<TaxCode[]>;
   private creatorDialogRef: MdDialogRef<TaxCodeEditorDialog>;
   private columns: any[] = [
     {name: 'code', label: 'Code'},
     {name: 'description', label: 'Description'},
     {name: 'taxRate', label: 'Tax Rate'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
   private taxCodes: TaxCode[];
@@ -58,25 +57,24 @@ export class TaxCodeListPage implements OnInit {
               private store: Store<SetupModuleState>,
               private _dataTableService: TdDataTableService){
     this.taxCodes$ = this.store.select(...this.TAX_CODES);
-    this.taxCodes$.subscribe(TaxCodes=>this.taxCodes= TaxCodes)
+    this.taxCodes$.subscribe((TaxCodes) => this.taxCodes = TaxCodes);
   }
- 
+
    ngOnInit(): void {
-    this.store.dispatch(this.actions.findTaxCodes())
-    this.store.dispatch(this.actions.changeTitle("Tax Codes"))
+    this.store.dispatch(this.actions.findTaxCodes());
+    this.store.dispatch(this.actions.changeTitle('Tax Codes'));
   }
 
    createDialog(): void {
      this.showDialog(null);
    }
 
-   editDialog(code:TaxCode): void {
+   editDialog(code: TaxCode): void {
      this.showDialog(code);
    }
-   
 
    delete(code: TaxCode): void {
-     this.store.dispatch(this.actions.removeTaxCode(code))
+     this.store.dispatch(this.actions.removeTaxCode(code));
    }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -107,8 +105,8 @@ export class TaxCodeListPage implements OnInit {
     this.filteredData = newData;
   }
 
-   private showDialog(code:TaxCode): void {
-     console.log("create");
+   private showDialog(code: TaxCode): void {
+     console.log('create');
      let config = new MdDialogConfig();
      config.viewContainerRef = this.vcf;
      config.role = 'dialog';
@@ -116,9 +114,9 @@ export class TaxCodeListPage implements OnInit {
      config.height = '65%';
      config.position = {top: '0px'};
      this.creatorDialogRef = this.dialog.open(TaxCodeEditorDialog, config);
-     if(code) this.creatorDialogRef.componentInstance.taxCode = code; // set
-     this.creatorDialogRef.afterClosed().subscribe(res => {
-       console.log("close dialog");
+     if (code) this.creatorDialogRef.componentInstance.taxCode = code; // set
+     this.creatorDialogRef.afterClosed().subscribe((res) => {
+       console.log('close dialog');
      });
    }
 

@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
-import {FormControl} from "@angular/forms";
-import { BillingModuleState } from "../../index";
-import { Invoice } from "../invoice.interface";
-import { InvoiceActions } from "../invoice.action";
-import {Receipt} from "../../receipts/receipt.interface";
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {FormControl} from '@angular/forms';
+import {BillingModuleState} from '../../index';
+import {InvoiceActions} from '../invoice.action';
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
+import {Receipt} from '../../../shared/model/billing/receipt.interface';
 
 @Component({
   selector: 'pams-invoice-select',
@@ -13,13 +13,14 @@ import {Receipt} from "../../receipts/receipt.interface";
 })
 export class InvoiceSelectComponent implements OnInit {
 
-  private INVOICES = "billingModuleState.invoices".split(".");
+  private INVOICES = 'billingModuleState.invoices'.split('.');
+  private invoices$: Observable<Invoice[]>;
+  private selected: Invoice;
+
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   @Input() preSelected: Invoice;
   @Input() receipt: Receipt;
-  private invoices$: Observable<Invoice[]>;
-  private selected: Invoice;
 
   constructor(private store: Store<BillingModuleState>,
               private actions: InvoiceActions) {
@@ -27,15 +28,15 @@ export class InvoiceSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.receipt)
-        this.store.dispatch(this.actions.findUnpaidInvoices(this.receipt.account));
+    if (this.receipt)
+      this.store.dispatch(this.actions.findUnpaidInvoices(this.receipt.account));
     else
-        this.store.dispatch(this.actions.findCompletedInvoices());
-    
-    if(this.preSelected){
-        this.invoices$.subscribe(invoices => {
-            this.selected = invoices.find(invoice => invoice.id == this.preSelected.id);
-        })
+      this.store.dispatch(this.actions.findCompletedInvoices());
+
+    if (this.preSelected) {
+      this.invoices$.subscribe((invoices) => {
+        this.selected = invoices.find((invoice) => invoice.id == this.preSelected.id);
+      });
     }
   }
 
@@ -43,4 +44,4 @@ export class InvoiceSelectComponent implements OnInit {
     this.innerFormControl.setValue(event, {emitEvent: false});
   }
 }
-
+

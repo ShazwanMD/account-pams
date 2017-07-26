@@ -1,8 +1,13 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
 import {MdSnackBar} from "@angular/material";
-import {CreditNoteTask} from "../credit-note-task.interface";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
+import {CreditNoteTask} from "../../../shared/model/billing/credit-note-task.interface";
+import {Router, ActivatedRoute} from "@angular/router";
+import {
+  TdDataTableService,
+  TdDataTableSortingOrder,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent
+} from "@covalent/core";
 
 @Component({
   selector: 'pams-assigned-credit-note-task-list',
@@ -26,10 +31,10 @@ export class AssignedCreditNoteTaskListComponent {
     {name: 'action', label: ''}
   ];
 
-   constructor(private snackBar: MdSnackBar,
-          private router: Router,
-          private route: ActivatedRoute,
-          private _dataTableService: TdDataTableService) {
+  constructor(private snackBar: MdSnackBar,
+              private router: Router,
+              private route: ActivatedRoute,
+              private _dataTableService: TdDataTableService) {
   }
 
   viewTask(task: CreditNoteTask): void {
@@ -40,7 +45,7 @@ export class AssignedCreditNoteTaskListComponent {
     });
   }
 
-    filteredData: any[];
+  filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';
   fromRow: number = 1;
@@ -49,7 +54,7 @@ export class AssignedCreditNoteTaskListComponent {
   sortBy: string = 'referenceNo';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    
+
   ngAfterViewInit(): void {
     this.filteredData = this.creditNoteTasks;
     this.filteredTotal = this.creditNoteTasks.length;

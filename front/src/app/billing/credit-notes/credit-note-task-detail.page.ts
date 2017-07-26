@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../index";
-import {Store} from "@ngrx/store";
-import {CreditNoteTask} from "./credit-note-task.interface";
-import {CreditNoteActions} from "./credit-note.action";
-
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../index';
+import {Store} from '@ngrx/store';
+import {CreditNoteTask} from '../../shared/model/billing/credit-note-task.interface';
+import {CreditNoteActions} from './credit-note.action';
 
 @Component({
   selector: 'pams-credit-note-task-detail',
@@ -13,14 +12,14 @@ import {CreditNoteActions} from "./credit-note.action";
 })
 export class CreditNoteTaskDetailPage implements OnInit {
 
-  private CREDIT_NOTE_TASK = "billingModuleState.creditNoteTask".split(".");
+  private CREDIT_NOTE_TASK = 'billingModuleState.creditNoteTask'.split('.');
   private creditNoteTask$: Observable<CreditNoteTask>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private actions: CreditNoteActions) {
-    this.creditNoteTask$ = this.store.select(...this.CREDIT_NOTE_TASK)
+    this.creditNoteTask$ = this.store.select(...this.CREDIT_NOTE_TASK);
   }
 
   ngOnInit(): void {
@@ -34,5 +33,4 @@ export class CreditNoteTaskDetailPage implements OnInit {
     this.router.navigate(['/billing/credit-notes']);
   }
 }
-
-
+

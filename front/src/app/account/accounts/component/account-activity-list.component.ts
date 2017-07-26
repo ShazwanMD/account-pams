@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {AccountTransaction} from "../account-transaction.interface";
+import {AccountTransaction} from '../../../shared/model/account/account-transaction.interface';
 
 @Component({
   selector: 'pams-account-activity-list',
@@ -7,7 +7,6 @@ import {AccountTransaction} from "../account-transaction.interface";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountActivityListComponent {
-  @Input() transactions: AccountTransaction[];
 
   private columns: any[] = [
     {name: 'sourceNo', label: 'Source'},
@@ -16,5 +15,7 @@ export class AccountActivityListComponent {
     {name: 'amount', label: 'Amount'},
     {name: 'action', label: ''}
   ];
+
+  @Input() transactions: AccountTransaction[];
 
 }

@@ -11,13 +11,13 @@ import {BillingService} from '../../services/billing.service';
 import {InvoiceTaskState, invoiceTaskReducer} from './invoices/invoice-task.reducer';
 import {InvoiceState, invoiceReducer} from './invoices/invoice.reducer';
 import {InvoiceSubModule} from './invoices/index';
-import {InvoiceTask} from './invoices/invoice-task.interface';
-import {Invoice} from './invoices/invoice.interface';
+import {InvoiceTask} from '../shared/model/billing/invoice-task.interface';
+import {Invoice} from '../shared/model/billing/invoice.interface';
 import {receiptTaskReducer, ReceiptTaskState} from './receipts/receipt-task.reducer';
 import {receiptReducer, ReceiptState} from './receipts/receipt.reducer';
 import {ReceiptSubModule} from './receipts/index';
-import {ReceiptTask} from './receipts/receipt-task.interface';
-import {Receipt} from './receipts/receipt.interface';
+import {ReceiptTask} from '../shared/model/billing/receipt-task.interface';
+import {Receipt} from '../shared/model/billing/receipt.interface';
 import {invoiceItemListReducer, InvoiceItemListState} from './invoices/invoice-item-list.reducer';
 import {archivedInvoiceListReducer, invoiceListReducer, InvoiceListState} from './invoices/invoice-list.reducer';
 import {DebitNoteTaskState, debitNoteTaskReducer} from './debit-notes/debit-note-task.reducer';
@@ -34,16 +34,16 @@ import {
 import {DebitNoteSubModule} from './debit-notes/index';
 import {CreditNoteSubModule} from './credit-notes/index';
 import {receiptItemListReducer, ReceiptItemListState} from './receipts/receipt-item-list.reducer';
-import {DebitNoteTask} from './debit-notes/debit-note-task.interface';
-import {DebitNote} from './debit-notes/debit-note.interface';
+import {DebitNoteTask} from '../shared/model/billing/debit-note-task.interface';
+import {DebitNote} from '../shared/model/billing/debit-note.interface';
 import {CreditNoteTaskState, creditNoteTaskReducer} from './credit-notes/credit-note-task.reducer';
 import {CreditNoteState, creditNoteReducer} from './credit-notes/credit-note.reducer';
 import {
   DebitNoteListState,
   archivedDebitNoteListReducer,
 } from './debit-notes/debit-note-list.reducer';
-import {CreditNoteTask} from './credit-notes/credit-note-task.interface';
-import {CreditNote} from './credit-notes/credit-note.interface';
+import {CreditNoteTask} from '../shared/model/billing/credit-note-task.interface';
+import {CreditNote} from '../shared/model/billing/credit-note.interface';
 import {
   DebitNoteTaskListState,
   assignedDebitNoteTaskListReducer,

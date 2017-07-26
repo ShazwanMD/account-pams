@@ -35,7 +35,7 @@ import {StudentAffairsChargeEditorDialog} from './dialog/student-affairs-charge-
 import {CompoundChargeEditorDialog} from './dialog/compound-charge-editor.dialog';
 import {CommonModule} from '../../common/index';
 import {AcademicSessionSubModule} from '../academic-sessions/index';
-import { AccountSponsorListComponent } from "./component/account-sponsor-list.component";
+import {AccountSponsorListComponent} from './component/account-sponsor-list.component';
 
 @NgModule({
   imports: [

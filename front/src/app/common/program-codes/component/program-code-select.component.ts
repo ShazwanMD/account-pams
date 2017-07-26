@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
-import {FormControl} from "@angular/forms";
-import {CommonActions} from "../../common.action";
-import {CommonModuleState} from "../../index";
-import {ProgramCode} from "../program-code.interface";
-
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {FormControl} from '@angular/forms';
+import {CommonActions} from '../../common.action';
+import {CommonModuleState} from '../../index';
+import {ProgramCode} from '../program-code.interface';
 
 @Component({
   selector: 'pams-program-code-select',
@@ -13,10 +12,10 @@ import {ProgramCode} from "../program-code.interface";
 })
 export class ProgramCodeSelectComponent implements OnInit {
 
-  private PROGRAM_CODES = "commonModuleState.programCodes".split(".");
+  private PROGRAM_CODES = 'commonModuleState.programCodes'.split('.');
+  private programCodes$: Observable<ProgramCode[]>;
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
-  programCodes$: Observable<ProgramCode[]>;
 
   constructor(private store: Store<CommonModuleState>,
               private actions: CommonActions) {

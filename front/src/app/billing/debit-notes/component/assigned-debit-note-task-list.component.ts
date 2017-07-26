@@ -1,9 +1,13 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import { MdSnackBar } from "@angular/material";
-import { DebitNoteTask } from "../debit-note-task.interface";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
-
+import {MdSnackBar} from '@angular/material';
+import {DebitNoteTask} from '../../../shared/model/billing/debit-note-task.interface';
+import {Router, ActivatedRoute} from '@angular/router';
+import {
+  TdDataTableService,
+  TdDataTableSortingOrder,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent,
+} from '@covalent/core';
 
 @Component({
   selector: 'pams-assigned-debit-note-task-list',
@@ -11,9 +15,6 @@ import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEven
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssignedDebitNoteTaskListComponent {
-
-  @Input() debitNoteTasks: DebitNoteTask[];
-  @Output() view = new EventEmitter<DebitNoteTask>();
 
   private columns: any[] = [
     {name: 'debitNoteDate', label: 'Date'},
@@ -24,24 +25,27 @@ export class AssignedDebitNoteTaskListComponent {
     {name: 'chargeCode.description', label: 'Charge Code'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
+  @Input() debitNoteTasks: DebitNoteTask[];
+  @Output() view = new EventEmitter<DebitNoteTask>();
+
   constructor(private snackBar: MdSnackBar,
-          private router: Router,
-          private route: ActivatedRoute,
-          private _dataTableService: TdDataTableService) {
+              private router: Router,
+              private route: ActivatedRoute,
+              private _dataTableService: TdDataTableService) {
   }
 
   viewTask(task: DebitNoteTask): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing debit note", "OK");
+    console.log('Emitting task');
+    let snackBarRef = this.snackBar.open('Viewing debit note', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(task);
     });
   }
 
-   filteredData: any[];
+  filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';
   fromRow: number = 1;
@@ -50,7 +54,6 @@ export class AssignedDebitNoteTaskListComponent {
   sortBy: string = 'referenceNo';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    
   ngAfterViewInit(): void {
     this.filteredData = this.debitNoteTasks;
     this.filteredTotal = this.debitNoteTasks.length;

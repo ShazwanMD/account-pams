@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {ReceiptTask} from "../receipt-task.interface";
-import {MdSnackBar} from "@angular/material";
+import {ReceiptTask} from '../../../shared/model/billing/receipt-task.interface';
+import {MdSnackBar} from '@angular/material';
 
 @Component({
   selector: 'pams-assigned-receipt-task-list',
@@ -8,9 +8,6 @@ import {MdSnackBar} from "@angular/material";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssignedReceiptTaskListComponent {
-
-  @Input() receiptTasks: ReceiptTask[];
-  @Output() view = new EventEmitter<ReceiptTask>();
 
   private columns: any[] = [
     {name: 'receivedDate', label: 'Date'},
@@ -20,15 +17,18 @@ export class AssignedReceiptTaskListComponent {
     {name: 'paymentMethod', label: 'Payment Method'},
     {name: 'sourceNo', label: 'Source No'},
     {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() receiptTasks: ReceiptTask[];
+  @Output() view = new EventEmitter<ReceiptTask>();
 
   constructor(private snackBar: MdSnackBar) {
   }
 
   viewTask(task: ReceiptTask): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing receipt", "OK");
+    console.log('Emitting task');
+    let snackBarRef = this.snackBar.open('Viewing receipt', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(task);
     });

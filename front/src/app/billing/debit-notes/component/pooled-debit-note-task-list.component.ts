@@ -1,9 +1,9 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import { MdSnackBar } from "@angular/material";
-import { DebitNote } from "../debit-note.interface";
-import { DebitNoteTask } from "../debit-note-task.interface";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
+import { MdSnackBar } from '@angular/material';
+import { DebitNote } from '../../../shared/model/billing/debit-note.interface';
+import { DebitNoteTask } from '../../../shared/model/billing/debit-note-task.interface';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from '@covalent/core';
 
 @Component({
   selector: 'pams-pooled-debit-note-task-list',
@@ -24,7 +24,7 @@ export class PooledDebitNoteTaskListComponent {
     {name: 'chargeCode.description', label: 'Charge Code'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
    constructor(private snackBar: MdSnackBar,
@@ -34,8 +34,8 @@ export class PooledDebitNoteTaskListComponent {
   }
 
   claimTask(task: DebitNoteTask): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Claiming invoice", "OK");
+    console.log('Emitting task');
+    let snackBarRef = this.snackBar.open('Claiming invoice', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.claim.emit(task);
     });
@@ -50,7 +50,6 @@ export class PooledDebitNoteTaskListComponent {
   sortBy: string = 'referenceNo';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    
   ngAfterViewInit(): void {
     this.filteredData = this.debitNoteTasks;
     this.filteredTotal = this.debitNoteTasks.length;

@@ -1,10 +1,8 @@
 import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
 
 import * as _ from 'lodash';
-import {PromoCodeActions} from "./promo-code.action";
-import {PromoCodeItem} from "./promo-code-item.interface";
-import {state} from "@angular/core";
+import {PromoCodeActions} from './promo-code.action';
+import {PromoCodeItem} from '../../shared/model/marketing/promo-code-item.interface';
 
 export type PromoCodeItemListState = PromoCodeItem[];
 

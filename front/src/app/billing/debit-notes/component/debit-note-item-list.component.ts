@@ -3,10 +3,10 @@ import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/materi
 import {ActivatedRoute, Router} from '@angular/router';
 import {BillingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
-import { DebitNote } from '../debit-note.interface';
-import { DebitNoteItem } from '../debit-note-item.interface';
-import { DebitNoteActions } from '../debit-note.action';
-import { DebitNoteItemEditorDialog } from '../dialog/debit-note-item-editor.dialog';
+import {DebitNote} from '../../../shared/model/billing/debit-note.interface';
+import {DebitNoteItem} from '../../../shared/model/billing/debit-note-item.interface';
+import {DebitNoteActions} from '../debit-note.action';
+import {DebitNoteItemEditorDialog} from '../dialog/debit-note-item-editor.dialog';
 
 @Component({
   selector: 'pams-debit-note-item-list',
@@ -14,9 +14,6 @@ import { DebitNoteItemEditorDialog } from '../dialog/debit-note-item-editor.dial
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DebitNoteItemListComponent implements OnInit {
-
-  @Input() debitNote: DebitNote;
-  @Input() debitNoteItems: DebitNoteItem[];
 
   private selectedRows: DebitNoteItem[];
   private editorDialogRef: MdDialogRef<DebitNoteItemEditorDialog>;
@@ -27,6 +24,9 @@ export class DebitNoteItemListComponent implements OnInit {
     {name: 'amount', label: 'Amount'},
     {name: 'action', label: ''},
   ];
+
+  @Input() debitNote: DebitNote;
+  @Input() debitNoteItems: DebitNoteItem[];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -49,13 +49,13 @@ export class DebitNoteItemListComponent implements OnInit {
     this.showDialog(debitNoteItems);
   }
 
-   delete(): void {
-     console.log("length: " + this.selectedRows.length);
-     for (let i = 0; i < this.selectedRows.length; i++) {
-       this.store.dispatch(this.actions.deleteDebitNoteItem(this.debitNote, this.selectedRows[i]));
-     }
-     this.selectedRows = [];
-   }
+  delete(): void {
+    console.log("length: " + this.selectedRows.length);
+    for (let i = 0; i < this.selectedRows.length; i++) {
+      this.store.dispatch(this.actions.deleteDebitNoteItem(this.debitNote, this.selectedRows[i]));
+    }
+    this.selectedRows = [];
+  }
 
   filter(): void {
   }

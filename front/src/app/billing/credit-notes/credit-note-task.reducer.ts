@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {CreditNoteTask} from "./credit-note-task.interface";
-import {CreditNoteActions} from "./credit-note.action";
+import {CreditNoteActions} from './credit-note.action';
+import {CreditNoteTask} from '../../shared/model/billing/credit-note-task.interface';
 
 export type CreditNoteTaskState = CreditNoteTask;
 

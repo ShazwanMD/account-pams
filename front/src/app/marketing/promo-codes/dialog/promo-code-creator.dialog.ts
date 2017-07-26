@@ -2,12 +2,11 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {PromoCode} from "../promo-code.interface";
-import {MarketingModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import {PromoCodeActions} from "../promo-code.action";
-import {MdDialogRef} from "@angular/material";
-
+import {MarketingModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import {PromoCodeActions} from '../promo-code.action';
+import {MdDialogRef} from '@angular/material';
+import {PromoCode} from '../../../shared/model/marketing/promo-code.interface';
 
 @Component({
   selector: 'pams-promo-code-creator',

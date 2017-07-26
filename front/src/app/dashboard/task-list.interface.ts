@@ -1,5 +1,5 @@
-import { Task } from "../core/task.interface";
+import {Task} from '../core/task.interface';
 export interface TaskList {
   list?: Task[];
-  total?:number;
+  total?: number;
 }

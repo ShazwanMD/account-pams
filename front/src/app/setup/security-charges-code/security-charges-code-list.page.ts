@@ -1,5 +1,5 @@
 import { SecurityChargesCodeEditorDialog } from './dialog/security-charges-code-editor.dialog';
-import { SecurityChargesCode } from './../../common/security-charges-code/security-charges-code.interface';
+import { SecurityChargesCode } from '../../common/security-charges-code/security-charges-code.interface';
 
 import {
   Component,
@@ -12,12 +12,11 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
-
-import {Store} from "@ngrx/store";
-import {SetupActions} from "../setup.action";
-import {SetupModuleState} from "../index";
-import {Observable} from "rxjs/Observable";
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
+import {Store} from '@ngrx/store';
+import {SetupActions} from '../setup.action';
+import {SetupModuleState} from '../index';
+import {Observable} from 'rxjs/Observable';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {
   TdDataTableService,
   TdDataTableSortingOrder,
@@ -32,7 +31,7 @@ import {
 })
 export class SecurityChargesCodeListPage implements OnInit{
 
-  private SECURITY_CHARGES_CODES = "setupModuleState.securityChargesCode".split(".");
+  private SECURITY_CHARGES_CODES = 'setupModuleState.securityChargesCode'.split('.');
   private securityChargesCodes$: Observable<SecurityChargesCode[]>;
   private creatorDialogRef: MdDialogRef<SecurityChargesCodeEditorDialog>;
   private columns: any[] = [
@@ -43,7 +42,7 @@ export class SecurityChargesCodeListPage implements OnInit{
     {name: 'amountDescription', label: 'Compound Amount Description'},
     {name: 'amount', label: 'Compound Amount'},
     {name: 'active', label: 'Compound Active'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
     private securityChargesCodes: SecurityChargesCode[];
@@ -63,23 +62,23 @@ export class SecurityChargesCodeListPage implements OnInit{
               private dialog: MdDialog,
               private _dataTableService: TdDataTableService) {
     this.securityChargesCodes$ = this.store.select(...this.SECURITY_CHARGES_CODES);
-    this.securityChargesCodes$.subscribe(SecurityChargesCodes=>this.securityChargesCodes = SecurityChargesCodes)
+    this.securityChargesCodes$.subscribe((SecurityChargesCodes) => this.securityChargesCodes = SecurityChargesCodes);
   }
   ngOnInit(): void {
     this.store.dispatch(this.actions.findSecurityChargesCodes());
-    this.store.dispatch(this.actions.changeTitle("Security Charges Codes"));
+    this.store.dispatch(this.actions.changeTitle('Security Charges Codes'));
   }
 
   createDialog(): void {
     this.showDialog(null);
   }
 
-  editDialog(code:SecurityChargesCode): void {
+  editDialog(code: SecurityChargesCode): void {
     this.showDialog(code);
   }
 
   delete(code: SecurityChargesCode): void {
-    this.store.dispatch(this.actions.removeSecurityChargesCode(code))
+    this.store.dispatch(this.actions.removeSecurityChargesCode(code));
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -100,7 +99,6 @@ export class SecurityChargesCodeListPage implements OnInit{
     this.filter();
   }
 
-
   filter(): void {
     console.log('filter');
     let newData: any[] = this.securityChargesCodes;
@@ -111,8 +109,8 @@ export class SecurityChargesCodeListPage implements OnInit{
     this.filteredData = newData;
   }
 
-  private showDialog(code:SecurityChargesCode): void {
-    console.log("create");
+  private showDialog(code: SecurityChargesCode): void {
+    console.log('create');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -120,9 +118,9 @@ export class SecurityChargesCodeListPage implements OnInit{
     config.height = '65%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(SecurityChargesCodeEditorDialog, config);
-    if(code) this.creatorDialogRef.componentInstance.securityChargesCode = code; // set
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    if (code) this.creatorDialogRef.componentInstance.securityChargesCode = code; // set
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
     });
   }
 }

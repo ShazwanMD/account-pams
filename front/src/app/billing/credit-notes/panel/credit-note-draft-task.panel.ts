@@ -5,9 +5,9 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../../index';
 import {CreditNoteItemEditorDialog} from '../dialog/credit-note-item-editor.dialog';
-import {CreditNoteTask} from '../credit-note-task.interface';
-import {CreditNoteItem} from '../credit-note-item.interface';
 import {CreditNoteActions} from '../credit-note.action';
+import {CreditNoteItem} from '../../../shared/model/billing/credit-note-item.interface';
+import {CreditNoteTask} from '../../../shared/model/billing/credit-note-task.interface';
 
 @Component({
   selector: 'pams-credit-note-draft-task',

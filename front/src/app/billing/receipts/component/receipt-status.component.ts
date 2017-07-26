@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {Receipt} from "../receipt.interface";
+import {Receipt} from '../../../shared/model/billing/receipt.interface';
 
 @Component({
   selector: 'pams-receipt-status',

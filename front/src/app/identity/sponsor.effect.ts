@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Effect, Actions} from '@ngrx/effects';
-import {from} from "rxjs/observable/from";
-import {IdentityService} from "../../services/identity.service";
-import {SponsorActions} from "./sponsor.action";
-
+import {from} from 'rxjs/observable/from';
+import {IdentityService} from '../../services/identity.service';
+import {SponsorActions} from './sponsor.action';
 
 @Injectable()
 export class SponsorEffects {
@@ -15,17 +14,17 @@ export class SponsorEffects {
   @Effect() findSponsors$ = this.actions$
     .ofType(SponsorActions.FIND_SPONSORS)
     .switchMap(() => this.identityService.findSponsors())
-    .map(accounts => this.accountActions.findSponsorsSuccess(accounts));
+    .map((accounts) => this.accountActions.findSponsorsSuccess(accounts));
 
   @Effect() findSponsor$ = this.actions$
     .ofType(SponsorActions.FIND_SPONSOR)
-    .map(action => action.payload)
-    .switchMap(code => this.identityService.findSponsorByIdentityNo(code))
-    .map(account => this.accountActions.findSponsorSuccess(account));
+    .map((action) => action.payload)
+    .switchMap((code) => this.identityService.findSponsorByIdentityNo(code))
+    .map((account) => this.accountActions.findSponsorSuccess(account));
 
   @Effect() updateSponsor$ = this.actions$
     .ofType(SponsorActions.UPDATE_SPONSOR)
-    .map(action => action.payload);
+    .map((action) => action.payload);
     // .switchMap(account => this.identityService.updateSponsor(account))
     // .map(account => this.accountActions.updateSponsorSuccess(account));
 }

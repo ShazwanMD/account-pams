@@ -2,13 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {FinancialaidModuleState} from "../../index";
-import {SettlementActions} from "../settlement.action";
-import {SettlementCreator} from "../settlement-creator.interface";
-import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
-import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {FinancialaidModuleState} from '../../index';
+import {SettlementActions} from '../settlement.action';
+import {SettlementCreator} from '../../../shared/model/financialaid/settlement-creator.interface';
+import {AcademicSession} from '../../../shared/model/account/academic-session.interface';
+import {CohortCode} from '../../../common/cohort-codes/cohort-code.interface';
 
 @Component({
   selector: 'pams-settlement-creator-by-cohort',

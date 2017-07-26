@@ -1,13 +1,8 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {InvoiceTask} from '../invoice-task.interface';
-import {Store} from '@ngrx/store';
 import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
-import {Invoice} from '../invoice.interface';
-import {InvoiceActions} from '../invoice.action';
-import {BillingModuleState} from '../../index';
-import {Observable} from 'rxjs/Observable';
-import {Account} from '../../../account/accounts/account.interface';
-import {InvoiceApplicatorDialog} from "../../receipts/dialog/invoice-applicator.dialog";
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
+import {Account} from '../../../shared/model/account/account.interface';
+import {InvoiceApplicatorDialog} from '../../receipts/dialog/invoice-applicator.dialog';
 
 @Component({
   selector: 'pams-invoice-unpaid-list',

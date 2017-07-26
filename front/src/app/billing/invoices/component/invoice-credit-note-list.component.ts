@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {CreditNote} from '../../credit-notes/credit-note.interface';
-import {Invoice} from '../invoice.interface';
+import {CreditNote} from '../../../shared/model/billing/credit-note.interface';
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
 
 @Component({
   selector: 'pams-invoice-credit-note-list',

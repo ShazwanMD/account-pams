@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {ReceiptActions} from "./receipt.action";
-import {Receipt} from "./receipt.interface";
+import {ReceiptActions} from './receipt.action';
+import {Receipt} from '../../shared/model/billing/receipt.interface';
 
 export type ReceiptState = Receipt;
 

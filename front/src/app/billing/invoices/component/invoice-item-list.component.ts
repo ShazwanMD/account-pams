@@ -1,12 +1,12 @@
 import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
-import {InvoiceItem} from '../invoice-item.interface';
+import {InvoiceItem} from '../../../shared/model/billing/invoice-item.interface';
 import {InvoiceItemEditorDialog} from '../dialog/invoice-item-editor.dialog';
 import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BillingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
 import {InvoiceActions} from '../invoice.action';
-import {Invoice} from '../invoice.interface';
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
 
 @Component({
   selector: 'pams-invoice-item-list',

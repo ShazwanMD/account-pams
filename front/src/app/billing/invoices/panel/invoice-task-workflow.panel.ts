@@ -1,14 +1,13 @@
 import {
   Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit
+  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit,
 } from '@angular/core';
-import {Observable} from "rxjs";
-import {InvoiceTask} from "../invoice-task.interface";
-import {InvoiceDraftTaskPanel} from "./invoice-draft-task.panel";
-import {FlowState} from "../../../core/flow-state.enum";
-import {InvoiceRegisterTaskPanel} from "./invoice-register-task.panel";
-import { InvoiceVerifyTaskPanel } from "./invoice-verify-task.panel";
-
+import {Observable} from 'rxjs';
+import {InvoiceDraftTaskPanel} from './invoice-draft-task.panel';
+import {FlowState} from '../../../core/flow-state.enum';
+import {InvoiceRegisterTaskPanel} from './invoice-register-task.panel';
+import { InvoiceVerifyTaskPanel } from './invoice-verify-task.panel';
+import {InvoiceTask} from '../../../shared/model/billing/invoice-task.interface';
 
 @Component({
   selector: 'pams-invoice-task-workflow',
@@ -27,10 +26,10 @@ export class InvoiceTaskWorkflowPanel implements OnInit {
 
   ngOnInit(): void {
     let componentFactory;
-    this.invoiceTaskObservable.subscribe(task => {
+    this.invoiceTaskObservable.subscribe((task) => {
       if (task.flowState) {
 
-        console.log("task flowState: " + task.flowState);
+        console.log('task flowState: ' + task.flowState);
         if (this.componentRef) this.componentRef.destroy();
         switch (FlowState[task.flowState.toString()]) {
           case FlowState.DRAFTED:

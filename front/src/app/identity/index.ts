@@ -9,20 +9,19 @@ import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../services';
 import {IdentityService} from '../../services';
 
-import {ActorActions} from "./actor.action";
-import {actorListReducer, ActorListState} from "./actor-list.reducer";
-import {studentListReducer, StudentListState} from "./student-list.reducer";
-import {sponsorListReducer, SponsorListState} from "./sponsor-list.reducer";
-import {SponsorActions} from "./sponsor.action";
-import {StudentActions} from "./student.action";
-import {ActorSelectComponent} from "./component/actor-select.component";
-import {StudentSelectComponent} from "./component/student-select.component";
-import {SponsorSelectComponent} from "./component/sponsor-select.component";
-import {SponsorEffects} from "./sponsor.effect";
-import {EffectsModule} from "@ngrx/effects";
-import {StudentEffects} from "./student.effect";
-import {ActorEffects} from "./actor.effect";
-
+import {ActorActions} from './actor.action';
+import {actorListReducer, ActorListState} from './actor-list.reducer';
+import {studentListReducer, StudentListState} from './student-list.reducer';
+import {sponsorListReducer, SponsorListState} from './sponsor-list.reducer';
+import {SponsorActions} from './sponsor.action';
+import {StudentActions} from './student.action';
+import {ActorSelectComponent} from './component/actor-select.component';
+import {StudentSelectComponent} from './component/student-select.component';
+import {SponsorSelectComponent} from './component/sponsor-select.component';
+import {SponsorEffects} from './sponsor.effect';
+import {EffectsModule} from '@ngrx/effects';
+import {StudentEffects} from './student.effect';
+import {ActorEffects} from './actor.effect';
 
 export interface IdentityModuleState {
   actors: ActorListState;
@@ -32,9 +31,9 @@ export interface IdentityModuleState {
 
 export const INITIAL_IDENTITY_STATE: IdentityModuleState = <IdentityModuleState>{};
 export const identityModuleReducers = {
-  actors:actorListReducer,
-  students:studentListReducer,
-  sponsors:sponsorListReducer,
+  actors: actorListReducer,
+  students: studentListReducer,
+  sponsors: sponsorListReducer,
 };
 
 @NgModule({

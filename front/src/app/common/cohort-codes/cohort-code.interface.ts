@@ -1,6 +1,6 @@
-import {MetaObject} from "../../core/meta-object.interface";
+import {MetaObject} from '../../core/meta-object.interface';
 export interface CohortCode extends MetaObject{
-  code:string;
-  description:string;
+  code: string;
+  description: string;
 
 }

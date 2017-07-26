@@ -5,9 +5,9 @@ import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
 import {AccountModuleState} from '../../index';
-import {Account} from '../account.interface';
+import {Account} from '../../../shared/model/account/account.interface';
 import {Router, ActivatedRoute} from '@angular/router';
-import {AccountCharge} from '../account-charge.interface';
+import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
 
 @Component({
   selector: 'pams-compound-charge',

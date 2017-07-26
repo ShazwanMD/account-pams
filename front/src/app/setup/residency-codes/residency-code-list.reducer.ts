@@ -1,6 +1,6 @@
-import { ResidencyCode } from './../../common/residency-codes/residency-code.interface';
+import { ResidencyCode } from '../../common/residency-codes/residency-code.interface';
 import {Action} from '@ngrx/store';
-import {SetupActions} from "../setup.action";
+import {SetupActions} from '../setup.action';
 
 export type ResidencyCodeListState = ResidencyCode[];
 

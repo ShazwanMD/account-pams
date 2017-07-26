@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
-import {FormControl} from "@angular/forms";
-import {CommonActions} from "../../common.action";
-import {CommonModuleState} from "../../index";
-import { TaxCode } from "../tax-code.interface";
-
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {FormControl} from '@angular/forms';
+import {CommonActions} from '../../common.action';
+import {CommonModuleState} from '../../index';
+import {TaxCode} from '../tax-code.interface';
 
 @Component({
   selector: 'pams-tax-code-select',
@@ -13,7 +12,7 @@ import { TaxCode } from "../tax-code.interface";
 })
 export class TaxCodeSelectComponent implements OnInit {
 
-  private TAX_CODES = "commonModuleState.taxCodes".split(".");
+  private TAX_CODES = 'commonModuleState.taxCodes'.split('.');
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   taxCodes$: Observable<TaxCode[]>;
@@ -31,4 +30,4 @@ export class TaxCodeSelectComponent implements OnInit {
     this.innerFormControl.setValue(event, {emitEvent: false});
   }
 }
-
+

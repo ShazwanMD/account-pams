@@ -1,5 +1,5 @@
-import {Account} from '../account.interface';
-import {AccountCharge} from '../account-charge.interface';
+import {Account} from '../../../shared/model/account/account.interface';
+import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
 import {Component, ViewContainerRef, OnInit, Input} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
@@ -8,7 +8,7 @@ import {Store} from '@ngrx/store';
 import {AccountModuleState} from '../../index';
 import {MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
-import {AccountChargeType} from '../account-charge-type.enum';
+import {AccountChargeType} from '../../../shared/model/account/account-charge-type.enum';
 
 @Component({
   selector: 'pams-student-affairs-charge-editor',

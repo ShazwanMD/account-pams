@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import { CreditNote } from "../credit-note.interface";
+import {CreditNote} from '../../../shared/model/billing/credit-note.interface';
 
 @Component({
   selector: 'pams-credit-note-status',
@@ -8,5 +8,5 @@ import { CreditNote } from "../credit-note.interface";
 
 })
 export class CreditNoteStatusComponent {
-  @Input() creditNote:CreditNote;
+  @Input() creditNote: CreditNote;
 }

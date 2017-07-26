@@ -2,14 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {DebitNote} from "../debit-note.interface";
-import {BillingModuleState} from "../../index";
-import {DebitNoteActions} from "../debit-note.action";
-import {Invoice} from "../../invoices/invoice.interface";
-import { ChargeCode } from "../../../account/charge-codes/charge-code.interface";
-
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {DebitNote} from '../../../shared/model/billing/debit-note.interface';
+import {BillingModuleState} from '../../index';
+import {DebitNoteActions} from '../debit-note.action';
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
+import {ChargeCode} from '../../../shared/model/account/charge-code.interface';
 
 @Component({
   selector: 'pams-debit-note-creator',
@@ -49,10 +48,10 @@ export class DebitNoteCreatorDialog implements OnInit {
   }
 
   save(debitNote: DebitNote, isValid: boolean): void {
-    console.log("start debit note");
+    console.log('start debit note');
     debitNote.sourceNo = this._invoice.referenceNo;
-    console.log("sourceNo: " + debitNote.sourceNo);
-    console.log("invoice: " + this._invoice.referenceNo);
+    console.log('sourceNo: ' + debitNote.sourceNo);
+    console.log('invoice: ' + this._invoice.referenceNo);
 
     this.store.dispatch(this.actions.startDebitNoteTask(debitNote));
     this.dialog.close();

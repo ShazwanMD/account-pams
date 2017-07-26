@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {InvoiceActions} from "./invoice.action";
-import {Invoice} from "./invoice.interface";
+import {InvoiceActions} from './invoice.action';
+import {Invoice} from '../../shared/model/billing/invoice.interface';
 
 export type InvoiceListState = Invoice[];
 
@@ -23,8 +23,8 @@ export function invoiceListReducer(state = initialState, action: Action): Invoic
       return action.payload;
     }
     case InvoiceActions.FIND_UNPAID_INVOICES_SUCCESS: {
-        return action.payload;
-      }
+      return action.payload;
+    }
     default: {
       return state;
     }

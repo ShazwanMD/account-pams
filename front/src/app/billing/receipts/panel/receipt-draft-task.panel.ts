@@ -1,18 +1,17 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ReceiptItem} from '../receipt-item.interface';
+import {ReceiptItem} from '../../../shared/model/billing/receipt-item.interface';
 import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 import {ReceiptItemEditorDialog} from '../dialog/receipt-item-editor.dialog';
-import {ReceiptTask} from '../receipt-task.interface';
+import {ReceiptTask} from '../../../shared/model/billing/receipt-task.interface';
 import {ReceiptActions} from '../receipt.action';
-import {ReceiptTaskState} from '../receipt-task.reducer';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../../index';
 import {PromoCodeApplicatorDialog} from '../dialog/promo-code-applicator.dialog';
 import {AccountModuleState} from '../../../account/index';
-import {Invoice} from '../../invoices/invoice.interface';
-import {Account} from '../../../account/accounts/account.interface';
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
+import {Account} from '../../../shared/model/account/account.interface';
 import {InvoiceActions} from '../../invoices/invoice.action';
 
 @Component({

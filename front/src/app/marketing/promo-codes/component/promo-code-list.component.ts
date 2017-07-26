@@ -1,7 +1,7 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, AfterViewInit} from '@angular/core';
 import { TdDataTableSortingOrder, TdDataTableService, ITdDataTableSortChangeEvent } from '@covalent/core';
 import { IPageChangeEvent } from '@covalent/core';
-import {PromoCode} from "../promo-code.interface";
+import {PromoCode} from '../../../shared/model/marketing/promo-code.interface';
 
 @Component({
   selector: 'pams-promo-code-list',
@@ -18,7 +18,7 @@ export class PromoCodeListComponent implements AfterViewInit {
     {name: 'description', label: 'Description'},
     {name: 'action', label: ''}
   ];
-  
+
   filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';
@@ -29,7 +29,7 @@ export class PromoCodeListComponent implements AfterViewInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
   constructor(private _dataTableService: TdDataTableService) {}
-  
+
   ngAfterViewInit(): void {
     this.filteredData = this.promoCodes;
     this.filteredTotal = this.promoCodes.length;

@@ -2,16 +2,14 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
-import {Account} from "../../../account/accounts/account.interface";
-import {ReceiptActions} from "../receipt.action";
-import {BillingModuleState} from "../../index";
-import {Receipt} from "../receipt.interface";
-import { ReceiptType } from "../receipt-type.enum";
-import { PaymentMethod } from "../../../common/payment-method.enum";
-
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {Account} from '../../../shared/model/account/account.interface';
+import {ReceiptActions} from '../receipt.action';
+import {BillingModuleState} from '../../index';
+import {Receipt} from '../../../shared/model/billing/receipt.interface';
+import { ReceiptType } from '../../../shared/model/billing/receipt-type.enum';
+import { PaymentMethod } from '../../../shared/model/common/payment-method.enum';
 
 @Component({
   selector: 'pams-receipt-task-creator',
@@ -36,14 +34,14 @@ export class ReceiptTaskCreatorDialog implements OnInit {
       id: null,
       referenceNo: '',
       receivedDate: undefined,
-      receiptNo:'',
-      sourceNo:'',
-      auditNo:'',
+      receiptNo: '',
+      sourceNo: '',
+      auditNo: '',
       description: '',
-      totalApplied:0,
-      totalReceived:0,
-      totalAmount:0,
-      account:<Account>{},
+      totalApplied: 0,
+      totalReceived: 0,
+      totalAmount: 0,
+      account: <Account>{},
       receiptType: <ReceiptType>{},
       paymentMethod: <PaymentMethod>{},
     });

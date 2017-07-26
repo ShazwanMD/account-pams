@@ -6,12 +6,12 @@ import {MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
 import {AccountModuleState} from '../../index';
 import {StudyMode} from '../../../common/study-modes/study-mode.interface';
-import {AcademicSession} from '../../academic-sessions/academic-session.interface';
-import {Account} from '../account.interface';
+import {AcademicSession} from '../../../shared/model/account/academic-session.interface';
+import {Account} from '../../../shared/model/account/account.interface';
 import {CohortCode} from '../../../common/cohort-codes/cohort-code.interface';
 import {Router, ActivatedRoute} from '@angular/router';
-import {AccountCharge} from '../account-charge.interface';
-import {AccountChargeType} from '../account-charge-type.enum';
+import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
+import {AccountChargeType} from '../../../shared/model/account/account-charge-type.enum';
 
 @Component({
   selector: 'pams-loan-charge-editor',

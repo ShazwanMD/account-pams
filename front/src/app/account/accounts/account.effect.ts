@@ -5,7 +5,7 @@ import {AccountService} from '../../../services/account.service';
 import {from} from 'rxjs/observable/from';
 import {AccountModuleState} from '../index';
 import {Store} from '@ngrx/store';
-import {Account} from './account.interface';
+import {Account} from '../../shared/model/account/account.interface';
 
 @Injectable()
 export class AccountEffects {

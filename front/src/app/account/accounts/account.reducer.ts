@@ -1,7 +1,7 @@
 import {Action} from '@ngrx/store';
 import {AccountActions} from "./account.action";
-import {Account} from "./account.interface";
-import {Actor} from "../../identity/actor.interface";
+import {Account} from "../../shared/model/account/account.interface";
+import {Actor} from "../../shared/model/identity/actor.interface";
 
 export type AccountState = Account;
 

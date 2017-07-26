@@ -4,11 +4,11 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {InvoiceActions} from './invoice.action';
-import {InvoiceTask} from './invoice-task.interface';
+import {InvoiceTask} from '../../shared/model/billing/invoice-task.interface';
 import {BillingModuleState} from '../index';
 import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
 import {InvoiceTaskCreatorDialog} from './dialog/invoice-task-creator.dialog';
-import {Invoice} from './invoice.interface';
+import {Invoice} from '../../shared/model/billing/invoice.interface';
 
 @Component({
   selector: 'pams-invoice-center',

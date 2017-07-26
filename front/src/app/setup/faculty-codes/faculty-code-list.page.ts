@@ -1,13 +1,11 @@
-import { FacultyCode } from './../../common/faculty-codes/faculty-code.interface';
+import { FacultyCode } from '../../common/faculty-codes/faculty-code.interface';
 import { FacultyCodeCreatorDialog } from './dialog/faculty-code-creator.dialog';
-import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {SetupActions} from "../setup.action";
-import {SetupModuleState} from "../index";
-import {Observable} from "rxjs/Observable";
-
-
+import {Store} from '@ngrx/store';
+import {SetupActions} from '../setup.action';
+import {SetupModuleState} from '../index';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'pams-faculty-list-page',
@@ -15,13 +13,13 @@ import {Observable} from "rxjs/Observable";
 })
 export class FacultyCodeListPage implements OnInit {
 
-  private FACULTY_CODES = "setupModuleState.facultyCodes".split(".");
+  private FACULTY_CODES = 'setupModuleState.facultyCodes'.split('.');
   private creatorDialogRef: MdDialogRef<FacultyCodeCreatorDialog>;
-  private facultyCodes$:Observable<FacultyCode>;
+  private facultyCodes$: Observable<FacultyCode>;
   private columns: any[] = [
     {name: 'code', label: 'Code'},
     {name: 'description', label: 'DescriptionEn'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
   constructor(private actions: SetupActions,
@@ -32,7 +30,7 @@ export class FacultyCodeListPage implements OnInit {
   }
 
     showDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -40,17 +38,16 @@ export class FacultyCodeListPage implements OnInit {
     config.height = '65%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(FacultyCodeCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res =>{
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
 
-      console.log("close dialog");
+      console.log('close dialog');
       // load something here
     });
   }
 
-
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findFacultyCodes())
-    this.store.dispatch(this.actions.changeTitle("Faculty Codes"))
+    this.store.dispatch(this.actions.findFacultyCodes());
+    this.store.dispatch(this.actions.changeTitle('Faculty Codes'));
   }
 
 }

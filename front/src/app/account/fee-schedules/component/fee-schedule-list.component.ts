@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {FeeSchedule} from "../fee-schedule.interface";
+import {FeeSchedule} from '../../../shared/model/account/fee-schedule.interface';
 
 @Component({
   selector: 'pams-fee-schedule-list',
@@ -8,12 +8,13 @@ import {FeeSchedule} from "../fee-schedule.interface";
 })
 export class FeeScheduleListComponent {
 
-  @Input() feeSchedules: FeeSchedule[];
-  @Output() view = new EventEmitter<FeeSchedule>();
-
   private columns: any[] = [
     {name: 'code', label: 'Code'},
     {name: 'description', label: 'Description'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() feeSchedules: FeeSchedule[];
+  @Output() view = new EventEmitter<FeeSchedule>();
+
 }

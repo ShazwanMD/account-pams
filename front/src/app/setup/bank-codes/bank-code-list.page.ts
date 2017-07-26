@@ -9,7 +9,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { BankCodeEditorDialog } from './dialog/bank-code-editor.dialog';
-import { BankCode } from './../../common/bank-codes/bank-code.interface';
+import { BankCode } from '../../common/bank-codes/bank-code.interface';
 import {Store} from "@ngrx/store";
 import {SetupActions} from "../setup.action";
 import {SetupModuleState} from "../index";

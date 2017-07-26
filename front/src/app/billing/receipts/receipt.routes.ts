@@ -1,7 +1,7 @@
 import {Routes, RouterModule} from '@angular/router';
-import {ReceiptCenterPage} from "./receipt-center.page";
-import {ReceiptTaskViewPage} from "./receipt-task-view.page";
-import { ReceiptItemDetailPage } from "./receipt-item-detail.page";
+import {ReceiptCenterPage} from './receipt-center.page';
+import {ReceiptTaskViewPage} from './receipt-task-view.page';
+import {ReceiptItemDetailPage} from './receipt-item-detail.page';
 
 export const ReceiptRoutes: Routes = [
   {path: 'billing/receipts', component: ReceiptCenterPage},

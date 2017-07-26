@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Observable} from 'rxjs';
-import {Actor} from '../app/identity/actor.interface';
+import {Actor} from '../app/shared/model/identity/actor.interface';
 import {environment} from '../environments/environment';
-import {Sponsor} from '../app/identity/sponsor.interface';
-import {Student} from '../app/identity/student.interface';
+import {Sponsor} from '../app/shared/model/identity/sponsor.interface';
+import {Student} from '../app/shared/model/identity/student.interface';
 
 @Injectable()
 export class IdentityService {

@@ -1,6 +1,6 @@
-import { ProgramCode } from './../../common/program-codes/program-code.interface';
+import { ProgramCode } from '../../common/program-codes/program-code.interface';
 import {Action} from '@ngrx/store';
-import {SetupActions} from "../setup.action";
+import {SetupActions} from '../setup.action';
 
 
 export type ProgramCodeListState = ProgramCode[];

@@ -1,9 +1,8 @@
 import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
 
 import * as _ from 'lodash';
-import {AcademicSession} from "../academic-session.interface";
-import {AcademicSessionActions} from "./academic-session.action";
+import {AcademicSessionActions} from './academic-session.action';
+import {AcademicSession} from '../../../shared/model/account/academic-session.interface';
 
 export type AcademicSessionListState = AcademicSession[];
 

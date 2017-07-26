@@ -1,13 +1,12 @@
-import {Component, OnInit} from "@angular/core";
-import {Settlement} from "./settlement.interface";
-import {ActivatedRoute, Router} from "@angular/router";
-import {SettlementItem} from "./settlement-item.interface";
-import {Observable} from "rxjs/Observable";
-import {AccountActions} from "../../account/accounts/account.action";
-import {SettlementActions} from "./settlement.action";
-import {Store} from "@ngrx/store";
-import {FinancialaidModuleState} from "../index";
-import {MdSnackBar} from "@angular/material";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import {SettlementActions} from './settlement.action';
+import {Store} from '@ngrx/store';
+import {FinancialaidModuleState} from '../index';
+import {MdSnackBar} from '@angular/material';
+import {Settlement} from '../../shared/model/financialaid/settlement.interface';
+import {SettlementItem} from '../../shared/model/financialaid/settlement-item.interface';
 @Component({
   selector: 'pams-settlement-detail',
   templateUrl: './settlement-detail.page.html',
@@ -15,8 +14,8 @@ import {MdSnackBar} from "@angular/material";
 
 export class SettlementDetailPage implements OnInit {
 
-  private SETTLEMENT = "financialaidModuleState.settlement".split(".");
-  private SETTLEMENT_ITEMS = "financialaidModuleState.settlementItems".split(".");
+  private SETTLEMENT = 'financialaidModuleState.settlement'.split('.');
+  private SETTLEMENT_ITEMS = 'financialaidModuleState.settlementItems'.split('.');
   private settlement$: Observable<Settlement>;
   private settlementItems$: Observable<SettlementItem[]>;
 
@@ -37,17 +36,17 @@ export class SettlementDetailPage implements OnInit {
   }
 
   executeSettlement() {
-    this.settlement$.take(1).subscribe(settlement => {
+    this.settlement$.take(1).subscribe((settlement) => {
         if (!settlement.executed) {
-          let snackBarRef = this.snackBar.open("Are you sure you want to execute this settlement?", "YES");
+          let snackBarRef = this.snackBar.open('Are you sure you want to execute this settlement?', 'YES');
           snackBarRef.afterDismissed().subscribe(() => {
-            this.store.dispatch(this.actions.executeSettlement(settlement))
+            this.store.dispatch(this.actions.executeSettlement(settlement));
           });
         }
         else {
-          this.snackBar.open("Sorry, this settlement has been executed", "OK");
+          this.snackBar.open('Sorry, this settlement has been executed', 'OK');
         }
-      }
+      },
     );
   }
 

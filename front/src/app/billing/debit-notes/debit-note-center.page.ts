@@ -1,15 +1,13 @@
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../index";
-import {DebitNoteCreatorDialog} from "./dialog/debit-note-creator.dialog";
-import {DebitNoteTask} from "./debit-note-task.interface";
-import {DebitNoteActions} from "./debit-note.action";
-import {DebitNote} from "./debit-note.interface";
-import {InvoiceTask} from "../invoices/invoice-task.interface";
-
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../index';
+import {DebitNoteCreatorDialog} from './dialog/debit-note-creator.dialog';
+import {DebitNoteActions} from './debit-note.action';
+import {DebitNoteTask} from '../../shared/model/billing/debit-note-task.interface';
+import {DebitNote} from '../../shared/model/billing/debit-note.interface';
 
 @Component({
   selector: 'pams-debit-note-center',
@@ -18,9 +16,9 @@ import {InvoiceTask} from "../invoices/invoice-task.interface";
 
 export class DebitNoteCenterPage implements OnInit {
 
-  private POOLED_DEBIT_NOTE_TASKS: string[] = "billingModuleState.pooledDebitNoteTasks".split(".");
-  private ASSIGNED_DEBIT_NOTE_TASKS: string[] = "billingModuleState.assignedDebitNoteTasks".split(".");
-  private ARCHIVED_DEBIT_NOTES: string[] = "billingModuleState.archivedDebitNotes".split(".");
+  private POOLED_DEBIT_NOTE_TASKS: string[] = 'billingModuleState.pooledDebitNoteTasks'.split('.');
+  private ASSIGNED_DEBIT_NOTE_TASKS: string[] = 'billingModuleState.assignedDebitNoteTasks'.split('.');
+  private ARCHIVED_DEBIT_NOTES: string[] = 'billingModuleState.archivedDebitNotes'.split('.');
   private assignedDebitNoteTasks$: Observable<DebitNoteTask[]>;
   private pooledDebitNoteTasks$: Observable<DebitNoteTask[]>;
   private archivedDebitNotes$: Observable<DebitNote[]>;
@@ -38,7 +36,7 @@ export class DebitNoteCenterPage implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("find assigned debit note tasks");
+    console.log('find assigned debit note tasks');
     this.store.dispatch(this.actions.findAssignedDebitNoteTasks());
     this.store.dispatch(this.actions.findPooledDebitNoteTasks());
     this.store.dispatch(this.actions.findArchivedDebitNotes());
@@ -49,13 +47,13 @@ export class DebitNoteCenterPage implements OnInit {
   }
 
   viewTask(task: DebitNoteTask) {
-    console.log("DebitNote: " + task.taskId);
+    console.log('DebitNote: ' + task.taskId);
     this.router.navigate(['/billing/debit-notes/debit-note-task-detail', task.taskId]);
 
   }
 
   claimTask(task: DebitNoteTask) {
-    console.log("invoice: " + task.taskId);
+    console.log('invoice: ' + task.taskId);
     this.store.dispatch(this.actions.claimDebitNoteTask(task));
   }
 
@@ -64,7 +62,7 @@ export class DebitNoteCenterPage implements OnInit {
   }
 
   showDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -72,8 +70,8 @@ export class DebitNoteCenterPage implements OnInit {
     config.height = '60%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(DebitNoteCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }

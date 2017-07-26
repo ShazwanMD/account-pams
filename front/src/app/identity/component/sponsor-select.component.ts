@@ -1,12 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
-import {FormControl} from "@angular/forms";
-import {Actor} from "../actor.interface";
-import {ActorActions} from "../actor.action";
-import {IdentityModuleState} from "../index";
-import {SponsorActions} from "../sponsor.action";
-
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {FormControl} from '@angular/forms';
+import {ActorActions} from '../actor.action';
+import {IdentityModuleState} from '../index';
+import {SponsorActions} from '../sponsor.action';
+import {Actor} from '../../shared/model/identity/actor.interface';
 
 @Component({
   selector: 'pams-sponsor-select',
@@ -14,7 +13,7 @@ import {SponsorActions} from "../sponsor.action";
 })
 export class SponsorSelectComponent implements OnInit {
 
-  private SPONSORS = "identityModuleState.sponsors".split(".");
+  private SPONSORS = 'identityModuleState.sponsors'.split('.');
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   sponsors$: Observable<Actor[]>;
@@ -32,4 +31,4 @@ export class SponsorSelectComponent implements OnInit {
     this.innerFormControl.setValue(event, {emitEvent: false});
   }
 }
-
+

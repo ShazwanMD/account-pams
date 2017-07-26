@@ -2,13 +2,11 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ReceiptItem} from '../receipt-item.interface';
-import {Receipt} from '../receipt.interface';
+import {Receipt} from '../../../shared/model/billing/receipt.interface';
 import {BillingModuleState} from '../../index';
 import {MdDialogRef} from '@angular/material';
 import {ReceiptActions} from '../receipt.action';
 import {Store} from '@ngrx/store';
-import {Invoice} from "../../invoices/invoice.interface";
 
 @Component({
   selector: 'pams-invoice-applicator',

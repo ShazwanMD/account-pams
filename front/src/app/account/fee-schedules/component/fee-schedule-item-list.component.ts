@@ -1,13 +1,12 @@
 import {Component, ViewContainerRef, OnInit, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {FeeSchedule} from "../fee-schedule.interface";
-import {FeeScheduleActions} from "../fee-schedule.action";
-import {FeeScheduleItemEditorDialog} from "../dialog/fee-schedule-item-editor.dialog";
-import {FeeScheduleItem} from "../fee-schedule-item.interface";
-import {AccountModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {FeeScheduleActions} from '../fee-schedule.action';
+import {FeeScheduleItemEditorDialog} from '../dialog/fee-schedule-item-editor.dialog';
+import {AccountModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import {FeeSchedule} from '../../../shared/model/account/fee-schedule.interface';
+import {FeeScheduleItem} from '../../../shared/model/account/fee-schedule-item.interface';
 
 @Component({
   selector: 'pams-fee-schedule-item-list',
@@ -16,17 +15,17 @@ import {Store} from "@ngrx/store";
 
 export class FeeScheduleItemListComponent implements OnInit {
 
-  @Input() feeSchedule: FeeSchedule;
-  @Input() feeScheduleItems: FeeScheduleItem[];
-
   private creatorDialogRef: MdDialogRef<FeeScheduleItemEditorDialog>;
   private selectedRows: FeeScheduleItem[];
   private columns: any[] = [
     {name: 'chargeCode', label: 'ChargeCode'},
     {name: 'ordinal', label: 'Semester'},
     {name: 'amount', label: 'Amount'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() feeSchedule: FeeSchedule;
+  @Input() feeScheduleItems: FeeScheduleItem[];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -37,7 +36,7 @@ export class FeeScheduleItemListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedRows = this.feeScheduleItems.filter(value => value.selected);
+    this.selectedRows = this.feeScheduleItems.filter((value) => value.selected);
   }
 
   edit(scheduleItem: FeeScheduleItem): void {
@@ -58,7 +57,7 @@ export class FeeScheduleItemListComponent implements OnInit {
   }
 
   create(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -69,8 +68,8 @@ export class FeeScheduleItemListComponent implements OnInit {
     this.creatorDialogRef.componentInstance.feeSchedule = this.feeSchedule;
 
     // close
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }

@@ -1,14 +1,13 @@
 import {
   Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit
+  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit,
 } from '@angular/core';
-import {Observable} from "rxjs";
-import {WaiverApplicationTask} from "../waiver-application-task.interface";
-import {WaiverApplicationDraftTaskPanel} from "./waiver-application-draft-task.panel";
-import {FlowState} from "../../../core/flow-state.enum";
-import {WaiverApplicationRegisterTaskPanel} from "./waiver-application-register-task.panel";
-import {WaiverApplicationVerifyTaskPanel} from "./waiver-application-verify-task.panel";
-
+import {Observable} from 'rxjs';
+import {WaiverApplicationDraftTaskPanel} from './waiver-application-draft-task.panel';
+import {FlowState} from '../../../core/flow-state.enum';
+import {WaiverApplicationRegisterTaskPanel} from './waiver-application-register-task.panel';
+import {WaiverApplicationVerifyTaskPanel} from './waiver-application-verify-task.panel';
+import {WaiverApplicationTask} from '../../../shared/model/financialaid/waiver-application-task.interface';
 
 @Component({
   selector: 'pams-waiver-application-task-workflow',
@@ -28,10 +27,10 @@ export class WaiverApplicationTaskWorkflowPanel implements OnInit {
 
   ngOnInit(): void {
     let componentFactory;
-    this.waiverApplicationTaskObservable.subscribe(task => {
+    this.waiverApplicationTaskObservable.subscribe((task) => {
       if (task.flowState) {
 
-        console.log("task flowState: " + task.flowState);
+        console.log('task flowState: ' + task.flowState);
         if (this.componentRef) this.componentRef.destroy();
         switch (FlowState[task.flowState.toString()]) {
           case FlowState.DRAFTED:

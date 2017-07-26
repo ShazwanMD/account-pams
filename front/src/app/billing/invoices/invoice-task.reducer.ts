@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {InvoiceActions} from "./invoice.action";
-import {InvoiceTask} from "./invoice-task.interface";
+import {InvoiceActions} from './invoice.action';
+import {InvoiceTask} from '../../shared/model/billing/invoice-task.interface';
 
 export type InvoiceTaskState = InvoiceTask;
 

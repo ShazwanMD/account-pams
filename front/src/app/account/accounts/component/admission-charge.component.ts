@@ -1,11 +1,11 @@
 import {AdmissionChargeEditorDialog} from '../dialog/admission-charge-editor.dialog';
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, OnInit, ViewContainerRef} from '@angular/core';
-import {AccountActions} from "../account.action";
+import {AccountActions} from '../account.action';
 import {Store} from '@ngrx/store';
-import {AccountModuleState} from "../../index";
+import {AccountModuleState} from '../../index';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
-import {AccountCharge} from "../account-charge.interface";
-import {Account} from "../account.interface";
+import {Account} from '../../../shared/model/account/account.interface';
+import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
 @Component({
   selector: 'pams-admission-charge',
   templateUrl: './admission-charge.component.html',
@@ -26,11 +26,10 @@ export class AdmissionChargeComponent implements OnInit{
     {name: 'invoiced', label: 'Invoiced'},
     {name: 'action', label: ''},
   ];
+  private selectedRows: AccountCharge[];
 
   @Input() admissionAccountCharges: AccountCharge[];
   @Input() account: Account;
-
-  private selectedRows: AccountCharge[];
 
   constructor(private actions: AccountActions,
               private vcf: ViewContainerRef,
@@ -45,7 +44,7 @@ export class AdmissionChargeComponent implements OnInit{
       for (let i: number = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.removeAccountCharge(this.account, this.selectedRows[i]));
     }
-    this.selectedRows = [];
+      this.selectedRows = [];
   }
     edit(admissionAccountCharges: AccountCharge): void {
     this.showDialog(admissionAccountCharges);

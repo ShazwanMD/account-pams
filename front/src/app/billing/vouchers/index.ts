@@ -8,8 +8,7 @@ import {CovalentCoreModule} from '@covalent/core';
 
 import {CommonService} from '../../../services';
 import {IdentityService} from '../../../services';
-import {BillingService} from "../../../services/billing.service";
-
+import {BillingService} from '../../../services/billing.service';
 
 @NgModule({
   imports: [

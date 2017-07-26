@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {AcademicSession} from "./academic-session.interface";
-import {AcademicSessionActions} from "./component/academic-session.action";
+import {AcademicSessionActions} from './component/academic-session.action';
+import {AcademicSession} from '../../shared/model/account/academic-session.interface';
 
 export type AcademicSessionState = AcademicSession;
 

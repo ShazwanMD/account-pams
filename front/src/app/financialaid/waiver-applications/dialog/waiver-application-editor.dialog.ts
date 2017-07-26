@@ -2,13 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {FinancialaidModuleState} from "../../index";
-import {WaiverApplicationActions} from "../waiver-application.action";
-import {WaiverApplication} from "../waiver-application.interface";
-import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
-import {Account} from "../../../account/accounts/account.interface";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {FinancialaidModuleState} from '../../index';
+import {WaiverApplicationActions} from '../waiver-application.action';
+import {AcademicSession} from '../../../shared/model/account/academic-session.interface';
+import {Account} from '../../../shared/model/account/account.interface';
+import {WaiverApplication} from '../../../shared/model/financialaid/waiver-application.interface';
 
 @Component({
   selector: 'pams-waiver-application-editor',

@@ -4,10 +4,10 @@ import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/materi
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../../index';
-import {DebitNoteTask} from '../debit-note-task.interface';
-import {DebitNoteItem} from '../debit-note-item.interface';
 import {DebitNoteItemEditorDialog} from '../dialog/debit-note-item-editor.dialog';
 import {DebitNoteActions} from '../debit-note.action';
+import {DebitNoteTask} from '../../../shared/model/billing/debit-note-task.interface';
+import {DebitNoteItem} from '../../../shared/model/billing/debit-note-item.interface';
 
 @Component({
   selector: 'pams-debit-note-draft-task',

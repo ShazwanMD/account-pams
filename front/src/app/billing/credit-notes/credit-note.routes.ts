@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
-import {CreditNoteCenterPage} from "./credit-note-center.page";
-import { CreditNoteTaskDetailPage } from "./credit-note-task-detail.page";
-import { CreditNoteDetailPage } from "./credit-note-detail.page";
+import {CreditNoteCenterPage} from './credit-note-center.page';
+import {CreditNoteTaskDetailPage} from './credit-note-task-detail.page';
+import {CreditNoteDetailPage} from './credit-note-detail.page';
 
 export const CreditNoteRoutes: Routes = [
   {path: 'billing/credit-notes', component: CreditNoteCenterPage},

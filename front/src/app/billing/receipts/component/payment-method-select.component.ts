@@ -1,6 +1,6 @@
-import {PaymentMethod} from "../../../common/payment-method.enum";
+import {PaymentMethod} from '../../../shared/model/common/payment-method.enum';
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import {FormControl} from '@angular/forms';
 
 @Component({
  selector: 'pams-payment-method-select',
@@ -14,8 +14,8 @@ export class PaymentMethodSelectComponent {
  @Input() innerFormControl: FormControl;
 
  constructor() {
-   for (var n in PaymentMethod) {
-     if(typeof PaymentMethod[n] === 'string')
+   for (let n in PaymentMethod) {
+     if (typeof PaymentMethod[n] === 'string')
        this.paymentMethods.push(PaymentMethod[n.toString()]);
    }
  }

@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
-import {FormControl} from "@angular/forms";
-import {AccountModuleState} from "../../index";
-import {ChargeCode} from "../charge-code.interface";
-import {ChargeCodeActions} from "../charge-code.action";
-
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {FormControl} from '@angular/forms';
+import {AccountModuleState} from '../../index';
+import {ChargeCodeActions} from '../charge-code.action';
+import {ChargeCode} from '../../../shared/model/account/charge-code.interface';
 
 @Component({
   selector: 'pams-charge-code-select',
@@ -14,7 +13,7 @@ import {ChargeCodeActions} from "../charge-code.action";
 })
 export class ChargeCodeSelectComponent implements OnInit {
 
-  private CHARGE_CODES: string[] = "accountModuleState.chargeCodes".split(".");
+  private CHARGE_CODES: string[] = 'accountModuleState.chargeCodes'.split('.');
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   chargeCodes$: Observable<ChargeCode[]>;

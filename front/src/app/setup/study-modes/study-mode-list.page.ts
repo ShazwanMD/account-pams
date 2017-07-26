@@ -1,12 +1,11 @@
 import { StudyModeCreatorDialog } from './dialog/study-mode-creator.dialog';
-import { StudyMode } from './../../common/study-modes/study-mode.interface';
-import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
+import { StudyMode } from '../../common/study-modes/study-mode.interface';
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {SetupActions} from "../setup.action";
-import {SetupModuleState} from "../index";
-import {Observable} from "rxjs/Observable";
-
+import {Store} from '@ngrx/store';
+import {SetupActions} from '../setup.action';
+import {SetupModuleState} from '../index';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'pams-study-list-page',
@@ -14,14 +13,14 @@ import {Observable} from "rxjs/Observable";
 })
 export class StudyModeListPage implements OnInit {
 
-  private STUDY_MODES = "setupModuleState.studyModes".split(".");
+  private STUDY_MODES = 'setupModuleState.studyModes'.split('.');
   private creatorDialogRef: MdDialogRef<StudyModeCreatorDialog>;
-  private studyModes$:Observable<StudyMode>;
+  private studyModes$: Observable<StudyMode>;
   private columns: any[] = [
     {name: 'code', label: 'Code'},
     {name: 'descriptionMs', label: 'DescriptionMs'},
     {name: 'descriptionEn', label: 'DescriptionEn'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
   constructor(private actions: SetupActions,
@@ -32,7 +31,7 @@ export class StudyModeListPage implements OnInit {
   }
 
     showDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -40,17 +39,17 @@ export class StudyModeListPage implements OnInit {
     config.height = '65%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(StudyModeCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findStudyModes())
-    this.store.dispatch(this.actions.changeTitle("Study Mode Codes"))
+    this.store.dispatch(this.actions.findStudyModes());
+    this.store.dispatch(this.actions.changeTitle('Study Mode Codes'));
   }
 
-  filter():void {}
+  filter(): void {}
 
 }

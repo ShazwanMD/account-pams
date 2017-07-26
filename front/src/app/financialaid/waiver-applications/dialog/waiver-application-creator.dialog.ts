@@ -6,9 +6,9 @@ import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {FinancialaidModuleState} from '../../index';
 import {WaiverApplicationActions} from '../waiver-application.action';
-import {AcademicSession} from '../../../account/academic-sessions/academic-session.interface';
-import {WaiverApplication} from '../waiver-application.interface';
-import {Account} from '../../../account/accounts/account.interface';
+import {WaiverApplication} from '../../../shared/model/financialaid/waiver-application.interface';
+import {AcademicSession} from '../../../shared/model/account/academic-session.interface';
+import {Account} from '../../../shared/model/account/account.interface';
 
 @Component({
   selector: 'pams-waiver-application',

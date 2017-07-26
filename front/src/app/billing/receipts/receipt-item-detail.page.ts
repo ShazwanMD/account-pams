@@ -4,14 +4,11 @@ import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import {MdDialogRef, MdDialog, MdDialogConfig} from '@angular/material';
-import {DebitNote} from '../debit-notes/debit-note.interface';
-import {CreditNote} from "../credit-notes/credit-note.interface";
-import { Invoice } from "../invoices/invoice.interface";
-import { InvoiceItem } from "../invoices/invoice-item.interface";
-import { InvoiceActions } from "../invoices/invoice.action";
-import { PromoCodeApplicatorDialog } from "./dialog/promo-code-applicator.dialog";
-import { Receipt } from "./receipt.interface";
-
+import { Invoice } from '../../shared/model/billing/invoice.interface';
+import { InvoiceItem } from '../../shared/model/billing/invoice-item.interface';
+import { InvoiceActions } from '../invoices/invoice.action';
+import { PromoCodeApplicatorDialog } from './dialog/promo-code-applicator.dialog';
+import { Receipt } from '../../shared/model/billing/receipt.interface';
 
 @Component({
   selector: 'pams-receipt-item-detail',
@@ -43,7 +40,7 @@ export class ReceiptItemDetailPage implements OnInit {
       this.store.dispatch(this.actions.findInvoiceByReferenceNo(referenceNo));
     });
   }
-  
+
   applyPromoCode() {
       let config = new MdDialogConfig();
       config.viewContainerRef = this.viewContainerRef;
@@ -58,6 +55,6 @@ export class ReceiptItemDetailPage implements OnInit {
   goBack(): void {
     this.router.navigate(['/billing/invoices']);
   }
-  
-}
 
+}
+

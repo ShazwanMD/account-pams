@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {InvoiceItem} from "../invoice-item.interface";
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {InvoiceItemEditorDialog} from "../dialog/invoice-item-editor.dialog";
-import {InvoiceTask} from "../invoice-task.interface";
-import {InvoiceActions} from "../invoice.action";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../../index";
-
+import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {InvoiceItemEditorDialog} from '../dialog/invoice-item-editor.dialog';
+import {InvoiceActions} from '../invoice.action';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../../index';
+import {InvoiceTask} from '../../../shared/model/billing/invoice-task.interface';
+import {InvoiceItem} from '../../../shared/model/billing/invoice-item.interface';
 
 @Component({
   selector: 'pams-invoice-verify-task',
@@ -17,7 +16,7 @@ import {BillingModuleState} from "../../index";
 
 export class InvoiceVerifyTaskPanel implements OnInit {
 
-  private INVOICE_ITEMS = "billingModuleState.invoiceItems".split(".");
+  private INVOICE_ITEMS = 'billingModuleState.invoiceItems'.split('.');
   private invoiceItems$: Observable<InvoiceItem[]>;
   @Input() invoiceTask: InvoiceTask;
 
@@ -32,7 +31,7 @@ export class InvoiceVerifyTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findInvoiceItems(this.invoiceTask.invoice))
+    this.store.dispatch(this.actions.findInvoiceItems(this.invoiceTask.invoice));
   }
 
   editItem(item: InvoiceItem) {

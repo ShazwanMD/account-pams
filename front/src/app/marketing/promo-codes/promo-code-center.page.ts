@@ -1,13 +1,13 @@
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {PromoCodeActions} from "./promo-code.action";
-import {PromoCode} from "./promo-code.interface";
-import {MarketingModuleState} from "../index";
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {PromoCodeCreatorDialog} from "./dialog/promo-code-creator.dialog";
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {PromoCodeActions} from './promo-code.action';
+import {MarketingModuleState} from '../index';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {PromoCodeCreatorDialog} from './dialog/promo-code-creator.dialog';
+import {PromoCode} from '../../shared/model/marketing/promo-code.interface';
 
 @Component({
   selector: 'pams-promo-code-center',
@@ -16,7 +16,7 @@ import {PromoCodeCreatorDialog} from "./dialog/promo-code-creator.dialog";
 
 export class PromoCodeCenterPage implements OnInit {
 
-  private PROMO_CODES = "marketingModuleState.promoCodes".split(".");
+  private PROMO_CODES = 'marketingModuleState.promoCodes'.split('.');
   private promoCodes$: Observable<PromoCode[]>;
   private creatorDialogRef: MdDialogRef<PromoCodeCreatorDialog>;
 
@@ -34,12 +34,12 @@ export class PromoCodeCenterPage implements OnInit {
   }
 
   view(promoCode: PromoCode) {
-    console.log("promoCode: " + promoCode.referenceNo);
+    console.log('promoCode: ' + promoCode.referenceNo);
     this.router.navigate(['marketing/promo-codes/', promoCode.referenceNo]);
   }
 
   showDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -47,16 +47,16 @@ export class PromoCodeCenterPage implements OnInit {
     config.height = '60%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(PromoCodeCreatorDialog, config);
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // this.loadJournalEntries(this.journalTask.referenceNo);
     });
   }
 
-  filter():void {}
+  filter(): void {}
 
   ngOnInit(): void {
-    console.log("find promoCodes");
+    console.log('find promoCodes');
     this.store.dispatch(this.actions.findPromoCodes());
   }
 }

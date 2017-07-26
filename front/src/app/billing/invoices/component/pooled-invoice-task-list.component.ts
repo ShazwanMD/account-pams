@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {InvoiceTask} from '../invoice-task.interface';
+import {InvoiceTask} from '../../../shared/model/billing/invoice-task.interface';
 import {MdSnackBar, MdSnackBarRef, SimpleSnackBar} from '@angular/material';
 
 @Component({

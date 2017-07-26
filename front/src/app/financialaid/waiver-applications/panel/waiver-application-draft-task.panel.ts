@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {WaiverApplicationTask} from "../waiver-application-task.interface";
-import {WaiverApplicationActions} from "../waiver-application.action";
-import {Store} from "@ngrx/store";
-import {FinancialaidModuleState} from "../../index";
-import {WaiverApplicationEditorDialog} from "../dialog/waiver-application-editor.dialog";
-import { Observable } from "rxjs/Observable";
-import { WaiverApplication } from "../waiver-application.interface";
-
+import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {WaiverApplicationActions} from '../waiver-application.action';
+import {Store} from '@ngrx/store';
+import {FinancialaidModuleState} from '../../index';
+import {WaiverApplicationEditorDialog} from '../dialog/waiver-application-editor.dialog';
+import { Observable } from 'rxjs/Observable';
+import {WaiverApplicationTask} from '../../../shared/model/financialaid/waiver-application-task.interface';
+import {WaiverApplication} from '../../../shared/model/financialaid/waiver-application.interface';
 
 @Component({
   selector: 'pams-waiver-application-draft-task',
@@ -18,8 +17,8 @@ import { WaiverApplication } from "../waiver-application.interface";
 export class WaiverApplicationDraftTaskPanel implements OnInit {
 
   @Input() waiverApplicationTask: WaiverApplicationTask;
-  
-  private WAIVER_APPLICATION: string[] = "financialaidModuleState.waiverApplication".split(".");
+
+  private WAIVER_APPLICATION: string[] = 'financialaidModuleState.waiverApplication'.split('.');
   private waiverApplication$: Observable<WaiverApplication>;
   private creatorDialogRef: MdDialogRef<WaiverApplicationEditorDialog>;
 
@@ -31,7 +30,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
               private dialog: MdDialog,
               private vcf: ViewContainerRef,
               private snackBar: MdSnackBar) {
-      
+
       this.waiverApplication$ = this.store.select(...this.WAIVER_APPLICATION);
   }
 
@@ -59,8 +58,8 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
     this.creatorDialogRef.componentInstance.application = this.waiverApplicationTask.application;
 
     // close
-    this.creatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }

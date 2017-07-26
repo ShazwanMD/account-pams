@@ -1,10 +1,13 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {CreditNote} from "../credit-note.interface";
-import {MdSnackBar} from "@angular/material";
-import { CreditNoteTask } from "../credit-note-task.interface";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
-
+import {MdSnackBar} from '@angular/material';
+import {CreditNoteTask} from '../../../shared/model/billing/credit-note-task.interface';
+import {Router, ActivatedRoute} from '@angular/router';
+import {
+  TdDataTableService,
+  TdDataTableSortingOrder,
+  ITdDataTableSortChangeEvent,
+  IPageChangeEvent,
+} from '@covalent/core';
 
 @Component({
   selector: 'pams-pooled-credit-note-task-list',
@@ -12,9 +15,6 @@ import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEven
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PooledCreditNoteTaskListComponent {
-
-  @Input() creditNoteTasks: CreditNoteTask[];
-  @Output() claim = new EventEmitter<CreditNoteTask>();
 
   private columns: any[] = [
     {name: 'creditNoteDate', label: 'Date'},
@@ -25,22 +25,11 @@ export class PooledCreditNoteTaskListComponent {
     {name: 'chargeCode.description', label: 'Charge Code'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
 
-   constructor(private snackBar: MdSnackBar,
-          private router: Router,
-          private route: ActivatedRoute,
-          private _dataTableService: TdDataTableService) {
-  }
-
- claimTask(task: CreditNoteTask): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Claiming invoice", "OK");
-    snackBarRef.afterDismissed().subscribe(() => {
-      this.claim.emit(task);
-    });
-  }
+  @Input() creditNoteTasks: CreditNoteTask[];
+  @Output() claim = new EventEmitter<CreditNoteTask>();
 
   filteredData: any[];
   filteredTotal: number;
@@ -51,7 +40,20 @@ export class PooledCreditNoteTaskListComponent {
   sortBy: string = 'referenceNo';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    
+  constructor(private snackBar: MdSnackBar,
+              private router: Router,
+              private route: ActivatedRoute,
+              private _dataTableService: TdDataTableService) {
+  }
+
+  claimTask(task: CreditNoteTask): void {
+    console.log('Emitting task');
+    let snackBarRef = this.snackBar.open('Claiming invoice', 'OK');
+    snackBarRef.afterDismissed().subscribe(() => {
+      this.claim.emit(task);
+    });
+  }
+
   ngAfterViewInit(): void {
     this.filteredData = this.creditNoteTasks;
     this.filteredTotal = this.creditNoteTasks.length;

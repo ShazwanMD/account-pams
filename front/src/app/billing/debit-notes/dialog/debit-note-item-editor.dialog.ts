@@ -2,13 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ChargeCode} from '../../../account/charge-codes/charge-code.interface';
+import {ChargeCode} from '../../../shared/model/account/charge-code.interface';
 import {MdDialogRef} from '@angular/material';
 import {BillingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
-import { DebitNoteItem } from '../debit-note-item.interface';
-import { DebitNote } from '../debit-note.interface';
-import { DebitNoteActions } from '../debit-note.action';
+import {DebitNoteItem} from '../../../shared/model/billing/debit-note-item.interface';
+import {DebitNote} from '../../../shared/model/billing/debit-note.interface';
+import {DebitNoteActions} from '../debit-note.action';
 
 @Component({
   selector: 'pams-debit-note-item-editor',

@@ -1,15 +1,13 @@
-import { ProgramCode } from './../../../common/program-codes/program-code.interface';
+import { ProgramCode } from '../../../common/program-codes/program-code.interface';
 
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {SetupModuleState} from "../../index";
-import {SetupActions} from "../../setup.action";
-
-
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {SetupModuleState} from '../../index';
+import {SetupActions} from '../../setup.action';
 
 @Component({
   selector: 'pams-program-code-creator',
@@ -26,7 +24,7 @@ export class ProgramCodeCreatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private dialog: MdDialogRef<ProgramCodeCreatorDialog>,
               private store: Store<SetupModuleState>,
-              private actions: SetupActions
+              private actions: SetupActions,
   ) {
   }
 
@@ -38,16 +36,13 @@ export class ProgramCodeCreatorDialog implements OnInit {
       descriptionMs: '',
       descriptionEn: '',
 
-     
-
     });
   }
 
   save(code: ProgramCode, isValid: boolean) {
     this.store.dispatch(this.actions.saveProgramCode(code));
     this.dialog.close();
-    
+
   }
 
-  
 }

@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {TdLoadingService} from '@covalent/core';
 
 @Component({
-  selector: 'qs-login',
+  selector: 'pams-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

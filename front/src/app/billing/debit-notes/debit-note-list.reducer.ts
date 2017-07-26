@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {DebitNote} from "./debit-note.interface";
-import {DebitNoteActions} from "./debit-note.action";
+import {DebitNoteActions} from './debit-note.action';
+import {DebitNote} from '../../shared/model/billing/debit-note.interface';
 
 export type DebitNoteListState = DebitNote[];
 
@@ -14,7 +14,7 @@ export function archivedDebitNoteListReducer(state = initialState, action: Actio
       case DebitNoteActions.FIND_DEBIT_NOTES_BY_INVOICE_SUCCESS: {
       return action.payload;
     }
-    
+
     default: {
       return state;
     }

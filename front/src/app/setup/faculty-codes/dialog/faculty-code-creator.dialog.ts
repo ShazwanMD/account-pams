@@ -1,15 +1,12 @@
-import { FacultyCode } from './../../../common/faculty-codes/faculty-code.interface';
+import { FacultyCode } from '../../../common/faculty-codes/faculty-code.interface';
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {SetupModuleState} from "../../index";
-import {SetupActions} from "../../setup.action";
-
-
-
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {SetupModuleState} from '../../index';
+import {SetupActions} from '../../setup.action';
 
 @Component({
   selector: 'pams-faculty-code-creator',
@@ -26,7 +23,7 @@ export class FacultyCodeCreatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private dialog: MdDialogRef<FacultyCodeCreatorDialog>,
               private store: Store<SetupModuleState>,
-              private actions: SetupActions
+              private actions: SetupActions,
   ) {
   }
 

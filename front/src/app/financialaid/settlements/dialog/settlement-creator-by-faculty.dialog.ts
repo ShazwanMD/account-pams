@@ -2,13 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {FinancialaidModuleState} from "../../index";
-import {SettlementActions} from "../settlement.action";
-import {SettlementCreator} from "../settlement-creator.interface";
-import {AcademicSession} from "../../../account/academic-sessions/academic-session.interface";
-import {FacultyCode} from "../../../common/faculty-codes/faculty-code.interface";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {FinancialaidModuleState} from '../../index';
+import {SettlementActions} from '../settlement.action';
+import {SettlementCreator} from '../../../shared/model/financialaid/settlement-creator.interface';
+import {AcademicSession} from '../../../shared/model/account/academic-session.interface';
+import {FacultyCode} from '../../../common/faculty-codes/faculty-code.interface';
 
 @Component({
   selector: 'pams-settlement-creator-by-faculty',
@@ -39,7 +39,7 @@ export class SettlementCreatorByFacultyDialog implements OnInit {
   }
 
   save(settlementCreator: SettlementCreator, isValid: boolean) {
-    console.log("settlementCreator", settlementCreator);
+    console.log('settlementCreator', settlementCreator);
     this.store.dispatch(this.actions.initSettlementByFacultyCode(settlementCreator, settlementCreator.facultyCode));
     this.dialog.close();
   }

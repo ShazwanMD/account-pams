@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {InvoiceTask} from "../invoice-task.interface";
+import {InvoiceTask} from '../../../shared/model/billing/invoice-task.interface';
 
 @Component({
   selector: 'pams-invoice-task-list',
@@ -10,9 +10,6 @@ import {InvoiceTask} from "../invoice-task.interface";
 // DEPRECATED
 export class InvoiceTaskListComponent {
 
-  @Input() invoiceTasks: InvoiceTask[];
-  @Output() view = new EventEmitter<InvoiceTask>();
-
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'accountCode', label: 'Account'},
@@ -22,5 +19,8 @@ export class InvoiceTaskListComponent {
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''}
   ];
+
+  @Input() invoiceTasks: InvoiceTask[];
+  @Output() view = new EventEmitter<InvoiceTask>();
 
 }

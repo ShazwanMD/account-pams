@@ -1,7 +1,6 @@
-import { StateCode } from './../../common/state-codes/state-code.interface';
+import { StateCode } from '../../common/state-codes/state-code.interface';
 import {Action} from '@ngrx/store';
-import {SetupActions} from "../setup.action";
-
+import {SetupActions} from '../setup.action';
 
 export type StateCodeListState = StateCode[];
 

@@ -4,9 +4,9 @@ import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import {MdDialogRef, MdDialog} from '@angular/material';
-import {DebitNoteItem} from './debit-note-item.interface';
 import {DebitNoteActions} from './debit-note.action';
-import {DebitNoteTask} from './debit-note-task.interface';
+import {DebitNoteTask} from '../../shared/model/billing/debit-note-task.interface';
+import {DebitNoteItem} from '../../shared/model/billing/debit-note-item.interface';
 
 @Component({
   selector: 'pams-debit-note-detail',
@@ -41,4 +41,4 @@ export class DebitNoteDetailPage implements OnInit {
     this.router.navigate(['/billing/debit-notes']);
   }
 }
-
+

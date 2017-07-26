@@ -1,16 +1,15 @@
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {SettlementActions} from "./settlement.action";
-import {Settlement} from "./settlement.interface";
-import {SettlementListState} from "./settlement-list.reducer";
-import {FinancialaidModuleState} from "../index";
-import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
-import {SettlementCreatorByCohortDialog} from "./dialog/settlement-creator-by-cohort.dialog";
-import {SettlementCreatorByFacultyDialog} from "./dialog/settlement-creator-by-faculty.dialog";
-import {SettlementCreatorBySponsorDialog} from "./dialog/settlement-creator-by-sponsor.dialog";
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {SettlementActions} from './settlement.action';
+import {FinancialaidModuleState} from '../index';
+import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {SettlementCreatorByCohortDialog} from './dialog/settlement-creator-by-cohort.dialog';
+import {SettlementCreatorByFacultyDialog} from './dialog/settlement-creator-by-faculty.dialog';
+import {SettlementCreatorBySponsorDialog} from './dialog/settlement-creator-by-sponsor.dialog';
+import {Settlement} from '../../shared/model/financialaid/settlement.interface';
 
 @Component({
   selector: 'pams-settlement-center',
@@ -19,7 +18,7 @@ import {SettlementCreatorBySponsorDialog} from "./dialog/settlement-creator-by-s
 
 export class SettlementCenterPage implements OnInit {
 
-  private SETTLEMENTS = "financialaidModuleState.settlements".split(".");
+  private SETTLEMENTS = 'financialaidModuleState.settlements'.split('.');
   private settlements$: Observable<Settlement[]>;
   private creatorByCohortDialogRef: MdDialogRef<SettlementCreatorByCohortDialog>;
   private creatorByFacultyDialogRef: MdDialogRef<SettlementCreatorByFacultyDialog>;
@@ -39,7 +38,7 @@ export class SettlementCenterPage implements OnInit {
   }
 
   view(settlement: Settlement) {
-    console.log("settlement: " + settlement.referenceNo);
+    console.log('settlement: ' + settlement.referenceNo);
     this.router.navigate(['/view', settlement.referenceNo]);
   }
 
@@ -51,8 +50,8 @@ export class SettlementCenterPage implements OnInit {
     config.height = '70%';
     config.position = {top: '0px'};
     this.creatorByCohortDialogRef = this.dialog.open(SettlementCreatorByCohortDialog, config);
-    this.creatorByCohortDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorByCohortDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
@@ -65,14 +64,14 @@ export class SettlementCenterPage implements OnInit {
     config.height = '70%';
     config.position = {top: '0px'};
     this.creatorByFacultyDialogRef = this.dialog.open(SettlementCreatorByFacultyDialog, config);
-    this.creatorByFacultyDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorByFacultyDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
 
   showBySponsorDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -80,8 +79,8 @@ export class SettlementCenterPage implements OnInit {
     config.height = '70%';
     config.position = {top: '0px'};
     this.creatorBySponsorDialogRef = this.dialog.open(SettlementCreatorBySponsorDialog, config);
-    this.creatorBySponsorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creatorBySponsorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
@@ -90,8 +89,8 @@ export class SettlementCenterPage implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("find settlements");
+    console.log('find settlements');
     this.store.dispatch(this.actions.findSettlements());
   }
 }
-
+

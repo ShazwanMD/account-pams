@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import { DebitNote } from "../debit-note.interface";
+import {DebitNote} from '../../../shared/model/billing/debit-note.interface';
 
 @Component({
   selector: 'pams-debit-note-status',
@@ -8,5 +8,5 @@ import { DebitNote } from "../debit-note.interface";
 
 })
 export class DebitNoteStatusComponent {
-  @Input() debitNote:DebitNote;
+  @Input() debitNote: DebitNote;
 }

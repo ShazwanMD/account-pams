@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
-import {DebitNoteCenterPage} from "./debit-note-center.page";
-import { DebitNoteTaskDetailPage } from "./debit-note-task-detail.page";
-import { DebitNoteDetailPage } from "./debit-note-detail.page";
+import {DebitNoteCenterPage} from './debit-note-center.page';
+import {DebitNoteTaskDetailPage} from './debit-note-task-detail.page';
+import {DebitNoteDetailPage} from './debit-note-detail.page';
 
 export const DebitNoteRoutes: Routes = [
   {path: 'billing/debit-notes', component: DebitNoteCenterPage},

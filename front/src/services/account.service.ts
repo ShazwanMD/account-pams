@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
 import {RequestOptions, Response, ResponseContentType, Headers} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
-import {Account} from '../app/account/accounts/account.interface';
+import {Account} from '../app/shared/model/account/account.interface';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
-import {ChargeCode} from '../app/account/charge-codes/charge-code.interface';
-import {FeeSchedule} from '../app/account/fee-schedules/fee-schedule.interface';
-import {AccountTransaction} from '../app/account/accounts/account-transaction.interface';
-import {AcademicSession} from '../app/account/academic-sessions/academic-session.interface';
-import {FeeScheduleItem} from '../app/account/fee-schedules/fee-schedule-item.interface';
-import {AccountCharge} from '../app/account/accounts/account-charge.interface';
-import {AccountWaiver} from '../app/account/accounts/account-waiver.interface';
-import {AccountActivity} from '../app/account/accounts/account-activity.interface';
+import {ChargeCode} from '../app/shared/model/account/charge-code.interface';
+import {FeeSchedule} from '../app/shared/model/account/fee-schedule.interface';
+import {AccountTransaction} from '../app/shared/model/account/account-transaction.interface';
+import {AcademicSession} from '../app/shared/model/account/academic-session.interface';
+import {FeeScheduleItem} from '../app/shared/model/account/fee-schedule-item.interface';
+import {AccountCharge} from '../app/shared/model/account/account-charge.interface';
+import {AccountWaiver} from '../app/shared/model/account/account-waiver.interface';
+import {AccountActivity} from '../app/shared/model/account/account-activity.interface';
 
 @Injectable()
 export class AccountService {
@@ -232,13 +232,13 @@ export class AccountService {
     return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/accountActivities')
       .map((res: Response) => <AccountActivity[]>res.json());
   }
-  
+
   findAccountActivitiesByAcademicSession(account: Account): Observable<AccountActivity[]> {
       console.log('findAccountActivities :' + account.code);
       return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/academicSessions')
         .map((res: Response) => <AccountActivity[]>res.json());
     }
-  
+
   findAccountWaivers(account: Account): Observable<AccountWaiver[]> {
       console.log('findAccountWaivers :' + account.code);
       return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/accountWaivers')

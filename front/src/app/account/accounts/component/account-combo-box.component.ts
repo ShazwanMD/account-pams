@@ -1,14 +1,12 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, forwardRef, Provider} from '@angular/core';
-import {Account} from "../account.interface";
-import {Observable} from "rxjs";
-import {FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {AccountService} from "../../../../services/account.service";
-
+import {FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {AccountService} from '../../../../services/account.service';
+import {Account} from '../../../shared/model/account/account.interface';
 
 export const CUSTOM_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => AccountComboBoxComponent),
-  multi: true
+  multi: true,
 };
 
 const noop = () => {
@@ -29,8 +27,8 @@ export class AccountComboBoxComponent implements ControlValueAccessor {
   constructor(private accountService: AccountService) {
   }
 
-  ngOnInit() {
-    this.accountService.findAccounts().subscribe(accounts => this.options = accounts);
+  ngOnInit(): void {
+    this.accountService.findAccounts().subscribe((accounts) => this.options = accounts);
   }
 
   onBlur() {

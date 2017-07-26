@@ -1,14 +1,12 @@
 import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {IdentityService} from '../../../services';
-import {CommonService} from '../../../services';
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {PromoCode} from "./promo-code.interface";
-import {PromoCodeActions} from "./promo-code.action";
-import {MarketingModuleState} from "../index";
-import {PromoCodeItem} from "./promo-code-item.interface";
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {PromoCodeActions} from './promo-code.action';
+import {MarketingModuleState} from '../index';
+import {PromoCode} from '../../shared/model/marketing/promo-code.interface';
+import {PromoCodeItem} from '../../shared/model/marketing/promo-code-item.interface';
 
 @Component({
   selector: 'pams-promo-code-detail',
@@ -17,8 +15,8 @@ import {PromoCodeItem} from "./promo-code-item.interface";
 
 export class PromoCodeDetailPage implements OnInit {
 
-  private PROMO_CODE = "marketingModuleState.promoCode".split(".");
-  private PROMO_CODE_ITEMS = "marketingModuleState.promoCodeItems".split(".");
+  private PROMO_CODE = 'marketingModuleState.promoCode'.split('.');
+  private PROMO_CODE_ITEMS = 'marketingModuleState.promoCodeItems'.split('.');
   private promoCode$: Observable<PromoCode>;
   private promoCodeItems$: Observable<PromoCodeItem[]>;
 
@@ -42,7 +40,7 @@ export class PromoCodeDetailPage implements OnInit {
     this.router.navigate(['/marketing']);
   }
 
-  deactivate():void {
+  deactivate(): void {
     // todo
   }
 }

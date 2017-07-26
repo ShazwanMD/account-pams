@@ -8,7 +8,7 @@ import {
   AfterViewInit,
   ViewContainerRef,
 } from '@angular/core';
-import { ResidencyCode } from './../../common/residency-codes/residency-code.interface';
+import { ResidencyCode } from '../../common/residency-codes/residency-code.interface';
 import {MdDialogConfig, MdDialogRef, MdDialog} from "@angular/material";
 import {Store} from "@ngrx/store";
 import {SetupActions} from "../setup.action";
@@ -30,7 +30,7 @@ import {
 export class ResidencyCodeListPage implements OnInit {
 
   private RESIDENCY_CODES = "setupModuleState.residencyCodes".split(".");
-  
+
   private residencyCodes$:Observable<ResidencyCode[]>;
   private creatorDialogRef: MdDialogRef<ResidencyCodeEditorDialog>;
   private columns: any[] = [
@@ -58,7 +58,7 @@ export class ResidencyCodeListPage implements OnInit {
     this.residencyCodes$ = this.store.select(...this.RESIDENCY_CODES);
     this.residencyCodes$.subscribe(ResidencyCodes=>this.residencyCodes= ResidencyCodes)
   }
- 
+
    ngOnInit(): void {
     this.store.dispatch(this.actions.findResidencyCodes())
     this.store.dispatch(this.actions.changeTitle("Residency Codes"))

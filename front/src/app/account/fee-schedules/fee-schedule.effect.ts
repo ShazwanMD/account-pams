@@ -5,8 +5,8 @@ import {FeeScheduleActions} from './fee-schedule.action';
 import {AccountService} from '../../../services/account.service';
 import {AccountModuleState} from '../index';
 import {Store} from '@ngrx/store';
-import { AccountActions } from "../accounts/account.action";
-import { Router } from "@angular/router";
+import {AccountActions} from '../accounts/account.action';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class FeeScheduleEffects {
@@ -33,13 +33,11 @@ export class FeeScheduleEffects {
     .map((account) => this.feeScheduleActions.findFeeScheduleByCodeSuccess(account))
     .mergeMap((action) => from([action, this.feeScheduleActions.findFeeScheduleItems(action.payload)]));
 
-  
   @Effect() findFeeScheduleItems$ = this.actions$
     .ofType(FeeScheduleActions.FIND_FEE_SCHEDULE_ITEMS)
     .map((action) => action.payload)
     .switchMap((account) => this.accountService.findFeeScheduleItems(account))
     .map((items) => this.feeScheduleActions.findFeeScheduleItemsSuccess(items));
-
 
   @Effect() saveFeeSchedule$ = this.actions$
     .ofType(FeeScheduleActions.SAVE_FEE_SCHEDULE)
@@ -63,7 +61,7 @@ export class FeeScheduleEffects {
       .withLatestFrom(this.store$.select(...this.FEE_SCHEDULE))
       .map((state) => state[1])
       .map((feeSchedule) => this.feeScheduleActions.findFeeScheduleItems(feeSchedule))
-      .do(action => this.router.navigate(['/account/fee-schedules/:code', action.payload])).ignoreElements();
+      .do((action) => this.router.navigate(['/account/fee-schedules/:code', action.payload])).ignoreElements();
 
   @Effect() updateFeeScheduleItem$ = this.actions$
     .ofType(FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM)

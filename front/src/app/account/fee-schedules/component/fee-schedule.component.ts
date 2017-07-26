@@ -1,5 +1,5 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import {FeeSchedule} from "../fee-schedule.interface";
+import {FeeSchedule} from '../../../shared/model/account/fee-schedule.interface';
 
 @Component({
   selector: 'pams-fee-schedule',

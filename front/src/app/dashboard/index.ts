@@ -5,10 +5,9 @@ import {appRoutes, appRoutingProviders} from '../app.routes';
 import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../services';
 import {IdentityService, BillingService} from '../../services';
-import { DashboardPage } from "./dashboard.page";
-import {PooledTaskListComponent} from "./component/pooled-task-list.component";
-import {AssignedTaskListComponent} from "./component/assigned-task-list.component";
-
+import { DashboardPage } from './dashboard.page';
+import {PooledTaskListComponent} from './component/pooled-task-list.component';
+import {AssignedTaskListComponent} from './component/assigned-task-list.component';
 
 @NgModule({
   imports: [
@@ -16,15 +15,11 @@ import {AssignedTaskListComponent} from "./component/assigned-task-list.componen
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-//    InvoiceSubModule.forRoot(),
-//    ReceiptSubModule.forRoot(),
-//    DebitNoteSubModule.forRoot(),
-//    CreditNoteSubModule.forRoot(),
   ],
   declarations: [
     // page
     DashboardPage,
-    
+
     PooledTaskListComponent,
     AssignedTaskListComponent,
   ],

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'qs-main',
+  selector: 'pams-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })

@@ -1,14 +1,13 @@
 import {
   Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit
+  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit,
 } from '@angular/core';
-import {Observable} from "rxjs";
-import {FlowState} from "../../../core/flow-state.enum";
-import { CreditNoteRegisterTaskPanel } from "./credit-note-register-task.panel";
-import { CreditNoteTask } from "../credit-note-task.interface";
-import { CreditNoteDraftTaskPanel } from "./credit-note-draft-task.panel";
-import { CreditNoteVerifyTaskPanel } from "./credit-note-verify-task.panel";
-
+import {Observable} from 'rxjs';
+import {FlowState} from '../../../core/flow-state.enum';
+import { CreditNoteRegisterTaskPanel } from './credit-note-register-task.panel';
+import { CreditNoteDraftTaskPanel } from './credit-note-draft-task.panel';
+import { CreditNoteVerifyTaskPanel } from './credit-note-verify-task.panel';
+import {CreditNoteTask} from '../../../shared/model/billing/credit-note-task.interface';
 
 @Component({
   selector: 'pams-credit-note-task-workflow',
@@ -27,10 +26,10 @@ export class CreditNoteTaskWorkflowPanel implements OnInit {
 
   ngOnInit(): void {
     let componentFactory;
-    this.creditNoteTaskObservable.subscribe(task => {
+    this.creditNoteTaskObservable.subscribe((task) => {
       if (task.flowState) {
 
-        console.log("task flowState: " + task.flowState);
+        console.log('task flowState: ' + task.flowState);
         if (this.componentRef) this.componentRef.destroy();
         switch (FlowState[task.flowState.toString()]) {
           case FlowState.DRAFTED:

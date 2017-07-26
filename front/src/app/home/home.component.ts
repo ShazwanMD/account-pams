@@ -1,8 +1,8 @@
 import {Component, Output, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {IdentityService} from "../../services/identity.service";
-import {CommonService} from "../../services/common.service";
+import {IdentityService} from '../../services/identity.service';
+import {CommonService} from '../../services/common.service';
 
 @Component({
   selector: 'pams-home',

@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from "@angular/material";
-import {Receipt} from "../receipt.interface";
+import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
+import {Receipt} from '../../../shared/model/billing/receipt.interface';
 
 @Component({
   selector: 'pams-archived-receipt-list',
@@ -9,9 +9,6 @@ import {Receipt} from "../receipt.interface";
 })
 export class ArchivedReceiptListComponent {
 
-  @Input() receipts: Receipt[];
-  @Output() view = new EventEmitter<Receipt>();
-
   private columns: any[] = [
     {name: 'issuedDate', label: 'Date'},
     {name: 'referenceNo', label: 'ReferenceNo'},
@@ -19,15 +16,18 @@ export class ArchivedReceiptListComponent {
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''}
+    {name: 'action', label: ''},
   ];
+
+  @Input() receipts: Receipt[];
+  @Output() view = new EventEmitter<Receipt>();
 
   constructor(private snackBar: MdSnackBar) {
   }
 
   viewReceipt(receipt: Receipt): void {
-    console.log("Emitting task");
-    let snackBarRef = this.snackBar.open("Viewing invoice", "OK");
+    console.log('Emitting task');
+    let snackBarRef = this.snackBar.open('Viewing invoice', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(receipt);
     });

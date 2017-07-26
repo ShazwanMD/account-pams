@@ -2,15 +2,14 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {Sponsor} from "../../../identity/sponsor.interface";
-import {FeeSchedule} from "../fee-schedule.interface";
-import {AccountModuleState} from "../../index";
-import {FeeScheduleActions} from "../fee-schedule.action";
-import {CohortCode} from "../../../common/cohort-codes/cohort-code.interface";
-import {StudyMode} from "../../../common/study-modes/study-mode.interface";
-import {ResidencyCode} from "../../../common/residency-codes/residency-code.interface";
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {AccountModuleState} from '../../index';
+import {FeeScheduleActions} from '../fee-schedule.action';
+import {CohortCode} from '../../../common/cohort-codes/cohort-code.interface';
+import {StudyMode} from '../../../common/study-modes/study-mode.interface';
+import {ResidencyCode} from '../../../common/residency-codes/residency-code.interface';
+import {FeeSchedule} from '../../../shared/model/account/fee-schedule.interface';
 
 @Component({
   selector: 'pams-fee-schedule-creator',
@@ -32,7 +31,7 @@ export class FeeScheduleCreatorDialog implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(<FeeSchedule>{
-      id: null,
+      id: undefined,
       code: '',
       description: '',
       residencyCode: <ResidencyCode>{},
@@ -42,8 +41,8 @@ export class FeeScheduleCreatorDialog implements OnInit {
   }
 
   save(feeSchedule: FeeSchedule, isValid: boolean): void {
-    console.log("saving fee");
-    feeSchedule.code = "YB-" + feeSchedule.studyMode.code + "-" + feeSchedule.residencyCode.code + "-" + feeSchedule.cohortCode.code;
+    console.log('saving fee');
+    feeSchedule.code = 'YB-' + feeSchedule.studyMode.code + '-' + feeSchedule.residencyCode.code + '-' + feeSchedule.cohortCode.code;
     this.store.dispatch(this.actions.saveFeeSchedule(feeSchedule));
     this.dialog.close();
   }

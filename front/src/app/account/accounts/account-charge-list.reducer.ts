@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 
 import * as _ from 'lodash';
 import {AccountActions} from './account.action';
-import {AccountCharge} from './account-charge.interface';
+import {AccountCharge} from '../../shared/model/account/account-charge.interface';
 
 export type AccountChargeListState = AccountCharge[];
 

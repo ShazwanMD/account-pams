@@ -1,12 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
-import {FormControl} from "@angular/forms";
-import {Actor} from "../actor.interface";
-import {ActorActions} from "../actor.action";
-import {IdentityModuleState} from "../index";
-import {StudentActions} from "../student.action";
-
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {FormControl} from '@angular/forms';
+import {IdentityModuleState} from '../index';
+import {StudentActions} from '../student.action';
+import {Actor} from '../../shared/model/identity/actor.interface';
 
 @Component({
   selector: 'pams-student-select',
@@ -14,7 +12,7 @@ import {StudentActions} from "../student.action";
 })
 export class StudentSelectComponent implements OnInit {
 
-  private STUDENTS = "identityModuleState.students".split(".");
+  private STUDENTS: string[] = 'identityModuleState.students'.split('.');
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
   programLevels$: Observable<Actor[]>;

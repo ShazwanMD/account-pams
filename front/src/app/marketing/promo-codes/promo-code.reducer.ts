@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {PromoCodeActions} from "./promo-code.action";
-import {PromoCode} from "./promo-code.interface";
+import {PromoCodeActions} from './promo-code.action';
+import {PromoCode} from '../../shared/model/marketing/promo-code.interface';
 
 export type PromoCodeState = PromoCode;
 

@@ -2,17 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {IdentityService} from "../../../../services/identity.service";
-import {CommonService} from "../../../../services/common.service";
-import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
-import {PromoCodeCreatorDialog} from "../../../marketing/promo-codes/dialog/promo-code-creator.dialog";
-import {MdDialogRef} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {FeeScheduleItem} from "../fee-schedule-item.interface";
-import {FeeSchedule} from "../fee-schedule.interface";
-import {FeeScheduleActions} from "../fee-schedule.action";
-import {AccountModuleState} from "../../index";
-
+import {MdDialogRef} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {FeeScheduleActions} from '../fee-schedule.action';
+import {AccountModuleState} from '../../index';
+import {FeeScheduleItem} from '../../../shared/model/account/fee-schedule-item.interface';
+import {FeeSchedule} from '../../../shared/model/account/fee-schedule.interface';
+import {ChargeCode} from '../../../shared/model/account/charge-code.interface';
 
 @Component({
   selector: 'pams-fee-schedule-item-editor',
@@ -30,7 +26,7 @@ export class FeeScheduleItemEditorDialog implements OnInit {
               private formBuilder: FormBuilder,
               private viewContainerRef: ViewContainerRef,
               private store: Store<AccountModuleState>,
-              private actions:FeeScheduleActions,
+              private actions: FeeScheduleActions,
               private dialog: MdDialogRef<FeeScheduleItemEditorDialog>) {
   }
 
@@ -44,9 +40,9 @@ export class FeeScheduleItemEditorDialog implements OnInit {
 
   ngOnInit(): void {
     this.editForm = this.formBuilder.group(<FeeScheduleItem>{
-      id: null,
+      id: undefined,
       description: '',
-      ordinal:0,
+      ordinal: 0,
       amount: 0,
       balanceAmount: 0,
       chargeCode: <ChargeCode>{},
@@ -56,7 +52,7 @@ export class FeeScheduleItemEditorDialog implements OnInit {
 
   save(item: FeeScheduleItem, isValid: boolean) {
     item.description = item.chargeCode.description;
-    this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item))
+    this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item));
     this.close();
   }
 

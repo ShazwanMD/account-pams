@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {IdentityService} from '../../services';
-
 @Component({
   selector: 'pams-financialaid-page',
   templateUrl: './financialaid.page.html',

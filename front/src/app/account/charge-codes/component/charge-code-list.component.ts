@@ -8,7 +8,7 @@ import {
   AfterViewInit,
   ViewContainerRef,
 } from '@angular/core';
-import {ChargeCode} from '../charge-code.interface';
+import {ChargeCode} from '../../../shared/model/account/charge-code.interface';
 import {Store} from '@ngrx/store';
 import {ChargeCodeActions} from '../charge-code.action';
 import {AccountModuleState} from '../../index';

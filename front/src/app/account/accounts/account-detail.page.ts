@@ -1,15 +1,15 @@
 import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {Account} from '../../shared/model/account/account.interface';
 
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {Account} from './account.interface';
 import {AccountActions} from './account.action';
-import {AccountTransaction} from './account-transaction.interface';
 import {AccountModuleState} from '../index';
-import {AccountCharge} from './account-charge.interface';
-import {AccountWaiver} from './account-waiver.interface';
+import {AccountTransaction} from '../../shared/model/account/account-transaction.interface';
+import {AccountWaiver} from '../../shared/model/account/account-waiver.interface';
+import {AccountCharge} from '../../shared/model/account/account-charge.interface';
 
 @Component({
   selector: 'pams-account-detail',

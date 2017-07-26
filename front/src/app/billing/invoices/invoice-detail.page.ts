@@ -1,15 +1,14 @@
 import {Component, OnInit, ViewContainerRef, Input, Output, EventEmitter} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {InvoiceTask} from './invoice-task.interface';
+import {InvoiceTask} from '../../shared/model/billing/invoice-task.interface';
 import {InvoiceActions} from './invoice.action';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
-import {InvoiceItem} from './invoice-item.interface';
+import {InvoiceItem} from '../../shared/model/billing/invoice-item.interface';
 import {MdDialogRef, MdDialog} from '@angular/material';
-import {DebitNote} from '../debit-notes/debit-note.interface';
-import {CreditNote} from "../credit-notes/credit-note.interface";
-import { Invoice } from "./invoice.interface";
+import {DebitNote} from '../../shared/model/billing/debit-note.interface';
+import {CreditNote} from '../../shared/model/billing/credit-note.interface';
 
 @Component({
   selector: 'pams-invoice-detail',
@@ -48,6 +47,5 @@ export class InvoiceDetailPage implements OnInit {
   goBack(): void {
     this.router.navigate(['/billing/invoices']);
   }
-  
-}
 
+}

@@ -1,8 +1,8 @@
 import {Action} from '@ngrx/store';
 
 import * as _ from 'lodash';
-import {SponsorActions} from "./sponsor.action";
-import {Sponsor} from "./sponsor.interface";
+import {SponsorActions} from './sponsor.action';
+import {Sponsor} from '../shared/model/identity/sponsor.interface';
 
 export type SponsorListState = Sponsor[];
 

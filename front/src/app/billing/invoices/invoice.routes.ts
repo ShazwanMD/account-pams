@@ -1,8 +1,7 @@
 import {Routes, RouterModule} from '@angular/router';
-import {InvoiceCenterPage} from "./invoice-center.page";
-import {InvoiceTaskDetailPage} from "./invoice-task-detail.page";
-import {InvoiceDetailPage} from "./invoice-detail.page";
-
+import {InvoiceCenterPage} from './invoice-center.page';
+import {InvoiceTaskDetailPage} from './invoice-task-detail.page';
+import {InvoiceDetailPage} from './invoice-detail.page';
 
 export const InvoiceRoutes: Routes = [
   {path: 'billing/invoices', component: InvoiceCenterPage},

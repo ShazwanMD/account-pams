@@ -1,9 +1,8 @@
 import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
 
 import * as _ from 'lodash';
-import {Account} from "./account.interface";
-import {AccountActions} from "./account.action";
+import {Account} from '../../shared/model/account/account.interface';
+import {AccountActions} from './account.action';
 
 export type AccountListState = Account[];
 
@@ -23,13 +22,13 @@ export function accountListReducer(state = initialState, action: Action): Accoun
         return [
           ...state.slice(0, index),
           action.payload,
-          ...state.slice(index + 1)
+          ...state.slice(index + 1),
         ];
       }
       return state;
     }
     case AccountActions.REMOVE_ACCOUNT_SUCCESS: {
-      return state.filter(account => {
+      return state.filter((account) => {
         return account.id !== action.payload.id;
       });
     }

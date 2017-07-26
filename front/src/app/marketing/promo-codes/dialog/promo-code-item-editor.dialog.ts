@@ -2,14 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {PromoCodeItem} from "../promo-code-item.interface";
-import {Account} from "../../../account/accounts/account.interface";
-import {MdDialogRef} from "@angular/material";
-import {MarketingModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import {PromoCodeActions} from "../promo-code.action";
-import {PromoCode} from "../promo-code.interface";
-
+import {MdDialogRef} from '@angular/material';
+import {MarketingModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import {Account} from '../../../shared/model/account/account.interface';
+import {PromoCodeActions} from '../promo-code.action';
+import {PromoCodeItem} from '../../../shared/model/marketing/promo-code-item.interface';
+import {PromoCode} from '../../../shared/model/marketing/promo-code.interface';
 
 @Component({
   selector: 'pams-promo-code-item-editor',
@@ -47,8 +46,8 @@ export class PromoCodeItemEditorDialog implements OnInit {
       sourceNo: 0,
       account: <Account>{},
     });
-    
-    if(this._promoCodeItem){
+
+    if (this._promoCodeItem){
         this.editForm.patchValue(this._promoCodeItem);
         /*
          * below line expected to assign default selected option to account select component but it's not :~)

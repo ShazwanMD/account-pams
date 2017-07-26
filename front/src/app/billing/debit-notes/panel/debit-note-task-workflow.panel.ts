@@ -1,14 +1,13 @@
 import {
   Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit
+  ComponentFactoryResolver, ComponentRef, Input,
 } from '@angular/core';
-import {Observable} from "rxjs";
-import {FlowState} from "../../../core/flow-state.enum";
-import { DebitNoteTask } from "../debit-note-task.interface";
-import { DebitNoteRegisterTaskPanel } from "./debit-note-register-task.panel";
-import { DebitNoteDraftTaskPanel } from "./debit-note-draft-task.panel";
-import { DebitNoteVerifyTaskPanel } from "./debit-note-verify-task.panel";
-
+import {Observable} from 'rxjs';
+import {FlowState} from '../../../core/flow-state.enum';
+import {DebitNoteRegisterTaskPanel} from './debit-note-register-task.panel';
+import {DebitNoteDraftTaskPanel} from './debit-note-draft-task.panel';
+import {DebitNoteVerifyTaskPanel} from './debit-note-verify-task.panel';
+import {DebitNoteTask} from '../../../shared/model/billing/debit-note-task.interface';
 
 @Component({
   selector: 'pams-debit-note-task-workflow',
@@ -27,10 +26,10 @@ export class DebitNoteTaskWorkflowPanel implements OnInit {
 
   ngOnInit(): void {
     let componentFactory;
-    this.debitNoteTaskObservable.subscribe(task => {
+    this.debitNoteTaskObservable.subscribe((task) => {
       if (task.flowState) {
 
-        console.log("task flowState: " + task.flowState);
+        console.log('task flowState: ' + task.flowState);
         if (this.componentRef) this.componentRef.destroy();
         switch (FlowState[task.flowState.toString()]) {
           case FlowState.DRAFTED:

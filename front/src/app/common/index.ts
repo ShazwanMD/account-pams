@@ -8,19 +8,19 @@ import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../services';
 import {IdentityService} from '../../services';
 
-import {EffectsModule} from "@ngrx/effects";
-import {CommonEffects} from "./common.effect";
-import {CommonActions} from "./common.action";
-import {cohortCodeListReducer, CohortCodeListState} from "./cohort-codes/cohort-code-list.reducer";
-import {CohortCodeSelectComponent} from "./cohort-codes/component/cohort-code-select.component";
-import {facultyCodeListReducer, FacultyCodeListState} from "./faculty-codes/faculty-code-list.reducer";
-import {FacultyCodeSelectComponent} from "./faculty-codes/component/faculty-code-select.component";
-import {StudyModeSelectComponent} from "./study-modes/component/study-mode-select.component";
-import {studyModeListReducer, StudyModeListState} from "../setup/study-modes/study-mode-list.reducer";
-import {residencyCodeListReducer, ResidencyCodeListState} from "./residency-codes/residency-code-list.reducer";
-import {ResidencyCodeSelectComponent} from "./residency-codes/component/residency-code-select.component";
-import {taxCodeListReducer, TaxCodeListState} from "./tax-codes/tax-code-list.reducer";
-import { TaxCodeSelectComponent } from "./tax-codes/component/tax-code-select.component";
+import {EffectsModule} from '@ngrx/effects';
+import {CommonEffects} from './common.effect';
+import {CommonActions} from './common.action';
+import {cohortCodeListReducer, CohortCodeListState} from './cohort-codes/cohort-code-list.reducer';
+import {CohortCodeSelectComponent} from './cohort-codes/component/cohort-code-select.component';
+import {facultyCodeListReducer, FacultyCodeListState} from './faculty-codes/faculty-code-list.reducer';
+import {FacultyCodeSelectComponent} from './faculty-codes/component/faculty-code-select.component';
+import {StudyModeSelectComponent} from './study-modes/component/study-mode-select.component';
+import {studyModeListReducer, StudyModeListState} from '../setup/study-modes/study-mode-list.reducer';
+import {residencyCodeListReducer, ResidencyCodeListState} from './residency-codes/residency-code-list.reducer';
+import {ResidencyCodeSelectComponent} from './residency-codes/component/residency-code-select.component';
+import {taxCodeListReducer, TaxCodeListState} from './tax-codes/tax-code-list.reducer';
+import { TaxCodeSelectComponent } from './tax-codes/component/tax-code-select.component';
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
@@ -37,7 +37,7 @@ export const INITIAL_COMMON_STATE: CommonModuleState =
     facultyCodes: [],
     studyModes: [],
     residencyCodes: [],
-    taxCodes: []
+    taxCodes: [],
   };
 
 export const commonModuleReducers = {
@@ -79,7 +79,7 @@ export class CommonModule {
         appRoutingProviders,
         IdentityService,
         CommonService,
-        CommonActions
+        CommonActions,
       ],
     };
   }

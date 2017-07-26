@@ -4,9 +4,9 @@ import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import {MdDialogRef, MdDialog} from '@angular/material';
-import {CreditNoteItem} from './credit-note-item.interface';
 import {CreditNoteActions} from './credit-note.action';
-import {CreditNoteTask} from './credit-note-task.interface';
+import {CreditNoteTask} from '../../shared/model/billing/credit-note-task.interface';
+import {CreditNoteItem} from '../../shared/model/billing/credit-note-item.interface';
 
 @Component({
   selector: 'pams-credit-note-detail',

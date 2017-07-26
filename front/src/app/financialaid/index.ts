@@ -8,31 +8,30 @@ import {CovalentCoreModule} from '@covalent/core';
 import {CommonService} from '../../services';
 import {IdentityService} from '../../services';
 
-import {FinancialaidPage} from "./financialaid.page";
-import {FinancialaidService} from "../../services/financialaid.service";
-import {WaiverApplicationSubModule} from "./waiver-applications/index";
-import {SettlementSubModule} from "./settlements/index";
-import {SettlementState, settlementReducer} from "./settlements/settlement.reducer";
-import {SettlementListState, settlementListReducer} from "./settlements/settlement-list.reducer";
-import {WaiverApplicationState, waiverApplicationReducer} from "./waiver-applications/waiver-application.reducer";
+import {FinancialaidPage} from './financialaid.page';
+import {FinancialaidService} from '../../services/financialaid.service';
+import {WaiverApplicationSubModule} from './waiver-applications/index';
+import {SettlementSubModule} from './settlements/index';
+import {SettlementState, settlementReducer} from './settlements/settlement.reducer';
+import {SettlementListState, settlementListReducer} from './settlements/settlement-list.reducer';
+import {WaiverApplicationState, waiverApplicationReducer} from './waiver-applications/waiver-application.reducer';
 import {
   assignedWaiverApplicationTaskListReducer,
   pooledWaiverApplicationTaskListReducer,
   WaiverApplicationTaskListState,
-} from "./waiver-applications/waiver-application-task-list.reducer";
-import {settlementItemListReducer, SettlementItemListState} from "./settlements/settlement-item-list.reducer";
+} from './waiver-applications/waiver-application-task-list.reducer';
+import {settlementItemListReducer, SettlementItemListState} from './settlements/settlement-item-list.reducer';
 
 import {
   WaiverApplicationTaskState,
-  waiverApplicationTaskReducer
-} from "./waiver-applications/waiver-application-task.reducer";
-import {WaiverApplicationTask} from "./waiver-applications/waiver-application-task.interface";
-import {AccountSubModule} from "../account/accounts/index";
-import {Settlement} from "./settlements/settlement.interface";
-import {SettlementItem} from "./settlements/settlement-item.interface";
-import {PipeModule} from "../app.pipe.module";
-import {WaiverApplicationListState, archivedWaiverApplicationListReducer, waiverApplicationListReducer} from "./waiver-applications/waiver-application-list.reducer";
-import { WaiverApplication } from "./waiver-applications/waiver-application.interface";
+  waiverApplicationTaskReducer,
+} from './waiver-applications/waiver-application-task.reducer';
+import {PipeModule} from '../app.pipe.module';
+import {WaiverApplicationListState, archivedWaiverApplicationListReducer, waiverApplicationListReducer} from './waiver-applications/waiver-application-list.reducer';
+import {SettlementItem} from '../shared/model/financialaid/settlement-item.interface';
+import {Settlement} from '../shared/model/financialaid/settlement.interface';
+import {WaiverApplication} from '../shared/model/financialaid/waiver-application.interface';
+import {WaiverApplicationTask} from '../shared/model/financialaid/waiver-application-task.interface';
 
 export interface FinancialaidModuleState {
   assignedWaiverApplicationTasks: WaiverApplicationTaskListState;
@@ -69,7 +68,7 @@ export const financialaidModuleReducers = {
   waiverApplications: waiverApplicationListReducer,
   settlements: settlementListReducer,
   settlement: settlementReducer,
-  settlementItems: settlementItemListReducer
+  settlementItems: settlementItemListReducer,
 };
 
 @NgModule({

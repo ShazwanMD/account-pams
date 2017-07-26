@@ -1,6 +1,6 @@
-import {ReceiptType} from '../receipt-type.enum';
+import {ReceiptType} from '../../../shared/model/billing/receipt-type.enum';
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import {FormControl} from '@angular/forms';
 
 @Component({
  selector: 'pams-receipt-type-select',
@@ -14,8 +14,8 @@ export class ReceiptTypeSelectComponent {
  @Input() innerFormControl: FormControl;
 
  constructor() {
-   for (var n in ReceiptType) {
-     if(typeof ReceiptType[n] === 'string')
+   for (let n in ReceiptType) {
+     if (typeof ReceiptType[n] === 'string')
        this.receiptTypes.push(ReceiptType[n.toString()]);
    }
  }

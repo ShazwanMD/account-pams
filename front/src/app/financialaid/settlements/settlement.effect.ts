@@ -7,8 +7,8 @@ import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import 'rxjs/add/operator/withLatestFrom';
 import {FinancialaidModuleState} from "../index";
-import {Settlement} from "./settlement.interface";
 import {Observable} from "rxjs/Observable";
+import {Settlement} from '../../shared/model/financialaid/settlement.interface';
 
 @Injectable()
 export class SettlementEffects {
@@ -96,7 +96,7 @@ export class SettlementEffects {
     .withLatestFrom(this.store$.select(...this.SETTLEMENT))
     .map(state => state[1])
     .map((settlement: Settlement) => this.settlementActions.findSettlementByReferenceNo(settlement.referenceNo));
-  
+
   @Effect() addSettlementItem$ =
       this.actions$
         .ofType(SettlementActions.ADD_SETTLEMENT_ITEM)

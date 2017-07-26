@@ -2,14 +2,13 @@ import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {InvoiceItem} from "../invoice-item.interface";
-import {ChargeCode} from "../../../account/charge-codes/charge-code.interface";
-import {MdDialogRef} from "@angular/material";
-import {BillingModuleState} from "../../index";
-import {Store} from "@ngrx/store";
-import {InvoiceActions} from "../invoice.action";
-import {Invoice} from "../invoice.interface";
-
+import {MdDialogRef} from '@angular/material';
+import {BillingModuleState} from '../../index';
+import {Store} from '@ngrx/store';
+import {InvoiceActions} from '../invoice.action';
+import {InvoiceItem} from '../../../shared/model/billing/invoice-item.interface';
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
+import {ChargeCode} from '../../../shared/model/account/charge-code.interface';
 
 @Component({
   selector: 'pams-invoice-item-editor',
@@ -28,7 +27,7 @@ export class InvoiceItemEditorDialog implements OnInit {
               private formBuilder: FormBuilder,
               private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
-              private actions:InvoiceActions,
+              private actions: InvoiceActions,
               private dialog: MdDialogRef<InvoiceItemEditorDialog>) {
   }
 
@@ -43,7 +42,7 @@ export class InvoiceItemEditorDialog implements OnInit {
 
   ngOnInit(): void {
     this.editForm = this.formBuilder.group(<InvoiceItem>{
-      id: null,
+      id: undefined,
       description: '',
       amount: 0,
       balanceAmount: 0,

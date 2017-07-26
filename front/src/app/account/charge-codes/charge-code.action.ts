@@ -7,59 +7,59 @@ export class ChargeCodeActions {
   static FIND_CHARGE_CODES = '[ChargeCode] Find ChargeCodes';
 
   findChargeCodes(): Action {
-    console.log("findChargeCodes");
+    console.log('findChargeCodes');
     return {
-      type: ChargeCodeActions.FIND_CHARGE_CODES
+      type: ChargeCodeActions.FIND_CHARGE_CODES,
     };
   }
 
   static FIND_CHARGE_CODES_SUCCESS = '[ChargeCode] Find ChargeCodes Success';
 
   findChargeCodesSuccess(chargeCodes): Action {
-    console.log("findChargeCodesSuccess");
+    console.log('findChargeCodesSuccess');
     return {
       type: ChargeCodeActions.FIND_CHARGE_CODES_SUCCESS,
-      payload: chargeCodes
+      payload: chargeCodes,
     };
   }
 
   static FIND_CHARGE_CODE_BY_CODE = '[ChargeCode] Find ChargeCode By Code';
 
   findChargeCodeByCode(code): Action {
-    console.log("findChargeCodeByCode");
+    console.log('findChargeCodeByCode');
     return {
       type: ChargeCodeActions.FIND_CHARGE_CODE_BY_CODE,
-      payload: code
+      payload: code,
     };
   }
 
   static FIND_CHARGE_CODE_BY_CODE_SUCCESS = '[ChargeCode] Find ChargeCode By Code Success';
 
   findChargeCodeByCodeSuccess(chargeCode): Action {
-    console.log("findChargeCodeByCodeSuccess");
+    console.log('findChargeCodeByCodeSuccess');
     return {
       type: ChargeCodeActions.FIND_CHARGE_CODE_BY_CODE_SUCCESS,
-      payload: chargeCode
+      payload: chargeCode,
     };
   }
 
   static SAVE_CHARGE_CODE = '[ChargeCode] Save ChargeCode';
 
   saveChargeCode(chargeCode): Action {
-    console.log("saveChargeCode");
+    console.log('saveChargeCode');
     return {
       type: ChargeCodeActions.SAVE_CHARGE_CODE,
-      payload: chargeCode
+      payload: chargeCode,
     };
   }
 
   static SAVE_CHARGE_CODE_SUCCESS = '[ChargeCode] Save ChargeCode Success';
 
   saveChargeCodeSuccess(message): Action {
-    console.log("saveChargeCodeSuccess");
+    console.log('saveChargeCodeSuccess');
     return {
       type: ChargeCodeActions.SAVE_CHARGE_CODE_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
@@ -68,17 +68,17 @@ export class ChargeCodeActions {
   updateChargeCode(chargeCode): Action {
     return {
       type: ChargeCodeActions.UPDATE_CHARGE_CODE,
-      payload: chargeCode
+      payload: chargeCode,
     };
   }
 
   static UPDATE_CHARGE_CODE_SUCCESS = '[ChargeCode] Update ChargeCode Success';
 
   updateChargeCodeSuccess(message): Action {
-      console.log("updateChargeCodeSuccess");
-    return {
+      console.log('updateChargeCodeSuccess');
+      return {
       type: ChargeCodeActions.UPDATE_CHARGE_CODE_SUCCESS,
-      payload: message
+      payload: message,
     };
   }
 
@@ -87,7 +87,7 @@ export class ChargeCodeActions {
   removeChargeCode(chargeCode): Action {
     return {
       type: ChargeCodeActions.REMOVE_CHARGE_CODE,
-      payload: chargeCode
+      payload: chargeCode,
     };
   }
 
@@ -96,9 +96,8 @@ export class ChargeCodeActions {
   removeChargeCodeSuccess(chargeCode): Action {
     return {
       type: ChargeCodeActions.REMOVE_CHARGE_CODE_SUCCESS,
-      payload: chargeCode
+      payload: chargeCode,
     };
   }
-
 
 }

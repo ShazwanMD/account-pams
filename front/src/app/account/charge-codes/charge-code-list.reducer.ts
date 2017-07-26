@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {ChargeCode} from "./charge-code.interface";
-import {ChargeCodeActions} from "./charge-code.action";
+import {ChargeCodeActions} from './charge-code.action';
+import {ChargeCode} from '../../shared/model/account/charge-code.interface';
 
 export type ChargeCodeListState = ChargeCode[];
 

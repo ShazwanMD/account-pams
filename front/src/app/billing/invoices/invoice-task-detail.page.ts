@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {InvoiceTask} from "./invoice-task.interface";
-import {InvoiceActions} from "./invoice.action";
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../index";
-import {Store} from "@ngrx/store";
-
+import {InvoiceActions} from './invoice.action';
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../index';
+import {Store} from '@ngrx/store';
+import {InvoiceTask} from '../../shared/model/billing/invoice-task.interface';
 
 @Component({
   selector: 'pams-invoice-task-detail',
@@ -13,14 +12,14 @@ import {Store} from "@ngrx/store";
 })
 export class InvoiceTaskDetailPage implements OnInit {
 
-  private INVOICE_TASK = "billingModuleState.invoiceTask".split(".");
+  private INVOICE_TASK: string[] = 'billingModuleState.invoiceTask'.split('.');
   private invoiceTask$: Observable<InvoiceTask>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private actions: InvoiceActions) {
-    this.invoiceTask$ = this.store.select(...this.INVOICE_TASK)
+    this.invoiceTask$ = this.store.select(...this.INVOICE_TASK);
   }
 
   ngOnInit(): void {
@@ -34,5 +33,4 @@ export class InvoiceTaskDetailPage implements OnInit {
     this.router.navigate(['/billing/invoices']);
   }
 }
-
 

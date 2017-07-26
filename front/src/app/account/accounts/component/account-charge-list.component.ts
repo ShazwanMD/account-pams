@@ -1,14 +1,14 @@
 import {Component, Input, OnInit, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {AccountCharge} from '../account-charge.interface';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
 import {AccountModuleState} from '../../index';
 import {Store} from '@ngrx/store';
-import {Account} from '../account.interface';
+import {Account} from '../../../shared/model/account/account.interface';
 import {SecurityChargeEditorDialog} from '../dialog/security-charge-editor.dialog';
 import {AdmissionChargeEditorDialog} from '../dialog/admission-charge-editor.dialog';
 import {StudentAffairsChargeEditorDialog} from '../dialog/student-affairs-charge-editor.dialog';
 import {LoanChargeEditorDialog} from '../dialog/loan-charge-editor.dialog';
+import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
 
 @Component({
   selector: 'pams-account-charge-list',
@@ -70,7 +70,7 @@ export class AccountChargeListComponent implements OnInit {
     });
   }
 
-    showStudentAffairsChargeDialog(charge: AccountCharge): void {
+  showStudentAffairsChargeDialog(charge: AccountCharge): void {
     let config: MdDialogConfig = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -84,7 +84,7 @@ export class AccountChargeListComponent implements OnInit {
     });
   }
 
-    showLoanChargeDialog(charge: AccountCharge): void {
+  showLoanChargeDialog(charge: AccountCharge): void {
     let config: MdDialogConfig = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';

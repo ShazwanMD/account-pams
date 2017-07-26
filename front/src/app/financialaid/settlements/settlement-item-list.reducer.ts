@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {SettlementItem} from "./settlement-item.interface";
-import {SettlementActions} from "./settlement.action";
+import {SettlementActions} from './settlement.action';
+import {SettlementItem} from '../../shared/model/financialaid/settlement-item.interface';
 
 export type SettlementItemListState = SettlementItem[];
 

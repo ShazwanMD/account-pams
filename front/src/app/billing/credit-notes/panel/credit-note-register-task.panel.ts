@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {BillingModuleState} from "../../index";
-import { CreditNoteItem } from "../credit-note-item.interface";
-import { CreditNoteTask } from "../credit-note-task.interface";
-import { CreditNoteActions } from "../credit-note.action";
-import { CreditNoteItemEditorDialog } from "../dialog/credit-note-item-editor.dialog";
-
+import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {BillingModuleState} from '../../index';
+import {CreditNoteActions} from '../credit-note.action';
+import {CreditNoteItemEditorDialog} from '../dialog/credit-note-item-editor.dialog';
+import {CreditNoteTask} from '../../../shared/model/billing/credit-note-task.interface';
+import {CreditNoteItem} from '../../../shared/model/billing/credit-note-item.interface';
 
 @Component({
   selector: 'pams-credit-note-register-task',
@@ -17,7 +16,7 @@ import { CreditNoteItemEditorDialog } from "../dialog/credit-note-item-editor.di
 
 export class CreditNoteRegisterTaskPanel implements OnInit {
 
-  private CREDIT_NOTE_ITEMS = "billingModuleState.creditNoteItems".split(".");
+  private CREDIT_NOTE_ITEMS = 'billingModuleState.creditNoteItems'.split('.');
   @Input() creditNoteTask: CreditNoteTask;
   creditNoteItems$: Observable<CreditNoteItem[]>;
 
@@ -32,8 +31,8 @@ export class CreditNoteRegisterTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("reference no " + this.creditNoteTask.referenceNo);
-    this.store.dispatch(this.actions.findCreditNoteItems(this.creditNoteTask))
+    console.log('reference no ' + this.creditNoteTask.referenceNo);
+    this.store.dispatch(this.actions.findCreditNoteItems(this.creditNoteTask));
   }
 
   editItem(item: CreditNoteItem) {

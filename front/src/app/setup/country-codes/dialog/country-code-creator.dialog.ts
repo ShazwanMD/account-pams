@@ -1,13 +1,12 @@
-import { CountryCode } from './../../../common/country-codes/country-code.interface';
+import { CountryCode } from '../../../common/country-codes/country-code.interface';
 import {Component, ViewContainerRef, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {SetupModuleState} from "../../index";
-import {SetupActions} from "../../setup.action";
-
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {SetupModuleState} from '../../index';
+import {SetupActions} from '../../setup.action';
 
 @Component({
   selector: 'pams-country-code-creator',
@@ -24,7 +23,7 @@ export class CountryCodeCreatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private dialog: MdDialogRef<CountryCodeCreatorDialog>,
               private store: Store<SetupModuleState>,
-              private actions: SetupActions
+              private actions: SetupActions,
   ) {
   }
 
@@ -37,7 +36,6 @@ export class CountryCodeCreatorDialog implements OnInit {
       descriptionMs: '',
       descriptionEn: '',
       prefix: '',
-     
 
     });
   }

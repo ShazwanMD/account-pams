@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {CreditNote} from "../credit-notes/credit-note.interface";
-import {CreditNoteActions} from "../credit-notes/credit-note.action";
+import {CreditNoteActions} from './credit-note.action';
+import {CreditNote} from '../../shared/model/billing/credit-note.interface';
 
 export type CreditNoteListState = CreditNote[];
 

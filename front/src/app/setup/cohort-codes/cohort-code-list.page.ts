@@ -9,7 +9,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { CohortCodeEditorDialog } from './dialog/cohort-code-editor.dialog';
-import { CohortCode } from './../../common/cohort-codes/cohort-code.interface';
+import { CohortCode } from '../../common/cohort-codes/cohort-code.interface';
 import {Store} from "@ngrx/store";
 import {SetupActions} from "../setup.action";
 import {SetupModuleState} from "../index";
