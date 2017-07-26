@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountSTL;
 import my.edu.umk.pams.account.core.GenericDao;
 
+@Deprecated
 public interface AcAccountSTLDao extends GenericDao<Long, AcAccountSTL> {
 
     // ====================================================================================================

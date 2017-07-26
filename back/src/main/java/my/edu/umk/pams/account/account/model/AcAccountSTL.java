@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import my.edu.umk.pams.account.core.AcMetaObject;
 
+@Deprecated
 public interface AcAccountSTL extends AcMetaObject {
 
     String getSourceNo();
