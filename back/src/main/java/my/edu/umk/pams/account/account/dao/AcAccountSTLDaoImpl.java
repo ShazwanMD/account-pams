@@ -15,6 +15,7 @@ import my.edu.umk.pams.account.account.model.AcAccountSTLImpl;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 
+@Deprecated
 @Repository("acAccountSTLDao")
 public class AcAccountSTLDaoImpl extends GenericDaoSupport<Long, AcAccountSTL> implements  AcAccountSTLDao {
 

@@ -286,6 +286,7 @@ public class BillingTransformer {
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         return vo;
     }
 
@@ -302,6 +303,7 @@ public class BillingTransformer {
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         return vo;
     }
 
@@ -325,6 +327,7 @@ public class BillingTransformer {
         task.setCreditNote(toCreditNoteVo(creditNote));
         task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(creditNote.getMetadata().getState().ordinal()));
+        task.setChargeCode(accountTransformer.toChargeCodeVo(creditNote.getChargeCode()));
         return task;
     }
 

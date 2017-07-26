@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import my.edu.umk.pams.account.core.AcMetadata;
 
+@Deprecated
 @Entity(name = "AcAccountSTL")
 @Table(name = "AC_ACCT_STL")
 public class AcAccountSTLImpl implements AcAccountSTL {

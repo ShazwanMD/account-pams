@@ -246,6 +246,7 @@
         REMOVE_COMMENT varchar(255),
         SOURCE_NO varchar(255),
         TOTAL_AMOUNT numeric(19, 2),
+        CHARGE_CODE_ID int8,
         INVOICE_ID int8,
         primary key (ID)
     );
@@ -1121,6 +1122,8 @@
     create table AC_STLT_ITEM (
         ID int8 not null,
         BALANCE_AMOUNT numeric(19, 2) not null,
+        FEE_AMOUNT numeric(19, 2) not null,
+        LOAN_AMOUNT numeric(19, 2) not null,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -1128,6 +1131,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
+        NETT_AMOUNT numeric(19, 2) not null,
         SETTLEMENT_STATUS int4 not null,
         ACCOUNT_ID int8,
         INVOICE_ID int8,
@@ -1435,6 +1439,11 @@
         add constraint FK_jc1lhth7un8oggnbjsew0mhs8 
         foreign key (ID) 
         references AC_RCPT;
+
+    alter table AC_CDIT_NOTE 
+        add constraint FK_5p75fcqqvmyqo7m945gf6xaj3 
+        foreign key (CHARGE_CODE_ID) 
+        references AC_CHRG_CODE;
 
     alter table AC_CDIT_NOTE 
         add constraint FK_kn1ige6q5d3um3d1y9l1vpsua 

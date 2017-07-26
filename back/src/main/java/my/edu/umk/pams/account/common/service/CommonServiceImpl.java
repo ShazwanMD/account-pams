@@ -788,7 +788,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<AcSecurityChargesCode> findSecurityChargesCode(String filter, Integer offset, Integer limit) {
+    public List<AcSecurityChargesCode> findSecurityChargesCodes(String filter, Integer offset, Integer limit) {
         return securityChargesCodeDao.find(filter, offset, limit);
     }
 
