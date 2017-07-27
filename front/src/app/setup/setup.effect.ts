@@ -185,30 +185,30 @@ export class SetupEffects {
         .map( message => this.setupActions.removeTaxCodeSuccess( message ) )
         .mergeMap( action => from( [action, this.setupActions.findTaxCodes()] ) );
 
-        @Effect() findSecurityChargesCodes$ = this.actions$
+        @Effect() findSecurityChargeCodes$ = this.actions$
         .ofType( SetupActions.FIND_SECURITY_CHARGE_CODES)
         .map( action => action.payload )
-        .switchMap(() => this.commonService.findSecurityChargesCodes() )
-        .map( codes => this.setupActions.findSecurityChargesCodesSuccess( codes ) );
+        .switchMap(() => this.commonService.findSecurityChargeCodes() )
+        .map( codes => this.setupActions.findSecurityChargeCodesSuccess( codes ) );
 
-    @Effect() saveSecurityChargesCode$ = this.actions$
-        .ofType( SetupActions.SAVE_SECURITY_CHARGES_CODE)
+    @Effect() saveSecurityChargeCode$ = this.actions$
+        .ofType( SetupActions.SAVE_SECURITY_Charge_CODE)
         .map( action => action.payload )
-        .switchMap( payload => this.commonService.saveSecurityChargesCode(payload) )
-        .map( message => this.setupActions.saveSecurityChargesCodeSuccess( message ) )
-        .mergeMap( action => from( [action, this.setupActions.findSecurityChargesCodes()] ) );
+        .switchMap( payload => this.commonService.saveSecurityChargeCode(payload) )
+        .map( message => this.setupActions.saveSecurityChargeCodeSuccess( message ) )
+        .mergeMap( action => from( [action, this.setupActions.findSecurityChargeCodes()] ) );
 
-    @Effect() updateSecurityChargesCode$ = this.actions$
-        .ofType( SetupActions.UPDATE_SECURITY_CHARGES_CODE )
+    @Effect() updateSecurityChargeCode$ = this.actions$
+        .ofType( SetupActions.UPDATE_SECURITY_Charge_CODE )
         .map( action => action.payload )
-        .switchMap( payload => this.commonService.updateSecurityChargesCode( payload ) )
-        .map( message => this.setupActions.updateSecurityChargesCodeSuccess( message ) )
-        .mergeMap( action => from( [action, this.setupActions.findSecurityChargesCodes()] ) );
+        .switchMap( payload => this.commonService.updateSecurityChargeCode( payload ) )
+        .map( message => this.setupActions.updateSecurityChargeCodeSuccess( message ) )
+        .mergeMap( action => from( [action, this.setupActions.findSecurityChargeCodes()] ) );
 
     @Effect() removeSecurityChargeCode$ = this.actions$
-        .ofType( SetupActions.REMOVE_SECURITY_CHARGES_CODE )
+        .ofType( SetupActions.REMOVE_SECURITY_Charge_CODE )
         .map( action => action.payload )
-        .switchMap( payload => this.commonService.removeSecurityChargesCode( payload ) )
-        .map( message => this.setupActions.removeSecurityChargesCodeSuccess( message ) )
-        .mergeMap( action => from( [action, this.setupActions.findSecurityChargesCodes()] ) );
+        .switchMap( payload => this.commonService.removeSecurityChargeCode( payload ) )
+        .map( message => this.setupActions.removeSecurityChargeCodeSuccess( message ) )
+        .mergeMap( action => from( [action, this.setupActions.findSecurityChargeCodes()] ) );
 }

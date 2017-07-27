@@ -134,12 +134,12 @@ public class CommonTransformer {
     }
     
     //====================================================================================================
-    // SECURITY CHARGES CODE
+    // SECURITY Charge CODE
     //====================================================================================================
 
-    public SecurityChargesCode toSecurityChargesCodeVo(AcSecurityChargeCode e) {
+    public SecurityChargeCode toSecurityChargeCodeVo(AcSecurityChargeCode e) {
     	if(null == e) return null;
-    	SecurityChargesCode vo = new SecurityChargesCode();
+    	SecurityChargeCode vo = new SecurityChargeCode();
         vo.setId(e.getId());
         vo.setSection(e.getSection());
         vo.setDescription(e.getDescription());
@@ -151,9 +151,9 @@ public class CommonTransformer {
         return vo;
     }
 
-    public List<SecurityChargesCode> toSecurityChargesCodeVos(List<AcSecurityChargeCode> e) {
-        List<SecurityChargesCode> vos = e.stream()
-                .map((e1) -> toSecurityChargesCodeVo(e1))
+    public List<SecurityChargeCode> toSecurityChargeCodeVos(List<AcSecurityChargeCode> e) {
+        List<SecurityChargeCode> vos = e.stream()
+                .map((e1) -> toSecurityChargeCodeVo(e1))
                 .collect(Collectors.toList());
         return vos;
     }

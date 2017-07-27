@@ -54,7 +54,7 @@ public class CommonServiceImpl implements CommonService {
     private AcTaxCodeDao taxCodeDao;
     
     @Autowired
-    private AcSecurityChargeCodeDao securityChargesCodeDao;
+    private AcSecurityChargeCodeDao securityChargeCodeDao;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -769,55 +769,55 @@ public class CommonServiceImpl implements CommonService {
 
     
     //====================================================================================================
-    // SECURITY CHARGES CODE 
+    // SECURITY CHARGE CODE 
     //====================================================================================================
     
     @Override
-    public AcSecurityChargeCode findSecurityChargesCodeById(Long id) {
-        return securityChargesCodeDao.findById(id);
+    public AcSecurityChargeCode findSecurityChargeCodeById(Long id) {
+        return securityChargeCodeDao.findById(id);
     }
 
     @Override
-    public AcSecurityChargeCode findSecurityChargesCodeByCode(String code) {
-        return securityChargesCodeDao.findByCode(code);
+    public AcSecurityChargeCode findSecurityChargeCodeByCode(String code) {
+        return securityChargeCodeDao.findByCode(code);
     }
 
     @Override
-    public List<AcSecurityChargeCode> findSecurityChargesCodes() {
-        return securityChargesCodeDao.find();
+    public List<AcSecurityChargeCode> findSecurityChargeCodes() {
+        return securityChargeCodeDao.find();
     }
 
     @Override
-    public List<AcSecurityChargeCode> findSecurityChargesCodes(String filter, Integer offset, Integer limit) {
-        return securityChargesCodeDao.find(filter, offset, limit);
+    public List<AcSecurityChargeCode> findSecurityChargeCodes(String filter, Integer offset, Integer limit) {
+        return securityChargeCodeDao.find(filter, offset, limit);
     }
 
     @Override
-    public Integer countSecurityChargesCode() {
-        return securityChargesCodeDao.count();
+    public Integer countSecurityChargeCode() {
+        return securityChargeCodeDao.count();
     }
 
     @Override
-    public Integer countSecurityChargesCode(String filter) {
-        return securityChargesCodeDao.count(filter);
+    public Integer countSecurityChargeCode(String filter) {
+        return securityChargeCodeDao.count(filter);
     }
 
 
     @Override
-    public void saveSecurityChargesCode(AcSecurityChargeCode securityChargesCode) {
-    	securityChargesCodeDao.save(securityChargesCode, securityService.getCurrentUser());
+    public void saveSecurityChargeCode(AcSecurityChargeCode securityChargeCode) {
+    	securityChargeCodeDao.save(securityChargeCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void updateSecurityChargesCode(AcSecurityChargeCode securityChargesCode) {
-    	securityChargesCodeDao.update(securityChargesCode, securityService.getCurrentUser());
+    public void updateSecurityChargeCode(AcSecurityChargeCode securityChargeCode) {
+    	securityChargeCodeDao.update(securityChargeCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
-    public void removeSecurityChargesCode(AcSecurityChargeCode securityChargesCode) {
-    	securityChargesCodeDao.remove(securityChargesCode, securityService.getCurrentUser());
+    public void removeSecurityChargeCode(AcSecurityChargeCode securityChargeCode) {
+    	securityChargeCodeDao.remove(securityChargeCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 }
