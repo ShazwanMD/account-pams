@@ -43,15 +43,21 @@ export class SettlementItemDialog implements OnInit {
     this.editForm = this.formBuilder.group(<SettlementItem>{
       id: undefined,
       balanceAmount: 0,
+      feeAmount: 0,
+      loanAmount: 0,
+      nettAmount:0,
       account: <Account>{},
       invoice: <Invoice>{},
     });
 
     if (this._settlementItem)
       this.editForm.patchValue(this._settlementItem);
+  
   }
 
+
   save(settlementItem: SettlementItem, isValid: boolean) {
+    
     if (!settlementItem.id) this.store.dispatch(this.actions.addSettlementItem(this._settlement, settlementItem));
     else  this.store.dispatch(this.actions.updateSettlementItem(this._settlement, settlementItem));
     this.dialog.close();
