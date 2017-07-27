@@ -171,6 +171,9 @@ public class FinancialAidController {
         AcSettlementItem e = new AcSettlementItemImpl();
 
         e.setSettlement(settlement);
+        e.setLoanAmount(item.getLoanAmount());
+        e.setFeeAmount(item.getFeeAmount());
+        e.setNettAmount(item.getNettAmount());
         e.setBalanceAmount(item.getBalanceAmount());
         //e.setStatus(AcSettlementStatus.NEW);
 

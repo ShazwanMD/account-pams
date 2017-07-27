@@ -304,25 +304,25 @@ public interface CommonService {
     void removeTaxCode(AcTaxCode taxCode);
     
     //====================================================================================================
-    // SECURITY CHARGES CODE 
+    // SECURITY Charge CODE 
     //====================================================================================================
     
-    AcSecurityChargeCode findSecurityChargesCodeById(Long id);
+    AcSecurityChargeCode findSecurityChargeCodeById(Long id);
 
-    AcSecurityChargeCode findSecurityChargesCodeByCode(String code);
+    AcSecurityChargeCode findSecurityChargeCodeByCode(String code);
 
-    List<AcSecurityChargeCode> findSecurityChargesCodes();
+    List<AcSecurityChargeCode> findSecurityChargeCodes();
 
-    List<AcSecurityChargeCode> findSecurityChargesCodes(String filter, Integer offset, Integer limit);
+    List<AcSecurityChargeCode> findSecurityChargeCodes(String filter, Integer offset, Integer limit);
 
-    Integer countSecurityChargesCode();
+    Integer countSecurityChargeCode();
 
-    Integer countSecurityChargesCode(String filter);
+    Integer countSecurityChargeCode(String filter);
 
-    void saveSecurityChargesCode(AcSecurityChargeCode securityChargesCode);
+    void saveSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
 
-    void updateSecurityChargesCode(AcSecurityChargeCode securityChargesCode);
+    void updateSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
 
-    void removeSecurityChargesCode(AcSecurityChargeCode securityChargesCode);
+    void removeSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
     
 }

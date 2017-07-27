@@ -13,23 +13,23 @@ import {SetupActions} from '../../setup.action';
   templateUrl: './security-charge-code-editor.dialog.html',
 })
 
-export class SecurityChargesCodeEditorDialog implements OnInit {
+export class SecurityChargeCodeEditorDialog implements OnInit {
 
   private editorForm: FormGroup;
   private edit: boolean = false;
-  private _securityChargesCode: SecurityChargeCode;
+  private _securityChargeCode: SecurityChargeCode;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private viewContainerRef: ViewContainerRef,
-              private dialog: MdDialogRef<SecurityChargesCodeEditorDialog>,
+              private dialog: MdDialogRef<SecurityChargeCodeEditorDialog>,
               private store: Store<SetupModuleState>,
               private actions: SetupActions) {
   }
 
-  set securityChargesCode(value: SecurityChargeCode) {
-    this._securityChargesCode = value;
+  set securityChargeCode(value: SecurityChargeCode) {
+    this._securityChargeCode = value;
     this.edit = true;
   }
 
@@ -46,18 +46,18 @@ export class SecurityChargesCodeEditorDialog implements OnInit {
 
     });
 
-    if (this.edit) this.editorForm.patchValue(this._securityChargesCode);
+    if (this.edit) this.editorForm.patchValue(this._securityChargeCode);
   }
 
-  // submit(code: SecurityChargesCode, isValid: boolean) {
-  //   if (!code.id) this.store.dispatch(this.actions.saveSecurityChargesCode(code));
-  //   else  this.store.dispatch(this.actions.updateSecurityChargesCode(code.id));
+  // submit(code: SecurityChargeCode, isValid: boolean) {
+  //   if (!code.id) this.store.dispatch(this.actions.saveSecurityChargeCode(code));
+  //   else  this.store.dispatch(this.actions.updateSecurityChargeCode(code.id));
   //   this.dialog.close();
   // }
 
     submit(code: SecurityChargeCode, isValid: boolean) {
-    if (this.edit) this.store.dispatch(this.actions.updateSecurityChargesCode(code));
-    else  this.store.dispatch(this.actions.saveSecurityChargesCode(code));
+    if (this.edit) this.store.dispatch(this.actions.updateSecurityChargeCode(code));
+    else  this.store.dispatch(this.actions.saveSecurityChargeCode(code));
     this.dialog.close();
   }
 }

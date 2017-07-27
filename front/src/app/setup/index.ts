@@ -1,5 +1,5 @@
 import { SecurityChargeEditorDialog } from './../account/accounts/dialog/security-charge-editor.dialog';
-import { SecurityChargesCodeListPage } from './security-charge-codes/security-charge-code-list.page';
+import { SecurityChargeCodeListPage } from './security-charge-codes/security-charge-code-list.page';
 import { SecurityChargeCode } from '../common/security-charge-codes/security-charge-code.interface';
 import { CohortCodeEditorDialog } from './cohort-codes/dialog/cohort-code-editor.dialog';
 import { CohortCodeListPage } from './cohort-codes/cohort-code-list.page';
@@ -54,7 +54,7 @@ import { TaxCode } from "../common/tax-codes/tax-code.interface";
 import { TaxCodeListPage } from "./tax-codes/tax-code-list.page";
 import { TaxCodeEditorDialog } from "./tax-codes/dialog/tax-code-editor.dialog";
 
-import {SecurityChargesCodeEditorDialog} from "./security-charge-codes/dialog/security-charge-code-editor.dialog";
+import {SecurityChargeCodeEditorDialog} from "./security-charge-codes/dialog/security-charge-code-editor.dialog";
 import { SecurityChargeCodeListState, securityChargeCodeListReducer } from "./security-charge-codes/security-charge-code-list.reducer";
 
 export interface SetupModuleState {
@@ -63,7 +63,7 @@ export interface SetupModuleState {
   cohortCodes: CohortCodeListState;
   residencyCodes: ResidencyCodeListState;
   taxCodes: TaxCodeListState;
-  securityChargesCode: SecurityChargeCodeListState;
+  securityChargeCode: SecurityChargeCodeListState;
 
 };
 
@@ -74,7 +74,7 @@ export const INITIAL_SETUP_STATE: SetupModuleState =
     cohortCodes: <CohortCode[]>[],
     residencyCodes: <ResidencyCode[]>[],
     taxCodes: <TaxCode[]>[],
-    securityChargesCode: <SecurityChargeCode[]>[],
+    securityChargeCode: <SecurityChargeCode[]>[],
   };
 
 
@@ -84,7 +84,7 @@ export const setupModuleReducers = {
   cohortCodes: cohortCodeListReducer,
   residencyCodes: residencyCodeListReducer,
   taxCodes: taxCodeListReducer,
-  securityChargesCode: securityChargeCodeListReducer,
+  securityChargeCode: securityChargeCodeListReducer,
 }
 
 
@@ -108,7 +108,7 @@ export const setupModuleReducers = {
     CohortCodeListPage,
     ResidencyCodeListPage,
     TaxCodeListPage,
-    SecurityChargesCodeListPage,
+    SecurityChargeCodeListPage,
 
     // dialog
     BankCodeEditorDialog,
@@ -120,7 +120,7 @@ export const setupModuleReducers = {
     CohortCodeEditorDialog,
     ResidencyCodeEditorDialog,
     TaxCodeEditorDialog,
-    SecurityChargesCodeEditorDialog,
+    SecurityChargeCodeEditorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -133,7 +133,7 @@ export const setupModuleReducers = {
     CohortCodeEditorDialog,
     ResidencyCodeEditorDialog,
     TaxCodeEditorDialog,
-    SecurityChargesCodeEditorDialog,
+    SecurityChargeCodeEditorDialog,
   ],
 
 })

@@ -1,4 +1,4 @@
-import {SecurityChargesCodeListPage} from './security-charge-codes/security-charge-code-list.page';
+import {SecurityChargeCodeListPage} from './security-charge-codes/security-charge-code-list.page';
 import {BankCodeListPage} from './bank-codes/bank-code-list.page';
 import {StudyModeListPage} from './study-modes/study-mode-list.page';
 import {FacultyCodeListPage} from './faculty-codes/faculty-code-list.page';
@@ -24,7 +24,7 @@ export const SetupModuleRoutes: Routes = [
       {path: 'study-modes', component: StudyModeListPage},
       {path: 'bank-codes', component: BankCodeListPage},
       {path: 'tax-codes', component: TaxCodeListPage},
-      {path: 'security-charge-codes', component: SecurityChargesCodeListPage},
+      {path: 'security-charge-code', component: SecurityChargeCodeListPage},
 
     ],
   },

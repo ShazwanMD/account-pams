@@ -242,27 +242,27 @@ export class CommonService {
   }
 
   // ====================================================================================================
-  // SECURITY CHARGES CODES
+  // SECURITY Charge CODES
   // ====================================================================================================
 
-    findSecurityChargesCodes(): Observable<SecurityChargeCode[]> {
-    console.log('findSecurityChargesCodes');
-    return this._http.get(this.COMMON_API + '/securityChargesCodes')
+    findSecurityChargeCodes(): Observable<SecurityChargeCode[]> {
+    console.log('findSecurityChargeCodes');
+    return this._http.get(this.COMMON_API + '/securityChargeCodes')
       .map((res: Response) => <SecurityChargeCode[]>res.json());
   }
 
-  saveSecurityChargesCode(code: SecurityChargeCode) {
-    return this._http.post(this.COMMON_API + '/securityChargesCode', JSON.stringify(code))
+  saveSecurityChargeCode(code: SecurityChargeCode) {
+    return this._http.post(this.COMMON_API + '/securityChargeCode', JSON.stringify(code))
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateSecurityChargesCode(code: SecurityChargeCode) {
-    return this._http.put(this.COMMON_API + '/securityChargesCode/' + code.id, JSON.stringify(code))
+  updateSecurityChargeCode(code: SecurityChargeCode) {
+    return this._http.put(this.COMMON_API + '/securityChargeCode/' + code.id, JSON.stringify(code))
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  removeSecurityChargesCode(code: SecurityChargeCode) {
-    return this._http.delete(this.COMMON_API + '/securityChargesCode/' + code.id)
+  removeSecurityChargeCode(code: SecurityChargeCode) {
+    return this._http.delete(this.COMMON_API + '/securityChargeCode/' + code.id)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 }
