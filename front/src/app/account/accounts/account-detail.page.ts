@@ -10,6 +10,7 @@ import {AccountModuleState} from '../index';
 import {AccountTransaction} from '../../shared/model/account/account-transaction.interface';
 import {AccountWaiver} from '../../shared/model/account/account-waiver.interface';
 import {AccountCharge} from '../../shared/model/account/account-charge.interface';
+import { AccountActivity } from "../../shared/model/account/account-activity.interface";
 
 @Component({
   selector: 'pams-account-detail',
@@ -19,14 +20,14 @@ import {AccountCharge} from '../../shared/model/account/account-charge.interface
 export class AccountDetailPage implements OnInit {
 
   private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
-  private ACCOUNT_TRANSACTIONS: string[] = 'accountModuleState.accountTransactions'.split('.');
+  private ACCOUNT_ACTIVITY: string[] = 'accountModuleState.accountActivities'.split('.');
   private ACCOUNT_WAIVERS: string[] = 'accountModuleState.accountWaiver'.split('.');
   private SECURITY_ACCOUNT_CHARGES: string[] = 'accountModuleState.securityAccountCharges'.split('.');
   private ADMISSION_ACCOUNT_CHARGES: string[] = 'accountModuleState.admissionAccountCharges'.split('.');
   private STUDENT_AFFAIRS_ACCOUNT_CHARGES: string[] = 'accountModuleState.studentAffairsAccountCharges'.split('.');
   private LOAN_ACCOUNT_CHARGES: string[] = 'accountModuleState.loanAccountCharges'.split('.');
   private account$: Observable<Account>;
-  private accountTransactions$: Observable<AccountTransaction[]>;
+  private accountActivities$: Observable<AccountActivity[]>;
   private accountWaivers$: Observable<AccountWaiver[]>;
   private securityAccountCharges$: Observable<AccountCharge[]>;
   private admissionAccountCharges$: Observable<AccountCharge[]>;
@@ -41,7 +42,7 @@ export class AccountDetailPage implements OnInit {
               private dialog: MdDialog) {
 
     this.account$ = this.store.select(...this.ACCOUNT);
-    this.accountTransactions$ = this.store.select(...this.ACCOUNT_TRANSACTIONS);
+    this.accountActivities$ = this.store.select(...this.ACCOUNT_ACTIVITY);
     this.accountWaivers$ = this.store.select(...this.ACCOUNT_WAIVERS);
     this.securityAccountCharges$ = this.store.select(...this.SECURITY_ACCOUNT_CHARGES);
     this.admissionAccountCharges$ = this.store.select(...this.ADMISSION_ACCOUNT_CHARGES);
