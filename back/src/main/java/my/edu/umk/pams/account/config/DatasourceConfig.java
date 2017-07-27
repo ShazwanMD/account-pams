@@ -18,7 +18,7 @@ import java.util.Properties;
 
 @Configuration
 public class DatasourceConfig {
-    private static String INDEX_BASE = SystemUtils.IS_OS_WINDOWS ? "${user.home}" : ".";
+    private static String INDEX_BASE = SystemUtils.IS_OS_WINDOWS ? "${user.home}" : "/opt/tomcat";
 
     @Autowired
     private Environment env;
