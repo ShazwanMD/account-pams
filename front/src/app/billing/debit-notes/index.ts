@@ -25,7 +25,7 @@ import {DebitNoteDraftTaskPanel} from "./panel/debit-note-draft-task.panel";
 import {DebitNoteVerifyTaskPanel} from "./panel/debit-note-verify-task.panel";
 import {DebitNoteTaskWorkflowPanel} from "./panel/debit-note-task-workflow.panel";
 import {DebitNoteStatusComponent} from "./component/debit-note-status.component";
-import {DebitNoteItemListComponent} from "./component/debit-note-item-list.component";
+//import {DebitNoteItemListComponent} from "./component/debit-note-item-list.component";
 import { ChargeCodeSubModule } from "../../account/charge-codes/index";
 import { DebitNoteActionComponent } from "./component/debit-note-action.component";
 import {PipeModule} from "../../app.pipe.module";
@@ -60,7 +60,7 @@ import {PipeModule} from "../../app.pipe.module";
     DebitNoteVerifyTaskPanel,
     DebitNoteTaskWorkflowPanel,
     DebitNoteStatusComponent,
-    DebitNoteItemListComponent,
+    // DebitNoteItemListComponent,
     DebitNoteActionComponent,
 
 
@@ -76,7 +76,7 @@ import {PipeModule} from "../../app.pipe.module";
     DebitNoteStatusComponent,
     DebitNoteRegisterTaskPanel,
     DebitNoteVerifyTaskPanel,
-    DebitNoteItemListComponent,
+    // DebitNoteItemListComponent,
     DebitNoteActionComponent,
 
   ],
