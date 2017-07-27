@@ -1,6 +1,5 @@
 package my.edu.umk.pams.account.common.service;
 
-import my.edu.umk.pams.account.common.dao.AcSecurityChargesCodeDao;
 import my.edu.umk.pams.account.common.model.*;
 
 import java.util.List;
@@ -305,25 +304,25 @@ public interface CommonService {
     void removeTaxCode(AcTaxCode taxCode);
     
     //====================================================================================================
-    // SECURITY CHARGES CODE 
+    // SECURITY Charge CODE 
     //====================================================================================================
     
-    AcSecurityChargesCode findSecurityChargesCodeById(Long id);
+    AcSecurityChargeCode findSecurityChargeCodeById(Long id);
 
-    AcSecurityChargesCode findSecurityChargesCodeByCode(String code);
+    AcSecurityChargeCode findSecurityChargeCodeByCode(String code);
 
-    List<AcSecurityChargesCode> findSecurityChargesCodes();
+    List<AcSecurityChargeCode> findSecurityChargeCodes();
 
-    List<AcSecurityChargesCode> findSecurityChargesCodes(String filter, Integer offset, Integer limit);
+    List<AcSecurityChargeCode> findSecurityChargeCodes(String filter, Integer offset, Integer limit);
 
-    Integer countSecurityChargesCode();
+    Integer countSecurityChargeCode();
 
-    Integer countSecurityChargesCode(String filter);
+    Integer countSecurityChargeCode(String filter);
 
-    void saveSecurityChargesCode(AcSecurityChargesCode securityChargesCode);
+    void saveSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
 
-    void updateSecurityChargesCode(AcSecurityChargesCode securityChargesCode);
+    void updateSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
 
-    void removeSecurityChargesCode(AcSecurityChargesCode securityChargesCode);
+    void removeSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
     
 }

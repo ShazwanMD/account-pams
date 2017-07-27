@@ -2,7 +2,9 @@ package my.edu.umk.pams.account.common.model;
 
 import java.math.BigDecimal;
 
-public interface AcSecurityChargesCode extends my.edu.umk.pams.account.core.AcMetaObject {
+import my.edu.umk.pams.account.core.AcMetaObject;
+
+public interface AcSecurityChargeCode extends AcMetaObject {
 
 	void setId(Long id);
 

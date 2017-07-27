@@ -13,9 +13,9 @@ import javax.validation.constraints.NotNull;
 
 import my.edu.umk.pams.account.core.AcMetadata;
 
-@Entity(name = "AcSecurityChargesCode")
+@Entity(name = "AcSecurityChargeCode")
 @Table(name = "AC_SCTY_CHRG_CODE")
-public class AcSecurityChargesCodeImpl implements AcSecurityChargesCode {
+public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
 
     @Id
     @Column(name = "ID", nullable = false)

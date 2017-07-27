@@ -25,6 +25,7 @@ import {SettlementListComponent} from './component/settlement-list.component';
 import {SettlementItemDialog} from './dialog/settlement-item.dialog';
 import {AccountSubModule} from '../../account/accounts/index';
 import {InvoiceSubModule} from '../../billing/invoices/index';
+import {SettlementFileUploaderDialog} from './dialog/settlement-file-uploader.dialog';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import {InvoiceSubModule} from '../../billing/invoices/index';
     SettlementCreatorByCohortDialog,
     SettlementCreatorByFacultyDialog,
     SettlementCreatorBySponsorDialog,
+    SettlementFileUploaderDialog,
 
     // component
     SettlementComponent,
@@ -61,6 +63,7 @@ import {InvoiceSubModule} from '../../billing/invoices/index';
     SettlementCreatorByFacultyDialog,
     SettlementCreatorBySponsorDialog,
     SettlementItemDialog,
+    SettlementFileUploaderDialog,
   ],
 
 })
