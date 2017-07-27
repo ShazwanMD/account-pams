@@ -8,14 +8,16 @@ import { AccountActivity } from "../../../shared/model/account/account-activity.
 })
 export class AccountActivityListComponent {
 
+    @Input() activity: AccountActivity[];
+    
   private columns: any[] = [
     {name: 'sourceNo', label: 'Source'},
     {name: 'chargeCode.description', label: 'ChargeCode'},
-    {name: 'session.code', label: 'Session'},
+    {name: 'activity.postedDate', label: 'Session'},
     {name: 'totalAmount', label: 'Amount'},
     {name: 'action', label: ''}
   ];
 
-  @Input() activity: AccountActivity[];
+  
 
 }
