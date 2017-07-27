@@ -15,7 +15,7 @@ import {Receipt} from '../../../shared/model/billing/receipt.interface';
 })
 export class InvoiceItemPaidListComponent implements OnInit {
 
-  private selectedRows: InvoiceItem[];
+  //private selectedRows: InvoiceItem[];
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'chargeCode.description', label: 'Charge Code Description'},
