@@ -7,16 +7,12 @@ import my.edu.umk.pams.account.identity.model.AcActorImpl;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * @author PAMS
  */
-@Indexed
 @Entity(name = "AcAccount")
 @Table(name = "AC_ACCT")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -28,12 +24,10 @@ public class AcAccountImpl implements AcAccount{
     @SequenceGenerator(name = "SQ_AC_ACCT", sequenceName = "SQ_AC_ACCT", allocationSize = 1)
     private Long id;
 
-    @Field
     @NotNull
     @Column(name = "CODE", unique = true, nullable = false)
     private String code;
 
-    @Field
     @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
