@@ -1,7 +1,7 @@
 package my.edu.umk.pams.account.security.integration.jwt.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import my.edu.umk.pams.account.security.integration.jwt.exception.InvalidLoginRequestException;
+
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,26 +10,29 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Map;
+
+import my.edu.umk.pams.account.security.integration.jwt.exception.InvalidLoginRequestException;
 
 /**
  * Created by shazi on 12/28/2016.
  */
-public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private boolean postOnly = true;
 
-    public JsonUsernamePasswordAuthenticationFilter(String defaultFilterProcessesUrl) {
+    public LoginAuthenticationFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
     }
 
-    public JsonUsernamePasswordAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+    public LoginAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
         super(requiresAuthenticationRequestMatcher);
     }
 

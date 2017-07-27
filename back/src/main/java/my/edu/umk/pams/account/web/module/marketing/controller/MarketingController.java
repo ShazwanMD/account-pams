@@ -84,7 +84,7 @@ public class MarketingController {
 
     @RequestMapping(value = "/promoCodes/init", method = RequestMethod.POST)
     public ResponseEntity<String> initPromoCode(@RequestBody PromoCode vo) {
-        dummyLogin();
+        
         AcPromoCode promoCode = new AcPromoCodeImpl();
         promoCode.setDescription(vo.getDescription());
         promoCode.setQuantity(vo.getQuantity());
@@ -108,7 +108,7 @@ public class MarketingController {
 
     @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems", method = RequestMethod.GET)
     public ResponseEntity<List<PromoCodeItem>> findPromoCodeItems(@PathVariable String referenceNo) {
-        dummyLogin();
+        
         AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
         return new ResponseEntity<List<PromoCodeItem>>(marketingTransformer
                 .toPromoCodeItemVos(marketingService.findPromoCodeItems(promoCode)), HttpStatus.OK);
@@ -116,7 +116,7 @@ public class MarketingController {
     
     @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems", method = RequestMethod.POST)
     public ResponseEntity<String> addPromoCodeItem(@PathVariable String referenceNo, @RequestBody PromoCodeItem item) {
-        dummyLogin();
+        
         AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
         AcPromoCodeItem e = new AcPromoCodeItemImpl();
         e.setApplied(false);
@@ -131,7 +131,7 @@ public class MarketingController {
 
     @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updatePromoCodeItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody PromoCodeItem item) {
-        dummyLogin();
+        
         AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
         AcPromoCodeItem e = marketingService.findPromoCodeItemById(item.getId());
         e.setApplied(item.isApplied());
@@ -145,7 +145,7 @@ public class MarketingController {
 
     @RequestMapping(value = "/promoCodes/{referenceNo}/promoCodeItems/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deletePromoCodeItems(@PathVariable String referenceNo, @PathVariable Long id) {
-        dummyLogin();
+        
         AcPromoCode promoCode = marketingService.findPromoCodeByReferenceNo(referenceNo);
         AcPromoCodeItem e = marketingService.findPromoCodeItemById(id);
         marketingService.deletePromoCodeItem(promoCode, e);
@@ -155,11 +155,5 @@ public class MarketingController {
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
-
-    private void dummyLogin() {
-        AcAutoLoginToken token = new AcAutoLoginToken("root");
-        Authentication authed = authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authed);
-    }
 
 }

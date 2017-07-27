@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.system.dao;
 
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.system.model.AcEmailQueue;
+import my.edu.umk.pams.account.system.model.AcEmailQueueImpl;
 import my.edu.umk.pams.account.system.model.AcEmailQueueStatus;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,7 +18,7 @@ import java.util.List;
 public class AcEmailQueueDaoImpl extends GenericDaoSupport<Long, AcEmailQueue> implements AcEmailQueueDao {
 
     public AcEmailQueueDaoImpl() {
-        super(my.edu.umk.pams.account.system.model.AcEmailQueueImpl.class);
+        super(AcEmailQueueImpl.class);
     }
 
     @Override

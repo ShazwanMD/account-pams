@@ -38,7 +38,7 @@ public class WorkflowController {
     
 
     // ==================================================================================================== //
-    //  Task
+    //  TASK
     // ==================================================================================================== //
 
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
@@ -48,7 +48,6 @@ public class WorkflowController {
     	List<Task> tasks = workflowService.findAssignedTasks(user, 0, 100);
         return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
     }
-    
 
     // ====================================================================================================
     // PRIVATE METHODS

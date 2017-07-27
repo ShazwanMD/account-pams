@@ -48,7 +48,7 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 		student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
-		AcAdmissionCharge charge1 = new AcAdmissionChargeImpl();
+		AcAccountCharge charge1 = new AcAccountChargeImpl();
 
 		charge1.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge1.setSourceNo("ACD - 001");
@@ -69,12 +69,11 @@ public class WhenAddStudentCompound extends Stage<WhenAddStudentCompound> {
 		student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
-		AcSecurityCharge charge = new AcSecurityChargeImpl();
+		AcAccountCharge charge = new AcAccountChargeImpl();
 		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge.setSourceNo("ACD - 002");
 		charge.setDescription("TAK PAKAI KASUT");
 		charge.setAmount(BigDecimal.valueOf(80.00));
-		charge.setChargeCode(accountService.findChargeCodeByCode(code));
 		charge.setSession(academicSession);
 		charge.setInvoice(invoice);
 

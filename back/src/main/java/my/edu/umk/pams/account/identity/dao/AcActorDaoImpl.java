@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.identity.dao;
 
+import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorImpl;
@@ -130,4 +131,16 @@ public class AcActorDaoImpl extends GenericDaoSupport<Long, AcActor> implements 
         query.setInteger("actorType", type.ordinal());
         return ((Long) query.uniqueResult()).intValue();
     }
+
+    @Override
+    public boolean isEmailExists(String email) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcActor s where " +
+                "s.email = :email " +
+                "and s.metadata.state = :state ");
+        query.setString("email", email);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return ((Integer) query.uniqueResult() > 0);
+    }
+
 }

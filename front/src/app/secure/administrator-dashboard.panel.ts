@@ -19,29 +19,63 @@ export class AdministratorDashboardPanel implements OnInit {
   ngOnInit(): void {
     {
       this.items = [{
-          title: 'Manager',
-          route: '/secure/policy',
+        title: 'Dashboard',
+        route: '/dashboard',
+        icon: 'dashboard',
+        color: 'blue-700',
+        description: '',
+      },
+        {
+          title: 'Account',
+          route: '/account',
           icon: 'assignment',
           color: 'blue-700',
-          description: 'Intake Manager',
+          description: '',
         }
         ,
         {
-          title: 'Admission',
-          route: '/secure/admission',
+          title: 'Billing',
+          route: '/billing',
           icon: 'assignment',
           color: 'blue-700',
-          description: 'Candidate Admission',
+          description: '',
+        },
+        {
+          title: 'Financial Aid',
+          route: '/financialaid',
+          icon: 'assignment',
+          color: 'blue-700',
+          description: '',
+        },
+        {
+          title: 'Marketing',
+          route: '/marketing',
+          icon: 'assignment',
+          color: 'blue-700',
+          description: '',
+        },
+        {
+          title: 'Identities',
+          route: '/identity',
+          icon: 'assignment',
+          color: 'blue-700',
+          description: ' ',
+        },
+        {
+          title: 'System',
+          route: '/system',
+          icon: 'assignment',
+          color: 'blue-700',
+          description: ' ',
         },
         {
           title: 'Setup',
-          route: '/secure/setup',
+          route: '/setup',
           icon: 'assignment',
           color: 'blue-700',
-          description: 'Intake Setup',
+          description: ' ',
         },
       ];
     }
-    ;
   }
 }

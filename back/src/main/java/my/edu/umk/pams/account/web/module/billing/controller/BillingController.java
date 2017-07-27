@@ -71,9 +71,6 @@ public class BillingController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    // todo(uda): limit, offset
-    // todo(uda); filter
-
     // ==================================================================================================== //
     //  INVOICE
     // ==================================================================================================== //
@@ -111,7 +108,7 @@ public class BillingController {
     // todo: archive will be using ACL
     @RequestMapping(value = "/invoices/archived", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findArchivedInvoices() {
-    	dummyLogin();
+    	
         List<AcInvoice> invoices = billingService.findInvoicesByFlowStates(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
@@ -137,7 +134,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}/cancel", method = RequestMethod.POST)
     public ResponseEntity<String> cancelInvoice(@PathVariable String referenceNo) {
-    	dummyLogin();
+    	
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         billingService.cancelInvoice(invoice);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -145,7 +142,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.GET)
     public ResponseEntity<List<InvoiceItem>> findInvoiceItems(@PathVariable String referenceNo) {
-        dummyLogin();
+        
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         return new ResponseEntity<List<InvoiceItem>>(billingTransformer
                 .toInvoiceItemVos(billingService.findInvoiceItems(invoice)), HttpStatus.OK);
@@ -153,7 +150,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.POST)
     public ResponseEntity<String> addInvoiceItem(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
-        dummyLogin();
+        
 
         LOG.debug("referenceNo: {}", referenceNo);
         LOG.debug("chargeCode: {}", item.getChargeCode().getCode());
@@ -172,7 +169,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody InvoiceItem item) {
-        dummyLogin();
+        
         AcChargeCode chargeCode = accountService.findChargeCodeById(item.getChargeCode().getId());
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
@@ -187,7 +184,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id) {
-        dummyLogin();
+        
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = billingService.findInvoiceItemById(id);
         billingService.deleteInvoiceItem(invoice, e);
@@ -196,7 +193,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}/debitNotes", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNote>> findDebitNotesByInvoice(@PathVariable String referenceNo) {
-        dummyLogin();
+        
 
         LOG.debug("referenceNo: {}", referenceNo);
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
@@ -206,7 +203,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/{referenceNo}/creditNotes", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNote>> findCreditNotesByInvoice(@PathVariable String referenceNo) {
-        dummyLogin();
+        
 
         LOG.debug("referenceNo: {}", referenceNo);
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
@@ -216,21 +213,21 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<InvoiceTask>> findAssignedInvoices() {
-        dummyLogin();
+        
         List<Task> tasks = billingService.findAssignedInvoiceTasks(0, 100);
         return new ResponseEntity<List<InvoiceTask>>(billingTransformer.toInvoiceTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/pooledTasks", method = RequestMethod.GET)
     public ResponseEntity<List<InvoiceTask>> findPooledInvoices() {
-        dummyLogin();
+        
         List<Task> tasks = billingService.findPooledInvoiceTasks(0, 100);
         return new ResponseEntity<List<InvoiceTask>>(billingTransformer.toInvoiceTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invoices/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startInvoiceTask(@RequestBody Invoice vo) throws Exception {
-        dummyLogin();
+        
 
         AcAccount account = accountService.findAccountById(vo.getAccount().getId());
         AcInvoice invoice = new AcInvoiceImpl();
@@ -253,7 +250,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/claimTask", method = RequestMethod.POST)
     public ResponseEntity<String> claimInvoiceTask(@RequestBody InvoiceTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
         workflowService.claimTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -261,7 +258,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/releaseTask", method = RequestMethod.POST)
     public ResponseEntity<String> releaseInvoiceTask(@RequestBody InvoiceTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
         workflowService.releaseTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -269,7 +266,7 @@ public class BillingController {
 
     @RequestMapping(value = "/invoices/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeInvoiceTask(@RequestBody InvoiceTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -312,7 +309,7 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/{referenceNo}/receiptItems", method = RequestMethod.GET)
     public ResponseEntity<List<ReceiptItem>> findReceiptItems(@PathVariable String referenceNo) {
-        dummyLogin();
+        
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         return new ResponseEntity<List<ReceiptItem>>(billingTransformer
                 .toReceiptItemVos(billingService.findReceiptItems(receipt)), HttpStatus.OK);
@@ -320,7 +317,7 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/{referenceNo}/receiptItems", method = RequestMethod.POST)
     public void addReceiptItems(@PathVariable String referenceNo, @RequestBody ReceiptItem vo) {
-        dummyLogin();
+        
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         AcReceiptItem e = new AcReceiptItemImpl();
         e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
@@ -335,7 +332,7 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/{referenceNo}/receiptItems", method = RequestMethod.PUT)
     public void updateReceiptItems(@PathVariable String referenceNo, @RequestBody ReceiptItem vo) {
-        dummyLogin();
+        
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         AcReceiptItem e = billingService.findReceiptItemById(vo.getId());
         e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
@@ -349,7 +346,7 @@ public class BillingController {
     
     @RequestMapping(value = "/receipts/{receiptNo}/invoice/{referenceNo}", method = RequestMethod.POST)
     public void addReceiptInvoiceItems(@PathVariable String receiptNo, @PathVariable String referenceNo) {
-        dummyLogin();
+        
         AcReceipt receipt = billingService.findReceiptByReferenceNo(receiptNo);
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcReceiptInvoice e = new AcReceiptInvoiceImpl();
@@ -360,21 +357,21 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<ReceiptTask>> findAssignedReceipts() {
-        dummyLogin();
+        
         List<Task> tasks = billingService.findAssignedReceiptTasks(0, 100);
         return new ResponseEntity<List<ReceiptTask>>(billingTransformer.toReceiptTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/receipts/pooledTasks", method = RequestMethod.GET)
     public ResponseEntity<List<ReceiptTask>> findPooledReceipts() {
-        dummyLogin();
+        
         List<Task> tasks = billingService.findPooledReceiptTasks(0, 100);
         return new ResponseEntity<List<ReceiptTask>>(billingTransformer.toReceiptTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/receipts/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startReceiptTask(@RequestBody Receipt vo) throws Exception {
-        dummyLogin();
+        
 
         AcAccount account = accountService.findAccountById(vo.getAccount().getId());
         Map<String, Object> map = new HashMap<String, Object>();
@@ -406,7 +403,7 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/claimTask", method = RequestMethod.POST)
     public ResponseEntity<String> claimReceiptTask(@RequestBody ReceiptTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
         workflowService.claimTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -414,7 +411,7 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/releaseTask", method = RequestMethod.POST)
     public ResponseEntity<String> releaseReceiptTask(@RequestBody ReceiptTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
         workflowService.releaseTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -422,7 +419,7 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeReceiptTask(@RequestBody ReceiptTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -430,7 +427,7 @@ public class BillingController {
     
     @RequestMapping(value = "/receipts/{referenceNo}/account", method = RequestMethod.POST)
     public void calculateChargeInvoice(@PathVariable String referenceNo, @RequestBody Account vo) {
-        dummyLogin();
+        
         LOG.debug("referenceNo {}", referenceNo);
         
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
@@ -466,7 +463,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/{referenceNo}/debitNoteItems", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNoteItem>> findDebitNoteItems(@PathVariable String referenceNo) {
-        dummyLogin();
+        
         AcDebitNote debitNote = billingService.findDebitNoteByReferenceNo(referenceNo);
         return new ResponseEntity<List<DebitNoteItem>>(billingTransformer
                 .toDebitNoteItemVos(billingService.findDebitNoteItems(debitNote)), HttpStatus.OK);
@@ -474,7 +471,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/{referenceNo}/debitNoteItems", method = RequestMethod.POST)
     public ResponseEntity<String> addDebitNoteItem(@PathVariable String referenceNo, @RequestBody DebitNoteItem item) {
-        dummyLogin();
+        
 
         LOG.debug("referenceNo: {}", referenceNo);
         LOG.debug("chargeCode: {}", item.getChargeCode().getCode());
@@ -491,7 +488,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/{referenceNo}/debitNoteItems/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateDebitNoteItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody DebitNoteItem item) {
-        dummyLogin();
+        
         AcDebitNote debitNote = billingService.findDebitNoteByReferenceNo(referenceNo);
         AcDebitNoteItem e = billingService.findDebitNoteItemById(item.getId());
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
@@ -504,7 +501,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/{referenceNo}/debitNoteItems/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteDebitNoteItems(@PathVariable String referenceNo, @PathVariable Long id) {
-        dummyLogin();
+        
         AcDebitNote debitNote = billingService.findDebitNoteByReferenceNo(referenceNo);
         AcDebitNoteItem e = billingService.findDebitNoteItemById(id);
         billingService.deleteDebitNoteItem(debitNote, e);
@@ -513,21 +510,21 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNoteTask>> findAssignedDebitNotes() {
-        dummyLogin();
+        
         List<Task> tasks = billingService.findAssignedDebitNoteTasks(0, 100);
         return new ResponseEntity<List<DebitNoteTask>>(billingTransformer.toDebitNoteTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/debitNotes/pooledTasks", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNoteTask>> findPooledDebitNotes() {
-        dummyLogin();
+        
         List<Task> tasks = billingService.findPooledDebitNoteTasks(0, 100);
         return new ResponseEntity<List<DebitNoteTask>>(billingTransformer.toDebitNoteTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/debitNotes/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startDebitNoteTask(@RequestBody DebitNote vo) throws Exception {
-        dummyLogin();
+        
 
         AcDebitNote debitNote = new AcDebitNoteImpl();
         debitNote.setSourceNo(vo.getSourceNo());
@@ -549,7 +546,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/claimTask", method = RequestMethod.POST)
     public ResponseEntity<String> claimDebitNoteTask(@RequestBody DebitNoteTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
         workflowService.claimTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -557,7 +554,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/releaseTask", method = RequestMethod.POST)
     public ResponseEntity<String> releaseDebitNoteTask(@RequestBody DebitNoteTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
         workflowService.releaseTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -565,7 +562,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeDebitNoteTask(@RequestBody DebitNoteTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -573,7 +570,7 @@ public class BillingController {
 
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateDebitNote(@PathVariable String referenceNo, @RequestBody DebitNote vo) {
-        dummyLogin();
+        
 
         AcDebitNote debitNotes = billingService.findDebitNoteByReferenceNo(referenceNo);
         debitNotes.setReferenceNo(vo.getReferenceNo());
@@ -611,7 +608,7 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/{referenceNo}/creditNoteItems", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNoteItem>> findCreditNoteItems(@PathVariable String referenceNo) {
-        dummyLogin();
+        
         AcCreditNote creditNote = billingService.findCreditNoteByReferenceNo(referenceNo);
         return new ResponseEntity<List<CreditNoteItem>>(billingTransformer
                 .toCreditNoteItemVos(billingService.findCreditNoteItems(creditNote)), HttpStatus.OK);
@@ -619,7 +616,7 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/{referenceNo}/creditNoteItems", method = RequestMethod.POST)
     public ResponseEntity<String> addCreditNoteItem(@PathVariable String referenceNo, @RequestBody CreditNoteItem item) {
-        dummyLogin();
+        
 
         LOG.debug("referenceNo: {}", referenceNo);
         LOG.debug("chargeCode: {}", item.getChargeCode().getCode());
@@ -636,7 +633,7 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/{referenceNo}/creditNoteItems/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateCreditNoteItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody CreditNoteItem item) {
-        dummyLogin();
+        
         AcCreditNote creditNote = billingService.findCreditNoteByReferenceNo(referenceNo);
         AcCreditNoteItem e = billingService.findCreditNoteItemById(item.getId());
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
@@ -649,7 +646,7 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/{referenceNo}/creditNoteItems/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteCreditNoteItems(@PathVariable String referenceNo, @PathVariable Long id) {
-        dummyLogin();
+        
         AcCreditNote creditNote = billingService.findCreditNoteByReferenceNo(referenceNo);
         AcCreditNoteItem e = billingService.findCreditNoteItemById(id);
         billingService.deleteCreditNoteItem(creditNote, e);
@@ -658,7 +655,7 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/claimTask", method = RequestMethod.POST)
     public ResponseEntity<String> claimCreditNoteTask(@RequestBody CreditNoteTask vo) {
-        dummyLogin();
+        
         Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
         workflowService.claimTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -666,21 +663,21 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNoteTask>> findAssignedCreditNotes() {
-        dummyLogin();
+        
         List<Task> tasks = billingService.findAssignedCreditNoteTasks(0, 100);
         return new ResponseEntity<List<CreditNoteTask>>(billingTransformer.toCreditNoteTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/creditNotes/pooledTasks", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNoteTask>> findPooledCreditNotes() {
-        dummyLogin();
+        
         List<Task> tasks = billingService.findPooledCreditNoteTasks(0, 100);
         return new ResponseEntity<List<CreditNoteTask>>(billingTransformer.toCreditNoteTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/creditNotes/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startCreditNoteTask(@RequestBody CreditNote vo) throws Exception {
-        dummyLogin();
+        
 
         AcCreditNote creditNote = new AcCreditNoteImpl();
         creditNote.setSourceNo(vo.getSourceNo());
@@ -703,7 +700,6 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/releaseTask", method = RequestMethod.POST)
     public ResponseEntity<String> releaseCreditNoteTask(@RequestBody CreditNoteTask vo) {
-        dummyLogin();
         Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
         workflowService.releaseTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -711,7 +707,6 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeCreditNoteTask(@RequestBody CreditNoteTask vo) {
-        dummyLogin();
         Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -720,8 +715,6 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateCreditNote(@PathVariable String referenceNo, @RequestBody CreditNote vo) {
-        dummyLogin();
-
         AcCreditNote creditNotes = billingService.findCreditNoteByReferenceNo(referenceNo);
         creditNotes.setReferenceNo(vo.getReferenceNo());
         creditNotes.setSourceNo(vo.getSourceNo());
@@ -736,10 +729,4 @@ public class BillingController {
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
-
-    private void dummyLogin() {
-        AcAutoLoginToken token = new AcAutoLoginToken("root");
-        Authentication authed = authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authed);
-    }
 }

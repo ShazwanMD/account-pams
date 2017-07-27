@@ -7,7 +7,7 @@ import {AuthorizationService} from '../../services/authorization.service';
 import {AdministratorDashboardPanel} from './administrator-dashboard.panel';
 
 @Component({
-  selector: 'pams-dasboard',
+  selector: 'pams-dashboard',
   templateUrl: './dashboard.page.html',
 })
 export class DashboardPage implements OnInit, OnDestroy {

@@ -15,7 +15,7 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.model.AcStudentAffairChargeImpl;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
@@ -52,7 +52,7 @@ public class WhenWantToRegisterStudentCompoundBill extends Stage<WhenWantToRegis
 		account = accountService.findAccountByActor(student);
 		LOG.debug("Name:"+ student.getName());
 		
-		charge = new AcStudentAffairChargeImpl();
+		charge = new AcAccountChargeImpl();
 		charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge.setSourceNo("SRCNO");
 		charge.setDescription("BAJU TIDAK BERKOLAR");

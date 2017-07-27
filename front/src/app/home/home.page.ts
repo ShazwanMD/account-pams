@@ -1,29 +1,24 @@
-import {Component, Output, OnInit} from '@angular/core';
+import {Component, Output, OnInit, AfterViewInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-
-import {IdentityService} from '../../services/identity.service';
-import {CommonService} from '../../services/common.service';
+import {Title} from '@angular/platform-browser';
+import {TdLoadingService} from '@covalent/core';
 
 @Component({
   selector: 'pams-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
 
-export class HomeComponent implements OnInit {
-
-  private _router: Router;
-  private _route: ActivatedRoute;
-  private _identityService: IdentityService;
-  private _commonService: CommonService;
+export class HomePage implements OnInit, AfterViewInit {
 
   private items: Object[];
 
-  constructor(router: Router, route: ActivatedRoute, identityService: IdentityService, commonService: CommonService) {
-    this._router = router;
-    this._route = route;
-    this._identityService = identityService;
-    this._commonService = commonService;
+  constructor(private _titleService: Title,
+              private _loadingService: TdLoadingService) {
+  }
+
+  ngAfterViewInit(): void {
+    this._titleService.setTitle('PAMS Universiti Malaysia Kelantan');
   }
 
   ngOnInit(): void {
@@ -87,6 +82,5 @@ export class HomeComponent implements OnInit {
         },
       ];
     }
-    ;
   }
 }

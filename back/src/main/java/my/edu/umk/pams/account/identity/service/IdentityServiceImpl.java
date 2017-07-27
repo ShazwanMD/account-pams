@@ -1,19 +1,14 @@
 package my.edu.umk.pams.account.identity.service;
 
-import my.edu.umk.pams.account.common.model.AcCohortCode;
-import my.edu.umk.pams.account.common.model.AcFacultyCode;
-import my.edu.umk.pams.account.common.model.AcProgramCode;
-import my.edu.umk.pams.account.identity.dao.*;
-import my.edu.umk.pams.account.identity.event.ApplicantUpdatedEvent;
-import my.edu.umk.pams.account.identity.event.StaffCreatedEvent;
-import my.edu.umk.pams.account.identity.event.StaffUpdatedEvent;
-import my.edu.umk.pams.account.identity.event.StudentCreatedEvent;
-import my.edu.umk.pams.account.identity.model.*;
-import my.edu.umk.pams.account.security.service.SecurityService;
-
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,21 +16,54 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcFacultyCode;
+import my.edu.umk.pams.account.common.model.AcProgramCode;
+import my.edu.umk.pams.account.identity.dao.AcActorDao;
+import my.edu.umk.pams.account.identity.dao.AcGroupDao;
+import my.edu.umk.pams.account.identity.dao.AcPrincipalDao;
+import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
+import my.edu.umk.pams.account.identity.dao.AcStaffDao;
+import my.edu.umk.pams.account.identity.dao.AcStudentDao;
+import my.edu.umk.pams.account.identity.dao.AcUserDao;
+import my.edu.umk.pams.account.identity.dao.RecursiveGroupException;
+import my.edu.umk.pams.account.identity.event.ApplicantUpdatedEvent;
+import my.edu.umk.pams.account.identity.event.StaffCreatedEvent;
+import my.edu.umk.pams.account.identity.event.StaffUpdatedEvent;
+import my.edu.umk.pams.account.identity.event.StudentCreatedEvent;
+import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcActorType;
+import my.edu.umk.pams.account.identity.model.AcCoverage;
+import my.edu.umk.pams.account.identity.model.AcGroup;
+import my.edu.umk.pams.account.identity.model.AcGroupImpl;
+import my.edu.umk.pams.account.identity.model.AcPrincipal;
+import my.edu.umk.pams.account.identity.model.AcPrincipalRole;
+import my.edu.umk.pams.account.identity.model.AcPrincipalRoleImpl;
+import my.edu.umk.pams.account.identity.model.AcRoleType;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
+import my.edu.umk.pams.account.identity.model.AcStaff;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
+import my.edu.umk.pams.account.security.integration.NonSerializableSecurityContext;
+import my.edu.umk.pams.account.security.service.SecurityService;
+import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.account.system.service.SystemServiceImpl;
+
 /**
  * @author canang technologies
  * @since 1/30/14
  */
 @Transactional
-@Service("acIdentityService")
+@Service("inIdentityService")
 public class IdentityServiceImpl implements IdentityService {
 
     private static final String GROUP_ROOT = "GRP_ADMN";
+    private static final Logger LOG = LoggerFactory.getLogger(SystemServiceImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
-
-    @Autowired
-    private SecurityService securityService;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -56,33 +84,60 @@ public class IdentityServiceImpl implements IdentityService {
     private AcStaffDao staffDao;
 
     @Autowired
-    private AcStudentDao studentDao;
-    
-    @Autowired
     private AcSponsorDao sponsorDao;
-    
+
+    @Autowired
+    private AcStudentDao studentDao;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private IdentityService identityService;
+
+    @Autowired
+    private SystemService systemService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
     //====================================================================================================
     // PRINCIPAL
     //====================================================================================================
 
     @Override
     public AcPrincipal findPrincipalById(Long id) {
-        return null;
+        return principalDao.findById(id);
     }
 
     @Override
     public AcPrincipal findPrincipalByName(String name) {
-        return null;
+        return principalDao.findByName(name);
     }
 
     @Override
     public List<AcPrincipal> findPrincipals(String filter, Integer offset, Integer limit) {
-        return null;
+        return principalDao.find(filter, offset, limit);
     }
 
     @Override
     public Set<String> findSids(AcPrincipal principal) {
-        return null;
+        Set<AcGroup> groups = null;
+        Set<String> principals = new HashSet<String>();
+        try {
+            groups = groupDao.findEffectiveAsNative(principal);
+        } catch (Exception e) {
+            LOG.error("Error occured loading principals", e);
+        } finally {
+            if (null != groups) {
+                for (AcGroup group : groups) {
+                    principals.add(group.getName());
+                }
+            }
+            principals.add(principal.getName());
+        }
+        return principals;
     }
 
     @Override
@@ -164,8 +219,10 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public void updateUser(AcUser user) {
+        SecurityContext sc = loginAsSystem();
         userDao.update(user, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
+        logoutAsSystem(sc);
     }
 
     @Override
@@ -176,10 +233,37 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public void changePassword(AcUser user, String newPassword) {
+        SecurityContext sc = loginAsSystem();
         user.setPassword(newPassword);
         userDao.update(user, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
+        logoutAsSystem(sc);
     }
+
+//    @Override
+//    public void changeEmail(AcUser user, String newEmail) {
+//    	SecurityContext sc = loginAsSystem();
+//    	user.setEmail(newEmail);
+//        userDao.update(user, securityService.getCurrentUser());
+//        sessionFactory.getCurrentSession().flush();
+//
+//    	if (user == null) LOG.debug("UserB is null");
+//    	if (user.getEmail() == null) LOG.debug("Email is null");
+//
+//    	InEmailQueue email= new InEmailQueueImpl();
+//        String subject = "Change Email";
+//        String body = "Your Email has been changed to : " + newEmail +
+//        			  ". Please Login to continue";
+//        email.setTo(newEmail);
+//        email.setSubject(subject);
+//        email.setBody(body);
+//        email.setCode("EQ/" + System.currentTimeMillis());
+//        email.setQueueStatus(InEmailQueueStatus.QUEUED);
+//        systemService.saveEmailQueue(email);
+//        logoutAsSystem(sc);
+//    }
+
+
 
     //====================================================================================================
     // GROUP
@@ -241,8 +325,8 @@ public class IdentityServiceImpl implements IdentityService {
     public Set<String> findEffectiveGroupsAsString(AcPrincipal principal) {
         Set<String> groups = new HashSet<>();
         Set<AcGroup> groupSet = groupDao.findEffectiveAsNative(principal);
-        for (AcGroup acGroup : groupSet) {
-            groups.add(acGroup.getName());
+        for (AcGroup inGroup : groupSet) {
+            groups.add(inGroup.getName());
         }
         return groups;
     }
@@ -391,6 +475,11 @@ public class IdentityServiceImpl implements IdentityService {
         return actorDao.count(filter, type);
     }
 
+    @Override
+    public boolean isActorEmailExists(String email) {
+        return actorDao.isEmailExists(email);
+    }
+
 
     //====================================================================================================
     // STAFF
@@ -471,14 +560,18 @@ public class IdentityServiceImpl implements IdentityService {
         applicationContext.publishEvent(event);
     }
 
-
     //====================================================================================================
-    // student
+    // STUDENT
     //====================================================================================================
 
     @Override
     public AcStudent findStudentById(Long id) {
         return studentDao.findById(id);
+    }
+
+    @Override
+    public AcStudent findStudentByEmail(String email) {
+        return null; // todo: studentDao.findByEmail(email);
     }
 
     @Override
@@ -495,37 +588,7 @@ public class IdentityServiceImpl implements IdentityService {
     public List<AcStudent> findStudents(String filter, Integer offset, Integer limit) {
         return studentDao.find(filter, offset, limit);
     }
-    
-	@Override
-	public List<AcStudent> findStudentByCohortCode(AcCohortCode cohortCode) {
-		return studentDao.findByCohortCode(cohortCode);
-	}
-	
-	@Override
-	public List<AcStudent> findStudentByFacultyCode(AcFacultyCode facultyCode) {
-		return studentDao.findByFacultyCode(facultyCode);
-	}
-	
-	@Override
-	public List<AcStudent> findStudentBySponsor(AcSponsor sponsor) {
-		return studentDao.findBySponsor(sponsor);
-	}
-	
-    @Override
-    public List<AcSponsorship> findSponsorships(AcStudent student) {
-        return studentDao.find(student);
-    }
-    
-    @Override
-    public List<AcSponsorship> findSponsorships(AcProgramCode programCode){
-    	return studentDao.findSponsorships(programCode);
-    }
 
-	@Override
-	public List<AcSponsorship> findSponsorships(AcFacultyCode facultyCode){
-		return studentDao.findSponsorship(facultyCode);
-	}
-	
     @Override
     public Integer countStudent() {
         return studentDao.count();
@@ -537,20 +600,52 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public void saveStudent(AcStudent applicant) {
+        studentDao.save(applicant, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateStudent(AcStudent applicant) {
+        SecurityContext sc = loginAsSystem();
+        studentDao.update(applicant, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+        logoutAsSystem(sc);
+    }
+
+    @Override
+    public List<AcStudent> findStudentByCohortCode(AcCohortCode cohortCode) {
+        return studentDao.findByCohortCode(cohortCode);
+    }
+
+    @Override
+    public List<AcStudent> findStudentByFacultyCode(AcFacultyCode facultyCode) {
+        return studentDao.findByFacultyCode(facultyCode);
+    }
+
+    @Override
+    public List<AcStudent> findStudentBySponsor(AcSponsor sponsor) {
+        return studentDao.findBySponsor(sponsor);
+    }
+
+    @Override
+    public List<AcSponsorship> findSponsorships(AcStudent student) {
+        return studentDao.find(student);
+    }
+
+    @Override
+    public List<AcSponsorship> findSponsorships(AcProgramCode programCode){
+        return studentDao.findSponsorships(programCode);
+    }
+
+    @Override
+    public List<AcSponsorship> findSponsorships(AcFacultyCode facultyCode){
+        return studentDao.findSponsorship(facultyCode);
+    }
+
+    @Override
     public Integer countSponsorship(AcStudent student) {
         return studentDao.countSponsorship(student);
-    }
-
-    @Override
-    public void saveStudent(AcStudent student) {
-        studentDao.save(student, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void updateStudent(AcStudent student) {
-        studentDao.update(student, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
@@ -582,7 +677,7 @@ public class IdentityServiceImpl implements IdentityService {
         ApplicantUpdatedEvent event = new ApplicantUpdatedEvent(student);
         applicationContext.publishEvent(event);
     }
-    
+
     //====================================================================================================
     // sponsor
     //====================================================================================================
@@ -616,7 +711,7 @@ public class IdentityServiceImpl implements IdentityService {
     public List<AcSponsorship> findSponsorships(AcSponsor sponsor) {
         return sponsorDao.findSponsorships(sponsor);
     }
-    
+
     @Override
     public List<AcCoverage> findCoverages(AcSponsor sponsor) {
         return sponsorDao.findCoverages(sponsor);
@@ -658,11 +753,11 @@ public class IdentityServiceImpl implements IdentityService {
     //====================================================================================================
     // SPONSORSHIP
     //====================================================================================================
-    
-	@Override
-	public AcSponsorship findSponsorshipById(Long id) {
-		return sponsorDao.findSponsorshipById(id);
-	}
+
+    @Override
+    public AcSponsorship findSponsorshipById(Long id) {
+        return sponsorDao.findSponsorshipById(id);
+    }
 
     @Override
     public boolean hasSponsorship(AcStudent student) {
@@ -675,10 +770,10 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
-	public void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
+    public void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
         sponsorDao.addSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
-	}
+    }
 
     @Override
     public void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
@@ -688,4 +783,22 @@ public class IdentityServiceImpl implements IdentityService {
 
 
 
+    //====================================================================================================
+    // PRIVATE METHODS
+    //====================================================================================================
+
+    private SecurityContext loginAsSystem() {
+        SecurityContext savedCtx = SecurityContextHolder.getContext();
+        AcAutoLoginToken authenticationToken = new AcAutoLoginToken("system");
+        Authentication authed = authenticationManager.authenticate(authenticationToken);
+        SecurityContext system = new NonSerializableSecurityContext();
+        system.setAuthentication(authed);
+        SecurityContextHolder.setContext(system);
+        return savedCtx;
+    }
+
+    private void logoutAsSystem(SecurityContext context) {
+        SecurityContextHolder.setContext(context);
+
+    }
 }

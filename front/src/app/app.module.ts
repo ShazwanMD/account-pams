@@ -14,7 +14,6 @@ import {appRoutes, appRoutingProviders} from './app.routes';
 
 import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 
-import {HomeComponent} from './home/home.component';
 import {CustomUrlSerializer} from './common/custom-url-serializer';
 import {UrlSerializer} from '@angular/router';
 import {INITIAL_SETUP_STATE, SetupModule, setupModuleReducers, SetupModuleState} from './secure/setup/index';
@@ -40,6 +39,18 @@ import {
   applicationContextReducer, ApplicationContextState,
   INITIAL_APPLICATION_CONTEXT_STATE,
 } from './application-context.reducer';
+import {ForgetPasswordPage} from './login/forget-password.page';
+import {SecurePage} from './secure/secure.page';
+import {HomePage} from './home/home.page';
+import {AuthorizationGuard} from './secure/identity/guard/authorization.guard';
+import {AuthenticationGuard} from './secure/identity/guard/authentication.guard';
+import {SystemService} from '../services/system.service';
+import {AccountService} from '../services/account.service';
+import {AuthorizationService} from '../services/authorization.service';
+import {AlertService} from '../services/alert.service';
+import {AuthenticationService} from '../services/authentication.service';
+import {ApplicationContextActions} from './application-context.action';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -88,12 +99,16 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
 @NgModule({
   declarations: [
     AppComponent,
+    HomePage,
+    SecurePage,
     LoginPage,
+    ForgetPasswordPage,
 
   ], // directives, components, and pipes owned by this NgModule
   imports: [
     appRoutes,
     BrowserModule,
+    ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     CovalentChartsModule.forRoot(),
     CovalentHttpModule.forRoot({
@@ -108,7 +123,6 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     StoreModule.provideStore(applicationReducer),
     environment.imports,
     CommonModule.forRoot(),
-
     PipeModule.forRoot(),
     IdentityModule.forRoot(),
     AccountModule.forRoot(),
@@ -121,8 +135,14 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
   providers: [
     appRoutingProviders,
     httpInterceptorProviders,
+    AuthenticationService,
+    AlertService,
+    AuthorizationService,
+    SystemService,
+    AuthenticationGuard,
+    AuthorizationGuard,
     Title,
-    {provide: UrlSerializer, useClass: CustomUrlSerializer},
+    ApplicationContextActions,
   ], // additional providers needed for this module
   entryComponents: [],
   bootstrap: [AppComponent],

@@ -139,6 +139,7 @@ public interface IdentityService {
 
     Integer countActor(String filter, AcActorType type);
 
+    public boolean isActorEmailExists(String email);
     // ====================================================================================================
     // STAFF
     // ====================================================================================================
@@ -177,22 +178,24 @@ public interface IdentityService {
 
     AcStudent findStudentById(Long id);
 
+    AcStudent findStudentByEmail(String email);
+
     AcStudent findStudentByMatricNo(String matricNo);
 
     List<AcStudent> findStudents(Integer offset, Integer limit);
 
     List<AcStudent> findStudents(String filter, Integer offset, Integer limit);
-    
+
     List<AcStudent> findStudentByCohortCode(AcCohortCode cohortCode);
-    
+
     List<AcStudent> findStudentByFacultyCode(AcFacultyCode facultyCode);
 
-	List<AcStudent> findStudentBySponsor(AcSponsor sponsor);
-    
+    List<AcStudent> findStudentBySponsor(AcSponsor sponsor);
+
     List<AcSponsorship> findSponsorships(AcStudent student);
-        
+
     List<AcSponsorship> findSponsorships(AcFacultyCode facultyCode);
-    
+
     List<AcSponsorship> findSponsorships(AcProgramCode programCode);
 
     Integer countStudent();
@@ -250,7 +253,7 @@ public interface IdentityService {
     // ====================================================================================================
     // SPONSORSHIP
     // ====================================================================================================
-	
+
     List<AcSponsorship> findSponsorships(AcSponsor sponsor);
 
     AcSponsorship findSponsorshipById(Long id);
@@ -258,9 +261,6 @@ public interface IdentityService {
     boolean hasSponsorship(AcStudent student);
 
     boolean hasSponsorship(AcSponsor sponsor);
-
-	
-
 
 
 }

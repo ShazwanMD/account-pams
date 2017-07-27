@@ -302,6 +302,8 @@
                                 <!--SYSTEM-->
                                 <srcFile>src/test/resources/data/AC_RFRN_NO.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_CNFG.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_MODL.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACL.sql</srcFile>
 
                                 <!--COMMON-->
                                 <srcFile>src/test/resources/data/AC_RSCY_CODE.sql</srcFile>

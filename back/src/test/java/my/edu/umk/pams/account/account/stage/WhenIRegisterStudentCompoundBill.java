@@ -5,8 +5,8 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcSecurityCharge;
-import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.config.TestAppConfiguration;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -38,12 +38,11 @@ public class WhenIRegisterStudentCompoundBill extends Stage<WhenIRegisterStudent
 	public WhenIRegisterStudentCompoundBill register_student_compound_bill() {
 	    // register compound bill for given account
         // add charges to given student account
-        AcSecurityCharge charge = new AcSecurityChargeImpl();
+        AcAccountCharge charge = new AcAccountChargeImpl();
         charge.setReferenceNo("REFNO/" + System.currentTimeMillis());
         charge.setSourceNo("SRCNO");
         charge.setDescription("Charge is:");
         charge.setAmount(BigDecimal.valueOf(100.00));
-        charge.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321"));
         charge.setSession(academicSession);
         accountService.addAccountCharge(account, charge);
         return self();

@@ -1,14 +1,5 @@
 package my.edu.umk.pams.account.security.integration.jwt;
 
-import my.edu.umk.pams.account.identity.dao.AcGroupDao;
-import my.edu.umk.pams.account.identity.dao.AcUserDao;
-import my.edu.umk.pams.account.identity.model.AcGroup;
-import my.edu.umk.pams.account.identity.model.AcUser;
-import my.edu.umk.pams.account.security.integration.jwt.exception.JwtTokenExpiredException;
-import my.edu.umk.pams.account.security.integration.jwt.exception.JwtTokenMalformedException;
-import my.edu.umk.pams.account.security.integration.jwt.handler.JwtHandler;
-import my.edu.umk.pams.account.security.integration.jwt.vo.JwtUser;
-import my.edu.umk.pams.account.security.integration.jwt.vo.JwtUserDetails;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +16,17 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import my.edu.umk.pams.account.identity.dao.AcGroupDao;
+import my.edu.umk.pams.account.identity.dao.AcUserDao;
+import my.edu.umk.pams.account.identity.model.AcGroup;
+import my.edu.umk.pams.account.identity.model.AcPrincipalRole;
+import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.security.integration.jwt.exception.JwtTokenExpiredException;
+import my.edu.umk.pams.account.security.integration.jwt.exception.JwtTokenMalformedException;
+import my.edu.umk.pams.account.security.integration.jwt.handler.JwtHandler;
+import my.edu.umk.pams.account.security.integration.jwt.vo.JwtUser;
+import my.edu.umk.pams.account.security.integration.jwt.vo.JwtUserDetails;
 
 /**
  * @author canang technologies
@@ -66,13 +68,13 @@ public class JwtUserDetailService implements UserDetailsService {
 
     private Set<GrantedAuthority> loadGrantedAuthoritiesFor(AcUser user) {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (my.edu.umk.pams.account.identity.model.AcPrincipalRole role : user.getRoles()) {
+        for (AcPrincipalRole role : user.getRoles()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole().name()));
         }
 
         Set<AcGroup> groups = groupDao.findEffectiveAsNative(user);
         for (AcGroup group : groups) {
-            for (my.edu.umk.pams.account.identity.model.AcPrincipalRole role : group.getRoles()) {
+            for (AcPrincipalRole role : group.getRoles()) {
                 grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole().name()));
             }
         }

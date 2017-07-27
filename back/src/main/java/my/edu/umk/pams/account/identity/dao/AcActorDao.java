@@ -16,6 +16,8 @@ public interface AcActorDao extends GenericDao<Long, AcActor> {
 
     AcActor findByIdentityNo(String identityNo);
 
+    AcActor findByEmail(String email);
+
     List<AcActor> find(String filter, Integer offset, Integer limit);
 
     List<AcActor> find(AcActorType type, Integer offset, Integer limit);
@@ -28,5 +30,6 @@ public interface AcActorDao extends GenericDao<Long, AcActor> {
 
     Integer count(AcActorType type);
 
-    AcActor findByEmail(String email);
+    boolean isEmailExists(String email);
+
 }

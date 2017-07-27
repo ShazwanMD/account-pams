@@ -37,7 +37,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 	AcAccountCharge accountCharge;
 
 	@ProvidedScenarioState
-    AcAdmissionCharge academicCharge;
+    AcAccountCharge academicCharge;
 
 	@As("I add account charge for account")
 	public WhenIAddAccountCharge I_add_account_charge_for_account_$(String code) {
@@ -46,7 +46,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 		account = accountService.findAccountByCode(code);
 
 		// charge
-		AcAdmissionCharge charge = new AcAdmissionChargeImpl();
+		AcAccountCharge charge = new AcAccountChargeImpl();
 		charge.setReferenceNo("abc123");
 		charge.setSourceNo("abc123");
 		charge.setAmount(BigDecimal.valueOf(200.00));
@@ -87,7 +87,7 @@ public class WhenIAddAccountCharge extends Stage<WhenIAddAccountCharge> {
 		account = accountService.findAccountByActor(student);
 
 		// charge
-		AcAdmissionCharge charge = new AcAdmissionChargeImpl();
+		AcAccountCharge charge = new AcAccountChargeImpl();
 		charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
 		charge.setSourceNo("abc123");
 		charge.setAmount(BigDecimal.valueOf(200.00));

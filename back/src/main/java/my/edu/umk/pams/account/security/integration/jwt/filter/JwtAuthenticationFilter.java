@@ -1,9 +1,7 @@
 package my.edu.umk.pams.account.security.integration.jwt.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import my.edu.umk.pams.account.security.integration.jwt.JwtAuthenticationToken;
-import my.edu.umk.pams.account.security.integration.jwt.exception.JwtTokenMissingException;
-import my.edu.umk.pams.account.security.integration.jwt.vo.LoginResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -12,12 +10,17 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
+import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.UUID;
+
+import my.edu.umk.pams.account.security.integration.jwt.JwtAuthenticationToken;
+import my.edu.umk.pams.account.security.integration.jwt.exception.JwtTokenMissingException;
+import my.edu.umk.pams.account.security.integration.jwt.vo.LoginResponse;
 
 /**
  * Created by shazin on 12/9/16.
@@ -26,13 +29,8 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     private static final Logger LOG = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
-    public JwtAuthenticationFilter() {
-        super("/**");
-    }
-
-    @Override
-    protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
-        return true;
+    public JwtAuthenticationFilter(String url) {
+        super(url);
     }
 
     @Override

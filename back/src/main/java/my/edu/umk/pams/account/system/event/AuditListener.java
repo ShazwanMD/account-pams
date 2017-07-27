@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.system.event;
 
+import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.dao.AcAuditDao;
 import my.edu.umk.pams.account.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuditListener implements ApplicationListener<AuditEvent> {
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private AcAuditDao auditDao;
 
     @Override
@@ -24,7 +28,7 @@ public class AuditListener implements ApplicationListener<AuditEvent> {
         audit.setClassName(auditEvent.getObject().getInterfaceClass().getCanonicalName());
         audit.setMessage(auditEvent.getMessage());
         audit.setObjectId(auditEvent.getObject().getId());
-        audit.setUserId(Util.getCurrentUser().getId());
-        auditDao.save(audit, Util.getCurrentUser());
+        audit.setUserId(securityService.getCurrentUser().getId());
+        auditDao.save(audit, securityService.getCurrentUser());
     }
 }

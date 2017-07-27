@@ -16,8 +16,8 @@ import com.tngtech.jgiven.integration.spring.JGivenStage;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
-import my.edu.umk.pams.account.account.model.AcSecurityChargeImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -65,7 +65,7 @@ public class WhenIssueInvoice extends Stage<WhenIssueInvoice> {
 		AcStudent student = identityService.findStudentByMatricNo(matricNo);
 		account = accountService.findAccountByActor(student);
 
-		charge = new AcSecurityChargeImpl();
+		charge = new AcAccountChargeImpl();
 		charge.setReferenceNo("CHRG-" + System.currentTimeMillis());
 		charge.setSourceNo("abc123");
 		charge.setAmount(BigDecimal.valueOf(20.00));

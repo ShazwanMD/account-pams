@@ -262,25 +262,4 @@ public interface AccountService {
     void addAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
 
     void removeAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
-
-    // ==================================================================================================== //
-    //  ACCOUNT SHORT TERM LOAN
-    // ==================================================================================================== //
-
-    AcAccountSTL findAccountShortTermLoanById(Long id);
-
-    AcAccountSTL findAccountShortTermLoanByReferenceNo(String referenceNo);
-
-    List<AcAccountSTL> findAccountShortTermLoans(AcAccount account);
-
-    List<AcAccountSTL> findAccountShortTermLoans(AcAcademicSession academicSession, AcAccount account);
-
-    Integer countAccountShortTermLoan(AcAcademicSession academicSession, AcAccount account);
-
-    boolean isAccountShortTermLoanExists(AcAccount account, String sourceNo);
-
-    void addShortTermLoan(AcAccount acAccount, AcAcademicSession academicSession, AcAccountSTL shortTermLoan);
-
-    void removeShortTermLoan(AcAccount acAccount, AcAcademicSession academicSession, AcAccountSTL shortTermLoan);
-
 }

@@ -45,7 +45,7 @@ public class WhenIFillInCompoundStudent extends Stage<WhenIFillInCompoundStudent
 
 		account = accountService.findAccountByActor(student);
 
-		AcAdmissionCharge charge1 = new AcAdmissionChargeImpl();
+		AcAccountCharge charge1 = new AcAccountChargeImpl();
 
 		charge1.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge1.setSourceNo("ACD - 001");
@@ -57,25 +57,22 @@ public class WhenIFillInCompoundStudent extends Stage<WhenIFillInCompoundStudent
 		// use account service to add charge
 		accountService.addAccountCharge(account, charge1);
 		
-		AcSecurityCharge charge2 = new AcSecurityChargeImpl();
+		AcAccountCharge charge2 = new AcAccountChargeImpl();
 
 		charge2.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge2.setSourceNo("SCTY - 001");
 		charge2.setDescription("TIADA KAD MATRIK");
 		charge2.setAmount(BigDecimal.valueOf(90.00));
-		charge2.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79333"));
 		charge2.setSession(academicSession);
 
 		// use account service to add charge
 		accountService.addAccountCharge(account, charge2);
 		
-		AcStudentAffairCharge charge3 = new AcStudentAffairChargeImpl();
-
+		AcAccountCharge charge3 = new AcAccountChargeImpl();
 		charge3.setReferenceNo("REFNO/" + System.currentTimeMillis());
 		charge3.setSourceNo("STDA - 001");
 		charge3.setDescription("BARANG ELEKTRIK TIDAK DAFTAR");
 		charge3.setAmount(BigDecimal.valueOf(100.00));
-		charge3.setChargeCode(accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79333"));
 		charge3.setSession(academicSession);
 
 		// use account service to add charge

@@ -1,16 +1,19 @@
 package my.edu.umk.pams.account.security.integration.jwt.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import my.edu.umk.pams.account.security.integration.jwt.vo.LoginResponse;
+
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.UUID;
+
+import my.edu.umk.pams.account.security.integration.jwt.vo.LoginResponse;
 
 /**
  * Created by shazin on 12/7/16.

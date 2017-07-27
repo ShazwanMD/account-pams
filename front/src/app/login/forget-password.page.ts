@@ -2,14 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'pams-login-forgetpassword',
+  selector: 'pams-login-forget-password',
   templateUrl: './forget-password.page.html',
   styleUrls: ['./forget-password.page.scss'],
 })
 export class ForgetPasswordPage implements OnInit {
-
-  // email: string;
-  // password: string;
 
   private forgetPasswordForm: FormGroup;
 

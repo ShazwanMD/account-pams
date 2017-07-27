@@ -37,512 +37,494 @@ import java.util.Map;
 @RequestMapping("/api/account")
 public class AccountController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
-	@Autowired
-	private AccountService accountService;
+    @Autowired
+    private AccountService accountService;
 
-	@Autowired
-	private BillingService billingService;
+    @Autowired
+    private BillingService billingService;
 
-	@Autowired
-	private CommonService commonService;
+    @Autowired
+    private CommonService commonService;
 
-	@Autowired
-	private SystemService systemService;
+    @Autowired
+    private SystemService systemService;
 
-	@Autowired
-	private IdentityService identityService;
+    @Autowired
+    private IdentityService identityService;
 
-	@Autowired
-	private AccountTransformer accountTransformer;
+    @Autowired
+    private AccountTransformer accountTransformer;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	// ====================================================================================================
-	// ADMISSION SESSION
-	// ====================================================================================================
-	@RequestMapping(value = "/academicSessions", method = RequestMethod.GET)
-	public ResponseEntity<List<AcademicSession>> findAcademicSessions() {
-		List<AcAcademicSession> academicSessions = accountService.findAcademicSessions("%", 0, 100);
-		return new ResponseEntity<List<AcademicSession>>(accountTransformer.toAcademicSessionVos(academicSessions),
-				HttpStatus.OK);
-	}
+    // ====================================================================================================
+    // ADMISSION SESSION
+    // ====================================================================================================
+    @RequestMapping(value = "/academicSessions", method = RequestMethod.GET)
+    public ResponseEntity<List<AcademicSession>> findAcademicSessions() {
+        List<AcAcademicSession> academicSessions = accountService.findAcademicSessions("%", 0, 100);
+        return new ResponseEntity<List<AcademicSession>>(accountTransformer.toAcademicSessionVos(academicSessions),
+                HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/academicSessions/{code}", method = RequestMethod.GET)
-	public ResponseEntity<AcademicSession> findAcademicSessionBySession(@PathVariable String code) {
-		AcAcademicSession academicSession = accountService.findAcademicSessionByCode(code);
-		return new ResponseEntity<AcademicSession>(accountTransformer.toAcademicSessionVo(academicSession),
-				HttpStatus.OK);
-	}
+    @RequestMapping(value = "/academicSessions/{code}", method = RequestMethod.GET)
+    public ResponseEntity<AcademicSession> findAcademicSessionBySession(@PathVariable String code) {
+        AcAcademicSession academicSession = accountService.findAcademicSessionByCode(code);
+        return new ResponseEntity<AcademicSession>(accountTransformer.toAcademicSessionVo(academicSession),
+                HttpStatus.OK);
+    }
 
-	// ====================================================================================================
-	// FEE SCHEDULE
-	// ====================================================================================================
+    // ====================================================================================================
+    // FEE SCHEDULE
+    // ====================================================================================================
 
-	@RequestMapping(value = "/feeSchedules", method = RequestMethod.GET)
-	public ResponseEntity<List<FeeSchedule>> findFeeSchedules() {
-		List<AcFeeSchedule> feeSchedules = accountService.findFeeSchedules("%", 0, 100);
-		return new ResponseEntity<List<FeeSchedule>>(accountTransformer.toFeeScheduleVos(feeSchedules), HttpStatus.OK);
-	}
+    @RequestMapping(value = "/feeSchedules", method = RequestMethod.GET)
+    public ResponseEntity<List<FeeSchedule>> findFeeSchedules() {
+        List<AcFeeSchedule> feeSchedules = accountService.findFeeSchedules("%", 0, 100);
+        return new ResponseEntity<List<FeeSchedule>>(accountTransformer.toFeeScheduleVos(feeSchedules), HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/feeSchedules/{code}", method = RequestMethod.GET)
-	public ResponseEntity<FeeSchedule> findScheduleScheduleBySchedule(@PathVariable String code) {
-		AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
-		return new ResponseEntity<FeeSchedule>(accountTransformer.toFeeScheduleVo(feeSchedule), HttpStatus.OK);
-	}
+    @RequestMapping(value = "/feeSchedules/{code}", method = RequestMethod.GET)
+    public ResponseEntity<FeeSchedule> findScheduleScheduleBySchedule(@PathVariable String code) {
+        AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
+        return new ResponseEntity<FeeSchedule>(accountTransformer.toFeeScheduleVo(feeSchedule), HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.GET)
-	public ResponseEntity<List<FeeScheduleItem>> findFeeScheduleItems(@PathVariable String code) {
-		AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
-		return new ResponseEntity<List<FeeScheduleItem>>(
-				accountTransformer.toFeeScheduleItemVos(accountService.findFeeScheduleItems(feeSchedule)),
-				HttpStatus.OK);
-	}
+    @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.GET)
+    public ResponseEntity<List<FeeScheduleItem>> findFeeScheduleItems(@PathVariable String code) {
+        AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
+        return new ResponseEntity<List<FeeScheduleItem>>(
+                accountTransformer.toFeeScheduleItemVos(accountService.findFeeScheduleItems(feeSchedule)),
+                HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/feeSchedules", method = RequestMethod.POST)
-	public ResponseEntity<String> saveFeeSchedule(@RequestBody FeeSchedule vo) {
-		dummyLogin();
-		AcFeeSchedule feeSchedule = new AcFeeScheduleImpl();
-		feeSchedule.setCode(vo.getCode());
-		feeSchedule.setDescription(vo.getDescription());
-		feeSchedule.setTotalAmount(BigDecimal.ZERO); // todo
-		feeSchedule.setResidencyCode(commonService.findResidencyCodeById(vo.getResidencyCode().getId()));
-		feeSchedule.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-		feeSchedule.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-		accountService.saveFeeSchedule(feeSchedule);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+    @RequestMapping(value = "/feeSchedules", method = RequestMethod.POST)
+    public ResponseEntity<String> saveFeeSchedule(@RequestBody FeeSchedule vo) {
 
-	@RequestMapping(value = "/feeSchedules/{code}", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateFeeSchedule(@PathVariable String code, @RequestBody FeeSchedule vo) {
-		dummyLogin();
-		AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
-		feeSchedule.setCode(vo.getCode());
-		feeSchedule.setDescription(vo.getDescription());
-		feeSchedule.setTotalAmount(vo.getTotalAmount());
-		accountService.updateFeeSchedule(feeSchedule);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+        AcFeeSchedule feeSchedule = new AcFeeScheduleImpl();
+        feeSchedule.setCode(vo.getCode());
+        feeSchedule.setDescription(vo.getDescription());
+        feeSchedule.setTotalAmount(BigDecimal.ZERO); // todo
+        feeSchedule.setResidencyCode(commonService.findResidencyCodeById(vo.getResidencyCode().getId()));
+        feeSchedule.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+        feeSchedule.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+        accountService.saveFeeSchedule(feeSchedule);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.POST)
-	public ResponseEntity<String> addFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
-		dummyLogin();
-		LOG.debug("amount :" + item.getAmount());
-		AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
-		AcFeeScheduleItem e = new AcFeeScheduleItemImpl();
-		e.setDescription(item.getDescription());
-		e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
-		e.setOrdinal(item.getOrdinal());
-		e.setAmount(item.getAmount());
-		accountService.addFeeScheduleItem(feeSchedule, e);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+    @RequestMapping(value = "/feeSchedules/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateFeeSchedule(@PathVariable String code, @RequestBody FeeSchedule vo) {
 
-	@RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
-		dummyLogin();
-		AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
-		AcFeeScheduleItem e = accountService.findFeeScheduleItemById(item.getId());
-		e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
-		e.setOrdinal(item.getOrdinal());
-		e.setAmount(item.getAmount());
-		accountService.updateFeeScheduleItem(feeSchedule, e);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+        AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
+        feeSchedule.setCode(vo.getCode());
+        feeSchedule.setDescription(vo.getDescription());
+        feeSchedule.setTotalAmount(vo.getTotalAmount());
+        accountService.updateFeeSchedule(feeSchedule);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteFeeScheduleItem(@PathVariable String code, @PathVariable Long id) {
-		dummyLogin();
-		AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
-		AcFeeScheduleItem e = accountService.findFeeScheduleItemById(id);
-		accountService.deleteFeeScheduleItem(feeSchedule, e);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+    @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.POST)
+    public ResponseEntity<String> addFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
 
-	@RequestMapping(value = "/feeSchedules/upload", method = RequestMethod.POST)
-	public ResponseEntity<String> uploadFeeSchedule(@RequestParam("file") MultipartFile file) {
-		dummyLogin();
-		try {
-			LOG.debug("BackEnd:{}", file.getName());
-			accountService.parseFeeSchedule(file.getInputStream());
-		} catch (IOException e) {
-			LOG.error("error", e);
-		}
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+        LOG.debug("amount :" + item.getAmount());
+        AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
+        AcFeeScheduleItem e = new AcFeeScheduleItemImpl();
+        e.setDescription(item.getDescription());
+        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setOrdinal(item.getOrdinal());
+        e.setAmount(item.getAmount());
+        accountService.addFeeScheduleItem(feeSchedule, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/feeSchedules/{code}/download", method = RequestMethod.GET)
-	public ResponseEntity downloadGradebook(@PathVariable String code) {
-		dummyLogin();
-		ByteArrayResource resource = null;
-		return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=" + code + ".xlsx")
-				.body(resource);
-	}
+    @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
 
-	// ====================================================================================================
-	// CHARGE CODE
-	// ====================================================================================================
-	@RequestMapping(value = "/chargeCodes", method = RequestMethod.GET)
-	public ResponseEntity<List<ChargeCode>> findChargeCodes() {
-		List<AcChargeCode> chargeCodes = accountService.findChargeCodes("%", 0, 100);
-		return new ResponseEntity<List<ChargeCode>>(accountTransformer.toChargeCodeVos(chargeCodes), HttpStatus.OK);
-	}
+        AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
+        AcFeeScheduleItem e = accountService.findFeeScheduleItemById(item.getId());
+        e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
+        e.setOrdinal(item.getOrdinal());
+        e.setAmount(item.getAmount());
+        accountService.updateFeeScheduleItem(feeSchedule, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.GET)
-	public ResponseEntity<ChargeCode> findChargeCodeByCode(@PathVariable String code) {
-		AcChargeCode chargeCode = accountService.findChargeCodeByCode(code);
-		return new ResponseEntity<ChargeCode>(accountTransformer.toChargeCodeVo(chargeCode), HttpStatus.OK);
-	}
+    @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteFeeScheduleItem(@PathVariable String code, @PathVariable Long id) {
 
-	@RequestMapping(value = "/chargeCodes", method = RequestMethod.POST)
-	public ResponseEntity<String> saveChargeCode(@RequestBody ChargeCode vo) {
-		dummyLogin();
+        AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
+        AcFeeScheduleItem e = accountService.findFeeScheduleItemById(id);
+        accountService.deleteFeeScheduleItem(feeSchedule, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-		AcChargeCode chargeCode = new AcChargeCodeImpl();
-		chargeCode.setCode(vo.getCode());
-		chargeCode.setDescription(vo.getDescription());
-		chargeCode.setPriority(vo.getPriority());
-		if (null != vo.getTaxCode())
-			chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
-		chargeCode.setInclusive(vo.getInclusive());
-		accountService.saveChargeCode(chargeCode);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+    @RequestMapping(value = "/feeSchedules/upload", method = RequestMethod.POST)
+    public ResponseEntity<String> uploadFeeSchedule(@RequestParam("file") MultipartFile file) {
 
-	@RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateChargeCode(@PathVariable String code, @RequestBody ChargeCode vo) {
-		dummyLogin();
-		// what can we update?
-		AcChargeCode chargeCode = accountService.findChargeCodeById(vo.getId());
-		chargeCode.setCode(vo.getCode());
-		chargeCode.setDescription(vo.getDescription());
-		chargeCode.setPriority(vo.getPriority());
-		if (null != vo.getTaxCode())
-			chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
-		accountService.updateChargeCode(chargeCode);
-		chargeCode.setInclusive(vo.getInclusive());
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+        try {
+            LOG.debug("BackEnd:{}", file.getName());
+            accountService.parseFeeSchedule(file.getInputStream());
+        } catch (IOException e) {
+            LOG.error("error", e);
+        }
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> removeChargeCode(@PathVariable String code) {
-		dummyLogin();
+    @RequestMapping(value = "/feeSchedules/{code}/download", method = RequestMethod.GET)
+    public ResponseEntity downloadGradebook(@PathVariable String code) {
 
-		AcChargeCode chargeCode = accountService.findChargeCodeByCode(code);
-		accountService.removeChargeCode(chargeCode);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+        ByteArrayResource resource = null;
+        return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=" + code + ".xlsx")
+                .body(resource);
+    }
 
-	// ====================================================================================================
-	// ACCOUNT
-	// ====================================================================================================
+    // ====================================================================================================
+    // CHARGE CODE
+    // ====================================================================================================
+    @RequestMapping(value = "/chargeCodes", method = RequestMethod.GET)
+    public ResponseEntity<List<ChargeCode>> findChargeCodes() {
+        List<AcChargeCode> chargeCodes = accountService.findChargeCodes("%", 0, 100);
+        return new ResponseEntity<List<ChargeCode>>(accountTransformer.toChargeCodeVos(chargeCodes), HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/accounts", method = RequestMethod.GET)
-	public ResponseEntity<List<Account>> findAccounts() {
-		List<AcAccount> accounts = accountService.findAccounts(0, 100);
-		List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
-		return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
-	}
+    @RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<ChargeCode> findChargeCodeByCode(@PathVariable String code) {
+        AcChargeCode chargeCode = accountService.findChargeCodeByCode(code);
+        return new ResponseEntity<ChargeCode>(accountTransformer.toChargeCodeVo(chargeCode), HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/accounts?/byFilter/{filter}", method = RequestMethod.GET)
-	public ResponseEntity<List<Account>> findAccounts(@PathVariable String filter) {
-		List<AcAccount> accounts = accountService.findAccounts(filter, 0, Integer.MAX_VALUE);
-		return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
-	}
+    @RequestMapping(value = "/chargeCodes", method = RequestMethod.POST)
+    public ResponseEntity<String> saveChargeCode(@RequestBody ChargeCode vo) {
 
-	@RequestMapping(value = "/accounts/{code}", method = RequestMethod.GET)
-	public ResponseEntity<Account> findAccountByCode(@PathVariable String code) {
-		AcAccount account = decorateAccount(accountService.findAccountByCode(code));
-		return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
-	}
 
-	@RequestMapping(value = "/accounts/byActor/student", method = RequestMethod.GET)
-	public ResponseEntity<List<Account>> findAccountsByActor() {
-		List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.STUDENT, 0, 100);
-		List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
-		return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
-	}
+        AcChargeCode chargeCode = new AcChargeCodeImpl();
+        chargeCode.setCode(vo.getCode());
+        chargeCode.setDescription(vo.getDescription());
+        chargeCode.setPriority(vo.getPriority());
+        if (null != vo.getTaxCode())
+            chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
+        chargeCode.setInclusive(vo.getInclusive());
+        accountService.saveChargeCode(chargeCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/accounts/byActor/sponsor", method = RequestMethod.GET)
-	public ResponseEntity<List<Account>> findAccountsByActorSponsor() {
-		List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.SPONSOR, 0, 100);
-		List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
-		return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
-	}
+    @RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateChargeCode(@PathVariable String code, @RequestBody ChargeCode vo) {
 
-	@RequestMapping(value = "/accounts/byActor/staff", method = RequestMethod.GET)
-	public ResponseEntity<List<Account>> findAccountsByActorStaff() {
-		List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.STAFF, 0, 100);
-		List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
-		return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
-	}
+        // what can we update?
+        AcChargeCode chargeCode = accountService.findChargeCodeById(vo.getId());
+        chargeCode.setCode(vo.getCode());
+        chargeCode.setDescription(vo.getDescription());
+        chargeCode.setPriority(vo.getPriority());
+        if (null != vo.getTaxCode())
+            chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
+        accountService.updateChargeCode(chargeCode);
+        chargeCode.setInclusive(vo.getInclusive());
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/accounts", method = RequestMethod.POST)
-	public ResponseEntity<String> saveAccount(@RequestBody Account vo) {
-		dummyLogin();
-		AcAccount account = new AcAccountImpl();
-		account.setCode(vo.getCode());
-		account.setDescription(vo.getActor().getName());
-		account.setActor(identityService.findActorById(vo.getActor().getId())); // todo
-		accountService.saveAccount(account);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+    @RequestMapping(value = "/chargeCodes/{code}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeChargeCode(@PathVariable String code) {
 
-	@RequestMapping(value = "/accounts/{code}", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateAccount(@PathVariable String code, @RequestBody Account vo) {
-		dummyLogin();
-		// what can we update?
-		AcAccount account = accountService.findAccountById(vo.getId());
-		account.setCode(vo.getCode());
-		account.setDescription(vo.getActor().getName());
-		accountService.updateAccount(account);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
 
-	@RequestMapping(value = "/accounts/{code}/accountTransactions", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountTransaction>> findAccountTransactions(@PathVariable String code) {
-		AcAccount account = accountService.findAccountByCode(code);
-		return new ResponseEntity<List<AccountTransaction>>(
-				accountTransformer.toAccountTransactionVos(accountService.findAccountTransactions(account)),
-				HttpStatus.OK);
-	}
+        AcChargeCode chargeCode = accountService.findChargeCodeByCode(code);
+        accountService.removeChargeCode(chargeCode);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/accounts/{code}/accountCharges", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountCharge>> findAccountCharges(@PathVariable String code) {
-		AcAccount account = accountService.findAccountByCode(code);
-		return new ResponseEntity<List<AccountCharge>>(
-				accountTransformer.toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
-	}
+    // ====================================================================================================
+    // ACCOUNT
+    // ====================================================================================================
 
-	@RequestMapping(value = "/accounts/{code}/accountCharges/chargeType/{chargeType}", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountCharge>> findAccountCharges(@PathVariable String code,
-			@PathVariable String chargeType) {
-		AcAccount account = accountService.findAccountByCode(code);
-		return new ResponseEntity<List<AccountCharge>>(
-				accountTransformer.toAccountChargeVos(
-						accountService.findAccountCharges(account, AcAccountChargeType.valueOf(chargeType))),
-				HttpStatus.OK);
-	}
+    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findAccounts() {
+        List<AcAccount> accounts = accountService.findAccounts(0, 100);
+        List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
+        return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/accounts/{code}/accountWaivers", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountWaiver>> findAccountWaivers(@PathVariable String code) {
-		AcAccount account = accountService.findAccountByCode(code);
-		return new ResponseEntity<List<AccountWaiver>>(
-				accountTransformer.toAccountWaiverVos(accountService.findAccountWaivers(account)), HttpStatus.OK);
-	}
+    @RequestMapping(value = "/accounts?/byFilter/{filter}", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findAccounts(@PathVariable String filter) {
+        List<AcAccount> accounts = accountService.findAccounts(filter, 0, Integer.MAX_VALUE);
+        return new ResponseEntity<List<Account>>(accountTransformer.toAccountVos(accounts), HttpStatus.OK);
+    }
 
-	@Deprecated // todo(hajar): do we need this?
-	// @RequestMapping(value = "/accounts/{code}/accountShortTermLoans", method
-	// = RequestMethod.GET)
-	// public ResponseEntity<List<AccountShortTermLoan>>
-	// findAccountShortTermLoans(@PathVariable String code) {
-	// AcAccount account = accountService.findAccountByCode(code);
-	// return new ResponseEntity<List<AccountShortTermLoan>>(
-	// accountTransformer.toAccountShortTermLoanVos(accountService.findAccountShortTermLoans(account)),
-	// HttpStatus.OK);
-	// }
+    @RequestMapping(value = "/accounts/{code}", method = RequestMethod.GET)
+    public ResponseEntity<Account> findAccountByCode(@PathVariable String code) {
+        AcAccount account = decorateAccount(accountService.findAccountByCode(code));
+        return new ResponseEntity<Account>(accountTransformer.toAccountVo(account), HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
-	public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo) {
-		dummyLogin();
-		AcAccount account = accountService.findAccountByCode(code);
-		AcAccountTransaction transaction = new AcAccountTransactionImpl();
-		transaction.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
-		transaction.setAmount(vo.getAmount());
-		transaction.setPostedDate(vo.getPostedDate());
-		transaction.setSession(accountService.findAcademicSessionById(vo.getSession().getId()));
-		transaction.setTransactionCode(AcAccountTransactionCode.ADHOC);
-		accountService.addAccountTransaction(account, transaction);
-	}
+    @RequestMapping(value = "/accounts/byActor/student", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findAccountsByActor() {
+        List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.STUDENT, 0, 100);
+        List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
+        return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/accounts/{code}/accountActivities", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountActivity>> findAccountActivities(@PathVariable String code) {
-		dummyLogin();
-		AcAccount account = accountService.findAccountByCode(code);
-		return new ResponseEntity<List<AccountActivity>>(
-				accountTransformer.toAccountActivityVos(accountService.findAccountActivities(account)), HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/accounts/{code}/academicSessions", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountActivity>> findAccountActivitiesByAcademicSession(@PathVariable String code) {
-		dummyLogin();
-		AcAccount account = accountService.findAccountByCode(code);
-		return new ResponseEntity<List<AccountActivity>>(
-				accountTransformer.toAccountActivityVos(accountService.findAccountActivities(accountService.findCurrentAcademicSession(), account)), HttpStatus.OK);
-	}
+    @RequestMapping(value = "/accounts/byActor/sponsor", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findAccountsByActorSponsor() {
+        List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.SPONSOR, 0, 100);
+        List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
+        return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
+    }
 
-	// ====================================================================================================
-	// ACCOUNT CHARGE
-	// ====================================================================================================
+    @RequestMapping(value = "/accounts/byActor/staff", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findAccountsByActorStaff() {
+        List<AcAccount> accounts = accountService.findAccounts("%", AcActorType.STAFF, 0, 100);
+        List<Account> vos = accountTransformer.toAccountVos(decorateAccounts(accounts));
+        return new ResponseEntity<List<Account>>(vos, HttpStatus.OK);
+    }
 
-	// todo: generate account charge reference no
-	@RequestMapping(value = "/accounts/{code}/accountCharges", method = RequestMethod.POST)
-	public ResponseEntity<String> addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
-		dummyLogin();
+    @RequestMapping(value = "/accounts", method = RequestMethod.POST)
+    public ResponseEntity<String> saveAccount(@RequestBody Account vo) {
 
-		AcAccount account = accountService.findAccountByCode(code);
-		AcAccountCharge charge = new AcAccountChargeImpl();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("academicSession", accountService.findCurrentAcademicSession());
-		String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO,
-				map);
-		switch (vo.getChargeType()) {
-		case ADMISSION:
-			charge.setReferenceNo(referenceNo);
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setDescription(vo.getDescription());
-			charge.setAmount(vo.getAmount());
-			charge.setOrdinal(vo.getOrdinal());
-			charge.setChargeDate(vo.getChargeDate());
-			if (null != vo.getCohortCode())
-				charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-			if (null != vo.getStudyMode())
-				charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		case COMPOUND:
-			charge.setReferenceNo(referenceNo);
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setDescription(vo.getDescription());
-			charge.setAmount(vo.getAmount());
-			charge.setChargeDate(vo.getChargeDate());
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		case SECURITY:
-			charge.setReferenceNo(referenceNo);
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setAmount(vo.getAmount());
-			charge.setDescription(vo.getDescription());
-			charge.setChargeDate(vo.getChargeDate());
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		case STUDENT_AFFAIRS:
-			charge.setReferenceNo(referenceNo);
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setAmount(vo.getAmount());
-			charge.setDescription(vo.getDescription());
-			charge.setChargeDate(vo.getChargeDate());
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		case LOAN:
-			charge.setReferenceNo(referenceNo);
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setDescription(vo.getDescription());
-			charge.setAmount(vo.getAmount());
-			charge.setChargeDate(vo.getChargeDate());
-			if (null != vo.getCohortCode())
-				charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-			if (null != vo.getStudyMode())
-				charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		}
-		accountService.addAccountCharge(account, charge);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+        AcAccount account = new AcAccountImpl();
+        account.setCode(vo.getCode());
+        account.setDescription(vo.getActor().getName());
+        account.setActor(identityService.findActorById(vo.getActor().getId())); // todo
+        accountService.saveAccount(account);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-	// todo: use reference no
-	@RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateAccountCharge(@PathVariable String code, @PathVariable String referenceNo,
-			@RequestBody AccountCharge vo) {
-		dummyLogin();
+    @RequestMapping(value = "/accounts/{code}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateAccount(@PathVariable String code, @RequestBody Account vo) {
 
-		AcAccount account = accountService.findAccountByCode(code);
-		AcAccountCharge charge = accountService.findAccountChargeByReferenceNo(referenceNo);
-		switch (vo.getChargeType()) {
-		case ADMISSION:
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setDescription(vo.getDescription());
-			charge.setAmount(vo.getAmount());
-			charge.setOrdinal(vo.getOrdinal());
-			charge.setChargeDate(vo.getChargeDate());
-			if (null != vo.getCohortCode())
-				charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-			if (null != vo.getStudyMode())
-				charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		case COMPOUND:
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setDescription(vo.getDescription());
-			charge.setAmount(vo.getAmount());
-			charge.setChargeDate(vo.getChargeDate());
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		case SECURITY:
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setAmount(vo.getAmount());
-			charge.setDescription(vo.getDescription());
-			charge.setChargeDate(vo.getChargeDate());
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		case STUDENT_AFFAIRS:
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setAmount(vo.getAmount());
-			charge.setDescription(vo.getDescription());
-			charge.setChargeDate(vo.getChargeDate());
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		case LOAN:
-			charge.setReferenceNo(referenceNo);
-			charge.setSourceNo(vo.getSourceNo());
-			charge.setDescription(vo.getDescription());
-			charge.setAmount(vo.getAmount());
-			charge.setChargeDate(vo.getChargeDate());
-			if (null != vo.getCohortCode())
-				charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
-			if (null != vo.getStudyMode())
-				charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
-			charge.setSession(accountService.findCurrentAcademicSession());
-			charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-			break;
-		}
+        // what can we update?
+        AcAccount account = accountService.findAccountById(vo.getId());
+        account.setCode(vo.getCode());
+        account.setDescription(vo.getActor().getName());
+        accountService.updateAccount(account);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
-		accountService.updateAccountCharge(account, charge);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
+    @RequestMapping(value = "/accounts/{code}/accountTransactions", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountTransaction>> findAccountTransactions(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountTransaction>>(
+                accountTransformer.toAccountTransactionVos(accountService.findAccountTransactions(account)),
+                HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable String referenceNo) {
-		dummyLogin();
-		AcAccount account = accountService.findAccountByCode(code);
-		AcAccountCharge admissionCharge = accountService.findAccountChargeByReferenceNo(referenceNo);
-		accountService.deleteAccountCharge(account, admissionCharge);
-		LOG.debug("account charge " + referenceNo + " is deleted");
-		return new ResponseEntity<>("Removed", HttpStatus.OK);
-	}
+    @RequestMapping(value = "/accounts/{code}/accountCharges", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountCharge>> findAccountCharges(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountCharge>>(
+                accountTransformer.toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
+    }
 
-	// ====================================================================================================
-	// PRIVATE METHODS
-	// ====================================================================================================
-	private List<AcAccount> decorateAccounts(List<AcAccount> accounts) {
-		for (AcAccount a : accounts) {
-			decorateAccount(a);
-		}
-		return accounts;
-	}
+    @RequestMapping(value = "/accounts/{code}/accountCharges/chargeType/{chargeType}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountCharge>> findAccountCharges(@PathVariable String code,
+                                                                  @PathVariable String chargeType) {
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountCharge>>(
+                accountTransformer.toAccountChargeVos(
+                        accountService.findAccountCharges(account, AcAccountChargeType.valueOf(chargeType))),
+                HttpStatus.OK);
+    }
 
-	private AcAccount decorateAccount(AcAccount account) {
-		account.setBalance(accountService.sumBalanceAmount(account));
-		account.setEffectiveBalance(
-				accountService.sumEffectiveBalanceAmount(account, accountService.findCurrentAcademicSession()));
-		return account;
-	}
+    @RequestMapping(value = "/accounts/{code}/accountWaivers", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountWaiver>> findAccountWaivers(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountWaiver>>(
+                accountTransformer.toAccountWaiverVos(accountService.findAccountWaivers(account)), HttpStatus.OK);
+    }
 
-	private void dummyLogin() {
-		AcAutoLoginToken token = new AcAutoLoginToken("root");
-		Authentication authed = authenticationManager.authenticate(token);
-		SecurityContextHolder.getContext().setAuthentication(authed);
-	}
+    @RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
+    public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo) {
+
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAccountTransaction transaction = new AcAccountTransactionImpl();
+        transaction.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        transaction.setAmount(vo.getAmount());
+        transaction.setPostedDate(vo.getPostedDate());
+        transaction.setSession(accountService.findAcademicSessionById(vo.getSession().getId()));
+        transaction.setTransactionCode(AcAccountTransactionCode.ADHOC);
+        accountService.addAccountTransaction(account, transaction);
+    }
+
+    @RequestMapping(value = "/accounts/{code}/accountActivities", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountActivity>> findAccountActivities(@PathVariable String code) {
+
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountActivity>>(
+                accountTransformer.toAccountActivityVos(accountService.findAccountActivities(account)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/accounts/{code}/academicSessions", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountActivity>> findAccountActivitiesByAcademicSession(@PathVariable String code) {
+
+        AcAccount account = accountService.findAccountByCode(code);
+        return new ResponseEntity<List<AccountActivity>>(
+                accountTransformer.toAccountActivityVos(accountService.findAccountActivities(accountService.findCurrentAcademicSession(), account)), HttpStatus.OK);
+    }
+
+    // ====================================================================================================
+    // ACCOUNT CHARGE
+    // ====================================================================================================
+
+    // todo: generate account charge reference no
+    @RequestMapping(value = "/accounts/{code}/accountCharges", method = RequestMethod.POST)
+    public ResponseEntity<String> addAccountCharge(@PathVariable String code, @RequestBody AccountCharge vo) {
+
+
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAccountCharge charge = new AcAccountChargeImpl();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("academicSession", accountService.findCurrentAcademicSession());
+        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO,
+                map);
+        switch (vo.getChargeType()) {
+            case ADMISSION:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setOrdinal(vo.getOrdinal());
+                charge.setChargeDate(vo.getChargeDate());
+                if (null != vo.getCohortCode())
+                    charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if (null != vo.getStudyMode())
+                    charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case COMPOUND:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case SECURITY:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
+                charge.setDescription(vo.getDescription());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case STUDENT_AFFAIRS:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
+                charge.setDescription(vo.getDescription());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case LOAN:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setChargeDate(vo.getChargeDate());
+                if (null != vo.getCohortCode())
+                    charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if (null != vo.getStudyMode())
+                    charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+        }
+        accountService.addAccountCharge(account, charge);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    // todo: use reference no
+    @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateAccountCharge(@PathVariable String code, @PathVariable String referenceNo,
+                                                      @RequestBody AccountCharge vo) {
+
+
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAccountCharge charge = accountService.findAccountChargeByReferenceNo(referenceNo);
+        switch (vo.getChargeType()) {
+            case ADMISSION:
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setOrdinal(vo.getOrdinal());
+                charge.setChargeDate(vo.getChargeDate());
+                if (null != vo.getCohortCode())
+                    charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if (null != vo.getStudyMode())
+                    charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case COMPOUND:
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case SECURITY:
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
+                charge.setDescription(vo.getDescription());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case STUDENT_AFFAIRS:
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setAmount(vo.getAmount());
+                charge.setDescription(vo.getDescription());
+                charge.setChargeDate(vo.getChargeDate());
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+            case LOAN:
+                charge.setReferenceNo(referenceNo);
+                charge.setSourceNo(vo.getSourceNo());
+                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getAmount());
+                charge.setChargeDate(vo.getChargeDate());
+                if (null != vo.getCohortCode())
+                    charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
+                if (null != vo.getStudyMode())
+                    charge.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+                charge.setSession(accountService.findCurrentAcademicSession());
+                charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                break;
+        }
+
+        accountService.updateAccountCharge(account, charge);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/accounts/{code}/accountCharges/{referenceNo}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable String referenceNo) {
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAccountCharge admissionCharge = accountService.findAccountChargeByReferenceNo(referenceNo);
+        accountService.deleteAccountCharge(account, admissionCharge);
+        LOG.debug("account charge " + referenceNo + " is deleted");
+        return new ResponseEntity<>("Removed", HttpStatus.OK);
+    }
+
+    // ====================================================================================================
+    // PRIVATE METHODS
+    // ====================================================================================================
+    private List<AcAccount> decorateAccounts(List<AcAccount> accounts) {
+        for (AcAccount a : accounts) {
+            decorateAccount(a);
+        }
+        return accounts;
+    }
+
+    private AcAccount decorateAccount(AcAccount account) {
+        account.setBalance(accountService.sumBalanceAmount(account));
+        account.setEffectiveBalance(
+                accountService.sumEffectiveBalanceAmount(account, accountService.findCurrentAcademicSession()));
+        return account;
+    }
 }

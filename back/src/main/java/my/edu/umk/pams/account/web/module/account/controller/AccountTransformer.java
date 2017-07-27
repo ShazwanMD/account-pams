@@ -162,15 +162,6 @@ public class AccountTransformer {
         return m;
     }
     
-    public AccountShortTermLoan toAccountShortTermLoanVo(AcAccountSTL e) {
-    	AccountShortTermLoan m = new AccountShortTermLoan();
-    //	m.setId(e.getId());
-        m.setSourceNo(e.getSourceNo());
-        m.setAmount(e.getAmount());
-        m.setSession(toAcademicSessionVo(e.getSession()));
-        return m;
-    }
-    
     public AccountActivity toAccountActivityVo(AcAccountActivity e) {
         if (null == e) return null;
         AccountActivity m = new AccountActivity();
@@ -206,12 +197,6 @@ public class AccountTransformer {
                 .collect(toCollection(() -> new ArrayList<AccountWaiver>()));
     }
     
-    public List<AccountShortTermLoan> toAccountShortTermLoanVos(List<AcAccountSTL> accounts) {
-        return accounts.stream()
-                .map((accountTx) -> toAccountShortTermLoanVo(accountTx))
-                .collect(toCollection(() -> new ArrayList<AccountShortTermLoan>()));
-    }
-
     public List<FeeScheduleItem> toFeeScheduleItemVos(List<AcFeeScheduleItem> items) {
         return items.stream()
                 .map((item) -> toFeeScheduleItemVo(item))

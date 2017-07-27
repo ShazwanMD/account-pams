@@ -45,7 +45,7 @@ public class CommonController {
 
     @RequestMapping(value = "/cohortCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveCohortCode(@RequestBody CohortCode vo) {
-        dummyLogin();
+        
 
         AcCohortCode cohortCode = new AcCohortCodeImpl();
         cohortCode.setCode(vo.getCode());
@@ -56,7 +56,7 @@ public class CommonController {
 
     @RequestMapping(value = "/cohortCodes/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateCohortCode(@PathVariable String code, @RequestBody CohortCode vo) {
-        dummyLogin();
+        
 
         AcCohortCode cohortCode = commonService.findCohortCodeById(vo.getId());
         cohortCode.setCode(vo.getCode());
@@ -67,7 +67,7 @@ public class CommonController {
 
     @RequestMapping(value = "/cohortCodes/{code}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeCohortCode(@PathVariable String code) {
-        dummyLogin();
+        
 
         AcCohortCode cohortCode = commonService.findCohortCodeByCode(code);
         commonService.removeCohortCode(cohortCode);
@@ -94,7 +94,7 @@ public class CommonController {
 
     @RequestMapping(value = "/residencyCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveResidencyCode(@RequestBody ResidencyCode vo) {
-        dummyLogin();
+        
 
         AcResidencyCode residencyCode = new AcResidencyCodeImpl();
         residencyCode.setCode(vo.getCode());
@@ -105,7 +105,7 @@ public class CommonController {
 
     @RequestMapping(value = "/residencyCodes/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateResidencyCode(@PathVariable String code, @RequestBody ResidencyCode vo) {
-        dummyLogin();
+        
 
         AcResidencyCode residencyCode = commonService.findResidencyCodeById(vo.getId());
         residencyCode.setCode(vo.getCode());
@@ -116,7 +116,7 @@ public class CommonController {
 
     @RequestMapping(value = "/residencyCodes/{code}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeResidencyCode(@PathVariable String code) {
-        dummyLogin();
+        
 
         AcResidencyCode residencyCode = commonService.findResidencyCodeByCode(code);
         commonService.removeResidencyCode(residencyCode);
@@ -142,7 +142,7 @@ public class CommonController {
 
     @RequestMapping(value = "/studyModes", method = RequestMethod.POST)
     public ResponseEntity<String> saveStudyMode(@RequestBody StudyMode vo) {
-        dummyLogin();
+        
 
         AcStudyMode studyMode = new AcStudyModeImpl();
         studyMode.setCode(vo.getCode());
@@ -154,7 +154,7 @@ public class CommonController {
 
     @RequestMapping(value = "/studyModes/{mode}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateStudyMode(@PathVariable String mode, @RequestBody StudyMode vo) {
-        dummyLogin();
+        
 
         AcStudyMode studyMode = commonService.findStudyModeById(vo.getId());
         studyMode.setCode(vo.getCode());
@@ -166,7 +166,7 @@ public class CommonController {
 
     @RequestMapping(value = "/studyModes/{mode}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeStudyMode(@PathVariable String mode) {
-        dummyLogin();
+        
 
         AcStudyMode studyMode = commonService.findStudyModeByCode(mode);
         commonService.removeStudyMode(studyMode);
@@ -202,7 +202,7 @@ public class CommonController {
 
     @RequestMapping(value = "/facultyCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveFacultyCode(@RequestBody FacultyCode vo) {
-        dummyLogin();
+        
 
         AcFacultyCode facultyCode = new AcFacultyCodeImpl();
         facultyCode.setCode(vo.getCode());
@@ -213,7 +213,7 @@ public class CommonController {
 
     @RequestMapping(value = "/facultyCodes/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateFacultyCode(@PathVariable String code, @RequestBody FacultyCode vo) {
-        dummyLogin();
+        
 
         AcFacultyCode facultyCode = commonService.findFacultyCodeById(vo.getId());
         facultyCode.setCode(vo.getCode());
@@ -224,7 +224,7 @@ public class CommonController {
 
     @RequestMapping(value = "/facultyCodes/{code}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeFacultyCode(@PathVariable String code) {
-        dummyLogin();
+        
 
         AcFacultyCode facultyCode = commonService.findFacultyCodeByCode(code);
         commonService.removeFacultyCode(facultyCode);
@@ -249,7 +249,7 @@ public class CommonController {
 
     @RequestMapping(value = "/bankCodes", method = RequestMethod.POST)
     public ResponseEntity<String>saveBankCode(@RequestBody BankCode vo) {
-        dummyLogin();
+        
 
         AcBankCode bankCode = new AcBankCodeImpl();
         bankCode.setCode(vo.getCode());
@@ -262,7 +262,7 @@ public class CommonController {
     
     @RequestMapping(value = "/bankCodes/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateBankCode(@PathVariable String code, @RequestBody BankCode vo) {
-        dummyLogin();
+        
 
         AcBankCode bankCode = commonService.findBankCodeById(vo.getId());
         bankCode.setCode(vo.getCode());
@@ -275,7 +275,7 @@ public class CommonController {
 
     @RequestMapping(value = "/bankCodes/{code}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeBankCode(@PathVariable String code) {
-        dummyLogin();
+        
 
         AcBankCode bankCode = commonService.findBankCodeByCode(code);
         commonService.removeBankCode(bankCode);
@@ -300,7 +300,7 @@ public class CommonController {
 
     @RequestMapping(value = "/taxCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveTaxCode(@RequestBody TaxCode vo) {
-        dummyLogin();
+        
 
         AcTaxCode taxCode = new AcTaxCodeImpl();
         taxCode.setCode(vo.getCode());
@@ -312,7 +312,7 @@ public class CommonController {
 
     @RequestMapping(value = "/taxCodes/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateTaxCode(@PathVariable String code, @RequestBody TaxCode vo) {
-        dummyLogin();
+        
 
         AcTaxCode taxCode = commonService.findTaxCodeById(vo.getId());
         taxCode.setCode(vo.getCode());
@@ -324,7 +324,7 @@ public class CommonController {
 
     @RequestMapping(value = "/taxCodes/{code}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeTaxCode(@PathVariable String code) {
-        dummyLogin();
+        
 
         AcTaxCode taxCode = commonService.findTaxCodeByCode(code);
         commonService.removeTaxCode(taxCode);
@@ -350,7 +350,7 @@ public class CommonController {
 
     @RequestMapping(value = "/securityChargeCode", method = RequestMethod.POST)
     public ResponseEntity<String> saveSecurityChargeCode(@RequestBody SecurityChargeCode vo) {
-        dummyLogin();
+        
 
         AcSecurityChargeCode securityChargeCode = new AcSecurityChargeCodeImpl();
         securityChargeCode.setSection(vo.getSection());
@@ -366,7 +366,7 @@ public class CommonController {
 
     @RequestMapping(value = "/securityChargeCode/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateSecurityChargeCode(@PathVariable Long id, @RequestBody SecurityChargeCode vo) {
-        dummyLogin();
+        
 
         AcSecurityChargeCode securityChargeCode = commonService.findSecurityChargeCodeById(id);
         securityChargeCode.setSection(vo.getSection());
@@ -379,15 +379,5 @@ public class CommonController {
         commonService.updateSecurityChargeCode(securityChargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/securityChargeCode/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> removeSecurityChargeCode(@PathVariable Long id) {
-        dummyLogin();
-        AcSecurityChargeCode securityChargeCode = commonService.findSecurityChargeCodeById(id);
-        commonService.removeSecurityChargeCode(securityChargeCode);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-    
-
 
 }

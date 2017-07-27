@@ -1,13 +1,14 @@
 package my.edu.umk.pams.account.security.integration.jwt.handler;
 
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import my.edu.umk.pams.account.security.integration.jwt.vo.JwtUser;
-import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 /**
  * Created by shazin on 12/9/16.
@@ -58,7 +59,7 @@ public class JwtHandler {
 
         return Jwts.builder()
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 }

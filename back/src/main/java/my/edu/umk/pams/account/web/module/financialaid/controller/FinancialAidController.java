@@ -92,7 +92,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.GET)
     public ResponseEntity<List<SettlementItem>> findSettlementItems(@PathVariable String referenceNo) {
-        dummyLogin();
+        
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         return new ResponseEntity<List<SettlementItem>>(financialAidTransformer
                 .toSettlementItemVos(financialAidService.findSettlementItems(settlement)), HttpStatus.OK);
@@ -101,7 +101,7 @@ public class FinancialAidController {
     @Deprecated
     @RequestMapping(value = "/settlements/init", method = RequestMethod.POST)
     public ResponseEntity<String> initSettlements(@RequestBody Settlement vo) {
-        dummyLogin();
+        
 
         AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
         AcSettlement acSettlement = new AcSettlementImpl();
@@ -116,7 +116,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/settlements/initBySponsor/{sponsorNo}", method = RequestMethod.POST)
     public ResponseEntity<String> initSettlementBySponsor(@PathVariable String sponsorNo, @RequestBody Settlement vo) {
-        dummyLogin();
+        
 
         AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
         AcSponsor sponsor = identityService.findSponsorBySponsorNo(sponsorNo);
@@ -130,7 +130,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/settlements/initByCohortCode/{code}", method = RequestMethod.POST)
     public ResponseEntity<String> initSettlementByCohortCode(@PathVariable String code, @RequestBody Settlement vo) {
-        dummyLogin();
+        
 
         AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
         AcCohortCode cohortCode = commonService.findCohortCodeByCode(code);
@@ -144,7 +144,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/settlements/initByFacultyCode/{code}", method = RequestMethod.POST)
     public ResponseEntity<String> initSettlementByFacultyCode(@PathVariable String code, @RequestBody Settlement vo) {
-        dummyLogin();
+        
 
         AcAcademicSession acAcademicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
         AcFacultyCode facultyCode = commonService.findFacultyCodeByCode(code);
@@ -158,7 +158,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/settlements/{referenceNo}/execute", method = RequestMethod.POST)
     public void executeSettlement(@PathVariable String referenceNo) {
-        dummyLogin();
+        
         LOG.debug("referenceNo {}", referenceNo);
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         financialAidService.executeSettlement(settlement);
@@ -166,7 +166,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.POST)
     public ResponseEntity<String> addSettlementItem(@PathVariable String referenceNo, @RequestBody SettlementItem item) {
-        dummyLogin();
+        
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         AcSettlementItem e = new AcSettlementItemImpl();
 
@@ -189,7 +189,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateSettlementItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody SettlementItem item) {
-        dummyLogin();
+        
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         AcSettlementItem e = financialAidService.findSettlementItemById(item.getId());
 
@@ -208,7 +208,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteSettlementItems(@PathVariable String referenceNo, @PathVariable Long id) {
-        dummyLogin();
+        
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         AcSettlementItem e = financialAidService.findSettlementItemById(id);
         financialAidService.deleteSettlementItem(settlement, e);
@@ -239,14 +239,14 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/waiverApplications/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<WaiverApplicationTask>> findAssignedWaiverApplications() {
-        dummyLogin();
+        
         List<Task> tasks = financialAidService.findAssignedWaiverApplicationTasks(0, 100);
         return new ResponseEntity<List<WaiverApplicationTask>>(financialAidTransformer.toWaiverApplicationTaskVos(tasks), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/waiverApplications/pooledTasks", method = RequestMethod.GET)
     public ResponseEntity<List<WaiverApplicationTask>> findPooledWaiverApplications() {
-        dummyLogin();
+        
         List<Task> tasks = financialAidService.findPooledWaiverApplicationTasks(0, 100);
         return new ResponseEntity<List<WaiverApplicationTask>>(financialAidTransformer.toWaiverApplicationTaskVos(tasks), HttpStatus.OK);
     }
@@ -267,7 +267,7 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/waiverApplications/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startWaiverApplicationTask(@RequestBody WaiverApplication vo) throws Exception {
-        dummyLogin();
+        
 
         AcAcademicSession academicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
         AcAccount account = accountService.findAccountById(vo.getAccount().getId());
@@ -291,14 +291,14 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/waiverApplications/claimTask", method = RequestMethod.POST)
     public void claimWaiverApplicationTask(@RequestBody WaiverApplicationTask vo) {
-        dummyLogin();
+        
         Task task = financialAidService.findWaiverApplicationTaskByTaskId(vo.getTaskId());
         workflowService.claimTask(task);
     }
 
     @RequestMapping(value = "/waiverApplications/completeTask", method = RequestMethod.POST)
     public void completeWaiverApplicationTask(@RequestBody WaiverApplicationTask vo) {
-        dummyLogin();
+        
         Task task = financialAidService.findWaiverApplicationTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
     }
@@ -306,11 +306,4 @@ public class FinancialAidController {
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
-
-    private void dummyLogin() {
-        AcAutoLoginToken token = new AcAutoLoginToken("root");
-        Authentication authed = authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authed);
-    }
-
 }
