@@ -1,0 +1,15 @@
+<h2 md-dialog-title>Settlement Item Editor</h2>
+<md-dialog-content>
+  <td-file-upload #fileUpload (upload)="upload($event)" defaultColor="accent" activeColor="warn" cancelColor="primary">
+    <md-icon>file_upload</md-icon>
+    <span>{{ fileUpload.files?.name }}</span>
+    <template td-file-input-label>
+      <md-icon>attach_file</md-icon>
+      <span>Choose a file...</span>
+    </template>
+  </td-file-upload>
+</md-dialog-content>
+
+<md-dialog-actions align="end">
+</md-dialog-actions>
+
