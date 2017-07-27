@@ -175,14 +175,14 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
                 "  SOURCE_NO as sourceNo, \n" +
                 "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
-                "  SUM(AMOUNT) as amount \n" +
+                "  SUM(AMOUNT) as totalAmount \n" +
                 "FROM AC_ACCT_TRSN\n" +
                 "GROUP BY \n" +
                 "  SOURCE_NO, \n" +
                 "  TRANSACTION_CODE");
         sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
         sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
-        sqlQuery.addScalar("amount", StandardBasicTypes.BIG_DECIMAL);
+        sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
         sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityImpl.class));
         List<AcAccountActivity> results = sqlQuery.list();
         // unpack id
@@ -199,15 +199,15 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
                 "  SOURCE_NO as sourceNo, \n" +
                 "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
-                "  SUM(AMOUNT) as amount \n" +
+                "  SUM(AMOUNT) as totalAmount \n" +
                 "FROM AC_ACCT_TRSN\n" +
-                "INNER JOIN AC_ACDM_SESN ON AC_ACCT_TRSN.SESSION_ID = AC_ACDM_SESN.ID" +
+                "INNER JOIN AC_ACDM_SESN ON AC_ACCT_TRSN.SESSION_ID = AC_ACDM_SESN.ID\n" +
                 "GROUP BY \n" +
                 "  SOURCE_NO, \n" +
                 "  TRANSACTION_CODE");
         sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
         sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
-        sqlQuery.addScalar("amount", StandardBasicTypes.BIG_DECIMAL);
+        sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
         sqlQuery.addScalar("academicSession", StandardBasicTypes.STRING);
         sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityImpl.class));
         List<AcAccountActivity> results = sqlQuery.list();
