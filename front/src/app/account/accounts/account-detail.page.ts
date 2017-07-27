@@ -2,7 +2,6 @@ import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} fro
 import {Router, ActivatedRoute} from '@angular/router';
 import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
 import {Account} from '../../shared/model/account/account.interface';
-
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {AccountActions} from './account.action';
@@ -11,6 +10,8 @@ import {AccountTransaction} from '../../shared/model/account/account-transaction
 import {AccountWaiver} from '../../shared/model/account/account-waiver.interface';
 import {AccountCharge} from '../../shared/model/account/account-charge.interface';
 import { AccountActivity } from "../../shared/model/account/account-activity.interface";
+import { InvoiceItemDialog } from "./dialog/invoice-item.dialog";
+import { Invoice } from "../../shared/model/billing/invoice.interface";
 
 @Component({
   selector: 'pams-account-detail',
@@ -33,13 +34,15 @@ export class AccountDetailPage implements OnInit {
   private admissionAccountCharges$: Observable<AccountCharge[]>;
   private studentAffairsAccountCharges$: Observable<AccountCharge[]>;
   private loanAccountCharges$: Observable<AccountCharge[]>;
+  private editorDialogRef: MdDialogRef<InvoiceItemDialog>
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: AccountActions,
               private store: Store<AccountModuleState>,
               private vcf: ViewContainerRef,
-              private dialog: MdDialog) {
+              private dialog: MdDialog
+              ) {
 
     this.account$ = this.store.select(...this.ACCOUNT);
     this.accountActivities$ = this.store.select(...this.ACCOUNT_ACTIVITY);
@@ -60,6 +63,22 @@ export class AccountDetailPage implements OnInit {
   goBack(route: string): void {
     this.router.navigate(['/accounts']);
   }
+  
+  viewInvoice(activity: AccountActivity): void {
+      console.log('showDialog');
+      console.log('Activity' + activity);
+      let config = new MdDialogConfig();
+      config.viewContainerRef = this.vcf;
+      config.role = 'dialog';
+      config.width = '50%';
+      config.height = '60%';
+      config.position = {top: '0px'};
+      this.editorDialogRef = this.dialog.open(InvoiceItemDialog, config);
+      this.editorDialogRef.componentInstance.invoice.referenceNo = activity.sourceNo;
+      this.editorDialogRef.afterClosed().subscribe((res) => {
+        console.log('close dialog');
+      });
+    }
 
 }
 
