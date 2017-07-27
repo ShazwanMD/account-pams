@@ -23,7 +23,7 @@ const routes: Routes = [
       {
         path: '', component: DashboardPage,
       },
-      ...DashboardModuleRoutes,
+      // ...DashboardModuleRoutes,
       ...AccountModuleRoutes,
       ...BillingModuleRoutes,
       ...FinancialaidModuleRoutes,

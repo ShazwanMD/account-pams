@@ -33,7 +33,7 @@ export class WaiverApplicationTaskViewPage implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/financialaid/waiverApplications']);
+    this.router.navigate(['/secure/financialaid/waiverApplications']);
   }
 }
 

@@ -18,7 +18,7 @@
   </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
-      <a md-button color="accent" class="text-upper" [routerLink]="['/marketing/promo-codes', row['referenceNo']]">
+      <a md-button color="accent" class="text-upper" [routerLink]="['/secure/marketing/promo-codes', row['referenceNo']]">
         <span>View</span>
       </a>
     </div>
@@ -26,7 +26,7 @@
 </td-data-table>
 <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
     <h3>No results to display.</h3>
-</div> 
+</div>
 <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
     <span td-paging-bar-label hide-xs>Row per page:</span>
     {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>

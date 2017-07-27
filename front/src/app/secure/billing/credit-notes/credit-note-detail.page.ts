@@ -38,7 +38,7 @@ export class CreditNoteDetailPage implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/billing/credit-notes']);
+    this.router.navigate(['/secure/billing/credit-notes']);
   }
 }
 

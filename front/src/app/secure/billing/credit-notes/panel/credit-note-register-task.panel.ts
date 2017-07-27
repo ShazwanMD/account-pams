@@ -52,6 +52,6 @@ export class CreditNoteRegisterTaskPanel implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/billing/credit-notes']);
+    this.router.navigate(['/secure/billing/credit-notes']);
   }
 }

@@ -16,11 +16,11 @@ import {WaiverApplication} from '../../../../shared/model/financialaid/waiver-ap
 
 export class WaiverApplicationDraftTaskPanel implements OnInit {
 
-  @Input() waiverApplicationTask: WaiverApplicationTask;
-
   private WAIVER_APPLICATION: string[] = 'financialaidModuleState.waiverApplication'.split('.');
   private waiverApplication$: Observable<WaiverApplication>;
   private creatorDialogRef: MdDialogRef<WaiverApplicationEditorDialog>;
+
+  @Input() waiverApplicationTask: WaiverApplicationTask;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -44,7 +44,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/financialaid/waiver-applications']);
+    this.router.navigate(['/secure/financialaid/waiver-applications']);
   }
 
   showDialog(): void {

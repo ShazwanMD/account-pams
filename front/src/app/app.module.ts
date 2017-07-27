@@ -51,6 +51,11 @@ import {AlertService} from '../services/alert.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {ApplicationContextActions} from './application-context.action';
 import {ReactiveFormsModule} from '@angular/forms';
+import {DashboardPage} from './secure/dashboard.page';
+import {AdministratorDashboardPanel} from './secure/administrator-dashboard.panel';
+import {AuthorizedShowDirective} from './secure/identity/directive/authorized-show.directive';
+import {AuthenticatedShowDirective} from './secure/identity/directive/authenticated-show.directive';
+import {NotAuthenticatedShowDirective} from './secure/identity/directive/not-authenticated-show.directive';
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -103,7 +108,12 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     SecurePage,
     LoginPage,
     ForgetPasswordPage,
-
+    DashboardPage,
+    ForgetPasswordPage,
+    AdministratorDashboardPanel,
+    AuthorizedShowDirective,
+    AuthenticatedShowDirective,
+    NotAuthenticatedShowDirective,
   ], // directives, components, and pipes owned by this NgModule
   imports: [
     appRoutes,
@@ -144,7 +154,9 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     Title,
     ApplicationContextActions,
   ], // additional providers needed for this module
-  entryComponents: [],
+  entryComponents: [
+    AdministratorDashboardPanel,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -51,6 +51,6 @@ export class ReceiptRegisterTaskPanel implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/billing/receipts']);
+    this.router.navigate(['/secure/billing/receipts']);
   }
 }

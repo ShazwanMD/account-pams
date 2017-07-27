@@ -49,7 +49,7 @@ export class CreditNoteCenterPage implements OnInit {
 
   viewTask(task: CreditNoteTask) {
     console.log('CreditNote: ' + task.taskId);
-    this.router.navigate(['/billing/credit-notes/credit-note-task-detail', task.taskId]);
+    this.router.navigate(['/secure/billing/credit-notes/credit-note-task-detail', task.taskId]);
   }
 
   claimTask(task: CreditNoteTask) {
@@ -58,7 +58,7 @@ export class CreditNoteCenterPage implements OnInit {
   }
 
   viewCreditNote(creditNote: CreditNote) {
-    this.router.navigate(['/billing/credit-notes/credit-note-detail', creditNote.referenceNo]);
+    this.router.navigate(['/secure/billing/credit-notes/credit-note-detail', creditNote.referenceNo]);
   }
 
   showDialog(): void {

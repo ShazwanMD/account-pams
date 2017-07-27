@@ -50,7 +50,7 @@ export class AccountStudentListComponent {
 
   viewAccount(account: Account) {
     console.log('account: ' + account.id);
-    this.router.navigate(['/accounts-detail', account.id]);
+    this.router.navigate(['accounts-detail', account.id]);
   }
 
   ngAfterViewInit(): void {

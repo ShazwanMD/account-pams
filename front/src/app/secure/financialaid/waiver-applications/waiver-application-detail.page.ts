@@ -34,7 +34,7 @@ export class WaiverApplicationDetailPage implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/financialaid/waiver-applications']);
+    this.router.navigate(['/secure/financialaid/waiver-applications']);
   }
 }
 

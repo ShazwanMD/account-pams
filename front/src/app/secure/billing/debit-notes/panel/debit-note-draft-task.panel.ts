@@ -52,6 +52,6 @@ export class DebitNoteDraftTaskPanel implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/billing/debit-notes']);
+    this.router.navigate(['/secure/billing/debit-notes']);
   }
 }

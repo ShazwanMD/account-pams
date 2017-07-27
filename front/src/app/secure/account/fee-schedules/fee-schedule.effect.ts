@@ -61,7 +61,7 @@ export class FeeScheduleEffects {
       .withLatestFrom(this.store$.select(...this.FEE_SCHEDULE))
       .map((state) => state[1])
       .map((feeSchedule) => this.feeScheduleActions.findFeeScheduleItems(feeSchedule))
-      .do((action) => this.router.navigate(['/account/fee-schedules/:code', action.payload])).ignoreElements();
+      .do((action) => this.router.navigate(['/secure/account/fee-schedules/:code', action.payload])).ignoreElements();
 
   @Effect() updateFeeScheduleItem$ = this.actions$
     .ofType(FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM)

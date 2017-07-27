@@ -51,6 +51,6 @@ export class InvoiceRegisterTaskPanel {
   }
 
   goBack(): void {
-    this.router.navigate(['/billing/invoices']);
+    this.router.navigate(['/secure/billing/invoices']);
   }
 }

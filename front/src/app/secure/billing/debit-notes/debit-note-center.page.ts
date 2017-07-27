@@ -48,7 +48,7 @@ export class DebitNoteCenterPage implements OnInit {
 
   viewTask(task: DebitNoteTask) {
     console.log('DebitNote: ' + task.taskId);
-    this.router.navigate(['/billing/debit-notes/debit-note-task-detail', task.taskId]);
+    this.router.navigate(['/secure/billing/debit-notes/debit-note-task-detail', task.taskId]);
 
   }
 
@@ -58,7 +58,7 @@ export class DebitNoteCenterPage implements OnInit {
   }
 
   viewDebitNote(debitNote: DebitNote) {
-    this.router.navigate(['/billing/debit-notes/debit-note-detail', debitNote.referenceNo]);
+    this.router.navigate(['/secure/billing/debit-notes/debit-note-detail', debitNote.referenceNo]);
   }
 
   showDialog(): void {

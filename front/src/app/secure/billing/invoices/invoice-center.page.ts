@@ -47,12 +47,12 @@ export class InvoiceCenterPage implements OnInit {
 
   viewTask(task: InvoiceTask) {
     console.log('invoice: ' + task.taskId);
-    this.router.navigate(['/billing/invoices/invoice-task-detail', task.taskId]);
+    this.router.navigate(['/secure/billing/invoices/invoice-task-detail', task.taskId]);
   }
 
   viewInvoice(invoice: Invoice) {
     console.log('invoice: ' + invoice.referenceNo);
-    this.router.navigate(['/billing/invoices/invoice-detail', invoice.referenceNo]);
+    this.router.navigate(['/secure/billing/invoices/invoice-detail', invoice.referenceNo]);
   }
 
   showDialog(): void {
