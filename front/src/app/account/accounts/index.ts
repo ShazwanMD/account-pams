@@ -36,6 +36,8 @@ import {CompoundChargeEditorDialog} from './dialog/compound-charge-editor.dialog
 import {CommonModule} from '../../common/index';
 import {AcademicSessionSubModule} from '../academic-sessions/index';
 import {AccountSponsorListComponent} from './component/account-sponsor-list.component';
+import { InvoiceItemDialog } from "./dialog/invoice-item.dialog";
+import { InvoiceItemListAccountComponent } from "./component/invoice-item-component-list.component";
 
 @NgModule({
   imports: [
@@ -45,6 +47,7 @@ import {AccountSponsorListComponent} from './component/account-sponsor-list.comp
     CovalentCoreModule.forRoot(),
     IdentityModule.forRoot(),
     CommonModule.forRoot(),
+    //InvoiceSubModule.forRoot(),
     AcademicSessionSubModule.forRoot(),
     EffectsModule.run(AccountEffects),
   ],
@@ -74,6 +77,8 @@ import {AccountSponsorListComponent} from './component/account-sponsor-list.comp
     CompoundChargeEditorDialog,
     AccountStudentListComponent,
     AccountSponsorListComponent,
+    InvoiceItemDialog,
+    InvoiceItemListAccountComponent,
 
   ],
   exports: [
@@ -83,6 +88,8 @@ import {AccountSponsorListComponent} from './component/account-sponsor-list.comp
     AdmissionChargeComponent,
     LoanChargeComponent,
     StudentAffairsChargeComponent,
+    InvoiceItemDialog,
+    InvoiceItemListAccountComponent,
   ],
   entryComponents: [
     AccountCreatorDialog,
@@ -91,6 +98,8 @@ import {AccountSponsorListComponent} from './component/account-sponsor-list.comp
     StudentAffairsChargeEditorDialog,
     CompoundChargeEditorDialog,
     SecurityChargeEditorDialog,
+    InvoiceItemDialog,
+    InvoiceItemListAccountComponent,
   ],
 
 })
