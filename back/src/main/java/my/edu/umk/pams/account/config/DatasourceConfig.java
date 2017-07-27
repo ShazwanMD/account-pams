@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.lang.SystemUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,6 @@ import java.util.Properties;
 
 @Configuration
 public class DatasourceConfig {
-    private static String INDEX_BASE = SystemUtils.IS_OS_WINDOWS ? "${user.home}" : "/opt/tomcat";
 
     @Autowired
     private Environment env;
@@ -44,8 +42,6 @@ public class DatasourceConfig {
         properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.format_sql", "true");
         properties.put("javax.persistence.validation.mode", "none");
-        properties.put("hibernate.search.default.directory_provider", "filesystem");
-        properties.put("hibernate.search.default.indexBase", INDEX_BASE + "/hibernate-search");
         return properties;
     }
 
