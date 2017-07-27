@@ -1,4 +1,4 @@
-import { SecurityChargesCode } from '../../../common/security-charges-code/security-charges-code.interface';
+import { SecurityChargeCode } from '../../../common/security-charge-codes/security-charge-code.interface';
 import {Component, ViewContainerRef, OnInit, AfterViewInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
@@ -9,15 +9,15 @@ import {SetupModuleState} from '../../index';
 import {SetupActions} from '../../setup.action';
 
 @Component({
-  selector: 'pams-security-charges-code-editor',
-  templateUrl: './security-charges-code-editor.dialog.html',
+  selector: 'pams-security-charge-code-editor',
+  templateUrl: './security-charge-code-editor.dialog.html',
 })
 
 export class SecurityChargesCodeEditorDialog implements OnInit {
 
   private editorForm: FormGroup;
   private edit: boolean = false;
-  private _securityChargesCode: SecurityChargesCode;
+  private _securityChargesCode: SecurityChargeCode;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -28,13 +28,13 @@ export class SecurityChargesCodeEditorDialog implements OnInit {
               private actions: SetupActions) {
   }
 
-  set securityChargesCode(value: SecurityChargesCode) {
+  set securityChargesCode(value: SecurityChargeCode) {
     this._securityChargesCode = value;
     this.edit = true;
   }
 
   ngOnInit(): void {
-    this.editorForm = this.formBuilder.group(<SecurityChargesCode>{
+    this.editorForm = this.formBuilder.group(<SecurityChargeCode>{
         id: null,
         section: '',
         description: '',
@@ -55,7 +55,7 @@ export class SecurityChargesCodeEditorDialog implements OnInit {
   //   this.dialog.close();
   // }
 
-    submit(code: SecurityChargesCode, isValid: boolean) {
+    submit(code: SecurityChargeCode, isValid: boolean) {
     if (this.edit) this.store.dispatch(this.actions.updateSecurityChargesCode(code));
     else  this.store.dispatch(this.actions.saveSecurityChargesCode(code));
     this.dialog.close();

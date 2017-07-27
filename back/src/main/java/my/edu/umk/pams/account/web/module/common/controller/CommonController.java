@@ -352,7 +352,7 @@ public class CommonController {
     public ResponseEntity<String> saveSecurityChargesCode(@RequestBody SecurityChargesCode vo) {
         dummyLogin();
 
-        AcSecurityChargesCode securityChargesCode = new AcSecurityChargesCodeImpl();
+        AcSecurityChargeCode securityChargesCode = new AcSecurityChargeCodeImpl();
         securityChargesCode.setSection(vo.getSection());
         securityChargesCode.setDescription(vo.getDescription());
         securityChargesCode.setOffense(vo.getOffense());
@@ -368,7 +368,7 @@ public class CommonController {
     public ResponseEntity<String> updateSecurityChargesCode(@PathVariable Long id, @RequestBody SecurityChargesCode vo) {
         dummyLogin();
 
-        AcSecurityChargesCode securityChargesCode = commonService.findSecurityChargesCodeById(id);
+        AcSecurityChargeCode securityChargesCode = commonService.findSecurityChargesCodeById(id);
         securityChargesCode.setSection(vo.getSection());
         securityChargesCode.setDescription(vo.getDescription());
         securityChargesCode.setOffense(vo.getOffense());
@@ -383,7 +383,7 @@ public class CommonController {
     @RequestMapping(value = "/securityChargesCode/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeSecurityChargesCode(@PathVariable Long id) {
         dummyLogin();
-        AcSecurityChargesCode securityChargesCode = commonService.findSecurityChargesCodeById(id);
+        AcSecurityChargeCode securityChargesCode = commonService.findSecurityChargesCodeById(id);
         commonService.removeSecurityChargesCode(securityChargesCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

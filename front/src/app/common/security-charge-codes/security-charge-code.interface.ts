@@ -1,5 +1,5 @@
 import {MetaObject} from '../../core/meta-object.interface';
-export interface SecurityChargesCode extends MetaObject{
+export interface SecurityChargeCode extends MetaObject {
   section: string;
   description: string;
   offense: string;

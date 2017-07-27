@@ -186,7 +186,7 @@ export class SetupEffects {
         .mergeMap( action => from( [action, this.setupActions.findTaxCodes()] ) );
 
         @Effect() findSecurityChargesCodes$ = this.actions$
-        .ofType( SetupActions.FIND_SECURITY_CHARGES_CODES)
+        .ofType( SetupActions.FIND_SECURITY_CHARGE_CODES)
         .map( action => action.payload )
         .switchMap(() => this.commonService.findSecurityChargesCodes() )
         .map( codes => this.setupActions.findSecurityChargesCodesSuccess( codes ) );
