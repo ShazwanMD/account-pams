@@ -1,4 +1,4 @@
-import { SecurityChargesCode } from './../app/common/security-charges-code/security-charges-code.interface';
+import { SecurityChargeCode } from '../app/common/security-charge-codes/security-charge-code.interface';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
@@ -245,23 +245,23 @@ export class CommonService {
   // SECURITY CHARGES CODES
   // ====================================================================================================
 
-    findSecurityChargesCodes(): Observable<SecurityChargesCode[]> {
+    findSecurityChargesCodes(): Observable<SecurityChargeCode[]> {
     console.log('findSecurityChargesCodes');
     return this._http.get(this.COMMON_API + '/securityChargesCodes')
-      .map((res: Response) => <SecurityChargesCode[]>res.json());
+      .map((res: Response) => <SecurityChargeCode[]>res.json());
   }
 
-  saveSecurityChargesCode(code: SecurityChargesCode) {
+  saveSecurityChargesCode(code: SecurityChargeCode) {
     return this._http.post(this.COMMON_API + '/securityChargesCode', JSON.stringify(code))
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateSecurityChargesCode(code: SecurityChargesCode) {
+  updateSecurityChargesCode(code: SecurityChargeCode) {
     return this._http.put(this.COMMON_API + '/securityChargesCode/' + code.id, JSON.stringify(code))
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  removeSecurityChargesCode(code: SecurityChargesCode) {
+  removeSecurityChargesCode(code: SecurityChargeCode) {
     return this._http.delete(this.COMMON_API + '/securityChargesCode/' + code.id)
       .flatMap((res: Response) => Observable.of(res.text()));
   }

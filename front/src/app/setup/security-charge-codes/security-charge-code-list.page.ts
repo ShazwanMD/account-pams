@@ -1,5 +1,5 @@
-import { SecurityChargesCodeEditorDialog } from './dialog/security-charges-code-editor.dialog';
-import { SecurityChargesCode } from '../../common/security-charges-code/security-charges-code.interface';
+import { SecurityChargesCodeEditorDialog } from './dialog/security-charge-code-editor.dialog';
+import { SecurityChargeCode } from '../../common/security-charge-codes/security-charge-code.interface';
 
 import {
   Component,
@@ -26,13 +26,13 @@ import {
 
 @Component({
   selector: 'pams-security-charges-code-list-page',
-  templateUrl: './security-charges-code-list.page.html',
+  templateUrl: './security-charge-code-list.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SecurityChargesCodeListPage implements OnInit{
 
   private SECURITY_CHARGES_CODES = 'setupModuleState.securityChargesCode'.split('.');
-  private securityChargesCodes$: Observable<SecurityChargesCode[]>;
+  private securityChargesCodes$: Observable<SecurityChargeCode[]>;
   private creatorDialogRef: MdDialogRef<SecurityChargesCodeEditorDialog>;
   private columns: any[] = [
     {name: 'section', label: 'Compound Section'},
@@ -45,7 +45,7 @@ export class SecurityChargesCodeListPage implements OnInit{
     {name: 'action', label: ''},
   ];
 
-    private securityChargesCodes: SecurityChargesCode[];
+    private securityChargesCodes: SecurityChargeCode[];
 
   filteredData: any[];
   filteredTotal: number;
@@ -73,11 +73,11 @@ export class SecurityChargesCodeListPage implements OnInit{
     this.showDialog(null);
   }
 
-  editDialog(code: SecurityChargesCode): void {
+  editDialog(code: SecurityChargeCode): void {
     this.showDialog(code);
   }
 
-  delete(code: SecurityChargesCode): void {
+  delete(code: SecurityChargeCode): void {
     this.store.dispatch(this.actions.removeSecurityChargesCode(code));
   }
 
@@ -109,7 +109,7 @@ export class SecurityChargesCodeListPage implements OnInit{
     this.filteredData = newData;
   }
 
-  private showDialog(code: SecurityChargesCode): void {
+  private showDialog(code: SecurityChargeCode): void {
     console.log('create');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;

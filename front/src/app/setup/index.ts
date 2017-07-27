@@ -1,6 +1,6 @@
 import { SecurityChargeEditorDialog } from './../account/accounts/dialog/security-charge-editor.dialog';
-import { SecurityChargesCodeListPage } from './security-charges-code/security-charges-code-list.page';
-import { SecurityChargesCode } from './../common/security-charges-code/security-charges-code.interface';
+import { SecurityChargesCodeListPage } from './security-charge-codes/security-charge-code-list.page';
+import { SecurityChargeCode } from '../common/security-charge-codes/security-charge-code.interface';
 import { CohortCodeEditorDialog } from './cohort-codes/dialog/cohort-code-editor.dialog';
 import { CohortCodeListPage } from './cohort-codes/cohort-code-list.page';
 import { CohortCode } from './../common/cohort-codes/cohort-code.interface';
@@ -54,8 +54,8 @@ import { TaxCode } from "../common/tax-codes/tax-code.interface";
 import { TaxCodeListPage } from "./tax-codes/tax-code-list.page";
 import { TaxCodeEditorDialog } from "./tax-codes/dialog/tax-code-editor.dialog";
 
-import {SecurityChargesCodeEditorDialog} from "./security-charges-code/dialog/security-charges-code-editor.dialog";
-import { SecurityChargesCodeListState, securityChargesCodeListReducer } from "./security-charges-code/security-charges-code-list.reducer";
+import {SecurityChargesCodeEditorDialog} from "./security-charge-codes/dialog/security-charge-code-editor.dialog";
+import { SecurityChargeCodeListState, securityChargeCodeListReducer } from "./security-charge-codes/security-charge-code-list.reducer";
 
 export interface SetupModuleState {
   title:TitleState;
@@ -63,7 +63,7 @@ export interface SetupModuleState {
   cohortCodes: CohortCodeListState;
   residencyCodes: ResidencyCodeListState;
   taxCodes: TaxCodeListState;
-  securityChargesCode: SecurityChargesCodeListState;
+  securityChargesCode: SecurityChargeCodeListState;
 
 };
 
@@ -74,7 +74,7 @@ export const INITIAL_SETUP_STATE: SetupModuleState =
     cohortCodes: <CohortCode[]>[],
     residencyCodes: <ResidencyCode[]>[],
     taxCodes: <TaxCode[]>[],
-    securityChargesCode: <SecurityChargesCode[]>[],
+    securityChargesCode: <SecurityChargeCode[]>[],
   };
 
 
@@ -84,7 +84,7 @@ export const setupModuleReducers = {
   cohortCodes: cohortCodeListReducer,
   residencyCodes: residencyCodeListReducer,
   taxCodes: taxCodeListReducer,
-  securityChargesCode: securityChargesCodeListReducer,
+  securityChargesCode: securityChargeCodeListReducer,
 }
 
 
@@ -94,7 +94,7 @@ export const setupModuleReducers = {
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    CommonModule.forRoot(),  
+    CommonModule.forRoot(),
     EffectsModule.run(SetupEffects),
   ],
   declarations: [

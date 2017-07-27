@@ -1,6 +1,5 @@
 package my.edu.umk.pams.account.common.service;
 
-import my.edu.umk.pams.account.common.dao.AcSecurityChargesCodeDao;
 import my.edu.umk.pams.account.common.model.*;
 
 import java.util.List;
@@ -308,22 +307,22 @@ public interface CommonService {
     // SECURITY CHARGES CODE 
     //====================================================================================================
     
-    AcSecurityChargesCode findSecurityChargesCodeById(Long id);
+    AcSecurityChargeCode findSecurityChargesCodeById(Long id);
 
-    AcSecurityChargesCode findSecurityChargesCodeByCode(String code);
+    AcSecurityChargeCode findSecurityChargesCodeByCode(String code);
 
-    List<AcSecurityChargesCode> findSecurityChargesCodes();
+    List<AcSecurityChargeCode> findSecurityChargesCodes();
 
-    List<AcSecurityChargesCode> findSecurityChargesCodes(String filter, Integer offset, Integer limit);
+    List<AcSecurityChargeCode> findSecurityChargesCodes(String filter, Integer offset, Integer limit);
 
     Integer countSecurityChargesCode();
 
     Integer countSecurityChargesCode(String filter);
 
-    void saveSecurityChargesCode(AcSecurityChargesCode securityChargesCode);
+    void saveSecurityChargesCode(AcSecurityChargeCode securityChargesCode);
 
-    void updateSecurityChargesCode(AcSecurityChargesCode securityChargesCode);
+    void updateSecurityChargesCode(AcSecurityChargeCode securityChargesCode);
 
-    void removeSecurityChargesCode(AcSecurityChargesCode securityChargesCode);
+    void removeSecurityChargesCode(AcSecurityChargeCode securityChargesCode);
     
 }

@@ -13,7 +13,7 @@
           <md-tab-group [selectedIndex]="0">
             <md-tab label="Account Activities">
               <pams-account-activity-list 
-              [transactions]="accountTransactions$ | async"
+              [activity]="accountActivities$ | async"
               ></pams-account-activity-list>
             </md-tab>
 

@@ -2,17 +2,17 @@ package my.edu.umk.pams.account.common.dao;
 
 import java.util.List;
 
-import my.edu.umk.pams.account.common.model.AcSecurityChargesCode;
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
 import my.edu.umk.pams.account.core.GenericDao;
 
-public interface AcSecurityChargesCodeDao extends GenericDao<Long, AcSecurityChargesCode> {
+public interface AcSecurityChargeCodeDao extends GenericDao<Long, AcSecurityChargeCode> {
 
     // ====================================================================================================
     // FINDER
     // ====================================================================================================
-    AcSecurityChargesCode findByCode(String code);
+    AcSecurityChargeCode findByCode(String code);
 
-    List<AcSecurityChargesCode> find(String filter, Integer offset, Integer limit);
+    List<AcSecurityChargeCode> find(String filter, Integer offset, Integer limit);
 
     // ====================================================================================================
     // HELPER

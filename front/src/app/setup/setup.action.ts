@@ -360,7 +360,7 @@ export class SetupActions {
       payload: message
     };
   }
-  
+
   static REMOVE_RESIDENCY_CODE = '[Setup] Remove Residency Code';
 
   removeResidencyCode(code): Action {
@@ -517,7 +517,7 @@ export class SetupActions {
       payload: codes
     };
   }
-  
+
   static SAVE_TAX_CODE = '[Setup] Save Tax Code';
 
   saveTaxCode(code): Action {
@@ -537,7 +537,7 @@ export class SetupActions {
       payload: message
     };
   }
-  
+
   static UPDATE_TAX_CODE = '[Setup] Update Tax Code';
 
   updateTaxCode(code): Action {
@@ -557,7 +557,7 @@ export class SetupActions {
       payload: message
     };
   }
-  
+
   static REMOVE_TAX_CODE = '[Setup] Remove Tax Code';
 
   removeTaxCode(code): Action {
@@ -618,22 +618,22 @@ export class SetupActions {
     };
   }
 
-  
-  static FIND_SECURITY_CHARGES_CODES = '[Setup] Find Security Charges Codes';
+
+  static FIND_SECURITY_CHARGE_CODES = '[Setup] Find Security Charge Codes';
 
   findSecurityChargesCodes(): Action {
     console.log("findSecurityChargesCodes");
     return {
-      type: SetupActions.FIND_SECURITY_CHARGES_CODES,
+      type: SetupActions.FIND_SECURITY_CHARGE_CODES,
     };
   }
 
-  static FIND_SECURITY_CHARGES_CODES_SUCCESS = '[Setup] Find Security Charges Codes Success';
+  static FIND_SECURITY_CHARGE_CODES_SUCCESS = '[Setup] Find Security Charges Code Success';
 
   findSecurityChargesCodesSuccess(codes): Action {
     console.log("findSecurityChargesCodesSuccess");
     return {
-      type: SetupActions.FIND_SECURITY_CHARGES_CODES_SUCCESS,
+      type: SetupActions.FIND_SECURITY_CHARGE_CODES_SUCCESS,
       payload: codes
     };
   }
