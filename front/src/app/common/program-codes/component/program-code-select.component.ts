@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {CommonActions} from '../../common.action';
 import {CommonModuleState} from '../../index';
-import {ProgramCode} from '../program-code.interface';
+import {ProgramCode} from '../../../shared/model/common/program-code.interface';
 
 @Component({
   selector: 'pams-program-code-select',

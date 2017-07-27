@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {CohortCode} from '../cohort-code.interface';
 import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {CommonActions} from '../../common.action';
 import {CommonModuleState} from '../../index';
+import {CohortCode} from '../../../shared/model/common/cohort-code.interface';
 
 @Component({
   selector: 'pams-cohort-code-select',

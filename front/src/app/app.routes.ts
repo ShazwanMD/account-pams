@@ -1,19 +1,22 @@
 import {Routes, RouterModule} from '@angular/router';
 
-import {MainComponent} from './main/main.component';
-import {LoginComponent} from './login/login.component';
-import {HomeModuleRoutes} from "./home/home-module.routes";
-import {DashboardModuleRoutes} from "./dashboard/dashboard-module.routes";
-import {AccountModuleRoutes} from "./account/account-module.routes";
-import {BillingModuleRoutes} from "./billing/billing-module.routes";
-import {FinancialaidModuleRoutes} from "./financialaid/financialaid-module.routes";
-import {MarketingModuleRoutes} from "./marketing/marketing-module.routes";
-import {SetupModuleRoutes} from "./setup/setup-module.routes";
+import {HomeModuleRoutes} from './home/home-module.routes';
+import {DashboardModuleRoutes} from './dashboard/dashboard-module.routes';
+import {AccountModuleRoutes} from './secure/account/account-module.routes';
+import {BillingModuleRoutes} from './secure/billing/billing-module.routes';
+import {FinancialaidModuleRoutes} from './secure/financialaid/financialaid-module.routes';
+import {MarketingModuleRoutes} from './secure/marketing/marketing-module.routes';
+import {SetupModuleRoutes} from './secure/setup/setup-module.routes';
+import {SecurePage} from './secure/secure.page';
+import {ForgetPasswordPage} from './login/forget-password.page';
+import {LoginPage} from './login/login.page';
+import {AuthenticationGuard} from './secure/identity/guard/authentication.guard';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginPage},
+  {path: 'forget-password', component: ForgetPasswordPage},
   {
-    path: '', component: MainComponent,
+    path: 'secure', component: SecurePage, canActivate: [AuthenticationGuard],
     children: [
       ...DashboardModuleRoutes,
       ...HomeModuleRoutes,
@@ -22,7 +25,7 @@ const routes: Routes = [
       ...FinancialaidModuleRoutes,
       ...MarketingModuleRoutes,
       ...SetupModuleRoutes,
-    ]
+    ],
   },
 ];
 

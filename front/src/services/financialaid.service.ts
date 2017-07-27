@@ -8,8 +8,8 @@ import {SettlementItem} from '../app/shared/model/financialaid/settlement-item.i
 import {WaiverApplicationTask} from '../app/shared/model/financialaid/waiver-application-task.interface';
 import {WaiverApplication} from '../app/shared/model/financialaid/waiver-application.interface';
 import {Sponsor} from '../app/shared/model/identity/sponsor.interface';
-import {FacultyCode} from '../app/common/faculty-codes/faculty-code.interface';
-import {CohortCode} from '../app/common/cohort-codes/cohort-code.interface';
+import {FacultyCode} from '../app/shared/model/common/faculty-code.interface';
+import {CohortCode} from '../app/shared/model/common/cohort-code.interface';
 import {SettlementCreator} from '../app/shared/model/financialaid/settlement-creator.interface';
 
 @Injectable()

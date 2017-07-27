@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {FacultyCode} from '../faculty-code.interface';
+import {FacultyCode} from '../../../shared/model/common/faculty-code.interface';
 import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {CommonActions} from '../../common.action';

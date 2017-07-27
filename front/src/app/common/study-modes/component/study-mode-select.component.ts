@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {CommonActions} from '../../common.action';
 import {CommonModuleState} from '../../index';
-import {StudyMode} from '../study-mode.interface';
+import {StudyMode} from '../../../shared/model/common/study-mode.interface';
 
 @Component({
   selector: 'pams-study-mode-select',

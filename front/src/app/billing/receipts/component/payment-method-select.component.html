@@ -1,8 +1,0 @@
-<md-select
- [placeholder]="placeholder"
- (change)="selectChangeEvent($event.value)" flex>
-
- <md-option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod">
-   {{paymentMethod}}
- </md-option>
-</md-select>

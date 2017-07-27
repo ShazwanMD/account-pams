@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {CommonActions} from '../common.action';
-import {StudyMode} from './study-mode.interface';
+import {StudyMode} from '../../shared/model/common/study-mode.interface';
 
 export type StudyModeListState = StudyMode[];
 

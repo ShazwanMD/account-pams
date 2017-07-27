@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {ProgramCode} from './program-code.interface';
+import {ProgramCode} from '../../shared/model/common/program-code.interface';
 import {CommonActions} from '../common.action';
 
 export type ProgramCodeListState = ProgramCode[];

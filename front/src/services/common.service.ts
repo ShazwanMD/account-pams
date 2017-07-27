@@ -1,18 +1,18 @@
-import { SecurityChargeCode } from '../app/common/security-charge-codes/security-charge-code.interface';
+import { SecurityChargeCode } from '../app/shared/model/common/security-charge-code.interface';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
-import {CohortCode} from '../app/common/cohort-codes/cohort-code.interface';
-import {FacultyCode} from '../app/common/faculty-codes/faculty-code.interface';
-import {CountryCode} from '../app/common/country-codes/country-code.interface';
-import {ProgramCode} from '../app/common/program-codes/program-code.interface';
-import {StudyMode} from '../app/common/study-modes/study-mode.interface';
-import {StateCode} from '../app/common/state-codes/state-code.interface';
-import {BankCode} from '../app/common/bank-codes/bank-code.interface';
-import {ResidencyCode} from '../app/common/residency-codes/residency-code.interface';
-import {TaxCode} from '../app/common/tax-codes/tax-code.interface';
+import {CohortCode} from '../app/shared/model/common/cohort-code.interface';
+import {FacultyCode} from '../app/shared/model/common/faculty-code.interface';
+import {CountryCode} from '../app/shared/model/common/country-code.interface';
+import {ProgramCode} from '../app/shared/model/common/program-code.interface';
+import {StudyMode} from '../app/shared/model/common/study-mode.interface';
+import {StateCode} from '../app/shared/model/common/state-code.interface';
+import {BankCode} from '../app/shared/model/common/bank-code.interface';
+import {ResidencyCode} from '../app/shared/model/common/residency-code.interface';
+import {TaxCode} from '../app/shared/model/common/tax-code.interface';
 
 @Injectable()
 export class CommonService {

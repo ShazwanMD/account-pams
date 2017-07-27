@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {CommonActions} from '../common.action';
-import {ResidencyCode} from './residency-code.interface';
+import {ResidencyCode} from '../../shared/model/common/residency-code.interface';
 
 export type ResidencyCodeListState = ResidencyCode[];
 

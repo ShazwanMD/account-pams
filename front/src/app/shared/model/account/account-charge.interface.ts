@@ -1,7 +1,7 @@
 import {MetaObject} from '../../../core/meta-object.interface';
 import {AccountChargeType} from './account-charge-type.enum';
-import {StudyMode} from '../../../common/study-modes/study-mode.interface';
-import {CohortCode} from '../../../common/cohort-codes/cohort-code.interface';
+import {StudyMode} from '../common/study-mode.interface';
+import {CohortCode} from '../common/cohort-code.interface';
 import {AcademicSession} from './academic-session.interface';
 export interface AccountCharge extends MetaObject {
   referenceNo: string;

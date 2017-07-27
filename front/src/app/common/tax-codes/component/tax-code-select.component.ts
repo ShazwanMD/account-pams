@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {CommonActions} from '../../common.action';
 import {CommonModuleState} from '../../index';
-import {TaxCode} from '../tax-code.interface';
+import {TaxCode} from '../../../shared/model/common/tax-code.interface';
 
 @Component({
   selector: 'pams-tax-code-select',
@@ -30,4 +30,4 @@ export class TaxCodeSelectComponent implements OnInit {
     this.innerFormControl.setValue(event, {emitEvent: false});
   }
 }
-
+

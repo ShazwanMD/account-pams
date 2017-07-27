@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {CommonActions} from '../../common.action';
 import {CommonModuleState} from '../../index';
-import {BankCode} from '../bank-code.interface';
+import {BankCode} from '../../../shared/model/common/bank-code.interface';
 
 @Component({
   selector: 'pams-bank-code-select',
@@ -30,4 +30,4 @@ export class BankCodeSelectComponent implements OnInit {
     this.innerFormControl.setValue(event, {emitEvent: false});
   }
 }
-
+

@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {CommonActions} from "../common.action";
-import {TaxCode} from "./tax-code.interface";
+import {CommonActions} from '../common.action';
+import {TaxCode} from '../../shared/model/common/tax-code.interface';
 
 export type TaxCodeListState = TaxCode[];
 

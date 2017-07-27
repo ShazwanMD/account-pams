@@ -1,0 +1,91 @@
+<div md-content flex md-scroll-y>
+  <div layout="column" layout-gt-md="row" class="inset">
+    <div flex-gt-md="70">
+      <md-card>
+        <md-card-title>{{invoiceTask?.referenceNo}}</md-card-title>
+        <md-card-subtitle>{{invoiceTask?.description}}</md-card-subtitle>
+
+        <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{invoiceTask?.referenceNo}}</h4>
+                <p md-line>Reference No</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{invoiceTask?.issuedDate | date: 'dd-MMM-yyyy'}}</h4>
+                <p md-line>Date</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          </div>
+          <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{invoiceTask?.invoice?.account?.name}}</h4>
+                <p md-line>Student Name</p>
+              </md-list-item>
+            </md-list>
+          </div>
+          <div layout="column" flex>
+            <md-list dense>
+              <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
+                <h4 md-line>{{invoiceTask?.accountCode}}</h4>
+                <p md-line>Account</p>
+              </md-list-item>
+            </md-list>
+          </div>
+        </div>
+        <md-card-actions>
+        </md-card-actions>
+      </md-card>
+
+      <pams-invoice-item-list
+        [invoice]="invoiceTask.invoice"
+        [invoiceItems]="invoiceItems$ | async">
+      </pams-invoice-item-list>
+
+    </div>
+    <div flex-gt-md="30">
+
+      <pams-invoice-status [invoice]="invoiceTask.invoice"></pams-invoice-status>
+
+      <md-card>
+        <md-card-title>Action</md-card-title>
+        <md-card-subtitle>Actions available on current invoice</md-card-subtitle>
+        <md-divider></md-divider>
+        <md-nav-list dense>
+          <md-list-item (click)="approve()">
+            <md-icon md-list-avatar>done</md-icon>
+            <h4 md-line>Posted</h4>
+            <p md-line>Posted this invoice</p>
+          </md-list-item>
+          <md-list-item>
+            <md-icon md-list-avatar>remove_circle</md-icon>
+            <h4 md-line>Remove</h4>
+            <p md-line>Remove this invoice</p>
+          </md-list-item>
+          <!--<md-list-item>
+            <md-icon md-list-avatar>attach_money</md-icon>
+            <h4 md-line>Credit Note</h4>
+            <p md-line>Credit Note this invoice</p>
+          </md-list-item>
+          <md-list-item>
+            <md-icon md-list-avatar>money_off</md-icon>
+            <h4 md-line>Debit Note</h4>
+            <p md-line>Debit Note this invoice</p>
+          </md-list-item>-->
+        </md-nav-list>
+      </md-card>
+    </div>
+  </div>
+</div>
