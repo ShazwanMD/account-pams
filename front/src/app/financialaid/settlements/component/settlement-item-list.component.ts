@@ -20,6 +20,9 @@ export class SettlementItemListComponent implements OnInit{
   private columns: any[] = [
     {name: 'account', label: 'Account'},
     {name: 'invoice', label: 'Invoice'},
+    {name: 'loanAmount', label: 'Loan Amount'},
+    {name: 'feeAmount', label: 'Fee Amount'},
+    {name: 'nettAmount', label: 'Nett Amount'},
     {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
