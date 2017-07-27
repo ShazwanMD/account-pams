@@ -93,6 +93,7 @@ import {InvoicePaidListComponent} from "./component/invoice-paid-list.component"
     InvoiceUnpaidListComponent,
     InvoicePaidListComponent,
     InvoiceItemPaidListComponent,
+    InvoiceItemListComponent,
   ],
   entryComponents: [
     InvoiceDraftTaskPanel,
@@ -101,6 +102,8 @@ import {InvoicePaidListComponent} from "./component/invoice-paid-list.component"
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
     InvoiceSelectComponent,
+    InvoiceItemListComponent,
+    InvoiceItemPaidListComponent,
   ],
 
 })
