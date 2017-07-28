@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewContainerRef, Input, Output, EventEmitter} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {MdDialogRef, MdDialog} from '@angular/material';
-import { Invoice } from "../../../../shared/model/billing/invoice.interface";
-import { InvoiceItem } from "../../../../shared/model/billing/invoice-item.interface";
+import {MdDialog} from '@angular/material';
+import {Invoice} from '../../../../shared/model/billing/invoice.interface';
+import {InvoiceItem} from '../../../../shared/model/billing/invoice-item.interface';
 import {InvoiceActions} from '../../../billing/invoices/invoice.action';
 import {BillingModuleState} from '../../../billing/index';
-import { AccountActivity } from "../../../../shared/model/account/account-activity.interface";
+import {AccountActivity} from '../../../../shared/model/account/account-activity.interface';
 
 @Component({
   selector: 'pams-invoice-item',
@@ -15,9 +15,9 @@ import { AccountActivity } from "../../../../shared/model/account/account-activi
 })
 export class InvoiceItemDialog implements OnInit {
 
-    @Input() invoice: Invoice;
-    @Input() invoiceItems: InvoiceItem[];
-    @Input() activity: AccountActivity[];
+  @Input() invoice: Invoice;
+  @Input() invoiceItems: InvoiceItem[];
+  @Input() activity: AccountActivity[];
 
   private INVOICE: string[] = 'billingModuleState.invoice'.split('.');
   private INVOICE_ITEMS: string[] = 'billingModuleState.invoiceItems'.split('.');

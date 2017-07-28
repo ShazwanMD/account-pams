@@ -1,6 +1,11 @@
 import {
-  Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import {Observable} from 'rxjs';
 import {ReceiptDraftTaskPanel} from './receipt-draft-task.panel';

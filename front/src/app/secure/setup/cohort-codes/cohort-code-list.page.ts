@@ -1,25 +1,16 @@
+import {ChangeDetectionStrategy, Component, OnInit, ViewContainerRef} from '@angular/core';
+import {CohortCodeEditorDialog} from './dialog/cohort-code-editor.dialog';
+import {CohortCode} from '../../../shared/model/common/cohort-code.interface';
+import {Store} from '@ngrx/store';
+import {SetupActions} from '../setup.action';
+import {SetupModuleState} from '../index';
+import {Observable} from 'rxjs/Observable';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {
-  Component,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-  OnInit,
-  AfterViewInit,
-  ViewContainerRef,
-} from '@angular/core';
-import { CohortCodeEditorDialog } from './dialog/cohort-code-editor.dialog';
-import { CohortCode } from '../../../shared/model/common/cohort-code.interface';
-import {Store} from "@ngrx/store";
-import {SetupActions} from "../setup.action";
-import {SetupModuleState} from "../index";
-import {Observable} from "rxjs/Observable";
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {
-  TdDataTableService,
-  TdDataTableSortingOrder,
-  ITdDataTableSortChangeEvent,
   IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
 } from '@covalent/core';
 
 @Component({
@@ -27,7 +18,7 @@ import {
   templateUrl: './cohort-code-list.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CohortCodeListPage implements OnInit{
+export class CohortCodeListPage implements OnInit {
 
   private COHORT_CODES = "setupModuleState.cohortCodes".split(".");
   private cohortCodes$: Observable<CohortCode[]>;
@@ -38,7 +29,7 @@ export class CohortCodeListPage implements OnInit{
     {name: 'action', label: ''}
   ];
 
-    private cohortCodes: CohortCode[];
+  private cohortCodes: CohortCode[];
 
   filteredData: any[];
   filteredTotal: number;
@@ -55,8 +46,9 @@ export class CohortCodeListPage implements OnInit{
               private dialog: MdDialog,
               private _dataTableService: TdDataTableService) {
     this.cohortCodes$ = this.store.select(...this.COHORT_CODES);
-    this.cohortCodes$.subscribe(CohortCodes=>this.cohortCodes = CohortCodes)
+    this.cohortCodes$.subscribe(CohortCodes => this.cohortCodes = CohortCodes)
   }
+
   ngOnInit(): void {
     this.store.dispatch(this.actions.findCohortCodes());
     this.store.dispatch(this.actions.changeTitle("Cohort Codes"));
@@ -66,7 +58,7 @@ export class CohortCodeListPage implements OnInit{
     this.showDialog(null);
   }
 
-  editDialog(code:CohortCode): void {
+  editDialog(code: CohortCode): void {
     this.showDialog(code);
   }
 
@@ -80,12 +72,12 @@ export class CohortCodeListPage implements OnInit{
     this.filter();
   }
 
-   search(searchTerm: string): void {
+  search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.filter();
   }
 
-    page(pagingEvent: IPageChangeEvent): void {
+  page(pagingEvent: IPageChangeEvent): void {
     this.fromRow = pagingEvent.fromRow;
     this.currentPage = pagingEvent.page;
     this.pageSize = pagingEvent.pageSize;
@@ -103,7 +95,7 @@ export class CohortCodeListPage implements OnInit{
     this.filteredData = newData;
   }
 
-  private showDialog(code:CohortCode): void {
+  private showDialog(code: CohortCode): void {
     console.log("create");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -112,7 +104,7 @@ export class CohortCodeListPage implements OnInit{
     config.height = '65%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(CohortCodeEditorDialog, config);
-    if(code) this.creatorDialogRef.componentInstance.cohortCode = code; // set
+    if (code) this.creatorDialogRef.componentInstance.cohortCode = code; // set
     this.creatorDialogRef.afterClosed().subscribe(res => {
       console.log("close dialog");
     });

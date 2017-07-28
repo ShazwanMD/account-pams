@@ -1,9 +1,13 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import { MdSnackBar } from '@angular/material';
-import { DebitNote } from '../../../../shared/model/billing/debit-note.interface';
-import { DebitNoteTask } from '../../../../shared/model/billing/debit-note-task.interface';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from '@covalent/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {MdSnackBar} from '@angular/material';
+import {DebitNoteTask} from '../../../../shared/model/billing/debit-note-task.interface';
+import {ActivatedRoute, Router} from '@angular/router';
+import {
+  IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
+} from '@covalent/core';
 
 @Component({
   selector: 'pams-pooled-debit-note-task-list',
@@ -27,10 +31,10 @@ export class PooledDebitNoteTaskListComponent {
     {name: 'action', label: ''},
   ];
 
-   constructor(private snackBar: MdSnackBar,
-          private router: Router,
-          private route: ActivatedRoute,
-          private _dataTableService: TdDataTableService) {
+  constructor(private snackBar: MdSnackBar,
+              private router: Router,
+              private route: ActivatedRoute,
+              private _dataTableService: TdDataTableService) {
   }
 
   claimTask(task: DebitNoteTask): void {

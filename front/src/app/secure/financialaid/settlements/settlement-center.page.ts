@@ -1,11 +1,11 @@
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {SettlementActions} from './settlement.action';
 import {FinancialaidModuleState} from '../index';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {SettlementCreatorByCohortDialog} from './dialog/settlement-creator-by-cohort.dialog';
 import {SettlementCreatorByFacultyDialog} from './dialog/settlement-creator-by-faculty.dialog';
 import {SettlementCreatorBySponsorDialog} from './dialog/settlement-creator-by-sponsor.dialog';

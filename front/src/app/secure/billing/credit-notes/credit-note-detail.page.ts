@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
-import {MdDialogRef, MdDialog} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {CreditNoteActions} from './credit-note.action';
 import {CreditNoteTask} from '../../../shared/model/billing/credit-note-task.interface';
 import {CreditNoteItem} from '../../../shared/model/billing/credit-note-item.interface';

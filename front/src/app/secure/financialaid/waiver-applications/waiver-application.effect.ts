@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
+import {Actions, Effect} from '@ngrx/effects';
 import {from} from 'rxjs/observable/from';
 import {WaiverApplicationActions} from './waiver-application.action';
 import {FinancialaidService} from '../../../../services/financialaid.service';
@@ -12,9 +12,9 @@ export class WaiverApplicationEffects {
   }
 
   @Effect() findCompletedWaiverApplications$ = this.actions$
-  .ofType(WaiverApplicationActions.FIND_COMPLETED_WAIVER_APPLICATIONS)
-  .switchMap(() => this.financialaidService.findCompletedWaiverApplications())
-  .map((invoices) => this.waiverApplicationActions.findCompletedWaiverApplicationsSuccess(invoices));
+    .ofType(WaiverApplicationActions.FIND_COMPLETED_WAIVER_APPLICATIONS)
+    .switchMap(() => this.financialaidService.findCompletedWaiverApplications())
+    .map((invoices) => this.waiverApplicationActions.findCompletedWaiverApplicationsSuccess(invoices));
 
   @Effect() findAssignedWaiverApplicationTasks$ = this.actions$
     .ofType(WaiverApplicationActions.FIND_ASSIGNED_WAIVER_APPLICATION_TASKS)
@@ -40,9 +40,9 @@ export class WaiverApplicationEffects {
     .mergeMap((action) => from([action, this.waiverApplicationActions.findWaiverApplicationItems(action.payload)]));
 
   @Effect() findArchivedWaiverApplications$ = this.actions$
-  .ofType(WaiverApplicationActions.FIND_ARCHIVED_WAIVER_APPLICATIONS)
-  .switchMap(() => this.financialaidService.findArchivedWaiverApplications())
-  .map((invoices) => this.waiverApplicationActions.findArchivedWaiverApplicationsSuccess(invoices));
+    .ofType(WaiverApplicationActions.FIND_ARCHIVED_WAIVER_APPLICATIONS)
+    .switchMap(() => this.financialaidService.findArchivedWaiverApplications())
+    .map((invoices) => this.waiverApplicationActions.findArchivedWaiverApplicationsSuccess(invoices));
 
   @Effect() startWaiverApplicationTask$ = this.actions$
     .ofType(WaiverApplicationActions.START_WAIVER_APPLICATION_TASK)

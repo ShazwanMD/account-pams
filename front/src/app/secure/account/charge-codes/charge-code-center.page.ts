@@ -1,6 +1,6 @@
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {ChargeCodeActions} from './charge-code.action';

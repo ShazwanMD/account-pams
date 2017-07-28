@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
-import {from} from 'rxjs/observable/from';
+import {Actions, Effect} from '@ngrx/effects';
 import {IdentityService} from '../../../services/identity.service';
 import {ActorActions} from './actor.action';
 
@@ -25,12 +24,12 @@ export class ActorEffects {
   @Effect() saveActor$ = this.actions$
     .ofType(ActorActions.SAVE_ACTOR)
     .map((action) => action.payload);
-    // .switchMap(actor => this.identityService.saveActor(actor))
-    // .map(actor => this.actorActions.saveActorSuccess(actor));
+  // .switchMap(actor => this.identityService.saveActor(actor))
+  // .map(actor => this.actorActions.saveActorSuccess(actor));
 
   @Effect() updateActor$ = this.actions$
     .ofType(ActorActions.UPDATE_ACTOR)
     .map((action) => action.payload);
-    // .switchMap(actor => this.identityService.updateActor(actor))
-    // .map(actor => this.actorActions.updateActorSuccess(actor));
+  // .switchMap(actor => this.identityService.updateActor(actor))
+  // .map(actor => this.actorActions.updateActorSuccess(actor));
 }

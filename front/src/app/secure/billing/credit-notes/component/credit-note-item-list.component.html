@@ -35,9 +35,9 @@
       <div layout="row">
         <span flex="40">{{value}}</span>
       </div>
-    </template>  
+    </template>
     <template tdDataTableTemplate="creditNoteItemDate" let-value="value" let-row="row" let-column="column">
-    <div layout="row">{{row['creditNoteItemDate'] | date: 'dd-MMM-yyyy'}}</div>
-  </template>
+      <div layout="row">{{row['creditNoteItemDate'] | date: 'dd-MMM-yyyy'}}</div>
+    </template>
   </td-data-table>
 

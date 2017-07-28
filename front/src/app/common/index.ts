@@ -1,19 +1,18 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../app.routes';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../services';
-import {IdentityService} from '../../services';
+import {CommonService, IdentityService} from '../../services';
 
 import {EffectsModule} from '@ngrx/effects';
 import {CommonEffects} from './common.effect';
 import {CommonActions} from './common.action';
 import {cohortCodeListReducer, CohortCodeListState} from './cohort-codes/cohort-code-list.reducer';
 import {CohortCodeSelectComponent} from './cohort-codes/component/cohort-code-select.component';
-import {facultyCodeListReducer, FacultyCodeListState} from './faculty-codes/faculty-code-list.reducer';
+import {facultyCodeListReducer} from './faculty-codes/faculty-code-list.reducer';
 import {FacultyCodeSelectComponent} from './faculty-codes/component/faculty-code-select.component';
 import {StudyModeSelectComponent} from './study-modes/component/study-mode-select.component';
 import {studyModeListReducer, StudyModeListState} from '../secure/setup/study-modes/study-mode-list.reducer';

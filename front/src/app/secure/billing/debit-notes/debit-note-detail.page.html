@@ -13,56 +13,56 @@
           <md-card-title>#{{(debitNotes$|async)?.referenceNo}}</md-card-title>
 
           <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
-          <div layout="column" flex>
-            <md-list dense>
-              <md-list-item>
-                <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{(debitNotes$|async)?.accountCode}} - {{(debitNotes$|async)?.accountName}}</h4>
-                <p md-line>Customer</p>
-              </md-list-item>
-            </md-list>
-            <md-list dense>
-              <md-list-item>
-                <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{(debitNotes$|async)?.description}}</h4>
-                <p md-line>Description</p>
-              </md-list-item>
-            </md-list>
-           <md-list dense>
+            <div layout="column" flex>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(debitNotes$|async)?.accountCode}} - {{(debitNotes$|async)?.accountName}}</h4>
+                  <p md-line>Customer</p>
+                </md-list-item>
+              </md-list>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(debitNotes$|async)?.description}}</h4>
+                  <p md-line>Description</p>
+                </md-list-item>
+              </md-list>
+              <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
                   <h4 md-line>{{(debitNotes$|async)?.chargeCode?.description}}</h4>
                   <p md-line>Charge Code</p>
                 </md-list-item>
               </md-list>
-            <md-list dense>
+              <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
                   <h4 md-line>{{(debitNotes$|async)?.sourceNo}}</h4>
                   <p md-line>Invoice No</p>
                 </md-list-item>
               </md-list>
-          </div>
+            </div>
             <div layout="column" flex>
-            <md-list dense>
-              <md-list-item>
-                <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{(debitNotes$|async)?.debitNoteDate| date: 'dd-MMM-yyyy'}}</h4>
-                <p md-line>Date</p>
-              </md-list-item>
-              <!--<md-list-item>
-                <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{(debitNotes$|async)?.accountCode}}</h4>
-                <p md-line>Account</p>
-              </md-list-item>-->
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(debitNotes$|async)?.debitNoteDate| date: 'dd-MMM-yyyy'}}</h4>
+                  <p md-line>Date</p>
+                </md-list-item>
+                <!--<md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(debitNotes$|async)?.accountCode}}</h4>
+                  <p md-line>Account</p>
+                </md-list-item>-->
               </md-list>
               <md-list dense>
-              <md-list-item>
-                <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{(debitNotes$|async)?.totalAmount|currency:'MYR':true:'1.2-2'}}</h4>
-                <p md-line>Total Amount</p>
-              </md-list-item>
-            </md-list>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(debitNotes$|async)?.totalAmount|currency:'MYR':true:'1.2-2'}}</h4>
+                  <p md-line>Total Amount</p>
+                </md-list-item>
+              </md-list>
               <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
@@ -70,7 +70,7 @@
                   <p md-line>Status</p>
                 </md-list-item>
               </md-list>
-          </div>
+            </div>
           </div>
           <md-card-actions>
 

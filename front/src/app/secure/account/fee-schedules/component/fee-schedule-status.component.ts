@@ -1,5 +1,5 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
-import { FeeSchedule } from '../../../../shared/model/account/fee-schedule.interface';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {FeeSchedule} from '../../../../shared/model/account/fee-schedule.interface';
 
 @Component({
   selector: 'pams-fee-schedule-status',

@@ -1,4 +1,4 @@
-import { StateCode } from '../../../shared/model/common/state-code.interface';
+import {StateCode} from '../../../shared/model/common/state-code.interface';
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
@@ -21,7 +21,7 @@ export class StateCodeListPage implements OnInit {
   ];
 
   constructor(private actions: SetupActions,
-              private store: Store<SetupModuleState>){
+              private store: Store<SetupModuleState>) {
     this.stateCodes$ = this.store.select(...this.STATE_CODES);
   }
 

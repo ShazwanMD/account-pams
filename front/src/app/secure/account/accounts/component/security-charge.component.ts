@@ -1,5 +1,5 @@
 import {SecurityChargeEditorDialog} from '../dialog/security-charge-editor.dialog';
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, OnInit, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {AccountActions} from '../account.action';
 import {Store} from '@ngrx/store';
 import {AccountModuleState} from '../../index';
@@ -11,7 +11,7 @@ import {AccountCharge} from '../../../../shared/model/account/account-charge.int
   templateUrl: './security-charge.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SecurityChargeComponent implements OnInit{
+export class SecurityChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
   private securityChargeColumns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
@@ -32,26 +32,30 @@ export class SecurityChargeComponent implements OnInit{
               private store: Store<AccountModuleState>,
               private dialog: MdDialog) {
   }
-    ngOnInit(): void {
+
+  ngOnInit(): void {
     this.selectedRows = this.securityAccountCharges.filter((value) => value.selected);
   }
+
   delete(): void {
-      console.log('length: ' + this.selectedRows.length);
-      for (let i: number = 0; i < this.selectedRows.length; i++) {
+    console.log('length: ' + this.selectedRows.length);
+    for (let i: number = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.removeAccountCharge(this.account, this.selectedRows[i]));
     }
-      this.selectedRows = [];
+    this.selectedRows = [];
   }
-    edit(securityAccountCharges: AccountCharge): void {
+
+  edit(securityAccountCharges: AccountCharge): void {
     this.showDialog(securityAccountCharges);
   }
 
- selectRow(securityAccountCharges: AccountCharge): void {
+  selectRow(securityAccountCharges: AccountCharge): void {
   }
+
   selectAllRows(securityAccountCharges: AccountCharge[]): void {
   }
 
-showDialog(securityAccountCharges: AccountCharge): void {
+  showDialog(securityAccountCharges: AccountCharge): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;

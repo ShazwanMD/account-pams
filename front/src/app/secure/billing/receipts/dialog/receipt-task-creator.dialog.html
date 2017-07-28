@@ -2,28 +2,28 @@
 <md-dialog-content>
   <form [formGroup]="createForm">
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <pams-account-select 
+      <pams-account-select
         [placeholder]="'Select Account'"
         [innerFormControl]="createForm.controls['account']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-account-select>
     </div>
-     <div>
+    <div>
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput type="date"
                placeholder="Date of Receipt"
                formControlName="receivedDate"
                flex/>
       </md-input-container>
-   </div>
+    </div>
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <pams-receipt-type-select 
+      <pams-receipt-type-select
         [placeholder]="'Select Receipt Type'"
         [innerFormControl]="createForm.controls['receiptType']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-receipt-type-select>
     </div>
-      <div layout="row" class="pad-bottom">
+    <div layout="row" class="pad-bottom">
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #sourceNo
                placeholder="Source No"
@@ -33,7 +33,7 @@
       </md-input-container>
     </div>
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <pams-payment-method-select 
+      <pams-payment-method-select
         [placeholder]="'Select Payment Method'"
         [innerFormControl]="createForm.controls['paymentMethod']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
@@ -48,7 +48,7 @@
                flex/>
       </md-input-container>
     </div>
-         <div layout="row" class="pad-bottom">
+    <div layout="row" class="pad-bottom">
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #totalApplied
                placeholder="Total Applied"
@@ -57,7 +57,7 @@
                flex/>
       </md-input-container>
     </div>
-     <div layout="row" class="pad-bottom">
+    <div layout="row" class="pad-bottom">
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #totalReceived
                placeholder="Total Received"

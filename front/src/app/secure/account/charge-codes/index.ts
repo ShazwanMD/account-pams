@@ -1,4 +1,4 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../../app.routes';
@@ -6,8 +6,7 @@ import {EffectsModule} from '@ngrx/effects';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../../../services';
-import {IdentityService} from '../../../../services';
+import {CommonService, IdentityService} from '../../../../services';
 import {AccountService} from '../../../../services/account.service';
 import {IdentityModule} from '../../identity/index';
 import {ChargeCodeSelectComponent} from './component/charge-code-select.component';
@@ -17,7 +16,7 @@ import {ChargeCodeActions} from './charge-code.action';
 import {ChargeCodeCenterPage} from './charge-code-center.page';
 import {ChargeCodeListComponent} from './component/charge-code-list.component';
 import {ChargeCodeEditorDialog} from './dialog/charge-code-editor.dialog';
-import { CommonModule } from '../../../common/index';
+import {CommonModule} from '../../../common/index';
 
 @NgModule({
   imports: [

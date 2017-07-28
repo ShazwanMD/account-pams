@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {Component, Input, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
 import {InvoiceItemEditorDialog} from '../dialog/invoice-item-editor.dialog';
 import {InvoiceActions} from '../invoice.action';
 import {Store} from '@ngrx/store';

@@ -1,4 +1,4 @@
-import {DefaultUrlSerializer, UrlTree, UrlSerializer} from "@angular/router";
+import {DefaultUrlSerializer, UrlSerializer, UrlTree} from '@angular/router';
 export class CustomUrlSerializer implements UrlSerializer {
   parse(url: any): UrlTree {
     let dus = new DefaultUrlSerializer();
@@ -9,6 +9,6 @@ export class CustomUrlSerializer implements UrlSerializer {
     let dus = new DefaultUrlSerializer(),
       path = dus.serialize(tree);
     // use your regex to replace as per your requirement.
-    return path.replace(/%2F/g,'%252F');
+    return path.replace(/%2F/g, '%252F');
   }
 }

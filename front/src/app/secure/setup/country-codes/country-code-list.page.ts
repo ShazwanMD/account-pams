@@ -1,4 +1,4 @@
-import { CountryCode } from '../../../shared/model/common/country-code.interface';
+import {CountryCode} from '../../../shared/model/common/country-code.interface';
 
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
@@ -22,7 +22,7 @@ export class CountryCodeListPage implements OnInit {
   ];
 
   constructor(private actions: SetupActions,
-              private store: Store<SetupModuleState>){
+              private store: Store<SetupModuleState>) {
     this.countryCodes$ = this.store.select(...this.COUNTRY_CODES);
   }
 

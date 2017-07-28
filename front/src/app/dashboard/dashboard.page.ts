@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Task} from '../core/task.interface';
@@ -82,7 +82,7 @@ export class DashboardPage implements OnInit {
          debitNotes: Task[],
          invoices: Task[],
          receipts: Task[],
-         assignedWaiverApplications: Task[], ) => {
+         assignedWaiverApplications: Task[],) => {
           const tasks = [creditNotes, debitNotes, invoices, receipts, assignedWaiverApplications];
           const combined = [].concat(...tasks);
           return {
@@ -103,7 +103,7 @@ export class DashboardPage implements OnInit {
          debitNotes: Task[],
          invoices: Task[],
          receipts: Task[],
-         pooledWaiverApplications: Task[], ) => {
+         pooledWaiverApplications: Task[],) => {
           const tasks = [creditNotes, debitNotes, invoices, receipts, pooledWaiverApplications];
           const combined = [].concat(...tasks);
           return {

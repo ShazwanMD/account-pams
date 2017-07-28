@@ -5,6 +5,7 @@ import {Action} from '@ngrx/store';
 export class PromoCodeActions {
 
   static INIT_PROMO_CODE = '[PromoCode] Init PromoCode';
+
   initPromoCode(promoCode): Action {
     return {
       type: PromoCodeActions.INIT_PROMO_CODE,
@@ -13,6 +14,7 @@ export class PromoCodeActions {
   }
 
   static INIT_PROMO_CODE_SUCCESS = '[PromoCode] Init PromoCode Success';
+
   initPromoCodeSuccess(referenceNo): Action {
     return {
       type: PromoCodeActions.INIT_PROMO_CODE_SUCCESS,
@@ -21,6 +23,7 @@ export class PromoCodeActions {
   }
 
   static FIND_PROMO_CODE_BY_ID = '[PromoCode] Find PromoCode By Id';
+
   findPromoCodeById(id): Action {
     return {
       type: PromoCodeActions.FIND_PROMO_CODE_BY_ID,
@@ -29,6 +32,7 @@ export class PromoCodeActions {
   }
 
   static FIND_PROMO_CODE_BY_ID_SUCCESS = '[PromoCode] Find PromoCode By Id Success';
+
   findPromoCodeByIdSuccess(promoCode): Action {
     return {
       type: PromoCodeActions.FIND_PROMO_CODE_BY_ID_SUCCESS,
@@ -37,6 +41,7 @@ export class PromoCodeActions {
   }
 
   static FIND_PROMO_CODE_BY_REFERENCE_NO = '[PromoCode] Find PromoCode By Reference No';
+
   findPromoCodeByReferenceNo(referenceNo): Action {
     return {
       type: PromoCodeActions.FIND_PROMO_CODE_BY_REFERENCE_NO,
@@ -45,6 +50,7 @@ export class PromoCodeActions {
   }
 
   static FIND_PROMO_CODE_BY_REFERENCE_NO_SUCCESS = '[PromoCode] Find PromoCode By Reference No Success';
+
   findPromoCodeByReferenceNoSuccess(promoCode): Action {
     return {
       type: PromoCodeActions.FIND_PROMO_CODE_BY_REFERENCE_NO_SUCCESS,
@@ -53,6 +59,7 @@ export class PromoCodeActions {
   }
 
   static FIND_PROMO_CODES = '[PromoCode] Find PromoCodes ';
+
   findPromoCodes(): Action {
     return {
       type: PromoCodeActions.FIND_PROMO_CODES,
@@ -60,6 +67,7 @@ export class PromoCodeActions {
   }
 
   static FIND_PROMO_CODES_SUCCESS = '[PromoCode] Find PromoCodes Success';
+
   findPromoCodesSuccess(promoCodes): Action {
     console.log("findPromoCodesSuccess");
     return {
@@ -69,6 +77,7 @@ export class PromoCodeActions {
   }
 
   static FIND_PROMO_CODE_ITEMS = '[PromoCode] Find PromoCode Items';
+
   findPromoCodeItems(promoCode): Action {
     console.log("findPromoCodeItems");
     return {
@@ -78,6 +87,7 @@ export class PromoCodeActions {
   }
 
   static FIND_PROMO_CODE_ITEMS_SUCCESS = '[PromoCode] Find PromoCode Items Success';
+
   findPromoCodeItemsSuccess(items): Action {
     console.log("findPromoCodeItemsSuccess");
     return {
@@ -88,6 +98,7 @@ export class PromoCodeActions {
 
 
   static UPDATE_PROMO_CODE = '[PromoCode] Update PromoCode';
+
   updatePromoCode(promoCode): Action {
     return {
       type: PromoCodeActions.UPDATE_PROMO_CODE,
@@ -96,6 +107,7 @@ export class PromoCodeActions {
   }
 
   static UPDATE_PROMO_CODE_SUCCESS = '[PromoCode] Update PromoCode Success';
+
   updatePromoCodeSuccess(promoCode): Action {
     return {
       type: PromoCodeActions.UPDATE_PROMO_CODE_SUCCESS,
@@ -104,6 +116,7 @@ export class PromoCodeActions {
   }
 
   static REMOVE_PROMO_CODE = '[PromoCode] Remove PromoCode';
+
   removePromoCode(promoCode): Action {
     return {
       type: PromoCodeActions.REMOVE_PROMO_CODE,
@@ -112,6 +125,7 @@ export class PromoCodeActions {
   }
 
   static REMOVE_PROMO_CODE_SUCCESS = '[PromoCode] Remove PromoCode Success';
+
   removePromoCodeSuccess(promoCode): Action {
     return {
       type: PromoCodeActions.REMOVE_PROMO_CODE_SUCCESS,
@@ -124,7 +138,7 @@ export class PromoCodeActions {
   addPromoCodeItem(promoCode, promoCodeItem): Action {
     return {
       type: PromoCodeActions.ADD_PROMO_CODE_ITEM,
-      payload: {promoCode:promoCode, promoCodeItem:promoCodeItem}
+      payload: {promoCode: promoCode, promoCodeItem: promoCodeItem}
     };
   }
 
@@ -142,7 +156,7 @@ export class PromoCodeActions {
   updatePromoCodeItem(promoCode, promoCodeItem): Action {
     return {
       type: PromoCodeActions.UPDATE_PROMO_CODE_ITEM,
-      payload: {promoCode:promoCode, promoCodeItem:promoCodeItem}
+      payload: {promoCode: promoCode, promoCodeItem: promoCodeItem}
     };
   }
 
@@ -160,7 +174,7 @@ export class PromoCodeActions {
   deletePromoCodeItem(promoCode, promoCodeItem): Action {
     return {
       type: PromoCodeActions.DELETE_PROMO_CODE_ITEM,
-      payload: {promoCode:promoCode, promoCodeItem:promoCodeItem}
+      payload: {promoCode: promoCode, promoCodeItem: promoCodeItem}
     };
   }
 

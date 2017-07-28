@@ -1,26 +1,25 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../app.routes';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../../services';
-import {IdentityService} from '../../../services';
+import {CommonService, IdentityService} from '../../../services';
 
 import {AccountPage} from './account.page';
 import {AccountService} from '../../../services/account.service';
 import {AccountSubModule} from './accounts/index';
-import {AccountListState, accountListReducer} from './accounts/account-list.reducer';
+import {accountListReducer, AccountListState} from './accounts/account-list.reducer';
 import {accountReducer, AccountState} from './accounts/account.reducer';
-import {AccountTransactionListState, accountTransactionListReducer} from './accounts/account-transaction-list.reducer';
+import {accountTransactionListReducer, AccountTransactionListState} from './accounts/account-transaction-list.reducer';
 import {IdentityModule} from '../identity/index';
 import {chargeCodeReducer, ChargeCodeState} from './charge-codes/charge-code.reducer';
 import {chargeCodeListReducer, ChargeCodeListState} from './charge-codes/charge-code-list.reducer';
 import {ChargeCodeSubModule} from './charge-codes/index';
 import {
   academicSessionListReducer,
-  AcademicSessionListState,
+  AcademicSessionListState
 } from './academic-sessions/component/academic-session-list.reducer';
 import {academicSessionReducer, AcademicSessionState} from './academic-sessions/academic-session.reducer';
 import {AcademicSessionSubModule} from './academic-sessions/index';
@@ -31,15 +30,14 @@ import {feeScheduleListReducer, FeeScheduleListState} from './fee-schedules/fee-
 import {
   AccountChargeListState,
   admissionAccountChargeListReducer,
-  securityAccountChargeListReducer,
-  studentAffairsAccountChargeListReducer,
   loanAccountChargeListReducer,
+  securityAccountChargeListReducer,
+  studentAffairsAccountChargeListReducer
 } from './accounts/account-charge-list.reducer';
 import {ChargeCodeSelectComponent} from './charge-codes/component/charge-code-select.component';
 import {accountWaiverReducer, AccountWaiverState} from './accounts/account-waivers.reducer';
 import {accountStudentListReducer, AccountStudentListState} from './accounts/account-student-list.reducer';
 import {accountSponsorListReducer, AccountSponsorListState} from './accounts/account-sponsor-list.reducer';
-import {Account} from "../../shared/model/account/account.interface";
 import {accountActivityListReducer, AccountActivityListState} from './accounts/account-activity.reducer';
 
 export interface AccountModuleState {
@@ -51,7 +49,7 @@ export interface AccountModuleState {
   securityAccountCharges: AccountChargeListState;
   admissionAccountCharges: AccountChargeListState;
   loanAccountCharges: AccountChargeListState;
-  studentAffairsAccountCharges : AccountChargeListState;
+  studentAffairsAccountCharges: AccountChargeListState;
   accountCharges: AccountChargeListState;
   chargeCode: ChargeCodeState;
   chargeCodes: ChargeCodeListState;

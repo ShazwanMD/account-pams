@@ -1,4 +1,4 @@
-import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BillingModuleState} from '../../index';
@@ -50,12 +50,12 @@ export class CreditNoteItemListComponent implements OnInit {
   }
 
   delete(): void {
-     console.log("length: " + this.selectedRows.length);
-     for (let i = 0; i < this.selectedRows.length; i++) {
-       this.store.dispatch(this.actions.deleteCreditNoteItem(this.creditNote, this.selectedRows[i]));
-     }
-     this.selectedRows = [];
-   }
+    console.log("length: " + this.selectedRows.length);
+    for (let i = 0; i < this.selectedRows.length; i++) {
+      this.store.dispatch(this.actions.deleteCreditNoteItem(this.creditNote, this.selectedRows[i]));
+    }
+    this.selectedRows = [];
+  }
 
   filter(): void {
   }

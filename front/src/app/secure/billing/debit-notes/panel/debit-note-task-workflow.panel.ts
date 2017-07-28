@@ -1,6 +1,11 @@
 import {
-  Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef, Input,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import {Observable} from 'rxjs';
 import {FlowState} from '../../../../core/flow-state.enum';

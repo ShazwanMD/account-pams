@@ -1,12 +1,11 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../../app.routes';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../../../services';
-import {IdentityService} from '../../../../services';
+import {CommonService, IdentityService} from '../../../../services';
 import {BillingService} from '../../../../services/billing.service';
 import {ReceiptCenterPage} from './receipt-center.page';
 import {ReceiptTaskWorkflowPanel} from './panel/receipt-task-workflow.panel';

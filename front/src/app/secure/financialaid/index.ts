@@ -1,33 +1,36 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../app.routes';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../../services';
-import {IdentityService} from '../../../services';
+import {CommonService, IdentityService} from '../../../services';
 
 import {FinancialaidPage} from './financialaid.page';
 import {FinancialaidService} from '../../../services/financialaid.service';
 import {WaiverApplicationSubModule} from './waiver-applications/index';
 import {SettlementSubModule} from './settlements/index';
-import {SettlementState, settlementReducer} from './settlements/settlement.reducer';
-import {SettlementListState, settlementListReducer} from './settlements/settlement-list.reducer';
-import {WaiverApplicationState, waiverApplicationReducer} from './waiver-applications/waiver-application.reducer';
+import {settlementReducer, SettlementState} from './settlements/settlement.reducer';
+import {settlementListReducer, SettlementListState} from './settlements/settlement-list.reducer';
+import {waiverApplicationReducer, WaiverApplicationState} from './waiver-applications/waiver-application.reducer';
 import {
   assignedWaiverApplicationTaskListReducer,
   pooledWaiverApplicationTaskListReducer,
-  WaiverApplicationTaskListState,
+  WaiverApplicationTaskListState
 } from './waiver-applications/waiver-application-task-list.reducer';
 import {settlementItemListReducer, SettlementItemListState} from './settlements/settlement-item-list.reducer';
 
 import {
-  WaiverApplicationTaskState,
   waiverApplicationTaskReducer,
+  WaiverApplicationTaskState
 } from './waiver-applications/waiver-application-task.reducer';
 import {PipeModule} from '../../app.pipe.module';
-import {WaiverApplicationListState, archivedWaiverApplicationListReducer, waiverApplicationListReducer} from './waiver-applications/waiver-application-list.reducer';
+import {
+  archivedWaiverApplicationListReducer,
+  waiverApplicationListReducer,
+  WaiverApplicationListState
+} from './waiver-applications/waiver-application-list.reducer';
 import {SettlementItem} from '../../shared/model/financialaid/settlement-item.interface';
 import {Settlement} from '../../shared/model/financialaid/settlement.interface';
 import {WaiverApplication} from '../../shared/model/financialaid/waiver-application.interface';

@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ReceiptItem} from '../../../../shared/model/billing/receipt-item.interface';
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
 import {ReceiptItemEditorDialog} from '../dialog/receipt-item-editor.dialog';
 import {ReceiptTask} from '../../../../shared/model/billing/receipt-task.interface';
 import {ReceiptActions} from '../receipt.action';

@@ -1,25 +1,24 @@
 import {
-  Component,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-  OnInit,
   AfterViewInit,
-  ViewContainerRef,
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewContainerRef
 } from '@angular/core';
 import {ChargeCode} from '../../../../shared/model/account/charge-code.interface';
 import {Store} from '@ngrx/store';
 import {ChargeCodeActions} from '../charge-code.action';
 import {AccountModuleState} from '../../index';
-import {MdDialogRef, MdDialogConfig, MdDialog} from '@angular/material';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {ChargeCodeEditorDialog} from '../dialog/charge-code-editor.dialog';
 import {Observable} from 'rxjs/Observable';
 import {
-  TdDataTableService,
-  TdDataTableSortingOrder,
-  ITdDataTableSortChangeEvent,
   IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
 } from '@covalent/core';
 
 @Component({

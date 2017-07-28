@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
+import {Actions, Effect} from '@ngrx/effects';
 import {ReceiptActions} from './receipt.action';
 import {from} from 'rxjs/observable/from';
 import {BillingService} from '../../../../services/billing.service';
@@ -125,11 +125,11 @@ export class ReceiptEffects {
     .map((receipt) => this.receiptActions.findReceiptItems(receipt));
 
   @Effect() addReceiptInvoiceItems$ =
-      this.actions$
-        .ofType(ReceiptActions.ADD_RECEIPT_INVOICE_ITEM)
-        .map((action) => action.payload)
-        .switchMap((payload) => this.billingService.addReceiptInvoiceItems(payload.receipt, payload.invoice))
-        .map((message) => this.receiptActions.addReceiptInvoiceItemsSuccess(message));
+    this.actions$
+      .ofType(ReceiptActions.ADD_RECEIPT_INVOICE_ITEM)
+      .map((action) => action.payload)
+      .switchMap((payload) => this.billingService.addReceiptInvoiceItems(payload.receipt, payload.invoice))
+      .map((message) => this.receiptActions.addReceiptInvoiceItemsSuccess(message));
 //        .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
 //        .map(state => state[1])
 //        .map(receipt => this.receiptActions.findReceiptItems(receipt));

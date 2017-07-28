@@ -1,5 +1,5 @@
-import { SetupActions } from '../setup.action';
-import { BankCode } from '../../../shared/model/common/bank-code.interface';
+import {SetupActions} from '../setup.action';
+import {BankCode} from '../../../shared/model/common/bank-code.interface';
 import {Action} from '@ngrx/store';
 
 

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, OnInit, Renderer} from '@angular/core';
+import {Directive, ElementRef, OnInit, Renderer} from '@angular/core';
 import {AuthenticationService} from '../../../../services/authentication.service';
 
 @Directive({selector: '[notAuthenticatedShow]'})

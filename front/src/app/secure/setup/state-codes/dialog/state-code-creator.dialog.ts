@@ -1,9 +1,8 @@
-import { StateCode } from '../../../../shared/model/common/state-code.interface';
+import {StateCode} from '../../../../shared/model/common/state-code.interface';
 
-import {Component, ViewContainerRef, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {SetupModuleState} from '../../index';
@@ -24,8 +23,7 @@ export class StateCodeCreatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private dialog: MdDialogRef<StateCodeCreatorDialog>,
               private store: Store<SetupModuleState>,
-              private actions: SetupActions,
-  ) {
+              private actions: SetupActions,) {
   }
 
   ngOnInit(): void {

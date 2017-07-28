@@ -1,25 +1,16 @@
-import {
-  Component,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-  OnInit,
-  AfterViewInit,
-  ViewContainerRef,
-} from '@angular/core';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {ChangeDetectionStrategy, Component, OnInit, ViewContainerRef} from '@angular/core';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 import {SetupModuleState} from '../index';
 import {Observable} from 'rxjs/Observable';
-import { TaxCode} from '../../../shared/model/common/tax-code.interface';
-import { TaxCodeEditorDialog } from './dialog/tax-code-editor.dialog';
+import {TaxCode} from '../../../shared/model/common/tax-code.interface';
+import {TaxCodeEditorDialog} from './dialog/tax-code-editor.dialog';
 import {
-  TdDataTableService,
-  TdDataTableSortingOrder,
-  ITdDataTableSortChangeEvent,
   IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
 } from '@covalent/core';
 
 @Component({
@@ -55,27 +46,27 @@ export class TaxCodeListPage implements OnInit {
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
               private store: Store<SetupModuleState>,
-              private _dataTableService: TdDataTableService){
+              private _dataTableService: TdDataTableService) {
     this.taxCodes$ = this.store.select(...this.TAX_CODES);
     this.taxCodes$.subscribe((TaxCodes) => this.taxCodes = TaxCodes);
   }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.store.dispatch(this.actions.findTaxCodes());
     this.store.dispatch(this.actions.changeTitle('Tax Codes'));
   }
 
-   createDialog(): void {
-     this.showDialog(null);
-   }
+  createDialog(): void {
+    this.showDialog(null);
+  }
 
-   editDialog(code: TaxCode): void {
-     this.showDialog(code);
-   }
+  editDialog(code: TaxCode): void {
+    this.showDialog(code);
+  }
 
-   delete(code: TaxCode): void {
-     this.store.dispatch(this.actions.removeTaxCode(code));
-   }
+  delete(code: TaxCode): void {
+    this.store.dispatch(this.actions.removeTaxCode(code));
+  }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
@@ -83,7 +74,7 @@ export class TaxCodeListPage implements OnInit {
     this.filter();
   }
 
-   search(searchTerm: string): void {
+  search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.filter();
   }
@@ -105,19 +96,19 @@ export class TaxCodeListPage implements OnInit {
     this.filteredData = newData;
   }
 
-   private showDialog(code: TaxCode): void {
-     console.log('create');
-     let config = new MdDialogConfig();
-     config.viewContainerRef = this.vcf;
-     config.role = 'dialog';
-     config.width = '70%';
-     config.height = '65%';
-     config.position = {top: '0px'};
-     this.creatorDialogRef = this.dialog.open(TaxCodeEditorDialog, config);
-     if (code) this.creatorDialogRef.componentInstance.taxCode = code; // set
-     this.creatorDialogRef.afterClosed().subscribe((res) => {
-       console.log('close dialog');
-     });
-   }
+  private showDialog(code: TaxCode): void {
+    console.log('create');
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '70%';
+    config.height = '65%';
+    config.position = {top: '0px'};
+    this.creatorDialogRef = this.dialog.open(TaxCodeEditorDialog, config);
+    if (code) this.creatorDialogRef.componentInstance.taxCode = code; // set
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
+    });
+  }
 
 }

@@ -4,7 +4,7 @@ import {StudyModeListPage} from './study-modes/study-mode-list.page';
 import {FacultyCodeListPage} from './faculty-codes/faculty-code-list.page';
 import {ProgramCodeListPage} from './program-codes/program-code-list.page';
 import {StateCodeListPage} from './state-codes/state-code-list.page';
-import {Routes, RouterModule} from '@angular/router';
+import {Routes} from '@angular/router';
 import {SetupPage} from './setup.page';
 import {CountryCodeListPage} from './country-codes/country-code-list.page';
 import {CohortCodeListPage} from './cohort-codes/cohort-code-list.page';

@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {CommonActions} from "../common.action";
+import {CommonActions} from '../common.action';
 import {BankCode} from '../../shared/model/common/bank-code.interface';
 
 export type BankCodeListState = BankCode[];

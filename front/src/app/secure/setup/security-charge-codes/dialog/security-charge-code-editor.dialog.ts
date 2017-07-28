@@ -1,8 +1,7 @@
-import { SecurityChargeCode } from '../../../../shared/model/common/security-charge-code.interface';
-import {Component, ViewContainerRef, OnInit, AfterViewInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import {SecurityChargeCode} from '../../../../shared/model/common/security-charge-code.interface';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {SetupModuleState} from '../../index';
@@ -35,14 +34,14 @@ export class SecurityChargeCodeEditorDialog implements OnInit {
 
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group(<SecurityChargeCode>{
-        id: null,
-        section: '',
-        description: '',
-        offense: '',
-        offenseDescription: '',
-        amount: 0,
-        amountDescription: '',
-        active: false,
+      id: null,
+      section: '',
+      description: '',
+      offense: '',
+      offenseDescription: '',
+      amount: 0,
+      amountDescription: '',
+      active: false,
 
     });
 
@@ -55,7 +54,7 @@ export class SecurityChargeCodeEditorDialog implements OnInit {
   //   this.dialog.close();
   // }
 
-    submit(code: SecurityChargeCode, isValid: boolean) {
+  submit(code: SecurityChargeCode, isValid: boolean) {
     if (this.edit) this.store.dispatch(this.actions.updateSecurityChargeCode(code));
     else  this.store.dispatch(this.actions.saveSecurityChargeCode(code));
     this.dialog.close();

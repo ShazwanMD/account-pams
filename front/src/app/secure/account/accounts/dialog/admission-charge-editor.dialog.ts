@@ -1,6 +1,5 @@
-import {Component, ViewContainerRef, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
@@ -9,7 +8,7 @@ import {StudyMode} from '../../../../shared/model/common/study-mode.interface';
 import {AcademicSession} from '../../../../shared/model/account/academic-session.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {CohortCode} from '../../../../shared/model/common/cohort-code.interface';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AccountCharge} from '../../../../shared/model/account/account-charge.interface';
 import {AccountChargeType} from '../../../../shared/model/account/account-charge-type.enum';
 
@@ -47,7 +46,7 @@ export class AdmissionChargeEditorDialog implements OnInit {
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group({
       id: undefined,
-      referenceNo:'',
+      referenceNo: '',
       sourceNo: '',
       description: '',
       amount: 0,

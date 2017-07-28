@@ -1,12 +1,17 @@
 import {
-  Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef, Input, AfterViewInit,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import {Observable} from 'rxjs';
 import {FlowState} from '../../../../core/flow-state.enum';
-import { CreditNoteRegisterTaskPanel } from './credit-note-register-task.panel';
-import { CreditNoteDraftTaskPanel } from './credit-note-draft-task.panel';
-import { CreditNoteVerifyTaskPanel } from './credit-note-verify-task.panel';
+import {CreditNoteRegisterTaskPanel} from './credit-note-register-task.panel';
+import {CreditNoteDraftTaskPanel} from './credit-note-draft-task.panel';
+import {CreditNoteVerifyTaskPanel} from './credit-note-verify-task.panel';
 import {CreditNoteTask} from '../../../../shared/model/billing/credit-note-task.interface';
 
 @Component({

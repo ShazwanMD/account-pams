@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, ViewContainerRef} from '@angular/core';
-import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {BillingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';

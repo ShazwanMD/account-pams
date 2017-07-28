@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef, Input } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {AccountModuleState} from '../index';
@@ -55,7 +55,7 @@ export class FeeScheduleCenterPage implements OnInit {
     this.store.dispatch(this.actions.findFeeSchedules());
   }
 
-    download(): void {
+  download(): void {
     this.store.dispatch(this.actions.downloadFeeSchedule(this.feeSchedule));
   }
 

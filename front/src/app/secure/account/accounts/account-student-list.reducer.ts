@@ -8,10 +8,10 @@ const initialState: AccountStudentListState = <Account[]>[];
 
 export function accountStudentListReducer(state = initialState, action: Action): AccountStudentListState {
   switch (action.type) {
-  case AccountActions.FIND_ACCOUNTS_BY_ACTOR_SUCCESS: {
+    case AccountActions.FIND_ACCOUNTS_BY_ACTOR_SUCCESS: {
       return action.payload;
     }
-  default: {
+    default: {
       return state;
     }
   }

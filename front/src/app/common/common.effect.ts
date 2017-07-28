@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
+import {Actions, Effect} from '@ngrx/effects';
 import {CommonService} from '../../services/common.service';
 import {CommonActions} from './common.action';
 
@@ -7,7 +7,8 @@ import {CommonActions} from './common.action';
 export class CommonEffects {
   constructor(private actions$: Actions,
               private commonActions: CommonActions,
-              private commonService: CommonService) {}
+              private commonService: CommonService) {
+  }
 
   @Effect() findCohortCodes$ = this.actions$
     .ofType(CommonActions.FIND_COHORT_CODES)

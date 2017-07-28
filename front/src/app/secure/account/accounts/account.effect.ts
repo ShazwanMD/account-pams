@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
+import {Actions, Effect} from '@ngrx/effects';
 import {AccountActions} from './account.action';
 import {AccountService} from '../../../../services/account.service';
 import {from} from 'rxjs/observable/from';
@@ -31,22 +31,22 @@ export class AccountEffects {
     .map((accounts) => this.accountActions.findAccountsSuccess(accounts));
 
   @Effect() findAccountsByActor$ = this.actions$
-  .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR)
-  .map((action) => action.payload)
-  .switchMap((actorType) => this.accountService.findAccountsByActor())
-  .map((accounts) => this.accountActions.findAccountsByActorSuccess(accounts));
+    .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR)
+    .map((action) => action.payload)
+    .switchMap((actorType) => this.accountService.findAccountsByActor())
+    .map((accounts) => this.accountActions.findAccountsByActorSuccess(accounts));
 
   @Effect() findAccountsByActorSponsor$ = this.actions$
-  .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR)
-  .map((action) => action.payload)
-  .switchMap((actorType) => this.accountService.findAccountsByActorSponsor())
-  .map((accounts) => this.accountActions.findAccountsByActorSponsorSuccess(accounts));
+    .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR)
+    .map((action) => action.payload)
+    .switchMap((actorType) => this.accountService.findAccountsByActorSponsor())
+    .map((accounts) => this.accountActions.findAccountsByActorSponsorSuccess(accounts));
 
   @Effect() findAccountsByActorStaff$ = this.actions$
-  .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR_STAFF)
-  .map((action) => action.payload)
-  .switchMap((actorType) => this.accountService.findAccountsByActorStaff())
-  .map((accounts) => this.accountActions.findAccountsByActorStaffSuccess(accounts));
+    .ofType(AccountActions.FIND_ACCOUNTS_BY_ACTOR_STAFF)
+    .map((action) => action.payload)
+    .switchMap((actorType) => this.accountService.findAccountsByActorStaff())
+    .map((accounts) => this.accountActions.findAccountsByActorStaffSuccess(accounts));
 
   @Effect() findAccountByCode$ = this.actions$
     .ofType(AccountActions.FIND_ACCOUNT_BY_CODE)
@@ -65,10 +65,10 @@ export class AccountEffects {
     ]));
 
   @Effect() findAccountActivities$ = this.actions$
-  .ofType(AccountActions.FIND_ACCOUNT_ACTIVITIES)
-  .map((action) => action.payload)
-  .switchMap((account) => this.accountService.findAccountActivities(account))
-  .map((account) => this.accountActions.findAccountActivitiesSuccess(account));
+    .ofType(AccountActions.FIND_ACCOUNT_ACTIVITIES)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findAccountActivities(account))
+    .map((account) => this.accountActions.findAccountActivitiesSuccess(account));
 
   @Effect() findAccountTransactions$ = this.actions$
     .ofType(AccountActions.FIND_ACCOUNT_TRANSACTIONS)
@@ -101,10 +101,10 @@ export class AccountEffects {
     .map((charges) => this.accountActions.findStudentAffairsAccountChargesSuccess(charges));
 
   @Effect() findAccountWaivers$ = this.actions$
-  .ofType(AccountActions.FIND_ACCOUNT_WAIVERS)
-  .map((action) => action.payload)
-  .switchMap((account) => this.accountService.findAccountWaivers(account))
-  .map((accountWaivers) => this.accountActions.findAccountWaiversSuccess(accountWaivers));
+    .ofType(AccountActions.FIND_ACCOUNT_WAIVERS)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findAccountWaivers(account))
+    .map((accountWaivers) => this.accountActions.findAccountWaiversSuccess(accountWaivers));
 
   @Effect() saveAccount$ = this.actions$
     .ofType(AccountActions.SAVE_ACCOUNT)
@@ -129,7 +129,7 @@ export class AccountEffects {
 
   @Effect() updateAccountCharge$ = this.actions$
     .ofType(AccountActions.UPDATE_ACCOUNT_CHARGE)
-   .map((action) => action.payload)
+    .map((action) => action.payload)
     .switchMap((payload) => this.accountService.updateAccountCharge(payload.account, payload.charge))
     .map((message) => this.accountActions.updateAccountChargeSuccess(message))
     .withLatestFrom(this.store$.select(...this.ACCOUNT))

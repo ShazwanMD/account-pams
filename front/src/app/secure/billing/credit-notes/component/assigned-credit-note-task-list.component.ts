@@ -1,13 +1,13 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {MdSnackBar} from "@angular/material";
-import {CreditNoteTask} from "../../../../shared/model/billing/credit-note-task.interface";
-import {Router, ActivatedRoute} from "@angular/router";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {MdSnackBar} from '@angular/material';
+import {CreditNoteTask} from '../../../../shared/model/billing/credit-note-task.interface';
+import {ActivatedRoute, Router} from '@angular/router';
 import {
-  TdDataTableService,
-  TdDataTableSortingOrder,
+  IPageChangeEvent,
   ITdDataTableSortChangeEvent,
-  IPageChangeEvent
-} from "@covalent/core";
+  TdDataTableService,
+  TdDataTableSortingOrder
+} from '@covalent/core';
 
 @Component({
   selector: 'pams-assigned-credit-note-task-list',

@@ -1,11 +1,11 @@
-import { OnInit, Component, ViewContainerRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { ChargeCode } from '../../../../shared/model/account/charge-code.interface';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MdDialogRef } from '@angular/material';
-import { Store } from '@ngrx/store';
-import { SetupModuleState } from '../../../setup/index';
-import { ChargeCodeActions } from '../charge-code.action';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ChargeCode} from '../../../../shared/model/account/charge-code.interface';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MdDialogRef} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {SetupModuleState} from '../../../setup/index';
+import {ChargeCodeActions} from '../charge-code.action';
 import {TaxCode} from '../../../../shared/model/common/tax-code.interface';
 
 @Component({

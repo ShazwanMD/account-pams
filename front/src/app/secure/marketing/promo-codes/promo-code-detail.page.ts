@@ -1,5 +1,5 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -30,7 +30,7 @@ export class PromoCodeDetailPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: {referenceNo: string}) => {
+    this.route.params.subscribe((params: { referenceNo: string }) => {
       let referenceNo: string = params.referenceNo;
       this.store.dispatch(this.actions.findPromoCodeByReferenceNo(referenceNo));
     });

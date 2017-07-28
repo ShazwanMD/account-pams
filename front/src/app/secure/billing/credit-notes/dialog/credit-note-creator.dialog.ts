@@ -1,14 +1,13 @@
-import {Component, ViewContainerRef, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {BillingModuleState} from '../../index';
 import {CreditNote} from '../../../../shared/model/billing/credit-note.interface';
 import {CreditNoteActions} from '../credit-note.action';
 import {Invoice} from '../../../../shared/model/billing/invoice.interface';
-import { ChargeCode } from '../../../../shared/model/account/charge-code.interface';
+import {ChargeCode} from '../../../../shared/model/account/charge-code.interface';
 
 @Component({
   selector: 'pams-credit-note-creator',

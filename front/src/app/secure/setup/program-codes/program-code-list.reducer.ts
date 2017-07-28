@@ -1,4 +1,4 @@
-import { ProgramCode } from '../../../shared/model/common/program-code.interface';
+import {ProgramCode} from '../../../shared/model/common/program-code.interface';
 import {Action} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 

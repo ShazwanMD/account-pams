@@ -1,6 +1,6 @@
-import { SecurityChargeCode } from '../../../shared/model/common/security-charge-code.interface';
+import {SecurityChargeCode} from '../../../shared/model/common/security-charge-code.interface';
 import {Action} from '@ngrx/store';
-import { SetupActions } from '../setup.action';
+import {SetupActions} from '../setup.action';
 
 export type SecurityChargeCodeListState = SecurityChargeCode[];
 

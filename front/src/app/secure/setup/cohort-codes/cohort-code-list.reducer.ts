@@ -1,4 +1,4 @@
-import { CohortCode } from '../../../shared/model/common/cohort-code.interface';
+import {CohortCode} from '../../../shared/model/common/cohort-code.interface';
 import {Action} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 

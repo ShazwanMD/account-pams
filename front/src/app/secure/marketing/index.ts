@@ -4,16 +4,15 @@ import {appRoutes, appRoutingProviders} from '../../app.routes';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../../services';
-import {IdentityService} from '../../../services';
+import {CommonService, IdentityService} from '../../../services';
 
 import {MarketingPage} from './marketing.page';
 import {MarketingService} from '../../../services/marketing.service';
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {PromoCodeSubModule} from './promo-codes/index';
-import {PromoCodeListState, promoCodeListReducer} from './promo-codes/promo-code-list.reducer';
-import {PromoCodeState, promoCodeReducer} from './promo-codes/promo-code.reducer';
-import {PromoCodeItemListState, promoCodeItemListReducer} from './promo-codes/promo-code-item-list.reducer';
+import {promoCodeListReducer, PromoCodeListState} from './promo-codes/promo-code-list.reducer';
+import {promoCodeReducer, PromoCodeState} from './promo-codes/promo-code.reducer';
+import {promoCodeItemListReducer, PromoCodeItemListState} from './promo-codes/promo-code-item-list.reducer';
 
 export interface MarketingModuleState {
   promoCodes: PromoCodeListState;
@@ -23,9 +22,9 @@ export interface MarketingModuleState {
 
 export const INITIAL_MARKETING_STATE: MarketingModuleState = <MarketingModuleState>{};
 export const marketingModuleReducers = {
-   promoCodes: promoCodeListReducer,
-   promoCode: promoCodeReducer,
-   promoCodeItems: promoCodeItemListReducer,
+  promoCodes: promoCodeListReducer,
+  promoCode: promoCodeReducer,
+  promoCodeItems: promoCodeItemListReducer,
 };
 
 @NgModule({

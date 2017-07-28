@@ -1,7 +1,7 @@
 <h2 md-dialog-title>Charge Code Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-  <div layout="row" class="pad-bottom">
+    <div layout="row" class="pad-bottom">
       <md-input-container flex mdTooltip="Charge Code" mdTooltipPosition="below" class="text-upper">
         <input mdInput #code
                placeholder="Code"
@@ -17,7 +17,7 @@
                flex/>
       </md-input-container>
     </div>
-     <div layout="row" class="pad-bottom">
+    <div layout="row" class="pad-bottom">
       <md-input-container flex mdTooltip="Priority" mdTooltipPosition="below" class="text-upper">
         <input mdInput #priority
                placeholder="Priority"
@@ -25,23 +25,23 @@
                flex/>
       </md-input-container>
     </div>
-  <div>
-    <pams-tax-code-select
+    <div>
+      <pams-tax-code-select
         [placeholder]="'Tax Code'"
         [innerFormControl]="createForm.controls['taxCode']"
         fxFlex="calc(70%-25px)">
       </pams-tax-code-select>
-  </div>
-<div layout="row" layout-margin>
-  <div flex></div>
-</div>
-   <div layout="row" class="pad-bottom">
-       <md-checkbox formControlName="inclusive">
-                  <div layout="column" flex>
-                    Inclusive
-                  </div>
-        </md-checkbox> 
-  </div>
+    </div>
+    <div layout="row" layout-margin>
+      <div flex></div>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-checkbox formControlName="inclusive">
+        <div layout="column" flex>
+          Inclusive
+        </div>
+      </md-checkbox>
+    </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">

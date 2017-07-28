@@ -2,11 +2,11 @@
 <md-dialog-content>
   <form [formGroup]="editForm">
     <md-input-container flex>
-        <input mdInput type="date"
-               placeholder="Date"
-               formControlName="debitNoteItemDate"
-               flex/>
-      </md-input-container>
+      <input mdInput type="date"
+             placeholder="Date"
+             formControlName="debitNoteItemDate"
+             flex/>
+    </md-input-container>
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
       <pams-charge-code-select
         [placeholder]="'Charge Code'"

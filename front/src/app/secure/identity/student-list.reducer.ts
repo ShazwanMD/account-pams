@@ -1,6 +1,4 @@
 import {Action} from '@ngrx/store';
-
-import * as _ from 'lodash';
 import {StudentActions} from './student.action';
 import {Student} from '../../shared/model/identity/student.interface';
 

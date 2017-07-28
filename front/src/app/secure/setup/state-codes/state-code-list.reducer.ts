@@ -1,4 +1,4 @@
-import { StateCode } from '../../../shared/model/common/state-code.interface';
+import {StateCode} from '../../../shared/model/common/state-code.interface';
 import {Action} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 

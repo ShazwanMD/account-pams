@@ -1,4 +1,4 @@
-import { StudyMode } from '../../../shared/model/common/study-mode.interface';
+import {StudyMode} from '../../../shared/model/common/study-mode.interface';
 import {Action} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 

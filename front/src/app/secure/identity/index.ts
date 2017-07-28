@@ -1,13 +1,11 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../app.routes';
-import {environment} from '../../../environments/environment';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../../services';
-import {IdentityService} from '../../../services';
+import {CommonService, IdentityService} from '../../../services';
 
 import {ActorActions} from './actor.action';
 import {actorListReducer, ActorListState} from './actor-list.reducer';
@@ -27,7 +25,8 @@ export interface IdentityModuleState {
   actors: ActorListState;
   students: StudentListState;
   sponsors: SponsorListState;
-};
+}
+;
 
 export const INITIAL_IDENTITY_STATE: IdentityModuleState = <IdentityModuleState>{};
 export const identityModuleReducers = {

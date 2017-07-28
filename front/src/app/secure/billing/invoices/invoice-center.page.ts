@@ -1,12 +1,12 @@
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {InvoiceActions} from './invoice.action';
 import {InvoiceTask} from '../../../shared/model/billing/invoice-task.interface';
 import {BillingModuleState} from '../index';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {InvoiceTaskCreatorDialog} from './dialog/invoice-task-creator.dialog';
 import {Invoice} from '../../../shared/model/billing/invoice.interface';
 
@@ -57,7 +57,7 @@ export class InvoiceCenterPage implements OnInit {
 
   showDialog(): void {
     console.log('showDialog');
-    let config:MdDialogConfig = new MdDialogConfig();
+    let config: MdDialogConfig = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';

@@ -1,4 +1,4 @@
-import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {InvoiceItem} from '../../../../shared/model/billing/invoice-item.interface';
 import {InvoiceItemEditorDialog} from '../dialog/invoice-item-editor.dialog';
 import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';

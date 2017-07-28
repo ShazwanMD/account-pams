@@ -2,7 +2,6 @@ import {MdSnackBar} from '@angular/material';
 import {AlertService} from '../../services/alert.service';
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {TdLoadingService} from '@covalent/core';
 import {AuthenticationService} from '../../services/authentication.service';
 import {AuthorizationService} from '../../services/authorization.service';
 import {SystemService} from '../../services/system.service';

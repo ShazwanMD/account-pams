@@ -1,7 +1,6 @@
-import {Component, ViewContainerRef, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialogRef} from '@angular/material';
 import {MarketingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
@@ -47,12 +46,12 @@ export class PromoCodeItemEditorDialog implements OnInit {
       account: <Account>{},
     });
 
-    if (this._promoCodeItem){
-        this.editForm.patchValue(this._promoCodeItem);
-        /*
-         * below line expected to assign default selected option to account select component but it's not :~)
-         * */
-        //this.editForm.controls['account'].patchValue(this._promoCodeItem.account);
+    if (this._promoCodeItem) {
+      this.editForm.patchValue(this._promoCodeItem);
+      /*
+       * below line expected to assign default selected option to account select component but it's not :~)
+       * */
+      //this.editForm.controls['account'].patchValue(this._promoCodeItem.account);
     }
   }
 

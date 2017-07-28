@@ -1,4 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
+import {Routes} from '@angular/router';
 import {PromoCodeCenterPage} from './promo-code-center.page';
 import {PromoCodeDetailPage} from './promo-code-detail.page';
 

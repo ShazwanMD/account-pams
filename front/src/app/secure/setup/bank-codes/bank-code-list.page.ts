@@ -1,25 +1,16 @@
+import {ChangeDetectionStrategy, Component, OnInit, ViewContainerRef} from '@angular/core';
+import {BankCodeEditorDialog} from './dialog/bank-code-editor.dialog';
+import {BankCode} from '../../../shared/model/common/bank-code.interface';
+import {Store} from '@ngrx/store';
+import {SetupActions} from '../setup.action';
+import {SetupModuleState} from '../index';
+import {Observable} from 'rxjs/Observable';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {
-  Component,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-  OnInit,
-  AfterViewInit,
-  ViewContainerRef,
-} from '@angular/core';
-import { BankCodeEditorDialog } from './dialog/bank-code-editor.dialog';
-import { BankCode } from '../../../shared/model/common/bank-code.interface';
-import {Store} from "@ngrx/store";
-import {SetupActions} from "../setup.action";
-import {SetupModuleState} from "../index";
-import {Observable} from "rxjs/Observable";
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {
-  TdDataTableService,
-  TdDataTableSortingOrder,
-  ITdDataTableSortChangeEvent,
   IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
 } from '@covalent/core';
 
 @Component({
@@ -40,7 +31,7 @@ export class BankCodeListPage implements OnInit {
     {name: 'action', label: ''}
   ];
 
-private bankCodes: BankCode[];
+  private bankCodes: BankCode[];
 
   filteredData: any[];
   filteredTotal: number;
@@ -55,9 +46,9 @@ private bankCodes: BankCode[];
               private store: Store<SetupModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
-               private _dataTableService: TdDataTableService) {
+              private _dataTableService: TdDataTableService) {
     this.bankCodes$ = this.store.select(...this.BANK_CODES);
-    this.bankCodes$.subscribe(BankCodes=>this.bankCodes= BankCodes)
+    this.bankCodes$.subscribe(BankCodes => this.bankCodes = BankCodes)
   }
 
   ngOnInit(): void {
@@ -69,7 +60,7 @@ private bankCodes: BankCode[];
     this.showDialog(null);
   }
 
-  editDialog(code:BankCode): void {
+  editDialog(code: BankCode): void {
     this.showDialog(code);
   }
 
@@ -77,13 +68,13 @@ private bankCodes: BankCode[];
     this.store.dispatch(this.actions.removeBankCode(code))
   }
 
-sort(sortEvent: ITdDataTableSortChangeEvent): void {
+  sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
     this.filter();
   }
 
-   search(searchTerm: string): void {
+  search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.filter();
   }
@@ -105,7 +96,7 @@ sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.filteredData = newData;
   }
 
-  private showDialog(code:BankCode): void {
+  private showDialog(code: BankCode): void {
     console.log("create");
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -114,7 +105,7 @@ sort(sortEvent: ITdDataTableSortChangeEvent): void {
     config.height = '65%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(BankCodeEditorDialog, config);
-    if(code) this.creatorDialogRef.componentInstance.bankCode = code; // set
+    if (code) this.creatorDialogRef.componentInstance.bankCode = code; // set
     this.creatorDialogRef.afterClosed().subscribe(res => {
       console.log("close dialog");
     });

@@ -1,5 +1,4 @@
-import {Component, Output, OnInit, AfterViewInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {TdLoadingService} from '@covalent/core';
 

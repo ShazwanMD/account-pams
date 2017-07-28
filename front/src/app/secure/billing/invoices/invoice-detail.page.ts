@@ -1,12 +1,12 @@
-import {Component, OnInit, ViewContainerRef, Input, Output, EventEmitter} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {InvoiceTask} from '../../../shared/model/billing/invoice-task.interface';
 import {InvoiceActions} from './invoice.action';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import {InvoiceItem} from '../../../shared/model/billing/invoice-item.interface';
-import {MdDialogRef, MdDialog} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {DebitNote} from '../../../shared/model/billing/debit-note.interface';
 import {CreditNote} from '../../../shared/model/billing/credit-note.interface';
 

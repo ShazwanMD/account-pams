@@ -1,6 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
-
-import {DashboardModuleRoutes} from './dashboard/dashboard-module.routes';
+import {RouterModule, Routes} from '@angular/router';
 import {AccountModuleRoutes} from './secure/account/account-module.routes';
 import {BillingModuleRoutes} from './secure/billing/billing-module.routes';
 import {FinancialaidModuleRoutes} from './secure/financialaid/financialaid-module.routes';
@@ -20,10 +18,7 @@ const routes: Routes = [
   {
     path: 'secure', component: SecurePage, canActivate: [AuthenticationGuard],
     children: [
-      {
-        path: '', component: DashboardPage,
-      },
-      // ...DashboardModuleRoutes,
+      {path: '', component: DashboardPage},
       ...AccountModuleRoutes,
       ...BillingModuleRoutes,
       ...FinancialaidModuleRoutes,

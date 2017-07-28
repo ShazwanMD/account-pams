@@ -1,8 +1,6 @@
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-
-import {IdentityService} from '../../../services';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AccountService} from '../../../services/account.service';
 import {FeeSchedule} from '../../shared/model/account/fee-schedule.interface';
 
@@ -27,6 +25,6 @@ export class AccountPage implements OnInit {
   }
 
   ngOnInit(): void {
-     this.feeSchedules$ = this.accountService.findFeeSchedules();
+    this.feeSchedules$ = this.accountService.findFeeSchedules();
   }
 }

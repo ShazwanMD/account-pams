@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
-import {MdDialogRef, MdDialog} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {DebitNoteActions} from './debit-note.action';
 import {DebitNoteTask} from '../../../shared/model/billing/debit-note-task.interface';
 import {DebitNoteItem} from '../../../shared/model/billing/debit-note-item.interface';

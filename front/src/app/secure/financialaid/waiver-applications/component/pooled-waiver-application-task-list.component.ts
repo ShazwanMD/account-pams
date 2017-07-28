@@ -1,7 +1,12 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from "@angular/material";
-import {WaiverApplicationTask} from "../../../../shared/model/financialaid/waiver-application-task.interface";
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, IPageChangeEvent } from "@covalent/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {MdSnackBar} from '@angular/material';
+import {WaiverApplicationTask} from '../../../../shared/model/financialaid/waiver-application-task.interface';
+import {
+  IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
+} from '@covalent/core';
 
 @Component({
   selector: 'pams-pooled-waiver-application-task-list',
@@ -23,7 +28,7 @@ export class PooledWaiverApplicationTaskListComponent {
   ];
 
   constructor(private snackBar: MdSnackBar,
-          private _dataTableService: TdDataTableService) {
+              private _dataTableService: TdDataTableService) {
   }
 
   claimTask(task: WaiverApplicationTask): void {

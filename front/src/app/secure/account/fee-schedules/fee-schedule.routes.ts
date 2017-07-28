@@ -1,4 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
+import {Routes} from '@angular/router';
 import {FeeScheduleCenterPage} from './fee-schedule-center.page';
 import {FeeScheduleDetailPage} from './fee-schedule-detail.page';
 

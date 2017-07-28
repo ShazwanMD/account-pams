@@ -1,5 +1,5 @@
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -7,7 +7,7 @@ import {ReceiptActions} from './receipt.action';
 import {ReceiptTask} from '../../../shared/model/billing/receipt-task.interface';
 import {BillingModuleState} from '../index';
 import {ReceiptTaskCreatorDialog} from './dialog/receipt-task-creator.dialog';
-import {MdDialogRef, MdDialog, MdDialogConfig} from '@angular/material';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Receipt} from '../../../shared/model/billing/receipt.interface';
 
 @Component({

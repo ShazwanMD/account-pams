@@ -1,5 +1,5 @@
 import {LoanChargeEditorDialog} from '../dialog/loan-charge-editor.dialog';
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, OnInit, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {AccountActions} from '../account.action';
 import {Store} from '@ngrx/store';
 import {AccountModuleState} from '../../index';
@@ -11,7 +11,7 @@ import {AccountCharge} from '../../../../shared/model/account/account-charge.int
   templateUrl: './loan-charge.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoanChargeComponent implements OnInit{
+export class LoanChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<LoanChargeEditorDialog>;
   private loanChargeColumns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
@@ -36,26 +36,30 @@ export class LoanChargeComponent implements OnInit{
               private store: Store<AccountModuleState>,
               private dialog: MdDialog) {
   }
-    ngOnInit(): void {
+
+  ngOnInit(): void {
     this.selectedRows = this.loanAccountCharges.filter((value) => value.selected);
   }
+
   delete(): void {
-      console.log('length: ' + this.selectedRows.length);
-      for (let i: number = 0; i < this.selectedRows.length; i++) {
+    console.log('length: ' + this.selectedRows.length);
+    for (let i: number = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.removeAccountCharge(this.account, this.selectedRows[i]));
     }
-      this.selectedRows = [];
+    this.selectedRows = [];
   }
-    edit(loanAccountCharges: AccountCharge): void {
+
+  edit(loanAccountCharges: AccountCharge): void {
     this.showDialog(loanAccountCharges);
   }
 
- selectRow(loanAccountCharges: AccountCharge): void {
+  selectRow(loanAccountCharges: AccountCharge): void {
   }
+
   selectAllRows(loanAccountCharges: AccountCharge[]): void {
   }
 
-showDialog(loanAccountCharges: AccountCharge): void {
+  showDialog(loanAccountCharges: AccountCharge): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;

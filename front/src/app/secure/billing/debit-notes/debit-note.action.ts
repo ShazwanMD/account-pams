@@ -158,7 +158,7 @@ export class DebitNoteActions {
     };
   }
 
-    static FIND_DEBIT_NOTE_ITEMS = '[DebitNote] Find DebitNote Items';
+  static FIND_DEBIT_NOTE_ITEMS = '[DebitNote] Find DebitNote Items';
 
   findDebitNoteItems(debitNote): Action {
     console.log("findDebitNoteItems for debitNote: " + debitNote);
@@ -168,7 +168,7 @@ export class DebitNoteActions {
     };
   }
 
-    static FIND_DEBIT_NOTE_ITEMS_SUCCESS = '[DebitNote] Find DebitNote Items Success';
+  static FIND_DEBIT_NOTE_ITEMS_SUCCESS = '[DebitNote] Find DebitNote Items Success';
 
   findDebitNoteItemsSuccess(items): Action {
     console.log("findDebitNoteItemsSuccess");
@@ -277,7 +277,7 @@ export class DebitNoteActions {
   addDebitNoteItem(debitNote, item): Action {
     return {
       type: DebitNoteActions.ADD_DEBIT_NOTE_ITEM,
-      payload: {debitNote:debitNote, item:item}
+      payload: {debitNote: debitNote, item: item}
     };
   }
 
@@ -313,7 +313,7 @@ export class DebitNoteActions {
   updateDebitNoteItem(debitNote, item): Action {
     return {
       type: DebitNoteActions.UPDATE_DEBIT_NOTE_ITEM,
-      payload: {debitNote:debitNote, item:item}
+      payload: {debitNote: debitNote, item: item}
     };
   }
 
@@ -325,12 +325,13 @@ export class DebitNoteActions {
       payload: message
     };
   }
+
   static DELETE_DEBIT_NOTE_ITEM = '[DebitNote] Delete DebitNote Item';
 
   deleteDebitNoteItem(debitNote, item): Action {
     return {
       type: DebitNoteActions.DELETE_DEBIT_NOTE_ITEM,
-      payload: {debitNote:debitNote, item:item}
+      payload: {debitNote: debitNote, item: item}
     };
   }
 

@@ -1,6 +1,6 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MdDialog} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {AccountActions} from '../account.action';

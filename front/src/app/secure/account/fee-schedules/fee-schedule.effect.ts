@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
+import {Actions, Effect} from '@ngrx/effects';
 import {from} from 'rxjs/observable/from';
 import {FeeScheduleActions} from './fee-schedule.action';
 import {AccountService} from '../../../../services/account.service';

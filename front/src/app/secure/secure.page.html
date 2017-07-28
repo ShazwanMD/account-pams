@@ -1,5 +1,6 @@
 <td-layout #layout>
-  <td-navigation-drawer logo="assets:covalent" sidenavTitle="PAMS Intake" name="{{authenticatedUser?.username}}" email="{{authenticatedUser?.email}}">
+  <td-navigation-drawer logo="assets:covalent" sidenavTitle="PAMS Intake" name="{{authenticatedUser?.username}}"
+                        email="{{authenticatedUser?.email}}">
     <md-nav-list>
       <a md-list-item [routerLink]="['/secure/setup']" (click)="layout.close()" authorizedShow="VIEW_STM">
         <md-icon>label</md-icon>
@@ -7,25 +8,25 @@
       </a>
       <a md-list-item [routerLink]="['/secure/account']" (click)="layout.close()" authorizedShow="VIEW_ACT">
         <md-icon>label</md-icon>
-        Applicant Registration
+        Account
       </a>
       <a md-list-item [routerLink]="['/secure/billing']" (click)="layout.close()" authorizedShow="VIEW_BLG">
         <md-icon>label</md-icon>
-        Intake Manager
+        Billing
       </a>
       <a md-list-item [routerLink]="['/secure/financialaid']" (click)="layout.close()" authorizedShow="VIEW_FND">
         <md-icon>label</md-icon>
-        Intake Application
+        Financial Aid
       </a>
       <a md-list-item [routerLink]="['/secure/marketing']" (click)="layout.close()" authorizedShow="VIEW_MKT">
         <md-icon>label</md-icon>
-        Candidate Admission
+        Marketing
       </a>
-       <a md-list-item (click)="logout()">
+      <a md-list-item (click)="logout()">
         <md-icon>label</md-icon>
         Logout
       </a>
-       <a md-list-item [routerLink]="['/secure']" (click)="layout.close()">
+      <a md-list-item [routerLink]="['/secure']" (click)="layout.close()">
         <md-icon>label</md-icon>
         Back to Dashboard
       </a>

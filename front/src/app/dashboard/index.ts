@@ -1,11 +1,10 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../app.routes';
 import {CovalentCoreModule} from '@covalent/core';
-import {CommonService} from '../../services';
-import {IdentityService, BillingService} from '../../services';
-import { DashboardPage } from './dashboard.page';
+import {BillingService, CommonService, IdentityService} from '../../services';
+import {DashboardPage} from './dashboard.page';
 import {PooledTaskListComponent} from './component/pooled-task-list.component';
 import {AssignedTaskListComponent} from './component/assigned-task-list.component';
 

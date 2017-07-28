@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
-import {PromoCodeActions} from "./promo-code.action";
-import {from} from "rxjs/observable/from";
-import {MarketingService} from "../../../../services/marketing.service";
-import {Router} from "@angular/router";
-import {Store} from "@ngrx/store";
-import {MarketingModuleState} from "../index";
+import {Actions, Effect} from '@ngrx/effects';
+import {PromoCodeActions} from './promo-code.action';
+import {from} from 'rxjs/observable/from';
+import {MarketingService} from '../../../../services/marketing.service';
+import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {MarketingModuleState} from '../index';
 
 @Injectable()
 export class PromoCodeEffects {
@@ -56,30 +56,30 @@ export class PromoCodeEffects {
     .map(promoCode => this.promoCodeActions.updatePromoCodeSuccess(promoCode));
 
   @Effect() addPromoCodeItem$ =
-      this.actions$
-        .ofType(PromoCodeActions.ADD_PROMO_CODE_ITEM)
-        .map(action => action.payload)
-        .switchMap(payload => this.marketingService.addPromoCodeItem(payload.promoCode, payload.promoCodeItem))
-        .map(message => this.promoCodeActions.addPromoCodeItemSuccess(message))
-        .withLatestFrom(this.store$.select(...this.PROMO_CODE))
-        .map(state => state[1])
-        .map(promoCode => this.promoCodeActions.findPromoCodeItems(promoCode));
-
-    @Effect() updatePromoCodeItem$ = this.actions$
-      .ofType(PromoCodeActions.UPDATE_PROMO_CODE_ITEM)
+    this.actions$
+      .ofType(PromoCodeActions.ADD_PROMO_CODE_ITEM)
       .map(action => action.payload)
-      .switchMap(payload => this.marketingService.updatePromoCodeItem(payload.promoCode, payload.promoCodeItem))
-      .map(message => this.promoCodeActions.updatePromoCodeItemSuccess(message))
+      .switchMap(payload => this.marketingService.addPromoCodeItem(payload.promoCode, payload.promoCodeItem))
+      .map(message => this.promoCodeActions.addPromoCodeItemSuccess(message))
       .withLatestFrom(this.store$.select(...this.PROMO_CODE))
       .map(state => state[1])
       .map(promoCode => this.promoCodeActions.findPromoCodeItems(promoCode));
 
-    @Effect() deletePromoCodeItem$ = this.actions$
-      .ofType(PromoCodeActions.DELETE_PROMO_CODE_ITEM)
-      .map(action => action.payload)
-      .switchMap(payload => this.marketingService.deletePromoCodeItem(payload.promoCode, payload.promoCodeItem))
-      .map(message => this.promoCodeActions.deletePromoCodeItemSuccess(message))
-      .withLatestFrom(this.store$.select(...this.PROMO_CODE))
-      .map(state => state[1])
-      .map(promoCode => this.promoCodeActions.findPromoCodeItems(promoCode));
+  @Effect() updatePromoCodeItem$ = this.actions$
+    .ofType(PromoCodeActions.UPDATE_PROMO_CODE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.marketingService.updatePromoCodeItem(payload.promoCode, payload.promoCodeItem))
+    .map(message => this.promoCodeActions.updatePromoCodeItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.PROMO_CODE))
+    .map(state => state[1])
+    .map(promoCode => this.promoCodeActions.findPromoCodeItems(promoCode));
+
+  @Effect() deletePromoCodeItem$ = this.actions$
+    .ofType(PromoCodeActions.DELETE_PROMO_CODE_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.marketingService.deletePromoCodeItem(payload.promoCode, payload.promoCodeItem))
+    .map(message => this.promoCodeActions.deletePromoCodeItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.PROMO_CODE))
+    .map(state => state[1])
+    .map(promoCode => this.promoCodeActions.findPromoCodeItems(promoCode));
 }

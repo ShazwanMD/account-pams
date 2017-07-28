@@ -1,4 +1,4 @@
-import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {MarketingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
 import {PromoCodeActions} from '../promo-code.action';

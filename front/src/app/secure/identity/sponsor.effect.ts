@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
-import {from} from 'rxjs/observable/from';
+import {Actions, Effect} from '@ngrx/effects';
 import {IdentityService} from '../../../services/identity.service';
 import {SponsorActions} from './sponsor.action';
 
@@ -25,6 +24,6 @@ export class SponsorEffects {
   @Effect() updateSponsor$ = this.actions$
     .ofType(SponsorActions.UPDATE_SPONSOR)
     .map((action) => action.payload);
-    // .switchMap(account => this.identityService.updateSponsor(account))
-    // .map(account => this.accountActions.updateSponsorSuccess(account));
+  // .switchMap(account => this.identityService.updateSponsor(account))
+  // .map(account => this.accountActions.updateSponsorSuccess(account));
 }

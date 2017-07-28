@@ -1,8 +1,5 @@
-import {
-  Component, OnInit, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentRef,
-} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ReceiptActions} from './receipt.action';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
@@ -26,7 +23,7 @@ export class ReceiptTaskViewPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: {taskId: string}) => {
+    this.route.params.subscribe((params: { taskId: string }) => {
       let taskId: string = params.taskId;
       this.store.dispatch(this.actions.findReceiptTaskByTaskId(taskId));
     });

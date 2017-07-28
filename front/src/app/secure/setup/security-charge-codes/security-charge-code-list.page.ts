@@ -1,16 +1,7 @@
-import { SecurityChargeCodeEditorDialog } from './dialog/security-charge-code-editor.dialog';
-import { SecurityChargeCode } from '../../../shared/model/common/security-charge-code.interface';
+import {SecurityChargeCodeEditorDialog} from './dialog/security-charge-code-editor.dialog';
+import {SecurityChargeCode} from '../../../shared/model/common/security-charge-code.interface';
 
-import {
-  Component,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-  OnInit,
-  AfterViewInit,
-  ViewContainerRef,
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewContainerRef} from '@angular/core';
 
 import {Store} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
@@ -18,10 +9,10 @@ import {SetupModuleState} from '../index';
 import {Observable} from 'rxjs/Observable';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {
-  TdDataTableService,
-  TdDataTableSortingOrder,
-  ITdDataTableSortChangeEvent,
   IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
 } from '@covalent/core';
 
 @Component({
@@ -29,7 +20,7 @@ import {
   templateUrl: './security-charge-code-list.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SecurityChargeCodeListPage implements OnInit{
+export class SecurityChargeCodeListPage implements OnInit {
 
   private SECURITY_CHARGE_CODES = 'setupModuleState.securityChargeCode'.split('.');
   private securityChargeCodes$: Observable<SecurityChargeCode[]>;
@@ -45,7 +36,7 @@ export class SecurityChargeCodeListPage implements OnInit{
     {name: 'action', label: ''},
   ];
 
-    private securityChargeCodes: SecurityChargeCode[];
+  private securityChargeCodes: SecurityChargeCode[];
 
   filteredData: any[];
   filteredTotal: number;
@@ -64,6 +55,7 @@ export class SecurityChargeCodeListPage implements OnInit{
     this.securityChargeCodes$ = this.store.select(...this.SECURITY_CHARGE_CODES);
     this.securityChargeCodes$.subscribe((SecurityChargeCodes) => this.securityChargeCodes = SecurityChargeCodes);
   }
+
   ngOnInit(): void {
     this.store.dispatch(this.actions.findSecurityChargeCodes());
     this.store.dispatch(this.actions.changeTitle('Security Charge Codes'));
@@ -87,12 +79,12 @@ export class SecurityChargeCodeListPage implements OnInit{
     this.filter();
   }
 
-   search(searchTerm: string): void {
+  search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.filter();
   }
 
-    page(pagingEvent: IPageChangeEvent): void {
+  page(pagingEvent: IPageChangeEvent): void {
     this.fromRow = pagingEvent.fromRow;
     this.currentPage = pagingEvent.page;
     this.pageSize = pagingEvent.pageSize;

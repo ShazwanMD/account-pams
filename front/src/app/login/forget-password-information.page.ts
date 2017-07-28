@@ -1,8 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'pams-forget-password-information-page',

@@ -1,5 +1,5 @@
 import {StudentAffairsChargeEditorDialog} from '../dialog/student-affairs-charge-editor.dialog';
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, OnInit, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {AccountActions} from '../account.action';
 import {Store} from '@ngrx/store';
 import {AccountModuleState} from '../../index';
@@ -11,7 +11,7 @@ import {AccountCharge} from '../../../../shared/model/account/account-charge.int
   templateUrl: './student-affairs-charge.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StudentAffairsChargeComponent implements OnInit{
+export class StudentAffairsChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<StudentAffairsChargeEditorDialog>;
   private studentAffairsChargeColumns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
@@ -32,26 +32,30 @@ export class StudentAffairsChargeComponent implements OnInit{
               private store: Store<AccountModuleState>,
               private dialog: MdDialog) {
   }
-    ngOnInit(): void {
+
+  ngOnInit(): void {
     this.selectedRows = this.studentAffairsAccountCharges.filter((value) => value.selected);
   }
+
   delete(): void {
-      console.log('length: ' + this.selectedRows.length);
-      for (let i: number = 0; i < this.selectedRows.length; i++) {
+    console.log('length: ' + this.selectedRows.length);
+    for (let i: number = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.removeAccountCharge(this.account, this.selectedRows[i]));
     }
-      this.selectedRows = [];
+    this.selectedRows = [];
   }
-    edit(studentAffairsAccountCharges: AccountCharge): void {
+
+  edit(studentAffairsAccountCharges: AccountCharge): void {
     this.showDialog(studentAffairsAccountCharges);
   }
 
- selectRow(studentAffairsAccountCharges: AccountCharge): void {
+  selectRow(studentAffairsAccountCharges: AccountCharge): void {
   }
+
   selectAllRows(studentAffairsAccountCharges: AccountCharge[]): void {
   }
 
-showDialog(studentAffairsAccountCharges: AccountCharge): void {
+  showDialog(studentAffairsAccountCharges: AccountCharge): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;

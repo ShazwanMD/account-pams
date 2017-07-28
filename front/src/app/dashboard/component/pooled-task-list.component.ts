@@ -1,5 +1,5 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy} from '@angular/core';
-import { Task } from "../../core/task.interface";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {Task} from '../../core/task.interface';
 
 @Component({
   selector: 'pams-pooled-task-list',
@@ -18,8 +18,8 @@ export class PooledTaskListComponent {
   viewPooledTask(task: Task): void {
     this.view.emit(task);
   }
-  
+
   claimTask(task: Task) {
-    this.claim.emit(task); 
+    this.claim.emit(task);
   }
 }

@@ -1,4 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
+import {Routes} from '@angular/router';
 import {MarketingPage} from './marketing.page';
 import {PromoCodeRoutes} from './promo-codes/promo-code.routes';
 

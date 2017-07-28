@@ -1,7 +1,7 @@
-import { StudyModeCreatorDialog } from './dialog/study-mode-creator.dialog';
-import { StudyMode } from '../../../shared/model/common/study-mode.interface';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
+import {StudyModeCreatorDialog} from './dialog/study-mode-creator.dialog';
+import {StudyMode} from '../../../shared/model/common/study-mode.interface';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 import {SetupModuleState} from '../index';
@@ -26,11 +26,11 @@ export class StudyModeListPage implements OnInit {
   constructor(private actions: SetupActions,
               private store: Store<SetupModuleState>,
               private vcf: ViewContainerRef,
-              private dialog: MdDialog){
+              private dialog: MdDialog) {
     this.studyModes$ = this.store.select(...this.STUDY_MODES);
   }
 
-    showDialog(): void {
+  showDialog(): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -50,6 +50,7 @@ export class StudyModeListPage implements OnInit {
     this.store.dispatch(this.actions.changeTitle('Study Mode Codes'));
   }
 
-  filter(): void {}
+  filter(): void {
+  }
 
 }

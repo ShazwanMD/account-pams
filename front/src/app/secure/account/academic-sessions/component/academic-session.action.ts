@@ -5,6 +5,7 @@ import {Action} from '@ngrx/store';
 export class AcademicSessionActions {
 
   static FIND_ACADEMIC_SESSIONS = '[AcademicSession] Find AcademicSessions';
+
   findAcademicSessions(): Action {
     return {
       type: AcademicSessionActions.FIND_ACADEMIC_SESSIONS
@@ -12,6 +13,7 @@ export class AcademicSessionActions {
   }
 
   static FIND_ACADEMIC_SESSIONS_SUCCESS = '[AcademicSession] Find AcademicSessions Success';
+
   findAcademicSessionsSuccess(academic_sessions): Action {
     console.log("findAcademicSessionsSuccess");
     console.log("academic_sessions: " + academic_sessions.length);
@@ -22,6 +24,7 @@ export class AcademicSessionActions {
   }
 
   static FIND_ACADEMIC_SESSION = '[AcademicSession] Find AcademicSession';
+
   findAcademicSession(code): Action {
     return {
       type: AcademicSessionActions.FIND_ACADEMIC_SESSION,
@@ -30,6 +33,7 @@ export class AcademicSessionActions {
   }
 
   static FIND_ACADEMIC_SESSION_SUCCESS = '[AcademicSession] Find AcademicSession Success';
+
   findAcademicSessionSuccess(academic_session): Action {
     console.log("findAcademicSessionSuccess");
     return {
@@ -39,6 +43,7 @@ export class AcademicSessionActions {
   }
 
   static SAVE_ACADEMIC_SESSION = '[AcademicSession] Save AcademicSession';
+
   saveAcademicSession(academic_session): Action {
     return {
       type: AcademicSessionActions.SAVE_ACADEMIC_SESSION,
@@ -47,6 +52,7 @@ export class AcademicSessionActions {
   }
 
   static SAVE_ACADEMIC_SESSION_SUCCESS = '[AcademicSession] Save AcademicSession Success';
+
   saveAcademicSessionSuccess(academic_session): Action {
     return {
       type: AcademicSessionActions.SAVE_ACADEMIC_SESSION_SUCCESS,
@@ -55,6 +61,7 @@ export class AcademicSessionActions {
   }
 
   static UPDATE_ACADEMIC_SESSION = '[AcademicSession] Update AcademicSession';
+
   updateAcademicSession(academic_session): Action {
     return {
       type: AcademicSessionActions.UPDATE_ACADEMIC_SESSION,
@@ -63,6 +70,7 @@ export class AcademicSessionActions {
   }
 
   static UPDATE_ACADEMIC_SESSION_SUCCESS = '[AcademicSession] Update AcademicSession Success';
+
   updateAcademicSessionSuccess(academic_session): Action {
     return {
       type: AcademicSessionActions.UPDATE_ACADEMIC_SESSION_SUCCESS,
@@ -72,6 +80,7 @@ export class AcademicSessionActions {
 
 
   static REMOVE_ACADEMIC_SESSION = '[AcademicSession] Remove AcademicSession';
+
   removeAcademicSession(academic_session): Action {
     return {
       type: AcademicSessionActions.REMOVE_ACADEMIC_SESSION,
@@ -80,6 +89,7 @@ export class AcademicSessionActions {
   }
 
   static REMOVE_ACADEMIC_SESSION_SUCCESS = '[AcademicSession] Remove AcademicSession Success';
+
   removeAcademicSessionSuccess(academic_session): Action {
     return {
       type: AcademicSessionActions.REMOVE_ACADEMIC_SESSION_SUCCESS,

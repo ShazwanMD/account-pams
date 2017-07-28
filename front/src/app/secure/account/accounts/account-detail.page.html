@@ -12,9 +12,9 @@
         <md-card>
           <md-tab-group [selectedIndex]="0">
             <md-tab label="Account Activities">
-              <pams-account-activity-list 
-              [activity]="accountActivities$ | async"
-              (click)="viewInvoice($event)"
+              <pams-account-activity-list
+                [activity]="accountActivities$ | async"
+                (click)="viewInvoice($event)"
               ></pams-account-activity-list>
             </md-tab>
 

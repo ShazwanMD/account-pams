@@ -1,4 +1,4 @@
-import { CountryCode } from '../../../shared/model/common/country-code.interface';
+import {CountryCode} from '../../../shared/model/common/country-code.interface';
 import {Action} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 

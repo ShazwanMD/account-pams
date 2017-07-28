@@ -1,10 +1,7 @@
-import {Component, Input, ChangeDetectionStrategy, ViewContainerRef, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {InvoiceItem} from '../../../../shared/model/billing/invoice-item.interface';
-import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
 import {Invoice} from '../../../../shared/model/billing/invoice.interface';
-import { AccountActivity } from "../../../../shared/model/account/account-activity.interface";
+import {AccountActivity} from '../../../../shared/model/account/account-activity.interface';
 
 @Component({
   selector: 'pams-invoice-item-component-list',
@@ -13,9 +10,9 @@ import { AccountActivity } from "../../../../shared/model/account/account-activi
 })
 export class InvoiceItemListAccountComponent implements OnInit {
 
-    @Input() invoice: Invoice;
-    @Input() invoiceItems: InvoiceItem[];
-    @Input() activity: AccountActivity[];
+  @Input() invoice: Invoice;
+  @Input() invoiceItems: InvoiceItem[];
+  @Input() activity: AccountActivity[];
   //private selectedRows: InvoiceItem[];
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},

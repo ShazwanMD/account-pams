@@ -260,7 +260,7 @@ export class InvoiceActions {
       payload: invoice,
     };
   }
-  
+
   static UPDATE_INVOICE = '[Invoice] Update Invoice';
 
   updateInvoice(invoice): Action {

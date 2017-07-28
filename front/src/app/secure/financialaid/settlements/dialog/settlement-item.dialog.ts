@@ -1,7 +1,6 @@
-import {Component, ViewContainerRef, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialogRef} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {SettlementActions} from '../settlement.action';
@@ -45,7 +44,7 @@ export class SettlementItemDialog implements OnInit {
       balanceAmount: 0,
       feeAmount: 0,
       loanAmount: 0,
-      nettAmount:0,
+      nettAmount: 0,
       account: <Account>{},
       invoice: <Invoice>{},
     });

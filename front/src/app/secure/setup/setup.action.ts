@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 import {Action} from '@ngrx/store';
 
 @Injectable()
@@ -84,7 +84,7 @@ export class SetupActions {
     };
   }
 
-    static REMOVE_BANK_CODE = '[Setup] Remove Bank Code';
+  static REMOVE_BANK_CODE = '[Setup] Remove Bank Code';
 
   removeBankCode(code): Action {
     console.log("removeBankCode");
@@ -104,7 +104,7 @@ export class SetupActions {
     };
   }
 
-    static SAVE_MARITAL_CODE = '[Setup] Save Marital Code';
+  static SAVE_MARITAL_CODE = '[Setup] Save Marital Code';
 
   saveMaritalCode(code): Action {
     console.log("saveMaritalCode");
@@ -260,7 +260,6 @@ export class SetupActions {
       payload: message
     };
   }
-
 
 
   static SAVE_FACULTY_CODE = '[Setup] Save Faculty Code';
@@ -578,7 +577,7 @@ export class SetupActions {
     };
   }
 
-    static SAVE_SECURITY_Charge_CODE = '[Setup] Save Security Charge Code';
+  static SAVE_SECURITY_Charge_CODE = '[Setup] Save Security Charge Code';
 
   saveSecurityChargeCode(code): Action {
     console.log("saveSecurityChargeCode");
@@ -598,7 +597,7 @@ export class SetupActions {
     };
   }
 
-    static UPDATE_SECURITY_Charge_CODE = '[Setup] Update Security Charge Code';
+  static UPDATE_SECURITY_Charge_CODE = '[Setup] Update Security Charge Code';
 
   updateSecurityChargeCode(code): Action {
     console.log("updateSecurityChargeCode");
@@ -608,7 +607,7 @@ export class SetupActions {
     };
   }
 
-  static UPDATE_SECURITY_Charge_CODE_SUCCESS  = '[Setup] Update Security Charge Code  Success';
+  static UPDATE_SECURITY_Charge_CODE_SUCCESS = '[Setup] Update Security Charge Code  Success';
 
   updateSecurityChargeCodeSuccess(message): Action {
     console.log("updateSecurityChargeCodeSuccess");

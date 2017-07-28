@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {ReceiptTask} from '../../../../shared/model/billing/receipt-task.interface';
 import {MdSnackBar} from '@angular/material';
 

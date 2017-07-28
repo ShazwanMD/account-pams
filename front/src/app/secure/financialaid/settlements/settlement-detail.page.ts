@@ -4,11 +4,9 @@ import {Observable} from 'rxjs/Observable';
 import {SettlementActions} from './settlement.action';
 import {Store} from '@ngrx/store';
 import {FinancialaidModuleState} from '../index';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
-import {MdSnackBar} from '@angular/material';
+import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
 import {Settlement} from '../../../shared/model/financialaid/settlement.interface';
 import {SettlementItem} from '../../../shared/model/financialaid/settlement-item.interface';
-import {SettlementCreatorByFacultyDialog} from './dialog/settlement-creator-by-faculty.dialog';
 import {SettlementFileUploaderDialog} from './dialog/settlement-file-uploader.dialog';
 @Component({
   selector: 'pams-settlement-detail',

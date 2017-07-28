@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
-import {from} from "rxjs/observable/from";
-import {ChargeCodeActions} from "./charge-code.action";
-import {ChargeCode} from "../../../shared/model/account/charge-code.interface";
-import {AccountService} from "../../../../services/account.service";
-import {AccountModuleState} from "../index";
-import {Store} from "@ngrx/store";
+import {Actions, Effect} from '@ngrx/effects';
+import {from} from 'rxjs/observable/from';
+import {ChargeCodeActions} from './charge-code.action';
+import {AccountService} from '../../../../services/account.service';
+import {AccountModuleState} from '../index';
+import {Store} from '@ngrx/store';
 
 
 @Injectable()

@@ -58,7 +58,7 @@ export class ReceiptActions {
       payload: tasks
     };
   }
-  
+
   static FIND_ARCHIVED_RECEIPT = '[Receipt] Find Archived Receipt';
 
   findArchivedReceipts(): Action {
@@ -267,7 +267,7 @@ export class ReceiptActions {
   addReceiptItem(receipt, item): Action {
     return {
       type: ReceiptActions.ADD_RECEIPT_ITEM,
-      payload: {receipt:receipt, item:item}
+      payload: {receipt: receipt, item: item}
     };
   }
 
@@ -285,7 +285,7 @@ export class ReceiptActions {
   deleteReceiptItem(receipt, item): Action {
     return {
       type: ReceiptActions.DELETE_RECEIPT_ITEM,
-      payload: {receipt:receipt, item:item}
+      payload: {receipt: receipt, item: item}
     };
   }
 
@@ -303,7 +303,7 @@ export class ReceiptActions {
   updateReceiptItem(receipt, item): Action {
     return {
       type: ReceiptActions.UPDATE_RECEIPT_ITEM,
-      payload: {receipt:receipt, item:item}
+      payload: {receipt: receipt, item: item}
     };
   }
 
@@ -315,13 +315,13 @@ export class ReceiptActions {
       payload: message
     };
   }
-  
+
   static CALCULATE_CHARGE_INVOICE = '[Receipt] Add Receipt Item';
 
   calculateChargeInvoice(receipt): Action {
     return {
       type: ReceiptActions.CALCULATE_CHARGE_INVOICE,
-      payload: {receipt:receipt}
+      payload: {receipt: receipt}
     };
   }
 
@@ -333,13 +333,13 @@ export class ReceiptActions {
       payload: message
     };
   }
-  
+
   static ADD_RECEIPT_INVOICE_ITEM = '[Receipt] Add Receipt Item';
 
   addReceiptInvoiceItems(receipt, invoice): Action {
     return {
       type: ReceiptActions.ADD_RECEIPT_INVOICE_ITEM,
-      payload: {receipt:receipt, invoice:invoice}
+      payload: {receipt: receipt, invoice: invoice}
     };
   }
 

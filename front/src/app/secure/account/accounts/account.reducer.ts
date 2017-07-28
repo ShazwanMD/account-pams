@@ -1,7 +1,6 @@
 import {Action} from '@ngrx/store';
-import {AccountActions} from "./account.action";
-import {Account} from "../../../shared/model/account/account.interface";
-import {Actor} from "../../../shared/model/identity/actor.interface";
+import {AccountActions} from './account.action';
+import {Account} from '../../../shared/model/account/account.interface';
 
 export type AccountState = Account;
 
@@ -13,8 +12,8 @@ export function accountReducer(state = initialState, action: Action): AccountSta
       return action.payload;
     }
     case AccountActions.FIND_INVOICES_BY_ACCOUNT_SUCCESS: {
-        return action.payload;
-      }
+      return action.payload;
+    }
     default: {
       return state;
     }

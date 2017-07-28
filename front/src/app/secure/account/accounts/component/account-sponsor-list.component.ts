@@ -1,15 +1,15 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, ViewContainerRef} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {AccountActions} from '../account.action';
 import {AccountModuleState} from '../../index';
 import {
-  TdDataTableService,
-  TdDataTableSortingOrder,
-  ITdDataTableSortChangeEvent,
   IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
 } from '@covalent/core';
 import {Actor} from '../../../../shared/model/identity/actor.interface';
 

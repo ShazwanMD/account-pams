@@ -1,4 +1,4 @@
-import { FacultyCode } from '../../../shared/model/common/faculty-code.interface';
+import {FacultyCode} from '../../../shared/model/common/faculty-code.interface';
 import {Action} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 

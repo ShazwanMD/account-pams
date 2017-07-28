@@ -12,7 +12,7 @@
           </md-card-title>
           <md-card-subtitle>Sign in to secure area</md-card-subtitle>
           <md-divider></md-divider>
-           <md-card-content>
+          <md-card-content>
             <form #loginForm="ngForm" [ngClass]="{ 'has-error': loginForm.submitted && !username.valid }">
               <div layout="row">
                 <md-input-container flex>
@@ -39,7 +39,7 @@
                 </md-input-container>
               </div>
             </form>
-          </md-card-content> 
+          </md-card-content>
           <md-divider></md-divider>
           <md-card-actions layout="row">
             <button md-raised-button color="accent" [disabled]="!loginForm.form.valid" (click)="login()">Sign In

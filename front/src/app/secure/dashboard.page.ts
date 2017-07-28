@@ -1,6 +1,12 @@
 import {
-  Component, OnInit, OnDestroy, ViewChild, ViewContainerRef,
-  ComponentFactoryResolver, ComponentFactory, ComponentRef,
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthorizationService} from '../../services/authorization.service';

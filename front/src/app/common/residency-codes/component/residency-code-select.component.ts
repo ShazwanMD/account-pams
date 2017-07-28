@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {CommonActions} from '../../common.action';
 import {CommonModuleState} from '../../index';
-import { ResidencyCode } from '../../../shared/model/common/residency-code.interface';
+import {ResidencyCode} from '../../../shared/model/common/residency-code.interface';
 
 @Component({
   selector: 'pams-residency-code-select',

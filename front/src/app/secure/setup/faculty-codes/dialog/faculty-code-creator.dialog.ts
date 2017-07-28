@@ -1,8 +1,7 @@
-import { FacultyCode } from '../../../../shared/model/common/faculty-code.interface';
-import {Component, ViewContainerRef, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import {FacultyCode} from '../../../../shared/model/common/faculty-code.interface';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {SetupModuleState} from '../../index';
@@ -23,8 +22,7 @@ export class FacultyCodeCreatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private dialog: MdDialogRef<FacultyCodeCreatorDialog>,
               private store: Store<SetupModuleState>,
-              private actions: SetupActions,
-  ) {
+              private actions: SetupActions,) {
   }
 
   ngOnInit(): void {
@@ -37,7 +35,7 @@ export class FacultyCodeCreatorDialog implements OnInit {
     });
   }
 
-    save(code: FacultyCode, isValid: boolean) {
+  save(code: FacultyCode, isValid: boolean) {
     this.store.dispatch(this.actions.saveFacultyCode(code));
     this.dialog.close();
   }

@@ -9,8 +9,8 @@ const initialState: CreditNoteItemListState = <CreditNoteItem[]>[];
 export function creditNoteItemListReducer(state = initialState, action: Action): CreditNoteItemListState {
   switch (action.type) {
     case CreditNoteActions.FIND_CREDIT_NOTE_ITEMS_SUCCESS: {
-    return action.payload;
-     }
+      return action.payload;
+    }
     default: {
       return state;
     }

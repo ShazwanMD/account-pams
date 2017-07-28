@@ -1,13 +1,11 @@
-import {Component, ViewContainerRef, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {MdDialogRef} from "@angular/material";
-import {SetupModuleState} from "../../index";
-import {SetupActions} from "../../setup.action";
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {MdDialogRef} from '@angular/material';
+import {SetupModuleState} from '../../index';
+import {SetupActions} from '../../setup.action';
 import {StudyMode} from '../../../../shared/model/common/study-mode.interface';
-
 
 
 @Component({
@@ -25,8 +23,7 @@ export class StudyModeCreatorDialog implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private dialog: MdDialogRef<StudyModeCreatorDialog>,
               private store: Store<SetupModuleState>,
-              private actions: SetupActions,
-  ) {
+              private actions: SetupActions,) {
   }
 
   ngOnInit(): void {
@@ -39,7 +36,7 @@ export class StudyModeCreatorDialog implements OnInit {
     });
   }
 
-    save(code: StudyMode, isValid: boolean) {
+  save(code: StudyMode, isValid: boolean) {
     this.store.dispatch(this.actions.saveStudyMode(code));
     this.dialog.close();
   }

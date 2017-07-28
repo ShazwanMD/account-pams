@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
-import {SettlementActions} from "./settlement.action";
-import {from} from "rxjs/observable/from";
-import {FinancialaidService} from "../../../../services/financialaid.service";
-import {Router} from "@angular/router";
-import {Store} from "@ngrx/store";
+import {Actions, Effect} from '@ngrx/effects';
+import {SettlementActions} from './settlement.action';
+import {from} from 'rxjs/observable/from';
+import {FinancialaidService} from '../../../../services/financialaid.service';
+import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
 import 'rxjs/add/operator/withLatestFrom';
-import {FinancialaidModuleState} from "../index";
-import {Observable} from "rxjs/Observable";
+import {FinancialaidModuleState} from '../index';
 import {Settlement} from '../../../shared/model/financialaid/settlement.interface';
 
 @Injectable()
@@ -98,30 +97,30 @@ export class SettlementEffects {
     .map((settlement: Settlement) => this.settlementActions.findSettlementByReferenceNo(settlement.referenceNo));
 
   @Effect() addSettlementItem$ =
-      this.actions$
-        .ofType(SettlementActions.ADD_SETTLEMENT_ITEM)
-        .map(action => action.payload)
-        .switchMap(payload => this.financialaidService.addSettlementItem(payload.settlement, payload.settlementItem))
-        .map(message => this.settlementActions.addSettlementItemSuccess(message))
-        .withLatestFrom(this.store$.select(...this.SETTLEMENT))
-        .map(state => state[1])
-        .map(settlement => this.settlementActions.findSettlementItems(settlement));
-
-    @Effect() updateSettlementItem$ = this.actions$
-      .ofType(SettlementActions.UPDATE_SETTLEMENT_ITEM)
+    this.actions$
+      .ofType(SettlementActions.ADD_SETTLEMENT_ITEM)
       .map(action => action.payload)
-      .switchMap(payload => this.financialaidService.updateSettlementItem(payload.settlement, payload.settlementItem))
-      .map(message => this.settlementActions.updateSettlementItemSuccess(message))
+      .switchMap(payload => this.financialaidService.addSettlementItem(payload.settlement, payload.settlementItem))
+      .map(message => this.settlementActions.addSettlementItemSuccess(message))
       .withLatestFrom(this.store$.select(...this.SETTLEMENT))
       .map(state => state[1])
       .map(settlement => this.settlementActions.findSettlementItems(settlement));
 
-    @Effect() deleteSettlementItem$ = this.actions$
-      .ofType(SettlementActions.DELETE_SETTLEMENT_ITEM)
-      .map(action => action.payload)
-      .switchMap(payload => this.financialaidService.deleteSettlementItem(payload.settlement, payload.settlementItem))
-      .map(message => this.settlementActions.deleteSettlementItemSuccess(message))
-      .withLatestFrom(this.store$.select(...this.SETTLEMENT))
-      .map(state => state[1])
-      .map(settlement => this.settlementActions.findSettlementItems(settlement));
-  }
+  @Effect() updateSettlementItem$ = this.actions$
+    .ofType(SettlementActions.UPDATE_SETTLEMENT_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.financialaidService.updateSettlementItem(payload.settlement, payload.settlementItem))
+    .map(message => this.settlementActions.updateSettlementItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.SETTLEMENT))
+    .map(state => state[1])
+    .map(settlement => this.settlementActions.findSettlementItems(settlement));
+
+  @Effect() deleteSettlementItem$ = this.actions$
+    .ofType(SettlementActions.DELETE_SETTLEMENT_ITEM)
+    .map(action => action.payload)
+    .switchMap(payload => this.financialaidService.deleteSettlementItem(payload.settlement, payload.settlementItem))
+    .map(message => this.settlementActions.deleteSettlementItemSuccess(message))
+    .withLatestFrom(this.store$.select(...this.SETTLEMENT))
+    .map(state => state[1])
+    .map(settlement => this.settlementActions.findSettlementItems(settlement));
+}

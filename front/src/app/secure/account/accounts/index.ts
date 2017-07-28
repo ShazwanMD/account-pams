@@ -1,4 +1,4 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../../app.routes';
@@ -6,8 +6,7 @@ import {EffectsModule} from '@ngrx/effects';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../../../services';
-import {IdentityService} from '../../../../services';
+import {CommonService, IdentityService} from '../../../../services';
 import {AccountService} from '../../../../services/account.service';
 import {AccountActions} from './account.action';
 import {AccountEffects} from './account.effect';
@@ -36,8 +35,8 @@ import {CompoundChargeEditorDialog} from './dialog/compound-charge-editor.dialog
 import {CommonModule} from '../../../common/index';
 import {AcademicSessionSubModule} from '../academic-sessions/index';
 import {AccountSponsorListComponent} from './component/account-sponsor-list.component';
-import { InvoiceItemDialog } from "./dialog/invoice-item.dialog";
-import { InvoiceItemListAccountComponent } from "./component/invoice-item-component-list.component";
+import {InvoiceItemDialog} from './dialog/invoice-item.dialog';
+import {InvoiceItemListAccountComponent} from './component/invoice-item-component-list.component';
 
 @NgModule({
   imports: [

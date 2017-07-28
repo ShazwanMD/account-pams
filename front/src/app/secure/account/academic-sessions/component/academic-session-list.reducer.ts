@@ -1,6 +1,4 @@
 import {Action} from '@ngrx/store';
-
-import * as _ from 'lodash';
 import {AcademicSessionActions} from './academic-session.action';
 import {AcademicSession} from '../../../../shared/model/account/academic-session.interface';
 

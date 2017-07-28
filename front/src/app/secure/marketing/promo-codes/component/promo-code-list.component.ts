@@ -1,6 +1,10 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, AfterViewInit} from '@angular/core';
-import { TdDataTableSortingOrder, TdDataTableService, ITdDataTableSortChangeEvent } from '@covalent/core';
-import { IPageChangeEvent } from '@covalent/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {
+  IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
+} from '@covalent/core';
 import {PromoCode} from '../../../../shared/model/marketing/promo-code.interface';
 
 @Component({
@@ -28,7 +32,8 @@ export class PromoCodeListComponent implements AfterViewInit {
   sortBy: string = 'referenceNo';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-  constructor(private _dataTableService: TdDataTableService) {}
+  constructor(private _dataTableService: TdDataTableService) {
+  }
 
   ngAfterViewInit(): void {
     this.filteredData = this.promoCodes;

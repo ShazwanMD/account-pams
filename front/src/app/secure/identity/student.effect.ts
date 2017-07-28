@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
+import {Actions, Effect} from '@ngrx/effects';
 import {IdentityService} from '../../../services/identity.service';
 import {StudentActions} from './student.action';
 
@@ -24,6 +24,6 @@ export class StudentEffects {
   @Effect() updateStudent$ = this.actions$
     .ofType(StudentActions.UPDATE_STUDENT)
     .map((action) => action.payload);
-    // .switchMap(account => this.identityService.updateStudent(account))
-    // .map(account => this.accountActions.updateStudentSuccess(account));
+  // .switchMap(account => this.identityService.updateStudent(account))
+  // .map(account => this.accountActions.updateStudentSuccess(account));
 }

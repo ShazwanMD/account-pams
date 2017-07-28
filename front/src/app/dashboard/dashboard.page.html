@@ -1,21 +1,21 @@
 <td-layout-nav toolbarTitle="Dashboard">
   <div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
-	<div flex-gt-sm="40">
+    <div flex-gt-sm="40">
       <md-card>
-          <pams-assigned-task-list
-            [tasks]="assignedTasks$ | async"
-            (view)="viewAssignedTask($event)">
-          </pams-assigned-task-list>
+        <pams-assigned-task-list
+          [tasks]="assignedTasks$ | async"
+          (view)="viewAssignedTask($event)">
+        </pams-assigned-task-list>
         <md-divider></md-divider>
       </md-card>
     </div>
     <div flex-gt-sm="40">
       <md-card>
-          <pams-pooled-task-list
-            [tasks]="pooledTasks$ | async"
-            (view)="viewPooledTask($event)"
-            (claim)="claimTask($event)">
-          </pams-pooled-task-list>
+        <pams-pooled-task-list
+          [tasks]="pooledTasks$ | async"
+          (view)="viewPooledTask($event)"
+          (claim)="claimTask($event)">
+        </pams-pooled-task-list>
         <md-divider></md-divider>
       </md-card>
     </div>

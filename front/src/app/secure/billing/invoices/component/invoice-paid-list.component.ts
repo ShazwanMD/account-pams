@@ -1,5 +1,5 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {MdDialogRef, MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewContainerRef} from '@angular/core';
+import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
 import {Invoice} from '../../../../shared/model/billing/invoice.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {InvoiceApplicatorDialog} from '../../receipts/dialog/invoice-applicator.dialog';

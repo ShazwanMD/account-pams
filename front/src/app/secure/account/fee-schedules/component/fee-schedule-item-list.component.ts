@@ -1,5 +1,5 @@
-import {Component, ViewContainerRef, OnInit, Input} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {FeeScheduleActions} from '../fee-schedule.action';
 import {FeeScheduleItemEditorDialog} from '../dialog/fee-schedule-item-editor.dialog';

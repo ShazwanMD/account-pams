@@ -1,15 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  state,
-  ViewContainerRef,
-  Input,
-  EventEmitter,
-  Output,
-} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {Component, EventEmitter, Input, OnInit, Output, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {AccountActions} from './account.action';
@@ -71,7 +62,7 @@ export class AccountCenterPage implements OnInit {
   }
 
   ngOnInit(): void {
-  this.store.dispatch(this.actions.findAccountsByActor());
-  this.store.dispatch(this.actions.findAccountsByActorSponsor());
+    this.store.dispatch(this.actions.findAccountsByActor());
+    this.store.dispatch(this.actions.findAccountsByActorSponsor());
   }
 }

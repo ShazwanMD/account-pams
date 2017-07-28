@@ -6,21 +6,21 @@
         [placeholder]="'Select Account'"
         [innerFormControl]="createForm.controls['account']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-account-select>
-		</div>
-		<div>
+    </div>
+    <div>
       <pams-academic-session-select
         [placeholder]="'Select Session'"
         [innerFormControl]="createForm.controls['academicSession']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-academic-session-select>
-      </div>
-		<div>
+    </div>
+    <div>
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #description
                placeholder="Description"
                formControlName="description"/>
       </md-input-container>
-      </div>
-		<div>
+    </div>
+    <div>
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput type="date"
                placeholder="Date of Invoice"

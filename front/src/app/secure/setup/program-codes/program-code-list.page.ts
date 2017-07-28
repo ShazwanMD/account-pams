@@ -1,7 +1,7 @@
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
-import { ProgramCodeCreatorDialog } from './dialog/program-code-creator.dialog';
-import { ProgramCode } from '../../../shared/model/common/program-code.interface';
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {ProgramCodeCreatorDialog} from './dialog/program-code-creator.dialog';
+import {ProgramCode} from '../../../shared/model/common/program-code.interface';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 import {SetupModuleState} from '../index';
@@ -26,11 +26,11 @@ export class ProgramCodeListPage implements OnInit {
   constructor(private actions: SetupActions,
               private store: Store<SetupModuleState>,
               private vcf: ViewContainerRef,
-              private dialog: MdDialog){
+              private dialog: MdDialog) {
     this.programCodes$ = this.store.select(...this.PROGRAM_CODES);
   }
 
-    showDialog(): void {
+  showDialog(): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;

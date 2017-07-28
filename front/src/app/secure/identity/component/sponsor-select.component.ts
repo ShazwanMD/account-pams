@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
-import {ActorActions} from '../actor.action';
 import {IdentityModuleState} from '../index';
 import {SponsorActions} from '../sponsor.action';
 import {Actor} from '../../../shared/model/identity/actor.interface';

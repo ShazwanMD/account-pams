@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
 import {AccountModuleState} from '../../index';

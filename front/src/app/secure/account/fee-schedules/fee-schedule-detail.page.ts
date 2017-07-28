@@ -1,12 +1,11 @@
-import {Component, OnInit, ChangeDetectionStrategy, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {FeeScheduleActions} from './fee-schedule.action';
 import {AccountModuleState} from '../index';
-import {FeeScheduleItemEditorDialog} from './dialog/fee-schedule-item-editor.dialog';
-import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {FeeSchedule} from '../../../shared/model/account/fee-schedule.interface';
 import {FeeScheduleItem} from '../../../shared/model/account/fee-schedule-item.interface';
 

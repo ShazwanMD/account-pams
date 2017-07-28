@@ -319,6 +319,7 @@ export class CreditNoteActions {
       payload: message,
     };
   }
+
   static DELETE_CREDIT_NOTE_ITEM = '[CreditNote] Delete CreditNote Item';
 
   deleteCreditNoteItem(creditNote, item): Action {

@@ -1,7 +1,7 @@
-import { FacultyCode } from '../../../shared/model/common/faculty-code.interface';
-import { FacultyCodeCreatorDialog } from './dialog/faculty-code-creator.dialog';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
+import {FacultyCode} from '../../../shared/model/common/faculty-code.interface';
+import {FacultyCodeCreatorDialog} from './dialog/faculty-code-creator.dialog';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 import {SetupModuleState} from '../index';
@@ -25,11 +25,11 @@ export class FacultyCodeListPage implements OnInit {
   constructor(private actions: SetupActions,
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
-              private store: Store<SetupModuleState>){
+              private store: Store<SetupModuleState>) {
     this.facultyCodes$ = this.store.select(...this.FACULTY_CODES);
   }
 
-    showDialog(): void {
+  showDialog(): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;

@@ -1,9 +1,9 @@
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FinancialaidModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {WaiverApplicationCreatorDialog} from './dialog/waiver-application-creator.dialog';
 import {WaiverApplicationActions} from './waiver-application.action';
 import {WaiverApplicationTask} from '../../../shared/model/financialaid/waiver-application-task.interface';

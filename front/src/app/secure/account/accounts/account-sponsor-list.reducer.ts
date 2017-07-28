@@ -8,10 +8,10 @@ const initialState: AccountSponsorListState = <Account[]>[];
 
 export function accountSponsorListReducer(state = initialState, action: Action): AccountSponsorListState {
   switch (action.type) {
-  case AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS: {
+    case AccountActions.FIND_ACCOUNTS_BY_ACTOR_SPONSOR_SUCCESS: {
       return action.payload;
     }
-  default: {
+    default: {
       return state;
     }
   }

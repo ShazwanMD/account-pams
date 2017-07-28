@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, Input, ViewContainerRef} from '@angular/core';
-import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {BillingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
-import { CreditNote } from '../../../../shared/model/billing/credit-note.interface';
-import { CreditNoteActions } from '../credit-note.action';
+import {CreditNote} from '../../../../shared/model/billing/credit-note.interface';
+import {CreditNoteActions} from '../credit-note.action';
 @Component({
   selector: 'pams-credit-note-action',
   templateUrl: './credit-note-action.component.html',

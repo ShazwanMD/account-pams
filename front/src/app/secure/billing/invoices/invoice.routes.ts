@@ -1,4 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
+import {Routes} from '@angular/router';
 import {InvoiceCenterPage} from './invoice-center.page';
 import {InvoiceTaskDetailPage} from './invoice-task-detail.page';
 import {InvoiceDetailPage} from './invoice-detail.page';

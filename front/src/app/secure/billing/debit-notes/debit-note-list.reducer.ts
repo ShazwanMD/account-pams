@@ -11,7 +11,7 @@ export function archivedDebitNoteListReducer(state = initialState, action: Actio
     case DebitNoteActions.FIND_ARCHIVED_DEBIT_NOTES_SUCCESS: {
       return action.payload;
     }
-      case DebitNoteActions.FIND_DEBIT_NOTES_BY_INVOICE_SUCCESS: {
+    case DebitNoteActions.FIND_DEBIT_NOTES_BY_INVOICE_SUCCESS: {
       return action.payload;
     }
 

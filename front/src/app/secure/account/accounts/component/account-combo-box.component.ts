@@ -1,5 +1,5 @@
-import {Component, Input, EventEmitter, Output, ChangeDetectionStrategy, forwardRef, Provider} from '@angular/core';
-import {FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Component, forwardRef} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AccountService} from '../../../../../services/account.service';
 import {Account} from '../../../../shared/model/account/account.interface';
 

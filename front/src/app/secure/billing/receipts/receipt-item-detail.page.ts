@@ -1,14 +1,14 @@
-import {Component, OnInit, ViewContainerRef, Input, Output, EventEmitter} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
-import {MdDialogRef, MdDialog, MdDialogConfig} from '@angular/material';
-import { Invoice } from '../../../shared/model/billing/invoice.interface';
-import { InvoiceItem } from '../../../shared/model/billing/invoice-item.interface';
-import { InvoiceActions } from '../invoices/invoice.action';
-import { PromoCodeApplicatorDialog } from './dialog/promo-code-applicator.dialog';
-import { Receipt } from '../../../shared/model/billing/receipt.interface';
+import {MdDialog, MdDialogConfig} from '@angular/material';
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
+import {InvoiceItem} from '../../../shared/model/billing/invoice-item.interface';
+import {InvoiceActions} from '../invoices/invoice.action';
+import {PromoCodeApplicatorDialog} from './dialog/promo-code-applicator.dialog';
+import {Receipt} from '../../../shared/model/billing/receipt.interface';
 
 @Component({
   selector: 'pams-receipt-item-detail',
@@ -42,15 +42,15 @@ export class ReceiptItemDetailPage implements OnInit {
   }
 
   applyPromoCode() {
-      let config = new MdDialogConfig();
-      config.viewContainerRef = this.viewContainerRef;
-      config.role = 'dialog';
-      config.width = '70%';
-      config.height = '60%';
-      config.position = {top: '0px'};
-      let editorDialogRef = this.dialog.open(PromoCodeApplicatorDialog, config);
-      //editorDialogRef.componentInstance.receipt = this.receipt;
-    }
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.viewContainerRef;
+    config.role = 'dialog';
+    config.width = '70%';
+    config.height = '60%';
+    config.position = {top: '0px'};
+    let editorDialogRef = this.dialog.open(PromoCodeApplicatorDialog, config);
+    //editorDialogRef.componentInstance.receipt = this.receipt;
+  }
 
   goBack(): void {
     this.router.navigate(['/secure/billing/invoices']);

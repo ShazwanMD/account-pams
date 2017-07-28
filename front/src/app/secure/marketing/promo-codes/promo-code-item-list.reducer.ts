@@ -1,6 +1,4 @@
 import {Action} from '@ngrx/store';
-
-import * as _ from 'lodash';
 import {PromoCodeActions} from './promo-code.action';
 import {PromoCodeItem} from '../../../shared/model/marketing/promo-code-item.interface';
 

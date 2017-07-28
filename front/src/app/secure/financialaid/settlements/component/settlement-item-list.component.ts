@@ -1,5 +1,5 @@
-import {Component, ViewContainerRef, OnInit, Input} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Settlement} from '../../../../shared/model/financialaid/settlement.interface';
 import {SettlementActions} from '../settlement.action';
@@ -13,7 +13,7 @@ import {Store} from '@ngrx/store';
   templateUrl: './settlement-item-list.component.html',
 })
 
-export class SettlementItemListComponent implements OnInit{
+export class SettlementItemListComponent implements OnInit {
 
   private editorDialogRef: MdDialogRef<SettlementItemDialog>;
   private selectedRows: SettlementItem[];
@@ -43,17 +43,17 @@ export class SettlementItemListComponent implements OnInit{
   }
 
   create(): void {
-      this.showDialog(null);
-    }
+    this.showDialog(null);
+  }
 
-    edit(settlementItem: SettlementItem): void {
-      this.showDialog(settlementItem);
-    }
+  edit(settlementItem: SettlementItem): void {
+    this.showDialog(settlementItem);
+  }
 
-    remove(settlementItem: SettlementItem): void {
-        this.store.dispatch(this.actions.deleteSettlementItem(this.settlement, settlementItem));
-        this.selectedRows = [];
-    }
+  remove(settlementItem: SettlementItem): void {
+    this.store.dispatch(this.actions.deleteSettlementItem(this.settlement, settlementItem));
+    this.selectedRows = [];
+  }
 
   filter(): void {
   }
@@ -75,7 +75,7 @@ export class SettlementItemListComponent implements OnInit{
     this.editorDialogRef.componentInstance.settlement = this.settlement;
     this.editorDialogRef.componentInstance.settlementItem = settlementItem;
     this.editorDialogRef.afterClosed().subscribe((res) => {
-        this.selectedRows = [];
+      this.selectedRows = [];
     });
   }
 }

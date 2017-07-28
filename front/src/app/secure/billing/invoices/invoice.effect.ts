@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
+import {Actions, Effect} from '@ngrx/effects';
 import {InvoiceActions} from './invoice.action';
 import {from} from 'rxjs/observable/from';
 import {BillingService} from '../../../../services/billing.service';
@@ -122,10 +122,10 @@ export class InvoiceEffects {
     ));
 
   @Effect() cancelInvoice$ = this.actions$
-  .ofType(InvoiceActions.CANCEL_INVOICE)
-  .map((action) => action.payload)
-  .switchMap((invoice) => this.billingService.cancelInvoice(invoice))
-  .map((invoice) => this.invoiceActions.cancelInvoiceSuccess(invoice));
+    .ofType(InvoiceActions.CANCEL_INVOICE)
+    .map((action) => action.payload)
+    .switchMap((invoice) => this.billingService.cancelInvoice(invoice))
+    .map((invoice) => this.invoiceActions.cancelInvoiceSuccess(invoice));
 //  .withLatestFrom(this.store$.select(...this.INVOICE))
 //  .map(state => state[1])
 //  .map(invoice => this.invoiceActions.findInvoiceByReferenceNo(invoice));

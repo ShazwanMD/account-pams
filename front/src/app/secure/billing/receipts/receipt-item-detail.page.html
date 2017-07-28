@@ -24,34 +24,34 @@
               </md-list>
             </div>
             <div layout="column" flex>
-            <md-list dense>
-              <md-list-item>
-                <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{(invoice$|async)?.issuedDate | date: 'dd-MMM-yyyy'}}</h4>
-                <p md-line>Date</p>
-              </md-list-item>
-            </md-list>
-          </div>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(invoice$|async)?.issuedDate | date: 'dd-MMM-yyyy'}}</h4>
+                  <p md-line>Date</p>
+                </md-list-item>
+              </md-list>
+            </div>
           </div>
           <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
-          <div layout="column" flex>
-            <md-list dense>
-              <md-list-item>
-                <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{(invoice$|async)?.account?.name}}</h4>
-                <p md-line>Student Name</p>
-              </md-list-item>
-            </md-list>
-          </div>
-          <div layout="column" flex>
-            <md-list dense>
-              <md-list-item>
-                <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{(invoice$|async)?.account?.code}}</h4>
-                <p md-line>Account</p>
-              </md-list-item>
-            </md-list>
-          </div>
+            <div layout="column" flex>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(invoice$|async)?.account?.name}}</h4>
+                  <p md-line>Student Name</p>
+                </md-list-item>
+              </md-list>
+            </div>
+            <div layout="column" flex>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(invoice$|async)?.account?.code}}</h4>
+                  <p md-line>Account</p>
+                </md-list-item>
+              </md-list>
+            </div>
           </div>
           <md-card-actions>
 
@@ -64,18 +64,18 @@
           [invoiceItems]="invoiceItems$ | async">
         </pams-invoice-item-paid-list>
 
-      <md-card>
-        <md-card-title>Action</md-card-title>
-        <md-card-subtitle>Actions available on current receipt</md-card-subtitle>
-        <md-divider></md-divider>
-        <md-nav-list dense>
-          <md-list-item (click)="applyPromoCode()">
-            <md-icon md-list-avatar>build</md-icon>
-            <h4 md-line>Promo Code</h4>
-            <p md-line>Apply promo code</p>
-          </md-list-item>
-        </md-nav-list>
-      </md-card>
+        <md-card>
+          <md-card-title>Action</md-card-title>
+          <md-card-subtitle>Actions available on current receipt</md-card-subtitle>
+          <md-divider></md-divider>
+          <md-nav-list dense>
+            <md-list-item (click)="applyPromoCode()">
+              <md-icon md-list-avatar>build</md-icon>
+              <h4 md-line>Promo Code</h4>
+              <p md-line>Apply promo code</p>
+            </md-list-item>
+          </md-nav-list>
+        </md-card>
       </div>
     </div>
   </div>

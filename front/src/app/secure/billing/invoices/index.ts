@@ -1,13 +1,11 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../../app.routes';
-import {environment} from '../../../../environments/environment';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService} from '../../../../services';
-import {IdentityService} from '../../../../services';
+import {CommonService, IdentityService} from '../../../../services';
 import {BillingService} from '../../../../services/billing.service';
 import {InvoiceEffects} from './invoice.effect';
 import {EffectsModule} from '@ngrx/effects';
@@ -37,10 +35,10 @@ import {InvoiceActionComponent} from './component/invoice-action.component';
 import {CreditNoteSubModule} from '../credit-notes/index';
 import {DebitNoteSubModule} from '../debit-notes/index';
 import {PipeModule} from '../../../app.pipe.module';
-import { InvoiceUnpaidListComponent } from './component/invoice-unpaid-list.component';
-import { InvoiceItemPaidListComponent } from './component/invoice-item-paid-list.component';
-import { ReceiptItemDetailPage } from '../receipts/receipt-item-detail.page';
-import {InvoicePaidListComponent} from "./component/invoice-paid-list.component";
+import {InvoiceUnpaidListComponent} from './component/invoice-unpaid-list.component';
+import {InvoiceItemPaidListComponent} from './component/invoice-item-paid-list.component';
+import {ReceiptItemDetailPage} from '../receipts/receipt-item-detail.page';
+import {InvoicePaidListComponent} from './component/invoice-paid-list.component';
 
 @NgModule({
   imports: [

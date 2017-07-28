@@ -75,8 +75,8 @@ export class ChargeCodeActions {
   static UPDATE_CHARGE_CODE_SUCCESS = '[ChargeCode] Update ChargeCode Success';
 
   updateChargeCodeSuccess(message): Action {
-      console.log('updateChargeCodeSuccess');
-      return {
+    console.log('updateChargeCodeSuccess');
+    return {
       type: ChargeCodeActions.UPDATE_CHARGE_CODE_SUCCESS,
       payload: message,
     };

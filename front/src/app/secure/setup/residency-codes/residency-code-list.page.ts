@@ -1,25 +1,16 @@
-import {
-  Component,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-  OnInit,
-  AfterViewInit,
-  ViewContainerRef,
-} from '@angular/core';
-import { ResidencyCode } from '../../../shared/model/common/residency-code.interface';
-import {MdDialogConfig, MdDialogRef, MdDialog} from '@angular/material';
+import {ChangeDetectionStrategy, Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ResidencyCode} from '../../../shared/model/common/residency-code.interface';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {SetupActions} from '../setup.action';
 import {SetupModuleState} from '../index';
 import {Observable} from 'rxjs/Observable';
-import { ResidencyCodeEditorDialog } from './dialog/residency-code-editor.dialog';
+import {ResidencyCodeEditorDialog} from './dialog/residency-code-editor.dialog';
 import {
-  TdDataTableService,
-  TdDataTableSortingOrder,
-  ITdDataTableSortChangeEvent,
   IPageChangeEvent,
+  ITdDataTableSortChangeEvent,
+  TdDataTableService,
+  TdDataTableSortingOrder
 } from '@covalent/core';
 
 @Component({
@@ -54,27 +45,27 @@ export class ResidencyCodeListPage implements OnInit {
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
               private store: Store<SetupModuleState>,
-              private _dataTableService: TdDataTableService){
+              private _dataTableService: TdDataTableService) {
     this.residencyCodes$ = this.store.select(...this.RESIDENCY_CODES);
     this.residencyCodes$.subscribe((ResidencyCodes) => this.residencyCodes = ResidencyCodes);
   }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.store.dispatch(this.actions.findResidencyCodes());
     this.store.dispatch(this.actions.changeTitle('Residency Codes'));
   }
 
-   createDialog(): void {
-     this.showDialog(null);
-   }
+  createDialog(): void {
+    this.showDialog(null);
+  }
 
-   editDialog(code: ResidencyCode): void {
-     this.showDialog(code);
-   }
+  editDialog(code: ResidencyCode): void {
+    this.showDialog(code);
+  }
 
-   delete(code: ResidencyCode): void {
-     this.store.dispatch(this.actions.removeResidencyCode(code));
-   }
+  delete(code: ResidencyCode): void {
+    this.store.dispatch(this.actions.removeResidencyCode(code));
+  }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
@@ -82,7 +73,7 @@ export class ResidencyCodeListPage implements OnInit {
     this.filter();
   }
 
-   search(searchTerm: string): void {
+  search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.filter();
   }
@@ -104,19 +95,19 @@ export class ResidencyCodeListPage implements OnInit {
     this.filteredData = newData;
   }
 
-   private showDialog(code: ResidencyCode): void {
-     console.log('create');
-     let config = new MdDialogConfig();
-     config.viewContainerRef = this.vcf;
-     config.role = 'dialog';
-     config.width = '70%';
-     config.height = '65%';
-     config.position = {top: '0px'};
-     this.creatorDialogRef = this.dialog.open(ResidencyCodeEditorDialog, config);
-     if (code) this.creatorDialogRef.componentInstance.residencyCode = code; // set
-     this.creatorDialogRef.afterClosed().subscribe((res) => {
-       console.log('close dialog');
-     });
-   }
+  private showDialog(code: ResidencyCode): void {
+    console.log('create');
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '70%';
+    config.height = '65%';
+    config.position = {top: '0px'};
+    this.creatorDialogRef = this.dialog.open(ResidencyCodeEditorDialog, config);
+    if (code) this.creatorDialogRef.componentInstance.residencyCode = code; // set
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
+    });
+  }
 
 }

@@ -3,18 +3,18 @@
   <form [formGroup]="createForm">
     <div layout="row" class="pad-bottom pad-top">
       <pams-faculty-code-select fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px"
-        [placeholder]="'Select Faculty'"
-        [innerFormControl]="createForm.controls['facultyCode']">
+                                [placeholder]="'Select Faculty'"
+                                [innerFormControl]="createForm.controls['facultyCode']">
       </pams-faculty-code-select>
     </div>
     <div layout="row" class="pad-bottom pad-top">
       <pams-academic-session-select fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px"
-        [placeholder]="'Select Academic Session'"
-        [innerFormControl]="createForm.controls['academicSession']">
+                                    [placeholder]="'Select Academic Session'"
+                                    [innerFormControl]="createForm.controls['academicSession']">
       </pams-academic-session-select>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-input-container  flex>
+      <md-input-container flex>
         <input mdInput #description
                placeholder="description"
                formControlName="description"
@@ -22,13 +22,13 @@
                flex/>
       </md-input-container>
     </div>
-      <div layout="row" class="pad-bottom">
+    <div layout="row" class="pad-bottom">
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput type="date"
                placeholder="Date of Invoice"
                formControlName="issuedDate"
                flex/>
-      </md-input-container> 
+      </md-input-container>
     </div>
   </form>
 </md-dialog-content>

@@ -1,5 +1,5 @@
-import {Component, OnInit, ChangeDetectionStrategy, state, ViewContainerRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -53,7 +53,8 @@ export class PromoCodeCenterPage implements OnInit {
     });
   }
 
-  filter(): void {}
+  filter(): void {
+  }
 
   ngOnInit(): void {
     console.log('find promoCodes');

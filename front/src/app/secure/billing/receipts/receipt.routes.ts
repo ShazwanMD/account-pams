@@ -1,4 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
+import {Routes} from '@angular/router';
 import {ReceiptCenterPage} from './receipt-center.page';
 import {ReceiptTaskViewPage} from './receipt-task-view.page';
 import {ReceiptItemDetailPage} from './receipt-item-detail.page';

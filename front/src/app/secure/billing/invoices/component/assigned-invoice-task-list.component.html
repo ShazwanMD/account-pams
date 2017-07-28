@@ -18,7 +18,7 @@
   <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['totalAmount'] | currency:'MYR':true:'1.2-2'}}</div>
   </template>
-    <template tdDataTableTemplate="flowState" let-value="value" let-row="row" let-column="column">
+  <template tdDataTableTemplate="flowState" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['flowState'] | flowStatePipe }}</div>
   </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
@@ -26,9 +26,8 @@
       <a md-button color="accent" class="text-upper" (click)="viewTask(row)">
         <span>View</span>
       </a>
-       </div>
+    </div>
   </template>
-
 
 
 </td-data-table>
