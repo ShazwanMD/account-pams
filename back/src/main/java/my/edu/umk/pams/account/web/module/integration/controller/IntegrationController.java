@@ -76,12 +76,14 @@ public class IntegrationController {
 
     @RequestMapping(value = "/cohortCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveCohortCode(@RequestBody CohortCodePayload payload) {
+        LOG.info("incoming cohort code");
         SecurityContext ctx = loginAsSystem();
 
         AcCohortCode cohortCode = new AcCohortCodeImpl();
         cohortCode.setCode(payload.getCode());
         cohortCode.setDescription(payload.getDescription());
         cohortCode.setProgramCode(commonService.findProgramCodeByCode(payload.getProgramCode().getCode()));
+        commonService.saveCohortCode(cohortCode);
 
         logoutAsSystem(ctx);
         return new ResponseEntity<String>("success", HttpStatus.OK);
@@ -89,6 +91,7 @@ public class IntegrationController {
 
     @RequestMapping(value = "/programCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveProgramCode(@RequestBody ProgramCodePayload payload) {
+        LOG.info("incoming program code");
         SecurityContext ctx = loginAsSystem();
 
         AcProgramCode programCode = new AcProgramCodeImpl();
@@ -103,11 +106,13 @@ public class IntegrationController {
 
     @RequestMapping(value = "/facultyCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveFacultyCode(@RequestBody FacultyCodePayload payload) {
+        LOG.info("incoming faculty code");
         SecurityContext ctx = loginAsSystem();
 
         AcFacultyCode facultyCode = new AcFacultyCodeImpl();
         facultyCode.setCode(payload.getCode());
         facultyCode.setDescription(payload.getDescription());
+        commonService.saveFacultyCode(facultyCode);
 
         logoutAsSystem(ctx);
         return new ResponseEntity<String>("success", HttpStatus.OK);
@@ -119,6 +124,7 @@ public class IntegrationController {
 
     @RequestMapping(value = "/admissions", method = RequestMethod.POST)
     public ResponseEntity<String> saveAdmission(@RequestBody AdmissionPayload payload) {
+        LOG.info("incoming admission");
         SecurityContext ctx = loginAsSystem();
 
         // this is admission
