@@ -15,6 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import my.edu.umk.pams.account.AccountConstants;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
@@ -22,9 +35,12 @@ import my.edu.umk.pams.account.common.model.AcFacultyCodeImpl;
 import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.common.model.AcProgramCodeImpl;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.security.integration.NonSerializableSecurityContext;
+import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.connector.payload.AdmissionPayload;
 import my.edu.umk.pams.connector.payload.CohortCodePayload;
 import my.edu.umk.pams.connector.payload.FacultyCodePayload;
 import my.edu.umk.pams.connector.payload.ProgramCodePayload;
@@ -43,12 +59,20 @@ public class IntegrationController {
     private CommonService commonService;
 
     @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private BillingService billingService;
+
+    @Autowired
     private IdentityService identityService;
+
+    @Autowired
+    private SystemService systemService;
 
     // ====================================================================================================
     // CODES
     // ====================================================================================================
-
 
     @RequestMapping(value = "/cohortCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveCohortCode(@RequestBody CohortCodePayload payload) {
@@ -88,6 +112,43 @@ public class IntegrationController {
         logoutAsSystem(ctx);
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
+
+    // ====================================================================================================
+    // ADMISSION & ENROLLMENT
+    // ====================================================================================================
+
+    @RequestMapping(value = "/admissions", method = RequestMethod.POST)
+    public ResponseEntity<String> saveAdmission(@RequestBody AdmissionPayload payload) {
+        SecurityContext ctx = loginAsSystem();
+
+        // this is admission
+        AcAcademicSession academicSession = accountService.findAcademicSessionByCode(payload.getAcademicSession().getCode());
+        AcStudent student = identityService.findStudentByMatricNo(payload.getStudent().getMatricNo());
+        AcAccount account = accountService.findAccountByActor(student);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("academicSession", accountService.findCurrentAcademicSession());
+        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO,map);
+        AcAccountCharge charge = new AcAccountChargeImpl();
+        charge.setChargeType(AcAccountChargeType.ADMISSION);
+        charge.setAccount(account);
+        charge.setSession(academicSession);
+        charge.setChargeDate(new Date());
+        charge.setReferenceNo(referenceNo);
+        charge.setSourceNo("SN"); // todo:
+        charge.setDescription("DESCRIPTION"); // todo:
+        charge.setAmount(BigDecimal.ZERO); // todo
+        charge.setOrdinal(payload.getOrdinal());
+        if (null != payload.getCohortCode())
+            charge.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode().getCode()));
+        if (null != payload.getStudyMode())
+            charge.setStudyMode(commonService.findStudyModeByCode(payload.getStudyMode().getCode()));
+        accountService.addAccountCharge(account, charge);
+
+        logoutAsSystem(ctx);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
+
 
     private SecurityContext loginAsSystem() {
         SecurityContext savedCtx = SecurityContextHolder.getContext();
