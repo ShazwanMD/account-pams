@@ -64,13 +64,14 @@ public class IntegrationController {
     }
 
     @RequestMapping(value = "/programCodes", method = RequestMethod.POST)
-    public ResponseEntity<String> saveProgramCode(ProgramCodePayload payload) {
+    public ResponseEntity<String> saveProgramCode(@RequestBody ProgramCodePayload payload) {
         SecurityContext ctx = loginAsSystem();
 
         AcProgramCode programCode = new AcProgramCodeImpl();
         programCode.setCode(payload.getCode());
         programCode.setDescription(payload.getDescription());
         programCode.setFacultyCode(commonService.findFacultyCodeByCode(payload.getFacultyCode().getCode()));
+        commonService.saveProgramCode(programCode);
 
         logoutAsSystem(ctx);
         return new ResponseEntity<String>("success", HttpStatus.OK);
