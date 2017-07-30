@@ -31,4 +31,8 @@ public interface AcChargeCode extends AcMetaObject{
 
 	void setInclusive(Boolean inclusive);
 
+	Boolean getActive();
+
+	void setActive(Boolean active);
+
 }
