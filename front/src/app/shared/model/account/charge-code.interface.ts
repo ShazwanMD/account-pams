@@ -6,4 +6,5 @@ export interface ChargeCode extends MetaObject {
   priority: number;
   taxCode?: TaxCode;
   inclusive: boolean;
+  active: boolean;
 }

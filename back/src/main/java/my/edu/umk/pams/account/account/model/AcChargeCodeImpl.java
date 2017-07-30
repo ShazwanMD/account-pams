@@ -43,6 +43,9 @@ public class AcChargeCodeImpl implements AcChargeCode {
     @Column(name = "INCLUSIVE")
     private Boolean inclusive;
     
+    @Column(name = "ACTIVE")
+    private Boolean active;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -115,6 +118,16 @@ public class AcChargeCodeImpl implements AcChargeCode {
     @Override
     public void setInclusive(Boolean inclusive) {
 		this.inclusive = inclusive;
+	}
+
+    @Override
+    public Boolean getActive() {
+		return active;
+	}
+
+    @Override
+    public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@Override

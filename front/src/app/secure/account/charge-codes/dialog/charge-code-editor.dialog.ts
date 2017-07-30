@@ -40,6 +40,8 @@ export class ChargeCodeEditorDialog implements OnInit {
       description: '',
       priority: 0,
       taxCode: <TaxCode>{},
+      inclusive: false,
+      active: false,
     });
 
     if (this.edit) this.editorForm.patchValue(this._chargeCode);

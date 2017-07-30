@@ -19,6 +19,7 @@ public class ChargeCode extends MetaObject{
     private Integer priority;
     private TaxCode taxCode;
     private Boolean inclusive;
+    private Boolean active;
 
     public Long getId() {
         return id;
@@ -66,6 +67,14 @@ public class ChargeCode extends MetaObject{
 
 	public void setInclusive(Boolean inclusive) {
 		this.inclusive = inclusive;
+	}
+	
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@JsonCreator

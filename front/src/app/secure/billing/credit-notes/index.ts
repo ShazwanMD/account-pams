@@ -21,7 +21,7 @@ import {CreditNoteVerifyTaskPanel} from './panel/credit-note-verify-task.panel';
 import {CreditNoteTaskWorkflowPanel} from './panel/credit-note-task-workflow.panel';
 import {CreditNoteRegisterTaskPanel} from './panel/credit-note-register-task.panel';
 import {CreditNoteDetailPage} from './credit-note-detail.page';
-import {CreditNoteItemListComponent} from './component/credit-note-item-list.component';
+//import {CreditNoteItemListComponent} from './component/credit-note-item-list.component';
 import {CreditNoteStatusComponent} from './component/credit-note-status.component';
 import {CreditNoteItemEditorDialog} from './dialog/credit-note-item-editor.dialog';
 import {ChargeCodeSubModule} from '../../account/charge-codes/index';
@@ -51,7 +51,7 @@ import {CreditNoteActionComponent} from './component/credit-note-action.componen
     PooledCreditNoteTaskListComponent,
     ArchivedCreditNoteListComponent,
     CreditNoteStatusComponent,
-    CreditNoteItemListComponent,
+    // CreditNoteItemListComponent,
     CreditNoteDraftTaskPanel,
     CreditNoteRegisterTaskPanel,
     CreditNoteVerifyTaskPanel,
@@ -70,7 +70,7 @@ import {CreditNoteActionComponent} from './component/credit-note-action.componen
     CreditNoteRegisterTaskPanel,
     CreditNoteItemEditorDialog,
     CreditNoteStatusComponent,
-    CreditNoteItemListComponent,
+    // CreditNoteItemListComponent,
     CreditNoteActionComponent,
 
   ],
