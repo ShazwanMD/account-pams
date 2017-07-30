@@ -1,3 +1,4 @@
+import { ChargeCodeEditorDialog } from './dialog/charge-code-editor.dialog';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
@@ -5,7 +6,6 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {ChargeCodeActions} from './charge-code.action';
 import {AccountModuleState} from '../index';
-import {ChargeCodeCreatorDialog} from './dialog/charge-code-creator.dialog';
 import {ChargeCode} from '../../../shared/model/account/charge-code.interface';
 
 @Component({
@@ -17,7 +17,7 @@ export class ChargeCodeCenterPage implements OnInit {
 
   private CHARGE_CODES: string[] = 'accountModuleState.chargeCodes'.split('.');
   private chargeCodes$: Observable<ChargeCode[]>;
-  private creatorDialogRef: MdDialogRef<ChargeCodeCreatorDialog>;
+  private creatorDialogRef: MdDialogRef<ChargeCodeEditorDialog>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -40,7 +40,7 @@ export class ChargeCodeCenterPage implements OnInit {
     config.width = '50%';
     config.height = '60%';
     config.position = {top: '0px'};
-    this.creatorDialogRef = this.dialog.open(ChargeCodeCreatorDialog, config);
+    this.creatorDialogRef = this.dialog.open(ChargeCodeEditorDialog, config);
   }
 
   filter(): void {
