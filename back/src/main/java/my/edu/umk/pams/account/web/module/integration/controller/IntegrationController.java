@@ -26,6 +26,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
@@ -36,11 +37,14 @@ import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.common.model.AcProgramCodeImpl;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.model.AcStudentImpl;
+import my.edu.umk.pams.account.identity.model.AcStudentStatus;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.security.integration.NonSerializableSecurityContext;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.connector.payload.AdmissionPayload;
+import my.edu.umk.pams.connector.payload.CandidatePayload;
 import my.edu.umk.pams.connector.payload.CohortCodePayload;
 import my.edu.umk.pams.connector.payload.FacultyCodePayload;
 import my.edu.umk.pams.connector.payload.ProgramCodePayload;
@@ -93,6 +97,8 @@ public class IntegrationController {
     public ResponseEntity<String> saveProgramCode(@RequestBody ProgramCodePayload payload) {
         LOG.info("incoming program code");
         SecurityContext ctx = loginAsSystem();
+
+        // check, validate
 
         AcProgramCode programCode = new AcProgramCodeImpl();
         programCode.setCode(payload.getCode());
@@ -154,7 +160,52 @@ public class IntegrationController {
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
+    // ====================================================================================================
+    // CANDIDATE
+    // incoming from intake
+    // ====================================================================================================
+    @RequestMapping(value = "/candidates", method = RequestMethod.POST)
+    public ResponseEntity<String> saveCandidate(@RequestBody CandidatePayload payload) {
+        SecurityContext ctx = loginAsSystem();
 
+        // student info
+        AcStudent student = new AcStudentImpl();
+        student.setMatricNo("TODO");
+        student.setName("TODO");
+        student.setEmail("TODO");
+        student.setFax("TODO");
+        student.setPhone("TODO");
+        student.setMobile("TODO");
+
+         student.setStudentStatus(AcStudentStatus.ACTIVE);
+        // student.setStudyMode();
+        // student.setCohortCode();
+        // student.setResidencyCode();
+        identityService.saveStudent(student);
+
+        // account
+        AcAccount account = new AcAccountImpl();
+        account.setActor(student);
+        account.setBalance(BigDecimal.ZERO);
+        account.setCode(student.getMatricNo());
+        account.setDescription("TODO");
+        accountService.saveAccount(account);
+
+
+        identityService.saveStudent(student);
+
+        // todo: refresh and save address etc
+        // todo: save student sebagai users
+        // todo: set initial password
+        // todo: hantar email notification dan sebagainnya
+
+        logoutAsSystem(ctx);
+        return new ResponseEntity<String>("sucess", HttpStatus.OK);
+    }
+
+    // ====================================================================================================
+    // PRIVATE METHODS
+    // ====================================================================================================
 
     private SecurityContext loginAsSystem() {
         SecurityContext savedCtx = SecurityContextHolder.getContext();
@@ -171,3 +222,4 @@ public class IntegrationController {
     }
 
 }
+
