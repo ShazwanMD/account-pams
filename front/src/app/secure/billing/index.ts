@@ -87,7 +87,7 @@ export interface BillingModuleState {
   archivedCreditNotes: CreditNoteListState;
   creditNote: CreditNoteState;
   creditNoteTask: CreditNoteTaskState;
-  creditNoteItems: CreditNoteItemListState;
+  // creditNoteItems: CreditNoteItemListState;
 }
 ;
 
@@ -120,7 +120,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     archivedCreditNotes: [],
     creditNoteTask: <CreditNoteTask>{},
     creditNote: <CreditNote>{},
-    creditNoteItems: [],
+    // creditNoteItems: [],
   };
 
 export const billingModuleReducers = {
@@ -150,7 +150,7 @@ export const billingModuleReducers = {
   archivedCreditNotes: archivedCreditNoteListReducer,
   creditNoteTask: creditNoteTaskReducer,
   creditNote: creditNoteReducer,
-  creditNoteItems: creditNoteItemListReducer,
+  // creditNoteItems: creditNoteItemListReducer,
 };
 
 @NgModule({
