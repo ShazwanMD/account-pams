@@ -1,3 +1,4 @@
+import { ChargeCodeEditorDialog } from './../dialog/charge-code-editor.dialog';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -5,14 +6,16 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewContainerRef
+  ViewContainerRef,
+  SimpleChange,
+  SimpleChanges,
+  OnChanges
 } from '@angular/core';
 import {ChargeCode} from '../../../../shared/model/account/charge-code.interface';
 import {Store} from '@ngrx/store';
 import {ChargeCodeActions} from '../charge-code.action';
-import {AccountModuleState} from '../../index';
+import {AccountModuleState} from '../../index'; 
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
-import {ChargeCodeEditorDialog} from '../dialog/charge-code-editor.dialog';
 import {Observable} from 'rxjs/Observable';
 import {
   IPageChangeEvent,
@@ -26,11 +29,15 @@ import {
   templateUrl: './charge-code-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChargeCodeListComponent implements AfterViewInit {
+export class ChargeCodeListComponent implements OnChanges {
+
+  @Input() chargeCodes: ChargeCode[];
+  @Output() view: EventEmitter<ChargeCode> = new EventEmitter<ChargeCode>();
 
   private CHARGE_CODES: string[] = 'accountModuleState.chargeCodes'.split('.');
   private chargeCodes$: Observable<ChargeCode[]>;
   private editorDialogRef: MdDialogRef<ChargeCodeEditorDialog>;
+ 
   private columns: any[] = [
     {name: 'code', label: 'Code'},
     {name: 'description', label: 'Description'},
@@ -38,11 +45,9 @@ export class ChargeCodeListComponent implements AfterViewInit {
     {name: 'taxCode.code', label: 'Tax Code'},
     {name: 'taxCode.taxRate', label: 'Tax Rate'},
     {name: 'inclusive', label: 'Inclusive'},
+    {name: 'active', label: 'Active'},
     {name: 'action', label: ''},
   ];
-
-  @Input() chargeCodes: ChargeCode[];
-  @Output() view: EventEmitter<ChargeCode> = new EventEmitter<ChargeCode>();
 
   filteredData: any[];
   filteredTotal: number;
@@ -58,7 +63,16 @@ export class ChargeCodeListComponent implements AfterViewInit {
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
               private _dataTableService: TdDataTableService) {
-    this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
+     this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
+  }
+
+    ngOnChanges(changes: {[ propName: string]: SimpleChange}) {
+    console.log("changes",changes,changes['chargeCodes']);
+      if (changes['chargeCodes']){
+      this.filteredData = changes['chargeCodes'].currentValue; 
+      this.filteredTotal = changes['chargeCodes'].currentValue.length;
+      this.filter();
+    }
   }
 
   ngAfterViewInit(): void {
