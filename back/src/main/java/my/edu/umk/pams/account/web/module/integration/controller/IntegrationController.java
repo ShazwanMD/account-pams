@@ -186,10 +186,8 @@ public class IntegrationController {
 
             AcCohortCode cohort = new AcCohortCodeImpl();
             cohort.setCode(cohortCode);
-//            todo: cohort.setCode(cohortCode);
-//            cohort.setCode(cohortCode);
-//            cohort.setCode(cohortCode);
-//            cohort.setCode(cohortCode);
+            cohort.setDescription(cohortCode);
+            cohort.setProgramCode(commonService.findProgramCodeByCode(offeredProgramCode.getCode()));
             commonService.saveCohortCode(cohort);
         }
         return new ResponseEntity<String>("success", HttpStatus.OK);
