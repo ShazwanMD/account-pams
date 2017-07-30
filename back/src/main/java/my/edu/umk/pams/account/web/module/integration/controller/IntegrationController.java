@@ -39,6 +39,8 @@ import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.model.AcStudentStatus;
+import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.identity.model.AcUserImpl;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.security.integration.NonSerializableSecurityContext;
@@ -191,11 +193,16 @@ public class IntegrationController {
         account.setDescription("TODO");
         accountService.saveAccount(account);
 
-
-        identityService.saveStudent(student);
-
         // todo: refresh and save address etc
         // todo: save student sebagai users
+        AcUser user = new AcUserImpl();
+        user.setUsername(payload.getMatricNo());
+        user.setPassword("abc123");
+        user.setRealName("abc123");
+        user.setLocked(true);
+        user.setEnabled(true);
+        user.setActor(student);
+
         // todo: set initial password
         // todo: hantar email notification dan sebagainnya
 
