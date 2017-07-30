@@ -144,7 +144,7 @@ public class IntegrationController {
         AcAccount account = accountService.findAccountByActor(student);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("academicSession", accountService.findCurrentAcademicSession());
-        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO,map);
+        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO, map);
         AcAccountCharge charge = new AcAccountChargeImpl();
         charge.setChargeType(AcAccountChargeType.ADMISSION);
         charge.setAccount(account);
@@ -180,9 +180,9 @@ public class IntegrationController {
             String cohortCode =
                     offeredProgramCode.getFacultyCode().getCode()
                             //todo(faizal):  + "-" + offeredProgramCode.getProgramLevel ()
-                            + "-" + offeredProgramCode.getCode ()
+                            + "-" + offeredProgramCode.getCode()
                             + "-CHRT"
-                            + "-" + intakeSession.getCode () ;
+                            + "-" + intakeSession.getCode();
 
             AcCohortCode cohort = new AcCohortCodeImpl();
             cohort.setCode(cohortCode);
@@ -192,7 +192,7 @@ public class IntegrationController {
 //            cohort.setCode(cohortCode);
             commonService.saveCohortCode(cohort);
         }
-        return new ResponseEntity<String>("sucess", HttpStatus.OK);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
     // ====================================================================================================
@@ -205,42 +205,38 @@ public class IntegrationController {
 
         // student info
         AcStudent student = new AcStudentImpl();
-        student.setMatricNo("TODO");
-        student.setName("TODO");
-        student.setEmail("TODO");
-        student.setFax("TODO");
-        student.setPhone("TODO");
-        student.setMobile("TODO");
+        student.setMatricNo(payload.getMatricNo());
+        student.setName(payload.getName());
+        student.setEmail(payload.getEmail()); // todo: email university?
+        student.setFax(payload.getFax());
+        student.setPhone(payload.getPhone());
+        student.setMobile(payload.getMobile());
 
-         student.setStudentStatus(AcStudentStatus.ACTIVE);
-        // student.setStudyMode();
-        // student.setCohortCode();
-        // student.setResidencyCode();
+        student.setStudentStatus(AcStudentStatus.ACTIVE);
+        student.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode()));
+        student.setResidencyCode(commonService.findResidencyCodeByCode(payload.getResidencyCode().getCode()));
         identityService.saveStudent(student);
+        AcStudent savedStudent = identityService.findStudentByMatricNo(payload.getMatricNo());
 
         // account
         AcAccount account = new AcAccountImpl();
-        account.setActor(student);
-        account.setBalance(BigDecimal.ZERO);
+        account.setActor(savedStudent);
         account.setCode(student.getMatricNo());
-        account.setDescription("TODO");
+        account.setDescription("ACCOUNT;STUDENT;" + student.getMatricNo());
         accountService.saveAccount(account);
 
-        // todo: refresh and save address etc
-        // todo: save student sebagai users
+        // save user
         AcUser user = new AcUserImpl();
         user.setUsername(payload.getMatricNo());
         user.setPassword("abc123");
-        user.setRealName("abc123");
+        user.setRealName(payload.getName());
         user.setLocked(true);
         user.setEnabled(true);
-        user.setActor(student);
-
-        // todo: set initial password
-        // todo: hantar email notification dan sebagainnya
+        user.setActor(savedStudent);
+        identityService.saveUser(user);
 
         logoutAsSystem(ctx);
-        return new ResponseEntity<String>("sucess", HttpStatus.OK);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
     // ====================================================================================================
