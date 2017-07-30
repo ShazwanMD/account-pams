@@ -346,10 +346,10 @@ public class AccountController {
         accountService.addAccountTransaction(account, transaction);
     }
 
-    @RequestMapping(value = "/accounts/{code}/accountActivities", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountActivity>> findAccountActivities(@PathVariable String code) {
+    @RequestMapping(value = "/accounts/{id}/accountActivities", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountActivity>> findAccountActivities(@PathVariable Long id) {
 
-        AcAccount account = accountService.findAccountByCode(code);
+        AcAccount account = accountService.findAccountById(id);
         return new ResponseEntity<List<AccountActivity>>(
                 accountTransformer.toAccountActivityVos(accountService.findAccountActivities(account)), HttpStatus.OK);
     }
