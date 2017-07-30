@@ -1,11 +1,15 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
+import my.edu.umk.pams.account.account.event.AccountRevisedEvent;
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.event.InvoiceApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.security.service.SecurityService;
+import my.edu.umk.pams.connector.payload.AccountPayload;
+
 import org.activiti.engine.impl.bpmn.behavior.BpmnActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
@@ -56,8 +60,12 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
         // fire event
         applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
 
-        // todo(sahir): trigger AccountRevisedEvent
-        // todo(sahir): send AccountPayload
-
+        AcAccount account = invoice.getAccount();
+        AccountPayload payload = new AccountPayload();
+        payload.setCode(account.getCode());
+        payload.setMatricNo(account.getActor().getIdentityNo());
+        payload.setOutstanding(accountService.hasBalance(account));
+        payload.setBalance(accountService.sumBalanceAmount(account));
+        AccountRevisedEvent event = new AccountRevisedEvent(payload);
     }
 }

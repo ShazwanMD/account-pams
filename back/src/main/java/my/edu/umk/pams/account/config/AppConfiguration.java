@@ -6,6 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.integration.config.EnableIntegration;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -13,7 +15,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableWebSecurity
 @EnableScheduling
+@EnableIntegration
 @EnableBatchProcessing
+@EnableJms
 @EnableTransactionManagement
 @EnableCaching
 @ComponentScan(basePackages = {
@@ -48,7 +52,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         CacheConfig.class,
         SwaggerConfig.class,
         ChargeChainConfig.class,
-//        IntegrationConfig.class,
+        IntegrationConfig.class,
+        JmsConfig.class,
 //        EmailConfig.class,
 //        VelocityConfig.class,
 //        ThreadingConfig.class,

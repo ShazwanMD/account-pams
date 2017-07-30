@@ -1,10 +1,15 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
+import my.edu.umk.pams.account.account.event.AccountRevisedEvent;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.event.ReceiptApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.security.service.SecurityService;
+import my.edu.umk.pams.connector.payload.AccountPayload;
+
 import org.activiti.engine.impl.bpmn.behavior.BpmnActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
@@ -31,6 +36,9 @@ public class ReceiptApproveTask extends BpmnActivityBehavior implements Activity
     private SecurityService securityService;
     
     @Autowired
+    private AccountService accountService;
+
+    @Autowired
     private ApplicationContext applicationContext;
 
     public void execute(ActivityExecution execution) throws Exception {
@@ -52,8 +60,12 @@ public class ReceiptApproveTask extends BpmnActivityBehavior implements Activity
         billingService.post(receipt);
         applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
 
-        // todo(sahir + peja) trigger AccountRevisedEvent
-        // todo(sahir + peja) send AccountPayload
-
+        AcAccount account = receipt.getAccount();
+        AccountPayload payload = new AccountPayload();
+        payload.setCode(account.getCode());
+        payload.setMatricNo(account.getActor().getIdentityNo());
+        payload.setOutstanding(accountService.hasBalance(account));
+        payload.setBalance(accountService.sumBalanceAmount(account));
+        AccountRevisedEvent event = new AccountRevisedEvent(payload);
     }
 }

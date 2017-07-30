@@ -6,7 +6,7 @@
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 export const environment: { production: boolean, endpoint: string, imports: any[] } = {
   production: false,
-  endpoint: 'http://localhost:8080',
+  endpoint: 'http://localhost:8090',
   imports: [
     StoreDevtoolsModule.instrumentOnlyWithExtension({maxAge: 5}),
   ],

@@ -1,34 +1,32 @@
 package my.edu.umk.pams.account.config;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.command.ActiveMQQueue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.http.MediaType;
+import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.support.Function;
-import org.springframework.integration.dsl.support.FunctionExpression;
 import org.springframework.integration.dsl.support.Transformers;
 import org.springframework.integration.event.inbound.ApplicationEventListeningMessageProducer;
-import org.springframework.integration.jms.JmsSendingMessageHandler;
-import org.springframework.integration.json.ObjectToJsonTransformer;
-import org.springframework.integration.support.json.Jackson2JsonObjectMapper;
-import org.springframework.jms.connection.CachingConnectionFactory;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.messaging.support.GenericMessage;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHandler;
 
-import java.util.HashMap;
-import java.util.Map;
+import my.edu.umk.pams.account.account.event.AccountEvent;
 
-import javax.jms.ConnectionFactory;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.integration.json.ObjectToJsonTransformer.ResultType.STRING;
 
-
-//@Configuration
-//@EnableIntegration
+/**
+ * @author PAMS
+ */
+@Configuration
 public class IntegrationConfig {
+
+    private static final Logger LOG = LoggerFactory.getLogger(IntegrationConfig.class);
 
     @Autowired
     private Environment env;
@@ -36,78 +34,30 @@ public class IntegrationConfig {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Bean
-    public ConnectionFactory connectionFactory() {
-        return new ActiveMQConnectionFactory(env.getProperty("broker.url"));
-    }
+    @Autowired
+    private MessageHandler jmsMessageHandler;
 
     @Bean
-    public ConnectionFactory cacheConnectionFactory() {
-        CachingConnectionFactory connFactory = new CachingConnectionFactory();
-        connFactory.setClientId("pams-account");
-        connFactory.setTargetConnectionFactory(connFactory);
-        connFactory.setSessionCacheSize(5);
-        return connFactory;
-    }
-
-    // ==================================================================================================== //
-    // OUTGOING : CANDIDATE
-    // ==================================================================================================== //
-
-    @Bean
-    public JmsTemplate jmsTemplate() {
-        JmsTemplate template = new JmsTemplate();
-        template.setConnectionFactory(connectionFactory());
-        template.setPubSubDomain(true);
-        template.setDeliveryMode(2);
-        template.setSessionAcknowledgeMode(2);
-        template.setExplicitQosEnabled(true);
-        return template;
-    }
-
-    @Bean
-    public ApplicationEventListeningMessageProducer candidateEventAdapter() {
+    public ApplicationEventListeningMessageProducer applicationEventAdapter() {
         ApplicationEventListeningMessageProducer producer = new ApplicationEventListeningMessageProducer();
         producer.setApplicationContext(applicationContext);
-        // todo: producer.setEventTypes();
+        producer.setEventTypes(
+                AccountEvent.class);
         producer.setPayloadExpressionString("payload");
         return producer;
     }
 
     @Bean
-    public JmsSendingMessageHandler jmsAdapter() {
-        JmsSendingMessageHandler handler = new JmsSendingMessageHandler(jmsTemplate());
-        handler.setDestinationExpression(new FunctionExpression<>(new DestinationExpressionFunction()));
-        return handler;
+    public MessageChannel eventChannel() {
+        return new QueueChannel();
     }
 
     @Bean
-    public IntegrationFlow candidateIntegrationFlow() {
-        return IntegrationFlows.from(candidateEventAdapter())
-                .transform(Transformers.toJson(
-                        new Jackson2JsonObjectMapper(),
-                        ObjectToJsonTransformer.ResultType.STRING,
-                        MediaType.APPLICATION_JSON_VALUE))
-                .handle(jmsAdapter())
+    public IntegrationFlow integrationFlow() {
+        return IntegrationFlows.from(applicationEventAdapter())
+                .transform(Transformers.toJson(STRING, APPLICATION_JSON_VALUE))
+                .handle((payload, headers) -> payload)
+                .handle(jmsMessageHandler)
                 .get();
     }
-
-
-    private class DestinationExpressionFunction implements Function<GenericMessage, Object> {
-
-        private final Map<String, ActiveMQQueue> queueMap;
-
-        public DestinationExpressionFunction() {
-            queueMap = new HashMap<>();
-            // queue mapping
-            // queueMap.put(CohortPayload.class.getName(), new ActiveMQQueue("cohortQueue"));
-        }
-
-        @Override
-        public Object apply(GenericMessage message) {
-            Object objectType = message.getHeaders().get("json__TypeId__");
-            return queueMap.get(((Class) objectType).getName());
-        }
-    }
-
 }

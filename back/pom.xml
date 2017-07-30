@@ -461,7 +461,10 @@
     </dependencyManagement>
 
     <repositories>
-
+        <repository>
+            <id>CanangPublicRepo</id>
+            <url>http://canang.com.my/maven/</url>
+        </repository>
         <repository>
             <id>repo.spring.io.milestone</id>
             <name>Spring Framework Maven Milestone Repository</name>
@@ -483,10 +486,6 @@
         <repository>
             <id>JasperPublicRepo</id>
             <url>http://jaspersoft.artifactoryonline.com/jaspersoft/jaspersoft-repo</url>
-        </repository>
-        <repository>
-            <id>CanangPublicRepo</id>
-            <url>http://canang.com.my/maven/</url>
         </repository>
         <repository>
             <id>Liferay</id>
