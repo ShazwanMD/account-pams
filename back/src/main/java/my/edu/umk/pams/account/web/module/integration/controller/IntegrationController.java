@@ -179,7 +179,7 @@ public class IntegrationController {
 
             String cohortCode =
                     offeredProgramCode.getFacultyCode().getCode()
-                            //todo(faizal):  + "-" + offeredProgramCode.getProgramLevel ()
+                            + "-" + offeredProgramCode.getProgramLevel().getCode()
                             + "-" + offeredProgramCode.getCode()
                             + "-CHRT"
                             + "-" + intakeSession.getCode();
