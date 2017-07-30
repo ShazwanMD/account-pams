@@ -365,6 +365,24 @@ export class AccountActions {
     };
   }
 
+  static REVISE_ACCOUNT = '[Account] Revise Account';
+
+  reviseAccount(account): Action {
+    return {
+      type: AccountActions.REVISE_ACCOUNT,
+      payload: account
+    };
+  }
+
+  static REVISE_ACCOUNT_SUCCESS = '[Account] Revise Account Success';
+
+  reviseAccountSuccess(account): Action {
+    return {
+      type: AccountActions.REVISE_ACCOUNT_SUCCESS,
+      payload: account
+    };
+  }
+
   static ADD_ACCOUNT_CHARGE = '[Account] Add AccountCharge ';
 
   addAccountCharge(account, charge): Action {

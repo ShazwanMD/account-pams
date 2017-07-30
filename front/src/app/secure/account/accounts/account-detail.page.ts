@@ -76,6 +76,5 @@ export class AccountDetailPage implements OnInit {
       console.log('close dialog');
     });
   }
-
 }
 

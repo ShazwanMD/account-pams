@@ -37,21 +37,7 @@
 
       <div flex-gt-md="30">
         <pams-account-status [account]="account$ | async"></pams-account-status>
-
-        <md-card>
-          <md-card-title>Action</md-card-title>
-          <md-card-subtitle>Actions available on current account</md-card-subtitle>
-          <md-divider></md-divider>
-
-          <md-nav-list flex dense>
-            <md-list-item [routerLink]="['/accounts', account?.code]">
-              <md-icon md-list-avatar>gavel</md-icon>
-              <h4 md-line>Deactivate</h4>
-              <p md-line>Deactivate this account</p>
-            </md-list-item>
-            <md-divider></md-divider>
-          </md-nav-list>
-        </md-card>
+        <pams-account-action [account]="account$ | async"></pams-account-action>
       </div>
     </div>
   </div>

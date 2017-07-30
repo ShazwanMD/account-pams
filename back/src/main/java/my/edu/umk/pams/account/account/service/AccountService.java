@@ -168,6 +168,7 @@ public interface AccountService {
 
     void deleteAccountTransaction(AcAccount acAccount, AcAccountTransaction transaction);
 
+    void reviseAccount(AcAccount acAccount);
     // business
     // activate
     // deactivate

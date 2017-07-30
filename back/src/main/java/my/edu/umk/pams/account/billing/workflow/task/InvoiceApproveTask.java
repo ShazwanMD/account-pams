@@ -67,5 +67,6 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
         payload.setOutstanding(accountService.hasBalance(account));
         payload.setBalance(accountService.sumBalanceAmount(account));
         AccountRevisedEvent event = new AccountRevisedEvent(payload);
+        applicationContext.publishEvent(event);
     }
 }

@@ -255,6 +255,11 @@ export class AccountService {
       .flatMap((data) => Observable.of(true));
   }
 
+  reviseAccount(account: Account): Observable<String> {
+    return this._http.post(this.ACCOUNT_API + '/accounts/' + account.code + '/revise', JSON.stringify(account))
+      .flatMap((res) => Observable.of(res.text()));
+  }
+
   addAccountWaiver(account: Account, waiver: AccountWaiver): Observable<String> {
     return this._http.post(this.ACCOUNT_API + '/accounts/' + account.code + '/accountWaivers', JSON.stringify(waiver))
       .flatMap((res: Response) => Observable.of(res.text()));

@@ -363,6 +363,13 @@ public class AccountController {
                 accountTransformer.toAccountActivityVos(accountService.findAccountActivities(accountService.findCurrentAcademicSession(), account)), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/accounts/{code}/revise", method = RequestMethod.POST)
+    public ResponseEntity<String> reviseAccount(@PathVariable String code, @RequestBody Account vo) {
+        AcAccount account = accountService.findAccountById(vo.getId());
+        accountService.reviseAccount(account);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
     // ====================================================================================================
     // ACCOUNT CHARGE
     // ====================================================================================================

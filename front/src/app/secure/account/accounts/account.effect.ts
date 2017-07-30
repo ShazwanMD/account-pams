@@ -118,6 +118,12 @@ export class AccountEffects {
     .switchMap((account) => this.accountService.updateAccount(account))
     .map((account) => this.accountActions.updateAccountSuccess(account));
 
+  @Effect() reviseAccount$ = this.actions$
+    .ofType(AccountActions.REVISE_ACCOUNT)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.reviseAccount(account))
+    .map((account) => this.accountActions.reviseAccountSuccess(account));
+
   @Effect() addAccountCharge$ = this.actions$
     .ofType(AccountActions.ADD_ACCOUNT_CHARGE)
     .map((action) => action.payload)

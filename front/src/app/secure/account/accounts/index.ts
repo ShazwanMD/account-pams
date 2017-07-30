@@ -37,6 +37,7 @@ import {AcademicSessionSubModule} from '../academic-sessions/index';
 import {AccountSponsorListComponent} from './component/account-sponsor-list.component';
 import {InvoiceItemDialog} from './dialog/invoice-item.dialog';
 import {InvoiceItemListAccountComponent} from './component/invoice-item-component-list.component';
+import {AccountActionComponent} from './component/account-action.component';
 
 @NgModule({
   imports: [
@@ -46,7 +47,6 @@ import {InvoiceItemListAccountComponent} from './component/invoice-item-componen
     CovalentCoreModule.forRoot(),
     IdentityModule.forRoot(),
     CommonModule.forRoot(),
-    //InvoiceSubModule.forRoot(),
     AcademicSessionSubModule.forRoot(),
     EffectsModule.run(AccountEffects),
   ],
@@ -56,6 +56,7 @@ import {InvoiceItemListAccountComponent} from './component/invoice-item-componen
     AccountDetailPage,
 
     // component
+    AccountActionComponent,
     AccountListComponent,
     AccountComponent,
     AccountStatusComponent,

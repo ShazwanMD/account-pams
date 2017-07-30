@@ -16,11 +16,9 @@ import {TdDialogService} from '@covalent/core';
 })
 export class InvoiceActionComponent {
 
-  @Input() invoice: Invoice;
-
-
   private debitCreatorDialogRef: MdDialogRef<DebitNoteCreatorDialog>;
   private creditCreatorDialogRef: MdDialogRef<CreditNoteCreatorDialog>;
+  @Input() invoice: Invoice;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -32,7 +30,7 @@ export class InvoiceActionComponent {
   }
 
   showDialog(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -41,14 +39,14 @@ export class InvoiceActionComponent {
     config.position = {top: '0px'};
     this.debitCreatorDialogRef = this.dialog.open(DebitNoteCreatorDialog, config);
     this.debitCreatorDialogRef.componentInstance.invoice = this.invoice;
-    this.debitCreatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.debitCreatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
 
   showDialog1(): void {
-    console.log("showDialog");
+    console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
@@ -57,8 +55,8 @@ export class InvoiceActionComponent {
     config.position = {top: '0px'};
     this.creditCreatorDialogRef = this.dialog.open(CreditNoteCreatorDialog, config);
     this.creditCreatorDialogRef.componentInstance.invoice = this.invoice;
-    this.creditCreatorDialogRef.afterClosed().subscribe(res => {
-      console.log("close dialog");
+    this.creditCreatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
       // load something here
     });
   }
