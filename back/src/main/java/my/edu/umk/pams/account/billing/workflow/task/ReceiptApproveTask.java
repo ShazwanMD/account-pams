@@ -51,5 +51,9 @@ public class ReceiptApproveTask extends BpmnActivityBehavior implements Activity
         billingService.updateReceipt(receipt);
         billingService.post(receipt);
         applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
+
+        // todo(sahir + peja) trigger AccountRevisedEvent
+        // todo(sahir + peja) send AccountPayload
+
     }
 }
