@@ -228,8 +228,8 @@ export class AccountService {
   }
 
   findAccountActivities(account: Account): Observable<AccountActivity[]> {
-    console.log('findAccountActivities :' + account.code);
-    return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/accountActivities')
+    console.log('findAccountActivities :' + account.id);
+    return this._http.get(this.ACCOUNT_API + '/accounts/' + account.id + '/accountActivities')
       .map((res: Response) => <AccountActivity[]>res.json());
   }
 
