@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import my.edu.umk.pams.account.AccountConstants;
@@ -49,6 +50,8 @@ import my.edu.umk.pams.connector.payload.AdmissionPayload;
 import my.edu.umk.pams.connector.payload.CandidatePayload;
 import my.edu.umk.pams.connector.payload.CohortCodePayload;
 import my.edu.umk.pams.connector.payload.FacultyCodePayload;
+import my.edu.umk.pams.connector.payload.IntakePayload;
+import my.edu.umk.pams.connector.payload.IntakeSessionCodePayload;
 import my.edu.umk.pams.connector.payload.ProgramCodePayload;
 
 @Transactional
@@ -160,6 +163,36 @@ public class IntegrationController {
 
         logoutAsSystem(ctx);
         return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
+    // ====================================================================================================
+    // COHORT
+    // ====================================================================================================
+    @RequestMapping(value = "/intakes", method = RequestMethod.POST)
+    public ResponseEntity<String> ingestIntake(@RequestBody IntakePayload payload) {
+        SecurityContext ctx = loginAsSystem();
+
+        IntakeSessionCodePayload intakeSession = payload.getIntakeSession();
+        List<ProgramCodePayload> offeredProgramCodes = payload.getOfferedProgramCodes();
+
+        for (ProgramCodePayload offeredProgramCode : offeredProgramCodes) {
+
+            String cohortCode =
+                    offeredProgramCode.getFacultyCode().getCode()
+                            //todo(faizal):  + "-" + offeredProgramCode.getProgramLevel ()
+                            + "-" + offeredProgramCode.getCode ()
+                            + "-CHRT"
+                            + "-" + intakeSession.getCode () ;
+
+            AcCohortCode cohort = new AcCohortCodeImpl();
+            cohort.setCode(cohortCode);
+//            todo: cohort.setCode(cohortCode);
+//            cohort.setCode(cohortCode);
+//            cohort.setCode(cohortCode);
+//            cohort.setCode(cohortCode);
+            commonService.saveCohortCode(cohort);
+        }
+        return new ResponseEntity<String>("sucess", HttpStatus.OK);
     }
 
     // ====================================================================================================
