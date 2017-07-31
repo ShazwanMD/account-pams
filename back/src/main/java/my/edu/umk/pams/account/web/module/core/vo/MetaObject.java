@@ -15,6 +15,11 @@ public abstract class MetaObject {
     private Date modifiedDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm a")
     private Date deletedDate;
+    
+    
+    // transient
+	private String creatorUsername;
+	private String modifierUsername;
 
     private MetaState metaState;
 
@@ -57,4 +62,21 @@ public abstract class MetaObject {
     public void setMetaState(MetaState metaState) {
         this.metaState = metaState;
     }
+
+	public String getCreatorUsername() {
+		return creatorUsername;
+	}
+
+	public void setCreatorUsername(String creatorUsername) {
+		this.creatorUsername = creatorUsername;
+	}
+
+	public String getModifierUsername() {
+		return modifierUsername;
+	}
+
+	public void setModifierUsername(String modifierUsername) {
+		this.modifierUsername = modifierUsername;
+	}
+    
 }
