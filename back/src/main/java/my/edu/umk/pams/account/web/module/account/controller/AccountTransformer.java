@@ -167,7 +167,7 @@ public class AccountTransformer {
         return m;
     }
     
-    public AccountActivityHolder toAccountActivityVo(AccountActivityHolder e) {
+    public AccountActivityHolder toAccountActivityVo(AcAccountActivityHolder e) {
         if (null == e) return null;
         AccountActivityHolder m = new AccountActivityHolder();
 
@@ -213,7 +213,7 @@ public class AccountTransformer {
                 .collect(toCollection(() -> new ArrayList<AcademicSession>()));
     }
     
-    public List<AccountActivityHolder> toAccountActivityVos(List<AccountActivityHolder> accountActivities) {
+    public List<AccountActivityHolder> toAccountActivityVos(List<AcAccountActivityHolder> accountActivities) {
         return accountActivities.stream()
                 .map((accountTx) -> toAccountActivityVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountActivityHolder>()));
