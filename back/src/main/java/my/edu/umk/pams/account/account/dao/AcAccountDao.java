@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.web.module.account.vo.AccountActivityHolder;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -40,9 +41,9 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 
     List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount account, Integer offset, Integer limit);
 
-    List<AcAccountActivity> findAccountActivities(AcAccount account);
+    List<AcAccountActivityHolder> findAccountActivities(AcAccount account);
 
-    List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
 
     // ====================================================================================================
     // HELPER

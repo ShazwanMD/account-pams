@@ -28,7 +28,7 @@ import my.edu.umk.pams.account.account.dao.AcFeeScheduleDao;
 import my.edu.umk.pams.account.account.event.AccountRevisedEvent;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountActivity;
+import my.edu.umk.pams.account.account.model.AcAccountActivityHolder;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountTransaction;
@@ -45,6 +45,7 @@ import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.security.service.SecurityService;
+import my.edu.umk.pams.account.web.module.account.vo.AccountActivityHolder;
 import my.edu.umk.pams.connector.payload.AccountPayload;
 
 /**
@@ -486,12 +487,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AcAccountActivity> findAccountActivities(AcAccount account) {
+    public List<AcAccountActivityHolder> findAccountActivities(AcAccount account) {
         return accountDao.findAccountActivities(account);
     }
 
     @Override
-    public List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
+    public List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
         return accountDao.findAccountActivities(academicSession, account);
     }
 

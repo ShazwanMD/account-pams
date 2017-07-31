@@ -348,20 +348,20 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/accounts/{id}/accountActivities", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountActivity>> findAccountActivities(@PathVariable Long id) {
+    public ResponseEntity<List<AccountActivityHolder>> findAccountActivities(@PathVariable Long id) {
 
         AcAccount account = accountService.findAccountById(id);
-        return new ResponseEntity<List<AccountActivity>>(
+        return new ResponseEntity<List<AccountActivityHolder>>(
                 accountTransformer.toAccountActivityVos(accountService.findAccountActivities(account)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/{code}/academicSessions", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountActivity>> findAccountActivitiesByAcademicSession(@PathVariable String code) {
-
-        AcAccount account = accountService.findAccountByCode(code);
-        return new ResponseEntity<List<AccountActivity>>(
-                accountTransformer.toAccountActivityVos(accountService.findAccountActivities(accountService.findCurrentAcademicSession(), account)), HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/accounts/{code}/academicSessions", method = RequestMethod.GET)
+//    public ResponseEntity<List<AccountActivityHolder>> findAccountActivitiesByAcademicSession(@PathVariable String code) {
+//
+//        AcAccount account = accountService.findAccountByCode(code);
+//        return new ResponseEntity<List<AccountActivityHolder>>(
+//                accountTransformer.toAccountActivityVos(accountService.findAccountActivities(accountService.findCurrentAcademicSession(), account)), HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/accounts/{code}/revise", method = RequestMethod.POST)
     public ResponseEntity<String> reviseAccount(@PathVariable String code, @RequestBody Account vo) {

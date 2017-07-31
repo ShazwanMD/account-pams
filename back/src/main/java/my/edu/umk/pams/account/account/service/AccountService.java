@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
+import my.edu.umk.pams.account.web.module.account.vo.AccountActivityHolder;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -148,9 +149,9 @@ public interface AccountService {
 
     List<AcAccountTransaction> findAccountTransactions(String filter, AcAccount account, Integer offset, Integer limit);
 
-    List<AcAccountActivity> findAccountActivities(AcAccount account);
+    List<AcAccountActivityHolder> findAccountActivities(AcAccount account);
 
-    List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
 
     Integer countAccountTransaction(AcAccount account);
 

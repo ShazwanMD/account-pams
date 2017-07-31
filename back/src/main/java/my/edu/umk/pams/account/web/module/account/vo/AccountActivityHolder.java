@@ -6,25 +6,11 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import my.edu.umk.pams.account.account.model.AcAccountTransactionCode;
+public class AccountActivityHolder {
 
-public class AccountActivity {
-
-	    private Long id;
 	    private String sourceNo;
 	    private AccountTransactionCode transactionCode;
 	    private BigDecimal totalAmount;
-
-	    //transient
-	    private Integer transactionCodeOrdinal;
-
-	    public Long getId() {
-	        return id;
-	    }
-
-	    public void setId(Long id) {
-	        this.id = id;
-	    }
 
 	    public String getSourceNo() {
 	        return sourceNo;
@@ -42,14 +28,6 @@ public class AccountActivity {
 	        this.transactionCode = transactionCode;
 	    }
 
-	    public Integer getTransactionCodeOrdinal() {
-	        return transactionCodeOrdinal;
-	    }
-
-	    public void setTransactionCodeOrdinal(Integer transactionCodeOrdinal) {
-	        this.transactionCodeOrdinal = transactionCodeOrdinal;
-	    }
-
 	    public BigDecimal getTotalAmount() {
 	        return totalAmount;
 	    }
@@ -59,11 +37,11 @@ public class AccountActivity {
 	    }
 	    
 	    @JsonCreator
-	    public static AccountActivity create(String jsonString) {
-	        AccountActivity o = null;
+	    public static AccountActivityHolder create(String jsonString) {
+	        AccountActivityHolder o = null;
 	        try {
 	            ObjectMapper mapper = new ObjectMapper();
-	            o = mapper.readValue(jsonString, AccountActivity.class);
+	            o = mapper.readValue(jsonString, AccountActivityHolder.class);
 	        } catch (IOException e) {
 	            // handle
 	        }

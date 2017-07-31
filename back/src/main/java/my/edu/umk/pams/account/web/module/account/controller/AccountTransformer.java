@@ -167,14 +167,13 @@ public class AccountTransformer {
         return m;
     }
     
-    public AccountActivity toAccountActivityVo(AcAccountActivity e) {
+    public AccountActivityHolder toAccountActivityVo(AcAccountActivityHolder e) {
         if (null == e) return null;
-        AccountActivity m = new AccountActivity();
-        m.setId(e.getId());
+        AccountActivityHolder m = new AccountActivityHolder();
+
         m.setSourceNo(e.getSourceNo());
         m.setTotalAmount(e.getTotalAmount());
         m.setTransactionCode(AccountTransactionCode.get(e.getTransactionCode().ordinal()));
-        m.setTransactionCodeOrdinal(e.getTransactionCodeOrdinal());
         return m;
     }
 
@@ -214,10 +213,10 @@ public class AccountTransformer {
                 .collect(toCollection(() -> new ArrayList<AcademicSession>()));
     }
     
-    public List<AccountActivity> toAccountActivityVos(List<AcAccountActivity> accountActivities) {
+    public List<AccountActivityHolder> toAccountActivityVos(List<AcAccountActivityHolder> accountActivities) {
         return accountActivities.stream()
                 .map((accountTx) -> toAccountActivityVo(accountTx))
-                .collect(toCollection(() -> new ArrayList<AccountActivity>()));
+                .collect(toCollection(() -> new ArrayList<AccountActivityHolder>()));
     }
 
 
