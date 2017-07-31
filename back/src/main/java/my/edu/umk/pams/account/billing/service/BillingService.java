@@ -217,6 +217,8 @@ public interface BillingService {
     Integer countCreditNote(AcInvoice invoice);
 
     boolean hasCreditNote(AcInvoice invoice);
+    
+    void post(AcCreditNote creditNote);
 
     // ==================================================================================================== //
     // RECEIPT
