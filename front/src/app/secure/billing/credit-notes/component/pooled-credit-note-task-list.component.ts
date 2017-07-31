@@ -48,7 +48,7 @@ export class PooledCreditNoteTaskListComponent {
 
   claimTask(task: CreditNoteTask): void {
     console.log('Emitting task');
-    let snackBarRef = this.snackBar.open('Claiming invoice', 'OK');
+    let snackBarRef = this.snackBar.open('Claiming credit note', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.claim.emit(task);
     });
