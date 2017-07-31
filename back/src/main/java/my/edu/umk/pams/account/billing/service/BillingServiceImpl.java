@@ -587,18 +587,15 @@ public class BillingServiceImpl implements BillingService {
 
     @Override
     public void post(AcDebitNote debitNote) {
-        List<AcDebitNoteItem> items = findDebitNoteItems(debitNote);
-        for (AcDebitNoteItem item : items) {
-            AcAccountTransaction tx = new AcAccountTransactionImpl();
+           AcAccountTransaction tx = new AcAccountTransactionImpl();
             tx.setSession(debitNote.getInvoice().getSession());
-            tx.setChargeCode(item.getChargeCode());
+            tx.setChargeCode(debitNote.getChargeCode());
             tx.setPostedDate(new Date());
             tx.setSourceNo(debitNote.getReferenceNo());
             tx.setTransactionCode(AcAccountTransactionCode.DEBIT_NOTE);
             tx.setAccount(debitNote.getInvoice().getAccount());
-            tx.setAmount(item.getAmount());
+            tx.setAmount(debitNote.getTotalAmount());
             accountService.addAccountTransaction(debitNote.getInvoice().getAccount(), tx);
-        }
     }
 
     @Override
@@ -721,6 +718,19 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public boolean hasCreditNote(AcInvoice invoice) {
         return creditNoteDao.hasCreditNote(invoice);
+    }
+    
+    @Override
+    public void post(AcCreditNote creditNote) {
+           AcAccountTransaction tx = new AcAccountTransactionImpl();
+            tx.setSession(creditNote.getInvoice().getSession());
+            tx.setChargeCode(creditNote.getChargeCode());
+            tx.setPostedDate(new Date());
+            tx.setSourceNo(creditNote.getReferenceNo());
+            tx.setTransactionCode(AcAccountTransactionCode.DEBIT_NOTE);
+            tx.setAccount(creditNote.getInvoice().getAccount());
+            tx.setAmount(creditNote.getTotalAmount());
+            accountService.addAccountTransaction(creditNote.getInvoice().getAccount(), tx);
     }
 
     @Override
