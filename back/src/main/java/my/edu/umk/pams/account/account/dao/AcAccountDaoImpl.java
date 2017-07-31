@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.web.module.account.vo.AccountActivityHolder;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
@@ -126,6 +127,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         query.setEntity("account", account);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return (List<AcAccountTransaction>) query.list();
+
     }
 
     @Override
@@ -170,11 +172,11 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
-    public List<AcAccountActivity> findAccountActivities(AcAccount account) {
+    public List<AcAccountActivityHolder> findAccountActivities(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
                 "  SOURCE_NO as sourceNo, \n" +
-                "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
+                "  TRANSACTION_CODE as transactionCode, \n" +
                 "  SUM(AMOUNT) as totalAmount \n" +
                 "FROM AC_ACCT_TRSN\n" +
                 "INNER JOIN AC_ACCT ON AC_ACCT.ID = AC_ACCT_TRSN.ACCOUNT_ID\n" +
@@ -184,24 +186,24 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
                 "  TRANSACTION_CODE");
         sqlQuery.setLong("id", account.getId());
         sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
-        sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
+        sqlQuery.addScalar("transactionCode", StandardBasicTypes.INTEGER);
         sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
-        sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityImpl.class));
-        List<AcAccountActivity> results = sqlQuery.list();
+        sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityHolder.class));
+        List<AcAccountActivityHolder> results = sqlQuery.list();
         // unpack id
-        for (AcAccountActivity holder : results) {
-            holder.setTransactionCode(AcAccountTransactionCode.get(holder.getTransactionCodeOrdinal()));
+        for (AcAccountActivityHolder holder : results) {
+            holder.setTransactionCode((AcAccountTransactionCode) session.load(AcAccountTransactionCode.class, holder.getTransactionCode()));
         }
         return results;
     }
 
     @Override
-    public List<AcAccountActivity> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
+    public List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
         // todo(hajar): tambah academicSession code in query
         Session session = sessionFactory.getCurrentSession();
         SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
                 "  SOURCE_NO as sourceNo, \n" +
-                "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
+                "  TRANSACTION_CODE as transactionCode, \n" +
                 "  SUM(AMOUNT) as totalAmount \n" +
                 "FROM AC_ACCT_TRSN\n" +
                 "INNER JOIN AC_ACDM_SESN ON AC_ACCT_TRSN.SESSION_ID = AC_ACDM_SESN.ID\n" +
@@ -209,14 +211,15 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
                 "  SOURCE_NO, \n" +
                 "  TRANSACTION_CODE");
         sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
-        sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
+        sqlQuery.addScalar("transactionCode", StandardBasicTypes.INTEGER);
         sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
         sqlQuery.addScalar("academicSession", StandardBasicTypes.STRING);
-        sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityImpl.class));
-        List<AcAccountActivity> results = sqlQuery.list();
+        sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityHolder.class));
+        List<AcAccountActivityHolder> results = sqlQuery.list();
         // unpack id
-        for (AcAccountActivity holder : results) {
-            holder.setTransactionCode(AcAccountTransactionCode.get(holder.getTransactionCodeOrdinal()));
+        for (AcAccountActivityHolder holder : results) {
+            //holder.setTransactionCode(AcAccountTransactionCode.get(holder.getTransactionCodeOrdinal()));
+            //holder.setSourceNo((AcAccountTransaction) session.load(AcAccountTransactionImpl.class, holder.getSourceNo()));
         }
         return results;
     }
