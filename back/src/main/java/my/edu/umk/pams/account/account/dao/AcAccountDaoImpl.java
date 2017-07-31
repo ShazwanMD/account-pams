@@ -176,7 +176,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Session session = sessionFactory.getCurrentSession();
         SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
                 "  SOURCE_NO as sourceNo, \n" +
-                "  TRANSACTION_CODE as transactionCode, \n" +
+                "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
                 "  SUM(AMOUNT) as totalAmount \n" +
                 "FROM AC_ACCT_TRSN\n" +
                 "INNER JOIN AC_ACCT ON AC_ACCT.ID = AC_ACCT_TRSN.ACCOUNT_ID\n" +
@@ -186,13 +186,13 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
                 "  TRANSACTION_CODE");
         sqlQuery.setLong("id", account.getId());
         sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
-        sqlQuery.addScalar("transactionCode", StandardBasicTypes.INTEGER);
+        sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
         sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
         sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityHolder.class));
         List<AcAccountActivityHolder> results = sqlQuery.list();
         // unpack id
         for (AcAccountActivityHolder holder : results) {
-            holder.setTransactionCode((AcAccountTransactionCode) session.load(AcAccountTransactionCode.class, holder.getTransactionCode()));
+            holder.setTransactionCode(AcAccountTransactionCode.get(holder.getTransactionCodeOrdinal()));
         }
         return results;
     }
