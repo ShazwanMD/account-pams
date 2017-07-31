@@ -8,7 +8,16 @@ public class AcAccountActivityHolder {
 	private String sourceNo;
     private AcAccountTransactionCode transactionCode;
     private BigDecimal totalAmount;
+    private Integer transactionCodeOrdinal;
 
+    public Integer getTransactionCodeOrdinal() {
+    	return transactionCodeOrdinal;
+    }
+    
+    public void setTransactionCodeOrdinal(Integer ordinal){
+    	this.transactionCodeOrdinal = ordinal;
+    }
+    
     public String getSourceNo() {
         return sourceNo;
     }
