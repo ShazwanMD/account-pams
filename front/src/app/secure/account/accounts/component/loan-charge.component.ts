@@ -23,6 +23,7 @@ export class LoanChargeComponent implements OnInit {
     {name: 'studyMode.code', label: 'Study Mode'},
     {name: 'cohortCode.code', label: 'Cohort Code'},
     {name: 'invoiced', label: 'Invoiced'},
+    {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
   ];
 

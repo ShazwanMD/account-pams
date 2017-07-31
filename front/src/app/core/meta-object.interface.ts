@@ -4,4 +4,6 @@ export interface MetaObject {
   metaState?: MetaState;
   createdDate?: Date;
   modifiedDate?: Date;
+  creatorUsername?: string;
+  modifierUsername?: string;
 }

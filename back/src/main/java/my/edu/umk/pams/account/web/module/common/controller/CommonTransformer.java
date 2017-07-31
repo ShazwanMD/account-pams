@@ -2,10 +2,13 @@ package my.edu.umk.pams.account.web.module.common.controller;
 
 import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.core.AcMetaObject;
+import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.web.module.common.vo.*;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +20,9 @@ import java.util.stream.Collectors;
 @Component("commonTransformer")
 public class CommonTransformer {
 
+	@Autowired
+	private IdentityService identityService;
+	
     //====================================================================================================
     // COHORT CODE
     //====================================================================================================
@@ -166,5 +172,11 @@ public class CommonTransformer {
         vo.setMetaState(MetaState.get(metaObject.getMetadata().getState().ordinal()));
         vo.setCreatedDate(metaObject.getMetadata().getCreatedDate());
         vo.setDeletedDate(metaObject.getMetadata().getDeletedDate());
+        
+       
+        AcUser userCreator = identityService.findUserById(metaObject.getMetadata().getCreatorId());
+        System.out.println(userCreator.getRealName());
+        vo.setCreatorUsername(userCreator.getRealName()); 
+        vo.setModifierUsername(userCreator.getRealName());     
     }
 }
