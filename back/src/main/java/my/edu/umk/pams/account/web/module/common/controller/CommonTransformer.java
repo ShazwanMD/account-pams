@@ -1,7 +1,11 @@
 package my.edu.umk.pams.account.web.module.common.controller;
 
 import my.edu.umk.pams.account.common.model.*;
+import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.web.module.common.vo.*;
+import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
+import my.edu.umk.pams.account.web.module.core.vo.MetaState;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -158,4 +162,9 @@ public class CommonTransformer {
         return vos;
     }
 
+    public void decorateMeta(AcMetaObject metaObject, MetaObject vo){
+        vo.setMetaState(MetaState.get(metaObject.getMetadata().getState().ordinal()));
+        vo.setCreatedDate(metaObject.getMetadata().getCreatedDate());
+        vo.setDeletedDate(metaObject.getMetadata().getDeletedDate());
+    }
 }

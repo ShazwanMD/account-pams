@@ -80,6 +80,7 @@ public class AccountTransformer {
         m.setId(e.getId());
         m.setCode(e.getCode());
         m.setDescription(e.getDescription());
+        commonTransformer.decorateMeta(e,m);
         return m;
     }
 
@@ -93,6 +94,7 @@ public class AccountTransformer {
         m.setBalance(e.getBalance());
         m.setEffectiveBalance(e.getEffectiveBalance());
         m.setActor(identityTransformer.toActorVo(e.getActor()));
+        commonTransformer.decorateMeta(e,m);
         return m;
     }
 
@@ -105,6 +107,7 @@ public class AccountTransformer {
         m.setChargeCode(toChargeCodeVo(e.getChargeCode()));
         m.setAccount(toAccountVo(e.getAccount()));
         m.setSession(toAcademicSessionVo(e.getSession()));
+        commonTransformer.decorateMeta(e,m);
         return m;
     }
 
@@ -141,6 +144,7 @@ public class AccountTransformer {
         m.setOrdinal(e.getOrdinal());
         //m.setCode(e.getCohortCode());
         m.setInvoiced(null != e.getInvoice());
+        commonTransformer.decorateMeta(e,m);
         return m;
     }
 
