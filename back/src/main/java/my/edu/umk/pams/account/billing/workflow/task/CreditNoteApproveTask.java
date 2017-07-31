@@ -38,5 +38,7 @@ public class CreditNoteApproveTask extends BpmnActivityBehavior
         creditNote.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
         creditNote.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateCreditNote(creditNote);
+        
+        billingService.post(creditNote);
     }
 }
