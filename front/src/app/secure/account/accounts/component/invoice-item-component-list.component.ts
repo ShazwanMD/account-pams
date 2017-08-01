@@ -10,10 +10,8 @@ import {AccountActivity} from '../../../../shared/model/account/account-activity
 })
 export class InvoiceItemListAccountComponent implements OnInit {
 
-  @Input() invoice: Invoice;
   @Input() invoiceItems: InvoiceItem[];
-  @Input() activity: AccountActivity[];
-  //private selectedRows: InvoiceItem[];
+
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'chargeCode.description', label: 'Charge Code Description'},
@@ -25,7 +23,7 @@ export class InvoiceItemListAccountComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-
+      
   }
 
 }
