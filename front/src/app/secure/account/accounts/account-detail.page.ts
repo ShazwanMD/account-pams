@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Account} from '../../../shared/model/account/account.interface';
@@ -10,6 +10,9 @@ import {AccountWaiver} from '../../../shared/model/account/account-waiver.interf
 import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
 import {AccountActivity} from '../../../shared/model/account/account-activity.interface';
 import {InvoiceItemDialog} from './dialog/invoice-item.dialog';
+import { AccountTransaction } from "../../../shared/model/account/account-transaction.interface";
+import {InvoiceItem} from '../../../shared/model/billing/invoice-item.interface';
+import {Invoice} from '../../../shared/model/billing/invoice.interface';
 
 @Component({
   selector: 'pams-account-detail',
@@ -18,9 +21,15 @@ import {InvoiceItemDialog} from './dialog/invoice-item.dialog';
 
 export class AccountDetailPage implements OnInit {
 
+    @Input() account: Account;
+    @Input() invoice: Invoice;
+    @Input() invoiceItems: InvoiceItem[];
+    @Input() activity: AccountActivity[];
+    
   private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
   private ACCOUNT_ACTIVITY: string[] = 'accountModuleState.accountActivities'.split('.');
   private ACCOUNT_WAIVERS: string[] = 'accountModuleState.accountWaiver'.split('.');
+  private ACCOUNT_TRANSACTIONS: string[] = 'accountModuleState.accountTransactions'.split('.');
   private SECURITY_ACCOUNT_CHARGES: string[] = 'accountModuleState.securityAccountCharges'.split('.');
   private ADMISSION_ACCOUNT_CHARGES: string[] = 'accountModuleState.admissionAccountCharges'.split('.');
   private STUDENT_AFFAIRS_ACCOUNT_CHARGES: string[] = 'accountModuleState.studentAffairsAccountCharges'.split('.');
@@ -32,7 +41,8 @@ export class AccountDetailPage implements OnInit {
   private admissionAccountCharges$: Observable<AccountCharge[]>;
   private studentAffairsAccountCharges$: Observable<AccountCharge[]>;
   private loanAccountCharges$: Observable<AccountCharge[]>;
-  private editorDialogRef: MdDialogRef<InvoiceItemDialog>
+  private accountTransactions$: Observable<AccountTransaction[]>;
+  
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -48,6 +58,7 @@ export class AccountDetailPage implements OnInit {
     this.admissionAccountCharges$ = this.store.select(...this.ADMISSION_ACCOUNT_CHARGES);
     this.studentAffairsAccountCharges$ = this.store.select(...this.STUDENT_AFFAIRS_ACCOUNT_CHARGES);
     this.loanAccountCharges$ = this.store.select(...this.LOAN_ACCOUNT_CHARGES);
+    this.accountTransactions$ = this.store.select(...this.ACCOUNT_TRANSACTIONS);
   }
 
   ngOnInit(): void {
@@ -61,20 +72,5 @@ export class AccountDetailPage implements OnInit {
     this.router.navigate(['/accounts']);
   }
 
-  viewInvoice(activity: AccountActivity): void {
-    console.log('showDialog');
-    console.log('Activity' + activity);
-    let config = new MdDialogConfig();
-    config.viewContainerRef = this.vcf;
-    config.role = 'dialog';
-    config.width = '50%';
-    config.height = '60%';
-    config.position = {top: '0px'};
-    this.editorDialogRef = this.dialog.open(InvoiceItemDialog, config);
-    this.editorDialogRef.componentInstance.invoice.referenceNo = activity.sourceNo;
-    this.editorDialogRef.afterClosed().subscribe((res) => {
-      console.log('close dialog');
-    });
-  }
 }
 
