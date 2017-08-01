@@ -5,12 +5,9 @@
   [sortBy]="summary"
   [sortOrder]="ASC"
   [sortable]="false"
-  [multiple]="true"
-  [selectable]="true"
-  [(ngModel)]="selectedRows"
-  (rowSelect)="selectRow($event)"
-  (selectAll)="selectAllRows($event)"
-  dense>
+  [multiple]="false"
+  [selectable]="false"
+  (rowSelect)="view.emit($event)" dense>
   <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <span flex="40">{{value}}</span>
