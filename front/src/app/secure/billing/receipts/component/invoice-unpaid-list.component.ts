@@ -40,6 +40,7 @@ export class InvoiceUnpaidListComponent {
     config.height = '65%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
+    this.creatorDialogRef.componentInstance.invoice = invoice;
     this.creatorDialogRef.afterClosed().subscribe((res) => {
       console.log('close dialog');
     });
