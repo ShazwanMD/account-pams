@@ -32,6 +32,8 @@ import {PromoCodeApplicatorDialog} from './dialog/promo-code-applicator.dialog';
 import {InvoiceSubModule} from '../invoices/index';
 import {PipeModule} from '../../../app.pipe.module';
 import {InvoiceApplicatorDialog} from './dialog/invoice-applicator.dialog';
+import { InvoiceApplicatorListComponent } from "./component/invoice-applicator-list.component";
+import { InvoiceUnpaidListComponent } from "./component/invoice-unpaid-list.component";
 
 @NgModule({
   imports: [
@@ -62,6 +64,8 @@ import {InvoiceApplicatorDialog} from './dialog/invoice-applicator.dialog';
     ReceiptItemListComponent,
     ReceiptTypeSelectComponent,
     PaymentMethodSelectComponent,
+    InvoiceApplicatorListComponent,
+    InvoiceUnpaidListComponent,
 
     // dialog
     ReceiptItemEditorDialog,

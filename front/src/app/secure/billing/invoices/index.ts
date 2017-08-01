@@ -35,7 +35,6 @@ import {InvoiceActionComponent} from './component/invoice-action.component';
 import {CreditNoteSubModule} from '../credit-notes/index';
 import {DebitNoteSubModule} from '../debit-notes/index';
 import {PipeModule} from '../../../app.pipe.module';
-import {InvoiceUnpaidListComponent} from './component/invoice-unpaid-list.component';
 import {InvoiceItemPaidListComponent} from './component/invoice-item-paid-list.component';
 import {ReceiptItemDetailPage} from '../receipts/receipt-item-detail.page';
 import {InvoicePaidListComponent} from './component/invoice-paid-list.component';
@@ -78,7 +77,7 @@ import {InvoicePaidListComponent} from './component/invoice-paid-list.component'
     InvoiceCreditNoteListComponent,
     InvoiceActionComponent,
     // todo(hajar): move paid, unpaid to receipt
-    InvoiceUnpaidListComponent,
+
     InvoicePaidListComponent,
     InvoiceItemPaidListComponent,
 
@@ -88,7 +87,7 @@ import {InvoicePaidListComponent} from './component/invoice-paid-list.component'
     InvoiceSelectComponent,
     // todo(hajar): move paid, unpaid to receipt
     // todo(hajar): these two component belongs in receipt
-    InvoiceUnpaidListComponent,
+
     InvoicePaidListComponent,
     InvoiceItemPaidListComponent,
     InvoiceItemListComponent,

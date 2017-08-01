@@ -1,5 +1,8 @@
 <h2 md-dialog-title>Apply Invoice Item</h2>
 <md-dialog-content>
+	<pams-invoice-applicator-list
+	[invoiceItems]="invoiceItems$ | async">
+	</pams-invoice-applicator-list>
 </md-dialog-content>
 <md-dialog-actions align="end">
   <button md-raised-button color="accent">Apply</button>
