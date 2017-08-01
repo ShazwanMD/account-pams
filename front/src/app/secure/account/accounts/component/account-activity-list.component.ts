@@ -8,6 +8,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from "@angular/material";
 import { AccountModuleState } from "../../index";
 import { InvoiceItemDialog } from "../dialog/invoice-item.dialog";
 import {Invoice} from '../../../../shared/model/billing/invoice.interface';
+import { AccountTransactionCode } from "../../../../shared/model/account/account-transaction-code.enum";
 
 @Component({
   selector: 'pams-account-activity-list',
@@ -17,6 +18,8 @@ import {Invoice} from '../../../../shared/model/billing/invoice.interface';
 export class AccountActivityListComponent {
 
   @Input() activity: AccountActivity[];
+
+  transaction:any= AccountTransactionCode;
 
   private columns: any[] = [
     {name: 'sourceNo', label: 'Source'},
@@ -35,7 +38,7 @@ export class AccountActivityListComponent {
   }
 
   viewInvoice(activity: AccountActivity): void {
-      this.showDialog(activity);
+      this.showDialog(activity);     
     }
 
   private editorDialogRef: MdDialogRef<InvoiceItemDialog>
@@ -48,15 +51,16 @@ export class AccountActivityListComponent {
     config.role = 'dialog';
     config.width = '70%';
     config.height = '70%';
-    config.position = {top: '0px'};
+    config.position = {top: '0px'}; 
     
-    //if(activity.transactionCode.INVOICE)
+    if(activity.transactionCode === this.transaction[0]){    
     this.editorDialogRef = this.dialog.open(InvoiceItemDialog, config);
     this.editorDialogRef.componentInstance.activity = activity;
     this.editorDialogRef.afterClosed().subscribe((res) => {
       console.log('close dialog');
     });
-    
+    }
+  
 //        if(.RECINVOICE)
 //    this.editorDialogRef = this.dialog.open(ReciptViewDialog, config);
 //    this.editorDialogRef.componentInstance.referenceNO = activity.sourceNo;
