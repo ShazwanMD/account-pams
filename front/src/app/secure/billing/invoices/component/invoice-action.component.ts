@@ -61,22 +61,6 @@ export class InvoiceActionComponent {
     });
   }
 
-  cancelDialog(): void {
-    console.log(this.invoice.referenceNo);
-    this._dialogService.openConfirm({
-      message: 'Cancel Invoice ' + this.invoice.referenceNo + ' ?',
-      disableClose: false, // defaults to false
-      viewContainerRef: this.vcf,
-      cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
-      acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
-    }).afterClosed().subscribe((accept: boolean) => {
-      if (accept) {
-        this.store.dispatch(this.actions.cancelInvoice(this.invoice));
-      } else {
-        // DO SOMETHING ELSE
-      }
-    });
 
-  }
 
 }
