@@ -51,6 +51,6 @@ export class InvoiceApplicatorDialog implements OnInit {
   }
 
   submit(isValid: boolean): void {
-    // do something
+    
   }
 }
