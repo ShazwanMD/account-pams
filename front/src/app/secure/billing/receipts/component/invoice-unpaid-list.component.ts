@@ -22,7 +22,6 @@ export class InvoiceUnpaidListComponent {
   private creatorDialogRef: MdDialogRef<InvoiceApplicatorDialog>;
 
   @Input() invoices: Invoice[];
-  @Output() apply: EventEmitter<Invoice> = new EventEmitter<Invoice>();
   @Input() account: Account;
 
   constructor(private snackBar: MdSnackBar,
@@ -30,14 +29,18 @@ export class InvoiceUnpaidListComponent {
               private dialog: MdDialog) {
     // no op
   }
-
+  
   showApplyInvoiceDialog(invoice: Invoice): void {
+      this.showDialog(invoice);     
+    }
+
+  showDialog(invoice): void {
     console.log('showDialog');
     let config: MdDialogConfig = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
-    config.width = '50%';
-    config.height = '65%';
+    config.width = '90%';
+    config.height = '90%';
     config.position = {top: '0px'};
     this.creatorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
     this.creatorDialogRef.componentInstance.invoice = invoice;
