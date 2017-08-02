@@ -38,6 +38,8 @@ import {AccountSponsorListComponent} from './component/account-sponsor-list.comp
 import {InvoiceItemDialog} from './dialog/invoice-item.dialog';
 import {InvoiceItemListAccountComponent} from './component/invoice-item-component-list.component';
 import {AccountActionComponent} from './component/account-action.component';
+import { DebitNoteItemDialog } from "./dialog/debit-note-item.dialog";
+import { DebitNoteItemListAccountComponent } from "./component/debit-note-item-component-list.component";
 
 @NgModule({
   imports: [
@@ -79,6 +81,8 @@ import {AccountActionComponent} from './component/account-action.component';
     AccountSponsorListComponent,
     InvoiceItemDialog,
     InvoiceItemListAccountComponent,
+    DebitNoteItemDialog,
+    DebitNoteItemListAccountComponent,
 
   ],
   exports: [
@@ -90,6 +94,8 @@ import {AccountActionComponent} from './component/account-action.component';
     StudentAffairsChargeComponent,
     InvoiceItemDialog,
     InvoiceItemListAccountComponent,
+    DebitNoteItemDialog,
+    DebitNoteItemListAccountComponent,
   ],
   entryComponents: [
     AccountCreatorDialog,
@@ -100,6 +106,8 @@ import {AccountActionComponent} from './component/account-action.component';
     SecurityChargeEditorDialog,
     InvoiceItemDialog,
     InvoiceItemListAccountComponent,
+    DebitNoteItemDialog,
+    DebitNoteItemListAccountComponent,
   ],
 
 })
