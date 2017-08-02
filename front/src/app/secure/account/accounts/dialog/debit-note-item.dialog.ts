@@ -10,6 +10,7 @@ import {InvoiceActions} from '../../../billing/invoices/invoice.action';
 import {BillingModuleState} from '../../../billing/index';
 import {AccountActivity} from '../../../../shared/model/account/account-activity.interface';
 import { FormGroup } from "@angular/forms";
+import { DebitNoteActions } from "../../../billing/debit-notes/debit-note.action";
 
 @Component({
   selector: 'pams-debit-note-item',
@@ -26,13 +27,13 @@ export class DebitNoteItemDialog implements OnInit {
   private INVOICE: string[] = 'billingModuleState.invoice'.split('.');
   private DEBIT_NOTES: string[] = 'billingModuleState.debitNotes'.split('.');
   private invoice$: Observable<Invoice>;
-  private debitNotes$: Observable<DebitNote[]>;
+  private debitNotes$: Observable<DebitNote>;
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
-              private actions: InvoiceActions) {
+              private actions: DebitNoteActions) {
       this.invoice$ = this.store.select(...this.INVOICE);
       this.debitNotes$ = this.store.select(...this.DEBIT_NOTES);
   }
@@ -44,11 +45,11 @@ export class DebitNoteItemDialog implements OnInit {
   ngOnInit(): void {
       console.log("sourceNo" + this._accountActivity.sourceNo);
       
-      this.invoice$.subscribe((invoice: Invoice) => {
-        invoice.referenceNo = this._accountActivity.sourceNo;
+      this.debitNotes$.subscribe((debitNotes: DebitNote) => {
+        debitNotes.referenceNo = this._accountActivity.sourceNo;
 
-        console.log("invoiceNo" + invoice.referenceNo);
-        if (invoice.referenceNo) this.store.dispatch(this.actions.findDebitNotesByInvoice(invoice));
+        console.log("invoiceNo" + debitNotes.referenceNo);
+        if (debitNotes.referenceNo) this.store.dispatch(this.actions.findDebitNoteByReferenceNo(debitNotes.referenceNo));
       });
   }
 
