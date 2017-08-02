@@ -1,20 +1,20 @@
-  <td-data-table
-    #dataTable
-    [data]="invoiceItems"
-    [columns]="columns"
-    [sortBy]="summary"
-    [sortOrder]="ASC"
-    [sortable]="false"
-    [multiple]="true"
+<td-data-table
+  #dataTable
+  [data]="invoiceItems"
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+      [multiple]="true"
     [selectable]="true"
     [(ngModel)]="selectedRows"
     (rowSelect)="selectRow($event)"
-    (selectAll)="selectAllRows($event)"
-    dense>
-    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-      <div layout="row">
-        <span flex="40">{{value}}</span>
-      </div>
-    </template>
-  </td-data-table>
+    (selectAll)="selectAllRows($event)"dense>
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex="40">{{value}}</span>
+    </div>
+  </template>
+</td-data-table>
+
 
