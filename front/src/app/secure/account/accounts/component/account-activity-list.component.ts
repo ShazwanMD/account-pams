@@ -62,8 +62,6 @@ export class AccountActivityListComponent {
       console.log('close dialog');
     });
   }
-  else
-
     if(activity.transactionCode === this.transaction[4]){    
     this.editorDialogRef1 = this.dialog.open(DebitNoteItemDialog, config);
     this.editorDialogRef1.componentInstance.activity = activity;
