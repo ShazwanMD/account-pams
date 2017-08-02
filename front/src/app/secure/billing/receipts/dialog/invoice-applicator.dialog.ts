@@ -8,6 +8,8 @@ import {ReceiptActions} from '../receipt.action';
 import {Store} from '@ngrx/store';
 import { Invoice } from "../../../../shared/model/billing/invoice.interface";
 import { InvoiceActions } from "../../invoices/invoice.action";
+import { Observable } from "rxjs/Observable";
+import { InvoiceItem } from "../../../../shared/model/billing/invoice-item.interface";
 
 @Component({
   selector: 'pams-invoice-applicator',
@@ -18,9 +20,14 @@ export class InvoiceApplicatorDialog implements OnInit {
 
   private SELECTED_INVOICE: string[] = 'billingModuleState.selectedInvoice'.split('.');
   private SELECTED_INVOICE_ITEMS: string[] = 'billingModuleState.selectedInvoiceItems'.split('.');
+  private INVOICE: string[] = 'billingModuleState.invoice'.split('.');
+  private INVOICE_ITEMS: string[] = 'billingModuleState.invoiceItems'.split('.');
+
   private applyForm: FormGroup;
-//  private _receipt: Receipt;
   private _invoice: Invoice;
+
+  private invoice$: Observable<Invoice>;
+  private invoiceItems$: Observable<InvoiceItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -29,22 +36,21 @@ export class InvoiceApplicatorDialog implements OnInit {
               private store: Store<BillingModuleState>,
               private actions: InvoiceActions,
               private dialog: MdDialogRef<InvoiceApplicatorDialog>) {
+      this.invoice$ = this.store.select(...this.INVOICE);
+      this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
   }
 
-//  set receipt(value: Receipt) {
-//    this._receipt = value;
-//  }
   set invoice(value: Invoice) {
       this._invoice = value;
     }
 
   ngOnInit(): void {
-    //this.applyForm = this.formBuilder.group({});
-      console.log("invoice "+ this._invoice.referenceNo);
-      this.store.dispatch(this.actions.findInvoiceItems(this._invoice));
+     console.log("refNo" + this._invoice.referenceNo);
+     this.store.dispatch(this.actions.findInvoiceItems(this._invoice));
+
   }
 
   submit(isValid: boolean): void {
-    // do something
+    
   }
 }
