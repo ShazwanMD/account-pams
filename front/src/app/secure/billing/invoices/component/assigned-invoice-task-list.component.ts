@@ -29,7 +29,7 @@ export class AssignedInvoiceTaskListComponent {
     console.log('Emitting task');
     let config: MdSnackBarConfig = new MdSnackBarConfig();
     config.duration = 2000;
-    let snackBarRef = this.snackBar.open('Viewing invoice', undefined, config);
+    let snackBarRef = this.snackBar.open('Viewing invoice', 'OK', config);
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(task);
     });
