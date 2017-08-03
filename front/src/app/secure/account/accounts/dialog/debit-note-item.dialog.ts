@@ -18,15 +18,9 @@ import { DebitNoteActions } from "../../../billing/debit-notes/debit-note.action
 })
 export class DebitNoteItemDialog implements OnInit {
 
-  private edit: boolean = false;
-  private _invoice: Invoice;
   private _accountActivity: AccountActivity;
-  private _debitNotes: DebitNote;
 
-
-  private INVOICE: string[] = 'billingModuleState.invoice'.split('.');
-  private DEBIT_NOTES: string[] = 'billingModuleState.debitNotes'.split('.');
-  private invoice$: Observable<Invoice>;
+  private DEBIT_NOTES: string[] = 'billingModuleState.debitNote'.split('.');
   private debitNotes$: Observable<DebitNote>;
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -34,7 +28,6 @@ export class DebitNoteItemDialog implements OnInit {
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
               private actions: DebitNoteActions) {
-      this.invoice$ = this.store.select(...this.INVOICE);
       this.debitNotes$ = this.store.select(...this.DEBIT_NOTES);
   }
   
@@ -44,13 +37,13 @@ export class DebitNoteItemDialog implements OnInit {
 
   ngOnInit(): void {
       console.log("sourceNo" + this._accountActivity.sourceNo);
-      
-      this.debitNotes$.subscribe((debitNotes: DebitNote) => {
-        debitNotes.referenceNo = this._accountActivity.sourceNo;
 
-        console.log("invoiceNo" + debitNotes.referenceNo);
-        if (debitNotes.referenceNo) this.store.dispatch(this.actions.findDebitNoteByReferenceNo(debitNotes.referenceNo));
-      });
+      this.route.params.subscribe((params: { referenceNo: string }) => {
+          let referenceNo: string = this._accountActivity.sourceNo;
+      
+          console.log("debitNo" + referenceNo);
+          this.store.dispatch(this.actions.findDebitNoteByReferenceNo(referenceNo));
+        });
   }
 
 
