@@ -58,7 +58,7 @@ export class HomePage implements OnInit, AfterViewInit {
           color: 'blue-700',
           description: '',
         },
-        {
+/*        {
           title: 'Identities',
           route: '/identity',
           icon: 'assignment',
@@ -71,7 +71,7 @@ export class HomePage implements OnInit, AfterViewInit {
           icon: 'assignment',
           color: 'blue-700',
           description: ' ',
-        },
+        },*/
         {
           title: 'Setup',
           route: '/setup',
