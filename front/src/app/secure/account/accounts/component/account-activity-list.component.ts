@@ -10,6 +10,7 @@ import { InvoiceItemDialog } from "../dialog/invoice-item.dialog";
 import {Invoice} from '../../../../shared/model/billing/invoice.interface';
 import { AccountTransactionCode } from "../../../../shared/model/account/account-transaction-code.enum";
 import { DebitNoteItemDialog } from "../dialog/debit-note-item.dialog";
+import { CreditNoteItemDialog } from "../dialog/credit-note-item.dialog";
 
 @Component({
   selector: 'pams-account-activity-list',
@@ -42,8 +43,9 @@ export class AccountActivityListComponent {
       this.showDialog(activity);     
     }
 
-  private editorDialogRef: MdDialogRef<InvoiceItemDialog>
+   private editorDialogRef: MdDialogRef<InvoiceItemDialog>
    private editorDialogRef1: MdDialogRef<DebitNoteItemDialog>
+   private editorDialogRef2: MdDialogRef<CreditNoteItemDialog>
   
   showDialog(activity): void {
     console.log('showDialog');
@@ -62,10 +64,17 @@ export class AccountActivityListComponent {
       console.log('close dialog');
     });
   }
-    if(activity.transactionCode === this.transaction[4]){    
+    else if(activity.transactionCode === this.transaction[4]){    
     this.editorDialogRef1 = this.dialog.open(DebitNoteItemDialog, config);
     this.editorDialogRef1.componentInstance.activity = activity;
     this.editorDialogRef1.afterClosed().subscribe((res) => {
+      console.log('close dialog');
+    });
+  }
+    else if(activity.transactionCode === this.transaction[6]){    
+    this.editorDialogRef2 = this.dialog.open(CreditNoteItemDialog, config);
+    this.editorDialogRef2.componentInstance.activity = activity;
+    this.editorDialogRef2.afterClosed().subscribe((res) => {
       console.log('close dialog');
     });
   }
