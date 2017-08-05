@@ -493,6 +493,7 @@
         </repository>
     </repositories>
     <build>
+        <finalName>account-${version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
