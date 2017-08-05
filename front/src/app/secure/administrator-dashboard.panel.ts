@@ -54,7 +54,7 @@ export class AdministratorDashboardPanel implements OnInit {
           color: 'blue-700',
           description: '',
         },
-        {
+/*        {
           title: 'Identities',
           route: '/secure/identity',
           icon: 'assignment',
@@ -67,7 +67,7 @@ export class AdministratorDashboardPanel implements OnInit {
           icon: 'assignment',
           color: 'blue-700',
           description: ' ',
-        },
+        },*/
         {
           title: 'Setup',
           route: '/secure/setup',
