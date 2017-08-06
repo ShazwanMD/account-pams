@@ -200,6 +200,14 @@ public class BillingTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
+    
+    public ReceiptInvoice toReceiptInvoiceVo(AcReceiptInvoice r) {
+    	
+    	ReceiptInvoice vo = new ReceiptInvoice();
+    	vo.setReceipt(billingTransformer.toReceiptVo(r.getReceipt()));
+    	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
+        return vo;
+    }
 
     public ReceiptItem toReceiptItemVo(AcReceiptItem e) {
         ReceiptItem vo = new ReceiptItem();

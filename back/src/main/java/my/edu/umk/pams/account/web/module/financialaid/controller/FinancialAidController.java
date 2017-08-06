@@ -24,6 +24,12 @@ import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.activiti.engine.task.Task;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +40,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -163,6 +171,64 @@ public class FinancialAidController {
         AcSettlement settlement = financialAidService.findSettlementByReferenceNo(referenceNo);
         financialAidService.executeSettlement(settlement);
     }
+    
+    @RequestMapping(value = "/settlements/{referenceNo}/uploadSettlement", method = RequestMethod.POST)
+	public ResponseEntity<String> uploadSettlement(@PathVariable String referenceNo,
+			@RequestParam("file") MultipartFile file) {
+		LOG.debug("BackEnd:{}", file.getName());
+
+		try {
+			Workbook workbook = WorkbookFactory.create(file.getInputStream());
+			//Sheet sheet = workbook.getSheetAt(0); // first sheet
+			//AdOffering offering = termService.findOfferingByCanonicalCode(canonicalCode);
+			//List<AdEnrollment> enrollments = toEnrollments(sheet, offering);
+			//List<AdAssessment> assessments = toAssessments(sheet);
+			//LOG.debug("Assessments:{}", assessments);
+			//AdSection section = toSection(sheet);
+			int i = 1; // skip row 0
+			/*while (i <= sheet.getLastRowNum()) {
+				Row row = sheet.getRow(i);
+				int j = 1;
+				while (j < row.getLastCellNum()) {
+					Cell cell = row.getCell(j);
+					AdEnrollment enrollment = enrollments.get(i - 1);
+					AdAssessment assessment = assessments.get(j - 1);
+					LOG.debug("Assessment:{}", assessment);
+					AdGradebook gradebook = termService.findGradebookByAssessmentAndEnrollment(assessment, enrollment);
+					boolean update = true;
+					if (gradebook == null) {
+						gradebook = new AdGradebookImpl();
+						update = false;
+					}
+					;
+					gradebook.setEnrollment(enrollment);
+					gradebook.setSection(section);
+					gradebook.setAssessment(assessment);
+					;
+					gradebook.setScore(new BigDecimal(cell.getNumericCellValue()));
+
+					BigDecimal score = gradebook.getScore();
+					String assessmentDescription = assessment.getDescription();
+					String name = enrollment.getAdmission().getStudent().getName();
+					String message = score + ", " + assessmentDescription + ", " + name + ".";
+					if (update) {
+						termService.updateGradebook(gradebook);
+						LOG.debug("Gradebook UPDATED {}", message);
+					} else {
+						termService.saveGradebook(gradebook);
+						LOG.debug("Gradebook SAVED: {}", message);
+					}
+					j++;
+				}
+				i++;
+			}*/
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>("Success", HttpStatus.OK);
+	}
 
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.POST)
     public ResponseEntity<String> addSettlementItem(@PathVariable String referenceNo, @RequestBody SettlementItem item) {

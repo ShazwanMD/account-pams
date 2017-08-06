@@ -86,6 +86,15 @@ export class SettlementEffects {
     .map(action => action.payload)
     .switchMap(settlement => this.financialaidService.updateSettlement(settlement))
     .map(settlement => this.settlementActions.updateSettlementSuccess(settlement));
+  
+  @Effect() uploadSettlement$ = this.actions$
+  .ofType(SettlementActions.UPLOAD_SETTLEMENT)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.financialaidService.uploadSettlement(payload.settlement, payload.file))
+  .map((message) => this.settlementActions.uploadSettlementSuccess(message))
+  .withLatestFrom(this.store$.select(...this.SETTLEMENT))
+  .map((state) => state[1])
+  .map((settlement: Settlement) => this.settlementActions.findSettlementByReferenceNo(settlement.referenceNo));
 
   @Effect() executeSettlement$ = this.actions$
     .ofType(SettlementActions.EXEC_SETTLEMENT)
