@@ -224,6 +224,25 @@ export class SettlementActions {
       payload: settlement
     };
   }
+  
+  static UPLOAD_SETTLEMENT = '[Settlement] Upload Settlement';
+
+  uploadSettlement(settlement,file): Action {
+     console.log("uploadSettlement in action : "+file);
+     return {
+         type: SettlementActions.UPLOAD_SETTLEMENT,
+         payload: {settlement: settlement, file: file}
+       };
+  }
+
+  static UPLOAD_SETTLEMENT_SUCCESS = '[Settlement] Upload Settlement Success';
+
+  uploadSettlementSuccess(settlement): Action {
+    return {
+      type: SettlementActions.UPLOAD_SETTLEMENT_SUCCESS,
+      payload: settlement
+    };
+  }
 
   static ADD_SETTLEMENT_ITEM = '[Settlement] Add Settlement Item';
 

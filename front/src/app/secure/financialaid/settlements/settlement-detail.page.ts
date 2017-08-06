@@ -52,20 +52,33 @@ export class SettlementDetailPage implements OnInit {
       },
     );
   }
+  
+  upload(): void {
+      this.showUploadDialog();
+  }
 
   showUploadDialog(): void {
-    let config: MdDialogConfig = new MdDialogConfig();
-    config.viewContainerRef = this.vcf;
-    config.role = 'dialog';
-    config.width = '70%';
-    config.height = '70%';
-    config.position = {top: '0px'};
-    this.uploaderDialogRef = this.dialog.open(SettlementFileUploaderDialog, config);
-    this.uploaderDialogRef.afterClosed().subscribe((res) => {
-      console.log('close dialog');
-      // load something here
-    });
-  }
+      this.settlement$.take(1).subscribe((settlement) => {
+          if (!settlement.executed) {
+              let config: MdDialogConfig = new MdDialogConfig();
+          config.viewContainerRef = this.vcf;
+          config.role = 'dialog';
+          config.width = '70%';
+          config.height = '70%';
+          config.position = {top: '0px'};
+          this.uploaderDialogRef = this.dialog.open(SettlementFileUploaderDialog, config);
+          this.uploaderDialogRef.componentInstance.settlement = settlement;
+          this.uploaderDialogRef.afterClosed().subscribe((res) => {
+            console.log('close dialog');
+            // load something here
+          }
+          );
+          } else {
+            this.snackBar.open('Sorry, this settlement has been executed', 'OK');
+          }
+        },
+      );
+    }
 
   goBack(): void {
     this.router.navigate(['/settlements']);

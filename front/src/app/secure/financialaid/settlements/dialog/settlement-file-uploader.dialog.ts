@@ -27,6 +27,8 @@ export class SettlementFileUploaderDialog implements OnInit {
   }
 
   set settlement(settlement: Settlement) {
+      
+    console.log("settlement upload dialog:"+settlement.referenceNo);  
     this._settlement = settlement;
   }
 
@@ -35,6 +37,8 @@ export class SettlementFileUploaderDialog implements OnInit {
   }
 
   upload(file: File): void {
-    // todo
+      console.log("file to be uploaded:"+file.name);  
+      console.log("_settlement to be uploaded:"+this._settlement.referenceNo);
+      this.store.dispatch(this.actions.uploadSettlement(this._settlement,file));
   }
 }
