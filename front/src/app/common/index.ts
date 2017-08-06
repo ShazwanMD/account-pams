@@ -20,6 +20,8 @@ import {residencyCodeListReducer, ResidencyCodeListState} from './residency-code
 import {ResidencyCodeSelectComponent} from './residency-codes/component/residency-code-select.component';
 import {taxCodeListReducer, TaxCodeListState} from './tax-codes/tax-code-list.reducer';
 import {TaxCodeSelectComponent} from './tax-codes/component/tax-code-select.component';
+import { SecurityChargeCodeSelectComponent } from "./security-charges-code/component/security-charge-code-select.component";
+import { SetupModule } from "../secure/setup/index";
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
@@ -60,6 +62,7 @@ export const commonModuleReducers = {
     StudyModeSelectComponent,
     ResidencyCodeSelectComponent,
     TaxCodeSelectComponent,
+    SecurityChargeCodeSelectComponent,
   ],
   exports: [
     CohortCodeSelectComponent,
@@ -67,6 +70,7 @@ export const commonModuleReducers = {
     StudyModeSelectComponent,
     ResidencyCodeSelectComponent,
     TaxCodeSelectComponent,
+    SecurityChargeCodeSelectComponent,
   ],
 })
 export class CommonModule {
