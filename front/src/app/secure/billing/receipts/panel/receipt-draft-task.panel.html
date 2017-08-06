@@ -31,12 +31,12 @@
 
       <!-- version baru -->
       <div layout="column" layout-gt-md="row">
-        <div flex-gt-md="50">
+<!--         <div flex-gt-md="50">
           <pams-receipt-item-list
             [receipt]="receiptTask.receipt"
             [receiptItems]="receiptItems$ | async">
           </pams-receipt-item-list>
-        </div>
+        </div> -->
         <div flex-gt-md="50">
           <md-card>
             <md-card-title>Unpaid Invoices</md-card-title>
@@ -46,13 +46,13 @@
               (apply)="viewInvoice($event)">
             </pams-invoice-unpaid-list>
           </md-card>
-          <md-card>
+<!--           <md-card>
             <md-card-title>Paid Invoices</md-card-title>
             <pams-invoice-paid-list
               [account]="account$ | async"
               [invoices]="invoices$ | async">
             </pams-invoice-paid-list>
-          </md-card>
+          </md-card> -->
 
         </div>
       </div>
@@ -104,6 +104,15 @@
             <p md-line>Apply promo code</p>
           </md-list-item>
         </md-nav-list>
+      </md-card>
+      <md-card>
+      <md-nav-list dense>
+         <md-list-item (click)="paidInvoices()">
+            <md-icon md-list-avatar>attach_money</md-icon>
+            <h4 md-line>Paid Invoices</h4>
+            <p md-line>Paid Invoices for this Receipt</p>
+          </md-list-item>
+          </md-nav-list>
       </md-card>
     </div>
   </div>
