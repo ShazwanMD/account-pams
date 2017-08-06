@@ -53,7 +53,7 @@ export interface SetupModuleState {
   cohortCodes: CohortCodeListState;
   residencyCodes: ResidencyCodeListState;
   taxCodes: TaxCodeListState;
-  securityChargeCode: SecurityChargeCodeListState;
+  securityChargeCodes: SecurityChargeCodeListState;
 
 }
 ;
@@ -65,7 +65,7 @@ export const INITIAL_SETUP_STATE: SetupModuleState =
     cohortCodes: <CohortCode[]>[],
     residencyCodes: <ResidencyCode[]>[],
     taxCodes: <TaxCode[]>[],
-    securityChargeCode: <SecurityChargeCode[]>[],
+    securityChargeCodes: <SecurityChargeCode[]>[],
   };
 
 
@@ -75,7 +75,7 @@ export const setupModuleReducers = {
   cohortCodes: cohortCodeListReducer,
   residencyCodes: residencyCodeListReducer,
   taxCodes: taxCodeListReducer,
-  securityChargeCode: securityChargeCodeListReducer,
+  securityChargeCodes: securityChargeCodeListReducer,
 }
 
 
