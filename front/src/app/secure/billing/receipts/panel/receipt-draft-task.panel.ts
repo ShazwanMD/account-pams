@@ -13,6 +13,7 @@ import {AccountModuleState} from '../../../account/index';
 import {Invoice} from '../../../../shared/model/billing/invoice.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {InvoiceActions} from '../../invoices/invoice.action';
+import { InvoiceReceiptDialog } from "../dialog/invoice-receipt.dialog";
 
 @Component({
   selector: 'pams-receipt-draft-task',
@@ -45,7 +46,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
+    //this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
     this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
   }
 
@@ -70,6 +71,18 @@ export class ReceiptDraftTaskPanel implements OnInit {
     let editorDialogRef = this.dialog.open(PromoCodeApplicatorDialog, config);
     editorDialogRef.componentInstance.receipt = this.receiptTask.receipt;
   }
+  
+  paidInvoices() {
+      console.log("ReceiptDialog "+ this.receiptTask.receipt.referenceNo);
+      let config = new MdDialogConfig();
+      config.viewContainerRef = this.viewContainerRef;
+      config.role = 'dialog';
+      config.width = '70%';
+      config.height = '60%';
+      config.position = {top: '0px'};
+      let editorDialogRef = this.dialog.open(InvoiceReceiptDialog, config);
+      editorDialogRef.componentInstance.receipt = this.receiptTask.receipt;
+    }
 
   register() {
     this.store.dispatch(this.actions.completeReceiptTask(this.receiptTask));
