@@ -37,8 +37,8 @@ export class ReceiptEffects {
     .ofType(ReceiptActions.FIND_RECEIPT_BY_REFERENCE_NO)
     .map((action) => action.payload)
     .switchMap((referenceNo) => this.billingService.findReceiptByReferenceNo(referenceNo))
-    .map((receipt) => this.receiptActions.findReceiptByReferenceNoSuccess(receipt))
-    .mergeMap((action) => from([action, this.receiptActions.findReceiptItems(action.payload)]));
+    .map((receipt) => this.receiptActions.findReceiptByReferenceNoSuccess(receipt));
+    //.mergeMap((action) => from([action, this.receiptActions.findReceiptItems(action.payload)]));
 
   @Effect() findReceiptItems$ = this.actions$
     .ofType(ReceiptActions.FIND_RECEIPT_ITEMS)
@@ -96,7 +96,7 @@ export class ReceiptEffects {
     .switchMap((receipt) => this.billingService.updateReceipt(receipt))
     .map((receipt) => this.receiptActions.updateReceiptSuccess(receipt));
 
-  @Effect() addReceiptItem$ =
+/*  @Effect() addReceiptItem$ =
     this.actions$
       .ofType(ReceiptActions.ADD_RECEIPT_ITEM)
       .map((action) => action.payload)
@@ -104,7 +104,7 @@ export class ReceiptEffects {
       .map((message) => this.receiptActions.addReceiptItemSuccess(message))
       .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
       .map((state) => state[1])
-      .map((receipt) => this.receiptActions.findReceiptItems(receipt));
+      .map((receipt) => this.receiptActions.findReceiptItems(receipt));*/
 
   @Effect() updateReceiptItem$ = this.actions$
     .ofType(ReceiptActions.UPDATE_RECEIPT_ITEM)
