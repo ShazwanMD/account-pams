@@ -245,7 +245,7 @@ export class BillingService {
     }
 
   addReceiptInvoiceItems(receipt: Receipt, invoice: Invoice): Observable<String> {
-      return this._http.post(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/invoice/'+ invoice.referenceNo, JSON.stringify(invoice))
+      return this._http.post(this.BILLING_API + '/receipts/'+ receipt.referenceNo + '/invoice/'+ invoice.id, JSON.stringify(invoice))
         .flatMap((res: Response) => Observable.of(res.text()));
     }
 
