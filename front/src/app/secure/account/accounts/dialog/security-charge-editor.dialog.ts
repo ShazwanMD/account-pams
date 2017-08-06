@@ -8,6 +8,7 @@ import {AccountModuleState} from '../../index';
 import {MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
 import {AccountChargeType} from '../../../../shared/model/account/account-charge-type.enum';
+import { SecurityChargeCode } from "../../../../shared/model/common/security-charge-code.interface";
 
 @Component({
   selector: 'pams-security-charge-editor',
@@ -46,6 +47,7 @@ export class SecurityChargeEditorDialog implements OnInit {
       amount: 0,
       chargeDate: undefined,
       chargeType: AccountChargeType.SECURITY,
+      securityChargeCode: <SecurityChargeCode>{},
     });
 
     if (this.edit) {
