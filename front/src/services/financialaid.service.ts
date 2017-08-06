@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
+import {Response, RequestOptions,ResponseContentType, Headers} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
@@ -91,6 +91,18 @@ export class FinancialaidService {
     return this._http.post(this.FINANCIALAID_API + '/settlements/' + settlement.referenceNo + '/execute', null)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+  
+  uploadSettlement(settlement: Settlement,file: File): Observable<String> {
+      console.log('uploadSettlement :'+file);
+      // Pass empty Content-Type key for ng2 Upload bug workaround, see request.interceptor.ts
+      let headers: Headers = new Headers({'Content-Type': ''});
+      let options: RequestOptions = new RequestOptions({headers: headers});
+      let formData: FormData = new FormData();
+      formData.append('file', file);
+      console.log('formData', formData);
+      return this._http.post(this.FINANCIALAID_API + '/settlements/' + settlement.referenceNo + '/uploadSettlement', formData, options)
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
 
   addSettlementItem(settlement: Settlement, settlementItem: SettlementItem): Observable<String> {
     return this._http.post(this.FINANCIALAID_API + '/settlements/' + settlement.referenceNo + '/settlementItems', JSON.stringify(settlementItem))
