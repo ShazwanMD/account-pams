@@ -344,11 +344,11 @@ public class BillingController {
         billingService.updateReceiptItem(receipt, e);
     }
     
-    @RequestMapping(value = "/receipts/{receiptNo}/invoice/{referenceNo}", method = RequestMethod.POST)
-    public void addReceiptInvoiceItems(@PathVariable String receiptNo, @PathVariable String referenceNo) {
+    @RequestMapping(value = "/receipts/{referenceNo}/invoice/{id}", method = RequestMethod.POST)
+    public void addReceiptInvoiceItems(@PathVariable String referenceNo, @PathVariable Long id) {
         
-        AcReceipt receipt = billingService.findReceiptByReferenceNo(receiptNo);
-        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
         AcReceiptInvoice e = new AcReceiptInvoiceImpl();
         e.setReceipt(receipt);
         e.setInvoice(invoice);
