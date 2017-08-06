@@ -1,0 +1,7 @@
+<md-select
+  [placeholder]="placeholder"
+  (change)="selectChangeEvent($event.value)" flex>
+  <md-option *ngFor="let securityChargeCode of securityChargeCodes$ | async" [value]="securityChargeCode">
+    {{securityChargeCode.section}}: {{securityChargeCode.offense}}: {{securityChargeCode.amount}}
+  </md-option>
+</md-select>
