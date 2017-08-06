@@ -49,7 +49,7 @@ export class AccountActivityListComponent {
   
   showDialog(activity): void {
     console.log('showDialog');
-    console.log('Activity' + activity);
+    console.log('Activity',activity);
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
