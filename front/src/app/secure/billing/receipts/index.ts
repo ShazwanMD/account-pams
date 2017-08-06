@@ -34,6 +34,8 @@ import {PipeModule} from '../../../app.pipe.module';
 import {InvoiceApplicatorDialog} from './dialog/invoice-applicator.dialog';
 import { InvoiceApplicatorListComponent } from "./component/invoice-applicator-list.component";
 import { InvoiceUnpaidListComponent } from "./component/invoice-unpaid-list.component";
+import { InvoiceUnpaidSelectComponent } from "./component/invoice-select-unpaid.component";
+import { InvoiceReceiptDialog } from "./dialog/invoice-receipt.dialog";
 
 @NgModule({
   imports: [
@@ -66,12 +68,15 @@ import { InvoiceUnpaidListComponent } from "./component/invoice-unpaid-list.comp
     PaymentMethodSelectComponent,
     InvoiceApplicatorListComponent,
     InvoiceUnpaidListComponent,
+    InvoiceUnpaidSelectComponent,
 
     // dialog
     ReceiptItemEditorDialog,
     ReceiptTaskCreatorDialog,
     PromoCodeApplicatorDialog,
     InvoiceApplicatorDialog,
+    InvoiceUnpaidSelectComponent,
+    InvoiceReceiptDialog,
   ],
   exports: [],
   entryComponents: [
@@ -81,6 +86,7 @@ import { InvoiceUnpaidListComponent } from "./component/invoice-unpaid-list.comp
     ReceiptTaskCreatorDialog,
     PromoCodeApplicatorDialog,
     InvoiceApplicatorDialog,
+    InvoiceReceiptDialog,
   ],
 
 })
