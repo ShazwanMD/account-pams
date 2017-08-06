@@ -727,7 +727,7 @@ public class BillingServiceImpl implements BillingService {
             tx.setChargeCode(creditNote.getChargeCode());
             tx.setPostedDate(new Date());
             tx.setSourceNo(creditNote.getReferenceNo());
-            tx.setTransactionCode(AcAccountTransactionCode.DEBIT_NOTE);
+            tx.setTransactionCode(AcAccountTransactionCode.CREDIT_NOTE);
             tx.setAccount(creditNote.getInvoice().getAccount());
             tx.setAmount(creditNote.getTotalAmount());
             accountService.addAccountTransaction(creditNote.getInvoice().getAccount(), tx);
