@@ -1,6 +1,6 @@
+import { AccountTransaction } from './../../../../shared/model/account/account-transaction.interface';
 import {ChangeDetectionStrategy, Component, Input, EventEmitter, Output, ViewContainerRef} from '@angular/core';
 import {AccountActivity} from '../../../../shared/model/account/account-activity.interface';
-import { AccountTransaction } from "../../../../shared/model/account/account-transaction.interface";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AccountActions } from "../account.action";
 import { Store } from "@ngrx/store";
@@ -56,7 +56,7 @@ export class AccountActivityListComponent {
     config.width = '70%';
     config.height = '70%';
     config.position = {top: '0px'}; 
-    
+
     if(activity.transactionCode === this.transaction[0]){    
     this.editorDialogRef = this.dialog.open(InvoiceItemDialog, config);
     this.editorDialogRef.componentInstance.activity = activity;
@@ -71,14 +71,13 @@ export class AccountActivityListComponent {
       console.log('close dialog');
     });
   }
-    else if(activity.transactionCode === this.transaction[6]){    
+    else if(activity.transactionCode === this.transaction[5]){    
     this.editorDialogRef2 = this.dialog.open(CreditNoteItemDialog, config);
     this.editorDialogRef2.componentInstance.activity = activity;
     this.editorDialogRef2.afterClosed().subscribe((res) => {
       console.log('close dialog');
     });
   }
-
 
 //        if(.RECINVOICE)
 //    this.editorDialogRef = this.dialog.open(ReciptViewDialog, config);
