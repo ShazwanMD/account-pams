@@ -13,7 +13,7 @@ import { SetupActions } from "../../../secure/setup/setup.action";
   styleUrls: ['./security-charge-code-select.scss'],
 })
 export class SecurityChargeCodeSelectComponent implements OnInit {
-  private SECURITY_CHARGE_CODES = 'setupModuleState.securityChargeCode'.split('.');
+  private SECURITY_CHARGE_CODES = 'setupModuleState.securityChargeCodes'.split('.');
   private securityChargeCodes$: Observable<SecurityChargeCode[]>;
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
