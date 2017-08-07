@@ -36,6 +36,7 @@
         INVOICE_ID int8,
         SESSION_ID int8,
         STUDY_MODE_ID int8,
+        SECURITY_CHARGE_CODE_ID int8,
         primary key (ID)
     );
 
