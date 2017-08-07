@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
+import my.edu.umk.pams.account.web.module.common.vo.SecurityChargeCode;
 import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
@@ -29,6 +30,7 @@ public class AccountCharge extends MetaObject {
 	private Date chargeDate;
 	private Integer ordinal;
 	private String code;
+	private SecurityChargeCode securityChargeCode;
 
 	// transient
 	private boolean invoiced;
@@ -127,6 +129,14 @@ public class AccountCharge extends MetaObject {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	public SecurityChargeCode getSecurityChargeCode() {
+		return securityChargeCode;
+	}
+
+	public void setSecurityChargeCode(SecurityChargeCode securityChargeCode) {
+		this.securityChargeCode = securityChargeCode;
 	}
 
 	@JsonCreator
