@@ -417,6 +417,8 @@ public class AccountController {
                 charge.setChargeDate(vo.getChargeDate());
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                if (null != vo.getSecurityChargeCode())
+                charge.setSecurityChargeCode(commonService.findSecurityChargeCodeById(vo.getSecurityChargeCode().getId()));
                 break;
             case STUDENT_AFFAIRS:
                 charge.setReferenceNo(referenceNo);
@@ -482,6 +484,8 @@ public class AccountController {
                 charge.setChargeDate(vo.getChargeDate());
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
+                if (null != vo.getSecurityChargeCode())
+                    charge.setSecurityChargeCode(commonService.findSecurityChargeCodeById(vo.getSecurityChargeCode().getId()));
                 break;
             case STUDENT_AFFAIRS:
                 charge.setSourceNo(vo.getSourceNo());
