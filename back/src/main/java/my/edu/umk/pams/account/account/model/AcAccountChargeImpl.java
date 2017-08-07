@@ -4,6 +4,8 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCodeImpl;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.model.AcStudyModeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -85,6 +87,11 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @OneToOne(targetEntity = AcCohortCodeImpl.class)
     @JoinColumn(name = "COHORT_CODE_ID")
     private AcCohortCode cohortCode;
+    
+    @NotNull
+    @OneToOne(targetEntity = AcSecurityChargeCodeImpl.class)
+    @JoinColumn(name = "SECURITY_CHARGE_CODE_ID")
+    private AcSecurityChargeCode securityChargeCode;
 
     @Embedded
     private AcMetadata metadata;
@@ -227,8 +234,18 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     public void setCohortCode(AcCohortCode cohortCode) {
         this.cohortCode = cohortCode;
     }
+    
+    @Override
+    public AcSecurityChargeCode getSecurityChargeCode() {
+		return securityChargeCode;
+	}
 
     @Override
+    public void setSecurityChargeCode(AcSecurityChargeCode securityChargeCode) {
+		this.securityChargeCode = securityChargeCode;
+	}
+
+	@Override
     public AcMetadata getMetadata() {
         return metadata;
     }
