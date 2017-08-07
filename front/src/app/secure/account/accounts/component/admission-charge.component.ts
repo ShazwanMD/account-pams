@@ -14,7 +14,7 @@ import {AccountCharge} from '../../../../shared/model/account/account-charge.int
 export class AdmissionChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
   private admissionChargeColumns: any[] = [
-    {name: 'referenceNo', label: 'Reference No'},
+    // {name: 'referenceNo', label: 'Reference No'},
     {name: 'sourceNo', label: 'Source No'},
     {name: 'description', label: 'Description'},
     {name: 'ordinal', label: 'Semester'},
@@ -23,7 +23,6 @@ export class AdmissionChargeComponent implements OnInit {
     {name: 'session.code', label: 'Session'},
     {name: 'studyMode.code', label: 'Study Mode'},
     {name: 'cohortCode.code', label: 'Cohort Code'},
-    {name: 'invoiced', label: 'Invoiced'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
   ];
