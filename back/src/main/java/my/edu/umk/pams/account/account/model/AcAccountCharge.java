@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.model;
 
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
@@ -65,5 +66,9 @@ public interface AcAccountCharge extends AcMetaObject {
 	String getCode();
 
 	void setCode(String code);
+
+	AcSecurityChargeCode getSecurityChargeCode();
+
+	void setSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
 
 }
