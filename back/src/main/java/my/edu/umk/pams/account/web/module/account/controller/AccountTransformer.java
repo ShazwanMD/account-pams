@@ -110,24 +110,6 @@ public class AccountTransformer {
         commonTransformer.decorateMeta(e,m);
         return m;
     }
-
-//    public AccountCharge toAccountChargeVo(AcAccountCharge e) {
-//        AccountCharge m = new AccountCharge();
-//        m.setId(e.getId());
-//        m.setSourceNo(e.getSourceNo());
-//        m.setReferenceNo(e.getReferenceNo());
-//        m.setDescription(e.getDescription());
-//        m.setAmount(e.getAmount());
-//        m.setChargeType(AccountChargeType.get(e.getChargeType().ordinal()));
-////        m.setSession(toAcademicSessionVo(e.getSession()));
-//        m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
-//        m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
-////        m.setChargeDate(e.getChargeDate());
-////        m.setOrdinal(e.getOrdinal());
-//        //m.setCode(e.getCohortCode());
-//        m.setInvoiced(null != e.getInvoice());
-//        return m;
-//    }
     
     public AccountCharge toAccountChargeVo(AcAccountCharge e) {
         AccountCharge m = new AccountCharge();
@@ -140,6 +122,7 @@ public class AccountTransformer {
         m.setSession(toAcademicSessionVo(e.getSession()));
         m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
         m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
+        m.setSecurityChargeCode(commonTransformer.toSecurityChargeCodeVo(e.getSecurityChargeCode()));
         m.setChargeDate(e.getChargeDate());
         m.setOrdinal(e.getOrdinal());
         //m.setCode(e.getCohortCode());
