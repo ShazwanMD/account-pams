@@ -12,19 +12,10 @@
       <span flex>{{value}}</span>
     </div>
   </template>
-  <template tdDataTableTemplate="issuedDate" let-value="value" let-row="row" let-column="column">
-    <div layout="row">{{row['issuedDate'] | date: 'dd-MMM-yyyy'}}</div>
-  </template>
-  <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
-    <div layout="row">{{row['totalAmount'] | currency:'MYR':true:'1.2-2'}}</div>
-  </template>
-  <template tdDataTableTemplate="balanceAmount" let-value="value" let-row="row" let-column="column">
-    <div layout="row">{{row['balanceAmount'] | currency:'MYR':true:'1.2-2'}}</div>
-  </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
-      <a md-button color="accent" class="text-upper" (click)="showApplyInvoiceDialog(row)">
-        <span>Apply</span>
+      <a md-button color="accent" class="text-upper" (click)="viewTask(row)">
+        <span>View</span>
       </a>
     </div>
   </template>

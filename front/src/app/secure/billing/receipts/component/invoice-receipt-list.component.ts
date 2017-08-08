@@ -27,6 +27,7 @@ export class InvoiceReceiptListComponent implements OnInit {
 
   @Input() receiptInvoice: ReceiptInvoice[];
   @Input() receipt: Receipt;
+  @Output() view = new EventEmitter<ReceiptInvoice>();
 
   constructor(private snackBar: MdSnackBar,
               private vcf: ViewContainerRef,
