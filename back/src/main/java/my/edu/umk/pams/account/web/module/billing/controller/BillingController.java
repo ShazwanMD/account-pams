@@ -354,6 +354,14 @@ public class BillingController {
         e.setInvoice(invoice);
         billingService.addReceiptInvoice(receipt, invoice);
     }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/receiptInvoice", method = RequestMethod.GET)
+    public ResponseEntity<List<ReceiptInvoice>> findReceiptsByInvoice(@PathVariable String referenceNo) {
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        return new ResponseEntity<List<ReceiptInvoice>>(billingTransformer
+                .toReceiptInvoiceVos(billingService.findReceipts(receipt)), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/receipts/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<ReceiptTask>> findAssignedReceipts() {

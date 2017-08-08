@@ -22,6 +22,9 @@ export function receiptListReducer(state = initialState, action: Action): Receip
     case ReceiptActions.FIND_COMPLETED_RECEIPTS_SUCCESS: {
       return action.payload;
     }
+    case ReceiptActions.FIND_UNPAID_INVOICES_SUCCESS: {
+        return action.payload;
+      }
     default: {
       return state;
     }

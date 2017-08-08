@@ -10,9 +10,10 @@ import {Store} from '@ngrx/store';
 export class ReceiptEffects {
 
   private RECEIPT_TASK: string[] = 'billingModuleState.receiptTask'.split('.');
+  private RECEIPT: string[] = 'billingModuleState.receipt'.split('.');
 
   constructor(private actions$: Actions,
-              private receiptActions: ReceiptActions,
+              private receiptActions: ReceiptActions,              
               private billingService: BillingService,
               private store$: Store<BillingModuleState>) {
   }
@@ -31,8 +32,19 @@ export class ReceiptEffects {
     .ofType(ReceiptActions.FIND_RECEIPT_TASK_BY_TASK_ID)
     .map((action) => action.payload)
     .switchMap((taskId) => this.billingService.findReceiptTaskByTaskId(taskId))
-    .map((task) => this.receiptActions.findReceiptTaskByTaskIdSuccess(task));
+    .map((task) => this.receiptActions.findReceiptTaskByTaskIdSuccess(task))
+    .mergeMap((action) => from([action,
+        //this.receiptActions.findReceiptsByInvoice(action.payload),
+        //this.receiptActions.findUnpaidInvoices(action.payload),
+      ],
+    ));
 
+  @Effect() findUnpaidInvoices$ = this.actions$
+  .ofType(ReceiptActions.FIND_UNPAID_INVOICES)
+  .map((action) => action.payload)
+  .switchMap((account) => this.billingService.findUnpaidInvoices(account))
+  .map((invoices) => this.receiptActions.findUnpaidInvoicesSuccess(invoices));
+  
   @Effect() findReceiptByReferenceNo$ = this.actions$
     .ofType(ReceiptActions.FIND_RECEIPT_BY_REFERENCE_NO)
     .map((action) => action.payload)
@@ -40,6 +52,12 @@ export class ReceiptEffects {
     .map((receipt) => this.receiptActions.findReceiptByReferenceNoSuccess(receipt));
     //.mergeMap((action) => from([action, this.receiptActions.findReceiptItems(action.payload)]));
 
+  @Effect() findReceiptsByInvoice$ = this.actions$
+  .ofType(ReceiptActions.FIND_RECEIPTS_BY_INVOICE)
+  .map((action) => action.payload)
+  .switchMap((receipt) => this.billingService.findReceiptsByInvoice(receipt))
+  .map((receipts) => this.receiptActions.findReceiptsByInvoiceSuccess(receipts));
+  
   @Effect() findReceiptItems$ = this.actions$
     .ofType(ReceiptActions.FIND_RECEIPT_ITEMS)
     .map((action) => action.payload)

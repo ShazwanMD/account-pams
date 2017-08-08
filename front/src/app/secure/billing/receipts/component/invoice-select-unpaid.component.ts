@@ -28,11 +28,6 @@ export class InvoiceUnpaidSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.receipt)
-      this.store.dispatch(this.actions.findUnpaidInvoices(this.receipt.account));
-//    else
-//      this.store.dispatch(this.actions.findCompletedInvoices());
-
     if (this.preSelected) {
       this.invoices$.subscribe((invoices) => {
         this.selected = invoices.find((invoice) => invoice.id == this.preSelected.id);

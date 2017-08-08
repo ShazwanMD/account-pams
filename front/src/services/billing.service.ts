@@ -16,6 +16,7 @@ import {DebitNoteTask} from '../app/shared/model/billing/debit-note-task.interfa
 import {DebitNoteItem} from '../app/shared/model/billing/debit-note-item.interface';
 import {CreditNoteItem} from '../app/shared/model/billing/credit-note-item.interface';
 import {Account} from '../app/shared/model/account/account.interface';
+import {ReceiptInvoice} from '../app/shared/model/billing/receipt-invoice.interface';
 
 @Injectable()
 export class BillingService {
@@ -247,6 +248,11 @@ export class BillingService {
   addReceiptInvoiceItems(receipt: Receipt, invoice: Invoice): Observable<String> {
       return this._http.post(this.BILLING_API + '/receipts/'+ receipt.referenceNo + '/invoice/'+ invoice.id, JSON.stringify(invoice))
         .flatMap((res: Response) => Observable.of(res.text()));
+    }
+  
+  findReceiptsByInvoice(receipt: Receipt): Observable<ReceiptInvoice[]> {
+      return this._http.get(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptInvoice')
+        .map((res: Response) => <ReceiptInvoice[]>res.json());
     }
 
   // ====================================================================================================

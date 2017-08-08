@@ -269,6 +269,8 @@ public interface BillingService {
     List<AcReceipt> findReceiptsByFlowState(AcFlowState flowState);
 
     List<AcReceiptItem> findReceiptItems(AcReceipt receipt);
+    
+    List<AcReceiptInvoice> findReceipts(AcReceipt receipt);
 
     Integer countReceipt(AcReceiptType type);
 
