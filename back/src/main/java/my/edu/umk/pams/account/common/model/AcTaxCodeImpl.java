@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.common.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -27,7 +29,7 @@ public class AcTaxCodeImpl implements AcTaxCode {
 
     @NotNull
     @Column(name = "TAX_RATE", nullable = false)
-    private String taxRate;
+    private BigDecimal taxRate;
     
     @NotNull
     @Column(name = "DESCRIPTION", nullable = false)
@@ -65,18 +67,18 @@ public class AcTaxCodeImpl implements AcTaxCode {
     public void setDescription(String description) {
         this.description = description;
     }
-
-	@Override
-	public String getTaxRate() {
+	
+    @Override
+    public BigDecimal getTaxRate() {
 		return taxRate;
 	}
 
-	@Override
-	public void setTaxRate(String taxRate) {
+    @Override
+    public void setTaxRate(BigDecimal taxRate) {
 		this.taxRate = taxRate;
 	}
-	
-    @Override
+
+	@Override
     public AcMetadata getMetadata() {
         return metadata;
     }
