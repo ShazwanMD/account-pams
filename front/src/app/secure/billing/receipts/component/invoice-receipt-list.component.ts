@@ -18,7 +18,10 @@ import { Receipt } from "../../../../shared/model/billing/receipt.interface";
 export class InvoiceReceiptListComponent implements OnInit {
 
   private columns: any[] = [
-    {name: 'invoice', label: 'Invoice'},
+    {name: 'invoice.referenceNo', label: 'Reference No'},
+    {name: 'invoice.description', label: 'Description'},
+    {name: 'invoice.totalAmount', label: 'Total Amount'},
+    {name: 'invoice.balanceAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
 
