@@ -21,7 +21,25 @@ export class ReceiptActions {
       payload: receipts
     };
   }
+  
+  static FIND_RECEIPTS_BY_INVOICE = '[Receipt] Find Completed Receipts';
 
+  findReceiptsByInvoice(receipt): Action {
+    return {
+      type: ReceiptActions.FIND_RECEIPTS_BY_INVOICE,
+      payload: receipt
+    };
+  }
+
+  static FIND_RECEIPTS_BY_INVOICE_SUCCESS = '[Receipt] Find Completed Receipts Success';
+
+  findReceiptsByInvoiceSuccess(receipts): Action {
+    console.log("findCompletedReceiptsSuccess");
+    return {
+      type: ReceiptActions.FIND_RECEIPTS_BY_INVOICE_SUCCESS,
+      payload: receipts
+    };
+  } 
 
   static FIND_ASSIGNED_RECEIPT_TASKS = '[Receipt] Find Assigned Receipt Tasks';
 
@@ -349,6 +367,25 @@ export class ReceiptActions {
     return {
       type: ReceiptActions.ADD_RECEIPT_INVOICE_ITEM_SUCCESS,
       payload: message
+    };
+  }
+  
+  static FIND_UNPAID_INVOICES = '[Invoice] Find Unpaid Invoices';
+
+  findUnpaidInvoices(account): Action {
+    return {
+      type: ReceiptActions.FIND_UNPAID_INVOICES,
+      payload: account,
+    };
+  }
+
+  static FIND_UNPAID_INVOICES_SUCCESS = '[Invoice] Find Unpaid Invoices Success';
+
+  findUnpaidInvoicesSuccess(invoices): Action {
+    console.log('findUnpaidInvoicesSuccess');
+    return {
+      type: ReceiptActions.FIND_UNPAID_INVOICES_SUCCESS,
+      payload: invoices,
     };
   }
 

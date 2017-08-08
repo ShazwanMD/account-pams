@@ -410,4 +410,10 @@ public class BillingTransformer {
                 .map((task) -> toCreditNoteVos(task))
                 .collect(toCollection(() -> new ArrayList<CreditNote>()));
     }
+    
+    public List<ReceiptInvoice> toReceiptInvoiceVos(List<AcReceiptInvoice> entries) {
+        return entries.stream()
+                .map((entry) -> toReceiptInvoiceVo(entry))
+                .collect(toCollection(() -> new ArrayList<ReceiptInvoice>()));
+    }
 }

@@ -14,6 +14,7 @@ import {Invoice} from '../../../../shared/model/billing/invoice.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {InvoiceActions} from '../../invoices/invoice.action';
 import { InvoiceReceiptDialog } from "../dialog/invoice-receipt.dialog";
+import { ReceiptInvoice } from "../../../../shared/model/billing/receipt-invoice.interface";
 
 @Component({
   selector: 'pams-receipt-draft-task',
@@ -25,9 +26,11 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split('.');
   private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
   private INVOICES: string[] = 'billingModuleState.invoices'.split('.');
+  private RECEIPT_INVOICE: string[] = 'billingModuleState.receiptInvoice'.split('.');
   private account$: Observable<Account>;
   private invoices$: Observable<Invoice[]>;
   private receiptItems$: Observable<ReceiptItem[]>;
+  private receiptInvoice$: Observable<ReceiptInvoice>;
 
   @Input() receiptTask: ReceiptTask;
 
@@ -43,11 +46,13 @@ export class ReceiptDraftTaskPanel implements OnInit {
     this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
     this.account$ = this.stores.select(...this.ACCOUNT);
     this.invoices$ = this.store.select(...this.INVOICES);
+    this.receiptInvoice$ = this.store.select(...this.RECEIPT_INVOICE);
   }
 
   ngOnInit(): void {
     //this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
     this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
+    this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
   }
 
   editItem(item: ReceiptItem) {

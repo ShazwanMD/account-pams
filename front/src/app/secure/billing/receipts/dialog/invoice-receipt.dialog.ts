@@ -21,7 +21,6 @@ export class InvoiceReceiptDialog implements OnInit {
   private createForm: FormGroup;
   private edit: boolean = false;
   private _receipt: Receipt;
-  @Input() invoice: Invoice;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -52,7 +51,6 @@ export class InvoiceReceiptDialog implements OnInit {
       console.log("Invc ref No" + this.createForm.get('invoice').value.referenceNo);
       
     this.store.dispatch(this.actions.addReceiptInvoiceItems(this._receipt, this.createForm.get('invoice').value));
-    //else  this.store.dispatch(this.actions.updateReceiptItem(this._receipt, item));
     this.dialog.close();
   }
 }

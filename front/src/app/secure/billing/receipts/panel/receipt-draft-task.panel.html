@@ -40,11 +40,11 @@
         <div flex-gt-md="50">
           <md-card>
             <md-card-title>Unpaid Invoices</md-card-title>
-            <pams-invoice-unpaid-list
-              [account]="account$ | async"
-              [invoices]="invoices$ | async"
-              (apply)="viewInvoice($event)">
-            </pams-invoice-unpaid-list>
+            <pams-invoice-receipt-list
+              [receipt]="receipt$ | async"
+              [receiptInvoice]="receiptInvoice$ | async"
+              (apply)="showApplyInvoiceDialog($event)">
+            </pams-invoice-receipt-list>
           </md-card>
 <!--           <md-card>
             <md-card-title>Paid Invoices</md-card-title>
@@ -56,27 +56,6 @@
 
         </div>
       </div>
-
-
-      <!-- version lama -->
-      <!--<md-card>-->
-      <!--<md-tab-group [selectedIndex]="0">-->
-
-      <!--<md-tab label="Item">-->
-      <!--</md-tab>-->
-      <!--<md-tab label="Outstanding Invoices">-->
-      <!--<pams-invoice-unpaid-list-->
-      <!--[account]="account$ | async"-->
-      <!--[invoices]="invoices$ | async"-->
-      <!--(apply)="viewInvoice($event)">-->
-      <!--</pams-invoice-unpaid-list>-->
-      <!--</md-tab>-->
-
-      <!--<md-tab label="Paid Invoices">-->
-
-      <!--</md-tab>-->
-      <!--</md-tab-group>-->
-      <!--</md-card>-->
 
     </div>
     <div flex-gt-md="30">
