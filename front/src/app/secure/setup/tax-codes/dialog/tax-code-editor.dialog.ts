@@ -37,7 +37,7 @@ export class TaxCodeEditorDialog implements OnInit {
       id: undefined,
       code: '',
       description: '',
-      taxRate: '',
+      taxRate: 0,
     });
 
     if (this.edit) this.editorForm.patchValue(this._taxCode);
