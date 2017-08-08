@@ -22,7 +22,7 @@ import {
 })
 export class SecurityChargeCodeListPage implements OnInit {
 
-  private SECURITY_CHARGE_CODES = 'setupModuleState.securityChargeCode'.split('.');
+  private SECURITY_CHARGE_CODES = 'setupModuleState.securityChargeCodes'.split('.');
   private securityChargeCodes$: Observable<SecurityChargeCode[]>;
   private creatorDialogRef: MdDialogRef<SecurityChargeCodeEditorDialog>;
   private columns: any[] = [
