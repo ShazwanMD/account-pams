@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.web.module.common.vo;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +10,7 @@ public class TaxCode {
 
 	private Long id;
 	private String code;
-	private String taxRate;
+	private BigDecimal taxRate;
 	private String description;
 
 	public Long getId() {
@@ -36,15 +37,17 @@ public class TaxCode {
 		this.description = description;
 	}
 
-	public String getTaxRate() {
+
+	
+    public BigDecimal getTaxRate() {
 		return taxRate;
 	}
 
-	public void setTaxRate(String taxRate) {
+	public void setTaxRate(BigDecimal taxRate) {
 		this.taxRate = taxRate;
 	}
 
-    @JsonCreator
+	@JsonCreator
     public static TaxCode create(String jsonString) {
         TaxCode o = null;
         try {
