@@ -1,5 +1,5 @@
 <td-layout #layout>
-  <td-navigation-drawer logo="assets:covalent" sidenavTitle="PAMS Intake" name="{{authenticatedUser?.username}}"
+  <td-navigation-drawer logo="assets:covalent" sidenavTitle="PAMS Account" name="{{authenticatedUser?.username}}"
                         email="{{authenticatedUser?.email}}">
     <md-nav-list>
       <a md-list-item [routerLink]="['/secure/setup']" (click)="layout.close()" authorizedShow="VIEW_STM">
