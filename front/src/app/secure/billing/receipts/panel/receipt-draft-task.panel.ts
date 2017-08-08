@@ -30,7 +30,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private account$: Observable<Account>;
   private invoices$: Observable<Invoice[]>;
   private receiptItems$: Observable<ReceiptItem[]>;
-  private receiptInvoice$: Observable<ReceiptInvoice>;
+  private receiptInvoice$: Observable<ReceiptInvoice[]>;
 
   @Input() receiptTask: ReceiptTask;
 

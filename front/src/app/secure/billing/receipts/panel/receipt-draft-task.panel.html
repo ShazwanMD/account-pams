@@ -41,7 +41,7 @@
           <md-card>
             <md-card-title>Unpaid Invoices</md-card-title>
             <pams-invoice-receipt-list
-              [receipt]="receipt$ | async"
+              [receipt]="receiptTask.receipt"
               [receiptInvoice]="receiptInvoice$ | async"
               (apply)="showApplyInvoiceDialog($event)">
             </pams-invoice-receipt-list>
