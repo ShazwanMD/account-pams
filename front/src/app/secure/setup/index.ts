@@ -1,3 +1,5 @@
+import { CohortCodesComponent } from './cohort-codes/component/cohort-code';
+import { BankCodesComponent } from './bank-codes/component/bank-code';
 import {SecurityChargeCodeListPage} from './security-charge-codes/security-charge-code-list.page';
 import {SecurityChargeCode} from '../../shared/model/common/security-charge-code.interface';
 import {CohortCodeEditorDialog} from './cohort-codes/dialog/cohort-code-editor.dialog';
@@ -29,10 +31,7 @@ import {FacultyCodeListPage} from './faculty-codes/faculty-code-list.page';
 import {StudyModeListPage} from './study-modes/study-mode-list.page';
 import {bankCodeListReducer, BankCodeListState} from './bank-codes/bank-code-list.reducer';
 import {cohortCodeListReducer, CohortCodeListState} from './cohort-codes/cohort-code-list.reducer';
-import {
-  residencyCodeListReducer,
-  ResidencyCodeListState
-} from '../../common/residency-codes/residency-code-list.reducer';
+import {residencyCodeListReducer,ResidencyCodeListState} from '../../common/residency-codes/residency-code-list.reducer';
 import {ResidencyCode} from '../../shared/model/common/residency-code.interface';
 import {ResidencyCodeListPage} from './residency-codes/residency-code-list.page';
 import {ResidencyCodeEditorDialog} from './residency-codes/dialog/residency-code-editor.dialog';
@@ -46,6 +45,7 @@ import {
   securityChargeCodeListReducer,
   SecurityChargeCodeListState
 } from './security-charge-codes/security-charge-code-list.reducer';
+
 
 export interface SetupModuleState {
   title: TitleState;
@@ -112,6 +112,12 @@ export const setupModuleReducers = {
     ResidencyCodeEditorDialog,
     TaxCodeEditorDialog,
     SecurityChargeCodeEditorDialog,
+
+    // component
+    BankCodesComponent,
+    CohortCodesComponent,
+
+
   ],
   exports: [],
   entryComponents: [
@@ -125,7 +131,8 @@ export const setupModuleReducers = {
     ResidencyCodeEditorDialog,
     TaxCodeEditorDialog,
     SecurityChargeCodeEditorDialog,
-  ],
+
+    ],
 
 })
 export class SetupModule {
