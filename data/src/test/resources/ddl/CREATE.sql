@@ -1132,7 +1132,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
-        TAX_RATE varchar(255) not null,
+        TAX_RATE numeric (19, 2),
         primary key (ID)
     );
 
