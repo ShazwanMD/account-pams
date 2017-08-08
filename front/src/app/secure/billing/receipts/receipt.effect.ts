@@ -148,8 +148,5 @@ export class ReceiptEffects {
       .map((action) => action.payload)
       .switchMap((payload) => this.billingService.addReceiptInvoiceItems(payload.receipt, payload.invoice))
       .map((message) => this.receiptActions.addReceiptInvoiceItemsSuccess(message));
-//        .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
-//        .map(state => state[1])
-//        .map(receipt => this.receiptActions.findReceiptItems(receipt));
 
 }
