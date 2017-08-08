@@ -1,3 +1,4 @@
+import { CohortCodesComponent } from './cohort-codes/component/cohort-code';
 import { BankCodesComponent } from './bank-codes/component/bank-code';
 import {SecurityChargeCodeListPage} from './security-charge-codes/security-charge-code-list.page';
 import {SecurityChargeCode} from '../../shared/model/common/security-charge-code.interface';
@@ -114,6 +115,7 @@ export const setupModuleReducers = {
 
     // component
     BankCodesComponent,
+    CohortCodesComponent,
 
 
   ],
