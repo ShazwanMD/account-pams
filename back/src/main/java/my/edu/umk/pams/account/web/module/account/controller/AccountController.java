@@ -222,8 +222,9 @@ public class AccountController {
         chargeCode.setPriority(vo.getPriority());
         if (null != vo.getTaxCode())
             chargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
-        accountService.updateChargeCode(chargeCode);
         chargeCode.setInclusive(vo.getInclusive());
+        chargeCode.setActive(vo.getActive());
+        accountService.updateChargeCode(chargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
