@@ -283,7 +283,27 @@ export class SetupActions {
       payload: message
     };
   }
+//7------------------------------------------------------------------------------------------//
+  static UPDATE_PROGRAM_CODE = '[Setup] Update Program Code';
 
+  updateProgramCode(code): Action {
+    console.log("updateProgramCode");
+    return {
+      type: SetupActions.UPDATE_PROGRAM_CODE,
+      payload: code
+    };
+  }
+//8------------------------------------------------------------------------------------------//
+  static UPDATE_PROGRAM_CODE_SUCCESS = '[Setup] Update Program Code  Success';
+
+  updateProgramCodeSuccess(message): Action {
+    console.log("updateProgramCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_PROGRAM_CODE_SUCCESS,
+      payload: message
+    };
+  }
+  
 //===========================================================================================//
 // FACULTY CODE                                                                              //
 //===========================================================================================//
