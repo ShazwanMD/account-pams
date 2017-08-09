@@ -37,4 +37,12 @@ public interface AcInvoiceItem extends AcMetaObject{
     AcInvoice getInvoice();
 
     void setInvoice(AcInvoice invoice);
+
+	BigDecimal getTaxAmount();
+
+	void setTaxAmount(BigDecimal taxAmount);
+
+	BigDecimal getNetAmount();
+
+	void setNetAmount(BigDecimal netAmount);
 }
