@@ -1,3 +1,4 @@
+import { FacultyCodesComponent } from './faculty-codes/component/faculty-code';
 import { CohortCodesComponent } from './cohort-codes/component/cohort-code';
 import { BankCodesComponent } from './bank-codes/component/bank-code';
 import {SecurityChargeCodeListPage} from './security-charge-codes/security-charge-code-list.page';
@@ -20,7 +21,7 @@ import {SetupEffects} from './setup.effect';
 import {EffectsModule} from '@ngrx/effects';
 import {SetupActions} from './setup.action';
 import {StudyModeCreatorDialog} from './study-modes/dialog/study-mode-creator.dialog';
-import {FacultyCodeCreatorDialog} from './faculty-codes/dialog/faculty-code-creator.dialog';
+import {FacultyCodeEditorDialog} from './faculty-codes/dialog/faculty-code-editor.dialog';
 import {CountryCodeCreatorDialog} from './country-codes/dialog/country-code-creator.dialog';
 import {StateCodeCreatorDialog} from './state-codes/dialog/state-code-creator.dialog';
 import {ProgramCodeCreatorDialog} from './program-codes/dialog/program-code-creator.dialog';
@@ -45,6 +46,8 @@ import {
   securityChargeCodeListReducer,
   SecurityChargeCodeListState
 } from './security-charge-codes/security-charge-code-list.reducer';
+import { FacultyCode } from "../../shared/model/common/faculty-code.interface";
+import { facultyCodeListReducer } from "../../common/faculty-codes/faculty-code-list.reducer";
 
 
 export interface SetupModuleState {
@@ -63,6 +66,7 @@ export const INITIAL_SETUP_STATE: SetupModuleState =
     title: 'Setup Codes',
     bankCodes: <BankCode[]>[],
     cohortCodes: <CohortCode[]>[],
+    facultyCodes: <FacultyCode[]>[],
     residencyCodes: <ResidencyCode[]>[],
     taxCodes: <TaxCode[]>[],
     securityChargeCodes: <SecurityChargeCode[]>[],
@@ -73,6 +77,7 @@ export const setupModuleReducers = {
   title: titleReducer,
   bankCodes: bankCodeListReducer,
   cohortCodes: cohortCodeListReducer,
+  facultyCodes: facultyCodeListReducer,
   residencyCodes: residencyCodeListReducer,
   taxCodes: taxCodeListReducer,
   securityChargeCodes: securityChargeCodeListReducer,
@@ -106,7 +111,7 @@ export const setupModuleReducers = {
     CountryCodeCreatorDialog,
     StateCodeCreatorDialog,
     ProgramCodeCreatorDialog,
-    FacultyCodeCreatorDialog,
+    FacultyCodeEditorDialog,
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
     ResidencyCodeEditorDialog,
@@ -116,6 +121,7 @@ export const setupModuleReducers = {
     // component
     BankCodesComponent,
     CohortCodesComponent,
+    FacultyCodesComponent,
 
 
   ],
@@ -125,7 +131,7 @@ export const setupModuleReducers = {
     CountryCodeCreatorDialog,
     StateCodeCreatorDialog,
     ProgramCodeCreatorDialog,
-    FacultyCodeCreatorDialog,
+    FacultyCodeEditorDialog,
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
     ResidencyCodeEditorDialog,
