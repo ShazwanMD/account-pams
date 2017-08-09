@@ -15,6 +15,7 @@ import {Account} from '../../../../shared/model/account/account.interface';
 import {InvoiceActions} from '../../invoices/invoice.action';
 import { InvoiceReceiptDialog } from "../dialog/invoice-receipt.dialog";
 import { ReceiptInvoice } from "../../../../shared/model/billing/receipt-invoice.interface";
+import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.dialog";
 
 @Component({
   selector: 'pams-receipt-draft-task',
@@ -53,6 +54,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
     //this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
     this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
+    
   }
 
   editItem(item: ReceiptItem) {
@@ -98,9 +100,5 @@ export class ReceiptDraftTaskPanel implements OnInit {
     this.router.navigate(['/secure/billing/receipts']);
   }
 
-  viewTask(receiptInvoice: ReceiptInvoice) {
 
-    console.log('ref no for receipt: ' + receiptInvoice.receipt.referenceNo);
-    
-  }
 }

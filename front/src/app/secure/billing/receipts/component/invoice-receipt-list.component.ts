@@ -9,14 +9,19 @@ import { InvoiceActions } from "../../invoices/invoice.action";
 import { Observable } from "rxjs/Observable";
 import { ReceiptInvoice } from "../../../../shared/model/billing/receipt-invoice.interface";
 import { Receipt } from "../../../../shared/model/billing/receipt.interface";
+import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.dialog";
 
 @Component({
   selector: 'pams-invoice-receipt-list',
   templateUrl: './invoice-receipt-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceReceiptListComponent implements OnInit {
+export class InvoiceReceiptListComponent {
 
+    @Input() receiptInvoice: ReceiptInvoice[];
+    @Input() receipt: Receipt;
+    @Output() view = new EventEmitter<ReceiptInvoice>();
+    
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Reference No'},
     {name: 'invoice.description', label: 'Description'},
@@ -25,19 +30,33 @@ export class InvoiceReceiptListComponent implements OnInit {
     {name: 'action', label: ''},
   ];
 
-  @Input() receiptInvoice: ReceiptInvoice[];
-  @Input() receipt: Receipt;
-  @Output() view = new EventEmitter<ReceiptInvoice>();
-
   constructor(private snackBar: MdSnackBar,
-              private vcf: ViewContainerRef,
+              private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
               private action: InvoiceActions,
               private dialog: MdDialog) {
   }
   
-  ngOnInit(): void {
+  viewTask(receiptInvoice: ReceiptInvoice) {
+
+      console.log('ref no for receipt: ' + receiptInvoice.receipt.referenceNo);
+      this.showDialog(receiptInvoice);
       
     }
+    
+    showDialog(receiptInvoice: ReceiptInvoice) {
+        console.log("Receipt for create item dialog "+ receiptInvoice.receipt.referenceNo);
+        console.log("Invoice for create item dialog "+ receiptInvoice.invoice.referenceNo);
+        let config = new MdDialogConfig();
+        config.viewContainerRef = this.viewContainerRef;
+        config.role = 'dialog';
+        config.width = '70%';
+        config.height = '60%';
+        config.position = {top: '0px'};
+        let editorDialogRef = this.dialog.open(InvoiceReceiptCreatorDialog, config);
+        editorDialogRef.componentInstance.receipt = receiptInvoice.receipt;
+        editorDialogRef.componentInstance.invoice = receiptInvoice.invoice;
+      }
+  
 
 }

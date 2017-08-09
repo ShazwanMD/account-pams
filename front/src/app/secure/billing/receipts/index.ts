@@ -37,6 +37,8 @@ import { InvoiceUnpaidListComponent } from "./component/invoice-unpaid-list.comp
 import { InvoiceUnpaidSelectComponent } from "./component/invoice-select-unpaid.component";
 import { InvoiceReceiptDialog } from "./dialog/invoice-receipt.dialog";
 import { InvoiceReceiptListComponent } from "./component/invoice-receipt-list.component";
+import { InvoiceReceiptCreatorDialog } from "./dialog/invoice-receipt-creator.dialog";
+import { InvoiceItemSelectComponent } from "./component/invoice-items-select.component";
 
 @NgModule({
   imports: [
@@ -71,6 +73,7 @@ import { InvoiceReceiptListComponent } from "./component/invoice-receipt-list.co
     InvoiceUnpaidListComponent,
     InvoiceUnpaidSelectComponent,
     InvoiceReceiptListComponent,
+    InvoiceItemSelectComponent,
 
     // dialog
     ReceiptItemEditorDialog,
@@ -79,6 +82,7 @@ import { InvoiceReceiptListComponent } from "./component/invoice-receipt-list.co
     InvoiceApplicatorDialog,
     InvoiceUnpaidSelectComponent,
     InvoiceReceiptDialog,
+    InvoiceReceiptCreatorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -90,6 +94,7 @@ import { InvoiceReceiptListComponent } from "./component/invoice-receipt-list.co
     InvoiceApplicatorDialog,
     InvoiceReceiptDialog,
     InvoiceReceiptListComponent,
+    InvoiceReceiptCreatorDialog,
   ],
 
 })
