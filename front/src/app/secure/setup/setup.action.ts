@@ -24,7 +24,10 @@ export class SetupActions {
     };
   }
 
-
+//-------------------------------------------------------------------------------------------//
+// BANK CODE //
+//---------------------------------//
+//1---------------------------------------
   static FIND_BANK_CODES = '[Setup] Find Bank Codes';
 
   findBankCodes(): Action {
@@ -33,7 +36,7 @@ export class SetupActions {
       type: SetupActions.FIND_BANK_CODES,
     };
   }
-
+//2----------------------------------------------
   static FIND_BANK_CODES_SUCCESS = '[Setup] Find Bank Codes Success';
 
   findBankCodesSuccess(codes): Action {
@@ -43,7 +46,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//3----------------------------------------------
   static SAVE_BANK_CODE = '[Setup] Save Bank Code';
 
   saveBankCode(code): Action {
@@ -53,7 +56,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//4-----------------------------------------------------
   static SAVE_BANK_CODE_SUCCESS = '[Setup] Save Bank Code  Success';
 
   saveBankCodeSuccess(message): Action {
@@ -63,7 +66,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//5---------------------------------------------------------
   static UPDATE_BANK_CODE = '[Setup] Update Bank Code';
 
   updateBankCode(code): Action {
@@ -73,7 +76,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//6-------------------------------------------------------------------
   static UPDATE_BANK_CODE_SUCCESS = '[Setup] Update Bank Code  Success';
 
   updateBankCodeSuccess(message): Action {
@@ -83,7 +86,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//7---------------------------------------------------------------------
   static REMOVE_BANK_CODE = '[Setup] Remove Bank Code';
 
   removeBankCode(code): Action {
@@ -93,7 +96,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//8-------------------------------------------------------------------------------
   static REMOVE_BANK_CODE_SUCCESS = '[Setup] Remove Bank Code  Success';
 
   removeBankCodeSuccess(message): Action {
@@ -103,7 +106,10 @@ export class SetupActions {
       payload: message
     };
   }
-
+//-------------------------------------------------------------------------------------------//
+// MARITAL CODE //
+//---------------------------------//
+//1---------------------------------------
   static SAVE_MARITAL_CODE = '[Setup] Save Marital Code';
 
   saveMaritalCode(code): Action {
@@ -261,7 +267,10 @@ export class SetupActions {
     };
   }
 
-
+//-------------------------------------------------------------------------------------------//
+// FACULTY CODE //
+//---------------------------------//
+//1---------------------------------------
   static SAVE_FACULTY_CODE = '[Setup] Save Faculty Code';
 
   saveFacultyCode(code): Action {
@@ -271,7 +280,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//2-------------------------------------------
   static SAVE_FACULTY_CODE_SUCCESS = '[Setup] Save Faculty Code Success';
 
   saveFacultyCodeSuccess(message): Action {
@@ -281,7 +290,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//3-----------------------------------------------------------
   static FIND_FACULTY_CODES = '[Common] Find Faculty Codes';
 
   findFacultyCodes(): Action {
@@ -290,7 +299,7 @@ export class SetupActions {
       type: SetupActions.FIND_FACULTY_CODES,
     };
   }
-
+//4---------------------------------------------------------
   static FIND_FACULTY_CODES_SUCCESS = '[Common] Find SupervisorCodes Success';
 
   findFacultyCodesSuccess(codes): Action {
@@ -300,7 +309,50 @@ export class SetupActions {
       payload: codes
     };
   }
+//5-------------------------------------------------------------
+  static REMOVE_FACULTY_CODE = '[Setup] Remove Faculty Code';
 
+  removeFacultyCode(code): Action {
+    console.log("removeFacultyCode");
+    return {
+      type: SetupActions.REMOVE_FACULTY_CODE,
+      payload: code
+    };
+  }
+//6-------------------------------------------------------------------------------
+  static REMOVE_FACULTY_CODE_SUCCESS = '[Setup] Remove Faculty Code  Success';
+
+  removeFacultyCodeSuccess(message): Action {
+    console.log("removeFacultyCodeSuccess");
+    return {
+      type: SetupActions.REMOVE_FACULTY_CODE_SUCCESS,
+      payload: message
+    };
+  }
+  //7---------------------------------------------------------
+  static UPDATE_FACULTY_CODE = '[Setup] Update Faculty Code';
+
+  updateFacultyCode(code): Action {
+    console.log("updateFacultyCode");
+    return {
+      type: SetupActions.UPDATE_FACULTY_CODE,
+      payload: code
+    };
+  }
+//8-------------------------------------------------------------------
+  static UPDATE_FACULTY_CODE_SUCCESS = '[Setup] Update Faculty Code  Success';
+
+  updateFacultyCodeSuccess(message): Action {
+    console.log("updateFacultyCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_FACULTY_CODE_SUCCESS,
+      payload: message
+    };
+  }
+//-------------------------------------------------------------------------------------------//
+// RESIDENCY CODE //
+//---------------------------------//
+//1---------------------------------------
   static FIND_RESIDENCY_CODES = '[Common] Find Residency Codes';
 
   findResidencyCodes(): Action {
