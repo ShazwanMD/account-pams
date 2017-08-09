@@ -1,3 +1,5 @@
+import { ResidencyCodesComponent } from './residency-codes/component/residency-code';
+import { ProgramCodesComponent } from './program-codes/component/program-code';
 import { TaxCodesComponent } from './tax-codes/component/tax-code';
 import { FacultyCodesComponent } from './faculty-codes/component/faculty-code';
 import { CohortCodesComponent } from './cohort-codes/component/cohort-code';
@@ -25,7 +27,7 @@ import {StudyModeCreatorDialog} from './study-modes/dialog/study-mode-creator.di
 import {FacultyCodeEditorDialog} from './faculty-codes/dialog/faculty-code-editor.dialog';
 import {CountryCodeCreatorDialog} from './country-codes/dialog/country-code-creator.dialog';
 import {StateCodeCreatorDialog} from './state-codes/dialog/state-code-creator.dialog';
-import {ProgramCodeCreatorDialog} from './program-codes/dialog/program-code-creator.dialog';
+import {ProgramCodeEditorDialog} from './program-codes/dialog/program-code-editor.dialog';
 import {CountryCodeListPage} from './country-codes/country-code-list.page';
 import {StateCodeListPage} from './state-codes/state-code-list.page';
 import {ProgramCodeListPage} from './program-codes/program-code-list.page';
@@ -43,13 +45,11 @@ import {TaxCodeListPage} from './tax-codes/tax-code-list.page';
 import {TaxCodeEditorDialog} from './tax-codes/dialog/tax-code-editor.dialog';
 
 import {SecurityChargeCodeEditorDialog} from './security-charge-codes/dialog/security-charge-code-editor.dialog';
-import {
-  securityChargeCodeListReducer,
-  SecurityChargeCodeListState
-} from './security-charge-codes/security-charge-code-list.reducer';
+import {securityChargeCodeListReducer,SecurityChargeCodeListState} from './security-charge-codes/security-charge-code-list.reducer';
 import { FacultyCode } from "../../shared/model/common/faculty-code.interface";
-import { facultyCodeListReducer } from "../../common/faculty-codes/faculty-code-list.reducer";
-
+import { facultyCodeListReducer, FacultyCodeListState } from "../../common/faculty-codes/faculty-code-list.reducer";
+import { ProgramCode } from "../../shared/model/common/program-code.interface";
+import { programCodeListReducer, ProgramCodeListState } from "../../common/program-codes/program-code-list.reducer";
 
 export interface SetupModuleState {
   title: TitleState;
@@ -58,6 +58,8 @@ export interface SetupModuleState {
   residencyCodes: ResidencyCodeListState;
   taxCodes: TaxCodeListState;
   securityChargeCodes: SecurityChargeCodeListState;
+  facultyCodes: FacultyCodeListState;
+  programCodes: ProgramCodeListState;
 
 }
 ;
@@ -68,6 +70,7 @@ export const INITIAL_SETUP_STATE: SetupModuleState =
     bankCodes: <BankCode[]>[],
     cohortCodes: <CohortCode[]>[],
     facultyCodes: <FacultyCode[]>[],
+    programCodes: <ProgramCode[]>[],
     residencyCodes: <ResidencyCode[]>[],
     taxCodes: <TaxCode[]>[],
     securityChargeCodes: <SecurityChargeCode[]>[],
@@ -79,6 +82,7 @@ export const setupModuleReducers = {
   bankCodes: bankCodeListReducer,
   cohortCodes: cohortCodeListReducer,
   facultyCodes: facultyCodeListReducer,
+  programCodes: programCodeListReducer,
   residencyCodes: residencyCodeListReducer,
   taxCodes: taxCodeListReducer,
   securityChargeCodes: securityChargeCodeListReducer,
@@ -111,7 +115,7 @@ export const setupModuleReducers = {
     BankCodeEditorDialog,
     CountryCodeCreatorDialog,
     StateCodeCreatorDialog,
-    ProgramCodeCreatorDialog,
+    ProgramCodeEditorDialog,
     FacultyCodeEditorDialog,
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
@@ -123,6 +127,8 @@ export const setupModuleReducers = {
     BankCodesComponent,
     CohortCodesComponent,
     FacultyCodesComponent,
+    ProgramCodesComponent,
+    ResidencyCodesComponent,
     TaxCodesComponent,
 
 
@@ -132,7 +138,7 @@ export const setupModuleReducers = {
     BankCodeEditorDialog,
     CountryCodeCreatorDialog,
     StateCodeCreatorDialog,
-    ProgramCodeCreatorDialog,
+    ProgramCodeEditorDialog,
     FacultyCodeEditorDialog,
     StudyModeCreatorDialog,
     CohortCodeEditorDialog,
