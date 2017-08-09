@@ -43,7 +43,7 @@ export class SecurityChargeCodeListPage implements OnInit {
   searchTerm: string = '';
   fromRow: number = 1;
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 5;
   sortBy: string = 'section';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
