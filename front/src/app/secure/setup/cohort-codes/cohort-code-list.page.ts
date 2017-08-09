@@ -21,7 +21,7 @@ import {CohortCodeEditorDialog} from './dialog/cohort-code-editor.dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CohortCodeListPage implements OnInit{
-  private COHORT_CODES = "setupModuleState.cohortCodes".split(".");
+  private FACULTY_CODES = "setupModuleState.cohortCodes".split(".");
   private cohortCodes$: Observable<CohortCode[]>;
   private creatorDialogRef: MdDialogRef<CohortCodeEditorDialog>;
   
@@ -31,7 +31,7 @@ export class CohortCodeListPage implements OnInit{
               private dialog: MdDialog) {
               
               
-    this.cohortCodes$ = this.store.select(...this.COHORT_CODES);
+    this.cohortCodes$ = this.store.select(...this.FACULTY_CODES);
   }
   ngOnInit(): void {
     this.store.dispatch(this.actions.findCohortCodes());
