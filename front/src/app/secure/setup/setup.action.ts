@@ -4,6 +4,10 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class SetupActions {
 
+//===========================================================================================//
+//  CHANGE TITLE                                                                             //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static CHANGE_TITLE = '[Setup] Change Title';
 
   changeTitle(title): Action {
@@ -13,7 +17,7 @@ export class SetupActions {
       payload: title
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static CHANGE_TITLE_SUCCESS = '[Setup] Change Title Success';
 
   changeTitleSuccess(title): Action {
@@ -24,7 +28,10 @@ export class SetupActions {
     };
   }
 
-
+//===========================================================================================//
+// BANK CODE                                                                                 //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static FIND_BANK_CODES = '[Setup] Find Bank Codes';
 
   findBankCodes(): Action {
@@ -33,7 +40,7 @@ export class SetupActions {
       type: SetupActions.FIND_BANK_CODES,
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static FIND_BANK_CODES_SUCCESS = '[Setup] Find Bank Codes Success';
 
   findBankCodesSuccess(codes): Action {
@@ -43,7 +50,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static SAVE_BANK_CODE = '[Setup] Save Bank Code';
 
   saveBankCode(code): Action {
@@ -53,7 +60,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static SAVE_BANK_CODE_SUCCESS = '[Setup] Save Bank Code  Success';
 
   saveBankCodeSuccess(message): Action {
@@ -63,7 +70,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//5------------------------------------------------------------------------------------------//
   static UPDATE_BANK_CODE = '[Setup] Update Bank Code';
 
   updateBankCode(code): Action {
@@ -73,7 +80,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//6------------------------------------------------------------------------------------------//
   static UPDATE_BANK_CODE_SUCCESS = '[Setup] Update Bank Code  Success';
 
   updateBankCodeSuccess(message): Action {
@@ -83,7 +90,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//7------------------------------------------------------------------------------------------//
   static REMOVE_BANK_CODE = '[Setup] Remove Bank Code';
 
   removeBankCode(code): Action {
@@ -93,7 +100,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//8------------------------------------------------------------------------------------------//
   static REMOVE_BANK_CODE_SUCCESS = '[Setup] Remove Bank Code  Success';
 
   removeBankCodeSuccess(message): Action {
@@ -104,6 +111,10 @@ export class SetupActions {
     };
   }
 
+//===========================================================================================//
+// MARITAL CODE                                                                              //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static SAVE_MARITAL_CODE = '[Setup] Save Marital Code';
 
   saveMaritalCode(code): Action {
@@ -113,7 +124,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static SAVE_MARITAL_CODE_SUCCESS = '[Setup] Save Marital Code Success';
 
   saveMaritalCodeSuccess(message): Action {
@@ -123,7 +134,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static UPDATE_MARITAL_CODE = '[Setup] Update Marital Code';
 
   updateMaritalCode(code): Action {
@@ -133,7 +144,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static UPDATE_MARITAL_CODE_SUCCESS = '[Setup] Update Marital Code  Success';
 
   updateMaritalCodeSuccess(message): Action {
@@ -144,6 +155,10 @@ export class SetupActions {
     };
   }
 
+//===========================================================================================//
+// COUNTRY CODE                                                                              //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static FIND_COUNTRY_CODES = '[Common] Find CountryCodes';
 
   findCountryCodes(): Action {
@@ -152,7 +167,7 @@ export class SetupActions {
       type: SetupActions.FIND_COUNTRY_CODES,
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static FIND_COUNTRY_CODES_SUCCESS = '[Common] Find CountryCodes Success';
 
   findCountryCodesSuccess(codes): Action {
@@ -162,7 +177,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static SAVE_COUNTRY_CODE = '[Setup] Save Country Code';
 
   saveCountryCode(code): Action {
@@ -173,6 +188,10 @@ export class SetupActions {
     };
   }
 
+//===========================================================================================//
+// STATE CODE                                                                                //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static FIND_STATE_CODES_SUCCESS = '[Common] Find StateCodes Success';
 
   findStateCodesSuccess(codes): Action {
@@ -182,7 +201,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static SAVE_STATE_CODE = '[Setup] Save State Code';
 
   saveStateCode(code): Action {
@@ -192,7 +211,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static FIND_STATE_CODES = '[Common] Find StateCodes';
 
   findStateCodes(): Action {
@@ -202,6 +221,10 @@ export class SetupActions {
     };
   }
 
+//===========================================================================================//
+// PROGRAM CODE                                                                              //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static FIND_PROGRAM_CODES = '[Common] Find ProgramCodes';
 
   findProgramCodes(): Action {
@@ -210,7 +233,7 @@ export class SetupActions {
       type: SetupActions.FIND_PROGRAM_CODES,
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static FIND_PROGRAM_CODES_SUCCESS = '[Common] Find ProgramCodes Success';
 
   findProgramCodesSuccess(codes): Action {
@@ -220,7 +243,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static SAVE_PROGRAM_CODE = '[Setup] Save Program Code';
 
   saveProgramCode(code): Action {
@@ -230,7 +253,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static SAVE_PROGRAM_CODE_SUCCESS = '[Setup] Save Program Code Success';
 
   saveProgramCodeSuccess(message): Action {
@@ -240,7 +263,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//5------------------------------------------------------------------------------------------//
   static REMOVE_PROGRAM_CODE = '[Setup] Remove Program Code';
 
   removeProgramCode(code): Action {
@@ -250,7 +273,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//6------------------------------------------------------------------------------------------//
   static REMOVE_PROGRAM_CODE_SUCCESS = '[Setup] Remove Program Code Success';
 
   removeProgramCodeSuccess(message): Action {
@@ -260,8 +283,31 @@ export class SetupActions {
       payload: message
     };
   }
+//7------------------------------------------------------------------------------------------//
+  static UPDATE_PROGRAM_CODE = '[Setup] Update Program Code';
 
+  updateProgramCode(code): Action {
+    console.log("updateProgramCode");
+    return {
+      type: SetupActions.UPDATE_PROGRAM_CODE,
+      payload: code
+    };
+  }
+//8------------------------------------------------------------------------------------------//
+  static UPDATE_PROGRAM_CODE_SUCCESS = '[Setup] Update Program Code  Success';
 
+  updateProgramCodeSuccess(message): Action {
+    console.log("updateProgramCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_PROGRAM_CODE_SUCCESS,
+      payload: message
+    };
+  }
+  
+//===========================================================================================//
+// FACULTY CODE                                                                              //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static SAVE_FACULTY_CODE = '[Setup] Save Faculty Code';
 
   saveFacultyCode(code): Action {
@@ -271,7 +317,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static SAVE_FACULTY_CODE_SUCCESS = '[Setup] Save Faculty Code Success';
 
   saveFacultyCodeSuccess(message): Action {
@@ -281,7 +327,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static FIND_FACULTY_CODES = '[Common] Find Faculty Codes';
 
   findFacultyCodes(): Action {
@@ -290,7 +336,7 @@ export class SetupActions {
       type: SetupActions.FIND_FACULTY_CODES,
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static FIND_FACULTY_CODES_SUCCESS = '[Common] Find SupervisorCodes Success';
 
   findFacultyCodesSuccess(codes): Action {
@@ -300,7 +346,51 @@ export class SetupActions {
       payload: codes
     };
   }
+//5------------------------------------------------------------------------------------------//
+  static REMOVE_FACULTY_CODE = '[Setup] Remove Faculty Code';
 
+  removeFacultyCode(code): Action {
+    console.log("removeFacultyCode");
+    return {
+      type: SetupActions.REMOVE_FACULTY_CODE,
+      payload: code
+    };
+  }
+//6------------------------------------------------------------------------------------------//
+  static REMOVE_FACULTY_CODE_SUCCESS = '[Setup] Remove Faculty Code  Success';
+
+  removeFacultyCodeSuccess(message): Action {
+    console.log("removeFacultyCodeSuccess");
+    return {
+      type: SetupActions.REMOVE_FACULTY_CODE_SUCCESS,
+      payload: message
+    };
+  }
+  //7------------------------------------------------------------------------------------------//
+  static UPDATE_FACULTY_CODE = '[Setup] Update Faculty Code';
+
+  updateFacultyCode(code): Action {
+    console.log("updateFacultyCode");
+    return {
+      type: SetupActions.UPDATE_FACULTY_CODE,
+      payload: code
+    };
+  }
+//8------------------------------------------------------------------------------------------//
+  static UPDATE_FACULTY_CODE_SUCCESS = '[Setup] Update Faculty Code  Success';
+
+  updateFacultyCodeSuccess(message): Action {
+    console.log("updateFacultyCodeSuccess");
+    return {
+      type: SetupActions.UPDATE_FACULTY_CODE_SUCCESS,
+      payload: message
+    };
+  }
+
+//===========================================================================================//
+// RESIDENCY CODE                                                                            //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static FIND_RESIDENCY_CODES = '[Common] Find Residency Codes';
 
   findResidencyCodes(): Action {
@@ -309,7 +399,7 @@ export class SetupActions {
       type: SetupActions.FIND_RESIDENCY_CODES,
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static FIND_RESIDENCY_CODES_SUCCESS = '[Common] Find Residency Codes Success';
 
   findResidencyCodesSuccess(codes): Action {
@@ -319,7 +409,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static SAVE_RESIDENCY_CODE = '[Setup] Save Residency Code';
 
   saveResidencyCode(code): Action {
@@ -329,7 +419,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static SAVE_RESIDENCY_CODE_SUCCESS = '[Setup] Save Residency Code Success';
 
   saveResidencyCodeSuccess(message): Action {
@@ -339,7 +429,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//5------------------------------------------------------------------------------------------//
   static UPDATE_RESIDENCY_CODE = '[Setup] Update Residency Code';
 
   updateResidencyCode(code): Action {
@@ -349,7 +439,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//6------------------------------------------------------------------------------------------//
   static UPDATE_RESIDENCY_CODE_SUCCESS = '[Setup] Update Residency Code  Success';
 
   updateResidencyCodeSuccess(message): Action {
@@ -359,7 +449,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//7------------------------------------------------------------------------------------------//
   static REMOVE_RESIDENCY_CODE = '[Setup] Remove Residency Code';
 
   removeResidencyCode(code): Action {
@@ -369,7 +459,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//8------------------------------------------------------------------------------------------//
   static REMOVE_RESIDENCY_CODE_SUCCESS = '[Setup] Remove Residency Code  Success';
 
   removeResidencyCodeSuccess(message): Action {
@@ -380,6 +470,10 @@ export class SetupActions {
     };
   }
 
+//===========================================================================================//
+// STUDY MODE                                                                                //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static SAVE_STUDY_MODE = '[Setup] Save Study Mode';
 
   saveStudyMode(code): Action {
@@ -389,7 +483,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static SAVE_STUDY_MODE_SUCCESS = '[Setup] Save Study Mode Success';
 
   saveStudyModeSuccess(message): Action {
@@ -399,7 +493,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static FIND_STUDY_MODES = '[Common] Find Study Modes';
 
   findStudyModes(): Action {
@@ -408,7 +502,7 @@ export class SetupActions {
       type: SetupActions.FIND_STUDY_MODES,
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static FIND_STUDY_MODES_SUCCESS = '[Common] Find Study Modes Success';
 
   findStudyModesSuccess(codes): Action {
@@ -419,6 +513,10 @@ export class SetupActions {
     };
   }
 
+//===========================================================================================//
+// COHORT CODE                                                                               //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static SAVE_COHORT_CODE = '[Setup] Save Cohort Code';
 
   saveCohortCode(code): Action {
@@ -428,7 +526,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static SAVE_COHORT_CODE_SUCCESS = '[Setup] Save Cohort Code Success';
 
   saveCohortCodeSuccess(message): Action {
@@ -438,7 +536,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static FIND_COHORT_CODES = '[Common] Find CohortCodes';
 
   findCohortCodes(): Action {
@@ -447,7 +545,7 @@ export class SetupActions {
       type: SetupActions.FIND_COHORT_CODES,
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static FIND_COHORT_CODES_SUCCESS = '[Common] Find CohortCodes Success';
 
   findCohortCodesSuccess(codes): Action {
@@ -457,7 +555,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//5------------------------------------------------------------------------------------------//
   static REMOVE_COHORT_CODE = '[Setup] Remove Cohort Code';
 
   removeCohortCode(code): Action {
@@ -467,7 +565,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//6------------------------------------------------------------------------------------------//
   static REMOVE_COHORT_CODE_SUCCESS = '[Setup] Remove Cohort Code Success';
 
   removeCohortCodeSuccess(message): Action {
@@ -477,7 +575,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//7------------------------------------------------------------------------------------------//
   static UPDATE_COHORT_CODE = '[Setup] Update Cohort Code';
 
   updateCohortCode(code): Action {
@@ -487,7 +585,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//8------------------------------------------------------------------------------------------//
   static UPDATE_COHORT_CODE_SUCCESS = '[Setup] Update Cohort Code Success';
 
   updateCohortCodeSuccess(message): Action {
@@ -498,6 +596,10 @@ export class SetupActions {
     };
   }
 
+//===========================================================================================//
+// TAX CODE                                                                                  //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static FIND_TAX_CODES = '[Common] Find Tax Codes';
 
   findTaxCodes(): Action {
@@ -506,7 +608,7 @@ export class SetupActions {
       type: SetupActions.FIND_TAX_CODES,
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static FIND_TAX_CODES_SUCCESS = '[Common] Find Tax Codes Success';
 
   findTaxCodesSuccess(codes): Action {
@@ -516,7 +618,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static SAVE_TAX_CODE = '[Setup] Save Tax Code';
 
   saveTaxCode(code): Action {
@@ -526,7 +628,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static SAVE_TAX_CODE_SUCCESS = '[Setup] Save Tax Code Success';
 
   saveTaxCodeSuccess(message): Action {
@@ -536,7 +638,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//5------------------------------------------------------------------------------------------//
   static UPDATE_TAX_CODE = '[Setup] Update Tax Code';
 
   updateTaxCode(code): Action {
@@ -546,7 +648,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//6------------------------------------------------------------------------------------------//
   static UPDATE_TAX_CODE_SUCCESS = '[Setup] Update Tax Code  Success';
 
   updateTaxCodeSuccess(message): Action {
@@ -556,7 +658,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//7------------------------------------------------------------------------------------------//
   static REMOVE_TAX_CODE = '[Setup] Remove Tax Code';
 
   removeTaxCode(code): Action {
@@ -566,7 +668,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//8------------------------------------------------------------------------------------------//
   static REMOVE_TAX_CODE_SUCCESS = '[Setup] Remove Tax Code  Success';
 
   removeTaxCodeSuccess(message): Action {
@@ -577,6 +679,10 @@ export class SetupActions {
     };
   }
 
+//===========================================================================================//
+// SECURITY CHARGE CODE                                                                      //
+//===========================================================================================//
+//1------------------------------------------------------------------------------------------//
   static SAVE_SECURITY_Charge_CODE = '[Setup] Save Security Charge Code';
 
   saveSecurityChargeCode(code): Action {
@@ -586,7 +692,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//2------------------------------------------------------------------------------------------//
   static SAVE_SECURITY_Charge_CODE_SUCCESS = '[Setup] Save Security Charge Success';
 
   saveSecurityChargeCodeSuccess(message): Action {
@@ -596,7 +702,7 @@ export class SetupActions {
       payload: message
     };
   }
-
+//3------------------------------------------------------------------------------------------//
   static UPDATE_SECURITY_Charge_CODE = '[Setup] Update Security Charge Code';
 
   updateSecurityChargeCode(code): Action {
@@ -606,7 +712,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//4------------------------------------------------------------------------------------------//
   static UPDATE_SECURITY_Charge_CODE_SUCCESS = '[Setup] Update Security Charge Code  Success';
 
   updateSecurityChargeCodeSuccess(message): Action {
@@ -616,8 +722,7 @@ export class SetupActions {
       payload: message
     };
   }
-
-
+//5------------------------------------------------------------------------------------------//
   static FIND_SECURITY_CHARGE_CODES = '[Setup] Find Security Charge Codes';
 
   findSecurityChargeCodes(): Action {
@@ -626,7 +731,7 @@ export class SetupActions {
       type: SetupActions.FIND_SECURITY_CHARGE_CODES,
     };
   }
-
+//6------------------------------------------------------------------------------------------//
   static FIND_SECURITY_CHARGE_CODES_SUCCESS = '[Setup] Find Security Charge Code Success';
 
   findSecurityChargeCodesSuccess(codes): Action {
@@ -636,7 +741,7 @@ export class SetupActions {
       payload: codes
     };
   }
-
+//7------------------------------------------------------------------------------------------//
   static REMOVE_SECURITY_Charge_CODE = '[Setup] Remove Security Charge Code';
 
   removeSecurityChargeCode(code): Action {
@@ -646,7 +751,7 @@ export class SetupActions {
       payload: code
     };
   }
-
+//8------------------------------------------------------------------------------------------//
   static REMOVE_SECURITY_Charge_CODE_SUCCESS = '[Setup] Remove Security Charge Code  Success';
 
   removeSecurityChargeCodeSuccess(message): Action {
@@ -658,3 +763,7 @@ export class SetupActions {
   }
 
 }
+
+//===========================================================================================//
+//                                                                                           //
+//===========================================================================================//

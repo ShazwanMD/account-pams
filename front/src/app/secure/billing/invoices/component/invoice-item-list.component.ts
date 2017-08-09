@@ -24,6 +24,8 @@ export class InvoiceItemListComponent implements OnInit {
     {name: 'chargeCode.taxCode.taxRate', label: 'Tax Rate'},
     {name: 'chargeCode.inclusive', label: 'Inclusive'},
     {name: 'amount', label: 'Amount'},
+    {name: 'taxAmount', label: 'Tax Amount'},
+    {name: 'netAmount', label: 'Net Amount'},
     {name: 'action', label: ''},
   ];
 
