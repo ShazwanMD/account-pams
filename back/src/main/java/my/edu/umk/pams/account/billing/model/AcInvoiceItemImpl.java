@@ -31,6 +31,12 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
 
     @Column(name = "BALANCE_AMOUNT")
     private BigDecimal balanceAmount = BigDecimal.ZERO;
+    
+    @Column(name = "TAX_AMOUNT")
+    private BigDecimal taxAmount = BigDecimal.ZERO;
+    
+    @Column(name = "NET_AMOUNT")
+    private BigDecimal netAmount = BigDecimal.ZERO;
 
     @NotNull
     @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.EAGER)
@@ -88,8 +94,28 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
     public void setBalanceAmount(BigDecimal balanceAmount) {
         this.balanceAmount = balanceAmount;
     }
+    
+    @Override
+    public BigDecimal getTaxAmount() {
+		return taxAmount;
+	}
 
     @Override
+    public void setTaxAmount(BigDecimal taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+    @Override
+    public BigDecimal getNetAmount() {
+		return netAmount;
+	}
+
+    @Override
+    public void setNetAmount(BigDecimal netAmount) {
+		this.netAmount = netAmount;
+	}
+
+	@Override
     public AcChargeCode getChargeCode() {
         return chargeCode;
     }
