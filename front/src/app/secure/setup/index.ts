@@ -1,3 +1,4 @@
+import { TaxCodesComponent } from './tax-codes/component/tax-code';
 import { FacultyCodesComponent } from './faculty-codes/component/faculty-code';
 import { CohortCodesComponent } from './cohort-codes/component/cohort-code';
 import { BankCodesComponent } from './bank-codes/component/bank-code';
@@ -122,6 +123,7 @@ export const setupModuleReducers = {
     BankCodesComponent,
     CohortCodesComponent,
     FacultyCodesComponent,
+    TaxCodesComponent,
 
 
   ],
