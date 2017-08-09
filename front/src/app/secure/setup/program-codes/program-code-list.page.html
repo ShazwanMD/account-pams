@@ -1,39 +1,7 @@
-<md-card>
-  <td-search-box class="push-left push-right"
-                 placeholder="search"
-                 [alwaysVisible]="true"
-                 (searchDebounce)="filter($event)">
-
-  </td-search-box>
-
-  <td-data-table
-    [data]="programCodes$ | async"
-    [columns]="columns"
-    [sortBy]="summary"
-    [sortOrder]="ASC"
-    [sortable]="false"
-    [multiple]="false"
-    [selectable]="false"
-    (rowSelect)="view.emit($event)" dense>
-    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-      <div layout="row">
-        <span flex>{{value}}</span>
-      </div>
-    </template>
-    <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
-      <div layout="row">
-        <button md-icon-button [md-menu-trigger-for]="menu">
-          <md-icon>more_vert</md-icon>
-        </button>
-        <md-menu x-position="before" #menu="mdMenu">
-          <a md-menu-item>Edit</a>
-          <button md-menu-item (click)="delete(row)">Delete</button>
-        </md-menu>
-      </div>
-    </template>
-  </td-data-table>
+<md-card class="">
+  <pams-program-code-list [programCodes]="programCodes$ | async" (editDialog)="editDialog($event)" (delete)="delete($event)">
+  </pams-program-code-list>
 </md-card>
-
-<a md-fab color="accent" class="mat-fab-top-right" (click)="showDialog()">
+<a md-fab color="accent" class="mat-fab-top-right" (click)="createDialog()">
   <md-icon>add</md-icon>
 </a>
