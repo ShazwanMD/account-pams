@@ -324,9 +324,11 @@ public class BillingController {
         e.setAdjustedAmount(vo.getAdjustedAmount());
         e.setAppliedAmount(vo.getAppliedAmount());
         e.setTotalAmount(vo.getTotalAmount());
+        e.setDueAmount(vo.getDueAmount());
         e.setUnit(vo.getUnit());
         e.setPrice(vo.getPrice());
         e.setDescription(vo.getDescription());
+        e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         billingService.addReceiptItem(receipt, e);
     }
 
