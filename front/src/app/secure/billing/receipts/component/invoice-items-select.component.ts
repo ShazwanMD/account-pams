@@ -19,9 +19,7 @@ export class InvoiceItemSelectComponent implements OnInit {
 
     private INVOICE_ITEMS: string[] = 'billingModuleState.invoiceItems'.split( '.' );
     private invoiceItems$: Observable<InvoiceItem[]>;
-    private CHARGE_CODES: string[] = 'accountModuleState.chargeCodes'.split('.');
-    private chargeCodes$: Observable<ChargeCode[]>;
-    private selected: ChargeCode;
+    private selected: InvoiceItem;
 
     @Input() placeholder: string;
     @Input() innerFormControl: FormControl;
@@ -33,7 +31,6 @@ export class InvoiceItemSelectComponent implements OnInit {
                  private stores: Store<AccountModuleState>,
                  private action: ChargeCodeActions) {
         this.invoiceItems$ = this.store.select( ...this.INVOICE_ITEMS );
-        this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
     }
 
     ngOnInit() {
@@ -41,14 +38,9 @@ export class InvoiceItemSelectComponent implements OnInit {
         //if(this.preSelected.balanceAmount!=0)
 
         this.store.dispatch(this.actions.findInvoiceItems(this.invoice));
-        this.store.dispatch(this.action.findChargeCodes());
 
     }
 
-//    selectChangeEvent( event: InvoiceItem ) {
-//        this.innerFormControl.setValue( event, { emitEvent: false } );
-//        this.selected = event.chargeCode;
-//    }
     selectChangeEvent(event: ChargeCode) {
         this.innerFormControl.setValue(event, {emitEvent: false});
       }

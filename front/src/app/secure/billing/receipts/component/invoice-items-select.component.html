@@ -1,7 +1,7 @@
 <md-select
   [placeholder]="placeholder"
   (change)="selectChangeEvent($event.value)" flex>
-  <md-option *ngFor="let chargeCode of chargeCodes$ | async" [value]="chargeCode">
-    {{chargeCode.code}}: {{chargeCode.description}}
+  <md-option *ngFor="let invoiceItem of invoiceItems$ | async" [value]="invoiceItem">
+    {{invoiceItem.chargeCode.code}}: {{invoiceItem.chargeCode.description}} : {{invoiceItem.amount}}
   </md-option>
 </md-select>
