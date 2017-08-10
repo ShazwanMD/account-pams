@@ -1,15 +1,6 @@
 <h2 md-dialog-title>Receipt Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-<!--     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-     <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput 
-               placeholder="receipt"
-               formControlName="receipt"
-               readonly
-               flex/>
-      </md-input-container> 
-    </div> -->
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
       <pams-invoice-select-unpaid
         [placeholder]="'Select Unpaid Invoices'"
