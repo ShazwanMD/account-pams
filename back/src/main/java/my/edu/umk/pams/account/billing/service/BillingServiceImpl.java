@@ -18,8 +18,10 @@ import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.dao.AcRefundPaymentDao;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.common.dao.AcCohortCodeDao;
+import my.edu.umk.pams.account.common.dao.AcTaxCodeDao;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
+import my.edu.umk.pams.account.common.model.AcTaxCode;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
@@ -44,6 +46,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,6 +72,9 @@ public class BillingServiceImpl implements BillingService {
 
     @Autowired
     private AcAccountChargeDao accountChargeDao;
+    
+    @Autowired
+    private AcTaxCodeDao taxCodeDao;
 
     @Autowired
     private AcAcademicSessionDao academicSessionDao;
@@ -1057,5 +1063,55 @@ public class BillingServiceImpl implements BillingService {
 		refundPaymentDao.remove(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	// ==================================================================================================== //
+    // TAX 
+    // ==================================================================================================== //
+	
+    public void calculateNetAmount(AcInvoice invoice){
+    	
+//    	invoice = this.findInvoiceByReferenceNo("INVC001");
+//    	LOG.debug("Invoice:{}", invoice);
+    	
+    	invoice = this.findInvoiceByReferenceNo(invoice.getReferenceNo());
+    	LOG.debug("Invoice Reference No:{}", invoice);
+    	
+//    	List<AcInvoiceItem> invoiceItems = this.findInvoiceItems(invoice, 0, 1);
+//    	LOG.debug("Invoice Items:{}", invoiceItems);
+    	
+    	List<AcInvoiceItem> invoiceItems = this.findInvoiceItems(invoice);
+    	LOG.debug("Invoice Items:{}", invoiceItems);
+		
+    	for (AcInvoiceItem invoiceItem : invoiceItems) {
+    		
+    		LOG.debug("Invoice Items:{}", invoiceItem );
+		
+		LOG.debug("tax Rate:{}", invoiceItem.getTaxCode().getTaxRate());
+		
+		BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
+		LOG.debug("Tax Rate", taxRate);
+		
+		BigDecimal amount = invoiceItem.getAmount();
+		LOG.debug("Amount", amount);
+		
+		BigDecimal taxAmount =  amount.multiply(taxRate);
+		LOG.debug("Tax Amount: {}", taxAmount.setScale(2, RoundingMode.HALF_UP));
+		
+		BigDecimal netAmount = amount.add(taxAmount);
+		LOG.debug("Net Amount: {}", netAmount.setScale(2, RoundingMode.HALF_UP));
+			   
+		if(invoiceItem.getChargeCode().getInclusive()==false){
+					
+		invoiceItem.setNetAmount(netAmount);		
+		invoiceItem.setTaxAmount(taxAmount);
+		this.updateInvoiceItem(invoice, invoiceItem);
+		}
+		
+		else if(invoiceItem.getChargeCode().getInclusive()==true){
+			invoiceItem.setTaxAmount(taxAmount);
+			this.updateInvoiceItem(invoice, invoiceItem);
+		}
+		}
+    }
 
 }

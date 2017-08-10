@@ -21,7 +21,7 @@ import {TaxCodeEditorDialog} from './dialog/tax-code-editor.dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxCodeListPage implements OnInit{
-  private TAX_CODES = "setupModuleState.taxCodes".split(".");
+  private TAX_CODES = 'setupModuleState.taxCodes'.split('.');
   private taxCodes$: Observable<TaxCode[]>;
   private creatorDialogRef: MdDialogRef<TaxCodeEditorDialog>;
   

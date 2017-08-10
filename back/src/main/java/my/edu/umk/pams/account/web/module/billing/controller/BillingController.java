@@ -737,6 +737,17 @@ public class BillingController {
     }
     
     // ====================================================================================================
+    // TAX
+    // ====================================================================================================
+    @RequestMapping(value = "/invoices/{referenceNo}/netAmount", method = RequestMethod.POST)
+	public ResponseEntity<String> calculateNetAmount (@RequestBody AcInvoice invoice, AcInvoiceItem invoiceItem)
+	{
+		invoice = billingService.findInvoiceById(invoiceItem.getId());
+    	billingService.calculateNetAmount(invoice);
+		return new ResponseEntity<String>("Success", HttpStatus.OK);		
+	}
+    
+    // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
 }
