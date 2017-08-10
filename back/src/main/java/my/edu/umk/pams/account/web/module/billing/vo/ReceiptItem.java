@@ -21,6 +21,7 @@ public class ReceiptItem extends MetaObject {
     private BigDecimal price;
     private Integer unit;
     private ChargeCode chargeCode;
+    private Invoice invoice;
 
     public String getDescription() {
         return description;
@@ -86,7 +87,15 @@ public class ReceiptItem extends MetaObject {
         this.unit = unit;
     }
 
-    @JsonCreator
+    public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+
+	@JsonCreator
     public static ReceiptItem create(String jsonString) {
         ReceiptItem o = null;
         try {

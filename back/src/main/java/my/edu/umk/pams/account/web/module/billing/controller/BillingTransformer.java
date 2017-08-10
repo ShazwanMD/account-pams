@@ -219,6 +219,7 @@ public class BillingTransformer {
         vo.setTotalAmount(e.getTotalAmount());
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         return vo;
     }
 
