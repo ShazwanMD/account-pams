@@ -467,6 +467,11 @@ public class CommonServiceImpl implements CommonService {
     public List<AcFacultyCode> findFacultyCodes() {
         return facultyCodeDao.find();
     }
+    
+    @Override
+    public List<AcFacultyCode> findFacultyCodes(String filter, Integer offset, Integer limit) {
+        return facultyCodeDao.find(filter, offset, limit);
+    }
 
     @Override
     public Integer countFacultyCode() {

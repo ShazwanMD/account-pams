@@ -108,6 +108,8 @@ public interface CommonService {
     AcFacultyCode findFacultyCodeByCode(String code);
 
     List<AcFacultyCode> findFacultyCodes();
+    
+    List<AcFacultyCode> findFacultyCodes(String filter, Integer offset, Integer limit);
 
     Integer countFacultyCode();
 
@@ -324,5 +326,7 @@ public interface CommonService {
     void updateSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
 
     void removeSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
+
+
     
 }
