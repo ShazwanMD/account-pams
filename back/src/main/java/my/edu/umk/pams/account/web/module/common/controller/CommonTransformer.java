@@ -95,10 +95,12 @@ public class CommonTransformer {
 		return vo;
 	}
 
-	public List<FacultyCode> toFacultyCodeVos(List<AcFacultyCode> e) {
-		List<FacultyCode> vos = e.stream().map((e1) -> toFacultyCodeVo(e1)).collect(Collectors.toList());
-		return vos;
-	}
+    public List<FacultyCode> toFacultyCodeVos(List<AcFacultyCode> e) {
+        List<FacultyCode> vos = e.stream()
+                .map((e1) -> toFacultyCodeVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
 
 	
     //====================================================================================================

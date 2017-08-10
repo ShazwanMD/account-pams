@@ -24,8 +24,7 @@ import { FacultyCode } from './../../../../shared/model/common/faculty-code.inte
 export class FacultyCodesComponent implements OnChanges {
   private columns: any[] = [
     {name: 'code', label: 'Code'},
-    {name: 'descriptionMs', label: 'DescriptionMs'},
-    {name: 'descriptionEn', label: 'DescriptionEnS'},
+    {name: 'description', label: 'Description'},
     {name: 'action', label: ''}
   ];
   filteredData: any[];
