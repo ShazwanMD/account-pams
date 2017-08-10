@@ -140,6 +140,8 @@ public interface AccountService {
     BigDecimal sumWaiverAmount(AcAccount account);
 
     BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession);
+    
+    BigDecimal sumInvoiceBalanceAmount(AcAccount account, AcAcademicSession academicSession);
 
     List<AcAccountTransaction> findAccountTransactions(AcAccount account);
 
@@ -264,4 +266,6 @@ public interface AccountService {
     void addAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
 
     void removeAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
+
+	
 }
