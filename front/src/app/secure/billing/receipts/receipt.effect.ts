@@ -114,15 +114,15 @@ export class ReceiptEffects {
     .switchMap((receipt) => this.billingService.updateReceipt(receipt))
     .map((receipt) => this.receiptActions.updateReceiptSuccess(receipt));
 
-/*  @Effect() addReceiptItem$ =
+  @Effect() addReceiptItem$ =
     this.actions$
       .ofType(ReceiptActions.ADD_RECEIPT_ITEM)
       .map((action) => action.payload)
       .switchMap((payload) => this.billingService.addReceiptItem(payload.receipt, payload.item))
-      .map((message) => this.receiptActions.addReceiptItemSuccess(message))
-      .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
-      .map((state) => state[1])
-      .map((receipt) => this.receiptActions.findReceiptItems(receipt));*/
+      .map((message) => this.receiptActions.addReceiptItemSuccess(message));
+//      .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+//      .map((state) => state[1])
+//      .map((receipt) => this.receiptActions.findReceiptItems(receipt));
 
   @Effect() updateReceiptItem$ = this.actions$
     .ofType(ReceiptActions.UPDATE_RECEIPT_ITEM)

@@ -352,7 +352,7 @@ export class ReceiptActions {
     };
   }
 
-  static ADD_RECEIPT_INVOICE_ITEM = '[Receipt] Add Receipt Item';
+  static ADD_RECEIPT_INVOICE_ITEM = '[Receipt] Add Receipt Invoice Item';
 
   addReceiptInvoiceItems(receipt, invoice): Action {
     return {
@@ -361,7 +361,7 @@ export class ReceiptActions {
     };
   }
 
-  static ADD_RECEIPT_INVOICE_ITEM_SUCCESS = '[Receipt] Add Receipt Item Success';
+  static ADD_RECEIPT_INVOICE_ITEM_SUCCESS = '[Receipt] Add Receipt Invoice Item Success';
 
   addReceiptInvoiceItemsSuccess(message): Action {
     return {
