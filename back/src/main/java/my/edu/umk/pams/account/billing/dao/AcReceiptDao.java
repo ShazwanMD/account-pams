@@ -26,7 +26,7 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
 
     AcReceipt findByReceiptNo(String receiptNo);
     
-    AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode);
+    AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice);
 
     List<AcReceipt> find(String filter, Integer offset, Integer limit);
 

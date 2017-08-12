@@ -849,8 +849,8 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
-        return receiptDao.findReceiptItemByChargeCode(chargeCode);
+    public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice) {
+        return receiptDao.findReceiptItemByChargeCode(chargeCode, invoice);
     }
 
     @Override

@@ -259,7 +259,7 @@ public interface BillingService {
 
     AcReceiptItem findReceiptItemById(Long id);
 
-	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode);
+	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice);
 
     List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit);
 
