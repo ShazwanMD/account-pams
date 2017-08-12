@@ -36,15 +36,6 @@
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput #unit
-               placeholder="Quantity"
-               formControlName="unit"
-               value="Quantity"
-               flex/>
-      </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput #appliedAmount
                placeholder="Applied Amount"
                formControlName="appliedAmount"
@@ -66,4 +57,11 @@
 <md-dialog-actions align="end">
   <button md-raised-button color="accent" (click)="submit(createForm.value, createForm.valid)">Save</button>
 </md-dialog-actions>
+<md-dialog-content>
+<pams-receipt-item-list
+            [receipt]="_receipt"
+            [receiptItems]="receiptItems$ | async">
+          </pams-receipt-item-list>
+          </md-dialog-content>
+    
 

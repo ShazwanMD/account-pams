@@ -12,6 +12,7 @@ import { InvoiceItem } from "../../../../shared/model/billing/invoice-item.inter
 import { Account } from "../../../../shared/model/account/account.interface";
 import { TdDialogService, ITdDataTableColumn } from "@covalent/core";
 import { ChargeCode } from "../../../../shared/model/account/charge-code.interface";
+import { Observable } from "rxjs/Observable";
 
 @Component( {
     selector: 'pams-invoice-receipt-creator',
@@ -26,6 +27,9 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
     private _invoice: Invoice;
     private edit: boolean = false;
 
+    private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split('.');
+    private receiptItems$: Observable<ReceiptItem[]>;
+
     constructor( private router: Router,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
@@ -34,6 +38,8 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
         private actions: ReceiptActions,
         private _dialogService: TdDialogService,
         private dialog: MdDialogRef<InvoiceReceiptCreatorDialog> ) {
+        
+        this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
     }
 
     set receipt( value: Receipt ) {
