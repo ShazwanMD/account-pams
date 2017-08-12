@@ -12,6 +12,7 @@ import {ReceiptDraftTaskPanel} from './receipt-draft-task.panel';
 import {FlowState} from '../../../../core/flow-state.enum';
 import {ReceiptRegisterTaskPanel} from './receipt-register-task.panel';
 import {ReceiptTask} from '../../../../shared/model/billing/receipt-task.interface';
+import { ReceiptVerifyTaskPanel } from "./receipt-verify-task.panel";
 
 @Component({
   selector: 'pams-receipt-task-workflow',
@@ -42,6 +43,9 @@ export class ReceiptTaskWorkflowPanel implements OnInit {
           case FlowState.REGISTERED:
             componentFactory = this.cfr.resolveComponentFactory(ReceiptRegisterTaskPanel);
             break;
+          case FlowState.VERIFIED:
+              componentFactory = this.cfr.resolveComponentFactory(ReceiptVerifyTaskPanel);
+              break;
         }
         this.componentRef = this.taskPanel.createComponent(componentFactory);
         this.componentRef.instance.receiptTask = task;
