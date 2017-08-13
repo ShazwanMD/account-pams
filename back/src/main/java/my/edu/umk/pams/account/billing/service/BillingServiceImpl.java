@@ -849,8 +849,8 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice) {
-        return receiptDao.findReceiptItemByChargeCode(chargeCode, invoice);
+    public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
+        return receiptDao.findReceiptItemByChargeCode(chargeCode);
     }
 
     @Override
@@ -909,7 +909,7 @@ public class BillingServiceImpl implements BillingService {
             tx.setSourceNo(receipt.getReferenceNo());
             tx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
             tx.setAccount(receipt.getAccount());
-            tx.setAmount(item.getTotalAmount().negate());
+            tx.setAmount(item.getAppliedAmount().negate());
             accountService.addAccountTransaction(receipt.getAccount(), tx);
         }
     }
