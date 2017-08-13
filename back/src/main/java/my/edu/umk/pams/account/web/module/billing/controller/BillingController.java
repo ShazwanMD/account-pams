@@ -290,8 +290,8 @@ public class BillingController {
 
     // todo: archive will be using ACL
     @RequestMapping(value = "/receipts/archived", method = RequestMethod.GET)
-    public ResponseEntity<List<Receipt>> findArchivedReceipts(@PathVariable String state) {
-        List<AcReceipt> receipts = billingService.findReceiptsByFlowState(AcFlowState.valueOf(state));
+    public ResponseEntity<List<Receipt>> findArchivedReceipts() {
+        List<AcReceipt> receipts = billingService.findReceiptsByFlowState(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
         return new ResponseEntity<List<Receipt>>(billingTransformer.toReceiptVos(receipts), HttpStatus.OK);
     }
 
