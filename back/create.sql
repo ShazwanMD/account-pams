@@ -646,7 +646,6 @@
         M_ST int4,
         CHARGE_CODE_ID int8,
         INVOICE_ID int8,
-        Tax_CODE_ID int8,
         primary key (ID)
     );
 
