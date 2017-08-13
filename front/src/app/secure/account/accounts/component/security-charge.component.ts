@@ -14,15 +14,16 @@ import {AccountCharge} from '../../../../shared/model/account/account-charge.int
 export class SecurityChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
   private securityChargeColumns: any[] = [
-    // {name: 'referenceNo', label: 'Reference No'},
-    {name: 'sourceNo', label: 'Source No'},
-    // {name: 'session.code', label: 'Session'},
-    {name: 'securityChargeCode.section', label: 'Section'},
-    {name: 'securityChargeCode.offense', label: 'Offense'},
-    {name: 'securityChargeCode.amount', label: 'Amount'},
     {name: 'chargeDate', label: 'Date of Charge'},
+    {name: 'session.code', label: 'Session'},
+    {name: 'sourceNo', label: 'Source No'},
+    // {name: 'securityChargeCode.section', label: 'Section'},
+    // {name: 'securityChargeCode.offense', label: 'Offense'},
+    {name: 'securityChargeCode.offenseDescription', label: 'Description'},
+    {name: 'securityChargeCode.amount', label: 'Amount'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
+    // {name: 'referenceNo', label: 'Reference No'},
   ];
   private selectedRows: AccountCharge[];
 
