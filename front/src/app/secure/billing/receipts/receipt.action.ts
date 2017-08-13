@@ -87,11 +87,11 @@ export class ReceiptActions {
 
   static FIND_ARCHIVED_RECEIPT_SUCCESS = '[Receipt] Find Archived Receipt Success';
 
-  findArchivedReceiptsSuccess(receipt): Action {
+  findArchivedReceiptsSuccess(receipts): Action {
     console.log("findArchivedReceiptsSuccess");
     return {
       type: ReceiptActions.FIND_ARCHIVED_RECEIPT_SUCCESS,
-      payload: receipt
+      payload: receipts
     };
   }
 

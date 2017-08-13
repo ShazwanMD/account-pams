@@ -27,6 +27,11 @@ export class ReceiptEffects {
     .ofType(ReceiptActions.FIND_POOLED_RECEIPT_TASKS)
     .switchMap(() => this.billingService.findPooledReceiptTasks())
     .map((receipts) => this.receiptActions.findPooledReceiptTasksSuccess(receipts));
+  
+  @Effect() findArchivedReceipts$ = this.actions$
+  .ofType(ReceiptActions.FIND_ARCHIVED_RECEIPT)
+  .switchMap(() => this.billingService.findArchivedReceipts())
+  .map((receipts) => this.receiptActions.findArchivedReceiptsSuccess(receipts));
 
   @Effect() findReceiptTaskByTaskId = this.actions$
     .ofType(ReceiptActions.FIND_RECEIPT_TASK_BY_TASK_ID)
@@ -83,6 +88,7 @@ export class ReceiptEffects {
     .mergeMap((action) => from([action,
         this.receiptActions.findAssignedReceiptTasks(),
         this.receiptActions.findPooledReceiptTasks(),
+        this.receiptActions.findArchivedReceipts(),
       ],
     ));
 
