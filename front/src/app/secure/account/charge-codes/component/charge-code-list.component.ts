@@ -66,14 +66,21 @@ export class ChargeCodeListComponent implements OnChanges {
      this.chargeCodes$ = this.store.select(...this.CHARGE_CODES);
   }
 
-    ngOnChanges(changes: {[ propName: string]: SimpleChange}) {
-    console.log("changes",changes,changes['chargeCodes']);
-      if (changes['chargeCodes']){
-      this.filteredData = changes['chargeCodes'].currentValue; 
-      this.filteredTotal = changes['chargeCodes'].currentValue.length;
-      this.filter();
+  ngOnChanges(changes: {[ propName: string]: SimpleChange}) {
+    if (changes['chargeCodes']){
+        this.filteredData = changes['chargeCodes'].currentValue; 
+        this.filteredTotal = changes['chargeCodes'].currentValue.length;
+        this.filter();
+      }
     }
-  }
+    // ngOnChanges(changes: {[ propName: string]: SimpleChange}) {
+    // console.log("changes",changes,changes['chargeCodes']);
+    //   if (changes['chargeCodes']){
+    //   this.filteredData = changes['chargeCodes'].currentValue; 
+    //   this.filteredTotal = changes['chargeCodes'].currentValue.length;
+    //   this.filter();
+    // }
+    // }
 
   ngAfterViewInit(): void {
     this.filteredData = this.chargeCodes;
