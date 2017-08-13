@@ -65,11 +65,10 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
     
     @Override
-	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice) {
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
     	Session session = sessionFactory.getCurrentSession();
     	Query query = session.createQuery("select ri from AcReceiptItem ri where " +
                 "ri.chargeCode = :chargeCode " +
-    			"and ri.invoice = :invoice " +
                 "and ri.metadata.state = :metaState");
         query.setEntity("chargeCode", chargeCode);
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
