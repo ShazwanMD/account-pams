@@ -34,11 +34,12 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
                 List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
                 for (AcInvoiceItem invoiceItem : invoiceItems) {
                     // find matching receipt item
-                    AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode());
+                    AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode(), invoiceItem.getInvoice());
                     // knock off
                     invoiceItem.setBalanceAmount(
-                            invoice.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
+                            invoiceItem.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
                     billingService.updateInvoiceItem(invoice, invoiceItem);
+                    
                 }
             }
         }

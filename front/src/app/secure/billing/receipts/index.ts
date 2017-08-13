@@ -39,6 +39,7 @@ import { InvoiceReceiptDialog } from "./dialog/invoice-receipt.dialog";
 import { InvoiceReceiptListComponent } from "./component/invoice-receipt-list.component";
 import { InvoiceReceiptCreatorDialog } from "./dialog/invoice-receipt-creator.dialog";
 import { InvoiceItemSelectComponent } from "./component/invoice-items-select.component";
+import { ReceiptVerifyTaskPanel } from "./panel/receipt-verify-task.panel";
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import { InvoiceItemSelectComponent } from "./component/invoice-items-select.com
     ReceiptTaskWorkflowPanel,
     ReceiptDraftTaskPanel,
     ReceiptRegisterTaskPanel,
+    ReceiptVerifyTaskPanel,
     ReceiptStatusComponent,
     ReceiptItemListComponent,
     ReceiptTypeSelectComponent,

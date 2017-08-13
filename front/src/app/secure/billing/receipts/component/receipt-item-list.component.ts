@@ -16,11 +16,13 @@ import {ReceiptItem} from '../../../../shared/model/billing/receipt-item.interfa
 export class ReceiptItemListComponent implements OnInit {
 
   private selectedRows: ReceiptItem[];
-  private editorDialogRef: MdDialogRef<ReceiptItemEditorDialog>;
+ // private editorDialogRef: MdDialogRef<ReceiptItemEditorDialog>;
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
-    {name: 'chargeCode.description', label: 'Charge Code Description'},
-    {name: 'amount', label: 'Amount'},
+    {name: 'description', label: 'Charge Code Description'},
+    {name: 'dueAmount', label: 'Amount'},
+    {name: 'appliedAmount', label: 'Received Amount'},
+    {name: 'totalAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
 
@@ -40,20 +42,16 @@ export class ReceiptItemListComponent implements OnInit {
     this.selectedRows = this.receiptItems.filter((value) => value.selected);
   }
 
-  createDialog(): void {
-    this.showDialog(null);
-  }
-
   edit(receiptItem: ReceiptItem): void {
-    this.showDialog(receiptItem);
+    //this.showDialog(receiptItem);
   }
 
-  delete(): void {
+/*  delete(): void {
     console.log('length: ' + this.selectedRows.length);
     for (let i = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.deleteReceiptItem(this.receipt, this.selectedRows[i]));
     }
-  }
+  }*/
 
   filter(): void {
   }
@@ -64,19 +62,4 @@ export class ReceiptItemListComponent implements OnInit {
   selectAllRows(receiptItems: ReceiptItem[]): void {
   }
 
-  showDialog(receiptItem: ReceiptItem): void {
-    console.log('showDialog');
-    let config = new MdDialogConfig();
-    config.viewContainerRef = this.vcf;
-    config.role = 'dialog';
-    config.width = '50%';
-    config.height = '90%';
-    config.position = {top: '0px'};
-    this.editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
-    this.editorDialogRef.componentInstance.receipt = this.receipt;
-    if (receiptItem) this.editorDialogRef.componentInstance.receiptItem = receiptItem; // set
-    this.editorDialogRef.afterClosed().subscribe((res) => {
-      console.log('close dialog');
-    });
-  }
 }
