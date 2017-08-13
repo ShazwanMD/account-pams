@@ -255,8 +255,12 @@ public interface IdentityService {
     // ====================================================================================================
 
     List<AcSponsorship> findSponsorships(AcSponsor sponsor);
+    
+    List<AcSponsorship> findSponsorships(Integer offset, Integer limit);
 
     AcSponsorship findSponsorshipById(Long id);
+    
+    void saveSponsorship(AcSponsorship sponsorship);
 
     boolean hasSponsorship(AcStudent student);
 

@@ -14,11 +14,11 @@ import {AccountCharge} from '../../../../shared/model/account/account-charge.int
 export class StudentAffairsChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<StudentAffairsChargeEditorDialog>;
   private studentAffairsChargeColumns: any[] = [
-    // {name: 'referenceNo', label: 'Reference No'},
-    {name: 'sourceNo', label: 'Source No'},
-    {name: 'session.code', label: 'Session'},
-    {name: 'amount', label: 'Amount'},
     {name: 'chargeDate', label: 'Date of Charge'},
+    {name: 'session.code', label: 'Session'},
+    {name: 'sourceNo', label: 'Source No'},
+    {name: 'description', label: 'Description'},
+    {name: 'amount', label: 'Amount'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
   ];

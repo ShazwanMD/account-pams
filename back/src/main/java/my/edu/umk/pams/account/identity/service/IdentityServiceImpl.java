@@ -23,6 +23,7 @@ import my.edu.umk.pams.account.identity.dao.AcActorDao;
 import my.edu.umk.pams.account.identity.dao.AcGroupDao;
 import my.edu.umk.pams.account.identity.dao.AcPrincipalDao;
 import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
+import my.edu.umk.pams.account.identity.dao.AcSponsorshipDao;
 import my.edu.umk.pams.account.identity.dao.AcStaffDao;
 import my.edu.umk.pams.account.identity.dao.AcStudentDao;
 import my.edu.umk.pams.account.identity.dao.AcUserDao;
@@ -85,6 +86,9 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Autowired
     private AcSponsorDao sponsorDao;
+    
+    @Autowired
+    private AcSponsorshipDao sponsorshipDao;
 
     @Autowired
     private AcStudentDao studentDao;
@@ -757,6 +761,17 @@ public class IdentityServiceImpl implements IdentityService {
     @Override
     public AcSponsorship findSponsorshipById(Long id) {
         return sponsorDao.findSponsorshipById(id);
+    }
+    
+    @Override
+    public List<AcSponsorship> findSponsorships(Integer offset, Integer limit) {
+        return sponsorshipDao.find(offset, limit);
+    }
+    
+    @Override
+    public void saveSponsorship(AcSponsorship sponsorship) {
+        sponsorshipDao.save(sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Override

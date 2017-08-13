@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.identity.vo.Actor;
 import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
+import my.edu.umk.pams.account.web.module.identity.vo.Sponsorship;
 import my.edu.umk.pams.account.web.module.identity.vo.Staff;
 import my.edu.umk.pams.account.web.module.identity.vo.Student;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
@@ -113,8 +114,27 @@ public class IdentityController {
     }
 
     @RequestMapping(value = "/students/{identityNo}", method = RequestMethod.GET)
+    public ResponseEntity<Student> findSponsorshipByIdentityNo(@PathVariable String identityNo) {
+        return new ResponseEntity<Student>(identityTransformer
+                .toStudentVo(identityService.findStudentByMatricNo(identityNo)), HttpStatus.OK);
+    }
+    
+    
+ // ==================================================================================================== //
+    // SPONSORSHIP
+    // ==================================================================================================== //
+
+    @RequestMapping(value = "/sponsorships", method = RequestMethod.GET)
+    public ResponseEntity<List<Sponsorship>> findSponsorships() {
+        return new ResponseEntity<List<Sponsorship>>(identityTransformer
+                .toSponsorshipVos(identityService.findSponsorships(0, 100)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/sponsorships/{identityNo}", method = RequestMethod.GET)
     public ResponseEntity<Student> findStudentByIdentityNo(@PathVariable String identityNo) {
         return new ResponseEntity<Student>(identityTransformer
                 .toStudentVo(identityService.findStudentByMatricNo(identityNo)), HttpStatus.OK);
     }
+    
+    
 }

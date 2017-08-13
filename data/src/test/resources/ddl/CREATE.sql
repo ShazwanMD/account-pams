@@ -611,7 +611,6 @@
         M_ST int4,
         CHARGE_CODE_ID int8,
         INVOICE_ID int8,
-        Tax_CODE_ID int8,
         primary key (ID)
     );
 
@@ -988,6 +987,9 @@
 
     create table AC_SPHP (
         ID int8 not null,
+        AMOUNT numeric(19, 2) not null,
+        START_DATE timestamp,
+        END_DATE timestamp,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -995,6 +997,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
+        ACTIVE boolean,
         SPONSOR_ID int8,
         STUDENT_ID int8,
         primary key (ID)
@@ -1518,11 +1521,6 @@
         add constraint FK_g7nihxqxxqx22a3mjlwodfl43
         foreign key (INVOICE_ID)
         references AC_INVC;
-
-    alter table AC_INVC_ITEM
-        add constraint FK_2d6lwtme5e7ch5iextvyjuh2k
-        foreign key (Tax_CODE_ID)
-        references AC_TAX_CODE;
 
     alter table AC_KNOF
         add constraint FK_f91f9no80f8qtl6r92n08r32n

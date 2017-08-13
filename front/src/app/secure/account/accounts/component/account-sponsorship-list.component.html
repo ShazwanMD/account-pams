@@ -1,0 +1,19 @@
+<div toolbar-buttons layout="row" layout-align="start center" flex>
+  <md-card-title>Sponsorships
+  </md-card-title>
+  <md-chip-list *ngIf="charges?.length > 0">
+    <md-chip color="accent">{{charges?.length}}</md-chip>
+  </md-chip-list>
+  <span flex></span>
+  <button md-icon-button [md-menu-trigger-for]="menu">
+    <md-icon>add</md-icon>
+  </button>
+  <md-menu x-position="before" #menu="mdMenu">
+    <button md-menu-item (click)="showSecurityChargeDialog()">Sponsorship</button>
+  </md-menu>
+</div>
+<md-divider></md-divider>
+<!--<pams-account-sponsorship-charge
+  <!--[account]="account"
+  [securityAccountCharges]="securityAccountCharges">
+</pams-security-charge>-->
