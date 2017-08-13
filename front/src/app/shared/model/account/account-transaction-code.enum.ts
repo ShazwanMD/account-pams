@@ -6,4 +6,5 @@ export enum AccountTransactionCode {
   DEBIT_NOTE,
   CREDIT_NOTE,
   ADHOC,
+  ADVANCE_PAYMENT,
 }

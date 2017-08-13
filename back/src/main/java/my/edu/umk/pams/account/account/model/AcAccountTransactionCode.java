@@ -10,7 +10,8 @@ public enum AcAccountTransactionCode {
     REFUND,   // 3
     DEBIT_NOTE,   // 4
     CREDIT_NOTE,   // 5
-    ADHOC;   // 6
+    ADHOC,   // 6
+	ADVANCE_PAYMENT; // 7
 
     public static AcAccountTransactionCode get(int index) {
         return values()[index];
