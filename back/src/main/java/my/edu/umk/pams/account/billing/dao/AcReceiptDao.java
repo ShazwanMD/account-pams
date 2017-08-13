@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
@@ -26,7 +27,7 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
 
     AcReceipt findByReceiptNo(String receiptNo);
     
-    AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode);
+    AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice);
 
     List<AcReceipt> find(String filter, Integer offset, Integer limit);
 
@@ -67,5 +68,11 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     void deleteItem(AcReceipt receipt, AcReceiptItem item, AcUser user);
     
     void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice, AcUser user);
+    
+    BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user);
+    
+    BigDecimal sumAmount(AcInvoice invoice, AcUser user);
+    
+    
 
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -67,12 +68,14 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
     
     @Override
-	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice) {
     	Session session = sessionFactory.getCurrentSession();
     	Query query = session.createQuery("select ri from AcReceiptItem ri where " +
                 "ri.chargeCode = :chargeCode " +
+    			"and ri.invoice = :invoice " +
                 "and ri.metadata.state = :metaState");
         query.setEntity("chargeCode", chargeCode);
+        query.setEntity("invoice", invoice);
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         return (AcReceiptItem) query.uniqueResult();
 	}
@@ -307,6 +310,32 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         metadata.setState(AcMetaState.ACTIVE);
         receiptItem.setMetadata(metadata);
         session.saveOrUpdate(receiptItem);
+    }
+    
+    @Override
+    public BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcReceiptItem a where " +
+                "a.receipt = :receipt " +
+                "and a.metadata.state = :state ");
+        query.setEntity("receipt", receipt);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumAmount(AcInvoice invoice, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcReceiptItem a where " +
+                "a.invoice = :invoice " +
+                "and a.metadata.state = :state ");
+        query.setEntity("invoice", invoice);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
     }
 
 }

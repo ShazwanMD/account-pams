@@ -65,950 +65,964 @@ import static my.edu.umk.pams.account.core.AcFlowState.DRAFTED;
 @Service("billingService")
 public class BillingServiceImpl implements BillingService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccountServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AccountServiceImpl.class);
 
-    @Autowired
-    private AcAccountDao accountDao;
+	@Autowired
+	private AcAccountDao accountDao;
 
-    @Autowired
-    private AcAccountChargeDao accountChargeDao;
-    
-    @Autowired
-    private AcTaxCodeDao taxCodeDao;
+	@Autowired
+	private AcAccountChargeDao accountChargeDao;
 
-    @Autowired
-    private AcAcademicSessionDao academicSessionDao;
+	@Autowired
+	private AcTaxCodeDao taxCodeDao;
 
-    @Autowired
-    private AcReceiptDao receiptDao;
+	@Autowired
+	private AcAcademicSessionDao academicSessionDao;
 
-    @Autowired
-    private AcInvoiceDao invoiceDao;
+	@Autowired
+	private AcReceiptDao receiptDao;
 
-    @Autowired
-    private AcDebitNoteDao debitNoteDao;
+	@Autowired
+	private AcInvoiceDao invoiceDao;
 
-    @Autowired
-    private AcCreditNoteDao creditNoteDao;
+	@Autowired
+	private AcDebitNoteDao debitNoteDao;
 
-    @Autowired
-    private AcCohortCodeDao cohortCodeDao;
-    
-    @Autowired
-    private AcKnockoffDao knockoffDao;
-    
-    @Autowired
-    private AcRefundPaymentDao refundPaymentDao;
+	@Autowired
+	private AcCreditNoteDao creditNoteDao;
 
-    @Autowired
-    private ChargeAttachProcessor attachProcessor;
+	@Autowired
+	private AcCohortCodeDao cohortCodeDao;
 
-    @Autowired
-    private ChargeDetachProcessor detachProcessor;
+	@Autowired
+	private AcKnockoffDao knockoffDao;
 
-    @Autowired
-    private AccountService accountService;
+	@Autowired
+	private AcRefundPaymentDao refundPaymentDao;
 
-    @Autowired
-    private SecurityService securityService;
+	@Autowired
+	private ChargeAttachProcessor attachProcessor;
 
-    @Autowired
-    private SystemService systemService;
+	@Autowired
+	private ChargeDetachProcessor detachProcessor;
 
-    @Autowired
-    private SessionFactory sessionFactory;
+	@Autowired
+	private AccountService accountService;
 
-    @Autowired
-    private WorkflowService workflowService;
+	@Autowired
+	private SecurityService securityService;
 
-    @Autowired
-    private IdentityService identityService;
+	@Autowired
+	private SystemService systemService;
 
-    @Autowired
-    private FinancialAidService financialAidService;
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    // ====================================================================================================
-    // INVOICE
-    // workflow
-    // ====================================================================================================
-    @Override
-    public AcInvoice findInvoiceByTaskId(String taskId) {
-        Task task = workflowService.findTask(taskId);
-        Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
-        return invoiceDao.findById((Long) map.get(AccountConstants.INVOICE_ID));
-    }
+	@Autowired
+	private WorkflowService workflowService;
 
-    @Override
-    public Task findInvoiceTaskByTaskId(String taskId) {
-        return workflowService.findTask(taskId);
-    }
+	@Autowired
+	private IdentityService identityService;
+	
+	@Autowired
+	private BillingService billingService;
 
-    @Override
-    public List<Task> findAssignedInvoiceTasks(Integer offset, Integer limit) {
-        return workflowService.findAssignedTasks(AcInvoice.class.getName(), offset, limit);
-    }
+	@Autowired
+	private FinancialAidService financialAidService;
 
-    @Override
-    public List<Task> findPooledInvoiceTasks(Integer offset, Integer limit) {
-        return workflowService.findPooledTasks(AcInvoice.class.getName(), offset, limit);
-    }
-
-    @Override
-    public String startInvoiceTask(AcInvoice invoice) {
-        String refNo = systemService.generateReferenceNo(AccountConstants.INVOICE_REFERENCE_NO);
-        invoice.setReferenceNo(refNo);
-        LOG.debug("Processing invoice with refNo {}", new Object[]{refNo});
-
-        invoiceDao.saveOrUpdate(invoice, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().refresh(invoice);
-
-        workflowService.processWorkflow(invoice, prepareVariables(invoice));
-        return refNo;
-    }
-
-    @Override
-    public void cancelInvoice(AcInvoice invoice) {
-        invoice.getFlowdata().setState(AcFlowState.CANCELLED);
-        invoice.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
-        invoice.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
-        invoiceDao.update(invoice, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void saveInvoice(AcInvoice invoice) {
-        invoiceDao.save(invoice, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void updateInvoice(AcInvoice invoice) {
-        invoiceDao.update(invoice, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void addInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
-        invoiceDao.addItem(invoice, invoiceItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void updateInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
-        invoiceDao.updateItem(invoice, invoiceItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void deleteInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
-        invoiceDao.deleteItem(invoice, invoiceItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void attach(AcInvoice invoice, AcAccountCharge charge) throws Exception {
-        Validate.isTrue(null == charge.getInvoice(), "Charge must not already be attached to invoice");
-        attachProcessor.process(new ChargeContext(invoice, charge));
-    }
-
-    @Override
-    public void attach(AcInvoice invoice, AcAccount account, AcAccountChargeType... chargeTypes) throws Exception {
-        List<AcAccountCharge> charges = accountChargeDao.find(account, chargeTypes);
-        for (AcAccountCharge charge : charges) {
-            if (null == charge.getInvoice()) {
-                LOG.debug("Attaching charge refno : {} to invoice refno: {}",
-                        new Object[]{charge.getReferenceNo(), invoice.getReferenceNo()});
-                attachProcessor.process(new ChargeContext(invoice, charge));
-            } else {
-                LOG.debug("Charge refno : {} already being attached to invoice refno: {}",
-                        new Object[]{charge.getReferenceNo(), charge.getInvoice().getReferenceNo()});
-            }
-        }
-    }
-
-    @Override
-    public void attach(AcInvoice invoice, AcAccount account) throws Exception {
-        List<AcAccountCharge> charges = accountChargeDao.find(account);
-        LOG.debug("found {} charges for account {}", charges.size(), account.getCode());
-        for (AcAccountCharge charge : charges) {
-            if (null == charge.getInvoice()) {
-                LOG.debug("Attaching charge refno : {} to invoice refno: {}",
-                        new Object[]{charge.getReferenceNo(), invoice.getReferenceNo()});
-                attachProcessor.process(new ChargeContext(invoice, charge));
-            } else {
-                LOG.debug("Charge refno : {} already being attached to invoice refno: {}",
-                        new Object[]{charge.getReferenceNo(), charge.getInvoice().getReferenceNo()});
-            }
-        }
-    }
-
-    @Override
-    public void detach(AcInvoice invoice, AcAccountCharge charge) throws Exception {
-        Validate.isTrue(charge.getInvoice().equals(invoice), "Charge must already be attached to invoice");
-        detachProcessor.process(new ChargeContext(invoice, charge));
-    }
-
-    @Override
-    public void detach(AcInvoice invoice, AcAccount account, AcAccountChargeType... chargeTypes) throws Exception {
-        List<AcAccountCharge> charges = accountChargeDao.find(account, chargeTypes);
-        for (AcAccountCharge charge : charges) {
-            if (null != charge.getInvoice()) {
-                // TODO: optimize to find INVOICED/ATTACHED
-                detachProcessor.process(new ChargeContext(invoice, charge));
-            }
-        }
-    }
-
-    // ====================================================================================================
-    // INVOICE
-    // ====================================================================================================
-
-    @Override
-    public AcInvoice findInvoiceById(Long id) {
-        return invoiceDao.findById(id);
-    }
-
-    @Override
-    public AcInvoice findInvoiceByReferenceNo(String referenceNo) {
-        return invoiceDao.findByReferenceNo(referenceNo);
-    }
-
-    @Override
-    public AcInvoiceItem findInvoiceItemById(Long id) {
-        return invoiceDao.findItemById(id);
-    }
-
-    @Override
-    public List<AcInvoice> findInvoicesBySourceNo(String sourceNo) {
-        return invoiceDao.findBySourceNo(sourceNo);
-    }
-
-    @Override
-    public List<AcInvoice> findInvoices(String filter, Integer offset, Integer limit) {
-        return invoiceDao.find(filter, offset, limit);
-    }
-
-    @Override
-    public List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit) {
-        return invoiceDao.find(account, offset, limit);
-    }
-    
-    @Override
-    public List<AcInvoice> findInvoices(String term, Integer offset, Integer limit, List<String> columns) {
-        return invoiceDao.find(term, offset, limit, columns);
-    }
-    
-    @Override
-    public List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState) {
-        return invoiceDao.findByFlowState(acFlowState);
-    }
-    
+	// ====================================================================================================
+	// INVOICE
+	// workflow
+	// ====================================================================================================
 	@Override
-    public List<AcInvoice> findInvoicesByFlowStates(AcFlowState... flowStates) {
+	public AcInvoice findInvoiceByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return invoiceDao.findById((Long) map.get(AccountConstants.INVOICE_ID));
+	}
+
+	@Override
+	public Task findInvoiceTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
+
+	@Override
+	public List<Task> findAssignedInvoiceTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcInvoice.class.getName(), offset, limit);
+	}
+
+	@Override
+	public List<Task> findPooledInvoiceTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcInvoice.class.getName(), offset, limit);
+	}
+
+	@Override
+	public String startInvoiceTask(AcInvoice invoice) {
+		String refNo = systemService.generateReferenceNo(AccountConstants.INVOICE_REFERENCE_NO);
+		invoice.setReferenceNo(refNo);
+		LOG.debug("Processing invoice with refNo {}", new Object[] { refNo });
+
+		invoiceDao.saveOrUpdate(invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(invoice);
+
+		workflowService.processWorkflow(invoice, prepareVariables(invoice));
+		return refNo;
+	}
+
+	@Override
+	public void cancelInvoice(AcInvoice invoice) {
+		invoice.getFlowdata().setState(AcFlowState.CANCELLED);
+		invoice.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+		invoice.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+		invoiceDao.update(invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void saveInvoice(AcInvoice invoice) {
+		invoiceDao.save(invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateInvoice(AcInvoice invoice) {
+		invoiceDao.update(invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void addInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
+		invoiceDao.addItem(invoice, invoiceItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
+		invoiceDao.updateItem(invoice, invoiceItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void deleteInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
+		invoiceDao.deleteItem(invoice, invoiceItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void attach(AcInvoice invoice, AcAccountCharge charge) throws Exception {
+		Validate.isTrue(null == charge.getInvoice(), "Charge must not already be attached to invoice");
+		attachProcessor.process(new ChargeContext(invoice, charge));
+	}
+
+	@Override
+	public void attach(AcInvoice invoice, AcAccount account, AcAccountChargeType... chargeTypes) throws Exception {
+		List<AcAccountCharge> charges = accountChargeDao.find(account, chargeTypes);
+		for (AcAccountCharge charge : charges) {
+			if (null == charge.getInvoice()) {
+				LOG.debug("Attaching charge refno : {} to invoice refno: {}",
+						new Object[] { charge.getReferenceNo(), invoice.getReferenceNo() });
+				attachProcessor.process(new ChargeContext(invoice, charge));
+			} else {
+				LOG.debug("Charge refno : {} already being attached to invoice refno: {}",
+						new Object[] { charge.getReferenceNo(), charge.getInvoice().getReferenceNo() });
+			}
+		}
+	}
+
+	@Override
+	public void attach(AcInvoice invoice, AcAccount account) throws Exception {
+		List<AcAccountCharge> charges = accountChargeDao.find(account);
+		LOG.debug("found {} charges for account {}", charges.size(), account.getCode());
+		for (AcAccountCharge charge : charges) {
+			if (null == charge.getInvoice()) {
+				LOG.debug("Attaching charge refno : {} to invoice refno: {}",
+						new Object[] { charge.getReferenceNo(), invoice.getReferenceNo() });
+				attachProcessor.process(new ChargeContext(invoice, charge));
+			} else {
+				LOG.debug("Charge refno : {} already being attached to invoice refno: {}",
+						new Object[] { charge.getReferenceNo(), charge.getInvoice().getReferenceNo() });
+			}
+		}
+	}
+
+	@Override
+	public void detach(AcInvoice invoice, AcAccountCharge charge) throws Exception {
+		Validate.isTrue(charge.getInvoice().equals(invoice), "Charge must already be attached to invoice");
+		detachProcessor.process(new ChargeContext(invoice, charge));
+	}
+
+	@Override
+	public void detach(AcInvoice invoice, AcAccount account, AcAccountChargeType... chargeTypes) throws Exception {
+		List<AcAccountCharge> charges = accountChargeDao.find(account, chargeTypes);
+		for (AcAccountCharge charge : charges) {
+			if (null != charge.getInvoice()) {
+				// TODO: optimize to find INVOICED/ATTACHED
+				detachProcessor.process(new ChargeContext(invoice, charge));
+			}
+		}
+	}
+
+	// ====================================================================================================
+	// INVOICE
+	// ====================================================================================================
+
+	@Override
+	public AcInvoice findInvoiceById(Long id) {
+		return invoiceDao.findById(id);
+	}
+
+	@Override
+	public AcInvoice findInvoiceByReferenceNo(String referenceNo) {
+		return invoiceDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public AcInvoiceItem findInvoiceItemById(Long id) {
+		return invoiceDao.findItemById(id);
+	}
+
+	@Override
+	public List<AcInvoice> findInvoicesBySourceNo(String sourceNo) {
+		return invoiceDao.findBySourceNo(sourceNo);
+	}
+
+	@Override
+	public List<AcInvoice> findInvoices(String filter, Integer offset, Integer limit) {
+		return invoiceDao.find(filter, offset, limit);
+	}
+
+	@Override
+	public List<AcInvoice> findInvoices(AcAccount account, Integer offset, Integer limit) {
+		return invoiceDao.find(account, offset, limit);
+	}
+
+	@Override
+	public List<AcInvoice> findInvoices(String term, Integer offset, Integer limit, List<String> columns) {
+		return invoiceDao.find(term, offset, limit, columns);
+	}
+
+	@Override
+	public List<AcInvoice> findInvoicesByFlowState(AcFlowState acFlowState) {
+		return invoiceDao.findByFlowState(acFlowState);
+	}
+
+	@Override
+	public List<AcInvoice> findInvoicesByFlowStates(AcFlowState... flowStates) {
 		return invoiceDao.findByFlowStates(flowStates);
 	}
 
-    @Override
-    public List<AcInvoice> findUnpaidInvoices(AcAccount account, Integer offset, Integer limit) {
-        return invoiceDao.find(false, account, offset, limit);
-    }
-
-    @Override
-    public List<AcInvoice> findPaidInvoices(AcAccount account, Integer offset, Integer limit) {
-        return invoiceDao.find(true, account, offset, limit);
-    }
-
-    @Override
-    public List<AcInvoiceItem> findInvoiceItems(AcInvoice invoice) {
-        return invoiceDao.findItems(invoice);
-    }
-
-    @Override
-    public List<AcInvoiceItem> findInvoiceItems(AcInvoice invoice, Integer offset, Integer limit) {
-        return invoiceDao.findItems(invoice, offset, limit);
-    }
-
-    // @Override
-    // public List<AcInvoiceTransaction> findInvoiceTransactions(AcInvoice
-    // invoice) {
-    // return invoiceDao.findTransactions(invoice);
-    // }
-    //
-    // @Override
-    // public List<AcInvoiceTransaction> findInvoiceTransactions(AcInvoice
-    // invoice, Integer offset, Integer limit) {
-    // return invoiceDao.findTransactions(invoice, offset, limit);
-    // }
-
-    @Override
-    public boolean hasInvoice(AcAccount account) {
-        return invoiceDao.hasInvoice(account);
-    }
-
-    @Override
-    public boolean hasUnpaidInvoice(AcAccount account) {
-        return invoiceDao.hasInvoice(false, account);
-    }
-
-    @Override
-    public boolean hasUnpaidInvoice(AcAccount account, Integer days) {
-        return invoiceDao.hasInvoice(false, days, account);
-    }
-
-    @Override
-    public boolean isInvoiceOverdue(AcAccountCharge charge) {
-        return !charge.getInvoice().isPaid();
-    }
-
-    @Override
-    public BigDecimal sumUnpaidInvoice(AcAccountCharge charge) {
-        return null; // TODO: ???
-    }
-
-    @Override
-    public boolean hasBalance(AcAcademicSession academicSession, AcActor actor) {
-        return accountDao.hasBalance(academicSession, actor);
-    }
-
-    @Override
-    public AcInvoice executeInvoice() {
-        return null;
-    }
-
-    @Override
-    public Integer countInvoiceItem(AcInvoice invoice) {
-        return invoiceDao.countItem(invoice);
-    }
-
-    // @Override
-    // public Integer countInvoiceTransaction(AcInvoice invoice) {
-    // return invoiceDao.countTransaction(invoice);
-    // }
-
-    @Override
-    public Integer countInvoice(AcAccount account) {
-        return invoiceDao.count(account);
-    }
-
-    @Override
-    public Integer countPaidInvoice(AcAccount account) {
-        return invoiceDao.countPaid(account);
-    }
-
-    @Override
-    public Integer countUnpaidInvoice(AcAccount account) {
-        return invoiceDao.countUnpaid(account);
-    }
-
-    // every midnite: "0 0 12 * * *"
-    // every 30 seconds: "0/20 * * * * *"
-    // check AC_CNFG.sql in /data
-    @Scheduled(cron = "0 0 1 * * *")
-    public void executeScheduler() {
-        LOG.debug("executing scheduler");
-        LocalDate now = new LocalDate(System.currentTimeMillis());
-        AcConfiguration lastEnrollmentDateStr = systemService.findConfigurationByKey(LAST_ENROLLMENT_DATE);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-        // generate when date past last enrollment date
-        try {
-            Date lastEnrollment = formatter.parse(lastEnrollmentDateStr.getValue());
-            if (now.isAfter(new LocalDate(lastEnrollment))) {
-                // todo(hajar): generate invoice for student
-                // todo(hajar): for this semester
-                LOG.debug("session " + academicSessionDao.findCurrentSession());
-
-                List<AcCohortCode> cohortCode = cohortCodeDao.find();
-
-                for (AcCohortCode cohortCodes : cohortCode) {
-
-                    AcSettlement settlement = new AcSettlementImpl();
-                    settlement.setDescription(cohortCodes.getCode());
-                    settlement.setSession(academicSessionDao.findCurrentSession());
-
-                    financialAidService.initSettlementByCohortCode(settlement, cohortCodes);
-
-                    List<AcStudent> students = identityService.findStudentByCohortCode(cohortCodes);
-                    for (AcStudent student : students) {
-                        AcSettlementItem item = new AcSettlementItemImpl();
-                        item.setSettlement(settlement);
-                        item.setAccount(accountDao.findByActor(student));
-                        item.setStatus(AcSettlementStatus.NEW);
-                        financialAidService.addSettlementItem(settlement, item);
-                    }
-
-                    AcInvoice invoice = new AcInvoiceImpl();
-                    invoice.setDescription(settlement.getId() + " " + settlement.getSession());
-                    invoice.setSession(academicSessionDao.findCurrentSession());
-
-                    financialAidService.executeSettlement(settlement);
-                }
-
-            }
-        } catch (ParseException e) {
-            LOG.error("error parsing");
-        }
-    }
-
-    // posting to student account
-    @Override
-    public void post(AcInvoice invoice) {
-        List<AcInvoiceItem> items = findInvoiceItems(invoice);
-        for (AcInvoiceItem item : items) {
-            AcAccountTransaction tx = new AcAccountTransactionImpl();
-            tx.setSession(invoice.getSession());
-            tx.setChargeCode(item.getChargeCode());
-            tx.setPostedDate(new Date());
-            tx.setSourceNo(invoice.getReferenceNo());
-            tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
-            tx.setAccount(invoice.getAccount());
-            tx.setAmount(item.getAmount());
-            accountService.addAccountTransaction(invoice.getAccount(), tx);
-        }
-    }
-
-    // ====================================================================================================
-    // DEBIT NOTE
-    // ====================================================================================================
-
-    @Override
-    public AcDebitNote findDebitNoteByTaskId(String taskId) {
-        Task task = workflowService.findTask(taskId);
-        Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
-        return debitNoteDao.findById((Long) map.get(AccountConstants.DEBIT_NOTE_ID));
-    }
-
-    @Override
-    public Task findDebitNoteTaskByTaskId(String taskId) {
-        return workflowService.findTask(taskId);
-    }
-
-    @Override
-    public List<Task> findAssignedDebitNoteTasks(Integer offset, Integer limit) {
-        return workflowService.findAssignedTasks(AcDebitNote.class.getName(), offset, limit);
-    }
-
-    @Override
-    public List<Task> findPooledDebitNoteTasks(Integer offset, Integer limit) {
-        return workflowService.findPooledTasks(AcDebitNote.class.getName(), offset, limit);
-    }
-
-    @Override
-    public String startDebitNoteTask(AcDebitNote debitNote) {
-        String refNo = systemService.generateReferenceNo(AccountConstants.DEBIT_NOTE_REFERENCE_NO);
-        debitNote.setReferenceNo(refNo);
-        LOG.debug("Processing debitNote with refNo {}", new Object[]{refNo});
-
-        debitNoteDao.saveOrUpdate(debitNote, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().refresh(debitNote);
-
-        workflowService.processWorkflow(debitNote, prepareVariables(debitNote));
-        return refNo;
-    }
-
-    @Override
-    public void cancelDebitNote(AcDebitNote debitNote) {
-        debitNote.getFlowdata().setState(AcFlowState.CANCELLED);
-        debitNote.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
-        debitNote.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
-        debitNoteDao.update(debitNote, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void saveDebitNote(AcDebitNote debitNote) {
-        debitNoteDao.save(debitNote, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void updateDebitNote(AcDebitNote debitNote) {
-        debitNoteDao.update(debitNote, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void addDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
-        debitNoteDao.addItem(debitNote, debitNoteItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void updateDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
-        debitNoteDao.updateItem(debitNote, debitNoteItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void deleteDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
-        debitNoteDao.deleteItem(debitNote, debitNoteItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-
-    // finder
-
-    @Override
-    public AcDebitNote findDebitNoteById(Long id) {
-        return debitNoteDao.findById(id);
-    }
-
-    @Override
-    public AcDebitNoteItem findDebitNoteItemById(Long id) {
-        return debitNoteDao.findItemById(id);
-    }
-
-    @Override
-    public AcDebitNote findDebitNoteByReferenceNo(String referenceNo) {
-        return debitNoteDao.findByReferenceNo(referenceNo);
-    }
-
-    @Override
-    public List<AcDebitNote> findDebitNotes(AcInvoice invoice) {
-        return debitNoteDao.find(invoice);
-    }
-
-    @Override
-    public List<AcDebitNote> findDebitNotes(AcInvoice invoice, String filter, Integer offset, Integer limit) {
-        return debitNoteDao.find(invoice);
-    }
-
-    @Override
-    public List<AcDebitNote> findDebitNotesByFlowState(AcFlowState flowState) {
-        return debitNoteDao.findByFlowState(flowState);
-    }
-
-    @Override
-    public List<AcDebitNoteItem> findDebitNoteItems(AcDebitNote debitNote) {
-        return debitNoteDao.findItems(debitNote);
-    }
-
-
-    @Override
-    public boolean hasDebitNote(AcInvoice invoice) {
-        return debitNoteDao.hasDebitNote(invoice);
-    }
-
-    @Override
-    public void post(AcDebitNote debitNote) {
-           AcAccountTransaction tx = new AcAccountTransactionImpl();
-            tx.setSession(debitNote.getInvoice().getSession());
-            tx.setChargeCode(debitNote.getChargeCode());
-            tx.setPostedDate(new Date());
-            tx.setSourceNo(debitNote.getReferenceNo());
-            tx.setTransactionCode(AcAccountTransactionCode.DEBIT_NOTE);
-            tx.setAccount(debitNote.getInvoice().getAccount());
-            tx.setAmount(debitNote.getTotalAmount());
-            accountService.addAccountTransaction(debitNote.getInvoice().getAccount(), tx);
-    }
-
-    @Override
-    public Integer countDebitNote(AcInvoice invoice) {
-        return debitNoteDao.count(invoice);
-    }
-
-    // ====================================================================================================
-    // CREDIT NOTE
-    // ====================================================================================================
-
-    @Override
-    public AcCreditNote findCreditNoteByTaskId(String taskId) {
-        Task task = workflowService.findTask(taskId);
-        Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
-        return creditNoteDao.findById((Long) map.get(AccountConstants.CREDIT_NOTE_ID));
-    }
-
-    @Override
-    public Task findCreditNoteTaskByTaskId(String taskId) {
-        return workflowService.findTask(taskId);
-    }
-
-    @Override
-    public List<Task> findAssignedCreditNoteTasks(Integer offset, Integer limit) {
-        return workflowService.findAssignedTasks(AcCreditNote.class.getName(), offset, limit);
-    }
-
-    @Override
-    public List<Task> findPooledCreditNoteTasks(Integer offset, Integer limit) {
-        return workflowService.findPooledTasks(AcCreditNote.class.getName(), offset, limit);
-    }
-
-    @Override
-    public String startCreditNoteTask(AcCreditNote creditNote) {
-        String refNo = systemService.generateReferenceNo(AccountConstants.CREDIT_NOTE_REFERENCE_NO);
-        creditNote.setReferenceNo(refNo);
-        LOG.debug("Processing creditNote with refNo {}", new Object[]{refNo});
-
-        creditNoteDao.saveOrUpdate(creditNote, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().refresh(creditNote);
-
-        workflowService.processWorkflow(creditNote, prepareVariables(creditNote));
-        return refNo;
-    }
-
-    @Override
-    public void cancelCreditNote(AcCreditNote creditNote) {
-        creditNote.getFlowdata().setState(AcFlowState.CANCELLED);
-        creditNote.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
-        creditNote.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
-        creditNoteDao.update(creditNote, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void saveCreditNote(AcCreditNote creditNote) {
-        creditNoteDao.save(creditNote, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void updateCreditNote(AcCreditNote creditNote) {
-        creditNoteDao.update(creditNote, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void addCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
-        creditNoteDao.addItem(creditNote, creditNoteItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void updateCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
-        creditNoteDao.updateItem(creditNote, creditNoteItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void deleteCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
-        creditNoteDao.deleteItem(creditNote, creditNoteItem, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-
-    // finder
-
-    @Override
-    public AcCreditNote findCreditNoteById(Long id) {
-        return creditNoteDao.findById(id);
-    }
-
-    @Override
-    public AcCreditNoteItem findCreditNoteItemById(Long id) {
-        return creditNoteDao.findItemById(id);
-    }
-
-    @Override
-    public AcCreditNote findCreditNoteByReferenceNo(String referenceNo) {
-        return creditNoteDao.findByReferenceNo(referenceNo);
-    }
-
-    @Override
-    public List<AcCreditNote> findCreditNotes(AcInvoice invoice) {
-        return creditNoteDao.find(invoice);
-    }
-
-    @Override
-    public List<AcCreditNote> findCreditNotesByFlowState(AcFlowState flowState) {
-        return creditNoteDao.findByFlowState(flowState);
-    }
-
-    @Override
-    public List<AcCreditNoteItem> findCreditNoteItems(AcCreditNote creditNote) {
-        return creditNoteDao.findItems(creditNote);
-    }
-
-    @Override
-    public boolean hasCreditNote(AcInvoice invoice) {
-        return creditNoteDao.hasCreditNote(invoice);
-    }
-    
-    @Override
-    public void post(AcCreditNote creditNote) {
-           AcAccountTransaction tx = new AcAccountTransactionImpl();
-            tx.setSession(creditNote.getInvoice().getSession());
-            tx.setChargeCode(creditNote.getChargeCode());
-            tx.setPostedDate(new Date());
-            tx.setSourceNo(creditNote.getReferenceNo());
-            tx.setTransactionCode(AcAccountTransactionCode.CREDIT_NOTE);
-            tx.setAccount(creditNote.getInvoice().getAccount());
-            tx.setAmount(creditNote.getTotalAmount());
-            accountService.addAccountTransaction(creditNote.getInvoice().getAccount(), tx);
-    }
-
-    @Override
-    public Integer countCreditNote(AcInvoice invoice) {
-        return creditNoteDao.count(invoice);
-    }
-
-    // ====================================================================================================
-    // RECEIPT
-    // ====================================================================================================
-
-    @Override
-    public AcReceipt findReceiptByTaskId(String taskId) {
-        Task task = workflowService.findTask(taskId);
-        Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
-        return receiptDao.findById((Long) map.get(RECEIPT_ID));
-    }
-
-    @Override
-    public Task findReceiptTaskByTaskId(String taskId) {
-        return workflowService.findTask(taskId);
-    }
-
-    @Override
-    public List<Task> findAssignedReceiptTasks(Integer offset, Integer limit) {
-        return workflowService.findAssignedTasks(AcReceipt.class.getName(), offset, limit);
-    }
-
-    @Override
-    public List<Task> findPooledReceiptTasks(Integer offset, Integer limit) {
-        return workflowService.findPooledTasks(AcReceipt.class.getName(), offset, limit);
-    }
-
-    @Override
-    public String startReceiptTask(AcReceipt receipt) {
-        String refNo = systemService.generateReferenceNo(AccountConstants.RECEIPT_REFERENCE_NO);
-        receipt.setReferenceNo(refNo);
-        LOG.debug("Processing receipt with refNo {}", new Object[]{refNo});
-
-        receiptDao.saveOrUpdate(receipt, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().refresh(receipt);
-
-        workflowService.processWorkflow(receipt, prepareVariables(receipt));
-        return refNo;
-    }
-
-    @Override
-    public void updateReceipt(AcReceipt receipt) {
-        receiptDao.update(receipt, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void cancelReceipt(AcReceipt receipt) {
-        Validate.notNull(receipt, "Receipt cannot be null");
-        Validate.isTrue(DRAFTED.equals(receipt.getFlowdata().getState()),
-                "Receipt can only be cancelled in DRAFTED state");
-        receiptDao.update(receipt, securityService.getCurrentUser());
-    }
-
-    @Override
-    public void addReceiptItem(AcReceipt receipt, AcReceiptItem item) {
-        receiptDao.addItem(receipt, item, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void updateReceiptItem(AcReceipt receipt, AcReceiptItem item) {
-        receiptDao.updateItem(receipt, item, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    @Override
-    public void deleteReceiptItem(AcReceipt receipt, AcReceiptItem item) {
-        receiptDao.deleteItem(receipt, item, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-    
-    @Override
-    public void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice) {
-    	receiptDao.addReceiptInvoice(receipt, invoice, securityService.getCurrentUser());
-    	sessionFactory.getCurrentSession().flush();
-    }
-
-    // ====================================================================================================
-    // //
-    // RECEIPT
-    // ====================================================================================================
-    // //
-
-    @Override
-    public AcReceipt findReceiptById(Long id) {
-        return receiptDao.findById(id);
-    }
-
-    @Override
-    public AcReceipt findReceiptByReferenceNo(String referenceNo) {
-        return receiptDao.findByReferenceNo(referenceNo);
-    }
-
-    @Override
-    public AcReceipt findReceiptByReceiptNo(String receiptNo) {
-        return receiptDao.findByReceiptNo(receiptNo);
-    }
-
-    @Override
-    public AcReceiptItem findReceiptItemById(Long id) {
-        return receiptDao.findItemById(id);
-    }
-
-    @Override
-    public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode) {
-        return receiptDao.findReceiptItemByChargeCode(chargeCode);
-    }
-
-    @Override
-    public List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit) {
-        return receiptDao.find(filter, offset, limit);
-    }
-
-    @Override
-    public List<AcReceipt> findReceipts(AcReceiptType type, Integer offset, Integer limit) {
-        return receiptDao.find(type, offset, limit);
-    }
-
-    @Override
-    public List<AcReceipt> findReceipts(AcReceiptType type, String filter, Integer offset, Integer limit) {
-        return receiptDao.find(type, filter, offset, limit);
-    }
-
-    @Override
-    public List<AcReceipt> findReceiptsByFlowState(AcFlowState flowState) {
-        return receiptDao.findByFlowState(flowState);
-    }
-    
 	@Override
-    public List<AcReceipt> findReceiptsByFlowState(AcFlowState... flowStates) {
+	public List<AcInvoice> findUnpaidInvoices(AcAccount account, Integer offset, Integer limit) {
+		return invoiceDao.find(false, account, offset, limit);
+	}
+
+	@Override
+	public List<AcInvoice> findPaidInvoices(AcAccount account, Integer offset, Integer limit) {
+		return invoiceDao.find(true, account, offset, limit);
+	}
+
+	@Override
+	public List<AcInvoiceItem> findInvoiceItems(AcInvoice invoice) {
+		return invoiceDao.findItems(invoice);
+	}
+
+	@Override
+	public List<AcInvoiceItem> findInvoiceItems(AcInvoice invoice, Integer offset, Integer limit) {
+		return invoiceDao.findItems(invoice, offset, limit);
+	}
+
+	// @Override
+	// public List<AcInvoiceTransaction> findInvoiceTransactions(AcInvoice
+	// invoice) {
+	// return invoiceDao.findTransactions(invoice);
+	// }
+	//
+	// @Override
+	// public List<AcInvoiceTransaction> findInvoiceTransactions(AcInvoice
+	// invoice, Integer offset, Integer limit) {
+	// return invoiceDao.findTransactions(invoice, offset, limit);
+	// }
+
+	@Override
+	public boolean hasInvoice(AcAccount account) {
+		return invoiceDao.hasInvoice(account);
+	}
+
+	@Override
+	public boolean hasUnpaidInvoice(AcAccount account) {
+		return invoiceDao.hasInvoice(false, account);
+	}
+
+	@Override
+	public boolean hasUnpaidInvoice(AcAccount account, Integer days) {
+		return invoiceDao.hasInvoice(false, days, account);
+	}
+
+	@Override
+	public boolean isInvoiceOverdue(AcAccountCharge charge) {
+		return !charge.getInvoice().isPaid();
+	}
+
+	@Override
+	public BigDecimal sumUnpaidInvoice(AcAccountCharge charge) {
+		return null; // TODO: ???
+	}
+
+	@Override
+	public boolean hasBalance(AcAcademicSession academicSession, AcActor actor) {
+		return accountDao.hasBalance(academicSession, actor);
+	}
+
+	@Override
+	public AcInvoice executeInvoice() {
+		return null;
+	}
+
+	@Override
+	public Integer countInvoiceItem(AcInvoice invoice) {
+		return invoiceDao.countItem(invoice);
+	}
+
+	// @Override
+	// public Integer countInvoiceTransaction(AcInvoice invoice) {
+	// return invoiceDao.countTransaction(invoice);
+	// }
+
+	@Override
+	public Integer countInvoice(AcAccount account) {
+		return invoiceDao.count(account);
+	}
+
+	@Override
+	public Integer countPaidInvoice(AcAccount account) {
+		return invoiceDao.countPaid(account);
+	}
+
+	@Override
+	public Integer countUnpaidInvoice(AcAccount account) {
+		return invoiceDao.countUnpaid(account);
+	}
+
+	// every midnite: "0 0 12 * * *"
+	// every 30 seconds: "0/20 * * * * *"
+	// check AC_CNFG.sql in /data
+	@Scheduled(cron = "0 0 1 * * *")
+	public void executeScheduler() {
+		LOG.debug("executing scheduler");
+		LocalDate now = new LocalDate(System.currentTimeMillis());
+		AcConfiguration lastEnrollmentDateStr = systemService.findConfigurationByKey(LAST_ENROLLMENT_DATE);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+		// generate when date past last enrollment date
+		try {
+			Date lastEnrollment = formatter.parse(lastEnrollmentDateStr.getValue());
+			if (now.isAfter(new LocalDate(lastEnrollment))) {
+				// todo(hajar): generate invoice for student
+				// todo(hajar): for this semester
+				LOG.debug("session " + academicSessionDao.findCurrentSession());
+
+				List<AcCohortCode> cohortCode = cohortCodeDao.find();
+
+				for (AcCohortCode cohortCodes : cohortCode) {
+
+					AcSettlement settlement = new AcSettlementImpl();
+					settlement.setDescription(cohortCodes.getCode());
+					settlement.setSession(academicSessionDao.findCurrentSession());
+
+					financialAidService.initSettlementByCohortCode(settlement, cohortCodes);
+
+					List<AcStudent> students = identityService.findStudentByCohortCode(cohortCodes);
+					for (AcStudent student : students) {
+						AcSettlementItem item = new AcSettlementItemImpl();
+						item.setSettlement(settlement);
+						item.setAccount(accountDao.findByActor(student));
+						item.setStatus(AcSettlementStatus.NEW);
+						financialAidService.addSettlementItem(settlement, item);
+					}
+
+					AcInvoice invoice = new AcInvoiceImpl();
+					invoice.setDescription(settlement.getId() + " " + settlement.getSession());
+					invoice.setSession(academicSessionDao.findCurrentSession());
+
+					financialAidService.executeSettlement(settlement);
+				}
+
+			}
+		} catch (ParseException e) {
+			LOG.error("error parsing");
+		}
+	}
+
+	// posting to student account
+	@Override
+	public void post(AcInvoice invoice) {
+		List<AcInvoiceItem> items = findInvoiceItems(invoice);
+		for (AcInvoiceItem item : items) {
+			AcAccountTransaction tx = new AcAccountTransactionImpl();
+			tx.setSession(invoice.getSession());
+			tx.setChargeCode(item.getChargeCode());
+			tx.setPostedDate(new Date());
+			tx.setSourceNo(invoice.getReferenceNo());
+			tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
+			tx.setAccount(invoice.getAccount());
+			tx.setAmount(item.getAmount());
+			accountService.addAccountTransaction(invoice.getAccount(), tx);
+		}
+	}
+
+	// ====================================================================================================
+	// DEBIT NOTE
+	// ====================================================================================================
+
+	@Override
+	public AcDebitNote findDebitNoteByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return debitNoteDao.findById((Long) map.get(AccountConstants.DEBIT_NOTE_ID));
+	}
+
+	@Override
+	public Task findDebitNoteTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
+
+	@Override
+	public List<Task> findAssignedDebitNoteTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcDebitNote.class.getName(), offset, limit);
+	}
+
+	@Override
+	public List<Task> findPooledDebitNoteTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcDebitNote.class.getName(), offset, limit);
+	}
+
+	@Override
+	public String startDebitNoteTask(AcDebitNote debitNote) {
+		String refNo = systemService.generateReferenceNo(AccountConstants.DEBIT_NOTE_REFERENCE_NO);
+		debitNote.setReferenceNo(refNo);
+		LOG.debug("Processing debitNote with refNo {}", new Object[] { refNo });
+
+		debitNoteDao.saveOrUpdate(debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(debitNote);
+
+		workflowService.processWorkflow(debitNote, prepareVariables(debitNote));
+		return refNo;
+	}
+
+	@Override
+	public void cancelDebitNote(AcDebitNote debitNote) {
+		debitNote.getFlowdata().setState(AcFlowState.CANCELLED);
+		debitNote.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+		debitNote.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+		debitNoteDao.update(debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void saveDebitNote(AcDebitNote debitNote) {
+		debitNoteDao.save(debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateDebitNote(AcDebitNote debitNote) {
+		debitNoteDao.update(debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void addDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
+		debitNoteDao.addItem(debitNote, debitNoteItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
+		debitNoteDao.updateItem(debitNote, debitNoteItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void deleteDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {
+		debitNoteDao.deleteItem(debitNote, debitNoteItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	// finder
+
+	@Override
+	public AcDebitNote findDebitNoteById(Long id) {
+		return debitNoteDao.findById(id);
+	}
+
+	@Override
+	public AcDebitNoteItem findDebitNoteItemById(Long id) {
+		return debitNoteDao.findItemById(id);
+	}
+
+	@Override
+	public AcDebitNote findDebitNoteByReferenceNo(String referenceNo) {
+		return debitNoteDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public List<AcDebitNote> findDebitNotes(AcInvoice invoice) {
+		return debitNoteDao.find(invoice);
+	}
+
+	@Override
+	public List<AcDebitNote> findDebitNotes(AcInvoice invoice, String filter, Integer offset, Integer limit) {
+		return debitNoteDao.find(invoice);
+	}
+
+	@Override
+	public List<AcDebitNote> findDebitNotesByFlowState(AcFlowState flowState) {
+		return debitNoteDao.findByFlowState(flowState);
+	}
+
+	@Override
+	public List<AcDebitNoteItem> findDebitNoteItems(AcDebitNote debitNote) {
+		return debitNoteDao.findItems(debitNote);
+	}
+
+	@Override
+	public boolean hasDebitNote(AcInvoice invoice) {
+		return debitNoteDao.hasDebitNote(invoice);
+	}
+
+	@Override
+	public void post(AcDebitNote debitNote) {
+		AcAccountTransaction tx = new AcAccountTransactionImpl();
+		tx.setSession(debitNote.getInvoice().getSession());
+		tx.setChargeCode(debitNote.getChargeCode());
+		tx.setPostedDate(new Date());
+		tx.setSourceNo(debitNote.getReferenceNo());
+		tx.setTransactionCode(AcAccountTransactionCode.DEBIT_NOTE);
+		tx.setAccount(debitNote.getInvoice().getAccount());
+		tx.setAmount(debitNote.getTotalAmount());
+		accountService.addAccountTransaction(debitNote.getInvoice().getAccount(), tx);
+	}
+
+	@Override
+	public Integer countDebitNote(AcInvoice invoice) {
+		return debitNoteDao.count(invoice);
+	}
+
+	// ====================================================================================================
+	// CREDIT NOTE
+	// ====================================================================================================
+
+	@Override
+	public AcCreditNote findCreditNoteByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return creditNoteDao.findById((Long) map.get(AccountConstants.CREDIT_NOTE_ID));
+	}
+
+	@Override
+	public Task findCreditNoteTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
+
+	@Override
+	public List<Task> findAssignedCreditNoteTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcCreditNote.class.getName(), offset, limit);
+	}
+
+	@Override
+	public List<Task> findPooledCreditNoteTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcCreditNote.class.getName(), offset, limit);
+	}
+
+	@Override
+	public String startCreditNoteTask(AcCreditNote creditNote) {
+		String refNo = systemService.generateReferenceNo(AccountConstants.CREDIT_NOTE_REFERENCE_NO);
+		creditNote.setReferenceNo(refNo);
+		LOG.debug("Processing creditNote with refNo {}", new Object[] { refNo });
+
+		creditNoteDao.saveOrUpdate(creditNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(creditNote);
+
+		workflowService.processWorkflow(creditNote, prepareVariables(creditNote));
+		return refNo;
+	}
+
+	@Override
+	public void cancelCreditNote(AcCreditNote creditNote) {
+		creditNote.getFlowdata().setState(AcFlowState.CANCELLED);
+		creditNote.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+		creditNote.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+		creditNoteDao.update(creditNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void saveCreditNote(AcCreditNote creditNote) {
+		creditNoteDao.save(creditNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateCreditNote(AcCreditNote creditNote) {
+		creditNoteDao.update(creditNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void addCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
+		creditNoteDao.addItem(creditNote, creditNoteItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
+		creditNoteDao.updateItem(creditNote, creditNoteItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void deleteCreditNoteItem(AcCreditNote creditNote, AcCreditNoteItem creditNoteItem) {
+		creditNoteDao.deleteItem(creditNote, creditNoteItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	// finder
+
+	@Override
+	public AcCreditNote findCreditNoteById(Long id) {
+		return creditNoteDao.findById(id);
+	}
+
+	@Override
+	public AcCreditNoteItem findCreditNoteItemById(Long id) {
+		return creditNoteDao.findItemById(id);
+	}
+
+	@Override
+	public AcCreditNote findCreditNoteByReferenceNo(String referenceNo) {
+		return creditNoteDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public List<AcCreditNote> findCreditNotes(AcInvoice invoice) {
+		return creditNoteDao.find(invoice);
+	}
+
+	@Override
+	public List<AcCreditNote> findCreditNotesByFlowState(AcFlowState flowState) {
+		return creditNoteDao.findByFlowState(flowState);
+	}
+
+	@Override
+	public List<AcCreditNoteItem> findCreditNoteItems(AcCreditNote creditNote) {
+		return creditNoteDao.findItems(creditNote);
+	}
+
+	@Override
+	public boolean hasCreditNote(AcInvoice invoice) {
+		return creditNoteDao.hasCreditNote(invoice);
+	}
+
+	@Override
+	public void post(AcCreditNote creditNote) {
+		AcAccountTransaction tx = new AcAccountTransactionImpl();
+		tx.setSession(creditNote.getInvoice().getSession());
+		tx.setChargeCode(creditNote.getChargeCode());
+		tx.setPostedDate(new Date());
+		tx.setSourceNo(creditNote.getReferenceNo());
+		tx.setTransactionCode(AcAccountTransactionCode.CREDIT_NOTE);
+		tx.setAccount(creditNote.getInvoice().getAccount());
+		tx.setAmount(creditNote.getTotalAmount());
+		accountService.addAccountTransaction(creditNote.getInvoice().getAccount(), tx);
+	}
+
+	@Override
+	public Integer countCreditNote(AcInvoice invoice) {
+		return creditNoteDao.count(invoice);
+	}
+
+	// ====================================================================================================
+	// RECEIPT
+	// ====================================================================================================
+
+	@Override
+	public AcReceipt findReceiptByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return receiptDao.findById((Long) map.get(RECEIPT_ID));
+	}
+
+	@Override
+	public Task findReceiptTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
+
+	@Override
+	public List<Task> findAssignedReceiptTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcReceipt.class.getName(), offset, limit);
+	}
+
+	@Override
+	public List<Task> findPooledReceiptTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcReceipt.class.getName(), offset, limit);
+	}
+
+	@Override
+	public String startReceiptTask(AcReceipt receipt) {
+		String refNo = systemService.generateReferenceNo(AccountConstants.RECEIPT_REFERENCE_NO);
+		receipt.setReferenceNo(refNo);
+		LOG.debug("Processing receipt with refNo {}", new Object[] { refNo });
+
+		receiptDao.saveOrUpdate(receipt, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(receipt);
+
+		workflowService.processWorkflow(receipt, prepareVariables(receipt));
+		return refNo;
+	}
+
+	@Override
+	public void updateReceipt(AcReceipt receipt) {
+		receiptDao.update(receipt, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void cancelReceipt(AcReceipt receipt) {
+		Validate.notNull(receipt, "Receipt cannot be null");
+		Validate.isTrue(DRAFTED.equals(receipt.getFlowdata().getState()),
+				"Receipt can only be cancelled in DRAFTED state");
+		receiptDao.update(receipt, securityService.getCurrentUser());
+	}
+
+	@Override
+	public void addReceiptItem(AcReceipt receipt, AcReceiptItem item) {
+		receiptDao.addItem(receipt, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateReceiptItem(AcReceipt receipt, AcReceiptItem item) {
+		receiptDao.updateItem(receipt, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void deleteReceiptItem(AcReceipt receipt, AcReceiptItem item) {
+		receiptDao.deleteItem(receipt, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice) {
+		receiptDao.addReceiptInvoice(receipt, invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	// ====================================================================================================
+	// //
+	// RECEIPT
+	// ====================================================================================================
+	// //
+
+	@Override
+	public AcReceipt findReceiptById(Long id) {
+		return receiptDao.findById(id);
+	}
+
+	@Override
+	public AcReceipt findReceiptByReferenceNo(String referenceNo) {
+		return receiptDao.findByReferenceNo(referenceNo);
+	}
+
+	@Override
+	public AcReceipt findReceiptByReceiptNo(String receiptNo) {
+		return receiptDao.findByReceiptNo(receiptNo);
+	}
+
+	@Override
+	public AcReceiptItem findReceiptItemById(Long id) {
+		return receiptDao.findItemById(id);
+	}
+
+	@Override
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice) {
+		return receiptDao.findReceiptItemByChargeCode(chargeCode, invoice);
+	}
+
+	@Override
+	public List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit) {
+		return receiptDao.find(filter, offset, limit);
+	}
+
+	@Override
+	public List<AcReceipt> findReceipts(AcReceiptType type, Integer offset, Integer limit) {
+		return receiptDao.find(type, offset, limit);
+	}
+
+	@Override
+	public List<AcReceipt> findReceipts(AcReceiptType type, String filter, Integer offset, Integer limit) {
+		return receiptDao.find(type, filter, offset, limit);
+	}
+
+	@Override
+	public List<AcReceipt> findReceiptsByFlowState(AcFlowState flowState) {
+		return receiptDao.findByFlowState(flowState);
+	}
+
+	@Override
+	public List<AcReceipt> findReceiptsByFlowState(AcFlowState... flowStates) {
 		return receiptDao.findByFlowStates(flowStates);
 	}
 
-    @Override
-    public List<AcReceiptItem> findReceiptItems(AcReceipt receipt) {
-        return receiptDao.findItems(receipt);
-    }
-    
-    @Override
-    public List<AcReceiptInvoice> findReceipts(AcReceipt receipt){
-    	return receiptDao.find(receipt);
-    }
+	@Override
+	public List<AcReceiptItem> findReceiptItems(AcReceipt receipt) {
+		return receiptDao.findItems(receipt);
+	}
 
-    @Override
-    public Integer countReceipt(AcReceiptType type) {
-        return receiptDao.count(type);
-    }
+	@Override
+	public List<AcReceiptInvoice> findReceipts(AcReceipt receipt) {
+		return receiptDao.find(receipt);
+	}
 
-    @Override
-    public Integer countReceipt(AcReceiptType type, String filter) {
-        return receiptDao.count(type, filter);
-    }
+	@Override
+	public Integer countReceipt(AcReceiptType type) {
+		return receiptDao.count(type);
+	}
 
-    @Override
-    public Integer countReceiptItem(AcReceipt receipt) {
-        return receiptDao.countItem(receipt);
-    }
+	@Override
+	public Integer countReceipt(AcReceiptType type, String filter) {
+		return receiptDao.count(type, filter);
+	}
 
-    @Override
-    public void post(AcReceipt receipt) {
-        List<AcReceiptItem> items = findReceiptItems(receipt);
-        for (AcReceiptItem item : items) {
-            AcAccountTransaction tx = new AcAccountTransactionImpl();
-            tx.setSession(accountService.findCurrentAcademicSession());
-            tx.setChargeCode(item.getChargeCode());
-            tx.setPostedDate(new Date());
-            tx.setSourceNo(receipt.getReferenceNo());
-            tx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
-            tx.setAccount(receipt.getAccount());
-            tx.setAmount(item.getAppliedAmount().negate());
-            accountService.addAccountTransaction(receipt.getAccount(), tx);
-        }
-    }
-    
-    @Override
-    public void calculateChargeInvoice(AcReceipt receipt, AcAccount account){
+	@Override
+	public Integer countReceiptItem(AcReceipt receipt) {
+		return receiptDao.countItem(receipt);
+	}
 
-    	List<AcInvoice> invoices = invoiceDao.find(account);
-    	for (AcInvoice invoice : invoices) {
-    		
-	    	List<AcInvoiceItem> invoiceItems = invoiceDao.findItems(invoice);
-	    	
-	    	for (AcInvoiceItem invoiceItem : invoiceItems) {
-	            AcReceiptItem item = new AcReceiptItemImpl();
-	            item.setAppliedAmount(BigDecimal.ZERO);
-	            item.setChargeCode(invoiceItem.getChargeCode());
-	            item.setInvoice(invoice);
-	            item.setReceipt(receipt);
-	            item.setTotalAmount(invoiceItem.getAmount());
-	            addReceiptItem(receipt, item); 
-	        }
-    	}
-    	
-    	sessionFactory.getCurrentSession().flush();
-    	
-    }
-    
-    @Override
-    public void calculateCharge(AcReceipt receipt, AcAccount account){
-    	List<AcAccountCharge> charges = accountChargeDao.find(account);
-    	
-    	for (AcAccountCharge charge : charges) {
-            AcReceiptItem item = new AcReceiptItemImpl();
-            item.setAppliedAmount(BigDecimal.ZERO);
-            //item.setChargeCode(charge.get);
-            //item.setInvoice(invoice);
-            item.setReceipt(receipt);
-            item.setTotalAmount(charge.getAmount());
-            addReceiptItem(receipt, item); 
-        }
-    	
-    	sessionFactory.getCurrentSession().flush();
-    	
-    }
+	@Override
+	public void post(AcReceipt receipt) {
+		
+		List<AcReceiptItem> items = findReceiptItems(receipt);
+		for (AcReceiptItem item : items) {
+			AcAccountTransaction tx = new AcAccountTransactionImpl();
+			tx.setSession(accountService.findCurrentAcademicSession());
+			tx.setChargeCode(item.getChargeCode());
+			tx.setPostedDate(new Date());
+			tx.setSourceNo(receipt.getReferenceNo());
+			tx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
+			tx.setAccount(receipt.getAccount());
+			tx.setAmount(item.getAppliedAmount().negate());
+			accountService.addAccountTransaction(receipt.getAccount(), tx);
+		}
+	}
 
-    // ====================================================================================================
-    // PRIVATE METHODS
-    // ====================================================================================================
+	@Override
+	public void calculateChargeInvoice(AcReceipt receipt, AcAccount account) {
 
-    private Map<String, Object> prepareVariables(AcReceipt receipt) {
-        LOG.debug("receiptid: " + receipt.getId());
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(RECEIPT_ID, receipt.getId());
-        map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
-        map.put(WorkflowConstants.REFERENCE_NO, receipt.getReferenceNo());
-        map.put(WorkflowConstants.REMOVE_DECISION, false);
-        map.put(WorkflowConstants.CANCEL_DECISION, false);
-        return map;
-    }
+		List<AcInvoice> invoices = invoiceDao.find(account);
+		for (AcInvoice invoice : invoices) {
 
-    private Map<String, Object> prepareVariables(AcInvoice invoice) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(INVOICE_ID, invoice.getId());
-        map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
-        map.put(WorkflowConstants.REFERENCE_NO, invoice.getReferenceNo());
-        map.put(WorkflowConstants.REMOVE_DECISION, false);
-        map.put(WorkflowConstants.CANCEL_DECISION, false);
-        return map;
-    }
+			List<AcInvoiceItem> invoiceItems = invoiceDao.findItems(invoice);
 
-    private Map<String, Object> prepareVariables(AcDebitNote debitNote) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(DEBIT_NOTE_ID, debitNote.getId());
-        map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
-        map.put(WorkflowConstants.REFERENCE_NO, debitNote.getReferenceNo());
-        map.put(WorkflowConstants.REMOVE_DECISION, false);
-        map.put(WorkflowConstants.CANCEL_DECISION, false);
-        return map;
-    }
+			for (AcInvoiceItem invoiceItem : invoiceItems) {
+				AcReceiptItem item = new AcReceiptItemImpl();
+				item.setAppliedAmount(BigDecimal.ZERO);
+				item.setChargeCode(invoiceItem.getChargeCode());
+				item.setInvoice(invoice);
+				item.setReceipt(receipt);
+				item.setTotalAmount(invoiceItem.getAmount());
+				addReceiptItem(receipt, item);
+			}
+		}
 
-    private Map<String, Object> prepareVariables(AcCreditNote creditNote) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(CREDIT_NOTE_ID, creditNote.getId());
-        map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
-        map.put(WorkflowConstants.REFERENCE_NO, creditNote.getReferenceNo());
-        map.put(WorkflowConstants.REMOVE_DECISION, false);
-        map.put(WorkflowConstants.CANCEL_DECISION, false);
-        return map;
-    }
-    
-    // ==================================================================================================== //
-    // KNOCKOFF
-    // ==================================================================================================== //
-    
+		sessionFactory.getCurrentSession().flush();
+
+	}
+
+	@Override
+	public void calculateCharge(AcReceipt receipt, AcAccount account) {
+		List<AcAccountCharge> charges = accountChargeDao.find(account);
+
+		for (AcAccountCharge charge : charges) {
+			AcReceiptItem item = new AcReceiptItemImpl();
+			item.setAppliedAmount(BigDecimal.ZERO);
+			// item.setChargeCode(charge.get);
+			// item.setInvoice(invoice);
+			item.setReceipt(receipt);
+			item.setTotalAmount(charge.getAmount());
+			addReceiptItem(receipt, item);
+		}
+
+		sessionFactory.getCurrentSession().flush();
+
+	}
+
+	@Override
+	public BigDecimal sumAdvancePayment(AcReceipt receipt) {
+		return receipt.getTotalReceived()
+				.subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser()));
+	}
+	
+	@Override
+	public BigDecimal sumAppliedAmount(AcInvoice invoice) {
+		return receiptDao.sumAmount(invoice, securityService.getCurrentUser());
+	}
+
+	// ====================================================================================================
+	// PRIVATE METHODS
+	// ====================================================================================================
+
+	private Map<String, Object> prepareVariables(AcReceipt receipt) {
+		LOG.debug("receiptid: " + receipt.getId());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(RECEIPT_ID, receipt.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, receipt.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
+
+	private Map<String, Object> prepareVariables(AcInvoice invoice) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(INVOICE_ID, invoice.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, invoice.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
+
+	private Map<String, Object> prepareVariables(AcDebitNote debitNote) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(DEBIT_NOTE_ID, debitNote.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, debitNote.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
+
+	private Map<String, Object> prepareVariables(AcCreditNote creditNote) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(CREDIT_NOTE_ID, creditNote.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, creditNote.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
+
+	// ====================================================================================================
+	// //
+	// KNOCKOFF
+	// ====================================================================================================
+	// //
+
 	@Override
 	public AcKnockoff findKnockoffByReferenceNo(String referenceNo) {
 		return knockoffDao.findByReferenceNo(referenceNo);
@@ -1028,7 +1042,7 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void updateKnockoff(AcKnockoff knockoff, AcUser user) {
 		knockoffDao.update(knockoff, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();	
+		sessionFactory.getCurrentSession().flush();
 	}
 
 	@Override
@@ -1036,11 +1050,13 @@ public class BillingServiceImpl implements BillingService {
 		knockoffDao.remove(knockoff, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-	
-    // ==================================================================================================== //
-    // REFUND PAYMENT
-    // ==================================================================================================== //
-    
+
+	// ====================================================================================================
+	// //
+	// REFUND PAYMENT
+	// ====================================================================================================
+	// //
+
 	@Override
 	public AcRefundPayment findRefundPaymentByReferenceNo(String referenceNo) {
 		return refundPaymentDao.findByReferenceNo(referenceNo);
@@ -1060,7 +1076,7 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void updateRefundPayment(AcRefundPayment refund, AcUser user) {
 		refundPaymentDao.update(refund, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();	
+		sessionFactory.getCurrentSession().flush();
 	}
 
 	@Override
@@ -1068,55 +1084,58 @@ public class BillingServiceImpl implements BillingService {
 		refundPaymentDao.remove(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-	
-	// ==================================================================================================== //
-    // TAX 
-    // ==================================================================================================== //
-	
-    public void calculateNetAmount(AcInvoice invoice){
-    	
-//    	invoice = this.findInvoiceByReferenceNo("INVC001");
-//    	LOG.debug("Invoice:{}", invoice);
-    	
-    	invoice = this.findInvoiceByReferenceNo(invoice.getReferenceNo());
-    	LOG.debug("Invoice Reference No:{}", invoice);
-    	
-//    	List<AcInvoiceItem> invoiceItems = this.findInvoiceItems(invoice, 0, 1);
-//    	LOG.debug("Invoice Items:{}", invoiceItems);
-    	
-    	List<AcInvoiceItem> invoiceItems = this.findInvoiceItems(invoice);
-    	LOG.debug("Invoice Items:{}", invoiceItems);
-		
-    	for (AcInvoiceItem invoiceItem : invoiceItems) {
-    		
-    		LOG.debug("Invoice Items:{}", invoiceItem );
-		
-		LOG.debug("tax Rate:{}", invoiceItem.getTaxCode().getTaxRate());
-		
-		BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
-		LOG.debug("Tax Rate", taxRate);
-		
-		BigDecimal amount = invoiceItem.getAmount();
-		LOG.debug("Amount", amount);
-		
-		BigDecimal taxAmount =  amount.multiply(taxRate);
-		LOG.debug("Tax Amount: {}", taxAmount.setScale(2, RoundingMode.HALF_UP));
-		
-		BigDecimal netAmount = amount.add(taxAmount);
-		LOG.debug("Net Amount: {}", netAmount.setScale(2, RoundingMode.HALF_UP));
-			   
-		if(invoiceItem.getChargeCode().getInclusive()==false){
-					
-		invoiceItem.setNetAmount(netAmount);		
-		invoiceItem.setTaxAmount(taxAmount);
-		this.updateInvoiceItem(invoice, invoiceItem);
+
+	// ====================================================================================================
+	// //
+	// TAX
+	// ====================================================================================================
+	// //
+
+	public void calculateNetAmount(AcInvoice invoice) {
+
+		// invoice = this.findInvoiceByReferenceNo("INVC001");
+		// LOG.debug("Invoice:{}", invoice);
+
+		invoice = this.findInvoiceByReferenceNo(invoice.getReferenceNo());
+		LOG.debug("Invoice Reference No:{}", invoice);
+
+		// List<AcInvoiceItem> invoiceItems = this.findInvoiceItems(invoice, 0,
+		// 1);
+		// LOG.debug("Invoice Items:{}", invoiceItems);
+
+		List<AcInvoiceItem> invoiceItems = this.findInvoiceItems(invoice);
+		LOG.debug("Invoice Items:{}", invoiceItems);
+
+		for (AcInvoiceItem invoiceItem : invoiceItems) {
+
+			LOG.debug("Invoice Items:{}", invoiceItem);
+
+			LOG.debug("tax Rate:{}", invoiceItem.getTaxCode().getTaxRate());
+
+			BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
+			LOG.debug("Tax Rate", taxRate);
+
+			BigDecimal amount = invoiceItem.getAmount();
+			LOG.debug("Amount", amount);
+
+			BigDecimal taxAmount = amount.multiply(taxRate);
+			LOG.debug("Tax Amount: {}", taxAmount.setScale(2, RoundingMode.HALF_UP));
+
+			BigDecimal netAmount = amount.add(taxAmount);
+			LOG.debug("Net Amount: {}", netAmount.setScale(2, RoundingMode.HALF_UP));
+
+			if (invoiceItem.getChargeCode().getInclusive() == false) {
+
+				invoiceItem.setNetAmount(netAmount);
+				invoiceItem.setTaxAmount(taxAmount);
+				this.updateInvoiceItem(invoice, invoiceItem);
+			}
+
+			else if (invoiceItem.getChargeCode().getInclusive() == true) {
+				invoiceItem.setTaxAmount(taxAmount);
+				this.updateInvoiceItem(invoice, invoiceItem);
+			}
 		}
-		
-		else if(invoiceItem.getChargeCode().getInclusive()==true){
-			invoiceItem.setTaxAmount(taxAmount);
-			this.updateInvoiceItem(invoice, invoiceItem);
-		}
-		}
-    }
+	}
 
 }

@@ -259,7 +259,7 @@ public interface BillingService {
 
     AcReceiptItem findReceiptItemById(Long id);
 
-	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode);
+	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice);
 
     List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit);
 
@@ -286,6 +286,10 @@ public interface BillingService {
     void calculateChargeInvoice(AcReceipt receipt, AcAccount account);
     
     void calculateCharge(AcReceipt receipt, AcAccount account);
+    
+    BigDecimal sumAdvancePayment(AcReceipt receipt);
+    
+    BigDecimal sumAppliedAmount(AcInvoice invoice);
 
     // ==================================================================================================== //
     // KNOCKOFF

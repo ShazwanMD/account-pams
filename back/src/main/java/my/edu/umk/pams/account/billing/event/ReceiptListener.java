@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -20,28 +21,38 @@ import java.util.List;
 @Component("receiptListener")
 public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccessListener.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AccessListener.class);
 
-    @Autowired
-    private BillingService billingService;
+	@Autowired
+	private BillingService billingService;
 
-    @Override
-    public void onApplicationEvent(ReceiptEvent event) {
-        if (event instanceof ReceiptApprovedEvent) {
-            AcReceipt receipt = event.getReceipt();
-            List<AcInvoice> invoices = receipt.getInvoices();
-            for (AcInvoice invoice : invoices) {
-                List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
-                for (AcInvoiceItem invoiceItem : invoiceItems) {
-                    // find matching receipt item
-                    AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode());
-                    // knock off
-                    invoiceItem.setBalanceAmount(
-                            invoiceItem.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
-                    billingService.updateInvoiceItem(invoice, invoiceItem);
-                    
-                }
-            }
-        }
-    }
+	@Override
+	public void onApplicationEvent(ReceiptEvent event) {
+		if (event instanceof ReceiptApprovedEvent) {
+			AcReceipt receipt = event.getReceipt();
+			List<AcInvoice> invoices = receipt.getInvoices();
+			for (AcInvoice invoice : invoices) {
+				List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
+				for (AcInvoiceItem invoiceItem : invoiceItems) {
+					// find matching receipt item
+					AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode(),
+							invoiceItem.getInvoice());
+					// knock off
+					LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
+					invoiceItem
+							.setBalanceAmount(invoiceItem.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
+					billingService.updateInvoiceItem(invoice, invoiceItem);
+//					LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
+					invoice.setBalanceAmount(
+							invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice)));
+					billingService.updateInvoice(invoice);
+					// if(invoice.getBalanceAmount()==BigDecimal.ZERO){
+					// invoice.setPaid(true);
+					// billingService.updateInvoice(invoice);
+					// }
+
+				}
+			}
+		}
+	}
 }
