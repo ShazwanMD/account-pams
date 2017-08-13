@@ -2,7 +2,13 @@ package my.edu.umk.pams.account.identity.model;
 
 import my.edu.umk.pams.account.core.AcMetadata;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author PAMS
@@ -24,7 +30,24 @@ public class AcSponsorshipImpl implements AcSponsorship {
     @ManyToOne(targetEntity = AcSponsorImpl.class)
     @JoinColumn(name = "SPONSOR_ID")
     private AcSponsor sponsor;
+    
+    @NotNull
+    @Column(name = "AMOUNT", nullable = false)
+    private BigDecimal amount = BigDecimal.ZERO;
 
+//    @NotNull
+    @Column(name = "START_DATE")
+    private Date startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    
+//  @NotNull
+    @Column(name = "END_DATE")
+    private Date endDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    
+    @Column(name = "ACTIVE")
+    private Boolean active;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -52,6 +75,46 @@ public class AcSponsorshipImpl implements AcSponsorship {
     public void setSponsor(AcSponsor sponsor) {
         this.sponsor = sponsor;
     }
+    
+    @Override
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    @Override
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+    
+    @Override
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    @Override
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    @Override
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    @Override
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+    
+    @Override
+    public Boolean getActive() {
+		return active;
+	}
+
+    @Override
+    public void setActive(Boolean active) {
+		this.active = active;
+	}
 
     @Override
     public AcMetadata getMetadata() {

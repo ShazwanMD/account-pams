@@ -268,6 +268,8 @@ public interface BillingService {
     List<AcReceipt> findReceipts(AcReceiptType type, String filter, Integer offset, Integer limit);
 
     List<AcReceipt> findReceiptsByFlowState(AcFlowState flowState);
+    
+    List<AcReceipt> findReceiptsByFlowState(AcFlowState... flowStates);
 
     List<AcReceiptItem> findReceiptItems(AcReceipt receipt);
     

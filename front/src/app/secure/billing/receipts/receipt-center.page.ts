@@ -69,5 +69,6 @@ export class ReceiptCenterPage implements OnInit {
     console.log('find assigned receipt tasks');
     this.store.dispatch(this.actions.findAssignedReceiptTasks());
     this.store.dispatch(this.actions.findPooledReceiptTasks());
+    this.store.dispatch(this.actions.findArchivedReceipts());
   }
 }

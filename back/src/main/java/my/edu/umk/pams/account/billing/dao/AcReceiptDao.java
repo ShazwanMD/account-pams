@@ -35,6 +35,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     List<AcReceipt> find(AcReceiptType type, String filter, Integer offset, Integer limit);
 
     List<AcReceipt> findByFlowState(AcFlowState flowState);
+    
+    List<AcReceipt> findByFlowStates(AcFlowState... flowStates);
 
     List<AcReceiptItem> findItems(AcReceipt receipt);
 

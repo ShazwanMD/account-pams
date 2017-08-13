@@ -988,6 +988,9 @@
 
     create table AC_SPHP (
         ID int8 not null,
+        AMOUNT numeric(19, 2) not null,
+        START_DATE timestamp,
+        END_DATE timestamp,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -995,6 +998,7 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
+        ACTIVE boolean,
         SPONSOR_ID int8,
         STUDENT_ID int8,
         primary key (ID)

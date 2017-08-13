@@ -1,3 +1,4 @@
+import { AccountSponsorship } from './../../../shared/model/account/account-sponsorship.interface';
 import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
@@ -34,6 +35,7 @@ export class AccountDetailPage implements OnInit {
   private ADMISSION_ACCOUNT_CHARGES: string[] = 'accountModuleState.admissionAccountCharges'.split('.');
   private STUDENT_AFFAIRS_ACCOUNT_CHARGES: string[] = 'accountModuleState.studentAffairsAccountCharges'.split('.');
   private LOAN_ACCOUNT_CHARGES: string[] = 'accountModuleState.loanAccountCharges'.split('.');
+  private ACCOUNT_SPONSORSHIPS: string[] = 'accountModuleState.accountSponsorships'.split('.');
   private account$: Observable<Account>;
   private accountActivities$: Observable<AccountActivity[]>;
   private accountWaivers$: Observable<AccountWaiver[]>;
@@ -42,6 +44,7 @@ export class AccountDetailPage implements OnInit {
   private studentAffairsAccountCharges$: Observable<AccountCharge[]>;
   private loanAccountCharges$: Observable<AccountCharge[]>;
   private accountTransactions$: Observable<AccountTransaction[]>;
+  private accountSponsorships$: Observable<AccountSponsorship[]>;
   
 
   constructor(private router: Router,
@@ -59,6 +62,7 @@ export class AccountDetailPage implements OnInit {
     this.studentAffairsAccountCharges$ = this.store.select(...this.STUDENT_AFFAIRS_ACCOUNT_CHARGES);
     this.loanAccountCharges$ = this.store.select(...this.LOAN_ACCOUNT_CHARGES);
     this.accountTransactions$ = this.store.select(...this.ACCOUNT_TRANSACTIONS);
+    this.accountSponsorships$ = this.store.select(...this.ACCOUNT_SPONSORSHIPS);
   }
 
   ngOnInit(): void {

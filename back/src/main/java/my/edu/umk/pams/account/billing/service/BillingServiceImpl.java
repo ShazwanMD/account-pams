@@ -872,6 +872,11 @@ public class BillingServiceImpl implements BillingService {
     public List<AcReceipt> findReceiptsByFlowState(AcFlowState flowState) {
         return receiptDao.findByFlowState(flowState);
     }
+    
+	@Override
+    public List<AcReceipt> findReceiptsByFlowState(AcFlowState... flowStates) {
+		return receiptDao.findByFlowStates(flowStates);
+	}
 
     @Override
     public List<AcReceiptItem> findReceiptItems(AcReceipt receipt) {

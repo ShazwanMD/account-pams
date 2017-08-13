@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -132,6 +134,18 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         query.setInteger("flowState", flowState.ordinal());
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
+        return (List<AcReceipt>) query.list();
+    }
+    
+    @Override
+    public List<AcReceipt> findByFlowStates(AcFlowState... flowStates) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcReceipt s where " +
+                "s.metadata.state = :state " +
+                "and s.flowdata.state in (:flowStates)");
+        query.setCacheable(true);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setParameterList("flowStates", flowStates);
         return (List<AcReceipt>) query.list();
     }
 
