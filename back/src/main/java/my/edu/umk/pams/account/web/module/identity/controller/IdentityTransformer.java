@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.web.module.identity.controller;
 
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.model.AcStaff;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
@@ -82,6 +83,23 @@ public class IdentityTransformer {
     public List<Sponsor> toSponsorVos(List<AcSponsor> sponsors) {
         List<Sponsor> vos = sponsors.stream()
                 .map((sponsor) -> toSponsorVo(sponsor))
+                .collect(toList());
+        return vos;
+    }
+    
+    public Sponsorship toSponsorshipVo(AcSponsorship e) {
+    	Sponsorship vo = new Sponsorship();
+        vo.setId(e.getId());
+//        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        vo.setAmount(e.getAmount());
+        vo.setStartDate(e.getStartDate());
+        vo.setEndDate(e.getStartDate());
+        return vo;
+    }
+
+    public List<Sponsorship> toSponsorshipVos(List<AcSponsorship> sponsorships) {
+        List<Sponsorship> vos = sponsorships.stream()
+                .map((sponsorship) -> toSponsorshipVo(sponsorship))
                 .collect(toList());
         return vos;
     }
