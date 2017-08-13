@@ -15,8 +15,8 @@ export class AdmissionChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<AdmissionChargeEditorDialog>;
   private admissionChargeColumns: any[] = [
     {name: 'chargeDate', label: 'Date of Charge'},
-    {name: 'sourceNo', label: 'Source No'},
     {name: 'session.code', label: 'Session'},
+    {name: 'sourceNo', label: 'Source No'},
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Amount'},
     {name: 'creatorUsername', label: 'Creator'},

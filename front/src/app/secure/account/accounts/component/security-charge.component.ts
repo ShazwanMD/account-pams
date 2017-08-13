@@ -15,8 +15,8 @@ export class SecurityChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
   private securityChargeColumns: any[] = [
     {name: 'chargeDate', label: 'Date of Charge'},
-    {name: 'sourceNo', label: 'Source No'},
     {name: 'session.code', label: 'Session'},
+    {name: 'sourceNo', label: 'Source No'},
     // {name: 'securityChargeCode.section', label: 'Section'},
     // {name: 'securityChargeCode.offense', label: 'Offense'},
     {name: 'securityChargeCode.offenseDescription', label: 'Description'},

@@ -15,8 +15,8 @@ export class LoanChargeComponent implements OnInit {
   private editorDialogRef: MdDialogRef<LoanChargeEditorDialog>;
   private loanChargeColumns: any[] = [
     {name: 'chargeDate', label: 'Date of Charge'},
-    {name: 'sourceNo', label: 'Source No'},
     {name: 'session.code', label: 'Session'},
+    {name: 'sourceNo', label: 'Source No'},
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Amount'},
     {name: 'creatorUsername', label: 'Creator'},
