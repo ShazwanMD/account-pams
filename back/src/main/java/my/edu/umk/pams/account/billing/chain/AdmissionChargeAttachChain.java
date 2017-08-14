@@ -48,6 +48,8 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
         LOG.debug("found {} schedule items ", scheduleItems.size());
         BigDecimal totalAmount = ZERO;
         for (AcFeeScheduleItem scheduleItem : scheduleItems) {
+        	
+        	if(scheduleItem.getOrdinal() == admissionCharge.getOrdinal()){
             AcInvoiceItem item = new AcInvoiceItemImpl();
             item.setDescription(String.format("Admission Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
             // todo(hajar): pretax, tax, total
@@ -62,6 +64,7 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
             totalAmount = totalAmount.add(scheduleItem.getAmount());
             invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
             sessionFactory.getCurrentSession().flush();
+        	}
         }
         invoice.setTotalAmount(invoice.getTotalAmount().add(totalAmount));
         invoice.setBalanceAmount(invoice.getBalanceAmount().add(totalAmount));
