@@ -4,13 +4,13 @@ INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)
 VALUES (nextval('SQ_AC_ACCT'),
         (SELECT ID
          FROM AC_ACTR
-         WHERE email = 'student1@umk.edu.my'),
+         WHERE email = 'ammar@umk.edu.my'),
         (SELECT IDENTITY_NO
          FROM AC_ACTR
-         WHERE email = 'student1@umk.edu.my'),
+         WHERE email = 'ammar@umk.edu.my'),
         (SELECT NAME
          FROM AC_ACTR
-         WHERE email = 'student1@umk.edu.my'),
+         WHERE email = 'ammar@umk.edu.my'),
         1, CURRENT_TIMESTAMP, 1);
 
 INSERT INTO ac_acct_trsn (id, account_id, charge_code_id, session_id, posted_date, source_no, transaction_code, amount, c_id, c_ts, m_st)
@@ -84,12 +84,94 @@ INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)
 VALUES (nextval('SQ_AC_ACCT'),
         (SELECT ID
          FROM AC_ACTR
-         WHERE email = 'student2@umk.edu.my'),
+         WHERE email = 'nazir.h@umk.edu.my'),
         (SELECT IDENTITY_NO
          FROM AC_ACTR
-         WHERE email = 'student2@umk.edu.my'),
+         WHERE email = 'nazir.h@umk.edu.my'),
         (SELECT NAME
          FROM AC_ACTR
-         WHERE email = 'student2@umk.edu.my'),
+         WHERE email = 'nazir.h@umk.edu.my'),
         1, CURRENT_TIMESTAMP, 1);
 
+INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)
+VALUES (nextval('SQ_AC_ACCT'),
+        (SELECT ID
+         FROM AC_ACTR
+         WHERE email = 'nasibahk@umk.edu.my'),
+        (SELECT IDENTITY_NO
+         FROM AC_ACTR
+         WHERE email = 'nasibahk@umk.edu.my'),
+        (SELECT NAME
+         FROM AC_ACTR
+         WHERE email = 'nasibahk@umk.edu.my'),
+        1, CURRENT_TIMESTAMP, 1);
+
+        
+INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)
+VALUES (nextval('SQ_AC_ACCT'),
+        (SELECT ID
+         FROM AC_ACTR
+         WHERE email = 'fatimahzahera@umk.edu.my'),
+        (SELECT IDENTITY_NO
+         FROM AC_ACTR
+         WHERE email = 'fatimahzahera@umk.edu.my'),
+        (SELECT NAME
+         FROM AC_ACTR
+         WHERE email = 'fatimahzahera@umk.edu.my'),
+        1, CURRENT_TIMESTAMP, 1);
+        
+                
+INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)
+VALUES (nextval('SQ_AC_ACCT'),
+        (SELECT ID
+         FROM AC_ACTR
+         WHERE email = 'azzahyousof@umk.edu.my'),
+        (SELECT IDENTITY_NO
+         FROM AC_ACTR
+         WHERE email = 'azzahyousof@umk.edu.my'),
+        (SELECT NAME
+         FROM AC_ACTR
+         WHERE email = 'azzahyousof@umk.edu.my'),
+        1, CURRENT_TIMESTAMP, 1);
+        
+                        
+INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)
+VALUES (nextval('SQ_AC_ACCT'),
+        (SELECT ID
+         FROM AC_ACTR
+         WHERE email = 'aminahwahab@umk.edu.my'),
+        (SELECT IDENTITY_NO
+         FROM AC_ACTR
+         WHERE email = 'aminahwahab@umk.edu.my'),
+        (SELECT NAME
+         FROM AC_ACTR
+         WHERE email = 'aminahwahab@umk.edu.my'),
+        1, CURRENT_TIMESTAMP, 1);
+        
+                                
+INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)
+VALUES (nextval('SQ_AC_ACCT'),
+        (SELECT ID
+         FROM AC_ACTR
+         WHERE email = 'damiazaini@umk.edu.my'),
+        (SELECT IDENTITY_NO
+         FROM AC_ACTR
+         WHERE email = 'damiazaini@umk.edu.my'),
+        (SELECT NAME
+         FROM AC_ACTR
+         WHERE email = 'damiazaini@umk.edu.my'),
+        1, CURRENT_TIMESTAMP, 1);
+        
+                                        
+INSERT INTO AC_ACCT (ID, ACTOR_ID, CODE, DESCRIPTION, C_ID, C_TS, M_ST)
+VALUES (nextval('SQ_AC_ACCT'),
+        (SELECT ID
+         FROM AC_ACTR
+         WHERE email = 'asyikinjamal@umk.edu.my'),
+        (SELECT IDENTITY_NO
+         FROM AC_ACTR
+         WHERE email = 'asyikinjamal@umk.edu.my'),
+        (SELECT NAME
+         FROM AC_ACTR
+         WHERE email = 'asyikinjamal@umk.edu.my'),
+        1, CURRENT_TIMESTAMP, 1);
