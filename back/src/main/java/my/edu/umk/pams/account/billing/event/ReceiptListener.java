@@ -43,13 +43,6 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					invoiceItem
 							.setBalanceAmount(invoiceItem.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
 					billingService.updateInvoiceItem(invoice, invoiceItem);
-//					LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
-					
-					//
-					// if(invoice.getBalanceAmount()==BigDecimal.ZERO){
-					// invoice.setPaid(true);
-					// billingService.updateInvoice(invoice);
-					// }
 					}
 
 				}
@@ -57,6 +50,13 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 						invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice)));
 				LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
 				billingService.updateInvoice(invoice);
+				
+				BigDecimal balance = new BigDecimal("0.00");
+				
+				if(invoice.getBalanceAmount().equals(balance)){
+					invoice.setPaid(true);
+					billingService.updateInvoice(invoice);
+				}
 			}
 		}
 	}

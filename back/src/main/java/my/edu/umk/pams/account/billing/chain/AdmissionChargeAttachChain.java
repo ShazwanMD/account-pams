@@ -66,7 +66,7 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
             sessionFactory.getCurrentSession().flush();
         	}
         }
-        invoice.setTotalAmount(invoice.getTotalAmount().add(totalAmount));
+        invoice.setTotalAmount(totalAmount);
         invoice.setBalanceAmount(invoice.getBalanceAmount().add(totalAmount));
         admissionCharge.setInvoice(invoice);
         accountChargeDao.update(admissionCharge, securityService.getCurrentUser());
