@@ -35,6 +35,7 @@ import {SettlementItem} from '../../shared/model/financialaid/settlement-item.in
 import {Settlement} from '../../shared/model/financialaid/settlement.interface';
 import {WaiverApplication} from '../../shared/model/financialaid/waiver-application.interface';
 import {WaiverApplicationTask} from '../../shared/model/financialaid/waiver-application-task.interface';
+import { UploadSettlementPage } from "./settlements/upload-settlement.page";
 
 export interface FinancialaidModuleState {
   assignedWaiverApplicationTasks: WaiverApplicationTaskListState;
@@ -87,6 +88,7 @@ export const financialaidModuleReducers = {
   declarations: [
     // page
     FinancialaidPage,
+    UploadSettlementPage,
   ],
   exports: [],
 })

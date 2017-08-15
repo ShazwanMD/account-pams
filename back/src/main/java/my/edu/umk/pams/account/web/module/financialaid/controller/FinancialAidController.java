@@ -42,9 +42,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author PAMS
@@ -176,56 +182,42 @@ public class FinancialAidController {
 	public ResponseEntity<String> uploadSettlement(@PathVariable String referenceNo,
 			@RequestParam("file") MultipartFile file) {
 		LOG.debug("BackEnd:{}", file.getName());
-
 		try {
-			Workbook workbook = WorkbookFactory.create(file.getInputStream());
-			//Sheet sheet = workbook.getSheetAt(0); // first sheet
-			//AdOffering offering = termService.findOfferingByCanonicalCode(canonicalCode);
-			//List<AdEnrollment> enrollments = toEnrollments(sheet, offering);
-			//List<AdAssessment> assessments = toAssessments(sheet);
-			//LOG.debug("Assessments:{}", assessments);
-			//AdSection section = toSection(sheet);
-			int i = 1; // skip row 0
-			/*while (i <= sheet.getLastRowNum()) {
-				Row row = sheet.getRow(i);
-				int j = 1;
-				while (j < row.getLastCellNum()) {
-					Cell cell = row.getCell(j);
-					AdEnrollment enrollment = enrollments.get(i - 1);
-					AdAssessment assessment = assessments.get(j - 1);
-					LOG.debug("Assessment:{}", assessment);
-					AdGradebook gradebook = termService.findGradebookByAssessmentAndEnrollment(assessment, enrollment);
-					boolean update = true;
-					if (gradebook == null) {
-						gradebook = new AdGradebookImpl();
-						update = false;
-					}
-					;
-					gradebook.setEnrollment(enrollment);
-					gradebook.setSection(section);
-					gradebook.setAssessment(assessment);
-					;
-					gradebook.setScore(new BigDecimal(cell.getNumericCellValue()));
+			BufferedReader	br = new BufferedReader(new InputStreamReader(file.getInputStream()));
+			String sCurrentLine;
+			
+			Scanner s = new Scanner(new File(file.getContentType()));
+			List<String> names = new ArrayList<String>();
+			
+			while (s.hasNext())
+			{
+			    s.nextInt();         // read and skip 'id'
+			    names.add(s.next()); // read and store 'name'
+			    s.nextInt();         // read and skip 'age'
+			}
 
-					BigDecimal score = gradebook.getScore();
-					String assessmentDescription = assessment.getDescription();
-					String name = enrollment.getAdmission().getStudent().getName();
-					String message = score + ", " + assessmentDescription + ", " + name + ".";
-					if (update) {
-						termService.updateGradebook(gradebook);
-						LOG.debug("Gradebook UPDATED {}", message);
-					} else {
-						termService.saveGradebook(gradebook);
-						LOG.debug("Gradebook SAVED: {}", message);
-					}
-					j++;
-				}
-				i++;
-			}*/
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
+			for (String name: names)
+			{
+			    System.out.println(name);
+			}
+			
+          /*  int j = 0;
+            while ((sCurrentLine = br.readLine()) != null) {
+            	
+            	String[] arr = sCurrentLine.split("  ");
+                for (int i = 0; i<arr.length;i++)
+                {
+                  if(arr[i].length()!=0)
+                  {  
+                	  System.out.println("arr[i] = " + arr[i]+ " "+i);
+                  }
+            	}
+            	j++;
+            }*/
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
