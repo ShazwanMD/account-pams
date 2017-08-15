@@ -6,6 +6,8 @@ import {Store} from '@ngrx/store';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {SecurityChargeEditorDialog} from '../dialog/security-charge-editor.dialog';
 import {AccountCharge} from '../../../../shared/model/account/account-charge.interface';
+import { SponsorshipEditorDialog } from "../dialog/sponsorship-editor.dialog";
+import { AccountSponsorship } from "../../../../shared/model/account/account-sponsorship.interface";
 
 @Component({
   selector: 'pams-account-sponsorship-list',
@@ -13,10 +15,10 @@ import {AccountCharge} from '../../../../shared/model/account/account-charge.int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountSponsorshipListComponent implements OnInit {
-  private securityCreatorDialogRef: MdDialogRef<SecurityChargeEditorDialog>;
+  private sponsorshipCreatorDialogRef: MdDialogRef<SponsorshipEditorDialog>;
 
   @Input() account: Account;
-  @Input() securityAccountCharges: AccountCharge[];
+  @Input() sponsorships: AccountSponsorship[];
 
   constructor(private actions: AccountActions,
               private vcf: ViewContainerRef,
@@ -32,16 +34,16 @@ export class AccountSponsorshipListComponent implements OnInit {
     // no op
   }
 
-  showSecurityChargeDialog(charge: AccountCharge): void {
+  showSponsorshipEditorDialog(charge: AccountCharge): void {
     let config: MdDialogConfig = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
     config.width = '50%';
     config.height = '60%';
     config.position = {top: '65px'};
-    this.securityCreatorDialogRef = this.dialog.open(SecurityChargeEditorDialog, config);
-    this.securityCreatorDialogRef.componentInstance.account = this.account;
-    this.securityCreatorDialogRef.afterClosed().subscribe((res) => {
+    this.sponsorshipCreatorDialogRef = this.dialog.open(SponsorshipEditorDialog, config);
+    this.sponsorshipCreatorDialogRef.componentInstance.account = this.account;
+    this.sponsorshipCreatorDialogRef.afterClosed().subscribe((res) => {
       // no op
     });
   }
