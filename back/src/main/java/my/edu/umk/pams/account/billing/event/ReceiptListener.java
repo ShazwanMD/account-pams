@@ -2,6 +2,10 @@ package my.edu.umk.pams.account.billing.event;
 
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
+import my.edu.umk.pams.account.account.model.AcAccountTransaction;
+import my.edu.umk.pams.account.account.model.AcAccountTransactionCode;
+import my.edu.umk.pams.account.account.model.AcAccountTransactionImpl;
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
 import my.edu.umk.pams.account.billing.model.AcAdvancePaymentImpl;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
@@ -20,6 +24,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +71,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
 				billingService.updateInvoice(invoice);
 				
-				BigDecimal balance = receipt.getTotalApplied().subtract(receipt.getTotalReceived());
+				BigDecimal balance = receipt.getTotalReceived().subtract(receipt.getTotalApplied());
 							
 				if(balance.equals(0.00)){
 					invoice.setPaid(true);
@@ -84,6 +89,16 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					advancePayment.setDescription("Advance Payment " + referenceNo);
 					advancePayment.setReceipt(receipt);
 					billingService.addAdvancePayment(advancePayment, securityService.getCurrentUser());
+					
+//					AcAccountTransaction tx = new AcAccountTransactionImpl();
+//					tx.setSession(receipt.getSession());
+//					tx.setChargeCode();
+//					tx.setPostedDate(new Date());
+//					tx.setSourceNo(advancePayment.getReferenceNo());
+//					tx.setTransactionCode(AcAccountTransactionCode.ADVANCE_PAYMENT);
+//					tx.setAccount(receipt.getAccount());
+//					tx.setAmount(advancePayment.getAmount());
+//					accountService.addAccountTransaction(receipt.getAccount(), tx);
 				}
 			}
 		}
