@@ -1,13 +1,17 @@
 <h2 md-dialog-title>Fee Schedule Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput
-               placeholder="description"
-               formControlName="description"
-               flex/>
-      </md-input-container>
+      <div layout="row" class="pad-bottom pad-top">
+      <pams-cohort-code-select
+        [placeholder]="'Select Cohort'"
+        [innerFormControl]="createForm.controls['cohortCode']">
+      </pams-cohort-code-select>
+    </div>
+        <div layout="row" class="pad-bottom pad-top">
+      <pams-study-mode-select
+        [placeholder]="'Select Study Mode'"
+        [innerFormControl]="createForm.controls['studyMode']">
+      </pams-study-mode-select>
     </div>
     <div layout="row" class="pad-bottom">
       <pams-residency-code-select
@@ -15,21 +19,6 @@
         [innerFormControl]="createForm.controls['residencyCode']">
       </pams-residency-code-select>
     </div>
-    <div layout="row" class="pad-bottom pad-top">
-      <pams-cohort-code-select
-        [placeholder]="'Select Cohort'"
-        [innerFormControl]="createForm.controls['cohortCode']">
-      </pams-cohort-code-select>
-    </div>
-
-    <div layout="row" class="pad-bottom pad-top">
-      <pams-study-mode-select
-        [placeholder]="'Select Study Mode'"
-        [innerFormControl]="createForm.controls['studyMode']">
-      </pams-study-mode-select>
-    </div>
-
-
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
