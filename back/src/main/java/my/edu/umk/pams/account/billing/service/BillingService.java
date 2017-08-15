@@ -290,6 +290,12 @@ public interface BillingService {
     BigDecimal sumAdvancePayment(AcReceipt receipt);
     
     BigDecimal sumAppliedAmount(AcInvoice invoice);
+    
+    // ==================================================================================================== //
+    // ADVANCE PAYMENT
+    // ==================================================================================================== //
+    
+    void addAdvancePayment(AcAdvancePayment payment, AcUser user);
 
     // ==================================================================================================== //
     // KNOCKOFF
