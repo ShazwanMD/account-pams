@@ -44,7 +44,7 @@ export class AccountDetailPage implements OnInit {
   private studentAffairsAccountCharges$: Observable<AccountCharge[]>;
   private loanAccountCharges$: Observable<AccountCharge[]>;
   private accountTransactions$: Observable<AccountTransaction[]>;
-  private accountSponsorships$: Observable<AccountSponsorship[]>;
+  private sponsorships$: Observable<AccountSponsorship[]>;
   
 
   constructor(private router: Router,
@@ -62,7 +62,7 @@ export class AccountDetailPage implements OnInit {
     this.studentAffairsAccountCharges$ = this.store.select(...this.STUDENT_AFFAIRS_ACCOUNT_CHARGES);
     this.loanAccountCharges$ = this.store.select(...this.LOAN_ACCOUNT_CHARGES);
     this.accountTransactions$ = this.store.select(...this.ACCOUNT_TRANSACTIONS);
-    this.accountSponsorships$ = this.store.select(...this.ACCOUNT_SPONSORSHIPS);
+    this.sponsorships$ = this.store.select(...this.ACCOUNT_SPONSORSHIPS);
   }
 
   ngOnInit(): void {
