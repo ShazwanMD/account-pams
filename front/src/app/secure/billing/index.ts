@@ -58,6 +58,7 @@ import {invoiceCreditNoteListReducer, InvoiceCreditNoteListState} from './invoic
 import {invoiceDebitNoteListReducer, InvoiceDebitNoteListState} from './invoices/invoice-debit-note-list.reducer';
 import {archivedReceiptListReducer, ReceiptListState} from './receipts/receipt-list.reducer';
 import {receiptInvoiceListReducer, ReceiptInvoiceListState} from './receipts/receipt-invoice.reducer';
+import { AdvancePaymentSubModule } from "./advance-payments/index";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -167,6 +168,7 @@ export const billingModuleReducers = {
     ReceiptSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
     CreditNoteSubModule.forRoot(),
+    AdvancePaymentSubModule.forRoot(),
     PipeModule,
   ],
   declarations: [
