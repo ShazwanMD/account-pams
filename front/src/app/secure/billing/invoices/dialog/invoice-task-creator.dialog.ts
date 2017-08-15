@@ -44,6 +44,7 @@ export class InvoiceTaskCreatorDialog implements OnInit {
   save(invoice: Invoice, isValid: boolean) {
     console.log('invoice: ' + invoice.description);
     console.log('account: ' + invoice.account.code);
+    invoice.description = 'Registration Invoice for '+  invoice.academicSession.code;
     this.store.dispatch(this.actions.startInvoiceTask(invoice));
     this.dialog.close();
   }

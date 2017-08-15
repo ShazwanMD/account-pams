@@ -38,6 +38,7 @@ export class SettlementCreatorBySponsorDialog implements OnInit {
   }
 
   save(settlementCreator: SettlementCreator, isValid: boolean) {
+      settlementCreator.description = 'Registration Invoice for '+  settlementCreator.academicSession.code;
     this.store.dispatch(this.actions.initSettlementBySponsor(settlementCreator, settlementCreator.sponsor));
     this.dialog.close();
   }
