@@ -53,7 +53,7 @@ export class SettlementDetailPage implements OnInit {
     );
   }
   
-  upload(): void {
+/*  upload(): void {
       this.showUploadDialog();
   }
 
@@ -78,7 +78,7 @@ export class SettlementDetailPage implements OnInit {
           }
         },
       );
-    }
+    }*/
 
   goBack(): void {
     this.router.navigate(['/settlements']);
