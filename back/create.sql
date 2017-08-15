@@ -880,6 +880,7 @@
         TOTAL_APPLIED numeric(19, 2),
         TOTAL_RECEIVED numeric(19, 2),
         ACCOUNT_ID int8,
+        SESSION_ID int8,
         primary key (ID)
     );
 

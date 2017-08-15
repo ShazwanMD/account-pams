@@ -401,6 +401,7 @@ public class BillingController {
         receipt.setAccount(account);
         receipt.setReceiptType(AcReceiptType.get(vo.getReceiptType().ordinal()));
         receipt.setPaymentMethod(AcPaymentMethod.get(vo.getPaymentMethod().ordinal()));
+        receipt.setSession(accountService.findCurrentAcademicSession());
         return new ResponseEntity<String>(billingService.startReceiptTask(receipt), HttpStatus.OK);
     }
 

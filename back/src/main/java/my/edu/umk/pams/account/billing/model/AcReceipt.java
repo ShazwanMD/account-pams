@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.model;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.common.model.AcPaymentMethod;
 import my.edu.umk.pams.account.core.model.AcDocument;
@@ -51,4 +52,8 @@ public interface AcReceipt extends AcDocument{
     void setAccount(AcAccount account);
     
     List<AcInvoice> getInvoices();
+    
+    AcAcademicSession getSession();
+
+	void setSession(AcAcademicSession session);
 }

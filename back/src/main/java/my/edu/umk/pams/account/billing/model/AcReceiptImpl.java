@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.billing.model;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.common.model.AcPaymentMethod;
@@ -75,6 +77,10 @@ public class AcReceiptImpl implements AcReceipt {
 
 	@Column(name = "REMOVE_COMMENT")
 	private String removeComment;
+	
+	@ManyToOne(targetEntity = AcAcademicSessionImpl.class)
+    @JoinColumn(name = "SESSION_ID", nullable = true)
+    private AcAcademicSession session;
 
 	@OneToMany(targetEntity = AcReceiptItemImpl.class, mappedBy = "receipt")
 	private List<AcReceiptItem> items;
@@ -272,6 +278,15 @@ public class AcReceiptImpl implements AcReceipt {
 		this.flowdata = flowdata;
 	}
 
+	@Override	
+	public AcAcademicSession getSession() {
+		return session;
+	}
+
+	@Override
+	public void setSession(AcAcademicSession session) {
+		this.session = session;
+	}
 
 	@Override
 	public Class<?> getInterfaceClass() {
