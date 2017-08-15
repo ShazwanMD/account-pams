@@ -29,21 +29,14 @@ export class SettlementFileUploaderDialog implements OnInit {
               private dialog: MdDialogRef<SettlementFileUploaderDialog>) {
   }
 
-  set settlement(settlement: Settlement) {
-      
-    console.log("settlement upload dialog:"+settlement.referenceNo);  
-    this._settlement = settlement;
-  }
-
   ngOnInit(): void {
       this.createForm = this.formBuilder.group(<UploadHelper>{
           sponsorshipType: SponsorshipType.PTPTN,
         })
   }
-
-  upload(file: File): void {
-      console.log("file to be uploaded:"+file.name);  
-      console.log("_settlement to be uploaded:"+this._settlement.referenceNo);
-      this.store.dispatch(this.actions.uploadSettlement(this._settlement,file));
-  }
+  
+  upload(uploadHelper: UploadHelper, file: File) {
+      this.store.dispatch(this.actions.uploadSettlement(uploadHelper.sponsorshipType, file));
+      this.dialog.close();
+    }
 }

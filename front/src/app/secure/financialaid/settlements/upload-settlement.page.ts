@@ -70,7 +70,6 @@ export class UploadSettlementPage implements OnInit {
           config.height = '70%';
           config.position = {top: '0px'};
           this.uploaderDialogRef = this.dialog.open(SettlementFileUploaderDialog, config);
-          this.uploaderDialogRef.componentInstance.settlement = settlement;
           this.uploaderDialogRef.afterClosed().subscribe((res) => {
             console.log('close dialog');
             // load something here

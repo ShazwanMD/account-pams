@@ -178,30 +178,15 @@ public class FinancialAidController {
         financialAidService.executeSettlement(settlement);
     }
     
-    @RequestMapping(value = "/settlements/{referenceNo}/uploadSettlement", method = RequestMethod.POST)
-	public ResponseEntity<String> uploadSettlement(@PathVariable String referenceNo,
+    @RequestMapping(value = "/settlements/uploadSettlement/sponsorship/PTPTN", method = RequestMethod.POST)
+	public ResponseEntity<String> uploadSettlement(
 			@RequestParam("file") MultipartFile file) {
 		LOG.debug("BackEnd:{}", file.getName());
 		try {
 			BufferedReader	br = new BufferedReader(new InputStreamReader(file.getInputStream()));
 			String sCurrentLine;
 			
-			Scanner s = new Scanner(new File(file.getContentType()));
-			List<String> names = new ArrayList<String>();
-			
-			while (s.hasNext())
-			{
-			    s.nextInt();         // read and skip 'id'
-			    names.add(s.next()); // read and store 'name'
-			    s.nextInt();         // read and skip 'age'
-			}
-
-			for (String name: names)
-			{
-			    System.out.println(name);
-			}
-			
-          /*  int j = 0;
+            int j = 0;
             while ((sCurrentLine = br.readLine()) != null) {
             	
             	String[] arr = sCurrentLine.split("  ");
@@ -213,7 +198,7 @@ public class FinancialAidController {
                   }
             	}
             	j++;
-            }*/
+            }
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
