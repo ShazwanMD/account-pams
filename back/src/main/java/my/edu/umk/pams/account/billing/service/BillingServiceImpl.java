@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.account.service.AccountServiceImpl;
 import my.edu.umk.pams.account.billing.chain.ChargeAttachProcessor;
 import my.edu.umk.pams.account.billing.chain.ChargeContext;
 import my.edu.umk.pams.account.billing.chain.ChargeDetachProcessor;
+import my.edu.umk.pams.account.billing.dao.AcAdvancePaymentDao;
 import my.edu.umk.pams.account.billing.dao.AcCreditNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcDebitNoteDao;
 import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
@@ -75,6 +76,9 @@ public class BillingServiceImpl implements BillingService {
 
 	@Autowired
 	private AcTaxCodeDao taxCodeDao;
+	
+	@Autowired
+	private AcAdvancePaymentDao advancePaymentDao;
 
 	@Autowired
 	private AcAcademicSessionDao academicSessionDao;
@@ -1015,6 +1019,17 @@ public class BillingServiceImpl implements BillingService {
 		map.put(WorkflowConstants.REMOVE_DECISION, false);
 		map.put(WorkflowConstants.CANCEL_DECISION, false);
 		return map;
+	}
+	// ====================================================================================================
+	// //
+	// ADVANCE PAYMENT
+	// ====================================================================================================
+	// //
+	
+	@Override
+	public void addAdvancePayment(AcAdvancePayment payment, AcUser user){
+		advancePaymentDao.save(payment, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
 	}
 
 	// ====================================================================================================

@@ -1,11 +1,18 @@
 package my.edu.umk.pams.account.billing.event;
 
+import my.edu.umk.pams.account.AccountConstants;
+import my.edu.umk.pams.account.account.dao.AcAccountDao;
+import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
+import my.edu.umk.pams.account.billing.model.AcAdvancePaymentImpl;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.security.event.AccessListener;
+import my.edu.umk.pams.account.security.service.SecurityService;
+import my.edu.umk.pams.account.system.service.SystemService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +20,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author PAMS
@@ -25,6 +34,12 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 
 	@Autowired
 	private BillingService billingService;
+	
+    @Autowired
+    private SystemService systemService;
+    
+	@Autowired
+	private SecurityService securityService;
 
 	@Override
 	public void onApplicationEvent(ReceiptEvent event) {
@@ -43,13 +58,6 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					invoiceItem
 							.setBalanceAmount(invoiceItem.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
 					billingService.updateInvoiceItem(invoice, invoiceItem);
-//					LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
-					
-					//
-					// if(invoice.getBalanceAmount()==BigDecimal.ZERO){
-					// invoice.setPaid(true);
-					// billingService.updateInvoice(invoice);
-					// }
 					}
 
 				}
@@ -57,6 +65,26 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 						invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice)));
 				LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
 				billingService.updateInvoice(invoice);
+				
+				BigDecimal balance = receipt.getTotalApplied().subtract(receipt.getTotalReceived());
+							
+				if(balance.equals(0.00)){
+					invoice.setPaid(true);
+					billingService.updateInvoice(invoice);
+				}
+				
+				else if(balance.negate() != null){
+					String referenceNo = systemService.generateReferenceNo(AccountConstants.ADVANCE_PAYMENT_REFRENCE_NO);
+			        LOG.debug("Processing application with refNo {}", referenceNo);
+	                
+					AcAdvancePayment advancePayment = new AcAdvancePaymentImpl();
+					advancePayment.setReferenceNo(referenceNo);
+					advancePayment.setAmount(balance);
+					advancePayment.setBalanceAmount(balance);
+					advancePayment.setDescription("Advance Payment " + referenceNo);
+					advancePayment.setReceipt(receipt);
+					billingService.addAdvancePayment(advancePayment, securityService.getCurrentUser());
+				}
 			}
 		}
 	}

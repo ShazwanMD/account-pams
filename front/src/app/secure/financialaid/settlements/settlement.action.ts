@@ -227,11 +227,11 @@ export class SettlementActions {
   
   static UPLOAD_SETTLEMENT = '[Settlement] Upload Settlement';
 
-  uploadSettlement(settlement,file): Action {
+  uploadSettlement(sponsorship,file): Action {
      console.log("uploadSettlement in action : "+file);
      return {
          type: SettlementActions.UPLOAD_SETTLEMENT,
-         payload: {settlement: settlement, file: file}
+         payload: {sponsorship: sponsorship, file: file}
        };
   }
 
