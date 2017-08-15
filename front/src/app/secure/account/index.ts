@@ -39,6 +39,7 @@ import {accountWaiverReducer, AccountWaiverState} from './accounts/account-waive
 import {accountStudentListReducer, AccountStudentListState} from './accounts/account-student-list.reducer';
 import {accountSponsorListReducer, AccountSponsorListState} from './accounts/account-sponsor-list.reducer';
 import {accountActivityListReducer, AccountActivityListState} from './accounts/account-activity.reducer';
+import { AccountSponsorshipState, accountSponsorshipReducer } from "./accounts/account-sponsorship.reducer";
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -60,6 +61,7 @@ export interface AccountModuleState {
   accountStudentList: AccountStudentListState;
   accountSponsorList: AccountSponsorListState;
   accountActivities: AccountActivityListState;
+  accountSponsorships:AccountSponsorshipState;
 }
 ;
 
@@ -83,6 +85,7 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accountStudentList: [],
     accountSponsorList: [],
     accountActivities: [],
+    accountSponsorships: [],
   };
 
 export const accountModuleReducers = {
@@ -104,6 +107,8 @@ export const accountModuleReducers = {
   accountStudentList: accountStudentListReducer,
   accountSponsorList: accountSponsorListReducer,
   accountActivities: accountActivityListReducer,
+  accountSponsorships:accountSponsorshipReducer,
+  
 };
 
 @NgModule({
