@@ -6,6 +6,8 @@ import {Store} from '@ngrx/store';
 import {SettlementActions} from '../settlement.action';
 import {FinancialaidModuleState} from '../../index';
 import {Settlement} from '../../../../shared/model/financialaid/settlement.interface';
+import {UploadHelper} from '../dialog/UploadHelper.interface';
+import { SponsorshipType } from "../../../../shared/model/financialaid/sponsorship-type.enum";
 
 @Component({
   selector: 'pams-settlement-file-uploader',
@@ -16,6 +18,7 @@ export class SettlementFileUploaderDialog implements OnInit {
 
   private editForm: FormGroup;
   private _settlement: Settlement;
+  private createForm: FormGroup;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -26,19 +29,14 @@ export class SettlementFileUploaderDialog implements OnInit {
               private dialog: MdDialogRef<SettlementFileUploaderDialog>) {
   }
 
-  set settlement(settlement: Settlement) {
-      
-    console.log("settlement upload dialog:"+settlement.referenceNo);  
-    this._settlement = settlement;
-  }
-
   ngOnInit(): void {
-    // todo
+      this.createForm = this.formBuilder.group(<UploadHelper>{
+          sponsorshipType: SponsorshipType.PTPTN,
+        })
   }
-
-  upload(file: File): void {
-      console.log("file to be uploaded:"+file.name);  
-      console.log("_settlement to be uploaded:"+this._settlement.referenceNo);
-      this.store.dispatch(this.actions.uploadSettlement(this._settlement,file));
-  }
+  
+  upload(uploadHelper: UploadHelper, file: File) {
+      this.store.dispatch(this.actions.uploadSettlement(uploadHelper.sponsorshipType, file));
+      this.dialog.close();
+    }
 }

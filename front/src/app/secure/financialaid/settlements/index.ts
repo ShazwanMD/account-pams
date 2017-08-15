@@ -21,10 +21,13 @@ import {SettlementComponent} from './component/settlement.component';
 import {SettlementDetailPage} from './settlement-detail.page';
 import {SettlementItemListComponent} from './component/settlement-item-list.component';
 import {SettlementListComponent} from './component/settlement-list.component';
+import {UploadSettlementListComponent} from './component/upload-settlement-list.component';
 import {SettlementItemDialog} from './dialog/settlement-item.dialog';
 import {AccountSubModule} from '../../account/accounts/index';
 import {InvoiceSubModule} from '../../billing/invoices/index';
 import {SettlementFileUploaderDialog} from './dialog/settlement-file-uploader.dialog';
+import { UploadSettlementPage } from "./upload-settlement.page";
+import {SponsorshipTypeSelectComponent} from './component/sponsorship-type-select.component';
 
 @NgModule({
   imports: [
@@ -43,6 +46,7 @@ import {SettlementFileUploaderDialog} from './dialog/settlement-file-uploader.di
     // page
     SettlementCenterPage,
     SettlementDetailPage,
+    UploadSettlementPage,
 
     // dialog
     SettlementItemDialog,
@@ -55,6 +59,8 @@ import {SettlementFileUploaderDialog} from './dialog/settlement-file-uploader.di
     SettlementComponent,
     SettlementListComponent,
     SettlementItemListComponent,
+    UploadSettlementListComponent,
+    SponsorshipTypeSelectComponent,
   ],
   exports: [],
   entryComponents: [
@@ -63,6 +69,8 @@ import {SettlementFileUploaderDialog} from './dialog/settlement-file-uploader.di
     SettlementCreatorBySponsorDialog,
     SettlementItemDialog,
     SettlementFileUploaderDialog,
+    UploadSettlementListComponent,
+    SponsorshipTypeSelectComponent,
   ],
 
 })

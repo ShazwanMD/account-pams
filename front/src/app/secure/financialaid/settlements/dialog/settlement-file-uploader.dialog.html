@@ -1,13 +1,31 @@
 <h2 md-dialog-title>Settlement Item Editor</h2>
 <md-dialog-content>
-  <td-file-upload #fileUpload (upload)="upload($event)" defaultColor="accent" activeColor="warn" cancelColor="primary">
-    <md-icon>file_upload</md-icon>
-    <span>{{ fileUpload.files?.name }}</span>
-    <template td-file-input-label>
-      <md-icon>attach_file</md-icon>
-      <span>Choose a file...</span>
-    </template>
-  </td-file-upload>
+  <form [formGroup]="createForm">
+    <div flex class="pad inset" tdMediaToggle="gt-xs" [mediaClasses]="['pad-sm']">
+      <div class="push-top-sm"></div>
+      <div layout="row" class="pad-top">
+        <pams-sponsorship-type-select
+          [placeholder]="'SponsorshipType'"
+          [innerFormControl]="createForm.controls.sponsorshipType">
+        </pams-sponsorship-type-select>
+      </div>
+
+      <div layout="column" class="pad-right" flex>
+        <div layout="row">
+          <td-file-upload #fileUpload (upload)="upload(createForm.value, $event)" defaultColor="accent"
+                          activeColor="warn"
+                          cancelColor="primary">
+            <md-icon>file_upload</md-icon>
+            <span>{{ fileUpload.files?.name }}</span>
+            <template td-file-input-label>
+              <md-icon>attach_file</md-icon>
+              <span>Choose a file...</span>
+            </template>
+          </td-file-upload>
+        </div>
+      </div>
+    </div>
+  </form>
 </md-dialog-content>
 
 <md-dialog-actions align="end">

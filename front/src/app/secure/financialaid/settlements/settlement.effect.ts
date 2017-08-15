@@ -90,7 +90,7 @@ export class SettlementEffects {
   @Effect() uploadSettlement$ = this.actions$
   .ofType(SettlementActions.UPLOAD_SETTLEMENT)
   .map((action) => action.payload)
-  .switchMap((payload) => this.financialaidService.uploadSettlement(payload.settlement, payload.file))
+  .switchMap((payload) => this.financialaidService.uploadSettlement(payload.sponsorship, payload.file))
   .map((message) => this.settlementActions.uploadSettlementSuccess(message))
   .withLatestFrom(this.store$.select(...this.SETTLEMENT))
   .map((state) => state[1])

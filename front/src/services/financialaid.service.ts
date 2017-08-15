@@ -11,6 +11,7 @@ import {Sponsor} from '../app/shared/model/identity/sponsor.interface';
 import {FacultyCode} from '../app/shared/model/common/faculty-code.interface';
 import {CohortCode} from '../app/shared/model/common/cohort-code.interface';
 import {SettlementCreator} from '../app/shared/model/financialaid/settlement-creator.interface';
+import { SponsorshipType } from "../app/shared/model/financialaid/sponsorship-type.enum";
 
 @Injectable()
 export class FinancialaidService {
@@ -92,15 +93,16 @@ export class FinancialaidService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
   
-  uploadSettlement(settlement: Settlement,file: File): Observable<String> {
+  uploadSettlement(sponsorshipType: SponsorshipType,file: File): Observable<String> {
       console.log('uploadSettlement :'+file);
+      console.log('sponsorshipType :'+sponsorshipType.toString());
       // Pass empty Content-Type key for ng2 Upload bug workaround, see request.interceptor.ts
       let headers: Headers = new Headers({'Content-Type': ''});
       let options: RequestOptions = new RequestOptions({headers: headers});
       let formData: FormData = new FormData();
       formData.append('file', file);
       console.log('formData', formData);
-      return this._http.post(this.FINANCIALAID_API + '/settlements/' + settlement.referenceNo + '/uploadSettlement', formData, options)
+      return this._http.post(this.FINANCIALAID_API + '/settlements/uploadSettlement/sponsorship/'+sponsorshipType.toString(), formData, options)
         .flatMap((res: Response) => Observable.of(res.text()));
     }
 
