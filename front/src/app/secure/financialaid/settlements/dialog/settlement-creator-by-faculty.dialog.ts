@@ -39,6 +39,7 @@ export class SettlementCreatorByFacultyDialog implements OnInit {
 
   save(settlementCreator: SettlementCreator, isValid: boolean) {
     console.log('settlementCreator', settlementCreator);
+    settlementCreator.description = 'Registration Invoice for '+  settlementCreator.academicSession.code;
     this.store.dispatch(this.actions.initSettlementByFacultyCode(settlementCreator, settlementCreator.facultyCode));
     this.dialog.close();
   }

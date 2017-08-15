@@ -239,18 +239,18 @@ public class FinancialAidServiceImpl implements FinancialAidService {
 
                 // create item here
                 List<AcInvoice> invc = invoiceDao.find(item.getAccount());
-                AcChargeCode dummyChargeCode = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331");
-                for (AcInvoice invce : invc) {
-                    AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();
-                    invoiceItem.setDescription("");
-                    invoiceItem.setChargeCode(dummyChargeCode);
-                    invoiceItem.setTaxCode(dummyChargeCode.getTaxCode());
-                    invoiceItem.setBalanceAmount(BigDecimal.ZERO);
-                    invoiceItem.setAmount(BigDecimal.ZERO);
-                    // todo(hajar): pretax, tax, total
-                    invoiceItem.setInvoice(invce);
-                    invoiceDao.addItem(invce, invoiceItem, securityService.getCurrentUser());
-                }
+//                AcChargeCode dummyChargeCode = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331");
+//                for (AcInvoice invce : invc) {
+//                    AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();
+//                    invoiceItem.setDescription("");
+//                    invoiceItem.setChargeCode(dummyChargeCode);
+//                    invoiceItem.setTaxCode(dummyChargeCode.getTaxCode());
+//                    invoiceItem.setBalanceAmount(BigDecimal.ZERO);
+//                    invoiceItem.setAmount(BigDecimal.ZERO);
+//                    // todo(hajar): pretax, tax, total
+//                    invoiceItem.setInvoice(invce);
+//                    invoiceDao.addItem(invce, invoiceItem, securityService.getCurrentUser());
+//                }
 
                 // update settlement item with generated invoice
                 invoice = billingService.findInvoiceByReferenceNo(invoiceReferenceNo);

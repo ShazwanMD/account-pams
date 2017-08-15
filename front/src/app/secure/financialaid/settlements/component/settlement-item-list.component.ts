@@ -19,11 +19,12 @@ export class SettlementItemListComponent implements OnInit {
   private selectedRows: SettlementItem[];
   private columns: any[] = [
     {name: 'account', label: 'Account'},
-    {name: 'invoice', label: 'Invoice'},
-    {name: 'loanAmount', label: 'Loan Amount'},
-    {name: 'feeAmount', label: 'Fee Amount'},
-    {name: 'nettAmount', label: 'Nett Amount'},
-    {name: 'balanceAmount', label: 'Balance Amount'},
+    {name: 'invoice.referenceNo', label: 'Invoice'},
+    {name: 'invoice.balanceAmount', label: 'Invoice Amount'},
+//    {name: 'loanAmount', label: 'Loan Amount'},
+//    {name: 'feeAmount', label: 'Fee Amount'},
+//    {name: 'nettAmount', label: 'Nett Amount'},
+//    {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
 

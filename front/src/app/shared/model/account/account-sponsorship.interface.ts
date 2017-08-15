@@ -4,7 +4,7 @@ import {AcademicSession} from './academic-session.interface';
 export interface AccountSponsorship extends MetaObject {
   sourceNo: string;
   amount: number;
-  postedDate: Date;
+  startDate: Date;
   chargeCode: ChargeCode;
   session: AcademicSession;
 }

@@ -49,12 +49,5 @@ export class ReceiptTaskCreatorDialog implements OnInit {
   save(receipt: Receipt, isValid: boolean) {
     this.store.dispatch(this.actions.startReceiptTask(receipt));
     this.dialog.close();
-
-    // .subscribe(res => {
-    //   let snackBarRef = this._snackBar.open("Receipt started", "OK");
-    //   snackBarRef.afterDismissed().subscribe(() => {
-    //     this.goBack();
-    //   });
-    // });
   }
 }

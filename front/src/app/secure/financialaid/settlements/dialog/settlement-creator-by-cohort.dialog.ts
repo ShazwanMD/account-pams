@@ -38,6 +38,7 @@ export class SettlementCreatorByCohortDialog implements OnInit {
   }
 
   save(settlementCreator: SettlementCreator, isValid: boolean) {
+    settlementCreator.description = 'Registration Invoice for '+  settlementCreator.academicSession.code;
     this.store.dispatch(this.actions.initSettlementByCohortCode(settlementCreator, settlementCreator.cohortCode));
     this.dialog.close();
   }
