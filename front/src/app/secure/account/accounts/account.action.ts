@@ -458,4 +458,62 @@ export class AccountActions {
       payload: message
     };
   }
+
+    static FIND_SPONSORSHIPS = '[Account] Find Sponsorships';
+
+  findSponsorships(account): Action {
+    console.log("findSponsorships: " + account.code);
+    return {
+      type: AccountActions.FIND_SPONSORSHIPS,
+      payload: account
+    };
+  }
+
+  static FIND_SPONSORSHIPS_SUCCESS = '[Account] Find Sponsorships Success';
+
+  findSponsorshipsSuccess(sponsorships): Action {
+    console.log("findSponsorshipsSuccess: " + sponsorships.id);
+    return {
+      type: AccountActions.FIND_ACCOUNT_WAIVERS_SUCCESS,
+      payload: sponsorships
+    };
+  }
+
+   static UPDATE_SPONSORSHIP = '[Account] Update Sponsorship';
+
+  updateSponsorship(account, sponsorship): Action {
+    console.log("updateSponsorship");
+    return {
+      type: AccountActions.UPDATE_SPONSORSHIP,
+      payload: {account: account, sponsorship: sponsorship}
+    };
+  }
+
+  static UPDATE_SPONSORSHIP_SUCCESS = '[Account] Update Sponsorship  Success';
+
+  updateSponsorshipSuccess(message): Action {
+    console.log("updateSponsorshipSuccess");
+    return {
+      type: AccountActions.UPDATE_SPONSORSHIP_SUCCESS,
+      payload: message
+    };
+  }
+
+  static ADD_SPONSORSHIP = '[Account] Add Sponsorship ';
+
+  addSponsorship(account, sponsorship): Action {
+    return {
+      type: AccountActions.ADD_SPONSORSHIP,
+      payload: {account: account, sponsorship: sponsorship}
+    };
+  }
+
+  static ADD_SPONSORSHIP_SUCCESS = '[Account] Add Sponsorship  Success';
+
+  addSponsorshipSuccess(message): Action {
+    return {
+      type: AccountActions.ADD_SPONSORSHIP_SUCCESS,
+      payload: message
+    };
+  }
 }
