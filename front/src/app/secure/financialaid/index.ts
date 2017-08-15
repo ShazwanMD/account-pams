@@ -88,7 +88,6 @@ export const financialaidModuleReducers = {
   declarations: [
     // page
     FinancialaidPage,
-    UploadSettlementPage,
   ],
   exports: [],
 })

@@ -34,9 +34,12 @@ export class UploadSettlementPage implements OnInit {
   }
 
   ngOnInit(): void {
-   /* this.route.params.subscribe((params: { referenceNo: string }) => {
+    /*this.route.params.subscribe((params: { referenceNo: string }) => {
       this.store.dispatch(this.actions.findSettlementByReferenceNo(params.referenceNo));
     });*/
+  }
+  
+  filter(): void {
   }
 
   /*executeSettlement(): void {
@@ -53,7 +56,7 @@ export class UploadSettlementPage implements OnInit {
     );
   }*/
   
-  upload(): void {
+  uploadSettlement(): void {
       this.showUploadDialog();
   }
 

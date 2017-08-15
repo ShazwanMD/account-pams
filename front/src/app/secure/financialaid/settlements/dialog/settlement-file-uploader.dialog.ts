@@ -6,6 +6,8 @@ import {Store} from '@ngrx/store';
 import {SettlementActions} from '../settlement.action';
 import {FinancialaidModuleState} from '../../index';
 import {Settlement} from '../../../../shared/model/financialaid/settlement.interface';
+import {UploadHelper} from '../dialog/UploadHelper.interface';
+import { SponsorshipType } from "../../../../shared/model/financialaid/sponsorship-type.enum";
 
 @Component({
   selector: 'pams-settlement-file-uploader',
@@ -16,6 +18,7 @@ export class SettlementFileUploaderDialog implements OnInit {
 
   private editForm: FormGroup;
   private _settlement: Settlement;
+  private createForm: FormGroup;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -33,7 +36,9 @@ export class SettlementFileUploaderDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    // todo
+      this.createForm = this.formBuilder.group(<UploadHelper>{
+          sponsorshipType: SponsorshipType.PTPTN,
+        })
   }
 
   upload(file: File): void {
