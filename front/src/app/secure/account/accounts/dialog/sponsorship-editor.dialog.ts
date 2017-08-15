@@ -1,3 +1,4 @@
+import { AccountSponsorship } from './../../../../shared/model/account/account-sponsorship.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {AccountCharge} from '../../../../shared/model/account/account-charge.interface';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
@@ -15,7 +16,7 @@ import {AccountChargeType} from '../../../../shared/model/account/account-charge
 })
 export class SponsorshipEditorDialog implements OnInit {
   private _account: Account;
-  private _accountCharge: AccountCharge;
+  private _sponsorship: AccountSponsorship;
   private editForm: FormGroup;
   private edit: boolean = false;
 
@@ -28,8 +29,8 @@ export class SponsorshipEditorDialog implements OnInit {
               private dialog: MdDialogRef<SponsorshipEditorDialog>) {
   }
 
-  set accountCharge(value: AccountCharge) {
-    this._accountCharge = value;
+  set sponsorship(value: AccountSponsorship) {
+    this._sponsorship = value;
     this.edit = true;
   }
 
@@ -40,7 +41,7 @@ export class SponsorshipEditorDialog implements OnInit {
   ngOnInit(): void {
     this.editForm = this.formBuilder.group({
       id: undefined,
-      // referenceNo: '',
+      referenceNo: '',
       // sourceNo: '',
       // description: '',
       amount: 0,
@@ -49,13 +50,13 @@ export class SponsorshipEditorDialog implements OnInit {
     });
 
     if (this.edit) {
-      this.editForm.patchValue(this._accountCharge);
+      this.editForm.patchValue(this._sponsorship);
     }
   }
 
-  submit(accountCharge: AccountCharge, isValid: boolean) {
-    if (this.edit) this.store.dispatch(this.actions.updateAccountCharge(this._account, accountCharge));
-    else  this.store.dispatch(this.actions.addAccountCharge(this._account, accountCharge));
+  submit(sponsorship: AccountSponsorship, isValid: boolean) {
+    if (this.edit) this.store.dispatch(this.actions.updateSponsorship(this._sponsorship, sponsorship));
+    else  this.store.dispatch(this.actions.addSponsorship(this._sponsorship, sponsorship));
     this.dialog.close();
   }
 }
