@@ -43,6 +43,7 @@ import { DebitNoteItemListAccountComponent } from "./component/debit-note-item-c
 import { CreditNoteItemDialog } from "./dialog/credit-note-item.dialog";
 import { CreditNoteItemListAccountComponent } from "./component/credit-note-item-component-list.component";
 import { AccountSponsorshipListComponent } from "./component/account-sponsorship-list.component";
+import { SponsorshipEditorDialog } from "./dialog/sponsorship-editor.dialog";
 
 @NgModule({
   imports: [
@@ -89,6 +90,7 @@ import { AccountSponsorshipListComponent } from "./component/account-sponsorship
     CreditNoteItemDialog,
     CreditNoteItemListAccountComponent,
     AccountSponsorshipListComponent,
+    SponsorshipEditorDialog,
 
   ],
   exports: [
@@ -105,6 +107,7 @@ import { AccountSponsorshipListComponent } from "./component/account-sponsorship
     CreditNoteItemDialog,
     CreditNoteItemListAccountComponent,
     AccountSponsorshipListComponent,
+    SponsorshipEditorDialog,
   ],
   entryComponents: [
     AccountCreatorDialog,
@@ -120,6 +123,7 @@ import { AccountSponsorshipListComponent } from "./component/account-sponsorship
     CreditNoteItemDialog,
     CreditNoteItemListAccountComponent,
     AccountSponsorshipListComponent,
+    SponsorshipEditorDialog,
   ],
 
 })
