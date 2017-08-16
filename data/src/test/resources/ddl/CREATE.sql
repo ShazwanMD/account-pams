@@ -127,6 +127,26 @@
         PHONE varchar(255),
         primary key (ID)
     );
+    
+    create table AC_ADVC_PYMT (
+        ID int8 not null,
+        REFERENCE_NO varchar(255) not null,
+        DESCRIPTION varchar(255) not null,
+        AMOUNT numeric(19, 2),
+        BALANCE_AMOUNT numeric(19, 2),
+        STATUS boolean,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        RECEIPT_ID int8,
+        KNOCKOFF_ID int8,
+        ACCOUNT_ID int8,
+        primary key (ID)
+    );
 
     create table AC_AUDT (
         ID int8 not null,
@@ -1381,6 +1401,11 @@
         add constraint FK_5wf5loa65e073204ius4wpe3i
         foreign key (SESSION_ID)
         references AC_ACDM_SESN;
+    
+    alter table AC_ADVC_PYMT 
+        add constraint FK_f91f9no80f8qtl6r92n08r32n 
+        foreign key (RECEIPTS_ID) 
+        references AC_RCPT;
 
     alter table AC_BSRY_RCPT
         add constraint FK_jc1lhth7un8oggnbjsew0mhs8
@@ -1690,6 +1715,8 @@
     create sequence SQ_AC_ACDM_SESN;
 
     create sequence SQ_AC_ACTR;
+    
+    create sequence SQ_AC_ADVC_PYMT;
 
     create sequence SQ_AC_AUDT;
 

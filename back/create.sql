@@ -169,6 +169,7 @@
         DESCRIPTION varchar(255) not null,
         AMOUNT numeric(19, 2),
         BALANCE_AMOUNT numeric(19, 2),
+        STATUS boolean,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -178,6 +179,7 @@
         M_ST int4,
         RECEIPT_ID int8,
         KNOCKOFF_ID int8,
+        ACCOUNT_ID int8,
         primary key (ID)
     );
 
