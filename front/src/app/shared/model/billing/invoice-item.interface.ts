@@ -7,7 +7,8 @@ export interface InvoiceItem extends MetaObject {
   amount: number;
   balanceAmount: number;
   chargeCode: ChargeCode;
-  taxCode?: TaxCode;
+  taxAmount: number;
+  netAmount: number;
   inclusive: boolean;
 
   // selection
