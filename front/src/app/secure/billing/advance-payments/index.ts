@@ -7,7 +7,7 @@ import {CovalentCoreModule} from '@covalent/core';
 
 import {CommonService, IdentityService} from '../../../../services';
 import {BillingService} from '../../../../services/billing.service';
-
+import {AdvancePaymentSelectComponent} from './component/advance-payment-select.component';
 import {EffectsModule} from '@ngrx/effects';
 import {AccountSubModule} from '../../account/accounts/index';
 import {AccountService} from '../../../../services/account.service';
@@ -39,12 +39,12 @@ import { AdvancePaymentCenterPage } from "./advance-payment-center.page";
 
 
     // components
-    
+    AdvancePaymentSelectComponent,
 
     // dialog
   ],
   exports: [
-
+    AdvancePaymentSelectComponent,      
   ],
   entryComponents: [
 
