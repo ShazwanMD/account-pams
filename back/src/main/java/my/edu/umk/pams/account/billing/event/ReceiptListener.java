@@ -88,6 +88,8 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					advancePayment.setBalanceAmount(balance);
 					advancePayment.setDescription("Advance Payment " + referenceNo);
 					advancePayment.setReceipt(receipt);
+					advancePayment.setStatus(false);
+					advancePayment.setAccount(receipt.getAccount());
 					billingService.addAdvancePayment(advancePayment, securityService.getCurrentUser());
 					
 //					AcAccountTransaction tx = new AcAccountTransactionImpl();
