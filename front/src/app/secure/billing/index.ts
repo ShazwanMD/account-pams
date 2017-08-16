@@ -59,6 +59,8 @@ import {invoiceDebitNoteListReducer, InvoiceDebitNoteListState} from './invoices
 import {archivedReceiptListReducer, ReceiptListState} from './receipts/receipt-list.reducer';
 import {receiptInvoiceListReducer, ReceiptInvoiceListState} from './receipts/receipt-invoice.reducer';
 import { AdvancePaymentSubModule } from "./advance-payments/index";
+import {advancePaymentListReducer, AdvancePaymentListState} from './advance-payments/advance-payment-list.reducer';
+import {AdvancePayment} from '../../shared/model/billing/advance-payment.interface';
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -84,13 +86,12 @@ export interface BillingModuleState {
   archivedDebitNotes: DebitNoteListState;
   debitNote: DebitNoteState;
   debitNoteTask: DebitNoteTaskState;
-  // debitNoteItems: DebitNoteItemListState;
   assignedCreditNoteTasks: CreditNoteTaskListState;
   pooledCreditNoteTasks: CreditNoteTaskListState;
   archivedCreditNotes: CreditNoteListState;
   creditNote: CreditNoteState;
   creditNoteTask: CreditNoteTaskState;
-  // creditNoteItems: CreditNoteItemListState;
+  advancePayments: AdvancePaymentListState;
 }
 ;
 
@@ -124,7 +125,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     archivedCreditNotes: [],
     creditNoteTask: <CreditNoteTask>{},
     creditNote: <CreditNote>{},
-    // creditNoteItems: [],
+    advancePayments: <AdvancePayment[]>[],
   };
 
 export const billingModuleReducers = {
@@ -149,13 +150,12 @@ export const billingModuleReducers = {
   archivedDebitNotes: archivedDebitNoteListReducer,
   debitNoteTask: debitNoteTaskReducer,
   debitNote: debitNoteReducer,
-  // debitNoteItems: debitNoteItemListReducer,
   assignedCreditNoteTasks: assignedCreditNoteTaskListReducer,
   pooledCreditNoteTasks: pooledCreditNoteTaskListReducer,
   archivedCreditNotes: archivedCreditNoteListReducer,
   creditNoteTask: creditNoteTaskReducer,
   creditNote: creditNoteReducer,
-  // creditNoteItems: creditNoteItemListReducer,
+  advancePayments: advancePaymentListReducer,
 };
 
 @NgModule({
