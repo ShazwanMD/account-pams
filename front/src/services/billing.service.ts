@@ -17,6 +17,7 @@ import {DebitNoteItem} from '../app/shared/model/billing/debit-note-item.interfa
 import {CreditNoteItem} from '../app/shared/model/billing/credit-note-item.interface';
 import {Account} from '../app/shared/model/account/account.interface';
 import {ReceiptInvoice} from '../app/shared/model/billing/receipt-invoice.interface';
+import {AdvancePayment} from '../app/shared/model/billing/advance-payment.interface';
 
 @Injectable()
 export class BillingService {
@@ -461,4 +462,19 @@ export class BillingService {
     return this._http.delete(this.BILLING_API + '/debitNotes/' + debitNote.referenceNo + '/debitNoteItems/' + item.id)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+  
+  // ====================================================================================================
+  // KNOCKOFF & ADVANCE PAYMENT
+  // ==================================================================================================== 
+  
+//  findAdvancePayments(): Observable<AdvancePayment[]> {
+//      return this._http.get(this.BILLING_API + '/advancePayments')
+//        .map((res: Response) => <AdvancePayment[]>res.json());
+//    }
+  
+  findUnpaidAdvancePayments(account: Account): Observable<AdvancePayment[]> {
+      console.log('findUnpaidAdvancePayments');
+      return this._http.get(this.BILLING_API + '/advancePayments/unpaidInvoices/' + account.code)
+        .map((res: Response) => <AdvancePayment[]>res.json());
+    }
 }

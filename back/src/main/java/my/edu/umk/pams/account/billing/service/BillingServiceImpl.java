@@ -1031,6 +1031,16 @@ public class BillingServiceImpl implements BillingService {
 		advancePaymentDao.save(payment, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	@Override
+	public List<AcAdvancePayment> findAdvancePayments(String filter, Integer offset, Integer limit) { 
+		return advancePaymentDao.find(filter, offset, limit);
+	}
+	
+	@Override
+	public List<AcAdvancePayment> findUnpaidAdvancePayments(AcAccount account, Integer offset, Integer limit) {
+		return advancePaymentDao.find(false, account, offset, limit);
+	}
 
 	// ====================================================================================================
 	// //
