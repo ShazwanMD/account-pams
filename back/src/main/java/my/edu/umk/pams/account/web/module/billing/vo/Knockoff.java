@@ -3,10 +3,12 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
 
 public class Knockoff extends Document {
@@ -18,6 +20,7 @@ public class Knockoff extends Document {
 	private BigDecimal amount;
 	private Date issuedDate;
 	private Invoice invoice;
+	private List<AdvancePayment> payments;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -73,6 +76,14 @@ public class Knockoff extends Document {
 
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
+	}
+
+	public List<AdvancePayment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<AdvancePayment> payments) {
+		this.payments = payments;
 	}
 
 	@JsonCreator

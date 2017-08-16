@@ -634,42 +634,11 @@
         primary key (ID)
     );
 
-    create table AC_KNOF (
+        create table AC_KNOF (
         ID int8 not null,
         AMOUNT numeric(19, 2),
         AUDIT_NO varchar(255),
-        CANCEL_COMMENT varchar(255),
         DESCRIPTION varchar(255),
-        AV_TS timestamp,
-        AV_ID int8,
-        CL_ID int8,
-        CL_TS timestamp,
-        CK_TS timestamp,
-        CK_ID int8,
-        DT_TS timestamp,
-        DT_ID int8,
-        EV_TS timestamp,
-        EV_ID int8,
-        PR_TS timestamp,
-        PR_ID int8,
-        PS_TS timestamp,
-        PS_ID int8,
-        RG_TS timestamp,
-        RG_ID int8,
-        RM_TS timestamp,
-        RM_ID int8,
-        RQ_TS timestamp,
-        RQ_ID int8,
-        SL_TS timestamp,
-        SL_ID int8,
-        FD_ST int4,
-        UP_TS timestamp,
-        UP_ID int8,
-        UV_TS timestamp,
-        UV_ID int8,
-        VF_TS timestamp,
-        VF_ID int8,
-        ISSUED_DATE timestamp,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -678,8 +647,9 @@
         M_ID int8,
         M_ST int4,
         REFERENCE_NO varchar(255),
-        REMOVE_COMMENT varchar(255),
+        ISSUED_DATE date,
         SOURCE_NO varchar(255),
+        ADVANCE_PAYMENT_ID int8,
         INVOICE_ID int8,
         primary key (ID)
     );
@@ -1404,7 +1374,7 @@
     
     alter table AC_ADVC_PYMT 
         add constraint FK_f91f9no80f8qtl6r92n08r32n 
-        foreign key (RECEIPTS_ID) 
+        foreign key (RECEIPT_ID) 
         references AC_RCPT;
 
     alter table AC_BSRY_RCPT

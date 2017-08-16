@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -53,17 +55,11 @@ public class AcKnockoffImpl implements AcKnockoff {
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
-    @Column(name = "CANCEL_COMMENT")
-    private String cancelComment;
-
-    @Column(name = "REMOVE_COMMENT")
-    private String removeComment;
+    @OneToMany(targetEntity = AcAdvancePaymentImpl.class, mappedBy = "advancePayment")
+    private List<AcAdvancePayment> payments;
     
     @Embedded
     private AcMetadata metadata;
-
-    @Embedded
-    private AcFlowdata flowdata;
     
     @Override
     public Long getId() {
@@ -104,35 +100,6 @@ public class AcKnockoffImpl implements AcKnockoff {
 		this.auditNo = auditNo;
 	}
 
-	@Override
-	public String getRemoveComment() {
-		return removeComment;
-	}
-
-	@Override
-	public void setRemoveComment(String removeComment) {
-		this.removeComment = removeComment;
-	}
-
-	@Override
-	public String getCancelComment() {
-		return cancelComment;
-	}
-
-	@Override
-	public void setCancelComment(String cancelComment) {
-		this.cancelComment = cancelComment;
-	}
-
-	@Override
-	public AcFlowdata getFlowdata() {
-		return flowdata;
-	}
-
-	@Override
-	public void setFlowdata(AcFlowdata flowdata) {
-		this.flowdata = flowdata;
-	}
     @Override
     public String getDescription() {
         return description;
@@ -172,8 +139,18 @@ public class AcKnockoffImpl implements AcKnockoff {
     public void setInvoice(AcInvoice invoice) {
         this.invoice = invoice;
     }
-	
+    
+    @Override	
+    public List<AcAdvancePayment> getPayments() {
+		return payments;
+	}
+
     @Override
+	public void setPayments(List<AcAdvancePayment> payments) {
+		this.payments = payments;
+	}
+
+	@Override
     public AcMetadata getMetadata() {
         return metadata;
     }

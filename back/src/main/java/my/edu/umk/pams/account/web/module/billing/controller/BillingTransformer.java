@@ -364,6 +364,7 @@ public class BillingTransformer {
         vo.setAmount(e.getAmount());
         vo.setIssuedDate(e.getIssuedDate());
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
+        vo.setPayments(billingTransformer.toAdvancePaymentVos(e.getPayments()));
         return vo;
     }
 
