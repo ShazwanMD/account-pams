@@ -339,6 +339,33 @@ public class BillingTransformer {
         task.setChargeCode(accountTransformer.toChargeCodeVo(creditNote.getChargeCode()));
         return task;
     }
+    
+    public AdvancePayment toAdvancePaymentVo(AcAdvancePayment e) {
+    	AdvancePayment vo = new AdvancePayment();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setDescription(e.getDescription());
+        vo.setAmount(e.getAmount());
+        vo.setBalanceAmount(e.getBalanceAmount());
+        vo.setStatus(e.getStatus());
+        vo.setReceipt(billingTransformer.toReceiptVo(e.getReceipt()));
+        vo.setKnockoff(billingTransformer.toKnockoffVo(e.getKnockoff()));
+        vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
+        return vo;
+    }
+    
+    public Knockoff toKnockoffVo(AcKnockoff e) {
+    	Knockoff vo = new Knockoff();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDescription(e.getDescription());
+        vo.setAmount(e.getAmount());
+        vo.setIssuedDate(e.getIssuedDate());
+        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
+        return vo;
+    }
 
     public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
         return tasks.stream()
@@ -416,5 +443,17 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toReceiptInvoiceVo(entry))
                 .collect(toCollection(() -> new ArrayList<ReceiptInvoice>()));
+    }
+    
+    public List<AdvancePayment> toAdvancePaymentVos(List<AcAdvancePayment> entries) {
+        return entries.stream()
+                .map((entry) -> toAdvancePaymentVo(entry))
+                .collect(toCollection(() -> new ArrayList<AdvancePayment>()));
+    }
+    
+    public List<Knockoff> toKnockoffVos(List<AcKnockoff> entries) {
+        return entries.stream()
+                .map((entry) -> toKnockoffVo(entry))
+                .collect(toCollection(() -> new ArrayList<Knockoff>()));
     }
 }

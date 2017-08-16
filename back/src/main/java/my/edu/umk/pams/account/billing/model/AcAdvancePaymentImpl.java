@@ -10,10 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 @Entity(name = "AcAdvancePayment")
@@ -37,6 +40,9 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
 
     @Column(name = "BALANCE_AMOUNT")
     private BigDecimal balanceAmount = BigDecimal.ZERO;
+    
+    @Column(name = "STATUS")
+    private Boolean status = false;
 
     @NotNull
     @ManyToOne(targetEntity = AcReceiptImpl.class, fetch = FetchType.EAGER)
@@ -46,6 +52,11 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
     @ManyToOne(targetEntity = AcKnockoffImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "KNOCKOFF_ID")
     private AcKnockoff knockoff;
+    
+    @NotNull
+    @ManyToOne(targetEntity = AcAccountImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ACCOUNT_ID")
+    private AcAccount account;
 
     @Embedded
     private AcMetadata metadata;
@@ -98,6 +109,16 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
 	public void setBalanceAmount(BigDecimal balanceAmount) {
 		this.balanceAmount = balanceAmount;
 	}
+	
+	@Override
+	public Boolean getStatus() {
+		return status;
+	}
+
+	@Override
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
 
 	@Override
 	public AcReceipt getReceipt() {
@@ -117,6 +138,16 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
 	@Override
 	public void setKnockoff(AcKnockoff knockoff) {
 		this.knockoff = knockoff;
+	}
+	
+	@Override
+	public AcAccount getAccount() {
+		return account;
+	}
+
+	@Override
+	public void setAccount(AcAccount account) {
+		this.account = account;
 	}
 
 	@Override

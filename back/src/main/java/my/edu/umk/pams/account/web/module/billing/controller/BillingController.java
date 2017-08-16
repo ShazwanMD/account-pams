@@ -748,6 +748,17 @@ public class BillingController {
 		return new ResponseEntity<String>("Success", HttpStatus.OK);		
 	}
     
+    // ==================================================================================================== //
+    //  KNOCKOFF
+    // ==================================================================================================== //
+    
+    @RequestMapping(value = "/advancePayments/unpaidInvoices/{code}", method = RequestMethod.GET)
+    public ResponseEntity<List<AdvancePayment>> findUnpaidAdvancePayments(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        List<AcAdvancePayment> payments = billingService.findUnpaidAdvancePayments(account, 0, 100);
+        return new ResponseEntity<List<AdvancePayment>>(billingTransformer.toAdvancePaymentVos(payments), HttpStatus.OK);
+    }
+    
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
