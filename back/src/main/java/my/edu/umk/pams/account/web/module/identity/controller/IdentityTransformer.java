@@ -91,9 +91,13 @@ public class IdentityTransformer {
     	Sponsorship vo = new Sponsorship();
         vo.setId(e.getId());
 //        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setAccountNo(e.getAccountNo());
+        vo.setEndDate(e.getStartDate());
         vo.setAmount(e.getAmount());
         vo.setStartDate(e.getStartDate());
         vo.setEndDate(e.getStartDate());
+        vo.setActive(e.getActive());
         return vo;
     }
 
@@ -103,6 +107,7 @@ public class IdentityTransformer {
                 .collect(toList());
         return vos;
     }
+
 
     public List<Actor> toActorVos(List<AcActor> actors) {
         List<Actor> vos = actors.stream()
