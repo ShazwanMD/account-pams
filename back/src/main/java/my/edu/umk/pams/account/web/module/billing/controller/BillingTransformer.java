@@ -349,7 +349,7 @@ public class BillingTransformer {
         vo.setBalanceAmount(e.getBalanceAmount());
         vo.setStatus(e.getStatus());
         vo.setReceipt(billingTransformer.toReceiptVo(e.getReceipt()));
-        vo.setKnockoff(billingTransformer.toKnockoffVo(e.getKnockoff()));
+        vo.setKnockoff(billingTransformer.toKnockoffVos(e.getKnockoff()));
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         return vo;
     }
@@ -364,7 +364,7 @@ public class BillingTransformer {
         vo.setAmount(e.getAmount());
         vo.setIssuedDate(e.getIssuedDate());
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
-        vo.setPayments(billingTransformer.toAdvancePaymentVos(e.getPayments()));
+        vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
         return vo;
     }
 
