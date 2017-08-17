@@ -21,6 +21,8 @@ public class InvoiceItem extends MetaObject {
     private boolean readOnly;
     private ChargeCode chargeCode;
     private TaxCode taxCode;
+    private BigDecimal taxAmount;
+    private BigDecimal netAmount;
 
     public String getDescription() {
         return description;
@@ -78,7 +80,23 @@ public class InvoiceItem extends MetaObject {
         this.creditAmount = creditAmount;
     }
 
-    @JsonCreator
+    public BigDecimal getTaxAmount() {
+		return taxAmount;
+	}
+
+	public void setTaxAmount(BigDecimal taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+	public BigDecimal getNetAmount() {
+		return netAmount;
+	}
+
+	public void setNetAmount(BigDecimal netAmount) {
+		this.netAmount = netAmount;
+	}
+
+	@JsonCreator
     public static InvoiceItem create(String jsonString) {
         InvoiceItem o = null;
         try {
