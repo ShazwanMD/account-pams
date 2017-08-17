@@ -62,6 +62,8 @@ export class AccountEffects {
       this.accountActions.findStudentAffairsAccountCharges(action.payload),
       this.accountActions.findLoanAccountCharges(action.payload),
       this.accountActions.findAccountWaivers(action.payload),
+      this.accountActions.findSponsorships(action.payload),
+
     ]));
 
   @Effect() findAccountActivities$ = this.actions$
@@ -150,5 +152,12 @@ export class AccountEffects {
     .withLatestFrom(this.store$.select(...this.ACCOUNT))
     .map((state) => state[1])
     .map((account: Account) => this.accountActions.findAccountByCode(account.code));
+
+     @Effect() findAccountSponsorships$ = this.actions$
+    .ofType(AccountActions.FIND_SPONSORSHIPS)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findAccountSponsorships(account))
+    .map((sponsorships) => this.accountActions.findSponsorshipsSuccess(sponsorships));
+
 }
 
