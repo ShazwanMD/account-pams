@@ -20,6 +20,10 @@ public interface AcSponsorship extends AcMetaObject {
 
     void setStudent(AcStudent student);
     
+    String getReferenceNo();
+
+    void setReferenceNo(String referenceNo);
+    
     BigDecimal getAmount();
 
     void setAmount(BigDecimal amount);
@@ -32,8 +36,13 @@ public interface AcSponsorship extends AcMetaObject {
 
     Date getEndDate();
     
+    String getAccountNo();
+
+    void setAccountNo(String accountNo);
+    
     Boolean getActive();
 
 	void setActive(Boolean active);
+
 }
  

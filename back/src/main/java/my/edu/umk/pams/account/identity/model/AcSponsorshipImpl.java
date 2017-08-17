@@ -22,12 +22,20 @@ public class AcSponsorshipImpl implements AcSponsorship {
     @GeneratedValue(generator = "SQ_AC_SPHP")
     @SequenceGenerator(name = "SQ_AC_SPHP", sequenceName = "SQ_AC_SPHP", allocationSize = 1)
     private Long id;
+    
+    @NotNull
+    @Column(name = "REFERENCE_NO", unique = true, nullable = false)
+    private String referenceNo;
+    
+    @NotNull
+    @Column(name = "ACCOUNT_NO", unique = true, nullable = false)
+    private String accountNo;
 
     @ManyToOne(targetEntity = AcStudentImpl.class)
     @JoinColumn(name = "STUDENT_ID")
     private AcStudent student;
 
-    @ManyToOne(targetEntity = AcSponsorImpl.class)
+	@ManyToOne(targetEntity = AcSponsorImpl.class)
     @JoinColumn(name = "SPONSOR_ID")
     private AcSponsor sponsor;
     
@@ -60,6 +68,22 @@ public class AcSponsorshipImpl implements AcSponsorship {
         this.id = id;
     }
 
+    public String getReferenceNo() {
+		return referenceNo;
+	}
+
+	public void setReferenceNo(String referenceNo) {
+		this.referenceNo = referenceNo;
+	}
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+    
     public AcStudent getStudent() {
         return student;
     }
