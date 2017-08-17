@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.billing.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -49,9 +51,8 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
     @JoinColumn(name = "RECEIPT_ID")
     private AcReceipt receipt;
     
-    @ManyToOne(targetEntity = AcKnockoffImpl.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "KNOCKOFF_ID")
-    private AcKnockoff knockoff;
+    @OneToMany(targetEntity = AcKnockoffImpl.class, mappedBy = "payments")
+    private List<AcKnockoff> knockoff;
     
     @NotNull
     @ManyToOne(targetEntity = AcAccountImpl.class, fetch = FetchType.EAGER)
@@ -131,12 +132,12 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
 	}
 
 	@Override
-	public AcKnockoff getKnockoff() {
+	public List<AcKnockoff> getKnockoff() {
 		return knockoff;
 	}
 
 	@Override
-	public void setKnockoff(AcKnockoff knockoff) {
+	public void setKnockoff(List<AcKnockoff> knockoff) {
 		this.knockoff = knockoff;
 	}
 	

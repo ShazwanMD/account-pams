@@ -37,7 +37,7 @@ public interface AcKnockoff extends AcMetaObject {
 
 	void setAuditNo(String auditNo);
 
-	List<AcAdvancePayment> getPayments();
+	AcAdvancePayment getPayments();
 
-	void setPayments(List<AcAdvancePayment> payments);
+	void setPayments(AcAdvancePayment payments);
 }

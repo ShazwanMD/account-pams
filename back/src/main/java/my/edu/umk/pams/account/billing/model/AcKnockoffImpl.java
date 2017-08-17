@@ -7,9 +7,11 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -54,9 +56,10 @@ public class AcKnockoffImpl implements AcKnockoff {
     @OneToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
-    
-    @OneToMany(targetEntity = AcAdvancePaymentImpl.class, mappedBy = "advancePayment")
-    private List<AcAdvancePayment> payments;
+
+    @ManyToOne(targetEntity = AcAdvancePaymentImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ADVANCE_PAYMENT_ID")
+    private AcAdvancePayment payments;
     
     @Embedded
     private AcMetadata metadata;
@@ -141,12 +144,12 @@ public class AcKnockoffImpl implements AcKnockoff {
     }
     
     @Override	
-    public List<AcAdvancePayment> getPayments() {
+    public AcAdvancePayment getPayments() {
 		return payments;
 	}
 
     @Override
-	public void setPayments(List<AcAdvancePayment> payments) {
+	public void setPayments(AcAdvancePayment payments) {
 		this.payments = payments;
 	}
 
