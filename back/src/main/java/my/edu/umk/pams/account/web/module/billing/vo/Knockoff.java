@@ -20,7 +20,7 @@ public class Knockoff extends Document {
 	private BigDecimal amount;
 	private Date issuedDate;
 	private Invoice invoice;
-	private List<AdvancePayment> payments;
+	private AdvancePayment payments;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -78,11 +78,11 @@ public class Knockoff extends Document {
 		this.invoice = invoice;
 	}
 
-	public List<AdvancePayment> getPayments() {
+	public AdvancePayment getPayments() {
 		return payments;
 	}
 
-	public void setPayments(List<AdvancePayment> payments) {
+	public void setPayments(AdvancePayment payments) {
 		this.payments = payments;
 	}
 

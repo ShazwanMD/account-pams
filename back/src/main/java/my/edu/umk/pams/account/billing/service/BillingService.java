@@ -309,7 +309,7 @@ public interface BillingService {
 
     boolean hasKnockoff(AcKnockoff knockoff);
     
-    void addKnockoff(AcKnockoff knockoff, AcUser user);
+    void addKnockoff(AcKnockoff knockoff);
 
     void updateKnockoff(AcKnockoff knockoff, AcUser user);
 

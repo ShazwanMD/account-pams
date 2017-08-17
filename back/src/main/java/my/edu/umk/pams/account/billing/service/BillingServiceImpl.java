@@ -1059,7 +1059,7 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
-	public void addKnockoff(AcKnockoff knockoff, AcUser user) {
+	public void addKnockoff(AcKnockoff knockoff) {
 		knockoffDao.save(knockoff, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}

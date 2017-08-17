@@ -1,7 +1,9 @@
 package my.edu.umk.pams.account.web.module.billing.vo;
 
+
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +19,7 @@ public class AdvancePayment extends Document {
 	private BigDecimal balanceAmount;
 	private Boolean status;
 	private Receipt receipt;
-	private Knockoff knockoff;
+	private List<Knockoff> knockoff;
 	private Account account;
 
 	public String getReferenceNo() {
@@ -68,11 +70,11 @@ public class AdvancePayment extends Document {
 		this.receipt = receipt;
 	}
 
-	public Knockoff getKnockoff() {
+	public List<Knockoff> getKnockoff() {
 		return knockoff;
 	}
 
-	public void setKnockoff(Knockoff knockoff) {
+	public void setKnockoff(List<Knockoff> knockoff) {
 		this.knockoff = knockoff;
 	}
 	
