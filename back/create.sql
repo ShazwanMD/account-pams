@@ -1041,6 +1041,8 @@
 
     create table AC_SPHP (
         ID int8 not null,
+        REFERENCE_NO varchar(255) not null,
+        ACCOUNT_NO varchar(255) not null,
         AMOUNT numeric(19, 2) not null,
         START_DATE timestamp,
         END_DATE timestamp,
