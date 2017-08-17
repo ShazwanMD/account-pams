@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.identity.model.AcSponsorshipImpl;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.account.web.module.account.vo.AccountCharge;
 import my.edu.umk.pams.account.web.module.identity.vo.Actor;
 import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
 import my.edu.umk.pams.account.web.module.identity.vo.Sponsorship;
@@ -138,18 +139,19 @@ public class IdentityController {
                 .toSponsorshipVos(identityService.findSponsorships(0, 100)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/sponsorships/{identityNo}", method = RequestMethod.GET)
-    public ResponseEntity<Student> findStudentByIdentityNo(@PathVariable String identityNo) {
-        return new ResponseEntity<Student>(identityTransformer
-                .toStudentVo(identityService.findStudentByMatricNo(identityNo)), HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/sponsorships/{identityNo}", method = RequestMethod.GET)
+//    public ResponseEntity<Student> findStudentByIdentityNo(@PathVariable String identityNo) {
+//        return new ResponseEntity<Student>(identityTransformer
+//                .toStudentVo(identityService.findStudentByMatricNo(identityNo)), HttpStatus.OK);
+//    }
     
-	@RequestMapping(value = "/accounts/{code}/sponsorships", method = RequestMethod.GET)
-	public ResponseEntity<List<Sponsorship>> findSponsorshipsByAccountCode(@PathVariable String code) {
-		AcAccount account = accountService.findAccountByCode(code);
-		return new ResponseEntity<List<Sponsorship>>(
-				 identityTransformer.toSponsorshipVos(identityService.findSponsorships(account)), HttpStatus.OK);
-	}
+//	@RequestMapping(value = "/accounts/{code}/sponsorships", method = RequestMethod.GET)
+//	public ResponseEntity<List<Sponsorship>> findAccountSponsorships(@PathVariable String code) {
+//		AcAccount account = accountService.findAccountByCode(code);
+//		return new ResponseEntity<List<Sponsorship>>(
+//				 identityTransformer.toSponsorshipVos(identityService.findSponsorships(account)), HttpStatus.OK);
+//	}
+
 
 	@RequestMapping(value = "/sponsorships", method = RequestMethod.POST)
 	public ResponseEntity<String> saveSponsorship(@RequestBody Sponsorship vo) {
