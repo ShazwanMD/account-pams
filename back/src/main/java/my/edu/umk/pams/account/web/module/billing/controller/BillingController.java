@@ -151,19 +151,21 @@ public class BillingController {
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.POST)
     public ResponseEntity<String> addInvoiceItem(@PathVariable String referenceNo, @RequestBody InvoiceItem item) {
         
-
         LOG.debug("referenceNo: {}", referenceNo);
         LOG.debug("chargeCode: {}", item.getChargeCode().getCode());
 
         AcChargeCode chargeCode = accountService.findChargeCodeById(item.getChargeCode().getId());
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = new AcInvoiceItemImpl();
+
         e.setDescription(item.getDescription());
         e.setChargeCode(chargeCode);
         e.setTaxCode(chargeCode.getTaxCode());
         e.setAmount(item.getAmount());
         //todo(hajar): pretax, tax, total
+        billingService.calculateNetAmount(e);
         billingService.addInvoiceItem(invoice, e);
+        
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
@@ -177,7 +179,10 @@ public class BillingController {
         e.setTaxCode(chargeCode.getTaxCode());
         e.setDescription(item.getDescription());
         e.setAmount(item.getAmount());
+        e.setTaxAmount(item.getTaxAmount());
+        e.setNetAmount(item.getNetAmount());
         // todo(hajar);pretax, tax, total
+//        billingService.calculateNetAmount(invoice, e);
         billingService.updateInvoiceItem(invoice, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -740,14 +745,13 @@ public class BillingController {
     // ====================================================================================================
     // TAX
     // ====================================================================================================
-    @RequestMapping(value = "/invoices/{referenceNo}/netAmount", method = RequestMethod.POST)
-	public ResponseEntity<String> calculateNetAmount (@RequestBody AcInvoice invoice, AcInvoiceItem invoiceItem)
-	{
-		invoice = billingService.findInvoiceById(invoiceItem.getId());
-    	billingService.calculateNetAmount(invoice);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);		
-	}
-    
+//    @RequestMapping(value = "/account/{code}/invoiceItem", method = RequestMethod.POST)
+//	public ResponseEntity<String> calculateNetAmount (@PathVariable String code, @RequestBody AcAccount account)
+//	{
+//        List<AcInvoice> invoices = billingService.findInvoices(code, 0, 100);
+//    	billingService.calculateNetAmount(account);
+//		return new ResponseEntity<String>("Success", HttpStatus.OK);		
+//	}
     // ==================================================================================================== //
     //  KNOCKOFF
     // ==================================================================================================== //
