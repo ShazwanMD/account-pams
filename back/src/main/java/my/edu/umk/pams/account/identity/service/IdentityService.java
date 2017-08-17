@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.identity.service;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.model.AcProgramCode;
@@ -254,17 +255,22 @@ public interface IdentityService {
     // SPONSORSHIP
     // ====================================================================================================
 
+    AcSponsorship findSponsorshipById(Long id);
+    
     List<AcSponsorship> findSponsorships(AcSponsor sponsor);
     
     List<AcSponsorship> findSponsorships(Integer offset, Integer limit);
-
-    AcSponsorship findSponsorshipById(Long id);
     
     void saveSponsorship(AcSponsorship sponsorship);
 
     boolean hasSponsorship(AcStudent student);
 
     boolean hasSponsorship(AcSponsor sponsor);
+    
+    void updateSponsorship(AcSponsorship sponsorship);
+
+	List<AcSponsorship> findSponsorships(AcAccount account);
+
 
 
 }
