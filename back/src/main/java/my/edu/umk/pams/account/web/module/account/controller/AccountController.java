@@ -10,6 +10,8 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.account.vo.*;
+import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
+import my.edu.umk.pams.account.web.module.identity.vo.Sponsorship;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +58,9 @@ public class AccountController {
 
     @Autowired
     private AccountTransformer accountTransformer;
+    
+    @Autowired
+    private IdentityTransformer identityTransformer;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -524,6 +529,18 @@ public class AccountController {
         return new ResponseEntity<>("Removed", HttpStatus.OK);
     }
 
+    
+    
+    @RequestMapping(value = "/accounts/{code}/sponsorships", method = RequestMethod.GET)
+	public ResponseEntity<List<Sponsorship>> findAccountSponsorships(@PathVariable String code) {
+		AcAccount account = accountService.findAccountByCode(code);
+		return new ResponseEntity<List<Sponsorship>>(
+				 identityTransformer.toSponsorshipVos(identityService.findSponsorships(account)), HttpStatus.OK);
+	}
+    
+    
+    
+    
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================
