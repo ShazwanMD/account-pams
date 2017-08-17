@@ -329,5 +329,5 @@ public interface BillingService {
 
     void removeRefundPayment(AcRefundPayment refund, AcUser user);
 
-	void calculateNetAmount(AcInvoice invoice);
+    void calculateNetAmount(AcInvoiceItem invoiceItem);
 }
