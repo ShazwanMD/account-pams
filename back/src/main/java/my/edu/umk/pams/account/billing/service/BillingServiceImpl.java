@@ -1117,31 +1117,16 @@ public class BillingServiceImpl implements BillingService {
 	// //
 
 	public void calculateNetAmount(AcInvoiceItem invoiceItem) {
-		
-		
         BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
-        BigDecimal amount = invoiceItem.getAmount();
-        
+        BigDecimal amount = invoiceItem.getAmount();       
         BigDecimal taxAmount = amount.multiply(taxRate);
-        
-
-		BigDecimal netAmount = amount.add(taxAmount);
-		
-		
-		
-        
+		BigDecimal netAmount = amount.add(taxAmount);				       
         if (invoiceItem.getChargeCode().getInclusive() == false) {
-
         	invoiceItem.setNetAmount(netAmount);
         	invoiceItem.setTaxAmount(taxAmount);
-			//billingService.updateInvoiceItem(invoice, e);
 		}
-
 		else if (invoiceItem.getChargeCode().getInclusive() == true) {
 			invoiceItem.setTaxAmount(taxAmount);
 			invoiceItem.setNetAmount(amount);
-			//billingService.updateInvoiceItem(invoice, e);
 		}
-	
-
 	}}

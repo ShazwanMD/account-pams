@@ -484,7 +484,7 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
     @Override
     public BigDecimal sumTotalAmount(AcInvoice invoice, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(a.amount) from AcInvoiceItem a where " +
+        Query query = session.createQuery("select sum(a.netAmount) from AcInvoiceItem a where " +
                 "a.invoice = :invoice " +
                 "and a.metadata.state = :state ");
         query.setEntity("invoice", invoice);

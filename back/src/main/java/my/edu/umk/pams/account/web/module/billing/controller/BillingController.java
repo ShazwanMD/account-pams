@@ -162,10 +162,8 @@ public class BillingController {
         e.setChargeCode(chargeCode);
         e.setTaxCode(chargeCode.getTaxCode());
         e.setAmount(item.getAmount());
-        //todo(hajar): pretax, tax, total
         billingService.calculateNetAmount(e);
-        billingService.addInvoiceItem(invoice, e);
-        
+        billingService.addInvoiceItem(invoice, e);      
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
@@ -181,8 +179,7 @@ public class BillingController {
         e.setAmount(item.getAmount());
         e.setTaxAmount(item.getTaxAmount());
         e.setNetAmount(item.getNetAmount());
-        // todo(hajar);pretax, tax, total
-//        billingService.calculateNetAmount(invoice, e);
+        billingService.calculateNetAmount(e);
         billingService.updateInvoiceItem(invoice, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -742,16 +739,6 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
-    // ====================================================================================================
-    // TAX
-    // ====================================================================================================
-//    @RequestMapping(value = "/account/{code}/invoiceItem", method = RequestMethod.POST)
-//	public ResponseEntity<String> calculateNetAmount (@PathVariable String code, @RequestBody AcAccount account)
-//	{
-//        List<AcInvoice> invoices = billingService.findInvoices(code, 0, 100);
-//    	billingService.calculateNetAmount(account);
-//		return new ResponseEntity<String>("Success", HttpStatus.OK);		
-//	}
     // ==================================================================================================== //
     //  KNOCKOFF
     // ==================================================================================================== //
