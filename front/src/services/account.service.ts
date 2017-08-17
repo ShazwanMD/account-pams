@@ -12,6 +12,7 @@ import {FeeScheduleItem} from '../app/shared/model/account/fee-schedule-item.int
 import {AccountCharge} from '../app/shared/model/account/account-charge.interface';
 import {AccountWaiver} from '../app/shared/model/account/account-waiver.interface';
 import {AccountActivity} from '../app/shared/model/account/account-activity.interface';
+import { AccountSponsorship } from "../app/shared/model/account/account-sponsorship.interface";
 
 @Injectable()
 export class AccountService {
@@ -282,4 +283,39 @@ export class AccountService {
     return this._http.delete(this.ACCOUNT_API + '/accounts/' + account.code + '/accountCharges/' + charge.referenceNo)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
+
+  // ====================================================================================================
+  // ACCOUNT - SPONSORSHIP
+  // ====================================================================================================
+
+
+   findAccountSponsorships(account: Account): Observable<AccountSponsorship[]> {
+      console.log('findsponsorships :' + account.code);
+      return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/sponsorships')
+        .map((res: Response) => <AccountSponsorship[]>res.json());
+    }
+
+    addAccountSponsorships(account: Account, sponsorship: AccountSponsorship): Observable<String> {
+    return this._http.post(this.ACCOUNT_API + '/accounts/' + account.code + '/accountSponsorships', JSON.stringify(sponsorship))
+      .flatMap((res: Response) => Observable.of(res.text()));
+   }
+
+   saveAccountSponsorships(account: AccountSponsorship): Observable<Boolean> {
+    return this._http.post(this.ACCOUNT_API + '/accounts', JSON.stringify(account))
+      .flatMap((data) => Observable.of(true));
+  }
+
+    updateAccountSponsorships(account: Account, sponsorship: AccountSponsorship): Observable<String> {
+    console.log('updating account sponsorship' + sponsorship.referenceNo);
+    return this._http.put(this.ACCOUNT_API + '/accounts/' + account.code + '/accountSponsorships/' + sponsorship.referenceNo, JSON.stringify(sponsorship))
+      .flatMap((res: Response) => Observable.of(res.text()));
+
+  }
+
+    removeAccountSponsorships(account: Account, sponsorship: AccountSponsorship): Observable<String> {
+    console.log('removing account charge' + sponsorship.referenceNo);
+    return this._http.delete(this.ACCOUNT_API + '/accounts/' + account.code + '/accountSponsorships/' + sponsorship.referenceNo)
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
 }
