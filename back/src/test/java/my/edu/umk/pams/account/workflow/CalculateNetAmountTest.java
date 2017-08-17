@@ -33,6 +33,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.annotation.JsonFormat.Value;
+import com.tngtech.jgiven.integration.spring.JGivenStage;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -43,6 +44,7 @@ import java.util.List;
 /**
  * @author PAMS
  */
+@JGivenStage
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TestAppConfiguration.class)
 public class CalculateNetAmountTest {
@@ -84,38 +86,6 @@ public class CalculateNetAmountTest {
 //    }
 
     @Test
-//    @Rollback(false)
-//	public void calculateTaxAmount () {
-//    	
-//    	AcInvoice invoice = billingService.findInvoiceByReferenceNo("INVC001");
-//    	LOG.debug("Invoice:{}", invoice);
-//
-//    	List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice, 0, 1);
-//    	LOG.debug("Invoice Items:{}", invoiceItems);
-//		
-//    	for (AcInvoiceItem invoiceItem : invoiceItems) {
-//    		
-//    		LOG.debug("Invoice Items:{}", invoiceItem );
-//		
-//		LOG.debug("tax Rate:{}", invoiceItem.getTaxCode().getTaxRate());
-//		
-//		BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
-//		LOG.debug("Tax Rate", taxRate);
-//		
-//		BigDecimal amount = invoiceItem.getAmount();
-//		LOG.debug("Amount", amount);
-//		
-//		BigDecimal taxAmount =  amount.multiply(taxRate);
-//		LOG.debug("Tax Amount: {}", taxAmount );
-//		
-//		invoiceItem.setTaxAmount(taxAmount);
-//		billingService.updateInvoiceItem(invoice, invoiceItem);
-//      }}
-//    
-//    //set data
-//    }
-//    //billingService.calculateTaxAmount()
-//    
     @Rollback(false)
     public void calculateNetAmount(){
     	
@@ -127,25 +97,42 @@ public class CalculateNetAmountTest {
 		
     	for (AcInvoiceItem invoiceItem : invoiceItems) {
     		
-    		LOG.debug("Invoice Items:{}", invoiceItem );
+    		LOG.debug("Invoice ada x:{}", invoice );
 		
 		LOG.debug("tax Rate:{}", invoiceItem.getTaxCode().getTaxRate());
 		
-		BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
+		BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate().setScale(2, RoundingMode.HALF_UP);
 		LOG.debug("Tax Rate", taxRate);
 		
-		BigDecimal amount = invoiceItem.getAmount();
+		BigDecimal amount = invoiceItem.getAmount().setScale(2, RoundingMode.HALF_UP);
 		LOG.debug("Amount", amount);
 		
-		BigDecimal taxAmount =  amount.multiply(taxRate);
-		LOG.debug("Tax Amount: {}", taxAmount.setScale(2, RoundingMode.HALF_UP));
+		BigDecimal taxAmount =  amount.multiply(taxRate).setScale(2, RoundingMode.HALF_UP);
+		LOG.debug("Tax Amount: {}", taxAmount);
 		
-		BigDecimal netAmount = amount.add(taxAmount);
-		LOG.debug("Net Amount: {}", netAmount.setScale(2, RoundingMode.HALF_UP));
+		BigDecimal netAmount = amount.add(taxAmount).setScale(2, RoundingMode.HALF_UP);
+		LOG.debug("Net Amount: {}", netAmount);
 		
-		invoiceItem.setTaxAmount(taxAmount);
-		billingService.updateInvoiceItem(invoice, invoiceItem);
+
+		
+		if(invoiceItem.getChargeCode().getInclusive()==false){
+			LOG.debug("Exclusive: {}", invoiceItem.getChargeCode().getInclusive());
+				invoiceItem.setNetAmount(netAmount);		
+				invoiceItem.setTaxAmount(taxAmount);
+				LOG.debug("Exclusive TaxAmount: {}",taxAmount);
+			//	billingService.updateInvoiceItem(invoice, invoiceItem);
+			}
+			
+			else if(invoiceItem.getChargeCode().getInclusive()==true){
+				LOG.debug("Inclusive: {}", invoiceItem.getChargeCode().getInclusive());
+				invoiceItem.setTaxAmount(taxAmount);
+				LOG.debug(" TaxAmount: {}",taxAmount);
+				LOG.debug(" TaxAmount invoice: {}",invoiceItem.getTaxAmount());
+				LOG.debug("TaxAmount invoice item: {}",invoice.getReferenceNo());
+			//	billingService.deleteInvoiceItem(invoice, invoiceItem);
+			}
     }}
 
+    
     
 }
