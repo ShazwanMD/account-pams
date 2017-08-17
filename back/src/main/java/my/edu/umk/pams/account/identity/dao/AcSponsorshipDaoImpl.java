@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import my.edu.umk.pams.account.account.dao.AcChargeCodeDao;
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -44,6 +45,19 @@ public class AcSponsorshipDaoImpl extends GenericDaoSupport<Long, AcSponsorship>
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return (List<AcSponsorship>) query.list();
     }
+    
+    @Override
+    public List<AcSponsorship> find(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcSponsorship s where " +
+                "s.account= :account " +
+                "and s.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcSponsorship>) query.list();
+    }
+    
 
     @Override
     public List<AcSponsorship> find(String filter, Integer offset, Integer limit) {
