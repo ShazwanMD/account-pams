@@ -18,6 +18,8 @@ import {DebitNoteSubModule} from '../debit-notes/index';
 import {PipeModule} from '../../../app.pipe.module';
 import {ReceiptItemDetailPage} from '../receipts/receipt-item-detail.page';
 import { AdvancePaymentCenterPage } from "./advance-payment-center.page";
+import { AdvancePaymentActions } from "./advance-payment.action";
+import { AdvancePaymentEffects } from "./advance-payment.effect";
 
 @NgModule({
   imports: [
@@ -30,7 +32,7 @@ import { AdvancePaymentCenterPage } from "./advance-payment-center.page";
     ChargeCodeSubModule.forRoot(),
     CreditNoteSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
-    //EffectsModule.run(InvoiceEffects),
+    EffectsModule.run(AdvancePaymentEffects),
     PipeModule,
   ],
   declarations: [
@@ -61,7 +63,7 @@ export class AdvancePaymentSubModule {
         CommonService,
         AccountService,
         BillingService,
-        //InvoiceActions,
+        AdvancePaymentActions,
       ],
     };
   }

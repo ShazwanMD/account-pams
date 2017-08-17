@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+/*import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -8,7 +8,7 @@ import {MdDialogRef} from '@angular/material';
   templateUrl: './knockoff-creator.dialog.html',
 })
 
-export class KnockoffCreatorDialog implements OnInit {
+export class KnockoffCreatorDialog {
 
-    private createForm: FormGroup;
-}
+   
+}*/

@@ -4,7 +4,7 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class AdvancePaymentActions {
     
-    static FIND_UNPAID_ADVANCE_PAYMENTS = '[Invoice] Find Unpaid Invoices';
+    static FIND_UNPAID_ADVANCE_PAYMENTS = '[Invoice] Find Unpaid Advance Payments';
 
     findUnpaidAdvancePayments(account): Action {
       return {
@@ -13,7 +13,7 @@ export class AdvancePaymentActions {
       };
     }
 
-    static FIND_UNPAID_ADVANCE_PAYMENTS_SUCCESS = '[Invoice] Find Unpaid Invoices Success';
+    static FIND_UNPAID_ADVANCE_PAYMENTS_SUCCESS = '[Invoice] Find Unpaid Advance Payments Success';
 
     findUnpaidAdvancePaymentSuccess(payments): Action {
       console.log('findUnpaidAdvancePaymentSuccess');
