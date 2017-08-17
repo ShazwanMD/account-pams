@@ -1116,51 +1116,32 @@ public class BillingServiceImpl implements BillingService {
 	// ====================================================================================================
 	// //
 
-	public void calculateNetAmount(AcInvoice invoice) {
+	public void calculateNetAmount(AcInvoiceItem invoiceItem) {
+		
+		
+        BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
+        BigDecimal amount = invoiceItem.getAmount();
+        
+        BigDecimal taxAmount = amount.multiply(taxRate);
+        
 
-		// invoice = this.findInvoiceByReferenceNo("INVC001");
-		// LOG.debug("Invoice:{}", invoice);
+		BigDecimal netAmount = amount.add(taxAmount);
+		
+		
+		
+        
+        if (invoiceItem.getChargeCode().getInclusive() == false) {
 
-		invoice = this.findInvoiceByReferenceNo(invoice.getReferenceNo());
-		LOG.debug("Invoice Reference No:{}", invoice);
-
-		// List<AcInvoiceItem> invoiceItems = this.findInvoiceItems(invoice, 0,
-		// 1);
-		// LOG.debug("Invoice Items:{}", invoiceItems);
-
-		List<AcInvoiceItem> invoiceItems = this.findInvoiceItems(invoice);
-		LOG.debug("Invoice Items:{}", invoiceItems);
-
-		for (AcInvoiceItem invoiceItem : invoiceItems) {
-
-			LOG.debug("Invoice Items:{}", invoiceItem);
-
-			LOG.debug("tax Rate:{}", invoiceItem.getTaxCode().getTaxRate());
-
-			BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
-			LOG.debug("Tax Rate", taxRate);
-
-			BigDecimal amount = invoiceItem.getAmount();
-			LOG.debug("Amount", amount);
-
-			BigDecimal taxAmount = amount.multiply(taxRate);
-			LOG.debug("Tax Amount: {}", taxAmount.setScale(2, RoundingMode.HALF_UP));
-
-			BigDecimal netAmount = amount.add(taxAmount);
-			LOG.debug("Net Amount: {}", netAmount.setScale(2, RoundingMode.HALF_UP));
-
-			if (invoiceItem.getChargeCode().getInclusive() == false) {
-
-				invoiceItem.setNetAmount(netAmount);
-				invoiceItem.setTaxAmount(taxAmount);
-				this.updateInvoiceItem(invoice, invoiceItem);
-			}
-
-			else if (invoiceItem.getChargeCode().getInclusive() == true) {
-				invoiceItem.setTaxAmount(taxAmount);
-				this.updateInvoiceItem(invoice, invoiceItem);
-			}
+        	invoiceItem.setNetAmount(netAmount);
+        	invoiceItem.setTaxAmount(taxAmount);
+			//billingService.updateInvoiceItem(invoice, e);
 		}
-	}
 
-}
+		else if (invoiceItem.getChargeCode().getInclusive() == true) {
+			invoiceItem.setTaxAmount(taxAmount);
+			invoiceItem.setNetAmount(amount);
+			//billingService.updateInvoiceItem(invoice, e);
+		}
+	
+
+	}}
