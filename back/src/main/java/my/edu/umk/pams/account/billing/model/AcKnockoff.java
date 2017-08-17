@@ -2,24 +2,42 @@ package my.edu.umk.pams.account.billing.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
+import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.core.model.AcDocument;
 
-public interface AcKnockoff extends AcDocument {
+public interface AcKnockoff extends AcMetaObject {
 
-    String getDescription();
+	String getReferenceNo();
 
-    void setDescription(String description);
-    
-    BigDecimal getAmount();
+	void setReferenceNo(String referenceNo);
 
-    void setAmount(BigDecimal amount);
+	String getDescription();
 
-    Date getIssuedDate();
+	void setDescription(String description);
 
-    void setIssuedDate(Date issuedDate);
+	BigDecimal getAmount();
 
-    AcInvoice getInvoice();
+	void setAmount(BigDecimal amount);
 
-    void setInvoice(AcInvoice invoice);
+	Date getIssuedDate();
+
+	void setIssuedDate(Date issuedDate);
+
+	AcInvoice getInvoice();
+
+	void setInvoice(AcInvoice invoice);
+
+	String getSourceNo();
+
+	void setSourceNo(String sourceNo);
+
+	String getAuditNo();
+
+	void setAuditNo(String auditNo);
+
+	AcAdvancePayment getPayments();
+
+	void setPayments(AcAdvancePayment payments);
 }

@@ -1,0 +1,10 @@
+<md-select
+  [placeholder]="placeholder"
+  (change)="selectChangeEvent($event.value)"
+  [(ngModel)]="selected"
+  flex>
+
+  <md-option *ngFor="let advancePayment of advancePayments$ | async" [value]="advancePayment">
+    {{advancePayment.referenceNo}}: {{advancePayment.amount}}
+  </md-option>
+</md-select>

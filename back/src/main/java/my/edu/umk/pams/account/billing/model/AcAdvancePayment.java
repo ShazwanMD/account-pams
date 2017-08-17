@@ -1,7 +1,9 @@
 package my.edu.umk.pams.account.billing.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
 public interface AcAdvancePayment extends AcMetaObject {
@@ -11,7 +13,7 @@ public interface AcAdvancePayment extends AcMetaObject {
 	void setReferenceNo(String referenceNo);
 
 	String getDescription();
-	
+
 	void setDescription(String description);
 
 	BigDecimal getAmount();
@@ -26,8 +28,15 @@ public interface AcAdvancePayment extends AcMetaObject {
 
 	void setReceipt(AcReceipt receipt);
 
-	AcKnockoff getKnockoff();
+	List<AcKnockoff> getKnockoff();
 
-	void setKnockoff(AcKnockoff knockoff);
+	void setKnockoff(List<AcKnockoff> knockoff);
 
+	Boolean getStatus();
+
+	void setStatus(Boolean status);
+
+	AcAccount getAccount();
+
+	void setAccount(AcAccount account);
 }

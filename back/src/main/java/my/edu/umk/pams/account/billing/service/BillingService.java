@@ -295,8 +295,12 @@ public interface BillingService {
     // ADVANCE PAYMENT
     // ==================================================================================================== //
     
+    List<AcAdvancePayment> findAdvancePayments(String filter, Integer offset, Integer limit);
+    
+    List<AcAdvancePayment> findUnpaidAdvancePayments(AcAccount account, Integer offset, Integer limit);
+    
     void addAdvancePayment(AcAdvancePayment payment, AcUser user);
-
+    
     // ==================================================================================================== //
     // KNOCKOFF
     // ==================================================================================================== //
