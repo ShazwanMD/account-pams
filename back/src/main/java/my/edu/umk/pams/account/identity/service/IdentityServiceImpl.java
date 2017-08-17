@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.model.AcProgramCode;
@@ -771,6 +772,17 @@ public class IdentityServiceImpl implements IdentityService {
     @Override
     public void saveSponsorship(AcSponsorship sponsorship) {
         sponsorshipDao.save(sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public List<AcSponsorship> findSponsorships(AcAccount account) {
+        return sponsorshipDao.find(account);
+    }
+    
+    @Override
+    public void updateSponsorship(AcSponsorship sponsorship) {
+    	sponsorshipDao.save(sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
