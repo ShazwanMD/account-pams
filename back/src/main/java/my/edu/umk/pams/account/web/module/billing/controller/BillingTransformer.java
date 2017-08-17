@@ -111,6 +111,8 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setDebitAmount(e.getAmount().compareTo(BigDecimal.ZERO) < 0 ? e.getAmount().negate() : null);
         vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) > 0 ? e.getAmount() : null);
+        vo.setTaxAmount(e.getTaxAmount());
+        vo.setNetAmount(e.getNetAmount());
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         //vo.setTaxCode(commonTransformer.toTaxCodeVo(e.getTaxCode()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
