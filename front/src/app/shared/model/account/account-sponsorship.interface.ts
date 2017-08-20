@@ -5,13 +5,17 @@ import { StudyMode } from "../common/study-mode.interface";
 export interface AccountSponsorship extends MetaObject {
 
   referenceNo: string;
-  sourceNo: string;
+  accountNo: string;
   description: string;
   amount: number;
   session: AcademicSession;
-  chargeDate: Date;
+  startDate: Date;
+  endDate: Date;
 
   // admission
   studyMode?: StudyMode;
   ordinal: number;
+
+  // selection
+  selected?: boolean;
 }
