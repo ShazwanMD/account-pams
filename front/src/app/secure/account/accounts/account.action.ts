@@ -474,11 +474,11 @@ export class AccountActions {
   findSponsorshipsSuccess(sponsorships): Action {
     console.log("findSponsorshipsSuccess: " + sponsorships.id);
     return {
-      type: AccountActions.FIND_ACCOUNT_WAIVERS_SUCCESS,
+      type: AccountActions.FIND_SPONSORSHIPS_SUCCESS,
       payload: sponsorships
     };
   }
-
+  
    static UPDATE_SPONSORSHIP = '[Account] Update Sponsorship';
 
   updateSponsorship(account, sponsorship): Action {
@@ -513,6 +513,26 @@ export class AccountActions {
   addSponsorshipSuccess(message): Action {
     return {
       type: AccountActions.ADD_SPONSORSHIP_SUCCESS,
+      payload: message
+    };
+  }
+
+  static REMOVE_SPONSORSHIP = '[Account] Remove Sponsorship';
+
+  removeSponsorship(account, sponsorship): Action {
+    console.log('remove sponsorship');
+    return {
+      type: AccountActions.REMOVE_SPONSORSHIP,
+      payload: {account: account, sponsorship: sponsorship}
+    };
+  }
+
+  static REMOVE_SPONSORSHIP_SUCCESS = '[Account] Remove Sponsorship Success';
+
+  removeSponsorshipSuccess(message): Action {
+    console.log('remove sponsorship SUCCESS');
+    return {
+      type: AccountActions.REMOVE_SPONSORSHIP_SUCCESS,
       payload: message
     };
   }
