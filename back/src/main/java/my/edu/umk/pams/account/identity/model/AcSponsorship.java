@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import my.edu.umk.pams.account.core.AcMetaObject;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcStudent;
 
 /**
  * ?? todo: coverage

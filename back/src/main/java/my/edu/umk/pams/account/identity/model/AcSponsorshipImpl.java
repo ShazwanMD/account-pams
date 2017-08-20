@@ -1,6 +1,10 @@
 package my.edu.umk.pams.account.identity.model;
 
 import my.edu.umk.pams.account.core.AcMetadata;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcSponsorImpl;
+import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 
 import java.math.BigDecimal;
 import java.util.Date;
