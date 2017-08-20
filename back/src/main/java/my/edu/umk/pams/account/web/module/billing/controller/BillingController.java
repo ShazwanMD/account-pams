@@ -743,6 +743,12 @@ public class BillingController {
     // ==================================================================================================== //
     //  KNOCKOFF
     // ==================================================================================================== //
+   
+    @RequestMapping(value = "/advancePayments", method = RequestMethod.GET)
+    public ResponseEntity<List<AdvancePayment>> findAdvancePayments() {
+        List<AcAdvancePayment> advancePayments = billingService.findAdvancePayments("%", 0, 100);
+        return new ResponseEntity<List<AdvancePayment>>(billingTransformer.toAdvancePaymentVos(advancePayments), HttpStatus.OK);
+    }
     
     @RequestMapping(value = "/advancePayments/unpaidInvoices/{code}", method = RequestMethod.GET)
     public ResponseEntity<List<AdvancePayment>> findUnpaidAdvancePayments(@PathVariable String code) {
