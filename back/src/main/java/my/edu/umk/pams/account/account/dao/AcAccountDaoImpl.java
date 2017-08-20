@@ -362,6 +362,31 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
+    public BigDecimal sumChargeAmount(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(c.amount) from AcAccountCharge c where " + "c.account = :account " +
+                "and c.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    
+    @Override
+    public BigDecimal sumSecurityChargeAmount(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(c.securityChargeCode.amount) from AcAccountCharge c where " + "c.account = :account " +
+                "and c.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
     public BigDecimal sumAccountTransaction(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.amount) from AcAccountTransaction a where " +
