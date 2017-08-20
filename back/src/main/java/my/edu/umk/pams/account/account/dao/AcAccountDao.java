@@ -105,4 +105,8 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     void updateAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
 
     void deleteTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
+
+	BigDecimal sumChargeAmount(AcAccount account);
+
+	BigDecimal sumSecurityChargeAmount(AcAccount account);
 }
