@@ -47,6 +47,7 @@ export class SponsorshipEditorDialog implements OnInit {
       amount: 0,
       startDate: undefined,
       endDate:undefined,
+      accountNo:'',
     });
 
     if (this.edit) {
@@ -55,8 +56,8 @@ export class SponsorshipEditorDialog implements OnInit {
   }
 
   submit(sponsorship: AccountSponsorship, isValid: boolean) {
-    if (this.edit) this.store.dispatch(this.actions.updateSponsorship(this._sponsorship, sponsorship));
-    else  this.store.dispatch(this.actions.addSponsorship(this._sponsorship, sponsorship));
+    if (this.edit) this.store.dispatch(this.actions.updateSponsorship(this._account, sponsorship));
+    else  this.store.dispatch(this.actions.addSponsorship(this._account, sponsorship));
     this.dialog.close();
   }
 }
