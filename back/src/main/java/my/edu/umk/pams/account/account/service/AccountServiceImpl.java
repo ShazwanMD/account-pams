@@ -42,8 +42,14 @@ import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
+import my.edu.umk.pams.account.identity.dao.AcSponsorshipDao;
+import my.edu.umk.pams.account.identity.dao.AcStudentDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
+import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.web.module.account.vo.AccountActivityHolder;
 import my.edu.umk.pams.connector.payload.AccountPayload;
@@ -59,9 +65,18 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AcAccountDao accountDao;
-
+    
+    @Autowired
+    private AcSponsorDao sponsorDao;
+    
+    @Autowired
+    private AcSponsorshipDao sponsorshipDao;
+    
     @Autowired
     private AcAccountChargeDao chargeDao;
+    
+    @Autowired
+    private AcStudentDao studentDao;
 
     @Autowired
     private AcAccountWaiverDao waiverDao;
@@ -770,6 +785,63 @@ public class AccountServiceImpl implements AccountService {
         accountDao.addWaiver(account, academicSession, waiver, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+    
+  //====================================================================================================
+    // SPONSORSHIP
+    //====================================================================================================
+
+    @Override
+    public AcSponsorship findSponsorshipById(Long id) {
+        return sponsorDao.findSponsorshipById(id);
+    }
+    
+    @Override
+    public List<AcSponsorship> findSponsorships(Integer offset, Integer limit) {
+        return sponsorshipDao.find(offset, limit);
+    }
+    
+    @Override
+    public void saveSponsorship(AcSponsorship sponsorship) {
+        sponsorshipDao.save(sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public List<AcSponsorship> findSponsorships(AcAccount account) {
+        return sponsorshipDao.find(account);
+    }
+    
+    @Override
+    public void updateSponsorship(AcSponsorship sponsorship) {
+    	sponsorshipDao.save(sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public boolean hasSponsorship(AcStudent student) {
+        return studentDao.hasSponsorship(student);
+    }
+
+
+//    @Override
+//    public void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
+//        sponsorDao.addSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
+//        sessionFactory.getCurrentSession().flush();
+//    }
+//    
+    @Override
+    public void addSponsorship(AcAccount account,AcAcademicSession academicSession, AcSponsorship sponsorship) {
+    	sponsorshipDao.addSponsorship(account, academicSession, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
+        sponsorDao.removeSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+
 
     // ==================================================================================================== //
     //  PRIVATE METHODS
@@ -800,4 +872,10 @@ public class AccountServiceImpl implements AccountService {
         Cell cell = row.getCell(colIndex);
         return toString(cell);
     }
+
+	@Override
+	public List<AcSponsorship> findSponsorships(AcSponsor sponsor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
