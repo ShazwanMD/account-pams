@@ -6,6 +6,9 @@ import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
+import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.web.module.account.vo.AccountActivityHolder;
 
 import java.io.InputStream;
@@ -267,5 +270,28 @@ public interface AccountService {
 
     void removeAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
 
-	
+    // ====================================================================================================
+    // SPONSORSHIP
+    // ====================================================================================================
+
+    AcSponsorship findSponsorshipById(Long id);
+    
+    List<AcSponsorship> findSponsorships(AcSponsor sponsor);
+    
+    List<AcSponsorship> findSponsorships(Integer offset, Integer limit);
+    
+    void saveSponsorship(AcSponsorship sponsorship);
+
+    boolean hasSponsorship(AcStudent student);
+    
+    void updateSponsorship(AcSponsorship sponsorship);
+
+	List<AcSponsorship> findSponsorships(AcAccount account);
+
+//	void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
+
+	void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
+
+	void addSponsorship(AcAccount account,AcAcademicSession academicSession, AcSponsorship sponsorship);
+
 }
