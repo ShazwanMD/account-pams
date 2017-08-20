@@ -3,6 +3,8 @@ package my.edu.umk.pams.account.account.model;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorImpl;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
+import my.edu.umk.pams.account.identity.model.AcSponsorshipImpl;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -45,6 +47,9 @@ public class AcAccountImpl implements AcAccount{
 
     @OneToMany(targetEntity = AcAccountWaiverImpl.class, mappedBy = "account")
     private List<AcAccountWaiver> waivers;
+    
+    @OneToMany(targetEntity = AcSponsorshipImpl.class, mappedBy = "account")
+    private List<AcSponsorship> sponsorships;
 
     @Embedded
     private AcMetadata metadata;
@@ -114,6 +119,17 @@ public class AcAccountImpl implements AcAccount{
     public void setWaivers(List<AcAccountWaiver> waivers) {
         this.waivers = waivers;
     }
+    
+    @Override
+    public List<AcSponsorship> getsponsorships() {
+        return sponsorships;
+    }
+
+    @Override
+    public void setSponsorships(List<AcSponsorship> sponsorships) {
+        this.sponsorships = sponsorships;
+    }
+
 
     @Override
     public List<AcAccountTransaction> getTransactions() {
