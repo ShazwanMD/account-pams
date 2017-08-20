@@ -34,7 +34,7 @@ export class AccountSponsorshipListComponent implements OnInit {
     // no op
   }
 
-  showSponsorshipEditorDialog(charge: AccountCharge): void {
+  showSponsorshipEditorDialog(sponsorships: AccountSponsorship): void {
     let config: MdDialogConfig = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';
