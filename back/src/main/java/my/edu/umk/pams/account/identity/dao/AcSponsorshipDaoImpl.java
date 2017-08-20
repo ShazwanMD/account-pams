@@ -1,8 +1,12 @@
 package my.edu.umk.pams.account.identity.dao;
 
 
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
+
+import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -10,13 +14,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import my.edu.umk.pams.account.account.dao.AcChargeCodeDao;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountWaiver;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.core.AcMetaState;
+import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.model.AcSponsorshipImpl;
+import my.edu.umk.pams.account.identity.model.AcUser;
 
 
 @Repository("AcSponsorshipDao")
@@ -72,6 +80,25 @@ public class AcSponsorshipDaoImpl extends GenericDaoSupport<Long, AcSponsorship>
         query.setMaxResults(limit);
         return (List<AcSponsorship>) query.list();
     }
+    
+    @Override
+    public void addSponsorship(AcAccount account, AcAcademicSession academicSession, AcSponsorship sponsorship, AcUser user) {
+        Validate.notNull(account, "Account should not be null");
+        Validate.notNull(sponsorship, "Sponsorship should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        sponsorship.setAccount(account);
+        sponsorship.setSession(academicSession);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(ACTIVE);
+        sponsorship.setMetadata(metadata);
+
+        session.save(sponsorship);
+    }
+
 
 
 //    @Override
