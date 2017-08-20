@@ -3,9 +3,11 @@ package my.edu.umk.pams.account.web.module.account.controller;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
+import my.edu.umk.pams.account.web.module.identity.vo.Sponsorship;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author PAMS
@@ -129,6 +132,26 @@ public class AccountTransformer {
         m.setInvoiced(null != e.getInvoice());
         commonTransformer.decorateMeta(e,m);
         return m;
+    }
+    
+    public Sponsorship toSponsorshipVo(AcSponsorship e) {
+    	Sponsorship vo = new Sponsorship();
+        vo.setId(e.getId());
+//        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setAccountNo(e.getAccountNo());
+        vo.setEndDate(e.getEndDate());
+        vo.setAmount(e.getAmount());
+        vo.setStartDate(e.getStartDate());
+        vo.setActive(e.getActive());
+        return vo;
+    }
+
+    public List<Sponsorship> toSponsorshipVos(List<AcSponsorship> sponsorships) {
+        List<Sponsorship> vos = sponsorships.stream()
+                .map((sponsorship) -> toSponsorshipVo(sponsorship))
+                .collect(toList());
+        return vos;                                                                                                                   
     }
 
     public AccountWaiver toAccountWaiverVo(AcAccountWaiver e) {
