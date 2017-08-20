@@ -23,6 +23,18 @@ public class AcAdvancePaymentDaoImpl extends GenericDaoSupport<Long, AcAdvancePa
     }
     
     @Override
+    public AcAdvancePayment findByReferenceNo(String referenceNo) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcAdvancePayment s where "
+        		+ "s.referenceNo = :referenceNo and  " +
+                " s.metadata.state = :state");
+        query.setString("referenceNo", referenceNo);
+        query.setCacheable(true);
+        query.setInteger("state", ACTIVE.ordinal());
+        return (AcAdvancePayment) query.uniqueResult();
+    }
+    
+    @Override
     public List<AcAdvancePayment> find(String filter, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select i from AcAdvancePayment i where " +

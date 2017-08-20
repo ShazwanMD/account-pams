@@ -18,6 +18,7 @@ import {CreditNoteItem} from '../app/shared/model/billing/credit-note-item.inter
 import {Account} from '../app/shared/model/account/account.interface';
 import {ReceiptInvoice} from '../app/shared/model/billing/receipt-invoice.interface';
 import {AdvancePayment} from '../app/shared/model/billing/advance-payment.interface';
+import {Knockoff} from '../app/shared/model/billing/knockoff.interface';
 
 @Injectable()
 export class BillingService {
@@ -467,14 +468,25 @@ export class BillingService {
   // KNOCKOFF & ADVANCE PAYMENT
   // ==================================================================================================== 
   
-//  findAdvancePayments(): Observable<AdvancePayment[]> {
-//      return this._http.get(this.BILLING_API + '/advancePayments')
-//        .map((res: Response) => <AdvancePayment[]>res.json());
-//    }
-  
   findUnpaidAdvancePayments(account: Account): Observable<AdvancePayment[]> {
       console.log('findUnpaidAdvancePayments');
       return this._http.get(this.BILLING_API + '/advancePayments/unpaidInvoices/' + account.code)
         .map((res: Response) => <AdvancePayment[]>res.json());
     }
+  
+  findKnockoffs(): Observable<Knockoff[]> {
+      return this._http.get(this.BILLING_API + '/knockoffs')
+        .map((res: Response) => <Knockoff[]>res.json());
+    }
+  
+  findKnockoffByReferenceNo(referenceNo: string): Observable<Knockoff> {
+      return this._http.get(this.BILLING_API + '/knockoffs/' + referenceNo)
+        .map((res: Response) => <Knockoff>res.json());
+    }
+  
+  saveKnockoff(knockoff: Knockoff): Observable<Boolean> {
+      return this._http.post(this.BILLING_API + '/knockoffs/saveKnockoff', JSON.stringify(knockoff))
+      .flatMap((data) => Observable.of(true));
+  }
+
 }

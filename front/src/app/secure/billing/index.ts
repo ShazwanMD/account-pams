@@ -61,6 +61,9 @@ import {receiptInvoiceListReducer, ReceiptInvoiceListState} from './receipts/rec
 import { AdvancePaymentSubModule } from "./advance-payments/index";
 import {advancePaymentListReducer, AdvancePaymentListState} from './advance-payments/advance-payment-list.reducer';
 import {AdvancePayment} from '../../shared/model/billing/advance-payment.interface';
+import { Knockoff } from "../../shared/model/billing/knockoff.interface";
+import {knockoffReducer, KnockoffState} from './knockoffs/knockoff.reducer';
+import {knockoffListReducer, KnockoffListState} from './knockoffs/knockoff-list.reducer';
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -92,6 +95,8 @@ export interface BillingModuleState {
   creditNote: CreditNoteState;
   creditNoteTask: CreditNoteTaskState;
   advancePayments: AdvancePaymentListState;
+  knockoff: KnockoffState;
+  knockoffs: KnockoffListState;
 }
 ;
 
@@ -126,6 +131,8 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     creditNoteTask: <CreditNoteTask>{},
     creditNote: <CreditNote>{},
     advancePayments: <AdvancePayment[]>[],
+    knockoff: <Knockoff>{},
+    knockoffs: <Knockoff[]>[],
   };
 
 export const billingModuleReducers = {
@@ -156,6 +163,8 @@ export const billingModuleReducers = {
   creditNoteTask: creditNoteTaskReducer,
   creditNote: creditNoteReducer,
   advancePayments: advancePaymentListReducer,
+  knockoff: knockoffReducer,
+  Knockoffs: knockoffListReducer,
 };
 
 @NgModule({
