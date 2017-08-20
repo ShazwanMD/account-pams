@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.model;
 
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcSponsorship;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,6 +36,9 @@ public interface AcAccount extends AcMetaObject {
 
     void setTransactions(List<AcAccountTransaction> transactions);
 
+    List<AcSponsorship> getsponsorships();
+
+	void setSponsorships(List<AcSponsorship> sponsorships);
 
     // transient
     // todo: debit, credit, balance
@@ -46,4 +50,6 @@ public interface AcAccount extends AcMetaObject {
     BigDecimal getEffectiveBalance();
 
     void setEffectiveBalance(BigDecimal effectiveBalance);
+
+
 }
