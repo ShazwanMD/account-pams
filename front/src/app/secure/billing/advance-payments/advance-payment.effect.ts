@@ -21,4 +21,10 @@ export class AdvancePaymentEffects {
     .map((action) => action.payload)
     .switchMap((account) => this.billingService.findUnpaidAdvancePayments(account))
     .map((payments) => this.advancePaymentActions.findUnpaidAdvancePaymentSuccess(payments));
+        
+    @Effect() findAdvancePayments$ = this.actions$
+    .ofType(AdvancePaymentActions.FIND_ADVANCE_PAYMENTS)
+    .map((action) => action.payload)
+    .switchMap(() => this.billingService.findAdvancePayments())
+    .map((payments) => this.advancePaymentActions.findAdvancePaymentsSuccess(payments));
 }

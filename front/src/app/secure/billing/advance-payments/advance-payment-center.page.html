@@ -10,7 +10,7 @@
         <md-icon>create</md-icon>
         Knockoff
       </a>
-      <a md-list-item (click)="showDialog()">
+      <a md-list-item>
         <md-icon>create</md-icon>
         Refund Payment
       </a>
@@ -27,7 +27,20 @@
     </div>
 
     <md-card>
+      <md-tab-group [selectedIndex]="0">
+        <md-tab label="Advance Payments">
+           <pams-advance-payment-list
+            [advancePayments]="advancePayments$ | async"
+            (knockoffCreateDialog)="knockoffCreateDialog($event)" 
+            (refundCreateDialog)="refundCreateDialog($event)"></pams-advance-payment-list>
+        </md-tab>
+        <md-tab label="Knockoff">
 
+        </md-tab>
+        <md-tab label="Refund">
+
+        </md-tab>
+      </md-tab-group>
     </md-card>
 
   </td-layout-manage-list>

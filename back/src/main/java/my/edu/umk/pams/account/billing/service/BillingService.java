@@ -295,6 +295,8 @@ public interface BillingService {
     // ADVANCE PAYMENT
     // ==================================================================================================== //
     
+    AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo);
+    
     List<AcAdvancePayment> findAdvancePayments(String filter, Integer offset, Integer limit);
     
     List<AcAdvancePayment> findUnpaidAdvancePayments(AcAccount account, Integer offset, Integer limit);
@@ -306,6 +308,8 @@ public interface BillingService {
     // ==================================================================================================== //
 
     AcKnockoff findKnockoffByReferenceNo(String referenceNo);
+    
+    List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit);
 
     boolean hasKnockoff(AcKnockoff knockoff);
     

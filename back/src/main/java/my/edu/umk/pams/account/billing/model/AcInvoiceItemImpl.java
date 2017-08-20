@@ -45,7 +45,7 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
 
     @NotNull
     @ManyToOne(targetEntity = AcTaxCodeImpl.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "Tax_CODE_ID")
+    @JoinColumn(name = "TAX_CODE_ID")
     private AcTaxCode taxCode;
 
     @NotNull

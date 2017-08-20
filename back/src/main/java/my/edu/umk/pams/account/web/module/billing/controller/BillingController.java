@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.web.module.billing.controller;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.*;
@@ -742,12 +743,44 @@ public class BillingController {
     // ==================================================================================================== //
     //  KNOCKOFF
     // ==================================================================================================== //
+   
+    @RequestMapping(value = "/advancePayments", method = RequestMethod.GET)
+    public ResponseEntity<List<AdvancePayment>> findAdvancePayments() {
+        List<AcAdvancePayment> advancePayments = billingService.findAdvancePayments("%", 0, 100);
+        return new ResponseEntity<List<AdvancePayment>>(billingTransformer.toAdvancePaymentVos(advancePayments), HttpStatus.OK);
+    }
     
     @RequestMapping(value = "/advancePayments/unpaidInvoices/{code}", method = RequestMethod.GET)
     public ResponseEntity<List<AdvancePayment>> findUnpaidAdvancePayments(@PathVariable String code) {
         AcAccount account = accountService.findAccountByCode(code);
         List<AcAdvancePayment> payments = billingService.findUnpaidAdvancePayments(account, 0, 100);
         return new ResponseEntity<List<AdvancePayment>>(billingTransformer.toAdvancePaymentVos(payments), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs", method = RequestMethod.GET)
+    public ResponseEntity<List<Knockoff>> findKnockoffs() {
+        List<AcKnockoff> knockoffs = billingService.findKnockoffs("%", 0, 100);
+        return new ResponseEntity<List<Knockoff>>(billingTransformer.toKnockoffVos(knockoffs), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<Knockoff> findKnockoffByReferenceNo(@PathVariable String referenceNo) {
+        AcKnockoff knockoffs = billingService.findKnockoffByReferenceNo(referenceNo);
+        return new ResponseEntity<Knockoff>(billingTransformer.toKnockoffVo(knockoffs), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/saveKnockoff", method = RequestMethod.POST)
+    public ResponseEntity<String> saveKnockoff(@RequestBody Knockoff vo) {
+        
+        AcKnockoff knockoff = new AcKnockoffImpl();
+        knockoff.setAmount(vo.getAmount());
+        knockoff.setAuditNo(vo.getAuditNo());
+        knockoff.setDescription(vo.getDescription());
+        knockoff.setInvoice(billingService.findInvoiceByReferenceNo(vo.getInvoice().getReferenceNo()));
+        knockoff.setIssuedDate(vo.getIssuedDate());
+        knockoff.setPayments(billingService.findAdvancePaymentByReferenceNo(vo.getPayments().getReferenceNo()));
+        knockoff.setReferenceNo(vo.getReferenceNo());
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
     // ====================================================================================================

@@ -1027,6 +1027,11 @@ public class BillingServiceImpl implements BillingService {
 	// //
 	
 	@Override
+	public AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo) {
+		return advancePaymentDao.findByReferenceNo(referenceNo);
+	}
+	
+	@Override
 	public void addAdvancePayment(AcAdvancePayment payment, AcUser user){
 		advancePaymentDao.save(payment, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
@@ -1051,6 +1056,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public AcKnockoff findKnockoffByReferenceNo(String referenceNo) {
 		return knockoffDao.findByReferenceNo(referenceNo);
+	}
+	
+	@Override
+	public List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit) { 
+		return knockoffDao.find(filter, offset, limit);
 	}
 
 	@Override

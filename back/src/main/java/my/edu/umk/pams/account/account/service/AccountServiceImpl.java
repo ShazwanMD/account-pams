@@ -467,12 +467,22 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public BigDecimal sumBalanceAmount(AcAccount account) {
-        return accountDao.sumBalanceAmount(account);
+        return accountDao.sumBalanceAmount(account).add(sumChargeAmount(account)).add(sumSecurityChargeAmount(account));
     }
 
     @Override
     public BigDecimal sumWaiverAmount(AcAccount account) {
         return accountDao.sumWaiverAmount(account);
+    }
+    
+    @Override
+    public BigDecimal sumChargeAmount(AcAccount account) {
+        return accountDao.sumChargeAmount(account);
+    }
+    
+    @Override
+    public BigDecimal sumSecurityChargeAmount(AcAccount account) {
+        return accountDao.sumSecurityChargeAmount(account);
     }
 
     @Override

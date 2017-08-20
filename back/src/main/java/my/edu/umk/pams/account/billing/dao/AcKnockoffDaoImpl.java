@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.billing.dao;
 import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
@@ -10,6 +11,8 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffImpl;
 import my.edu.umk.pams.account.core.AcMetaState;
@@ -35,6 +38,18 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         query.setCacheable(true);
         query.setInteger("state", ACTIVE.ordinal());
         return (AcKnockoff) query.uniqueResult();
+    }
+    
+    @Override
+    public List<AcKnockoff> find(String filter, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcKnockoff i where " +
+                "i.metadata.state = :state ");
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setCacheable(true);
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<AcKnockoff>) query.list();
     }
     
     @Override
