@@ -3,6 +3,8 @@ package my.edu.umk.pams.account.identity.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -45,6 +47,14 @@ public interface AcSponsorship extends AcMetaObject {
     Boolean getActive();
 
 	void setActive(Boolean active);
+	
+    AcAccount getAccount();
+
+    void setAccount(AcAccount account);
+	
+    AcAcademicSession getSession();
+
+    void setSession(AcAcademicSession session);
 
 }
  
