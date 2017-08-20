@@ -2,10 +2,12 @@ package my.edu.umk.pams.account.identity.dao;
 
 import java.util.List;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
+import my.edu.umk.pams.account.identity.model.AcUser;
 
 public interface AcSponsorshipDao extends GenericDao<Long, AcSponsorship> {
 	
@@ -20,6 +22,8 @@ public interface AcSponsorshipDao extends GenericDao<Long, AcSponsorship> {
     List<AcSponsorship> find(String filter, Integer offset, Integer limit);
     
     List<AcSponsorship> find(AcAccount account);
+
+	void addSponsorship(AcAccount account,AcAcademicSession session, AcSponsorship sponsorship, AcUser currentUser);
 
 
     // ====================================================================================================
