@@ -16,6 +16,7 @@ import { PipeModule } from '../../../app.pipe.module';
 import { KnockoffActions } from './knockoff.action';
 import { KnockoffEffects } from './knockoff.effect';
 import { KnockoffCreatorDialog } from "./dialog/knockoff-creator.dialog";
+import { AdvancePaymentSubModule } from "../advance-payments/index";
 
 @NgModule( {
     imports: [
@@ -39,13 +40,10 @@ import { KnockoffCreatorDialog } from "./dialog/knockoff-creator.dialog";
 
 
         // dialog
-        KnockoffCreatorDialog
     ],
     exports: [
-        KnockoffCreatorDialog
     ],
     entryComponents: [
-        KnockoffCreatorDialog
     ],
 
 } )

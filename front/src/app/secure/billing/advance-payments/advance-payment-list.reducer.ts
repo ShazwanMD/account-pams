@@ -11,6 +11,9 @@ export function advancePaymentListReducer(state = initialState, action: Action):
       case AdvancePaymentActions.FIND_UNPAID_ADVANCE_PAYMENTS_SUCCESS: {
         return action.payload;
       }
+      case AdvancePaymentActions.FIND_ADVANCE_PAYMENTS_SUCCESS: {
+          return action.payload;
+        }
       default: {
         return state;
       }
