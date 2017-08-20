@@ -468,6 +468,11 @@ export class BillingService {
   // KNOCKOFF & ADVANCE PAYMENT
   // ==================================================================================================== 
   
+  findAdvancePayments(): Observable<AdvancePayment[]> {
+      return this._http.get(this.BILLING_API + '/advancePayments')
+        .map((res: Response) => <AdvancePayment[]>res.json());
+    }
+  
   findUnpaidAdvancePayments(account: Account): Observable<AdvancePayment[]> {
       console.log('findUnpaidAdvancePayments');
       return this._http.get(this.BILLING_API + '/advancePayments/unpaidInvoices/' + account.code)
