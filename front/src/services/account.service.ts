@@ -288,22 +288,22 @@ export class AccountService {
   // ACCOUNT - SPONSORSHIP
   // ====================================================================================================
 
-
    findAccountSponsorships(account: Account): Observable<AccountSponsorship[]> {
-      console.log('findsponsorships :' + account.code);
+      console.log('findsponsorships xxx :' + account.code);
       return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/sponsorships')
         .map((res: Response) => <AccountSponsorship[]>res.json());
     }
 
     addAccountSponsorships(account: Account, sponsorship: AccountSponsorship): Observable<String> {
-    return this._http.post(this.ACCOUNT_API + '/accounts/' + account.code + '/accountSponsorships', JSON.stringify(sponsorship))
+      console.log('addsponsorships account code :' + account.code);
+    return this._http.post(this.ACCOUNT_API + '/account/' + account.code + '/sponsorships', JSON.stringify(sponsorship))
       .flatMap((res: Response) => Observable.of(res.text()));
    }
 
-   saveAccountSponsorships(account: AccountSponsorship): Observable<Boolean> {
-    return this._http.post(this.ACCOUNT_API + '/accounts', JSON.stringify(account))
-      .flatMap((data) => Observable.of(true));
-  }
+  //  saveAccountSponsorships(account: AccountSponsorship): Observable<Boolean> {
+  //   return this._http.post(this.ACCOUNT_API + '/accounts', JSON.stringify(account))
+  //     .flatMap((data) => Observable.of(true));
+  // }
 
     updateAccountSponsorships(account: Account, sponsorship: AccountSponsorship): Observable<String> {
     console.log('updating account sponsorship' + sponsorship.referenceNo);
