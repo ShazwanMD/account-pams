@@ -267,5 +267,9 @@ public interface AccountService {
 
     void removeAccountWaiver(AcAccount acAccount, AcAcademicSession academicSession, AcAccountWaiver waiver);
 
+	BigDecimal sumChargeAmount(AcAccount account);
+
+	BigDecimal sumSecurityChargeAmount(AcAccount account);
+
 	
 }
