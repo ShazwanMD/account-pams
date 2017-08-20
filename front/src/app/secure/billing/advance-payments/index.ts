@@ -20,6 +20,7 @@ import {ReceiptItemDetailPage} from '../receipts/receipt-item-detail.page';
 import { AdvancePaymentCenterPage } from "./advance-payment-center.page";
 import { AdvancePaymentActions } from "./advance-payment.action";
 import { AdvancePaymentEffects } from "./advance-payment.effect";
+import { KnockoffCreatorDialog } from "../knockoffs/dialog/knockoff-creator.dialog";
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { AdvancePaymentEffects } from "./advance-payment.effect";
 
     // components
     AdvancePaymentSelectComponent,
+    KnockoffCreatorDialog,
 
     // dialog
   ],
@@ -49,7 +51,7 @@ import { AdvancePaymentEffects } from "./advance-payment.effect";
     AdvancePaymentSelectComponent,      
   ],
   entryComponents: [
-
+    KnockoffCreatorDialog,
   ],
 
 })
