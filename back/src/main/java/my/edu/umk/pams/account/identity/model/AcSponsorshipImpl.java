@@ -1,5 +1,9 @@
 package my.edu.umk.pams.account.identity.model;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorImpl;
@@ -43,6 +47,15 @@ public class AcSponsorshipImpl implements AcSponsorship {
     @JoinColumn(name = "SPONSOR_ID")
     private AcSponsor sponsor;
     
+    @ManyToOne(targetEntity = AcAccountImpl.class)
+    @JoinColumn(name = "ACCOUNT_ID")
+    private AcAccount account;
+    
+    @NotNull
+    @OneToOne(targetEntity = AcAcademicSessionImpl.class)
+    @JoinColumn(name = "SESSION_ID")
+    private AcAcademicSession session;
+
     @NotNull
     @Column(name = "AMOUNT", nullable = false)
     private BigDecimal amount = BigDecimal.ZERO;
@@ -152,6 +165,26 @@ public class AcSponsorshipImpl implements AcSponsorship {
     @Override
     public void setMetadata(AcMetadata metadata) {
         this.metadata = metadata;
+    }
+    
+    @Override
+    public AcAcademicSession getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(AcAcademicSession session) {
+        this.session = session;
+    }
+    
+    @Override
+    public AcAccount getAccount() {
+        return account;
+    }
+
+    @Override
+    public void setAccount(AcAccount account) {
+        this.account = account;
     }
 
     @Override
