@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.web.module.identity.vo;
 
+import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
 import my.edu.umk.pams.account.web.module.common.vo.ResidencyCode;
 
