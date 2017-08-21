@@ -550,21 +550,36 @@ public class AccountController {
 		return new ResponseEntity<List<Sponsorship>>(
 				 accountTransformer.toSponsorshipVos(identityService.findSponsorships(account)), HttpStatus.OK);
 	}
+    
+    
+//    @RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
+//    public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo) {
+//
+//        AcAccount account = accountService.findAccountByCode(code);
+//        AcAccountTransaction transaction = new AcAccountTransactionImpl();
+//        transaction.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+//        transaction.setAmount(vo.getAmount());
+//        transaction.setPostedDate(vo.getPostedDate());
+//        transaction.setSession(accountService.findAcademicSessionById(vo.getSession().getId()));
+//        transaction.setTransactionCode(AcAccountTransactionCode.ADHOC);
+//        accountService.addAccountTransaction(account, transaction);
+//    }
 
 	@RequestMapping(value = "/account/{code}/sponsorships", method = RequestMethod.POST)
-	public ResponseEntity<String> saveSponsorship(@RequestBody Sponsorship vo) {
-
+	public void addSponsorship(@PathVariable String code, @RequestBody Sponsorship vo) {
+		
+		AcAccount account = accountService.findAccountByCode(code);
 		AcSponsorship sponsorship = new AcSponsorshipImpl();
 		sponsorship.setReferenceNo(vo.getReferenceNo());
 		sponsorship.setAccountNo(vo.getAccountNo());
 		if (null != vo.getStudent())
 			sponsorship.setStudent(identityService.findStudentById(vo.getId()));
 		sponsorship.setAmount(vo.getAmount());
+		sponsorship.setSponsor(identityService.findSponsorById(vo.getId()));
 		sponsorship.setActive(vo.getActive());
 		sponsorship.setStartDate(vo.getStartDate());
 		sponsorship.setEndDate(vo.getEndDate());
-	    identityService.saveSponsorship(sponsorship);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
+		accountService.addSponsorship(account, sponsorship);
 	}
 	
 	@RequestMapping(value = "/sponsorships/{code}", method = RequestMethod.PUT)
