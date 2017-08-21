@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
 
 /**
  * ?? todo: coverage
@@ -16,9 +17,6 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
  */
 public interface AcSponsorship extends AcMetaObject {
 
-    AcSponsor getSponsor();
-
-    void setSponsor(AcSponsor sponsor);
 
     AcStudent getStudent();
 
@@ -51,10 +49,16 @@ public interface AcSponsorship extends AcMetaObject {
     AcAccount getAccount();
 
     void setAccount(AcAccount account);
-	
-    AcAcademicSession getSession();
 
-    void setSession(AcAcademicSession session);
+    AcSponsor getSponsor();
+    
+	void setSponsor(AcSponsor sponsor);
+
+	
+	
+//    AcAcademicSession getSession();
+//
+//    void setSession(AcAcademicSession session);
 
 }
  
