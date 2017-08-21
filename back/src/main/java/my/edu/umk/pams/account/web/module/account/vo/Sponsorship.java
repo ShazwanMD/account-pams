@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.web.module.account.vo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
@@ -14,6 +15,7 @@ import my.edu.umk.pams.account.web.module.identity.vo.Student;
 public class Sponsorship extends MetaObject {
 
 	private BigDecimal amount;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date startDate;
 	private Date endDate;
 	private String referenceNo;
