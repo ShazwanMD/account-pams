@@ -13,7 +13,7 @@ import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
-import my.edu.umk.pams.account.web.module.identity.vo.Sponsorship;
+import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -551,20 +551,6 @@ public class AccountController {
 				 accountTransformer.toSponsorshipVos(identityService.findSponsorships(account)), HttpStatus.OK);
 	}
 
-//    @RequestMapping(value = "/sponsorships/{identityNo}", method = RequestMethod.GET)
-//    public ResponseEntity<Student> findStudentByIdentityNo(@PathVariable String identityNo) {
-//        return new ResponseEntity<Student>(identityTransformer
-//                .toStudentVo(identityService.findStudentByMatricNo(identityNo)), HttpStatus.OK);
-//    }
-    
-//	@RequestMapping(value = "/accounts/{code}/sponsorships", method = RequestMethod.GET)
-//	public ResponseEntity<List<Sponsorship>> findAccountSponsorships(@PathVariable String code) {
-//		AcAccount account = accountService.findAccountByCode(code);
-//		return new ResponseEntity<List<Sponsorship>>(
-//				 identityTransformer.toSponsorshipVos(identityService.findSponsorships(account)), HttpStatus.OK);
-//	}
-
-
 	@RequestMapping(value = "/account/{code}/sponsorships", method = RequestMethod.POST)
 	public ResponseEntity<String> saveSponsorship(@RequestBody Sponsorship vo) {
 
@@ -580,10 +566,6 @@ public class AccountController {
 	    identityService.saveSponsorship(sponsorship);
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
-	
-	
-
-    
 	
 	@RequestMapping(value = "/sponsorships/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateSponsorship(@PathVariable String code, @RequestBody Sponsorship vo) {
