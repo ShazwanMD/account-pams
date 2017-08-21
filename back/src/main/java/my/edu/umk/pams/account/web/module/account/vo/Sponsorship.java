@@ -3,7 +3,9 @@ package my.edu.umk.pams.account.web.module.account.vo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
+import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
 import my.edu.umk.pams.account.web.module.identity.vo.Student;
 
 /**
@@ -18,6 +20,7 @@ public class Sponsorship extends MetaObject {
 	private String accountNo;
 	private Boolean active;
 	private Student student;
+	private Sponsor sponsor;
 
 	public BigDecimal getAmount() {
 		return amount;	
@@ -73,6 +76,14 @@ public class Sponsorship extends MetaObject {
 
 	public void setStudent(Student student) {
 		this.student = student;
+	}
+	
+    public Sponsor getSponsor() {
+		return sponsor;
+	}
+
+	public void setSponsor(Sponsor sponsor) {
+		this.sponsor = sponsor;
 	}
 	
 }
