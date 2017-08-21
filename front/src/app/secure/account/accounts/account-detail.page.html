@@ -32,7 +32,9 @@
             </md-tab>
 
             <md-tab label="Sponsorships">
-              <pams-account-sponsorship-list [sponsorships]="sponsorships$ | async"></pams-account-sponsorship-list>
+              <pams-account-sponsorship-list
+               [account]="account$ | async"
+               [sponsorships]="sponsorships$ | async"></pams-account-sponsorship-list>
             </md-tab>
           </md-tab-group>
         </md-card>
