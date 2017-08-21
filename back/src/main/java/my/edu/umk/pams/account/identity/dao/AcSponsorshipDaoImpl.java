@@ -82,13 +82,12 @@ public class AcSponsorshipDaoImpl extends GenericDaoSupport<Long, AcSponsorship>
     }
     
     @Override
-    public void addSponsorship(AcAccount account, AcAcademicSession academicSession, AcSponsorship sponsorship, AcUser user) {
+    public void addSponsorship(AcAccount account, AcSponsorship sponsorship, AcUser user) {
         Validate.notNull(account, "Account should not be null");
         Validate.notNull(sponsorship, "Sponsorship should not be null");
 
         Session session = sessionFactory.getCurrentSession();
         sponsorship.setAccount(account);
-        sponsorship.setSession(academicSession);
 
         AcMetadata metadata = new AcMetadata();
         metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
