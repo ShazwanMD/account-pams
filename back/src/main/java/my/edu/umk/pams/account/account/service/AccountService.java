@@ -296,6 +296,6 @@ public interface AccountService {
 
 	void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
 
-	void addSponsorship(AcAccount account,AcAcademicSession academicSession, AcSponsorship sponsorship);
+	void addSponsorship(AcAccount account, AcSponsorship sponsorship);
 
 }
