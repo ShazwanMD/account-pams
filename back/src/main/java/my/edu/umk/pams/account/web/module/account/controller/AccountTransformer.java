@@ -7,7 +7,7 @@ import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
-import my.edu.umk.pams.account.web.module.identity.vo.Sponsorship;
+import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
