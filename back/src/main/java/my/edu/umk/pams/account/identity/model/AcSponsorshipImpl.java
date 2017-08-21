@@ -9,6 +9,7 @@ import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorImpl;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
+import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -47,14 +48,15 @@ public class AcSponsorshipImpl implements AcSponsorship {
     @JoinColumn(name = "SPONSOR_ID")
     private AcSponsor sponsor;
     
-    @ManyToOne(targetEntity = AcAccountImpl.class)
+  
+	@ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
     
-    @NotNull
-    @OneToOne(targetEntity = AcAcademicSessionImpl.class)
-    @JoinColumn(name = "SESSION_ID")
-    private AcAcademicSession session;
+//    @NotNull
+//    @OneToOne(targetEntity = AcAcademicSessionImpl.class)
+//    @JoinColumn(name = "SESSION_ID")
+//    private AcAcademicSession session;
 
     @NotNull
     @Column(name = "AMOUNT", nullable = false)
@@ -108,14 +110,6 @@ public class AcSponsorshipImpl implements AcSponsorship {
     public void setStudent(AcStudent student) {
         this.student = student;
     }
-
-    public AcSponsor getSponsor() {
-        return sponsor;
-    }
-
-    public void setSponsor(AcSponsor sponsor) {
-        this.sponsor = sponsor;
-    }
     
     @Override
     public BigDecimal getAmount() {
@@ -168,14 +162,14 @@ public class AcSponsorshipImpl implements AcSponsorship {
     }
     
     @Override
-    public AcAcademicSession getSession() {
-        return session;
-    }
+    public AcSponsor getSponsor() {
+		return sponsor;
+	}
 
     @Override
-    public void setSession(AcAcademicSession session) {
-        this.session = session;
-    }
+	public void setSponsor(AcSponsor sponsor) {
+		this.sponsor = sponsor;
+	}
     
     @Override
     public AcAccount getAccount() {
@@ -186,7 +180,7 @@ public class AcSponsorshipImpl implements AcSponsorship {
     public void setAccount(AcAccount account) {
         this.account = account;
     }
-
+	
     @Override
     public Class<?> getInterfaceClass() {
         return AcSponsorship.class;
