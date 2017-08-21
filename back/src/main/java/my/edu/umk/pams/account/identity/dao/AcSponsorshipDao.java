@@ -23,7 +23,7 @@ public interface AcSponsorshipDao extends GenericDao<Long, AcSponsorship> {
     
     List<AcSponsorship> find(AcAccount account);
 
-	void addSponsorship(AcAccount account,AcAcademicSession session, AcSponsorship sponsorship, AcUser currentUser);
+	void addSponsorship(AcAccount account, AcSponsorship sponsorship, AcUser user);
 
 
     // ====================================================================================================
