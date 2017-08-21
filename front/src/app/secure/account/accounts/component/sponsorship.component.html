@@ -29,5 +29,14 @@
         <span flex>{{value}}</span>
       </div>
     </template>
+     <template tdDataTableTemplate="startDate" let-value="value" let-row="row" let-column="column">
+      <div layout="row">{{row['startDate'] | date: 'dd-MMM-yyyy'}}</div>
+    </template>
+        <template tdDataTableTemplate="endDate" let-value="value" let-row="row" let-column="column">
+      <div layout="row">{{row['endDate'] | date: 'dd-MMM-yyyy'}}</div>
+    </template>
+    <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
+      <div layout="row">{{row['amount'] | currency:'MYR':true:'1.2-2'}}</div>
+    </template>
   </td-data-table>
 </td-expansion-panel>
