@@ -575,7 +575,7 @@ public class AccountController {
 		if (null != vo.getStudent())
 			sponsorship.setStudent(identityService.findStudentById(vo.getId()));
 		sponsorship.setAmount(vo.getAmount());
-		sponsorship.setSponsor(identityService.findSponsorById(vo.getId()));
+//		sponsorship.setSponsor(identityService.findSponsorById(vo.getId()));
 		sponsorship.setActive(vo.getActive());
 		sponsorship.setStartDate(vo.getStartDate());
 		sponsorship.setEndDate(vo.getEndDate());
