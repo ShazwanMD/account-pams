@@ -11,7 +11,6 @@ import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.account.vo.AccountCharge;
 import my.edu.umk.pams.account.web.module.identity.vo.Actor;
 import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
-import my.edu.umk.pams.account.web.module.identity.vo.Sponsorship;
 import my.edu.umk.pams.account.web.module.identity.vo.Staff;
 import my.edu.umk.pams.account.web.module.identity.vo.Student;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
@@ -128,63 +127,6 @@ public class IdentityController {
                 .toStudentVo(identityService.findStudentByMatricNo(identityNo)), HttpStatus.OK);
     }
     
-    
- // ==================================================================================================== //
-    // SPONSORSHIP
-    // ==================================================================================================== //
-
-    @RequestMapping(value = "/sponsorships", method = RequestMethod.GET)
-    public ResponseEntity<List<Sponsorship>> findSponsorships() {
-        return new ResponseEntity<List<Sponsorship>>(identityTransformer
-                .toSponsorshipVos(identityService.findSponsorships(0, 100)), HttpStatus.OK);
-    }
-
-//    @RequestMapping(value = "/sponsorships/{identityNo}", method = RequestMethod.GET)
-//    public ResponseEntity<Student> findStudentByIdentityNo(@PathVariable String identityNo) {
-//        return new ResponseEntity<Student>(identityTransformer
-//                .toStudentVo(identityService.findStudentByMatricNo(identityNo)), HttpStatus.OK);
-//    }
-    
-//	@RequestMapping(value = "/accounts/{code}/sponsorships", method = RequestMethod.GET)
-//	public ResponseEntity<List<Sponsorship>> findAccountSponsorships(@PathVariable String code) {
-//		AcAccount account = accountService.findAccountByCode(code);
-//		return new ResponseEntity<List<Sponsorship>>(
-//				 identityTransformer.toSponsorshipVos(identityService.findSponsorships(account)), HttpStatus.OK);
-//	}
-
-
-	@RequestMapping(value = "/sponsorships", method = RequestMethod.POST)
-	public ResponseEntity<String> saveSponsorship(@RequestBody Sponsorship vo) {
-
-		AcSponsorship sponsorship = new AcSponsorshipImpl();
-		sponsorship.setReferenceNo(vo.getReferenceNo());
-		sponsorship.setAccountNo(vo.getAccountNo());
-		if (null != vo.getStudent())
-			sponsorship.setStudent(identityService.findStudentById(vo.getId()));
-		sponsorship.setAmount(vo.getAmount());
-		sponsorship.setActive(vo.getActive());
-		sponsorship.setStartDate(vo.getStartDate());
-		sponsorship.setEndDate(vo.getEndDate());
-	    identityService.saveSponsorship(sponsorship);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/sponsorships/{code}", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateSponsorship(@PathVariable String code, @RequestBody Sponsorship vo) {
-
-        // what can we update?
-		AcSponsorship sponsorship = identityService.findSponsorshipById(vo.getId());
-		sponsorship.setReferenceNo(vo.getReferenceNo());
-		sponsorship.setAccountNo(vo.getAccountNo());
-		if (null != vo.getStudent())
-			sponsorship.setStudent(identityService.findStudentById(vo.getId()));
-		sponsorship.setAmount(vo.getAmount());
-		sponsorship.setActive(vo.getActive());
-		sponsorship.setStartDate(vo.getStartDate());
-		sponsorship.setEndDate(vo.getEndDate());
-        identityService.updateSponsorship(sponsorship);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
 
 }
     
