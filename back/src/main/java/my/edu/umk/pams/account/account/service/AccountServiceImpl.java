@@ -840,8 +840,8 @@ public class AccountServiceImpl implements AccountService {
 //    }
 //    
     @Override
-    public void addSponsorship(AcAccount account,AcAcademicSession academicSession, AcSponsorship sponsorship) {
-    	sponsorshipDao.addSponsorship(account, academicSession, sponsorship, securityService.getCurrentUser());
+    public void addSponsorship(AcAccount account, AcSponsorship sponsorship) {
+    	sponsorshipDao.addSponsorship(account, sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
     
