@@ -42,6 +42,7 @@ export class AdvancePaymentCenterPage implements OnInit {
 
     showDialog(payment:AdvancePayment): void {
         console.log( 'showDialog' );
+        console.log('payment' + payment.account.code);
         let config = new MdDialogConfig();
         config.viewContainerRef = this.vcf;
         config.role = 'dialog';
