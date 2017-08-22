@@ -17,6 +17,7 @@ import org.junit.runners.Suite;
         US_AC_BLG_2025.class, //hajar
         US_AC_BLG_2027.class, //aida
         US_AC_BLG_2031.class,
+        US_AC_BLG_2032.class,
 })
 public class BillingModuleTestSuite {
 }

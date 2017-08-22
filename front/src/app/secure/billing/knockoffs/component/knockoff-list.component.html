@@ -1,5 +1,5 @@
 <td-data-table
-  [data]="advancePayments"
+  [data]="knockoff"
   [columns]="columns"
   [sortBy]="summary"
   [sortOrder]="ASC"
@@ -12,21 +12,17 @@
       <span flex>{{value}}</span>
     </div>
   </template>
+    <template tdDataTableTemplate="issuedDate" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['issuedDate'] | date: 'dd-MMM-yyyy'}}</div>
+  </template>
   <template tdDataTableTemplate="amount" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['amount'] | currency:'MYR':true:'1.2-2'}}</div>
   </template>
-  <template tdDataTableTemplate="balanceAmount" let-value="value" let-row="row" let-column="column">
-    <div layout="row">{{row['balanceAmount'] | currency:'MYR':true:'1.2-2'}}</div>
-  </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
-      <button md-icon-button [md-menu-trigger-for]="menu">
-        <md-icon>more_vert</md-icon>
-      </button>
-      <md-menu x-position="before" #menu="mdMenu">
-        <button md-menu-item (click)="knockoffCreateDialog.emit(row)">Knockoff</button>
-        <button md-menu-item (click)="refundCreateDialog.emit(row)">Refund</button>
-      </md-menu>
+      <a md-button color="accent" class="text-upper" (click)="viewInvoice(row)">
+        <span>View</span>
+      </a>
     </div>
   </template>
 </td-data-table>

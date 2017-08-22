@@ -14,7 +14,7 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
 	
 	boolean hasKnockoff(AcKnockoff knockoff);
 	
-    void addKnockoff(AcKnockoff knockoff, AcUser user);
+    //void addKnockoff(AcKnockoff knockoff, AcUser user);
 
     void updateKnockoff(AcKnockoff knockoff, AcUser user);
 

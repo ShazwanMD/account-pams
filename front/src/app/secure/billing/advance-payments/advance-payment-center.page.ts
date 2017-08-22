@@ -8,6 +8,8 @@ import { KnockoffCreatorDialog } from "../knockoffs/dialog/knockoff-creator.dial
 import { AdvancePaymentActions } from "./advance-payment.action";
 import { BillingModuleState } from "../index";
 import { AdvancePayment } from "../../../shared/model/billing/advance-payment.interface";
+import { Knockoff } from "../../../shared/model/billing/knockoff.interface";
+import { KnockoffActions } from "../knockoffs/knockoff.action";
 
 
 @Component( {
@@ -18,22 +20,26 @@ import { AdvancePayment } from "../../../shared/model/billing/advance-payment.in
 export class AdvancePaymentCenterPage implements OnInit {
 
     private ADVANCE_PAYMENTS = 'billingModuleState.advancePayments'.split('.');
+    private KNOCKOFF = 'billingModuleState.knockoffs'.split('.');
     private advancePayments$: Observable<AdvancePayment[]>;
-    
+    private knockoff$: Observable<Knockoff[]>;
     private creatorDialogRef: MdDialogRef<KnockoffCreatorDialog>;
     
     constructor( private router: Router,
         private route: ActivatedRoute,
         private vcf: ViewContainerRef,
         private actions: AdvancePaymentActions,
+        private action: KnockoffActions,
         private store: Store<BillingModuleState>,
         private dialog: MdDialog ) {
         
         this.advancePayments$ = this.store.select(...this.ADVANCE_PAYMENTS);
+        this.knockoff$ = this.store.select(...this.KNOCKOFF);
     }
 
     ngOnInit(): void {
         this.store.dispatch( this.actions.findAdvancePayments());
+        this.store.dispatch( this.action.findKnockoffs());
     }
     
     knockoffCreateDialog(payment:AdvancePayment): void {
@@ -42,6 +48,7 @@ export class AdvancePaymentCenterPage implements OnInit {
 
     showDialog(payment:AdvancePayment): void {
         console.log( 'showDialog' );
+        console.log('payment' + payment.account.code);
         let config = new MdDialogConfig();
         config.viewContainerRef = this.vcf;
         config.role = 'dialog';

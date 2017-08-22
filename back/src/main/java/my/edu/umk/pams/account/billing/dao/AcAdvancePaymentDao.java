@@ -4,7 +4,6 @@ import java.util.List;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
-import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.core.GenericDao;
 
 public interface AcAdvancePaymentDao extends GenericDao<Long, AcAdvancePayment> {

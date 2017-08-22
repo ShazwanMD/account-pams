@@ -489,9 +489,9 @@ export class BillingService {
         .map((res: Response) => <Knockoff>res.json());
     }
   
-  saveKnockoff(knockoff: Knockoff): Observable<Boolean> {
-      return this._http.post(this.BILLING_API + '/knockoffs/saveKnockoff', JSON.stringify(knockoff))
-      .flatMap((data) => Observable.of(true));
+  saveKnockoff(knockoff: Knockoff, payment:AdvancePayment): Observable<String> {
+      return this._http.post(this.BILLING_API + '/knockoffs/' + payment.referenceNo , JSON.stringify(knockoff))
+      .flatMap((res: Response) => Observable.of(res.text()));
   }
 
 }

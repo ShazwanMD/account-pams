@@ -1,9 +1,12 @@
 package my.edu.umk.pams.account.web.module.billing.controller;
 
+import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.model.AcFeeSchedule;
+import my.edu.umk.pams.account.account.model.AcFeeScheduleImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
@@ -17,6 +20,7 @@ import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.util.DaoQuery;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
+import my.edu.umk.pams.account.web.module.account.vo.FeeSchedule;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
 import my.edu.umk.pams.account.web.module.util.vo.CovalentDtQuery;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
@@ -769,20 +773,28 @@ public class BillingController {
         return new ResponseEntity<Knockoff>(billingTransformer.toKnockoffVo(knockoffs), HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/knockoffs/saveKnockoff", method = RequestMethod.POST)
-    public ResponseEntity<String> saveKnockoff(@RequestBody Knockoff vo) {
+    @RequestMapping(value = "/knockoffs/{referenceNo}", method = RequestMethod.POST)
+    public ResponseEntity<String> saveKnockoff(@PathVariable String referenceNo, @RequestBody Knockoff vo) {
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("academicSession", accountService.findCurrentAcademicSession());
+        String refNo = systemService.generateFormattedReferenceNo(AccountConstants.KNOCKOFF_REFRENCE_NO, map);
+        
+        AcAdvancePayment payment = billingService.findAdvancePaymentByReferenceNo(referenceNo);
+        LOG.debug("payment controller" + payment);
         
         AcKnockoff knockoff = new AcKnockoffImpl();
         knockoff.setAmount(vo.getAmount());
         knockoff.setAuditNo(vo.getAuditNo());
         knockoff.setDescription(vo.getDescription());
-        knockoff.setInvoice(billingService.findInvoiceByReferenceNo(vo.getInvoice().getReferenceNo()));
+        knockoff.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         knockoff.setIssuedDate(vo.getIssuedDate());
-        knockoff.setPayments(billingService.findAdvancePaymentByReferenceNo(vo.getPayments().getReferenceNo()));
-        knockoff.setReferenceNo(vo.getReferenceNo());
+        knockoff.setPayments(payment);
+        knockoff.setReferenceNo(refNo);
+        billingService.addKnockoff(knockoff);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-    
+
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================

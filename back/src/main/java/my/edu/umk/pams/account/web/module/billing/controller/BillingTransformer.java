@@ -344,15 +344,15 @@ public class BillingTransformer {
     
     public AdvancePayment toAdvancePaymentVo(AcAdvancePayment e) {
     	AdvancePayment vo = new AdvancePayment();
-        vo.setId(e.getId());
+    	vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
         vo.setAmount(e.getAmount());
         vo.setBalanceAmount(e.getBalanceAmount());
         vo.setStatus(e.getStatus());
         vo.setReceipt(billingTransformer.toReceiptVo(e.getReceipt()));
-        vo.setKnockoff(billingTransformer.toKnockoffVos(e.getKnockoff()));
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
     
@@ -367,6 +367,7 @@ public class BillingTransformer {
         vo.setIssuedDate(e.getIssuedDate());
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
 

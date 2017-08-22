@@ -143,7 +143,6 @@
         M_ID int8,
         M_ST int4,
         RECEIPT_ID int8,
-        KNOCKOFF_ID int8,
         ACCOUNT_ID int8,
         primary key (ID)
     );
