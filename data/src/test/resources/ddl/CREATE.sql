@@ -991,7 +991,6 @@
         M_ST int4,
         ACTIVE boolean,
         SPONSOR_ID int8,
-        STUDENT_ID int8,
         primary key (ID)
     );
 
@@ -1589,10 +1588,10 @@
         foreign key (SPONSOR_ID)
         references AC_SPSR;
 
-    alter table AC_SPHP
-        add constraint FK_ng5avp5mj8tim7n76tyny4bst
-        foreign key (STUDENT_ID)
-        references AC_STDN;
+--    alter table AC_SPHP
+--        add constraint FK_ng5avp5mj8tim7n76tyny4bst
+--        foreign key (STUDENT_ID)
+--        references AC_STDN;
 
     alter table AC_SPSR
         add constraint FK_16abykipvmbjv2dwcrni1kg3w
