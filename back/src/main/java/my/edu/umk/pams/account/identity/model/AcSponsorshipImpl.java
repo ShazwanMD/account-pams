@@ -39,24 +39,26 @@ public class AcSponsorshipImpl implements AcSponsorship {
     @NotNull
     @Column(name = "ACCOUNT_NO", unique = true, nullable = false)
     private String accountNo;
-
-    @ManyToOne(targetEntity = AcStudentImpl.class)
-    @JoinColumn(name = "STUDENT_ID")
-    private AcStudent student;
+//
+//    @ManyToOne(targetEntity = AcStudentImpl.class)
+//    @JoinColumn(name = "STUDENT_ID")
+//    private AcStudent student;
 
 	@ManyToOne(targetEntity = AcSponsorImpl.class)
     @JoinColumn(name = "SPONSOR_ID")
     private AcSponsor sponsor;
     
-  
 	@ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
+
     
 //    @NotNull
 //    @OneToOne(targetEntity = AcAcademicSessionImpl.class)
 //    @JoinColumn(name = "SESSION_ID")
 //    private AcAcademicSession session;
+	
+
 
     @NotNull
     @Column(name = "AMOUNT", nullable = false)
@@ -103,13 +105,13 @@ public class AcSponsorshipImpl implements AcSponsorship {
 		this.accountNo = accountNo;
 	}
     
-    public AcStudent getStudent() {
-        return student;
-    }
-
-    public void setStudent(AcStudent student) {
-        this.student = student;
-    }
+//    public AcStudent getStudent() {
+//        return student;
+//    }
+//
+//    public void setStudent(AcStudent student) {
+//        this.student = student;
+//    }
     
     @Override
     public BigDecimal getAmount() {
