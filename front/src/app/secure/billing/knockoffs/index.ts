@@ -15,6 +15,7 @@ import { DebitNoteSubModule } from '../debit-notes/index';
 import { PipeModule } from '../../../app.pipe.module';
 import { KnockoffActions } from './knockoff.action';
 import { KnockoffEffects } from './knockoff.effect';
+import { KnockoffListComponent } from './component/knockoff-list.component';
 import { KnockoffCreatorDialog } from "./dialog/knockoff-creator.dialog";
 import { AdvancePaymentSubModule } from "../advance-payments/index";
 
@@ -37,11 +38,12 @@ import { AdvancePaymentSubModule } from "../advance-payments/index";
 
 
         // components
-
+        KnockoffListComponent,
 
         // dialog
     ],
     exports: [
+KnockoffListComponent,
     ],
     entryComponents: [
     ],

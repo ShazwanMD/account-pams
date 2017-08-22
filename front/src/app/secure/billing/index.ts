@@ -164,7 +164,7 @@ export const billingModuleReducers = {
   creditNote: creditNoteReducer,
   advancePayments: advancePaymentListReducer,
   knockoff: knockoffReducer,
-  Knockoffs: knockoffListReducer,
+  knockoffs: knockoffListReducer,
 };
 
 @NgModule({
