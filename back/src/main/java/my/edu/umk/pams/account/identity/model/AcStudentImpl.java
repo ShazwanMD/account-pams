@@ -16,8 +16,8 @@ import java.util.List;
 @Table(name = "AC_STDN")
 public class AcStudentImpl extends AcActorImpl implements AcStudent {
 
-	@OneToMany(targetEntity = AcSponsorshipImpl.class, mappedBy = "student")
-	private List<AcSponsorship> sponsorships;
+//	@OneToMany(targetEntity = AcSponsorshipImpl.class, mappedBy = "student")
+//	private List<AcSponsorship> sponsorships;
 
 	@Column(name = "STUDENT_STATUS")
 	private AcStudentStatus studentStatus;
@@ -33,6 +33,7 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
 	private AcResidencyCode residencyCode;
 
 	public AcStudentImpl() {
+		super();
 		setActorType(AcActorType.STUDENT);
 	}
 
@@ -75,15 +76,15 @@ public class AcStudentImpl extends AcActorImpl implements AcStudent {
 		this.residencyCode = residencyCode;
 	}
 
-	@Override
-	public List<AcSponsorship> getSponsorships() {
-		return sponsorships;
-	}
-
-	@Override
-	public void setSponsorships(List<AcSponsorship> sponsorships) {
-		this.sponsorships = sponsorships;
-	}
+//	@Override
+//	public List<AcSponsorship> getSponsorships() {
+//		return sponsorships;
+//	}
+//
+//	@Override
+//	public void setSponsorships(List<AcSponsorship> sponsorships) {
+//		this.sponsorships = sponsorships;
+//	}
 
 	@Override
 	public Class<?> getInterfaceClass() {
