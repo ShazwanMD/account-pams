@@ -17,11 +17,12 @@ export class SponsorshipComponent implements OnInit {
   private editorDialogRef: MdDialogRef<SponsorshipEditorDialog>;
   private Columns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
+    {name: 'sponsor.name', label: 'Sponsor'},
+    {name: 'accountNo', label: 'Sponsor Acc No'},
     {name: 'startDate', label: 'Start Date'},
     {name: 'endDate', label: 'End Date'},
-    {name: 'accountNo', label: 'Account No'},
     {name: 'amount', label: 'Amount'},
-    {name: 'action', label: ''},
+   // {name: 'sponsorType', label: 'Sponsor Type'},
   ];
   private selectedRows: AccountSponsorship[];
 
