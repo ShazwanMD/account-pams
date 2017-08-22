@@ -23,6 +23,7 @@ import { AdvancePaymentEffects } from "./advance-payment.effect";
 import { KnockoffCreatorDialog } from "../knockoffs/dialog/knockoff-creator.dialog";
 import { KnockoffSubModule } from "../knockoffs/index";
 import {AdvancePaymentListComponent} from './component/advance-payment-list.component';
+import { InvoiceUnpaidSelectComponent } from "./component/invoice-select.component";
 
 @NgModule({
   imports: [
@@ -48,12 +49,14 @@ import {AdvancePaymentListComponent} from './component/advance-payment-list.comp
     AdvancePaymentSelectComponent,
     AdvancePaymentListComponent,
     KnockoffCreatorDialog,
+    InvoiceUnpaidSelectComponent,
 
     // dialog
   ],
   exports: [
     AdvancePaymentSelectComponent,  
     KnockoffCreatorDialog,
+    InvoiceUnpaidSelectComponent,
   ],
   entryComponents: [
     KnockoffCreatorDialog,
