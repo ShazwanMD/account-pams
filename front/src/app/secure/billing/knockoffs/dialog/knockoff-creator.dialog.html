@@ -1,12 +1,6 @@
 <h2 md-dialog-title>Knockoff Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <pams-advance-payment-select
-        [placeholder]="'Select Account'"
-        [innerFormControl]="createForm.controls['advancePayment']" fxFlex="calc(100%-25px)" class="pad-bottom">
-      </pams-advance-payment-select>
-    </div>
 	<div>
       <md-input-container fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px">
         <input mdInput #description
@@ -30,12 +24,13 @@
                flex/>
       </md-input-container>
     </div>
-<!--     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+	<div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
       <pams-invoice-select
+        [account]="_advancePayment.account"
         [placeholder]="'Select Invoice'"
         [innerFormControl]="createForm.controls['invoice']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-invoice-select>
-    </div> -->
+    </div> 
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
