@@ -295,6 +295,8 @@ public interface BillingService {
     // ADVANCE PAYMENT
     // ==================================================================================================== //
     
+    AcAdvancePayment findAdvancePaymenById(Long id);
+    
     AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo);
     
     List<AcAdvancePayment> findAdvancePayments(String filter, Integer offset, Integer limit);
