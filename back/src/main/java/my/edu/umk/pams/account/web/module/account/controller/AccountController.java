@@ -5,7 +5,9 @@ import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
+import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.model.AcSponsorshipImpl;
 import my.edu.umk.pams.account.identity.service.IdentityService;
@@ -13,6 +15,7 @@ import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
+import my.edu.umk.pams.account.web.module.identity.vo.ActorType;
 import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
 
 import org.slf4j.Logger;
@@ -565,21 +568,24 @@ public class AccountController {
 //        accountService.addAccountTransaction(account, transaction);
 //    }
 
-	@RequestMapping(value = "/account/{code}/sponsorships", method = RequestMethod.POST)
-	public void addSponsorship(@PathVariable String code, @RequestBody Sponsorship vo) {
+	@RequestMapping(value = "/account/{code}/sponsor/{id}/sponsorships", method = RequestMethod.POST)
+	public ResponseEntity<String> addSponsorship(@PathVariable String code, @PathVariable Long id, @RequestBody Sponsorship vo) {
 		
 		AcAccount account = accountService.findAccountByCode(code);
+		AcSponsor sponsor = identityService.findSponsorById(id);
+		
 		AcSponsorship sponsorship = new AcSponsorshipImpl();
 		sponsorship.setReferenceNo(vo.getReferenceNo());
 		sponsorship.setAccountNo(vo.getAccountNo());
-		if (null != vo.getStudent())
-			sponsorship.setStudent(identityService.findStudentById(vo.getId()));
+//		if (null != vo.getStudent())
+//			sponsorship.setStudent(identityService.findStudentById(vo.getId()));
 		sponsorship.setAmount(vo.getAmount());
-//		sponsorship.setSponsor(identityService.findSponsorById(vo.getId()));
+		sponsorship.setSponsor(sponsor);
 		sponsorship.setActive(vo.getActive());
 		sponsorship.setStartDate(vo.getStartDate());
 		sponsorship.setEndDate(vo.getEndDate());
 		accountService.addSponsorship(account, sponsorship);
+		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/sponsorships/{code}", method = RequestMethod.PUT)
@@ -589,8 +595,8 @@ public class AccountController {
 		AcSponsorship sponsorship = identityService.findSponsorshipById(vo.getId());
 		sponsorship.setReferenceNo(vo.getReferenceNo());
 		sponsorship.setAccountNo(vo.getAccountNo());
-		if (null != vo.getStudent())
-			sponsorship.setStudent(identityService.findStudentById(vo.getId()));
+//		if (null != vo.getStudent())
+//		sponsorship.setStudent(identityService.findStudentById(vo.getId()));
 		sponsorship.setAmount(vo.getAmount());
 		sponsorship.setActive(vo.getActive());
 		sponsorship.setStartDate(vo.getStartDate());
