@@ -26,9 +26,9 @@ import my.edu.umk.pams.account.core.AcMetadata;
 public class AcAdvancePaymentImpl implements AcAdvancePayment {
 
     @Id
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(generator = "SQ_AC_ADVC_PYMT")
     @SequenceGenerator(name = "SQ_AC_ADVC_PYMT", sequenceName = "SQ_AC_ADVC_PYMT", allocationSize = 1)
-    @Column(name = "ID")
     private Long id;
     
 	@Column(name = "REFERENCE_NO")
