@@ -50,7 +50,7 @@ public class WhenIWantConfigureStudentSponsor extends Stage<WhenIWantConfigureSt
 			AcSponsor sponsorNew = identityService.findSponsorBySponsorNo("SLAB");
 			AcSponsorship sphp = new AcSponsorshipImpl();
 			sphp.setSponsor(sponsorNew);
-			sphp.setStudent(student);
+			//sphp.setStudent(student);
 			identityService.addSponsorship(sponsorNew, sphp);
 
 		}

@@ -40,7 +40,7 @@ public class WhenIGroupStudentBySponsor extends Stage<WhenIGroupStudentBySponsor
 		
         for (AcSponsorship sponsorship : sponsorship) {
 
-            LOG.debug("Student ID :" + sponsorship.getStudent().getMatricNo());
+            //LOG.debug("Student ID :" + sponsorship.getStudent().getMatricNo());
         }
         
 		boolean hasSponsorship = identityService.hasSponsorship(sponsor);

@@ -43,11 +43,11 @@ public class WhenIGenerateReport extends Stage<WhenIGenerateReport> {
 
 		for (AcSponsorship sponsorship : sponsorship) {
 
-			LOG.debug("Name: " + sponsorship.getStudent().getName());
-			LOG.debug("Matric No: " + sponsorship.getStudent().getMatricNo());
-			LOG.debug("Status: " + sponsorship.getStudent().getStudentStatus());
-			LOG.debug("Sponsorship " + sponsorship.getSponsor().getName());
-			LOG.debug("IC No: " + sponsorship.getStudent().getIdentityNo());
+//			LOG.debug("Name: " + sponsorship.getStudent().getName());
+//			LOG.debug("Matric No: " + sponsorship.getStudent().getMatricNo());
+//			LOG.debug("Status: " + sponsorship.getStudent().getStudentStatus());
+//			LOG.debug("Sponsorship " + sponsorship.getSponsor().getName());
+//			LOG.debug("IC No: " + sponsorship.getStudent().getIdentityNo());
 
 			
 		}

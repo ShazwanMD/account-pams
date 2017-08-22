@@ -38,7 +38,7 @@ public class WhenIGrantSponsorship extends Stage<WhenIGrantSponsorship>{
     	  	
     	AcSponsorship sponsorship = new AcSponsorshipImpl();
     	sponsorship.setSponsor(sponsor);
-    	sponsorship.setStudent(identityService.findStudentByMatricNo(matricNo));
+    	//sponsorship.setStudent(identityService.findStudentByMatricNo(matricNo));
     	identityService.addSponsorship(student, sponsorship);
 
 		boolean hasSponsorship = identityService.hasSponsorship(sponsor);
@@ -54,7 +54,7 @@ public class WhenIGrantSponsorship extends Stage<WhenIGrantSponsorship>{
     	
     	AcSponsorship sponsorship = new AcSponsorshipImpl();
     	sponsorship.setSponsor(identityService.findSponsorBySponsorNo(sponsorNo));
-    	sponsorship.setStudent(student);
+    	//sponsorship.setStudent(student);
      	identityService.addSponsorship(sponsor, sponsorship);
      	
      	boolean hasSponsorship = identityService.hasSponsorship(student);

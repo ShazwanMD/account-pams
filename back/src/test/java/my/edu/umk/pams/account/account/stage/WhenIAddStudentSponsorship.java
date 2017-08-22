@@ -39,7 +39,7 @@ public class WhenIAddStudentSponsorship extends Stage<WhenIAddStudentSponsorship
     	Assert.notNull(sponsor, "sponsor was null");
     	
     	sponsorship.setSponsor(sponsor);
-    	sponsorship.setStudent(identityService.findStudentById(2L));
+    	//sponsorship.setStudent(identityService.findStudentById(2L));
  
     	identityService.addSponsorship(sponsor, sponsorship);
     	
