@@ -39,4 +39,24 @@ export class AdvancePaymentActions {
         payload: payments,
       };
     }
+    
+    static UPDATE_ADVANCE_PAYMENT = '[AdvancePayment] Update Advance Payment';
+
+    updateAdvancePayment(payment): Action {
+      return {
+        type: AdvancePaymentActions.UPDATE_ADVANCE_PAYMENT,
+        payload: payment,
+      };
+    }
+
+    static UPDATE_ADVANCE_PAYMENT_SUCCESS = '[AdvancePayment] Update Advance Payment Success';
+
+    updateAdvancePaymentSuccess(payment): Action {
+      return {
+        type: AdvancePaymentActions.UPDATE_ADVANCE_PAYMENT_SUCCESS,
+        payload: payment,
+      };
+    }
+    
+    
 }

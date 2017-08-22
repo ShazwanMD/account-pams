@@ -479,6 +479,11 @@ export class BillingService {
         .map((res: Response) => <AdvancePayment[]>res.json());
     }
   
+  updateAdvancePayment(payment: AdvancePayment) {
+      return this._http.put(this.BILLING_API + '/advancePayments/' + payment.referenceNo, JSON.stringify(payment))
+        .flatMap((res: Response) => Observable.of(res.text()));
+    }
+  
   findKnockoffs(): Observable<Knockoff[]> {
       return this._http.get(this.BILLING_API + '/knockoffs')
         .map((res: Response) => <Knockoff[]>res.json());

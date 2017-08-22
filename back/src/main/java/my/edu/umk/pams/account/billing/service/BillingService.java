@@ -299,11 +299,13 @@ public interface BillingService {
     
     AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo);
     
-    List<AcAdvancePayment> findAdvancePayments(String filter, Integer offset, Integer limit);
+    List<AcAdvancePayment> findAdvancePayments(boolean status, String filter, Integer offset, Integer limit);
     
     List<AcAdvancePayment> findUnpaidAdvancePayments(AcAccount account, Integer offset, Integer limit);
     
     void addAdvancePayment(AcAdvancePayment payment, AcUser user);
+    
+    void updateAdvancePayment(AcAdvancePayment payment);
     
     // ==================================================================================================== //
     // KNOCKOFF

@@ -27,4 +27,10 @@ export class AdvancePaymentEffects {
     .map((action) => action.payload)
     .switchMap(() => this.billingService.findAdvancePayments())
     .map((payments) => this.advancePaymentActions.findAdvancePaymentsSuccess(payments));
+    
+    @Effect() updateAdvancePayment$ = this.actions$
+    .ofType(AdvancePaymentActions.UPDATE_ADVANCE_PAYMENT)
+    .map((action) => action.payload)
+    .switchMap((payment) => this.billingService.updateAdvancePayment(payment))
+    .map((payment) => this.advancePaymentActions.updateAdvancePaymentSuccess(payment));
 }

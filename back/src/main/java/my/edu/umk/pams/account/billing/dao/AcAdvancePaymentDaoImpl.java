@@ -32,11 +32,13 @@ public class AcAdvancePaymentDaoImpl extends GenericDaoSupport<Long, AcAdvancePa
 	}
 
 	@Override
-	public List<AcAdvancePayment> find(String filter, Integer offset, Integer limit) {
+	public List<AcAdvancePayment> find(boolean status, String filter, Integer offset, Integer limit) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("select i from AcAdvancePayment i where " + "i.metadata.state = :state ");
+		Query query = session.createQuery("select i from AcAdvancePayment i where "
+				+ "i.status = :status and i.metadata.state = :state ");
 		query.setInteger("state", ACTIVE.ordinal());
 		query.setCacheable(true);
+		query.setBoolean("status", status);
 		query.setFirstResult(offset);
 		query.setMaxResults(limit);
 		return (List<AcAdvancePayment>) query.list();
