@@ -501,10 +501,10 @@ export class AccountActions {
 
   static ADD_SPONSORSHIP = '[Account] Add Sponsorship ';
 
-  addSponsorship(account, sponsorship): Action {
+  addSponsorship(account, sponsor, sponsorship): Action {
     return {
       type: AccountActions.ADD_SPONSORSHIP,
-      payload: {account: account, sponsorship: sponsorship}
+      payload: {account: account, sponsor: sponsor, sponsorship: sponsorship}
     };
   }
 
