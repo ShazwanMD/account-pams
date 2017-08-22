@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcStudent;
+import my.edu.umk.pams.account.web.module.identity.vo.ActorType;
 import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
 
 /**
@@ -17,10 +18,10 @@ import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
  */
 public interface AcSponsorship extends AcMetaObject {
 
-
-    AcStudent getStudent();
-
-    void setStudent(AcStudent student);
+//
+//    AcStudent getStudent();
+//
+//    void setStudent(AcStudent student);
     
     String getReferenceNo();
 

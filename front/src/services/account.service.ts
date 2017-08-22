@@ -1,3 +1,4 @@
+import { Sponsor } from './../app/shared/model/identity/sponsor.interface';
 import {Injectable} from '@angular/core';
 import {RequestOptions, Response, ResponseContentType, Headers} from '@angular/http';
 import {HttpInterceptorService} from '@covalent/http';
@@ -294,9 +295,9 @@ export class AccountService {
         .map((res: Response) => <AccountSponsorship[]>res.json());
     }
 
-    addAccountSponsorships(account: Account, sponsorship: AccountSponsorship): Observable<String> {
+    addAccountSponsorships(account: Account, sponsor: Sponsor, sponsorship: AccountSponsorship): Observable<String> {
       console.log('addsponsorships account code :' + account.code);
-    return this._http.post(this.ACCOUNT_API + '/account/' + account.code + '/sponsorships', JSON.stringify(sponsorship))
+    return this._http.post(this.ACCOUNT_API + '/account/' + account.code + '/sponsor/' + sponsor.id + '/sponsorships', JSON.stringify(sponsorship))
       .flatMap((res: Response) => Observable.of(res.text()));
    }
 

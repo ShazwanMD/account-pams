@@ -46,8 +46,8 @@ public interface AcStudent extends AcActor {
 	 *
 	 * @return
 	 */
-	List<AcSponsorship> getSponsorships();
-
-	void setSponsorships(List<AcSponsorship> sponsorships);
+//	List<AcSponsorship> getSponsorships();
+//
+//	void setSponsorships(List<AcSponsorship> sponsorships);
 
 }
