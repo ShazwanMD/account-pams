@@ -9,13 +9,12 @@
                flex/>
       </md-input-container>
     </div>
-    <!--<div>
-     <pams-security-charge-code-select
-      [placeholder]="'Security Charge Code'"
-      [innerFormControl]="editForm.controls['securityChargeCode']"
-      fxFlex="calc(100%-25px)" class="pad-bottom">
-    </pams-security-charge-code-select>
-  </div>-->
+    <div>
+      <pams-sponsor-select fxFlex="calc(100%-25px)" class="pad-bottom" fxLayoutWrap fxLayoutGap="25px"
+                         [placeholder]="'Sponsor'"
+                         [innerFormControl]="editForm.controls['sponsor']" flex>
+      </pams-sponsor-select>
+    </div>
     <div>
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput type="date"
