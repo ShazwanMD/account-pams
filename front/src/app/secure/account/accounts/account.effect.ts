@@ -161,7 +161,7 @@ export class AccountEffects {
     @Effect() addAccountSponsorships$ = this.actions$
     .ofType(AccountActions.ADD_SPONSORSHIP)
     .map((action) => action.payload)
-    .switchMap((payload) => this.accountService.addAccountSponsorships(payload.account, payload.sponsorship))
+    .switchMap((payload) => this.accountService.addAccountSponsorships(payload.account, payload.sponsor, payload.sponsorship))
     .map((message) => this.accountActions.addSponsorshipSuccess(message))
     .withLatestFrom(this.store$.select(...this.ACCOUNT))
     .map((state) => state[1])
