@@ -190,7 +190,7 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
         Validate.notNull(sponsorship, "Sponsorship should not be null");
 
         Session session = sessionFactory.getCurrentSession();
-        sponsorship.setStudent(student);
+        //sponsorship.setStudent(student);
         AcMetadata metadata = new AcMetadata();
         metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         metadata.setCreatorId(user.getId());
