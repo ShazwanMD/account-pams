@@ -7,6 +7,7 @@ import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
+import my.edu.umk.pams.account.web.module.identity.vo.ActorType;
 import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
@@ -137,7 +138,7 @@ public class AccountTransformer {
     public Sponsorship toSponsorshipVo(AcSponsorship e) {
     	Sponsorship vo = new Sponsorship();
         vo.setId(e.getId());
-//        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        vo.setSponsor(identityTransformer.toSponsorVo(e.getSponsor()));
         vo.setReferenceNo(e.getReferenceNo());
         vo.setAccountNo(e.getAccountNo());
         vo.setEndDate(e.getEndDate());
