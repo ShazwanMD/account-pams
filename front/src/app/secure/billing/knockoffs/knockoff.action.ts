@@ -41,10 +41,10 @@ export class KnockoffActions {
     
     static SAVE_KNOCKOFF = '[Knockoff] Save Knockoff';
 
-    saveKnockoff(knockoff): Action {
+    saveKnockoff(knockoff, payment): Action {
       return {
         type: KnockoffActions.SAVE_KNOCKOFF,
-        payload: knockoff
+        payload: {knockoff: knockoff, payment: payment},
       };
     }
 

@@ -32,6 +32,6 @@ export class KnockoffEffects {
     @Effect() saveKnockoff$ = this.actions$
     .ofType(KnockoffActions.SAVE_KNOCKOFF)
     .map((action) => action.payload)
-    .switchMap((knockoff) => this.billingService.saveKnockoff(knockoff))
+    .switchMap((payload) => this.billingService.saveKnockoff(payload.knockoff, payload.payment))
     .map((knockoff) => this.knockoffActions.saveKnockoffSuccess(knockoff));
 }
