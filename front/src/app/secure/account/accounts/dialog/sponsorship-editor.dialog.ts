@@ -1,3 +1,4 @@
+import { Actor } from './../../../../shared/model/identity/actor.interface';
 import { AccountSponsorship } from './../../../../shared/model/account/account-sponsorship.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {AccountCharge} from '../../../../shared/model/account/account-charge.interface';
@@ -9,6 +10,8 @@ import {AccountModuleState} from '../../index';
 import {MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
 import {AccountChargeType} from '../../../../shared/model/account/account-charge-type.enum';
+import { ActorType } from "../../../../shared/model/identity/actor-type.enum";
+import { Sponsor } from "../../../../shared/model/identity/sponsor.interface";
 
 @Component({
   selector: 'pams-sponsorship-editor',
@@ -17,6 +20,7 @@ import {AccountChargeType} from '../../../../shared/model/account/account-charge
 export class SponsorshipEditorDialog implements OnInit {
   private _account: Account;
   private _sponsorship: AccountSponsorship;
+  
   private editForm: FormGroup;
   private edit: boolean = false;
 
@@ -39,15 +43,17 @@ export class SponsorshipEditorDialog implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.editForm = this.formBuilder.group({
       id: undefined,
       referenceNo: '',
       // sourceNo: '',
       // description: '',
+      accountNo: '',
       amount: 0,
       startDate: undefined,
       endDate:undefined,
-      accountNo:'',
+      sponsor: <Sponsor>{},
     });
 
     if (this.edit) {
@@ -56,8 +62,10 @@ export class SponsorshipEditorDialog implements OnInit {
   }
 
   submit(sponsorship: AccountSponsorship, isValid: boolean) {
-    if (this.edit) this.store.dispatch(this.actions.updateSponsorship(this._account, sponsorship));
-    else  this.store.dispatch(this.actions.addSponsorship(this._account, sponsorship));
+    //if (this.edit) this.store.dispatch(this.actions.updateSponsorship(this._account, sponsorship));
+    //else  
+    
+    this.store.dispatch(this.actions.addSponsorship(this._account, this.editForm.get( 'sponsor' ).value , sponsorship));
     this.dialog.close();
   }
 }
