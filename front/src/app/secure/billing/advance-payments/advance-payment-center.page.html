@@ -35,7 +35,8 @@
             (refundCreateDialog)="refundCreateDialog($event)"></pams-advance-payment-list>
         </md-tab>
         <md-tab label="Knockoff">
-
+		   <pams-knockoff-list
+            [knockoff]="knockoff$ | async"></pams-knockoff-list>
         </md-tab>
         <md-tab label="Refund">
 
