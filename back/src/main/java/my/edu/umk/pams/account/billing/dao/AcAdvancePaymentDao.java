@@ -10,7 +10,7 @@ public interface AcAdvancePaymentDao extends GenericDao<Long, AcAdvancePayment> 
 	
 	AcAdvancePayment findByReferenceNo(String referenceNo);
 
-	List<AcAdvancePayment> find(String filter, Integer offset, Integer limit);
+	List<AcAdvancePayment> find(boolean status, String filter, Integer offset, Integer limit);
 	
 	List<AcAdvancePayment> find(boolean paid, AcAccount account, Integer offset, Integer limit);
 }
