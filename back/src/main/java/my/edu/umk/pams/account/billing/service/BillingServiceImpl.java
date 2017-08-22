@@ -1043,8 +1043,14 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
-	public List<AcAdvancePayment> findAdvancePayments(String filter, Integer offset, Integer limit) { 
-		return advancePaymentDao.find(filter, offset, limit);
+	public void updateAdvancePayment(AcAdvancePayment payment) {
+		advancePaymentDao.update(payment, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
+	public List<AcAdvancePayment> findAdvancePayments(boolean status, String filter, Integer offset, Integer limit) { 
+		return advancePaymentDao.find(false, filter, offset, limit);
 	}
 	
 	@Override

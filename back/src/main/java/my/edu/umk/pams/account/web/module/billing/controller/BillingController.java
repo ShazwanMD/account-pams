@@ -750,10 +750,19 @@ public class BillingController {
    
     @RequestMapping(value = "/advancePayments", method = RequestMethod.GET)
     public ResponseEntity<List<AdvancePayment>> findAdvancePayments() {
-        List<AcAdvancePayment> advancePayments = billingService.findAdvancePayments("%", 0, 100);
+        List<AcAdvancePayment> advancePayments = billingService.findAdvancePayments(false, "%", 0, 100);
         return new ResponseEntity<List<AdvancePayment>>(billingTransformer.toAdvancePaymentVos(advancePayments), HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/advancePayments/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateAdvancePayment(@PathVariable String referenceNo, @RequestBody AdvancePayment vo) {
+        AcAdvancePayment payments = billingService.findAdvancePaymentByReferenceNo(referenceNo);
+        payments.setBalanceAmount(vo.getBalanceAmount());
+        payments.setStatus(vo.getStatus());
+        billingService.updateAdvancePayment(payments);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+        
     @RequestMapping(value = "/advancePayments/unpaidInvoices/{code}", method = RequestMethod.GET)
     public ResponseEntity<List<AdvancePayment>> findUnpaidAdvancePayments(@PathVariable String code) {
         AcAccount account = accountService.findAccountByCode(code);
