@@ -19,7 +19,6 @@ public class AdvancePayment extends Document {
 	private BigDecimal balanceAmount;
 	private Boolean status;
 	private Receipt receipt;
-	private List<Knockoff> knockoff;
 	private Account account;
 
 	public String getReferenceNo() {
@@ -68,14 +67,6 @@ public class AdvancePayment extends Document {
 
 	public void setReceipt(Receipt receipt) {
 		this.receipt = receipt;
-	}
-
-	public List<Knockoff> getKnockoff() {
-		return knockoff;
-	}
-
-	public void setKnockoff(List<Knockoff> knockoff) {
-		this.knockoff = knockoff;
 	}
 	
 	public Account getAccount() {
