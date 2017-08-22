@@ -7,6 +7,7 @@ import { BillingModuleState } from '../../index';
 import { Knockoff } from "../../../../shared/model/billing/knockoff.interface";
 import { Invoice } from "../../../../shared/model/billing/invoice.interface";
 import { AdvancePayment } from "../../../../shared/model/billing/advance-payment.interface";
+import { AdvancePaymentActions } from "../../advance-payments/advance-payment.action";
 
 @Component( {
     selector: 'pams-knockoff-creator',
@@ -22,6 +23,7 @@ export class KnockoffCreatorDialog {
     constructor( private formBuilder: FormBuilder,
         private store: Store<BillingModuleState>,
         private actions: KnockoffActions,
+        private action: AdvancePaymentActions,
         private dialog: MdDialogRef<KnockoffCreatorDialog> ) {
     }
 
@@ -48,6 +50,15 @@ export class KnockoffCreatorDialog {
 
     save( knockoff: Knockoff, isValid: boolean ) {
         this.store.dispatch( this.actions.saveKnockoff( knockoff, this._advancePayment) );
+        
+        let calculateBalance = 0;
+        calculateBalance = this._advancePayment.balanceAmount -  knockoff.amount;
+        
+        this._advancePayment.balanceAmount = calculateBalance;
+        if(this._advancePayment.balanceAmount == 0)
+            this._advancePayment.status = true;
+        
+        this.store.dispatch( this.action.updateAdvancePayment(this._advancePayment));
         this.dialog.close();
     }
 
