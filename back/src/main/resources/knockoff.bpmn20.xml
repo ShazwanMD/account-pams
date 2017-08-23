@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="definitions"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             targetNamespace="BLG">
+
+
+    <!--
+    ====================================================================================================
+    ==  DRAFTED > VERIFIED > APPROVED >>  COMPLETED >> END
+    ====================================================================================================
+    -->
+
+    <!--
+    ====================================================================================================
+    == VARIABLE:
+    == knockoffId: knockoff id
+    ====================================================================================================
+    -->
+
+    <process id="knockoff_workflow" name="Billing Knockoff Workflow">
+
+        <startEvent id="start"/>
+
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="knockoff_draft_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : DRAFTED
+        == SERVICE TASK : draft a knockoff
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="knockoff_draft_ST"
+                     activiti:expression="#{knockoff_draft_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow1.1" sourceRef="knockoff_draft_ST" targetRef="knockoff_draft_ST"/>
+
+        <userTask id="knockoff_draft_UT" name="my.edu.umk.pams.account.billing.model.AcKnockoff:DRAFTED"
+                  activiti:assignee="${userCreator}">
+            <documentation>
+                Draft Knockoff
+            </documentation>
+        </userTask>
+
+        <sequenceFlow id="flow1.2" sourceRef="knockoff_draft_UT" targetRef="knockoff_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow1.3" sourceRef="knockoff_draft_UT" targetRef="knockoff_verify_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+        <!--
+        ====================================================================================================
+        == STATE : VERIFIED
+        == SERVICE TASK : verify a knockoff
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="knockoff_verify_ST"
+                     activiti:expression="#{knockoff_verify_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow4.1" sourceRef="knockoff_verify_ST" targetRef="knockoff_verify_UT"/>
+
+        <userTask id="knockoff_verify_UT" name="my.edu.umk.pams.account.billing.model.AcKnockoff:VERIFIED"
+                  activiti:candidateGroups="${knockoffRouter.findVerifierCandidates(knockoffId)}">
+            <documentation>
+                Verify Knockoff
+            </documentation>
+
+        </userTask>
+
+        <sequenceFlow id="flow4.2" sourceRef="knockoff_verify_UT" targetRef="knockoff_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow4.3" sourceRef="knockoff_verify_UT" targetRef="knockoff_approve_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!--
+        ====================================================================================================
+        == STATE : REMOVED
+        == SERVICE TASK : removed a knockoff
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="knockoff_remove_ST"
+                     activiti:expression="#{knockoff_remove_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow7.1" sourceRef="knockoff_remove_ST" targetRef="end"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : APPROVED
+        == SERVICE TASK : approve a knockoff
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="knockoff_approve_ST"
+                     activiti:expression="#{knockoff_approve_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow8.1" sourceRef="knockoff_approve_ST" targetRef="knockoff_complete_ST"/>
+
+        <!--
+        ====================================================================================================
+        == STATE : COMPLETED
+        == SERVICE TASK : complete a knockoff
+        == USER TASK :
+        ====================================================================================================
+        -->
+        <serviceTask id="knockoff_complete_ST"
+                     activiti:expression="#{knockoff_complete_ST.execute(execution)}"/>
+
+        <sequenceFlow id="flow9.1" sourceRef="knockoff_complete_ST" targetRef="end"/>
+
+        <!--
+            ====================================================================================================
+            == STATE : END
+            ====================================================================================================
+            -->
+        <endEvent id="end"/>
+
+    </process>
+</definitions>
