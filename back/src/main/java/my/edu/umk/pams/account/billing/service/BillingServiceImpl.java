@@ -1020,6 +1020,16 @@ public class BillingServiceImpl implements BillingService {
 		map.put(WorkflowConstants.CANCEL_DECISION, false);
 		return map;
 	}
+	
+	private Map<String, Object> prepareVariables(AcKnockoff knockoff) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(KNOCKOFF_ID, knockoff.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, knockoff.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
 	// ====================================================================================================
 	// //
 	// ADVANCE PAYMENT
@@ -1100,6 +1110,22 @@ public class BillingServiceImpl implements BillingService {
 	public void removeKnockoff(AcKnockoff knockoff, AcUser user) {
 		knockoffDao.remove(knockoff, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
+	}
+	
+	//TASK
+	
+	@Override
+	public String startKnockoffTask(AcKnockoff knockoff) {
+		String refNo = systemService.generateReferenceNo(AccountConstants.KNOCKOFF_REFRENCE_NO);
+		knockoff.setReferenceNo(refNo);
+		LOG.debug("Processing knockoff with refNo {}", new Object[] { refNo });
+
+		knockoffDao.saveOrUpdate(knockoff, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(knockoff);
+
+		workflowService.processWorkflow(knockoff, prepareVariables(knockoff));
+		return refNo;
 	}
 
 	// ====================================================================================================

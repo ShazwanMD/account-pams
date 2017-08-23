@@ -325,6 +325,10 @@ public interface BillingService {
 
     void removeKnockoff(AcKnockoff knockoff, AcUser user);
     
+    //TASK
+    
+    String startKnockoffTask(AcKnockoff knockoff);
+    
     // ==================================================================================================== //
     // REFUND PAYMENT
     // ==================================================================================================== //
