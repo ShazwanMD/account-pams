@@ -311,6 +311,8 @@ public interface BillingService {
     // KNOCKOFF
     // ==================================================================================================== //
 
+    AcKnockoff findKnockoffById(Long id);
+    
     AcKnockoff findKnockoffByReferenceNo(String referenceNo);
     
     List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit);
@@ -319,7 +321,7 @@ public interface BillingService {
     
     void addKnockoff(AcKnockoff knockoff);
 
-    void updateKnockoff(AcKnockoff knockoff, AcUser user);
+    void updateKnockoff(AcKnockoff knockoff);
 
     void removeKnockoff(AcKnockoff knockoff, AcUser user);
     
