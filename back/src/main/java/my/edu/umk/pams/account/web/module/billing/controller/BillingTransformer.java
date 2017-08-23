@@ -367,8 +367,31 @@ public class BillingTransformer {
         vo.setIssuedDate(e.getIssuedDate());
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
+    }
+    
+    public KnockoffTask toKnockoffTaskVo(Task t) {
+    	Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
+        AcKnockoff knockoff = billingService.findKnockoffById((Long) vars.get(AccountConstants.KNOCKOFF_ID));
+       
+        KnockoffTask task = new KnockoffTask();
+        task.setId(knockoff.getId());
+        task.setTaskId(t.getId());
+        task.setReferenceNo(knockoff.getReferenceNo());
+        task.setSourceNo(knockoff.getSourceNo());
+        task.setDescription(knockoff.getDescription());
+        task.setTaskName(t.getName());
+        task.setAmount(knockoff.getAmount());
+        task.setPaymentNo(knockoff.getPayments().getReferenceNo());
+        task.setAssignee(task.getAssignee());
+        task.setIssuedDate(knockoff.getIssuedDate());
+        task.setCandidate(task.getCandidate());
+        task.setKnockoff(toKnockoffVo(knockoff));
+        task.setFlowState(FlowState.get(knockoff.getFlowdata().getState().ordinal()));
+        task.setMetaState(MetaState.get(knockoff.getMetadata().getState().ordinal()));
+        return task;
     }
 
     public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
@@ -459,5 +482,11 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toKnockoffVo(entry))
                 .collect(toCollection(() -> new ArrayList<Knockoff>()));
+    }
+    
+    public List<KnockoffTask> toKnockoffTaskVos(List<Task> tasks) {
+        return tasks.stream()
+                .map((task) -> toKnockoffTaskVo(task))
+                .collect(toCollection(() -> new ArrayList<KnockoffTask>()));
     }
 }
