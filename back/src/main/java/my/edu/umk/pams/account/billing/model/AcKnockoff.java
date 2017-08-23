@@ -7,7 +7,7 @@ import java.util.List;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.core.model.AcDocument;
 
-public interface AcKnockoff extends AcMetaObject {
+public interface AcKnockoff extends AcDocument {
 
 	String getReferenceNo();
 

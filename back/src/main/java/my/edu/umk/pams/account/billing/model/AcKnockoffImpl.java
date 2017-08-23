@@ -40,6 +40,12 @@ public class AcKnockoffImpl implements AcKnockoff {
 
     @Column(name = "AUDIT_NO")
     private String auditNo;
+    
+    @Column(name = "CANCEL_COMMENT")
+    private String cancelComment;
+
+    @Column(name = "REMOVE_COMMENT")
+    private String removeComment;
 
     @NotNull
     @Column(name = "DESCRIPTION")
@@ -63,6 +69,9 @@ public class AcKnockoffImpl implements AcKnockoff {
     
     @Embedded
     private AcMetadata metadata;
+    
+    @Embedded
+    private AcFlowdata flowdata;
     
     @Override
     public Long getId() {
@@ -164,8 +173,38 @@ public class AcKnockoffImpl implements AcKnockoff {
     }
 	
     @Override
+    public AcFlowdata getFlowdata() {
+		return flowdata;
+	}
+
+    @Override
+	public void setFlowdata(AcFlowdata flowdata) {
+		this.flowdata = flowdata;
+	}
+
+	@Override
     public Class<?> getInterfaceClass() {
         return AcKnockoff.class;
+    }
+
+    @Override
+    public String getCancelComment() {
+        return cancelComment;
+    }
+
+    @Override
+    public void setCancelComment(String cancelComment) {
+        this.cancelComment = cancelComment;
+    }
+
+    @Override
+    public String getRemoveComment() {
+        return removeComment;
+    }
+
+    @Override
+    public void setRemoveComment(String removeComment) {
+        this.removeComment = removeComment;
     }
 
 }
