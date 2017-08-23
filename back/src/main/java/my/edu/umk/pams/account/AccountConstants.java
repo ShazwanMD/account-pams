@@ -16,6 +16,7 @@ public interface AccountConstants {
     public static final String SHORT_TERM_LOAN_ID = "shortTermLoanId"; 
     public static final String ADVANCE_PAYMENT_ID = "advancePaymentId";
     public static final String KNOCKOFF_ID ="knockoffId";
+    public static final String REFUND_ID ="refundId";
 
     public static final String PROMO_CODE_REFERENCE_NO = "AcPromoCode.referenceNo";
     public static final String SETTLEMENT_REFERENCE_NO = "AcSettlement.referenceNo";
@@ -30,6 +31,7 @@ public interface AccountConstants {
     public static final String ACCOUNT_CHARGE_REFRENCE_NO = "AcAccountCharge.referenceNo";
     public static final String ADVANCE_PAYMENT_REFRENCE_NO = "AcAdvancePayment.referenceNo";
     public static final String KNOCKOFF_REFRENCE_NO = "AcKnockoff.referenceNo";
+    public static final String REFUND_REFRENCE_NO = "AcRefundPayment.referenceNo";
 
     public static final String INVOICE_PROCESS_KEY = "invoice_workflow";
     public static final String INVOICE_RESOURCE_PATH = "invoice.bpmn20.xml";
@@ -57,6 +59,12 @@ public interface AccountConstants {
     
     public static final String LAST_ENROLLMENT_DATE = "account.last.enrollmentDate";
     
+    public static final String KNOCKOFF_PROCESS_KEY = "knockoff_workflow";
+    public static final String KNOCKOFF_RESOURCE_PATH = "knockoff.bpmn20.xml";
     public static final String KNOCKOFF_PROCESS_NAME = "knockoff";
+    
+    public static final String REFUND_PROCESS_KEY = "refund_workflow";
+    public static final String REFUND_RESOURCE_PATH = "refund.bpmn20.xml";
+    public static final String REFUND_PROCESS_NAME = "refund";
 
 }
