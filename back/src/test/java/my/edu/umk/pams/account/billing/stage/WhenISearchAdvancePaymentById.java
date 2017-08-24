@@ -34,7 +34,7 @@ public class WhenISearchAdvancePaymentById extends Stage<WhenISearchAdvancePayme
 	@As("I search advance payment using ID")
 	public WhenISearchAdvancePaymentById I_search_advance_payment_by_id(Long id) {
 		
-		AcAdvancePayment payment = billingService.findAdvancePaymenById(id);
+		AcAdvancePayment payment = billingService.findAdvancePaymentById(id);
 		Assert.notNull(payment, "payment cannot be null");
 
 		LOG.debug("Student :--> " + payment.getReferenceNo());

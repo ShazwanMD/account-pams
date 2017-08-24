@@ -29,11 +29,10 @@ export class KnockoffCreatorDialog {
 
     set advancePayment( value: AdvancePayment ) {
         this._advancePayment = value;
-        this.edit = true;
     }
 
     ngOnInit(): void {
-        this.createForm = this.formBuilder.group( <Knockoff>{
+        this.createForm = this.formBuilder.group(<Knockoff>{
             id: null,
             referenceNo: '',
             sourceNo: '',
@@ -45,20 +44,15 @@ export class KnockoffCreatorDialog {
             advancePayment: <AdvancePayment>{},
         } );
 
-        if ( this.edit ) this.createForm.patchValue( { advancePayment: this._advancePayment } );
+        this.createForm.patchValue( { advancePayment: this._advancePayment} );
     }
 
     save( knockoff: Knockoff, isValid: boolean ) {
-        this.store.dispatch( this.actions.saveKnockoff( knockoff, this._advancePayment) );
+        if(isValid)
+            knockoff.advancePayment = this._advancePayment;
         
-        let calculateBalance = 0;
-        calculateBalance = this._advancePayment.balanceAmount -  knockoff.amount;
-        
-        this._advancePayment.balanceAmount = calculateBalance;
-        if(this._advancePayment.balanceAmount == 0)
-            this._advancePayment.status = true;
-        
-        this.store.dispatch( this.action.updateAdvancePayment(this._advancePayment));
+        if(isValid)
+        this.store.dispatch( this.actions.startKnockoffTask(knockoff, this._advancePayment) );
         this.dialog.close();
     }
 
