@@ -45,7 +45,7 @@ export class KnockoffCenterPage implements OnInit {
   }
 
   viewTask(task: KnockoffTask) {
-    console.log('invoice: ' + task.taskId);
+    console.log('Task: ' + task.taskId);
     this.router.navigate(['/secure/billing/knockoffs/knockoff-task-detail', task.taskId]);
   }
 

@@ -541,7 +541,7 @@ export class BillingService {
     }
 
     findAssignedKnockoffTasks(): Observable<KnockoffTask[]> {
-        console.log( 'findAssignedInvoiceTasks' );
+        console.log( 'findAssignedKnockoffTasks' );
         return this._http.get( this.BILLING_API + '/knockoffs/assignedTasks' )
             .map(( res: Response ) => <KnockoffTask[]>res.json() );
     }

@@ -840,6 +840,7 @@ public class BillingController {
         knockoff.setDescription(vo.getDescription());
         knockoff.setAmount(vo.getAmount());
         knockoff.setPayments(billingService.findAdvancePaymentByReferenceNo(referenceNo));
+        knockoff.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
        billingService.startKnockoffTask(knockoff);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
