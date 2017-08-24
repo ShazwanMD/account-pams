@@ -31,17 +31,20 @@
 
       <!-- version baru -->
       <div layout="column" layout-gt-md="row">
-        <div flex-gt-md="50">
-        <div>
+        <div flex-gt-md="70">
           <md-card>
-            <md-card-title>Unpaid Invoices</md-card-title>
-            <pams-invoice-receipt-list
-              [receipt]="receiptTask.receipt"
-              [receiptInvoice]="receiptInvoice$ | async"
-              (view)="view($event)">
-            </pams-invoice-receipt-list>
+              <md-tab-group [selectedIndex]="0">
+                  <md-tab label="Unpaid Invoices">
+                      <pams-invoice-receipt-list
+                      [receipt]="receiptTask.receipt"
+                      [receiptInvoice]="receiptInvoice$ | async"
+                      (view)="view($event)">
+                    </pams-invoice-receipt-list>
+                  </md-tab>
+                  <md-tab label="Unpaid Charges">
+                  </md-tab>
+              </md-tab-group>
           </md-card>
-        </div>
         <div>
           <pams-receipt-item-list
             [receipt]="receiptTask.receipt"
