@@ -1037,7 +1037,7 @@ public class BillingServiceImpl implements BillingService {
 	// //
 	
 	@Override
-	public AcAdvancePayment findAdvancePaymenById(Long id) {
+	public AcAdvancePayment findAdvancePaymentById(Long id) {
 		return advancePaymentDao.findById(id);
 	}
 	
@@ -1088,6 +1088,16 @@ public class BillingServiceImpl implements BillingService {
 	public List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit) { 
 		return knockoffDao.find(filter, offset, limit);
 	}
+	
+	@Override
+	public List<AcKnockoff> findKnockoffsByFlowState(AcFlowState acFlowState) {
+		return knockoffDao.findByFlowState(acFlowState);
+	}
+
+	@Override
+	public List<AcKnockoff> findKnockoffsByFlowStates(AcFlowState... flowStates) {
+		return knockoffDao.findByFlowStates(flowStates);
+	}
 
 	@Override
 	public boolean hasKnockoff(AcKnockoff knockoff) {
@@ -1113,6 +1123,28 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	//TASK
+	
+	@Override
+	public AcKnockoff findKnockoffByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return knockoffDao.findById((Long) map.get(AccountConstants.KNOCKOFF_ID));
+	}
+
+	@Override
+	public Task findKnockoffTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
+
+	@Override
+	public List<Task> findAssignedKnockoffTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcKnockoff.class.getName(), offset, limit);
+	}
+
+	@Override
+	public List<Task> findPooledKnockoffTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcKnockoff.class.getName(), offset, limit);
+	}
 	
 	@Override
 	public String startKnockoffTask(AcKnockoff knockoff) {

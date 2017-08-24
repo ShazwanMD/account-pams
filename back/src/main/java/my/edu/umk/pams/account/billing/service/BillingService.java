@@ -295,7 +295,7 @@ public interface BillingService {
     // ADVANCE PAYMENT
     // ==================================================================================================== //
     
-    AcAdvancePayment findAdvancePaymenById(Long id);
+    AcAdvancePayment findAdvancePaymentById(Long id);
     
     AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo);
     
@@ -316,6 +316,10 @@ public interface BillingService {
     AcKnockoff findKnockoffByReferenceNo(String referenceNo);
     
     List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit);
+    
+	List<AcKnockoff> findKnockoffsByFlowState(AcFlowState acFlowState);
+	
+	List<AcKnockoff> findKnockoffsByFlowStates(AcFlowState... flowStates );
 
     boolean hasKnockoff(AcKnockoff knockoff);
     
@@ -327,8 +331,16 @@ public interface BillingService {
     
     //TASK
     
-    String startKnockoffTask(AcKnockoff knockoff);
+    AcKnockoff findKnockoffByTaskId(String taskId);
     
+    Task findKnockoffTaskByTaskId(String taskId);
+
+    List<Task> findAssignedKnockoffTasks(Integer offset, Integer limit);
+
+    List<Task> findPooledKnockoffTasks(Integer offset, Integer limit);
+    
+    String startKnockoffTask(AcKnockoff knockoff);
+        
     // ==================================================================================================== //
     // REFUND PAYMENT
     // ==================================================================================================== //
