@@ -12,10 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import my.edu.umk.pams.account.billing.model.AcCreditNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffImpl;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -51,6 +53,30 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
 		query.setMaxResults(limit);
 		return (List<AcKnockoff>) query.list();
 	}
+	
+    @Override
+    public List<AcKnockoff> findByFlowState(AcFlowState flowState) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcKnockoff i where " +
+                "i.flowdata.state = :flowState " +
+                "and i.metadata.state = :metaState ");
+        query.setInteger("flowState", flowState.ordinal());
+        query.setInteger("metaState", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcKnockoff>) query.list();
+    }
+
+    @Override
+    public List<AcKnockoff> findByFlowStates(AcFlowState... flowStates) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcKnockoff i where " +
+                "i.flowdata.state in (:flowStates) " +
+                "and i.metadata.state = :metaState ");
+        query.setParameterList("flowStates", flowStates);
+        query.setInteger("metaState", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcKnockoff>) query.list();
+    }
 
 	@Override
 	public boolean hasKnockoff(AcKnockoff knockoff) {
