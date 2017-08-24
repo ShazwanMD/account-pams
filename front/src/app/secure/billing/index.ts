@@ -64,6 +64,10 @@ import {AdvancePayment} from '../../shared/model/billing/advance-payment.interfa
 import { Knockoff } from "../../shared/model/billing/knockoff.interface";
 import {knockoffReducer, KnockoffState} from './knockoffs/knockoff.reducer';
 import {knockoffListReducer, KnockoffListState} from './knockoffs/knockoff-list.reducer';
+import {knockoffTaskReducer, KnockoffTaskState} from './knockoffs/knockoff-task.reducer';
+import { KnockoffTask } from "../../shared/model/billing/knockoff-task.interface";
+import {assignedKnockoffTaskListReducer, pooledKnockoffTaskListReducer,KnockoffTaskListState} from './knockoffs/knockoff-task-list.reducer';
+import { KnockoffSubModule } from "./knockoffs/index";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -97,6 +101,10 @@ export interface BillingModuleState {
   advancePayments: AdvancePaymentListState;
   knockoff: KnockoffState;
   knockoffs: KnockoffListState;
+  knockoffTask: KnockoffTaskState;
+  assignedKnockoffTasks: KnockoffTaskListState;
+  pooledKnockoffTasks: KnockoffTaskListState;
+  archivedKnockoffs: KnockoffListState;
 }
 ;
 
@@ -133,6 +141,10 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     advancePayments: <AdvancePayment[]>[],
     knockoff: <Knockoff>{},
     knockoffs: <Knockoff[]>[],
+    knockoffTask: <KnockoffTask>{},
+    assignedKnockoffTasks: [],
+    pooledKnockoffTasks: [],
+    archivedKnockoffs: [],
   };
 
 export const billingModuleReducers = {
@@ -165,6 +177,10 @@ export const billingModuleReducers = {
   advancePayments: advancePaymentListReducer,
   knockoff: knockoffReducer,
   knockoffs: knockoffListReducer,
+  knockoffTask: knockoffTaskReducer,
+  assignedKnockoffTasks: assignedKnockoffTaskListReducer,
+  pooledKnockoffTasks: pooledKnockoffTaskListReducer,
+  archivedKnockoffs: knockoffListReducer,
 };
 
 @NgModule({
@@ -177,6 +193,7 @@ export const billingModuleReducers = {
     ReceiptSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
     CreditNoteSubModule.forRoot(),
+    KnockoffSubModule.forRoot(),
     AdvancePaymentSubModule.forRoot(),
     PipeModule,
   ],

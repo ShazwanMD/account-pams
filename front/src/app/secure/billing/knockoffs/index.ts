@@ -18,6 +18,12 @@ import { KnockoffEffects } from './knockoff.effect';
 import { KnockoffListComponent } from './component/knockoff-list.component';
 import { KnockoffCreatorDialog } from "./dialog/knockoff-creator.dialog";
 import { AdvancePaymentSubModule } from "../advance-payments/index";
+import { KnockoffDraftTaskPanel } from "./panel/knockoff-draft-task.panel";
+import { KnockoffStatusComponent } from './component/knockoff-status.component';
+import { KnockoffTaskWorkflowPanel } from "./panel/knockoff-task-workflow.panel";
+import { KnockoffTaskDetailPage } from "./knockoff-task-detail.page";
+import { AssignedKnockoffTaskListComponent } from './component/assigned-knockoff-task-list.component';
+import { KnockoffCenterPage } from "./knockoff-center.page";
 
 @NgModule( {
     imports: [
@@ -35,17 +41,26 @@ import { AdvancePaymentSubModule } from "../advance-payments/index";
     ],
     declarations: [
         // page
-
+        KnockoffDraftTaskPanel,
+        KnockoffTaskWorkflowPanel,
+        KnockoffTaskDetailPage,
+        KnockoffCenterPage,
 
         // components
+        AssignedKnockoffTaskListComponent,
         KnockoffListComponent,
+        KnockoffStatusComponent,
+        
 
         // dialog
     ],
     exports: [
-KnockoffListComponent,
+        KnockoffListComponent,
+        KnockoffDraftTaskPanel,
+        KnockoffCenterPage,
     ],
     entryComponents: [
+        KnockoffDraftTaskPanel
     ],
 
 } )
