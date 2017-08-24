@@ -7,6 +7,7 @@ import {InvoiceRoutes} from './invoices/invoice.routes';
 import {DebitNoteRoutes} from './debit-notes/debit-note.routes';
 import {CreditNoteRoutes} from './credit-notes/credit-note.routes';
 import {AdvancePaymentRoutes} from './advance-payments/advance-payment.routes';
+import { KnockoffRoutes } from './knockoffs/knockoff.routes';
 
 // Route Configuration
 export const BillingModuleRoutes: Routes = [
@@ -17,4 +18,5 @@ export const BillingModuleRoutes: Routes = [
   ...DebitNoteRoutes,
   ...CreditNoteRoutes,
   ...AdvancePaymentRoutes,
+  ...KnockoffRoutes,
 ];

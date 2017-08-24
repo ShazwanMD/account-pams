@@ -6,15 +6,7 @@
 
   <td-layout-manage-list #list>
     <md-nav-list list-items>
-      <a md-list-item (click)="showDialog()">
-        <md-icon>create</md-icon>
-        Knockoff
-      </a>
-      <a md-list-item>
-        <md-icon>create</md-icon>
-        Refund Payment
-      </a>
-      <md-divider></md-divider>
+
     </md-nav-list>
     <div toolbar-buttons layout="row" layout-align="start center" flex>
       <span flex>Advance Payment Center</span>
@@ -27,21 +19,10 @@
     </div>
 
     <md-card>
-      <md-tab-group [selectedIndex]="0">
-        <md-tab label="Advance Payments">
            <pams-advance-payment-list
             [advancePayments]="advancePayments$ | async"
             (knockoffCreateDialog)="knockoffCreateDialog($event)" 
             (refundCreateDialog)="refundCreateDialog($event)"></pams-advance-payment-list>
-        </md-tab>
-        <md-tab label="Knockoff">
-		   <pams-knockoff-list
-            [knockoff]="knockoff$ | async"></pams-knockoff-list>
-        </md-tab>
-        <md-tab label="Refund">
-
-        </md-tab>
-      </md-tab-group>
     </md-card>
 
   </td-layout-manage-list>
