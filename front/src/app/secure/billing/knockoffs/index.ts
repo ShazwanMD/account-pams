@@ -23,6 +23,8 @@ import { KnockoffStatusComponent } from './component/knockoff-status.component';
 import { KnockoffTaskWorkflowPanel } from "./panel/knockoff-task-workflow.panel";
 import { KnockoffTaskDetailPage } from "./knockoff-task-detail.page";
 import { AssignedKnockoffTaskListComponent } from './component/assigned-knockoff-task-list.component';
+import { PooledKnockoffTaskListComponent } from './component/pooled-knockoff-task-list.component';
+import { ArchivedKnockoffListComponent } from './component/archived-knockoff-list.component';
 import { KnockoffCenterPage } from "./knockoff-center.page";
 
 @NgModule( {
@@ -48,6 +50,8 @@ import { KnockoffCenterPage } from "./knockoff-center.page";
 
         // components
         AssignedKnockoffTaskListComponent,
+        PooledKnockoffTaskListComponent,
+        ArchivedKnockoffListComponent,
         KnockoffListComponent,
         KnockoffStatusComponent,
         

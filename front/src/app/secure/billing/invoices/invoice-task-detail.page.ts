@@ -30,7 +30,7 @@ export class InvoiceTaskDetailPage implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/secure/billing/knockoffs']);
+    this.router.navigate(['/secure/billing/invoices']);
   }
 }
 

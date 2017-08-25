@@ -170,6 +170,7 @@ export class KnockoffActions {
     static FIND_ASSIGNED_KNOCKOFF_TASKS = '[Knockoff] Find Assigned Knockoff Tasks';
 
     findAssignedKnockoffTasks(): Action {
+        console.log('findAssignedKnockoffTasks');
       return {
         type: KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS,
       };
@@ -177,11 +178,12 @@ export class KnockoffActions {
 
     static FIND_ASSIGNED_KNOCKOFF_TASKS_SUCCESS = '[Knockoff] Find Assigned Knockoff Tasks Success';
 
-    findAssignedKnockoffTasksSuccess(knockoffs): Action {
+    findAssignedKnockoffTasksSuccess(tasks): Action {
       console.log('findAssignedKnockoffTasksSuccess');
+      console.log('action knockoff' + tasks);
       return {
         type: KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS_SUCCESS,
-        payload: knockoffs,
+        payload: tasks,
       };
     }
 

@@ -9,7 +9,7 @@ import { KnockoffActions } from './knockoff.action';
 @Injectable()
 export class KnockoffEffects {
 
-    private KNOCKOFF: string[] = 'billingModuleState.knockoff'.split( '.' );
+    private KNOCKOFF: string[] = 'billingModuleState.knockoffs'.split( '.' );
     private KNOCKOFF_TASK: string[] = 'billingModuleState.knockoffTask'.split('.');
 
     constructor( private actions$: Actions,
@@ -41,7 +41,7 @@ export class KnockoffEffects {
         .map(( knockoffs ) => this.knockoffActions.findArchivedknockoffsSuccess( knockoffs ) );
 
     @Effect() findAssignedKnockoffTasks$ = this.actions$
-        .ofType( KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS )
+        .ofType( KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS)
         .switchMap(() => this.billingService.findAssignedKnockoffTasks() )
         .map(( knockoffs ) => this.knockoffActions.findAssignedKnockoffTasksSuccess(knockoffs));
 

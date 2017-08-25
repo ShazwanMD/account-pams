@@ -1,5 +1,5 @@
 export enum FlowState {
-  NEW,                    // 1
+  NEW,                    // 0
   DRAFTED,                // 1
   REQUESTED,              // 2
   REGISTERED,             // 3
