@@ -40,15 +40,15 @@ export class KnockoffTaskWorkflowPanel implements OnInit {
           case FlowState.DRAFTED:
             componentFactory = this.cfr.resolveComponentFactory(KnockoffDraftTaskPanel);
             break;
-//          case FlowState.REGISTERED:
+          case FlowState.VERIFIED:
 //            componentFactory = this.cfr.resolveComponentFactory(InvoiceRegisterTaskPanel);
-//            break;
-//          case FlowState.VERIFIED:
+            break;
+          case FlowState.APPROVED:
 //            componentFactory = this.cfr.resolveComponentFactory(InvoiceVerifyTaskPanel);
-//            break;
+            break;
         }
         this.componentRef = this.taskPanel.createComponent(componentFactory);
-        this.componentRef.instance.invoiceTask = task;
+        this.componentRef.instance.knockoffTask = task;
       }
     });
   }

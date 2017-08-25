@@ -33,7 +33,7 @@ public class KnockoffDraftTask extends BpmnActivityBehavior implements ActivityB
     public void execute(ActivityExecution execution) throws Exception {
         Long knockoffId = (Long) execution.getVariable(KNOCKOFF_ID);
         AcKnockoff knockoff = billingService.findKnockoffById(knockoffId);
-
+        LOG.debug("knockoff ID " , knockoff.getId());
         LOG.debug("drafting knockoff {}", knockoff.getReferenceNo());
 
         // append charge to invoice
