@@ -26,14 +26,14 @@
             (view)="viewTask($event)"></pams-assigned-knockoff-task-list>
         </md-tab>
         <md-tab label="Pooled">
-<!--           <pams-pooled-invoice-task-list
-            [invoiceTasks]="pooledInvoiceTasks$ | async"
-            (claim)="claimTask($event)"></pams-pooled-invoice-task-list> -->
+        <pams-pooled-knockoff-task-list
+            [knockoffTask]="pooledKnockoffTasks$ | async"
+            (claim)="claimTask($event)"></pams-pooled-knockoff-task-list> 
         </md-tab>
         <md-tab label="Archived">
-<!--           <pams-archived-invoice-list
-            [invoices]="archivedInvoices$ | async"
-            (view)="viewInvoice($event)"></pams-archived-invoice-list> -->
+           <pams-archived-knockoff-list
+            [knockoff]="archivedKnockoffs$ | async"
+            (view)="viewKnockoff($event)"></pams-archived-knockoff-list> 
         </md-tab>
       </md-tab-group>
     </md-card>
