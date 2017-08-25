@@ -1,9 +1,12 @@
 package my.edu.umk.pams.account.web.module.account.vo;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 import my.edu.umk.pams.account.web.module.identity.vo.Actor;
@@ -23,10 +26,8 @@ public class Sponsorship extends MetaObject {
 	private String referenceNo;
 	private String accountNo;
 	private Boolean active;
-//	private Actor actor;
-//	private Student student;
 	private Sponsor sponsor;
-//	private ActorType actorType;
+	private AcademicSession session;
 
 	public BigDecimal getAmount() {
 		return amount;	
@@ -76,21 +77,6 @@ public class Sponsorship extends MetaObject {
 		this.active = active;
 	}
     
-//    public Actor getActor() {
-//    	return actor;
-//    }
-//    
-//    public void setActor(Actor actor) {
-//    	this.actor = actor;
-//    }
-
-//    public Student getStudent() {
-//		return student;
-//	}
-//
-//	public void setStudent(Student student) {
-//		this.student = student;
-//	}
 	
     public Sponsor getSponsor() {
 		return sponsor;
@@ -99,15 +85,27 @@ public class Sponsorship extends MetaObject {
 	public void setSponsor(Sponsor sponsor) {
 		this.sponsor = sponsor;
 	}
-//
-//	public ActorType getActorType() {
-//		return ActorType.SPONSOR;
-//	}
-//
-//	public void setActorType(ActorType actorType) {
-//		this.actorType = ActorType.SPONSOR;
-//	}
 	
+	public AcademicSession getSession() {
+		return session;
+	}
+
+	public void setSession(AcademicSession session) {
+		this.session = session;
+	}	
+	
+
+	@JsonCreator
+	public static Sponsorship create(String jsonString) {
+		Sponsorship o = null;
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			o = mapper.readValue(jsonString, Sponsorship.class);
+		} catch (IOException e) {
+			// handle
+		}
+		return o;
+	}	
 }
 
 

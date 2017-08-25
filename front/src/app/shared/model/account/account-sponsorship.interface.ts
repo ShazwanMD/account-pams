@@ -15,6 +15,7 @@ export interface AccountSponsorship extends MetaObject {
   endDate: Date;
   sponsor: Sponsor;
 
+
   // admission
   studyMode?: StudyMode;
   ordinal: number;

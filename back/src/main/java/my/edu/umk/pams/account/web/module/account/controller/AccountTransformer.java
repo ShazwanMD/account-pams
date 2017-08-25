@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.web.module.account.controller;
 
 import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
@@ -139,6 +140,7 @@ public class AccountTransformer {
     	Sponsorship vo = new Sponsorship();
         vo.setId(e.getId());
         vo.setSponsor(identityTransformer.toSponsorVo(e.getSponsor()));
+        vo.setSession(toAcademicSessionVo(e.getSession()));
         vo.setReferenceNo(e.getReferenceNo());
         vo.setAccountNo(e.getAccountNo());
         vo.setEndDate(e.getEndDate());
@@ -148,13 +150,14 @@ public class AccountTransformer {
         return vo;
     }
 
-    public List<Sponsorship> toSponsorshipVos(List<AcSponsorship> sponsorships) {
-        List<Sponsorship> vos = sponsorships.stream()
-                .map((sponsorship) -> toSponsorshipVo(sponsorship))
-                .collect(toList());
-        return vos;                                                                                                                   
+    
+    public List<Sponsorship> toSponsorshipVos(List<AcSponsorship> accounts) {
+        return accounts.stream()
+                .map((accountTx) -> toSponsorshipVo(accountTx))
+                .collect(toCollection(() -> new ArrayList<Sponsorship>()));                                                                                                                
     }
 
+       
     public AccountWaiver toAccountWaiverVo(AcAccountWaiver e) {
         AccountWaiver m = new AccountWaiver();
         m.setId(e.getId());

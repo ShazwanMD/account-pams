@@ -17,6 +17,7 @@ export class SponsorshipComponent implements OnInit {
   private editorDialogRef: MdDialogRef<SponsorshipEditorDialog>;
   private Columns: any[] = [
     {name: 'referenceNo', label: 'Reference No'},
+    {name: 'session.code', label: 'Session'},   
     {name: 'sponsor.name', label: 'Sponsor'},
     {name: 'accountNo', label: 'Sponsor Acc No'},
     {name: 'startDate', label: 'Start Date'},

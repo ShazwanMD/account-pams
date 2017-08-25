@@ -1039,6 +1039,7 @@
         primary key (ID)
     );
 
+           
     create table AC_SPHP (
         ID int8 not null,
         REFERENCE_NO varchar(255) not null,
@@ -1054,6 +1055,7 @@
         M_ID int8,
         M_ST int4,
         ACTIVE boolean,
+        SESSION_ID int8,
         SPONSOR_ID int8,
         primary key (ID)
     );
@@ -1278,6 +1280,9 @@
 
     alter table AC_ACCT_CHRG 
         add constraint UK_ojhm9q9q2f9cp1fp0qa4791b unique (REFERENCE_NO);
+        
+    alter table AC_SPHP 
+        add constraint UK_ojhm9q9q2f9cp1fp0qa5678c unique (REFERENCE_NO);        
 
     alter table AC_ACDM_SESN 
         add constraint UK_m96040pp8um8tl90wrggobq1m unique (CODE);
@@ -1675,16 +1680,16 @@
         foreign key (MODULE_ID) 
         references AC_MODL;
 
---    alter table AC_SPHP 
---        add constraint FK_st6klbsxd7yrnqvdrvy0b53n2 
---        foreign key (SPONSOR_ID) 
---        references AC_SPSR;
+    alter table AC_SPHP
+        add constraint FK_st6klbsxd7yrnqvdrvy0b53n2
+        foreign key (SPONSOR_ID)
+        references AC_SPSR;
 
     alter table AC_SPHP 
-        add constraint FK_ng5avp5mj8tim7n76tyny4bst 
-        foreign key (STUDENT_ID) 
-        references AC_STDN;
-
+        add constraint FK_ng5avp5mj8tim7n76tyny5tsa 
+        foreign key (SESSION_ID) 
+        references AC_ACDM_SESN;        
+        
     alter table AC_SPSR 
         add constraint FK_16abykipvmbjv2dwcrni1kg3w 
         foreign key (ID) 

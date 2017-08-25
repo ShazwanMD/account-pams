@@ -284,7 +284,7 @@ public class SystemServiceImpl implements SystemService {
     public String generateFormattedReferenceNo(String code, Map<String, Object> map) {
         synchronized (this) {
             AcReferenceNo referenceNo = referenceNoDao.findByCode(code);
-
+    	    LOG.debug("test referenceNo generate : {}", referenceNo);
             // get old and new value
             Integer oldValue = referenceNo.getCurrentValue();
             Integer newValue = referenceNo.getCurrentValue() + referenceNo.getIncrementValue();

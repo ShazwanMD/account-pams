@@ -31,6 +31,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import static my.edu.umk.pams.account.AccountConstants.PROMO_CODE_REFERENCE_NO;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -554,31 +556,22 @@ public class AccountController {
 				 accountTransformer.toSponsorshipVos(identityService.findSponsorships(account)), HttpStatus.OK);
 	}
     
-    
-//    @RequestMapping(value = "/account/{code}/accountTransactions", method = RequestMethod.POST)
-//    public void addAccountTransaction(@PathVariable String code, @RequestBody AccountTransaction vo) {
-//
-//        AcAccount account = accountService.findAccountByCode(code);
-//        AcAccountTransaction transaction = new AcAccountTransactionImpl();
-//        transaction.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
-//        transaction.setAmount(vo.getAmount());
-//        transaction.setPostedDate(vo.getPostedDate());
-//        transaction.setSession(accountService.findAcademicSessionById(vo.getSession().getId()));
-//        transaction.setTransactionCode(AcAccountTransactionCode.ADHOC);
-//        accountService.addAccountTransaction(account, transaction);
-//    }
 
 	@RequestMapping(value = "/account/{code}/sponsor/{id}/sponsorships", method = RequestMethod.POST)
-	public ResponseEntity<String> addSponsorship(@PathVariable String code, @PathVariable Long id, @RequestBody Sponsorship vo) {
-		
-		AcAccount account = accountService.findAccountByCode(code);
+	public ResponseEntity<String> addSponsorship(@PathVariable String code, @PathVariable Long id,
+			@RequestBody Sponsorship vo) {
+
 		AcSponsor sponsor = identityService.findSponsorById(id);
-		
+		AcAccount account = accountService.findAccountByCode(code);
 		AcSponsorship sponsorship = new AcSponsorshipImpl();
-		sponsorship.setReferenceNo(vo.getReferenceNo());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("academicSession", accountService.findCurrentAcademicSession());
+		String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.SPONSORSHIP_REFRENCE_NO, map);
+
+		
+		sponsorship.setReferenceNo(referenceNo);
 		sponsorship.setAccountNo(vo.getAccountNo());
-//		if (null != vo.getStudent())
-//			sponsorship.setStudent(identityService.findStudentById(vo.getId()));
+		sponsorship.setSession(accountService.findCurrentAcademicSession());
 		sponsorship.setAmount(vo.getAmount());
 		sponsorship.setSponsor(sponsor);
 		sponsorship.setActive(vo.getActive());
@@ -591,12 +584,10 @@ public class AccountController {
 	@RequestMapping(value = "/sponsorships/{code}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateSponsorship(@PathVariable String code, @RequestBody Sponsorship vo) {
 
-        // what can we update?
+
 		AcSponsorship sponsorship = identityService.findSponsorshipById(vo.getId());
 		sponsorship.setReferenceNo(vo.getReferenceNo());
 		sponsorship.setAccountNo(vo.getAccountNo());
-//		if (null != vo.getStudent())
-//		sponsorship.setStudent(identityService.findStudentById(vo.getId()));
 		sponsorship.setAmount(vo.getAmount());
 		sponsorship.setActive(vo.getActive());
 		sponsorship.setStartDate(vo.getStartDate());
@@ -604,11 +595,7 @@ public class AccountController {
         identityService.updateSponsorship(sponsorship);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-    
-    
-    
-    
-    
+   
     // ====================================================================================================
     // PRIVATE METHODS
     // ====================================================================================================

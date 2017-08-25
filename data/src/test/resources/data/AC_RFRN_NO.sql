@@ -33,3 +33,6 @@ VALUES (nextval('SQ_AC_RFRN_NO'), 'AcAdvancePayment.referenceNo', 1, 'Advance Pa
 
 INSERT INTO AC_RFRN_NO (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, M_ST, C_ID, C_TS )
 VALUES (nextval('SQ_AC_RFRN_NO'), 'AcKnockoff.referenceNo', 1, 'Knockoff Reference No Format', 1, 'KNOF', '{#academicSession.getCode()}-{#j}', '000', 1, 0, CURRENT_TIMESTAMP );
+
+INSERT INTO AC_RFRN_NO (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, M_ST, C_ID, C_TS )
+VALUES (nextval('SQ_AC_RFRN_NO'), 'AcSponsorship.referenceNo', 1, 'Sponsorship Reference No Format', 1, 'SPHP', '{#academicSession.getCode()}-{#j}', '000', 1, 0, CURRENT_TIMESTAMP );

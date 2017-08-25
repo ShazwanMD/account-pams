@@ -18,11 +18,6 @@ import my.edu.umk.pams.account.web.module.identity.vo.Sponsor;
  */
 public interface AcSponsorship extends AcMetaObject {
 
-//
-//    AcStudent getStudent();
-//
-//    void setStudent(AcStudent student);
-    
     String getReferenceNo();
 
     void setReferenceNo(String referenceNo);
@@ -55,11 +50,10 @@ public interface AcSponsorship extends AcMetaObject {
     
 	void setSponsor(AcSponsor sponsor);
 
-	
-	
-//    AcAcademicSession getSession();
-//
-//    void setSession(AcAcademicSession session);
+    AcAcademicSession getSession();
+
+    void setSession(AcAcademicSession session);
+
 
 }
  

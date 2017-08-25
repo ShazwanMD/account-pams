@@ -32,17 +32,13 @@ public class AcSponsorshipImpl implements AcSponsorship {
     @SequenceGenerator(name = "SQ_AC_SPHP", sequenceName = "SQ_AC_SPHP", allocationSize = 1)
     private Long id;
     
-    @NotNull
-    @Column(name = "REFERENCE_NO", unique = true, nullable = false)
-    private String referenceNo;
+	@NotNull
+	@Column(name = "REFERENCE_NO", nullable = false)
+	private String referenceNo;
     
     @NotNull
     @Column(name = "ACCOUNT_NO", unique = true, nullable = false)
     private String accountNo;
-//
-//    @ManyToOne(targetEntity = AcStudentImpl.class)
-//    @JoinColumn(name = "STUDENT_ID")
-//    private AcStudent student;
 
 	@ManyToOne(targetEntity = AcSponsorImpl.class)
     @JoinColumn(name = "SPONSOR_ID")
@@ -52,13 +48,10 @@ public class AcSponsorshipImpl implements AcSponsorship {
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
 
-    
-//    @NotNull
-//    @OneToOne(targetEntity = AcAcademicSessionImpl.class)
-//    @JoinColumn(name = "SESSION_ID")
-//    private AcAcademicSession session;
+    @ManyToOne(targetEntity = AcAcademicSessionImpl.class)
+    @JoinColumn(name = "SESSION_ID", nullable = true)
+    private AcAcademicSession session;
 	
-
 
     @NotNull
     @Column(name = "AMOUNT", nullable = false)
@@ -89,30 +82,26 @@ public class AcSponsorshipImpl implements AcSponsorship {
         this.id = id;
     }
 
+    @Override
     public String getReferenceNo() {
-		return referenceNo;
-	}
+        return referenceNo;
+    }
 
-	public void setReferenceNo(String referenceNo) {
-		this.referenceNo = referenceNo;
-	}
+    @Override
+    public void setReferenceNo(String referenceNo) {
+        this.referenceNo = referenceNo;
+    }
 
+    @Override
 	public String getAccountNo() {
 		return accountNo;
 	}
 
+    @Override
 	public void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
 	}
-    
-//    public AcStudent getStudent() {
-//        return student;
-//    }
-//
-//    public void setStudent(AcStudent student) {
-//        this.student = student;
-//    }
-    
+       
     @Override
     public BigDecimal getAmount() {
         return amount;
@@ -179,6 +168,16 @@ public class AcSponsorshipImpl implements AcSponsorship {
     }
 
     @Override
+    public AcAcademicSession getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(AcAcademicSession session) {
+        this.session = session;
+    }
+    
+    @Override
     public void setAccount(AcAccount account) {
         this.account = account;
     }
@@ -187,4 +186,5 @@ public class AcSponsorshipImpl implements AcSponsorship {
     public Class<?> getInterfaceClass() {
         return AcSponsorship.class;
     }
+	
 }
