@@ -541,13 +541,13 @@ export class BillingService {
     }
 
     findAssignedKnockoffTasks(): Observable<KnockoffTask[]> {
-        console.log( 'findAssignedKnockoffTasks' );
+        console.log( 'findAssignedKnockoffTasks');
         return this._http.get( this.BILLING_API + '/knockoffs/assignedTasks' )
             .map(( res: Response ) => <KnockoffTask[]>res.json() );
     }
 
     findPooledKnockoffTasks(): Observable<KnockoffTask[]> {
-        console.log( 'findPooledKnockoffTasks' );
+        console.log( 'findPooledKnockoffTasks');
         return this._http.get( this.BILLING_API + '/knockoffs/pooledTasks' )
             .map(( res: Response ) => <KnockoffTask[]>res.json() );
     }
