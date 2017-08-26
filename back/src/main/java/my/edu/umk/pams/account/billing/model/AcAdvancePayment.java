@@ -39,4 +39,8 @@ public interface AcAdvancePayment extends AcMetaObject {
 	AcAccount getAccount();
 
 	void setAccount(AcAccount account);
+	
+	List<AcRefundPayment> getRefundPayment();
+
+	void setRefundPayment(List<AcRefundPayment> refundPayment);
 }

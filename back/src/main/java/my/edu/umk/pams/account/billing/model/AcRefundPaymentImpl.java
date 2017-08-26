@@ -2,13 +2,16 @@ package my.edu.umk.pams.account.billing.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -48,10 +51,9 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
     
-    @NotNull
-    @OneToOne(targetEntity = AcInvoiceImpl.class)
-    @JoinColumn(name = "INVOICE_ID")
-    private AcInvoice invoice;
+    @ManyToOne(targetEntity = AcAdvancePaymentImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ADVANCE_PAYMENT_ID")
+    private AcAdvancePayment payments;
     
     @Column(name = "CANCEL_COMMENT")
     private String cancelComment;
@@ -163,15 +165,15 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
         this.issuedDate = issuedDate;
     }
 
-    @Override
-    public AcInvoice getInvoice() {
-        return invoice;
-    }
+    @Override	
+    public AcAdvancePayment getPayments() {
+		return payments;
+	}
 
     @Override
-    public void setInvoice(AcInvoice invoice) {
-        this.invoice = invoice;
-    }
+	public void setPayments(AcAdvancePayment payments) {
+		this.payments = payments;
+	}
 	
     @Override
     public AcMetadata getMetadata() {

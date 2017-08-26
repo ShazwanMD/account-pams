@@ -19,7 +19,7 @@ public interface AcRefundPayment extends AcDocument {
 
     void setIssuedDate(Date issuedDate);
 
-    AcInvoice getInvoice();
+	AcAdvancePayment getPayments();
 
-    void setInvoice(AcInvoice invoice);
+	void setPayments(AcAdvancePayment payments);
 }

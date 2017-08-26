@@ -54,6 +54,9 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
     @OneToMany(targetEntity = AcKnockoffImpl.class, mappedBy = "payments")
     private List<AcKnockoff> knockoff;
     
+    @OneToMany(targetEntity = AcRefundPaymentImpl.class, mappedBy = "payments")
+    private List<AcRefundPayment> refundPayment;
+    
     @NotNull
     @ManyToOne(targetEntity = AcAccountImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "ACCOUNT_ID")
@@ -131,6 +134,16 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
 		this.receipt = receipt;
 	}
 
+	@Override
+	public List<AcRefundPayment> getRefundPayment() {
+		return refundPayment;
+	}
+
+	@Override
+	public void setRefundPayment(List<AcRefundPayment> refundPayment) {
+		this.refundPayment = refundPayment;
+	}
+	
 	@Override
 	public List<AcKnockoff> getKnockoff() {
 		return knockoff;
