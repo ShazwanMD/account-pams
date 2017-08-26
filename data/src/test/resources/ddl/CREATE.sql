@@ -930,7 +930,7 @@
         REFERENCE_NO varchar(255),
         REMOVE_COMMENT varchar(255),
         SOURCE_NO varchar(255),
-        INVOICE_ID int8,
+        ADVANCE_PAYMENT_ID int8,
         primary key (ID)
     );
 
@@ -1552,8 +1552,8 @@
 
     alter table AC_KNOF
         add constraint FK_f91f9no80f8qtl6r92n08r32n
-        foreign key (INVOICE_ID)
-        references AC_INVC;
+        foreign key (ADVANCE_PAYMENT_ID)
+        references AC_ADVC_PYMT;
 
     alter table AC_PCPL_ROLE
         add constraint FK_ofdb3qau30ii76rhetdhgtn2r
@@ -1607,8 +1607,8 @@
 
     alter table AC_RFND_PYMT
         add constraint FK_i9dv9aqu0m3layaisbx625v83
-        foreign key (INVOICE_ID)
-        references AC_INVC;
+        foreign key (ADVANCE_PAYMENT_ID)
+        references AC_ADVC_PYMT;
 
     alter table AC_SMDL
         add constraint FK_l5iijx9gif3hcfpnfhketwebo

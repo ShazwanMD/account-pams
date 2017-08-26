@@ -920,7 +920,7 @@
         primary key (ID)
     );
 
-    create table AC_RFND_PYMT (
+create table AC_RFND_PYMT (
         ID int8 not null,
         AMOUNT numeric(19, 2),
         AUDIT_NO varchar(255),
@@ -966,9 +966,10 @@
         REFERENCE_NO varchar(255),
         REMOVE_COMMENT varchar(255),
         SOURCE_NO varchar(255),
-        INVOICE_ID int8,
+        ADVANCE_PAYMENT_ID int8,
         primary key (ID)
     );
+
 
     create table AC_RFRN_NO (
         ID int8 not null,
@@ -1670,10 +1671,10 @@
         foreign key (RECEIPT_ID) 
         references AC_RCPT;
 
-    alter table AC_RFND_PYMT 
-        add constraint FK_i9dv9aqu0m3layaisbx625v83 
-        foreign key (INVOICE_ID) 
-        references AC_INVC;
+    alter table AC_RFND_PYMT
+        add constraint FK_i9dv9aqu0m3layaisbx625v83
+        foreign key (ADVANCE_PAYMENT_ID)
+        references AC_ADVC_PYMT;
 
     alter table AC_SMDL 
         add constraint FK_l5iijx9gif3hcfpnfhketwebo 
