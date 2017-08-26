@@ -1,3 +1,7 @@
+import { SponsorDashboardPanel } from './secure/sponsor-dashboard.panel';
+import { ManagementDashboardPanel } from './secure/management-dashboard.panel';
+import { StudentDashboardPanel } from './secure/student-dashboard.panel';
+import { PtjDashboardPanel } from './secure/ptj-dashboard.panel';
 import {NgModule, Type} from '@angular/core';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
@@ -109,6 +113,10 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     DashboardPage,
     ForgetPasswordPage,
     AdministratorDashboardPanel,
+    PtjDashboardPanel,
+    StudentDashboardPanel,
+    ManagementDashboardPanel,
+    SponsorDashboardPanel,
     AuthorizedShowDirective,
     AuthenticatedShowDirective,
     NotAuthenticatedShowDirective,
@@ -154,6 +162,10 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
   ], // additional providers needed for this module
   entryComponents: [
     AdministratorDashboardPanel,
+    PtjDashboardPanel,
+    StudentDashboardPanel,
+    ManagementDashboardPanel,
+    SponsorDashboardPanel,
   ],
   bootstrap: [AppComponent],
 })

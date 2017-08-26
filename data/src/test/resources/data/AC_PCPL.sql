@@ -10,6 +10,14 @@ INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Admin', 'admin@umk.edu.my', 'abc123');
 
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'kerani-admin-bendahari', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani Admin Bendahari', 'keraniadminbendahari@umk.edu.my', 'abc123');
+
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'kerani-ptj-sec', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani PTJ Secetary', 'keraniptjsec@umk.edu.my', 'abc123');
+
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'system', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS System', 'system@umk.edu.my', 'abc123');
@@ -29,6 +37,7 @@ VALUES (currval('SQ_AC_PCPL'), 'PAMS Student1', 'student1@umk.edu.my', 'abc123')
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'student2', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Student2', 'student2@umk.edu.my', 'abc123');
+
 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'jpa', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
@@ -318,91 +327,41 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_AHO_PTJ_HEP'), 1, 1, CURRENT_TIMESTAMP);                                                                                    
                                                                                                                                                                   
                                                                                  
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
 ---------------------------------------------------------
 -- GROUP END
 ---------------------------------------------------------
+                                                                                
+                                                                                 
+-- USERS
+
+--USER APPLICANT
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_STDN'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'student1'), 1, 1, CURRENT_TIMESTAMP);	                                                                                 
+                                                                                 
+--USER MANAGEMENT                                                                                 
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_MGT'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'system'), 1, 1, CURRENT_TIMESTAMP);	                                                                                 
+--USER SPONSOR                                                                                   
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_SPNSR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'jpa'), 1, 1, CURRENT_TIMESTAMP);	                                                                                  
+                                                                                 
+--USER ADMIN BENDAHARI KERANI                                                                              
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_ADM_BEND'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-admin-bendahari'), 1, 1, CURRENT_TIMESTAMP);	                                                                                 
+                                                                                                                                                                  
+--USER PTJ SEC KERANI                                                                              
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_PTJ_SEC'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-ptj-sec'), 1, 1, CURRENT_TIMESTAMP);	                                                                                    
+                                                                                 
+                                                                                 
+                                                                                 
+                                                                                 
+                                                                                 
+                                                                          
+                                                                                                                                   
 
