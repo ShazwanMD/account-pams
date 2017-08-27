@@ -1167,6 +1167,11 @@ public class BillingServiceImpl implements BillingService {
 	// //
 
 	@Override
+	public AcRefundPayment findRefundPaymentById(Long id) {
+		return refundPaymentDao.findById(id);
+	}
+	
+	@Override
 	public AcRefundPayment findRefundPaymentByReferenceNo(String referenceNo) {
 		return refundPaymentDao.findByReferenceNo(referenceNo);
 	}
@@ -1182,8 +1187,14 @@ public class BillingServiceImpl implements BillingService {
 		sessionFactory.getCurrentSession().flush();
 	}
 
+//	@Override
+//	public void updateRefundPayment(AcRefundPayment refund, AcUser user) {
+//		refundPaymentDao.update(refund, securityService.getCurrentUser());
+//		sessionFactory.getCurrentSession().flush();
+//	}
+	
 	@Override
-	public void updateRefundPayment(AcRefundPayment refund, AcUser user) {
+	public void updateRefundPayment(AcRefundPayment refund) {
 		refundPaymentDao.update(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
