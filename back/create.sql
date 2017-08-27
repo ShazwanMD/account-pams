@@ -1260,6 +1260,61 @@ create table AC_RFND_PYMT (
         SESSION_ID int8,
         primary key (ID)
     );
+    
+     create table AC_WAVR_FNCE_APLN (
+        ID int8 not null,
+        AUDIT_NO varchar(255),
+        BALANCE numeric(19, 2) not null,
+        CANCEL_COMMENT varchar(255),
+        DESCRIPTION varchar(255),
+        EFFECTIVE_BALANCE numeric(19, 2) not null,
+        AV_TS timestamp,
+        AV_ID int8,
+        CL_ID int8,
+        CL_TS timestamp,
+        CK_TS timestamp,
+        CK_ID int8,
+        DT_TS timestamp,
+        DT_ID int8,
+        EV_TS timestamp,
+        EV_ID int8,
+        PR_TS timestamp,
+        PR_ID int8,
+        PS_TS timestamp,
+        PS_ID int8,
+        RG_TS timestamp,
+        RG_ID int8,
+        RM_TS timestamp,
+        RM_ID int8,
+        RQ_TS timestamp,
+        RQ_ID int8,
+        SL_TS timestamp,
+        SL_ID int8,
+        FD_ST int4,
+        UP_TS timestamp,
+        UP_ID int8,
+        UV_TS timestamp,
+        UV_ID int8,
+        VF_TS timestamp,
+        VF_ID int8,
+        GRACED_AMOUNT numeric(19, 2) not null,
+        MEMO varchar(255),
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        REASON varchar(255),
+        REFERENCE_NO varchar(255),
+        REMOVE_COMMENT varchar(255),
+        SOURCE_NO varchar(255),
+        WAIVED_AMOUNT numeric(19, 2) not null,
+        ACCOUNT_ID int8,
+        SESSION_ID int8,
+        primary key (ID)
+    );
 
     create table AC_WTCH (
         ID int8 not null,
@@ -1770,6 +1825,16 @@ create table AC_RFND_PYMT (
         add constraint FK_9biewrgydh2os939x0wy4bw6 
         foreign key (SESSION_ID) 
         references AC_ACDM_SESN;
+        
+    alter table AC_WAVR_FNCE_APLN 
+        add constraint FK_1coqllo22hpahq7m73p6u1g75
+        foreign key (ACCOUNT_ID) 
+        references AC_ACCT;
+        
+    alter table AC_WAVR_FNCE_APLN 
+        add constraint FK_9biewrgydh2os939x0wy4bw7 
+        foreign key (ACCOUNT_ID) 
+        references AC_ACDM_SESN;
 
     create sequence SEQ_ACCT_CHRG;
 
@@ -1878,5 +1943,7 @@ create table AC_RFND_PYMT (
     create sequence SQ_AC_TAX_CODE;
 
     create sequence SQ_AC_WAVR_APLN;
+    
+    create sequence SQ_AC_WAVR_FNCE_APLN;
 
     create sequence SQ_AC_WTCH;
