@@ -64,9 +64,7 @@ import {AdvancePayment} from '../../shared/model/billing/advance-payment.interfa
 import { Knockoff } from "../../shared/model/billing/knockoff.interface";
 import {knockoffReducer, KnockoffState} from './knockoffs/knockoff.reducer';
 import {knockoffListReducer, KnockoffListState} from './knockoffs/knockoff-list.reducer';
-import {knockoffTaskReducer, KnockoffTaskState} from './knockoffs/knockoff-task.reducer';
 import { KnockoffTask } from "../../shared/model/billing/knockoff-task.interface";
-import {assignedKnockoffTaskListReducer, pooledKnockoffTaskListReducer,KnockoffTaskListState} from './knockoffs/knockoff-task-list.reducer';
 import { KnockoffSubModule } from "./knockoffs/index";
 import { WaiverFinanceApplicationTask } from "../../shared/model/billing/waiver-finance-application-task.interface";
 import { WaiverFinanceApplication } from "../../shared/model/billing/waiver-finance-application.interface";
@@ -74,6 +72,8 @@ import { WaiverFinanceApplicationTaskListState, pooledWaiverFinanceApplicationTa
 import { WaiverFinanceApplicationListState, archivedWaiverFinanceApplicationListReducer, waiverFinanceApplicationListReducer } from "./waiver-finance-applications/waiver-finance-application-list.reducer";
 import { WaiverFinanceApplicationTaskState, waiverFinanceApplicationTaskReducer } from "./waiver-finance-applications/waiver-finance-application-task.reducer";
 import { waiverFinanceApplicationReducer, WaiverFinanceApplicationState } from "./waiver-finance-applications/waiver-finance-application.reducer";
+import {KnockoffTaskListState, assignedKnockoffTaskListReducer, pooledKnockoffTaskListReducer} from './knockoffs/knockoff-task-list.reducer';
+import {KnockoffTaskState, knockoffTaskReducer} from './knockoffs/knockoff-task.reducer';
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;

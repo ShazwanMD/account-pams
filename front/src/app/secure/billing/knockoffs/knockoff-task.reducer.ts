@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {KnockoffActions} from './knockoff.action';
 import {KnockoffTask} from '../../../shared/model/billing/knockoff-task.interface';
+import {KnockoffActions} from './knockoff.action';
 
 export type KnockoffTaskState = KnockoffTask;
 

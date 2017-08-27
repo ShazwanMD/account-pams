@@ -346,11 +346,11 @@ public interface BillingService {
     // REFUND PAYMENT
     // ==================================================================================================== //
     
-    List<AcRefundPayment> findRefundPayments(String filter, Integer offset, Integer limit);
+//    List<AcRefundPayment> findRefundPayments(String filter, Integer offset, Integer limit);
     
-	List<AcRefundPayment> findRefundPaymentsByFlowState(AcFlowState acFlowState);
-	
-	List<AcRefundPayment> findRefundPaymentsByFlowStates(AcFlowState... flowStates );
+//	List<AcRefundPayment> findRefundPaymentsByFlowState(AcFlowState acFlowState);
+//	
+//	List<AcRefundPayment> findRefundPaymentsByFlowStates(AcFlowState... flowStates );
     
     AcRefundPayment findRefundPaymentById (Long id);
     
@@ -363,20 +363,20 @@ public interface BillingService {
     void updateRefundPayment(AcRefundPayment refund);
 
     void removeRefundPayment(AcRefundPayment refund, AcUser user);
-
+    
     void calculateNetAmount(AcInvoiceItem invoiceItem);
     
     //TASK
     
-    AcRefundPayment findRefundPaymentByTaskId(String taskId);
+    //AcRefundPayment findRefundPaymentByTaskId(String taskId);
     
-    Task findRefundPaymentTaskByTaskId(String taskId);
+    //Task findRefundPaymentTaskByTaskId(String taskId);
 
-    List<Task> findAssignedRefundPaymentTasks(Integer offset, Integer limit);
+    //List<Task> findAssignedRefundPaymentTasks(Integer offset, Integer limit);
 
-    List<Task> findPooledRefundPaymentTasks(Integer offset, Integer limit);
+    //List<Task> findPooledRefundPaymentTasks(Integer offset, Integer limit);
     
-    String startRefundPaymentTask(AcRefundPayment refundPayment);
+    //String startRefundPaymentTask(AcRefundPayment refundPayment);
     // ==================================================================================================== //
     // WAIVER FINANCE APPLICATION
     // ==================================================================================================== //

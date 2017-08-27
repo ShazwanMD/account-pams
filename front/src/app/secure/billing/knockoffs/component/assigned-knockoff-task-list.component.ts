@@ -15,10 +15,11 @@ export class AssignedKnockoffTaskListComponent {
                               {name: 'invoice.referenceNo', label: 'Invoice'},
                               {name: 'description', label: 'Description'},
                               {name: 'amount', label: 'Total Amount'},
+                              {name: 'flowState', label: 'Status'},
                               {name: 'action', label: ''},
                             ];
 
-  @Input() knockoffTask: KnockoffTask[];
+  @Input() knockoffTasks: KnockoffTask[];
   @Output() view = new EventEmitter<KnockoffTask>();
 
   constructor(private snackBar: MdSnackBar) {

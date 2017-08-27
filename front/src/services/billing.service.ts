@@ -497,11 +497,6 @@ export class BillingService {
             .map(( res: Response ) => <Knockoff>res.json() );
     }
 
-    //  saveKnockoff(knockoff: Knockoff, payment:AdvancePayment): Observable<String> {
-    //      return this._http.post(this.BILLING_API + '/knockoffs/' + payment.referenceNo , JSON.stringify(knockoff))
-    //      .flatMap((res: Response) => Observable.of(res.text()));
-    //  }
-
     startKnockoffTask( knockoff: Knockoff, payment: AdvancePayment ): Observable<String> {
         console.log("payment dlm service front ends : " +knockoff);
         return this._http.post( this.BILLING_API + '/knockoffs/startTask/' + payment.referenceNo, JSON.stringify( knockoff ) )
@@ -543,9 +538,9 @@ export class BillingService {
     }
 
     findAssignedKnockoffTasks(): Observable<KnockoffTask[]> {
-        console.log( 'findAssignedKnockoffTasks');
+        console.log( 'findAssignedKnockoffTasks front end services');
         return this._http.get( this.BILLING_API + '/knockoffs/assignedTasks' )
-            .map(( res: Response ) => <KnockoffTask[]>res.json() );
+            .map((res: Response) => <KnockoffTask[]>res.json());
     }
 
     findPooledKnockoffTasks(): Observable<KnockoffTask[]> {

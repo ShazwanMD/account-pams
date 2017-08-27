@@ -1,6 +1,7 @@
 import {FlowState} from '../../../core/flow-state.enum';
 import {Document} from '../../../core/document.interface';
 import {Knockoff} from './knockoff.interface';
+import { AdvancePayment } from "./advance-payment.interface";
 
 export interface KnockoffTask extends Document {
     taskId: string;
@@ -9,7 +10,7 @@ export interface KnockoffTask extends Document {
     description: string;
     taskName: string;
     amount: number;
-    paymentNo: string;
+    //paymentNo: AdvancePayment;
     assignee: string;
     issuedDate: number;
     candidate: string;

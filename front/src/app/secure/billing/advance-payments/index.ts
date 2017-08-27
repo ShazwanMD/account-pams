@@ -36,7 +36,6 @@ import { InvoiceUnpaidSelectComponent } from "./component/invoice-select.compone
     ChargeCodeSubModule.forRoot(),
     CreditNoteSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
-    KnockoffSubModule.forRoot(),
     EffectsModule.run(AdvancePaymentEffects),
     PipeModule,
   ],

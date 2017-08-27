@@ -63,6 +63,7 @@ public class AcKnockoffImpl implements AcKnockoff {
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
 
+    @NotNull
     @ManyToOne(targetEntity = AcAdvancePaymentImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "ADVANCE_PAYMENT_ID")
     private AcAdvancePayment payments;

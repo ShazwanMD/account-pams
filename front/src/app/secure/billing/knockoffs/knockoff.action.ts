@@ -170,7 +170,7 @@ export class KnockoffActions {
     static FIND_ASSIGNED_KNOCKOFF_TASKS = '[Knockoff] Find Assigned Knockoff Tasks';
 
     findAssignedKnockoffTasks(): Action {
-        console.log('findAssignedKnockoffTasks');
+        console.log('find Assigned Knockoff Tasks before success');
       return {
         type: KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS,
       };

@@ -20,9 +20,9 @@ import { KnockoffActions } from "../knockoffs/knockoff.action";
 export class AdvancePaymentCenterPage implements OnInit {
 
     private ADVANCE_PAYMENTS = 'billingModuleState.advancePayments'.split('.');
-    private KNOCKOFF = 'billingModuleState.knockoffs'.split('.');
+    //private KNOCKOFF = 'billingModuleState.knockoffs'.split('.');
     private advancePayments$: Observable<AdvancePayment[]>;
-    private knockoff$: Observable<Knockoff[]>;
+    //private knockoff$: Observable<Knockoff[]>;
     private creatorDialogRef: MdDialogRef<KnockoffCreatorDialog>;
     
     constructor( private router: Router,
@@ -34,7 +34,7 @@ export class AdvancePaymentCenterPage implements OnInit {
         private dialog: MdDialog ) {
         
         this.advancePayments$ = this.store.select(...this.ADVANCE_PAYMENTS);
-        this.knockoff$ = this.store.select(...this.KNOCKOFF);
+        //this.knockoff$ = this.store.select(...this.KNOCKOFF);
     }
 
     ngOnInit(): void {

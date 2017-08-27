@@ -10,19 +10,16 @@
     </md-nav-list>
     <div toolbar-buttons layout="row" layout-align="start center" flex>
       <span flex>Knockoff Center</span>
-      <button md-button class="md-icon-button">
-        <md-icon class="md-24">settings</md-icon>
-      </button>
-      <button md-button class="md-icon-button">
-        <md-icon class="md-24">more_vert</md-icon>
-      </button>
     </div>
 
     <md-card>
       <md-tab-group [selectedIndex]="0">
+      <md-tab label="try">
+      <pams-knockoff-list [knockoff]="knockoff$ | async"></pams-knockoff-list>
+      </md-tab>
         <md-tab label="Assigned">
           <pams-assigned-knockoff-task-list
-            [knockoffTask]="assignedKnockoffTasks$ | async"
+            [knockoffTasks]="assignedKnockoffTasks$ | async"
             (view)="viewTask($event)"></pams-assigned-knockoff-task-list>
         </md-tab>
         <md-tab label="Pooled">

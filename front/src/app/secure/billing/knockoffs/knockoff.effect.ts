@@ -9,8 +9,8 @@ import { KnockoffActions } from './knockoff.action';
 @Injectable()
 export class KnockoffEffects {
 
-    private KNOCKOFF: string[] = 'billingModuleState.knockoffs'.split( '.' );
-    private KNOCKOFF_TASK: string[] = 'billingModuleState.knockoffTask'.split('.');
+    //private KNOCKOFF: string[] = 'billingModuleState.knockoffs'.split( '.' );
+    //private KNOCKOFF_TASK: string[] = 'billingModuleState.knockoffTask'.split('.');
 
     constructor( private actions$: Actions,
         private knockoffActions: KnockoffActions,
@@ -41,10 +41,11 @@ export class KnockoffEffects {
         .map(( knockoffs ) => this.knockoffActions.findArchivedknockoffsSuccess( knockoffs ) );
 
     @Effect() findAssignedKnockoffTasks$ = this.actions$
-        .ofType( KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS)
-        .switchMap(() => this.billingService.findAssignedKnockoffTasks() )
-        .map(( knockoffs ) => this.knockoffActions.findAssignedKnockoffTasksSuccess(knockoffs));
+    .ofType(KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS)
+    .switchMap(() => this.billingService.findAssignedKnockoffTasks())
+    .map((knockoffs) => this.knockoffActions.findAssignedKnockoffTasksSuccess(knockoffs));
 
+    
     @Effect() findPooledKnockoffTasks$ = this.actions$
         .ofType( KnockoffActions.FIND_POOLED_KNOCKOFF_TASKS )
         .switchMap(() => this.billingService.findPooledKnockoffTasks() )

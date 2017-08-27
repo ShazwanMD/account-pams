@@ -1,5 +1,5 @@
 <td-data-table
-  [data]="knockoffTask"
+  [data]="knockoffTasks"
   [columns]="columns"
   [sortBy]="summary"
   [sortOrder]="ASC"
@@ -17,6 +17,9 @@
   </template>
   <template tdDataTableTemplate="amount" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['amount'] | currency:'MYR':true:'1.2-2'}}</div>
+  </template>
+    <template tdDataTableTemplate="flowState" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['flowState'] | flowStatePipe }}</div>
   </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">

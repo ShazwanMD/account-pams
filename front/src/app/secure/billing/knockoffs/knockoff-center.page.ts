@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewContainerRef, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Store} from '@ngrx/store';
@@ -16,12 +16,17 @@ import { Knockoff } from "../../../shared/model/billing/knockoff.interface";
 
 export class KnockoffCenterPage implements OnInit {
 
-  private ASSIGNED_KNOCKOFF_TASKS = 'billingModuleState.assignedKnockoffTasks'.split('.');
+  private ASSIGNED_KNOCKOFF_TASKS : string[] = 'billingModuleState.assignedKnockoffTasks'.split('.');
   private POOLED_KNOCKOFF_TASKS = 'billingModuleState.pooledKnockoffTasks'.split('.');
   private ARCHIVED_KNOCKOFF = 'billingModuleState.archivedKnockoffs'.split('.');
+  
+  private KNOCKOFF = 'billingModuleState.knockoffs'.split('.');
+  private knockoff$: Observable<Knockoff[]>;
+
   private assignedKnockoffTasks$: Observable<KnockoffTask[]>;
   private pooledKnockoffTasks$: Observable<KnockoffTask[]>;
   private archivedKnockoffs$: Observable<Knockoff[]>;
+
   
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -32,6 +37,7 @@ export class KnockoffCenterPage implements OnInit {
     this.assignedKnockoffTasks$ = this.store.select(...this.ASSIGNED_KNOCKOFF_TASKS);
     this.pooledKnockoffTasks$ = this.store.select(...this.POOLED_KNOCKOFF_TASKS);
     this.archivedKnockoffs$ = this.store.select(...this.ARCHIVED_KNOCKOFF);
+    this.knockoff$ = this.store.select(...this.KNOCKOFF);
   }
 
   goBack(route: string): void {
@@ -71,8 +77,9 @@ export class KnockoffCenterPage implements OnInit {
   ngOnInit(): void {
     console.log('find assigned knockoff tasks');
     this.store.dispatch(this.actions.findAssignedKnockoffTasks());
-    this.store.dispatch(this.actions.findPooledKnockoffTasks());
-    this.store.dispatch(this.actions.findArchivedknockoffs());
+//    this.store.dispatch(this.actions.findPooledKnockoffTasks());
+//    this.store.dispatch(this.actions.findArchivedknockoffs());
+    this.store.dispatch(this.actions.findKnockoffs());
   }
 }
 

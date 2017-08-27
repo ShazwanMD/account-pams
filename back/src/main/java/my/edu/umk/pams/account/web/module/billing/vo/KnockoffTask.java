@@ -15,8 +15,8 @@ public class KnockoffTask extends Task {
 	private Date issuedDate;
 	private BigDecimal amount;
 	private String description;
-	private String paymentNo;
-	private Invoice invoice;
+//	private AdvancePayment payment;
+//	private Invoice invoice;
 
 	public Knockoff getKnockoff() {
 		return knockoff;
@@ -50,21 +50,21 @@ public class KnockoffTask extends Task {
 		this.description = description;
 	}
 
-	public String getPaymentNo() {
-		return paymentNo;
-	}
-
-	public void setPaymentNo(String paymentNo) {
-		this.paymentNo = paymentNo;
-	}
-	
-    public Invoice getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
+//	public AdvancePayment getPayment() {
+//		return payment;
+//	}
+//
+//	public void setPayment(AdvancePayment payment) {
+//		this.payment = payment;
+//	}
+//	
+//    public Invoice getInvoice() {
+//        return invoice;
+//    }
+//
+//    public void setInvoice(Invoice invoice) {
+//        this.invoice = invoice;
+//    }
 	
     @JsonCreator
     public static KnockoffTask create(String jsonString) {

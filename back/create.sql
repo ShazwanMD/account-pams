@@ -1679,8 +1679,8 @@ create table AC_RFND_PYMT (
 
     alter table AC_KNOF 
         add constraint FK_f91f9no80f8qtl6r92n08r32m
-        foreign key (INVOICE_ID) 
-        references AC_INVC;
+        foreign key (ADVANCE_PAYMENT_ID) 
+        references AC_ADVC_PYMT;
 
     alter table AC_PCPL_ROLE 
         add constraint FK_ofdb3qau30ii76rhetdhgtn2r 
