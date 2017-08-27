@@ -1285,6 +1285,12 @@ create table AC_RFND_PYMT (
     alter table AC_SPHP 
         add constraint UK_ojhm9q9q2f9cp1fp0qa5678c unique (REFERENCE_NO);        
 
+    alter table AC_ADVC_PYMT
+    	add constraint UK_ojhm9q9q2f9cp1fp0qa5678f unique (REFERENCE_NO); 
+    	
+    alter table AC_KNOF
+    	add constraint UK_ojhm9q9q2f9cp1fp0qa5679f unique (REFERENCE_NO);   
+    	
     alter table AC_ACDM_SESN 
         add constraint UK_m96040pp8um8tl90wrggobq1m unique (CODE);
 
@@ -1617,7 +1623,7 @@ create table AC_RFND_PYMT (
         references AC_TAX_CODE;
 
     alter table AC_KNOF 
-        add constraint FK_f91f9no80f8qtl6r92n08r32n 
+        add constraint FK_f91f9no80f8qtl6r92n08r32m
         foreign key (INVOICE_ID) 
         references AC_INVC;
 
