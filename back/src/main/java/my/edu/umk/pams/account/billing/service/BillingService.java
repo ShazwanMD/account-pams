@@ -344,16 +344,36 @@ public interface BillingService {
     // ==================================================================================================== //
     // REFUND PAYMENT
     // ==================================================================================================== //
-
+    
+    List<AcRefundPayment> findRefundPayments(String filter, Integer offset, Integer limit);
+    
+	List<AcRefundPayment> findRefundPaymentsByFlowState(AcFlowState acFlowState);
+	
+	List<AcRefundPayment> findRefundPaymentsByFlowStates(AcFlowState... flowStates );
+    
+    AcRefundPayment findRefundPaymentById (Long id);
+    
     AcRefundPayment findRefundPaymentByReferenceNo(String referenceNo);
 
     boolean hasRefundPayment(AcRefundPayment refund);
     
     void addRefundPayment(AcRefundPayment refund, AcUser user);
 
-    void updateRefundPayment(AcRefundPayment refund, AcUser user);
+    void updateRefundPayment(AcRefundPayment refund);
 
     void removeRefundPayment(AcRefundPayment refund, AcUser user);
 
     void calculateNetAmount(AcInvoiceItem invoiceItem);
+    
+    //TASK
+    
+    AcRefundPayment findRefundPaymentByTaskId(String taskId);
+    
+    Task findRefundPaymentTaskByTaskId(String taskId);
+
+    List<Task> findAssignedRefundPaymentTasks(Integer offset, Integer limit);
+
+    List<Task> findPooledRefundPaymentTasks(Integer offset, Integer limit);
+    
+    String startRefundPaymentTask(AcRefundPayment refundPayment);
 }
