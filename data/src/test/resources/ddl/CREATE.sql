@@ -1308,6 +1308,12 @@
     alter table AC_ACTR
         add constraint UK_20dgcebqglh0294filrie2udq unique (IDENTITY_NO);
 
+    alter table AC_ADVC_PYMT
+    	add constraint UK_ojhm9q9q2f9cp1fp0qa5678f unique (REFERENCE_NO); 
+    	
+    alter table AC_KNOF
+    	add constraint UK_ojhm9q9q2f9cp1fp0qa5679f unique (REFERENCE_NO);    
+    	
     alter table AC_BANK_CODE
         add constraint UK_ige90lfk9a8cmikt70bs8q8gf unique (CODE);
 
@@ -1606,7 +1612,7 @@
         references AC_INVC;
 
     alter table AC_KNOF
-        add constraint FK_f91f9no80f8qtl6r92n08r32n
+        add constraint FK_f91f9no80f8qtl6r92n08r32m
         foreign key (ADVANCE_PAYMENT_ID)
         references AC_ADVC_PYMT;
 
