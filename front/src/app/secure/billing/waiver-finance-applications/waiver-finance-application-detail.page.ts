@@ -3,11 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {MdDialog} from '@angular/material';
-import { FinancialaidModuleState, BillingModuleState } from '../index';
-import {WaiverApplicationActions} from './waiver-application.action';
 import {WaiverApplication} from '../../../shared/model/financialaid/waiver-application.interface';
 import { WaiverFinanceApplication } from "../../../shared/model/billing/waiver-finance-application.interface";
 import { WaiverFinanceApplicationActions } from "./waiver-finance-application.action";
+import { BillingModuleState } from "../index";
 
 @Component({
   selector: 'pams-waiver-finance-application-detail',
