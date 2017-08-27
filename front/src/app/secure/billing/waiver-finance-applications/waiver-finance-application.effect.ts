@@ -20,12 +20,12 @@ export class WaiverFinanceApplicationEffects {
   @Effect() findAssignedWaiverFinanceApplicationTasks$ = this.actions$
     .ofType(WaiverFinanceApplicationActions.FIND_ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS)
     .switchMap(() => this.billingService.findAssignedWaiverFinanceApplicationTasks())
-    .map((waiverfinanceApplications) => this.waiverFinanceApplicationActions.findAssignedWaiverFinanceApplicationTasksSuccess(waiverApplications));
+    .map((waiverfinanceApplications) => this.waiverFinanceApplicationActions.findAssignedWaiverFinanceApplicationTasksSuccess(waiverfinanceApplications));
 
   @Effect() findPooledWaiverFinanceApplicationTasks$ = this.actions$
     .ofType(WaiverFinanceApplicationActions.FIND_POOLED_WAIVER_FINANCE_APPLICATION_TASKS)
     .switchMap(() => this.billingService.findPooledWaiverFinanceApplicationTasks())
-    .map((waiverFinanceApplications) => this.waiverFinanceApplicationActions.findPooledWaiverFinanceApplicationTasksSuccess(waiverApplications));
+    .map((waiverFinanceApplications) => this.waiverFinanceApplicationActions.findPooledWaiverFinanceApplicationTasksSuccess(waiverFinanceApplications));
 
   @Effect() findWaiverFinanceApplicationTaskByTaskId = this.actions$
     .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_FINANCE_APPLICATION_TASK_BY_TASK_ID)
@@ -82,7 +82,7 @@ export class WaiverFinanceApplicationEffects {
   @Effect() releaseWaiverFinanceApplicationTask$ = this.actions$
     .ofType(WaiverFinanceApplicationActions.RELEASE_WAIVER_FINANCE_APPLICATION_TASK)
     .map((action) => action.payload)
-    .switchMap((applicationTask) => this.billingService.releaseWaiverApplicationTask(applicationTask))
+    .switchMap((applicationTask) => this.billingService.releaseWaiverFinanceApplicationTask(applicationTask))
     .map((message) => this.waiverFinanceApplicationActions.releaseWaiverFinanceApplicationTaskSuccess(message))
     .mergeMap((action) => from([action,
         this.waiverFinanceApplicationActions.findAssignedWaiverFinanceApplicationTasks(),
