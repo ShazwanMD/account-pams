@@ -366,7 +366,6 @@ public interface BillingService {
 
     void calculateNetAmount(AcInvoiceItem invoiceItem);
     
-<<<<<<< HEAD
     //TASK
     
     AcRefundPayment findRefundPaymentByTaskId(String taskId);
@@ -378,7 +377,6 @@ public interface BillingService {
     List<Task> findPooledRefundPaymentTasks(Integer offset, Integer limit);
     
     String startRefundPaymentTask(AcRefundPayment refundPayment);
-=======
     // ==================================================================================================== //
     // WAIVER FINANCE APPLICATION
     // ==================================================================================================== //
@@ -419,5 +417,4 @@ public interface BillingService {
 
 	List<AcWaiverFinanceApplication> findWaiverFinanceApplications(AcAcademicSession academicSession, Integer offset, Integer limit);
 
->>>>>>> cbf766f07f54a28689ebb99f6fda7bff0f05503c
 }
