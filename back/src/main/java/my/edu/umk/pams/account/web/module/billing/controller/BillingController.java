@@ -881,7 +881,7 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
-<<<<<<< HEAD
+
     // ==================================================================================================== //
     //  REFUND PAYMENT
     // ==================================================================================================== //
@@ -904,7 +904,7 @@ public class BillingController {
         List<Task> tasks = billingService.findAssignedRefundPaymentTasks(0, 100);
         return new ResponseEntity<List<RefundPaymentTask>>(billingTransformer.toRefundPaymentTaskVos(tasks), HttpStatus.OK);
     }
-=======
+
     // ====================================================================================================
     // WAIVER FINANCE APPLICATION
     // ====================================================================================================
@@ -992,8 +992,7 @@ public class BillingController {
         Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
     }
-    
->>>>>>> cbf766f07f54a28689ebb99f6fda7bff0f05503c
+   
 
     @RequestMapping(value = "/refundPayments/pooledTasks", method = RequestMethod.GET)
     public ResponseEntity<List<RefundPaymentTask>> findPooledRefundPayments() {

@@ -568,7 +568,7 @@ public class BillingTransformer {
                 .collect(toCollection(() -> new ArrayList<KnockoffTask>()));
     }
     
-<<<<<<< HEAD
+
     public List<RefundPayment> toRefundPaymentVos(List<AcRefundPayment> entries) {
         return entries.stream()
                 .map((entry) -> toRefundPaymentVo(entry))
@@ -581,7 +581,7 @@ public class BillingTransformer {
                 .collect(toCollection(() -> new ArrayList<RefundPaymentTask>()));
     }
     
-=======
+
     public List<WaiverFinanceApplicationTask> toWaiverFinanceApplicationTaskVos(List<Task> tasks) {
         return tasks.stream()
                 .map((task) -> toWaiverFinanceApplicationTaskVo(task))
@@ -593,5 +593,5 @@ public class BillingTransformer {
                 .map((entry) -> toWaiverFinanceApplicationVo(entry))
                 .collect(toCollection(() -> new ArrayList<WaiverFinanceApplication>()));
     }
->>>>>>> cbf766f07f54a28689ebb99f6fda7bff0f05503c
+
 }
