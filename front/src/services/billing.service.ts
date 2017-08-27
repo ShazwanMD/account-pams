@@ -20,6 +20,8 @@ import { ReceiptInvoice } from '../app/shared/model/billing/receipt-invoice.inte
 import { AdvancePayment } from '../app/shared/model/billing/advance-payment.interface';
 import { Knockoff } from '../app/shared/model/billing/knockoff.interface';
 import { KnockoffTask } from '../app/shared/model/billing/knockoff-task.interface';
+import { WaiverFinanceApplication } from "../app/shared/model/billing/waiver-finance-application.interface";
+import { WaiverFinanceApplicationTask } from "../app/shared/model/billing/waiver-finance-application-task.interface";
 
 @Injectable()
 export class BillingService {
@@ -557,4 +559,75 @@ export class BillingService {
         return this._http.get( this.BILLING_API + '/knockoffs/viewTask/' + taskId )
             .map(( res: Response ) => <KnockoffTask>res.json() );
     }
+
+    // ====================================================================================================
+  // WAIVER APPLICATION
+  // ====================================================================================================
+
+  findCompletedWaiverFinanceApplications(): Observable<WaiverFinanceApplication[]> {
+    console.log('findCompletedWaiverApplications');
+    return this._http.get(this.BILLING_API + '/waiverApplications/state/COMPLETED')
+      .map((res: Response) => <WaiverFinanceApplication[]>res.json());
+  }
+
+  findAssignedWaiverFinanceApplicationTasks(): Observable<WaiverFinanceApplicationTask[]> {
+    console.log('findAssignedWaiverApplicationTasks');
+    return this._http.get(this.BILLING_API + '/waiverApplications/assignedTasks')
+      .map((res: Response) => <WaiverFinanceApplicationTask[]>res.json());
+  }
+
+  findPooledWaiverFinanceApplicationTasks(): Observable<WaiverFinanceApplicationTask[]> {
+    console.log('findPooledWaiverApplicationTasks');
+    return this._http.get(this.BILLING_API + '/waiverApplications/pooledTasks')
+      .map((res: Response) => <WaiverFinanceApplicationTask[]>res.json());
+  }
+
+  findWaiverFinanceApplicationTaskByTaskId(taskId: string): Observable<WaiverFinanceApplicationTask> {
+    console.log('findWaiverApplicationTaskByTaskId');
+    return this._http.get(this.BILLING_API + '/waiverApplications/viewTask/' + taskId)
+      .map((res: Response) => <WaiverFinanceApplicationTask>res.json());
+  }
+
+  findWaiverFinanceApplicationByReferenceNo(referenceNo: string): Observable<WaiverFinanceApplicationTask> {
+    return this._http.get(this.BILLING_API + '/waiverApplications/' + referenceNo)
+      .map((res: Response) => <WaiverFinanceApplicationTask>res.json());
+  }
+
+  findWaiverFinanceApplicationByTaskId(taskId: string): Observable<WaiverFinanceApplication> {
+    return this._http.get(this.BILLING_API + '/waiverApplications/' + taskId)
+      .map((res: Response) => <WaiverFinanceApplication>res.json());
+  }
+
+  findArchivedWaiverFinanceApplications(): Observable<WaiverFinanceApplication[]> {
+    console.log('findArchivedWaiverApplications');
+    return this._http.get(this.BILLING_API + '/waiverApplications/archived')
+      .map((res: Response) => <WaiverFinanceApplication[]>res.json());
+  }
+
+  startWaiverFinanceApplicationTask(waiverApplication: WaiverFinanceApplication): Observable<String> {
+    return this._http.post(this.BILLING_API + '/waiverApplications/startTask', JSON.stringify(waiverApplication))
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  completeWaiverFinanceApplicationTask(waiverApplicationTask: WaiverFinanceApplicationTask): Observable<String> {
+    console.log('TaskId: ' + waiverApplicationTask.taskId);
+    return this._http.post(this.BILLING_API + '/waiverApplications/completeTask', JSON.stringify(waiverApplicationTask))
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  claimWaiverFinanceApplicationTask(waiverApplicationTask: WaiverFinanceApplicationTask): Observable<String> {
+    return this._http.post(this.BILLING_API + '/waiverApplications/claimTask', JSON.stringify(waiverApplicationTask))
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  releaseWaiverFinanceApplicationTask(waiverApplicationTask: WaiverFinanceApplicationTask): Observable<String> {
+    return this._http.post(this.BILLING_API + '/waiverApplications/releaseTask', JSON.stringify(waiverApplicationTask))
+      .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+  updateWaiverFinanceApplication(waiverApplication: WaiverFinanceApplication): Observable<Boolean> {
+    return Observable.of(true);
+    // return this._http.put(this.FINANCIALAID_API + '/waiverApplications', JSON.stringify(waiverApplication))
+    //   .flatMap(data => Observable.of(true));
+  }
 }
