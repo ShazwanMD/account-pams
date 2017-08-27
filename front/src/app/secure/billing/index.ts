@@ -68,6 +68,12 @@ import {knockoffTaskReducer, KnockoffTaskState} from './knockoffs/knockoff-task.
 import { KnockoffTask } from "../../shared/model/billing/knockoff-task.interface";
 import {assignedKnockoffTaskListReducer, pooledKnockoffTaskListReducer,KnockoffTaskListState} from './knockoffs/knockoff-task-list.reducer';
 import { KnockoffSubModule } from "./knockoffs/index";
+import { WaiverFinanceApplicationTask } from "../../shared/model/billing/waiver-finance-application-task.interface";
+import { WaiverFinanceApplication } from "../../shared/model/billing/waiver-finance-application.interface";
+import { WaiverFinanceApplicationTaskListState, pooledWaiverFinanceApplicationTaskListReducer, assignedWaiverFinanceApplicationTaskListReducer } from "./waiver-finance-applications/waiver-finance-application-task-list.reducer";
+import { WaiverFinanceApplicationListState, archivedWaiverFinanceApplicationListReducer, waiverFinanceApplicationListReducer } from "./waiver-finance-applications/waiver-finance-application-list.reducer";
+import { WaiverFinanceApplicationTaskState, waiverFinanceApplicationTaskReducer } from "./waiver-finance-applications/waiver-finance-application-task.reducer";
+import { waiverFinanceApplicationReducer, WaiverFinanceApplicationState } from "./waiver-finance-applications/waiver-finance-application.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -105,6 +111,12 @@ export interface BillingModuleState {
   assignedKnockoffTasks: KnockoffTaskListState;
   pooledKnockoffTasks: KnockoffTaskListState;
   archivedKnockoffs: KnockoffListState;
+  assignedWaiverFinanceApplicationTasks: WaiverFinanceApplicationTaskListState;
+  pooledWaiverFinanceApplicationTasks: WaiverFinanceApplicationTaskListState;
+  archivedWaiverFinanceApplications: WaiverFinanceApplicationListState;
+  waiverFinanceApplicationTask: WaiverFinanceApplicationTaskState;
+  waiverFinanceApplication: WaiverFinanceApplicationState;
+  waiverFinanceApplications: WaiverFinanceApplicationListState;
 }
 ;
 
@@ -145,6 +157,12 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     assignedKnockoffTasks: [],
     pooledKnockoffTasks: [],
     archivedKnockoffs: [],
+    assignedWaiverFinanceApplicationTasks: [],
+    pooledWaiverFinanceApplicationTasks: [],
+    archivedWaiverFinanceApplications: [],
+    waiverFinanceApplicationTask: <WaiverFinanceApplicationTask>{},
+    waiverFinanceApplication: <WaiverFinanceApplicationState>{},
+    waiverFinanceApplications: <WaiverFinanceApplication[]>[],
   };
 
 export const billingModuleReducers = {
@@ -181,6 +199,12 @@ export const billingModuleReducers = {
   assignedKnockoffTasks: assignedKnockoffTaskListReducer,
   pooledKnockoffTasks: pooledKnockoffTaskListReducer,
   archivedKnockoffs: knockoffListReducer,
+  assignedWaiverFinanceApplicationTasks: assignedWaiverFinanceApplicationTaskListReducer,
+  pooledWaiverFinanceApplicationTasks: pooledWaiverFinanceApplicationTaskListReducer,
+  archivedWaiverFinanceApplications: archivedWaiverFinanceApplicationListReducer,
+  waiverFinanceApplicationTask: waiverFinanceApplicationTaskReducer,
+  waiverFinanceApplication: waiverFinanceApplicationReducer,
+  waiverFinanceApplications: waiverFinanceApplicationListReducer,
 };
 
 @NgModule({

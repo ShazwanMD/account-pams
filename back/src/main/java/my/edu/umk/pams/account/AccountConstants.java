@@ -13,6 +13,7 @@ public interface AccountConstants {
     public static final String DEBIT_NOTE_ID = "debitNoteId";
     public static final String CREDIT_NOTE_ID = "creditNoteId";
     public static final String WAIVER_APPLICATION_ID = "waiverApplicationId";
+    public static final String WAIVER_FINANCE_APPLICATION_ID = "waiverFinanceApplicationId";
     public static final String REFUND_APPLICATION_ID = "refundApplicationId";
     public static final String SHORT_TERM_LOAN_ID = "shortTermLoanId"; 
     public static final String ADVANCE_PAYMENT_ID = "advancePaymentId";
@@ -29,6 +30,7 @@ public interface AccountConstants {
     public static final String DEBIT_NOTE_REFERENCE_NO = "AcDebitNote.referenceNo";
     public static final String CREDIT_NOTE_REFERENCE_NO = "AcCreditNote.referenceNo";
     public static final String WAIVER_APPLICATION_REFERENCE_NO = "AcWaiverApplication.referenceNo";
+    public static final String WAIVER_FINANCE_APPLICATION_REFERENCE_NO = "AcWaiverFinanceApplication.referenceNo";
     public static final String SHORT_TERM_LOAN_REFERENCE_NO = "AcShortTermLoan.referenceNo";
     public static final String ACCOUNT_CHARGE_REFRENCE_NO = "AcAccountCharge.referenceNo";
     public static final String SPONSORSHIP_REFRENCE_NO = "AcSponsorship.referenceNo";

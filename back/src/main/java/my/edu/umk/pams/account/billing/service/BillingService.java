@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.common.model.AcTaxCode;
 import my.edu.umk.pams.account.core.AcFlowState;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
@@ -365,6 +366,7 @@ public interface BillingService {
 
     void calculateNetAmount(AcInvoiceItem invoiceItem);
     
+<<<<<<< HEAD
     //TASK
     
     AcRefundPayment findRefundPaymentByTaskId(String taskId);
@@ -376,4 +378,46 @@ public interface BillingService {
     List<Task> findPooledRefundPaymentTasks(Integer offset, Integer limit);
     
     String startRefundPaymentTask(AcRefundPayment refundPayment);
+=======
+    // ==================================================================================================== //
+    // WAIVER FINANCE APPLICATION
+    // ==================================================================================================== //
+
+    // workflow
+
+	AcWaiverFinanceApplication findWaiverfinanceApplicationByTaskId(String taskId);
+
+	Task findWaiverFinanceApplicationTaskByTaskId(String taskId);
+
+	List<Task> findAssignedWaiverFinanceApplicationTasks(Integer offset, Integer limit);
+
+	List<Task> findPooledWaiverFinanceApplicationTasks(Integer offset, Integer limit);
+
+	String startWaiverFinanceApplicationTask(AcWaiverFinanceApplication application);
+
+	void updateWaiverFinanceApplication(AcWaiverFinanceApplication application);
+
+	void cancelWaiverFinanceApplication(AcWaiverFinanceApplication application);
+
+    // ==================================================================================================== //
+    // WAIVER APPLICATION
+    // ==================================================================================================== //
+	
+	AcWaiverFinanceApplication findWaiverFinanceApplicationById(Long id);
+
+	AcWaiverFinanceApplication findWaiverFinanceApplicationByReferenceNo(String referenceNo);
+
+	List<AcWaiverFinanceApplication> findWaiverFinanceApplicationsByFlowState(AcFlowState acFlowState);
+
+	List<AcWaiverFinanceApplication> findWaiverFinanceApplicationsByFlowStates(AcFlowState... acFlowState);
+
+	List<AcWaiverFinanceApplication> findWaiverFinanceApplications(String filter, Integer offset, Integer limit);
+
+	Integer countWaiverFinanceApplication(String filter);
+
+	Integer countWaiverFinanceApplication(AcAcademicSession academicSession);
+
+	List<AcWaiverFinanceApplication> findWaiverFinanceApplications(AcAcademicSession academicSession, Integer offset, Integer limit);
+
+>>>>>>> cbf766f07f54a28689ebb99f6fda7bff0f05503c
 }

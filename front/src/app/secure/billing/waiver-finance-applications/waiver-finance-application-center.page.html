@@ -1,0 +1,46 @@
+<td-layout-nav>
+  <div toolbar-content layout="row" layout-align="center center" flex>
+    <span>PAMS: Postgraduate Management System</span>
+    <span flex></span>
+  </div>
+
+  <td-layout-manage-list #list>
+    <md-nav-list list-items>
+      <a md-list-item (click)="showDialog()">
+        <md-icon>create</md-icon>
+        Create Waiver Finance Application
+      </a>
+      <md-divider></md-divider>
+    </md-nav-list>
+    <div toolbar-buttons layout="row" layout-align="start center" flex>
+      <span flex>Waiver Center</span>
+      <button md-button class="md-icon-button">
+        <md-icon class="md-24">settings</md-icon>
+      </button>
+      <button md-button class="md-icon-button">
+        <md-icon class="md-24">more_vert</md-icon>
+      </button>
+    </div>
+
+    <md-card>
+      <md-tab-group [selectedIndex]="0">
+        <md-tab label="Assigned">
+          <pams-assigned-waiver-finance-application-task-list
+            [waiverFinanceApplicationTasks]="assignedWaiverFinanceApplicationTasks$ | async"
+            (view)="view($event)"></pams-assigned-waiver-finance-application-task-list>
+        </md-tab>
+        <md-tab label="Pooled">
+          <pams-pooled-waiver-finance-application-task-list
+            [waiverFinanceApplicationTasks]="pooledWaiverFinanceApplicationTasks$ | async"
+            (claim)="claim($event)"></pams-pooled-waiver-finance-application-task-list>
+        </md-tab>
+        <md-tab label="Archived">
+          <pams-archived-waiver-finance-application-list
+            [waiverFinanceApplications]="archivedWaiverFinanceApplications$ | async"
+            (view)="viewWaiverApplication($event)"></pams-archived-waiver-finance-application-list>
+        </md-tab>
+      </md-tab-group>
+    </md-card>
+
+  </td-layout-manage-list>
+</td-layout-nav>

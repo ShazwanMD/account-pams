@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.web.module.billing.controller;
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.web.module.account.controller.AccountTransformer;
 import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
@@ -10,6 +11,8 @@ import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
 import my.edu.umk.pams.account.web.module.common.vo.PaymentMethod;
 import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.activiti.engine.task.Task;
@@ -409,6 +412,43 @@ public class BillingTransformer {
         task.setMetaState(MetaState.get(knockoff.getMetadata().getState().ordinal()));
         return task;
     }
+    
+    public WaiverFinanceApplicationTask toWaiverFinanceApplicationTaskVo(Task t) {
+        Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
+        AcWaiverFinanceApplication application = billingService.findWaiverFinanceApplicationById((Long) vars.get(AccountConstants.WAIVER_FINANCE_APPLICATION_ID));
+
+        WaiverFinanceApplicationTask task = new WaiverFinanceApplicationTask();
+        task.setId(application.getId());
+        task.setTaskId(t.getId());
+        task.setReferenceNo(application.getReferenceNo());
+        task.setSourceNo(application.getSourceNo());
+        task.setDescription(application.getDescription());
+        task.setTaskName(t.getName());
+        task.setAssignee(task.getAssignee());
+        task.setCandidate(task.getCandidate());
+        task.setApplication(toWaiverFinanceApplicationVo(application));
+        task.setAccount(accountTransformer.toAccountVo(application.getAccount()));
+        task.setFlowState(FlowState.get(application.getFlowdata().getState().ordinal()));
+        task.setMetaState(MetaState.get(application.getMetadata().getState().ordinal()));
+        return task;
+    }
+
+    public WaiverFinanceApplication toWaiverFinanceApplicationVo(AcWaiverFinanceApplication e) {
+        WaiverFinanceApplication vo = new WaiverFinanceApplication();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setDescription(e.getDescription());
+        vo.setGracedAmount(e.getGracedAmount());
+        vo.setWaivedAmount(e.getWaivedAmount());
+        vo.setBalance(e.getWaivedAmount());
+        vo.setEffectiveBalance(e.getEffectiveBalance());
+        vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
+        vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
 
     public RefundPaymentTask toRefundPaymentTaskVo(Task t) {
     	Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
@@ -528,6 +568,7 @@ public class BillingTransformer {
                 .collect(toCollection(() -> new ArrayList<KnockoffTask>()));
     }
     
+<<<<<<< HEAD
     public List<RefundPayment> toRefundPaymentVos(List<AcRefundPayment> entries) {
         return entries.stream()
                 .map((entry) -> toRefundPaymentVo(entry))
@@ -540,4 +581,17 @@ public class BillingTransformer {
                 .collect(toCollection(() -> new ArrayList<RefundPaymentTask>()));
     }
     
+=======
+    public List<WaiverFinanceApplicationTask> toWaiverFinanceApplicationTaskVos(List<Task> tasks) {
+        return tasks.stream()
+                .map((task) -> toWaiverFinanceApplicationTaskVo(task))
+                .collect(toCollection(() -> new ArrayList<WaiverFinanceApplicationTask>()));
+    }
+    
+    public List<WaiverFinanceApplication> toWaiverFinanceApplicationVos(List<AcWaiverFinanceApplication> entries) {
+        return entries.stream()
+                .map((entry) -> toWaiverFinanceApplicationVo(entry))
+                .collect(toCollection(() -> new ArrayList<WaiverFinanceApplication>()));
+    }
+>>>>>>> cbf766f07f54a28689ebb99f6fda7bff0f05503c
 }
