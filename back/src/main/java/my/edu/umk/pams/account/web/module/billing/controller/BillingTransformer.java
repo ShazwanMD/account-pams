@@ -372,6 +372,21 @@ public class BillingTransformer {
         return vo;
     }
     
+    public RefundPayment toRefundPaymentVo(AcRefundPayment e) {
+    	RefundPayment vo = new RefundPayment();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDescription(e.getDescription());
+        vo.setAmount(e.getAmount());
+        vo.setIssuedDate(e.getIssuedDate());
+        vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        return vo;
+    }
+    
     public KnockoffTask toKnockoffTaskVo(Task t) {
     	Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
         AcKnockoff knockoff = billingService.findKnockoffById((Long) vars.get(AccountConstants.KNOCKOFF_ID));
@@ -395,6 +410,28 @@ public class BillingTransformer {
         return task;
     }
 
+    public RefundPaymentTask toRefundPaymentTaskVo(Task t) {
+    	Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
+        AcRefundPayment refundPayment = billingService.findRefundPaymentById((Long) vars.get(AccountConstants.REFUND_ID));
+       
+        RefundPaymentTask task = new RefundPaymentTask();
+        task.setId(refundPayment.getId());
+        task.setTaskId(t.getId());
+        task.setReferenceNo(refundPayment.getReferenceNo());
+        task.setSourceNo(refundPayment.getSourceNo());
+        task.setDescription(refundPayment.getDescription());
+        task.setTaskName(t.getName());
+        task.setAmount(refundPayment.getAmount());
+        task.setPaymentNo(refundPayment.getPayments().getReferenceNo());
+        task.setAssignee(task.getAssignee());
+        task.setIssuedDate(refundPayment.getIssuedDate());
+        task.setCandidate(task.getCandidate());
+        task.setRefundPayment(toRefundPaymentVo(refundPayment));
+        task.setFlowState(FlowState.get(refundPayment.getFlowdata().getState().ordinal()));
+        task.setMetaState(MetaState.get(refundPayment.getMetadata().getState().ordinal()));
+        return task;
+    }
+    
     public List<InvoiceTask> toInvoiceTaskVos(List<Task> tasks) {
         return tasks.stream()
                 .map((task) -> toInvoiceTaskVo(task))
@@ -490,4 +527,17 @@ public class BillingTransformer {
                 .map((task) -> toKnockoffTaskVo(task))
                 .collect(toCollection(() -> new ArrayList<KnockoffTask>()));
     }
+    
+    public List<RefundPayment> toRefundPaymentVos(List<AcRefundPayment> entries) {
+        return entries.stream()
+                .map((entry) -> toRefundPaymentVo(entry))
+                .collect(toCollection(() -> new ArrayList<RefundPayment>()));
+    }
+    
+    public List<RefundPaymentTask> toRefundPaymentTaskVos(List<Task> tasks) {
+        return tasks.stream()
+                .map((task) -> toRefundPaymentTaskVo(task))
+                .collect(toCollection(() -> new ArrayList<RefundPaymentTask>()));
+    }
+    
 }
