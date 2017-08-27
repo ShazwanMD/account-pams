@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.web.module.billing.controller;
 
 import my.edu.umk.pams.account.AccountConstants;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
@@ -14,6 +15,8 @@ import my.edu.umk.pams.account.common.model.AcPaymentMethod;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationImpl;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
@@ -22,6 +25,8 @@ import my.edu.umk.pams.account.util.DaoQuery;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.account.vo.FeeSchedule;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
 import my.edu.umk.pams.account.web.module.util.vo.CovalentDtQuery;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
@@ -875,6 +880,95 @@ public class BillingController {
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    // ====================================================================================================
+    // WAIVER FINANCE APPLICATION
+    // ====================================================================================================
+
+    @RequestMapping(value = "/waiverFinanceApplications", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverFinanceApplication>> findWaiverFinanceApplications() {
+        List<AcWaiverFinanceApplication> waiverApplications = billingService.findWaiverFinanceApplications("%", 0, 100);
+        return new ResponseEntity<List<WaiverFinanceApplication>>(billingTransformer.toWaiverFinanceApplicationVos(waiverApplications), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<WaiverFinanceApplication> findWaiverfinanceApplicationByReferenceNo(@PathVariable String referenceNo) {
+    	AcWaiverFinanceApplication waiverApplication = (AcWaiverFinanceApplication) billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        return new ResponseEntity<WaiverFinanceApplication>(billingTransformer.toWaiverFinanceApplicationVo(waiverApplication), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<WaiverFinanceApplication> updatefinanceWaiverApplication(@PathVariable String referenceNo, @RequestBody WaiverFinanceApplication vo) {
+    	AcWaiverFinanceApplication waiverApplication = (AcWaiverFinanceApplication) billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        return new ResponseEntity<WaiverFinanceApplication>(billingTransformer.toWaiverFinanceApplicationVo(waiverApplication), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/assignedTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverFinanceApplicationTask>> findAssignedWaiverFinanceApplications() {
+        
+        List<Task> tasks = billingService.findAssignedWaiverFinanceApplicationTasks(0, 100);
+        return new ResponseEntity<List<WaiverFinanceApplicationTask>>(billingTransformer.toWaiverFinanceApplicationTaskVos(tasks), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/pooledTasks", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverFinanceApplicationTask>> findPooledWaiverApplications() {
+        
+        List<Task> tasks = billingService.findPooledWaiverFinanceApplicationTasks(0, 100);
+        return new ResponseEntity<List<WaiverFinanceApplicationTask>>(billingTransformer.toWaiverFinanceApplicationTaskVos(tasks), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/state/{state}", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverFinanceApplication>> findWaiverFinanceApplicationsByFlowState(@PathVariable String state) {
+        List<AcWaiverFinanceApplication> waiverApplications = billingService.findWaiverFinanceApplicationsByFlowState(AcFlowState.valueOf(state));
+        return new ResponseEntity<List<WaiverFinanceApplication>>(billingTransformer.toWaiverFinanceApplicationVos(waiverApplications), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/archived", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverFinanceApplication>> findArchivedWaiverFinanceApplications() {
+        List<AcWaiverFinanceApplication> waiverApplications = billingService
+                .findWaiverFinanceApplicationsByFlowStates(AcFlowState.COMPLETED, AcFlowState.CANCELLED, AcFlowState.REMOVED);
+        return new ResponseEntity<List<WaiverFinanceApplication>>(billingTransformer
+                .toWaiverFinanceApplicationVos(waiverApplications), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/startTask", method = RequestMethod.POST)
+    public ResponseEntity<String> startWaiverFinanceApplicationTask(@RequestBody WaiverFinanceApplication vo) throws Exception {
+        
+
+        AcAcademicSession academicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
+        AcAccount account = accountService.findAccountById(vo.getAccount().getId());
+        AcWaiverFinanceApplication waiverApplication = new AcWaiverFinanceApplicationImpl();
+        waiverApplication.setDescription(vo.getDescription());
+        waiverApplication.setWaivedAmount(vo.getWaivedAmount());
+        waiverApplication.setGracedAmount(BigDecimal.ZERO);
+        waiverApplication.setEffectiveBalance(accountService.sumEffectiveBalanceAmount(account, academicSession));
+        waiverApplication.setBalance(accountService.sumBalanceAmount(account));
+        waiverApplication.setAccount(account);
+        waiverApplication.setSession(academicSession);
+        return new ResponseEntity<String>(billingService.startWaiverFinanceApplicationTask(waiverApplication), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/viewTask/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<WaiverFinanceApplicationTask> findWaiverFinanceApplicationTaskByTaskId(@PathVariable String taskId) {
+        return new ResponseEntity<WaiverFinanceApplicationTask>(billingTransformer
+                .toWaiverFinanceApplicationTaskVo(
+                		billingService.findWaiverFinanceApplicationTaskByTaskId(taskId)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/claimTask", method = RequestMethod.POST)
+    public void claimWaiverFinanceApplicationTask(@RequestBody WaiverFinanceApplicationTask vo) {
+        
+        Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
+        workflowService.claimTask(task);
+    }
+
+    @RequestMapping(value = "/waiverFinanceApplications/completeTask", method = RequestMethod.POST)
+    public void completeWaiverFinanceApplicationTask(@RequestBody WaiverFinanceApplicationTask vo) {
+        
+        Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
+        workflowService.completeTask(task);
+    }
+    
 
     // ====================================================================================================
     // PRIVATE METHODS
