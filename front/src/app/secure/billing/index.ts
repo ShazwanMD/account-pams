@@ -74,6 +74,7 @@ import { WaiverFinanceApplicationTaskState, waiverFinanceApplicationTaskReducer 
 import { waiverFinanceApplicationReducer, WaiverFinanceApplicationState } from "./waiver-finance-applications/waiver-finance-application.reducer";
 import {KnockoffTaskListState, assignedKnockoffTaskListReducer, pooledKnockoffTaskListReducer} from './knockoffs/knockoff-task-list.reducer';
 import {KnockoffTaskState, knockoffTaskReducer} from './knockoffs/knockoff-task.reducer';
+import { WaiverFinanceApplicationSubModule } from "./waiver-finance-applications/index";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -219,6 +220,7 @@ export const billingModuleReducers = {
     CreditNoteSubModule.forRoot(),
     KnockoffSubModule.forRoot(),
     AdvancePaymentSubModule.forRoot(),
+    WaiverFinanceApplicationSubModule.forRoot(),
     PipeModule,
   ],
   declarations: [
