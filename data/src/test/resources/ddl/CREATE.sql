@@ -70,7 +70,7 @@
         SOURCE_NO varchar(255) not null,
         TRANSACTION_CODE int4 not null,
         ACCOUNT_ID int8,
-        CHARGE_CODE_ID int8 not null,
+        CHARGE_CODE_ID int8,
         SESSION_ID int8 not null,
         primary key (ID)
     );
