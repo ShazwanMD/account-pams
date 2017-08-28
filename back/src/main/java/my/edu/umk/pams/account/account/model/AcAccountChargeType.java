@@ -4,15 +4,15 @@ package my.edu.umk.pams.account.account.model;
  * @author PAMS
  */
 public enum  AcAccountChargeType {
-    ADMISSION,
-    ACADEMIC,
-    ACADEMIC_LATE,
-    ENROLLMENT,
-    ENROLLMENT_LATE,
-    SECURITY,
-    COMPOUND,
-    STUDENT_AFFAIRS,
-    LOAN;
+    ADMISSION,		//0
+    ACADEMIC,		//1
+    ACADEMIC_LATE,	//2
+    ENROLLMENT,		//3
+    ENROLLMENT_LATE,//4
+    SECURITY,		//5
+    COMPOUND,		//6	
+    STUDENT_AFFAIRS,//7
+    LOAN;			//8
 	
 
 	public static AcAccountChargeType get(int index) {
