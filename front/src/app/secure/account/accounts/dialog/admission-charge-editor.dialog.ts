@@ -52,7 +52,7 @@ export class AdmissionChargeEditorDialog implements OnInit {
       amount: 0,
       ordinal: 0,
       chargeDate: undefined,
-      chargeType: AccountChargeType.ADMISSION,
+      chargeType: AccountChargeType.ACADEMIC,
       studyMode: <StudyMode>{},
       cohortCode: <CohortCode>{},
       session: <AcademicSession>{},

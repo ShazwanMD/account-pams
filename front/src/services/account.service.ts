@@ -218,7 +218,7 @@ export class AccountService {
   findAdmissionAccountCharges(account: Account): Observable<AccountCharge[]> {
     console.log('findAdmissionAccountCharges');
     return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/accountCharges/chargeType/'
-      + 'ADMISSION')
+      + 'ACADEMIC')
       .map((res: Response) => <AccountCharge[]>res.json());
   }
 
