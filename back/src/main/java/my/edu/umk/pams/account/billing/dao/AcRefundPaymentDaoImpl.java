@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.billing.dao;
 import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import my.edu.umk.pams.account.billing.model.AcRefundPayment;
 import my.edu.umk.pams.account.billing.model.AcRefundPaymentImpl;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -37,6 +39,42 @@ public class AcRefundPaymentDaoImpl extends GenericDaoSupport<Long, AcRefundPaym
         query.setInteger("state", ACTIVE.ordinal());
         return (AcRefundPayment) query.uniqueResult();
     }
+    
+    @Override
+	public List<AcRefundPayment> find(String filter, Integer offset, Integer limit) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select i from AcRefundPayment i where " + "i.metadata.state = :state ");
+		query.setInteger("state", ACTIVE.ordinal());
+		query.setCacheable(true);
+		query.setFirstResult(offset);
+		query.setMaxResults(limit);
+		return (List<AcRefundPayment>) query.list();
+	}
+	
+    @Override
+    public List<AcRefundPayment> findByFlowState(AcFlowState flowState) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcRefundPayment i where " +
+                "i.flowdata.state = :flowState " +
+                "and i.metadata.state = :metaState ");
+        query.setInteger("flowState", flowState.ordinal());
+        query.setInteger("metaState", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcRefundPayment>) query.list();
+    }
+
+    @Override
+    public List<AcRefundPayment> findByFlowStates(AcFlowState... flowStates) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcRefundPayment i where " +
+                "i.flowdata.state in (:flowStates) " +
+                "and i.metadata.state = :metaState ");
+        query.setParameterList("flowStates", flowStates);
+        query.setInteger("metaState", ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcRefundPayment>) query.list();
+    }
+
     
     @Override
     public boolean hasRefundPayment(AcRefundPayment refundPayment) {
