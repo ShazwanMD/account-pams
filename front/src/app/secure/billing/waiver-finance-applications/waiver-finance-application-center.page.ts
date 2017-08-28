@@ -53,23 +53,23 @@ export class WaiverFinanceApplicationCenterPage implements OnInit {
     });
   }
 
-  claim(task: WaiverApplicationTask) {
-    console.log('waiverApplication: ' + task.taskId);
+  claim(task: WaiverFinanceApplicationTask) {
+    console.log('waiverFinanceApplication: ' + task.taskId);
     this.store.dispatch(this.actions.claimWaiverFinanceApplicationTask(task));
   }
 
-  view(task: WaiverApplicationTask) {
-    console.log('waiverApplication: ' + task.taskId);
-    this.router.navigate(['/secure/financialaid/waiver-applications/view-task', task.taskId]);
+  view(task: WaiverFinanceApplicationTask) {
+    console.log('waiverFinanceApplication: ' + task.taskId);
+    this.router.navigate(['/secure/billing/waiver-finance-applications/view-task', task.taskId]);
   }
 
-  viewWaiverApplication(waiverApplication: WaiverApplication) {
-    console.log('WaiverApplication: ' + waiverApplication.referenceNo);
-    this.router.navigate(['/secure/financialaid/waiver-applications/waiver-application-detail', waiverApplication.referenceNo]);
+  viewWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplication) {
+    console.log('WaiverFinanceApplication: ' + waiverFinanceApplication.referenceNo);
+    this.router.navigate(['/secure/billing/waiver-finance-applications/waiver-finance-application-detail', waiverFinanceApplication.referenceNo]);
   }
 
   ngOnInit(): void {
-    console.log('find assigned/pooled waiver application tasks');
+    console.log('find assigned/pooled waiver finance application tasks');
     this.store.dispatch(this.actions.findAssignedWaiverFinanceApplicationTasks());
     this.store.dispatch(this.actions.findPooledWaiverFinanceApplicationTasks());
     this.store.dispatch(this.actions.findArchivedWaiverFinanceApplications());
