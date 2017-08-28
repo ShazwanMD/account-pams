@@ -6,5 +6,5 @@ export  interface AccountActivity extends MetaObject {
   sourceNo: string;
   totalAmount: number;
   transactionCode: AccountTransactionCode;
-
+  postedDate: Date;
 }

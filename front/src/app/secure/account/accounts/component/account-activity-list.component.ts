@@ -24,9 +24,8 @@ export class AccountActivityListComponent {
   transaction:any= AccountTransactionCode;
 
   private columns: any[] = [
-    {name: 'sourceNo', label: 'Source'},
-    {name: 'chargeCode.description', label: 'ChargeCode'},
-    {name: 'activity.postedDate', label: 'Session'},
+    {name: 'postedDate', label: 'Date'},                        
+    {name: 'sourceNo', label: 'Document No'},
     {name: 'totalAmount', label: 'Amount'},
     {name: 'action', label: ''}
   ];
@@ -78,12 +77,6 @@ export class AccountActivityListComponent {
       console.log('close dialog');
     });
   }
-
-//        if(.RECINVOICE)
-//    this.editorDialogRef = this.dialog.open(ReciptViewDialog, config);
-//    this.editorDialogRef.componentInstance.referenceNO = activity.sourceNo;
-//    this.e... componentInstance.`invoice = this.invoice;
-    //if (activity) this.editorDialogRef.componentInstance.activity = activity;
 
   }
 }

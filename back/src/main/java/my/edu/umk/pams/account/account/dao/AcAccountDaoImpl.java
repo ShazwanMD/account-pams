@@ -177,17 +177,20 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
                 "  SOURCE_NO as sourceNo, \n" +
                 "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
-                "  SUM(AMOUNT) as totalAmount \n" +
+                "  SUM(AMOUNT) as totalAmount, \n" +
+                "  POSTED_DATE as postedDate \n" +
                 "FROM AC_ACCT_TRSN\n" +
                 "INNER JOIN AC_ACCT ON AC_ACCT.ID = AC_ACCT_TRSN.ACCOUNT_ID\n" +
                 "WHERE AC_ACCT.ID = :id\n" +
                 "GROUP BY \n" +
                 "  SOURCE_NO, \n" +
+                "  POSTED_DATE, \n" +
                 "  TRANSACTION_CODE");
         sqlQuery.setLong("id", account.getId());
         sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
         sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
         sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
+        sqlQuery.addScalar("postedDate", StandardBasicTypes.DATE);
         sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityHolder.class));
         List<AcAccountActivityHolder> results = sqlQuery.list();
         // unpack id

@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.web.module.account.vo;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +12,7 @@ public class AccountActivityHolder {
 	    private String sourceNo;
 	    private AccountTransactionCode transactionCode;
 	    private BigDecimal totalAmount;
+	    private Date postedDate;
 
 	    public String getSourceNo() {
 	        return sourceNo;
@@ -35,8 +37,16 @@ public class AccountActivityHolder {
 	    public void setTotalAmount(BigDecimal totalAmount) {
 	        this.totalAmount = totalAmount;
 	    }
-	    
-	    @JsonCreator
+	    	    
+	    public Date getPostedDate() {
+			return postedDate;
+		}
+
+		public void setPostedDate(Date postedDate) {
+			this.postedDate = postedDate;
+		}
+
+		@JsonCreator
 	    public static AccountActivityHolder create(String jsonString) {
 	        AccountActivityHolder o = null;
 	        try {
