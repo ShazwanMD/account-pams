@@ -39,10 +39,13 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 
 	@Autowired
 	private BillingService billingService;
-	
-    @Autowired
-    private SystemService systemService;
-    
+
+	@Autowired
+	private AccountService accountService;
+
+	@Autowired
+	private SystemService systemService;
+
 	@Autowired
 	private SecurityService securityService;
 
@@ -58,30 +61,30 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode(),
 							invoiceItem.getInvoice());
 					// knock off
-					if( receiptItem != null){
-					LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
-					invoiceItem
-							.setBalanceAmount(invoiceItem.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
-					billingService.updateInvoiceItem(invoice, invoiceItem);
+					if (receiptItem != null) {
+						LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
+						invoiceItem.setBalanceAmount(
+								invoiceItem.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
+						billingService.updateInvoiceItem(invoice, invoiceItem);
 					}
 
 				}
-				invoice.setBalanceAmount(
-						invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice)));
+				invoice.setBalanceAmount(invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice)));
 				LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
 				billingService.updateInvoice(invoice);
-				
-				BigDecimal balance = receipt.getTotalReceived().subtract(receipt.getTotalApplied());
-							
-				if(balance.equals(0.00)){
+
+				if(invoice.getBalanceAmount().equals(0)){
 					invoice.setPaid(true);
 					billingService.updateInvoice(invoice);
 				}
 				
-				else if(balance.negate() != null){
-					String referenceNo = systemService.generateReferenceNo(AccountConstants.ADVANCE_PAYMENT_REFRENCE_NO);
-			        LOG.debug("Processing application with refNo {}", referenceNo);
-	                
+				BigDecimal balance = receipt.getTotalReceived().subtract(receipt.getTotalApplied());
+
+				if (balance.negate() != null) {
+					String referenceNo = systemService
+							.generateReferenceNo(AccountConstants.ADVANCE_PAYMENT_REFRENCE_NO);
+					LOG.debug("Processing application with refNo {}", referenceNo);
+
 					AcAdvancePayment advancePayment = new AcAdvancePaymentImpl();
 					advancePayment.setReferenceNo(referenceNo);
 					advancePayment.setAmount(balance);
@@ -91,16 +94,15 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					advancePayment.setStatus(false);
 					advancePayment.setAccount(receipt.getAccount());
 					billingService.addAdvancePayment(advancePayment, securityService.getCurrentUser());
-					
-//					AcAccountTransaction tx = new AcAccountTransactionImpl();
-//					tx.setSession(receipt.getSession());
-//					tx.setChargeCode();
-//					tx.setPostedDate(new Date());
-//					tx.setSourceNo(advancePayment.getReferenceNo());
-//					tx.setTransactionCode(AcAccountTransactionCode.ADVANCE_PAYMENT);
-//					tx.setAccount(receipt.getAccount());
-//					tx.setAmount(advancePayment.getAmount());
-//					accountService.addAccountTransaction(receipt.getAccount(), tx);
+
+					AcAccountTransaction tx = new AcAccountTransactionImpl();
+					tx.setSession(receipt.getSession());
+					tx.setPostedDate(new Date());
+					tx.setSourceNo(advancePayment.getReferenceNo());
+					tx.setTransactionCode(AcAccountTransactionCode.ADVANCE_PAYMENT);
+					tx.setAccount(receipt.getAccount());
+					tx.setAmount(advancePayment.getAmount());
+					accountService.addAccountTransaction(receipt.getAccount(), tx);
 				}
 			}
 		}
