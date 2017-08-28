@@ -1026,6 +1026,16 @@ public class BillingServiceImpl implements BillingService {
 		return map;
 	}
 	
+	private Map<String, Object> prepareVariables(AcRefundPayment refundPayment) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(REFUND_ID, refundPayment.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, refundPayment.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
+	
 	private Map<String, Object> prepareVariables(AcKnockoff knockoff) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(KNOCKOFF_ID, knockoff.getId());
@@ -1181,6 +1191,22 @@ public class BillingServiceImpl implements BillingService {
 	// ====================================================================================================
 	// //
 
+	
+	@Override
+	public List<AcRefundPayment> findRefundPayments(String filter, Integer offset, Integer limit) { 
+		return refundPaymentDao.find(filter, offset, limit);
+	}
+	
+	@Override
+	public List<AcRefundPayment> findRefundPaymentsByFlowState(AcFlowState acFlowState) {
+		return refundPaymentDao.findByFlowState(acFlowState);
+	}
+
+	@Override
+	public List<AcRefundPayment> findRefundPaymentsByFlowStates(AcFlowState... flowStates) {
+		return refundPaymentDao.findByFlowStates(flowStates);
+	}
+	
 	@Override
 	public AcRefundPayment findRefundPaymentById(Long id) {
 		return refundPaymentDao.findById(id);
@@ -1201,12 +1227,6 @@ public class BillingServiceImpl implements BillingService {
 		refundPaymentDao.save(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-
-//	@Override
-//	public void updateRefundPayment(AcRefundPayment refund, AcUser user) {
-//		refundPaymentDao.update(refund, securityService.getCurrentUser());
-//		sessionFactory.getCurrentSession().flush();
-//	}
 	
 	@Override
 	public void updateRefundPayment(AcRefundPayment refund) {
@@ -1219,6 +1239,44 @@ public class BillingServiceImpl implements BillingService {
 		refundPaymentDao.remove(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	//TASK REFUND
+	
+		@Override
+		public AcRefundPayment findRefundPaymentByTaskId(String taskId) {
+			Task task = workflowService.findTask(taskId);
+			Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+			return refundPaymentDao.findById((Long) map.get(AccountConstants.REFUND_ID));
+		}
+
+		@Override
+		public Task findRefundPaymentTaskByTaskId(String taskId) {
+			return workflowService.findTask(taskId);
+		}
+
+		@Override
+		public List<Task> findAssignedRefundPaymentTasks(Integer offset, Integer limit) {
+			return workflowService.findAssignedTasks(AcRefundPayment.class.getName(), offset, limit);
+		}
+
+		@Override
+		public List<Task> findPooledRefundPaymentTasks(Integer offset, Integer limit) {
+			return workflowService.findPooledTasks(AcRefundPayment.class.getName(), offset, limit);
+		}
+		
+		@Override
+		public String startRefundPaymentTask(AcRefundPayment refundPayment) {
+			String refNo = systemService.generateReferenceNo(AccountConstants.REFUND_REFRENCE_NO);
+			refundPayment.setReferenceNo(refNo);
+			LOG.debug("Processing knockoff with refNo {}", new Object[] { refNo });
+
+			refundPaymentDao.saveOrUpdate(refundPayment, securityService.getCurrentUser());
+			sessionFactory.getCurrentSession().flush();
+			sessionFactory.getCurrentSession().refresh(refundPayment);
+
+			workflowService.processWorkflow(refundPayment, prepareVariables(refundPayment));
+			return refNo;
+		}
 	
 	// ====================================================================================================
 	// //
