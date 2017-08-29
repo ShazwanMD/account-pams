@@ -73,7 +73,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
 				billingService.updateInvoice(invoice);
 
-				if(invoice.getBalanceAmount().equals(0)){
+				if(invoice.getBalanceAmount().equals(0.00)){
 					invoice.setPaid(true);
 					billingService.updateInvoice(invoice);
 				}

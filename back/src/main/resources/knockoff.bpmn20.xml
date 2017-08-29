@@ -35,7 +35,7 @@
         <serviceTask id="knockoff_draft_ST"
                      activiti:expression="#{knockoff_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow1.1" sourceRef="knockoff_draft_ST" targetRef="knockoff_draft_ST"/>
+        <sequenceFlow id="flow1.1" sourceRef="knockoff_draft_ST" targetRef="knockoff_draft_UT"/>
 
         <userTask id="knockoff_draft_UT" name="my.edu.umk.pams.account.billing.model.AcKnockoff:DRAFTED"
                   activiti:assignee="${userCreator}">

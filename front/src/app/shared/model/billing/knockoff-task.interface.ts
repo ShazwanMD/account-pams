@@ -10,7 +10,6 @@ export interface KnockoffTask extends Document {
     description: string;
     taskName: string;
     amount: number;
-    //paymentNo: AdvancePayment;
     assignee: string;
     issuedDate: number;
     candidate: string;
