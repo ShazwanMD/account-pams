@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ChargeCode} from '../../../../shared/model/account/charge-code.interface';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialogRef} from '@angular/material';
@@ -34,14 +34,14 @@ export class ChargeCodeEditorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editorForm = this.formBuilder.group(<ChargeCode>{
-      id: null,
-      code: '',
-      description: '',
-      priority: 0,
-      taxCode: <TaxCode>{},
-      inclusive: false,
-      active: false,
+    this.editorForm = this.formBuilder.group({
+      id: [null],
+      code: ['',Validators.required],
+      description: ['',Validators.required],
+      priority: [0],
+      taxCode: [<TaxCode>{}],
+      inclusive: [false],
+      active: [false],
     });
 
     if (this.edit) this.editorForm.patchValue(this._chargeCode);
