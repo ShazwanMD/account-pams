@@ -9,6 +9,7 @@ import {Actor} from '../../../shared/model/identity/actor.interface';
 @Component({
   selector: 'pams-sponsor-select',
   templateUrl: './sponsor-select.component.html',
+  styleUrls: ['./sponsor-select.component.scss'],
 })
 export class SponsorSelectComponent implements OnInit {
 
