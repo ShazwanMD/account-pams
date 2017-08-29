@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {AccountActions} from '../account.action';
@@ -45,17 +45,17 @@ export class AdmissionChargeEditorDialog implements OnInit {
 
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group({
-      id: undefined,
-      referenceNo: '',
-      sourceNo: '',
-      description: '',
-      amount: 0,
-      ordinal: 0,
-      chargeDate: undefined,
+      id: [undefined],
+      referenceNo: [''],
+      sourceNo: ['',Validators.required],
+      description: ['',Validators.required],
+      amount: [0,Validators.required],
+      ordinal: [0,Validators.required],
+      chargeDate: [undefined,Validators.required],
       chargeType: AccountChargeType.ACADEMIC,
-      studyMode: <StudyMode>{},
-      cohortCode: <CohortCode>{},
-      session: <AcademicSession>{},
+      studyMode:[<StudyMode>{}],
+      cohortCode: [<CohortCode>{}],
+      session: [<AcademicSession>{}],
     });
 
     if (this.edit) {

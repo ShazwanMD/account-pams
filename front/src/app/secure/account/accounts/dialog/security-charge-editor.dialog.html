@@ -4,10 +4,13 @@
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput
-               placeholder="SourceNo"
+               placeholder="Source No"
                formControlName="sourceNo"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="editForm.get('sourceNo').invalid && editForm.get('sourceNo').touched">source No Required!
+          </div>
     </div>
     <div>
      <pams-security-charge-code-select
@@ -20,14 +23,16 @@
       <md-input-container fxFlex="calc(100%-25px)">
         <input mdInput type="date"
                placeholder="Date of Charge"
-               formControlName="chargeDate"
-               flex/>
+               formControlName="chargeDate"/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="editForm.get('chargeDate').invalid && editForm.get('chargeDate').touched">charge Date Required!
+          </div>  
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
-    {{edit ? 'Update' : 'Save'}}
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)" [disabled]="!editForm.valid">
+  {{edit ? 'Update' : 'Save'}}
   </button>
 </md-dialog-actions>
