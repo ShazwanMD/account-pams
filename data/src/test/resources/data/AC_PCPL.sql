@@ -14,6 +14,10 @@ INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani Admin Bendahari', 'keraniadminbendahari@umk.edu.my', 'abc123');
 
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pegawai-admin-bendahari', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Pegawai Admin Bendahari', 'pegawaiadminbendahari@umk.edu.my', 'abc123');
+
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'kerani-ptj-sec', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani PTJ Secetary', 'keraniptjsec@umk.edu.my', 'abc123');
@@ -351,7 +355,12 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
 --USER ADMIN BENDAHARI KERANI                                                                              
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_ADM_BEND'),
-                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-admin-bendahari'), 1, 1, CURRENT_TIMESTAMP);	                                                                                 
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-admin-bendahari'), 1, 1, CURRENT_TIMESTAMP);	
+                                                                                 
+--USER ADMIN BENDAHARI PEGAWAI                                                                              
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_ADM_BEND'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'pegawai-admin-bendahari'), 1, 1, CURRENT_TIMESTAMP);	                                                                                  
                                                                                                                                                                   
 --USER PTJ SEC KERANI                                                                              
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
