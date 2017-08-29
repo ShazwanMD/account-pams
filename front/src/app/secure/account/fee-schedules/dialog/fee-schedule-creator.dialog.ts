@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -29,13 +29,13 @@ export class FeeScheduleCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<FeeSchedule>{
-      id: undefined,
-      code: '',
-      description: '',
-      residencyCode: <ResidencyCode>{},
-      cohortCode: <CohortCode>{},
-      studyMode: <StudyMode>{},
+    this.createForm = this.formBuilder.group({
+      id: [undefined],
+      code: [''],
+      description: [''],
+      residencyCode: [<ResidencyCode>{}],
+      cohortCode: [<CohortCode>{}],
+      studyMode: [<StudyMode>{}],
     });
   }
 

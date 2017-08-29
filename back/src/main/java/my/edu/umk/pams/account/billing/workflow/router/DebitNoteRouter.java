@@ -27,26 +27,32 @@ public class DebitNoteRouter extends RouterServiceSupport{
         Validate.notNull(debitNoteId, "Id must not be null");
 
         String candidate = null;
+        String kerani = null; 
+        
         AcDebitNote debitNote = billingService.findDebitNoteById(debitNoteId);
         candidate = "GRP_ADM";
+        kerani = "GRP_KRN_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(debitNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate);
+        return Arrays.asList(candidate, kerani);
     }
 
     public List<String> findVerifierCandidates(Long debitNoteId) {
         Validate.notNull(debitNoteId, "Id must not be null");
 
         String candidate = null;
+        String pegawai = null;
 
         AcDebitNote debitNote = billingService.findDebitNoteById(debitNoteId);
         candidate = "GRP_ADM";
+        pegawai = "GRP_PGW_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(debitNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate);
+        return Arrays.asList(candidate, pegawai);
     }
+    
 }

@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.web.module.account.controller.AccountTransformer;
 import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
+import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.billing.vo.*;
 import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
 import my.edu.umk.pams.account.web.module.common.vo.PaymentMethod;
@@ -19,8 +20,11 @@ import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -169,6 +173,7 @@ public class BillingTransformer {
         task.setFlowState(FlowState.get(receipt.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(receipt.getMetadata().getState().ordinal()));
         return task;
+        
     }
 
     public Receipt toSimpleReceiptVo(AcReceipt e) {
@@ -359,22 +364,6 @@ public class BillingTransformer {
         return vo;
     }
     
-    public Knockoff toKnockoffVos(AcKnockoff e) {
-    	Knockoff vo = new Knockoff();
-        vo.setId(e.getId());
-        vo.setReferenceNo(e.getReferenceNo());
-        vo.setSourceNo(e.getSourceNo());
-        vo.setAuditNo(e.getAuditNo());
-        vo.setDescription(e.getDescription());
-        vo.setAmount(e.getAmount());
-        vo.setIssuedDate(e.getIssuedDate());
-        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
-        vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
-        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        return vo;
-    }
-    
     public Knockoff toKnockoffVo(AcKnockoff e) {
     	Knockoff vo = new Knockoff();
         vo.setId(e.getId());
@@ -412,22 +401,22 @@ public class BillingTransformer {
        
         KnockoffTask task = new KnockoffTask();
         task.setId(knockoff.getId());
+        task.setKnockoff(toKnockoffVo(knockoff));
         task.setTaskId(t.getId());
+        task.setReceivedDate(task.getReceivedDate());
         task.setReferenceNo(knockoff.getReferenceNo());
         task.setSourceNo(knockoff.getSourceNo());
-        task.setDescription(knockoff.getDescription());
         task.setTaskName(t.getName());
-        task.setAmount(knockoff.getAmount());
-        //task.setPayment(billingTransformer.toAdvancePaymentVo(knockoff.getPayments()));
-        task.setAssignee(task.getAssignee());
-        task.setIssuedDate(knockoff.getIssuedDate());
+        task.setTotalAmount(knockoff.getAmount());
         task.setCandidate(task.getCandidate());
-        task.setKnockoff(toKnockoffVo(knockoff));
-        //task.setInvoice(billingTransformer.toInvoiceVo(knockoff.getInvoice()));
+        task.setAssignee(task.getAssignee());
+        task.setDescription(knockoff.getDescription());
         task.setFlowState(FlowState.get(knockoff.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(knockoff.getMetadata().getState().ordinal()));
         return task;
+
     }
+    
     
     public WaiverFinanceApplicationTask toWaiverFinanceApplicationTaskVo(Task t) {
         Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());

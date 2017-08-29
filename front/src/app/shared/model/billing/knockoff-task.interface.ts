@@ -4,17 +4,16 @@ import {Knockoff} from './knockoff.interface';
 import { AdvancePayment } from "./advance-payment.interface";
 
 export interface KnockoffTask extends Document {
-    taskId: string;
-    referenceNo: string;
-    sourceNo: string;
-    description: string;
-    taskName: string;
-    amount: number;
-    //paymentNo: AdvancePayment;
-    assignee: string;
-    issuedDate: number;
-    candidate: string;
-    knockoff: Knockoff;
-    flowState: FlowState;
+  taskId: string;
+  taskName: string;
+  candidate: string;
+  assignee: string
+  referenceNo: string;
+  sourceNo: string;
+  description: string;
+  knockoff: Knockoff;
+  receivedDate: number;
+  totalAmount: number;
+  flowState: FlowState;
 
 }

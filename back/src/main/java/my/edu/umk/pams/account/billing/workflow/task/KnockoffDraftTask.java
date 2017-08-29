@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
 import static java.lang.System.currentTimeMillis;
-import static my.edu.umk.pams.account.AccountConstants.INVOICE_ID;
 import static my.edu.umk.pams.account.core.AcFlowState.DRAFTED;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -33,6 +32,7 @@ public class KnockoffDraftTask extends BpmnActivityBehavior implements ActivityB
     public void execute(ActivityExecution execution) throws Exception {
         Long knockoffId = (Long) execution.getVariable(KNOCKOFF_ID);
         AcKnockoff knockoff = billingService.findKnockoffById(knockoffId);
+        
         LOG.debug("knockoff ID " , knockoff.getId());
         LOG.debug("drafting knockoff {}", knockoff.getReferenceNo());
 

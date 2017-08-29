@@ -184,6 +184,7 @@ public class AccountTransformer {
         m.setSourceNo(e.getSourceNo());
         m.setTotalAmount(e.getTotalAmount());
         m.setTransactionCode(AccountTransactionCode.get(e.getTransactionCode().ordinal()));
+        m.setPostedDate(e.getPostedDate());
         return m;
     }
 

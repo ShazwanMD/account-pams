@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 public class AcAccountActivityHolder {
@@ -9,6 +10,7 @@ public class AcAccountActivityHolder {
     private AcAccountTransactionCode transactionCode;
     private BigDecimal totalAmount;
     private Integer transactionCodeOrdinal;
+    private Date postedDate;
 
     public Integer getTransactionCodeOrdinal() {
     	return transactionCodeOrdinal;
@@ -41,4 +43,13 @@ public class AcAccountActivityHolder {
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
+
+	public Date getPostedDate() {
+		return postedDate;
+	}
+
+	public void setPostedDate(Date postedDate) {
+		this.postedDate = postedDate;
+	}
+    
 }

@@ -7,7 +7,7 @@
 
     <!--
     ====================================================================================================
-    ==  DRAFTED > VERIFIED > APPROVED >>  COMPLETED >> END
+    ==  DRAFTED > REGISTERED > VERIFIED > APPROVED >>  COMPLETED >> END
     ====================================================================================================
     -->
 
@@ -18,7 +18,7 @@
     ====================================================================================================
     -->
 
-    <process id="knockoff_workflow" name="Billing Knockoff Workflow">
+    <process id="knockoff_workflow" name="Billing knockoff Workflow">
 
         <startEvent id="start"/>
 
@@ -35,12 +35,12 @@
         <serviceTask id="knockoff_draft_ST"
                      activiti:expression="#{knockoff_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow1.1" sourceRef="knockoff_draft_ST" targetRef="knockoff_draft_ST"/>
+        <sequenceFlow id="flow1.1" sourceRef="knockoff_draft_ST" targetRef="knockoff_draft_UT"/>
 
         <userTask id="knockoff_draft_UT" name="my.edu.umk.pams.account.billing.model.AcKnockoff:DRAFTED"
                   activiti:assignee="${userCreator}">
             <documentation>
-                Draft Knockoff
+                Draft knockoff
             </documentation>
         </userTask>
 
@@ -48,8 +48,39 @@
             <conditionExpression>${removeDecision}</conditionExpression>
         </sequenceFlow>
 
-        <sequenceFlow id="flow1.3" sourceRef="knockoff_draft_UT" targetRef="knockoff_verify_ST">
+        <sequenceFlow id="flow1.3" sourceRef="knockoff_draft_UT" targetRef="knockoff_register_ST">
             <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+        <!--
+        ====================================================================================================
+        == STATE : REGISTERED
+        == SERVICE TASK : register a knockoff
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="knockoff_register_ST"
+                     activiti:expression="#{knockoff_register_ST.execute(execution)}"/>
+
+
+        <sequenceFlow id="flow3.1" sourceRef="knockoff_register_ST" targetRef="knockoff_register_UT"/>
+
+        <userTask id="knockoff_register_UT" name="my.edu.umk.pams.account.billing.model.AcKnockoff:REGISTERED"
+                  activiti:candidateGroups="${knockoffRouter.findRegistererCandidates(knockoffId)}">
+            <documentation>
+                Register knockoff
+            </documentation>
+
+        </userTask>
+
+        <!-- accept -->
+        <sequenceFlow id="flow3.2" sourceRef="knockoff_register_UT" targetRef="knockoff_verify_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!-- delete -->
+        <sequenceFlow id="flow3.4" sourceRef="knockoff_register_UT" targetRef="knockoff_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
         </sequenceFlow>
         <!--
         ====================================================================================================
@@ -66,7 +97,7 @@
         <userTask id="knockoff_verify_UT" name="my.edu.umk.pams.account.billing.model.AcKnockoff:VERIFIED"
                   activiti:candidateGroups="${knockoffRouter.findVerifierCandidates(knockoffId)}">
             <documentation>
-                Verify Knockoff
+                Verify knockoff
             </documentation>
 
         </userTask>

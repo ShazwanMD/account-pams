@@ -7,17 +7,25 @@
                placeholder="Code"
                formControlName="code"/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+                       *ngIf="editForm.get('code').invalid && editForm.get('code').touched">Code is Required!
+          </div>
     </div>
     <div layout="row" class="pad-bottom">
       <pams-account-select
         [placeholder]="'Account'"
         [innerFormControl]="editForm.controls['account']"
-        [preSelected]="_promoCodeItem?.account"></pams-account-select>
+        [preSelected]="_promoCodeItem?.account" fxFlex="calc(100%-25px)">
+      </pams-account-select>
+        <div class="error" class="tc-red-600"
+                 *ngIf="editForm.get('account').invalid && editForm.get('account').touched">
+             Account is required!
+        </div>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)" [disabled] = "!editForm.valid">
     {{_promoCodeItem?.id ? 'Update' : 'Create'}}
   </button>
 </md-dialog-actions>

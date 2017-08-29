@@ -35,9 +35,9 @@ public class AcAccountTransactionImpl implements AcAccountTransaction {
     @Column(name = "TRANSACTION_CODE", nullable = false)
     private AcAccountTransactionCode transactionCode;
 
-    @NotNull
+    //@NotNull
     @ManyToOne(targetEntity = AcChargeCodeImpl.class)
-    @JoinColumn(name = "CHARGE_CODE_ID", nullable = false)
+    @JoinColumn(name = "CHARGE_CODE_ID", nullable = true)
     private AcChargeCode chargeCode;
 
     @NotNull

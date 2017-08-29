@@ -3,6 +3,7 @@ import { MetaObject } from '../../../core/meta-object.interface';
 import { Receipt } from './receipt.interface';
 
 export interface AdvancePayment extends MetaObject {
+    id: number;
     referenceNo: string;
     description: string;
     amount: number;

@@ -3,6 +3,7 @@ import { Invoice } from './invoice.interface';
 import { AdvancePayment } from './advance-payment.interface';
 
 export interface Knockoff extends MetaObject {
+    id: number;
     referenceNo: string;
     sourceNo: string;
     auditNo: string;
@@ -10,5 +11,5 @@ export interface Knockoff extends MetaObject {
     amount: number;
     issuedDate: Date;
     invoice: Invoice;
-    advancePayment: AdvancePayment;
+    payments?: AdvancePayment;
 }

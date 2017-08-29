@@ -60,11 +60,11 @@ export class KnockoffActions {
     }
     
     static START_KNOCKOFF_TASK = '[Knockoff] Start Knockoff Task';
-    startKnockoffTask(knockoff, referenceNo): Action {
+    startKnockoffTask(knockoff): Action {
         console.log("kncokoff dlm action: " + knockoff);
       return {
         type: KnockoffActions.START_KNOCKOFF_TASK,
-        payload: {knockoff, referenceNo}
+        payload: knockoff
       };
     }
 

@@ -1,51 +1,60 @@
 <h2 md-dialog-title>Sponsorship</h2>
 <md-dialog-content>
   <form [formGroup]="editForm">
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-
-    </div>
-    <div>
-      <pams-sponsor-select fxFlex="calc(100%-25px)" class="pad-bottom" fxLayoutWrap fxLayoutGap="25px"
-                         [placeholder]="'Sponsor'"
-                         [innerFormControl]="editForm.controls['sponsor']" flex>
+   <div layout="row" class="pad-bottom" flex>
+      <pams-sponsor-select 
+             [placeholder]="'Sponsor'"
+             [innerFormControl]="editForm.controls['sponsor']" 
+             fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-sponsor-select>
     </div>
-    <div>
-      <md-input-container fxFlex="calc(100%-25px)">
+    <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput type="date"
-               placeholder="Started Date"
+               placeholder="Start Date"
                formControlName="startDate"
                flex/>
       </md-input-container>
     </div>
-    <div>
-      <md-input-container fxFlex="calc(100%-25px)">
+    <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput type="date"
                placeholder="End Date"
                formControlName="endDate"
                flex/>
       </md-input-container>
+      <div class="error" class="tc-red-600" *ngIf="editForm.controls.endDate.errors?.CheckDate">
+      </div>
+    <div class="error" class="tc-red-600" *ngIf="editForm.get('endDate').invalid && editForm.get('endDate').touched">
+      End Date should be greater and not equal to start date!
     </div>
-     <div>
-      <md-input-container fxFlex="calc(100%-25px)">
+  </div>
+      <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput
                placeholder="Account No"
                formControlName="accountNo"
                flex/>
       </md-input-container>
+           <div class="error" class="tc-red-600"
+            *ngIf="editForm.get('accountNo').invalid && editForm.get('accountNo').touched">Account No Required!
+          </div>   
     </div>
-    <div>
-      <md-input-container fxFlex="calc(100%-25px)">
+     <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput
                placeholder="Amount"
                formControlName="amount"
                flex/>
       </md-input-container>
+         <div class="error" class="tc-red-600"
+            *ngIf="editForm.get('amount').invalid && editForm.get('amount').touched">Amount Required!
+        </div>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)" [disabled]="!editForm.valid">
     {{edit ? 'Update' : 'Save'}}
   </button>
 </md-dialog-actions>

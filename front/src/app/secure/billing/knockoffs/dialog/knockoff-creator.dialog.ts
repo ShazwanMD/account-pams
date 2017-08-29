@@ -41,18 +41,18 @@ export class KnockoffCreatorDialog {
             amount: 0,
             issuedDate: undefined,
             invoice: <Invoice>{},
-            advancePayment: <AdvancePayment>{},
+            payments: <AdvancePayment>{},
         } );
 
-        this.createForm.patchValue( { advancePayment: this._advancePayment} );
+        this.createForm.patchValue( { payments: this._advancePayment} );
     }
 
     save( knockoff: Knockoff, isValid: boolean ) {
         if(isValid)
-            knockoff.advancePayment = this._advancePayment;
+            knockoff.payments = this._advancePayment;
         
         if(isValid)
-        this.store.dispatch( this.actions.startKnockoffTask(knockoff, this._advancePayment) );
+        this.store.dispatch( this.actions.startKnockoffTask(knockoff) );
         this.dialog.close();
     }
 

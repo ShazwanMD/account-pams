@@ -9,6 +9,8 @@ import {ResidencyCode} from '../../../shared/model/common/residency-code.interfa
 @Component({
   selector: 'pams-residency-code-select',
   templateUrl: './residency-code-select.component.html',
+   styleUrls: ['./residency-code-select.scss'],
+
 })
 export class ResidencyCodeSelectComponent implements OnInit {
 

@@ -497,9 +497,9 @@ export class BillingService {
             .map(( res: Response ) => <Knockoff>res.json() );
     }
 
-    startKnockoffTask( knockoff: Knockoff, payment: AdvancePayment ): Observable<String> {
+    startKnockoffTask( knockoff: Knockoff): Observable<String> {
         console.log("payment dlm service front ends : " +knockoff);
-        return this._http.post( this.BILLING_API + '/knockoffs/startTask/' + payment.referenceNo, JSON.stringify( knockoff ) )
+        return this._http.post( this.BILLING_API + '/knockoffs/startTask', JSON.stringify( knockoff ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
 
