@@ -12,11 +12,6 @@ import my.edu.umk.pams.account.web.module.core.vo.Task;
 public class KnockoffTask extends Task {
 
 	private Knockoff knockoff;
-	private Date issuedDate;
-	private BigDecimal amount;
-	private String description;
-//	private AdvancePayment payment;
-//	private Invoice invoice;
 
 	public Knockoff getKnockoff() {
 		return knockoff;
@@ -26,49 +21,9 @@ public class KnockoffTask extends Task {
 		this.knockoff = knockoff;
 	}
 
-	public Date getIssuedDate() {
-		return issuedDate;
-	}
-
-	public void setIssuedDate(Date issuedDate) {
-		this.issuedDate = issuedDate;
-	}
-
-	public BigDecimal getAmount() {
-		return amount;
-	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-//	public AdvancePayment getPayment() {
-//		return payment;
-//	}
-//
-//	public void setPayment(AdvancePayment payment) {
-//		this.payment = payment;
-//	}
-//	
-//    public Invoice getInvoice() {
-//        return invoice;
-//    }
-//
-//    public void setInvoice(Invoice invoice) {
-//        this.invoice = invoice;
-//    }
-	
-    @JsonCreator
+	@JsonCreator
     public static KnockoffTask create(String jsonString) {
-    	KnockoffTask o = null;
+		KnockoffTask o = null;
         try {
             ObjectMapper mapper = new ObjectMapper();
             o = mapper.readValue(jsonString, KnockoffTask.class);
@@ -77,5 +32,4 @@ public class KnockoffTask extends Task {
         }
         return o;
     }
-
 }

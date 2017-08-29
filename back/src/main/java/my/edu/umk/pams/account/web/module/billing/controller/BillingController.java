@@ -816,7 +816,7 @@ public class BillingController {
     }
     
     @RequestMapping(value = "/knockoffs/assignedTasks", method = RequestMethod.GET)
-    public ResponseEntity<List<KnockoffTask>> findAssignedKnockoffTasks() {
+    public ResponseEntity<List<KnockoffTask>> findAssignedKnockoffs() {
         
         List<Task> tasks = billingService.findAssignedKnockoffTasks(0, 100);
         return new ResponseEntity<List<KnockoffTask>>(billingTransformer.toKnockoffTaskVos(tasks), HttpStatus.OK);
@@ -848,6 +848,7 @@ public class BillingController {
         knockoff.setPayments(billingService.findAdvancePaymentById(vo.getPayments().getId()));
         knockoff.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startKnockoffTask(knockoff), HttpStatus.OK);
+       
     }
 
     @RequestMapping(value = "/knockoffs/viewTask/{taskId}", method = RequestMethod.GET)
