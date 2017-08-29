@@ -60,7 +60,7 @@ export class KnockoffEffects {
     @Effect() startKnockoffTask$ = this.actions$
     .ofType(KnockoffActions.START_KNOCKOFF_TASK)
     .map((action) => action.payload)
-    .switchMap((payload) => this.billingService.startKnockoffTask(payload.knockoff, payload.referenceNo))
+    .switchMap((knockoff) => this.billingService.startKnockoffTask(knockoff))
     .map((referenceNo) => this.knockoffActions.startKnockoffTaskSuccess(referenceNo))
     .mergeMap((action) => from([action,
         this.knockoffActions.findAssignedKnockoffTasks(),
