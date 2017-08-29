@@ -57,6 +57,10 @@ public interface AccountConstants {
     public static final String WAIVER_APPLICATION_PROCESS_KEY = "waiver_application_workflow";
     public static final String WAIVER_APPLICATION_RESOURCE_PATH = "waiver_application.bpmn20.xml";
     public static final String WAIVER_APPLICATION_PROCESS_NAME = "waiver_application";
+    
+    public static final String WAIVER_FINANCE_APPLICATION_PROCESS_KEY = "waiver_finance_application_workflow";
+    public static final String WAIVER_FINANCE_APPLICATION_RESOURCE_PATH = "waiver_finance_application.bpmn20.xml";
+    public static final String WAIVER_FINANCE_APPLICATION_PROCESS_NAME = "waiver_finance_application";
 
     public static final String SHORT_TERM_LOAN_PROCESS_KEY = "short_term_loan_workflow";
     public static final String SHORT_TERM_LOAN_RESOURCE_PATH = "short_term_loan.bpmn20.xml";
