@@ -836,24 +836,18 @@ public class BillingController {
         return new ResponseEntity<List<Knockoff>>(billingTransformer.toKnockoffVos(knockoffs), HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/knockoffs/startTask/{referenceNo}", method = RequestMethod.POST)
-    public ResponseEntity<String> startKnockoffTask(@PathVariable String referenceNo, @RequestBody Knockoff vo) throws Exception {
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("academicSession", accountService.findCurrentAcademicSession());
-        String refNo = systemService.generateFormattedReferenceNo(AccountConstants.KNOCKOFF_REFRENCE_NO, map);
+    @RequestMapping(value = "/knockoffs/startTask", method = RequestMethod.POST)
+    public ResponseEntity<String> startKnockoffTask(@RequestBody Knockoff vo) throws Exception {
 
         AcKnockoff knockoff = new AcKnockoffImpl();
-        knockoff.setReferenceNo("123");
         knockoff.setSourceNo(vo.getSourceNo());
         knockoff.setAuditNo(vo.getAuditNo());
         knockoff.setIssuedDate(vo.getIssuedDate());
         knockoff.setDescription(vo.getDescription());
         knockoff.setAmount(vo.getAmount());
-        knockoff.setPayments(billingService.findAdvancePaymentByReferenceNo(referenceNo));
+        knockoff.setPayments(billingService.findAdvancePaymentById(vo.getPayments().getId()));
         knockoff.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
-       billingService.startKnockoffTask(knockoff);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<String>(billingService.startKnockoffTask(knockoff), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/knockoffs/viewTask/{taskId}", method = RequestMethod.GET)

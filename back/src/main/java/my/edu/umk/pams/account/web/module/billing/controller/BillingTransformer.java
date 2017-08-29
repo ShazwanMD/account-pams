@@ -359,22 +359,6 @@ public class BillingTransformer {
         return vo;
     }
     
-    public Knockoff toKnockoffVos(AcKnockoff e) {
-    	Knockoff vo = new Knockoff();
-        vo.setId(e.getId());
-        vo.setReferenceNo(e.getReferenceNo());
-        vo.setSourceNo(e.getSourceNo());
-        vo.setAuditNo(e.getAuditNo());
-        vo.setDescription(e.getDescription());
-        vo.setAmount(e.getAmount());
-        vo.setIssuedDate(e.getIssuedDate());
-        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
-        vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
-        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        return vo;
-    }
-    
     public Knockoff toKnockoffVo(AcKnockoff e) {
     	Knockoff vo = new Knockoff();
         vo.setId(e.getId());
@@ -427,6 +411,7 @@ public class BillingTransformer {
         task.setFlowState(FlowState.get(knockoff.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(knockoff.getMetadata().getState().ordinal()));
         return task;
+
     }
     
     public WaiverFinanceApplicationTask toWaiverFinanceApplicationTaskVo(Task t) {

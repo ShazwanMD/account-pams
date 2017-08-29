@@ -10,8 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
+import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
-public class AdvancePayment extends Document {
+public class AdvancePayment extends MetaObject {
 
 	private String referenceNo;
 	private String description;
