@@ -1,27 +1,41 @@
 <h2 md-dialog-title>Fee Schedule Creator</h2>
 <md-dialog-content>
-  <form [formGroup]="createForm">
+  <form [formGroup]="createForm" novalidate>
       <div layout="row" class="pad-bottom pad-top">
       <pams-cohort-code-select
         [placeholder]="'Select Cohort'"
-        [innerFormControl]="createForm.controls['cohortCode']">
+        [innerFormControl]="createForm.controls.cohortCode" fxFlex="calc(100%-25px)" class="pad=bottom">
       </pams-cohort-code-select>
+       <div class="error" class="tc-red-600"
+                 *ngIf="createForm.get('cohortCode').invalid && createForm.get('cohortCode').touched">
+              Cohort is required!
+        </div>
     </div>
-        <div layout="row" class="pad-bottom pad-top">
+      
+    <div layout="row" class="pad-bottom pad-top">
       <pams-study-mode-select
         [placeholder]="'Select Study Mode'"
-        [innerFormControl]="createForm.controls['studyMode']">
+        [innerFormControl]="createForm.controls.studyMode" fxFlex="calc(100%-25px)">
       </pams-study-mode-select>
+      <div class="error" class="tc-red-600"
+                 *ngIf="createForm.get('studyMode').invalid && createForm.get('studyMode').touched">
+              Study Mode is required!
+      </div>
     </div>
-    <div layout="row" class="pad-bottom">
+    <div layout="row" class="pad-bottom pad-top">
       <pams-residency-code-select
         [placeholder]="'Select Residency'"
-        [innerFormControl]="createForm.controls['residencyCode']">
+        [innerFormControl]="createForm.controls.residencyCode" fxFlex="calc(100%-25px)">
       </pams-residency-code-select>
+       <div class="error" class="tc-red-600"
+                 *ngIf="createForm.get('residencyCode').invalid && createForm.get('residencyCode').touched">
+             Residency is required!
+        </div>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)"
+  [disabled] = "!createForm.valid">Save</button>
 </md-dialog-actions>
 

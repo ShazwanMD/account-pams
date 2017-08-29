@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialogRef} from '@angular/material';
 import {MarketingModuleState} from '../../index';
@@ -38,12 +38,12 @@ export class PromoCodeItemEditorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editForm = this.formBuilder.group(<PromoCodeItem>{
-      id: null,
-      code: '',
-      applied: false,
-      sourceNo: 0,
-      account: <Account>{},
+    this.editForm = this.formBuilder.group({
+      id: [null],
+      code: ['',Validators.required],
+      applied: [false],
+      sourceNo:[0],
+      account: [<Account>{},Validators.required],
     });
 
     if (this._promoCodeItem) {

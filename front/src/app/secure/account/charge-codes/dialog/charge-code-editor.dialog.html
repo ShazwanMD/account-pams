@@ -31,6 +31,9 @@
                formControlName="priority"
                flex/>
       </md-input-container>
+               <div class="error" class="tc-red-600"
+                       *ngIf="editorForm.get('priority').invalid && editorForm.get('priority').touched">Priority is Required!
+               </div>
     </div>
     <div>
       <pams-tax-code-select
@@ -38,6 +41,10 @@
         [innerFormControl]="editorForm.controls['taxCode']"
         fxFlex="calc(100%-25px)">
       </pams-tax-code-select>
+      <div class="error" class="tc-red-600"
+                 *ngIf="editorForm.get('taxCode').invalid && editorForm.get('taxCode').touched">
+             Tax Code is required!
+        </div>
     </div>
 <div layout="row" layout-margin>
   <div flex></div>
