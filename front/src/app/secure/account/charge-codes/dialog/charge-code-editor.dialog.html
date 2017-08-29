@@ -7,6 +7,9 @@
                placeholder="Code"
                formControlName="code"
                flex/>
+               <div class="error" class="tc-red-600"
+                       *ngIf="editorForm.get('code').invalid && editorForm.get('code').touched">Code is Required!
+               </div>
       </md-input-container>
     </div>
 
@@ -16,6 +19,9 @@
                placeholder="Description "
                formControlName="description"
                flex/>
+                <div class="error" class="tc-red-600"
+                       *ngIf="editorForm.get('description').invalid && editorForm.get('description').touched">Description is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="inset" flex>
@@ -30,7 +36,7 @@
       <pams-tax-code-select
         [placeholder]="'Tax Code'"
         [innerFormControl]="editorForm.controls['taxCode']"
-        fxFlex="calc(70%-25px)">
+        fxFlex="calc(100%-25px)">
       </pams-tax-code-select>
     </div>
 <div layout="row" layout-margin>
@@ -53,7 +59,7 @@
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)">
-    {{edit ? 'Update' : 'Save'}}
+  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)" 
+  [disabled] = "!editorForm.valid">{{edit ? 'Update' : 'Save'}}
   </button>
 </md-dialog-actions>

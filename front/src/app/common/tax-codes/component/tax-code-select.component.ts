@@ -9,6 +9,7 @@ import {TaxCode} from '../../../shared/model/common/tax-code.interface';
 @Component({
   selector: 'pams-tax-code-select',
   templateUrl: './tax-code-select.component.html',
+  styleUrls: ['./tax-code-select.scss'],
 })
 export class TaxCodeSelectComponent implements OnInit {
 
