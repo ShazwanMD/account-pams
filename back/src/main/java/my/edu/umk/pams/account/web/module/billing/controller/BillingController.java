@@ -967,15 +967,15 @@ public class BillingController {
 
         AcAcademicSession academicSession = accountService.findAcademicSessionById(vo.getAcademicSession().getId());
         AcAccount account = accountService.findAccountById(vo.getAccount().getId());
-        AcWaiverFinanceApplication waiverApplication = new AcWaiverFinanceApplicationImpl();
-        waiverApplication.setDescription(vo.getDescription());
-        waiverApplication.setWaivedAmount(vo.getWaivedAmount());
-        waiverApplication.setGracedAmount(BigDecimal.ZERO);
-        waiverApplication.setEffectiveBalance(accountService.sumEffectiveBalanceAmount(account, academicSession));
-        waiverApplication.setBalance(accountService.sumBalanceAmount(account));
-        waiverApplication.setAccount(account);
-        waiverApplication.setSession(academicSession);
-        return new ResponseEntity<String>(billingService.startWaiverFinanceApplicationTask(waiverApplication), HttpStatus.OK);
+        AcWaiverFinanceApplication waiverFinanceApplication = new AcWaiverFinanceApplicationImpl();
+        waiverFinanceApplication.setDescription(vo.getDescription());
+        waiverFinanceApplication.setWaivedAmount(vo.getWaivedAmount());
+        waiverFinanceApplication.setGracedAmount(BigDecimal.ZERO);
+        waiverFinanceApplication.setEffectiveBalance(accountService.sumEffectiveBalanceAmount(account, academicSession));
+        waiverFinanceApplication.setBalance(accountService.sumBalanceAmount(account));
+        waiverFinanceApplication.setAccount(account);
+        waiverFinanceApplication.setSession(academicSession);
+        return new ResponseEntity<String>(billingService.startWaiverFinanceApplicationTask(waiverFinanceApplication), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/waiverFinanceApplications/viewTask/{taskId}", method = RequestMethod.GET)
