@@ -3,8 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
-import {WaiverApplicationTask} from '../../../shared/model/financialaid/waiver-application-task.interface';
-import {WaiverApplication} from '../../../shared/model/financialaid/waiver-application.interface';
 import { WaiverFinanceApplicationTask } from "../../../shared/model/billing/waiver-finance-application-task.interface";
 import { WaiverFinanceApplication } from "../../../shared/model/billing/waiver-finance-application.interface";
 import { WaiverFinanceApplicationCreatorDialog } from "./dialog/waiver-finance-application-creator.dialog";
@@ -18,9 +16,9 @@ import { BillingModuleState } from "../index";
 
 export class WaiverFinanceApplicationCenterPage implements OnInit {
 
-  private ASSIGNED_WAIVER_FINANCIAL_APPLICATION_TASKS: string[] = 'BillingModuleState.assignedWaiverFinanceApplicationTasks'.split('.');
-  private POOLED_WAIVER_FINANCIAL_APPLICATION_TASKS: string[] = 'BillingModuleState.pooledWaiverFinanceApplicationTasks'.split('.');
-  private ARCHIVED_WAIVER_FINANCIAL_APPLICATIONS: string[] = 'BillingModuleState.archivedWaiverFinanceApplications'.split('.');
+  private ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS: string[] = 'BillingModuleState.assignedWaiverFinanceApplicationTasks'.split('.');
+  private POOLED_WAIVER_FINANCE_APPLICATION_TASKS: string[] = 'BillingModuleState.pooledWaiverFinanceApplicationTasks'.split('.');
+  private ARCHIVED_WAIVER_FINANCE_APPLICATIONS: string[] = 'BillingModuleState.archivedWaiverFinanceApplications'.split('.');
   private creatorDialogRef: MdDialogRef<WaiverFinanceApplicationCreatorDialog>;
 
   private assignedWaiverFinanceApplicationTasks$: Observable<WaiverFinanceApplicationTask>;
@@ -34,9 +32,9 @@ export class WaiverFinanceApplicationCenterPage implements OnInit {
               private store: Store<BillingModuleState>,
               private dialog: MdDialog) {
 
-    this.assignedWaiverFinanceApplicationTasks$ = this.store.select(...this.ASSIGNED_WAIVER_FINANCIAL_APPLICATION_TASKS);
-    this.pooledWaiverFinanceApplicationTasks$ = this.store.select(...this.POOLED_WAIVER_FINANCIAL_APPLICATION_TASKS);
-    this.archivedWaiverFinanceApplications$ = this.store.select(...this.ARCHIVED_WAIVER_FINANCIAL_APPLICATIONS);
+    this.assignedWaiverFinanceApplicationTasks$ = this.store.select(...this.ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS);
+    this.pooledWaiverFinanceApplicationTasks$ = this.store.select(...this.POOLED_WAIVER_FINANCE_APPLICATION_TASKS);
+    this.archivedWaiverFinanceApplications$ = this.store.select(...this.ARCHIVED_WAIVER_FINANCE_APPLICATIONS);
   }
 
   showDialog(): void {
@@ -70,7 +68,7 @@ export class WaiverFinanceApplicationCenterPage implements OnInit {
 
   ngOnInit(): void {
     console.log('find assigned/pooled waiver finance application tasks');
-    this.store.dispatch(this.actions.findAssignedWaiverFinanceApplicationTasks());
+     this.store.dispatch(this.actions.findAssignedWaiverFinanceApplicationTasks());
     this.store.dispatch(this.actions.findPooledWaiverFinanceApplicationTasks());
     this.store.dispatch(this.actions.findArchivedWaiverFinanceApplications());
   }
