@@ -9,6 +9,7 @@ import {CreditNoteRoutes} from './credit-notes/credit-note.routes';
 import {AdvancePaymentRoutes} from './advance-payments/advance-payment.routes';
 import { KnockoffRoutes } from './knockoffs/knockoff.routes';
 import { WaiverFinanceApplicationRoutes } from "./waiver-finance-applications/waiver-finance-application.routes";
+import { RefundPaymentRoutes } from "./refund-payments/refund-payment.routes";
 
 // Route Configuration
 export const BillingModuleRoutes: Routes = [
@@ -20,6 +21,7 @@ export const BillingModuleRoutes: Routes = [
   ...CreditNoteRoutes,
   ...AdvancePaymentRoutes,
   ...KnockoffRoutes,
+  ...RefundPaymentRoutes,
   ...WaiverFinanceApplicationRoutes,
   
 ];
