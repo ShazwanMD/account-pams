@@ -1,0 +1,31 @@
+<h2 md-dialog-title>Refund Payment Creator</h2>
+<md-dialog-content>
+  <form [formGroup]="createForm">
+	<div>
+      <md-input-container fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px">
+        <input mdInput #description
+               placeholder="Description"
+               formControlName="description" flex/>
+      </md-input-container>
+    </div>
+    <div>
+      <md-input-container fxFlex="calc(100%-25px)">
+        <input mdInput type="date"
+               placeholder="Date of Knockoff"
+               formControlName="issuedDate"
+               flex/>
+      </md-input-container>
+    </div>
+     <div>
+      <md-input-container fxFlex="calc(100%-25px)">
+        <input mdInput #amount
+               placeholder="Amount"
+               formControlName="amount"
+               flex/>
+      </md-input-container>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+</md-dialog-actions>
