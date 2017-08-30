@@ -4,15 +4,16 @@ import {Action} from '@ngrx/store';
 @Injectable()
 export class WaiverFinanceApplicationActions {
 
-  static FIND_ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS = '[WaiverApplication] Find Assigned WaiverFinanceApplication Tasks';
+  static FIND_ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS = '[WaiverFinanceApplication] Find Assigned WaiverFinanceApplication Tasks';
 
   findAssignedWaiverFinanceApplicationTasks(): Action {
+    console.log("findAssignedWaiverFinanceApplicationTasks");
     return {
       type: WaiverFinanceApplicationActions.FIND_ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS
     };
   }
 
-  static FIND_ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS_SUCCESS = '[WaiverApplication] Find Assigned WaiverFinanceApplication Tasks Success';
+  static FIND_ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS_SUCCESS = '[WaiverFinanceApplication] Find Assigned WaiverFinanceApplication Tasks Success';
 
   findAssignedWaiverFinanceApplicationTasksSuccess(tasks): Action {
     console.log("findAssignedWaiverFinanceApplicationTasksSuccess");
@@ -22,7 +23,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_POOLED_WAIVER_FINANCE_APPLICATION_TASKS = '[WaiverApplication] Find Pooled WaiverFinanceApplication Tasks';
+  static FIND_POOLED_WAIVER_FINANCE_APPLICATION_TASKS = '[WaiverFinanceApplication] Find Pooled WaiverFinanceApplication Tasks';
 
   findPooledWaiverFinanceApplicationTasks(): Action {
     return {
@@ -30,46 +31,46 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_POOLED_WAIVER_FINANCE_APPLICATION_TASKS_SUCCESS = '[WaiverApplication] Find Pooled WaiverFinanceApplication Tasks Success';
+  static FIND_POOLED_WAIVER_FINANCE_APPLICATION_TASKS_SUCCESS = '[WaiverFinanceApplication] Find Pooled WaiverFinanceApplication Tasks Success';
 
   findPooledWaiverFinanceApplicationTasksSuccess(tasks): Action {
-    console.log("findPooledWaiverApplicationTasksSuccess");
+    console.log("findPooledWaiverFinanceApplicationTasksSuccess");
     return {
       type: WaiverFinanceApplicationActions.FIND_POOLED_WAIVER_FINANCE_APPLICATION_TASKS_SUCCESS,
       payload: tasks
     };
   }
 
-  static FIND_WAIVER_FINANCE_APPLICATION_TASK_BY_TASK_ID = '[WaiverApplication] Find WaiverFinanceApplication Task By Task Id';
+  static FIND_WAIVER_FINANCE_APPLICATION_TASK_BY_TASK_ID = '[WaiverFinanceApplication] Find WaiverFinanceApplication Task By Task Id';
 
   findWaiverFinanceApplicationTaskByTaskId(taskId): Action {
-    console.log("findWaiverApplicationTaskByTaskId");
+    console.log("findWaiverFinanceApplicationTaskByTaskId");
     return {
       type: WaiverFinanceApplicationActions.FIND_WAIVER_FINANCE_APPLICATION_TASK_BY_TASK_ID,
       payload: taskId
     };
   }
 
-  static FIND_WAIVER_FINANCE_APPLICATION_TASK_BY_TASK_ID_SUCCESS = '[WaiverApplication] Find WaiverFinanceApplication Task By Task Id Success';
+  static FIND_WAIVER_FINANCE_APPLICATION_TASK_BY_TASK_ID_SUCCESS = '[WaiverFinanceApplication] Find WaiverFinanceApplication Task By Task Id Success';
 
   findWaiverFinanceApplicationTaskByTaskIdSuccess(task): Action {
-    console.log("findWaiverApplicationTaskByTaskIdSuccess");
+    console.log("findWaiverFinanceApplicationTaskByTaskIdSuccess");
     return {
       type: WaiverFinanceApplicationActions.FIND_WAIVER_FINANCE_APPLICATION_TASK_BY_TASK_ID_SUCCESS,
       payload: task
     };
   }
 
-  static START_WAIVER_FINANCE_APPLICATION_TASK = '[WaiverApplication] Start WaiverFinanceApplication Task';
+  static START_WAIVER_FINANCE_APPLICATION_TASK = '[WaiverFinanceApplication] Start WaiverFinanceApplication Task';
 
-  startWaiverFinanceApplicationTask(waiverApplication): Action {
+  startWaiverFinanceApplicationTask(WaiverFinanceApplication): Action {
     return {
       type: WaiverFinanceApplicationActions.START_WAIVER_FINANCE_APPLICATION_TASK,
-      payload: waiverApplication
+      payload: WaiverFinanceApplication
     };
   }
 
-  static START_WAIVER_FINANCE_APPLICATION_TASK_SUCCESS = '[WaiverApplication] Start WaiverFinanceApplication Task Success';
+  static START_WAIVER_FINANCE_APPLICATION_TASK_SUCCESS = '[WaiverFinanceApplication] Start WaiverFinanceApplication Task Success';
 
   startWaiverFinanceApplicationTaskSuccess(task): Action {
     return {
@@ -78,7 +79,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static COMPLETE_WAIVER_FINANCE_APPLICATION_TASK = '[WaiverApplication] Complete WaiverFinanceApplication Task';
+  static COMPLETE_WAIVER_FINANCE_APPLICATION_TASK = '[WaiverFinanceApplication] Complete WaiverFinanceApplication Task';
 
   completeWaiverFinanceApplicationTask(invoice): Action {
     return {
@@ -87,7 +88,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static COMPLETE_WAIVER_FINANCE_APPLICATION_TASK_SUCCESS = '[WaiverApplication] Complete WaiverFinanceApplication Task Success';
+  static COMPLETE_WAIVER_FINANCE_APPLICATION_TASK_SUCCESS = '[WaiverFinanceApplication] Complete WaiverFinanceApplication Task Success';
 
   completeWaiverFinanceApplicationTaskSuccess(task): Action {
     return {
@@ -96,7 +97,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static CLAIM_WAIVER_FINANCE_APPLICATION_TASK = '[WaiverApplication] Claim WaiverFinanceApplication Task';
+  static CLAIM_WAIVER_FINANCE_APPLICATION_TASK = '[WaiverFinanceApplication] Claim WaiverFinanceApplication Task';
 
   claimWaiverFinanceApplicationTask(invoice): Action {
     return {
@@ -105,7 +106,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static CLAIM_WAIVER_FINANCE_APPLICATION_TASK_SUCCESS = '[WaiverApplication] Claim WaiverFinanceApplication Task Success';
+  static CLAIM_WAIVER_FINANCE_APPLICATION_TASK_SUCCESS = '[WaiverFinanceApplication] Claim WaiverFinanceApplication Task Success';
 
   claimWaiverFinanceApplicationTaskSuccess(task): Action {
     return {
@@ -114,7 +115,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static RELEASE_WAIVER_FINANCE_APPLICATION_TASK = '[WaiverApplication] Release WaiverFinanceApplication Task';
+  static RELEASE_WAIVER_FINANCE_APPLICATION_TASK = '[WaiverFinanceApplication] Release WaiverFinanceApplication Task';
 
   releaseWaiverFinanceApplicationTask(invoice): Action {
     return {
@@ -123,7 +124,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static RELEASE_WAIVER_FINANCE_APPLICATION_TASK_SUCCESS = '[WaiverApplication] Release WaiverFinanceApplication Task Success';
+  static RELEASE_WAIVER_FINANCE_APPLICATION_TASK_SUCCESS = '[WaiverFinanceApplication] Release WaiverFinanceApplication Task Success';
 
   releaseWaiverFinanceApplicationTaskSuccess(task): Action {
     return {
@@ -132,7 +133,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_WAIVER_FINANCE_APPLICATION_BY_ID = '[WaiverApplication] Find WaiverFinanceApplication By Id';
+  static FIND_WAIVER_FINANCE_APPLICATION_BY_ID = '[WaiverFinanceApplication] Find WaiverFinanceApplication By Id';
 
   findWaiverFinanceApplicationById(id): Action {
     return {
@@ -141,7 +142,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_COMPLETED_WAIVER_FINANCE_APPLICATIONS = '[WaiverApplication] Find Completed WaiverFinanceApplication';
+  static FIND_COMPLETED_WAIVER_FINANCE_APPLICATIONS = '[WaiverFinanceApplication] Find Completed WaiverFinanceApplication';
 
   findCompletedWaiverFinanceApplications(): Action {
     return {
@@ -149,7 +150,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_COMPLETED_WAIVER_FINANCE_APPLICATIONS_SUCCESS = '[WaiverApplication] Find Completed WaiverFinanceApplication Success';
+  static FIND_COMPLETED_WAIVER_FINANCE_APPLICATIONS_SUCCESS = '[WaiverFinanceApplication] Find Completed WaiverFinanceApplication Success';
 
   findCompletedWaiverFinanceApplicationsSuccess(invoices): Action {
     console.log('findCompletedInvoicesSuccess');
@@ -159,7 +160,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_WAIVER_FINANCE_APPLICATION_BY_ID_SUCCESS = '[WaiverApplication] Find WaiverFinanceApplication By Id Success';
+  static FIND_WAIVER_FINANCE_APPLICATION_BY_ID_SUCCESS = '[WaiverFinanceApplication] Find WaiverFinanceApplication By Id Success';
 
   findWaiverFinanceApplicationByIdSuccess(invoice): Action {
     return {
