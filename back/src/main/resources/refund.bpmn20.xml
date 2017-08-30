@@ -35,7 +35,7 @@
         <serviceTask id="refund_draft_ST"
                      activiti:expression="#{refund_draft_ST.execute(execution)}"/>
 
-        <sequenceFlow id="flow1.1" sourceRef="refund_draft_ST" targetRef="refund_draft_ST"/>
+        <sequenceFlow id="flow1.1" sourceRef="refund_draft_ST" targetRef="refund_draft_UT"/>
 
         <userTask id="refund_draft_UT" name="my.edu.umk.pams.account.billing.model.AcRefundPayment:DRAFTED"
                   activiti:assignee="${userCreator}">
