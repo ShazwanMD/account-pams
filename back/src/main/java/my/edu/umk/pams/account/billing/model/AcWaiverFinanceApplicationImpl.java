@@ -261,7 +261,7 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
 
     @Override
     public Class<?> getInterfaceClass() {
-        return AcWaiverApplication.class;
+        return AcWaiverFinanceApplication.class;
     }
 }
 
