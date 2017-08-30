@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -28,12 +28,12 @@ export class WaiverApplicationCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<WaiverApplication>{
-      referenceNo: '',
-      sourceNo: '',
-      description: '',
-      reason: '',
-      waivedAmount: 0,
+    this.createForm = this.formBuilder.group({
+      referenceNo: [''],
+      sourceNo: [''],
+      description: ['',Validators.required],
+      reason: ['',Validators.required],
+      waivedAmount:[0,Validators.required],
       account: <Account>{},
       academicSession: <AcademicSession>{},
     });
@@ -42,6 +42,7 @@ export class WaiverApplicationCreatorDialog implements OnInit {
   save(waiverApplicationCreator: WaiverApplication, isValid: boolean) {
     this.store.dispatch(this.actions.startWaiverApplicationTask(waiverApplicationCreator));
     this.dialog.close();
+    window.location.reload();
   }
 
 }
