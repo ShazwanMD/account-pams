@@ -22,7 +22,8 @@ import { Knockoff } from '../app/shared/model/billing/knockoff.interface';
 import { KnockoffTask } from '../app/shared/model/billing/knockoff-task.interface';
 import { WaiverFinanceApplication } from "../app/shared/model/billing/waiver-finance-application.interface";
 import { WaiverFinanceApplicationTask } from "../app/shared/model/billing/waiver-finance-application-task.interface";
-
+import { RefundPayment } from '../app/shared/model/billing/refund-payment.interface';
+import { RefundPaymentTask } from '../app/shared/model/billing/refund-payment-task.interface';
 @Injectable()
 export class BillingService {
 
@@ -625,4 +626,79 @@ export class BillingService {
     // return this._http.put(this.FINANCIALAID_API + '/waiverApplications', JSON.stringify(waiverApplication))
     //   .flatMap(data => Observable.of(true));
   }
+
+  
+    // ====================================================================================================
+    // REFUND PAYMENT
+    // ==================================================================================================== 
+
+    findRefundPayments(): Observable<RefundPayment[]> {
+        return this._http.get( this.BILLING_API + '/refundPayments' )
+            .map(( res: Response ) => <RefundPayment[]>res.json() );
+    }
+
+    findRefundPaymentByReferenceNo( referenceNo: string ): Observable<RefundPayment> {
+        return this._http.get( this.BILLING_API + '/refundPayments/' + referenceNo )
+            .map(( res: Response ) => <RefundPayment>res.json() );
+    }
+
+    startRefundPaymentTask( refundPayment: RefundPayment, payment: AdvancePayment ): Observable<String> {
+        console.log("payment dlm service front ends : " +refundPayment);
+        return this._http.post( this.BILLING_API + '/refundPayments/startTask/' + payment.referenceNo, JSON.stringify( refundPayment ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
+    completeRefundPaymentTask( refundPaymentTask: RefundPaymentTask ): Observable<String> {
+        console.log( 'TaskId: ' + refundPaymentTask.taskId );
+        return this._http.post( this.BILLING_API + '/refundPayments/completeTask', JSON.stringify( refundPaymentTask ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
+    claimRefundPaymentTask( refundPaymentTask: RefundPaymentTask ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/refundPayments/claimTask', JSON.stringify( refundPaymentTask ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
+    releaseRefundPaymentTask( refundPaymentTask: RefundPaymentTask ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/refundPayments/releaseTask', JSON.stringify( refundPaymentTask ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
+    findCompletedRefundPayments(): Observable<RefundPayment[]> {
+        console.log( 'findCompletedRefundPayments' );
+        return this._http.get( this.BILLING_API + '/refundPayments/state/COMPLETED' )
+            .map(( res: Response ) => <RefundPayment[]>res.json() );
+    }
+
+    findCancelRefundPayments(): Observable<RefundPayment[]> {
+        console.log( 'findCancelInvoices' );
+        return this._http.get( this.BILLING_API + '/refundPayments/state/CANCELLED' )
+            .map(( res: Response ) => <RefundPayment[]>res.json() );
+    }
+
+    findArchivedRefundPayments(): Observable<RefundPayment[]> {
+        console.log( 'findArchivedRefundPayments' );
+        return this._http.get( this.BILLING_API + '/refundPayments/archived' )
+            .map(( res: Response ) => <RefundPayment[]>res.json() );
+    }
+
+    findAssignedRefundPaymentTasks(): Observable<RefundPaymentTask[]> {
+        console.log( 'findAssignedRefundPaymentTasks front end services');
+        return this._http.get( this.BILLING_API + '/refundPayments/assignedTasks' )
+            .map((res: Response) => <RefundPaymentTask[]>res.json());
+    }
+
+    findPooledRefundPaymentTasks(): Observable<RefundPaymentTask[]> {
+        console.log( 'findPooledRefundPaymentTasks');
+        return this._http.get( this.BILLING_API + '/refundPayments/pooledTasks' )
+            .map(( res: Response ) => <RefundPaymentTask[]>res.json() );
+    }
+
+    findRefundPaymentTaskByTaskId( taskId: string ): Observable<RefundPaymentTask> {
+        console.log( 'findRefundPaymentTaskByTaskId' );
+        return this._http.get( this.BILLING_API + '/refundPayments/viewTask/' + taskId )
+            .map(( res: Response ) => <RefundPaymentTask>res.json() );
+    }
+
 }
+

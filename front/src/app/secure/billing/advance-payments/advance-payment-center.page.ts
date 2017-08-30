@@ -10,6 +10,7 @@ import { BillingModuleState } from "../index";
 import { AdvancePayment } from "../../../shared/model/billing/advance-payment.interface";
 import { Knockoff } from "../../../shared/model/billing/knockoff.interface";
 import { KnockoffActions } from "../knockoffs/knockoff.action";
+import { RefundPaymentTaskCreatorDialog } from "../refund-payments/dialog/refund-payment-task-creator.dialog";
 
 
 @Component( {
@@ -24,6 +25,7 @@ export class AdvancePaymentCenterPage implements OnInit {
     private advancePayments$: Observable<AdvancePayment[]>;
     //private knockoff$: Observable<Knockoff[]>;
     private creatorDialogRef: MdDialogRef<KnockoffCreatorDialog>;
+    private dialogRef: MdDialogRef<RefundPaymentTaskCreatorDialog>;
     
     constructor( private router: Router,
         private route: ActivatedRoute,
@@ -58,6 +60,27 @@ export class AdvancePaymentCenterPage implements OnInit {
         this.creatorDialogRef = this.dialog.open( KnockoffCreatorDialog, config );
         if(payment) this.creatorDialogRef.componentInstance.advancePayment = payment;
         this.creatorDialogRef.afterClosed().subscribe(( res ) => {
+            console.log( 'close dialog' );
+            // load something here
+        } );
+    }
+
+    refundPaymentCreateDialog(payment:AdvancePayment): void {
+        this.showDialogRefundPayment(payment);
+      }
+
+    showDialogRefundPayment(payment:AdvancePayment): void {
+        console.log( 'showDialog' );
+        console.log('payment' + payment.referenceNo);
+        let config = new MdDialogConfig();
+        config.viewContainerRef = this.vcf;
+        config.role = 'dialog';
+        config.width = '50%';
+        config.height = '90%';
+        config.position = { top: '0px' };
+        this.dialogRef = this.dialog.open( RefundPaymentTaskCreatorDialog, config );
+        if(payment) this.dialogRef.componentInstance.advancePayment = payment;
+        this.dialogRef.afterClosed().subscribe(( res ) => {
             console.log( 'close dialog' );
             // load something here
         } );
