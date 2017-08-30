@@ -18,7 +18,7 @@ import { WaiverApplicationEditorDialog } from "../../../financialaid/waiver-appl
 
 export class WaiverFinanceApplicationDraftTaskPanel implements OnInit {
 
-  private WAIVER_FINANCE_APPLICATION: string[] = 'financialaidModuleState.waiverFinanceApplication'.split('.');
+  private WAIVER_FINANCE_APPLICATION: string[] = 'billingModuleState.waiverFinanceApplication'.split('.');
   private waiverFinanceApplication$: Observable<WaiverFinanceApplication>;
   private creatorDialogRef: MdDialogRef<WaiverApplicationEditorDialog>;
 
