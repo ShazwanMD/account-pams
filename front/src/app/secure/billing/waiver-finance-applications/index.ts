@@ -4,7 +4,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../../app.routes';
 import {EffectsModule} from '@ngrx/effects';
 import {CovalentCoreModule} from '@covalent/core';
-import {CommonService, IdentityService} from '../../../../services';
+import { CommonService, IdentityService, BillingService } from '../../../../services';
 import {FinancialaidService} from '../../../../services/financialaid.service';
 import {IdentityModule} from '../../identity/index';
 import {CommonModule} from '../../../common/index';
@@ -77,7 +77,7 @@ export class WaiverFinanceApplicationSubModule {
         appRoutingProviders,
         IdentityService,
         CommonService,
-        FinancialaidService,
+        BillingService,
         WaiverFinanceApplicationActions,
       ],
     };
