@@ -1,41 +1,59 @@
 <h2 md-dialog-title>Settlement Item Editor</h2>
 <md-dialog-content>
   <form [formGroup]="editForm">
+     <div layout="row" class="pad-bottom">
+      <pams-account-select
+        [placeholder]="'Select Account'" fxFlex="calc(100%-25px)" fxLayoutWrap fxLayoutGap="25px"
+        [innerFormControl]="editForm.controls['account']"
+        [preSelected]="_settlementItem?.account">
+      </pams-account-select>
+    </div>
+
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput
                placeholder="Loan Amount"
                formControlName="loanAmount">
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="editForm.get('loanAmount').invalid && editForm.get('loanAmount').touched">Loan amount is Required!
+          </div>   
     </div>
+
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput
                placeholder="Fee Amount"
                formControlName="feeAmount">
       </md-input-container>
+        <div class="error" class="tc-red-600"
+            *ngIf="editForm.get('feeAmount').invalid && editForm.get('feeAmount').touched">Fee amount is Required!
+        </div>   
     </div>
+
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput
                placeholder="Nett Amount"
                formControlName="nettAmount">
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="editForm.get('nettAmount').invalid && editForm.get('nettAmount').touched">Nett amount is Required!
+          </div>   
     </div>
+
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput
                placeholder="Balance Amount"
                formControlName="balanceAmount">
       </md-input-container>
+        <div class="error" class="tc-red-600"
+            *ngIf="editForm.get('balanceAmount').invalid && editForm.get('balanceAmount').touched">Balance amount is Required!
+        </div>   
     </div>
-    <div layout="row" class="pad-bottom pad-top">
-      <pams-account-select
-        [placeholder]="'Select Account'"
-        [innerFormControl]="editForm.controls['account']"
-        [preSelected]="_settlementItem?.account">
-      </pams-account-select>
-    </div><!--
+   
+    <!--
     <div layout="row" class="pad-bottom pad-top">
       <pams-invoice-select
         [placeholder]="'Select Invoice'"
@@ -46,6 +64,6 @@
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(editForm.value, editForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="save(editForm.value, editForm.valid)" [disabled] = "!editForm.valid">Save</button>
 </md-dialog-actions>
 

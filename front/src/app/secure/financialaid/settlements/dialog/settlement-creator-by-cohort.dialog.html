@@ -16,16 +16,19 @@
     </div>
 
     <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
+      <md-input-container flex>
         <input mdInput type="date"
                placeholder="Date of Invoice"
                formControlName="issuedDate"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('issuedDate').invalid && createForm.get('issuedDate').touched">Date of Invoice is Required!
+          </div>   
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)"  [disabled] = "!createForm.valid">Save</button>
 </md-dialog-actions>
 

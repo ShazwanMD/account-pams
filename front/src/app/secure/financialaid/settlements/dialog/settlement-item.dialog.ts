@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialogRef} from '@angular/material';
 import {Store} from '@ngrx/store';
@@ -39,14 +39,14 @@ export class SettlementItemDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editForm = this.formBuilder.group(<SettlementItem>{
-      id: undefined,
-      balanceAmount: 0,
-      feeAmount: 0,
-      loanAmount: 0,
-      nettAmount: 0,
-      account: <Account>{},
-      invoice: <Invoice>{},
+    this.editForm = this.formBuilder.group({
+      id: [undefined],
+      balanceAmount: ['',Validators.required],
+      feeAmount: ['',Validators.required],
+      loanAmount:['',Validators.required],
+      nettAmount: ['',Validators.required],
+      account: [<Account>{}],
+      invoice: [<Invoice>{}],
     });
 
     if (this._settlementItem)

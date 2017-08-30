@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -28,12 +28,12 @@ export class SettlementCreatorByFacultyDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<SettlementCreator>{
-      sourceNo: '',
-      description: '',
-      issuedDate: undefined,
-      facultyCode: <FacultyCode>{},
-      academicSession: <AcademicSession>{},
+     this.createForm = this.formBuilder.group({
+      sourceNo: [''],
+      description:[''],
+      issuedDate: [undefined,Validators.required],
+      facultyCode: [<FacultyCode>{}],
+      academicSession: [<AcademicSession>{}],
     });
   }
 
