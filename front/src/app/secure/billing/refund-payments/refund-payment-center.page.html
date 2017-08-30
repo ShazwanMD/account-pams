@@ -1,0 +1,40 @@
+<td-layout-nav>
+  <div toolbar-content layout="row" layout-align="center center" flex>
+    <span>PAMS: Postgraduate Management System</span>
+    <span flex></span>
+  </div>
+
+  <td-layout-manage-list #list>
+    <md-nav-list list-items>
+
+    </md-nav-list>
+    <div toolbar-buttons layout="row" layout-align="start center" flex>
+      <span flex>Refund Payment Center</span>
+    </div>
+
+    <md-card>
+      <md-tab-group [selectedIndex]="0">
+      <md-tab label="try">
+      <pams-refund-payment-list [refundPayment]="refundPayment$ | async"></pams-refund-payment-list>
+      </md-tab>
+        <md-tab label="Assigned">
+          <pams-assigned-refund-payment-task-list
+            [refundPaymentTasks]="assignedRefundPaymentTasks$ | async"
+            (view)="viewTask($event)"></pams-assigned-refund-payment-task-list>
+        </md-tab>
+        <md-tab label="Pooled">
+        <pams-pooled-refund-payment-task-list
+            [refundPaymentTask]="pooledRefundPaymentTasks$ | async"
+            (claim)="claimTask($event)"></pams-pooled-refund-payment-task-list> 
+        </md-tab>
+        <md-tab label="Archived">
+           <pams-archived-refund-payment-list
+            [refundPayment]="archivedRefundPayments$ | async"
+            (view)="viewRefundPayment($event)"></pams-archived-refund-payment-list> 
+        </md-tab>
+      </md-tab-group>
+    </md-card>
+
+  </td-layout-manage-list>
+</td-layout-nav>
+
