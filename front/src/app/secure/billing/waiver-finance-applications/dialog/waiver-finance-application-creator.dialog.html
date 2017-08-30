@@ -1,43 +1,59 @@
 <h2 md-dialog-title>Waiver Finance Application Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <pams-account-select
+    <div layout="row" class="pad-bottom" flex>
+    <pams-account-select
         [placeholder]="'Select Account'"
         [innerFormControl]="createForm.controls['account']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
-      </pams-account-select>
+    </pams-account-select>
+    </div>
 
-      <pams-academic-session-select
+    <div layout="row" class="pad-bottom" flex>
+    <pams-academic-session-select
         [placeholder]="'Select Academic Session'"
         [innerFormControl]="createForm.controls['academicSession']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
-      </pams-academic-session-select>
+    </pams-academic-session-select>
+    </div>
 
-      <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput #description
+    <div layout="row" class="pad-bottom" flex>
+    <md-input-container flex>
+    <input mdInput #description
                placeholder="description"
                formControlName="description"/>
-      </md-input-container>
+    </md-input-container>
+      <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('description').invalid && createForm.get('description').touched">Description is Required!
+      </div>  
+     </div>
 
-      <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput #reason
+    <div layout="row" class="pad-bottom" flex>
+    <md-input-container fxFlex="calc(100%-25px)">
+    <input mdInput #reason
                placeholder="reason"
                formControlName="reason"
                fxFlex="calc(100%-25px)"/>
-      </md-input-container>
+    </md-input-container>
+        <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('reason').invalid && createForm.get('reason').touched">Reason is Required!
+        </div>  
+    </div>
 
-      <md-input-container>
-        <input mdInput #reason
-               placeholder="Waived amount"
-               formControlName="waivedAmount"
+    <div layout="row" class="pad-bottom" flex>
+    <md-input-container flex>
+    <input mdInput
                type="number"
-               fxFlex="calc(100%-25px)"/>
-      </md-input-container>
+               placeholder="Waived amount"
+               formControlName="waivedAmount">
+    </md-input-container>
+        <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('waivedAmount').invalid && createForm.get('waivedAmount').touched">Waived Amount is Required!
+        </div>        
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)" [disabled]="!createForm.valid">Save</button>
 </md-dialog-actions>
 

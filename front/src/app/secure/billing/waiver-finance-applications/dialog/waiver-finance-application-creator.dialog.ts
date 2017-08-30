@@ -1,6 +1,6 @@
 import { BillingModuleState } from './../../index';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -28,14 +28,14 @@ export class WaiverFinanceApplicationCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<WaiverFinanceApplication>{
-      referenceNo: '',
-      sourceNo: '',
-      description: '',
-      reason: '',
-      waivedAmount: 0,
-      account: <Account>{},
-      academicSession: <AcademicSession>{},
+    this.createForm = this.formBuilder.group({
+      referenceNo: [''],
+      sourceNo: [''],
+      description: ['',Validators.required],
+      reason: ['',Validators.required],
+      waivedAmount: [0,Validators.required],
+      account: [<Account>{}],
+      academicSession: [<AcademicSession>{}],
     });
   }
 
