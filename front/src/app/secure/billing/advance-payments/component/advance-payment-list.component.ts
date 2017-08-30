@@ -21,6 +21,6 @@ export class AdvancePaymentListComponent {
 
   @Input() advancePayments: AdvancePayment[];
   @Output() knockoffCreateDialog: EventEmitter<AdvancePayment> = new EventEmitter<AdvancePayment>();
-  @Output() refundCreateDialog: EventEmitter<AdvancePayment> = new EventEmitter<AdvancePayment>();
+  @Output() refundPaymentCreateDialog: EventEmitter<AdvancePayment> = new EventEmitter<AdvancePayment>();
 
 }
