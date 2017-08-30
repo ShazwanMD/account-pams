@@ -24,6 +24,8 @@ import { KnockoffCreatorDialog } from "../knockoffs/dialog/knockoff-creator.dial
 import { KnockoffSubModule } from "../knockoffs/index";
 import {AdvancePaymentListComponent} from './component/advance-payment-list.component';
 import { InvoiceUnpaidSelectComponent } from "./component/invoice-select.component";
+import { RefundPaymentTaskCreatorDialog } from "../refund-payments/dialog/refund-payment-task-creator.dialog";
+import { RefundPaymentActions } from "../refund-payments/refund-payment.action";
 
 @NgModule({
   imports: [
@@ -48,6 +50,7 @@ import { InvoiceUnpaidSelectComponent } from "./component/invoice-select.compone
     AdvancePaymentSelectComponent,
     AdvancePaymentListComponent,
     KnockoffCreatorDialog,
+    RefundPaymentTaskCreatorDialog,
     InvoiceUnpaidSelectComponent,
 
     // dialog
@@ -55,10 +58,12 @@ import { InvoiceUnpaidSelectComponent } from "./component/invoice-select.compone
   exports: [
     AdvancePaymentSelectComponent,  
     KnockoffCreatorDialog,
+    RefundPaymentTaskCreatorDialog,
     InvoiceUnpaidSelectComponent,
   ],
   entryComponents: [
     KnockoffCreatorDialog,
+    RefundPaymentTaskCreatorDialog,
   ],
 
 })
