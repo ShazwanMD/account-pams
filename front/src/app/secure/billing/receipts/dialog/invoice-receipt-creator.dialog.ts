@@ -56,17 +56,17 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
         this.displayForm = this.formBuilder.group( {
             invoiceItem: <InvoiceItem>{},
         } );
-        this.createForm = this.formBuilder.group( <ReceiptItem>{
-            id: undefined,
-            description: '',
-            dueAmount: 0,
-            totalAmount: 0,
-            adjustedAmount: 0,
-            appliedAmount: 0,
-            price: 0,
-            unit: 0,
-            chargeCode: <ChargeCode>{},
-            invoice: <Invoice>{},
+        this.createForm = this.formBuilder.group({
+            id: [undefined],
+            description: [''],
+            dueAmount: [0],
+            totalAmount:[0],
+            adjustedAmount: [0],
+            appliedAmount: [0],
+            price: [0],
+            unit: [0],
+            chargeCode: [<ChargeCode>{}],
+            invoice: [<Invoice>{}],
         } );
 
         if ( this.edit )

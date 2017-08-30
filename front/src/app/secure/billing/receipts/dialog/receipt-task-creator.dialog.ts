@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -29,20 +29,20 @@ export class ReceiptTaskCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<Receipt>{
-      id: null,
-      referenceNo: '',
-      receivedDate: undefined,
-      receiptNo: '',
-      sourceNo: '',
-      auditNo: '',
-      description: '',
-      totalApplied: 0,
-      totalReceived: 0,
-      totalAmount: 0,
-      account: <Account>{},
-      receiptType: <ReceiptType>{},
-      paymentMethod: <PaymentMethod>{},
+    this.createForm = this.formBuilder.group({
+      id: [null],
+      referenceNo: [''],
+      receivedDate: [undefined,Validators.required],
+      receiptNo: [''],
+      sourceNo:['',Validators.required],
+      auditNo: [''],
+      description: ['',Validators.required],
+      totalApplied: [0,Validators.required],
+      totalReceived: [0,Validators.required],
+      totalAmount: [0,Validators.required],
+      account: [<Account>{}],
+      receiptType: [<ReceiptType>{}],
+      paymentMethod: [<PaymentMethod>{}],
     });
   }
 

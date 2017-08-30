@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {AcademicSession} from '../../../../shared/model/account/academic-session.interface';
@@ -24,20 +24,20 @@ export class InvoiceTaskCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<Invoice>{
-      id: null,
-      referenceNo: '',
-      sourceNo: '',
-      invoiceNo: '',
-      description: '',
-      totalPretaxAmount: 0,
-      totalTaxAmount: 0,
-      totalAmount: 0,
-      balanceAmount: 0,
-      paid: false,
-      issuedDate: undefined,
-      account: <Account>{},
-      academicSession: <AcademicSession>{},
+    this.createForm = this.formBuilder.group({
+      id: [null],
+      referenceNo: [''],
+      sourceNo: [''],
+      invoiceNo: [''],
+      description: [''],
+      totalPretaxAmount: [0],
+      totalTaxAmount: [0],
+      totalAmount: [0],
+      balanceAmount: [0],
+      paid: [false],
+      issuedDate: [undefined,Validators.required],
+      account: [<Account>{}],
+      academicSession: [<AcademicSession>{}],
     });
   }
 

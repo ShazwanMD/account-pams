@@ -5,6 +5,7 @@ import {FormControl} from '@angular/forms';
 @Component({
   selector: 'pams-payment-method-select',
   templateUrl: './payment-method-select.component.html',
+  styleUrls: ['./payment-method-select.component.scss'],
 })
 export class PaymentMethodSelectComponent {
 

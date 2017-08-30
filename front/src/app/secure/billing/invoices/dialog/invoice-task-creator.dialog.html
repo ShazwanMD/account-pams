@@ -1,29 +1,32 @@
 <h2 md-dialog-title>Invoice Task Creator</h2>
 <md-dialog-content>
-  <form [formGroup]="createForm">
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+  <form [formGroup]="createForm" novalidate>
+     <div layout="row" class="pad-bottom" flex>
       <pams-account-select
         [placeholder]="'Select Account'"
         [innerFormControl]="createForm.controls['account']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-account-select>
     </div>
-    <div>
+    <div layout="row" class="pad-bottom" flex>
       <pams-academic-session-select
         [placeholder]="'Select Session'"
         [innerFormControl]="createForm.controls['academicSession']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-academic-session-select>
     </div>
-    <div>
-      <md-input-container fxFlex="calc(100%-25px)">
+     <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput type="date"
                placeholder="Date of Invoice"
                formControlName="issuedDate"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('issuedDate').invalid && createForm.get('issuedDate').touched">Invoice Date is Required!
+          </div>  
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)"[disabled]="!createForm.valid">Save</button>
 </md-dialog-actions>
 

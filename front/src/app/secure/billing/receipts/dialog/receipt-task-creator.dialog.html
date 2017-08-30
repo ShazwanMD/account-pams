@@ -1,83 +1,101 @@
 <h2 md-dialog-title>Receipt Creator</h2>
 <md-dialog-content>
   <form [formGroup]="createForm">
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+     <div layout="row" class="pad-bottom" flex>
       <pams-account-select
         [placeholder]="'Select Account'"
         [innerFormControl]="createForm.controls['account']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-account-select>
     </div>
-    <div>
-      <md-input-container fxFlex="calc(100%-25px)">
+    <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput type="date"
                placeholder="Date of Receipt"
                formControlName="receivedDate"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('receivedDate').invalid && createForm.get('receivedDate').touched">Date of Receipt is Required!
+          </div> 
     </div>
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+     <div layout="row" class="pad-bottom" flex>
       <pams-receipt-type-select
         [placeholder]="'Select Receipt Type'"
         [innerFormControl]="createForm.controls['receiptType']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-receipt-type-select>
     </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
+     <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput #sourceNo
                placeholder="Source No"
                formControlName="sourceNo"
                value="SourceNo"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('sourceNo').invalid && createForm.get('sourceNo').touched">Source No is Required!
+          </div> 
     </div>
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+    <div layout="row" class="pad-bottom" flex>
       <pams-payment-method-select
         [placeholder]="'Select Payment Method'"
         [innerFormControl]="createForm.controls['paymentMethod']"
         fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-payment-method-select>
     </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
+     <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput #description
                placeholder="Description"
                formControlName="description"
                value="Description"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('description').invalid && createForm.get('description').touched">Description is Required!
+          </div> 
     </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
+     <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput #totalApplied
                placeholder="Total Applied"
                formControlName="totalApplied"
                value="TotalApplied"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('totalApplied').invalid && createForm.get('totalApplied').touched">Total Applied is Required!
+          </div> 
     </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
+     <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput #totalReceived
                placeholder="Total Received"
                formControlName="totalReceived"
                value="TotalReceived"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('totalReceived').invalid && createForm.get('totalReceived').touched">Total Received is Required!
+          </div> 
     </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container fxFlex="calc(100%-25px)">
+     <div layout="row" class="pad-bottom" flex>
+      <md-input-container flex>
         <input mdInput #totalAmount
                placeholder="Total Amount"
                formControlName="totalAmount"
                value="TotalAmount"
                flex/>
       </md-input-container>
+          <div class="error" class="tc-red-600"
+            *ngIf="createForm.get('totalAmount').invalid && createForm.get('totalAmount').touched">Total Amount is Required!
+          </div> 
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)" [disabled]="!createForm.valid">Save</button>
 </md-dialog-actions>
 

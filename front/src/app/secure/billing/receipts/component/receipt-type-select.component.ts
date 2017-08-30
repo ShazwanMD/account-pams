@@ -5,6 +5,7 @@ import {FormControl} from '@angular/forms';
 @Component({
   selector: 'pams-receipt-type-select',
   templateUrl: './receipt-type-select.component.html',
+  styleUrls: ['./receipt-type-select.component.scss'],
 })
 export class ReceiptTypeSelectComponent {
 
