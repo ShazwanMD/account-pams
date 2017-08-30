@@ -1,24 +1,25 @@
 package my.edu.umk.pams.account.billing.workflow.handler;
 
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import my.edu.umk.pams.account.billing.model.AcKnockoff;
+import my.edu.umk.pams.account.workflow.integration.registry.DocumentHandler;
+import org.activiti.engine.*;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import static my.edu.umk.pams.account.AccountConstants.*;
-import my.edu.umk.pams.account.billing.model.AcKnockoff;
-import my.edu.umk.pams.account.workflow.integration.registry.DocumentHandler;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.util.Map;
+
+import static my.edu.umk.pams.account.AccountConstants.*;
+
+/**
+ * @author PAMS
+ */
+@Component
 public class KnockoffHandler implements DocumentHandler<AcKnockoff> {
 
     private static final Logger LOG = LoggerFactory.getLogger(KnockoffHandler.class);
@@ -40,7 +41,8 @@ public class KnockoffHandler implements DocumentHandler<AcKnockoff> {
 
     @Override
     public String process(AcKnockoff knockoff, Map<String, Object> variables) {
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey(KNOCKOFF_PROCESS_KEY,
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey(
+                KNOCKOFF_PROCESS_KEY,
                 knockoff.getReferenceNo(),
                 variables);
         LOG.info("Process started for {} with process instance #{} ", KNOCKOFF_PROCESS_KEY, instance.getId());
@@ -48,7 +50,7 @@ public class KnockoffHandler implements DocumentHandler<AcKnockoff> {
     }
 
     @PostConstruct
-    public void deployKnockoff() {
+    public void deployInvoice() {
         DeploymentBuilder deployment = repositoryService.createDeployment();
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
 
