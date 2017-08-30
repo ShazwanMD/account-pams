@@ -20,7 +20,7 @@ export class WaiverFinanceApplicationEffects {
   @Effect() findAssignedWaiverFinanceApplicationTasks$ = this.actions$
     .ofType(WaiverFinanceApplicationActions.FIND_ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS)
     .switchMap(() => this.billingService.findAssignedWaiverFinanceApplicationTasks())
-    .map((waiverfinanceApplications) => this.waiverFinanceApplicationActions.findAssignedWaiverFinanceApplicationTasksSuccess(waiverfinanceApplications));
+    .map((waiverFinanceApplications) => this.waiverFinanceApplicationActions.findAssignedWaiverFinanceApplicationTasksSuccess(waiverFinanceApplications));
 
   @Effect() findPooledWaiverFinanceApplicationTasks$ = this.actions$
     .ofType(WaiverFinanceApplicationActions.FIND_POOLED_WAIVER_FINANCE_APPLICATION_TASKS)
