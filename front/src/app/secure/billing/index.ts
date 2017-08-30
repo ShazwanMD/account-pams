@@ -75,6 +75,13 @@ import { waiverFinanceApplicationReducer, WaiverFinanceApplicationState } from "
 import {KnockoffTaskListState, assignedKnockoffTaskListReducer, pooledKnockoffTaskListReducer} from './knockoffs/knockoff-task-list.reducer';
 import {KnockoffTaskState, knockoffTaskReducer} from './knockoffs/knockoff-task.reducer';
 import { WaiverFinanceApplicationSubModule } from "./waiver-finance-applications/index";
+import { RefundPaymentState, refundPaymentReducer } from "./refund-payments/refund-payment.reducer";
+import { RefundPaymentSubModule } from "./refund-payments/index";
+import { RefundPaymentListState, refundPaymentListReducer } from "./refund-payments/refund-payment-list.reducer";
+import { RefundPayment } from "../../shared/model/billing/refund-payment.interface";
+import { RefundPaymentTaskState, refundPaymentTaskReducer } from "./refund-payments/refund-payment-task.reducer";
+import { RefundPaymentTask } from "../../shared/model/billing/refund-payment-task.interface";
+import { RefundPaymentTaskListState, assignedRefundPaymentTaskListReducer, pooledRefundPaymentTaskListReducer } from "./refund-payments/refund-payment-task-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -118,6 +125,12 @@ export interface BillingModuleState {
   waiverFinanceApplicationTask: WaiverFinanceApplicationTaskState;
   waiverFinanceApplication: WaiverFinanceApplicationState;
   waiverFinanceApplications: WaiverFinanceApplicationListState;
+  refundPayment: RefundPaymentState;
+  refundPayments: RefundPaymentListState;
+  refundPaymentTask: RefundPaymentTaskState;
+  assignedRefundPaymentTasks: RefundPaymentTaskListState;
+  pooledRefundPaymentTasks: RefundPaymentTaskListState;
+  archivedRefundPayments: RefundPaymentListState;
 }
 ;
 
@@ -164,6 +177,12 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     waiverFinanceApplicationTask: <WaiverFinanceApplicationTask>{},
     waiverFinanceApplication: <WaiverFinanceApplicationState>{},
     waiverFinanceApplications: <WaiverFinanceApplication[]>[],
+    refundPayment: <RefundPaymentState>{},
+    refundPayments: <RefundPayment[]>[],
+    refundPaymentTask: <RefundPaymentTask>{},
+    assignedRefundPaymentTasks: [],
+    pooledRefundPaymentTasks: [],
+    archivedRefundPayments: [],
   };
 
 export const billingModuleReducers = {
@@ -206,6 +225,12 @@ export const billingModuleReducers = {
   waiverFinanceApplicationTask: waiverFinanceApplicationTaskReducer,
   waiverFinanceApplication: waiverFinanceApplicationReducer,
   waiverFinanceApplications: waiverFinanceApplicationListReducer,
+  refundPayment: refundPaymentReducer,
+  refundPayments: refundPaymentListReducer,
+  refundPaymentTask: refundPaymentTaskReducer,
+  assignedRefundPaymentTasks: assignedRefundPaymentTaskListReducer,
+  pooledRefundPaymentTasks: pooledRefundPaymentTaskListReducer,
+  archivedRefundPayments: refundPaymentListReducer,
 };
 
 @NgModule({
@@ -221,6 +246,7 @@ export const billingModuleReducers = {
     KnockoffSubModule.forRoot(),
     AdvancePaymentSubModule.forRoot(),
     WaiverFinanceApplicationSubModule.forRoot(),
+    RefundPaymentSubModule.forRoot(),
     PipeModule,
   ],
   declarations: [
