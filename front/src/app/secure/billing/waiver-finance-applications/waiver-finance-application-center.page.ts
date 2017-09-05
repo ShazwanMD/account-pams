@@ -16,9 +16,9 @@ import { BillingModuleState } from "../index";
 
 export class WaiverFinanceApplicationCenterPage implements OnInit {
 
-  private ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS: string[] = 'BillingModuleState.assignedWaiverFinanceApplicationTasks'.split('.');
-  private POOLED_WAIVER_FINANCE_APPLICATION_TASKS: string[] = 'BillingModuleState.pooledWaiverFinanceApplicationTasks'.split('.');
-  private ARCHIVED_WAIVER_FINANCE_APPLICATIONS: string[] = 'BillingModuleState.archivedWaiverFinanceApplications'.split('.');
+  private ASSIGNED_WAIVER_FINANCE_APPLICATION_TASKS: string[] = 'billingModuleState.assignedWaiverFinanceApplicationTasks'.split('.');
+  private POOLED_WAIVER_FINANCE_APPLICATION_TASKS: string[] = 'billingModuleState.pooledWaiverFinanceApplicationTasks'.split('.');
+  private ARCHIVED_WAIVER_FINANCE_APPLICATIONS: string[] = 'billingModuleState.archivedWaiverFinanceApplications'.split('.');
   private creatorDialogRef: MdDialogRef<WaiverFinanceApplicationCreatorDialog>;
 
   private assignedWaiverFinanceApplicationTasks$: Observable<WaiverFinanceApplicationTask>;
