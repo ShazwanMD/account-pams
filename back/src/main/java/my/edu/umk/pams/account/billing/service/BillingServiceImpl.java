@@ -466,18 +466,20 @@ public class BillingServiceImpl implements BillingService {
 	// posting to student account
 	@Override
 	public void post(AcInvoice invoice) {
-		List<AcInvoiceItem> items = findInvoiceItems(invoice);
-		for (AcInvoiceItem item : items) {
+/*		List<AcInvoiceItem> items = findInvoiceItems(invoice);
+		for (AcInvoiceItem item : items) {*/
 			AcAccountTransaction tx = new AcAccountTransactionImpl();
 			tx.setSession(invoice.getSession());
-			tx.setChargeCode(item.getChargeCode());
+			//tx.setChargeCode(item.getChargeCode());
+			tx.setBalanceAmount(invoice.getTotalAmount());
+			tx.setDescription(invoice.getDescription());
 			tx.setPostedDate(new Date());
 			tx.setSourceNo(invoice.getReferenceNo());
 			tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
 			tx.setAccount(invoice.getAccount());
-			tx.setAmount(item.getAmount());
+			tx.setAmount(invoice.getTotalAmount());
 			accountService.addAccountTransaction(invoice.getAccount(), tx);
-		}
+		//}
 	}
 
 	// ====================================================================================================
@@ -606,6 +608,8 @@ public class BillingServiceImpl implements BillingService {
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(debitNote.getInvoice().getSession());
 		tx.setChargeCode(debitNote.getChargeCode());
+		tx.setBalanceAmount(debitNote.getTotalAmount());
+		tx.setDescription(debitNote.getDescription());
 		tx.setPostedDate(new Date());
 		tx.setSourceNo(debitNote.getReferenceNo());
 		tx.setTransactionCode(AcAccountTransactionCode.DEBIT_NOTE);
@@ -740,6 +744,8 @@ public class BillingServiceImpl implements BillingService {
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(creditNote.getInvoice().getSession());
 		tx.setChargeCode(creditNote.getChargeCode());
+		tx.setBalanceAmount(creditNote.getTotalAmount().negate());
+		tx.setDescription(creditNote.getDescription());
 		tx.setPostedDate(new Date());
 		tx.setSourceNo(creditNote.getReferenceNo());
 		tx.setTransactionCode(AcAccountTransactionCode.CREDIT_NOTE);
@@ -915,18 +921,20 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void post(AcReceipt receipt) {
 		
-		List<AcReceiptItem> items = findReceiptItems(receipt);
-		for (AcReceiptItem item : items) {
+//		List<AcReceiptItem> items = findReceiptItems(receipt);
+//		for (AcReceiptItem item : items) {
 			AcAccountTransaction tx = new AcAccountTransactionImpl();
 			tx.setSession(accountService.findCurrentAcademicSession());
-			tx.setChargeCode(item.getChargeCode());
+			//tx.setChargeCode(item.getChargeCode());
+			tx.setBalanceAmount(receipt.getTotalAmount().negate());
+			tx.setDescription(receipt.getDescription());
 			tx.setPostedDate(new Date());
 			tx.setSourceNo(receipt.getReferenceNo());
 			tx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
 			tx.setAccount(receipt.getAccount());
-			tx.setAmount(item.getAppliedAmount().negate());
+			tx.setAmount(receipt.getTotalAmount().negate());
 			accountService.addAccountTransaction(receipt.getAccount(), tx);
-		}
+		//}
 	}
 
 	@Override

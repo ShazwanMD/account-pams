@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.event;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -52,6 +53,8 @@ public class DebitNoteListener implements ApplicationListener<DebitNoteEvent> {
 			AcAccountTransaction tx = new AcAccountTransactionImpl();
 			tx.setSession(invoice.getSession());
 			tx.setPostedDate(new Date());
+			tx.setBalanceAmount(BigDecimal.ZERO);
+			tx.setDescription(invoice.getDescription());
 			tx.setChargeCode(debitNote.getChargeCode());
 			tx.setSourceNo(invoice.getReferenceNo());
 			tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
