@@ -77,7 +77,7 @@ import {KnockoffTaskState, knockoffTaskReducer} from './knockoffs/knockoff-task.
 import { WaiverFinanceApplicationSubModule } from "./waiver-finance-applications/index";
 import { RefundPaymentState, refundPaymentReducer } from "./refund-payments/refund-payment.reducer";
 import { RefundPaymentSubModule } from "./refund-payments/index";
-import { RefundPaymentListState, refundPaymentListReducer } from "./refund-payments/refund-payment-list.reducer";
+import { RefundPaymentListState, refundPaymentListReducer, archivedRefundPaymentListReducer } from "./refund-payments/refund-payment-list.reducer";
 import { RefundPayment } from "../../shared/model/billing/refund-payment.interface";
 import { RefundPaymentTaskState, refundPaymentTaskReducer } from "./refund-payments/refund-payment-task.reducer";
 import { RefundPaymentTask } from "../../shared/model/billing/refund-payment-task.interface";
@@ -230,7 +230,7 @@ export const billingModuleReducers = {
   refundPaymentTask: refundPaymentTaskReducer,
   assignedRefundPaymentTasks: assignedRefundPaymentTaskListReducer,
   pooledRefundPaymentTasks: pooledRefundPaymentTaskListReducer,
-  archivedRefundPayments: refundPaymentListReducer,
+  archivedRefundPayments: archivedRefundPaymentListReducer,
 };
 
 @NgModule({
