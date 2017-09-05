@@ -45,7 +45,7 @@ export class RefundPaymentCenterPage implements OnInit {
   }
 
   claimTask(task: RefundPaymentTask) {
-    console.log('invoice: ' + task.taskId);
+    console.log('refund: ' + task.taskId);
     this.store.dispatch(this.actions.claimRefundPaymentTask(task));
   }
 

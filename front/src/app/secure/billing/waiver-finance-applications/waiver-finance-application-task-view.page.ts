@@ -31,7 +31,7 @@ export class WaiverFinanceApplicationTaskViewPage implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/secure/billing/waiverFinanceApplications']);
+    this.router.navigate(['/secure/billing/waiver-finance-applications']);
   }
 }
 
