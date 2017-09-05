@@ -45,8 +45,8 @@ export class KnockoffCenterPage implements OnInit {
   }
 
   claimTask(task: KnockoffTask) {
-    console.log('invoice: ' + task.taskId);
-    //this.store.dispatch(this.actions.claimKnockoffTask(task));
+    console.log('Knockoff: ' + task.taskId);
+    this.store.dispatch(this.actions.claimKnockoffTask(task));
   }
 
   viewTask(task: KnockoffTask) {
@@ -54,11 +54,6 @@ export class KnockoffCenterPage implements OnInit {
     this.router.navigate(['/secure/billing/knockoffs/knockoff-task-detail', task.taskId]);
   }
 
-//  viewInvoice(invoice: Invoice) {
-//    console.log('invoice: ' + invoice.referenceNo);
-//    this.router.navigate(['/secure/billing/invoices/invoice-detail', invoice.referenceNo]);
-//  }
-//
 //  showDialog(): void {
 //    console.log('showDialog');
 //    let config: MdDialogConfig = new MdDialogConfig();
@@ -77,9 +72,8 @@ export class KnockoffCenterPage implements OnInit {
   ngOnInit(): void {
     console.log('find assigned knockoff tasks');
     this.store.dispatch(this.actions.findAssignedKnockoffTasks());
-//    this.store.dispatch(this.actions.findPooledKnockoffTasks());
-//    this.store.dispatch(this.actions.findArchivedknockoffs());
-    this.store.dispatch(this.actions.findKnockoffs());
+    this.store.dispatch(this.actions.findPooledKnockoffTasks());
+    this.store.dispatch(this.actions.findArchivedknockoffs());
   }
 }
 

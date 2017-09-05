@@ -411,6 +411,8 @@ public class BillingTransformer {
         task.setCandidate(task.getCandidate());
         task.setAssignee(task.getAssignee());
         task.setDescription(knockoff.getDescription());
+        task.setPayments(task.getPayments());
+        task.setInvoice(task.getInvoice());
         task.setFlowState(FlowState.get(knockoff.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(knockoff.getMetadata().getState().ordinal()));
         return task;

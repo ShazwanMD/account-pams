@@ -63,7 +63,7 @@ import {advancePaymentListReducer, AdvancePaymentListState} from './advance-paym
 import {AdvancePayment} from '../../shared/model/billing/advance-payment.interface';
 import { Knockoff } from "../../shared/model/billing/knockoff.interface";
 import {knockoffReducer, KnockoffState} from './knockoffs/knockoff.reducer';
-import {knockoffListReducer, KnockoffListState} from './knockoffs/knockoff-list.reducer';
+import {knockoffListReducer, KnockoffListState, archivedKnockoffListReducer} from './knockoffs/knockoff-list.reducer';
 import { KnockoffTask } from "../../shared/model/billing/knockoff-task.interface";
 import { KnockoffSubModule } from "./knockoffs/index";
 import { WaiverFinanceApplicationTask } from "../../shared/model/billing/waiver-finance-application-task.interface";
@@ -218,7 +218,7 @@ export const billingModuleReducers = {
   knockoffTask: knockoffTaskReducer,
   assignedKnockoffTasks: assignedKnockoffTaskListReducer,
   pooledKnockoffTasks: pooledKnockoffTaskListReducer,
-  archivedKnockoffs: knockoffListReducer,
+  archivedKnockoffs: archivedKnockoffListReducer,
   assignedWaiverFinanceApplicationTasks: assignedWaiverFinanceApplicationTaskListReducer,
   pooledWaiverFinanceApplicationTasks: pooledWaiverFinanceApplicationTaskListReducer,
   archivedWaiverFinanceApplications: archivedWaiverFinanceApplicationListReducer,

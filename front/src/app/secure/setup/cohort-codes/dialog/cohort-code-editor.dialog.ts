@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -33,10 +33,10 @@ export class CohortCodeEditorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editorForm = this.formBuilder.group(<CohortCode>{
+    this.editorForm = this.formBuilder.group({
       id: null,
-      code: '',
-      description: '',
+      code: ['',Validators.required],
+      description: ['',Validators.required],
     });
 
     if (this.edit) this.editorForm.patchValue(this._cohortCode);

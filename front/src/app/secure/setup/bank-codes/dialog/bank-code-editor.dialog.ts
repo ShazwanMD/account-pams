@@ -1,6 +1,6 @@
 import {BankCode} from '../../../../shared/model/common/bank-code.interface';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -33,12 +33,12 @@ export class BankCodeEditorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editorForm = this.formBuilder.group(<BankCode>{
+    this.editorForm = this.formBuilder.group({
       id: null,
-      code: '',
-      name: '',
-      swiftCode: '',
-      ibgCode: '',
+      code: ['',Validators.required],
+      name: [''],
+      swiftCode: [''],
+      ibgCode: [''],
     });
 
     if (this.edit) this.editorForm.patchValue(this._bankCode);

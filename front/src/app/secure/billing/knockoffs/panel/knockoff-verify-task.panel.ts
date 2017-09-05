@@ -9,11 +9,11 @@ import {KnockoffTask} from '../../../../shared/model/billing/knockoff-task.inter
 import { TdDialogService } from "@covalent/core";
 
 @Component({
-  selector: 'pams-knockoff-draft-task',
-  templateUrl: './knockoff-draft-task.panel.html',
+  selector: 'pams-knockoff-verify-task',
+  templateUrl: './knockoff-verify-task.panel.html',
 })
 
-export class KnockoffDraftTaskPanel implements OnInit {
+export class KnockoffVerifyTaskPanel implements OnInit {
 
   @Input() knockoffTask: KnockoffTask;
 
