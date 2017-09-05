@@ -54,10 +54,11 @@ export class RefundPaymentCenterPage implements OnInit {
     this.router.navigate(['/secure/billing/refund-payments/refund-payment-task-detail', task.taskId]);
   }
 
-//  viewInvoice(invoice: Invoice) {
-//    console.log('invoice: ' + invoice.referenceNo);
-//    this.router.navigate(['/secure/billing/invoices/invoice-detail', invoice.referenceNo]);
-//  }
+  viewRefundPayment(refundPayment: RefundPayment) {
+   console.log('Refund Payment: ' + refundPayment.referenceNo);
+   this.router.navigate(['/secure/billing/refund-payments/refund-payment-detail', refundPayment.referenceNo]);
+ }
+
 //
 //  showDialog(): void {
 //    console.log('showDialog');
