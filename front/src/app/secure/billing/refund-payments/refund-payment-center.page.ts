@@ -46,7 +46,7 @@ export class RefundPaymentCenterPage implements OnInit {
 
   claimTask(task: RefundPaymentTask) {
     console.log('invoice: ' + task.taskId);
-    //this.store.dispatch(this.actions.claimRefundPaymentTask(task));
+    this.store.dispatch(this.actions.claimRefundPaymentTask(task));
   }
 
   viewTask(task: RefundPaymentTask) {
@@ -77,9 +77,9 @@ export class RefundPaymentCenterPage implements OnInit {
   ngOnInit(): void {
     console.log('find assigned refund payment tasks');
     this.store.dispatch(this.actions.findAssignedRefundPaymentTasks());
-//    this.store.dispatch(this.actions.findPooledRefundPaymentTasks());
-//    this.store.dispatch(this.actions.findArchivedRefundPayments());
-    this.store.dispatch(this.actions.findRefundPayments());
+    this.store.dispatch(this.actions.findPooledRefundPaymentTasks());
+    this.store.dispatch(this.actions.findArchivedRefundPayments());
+    // this.store.dispatch(this.actions.findRefundPayments());
   }
 }
 

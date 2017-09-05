@@ -12,7 +12,6 @@ export class ArchivedRefundPaymentListComponent {
     private columns: any[] = [
                               {name: 'issuedDate', label: 'Date'},                        
                               {name: 'referenceNo', label: 'Reference No'},
-                              {name: 'invoice.referenceNo', label: 'Invoice'},
                               {name: 'description', label: 'Description'},
                               {name: 'amount', label: 'Total Amount'},
                               {name: 'action', label: ''},

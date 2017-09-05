@@ -7,6 +7,9 @@
                placeholder="Code"
                formControlName="code"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="editorForm.get('code').invalid && editorForm.get('code').touched">Code is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="inset" flex>
@@ -15,13 +18,16 @@
                placeholder="Description"
                formControlName="description"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="editorForm.get('description').invalid && editorForm.get('description').touched">Description is Required!
+               </div>
       </md-input-container>
     </div>
 
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)">
+  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)"  [disabled] ="!editorForm.valid">
     {{edit ? 'Update' : 'Save'}}
   </button>
 </md-dialog-actions>

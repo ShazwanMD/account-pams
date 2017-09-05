@@ -8,23 +8,32 @@
                formControlName="description"
                value="Description"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="createForm.get('description').invalid && createForm.get('description').touched">Description is Required!
+  </div>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput placeholder="Value"
                value="Value" formControlName="value" type="number">
+               <div class="error" class="tc-red-600"
+               *ngIf="createForm.get('value').invalid && createForm.get('value').touched">Value is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput placeholder="Quantity"
                value="Quantity" formControlName="quantity" type="number">
+               <div class="error" class="tc-red-600"
+               *ngIf="createForm.get('quantity').invalid && createForm.get('quantity').touched">Quantity is Required!
+               </div>
       </md-input-container>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)" [disabled] = "!createForm.valid">Save</button>
 </md-dialog-actions>
 
