@@ -101,6 +101,7 @@ public class FinancialAidTransformer {
     }
 
     public Settlement toSettlementVo(AcSettlement e) {
+    	if(null == e) return null;
         Settlement vo = new Settlement();
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());

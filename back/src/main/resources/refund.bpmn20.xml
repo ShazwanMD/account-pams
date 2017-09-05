@@ -14,11 +14,11 @@
     <!--
     ====================================================================================================
     == VARIABLE:
-    == refundPaymentId: refundPayment id
+    == refundId: refund id
     ====================================================================================================
     -->
 
-    <process id="refund_workflow" name="Billing RefundPayment Workflow">
+    <process id="refund_workflow" name="Billing Refund Workflow">
 
         <startEvent id="start"/>
 
@@ -66,7 +66,7 @@
         <userTask id="refund_verify_UT" name="my.edu.umk.pams.account.billing.model.AcRefundPayment:VERIFIED"
                   activiti:candidateGroups="${refundRouter.findVerifierCandidates(refundId)}">
             <documentation>
-                Verify Refund Payment
+                Verify refund
             </documentation>
 
         </userTask>

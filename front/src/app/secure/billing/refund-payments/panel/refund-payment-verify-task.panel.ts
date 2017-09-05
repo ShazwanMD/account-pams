@@ -1,19 +1,19 @@
 import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
-import {RefundPaymentActions} from '../refund-payment.action';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../../index';
-import {RefundPaymentTask} from '../../../../shared/model/billing/refund-payment-task.interface';
 import { TdDialogService } from "@covalent/core";
+import { RefundPaymentActions } from "../refund-payment.action";
+import { RefundPaymentTask } from "../../../../shared/model/billing/refund-payment-task.interface";
 
 @Component({
-  selector: 'pams-refund-payment-draft-task',
-  templateUrl: './refund-payment-draft-task.panel.html',
+  selector: 'pams-refund-payment-verify-task',
+  templateUrl: './refund-payment-verify-task.panel.html',
 })
 
-export class RefundPaymentDraftTaskPanel implements OnInit {
+export class RefundPaymentVerifyTaskPanel implements OnInit {
 
   @Input() refundPaymentTask: RefundPaymentTask;
 

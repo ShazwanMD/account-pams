@@ -1,5 +1,4 @@
 import {Action} from '@ngrx/store';
-import {WaiverApplication} from '../../../shared/model/financialaid/waiver-application.interface';
 import { WaiverFinanceApplication } from "../../../shared/model/billing/waiver-finance-application.interface";
 import { WaiverFinanceApplicationActions } from "./waiver-finance-application.action";
 

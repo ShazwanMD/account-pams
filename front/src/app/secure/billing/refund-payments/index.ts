@@ -26,6 +26,7 @@ import { AssignedRefundPaymentTaskListComponent } from './component/assigned-ref
 import { PooledRefundPaymentTaskListComponent } from './component/pooled-refund-payment-task-list.component';
 import { ArchivedRefundPaymentListComponent } from './component/archived-refund-payment-list.component';
 import { RefundPaymentCenterPage } from "./refund-payment-center.page";
+import { RefundPaymentVerifyTaskPanel } from "./panel/refund-payment-verify-task.panel";
 
 @NgModule( {
     imports: [
@@ -47,6 +48,7 @@ import { RefundPaymentCenterPage } from "./refund-payment-center.page";
         RefundPaymentTaskWorkflowPanel,
         RefundPaymentTaskDetailPage,
         RefundPaymentCenterPage,
+        RefundPaymentVerifyTaskPanel,
 
         // components
         AssignedRefundPaymentTaskListComponent,
@@ -62,9 +64,11 @@ import { RefundPaymentCenterPage } from "./refund-payment-center.page";
         RefundPaymentListComponent,
         RefundPaymentDraftTaskPanel,
         RefundPaymentCenterPage,
+        RefundPaymentVerifyTaskPanel,
     ],
     entryComponents: [
-        RefundPaymentDraftTaskPanel
+        RefundPaymentDraftTaskPanel,
+        RefundPaymentVerifyTaskPanel,
     ],
 
 } )

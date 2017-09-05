@@ -13,6 +13,7 @@ import {RefundPaymentDraftTaskPanel} from './refund-payment-draft-task.panel';
 //import {InvoiceVerifyTaskPanel} from './invoice-verify-task.panel';
 import {RefundPaymentTask} from '../../../../shared/model/billing/refund-payment-task.interface';
 import {FlowState} from '../../../../core/flow-state.enum';
+import { RefundPaymentVerifyTaskPanel } from "./refund-payment-verify-task.panel";
 
 @Component({
   selector: 'pams-refund-payment-task-workflow',
@@ -41,10 +42,10 @@ export class RefundPaymentTaskWorkflowPanel implements OnInit {
             componentFactory = this.cfr.resolveComponentFactory(RefundPaymentDraftTaskPanel);
             break;
           case FlowState.VERIFIED:
-//            componentFactory = this.cfr.resolveComponentFactory(InvoiceRegisterTaskPanel);
+            componentFactory = this.cfr.resolveComponentFactory(RefundPaymentVerifyTaskPanel);
             break;
           case FlowState.APPROVED:
-//            componentFactory = this.cfr.resolveComponentFactory(InvoiceVerifyTaskPanel);
+           // componentFactory = this.cfr.resolveComponentFactory(RefundVerifyTaskPanel);
             break;
         }
         this.componentRef = this.taskPanel.createComponent(componentFactory);

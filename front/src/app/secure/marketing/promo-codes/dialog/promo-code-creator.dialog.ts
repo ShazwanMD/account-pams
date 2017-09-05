@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MarketingModuleState} from '../../index';
 import {Store} from '@ngrx/store';
@@ -26,17 +26,18 @@ export class PromoCodeCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<PromoCode>{
+    this.createForm = this.formBuilder.group({
       id: null,
-      referenceNo: '',
-      description: '',
-      value: 0,
-      quantity: 0,
+      referenceNo: [''],
+      description: ['',Validators.required],
+      value: ['0',Validators.required],
+      quantity: ['0',Validators.required],
     });
   }
 
   save(promoCode: PromoCode, isValid: boolean) {
     this.store.dispatch(this.actions.initPromoCode(promoCode));
     this.dialog.close();
+    window.location.reload();
   }
 }
