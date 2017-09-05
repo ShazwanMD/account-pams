@@ -169,7 +169,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_WAIVER_FINANCE_APPLICATION_BY_REFERENCE_NO = '[WaiverApplication] Find WaiverFinanceApplication By Reference No';
+  static FIND_WAIVER_FINANCE_APPLICATION_BY_REFERENCE_NO = '[WaiverFinanceApplication] Find WaiverFinanceApplication By Reference No';
 
   findWaiverFinanceApplicationByReferenceNo(referenceNo): Action {
     return {
@@ -178,7 +178,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_WAIVER_FINANCE_APPLICATION_BY_REFERENCE_NO_SUCCESS = '[WaiverApplication] Find WaiverFinanceApplication By Reference No Success';
+  static FIND_WAIVER_FINANCE_APPLICATION_BY_REFERENCE_NO_SUCCESS = '[WaiverFinanceApplication] Find WaiverFinanceApplication By Reference No Success';
 
   findWaiverFinanceApplicationByReferenceNoSuccess(invoice): Action {
     return {
@@ -187,7 +187,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_WAIVER_FINANCE_APPLICATION_ITEMS = '[WaiverApplication] Find WaiverFinanceApplication Items';
+  static FIND_WAIVER_FINANCE_APPLICATION_ITEMS = '[WaiverFinanceApplication] Find WaiverFinanceApplication Items';
 
   findWaiverFinanceApplicationItems(invoice): Action {
     return {
@@ -196,7 +196,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_WAIVER_FINANCE_APPLICATION_ITEMS_SUCCESS = '[WaiverApplication] Find WaiverFinanceApplication Items Success';
+  static FIND_WAIVER_FINANCE_APPLICATION_ITEMS_SUCCESS = '[WaiverFinanceApplication] Find WaiverFinanceApplication Items Success';
 
   findWaiverFinanceApplicationItemsSuccess(items): Action {
     console.log("findWaiverApplicationTransactionsSuccess");
@@ -206,7 +206,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_ARCHIVED_WAIVER_FINANCE_APPLICATIONS = '[WaiverApplication] Find Archived WaiverFinanceApplication';
+  static FIND_ARCHIVED_WAIVER_FINANCE_APPLICATIONS = '[WaiverFinanceApplication] Find Archived WaiverFinanceApplication';
 
   findArchivedWaiverFinanceApplications(): Action {
     return {
@@ -214,7 +214,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static FIND_ARCHIVED_WAIVER_FINANCE_APPLICATIONS_SUCCESS = '[WaiverApplication] Find Archived WaiverFinanceApplication Success';
+  static FIND_ARCHIVED_WAIVER_FINANCE_APPLICATIONS_SUCCESS = '[WaiverFinanceApplication] Find Archived WaiverFinanceApplication Success';
 
   findArchivedWaiverFinanceApplicationsSuccess(invoices): Action {
     console.log('findArchivedWaiverApplicationsSuccess');
@@ -224,7 +224,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static UPDATE_WAIVER_FINANCE_APPLICATION = '[WaiverApplication] Update WaiverFinanceApplication';
+  static UPDATE_WAIVER_FINANCE_APPLICATION = '[WaiverFinanceApplication] Update WaiverFinanceApplication';
 
   updateWaiverFinanceApplication(invoice): Action {
     return {
@@ -233,7 +233,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static UPDATE_WAIVER_FINANCE_APPLICATION_SUCCESS = '[WaiverApplication] Update WaiverFinanceApplication Success';
+  static UPDATE_WAIVER_FINANCE_APPLICATION_SUCCESS = '[WaiverFinanceApplication] Update WaiverFinanceApplication Success';
 
   updateWaiverFinanceApplicationSuccess(invoice): Action {
     return {
@@ -242,7 +242,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static REMOVE_WAIVER_FINANCE_APPLICATION = '[WaiverApplication] Remove WaiverFinanceApplication';
+  static REMOVE_WAIVER_FINANCE_APPLICATION = '[WaiverFinanceApplication] Remove WaiverFinanceApplication';
 
   removeWaiverFinanceApplication(invoice): Action {
     return {
@@ -251,7 +251,7 @@ export class WaiverFinanceApplicationActions {
     };
   }
 
-  static REMOVE_WAIVER_FINANCE_APPLICATION_SUCCESS = '[WaiverApplication] Remove WaiverFinanceApplication Success';
+  static REMOVE_WAIVER_FINANCE_APPLICATION_SUCCESS = '[WaiverFinanceApplication] Remove WaiverFinanceApplication Success';
 
   removeWaiverFinanceApplicationSuccess(invoice): Action {
     return {
