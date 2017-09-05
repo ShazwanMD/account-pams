@@ -27,7 +27,7 @@
               <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(refundPayments$|async)?.account?.code}}</h4>
+                  <h4 md-line>{{(refundPayments$|async)?.payments?.account?.code}}</h4>
                   <p md-line>Account</p>
                 </md-list-item>
               </md-list>
@@ -38,7 +38,7 @@
               <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(refundPayments$|async)?.actor?.effectiveBalance}}</h4>
+                  <h4 md-line>{{(refundPayments$|async)?.payments?.account?.effectiveBalance}}</h4>
                   <p md-line>Effective Balance</p>
                 </md-list-item>
               </md-list>
@@ -47,7 +47,7 @@
               <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(refundPayments$|async)?.actor?.balanceAmount}}</h4>
+                  <h4 md-line>{{(refundPayments$|async)?.payments?.balanceAmount}}</h4>
                   <p md-line>Balance Amount</p>
                 </md-list-item>
               </md-list>
