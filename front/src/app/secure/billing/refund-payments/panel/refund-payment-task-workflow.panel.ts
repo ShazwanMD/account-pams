@@ -41,10 +41,10 @@ export class RefundPaymentTaskWorkflowPanel implements OnInit {
             componentFactory = this.cfr.resolveComponentFactory(RefundPaymentDraftTaskPanel);
             break;
           case FlowState.VERIFIED:
-//            componentFactory = this.cfr.resolveComponentFactory(InvoiceRegisterTaskPanel);
+           // componentFactory = this.cfr.resolveComponentFactory(RefundRegisterTaskPanel);
             break;
           case FlowState.APPROVED:
-//            componentFactory = this.cfr.resolveComponentFactory(InvoiceVerifyTaskPanel);
+           // componentFactory = this.cfr.resolveComponentFactory(RefundVerifyTaskPanel);
             break;
         }
         this.componentRef = this.taskPanel.createComponent(componentFactory);
