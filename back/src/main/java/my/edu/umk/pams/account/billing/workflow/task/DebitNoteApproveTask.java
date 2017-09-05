@@ -1,5 +1,8 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
+import my.edu.umk.pams.account.billing.event.DebitNoteApprovedEvent;
+import my.edu.umk.pams.account.billing.event.InvoiceApprovedEvent;
+import my.edu.umk.pams.account.billing.event.ReceiptApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -10,6 +13,7 @@ import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -27,6 +31,9 @@ public class DebitNoteApproveTask extends BpmnActivityBehavior
 
     @Autowired
     private SecurityService securityService;
+    
+	@Autowired
+	private ApplicationContext applicationContext;
 
     public void execute(ActivityExecution execution) throws Exception {
         Long debitNoteId = (Long) execution.getVariable(DEBIT_NOTE_ID);
@@ -40,6 +47,7 @@ public class DebitNoteApproveTask extends BpmnActivityBehavior
         billingService.updateDebitNote(debitNote);
 
         billingService.post(debitNote);
+        applicationContext.publishEvent(new DebitNoteApprovedEvent(debitNote));
 
     }
 }
