@@ -744,7 +744,7 @@ public class BillingServiceImpl implements BillingService {
 		tx.setSourceNo(creditNote.getReferenceNo());
 		tx.setTransactionCode(AcAccountTransactionCode.CREDIT_NOTE);
 		tx.setAccount(creditNote.getInvoice().getAccount());
-		tx.setAmount(creditNote.getTotalAmount());
+		tx.setAmount(creditNote.getTotalAmount().negate());
 		accountService.addAccountTransaction(creditNote.getInvoice().getAccount(), tx);
 	}
 
@@ -1037,12 +1037,15 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	private Map<String, Object> prepareVariables(AcKnockoff knockoff) {
+		LOG.debug("knockoffid: " + knockoff.getId());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(KNOCKOFF_ID, knockoff.getId());
 		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
 		map.put(WorkflowConstants.REFERENCE_NO, knockoff.getReferenceNo());
 		map.put(WorkflowConstants.REMOVE_DECISION, false);
 		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		
+		LOG.debug("workflow variables {}", map);
 		return map;
 	}
 	
@@ -1181,6 +1184,8 @@ public class BillingServiceImpl implements BillingService {
 		sessionFactory.getCurrentSession().flush();
 		sessionFactory.getCurrentSession().refresh(knockoff);
 
+		LOG.debug("Knockoff Description {}", knockoff.getDescription());
+		
 		workflowService.processWorkflow(knockoff, prepareVariables(knockoff));
 		return refNo;
 	}
