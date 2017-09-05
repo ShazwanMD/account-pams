@@ -8,7 +8,7 @@ import { WaiverFinanceApplicationTask } from "../../../shared/model/billing/waiv
 import { WaiverFinanceApplicationActions } from "./waiver-finance-application.action";
 
 @Component({
-  selector: 'pams-waiver-finance-application-task-iew',
+  selector: 'pams-waiver-finance-application-task-view',
   templateUrl: './waiver-finance-application-task-view.page.html',
 })
 export class WaiverFinanceApplicationTaskViewPage implements OnInit {
