@@ -293,7 +293,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public BigDecimal sumBalanceAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(sat.amount) from AcAccountTransaction sat where " +
+        Query query = session.createQuery("select sum(sat.balanceAmount) from AcAccountTransaction sat where " +
                 "sat.account = :account " +
                 "and sat.metadata.state = :state ");
         query.setEntity("account", account);

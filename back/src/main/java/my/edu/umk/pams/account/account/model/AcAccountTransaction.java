@@ -17,6 +17,14 @@ public interface AcAccountTransaction extends AcMetaObject {
     BigDecimal getAmount();
 
     void setAmount(BigDecimal amount);
+    
+    BigDecimal getBalanceAmount();
+
+    void setBalanceAmount(BigDecimal balanceAmount);
+    
+    String getDescription();
+
+    void setDescription(String description);
 
     Date getPostedDate();
 

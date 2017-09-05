@@ -26,6 +26,14 @@ public class AcAccountTransactionImpl implements AcAccountTransaction {
     @NotNull
     @Column(name = "AMOUNT", nullable = false)
     private BigDecimal amount = BigDecimal.ZERO;
+    
+    @NotNull
+    @Column(name = "BALANCE_AMOUNT", nullable = false)
+    private BigDecimal balanceAmount = BigDecimal.ZERO;
+    
+    @NotNull
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String description;
 
     @NotNull
     @Column(name = "POSTED_DATE", nullable = false)
@@ -63,13 +71,13 @@ public class AcAccountTransactionImpl implements AcAccountTransaction {
     }
 
     @Override
-    public String getSourceNo() {
-        return sourceNo;
+    public String getDescription() {
+        return description;
     }
 
     @Override
-    public void setSourceNo(String sourceNo) {
-        this.sourceNo = sourceNo;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -80,6 +88,26 @@ public class AcAccountTransactionImpl implements AcAccountTransaction {
     @Override
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+    
+    @Override
+    public BigDecimal getBalanceAmount() {
+        return balanceAmount;
+    }
+
+    @Override
+    public void setBalanceAmount(BigDecimal balanceAmount) {
+        this.balanceAmount = balanceAmount;
+    }
+    
+    @Override
+    public String getSourceNo() {
+        return sourceNo;
+    }
+
+    @Override
+    public void setSourceNo(String sourceNo) {
+        this.sourceNo = sourceNo;
     }
 
     @Override
