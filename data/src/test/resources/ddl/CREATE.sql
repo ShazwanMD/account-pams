@@ -59,6 +59,8 @@
     create table AC_ACCT_TRSN (
         ID int8 not null,
         AMOUNT numeric(19, 2) not null,
+        BALANCE_AMOUNT numeric(19, 2) not null,
+        DESCRIPTION varchar(255) not null,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
