@@ -37,7 +37,7 @@ export class RefundPaymentDraftTaskPanel implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/secure/billing/invoices']);
+    this.router.navigate(['/secure/billing/refund-payments']);
   }
 
 }
