@@ -183,11 +183,6 @@ public class AcKnockoffImpl implements AcKnockoff {
 		this.flowdata = flowdata;
 	}
 
-	@Override
-    public Class<?> getInterfaceClass() {
-        return AcKnockoff.class;
-    }
-
     @Override
     public String getCancelComment() {
         return cancelComment;
@@ -206,6 +201,11 @@ public class AcKnockoffImpl implements AcKnockoff {
     @Override
     public void setRemoveComment(String removeComment) {
         this.removeComment = removeComment;
+    }
+    
+	@Override
+    public Class<?> getInterfaceClass() {
+        return AcKnockoff.class;
     }
 
 }

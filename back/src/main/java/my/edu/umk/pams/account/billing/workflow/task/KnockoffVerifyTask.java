@@ -1,6 +1,5 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
-import static my.edu.umk.pams.account.AccountConstants.CREDIT_NOTE_ID;
 import static my.edu.umk.pams.account.AccountConstants.KNOCKOFF_ID;
 
 import java.sql.Timestamp;
@@ -11,6 +10,7 @@ import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;

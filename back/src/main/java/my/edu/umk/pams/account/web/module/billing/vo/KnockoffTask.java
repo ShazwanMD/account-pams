@@ -12,6 +12,24 @@ import my.edu.umk.pams.account.web.module.core.vo.Task;
 public class KnockoffTask extends Task {
 
 	private Knockoff knockoff;
+	private AdvancePayment payments;
+	private Invoice invoice;
+
+	public AdvancePayment getPayments() {
+		return payments;
+	}
+
+	public void setPayments(AdvancePayment payments) {
+		this.payments = payments;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
 
 	public Knockoff getKnockoff() {
 		return knockoff;

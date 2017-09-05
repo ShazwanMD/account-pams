@@ -13,6 +13,7 @@ import {KnockoffDraftTaskPanel} from './knockoff-draft-task.panel';
 //import {InvoiceVerifyTaskPanel} from './invoice-verify-task.panel';
 import {KnockoffTask} from '../../../../shared/model/billing/knockoff-task.interface';
 import {FlowState} from '../../../../core/flow-state.enum';
+import { KnockoffVerifyTaskPanel } from "./knockoff-verify-task.panel";
 
 @Component({
   selector: 'pams-knockoff-task-workflow',
@@ -41,7 +42,7 @@ export class KnockoffTaskWorkflowPanel implements OnInit {
             componentFactory = this.cfr.resolveComponentFactory(KnockoffDraftTaskPanel);
             break;
           case FlowState.VERIFIED:
-//            componentFactory = this.cfr.resolveComponentFactory(InvoiceRegisterTaskPanel);
+            componentFactory = this.cfr.resolveComponentFactory(KnockoffVerifyTaskPanel);
             break;
           case FlowState.APPROVED:
 //            componentFactory = this.cfr.resolveComponentFactory(InvoiceVerifyTaskPanel);

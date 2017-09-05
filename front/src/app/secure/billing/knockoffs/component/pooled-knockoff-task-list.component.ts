@@ -26,7 +26,7 @@ export class PooledKnockoffTaskListComponent {
 
   claimTask(task: KnockoffTask): void {
       console.log('Emitting task');
-      let snackBarRef: MdSnackBarRef<SimpleSnackBar> = this.snackBar.open('Claiming invoice');
+      let snackBarRef: MdSnackBarRef<SimpleSnackBar> = this.snackBar.open('Claiming knockoff');
       snackBarRef.dismiss();
       snackBarRef.afterDismissed().subscribe(() => {
         this.claim.emit(task);
