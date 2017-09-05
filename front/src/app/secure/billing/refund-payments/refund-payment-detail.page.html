@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<td-layout-nav>
+  <div toolbar-content layout="row" layout-align="center center" flex>
+    <span>PAMS: Postgraduate Management System</span>
+    <span flex></span>
+  </div>
+
+
+  <div md-content flex md-scroll-y>
+    <div layout="column" layout-gt-md="row" class="inset">
+      <div flex-gt-md="70">
+        <md-card>
+          <md-card-title>{{(refundPayments$|async)?.referenceNo}}</md-card-title>
+          <md-card-subtitle>{{(refundPayments$|async)?.description}}</md-card-subtitle>
+
+          <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+            <div layout="column" flex>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(refundPayments$|async)?.referenceNo}}</h4>
+                  <p md-line>Reference No</p>
+                </md-list-item>
+              </md-list>
+            </div>
+            <div layout="column" flex>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(refundPayments$|async)?.account?.code}}</h4>
+                  <p md-line>Account</p>
+                </md-list-item>
+              </md-list>
+            </div>
+          </div>
+          <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+            <div layout="column" flex>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(refundPayments$|async)?.actor?.effectiveBalance}}</h4>
+                  <p md-line>Effective Balance</p>
+                </md-list-item>
+              </md-list>
+            </div>
+            <div layout="column" flex>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(refundPayments$|async)?.actor?.balanceAmount}}</h4>
+                  <p md-line>Balance Amount</p>
+                </md-list-item>
+              </md-list>
+            </div>
+            <div layout="column" flex>
+              <md-list dense>
+                <md-list-item>
+                  <md-icon md-list-icon>local_offer</md-icon>
+                  <h4 md-line>{{(refundPayments$|async)?.amount}}</h4>
+                  <p md-line>Refund Payment Amount</p>
+                </md-list-item>
+              </md-list>
+            </div>
+          </div>
+          <md-card-actions>
+
+          </md-card-actions>
+        </md-card>
+
+      </div>
+      <div flex-gt-md="30">
+        <pams-refund-payment-status
+          [refundPayment]="refundPayments$ | async"></pams-refund-payment-status>
+
+        <md-card>
+          <md-card-title>Action</md-card-title>
+          <md-card-subtitle>Actions available on current Refund Payment</md-card-subtitle>
+          <md-divider></md-divider>
+          <md-nav-list dense>
+            <md-list-item>
+              <md-icon md-list-avatar>remove_circle</md-icon>
+              <h4 md-line>Remove</h4>
+              <p md-line>Remove this Refund Payment</p>
+            </md-list-item>
+            <md-list-item>
+              <md-icon md-list-avatar>edit</md-icon>
+              <h4 md-line>Edit</h4>
+              <p md-line>Edit this Refund Payment</p>
+            </md-list-item>
+          </md-nav-list>
+        </md-card>
+      </div>
+    </div>
+  </div>
+</td-layout-nav>
