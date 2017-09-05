@@ -13,7 +13,7 @@ import { RefundPaymentActions } from "./refund-payment.action";
 })
 export class RefundPaymentDetailPage implements OnInit {
 
-  private REFUND_PAYMENT: string[] = 'billingModuleState.refundPayments'.split('.');
+  private REFUND_PAYMENT: string[] = 'billingModuleState.refundPayment'.split('.');
 
   private refundPayments$: Observable<RefundPayment>;
 
