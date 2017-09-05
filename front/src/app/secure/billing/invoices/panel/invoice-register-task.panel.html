@@ -51,7 +51,9 @@
       </md-card>
 
       <pams-invoice-item-list
+        [invoice]="invoiceTask.invoice"
         [invoiceItems]="invoiceItems$ | async">
+
       </pams-invoice-item-list>
 
     </div>
