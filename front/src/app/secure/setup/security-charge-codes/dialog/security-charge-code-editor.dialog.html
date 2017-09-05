@@ -7,6 +7,9 @@
                placeholder="Compound Section"
                formControlName="section"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="editorForm.get('section').invalid && editorForm.get('section').touched">Compound Section is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="inset" flex>
@@ -15,6 +18,9 @@
                placeholder="Compound Description"
                formControlName="description"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="editorForm.get('description').invalid && editorForm.get('description').touched">Compound Description is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="inset" flex>
@@ -23,6 +29,9 @@
                placeholder="Compound Offense"
                formControlName="offense"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="editorForm.get('offense').invalid && editorForm.get('offense').touched">Compound Offense is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="inset" flex>
@@ -31,6 +40,9 @@
                placeholder="Compound Offense Description"
                formControlName="offenseDescription"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="editorForm.get('offenseDescription').invalid && editorForm.get('offenseDescription').touched">Compound Offense Description is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="inset" flex>
@@ -39,6 +51,9 @@
                placeholder="Compound Amount"
                formControlName="amount"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="editorForm.get('amount').invalid && editorForm.get('amount').touched">Compound Amount is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="inset" flex>
@@ -47,6 +62,9 @@
                placeholder="Compound Amount Description"
                formControlName="amountDescription"
                flex/>
+               <div class="error" class="tc-red-600"
+               *ngIf="editorForm.get('amountDescription').invalid && editorForm.get('amountDescription').touched">Compound Amount Description is Required!
+               </div>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
@@ -59,7 +77,7 @@
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)">
+  <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)"  [disabled] ="!editorForm.valid">
     {{edit ? 'Update' : 'Save'}}
   </button>
 </md-dialog-actions>

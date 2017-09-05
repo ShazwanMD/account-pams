@@ -1,6 +1,6 @@
 import {SecurityChargeCode} from '../../../../shared/model/common/security-charge-code.interface';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -33,14 +33,14 @@ export class SecurityChargeCodeEditorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editorForm = this.formBuilder.group(<SecurityChargeCode>{
+    this.editorForm = this.formBuilder.group({
       id: null,
-      section: '',
-      description: '',
-      offense: '',
-      offenseDescription: '',
-      amount: 0,
-      amountDescription: '',
+      section: ['',Validators.required],
+      description: ['',Validators.required],
+      offense: ['',Validators.required],
+      offenseDescription: ['',Validators.required],
+      amount: ['0',Validators.required],
+      amountDescription: ['',Validators.required],
       active: false,
 
     });
@@ -58,5 +58,6 @@ export class SecurityChargeCodeEditorDialog implements OnInit {
     if (this.edit) this.store.dispatch(this.actions.updateSecurityChargeCode(code));
     else  this.store.dispatch(this.actions.saveSecurityChargeCode(code));
     this.dialog.close();
+    window.location.reload();
   }
 }
