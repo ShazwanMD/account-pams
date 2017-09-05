@@ -7,18 +7,18 @@
 
     <!--
     ====================================================================================================
-    ==  DRAFTED > VERIFIED > APPROVED >>  COMPLETED >> END
+    ==  DRAFTED > REGISTERED > VERIFIED > APPROVED >>  COMPLETED >> END
     ====================================================================================================
     -->
 
     <!--
     ====================================================================================================
     == VARIABLE:
-    == refundPaymentId: refundPayment id
+    == refundId: refund id
     ====================================================================================================
     -->
 
-    <process id="refund_workflow" name="Billing RefundPayment Workflow">
+    <process id="refund_workflow" name="Billing Refund Workflow">
 
         <startEvent id="start"/>
 
@@ -48,8 +48,39 @@
             <conditionExpression>${removeDecision}</conditionExpression>
         </sequenceFlow>
 
-        <sequenceFlow id="flow1.3" sourceRef="refund_draft_UT" targetRef="refund_verify_ST">
+        <sequenceFlow id="flow1.3" sourceRef="refund_draft_UT" targetRef="refund_register_ST">
             <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+        <!--
+        ====================================================================================================
+        == STATE : REGISTERED
+        == SERVICE TASK : register a refund
+        == USER TASK :
+        ====================================================================================================
+        -->
+
+        <serviceTask id="refund_register_ST"
+                     activiti:expression="#{refund_register_ST.execute(execution)}"/>
+
+
+        <sequenceFlow id="flow3.1" sourceRef="refund_register_ST" targetRef="refund_register_UT"/>
+
+        <userTask id="refund_register_UT" name="my.edu.umk.pams.account.billing.model.AcRefundPayment:REGISTERED"
+                  activiti:candidateGroups="${refundRouter.findRegistererCandidates(refundId)}">
+            <documentation>
+                Register refund
+            </documentation>
+
+        </userTask>
+
+        <!-- accept -->
+        <sequenceFlow id="flow3.2" sourceRef="refund_register_UT" targetRef="refund_verify_ST">
+            <conditionExpression>${!removeDecision}</conditionExpression>
+        </sequenceFlow>
+
+        <!-- delete -->
+        <sequenceFlow id="flow3.4" sourceRef="refund_register_UT" targetRef="refund_remove_ST">
+            <conditionExpression>${removeDecision}</conditionExpression>
         </sequenceFlow>
         <!--
         ====================================================================================================
@@ -66,7 +97,7 @@
         <userTask id="refund_verify_UT" name="my.edu.umk.pams.account.billing.model.AcRefundPayment:VERIFIED"
                   activiti:candidateGroups="${refundRouter.findVerifierCandidates(refundId)}">
             <documentation>
-                Verify Refund Payment
+                Verify refund
             </documentation>
 
         </userTask>
