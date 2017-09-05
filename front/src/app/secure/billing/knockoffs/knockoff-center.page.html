@@ -14,9 +14,6 @@
 
     <md-card>
       <md-tab-group [selectedIndex]="0">
-      <md-tab label="try">
-      <pams-knockoff-list [knockoff]="knockoff$ | async"></pams-knockoff-list>
-      </md-tab>
         <md-tab label="Assigned">
           <pams-assigned-knockoff-task-list
             [knockoffTasks]="assignedKnockoffTasks$ | async"

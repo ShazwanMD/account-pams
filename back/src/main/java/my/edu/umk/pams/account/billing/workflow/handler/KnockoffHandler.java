@@ -50,7 +50,7 @@ public class KnockoffHandler implements DocumentHandler<AcKnockoff> {
     }
 
     @PostConstruct
-    public void deployInvoice() {
+    public void deployKnockoff() {
         DeploymentBuilder deployment = repositoryService.createDeployment();
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
 

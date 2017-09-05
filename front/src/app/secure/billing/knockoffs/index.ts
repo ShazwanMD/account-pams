@@ -26,6 +26,7 @@ import { AssignedKnockoffTaskListComponent } from './component/assigned-knockoff
 import { PooledKnockoffTaskListComponent } from './component/pooled-knockoff-task-list.component';
 import { ArchivedKnockoffListComponent } from './component/archived-knockoff-list.component';
 import { KnockoffCenterPage } from "./knockoff-center.page";
+import { KnockoffVerifyTaskPanel } from "./panel/knockoff-verify-task.panel";
 
 @NgModule( {
     imports: [
@@ -44,6 +45,7 @@ import { KnockoffCenterPage } from "./knockoff-center.page";
     declarations: [
         // page
         KnockoffDraftTaskPanel,
+        KnockoffVerifyTaskPanel,
         KnockoffTaskWorkflowPanel,
         KnockoffTaskDetailPage,
         KnockoffCenterPage,
@@ -64,7 +66,8 @@ import { KnockoffCenterPage } from "./knockoff-center.page";
         KnockoffCenterPage,
     ],
     entryComponents: [
-        KnockoffDraftTaskPanel
+        KnockoffDraftTaskPanel,
+        KnockoffVerifyTaskPanel,
     ],
 
 } )
