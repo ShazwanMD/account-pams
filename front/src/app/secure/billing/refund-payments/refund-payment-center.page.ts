@@ -79,7 +79,7 @@ export class RefundPaymentCenterPage implements OnInit {
     this.store.dispatch(this.actions.findAssignedRefundPaymentTasks());
     this.store.dispatch(this.actions.findPooledRefundPaymentTasks());
     this.store.dispatch(this.actions.findArchivedRefundPayments());
-    this.store.dispatch(this.actions.findRefundPayments());
+    // this.store.dispatch(this.actions.findRefundPayments());
   }
 }
 
