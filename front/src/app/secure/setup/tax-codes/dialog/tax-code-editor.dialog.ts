@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -35,9 +35,9 @@ export class TaxCodeEditorDialog implements OnInit {
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group({
       id: undefined,
-      code: '',
-      description: '',
-      taxRate: 0,
+      code: ['',Validators.required],
+      description: ['',Validators.required],
+      taxRate: ['0',Validators.required],
     });
 
     if (this.edit) this.editorForm.patchValue(this._taxCode);
