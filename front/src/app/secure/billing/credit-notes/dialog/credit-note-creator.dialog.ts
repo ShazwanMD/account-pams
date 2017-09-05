@@ -55,7 +55,7 @@ export class CreditNoteCreatorDialog implements OnInit {
 
     console.log('sourceNo: ' + creditNote.sourceNo);
     console.log('invoice: ' + this._invoice.referenceNo);
-    creditNote.totalAmount = creditNote.totalAmount * (-1) ;
+    // creditNote.totalAmount = creditNote.totalAmount * (-1) ;
 
     this.store.dispatch(this.actions.startCreditNoteTask(creditNote));
     this.dialog.close();
