@@ -16,6 +16,7 @@ export class ArchivedInvoiceListComponent {
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
+    {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
   ];
 

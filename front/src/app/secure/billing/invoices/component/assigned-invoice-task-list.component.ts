@@ -16,6 +16,7 @@ export class AssignedInvoiceTaskListComponent {
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
+    {name: 'assignee', label: 'Creator'},
     {name: 'action', label: ''},
   ];
 
