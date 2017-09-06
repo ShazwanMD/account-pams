@@ -73,6 +73,7 @@ public class BillingTransformer {
         task.setAssignee(task.getAssignee());
         task.setCandidate(task.getCandidate());
         task.setInvoice(toInvoiceVo(invoice));
+        invoice.getFlowdata().getDrafterId();
         task.setFlowState(FlowState.get(invoice.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(invoice.getMetadata().getState().ordinal()));
         return task;
@@ -89,6 +90,7 @@ public class BillingTransformer {
         vo.setTotalAmount(e.getTotalAmount());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
 
@@ -108,6 +110,7 @@ public class BillingTransformer {
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
 
