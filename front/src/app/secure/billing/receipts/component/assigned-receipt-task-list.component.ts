@@ -16,6 +16,8 @@ export class AssignedReceiptTaskListComponent {
     {name: 'receiptType', label: 'Receipt Type'},
     {name: 'paymentMethod', label: 'Payment Method'},
     {name: 'sourceNo', label: 'Source No'},
+    {name: 'receipt.creatorUsername', label: 'Creator'},
+    {name: 'receipt.createdDate', label: 'Created Date'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];

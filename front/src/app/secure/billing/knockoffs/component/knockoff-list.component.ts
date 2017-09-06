@@ -15,6 +15,8 @@ export class KnockoffListComponent {
     {name: 'invoice.referenceNo', label: 'Invoice'},
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Total Amount'},
+    {name: 'creatorUsername', label: 'Creator'},
+    {name: 'createdDate', label: 'Created Date'},
     {name: 'action', label: ''},
   ];
 

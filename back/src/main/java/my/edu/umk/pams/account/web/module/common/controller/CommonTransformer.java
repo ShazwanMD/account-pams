@@ -179,6 +179,7 @@ public class CommonTransformer {
         AcUser userCreator = identityService.findUserById(metaObject.getMetadata().getCreatorId());
         System.out.println(userCreator.getRealName());
         vo.setCreatorUsername(userCreator.getRealName()); 
-        vo.setModifierUsername(userCreator.getRealName());     
+        vo.setModifierUsername(userCreator.getRealName());  
+        
     }
 }

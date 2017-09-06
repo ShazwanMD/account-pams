@@ -23,6 +23,8 @@ export class PooledWaiverFinanceApplicationTaskListComponent {
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'application.waivedAmount', label: 'Waived Amount'},
+    {name: 'application.creatorUsername', label: 'Creator'},
+    {name: 'application.createdDate', label: 'Created Date'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''}
   ];

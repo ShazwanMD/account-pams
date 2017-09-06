@@ -23,6 +23,8 @@ export class ArchivedDebitNoteListComponent {
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'chargeCode.description', label: 'Charge Code'},
+    {name: 'creatorUsername', label: 'Creator'},
+    {name: 'createdDate', label: 'Created Date'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},

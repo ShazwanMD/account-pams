@@ -24,6 +24,8 @@ export class AssignedDebitNoteTaskListComponent {
     {name: 'description', label: 'Description'},
     {name: 'chargeCode.description', label: 'Charge Code'},
     {name: 'totalAmount', label: 'Total Amount'},
+    {name: 'debitNote.creatorUsername', label: 'Creator'},
+    {name: 'debitNote.createdDate', label: 'Created Date'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];

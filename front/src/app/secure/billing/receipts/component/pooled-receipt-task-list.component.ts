@@ -15,6 +15,8 @@ export class PooledReceiptTaskListComponent {
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'description', label: 'Description'},
+    {name: 'receipt.creatorUsername', label: 'Creator'},
+    {name: 'receipt.createdDate', label: 'Created Date'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];

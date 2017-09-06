@@ -14,6 +14,8 @@ export class PooledRefundPaymentTaskListComponent {
                               {name: 'referenceNo', label: 'Reference No'},
                               {name: 'description', label: 'Description'},
                               {name: 'amount', label: 'Total Amount'},
+                              {name: 'refundPayment.creatorUsername', label: 'Creator'},
+                              {name: 'refundPayment.createdDate', label: 'Created Date'},
                               {name: 'action', label: ''},
                             ];
 

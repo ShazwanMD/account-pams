@@ -194,6 +194,7 @@ public class BillingTransformer {
         vo.setReceiptType(ReceiptType.get(e.getReceiptType().ordinal()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
 
@@ -211,6 +212,7 @@ public class BillingTransformer {
         vo.setReceiptType(ReceiptType.get(e.getReceiptType().ordinal()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
     
@@ -251,6 +253,7 @@ public class BillingTransformer {
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
 
@@ -268,6 +271,7 @@ public class BillingTransformer {
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
 
@@ -309,6 +313,7 @@ public class BillingTransformer {
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
 
@@ -326,6 +331,7 @@ public class BillingTransformer {
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
 
@@ -380,6 +386,7 @@ public class BillingTransformer {
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
     
@@ -395,6 +402,7 @@ public class BillingTransformer {
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
     
@@ -457,6 +465,7 @@ public class BillingTransformer {
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
         return vo;
     }
 

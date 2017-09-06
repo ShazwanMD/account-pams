@@ -15,6 +15,8 @@ export class ArchivedReceiptListComponent {
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
+    {name: 'creatorUsername', label: 'Creator'},
+    {name: 'createdDate', label: 'Created Date'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];

@@ -15,6 +15,8 @@ export class AssignedKnockoffTaskListComponent {
                               {name: 'invoice.referenceNo', label: 'Invoice'},
                               {name: 'description', label: 'Description'},
                               {name: 'amount', label: 'Total Amount'},
+                              {name: 'knockoff.creatorUsername', label: 'Creator'},
+                              {name: 'knockoff.createdDate', label: 'Created Date'},
                               {name: 'flowState', label: 'Status'},
                               {name: 'action', label: ''},
                             ];

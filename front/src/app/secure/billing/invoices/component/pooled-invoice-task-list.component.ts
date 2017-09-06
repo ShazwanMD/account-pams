@@ -17,6 +17,7 @@ export class PooledInvoiceTaskListComponent {
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},
     {name: 'invoice.creatorUsername', label: 'Creator'},
+    {name: 'invoice.createdDate', label: 'Created Date'},
     {name: 'action', label: ''},
   ];
 
