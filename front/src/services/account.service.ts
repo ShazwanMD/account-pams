@@ -308,7 +308,7 @@ export class AccountService {
 
     updateAccountSponsorships(account: Account,  sponsor: Sponsor, sponsorship: AccountSponsorship): Observable<String> {
     console.log('updating account sponsorship' + sponsorship.referenceNo);
-    return this._http.put(this.ACCOUNT_API + '/accounts/' + account.code + '/accountSponsorships/' + sponsorship.referenceNo, JSON.stringify(sponsorship))
+    return this._http.put(this.ACCOUNT_API + '/accounts/' + account.code + '/sponsor/' + sponsor.id + '/sponsorships/' + sponsorship.referenceNo, JSON.stringify(sponsorship))
       .flatMap((res: Response) => Observable.of(res.text()));
 
   }
