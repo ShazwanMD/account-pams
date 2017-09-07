@@ -25,6 +25,8 @@ public interface AcSponsorshipDao extends GenericDao<Long, AcSponsorship> {
 
 	void addSponsorship(AcAccount account, AcSponsorship sponsorship, AcUser user);
 
+	AcSponsorship findByReferenceNo(String referenceNo);
+
 
     // ====================================================================================================
     // HELPER
