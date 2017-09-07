@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import my.edu.umk.pams.account.account.dao.AcChargeCodeDao;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountWaiver;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.core.AcMetaState;
@@ -52,6 +53,18 @@ public class AcSponsorshipDaoImpl extends GenericDaoSupport<Long, AcSponsorship>
         query.setEntity("sponsorship", sponsorship);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return (List<AcSponsorship>) query.list();
+    }
+    
+    @Override
+    public AcSponsorship findByReferenceNo(String referenceNo) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sa from AcSponsorship sa where " +
+                "sa.referenceNo = :referenceNo " +
+                "and sa.metadata.state = :state");
+        query.setString("referenceNo", referenceNo);
+        query.setCacheable(true);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return (AcSponsorship) query.uniqueResult();
     }
     
     @Override
