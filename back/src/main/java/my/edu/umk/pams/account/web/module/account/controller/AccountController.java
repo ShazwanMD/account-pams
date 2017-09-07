@@ -609,11 +609,14 @@ public class AccountController {
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/sponsorships/{code}", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateSponsorship(@PathVariable String code, @RequestBody Sponsorship vo) {
-
-
-		AcSponsorship sponsorship = identityService.findSponsorshipById(vo.getId());
+	@RequestMapping(value ="/account/{code}/sponsor/{id}/sponsorships/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateSponsorship(@PathVariable String code, @PathVariable Long id, @PathVariable String referenceNo, @RequestBody Sponsorship vo) {
+		
+		AcSponsor sponsor = identityService.findSponsorById(id);
+		AcAccount account = accountService.findAccountByCode(code);
+		AcSponsorship sponsorship = accountService.findSponsorshipByReferenceNo(referenceNo);
+        
+		//AcSponsorship sponsorship = identityService.findSponsorshipById(vo.getId());
 		sponsorship.setReferenceNo(vo.getReferenceNo());
 		sponsorship.setAccountNo(vo.getAccountNo());
 		sponsorship.setAmount(vo.getAmount());
