@@ -38,5 +38,8 @@
     <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
       <div layout="row">{{row['amount'] | currency:'MYR':true:'1.2-2'}}</div>
     </template>
+        <template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
+      <div layout="row">{{row['active'] ? 'Active' : 'Inactive'}}</div>
+    </template>
   </td-data-table>
 </td-expansion-panel>
