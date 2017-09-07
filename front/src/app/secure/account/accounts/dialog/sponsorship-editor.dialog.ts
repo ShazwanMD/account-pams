@@ -55,6 +55,7 @@ export class SponsorshipEditorDialog implements OnInit {
       startDate:  [undefined, Validators.required],
       endDate:  [undefined, Validators.required],
       sponsor: [<Sponsor>{}],
+      active: [false],
     },{
        validator: DateValidation.CheckDate // validation method
     });
@@ -64,10 +65,8 @@ export class SponsorshipEditorDialog implements OnInit {
   }
 
   submit(sponsorship: AccountSponsorship, isValid: boolean) {
-    //if (this.edit) this.store.dispatch(this.actions.updateSponsorship(this._account, sponsorship));
-    //else  
-    
-    this.store.dispatch(this.actions.addSponsorship(this._account, this.editForm.get( 'sponsor' ).value , sponsorship));
+    if (this.edit) this.store.dispatch(this.actions.updateSponsorship(this._account,this.editForm.get( 'sponsor' ).value, sponsorship));
+    else this.store.dispatch(this.actions.addSponsorship(this._account, this.editForm.get( 'sponsor' ).value , sponsorship));
     this.dialog.close();
   }
 }
