@@ -23,6 +23,8 @@ export class SponsorshipComponent implements OnInit {
     {name: 'startDate', label: 'Start Date'},
     {name: 'endDate', label: 'End Date'},
     {name: 'amount', label: 'Amount'},
+    {name: 'active', label: 'Status'},
+
    // {name: 'sponsorType', label: 'Sponsor Type'},
   ];
   private selectedRows: AccountSponsorship[];
