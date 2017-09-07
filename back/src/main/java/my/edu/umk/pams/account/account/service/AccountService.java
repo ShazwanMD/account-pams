@@ -280,6 +280,8 @@ public interface AccountService {
 
     AcSponsorship findSponsorshipById(Long id);
     
+    AcSponsorship findSponsorshipByReferenceNo(String referenceNo);
+    
     List<AcSponsorship> findSponsorships(AcSponsor sponsor);
     
     List<AcSponsorship> findSponsorships(Integer offset, Integer limit);
