@@ -22,6 +22,7 @@ public class Sponsorship extends MetaObject {
 	private BigDecimal amount = BigDecimal.ZERO;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date startDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
 	private String referenceNo;
 	private String accountNo;
