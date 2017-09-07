@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
+import my.edu.umk.pams.account.common.model.AcTaxCode;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
 
@@ -70,5 +71,13 @@ public interface AcAccountCharge extends AcMetaObject {
 	AcSecurityChargeCode getSecurityChargeCode();
 
 	void setSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
+
+	AcTaxCode getTaxCode();
+
+	void setTaxCode(AcTaxCode taxCode);
+
+	Boolean getInclusive();
+
+	void setInclusive(Boolean inclusive);
 
 }
