@@ -481,11 +481,11 @@ export class AccountActions {
   
    static UPDATE_SPONSORSHIP = '[Account] Update Sponsorship';
 
-  updateSponsorship(account, sponsorship): Action {
+  updateSponsorship(account, sponsor, sponsorship): Action {
     console.log("updateSponsorship");
     return {
       type: AccountActions.UPDATE_SPONSORSHIP,
-      payload: {account: account, sponsorship: sponsorship}
+      payload: {account: account, sponsor: sponsor,sponsorship: sponsorship}
     };
   }
 
