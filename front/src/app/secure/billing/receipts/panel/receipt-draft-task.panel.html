@@ -41,15 +41,26 @@
                       (view)="view($event)">
                     </pams-invoice-receipt-list>
                   </md-tab>
+
                   <md-tab label="Unpaid Charges">
+
                   </md-tab>
+
               </md-tab-group>
           </md-card>
         <div>
+        <md-card>
+         <md-tab-group [selectedIndex]="0">
+         <md-tab label="Receipt Items">
           <pams-receipt-item-list
             [receipt]="receiptTask.receipt"
             [receiptItems]="receiptItems$ | async">
           </pams-receipt-item-list>
+        </md-tab>
+        <md-tab label="Receipt Charges">
+          </md-tab>
+        </md-tab-group>
+        </md-card>
         </div>
       </div>
       </div>
