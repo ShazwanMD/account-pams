@@ -8,6 +8,8 @@ import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
 import my.edu.umk.pams.account.common.model.AcSecurityChargeCodeImpl;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.model.AcStudyModeImpl;
+import my.edu.umk.pams.account.common.model.AcTaxCode;
+import my.edu.umk.pams.account.common.model.AcTaxCodeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -93,6 +95,13 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @JoinColumn(name = "SECURITY_CHARGE_CODE_ID")
     private AcSecurityChargeCode securityChargeCode;
 
+    @OneToOne(targetEntity = AcTaxCodeImpl.class)
+    @JoinColumn(name = "TAX_CODE_ID")
+    private AcTaxCode taxCode;
+    
+    @Column(name = "INCLUSIVE")
+    private Boolean inclusive;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -243,6 +252,26 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @Override
     public void setSecurityChargeCode(AcSecurityChargeCode securityChargeCode) {
 		this.securityChargeCode = securityChargeCode;
+	}
+
+    @Override
+    public AcTaxCode getTaxCode() {
+		return taxCode;
+	}
+
+    @Override
+    public void setTaxCode(AcTaxCode taxCode) {
+		this.taxCode = taxCode;
+	}
+
+    @Override
+    public Boolean getInclusive() {
+		return inclusive;
+	}
+
+    @Override
+    public void setInclusive(Boolean inclusive) {
+		this.inclusive = inclusive;
 	}
 
 	@Override
