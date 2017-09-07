@@ -806,6 +806,11 @@ public class AccountServiceImpl implements AccountService {
     }
     
     @Override
+    public AcSponsorship findSponsorshipByReferenceNo(String referenceNo) {
+        return sponsorshipDao.findByReferenceNo(referenceNo);
+    }
+    
+    @Override
     public List<AcSponsorship> findSponsorships(Integer offset, Integer limit) {
         return sponsorshipDao.find(offset, limit);
     }
