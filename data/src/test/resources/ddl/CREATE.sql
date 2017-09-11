@@ -17,6 +17,9 @@
     create table AC_ACCT_CHRG (
         ID int8 not null,
         AMOUNT numeric(19, 2) not null,
+        NET_AMOUNT numeric(19, 2),
+        TAX_AMOUNT numeric(19, 2),
+        INCLUSIVE boolean,
         CHARGE_DATE timestamp,
         CHARGE_TYPE int4,
         CODE varchar(255),
@@ -37,6 +40,7 @@
         SESSION_ID int8,
         STUDY_MODE_ID int8,
         SECURITY_CHARGE_CODE_ID int8,
+        TAX_CODE_ID int8,
         primary key (ID)
     );
 
@@ -615,12 +619,16 @@
         TOTAL_AMOUNT numeric(19, 2),
         ACCOUNT_ID int8,
         SESSION_ID int8,
+        TAX_CODE_ID int8,
         primary key (ID)
     );
 
     create table AC_INVC_ITEM (
         ID int8 not null,
         AMOUNT numeric(19, 2),
+        NET_AMOUNT numeric(19, 2),
+        TAX_AMOUNT numeric(19, 2),
+        INCLUSIVE boolean,
         BALANCE_AMOUNT numeric(19, 2),
         DESCRIPTION varchar(255),
         C_TS timestamp,
@@ -632,6 +640,7 @@
         M_ST int4,
         CHARGE_CODE_ID int8,
         INVOICE_ID int8,
+        TAX_CODE_ID int8,
         primary key (ID)
     );
 
@@ -846,6 +855,7 @@
         TOTAL_AMOUNT numeric(19, 2),
         TOTAL_APPLIED numeric(19, 2),
         TOTAL_RECEIVED numeric(19, 2),
+        TOTAL_PAYMENT numeric(19, 2),
         ACCOUNT_ID int8,
         primary key (ID)
     );
@@ -1417,6 +1427,11 @@
         add constraint FK_1pi4606wcpiir5b1fve6uh8c6
         foreign key (COHORT_CODE_ID)
         references AC_CHRT_CODE;
+      
+    alter table AC_ACCT_CHRG
+        add constraint FK_1pi4606wcpiir5b1fve6ue6d7
+        foreign key (TAX_CODE_ID)
+        references AC_TAX_CODE;        
 
     alter table AC_ACCT_CHRG
         add constraint FK_bnblgrmw2hvfi9b4xwg6t1fam
@@ -1607,6 +1622,11 @@
         add constraint FK_tl5yy4kfw6sbodu0jgbgo3ek8
         foreign key (CHARGE_CODE_ID)
         references AC_CHRG_CODE;
+        
+    alter table AC_INVC_ITEM 
+        add constraint FK_2d6lwtme5e7ch5iextvyjuh2k 
+        foreign key (TAX_CODE_ID) 
+        references AC_TAX_CODE;      
 
     alter table AC_INVC_ITEM
         add constraint FK_g7nihxqxxqx22a3mjlwodfl43

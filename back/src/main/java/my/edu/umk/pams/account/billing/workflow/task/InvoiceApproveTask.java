@@ -57,7 +57,7 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
 
         billingService.post(invoice);
 
-        // fire event
+//        // fire event
         applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
 
         AcAccount account = invoice.getAccount();

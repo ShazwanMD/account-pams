@@ -78,15 +78,15 @@ public class BillingServiceImpl implements BillingService {
 
 	@Autowired
 	private AcTaxCodeDao taxCodeDao;
-	
+
 	@Autowired
 	private AcAdvancePaymentDao advancePaymentDao;
 
 	@Autowired
 	private AcAcademicSessionDao academicSessionDao;
-	
-    @Autowired
-    private AcWaiverFinanceApplicationDao waiverFinanceApplicationDao;
+
+	@Autowired
+	private AcWaiverFinanceApplicationDao waiverFinanceApplicationDao;
 
 	@Autowired
 	private AcReceiptDao receiptDao;
@@ -132,7 +132,7 @@ public class BillingServiceImpl implements BillingService {
 
 	@Autowired
 	private IdentityService identityService;
-	
+
 	@Autowired
 	private BillingService billingService;
 
@@ -270,6 +270,84 @@ public class BillingServiceImpl implements BillingService {
 				detachProcessor.process(new ChargeContext(invoice, charge));
 			}
 		}
+	}
+
+	@Override
+	public void itemToReceiptItem(AcInvoice invoice, AcReceipt receipt) {
+		List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
+		for (AcInvoiceItem invoiceItem : invoiceItems) {
+			
+			if (invoice.getBalanceAmount().compareTo(receipt.getTotalReceived()) <= 0) {
+				AcReceiptItem receiptItem = new AcReceiptItemImpl();
+				receiptItem.setChargeCode(invoiceItem.getChargeCode());
+				receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
+				receiptItem.setDescription(invoiceItem.getChargeCode().getDescription());
+				receiptItem.setInvoice(invoice);
+				receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+				receiptItem.setAppliedAmount(invoiceItem.getBalanceAmount());
+				receiptItem.setPrice(BigDecimal.ZERO);
+				receiptItem.setReceipt(receipt);
+				receiptItem.setTotalAmount(BigDecimal.ZERO);
+				receiptItem.setUnit(0);
+
+				billingService.addReceiptItem(receipt, receiptItem);
+			}
+
+			else if (invoice.getBalanceAmount().compareTo(receipt.getTotalReceived()) > 0) {
+				
+				if (receipt.getTotalReceived().compareTo(invoiceItem.getBalanceAmount()) >= 0) {
+					AcReceiptItem receiptItem = new AcReceiptItemImpl();
+					receiptItem.setChargeCode(invoiceItem.getChargeCode());
+					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
+					receiptItem.setDescription(invoiceItem.getChargeCode().getDescription());
+					receiptItem.setInvoice(invoice);
+					receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+					receiptItem.setAppliedAmount(invoiceItem.getBalanceAmount());
+					receiptItem.setPrice(BigDecimal.ZERO);
+					receiptItem.setReceipt(receipt);
+					receiptItem.setTotalAmount(BigDecimal.ZERO);
+					receiptItem.setUnit(0);
+					billingService.addReceiptItem(receipt, receiptItem);
+				}
+
+				else if (receipt.getTotalReceived().compareTo(invoiceItem.getBalanceAmount()) < 0) {
+					AcReceiptItem receiptItem = new AcReceiptItemImpl();
+					receiptItem.setChargeCode(invoiceItem.getChargeCode());
+					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
+					receiptItem.setDescription(invoiceItem.getChargeCode().getDescription());
+					receiptItem.setInvoice(invoice);
+					receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+					receiptItem.setAppliedAmount(receipt.getTotalReceived());
+					receiptItem.setPrice(BigDecimal.ZERO);
+					receiptItem.setReceipt(receipt);
+					receiptItem.setTotalAmount(invoiceItem.getBalanceAmount().subtract(receipt.getTotalReceived()));
+					receiptItem.setUnit(0);
+					billingService.addReceiptItem(receipt, receiptItem);
+				}
+
+				else if (receipt.getTotalReceived().compareTo(BigDecimal.ZERO) == 0.00) {
+					AcReceiptItem receiptItem = new AcReceiptItemImpl();
+					receiptItem.setChargeCode(invoiceItem.getChargeCode());
+					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
+					receiptItem.setDescription(invoiceItem.getChargeCode().getDescription());
+					receiptItem.setInvoice(invoice);
+					receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+					receiptItem.setAppliedAmount(BigDecimal.ZERO);
+					receiptItem.setPrice(BigDecimal.ZERO);
+					receiptItem.setReceipt(receipt);
+					receiptItem.setTotalAmount(BigDecimal.ZERO);
+					receiptItem.setUnit(0);
+					billingService.addReceiptItem(receipt, receiptItem);
+				}
+				
+				receipt.setTotalReceived(receipt.getTotalReceived().subtract(invoiceItem.getBalanceAmount()));
+				LOG.debug("value invoiceItem after looping {}", receipt.getTotalReceived());
+			}
+			
+			receipt.setTotalReceived(receipt.getTotalReceived().subtract(invoice.getBalanceAmount()));
+			LOG.debug("value invoice after looping {}", receipt.getTotalReceived());
+		}
+
 	}
 
 	// ====================================================================================================
@@ -466,20 +544,22 @@ public class BillingServiceImpl implements BillingService {
 	// posting to student account
 	@Override
 	public void post(AcInvoice invoice) {
-/*		List<AcInvoiceItem> items = findInvoiceItems(invoice);
-		for (AcInvoiceItem item : items) {*/
-			AcAccountTransaction tx = new AcAccountTransactionImpl();
-			tx.setSession(invoice.getSession());
-			//tx.setChargeCode(item.getChargeCode());
-			tx.setBalanceAmount(invoice.getTotalAmount());
-			tx.setDescription(invoice.getDescription());
-			tx.setPostedDate(new Date());
-			tx.setSourceNo(invoice.getReferenceNo());
-			tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
-			tx.setAccount(invoice.getAccount());
-			tx.setAmount(invoice.getTotalAmount());
-			accountService.addAccountTransaction(invoice.getAccount(), tx);
-		//}
+		/*
+		 * List<AcInvoiceItem> items = findInvoiceItems(invoice); for
+		 * (AcInvoiceItem item : items) {
+		 */
+		AcAccountTransaction tx = new AcAccountTransactionImpl();
+		tx.setSession(invoice.getSession());
+		// tx.setChargeCode(item.getChargeCode());
+		tx.setBalanceAmount(invoice.getTotalAmount());
+		tx.setDescription(invoice.getDescription());
+		tx.setPostedDate(new Date());
+		tx.setSourceNo(invoice.getReferenceNo());
+		tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
+		tx.setAccount(invoice.getAccount());
+		tx.setAmount(invoice.getTotalAmount());
+		accountService.addAccountTransaction(invoice.getAccount(), tx);
+		// }
 	}
 
 	// ====================================================================================================
@@ -920,21 +1000,21 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void post(AcReceipt receipt) {
-		
-//		List<AcReceiptItem> items = findReceiptItems(receipt);
-//		for (AcReceiptItem item : items) {
-			AcAccountTransaction tx = new AcAccountTransactionImpl();
-			tx.setSession(accountService.findCurrentAcademicSession());
-			//tx.setChargeCode(item.getChargeCode());
-			tx.setBalanceAmount(receipt.getTotalAmount().negate());
-			tx.setDescription(receipt.getDescription());
-			tx.setPostedDate(new Date());
-			tx.setSourceNo(receipt.getReferenceNo());
-			tx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
-			tx.setAccount(receipt.getAccount());
-			tx.setAmount(receipt.getTotalAmount().negate());
-			accountService.addAccountTransaction(receipt.getAccount(), tx);
-		//}
+
+		// List<AcReceiptItem> items = findReceiptItems(receipt);
+		// for (AcReceiptItem item : items) {
+		AcAccountTransaction tx = new AcAccountTransactionImpl();
+		tx.setSession(accountService.findCurrentAcademicSession());
+		// tx.setChargeCode(item.getChargeCode());
+		tx.setBalanceAmount(receipt.getTotalAmount().negate());
+		tx.setDescription(receipt.getDescription());
+		tx.setPostedDate(new Date());
+		tx.setSourceNo(receipt.getReferenceNo());
+		tx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
+		tx.setAccount(receipt.getAccount());
+		tx.setAmount(receipt.getTotalAmount().negate());
+		accountService.addAccountTransaction(receipt.getAccount(), tx);
+		// }
 	}
 
 	@Override
@@ -983,7 +1063,7 @@ public class BillingServiceImpl implements BillingService {
 		return receipt.getTotalReceived()
 				.subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser()));
 	}
-	
+
 	@Override
 	public BigDecimal sumAppliedAmount(AcInvoice invoice) {
 		return receiptDao.sumAmount(invoice, securityService.getCurrentUser());
@@ -1033,7 +1113,7 @@ public class BillingServiceImpl implements BillingService {
 		map.put(WorkflowConstants.CANCEL_DECISION, false);
 		return map;
 	}
-	
+
 	private Map<String, Object> prepareVariables(AcRefundPayment refundPayment) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(REFUND_ID, refundPayment.getId());
@@ -1043,7 +1123,7 @@ public class BillingServiceImpl implements BillingService {
 		map.put(WorkflowConstants.CANCEL_DECISION, false);
 		return map;
 	}
-	
+
 	private Map<String, Object> prepareVariables(AcKnockoff knockoff) {
 		LOG.debug("knockoffid: " + knockoff.getId());
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -1052,53 +1132,53 @@ public class BillingServiceImpl implements BillingService {
 		map.put(WorkflowConstants.REFERENCE_NO, knockoff.getReferenceNo());
 		map.put(WorkflowConstants.REMOVE_DECISION, false);
 		map.put(WorkflowConstants.CANCEL_DECISION, false);
-		
+
 		LOG.debug("workflow variables {}", map);
 		return map;
 	}
-	
-    private Map<String, Object> prepareVariables(AcWaiverFinanceApplication application) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(WAIVER_FINANCE_APPLICATION_ID, application.getId());
-        map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
-        map.put(WorkflowConstants.REFERENCE_NO, application.getReferenceNo());
-        map.put(WorkflowConstants.REMOVE_DECISION, false);
-        map.put(WorkflowConstants.CANCEL_DECISION, false);
-        return map;
-    }
+
+	private Map<String, Object> prepareVariables(AcWaiverFinanceApplication application) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(WAIVER_FINANCE_APPLICATION_ID, application.getId());
+		map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+		map.put(WorkflowConstants.REFERENCE_NO, application.getReferenceNo());
+		map.put(WorkflowConstants.REMOVE_DECISION, false);
+		map.put(WorkflowConstants.CANCEL_DECISION, false);
+		return map;
+	}
 	// ====================================================================================================
 	// //
 	// ADVANCE PAYMENT
 	// ====================================================================================================
 	// //
-	
+
 	@Override
 	public AcAdvancePayment findAdvancePaymentById(Long id) {
 		return advancePaymentDao.findById(id);
 	}
-	
+
 	@Override
 	public AcAdvancePayment findAdvancePaymentByReferenceNo(String referenceNo) {
 		return advancePaymentDao.findByReferenceNo(referenceNo);
 	}
-	
+
 	@Override
-	public void addAdvancePayment(AcAdvancePayment payment, AcUser user){
+	public void addAdvancePayment(AcAdvancePayment payment, AcUser user) {
 		advancePaymentDao.save(payment, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-	
+
 	@Override
 	public void updateAdvancePayment(AcAdvancePayment payment) {
 		advancePaymentDao.update(payment, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-	
+
 	@Override
-	public List<AcAdvancePayment> findAdvancePayments(boolean status, String filter, Integer offset, Integer limit) { 
+	public List<AcAdvancePayment> findAdvancePayments(boolean status, String filter, Integer offset, Integer limit) {
 		return advancePaymentDao.find(false, filter, offset, limit);
 	}
-	
+
 	@Override
 	public List<AcAdvancePayment> findUnpaidAdvancePayments(AcAccount account, Integer offset, Integer limit) {
 		return advancePaymentDao.find(false, account, offset, limit);
@@ -1114,17 +1194,17 @@ public class BillingServiceImpl implements BillingService {
 	public AcKnockoff findKnockoffById(Long id) {
 		return knockoffDao.findById(id);
 	}
-	
+
 	@Override
 	public AcKnockoff findKnockoffByReferenceNo(String referenceNo) {
 		return knockoffDao.findByReferenceNo(referenceNo);
 	}
-	
+
 	@Override
-	public List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit) { 
+	public List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit) {
 		return knockoffDao.find(filter, offset, limit);
 	}
-	
+
 	@Override
 	public List<AcKnockoff> findKnockoffsByFlowState(AcFlowState acFlowState) {
 		return knockoffDao.findByFlowState(acFlowState);
@@ -1143,7 +1223,7 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void addKnockoff(AcKnockoff knockoff) {
 		knockoffDao.save(knockoff, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().flush();
 	}
 
 	@Override
@@ -1157,9 +1237,9 @@ public class BillingServiceImpl implements BillingService {
 		knockoffDao.remove(knockoff, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-	
-	//TASK
-	
+
+	// TASK
+
 	@Override
 	public AcKnockoff findKnockoffByTaskId(String taskId) {
 		Task task = workflowService.findTask(taskId);
@@ -1181,7 +1261,7 @@ public class BillingServiceImpl implements BillingService {
 	public List<Task> findPooledKnockoffTasks(Integer offset, Integer limit) {
 		return workflowService.findPooledTasks(AcKnockoff.class.getName(), offset, limit);
 	}
-	
+
 	@Override
 	public String startKnockoffTask(AcKnockoff knockoff) {
 		String refNo = systemService.generateReferenceNo(AccountConstants.KNOCKOFF_REFRENCE_NO);
@@ -1193,7 +1273,7 @@ public class BillingServiceImpl implements BillingService {
 		sessionFactory.getCurrentSession().refresh(knockoff);
 
 		LOG.debug("Knockoff Description {}", knockoff.getDescription());
-		
+
 		workflowService.processWorkflow(knockoff, prepareVariables(knockoff));
 		return refNo;
 	}
@@ -1204,12 +1284,11 @@ public class BillingServiceImpl implements BillingService {
 	// ====================================================================================================
 	// //
 
-	
 	@Override
-	public List<AcRefundPayment> findRefundPayments(String filter, Integer offset, Integer limit) { 
+	public List<AcRefundPayment> findRefundPayments(String filter, Integer offset, Integer limit) {
 		return refundPaymentDao.find(filter, offset, limit);
 	}
-	
+
 	@Override
 	public List<AcRefundPayment> findRefundPaymentsByFlowState(AcFlowState acFlowState) {
 		return refundPaymentDao.findByFlowState(acFlowState);
@@ -1219,12 +1298,12 @@ public class BillingServiceImpl implements BillingService {
 	public List<AcRefundPayment> findRefundPaymentsByFlowStates(AcFlowState... flowStates) {
 		return refundPaymentDao.findByFlowStates(flowStates);
 	}
-	
+
 	@Override
 	public AcRefundPayment findRefundPaymentById(Long id) {
 		return refundPaymentDao.findById(id);
 	}
-	
+
 	@Override
 	public AcRefundPayment findRefundPaymentByReferenceNo(String referenceNo) {
 		return refundPaymentDao.findByReferenceNo(referenceNo);
@@ -1240,7 +1319,7 @@ public class BillingServiceImpl implements BillingService {
 		refundPaymentDao.save(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-	
+
 	@Override
 	public void updateRefundPayment(AcRefundPayment refund) {
 		refundPaymentDao.update(refund, securityService.getCurrentUser());
@@ -1252,143 +1331,145 @@ public class BillingServiceImpl implements BillingService {
 		refundPaymentDao.remove(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-	
-	//TASK REFUND
-	
-		@Override
-		public AcRefundPayment findRefundPaymentByTaskId(String taskId) {
-			Task task = workflowService.findTask(taskId);
-			Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
-			return refundPaymentDao.findById((Long) map.get(AccountConstants.REFUND_ID));
-		}
 
-		@Override
-		public Task findRefundPaymentTaskByTaskId(String taskId) {
-			return workflowService.findTask(taskId);
-		}
+	// TASK REFUND
 
-		@Override
-		public List<Task> findAssignedRefundPaymentTasks(Integer offset, Integer limit) {
-			return workflowService.findAssignedTasks(AcRefundPayment.class.getName(), offset, limit);
-		}
+	@Override
+	public AcRefundPayment findRefundPaymentByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return refundPaymentDao.findById((Long) map.get(AccountConstants.REFUND_ID));
+	}
 
-		@Override
-		public List<Task> findPooledRefundPaymentTasks(Integer offset, Integer limit) {
-			return workflowService.findPooledTasks(AcRefundPayment.class.getName(), offset, limit);
-		}
-		
-		@Override
-		public String startRefundPaymentTask(AcRefundPayment refundPayment) {
-			String refNo = systemService.generateReferenceNo(AccountConstants.REFUND_REFRENCE_NO);
-			refundPayment.setReferenceNo(refNo);
-			LOG.debug("Processing knockoff with refNo {}", new Object[] { refNo });
+	@Override
+	public Task findRefundPaymentTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
 
-			refundPaymentDao.saveOrUpdate(refundPayment, securityService.getCurrentUser());
-			sessionFactory.getCurrentSession().flush();
-			sessionFactory.getCurrentSession().refresh(refundPayment);
+	@Override
+	public List<Task> findAssignedRefundPaymentTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcRefundPayment.class.getName(), offset, limit);
+	}
 
-			workflowService.processWorkflow(refundPayment, prepareVariables(refundPayment));
-			return refNo;
-		}
-	
+	@Override
+	public List<Task> findPooledRefundPaymentTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcRefundPayment.class.getName(), offset, limit);
+	}
+
+	@Override
+	public String startRefundPaymentTask(AcRefundPayment refundPayment) {
+		String refNo = systemService.generateReferenceNo(AccountConstants.REFUND_REFRENCE_NO);
+		refundPayment.setReferenceNo(refNo);
+		LOG.debug("Processing knockoff with refNo {}", new Object[] { refNo });
+
+		refundPaymentDao.saveOrUpdate(refundPayment, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(refundPayment);
+
+		workflowService.processWorkflow(refundPayment, prepareVariables(refundPayment));
+		return refNo;
+	}
+
 	// ====================================================================================================
 	// //
 	// WAIVER FINANCE APPLICATION
 	// ====================================================================================================
 	// //
 
-    @Override
-    public AcWaiverFinanceApplication findWaiverfinanceApplicationByTaskId(String taskId) {
-        Task task = workflowService.findTask(taskId);
-        Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
-        return waiverFinanceApplicationDao.findById((Long) map.get(WAIVER_FINANCE_APPLICATION_ID));
-    }
-    
-    @Override
-    public Task findWaiverFinanceApplicationTaskByTaskId(String taskId) {
-        return workflowService.findTask(taskId);
-    }
+	@Override
+	public AcWaiverFinanceApplication findWaiverfinanceApplicationByTaskId(String taskId) {
+		Task task = workflowService.findTask(taskId);
+		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+		return waiverFinanceApplicationDao.findById((Long) map.get(WAIVER_FINANCE_APPLICATION_ID));
+	}
 
-    @Override
-    public List<Task> findAssignedWaiverFinanceApplicationTasks(Integer offset, Integer limit) {
-        return workflowService.findAssignedTasks(AcWaiverFinanceApplication.class.getName(), offset, limit);
-    }
+	@Override
+	public Task findWaiverFinanceApplicationTaskByTaskId(String taskId) {
+		return workflowService.findTask(taskId);
+	}
 
-    @Override
-    public List<Task> findPooledWaiverFinanceApplicationTasks(Integer offset, Integer limit) {
-        return workflowService.findPooledTasks(AcWaiverFinanceApplication.class.getName(), offset, limit);
-    }
-	
-    @Override
-    public String startWaiverFinanceApplicationTask(AcWaiverFinanceApplication application) {
-        String referenceNo = systemService.generateReferenceNo(AccountConstants.WAIVER_FINANCE_APPLICATION_REFERENCE_NO);
-        application.setReferenceNo(referenceNo);
-        LOG.debug("Processing application with refNo {}", referenceNo);
+	@Override
+	public List<Task> findAssignedWaiverFinanceApplicationTasks(Integer offset, Integer limit) {
+		return workflowService.findAssignedTasks(AcWaiverFinanceApplication.class.getName(), offset, limit);
+	}
 
-        waiverFinanceApplicationDao.saveOrUpdate(application, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().refresh(application);
+	@Override
+	public List<Task> findPooledWaiverFinanceApplicationTasks(Integer offset, Integer limit) {
+		return workflowService.findPooledTasks(AcWaiverFinanceApplication.class.getName(), offset, limit);
+	}
 
-        workflowService.processWorkflow(application, prepareVariables(application));
-        return referenceNo;
-    }
+	@Override
+	public String startWaiverFinanceApplicationTask(AcWaiverFinanceApplication application) {
+		String referenceNo = systemService
+				.generateReferenceNo(AccountConstants.WAIVER_FINANCE_APPLICATION_REFERENCE_NO);
+		application.setReferenceNo(referenceNo);
+		LOG.debug("Processing application with refNo {}", referenceNo);
 
-    @Override
-    public void updateWaiverFinanceApplication(AcWaiverFinanceApplication application) {
-        waiverFinanceApplicationDao.update(application, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
-    
-    @Override
-    public void cancelWaiverFinanceApplication(AcWaiverFinanceApplication application) {
-        application.getFlowdata().setState(AcFlowState.CANCELLED);
-        application.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
-        application.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
-        waiverFinanceApplicationDao.update(application, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-    }
+		waiverFinanceApplicationDao.saveOrUpdate(application, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(application);
 
-    @Override
-    public AcWaiverFinanceApplication findWaiverFinanceApplicationById(Long id) {
-        return waiverFinanceApplicationDao.findById(id);
-    }
+		workflowService.processWorkflow(application, prepareVariables(application));
+		return referenceNo;
+	}
 
-    @Override
-    public AcWaiverFinanceApplication findWaiverFinanceApplicationByReferenceNo(String referenceNo) {
-        return waiverFinanceApplicationDao.findByReferenceNo(referenceNo);
-    }
-    
-    @Override
-    public List<AcWaiverFinanceApplication> findWaiverFinanceApplicationsByFlowState(AcFlowState acFlowState) {
-    	return waiverFinanceApplicationDao.findByFlowState(acFlowState);
-    }
+	@Override
+	public void updateWaiverFinanceApplication(AcWaiverFinanceApplication application) {
+		waiverFinanceApplicationDao.update(application, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
 
-    @Override
-    public List<AcWaiverFinanceApplication> findWaiverFinanceApplicationsByFlowStates(AcFlowState... acFlowState) {
-    	return waiverFinanceApplicationDao.findByFlowStates(acFlowState);
-    }
+	@Override
+	public void cancelWaiverFinanceApplication(AcWaiverFinanceApplication application) {
+		application.getFlowdata().setState(AcFlowState.CANCELLED);
+		application.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+		application.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+		waiverFinanceApplicationDao.update(application, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
 
-    @Override
-    public List<AcWaiverFinanceApplication> findWaiverFinanceApplications(String filter, Integer offset, Integer limit) {
-        return waiverFinanceApplicationDao.find(offset, limit);
-    }
+	@Override
+	public AcWaiverFinanceApplication findWaiverFinanceApplicationById(Long id) {
+		return waiverFinanceApplicationDao.findById(id);
+	}
 
-    @Override
-    public List<AcWaiverFinanceApplication> findWaiverFinanceApplications(AcAcademicSession academicSession, Integer offset, Integer limit) {
-        return waiverFinanceApplicationDao.find(academicSession, offset, limit);
-    }
+	@Override
+	public AcWaiverFinanceApplication findWaiverFinanceApplicationByReferenceNo(String referenceNo) {
+		return waiverFinanceApplicationDao.findByReferenceNo(referenceNo);
+	}
 
-    @Override
-    public Integer countWaiverFinanceApplication(String filter) {
-        return waiverFinanceApplicationDao.count();
-    }
+	@Override
+	public List<AcWaiverFinanceApplication> findWaiverFinanceApplicationsByFlowState(AcFlowState acFlowState) {
+		return waiverFinanceApplicationDao.findByFlowState(acFlowState);
+	}
 
-    @Override
-    public Integer countWaiverFinanceApplication(AcAcademicSession academicSession) {
-        return waiverFinanceApplicationDao.count(academicSession);
-    }
-	
-	
+	@Override
+	public List<AcWaiverFinanceApplication> findWaiverFinanceApplicationsByFlowStates(AcFlowState... acFlowState) {
+		return waiverFinanceApplicationDao.findByFlowStates(acFlowState);
+	}
+
+	@Override
+	public List<AcWaiverFinanceApplication> findWaiverFinanceApplications(String filter, Integer offset,
+			Integer limit) {
+		return waiverFinanceApplicationDao.find(offset, limit);
+	}
+
+	@Override
+	public List<AcWaiverFinanceApplication> findWaiverFinanceApplications(AcAcademicSession academicSession,
+			Integer offset, Integer limit) {
+		return waiverFinanceApplicationDao.find(academicSession, offset, limit);
+	}
+
+	@Override
+	public Integer countWaiverFinanceApplication(String filter) {
+		return waiverFinanceApplicationDao.count();
+	}
+
+	@Override
+	public Integer countWaiverFinanceApplication(AcAcademicSession academicSession) {
+		return waiverFinanceApplicationDao.count(academicSession);
+	}
+
 	// ====================================================================================================
 	// //
 	// TAX
@@ -1396,18 +1477,17 @@ public class BillingServiceImpl implements BillingService {
 	// //
 
 	public void calculateNetAmount(AcInvoiceItem invoiceItem) {
-        BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
-        BigDecimal amount = invoiceItem.getAmount();       
-        BigDecimal taxAmount = amount.multiply(taxRate);
-		BigDecimal netAmount = amount.add(taxAmount);				       
-        if (invoiceItem.getChargeCode().getInclusive() == false) {
-        	invoiceItem.setNetAmount(netAmount);
-        	invoiceItem.setTaxAmount(taxAmount);
-		}
-		else if (invoiceItem.getChargeCode().getInclusive() == true) {
+		BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
+		BigDecimal amount = invoiceItem.getAmount();
+		BigDecimal taxAmount = amount.multiply(taxRate);
+		BigDecimal netAmount = amount.add(taxAmount);
+		if (invoiceItem.getChargeCode().getInclusive() == false) {
+			invoiceItem.setNetAmount(netAmount);
+			invoiceItem.setTaxAmount(taxAmount);
+		} else if (invoiceItem.getChargeCode().getInclusive() == true) {
 			invoiceItem.setTaxAmount(taxAmount);
 			invoiceItem.setNetAmount(amount);
 		}
 	}
-	
+
 }

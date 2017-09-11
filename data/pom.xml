@@ -323,7 +323,8 @@
                                 <srcFile>src/test/resources/data/AC_ACCT-STDN.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_ACCT-SPSR.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_FEE_SCDL.sql</srcFile>
-
+								<srcFile>src/test/resources/data/AC_ACCT_CHRG.sql</srcFile>
+								
                                 <!--BILLING-->
 
                                 <!--FINANCIALAID-->

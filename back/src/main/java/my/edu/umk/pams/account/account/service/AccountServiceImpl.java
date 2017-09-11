@@ -38,6 +38,7 @@ import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.account.model.AcFeeScheduleImpl;
 import my.edu.umk.pams.account.account.model.AcFeeScheduleItem;
 import my.edu.umk.pams.account.account.model.AcFeeScheduleItemImpl;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
@@ -749,6 +750,37 @@ public class AccountServiceImpl implements AccountService {
         accountDao.deleteCharge(account, charge, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+    
+	public void calculateNetAmount(AcAccountCharge accountCharge) {
+        BigDecimal taxRate = accountCharge.getTaxCode().getTaxRate();
+        BigDecimal amount = accountCharge.getAmount();       
+        BigDecimal taxAmount = amount.multiply(taxRate);
+		BigDecimal netAmount = amount.add(taxAmount);				       
+        if (accountCharge.getInclusive() == false) {
+        	accountCharge.setNetAmount(netAmount);
+        	accountCharge.setTaxAmount(taxAmount);
+		}
+		else if (accountCharge.getInclusive() == true) {
+			accountCharge.setTaxAmount(taxAmount);
+			accountCharge.setNetAmount(amount);
+		}
+	}
+	
+    	public void calculateSecurityChargeNetAmount(AcAccountCharge accountCharge) {
+            BigDecimal taxRate = accountCharge.getTaxCode().getTaxRate();
+            BigDecimal amount = accountCharge.getSecurityChargeCode().getAmount();    
+            BigDecimal taxAmount = amount.multiply(taxRate);
+    		BigDecimal netAmount = amount.add(taxAmount);				       
+            if (accountCharge.getInclusive() == false) {
+            	accountCharge.setNetAmount(netAmount);
+            	accountCharge.setTaxAmount(taxAmount);
+    		}
+    		else if (accountCharge.getInclusive() == true) {
+    			accountCharge.setTaxAmount(taxAmount);
+    			accountCharge.setNetAmount(amount);
+    		}   
+
+	}
 
     // ==================================================================================================== //
     //  ACCOUNT WAIVER

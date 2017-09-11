@@ -1,3 +1,4 @@
+import { TaxCode } from './../../../../shared/model/common/tax-code.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {AccountCharge} from '../../../../shared/model/account/account-charge.interface';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
@@ -48,6 +49,8 @@ export class SecurityChargeEditorDialog implements OnInit {
       chargeDate: [undefined,Validators.required],
       chargeType: AccountChargeType.SECURITY,
       securityChargeCode: [<SecurityChargeCode>{}],
+      taxCode: [<TaxCode>{}],
+      inclusive: [false],
     });
 
     if (this.edit) {

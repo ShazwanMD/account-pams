@@ -1,8 +1,29 @@
 <h2 md-dialog-title>Apply Invoice Item</h2>
 <md-dialog-content>
-	<pams-invoice-applicator-list
-	[invoiceItems]="invoiceItems$ | async">
-	</pams-invoice-applicator-list>
+<td-data-table
+  #dataTable
+  [data]="receiptItems$|async"
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  (rowSelect)="view.emit($event)" dense>
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex="40">{{value}}</span>
+    </div>
+  </template>
+    <template tdDataTableTemplate="appliedAmount" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+    	<input mdInput #appliedAmount value="{{row['appliedAmount']}}" *ngIf="readonly" flex/>
+    </div>
+  </template>
+</td-data-table>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="Apply()" *ngIf="showHide">Display All</button>
+</md-dialog-actions>
 </md-dialog-content>
 
 

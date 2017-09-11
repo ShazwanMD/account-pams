@@ -47,6 +47,7 @@ export class ReceiptTaskCreatorDialog implements OnInit {
   }
 
   save(receipt: Receipt, isValid: boolean) {
+      receipt.totalPayment = receipt.totalReceived;
     this.store.dispatch(this.actions.startReceiptTask(receipt));
     this.dialog.close();
   }

@@ -1,3 +1,4 @@
+import { TaxCode } from './../../../../shared/model/common/tax-code.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
 import {AccountCharge} from '../../../../shared/model/account/account-charge.interface';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
@@ -46,6 +47,8 @@ export class StudentAffairsChargeEditorDialog implements OnInit {
       amount:  [0,Validators.required],
       chargeDate:['undefined',Validators.required],
       chargeType: AccountChargeType.STUDENT_AFFAIRS,
+      taxCode: [<TaxCode>{}],
+      inclusive: [false],
     });
 
     if (this.edit) {

@@ -16,9 +16,13 @@ export class AdmissionChargeComponent implements OnInit {
   private admissionChargeColumns: any[] = [
     {name: 'chargeDate', label: 'Date of Charge'},
     {name: 'session.code', label: 'Session'},
+    {name: 'taxCode.code', label: 'Tax Code'},
     {name: 'sourceNo', label: 'Source No'},
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Amount'},
+    {name: 'taxAmount', label: 'Tax Amount'},
+    {name: 'inclusive', label: 'Inclusive'},
+    {name: 'netAmount', label: 'Net Amount'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
   ];

@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.event;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import my.edu.umk.pams.account.account.model.AcAccountTransactionImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.security.event.AccessListener;
 import my.edu.umk.pams.account.security.service.SecurityService;
@@ -49,6 +51,13 @@ public class DebitNoteListener implements ApplicationListener<DebitNoteEvent> {
 			invoice.setPaid(false);
 			//invoice.setSourceNo(debitNote.getReferenceNo());
 			billingService.updateInvoice(invoice);
+			
+			List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
+			for (AcInvoiceItem invoiceItem : invoiceItems) {
+				if(debitNote.getChargeCode()==invoiceItem.getChargeCode()){
+					invoiceItem.setBalanceAmount(invoiceItem.getBalanceAmount().add(debitNote.getTotalAmount()));
+				}
+			}
 			
 			AcAccountTransaction tx = new AcAccountTransactionImpl();
 			tx.setSession(invoice.getSession());

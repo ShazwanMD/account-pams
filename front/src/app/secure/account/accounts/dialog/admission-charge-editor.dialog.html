@@ -2,85 +2,68 @@
 <form [formGroup]="editorForm">
   <!-- select cohort, session, studymode -->
   <div layout="row" class="pad-bottom" flex>
-    <pams-cohort-code-select
-      [placeholder]="'Select Cohort'"
-      [innerFormControl]="editorForm.controls['cohortCode']"
-      fxFlex="calc(100%-25px)" class="pad-bottom">
+    <md-input-container flex>
+      <input mdInput type="date" placeholder="Date of Charge" formControlName="chargeDate" flex/>
+    </md-input-container>
+    <div class="error" class="tc-red-600" *ngIf="editorForm.get('chargeDate').invalid && editorForm.get('chargeDate').touched">charge Date is Required!
+    </div>
+  </div>
+  <div layout="row" class="pad-bottom" flex>
+    <pams-cohort-code-select [placeholder]="'Select Cohort'" [innerFormControl]="editorForm.controls['cohortCode']" fxFlex="calc(100%-25px)"
+      class="pad-bottom">
     </pams-cohort-code-select>
   </div>
-   <div layout="row" class="pad-bottom" flex>
-    <pams-academic-session-select
-      [placeholder]="'Select Academic Session'"
-      [innerFormControl]="editorForm.controls['session']"
+  <div layout="row" class="pad-bottom" flex>
+    <pams-academic-session-select [placeholder]="'Select Academic Session'" [innerFormControl]="editorForm.controls['session']"
       fxFlex="calc(100%-25px)" class="pad-bottom">
     </pams-academic-session-select>
   </div>
-   <div layout="row" class="pad-bottom" flex>
-    <pams-study-mode-select
-      [placeholder]="'Select Study Mode'"
-      [innerFormControl]="editorForm.controls['studyMode']"
-      fxFlex="calc(100%-25px)" class="pad-bottom">
+  <div layout="row" class="pad-bottom" flex>
+    <pams-study-mode-select [placeholder]="'Select Study Mode'" [innerFormControl]="editorForm.controls['studyMode']" fxFlex="calc(100%-25px)"
+      class="pad-bottom">
     </pams-study-mode-select>
   </div>
-   <div layout="row" class="pad-bottom" flex>
-    <md-input-container flex>
-      <input mdInput
-             placeholder="Source No"
-             formControlName="sourceNo"
-             flex/>
-    </md-input-container>
-             <div class="error" class="tc-red-600"
-            *ngIf="editorForm.get('sourceNo').invalid && editorForm.get('sourceNo').touched">source No is Required!
-          </div>
-  </div>
-
   <div layout="row" class="pad-bottom" flex>
     <md-input-container flex>
-      <input mdInput
-             placeholder="Description"
-             formControlName="description"
-             flex/>
+      <input mdInput type='number' placeholder="Semester" formControlName="ordinal" flex/>
     </md-input-container>
-        <div class="error" class="tc-red-600"
-            *ngIf="editorForm.get('description').invalid && editorForm.get('description').touched">Description is Required!
-        </div>
+    <div class="error" class="tc-red-600" *ngIf="editorForm.get('ordinal').invalid && editorForm.get('ordinal').touched">Semester is Required!
+    </div>
   </div>
-
-   <div layout="row" class="pad-bottom" flex>
-    <md-input-container flex>
-      <input mdInput type = 'number'
-             placeholder="Amount"
-             formControlName="amount"
-             flex/>
-    </md-input-container>
-          <div class="error" class="tc-red-600"
-            *ngIf="editorForm.get('amount').invalid && editorForm.get('amount').touched">Amount is Required!
-          </div>
-  </div>
-
   <div layout="row" class="pad-bottom" flex>
     <md-input-container flex>
-      <input mdInput type = 'number'
-             placeholder="Semester"
-             formControlName="ordinal"
-             flex/>
+      <input mdInput placeholder="Source No" formControlName="sourceNo" flex/>
     </md-input-container>
-          <div class="error" class="tc-red-600"
-            *ngIf="editorForm.get('ordinal').invalid && editorForm.get('ordinal').touched">Semester is Required!
-          </div>   
+    <div class="error" class="tc-red-600" *ngIf="editorForm.get('sourceNo').invalid && editorForm.get('sourceNo').touched">source No is Required!
+    </div>
+  </div>
+  <div layout="row" class="pad-bottom" flex>
+    <md-input-container flex>
+      <input mdInput placeholder="Description" formControlName="description" flex/>
+    </md-input-container>
+    <div class="error" class="tc-red-600" *ngIf="editorForm.get('description').invalid && editorForm.get('description').touched">Description is Required!
+    </div>
+  </div>
+  <div layout="row" class="pad-bottom" flex>
+    <md-input-container flex>
+      <input mdInput type='number' placeholder="Amount" formControlName="amount" flex/>
+    </md-input-container>
+    <div class="error" class="tc-red-600" *ngIf="editorForm.get('amount').invalid && editorForm.get('amount').touched">Amount is Required!
+    </div>
+  </div>
+  <div layout="row" class="pad-bottom" flex>
+    <pams-tax-code-select [placeholder]="'Tax Code'" [innerFormControl]="editorForm.controls['taxCode']" fxFlex="calc(100%-25px)"
+      class="pad-bottom">
+    </pams-tax-code-select>
+  </div>
+  <div layout="row" class="pad-bottom">
+    <md-checkbox formControlName="inclusive">
+      <div layout="column" flex>
+        Inclusive
+      </div>
+    </md-checkbox>
   </div>
 
- <div layout="row" class="pad-bottom" flex>
-    <md-input-container flex>
-      <input mdInput type="date"
-             placeholder="Date of Charge"
-             formControlName="chargeDate"
-             flex/>
-    </md-input-container>
-      <div class="error" class="tc-red-600"
-            *ngIf="editorForm.get('chargeDate').invalid && editorForm.get('chargeDate').touched">charge Date is Required!
-      </div>  
-  </div>
 </form>
 <md-dialog-actions align="end">
   <button md-raised-button color="accent" (click)="submit(editorForm.value, editorForm.valid)" [disabled]="!editorForm.valid">
@@ -88,5 +71,3 @@
   </button>
 
 </md-dialog-actions>
-
-

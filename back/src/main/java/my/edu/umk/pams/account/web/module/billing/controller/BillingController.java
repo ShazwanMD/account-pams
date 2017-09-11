@@ -172,6 +172,7 @@ public class BillingController {
         e.setChargeCode(chargeCode);
         e.setTaxCode(chargeCode.getTaxCode());
         e.setAmount(item.getAmount());
+        e.setBalanceAmount(item.getAmount());
         billingService.calculateNetAmount(e);
         billingService.addInvoiceItem(invoice, e);      
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -189,6 +190,7 @@ public class BillingController {
         e.setAmount(item.getAmount());
         e.setTaxAmount(item.getTaxAmount());
         e.setNetAmount(item.getNetAmount());
+        e.setBalanceAmount(item.getAmount());
         billingService.calculateNetAmount(e);
         billingService.updateInvoiceItem(invoice, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -414,6 +416,7 @@ public class BillingController {
         receipt.setReceiptType(AcReceiptType.get(vo.getReceiptType().ordinal()));
         receipt.setPaymentMethod(AcPaymentMethod.get(vo.getPaymentMethod().ordinal()));
         receipt.setSession(accountService.findCurrentAcademicSession());
+        receipt.setTotalPayment(vo.getTotalPayment());
         return new ResponseEntity<String>(billingService.startReceiptTask(receipt), HttpStatus.OK);
     }
 
@@ -458,6 +461,14 @@ public class BillingController {
         AcAccount account = accountService.findAccountByCode(receipt.getAccount().getCode());
         LOG.debug("account {}", account);
         billingService.calculateChargeInvoice(receipt, account);
+    }
+    
+    @RequestMapping(value = "/invoices/{referenceNo}/receipts/{id}", method = RequestMethod.POST)
+    public void itemToReceiptItem(@PathVariable Long id, @PathVariable String referenceNo) {
+    	
+    	AcReceipt receipt = billingService.findReceiptById(id);
+        AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+        billingService.itemToReceiptItem(invoice, receipt);
     }
 
     // ==================================================================================================== //
