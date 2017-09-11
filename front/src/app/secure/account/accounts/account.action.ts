@@ -519,11 +519,11 @@ export class AccountActions {
 
   static REMOVE_SPONSORSHIP = '[Account] Remove Sponsorship';
 
-  removeSponsorship(account, sponsorship): Action {
+  removeSponsorship(account, sponsor, sponsorship): Action {
     console.log('remove sponsorship');
     return {
       type: AccountActions.REMOVE_SPONSORSHIP,
-      payload: {account: account, sponsorship: sponsorship}
+      payload: {account: account, sponsor: sponsor, sponsorship: sponsorship}
     };
   }
 
