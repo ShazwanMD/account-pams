@@ -57,16 +57,16 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
 
         billingService.post(invoice);
 
-        // fire event
-        applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
-
-        AcAccount account = invoice.getAccount();
-        AccountPayload payload = new AccountPayload();
-        payload.setCode(account.getCode());
-        payload.setMatricNo(account.getActor().getIdentityNo());
-        payload.setOutstanding(accountService.hasBalance(account));
-        payload.setBalance(accountService.sumBalanceAmount(account));
-        AccountRevisedEvent event = new AccountRevisedEvent(payload);
-        applicationContext.publishEvent(event);
+//        // fire event
+//        applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
+//
+//        AcAccount account = invoice.getAccount();
+//        AccountPayload payload = new AccountPayload();
+//        payload.setCode(account.getCode());
+//        payload.setMatricNo(account.getActor().getIdentityNo());
+//        payload.setOutstanding(accountService.hasBalance(account));
+//        payload.setBalance(accountService.sumBalanceAmount(account));
+//        AccountRevisedEvent event = new AccountRevisedEvent(payload);
+//        applicationContext.publishEvent(event);
     }
 }

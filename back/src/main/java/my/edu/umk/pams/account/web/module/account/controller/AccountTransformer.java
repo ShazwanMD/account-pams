@@ -123,15 +123,19 @@ public class AccountTransformer {
         m.setReferenceNo(e.getReferenceNo());
         m.setDescription(e.getDescription());
         m.setAmount(e.getAmount());
+        m.setTaxAmount(e.getTaxAmount());
+        m.setNetAmount(e.getNetAmount());
         m.setChargeType(AccountChargeType.get(e.getChargeType().ordinal()));
         m.setSession(toAcademicSessionVo(e.getSession()));
         m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
+        m.setTaxCode(commonTransformer.toTaxCodeVo(e.getTaxCode()));
         m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
         m.setSecurityChargeCode(commonTransformer.toSecurityChargeCodeVo(e.getSecurityChargeCode()));
         m.setChargeDate(e.getChargeDate());
         m.setOrdinal(e.getOrdinal());
         //m.setCode(e.getCohortCode());
         m.setInvoiced(null != e.getInvoice());
+        m.setInclusive(e.getInclusive());
         commonTransformer.decorateMeta(e,m);
         return m;
     }

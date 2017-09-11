@@ -3,31 +3,35 @@
   <form [formGroup]="editForm">
     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
       <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput
-               placeholder="Source No"
-               formControlName="sourceNo"
-               flex/>
+        <input mdInput type="date" placeholder="Date of Charge" formControlName="chargeDate" />
       </md-input-container>
-          <div class="error" class="tc-red-600"
-            *ngIf="editForm.get('sourceNo').invalid && editForm.get('sourceNo').touched">source No Required!
-          </div>
+      <div class="error" class="tc-red-600" *ngIf="editForm.get('chargeDate').invalid && editForm.get('chargeDate').touched">charge Date Required!
+      </div>
     </div>
     <div>
-     <pams-security-charge-code-select
-      [placeholder]="'Security Charge Code'"
-      [innerFormControl]="editForm.controls['securityChargeCode']"
-      fxFlex="calc(100%-25px)" class="pad-bottom">
-    </pams-security-charge-code-select>
-  </div>
-    <div>
       <md-input-container fxFlex="calc(100%-25px)">
-        <input mdInput type="date"
-               placeholder="Date of Charge"
-               formControlName="chargeDate"/>
+        <input mdInput placeholder="Source No" formControlName="sourceNo" flex/>
       </md-input-container>
-          <div class="error" class="tc-red-600"
-            *ngIf="editForm.get('chargeDate').invalid && editForm.get('chargeDate').touched">charge Date Required!
-          </div>  
+      <div class="error" class="tc-red-600" *ngIf="editForm.get('sourceNo').invalid && editForm.get('sourceNo').touched">source No Required!
+      </div>
+    </div>
+    <div>
+      <pams-security-charge-code-select [placeholder]="'Security Charge Code'" [innerFormControl]="editForm.controls['securityChargeCode']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
+      </pams-security-charge-code-select>
+    </div>
+
+    <div>
+      <pams-tax-code-select [placeholder]="'Tax Code'" [innerFormControl]="editForm.controls['taxCode']" fxFlex="calc(100%-25px)"
+        class="pad-bottom">
+      </pams-tax-code-select>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-checkbox formControlName="inclusive">
+        <div layout="column" flex>
+          Inclusive
+        </div>
+      </md-checkbox>
     </div>
   </form>
 </md-dialog-content>
