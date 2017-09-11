@@ -45,7 +45,7 @@ export class SponsorshipComponent implements OnInit {
   delete(): void {
     console.log('length: ' + this.selectedRows.length);
     for (let i: number = 0; i < this.selectedRows.length; i++) {
-      this.store.dispatch(this.actions.removeSponsorship(this.account, this.selectedRows[i]));
+    this.store.dispatch(this.actions.removeSponsorship(this.account, this.selectedRows[i]));
     }
     this.selectedRows = [];
   }
