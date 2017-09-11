@@ -882,9 +882,15 @@ public class AccountServiceImpl implements AccountService {
         sessionFactory.getCurrentSession().flush();
     }
     
+//    @Override
+//    public void removeSponsorship(AcAccount account, AcSponsorship sponsorship) {
+//    	sponsorshipDao.removeSponsorship(account, sponsorship, securityService.getCurrentUser());
+//        sessionFactory.getCurrentSession().flush();
+//    }
+    
     @Override
     public void removeSponsorship(AcAccount account, AcSponsorship sponsorship) {
-    	sponsorshipDao.removeSponsorship(account, sponsorship, securityService.getCurrentUser());
+    	sponsorshipDao.remove(sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
    
