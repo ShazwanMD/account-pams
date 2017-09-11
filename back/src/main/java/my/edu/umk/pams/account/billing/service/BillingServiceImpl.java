@@ -277,7 +277,7 @@ public class BillingServiceImpl implements BillingService {
 		List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
 		for (AcInvoiceItem invoiceItem : invoiceItems) {
 			
-			if (invoice.getBalanceAmount().compareTo(receipt.getTotalReceived()) <= 0) {
+			if (invoice.getBalanceAmount().compareTo(receipt.getTotalPayment()) <= 0) {
 				AcReceiptItem receiptItem = new AcReceiptItemImpl();
 				receiptItem.setChargeCode(invoiceItem.getChargeCode());
 				receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
@@ -293,9 +293,9 @@ public class BillingServiceImpl implements BillingService {
 				billingService.addReceiptItem(receipt, receiptItem);
 			}
 
-			else if (invoice.getBalanceAmount().compareTo(receipt.getTotalReceived()) > 0) {
+			else if (invoice.getBalanceAmount().compareTo(receipt.getTotalPayment()) > 0) {
 				
-				if (receipt.getTotalReceived().compareTo(invoiceItem.getBalanceAmount()) >= 0) {
+				if (receipt.getTotalPayment().compareTo(invoiceItem.getBalanceAmount()) >= 0) {
 					AcReceiptItem receiptItem = new AcReceiptItemImpl();
 					receiptItem.setChargeCode(invoiceItem.getChargeCode());
 					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
@@ -310,22 +310,22 @@ public class BillingServiceImpl implements BillingService {
 					billingService.addReceiptItem(receipt, receiptItem);
 				}
 
-				else if (receipt.getTotalReceived().compareTo(invoiceItem.getBalanceAmount()) < 0) {
+				else if (receipt.getTotalPayment().compareTo(invoiceItem.getBalanceAmount()) < 0) {
 					AcReceiptItem receiptItem = new AcReceiptItemImpl();
 					receiptItem.setChargeCode(invoiceItem.getChargeCode());
 					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
 					receiptItem.setDescription(invoiceItem.getChargeCode().getDescription());
 					receiptItem.setInvoice(invoice);
 					receiptItem.setAdjustedAmount(BigDecimal.ZERO);
-					receiptItem.setAppliedAmount(receipt.getTotalReceived());
+					receiptItem.setAppliedAmount(receipt.getTotalPayment());
 					receiptItem.setPrice(BigDecimal.ZERO);
 					receiptItem.setReceipt(receipt);
-					receiptItem.setTotalAmount(invoiceItem.getBalanceAmount().subtract(receipt.getTotalReceived()));
+					receiptItem.setTotalAmount(invoiceItem.getBalanceAmount().subtract(receipt.getTotalPayment()));
 					receiptItem.setUnit(0);
 					billingService.addReceiptItem(receipt, receiptItem);
 				}
 
-				else if (receipt.getTotalReceived().compareTo(BigDecimal.ZERO) == 0.00) {
+				else if (receipt.getTotalPayment().compareTo(BigDecimal.ZERO) == 0.00) {
 					AcReceiptItem receiptItem = new AcReceiptItemImpl();
 					receiptItem.setChargeCode(invoiceItem.getChargeCode());
 					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
@@ -340,12 +340,12 @@ public class BillingServiceImpl implements BillingService {
 					billingService.addReceiptItem(receipt, receiptItem);
 				}
 				
-				receipt.setTotalReceived(receipt.getTotalReceived().subtract(invoiceItem.getBalanceAmount()));
+				receipt.setTotalPayment(receipt.getTotalPayment().subtract(invoiceItem.getBalanceAmount()));
 				LOG.debug("value invoiceItem after looping {}", receipt.getTotalReceived());
 			}
 			
-			receipt.setTotalReceived(receipt.getTotalReceived().subtract(invoice.getBalanceAmount()));
-			LOG.debug("value invoice after looping {}", receipt.getTotalReceived());
+//			receipt.setTotalReceived(receipt.getTotalReceived().subtract(invoice.getBalanceAmount()));
+//			LOG.debug("value invoice after looping {}", receipt.getTotalReceived());
 		}
 
 	}
