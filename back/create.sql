@@ -52,6 +52,9 @@
     create table AC_ACCT_CHRG (
         ID int8 not null,
         AMOUNT numeric(19, 2) not null,
+        NET_AMOUNT numeric(19, 2),
+        TAX_AMOUNT numeric(19, 2),
+        INCLUSIVE boolean,
         CHARGE_DATE timestamp,
         CHARGE_TYPE int4,
         CODE varchar(255),
@@ -72,6 +75,7 @@
         SESSION_ID int8,
         STUDY_MODE_ID int8,
         SECURITY_CHARGE_CODE_ID int8,
+        TAX_CODE_ID int8,
         primary key (ID)
     );
 
@@ -667,6 +671,7 @@
         M_ST int4,
         CHARGE_CODE_ID int8,
         INVOICE_ID int8,
+        TAX_CODE_ID int8,
         primary key (ID)
     );
 
@@ -1479,6 +1484,11 @@ create table AC_RFND_PYMT (
         add constraint FK_1pi4606wcpiir5b1fve6uh8c6 
         foreign key (COHORT_CODE_ID) 
         references AC_CHRT_CODE;
+        
+    alter table AC_CHRG_CODE
+        add constraint FK_3j9nre46398unh5i1rwdx2eg
+        foreign key (TAX_CODE_ID)
+        references AC_TAX_CODE;        
 
     alter table AC_ACCT_CHRG 
         add constraint FK_bnblgrmw2hvfi9b4xwg6t1fam 
@@ -1677,7 +1687,7 @@ create table AC_RFND_PYMT (
 
     alter table AC_INVC_ITEM 
         add constraint FK_2d6lwtme5e7ch5iextvyjuh2k 
-        foreign key (Tax_CODE_ID) 
+        foreign key (TAX_CODE_ID) 
         references AC_TAX_CODE;
 
     alter table AC_KNOF 

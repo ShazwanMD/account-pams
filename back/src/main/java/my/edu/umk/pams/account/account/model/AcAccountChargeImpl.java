@@ -70,6 +70,12 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
+    
+    @Column(name = "TAX_AMOUNT")
+    private BigDecimal taxAmount = BigDecimal.ZERO;
+    
+    @Column(name = "NET_AMOUNT")
+    private BigDecimal netAmount = BigDecimal.ZERO;
 
   
     @ManyToOne(targetEntity = AcAcademicSessionImpl.class)
@@ -272,6 +278,26 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @Override
     public void setInclusive(Boolean inclusive) {
 		this.inclusive = inclusive;
+	}
+    
+    @Override
+	public BigDecimal getTaxAmount() {
+		return taxAmount;
+	}
+
+    @Override
+	public void setTaxAmount(BigDecimal taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+    @Override
+	public BigDecimal getNetAmount() {
+		return netAmount;
+	}
+
+    @Override
+	public void setNetAmount(BigDecimal netAmount) {
+		this.netAmount = netAmount;
 	}
 
 	@Override

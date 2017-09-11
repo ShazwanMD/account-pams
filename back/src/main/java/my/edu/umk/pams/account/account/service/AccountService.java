@@ -249,6 +249,10 @@ public interface AccountService {
     void updateAccountCharge(AcAccount account, AcAccountCharge charge);
 
     void deleteAccountCharge(AcAccount acAccount, AcAccountCharge charge);
+    
+    void calculateNetAmount(AcAccountCharge charge);
+    
+    void calculateSecurityChargeNetAmount(AcAccountCharge accountCharge);
 
     // ==================================================================================================== //
     //  ACCOUNT WAIVER

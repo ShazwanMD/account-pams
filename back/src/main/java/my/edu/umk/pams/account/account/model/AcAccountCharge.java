@@ -80,4 +80,12 @@ public interface AcAccountCharge extends AcMetaObject {
 
 	void setInclusive(Boolean inclusive);
 
+	BigDecimal getTaxAmount();
+
+	void setTaxAmount(BigDecimal taxAmount);
+
+	void setNetAmount(BigDecimal netAmount);
+
+	BigDecimal getNetAmount();
+
 }

@@ -35,32 +35,25 @@
           <md-card>
               <md-tab-group [selectedIndex]="0">
                   <md-tab label="Unpaid Invoices">
-                      <pams-invoice-receipt-list
+                    <pams-invoice-receipt-list
                       [receipt]="receiptTask.receipt"
                       [receiptInvoice]="receiptInvoice$ | async"
                       (view)="view($event)">
                     </pams-invoice-receipt-list>
+
+                    <pams-receipt-item-list
+                      [receipt]="receiptTask.receipt"
+                      [receiptItems]="receiptItems$ | async">
+                    </pams-receipt-item-list>
                   </md-tab>
 
                   <md-tab label="Unpaid Charges">
-
+                      <md-tab label="Receipt Charges">
+                      </md-tab>
                   </md-tab>
-
               </md-tab-group>
           </md-card>
         <div>
-        <md-card>
-         <md-tab-group [selectedIndex]="0">
-         <md-tab label="Receipt Items">
-          <pams-receipt-item-list
-            [receipt]="receiptTask.receipt"
-            [receiptItems]="receiptItems$ | async">
-          </pams-receipt-item-list>
-        </md-tab>
-        <md-tab label="Receipt Charges">
-          </md-tab>
-        </md-tab-group>
-        </md-card>
         </div>
       </div>
       </div>

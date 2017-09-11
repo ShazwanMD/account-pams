@@ -1,3 +1,4 @@
+import { TaxCode } from './../common/tax-code.interface';
 import {MetaObject} from '../../../core/meta-object.interface';
 import {AccountChargeType} from './account-charge-type.enum';
 import {StudyMode} from '../common/study-mode.interface';
@@ -10,7 +11,11 @@ export interface AccountCharge extends MetaObject {
   amount: number;
   chargeType: AccountChargeType;
   session: AcademicSession;
+  taxCode: TaxCode;
   chargeDate: Date;
+  taxAmount: number;
+  netAmount: number;
+
 
   // admission
   studyMode?: StudyMode;
@@ -19,6 +24,7 @@ export interface AccountCharge extends MetaObject {
 
   // transient
   invoiced?: boolean;
+  inclusive: boolean;
 
   // selection
   selected?: boolean;
