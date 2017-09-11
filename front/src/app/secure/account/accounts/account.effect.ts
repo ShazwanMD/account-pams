@@ -167,5 +167,22 @@ export class AccountEffects {
     .map((state) => state[1])
     .map((account: Account) => this.accountActions.findAccountByCode(account.code));
 
+  @Effect() updateAccountSponsorships$ = this.actions$
+    .ofType(AccountActions.UPDATE_SPONSORSHIP)
+    .map((action) => action.payload)
+    .switchMap((payload) => this.accountService.updateAccountSponsorships(payload.account, payload.sponsor, payload.sponsorship))
+    .map((message) => this.accountActions.updateSponsorshipSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map((state) => state[1])
+    .map((account: Account) => this.accountActions.findAccountByCode(account.code));
+
+      @Effect() removeAccountSponsorships$ = this.actions$
+    .ofType(AccountActions.REMOVE_SPONSORSHIP)
+    .map((action) => action.payload)
+    .switchMap((payload) => this.accountService.removeAccountSponsorships(payload.account, payload.sponsor, payload.sponsorship))
+    .map((message) => this.accountActions.removeSponsorshipSuccess(message))
+    .withLatestFrom(this.store$.select(...this.ACCOUNT))
+    .map((state) => state[1])
+    .map((account: Account) => this.accountActions.findAccountByCode(account.code));
 }
 
