@@ -63,6 +63,10 @@ public class AcReceiptImpl implements AcReceipt {
 	@NotNull
 	@Column(name = "TOTAL_AMOUNT")
 	private BigDecimal totalAmount = new BigDecimal(0.00);
+	
+	@NotNull
+	@Column(name = "TOTAL_PAYMENT")
+	private BigDecimal totalPayment = BigDecimal.ZERO;
 
 	@NotNull
 	@Column(name = "RECEIVED_DATE")
@@ -286,6 +290,16 @@ public class AcReceiptImpl implements AcReceipt {
 	@Override
 	public void setSession(AcAcademicSession session) {
 		this.session = session;
+	}
+
+	@Override	
+	public BigDecimal getTotalPayment() {
+		return totalPayment;
+	}
+
+	@Override
+	public void setTotalPayment(BigDecimal totalPayment) {
+		this.totalPayment = totalPayment;
 	}
 
 	@Override

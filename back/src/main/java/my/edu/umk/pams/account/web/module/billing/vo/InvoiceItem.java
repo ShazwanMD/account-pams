@@ -23,6 +23,7 @@ public class InvoiceItem extends MetaObject {
     private TaxCode taxCode;
     private BigDecimal taxAmount;
     private BigDecimal netAmount;
+    private BigDecimal balanceAmount;
 
     public String getDescription() {
         return description;
@@ -94,6 +95,14 @@ public class InvoiceItem extends MetaObject {
 
 	public void setNetAmount(BigDecimal netAmount) {
 		this.netAmount = netAmount;
+	}
+
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
 	}
 
 	@JsonCreator

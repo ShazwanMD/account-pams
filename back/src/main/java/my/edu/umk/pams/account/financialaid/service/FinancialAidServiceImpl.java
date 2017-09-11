@@ -229,6 +229,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
                 invoice.setAccount(item.getAccount());
                 invoice.setSession(settlement.getSession());
                 invoice.setIssuedDate(settlement.getIssuedDate());
+                invoice.setDescription(settlement.getDescription());
                 invoice.setTotalAmount(BigDecimal.ZERO);
                 invoice.setBalanceAmount(BigDecimal.ZERO);
                 invoice.setPaid(false);
@@ -238,7 +239,7 @@ public class FinancialAidServiceImpl implements FinancialAidService {
                 String invoiceReferenceNo = billingService.startInvoiceTask(invoice);
 
                 // create item here
-                List<AcInvoice> invc = invoiceDao.find(item.getAccount());
+//                List<AcInvoice> invc = invoiceDao.find(item.getAccount());
 //                AcChargeCode dummyChargeCode = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331");
 //                for (AcInvoice invce : invc) {
 //                    AcInvoiceItem invoiceItem = new AcInvoiceItemImpl();

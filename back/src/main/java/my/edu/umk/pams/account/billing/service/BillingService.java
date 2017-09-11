@@ -57,6 +57,8 @@ public interface BillingService {
     void detach(AcInvoice invoice, AcAccountCharge charge) throws Exception;
 
     void detach(AcInvoice invoice, AcAccount account, AcAccountChargeType... chargeTypes) throws Exception;
+    
+    void itemToReceiptItem(AcInvoice invoice, AcReceipt receipt);
 
     // ==================================================================================================== //
     // INVOICE

@@ -11,4 +11,5 @@ export interface Receipt extends MetaObject {
   totalReceived: number;
   totalAmount: number;
   account: Account;
+  totalPayment: number;
 }

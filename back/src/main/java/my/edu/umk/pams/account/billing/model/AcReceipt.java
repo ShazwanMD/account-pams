@@ -56,4 +56,8 @@ public interface AcReceipt extends AcDocument{
     AcAcademicSession getSession();
 
 	void setSession(AcAcademicSession session);
+	
+	void setTotalPayment(BigDecimal totalPayment);
+
+	BigDecimal getTotalPayment();
 }

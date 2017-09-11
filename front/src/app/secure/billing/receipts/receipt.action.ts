@@ -388,5 +388,23 @@ export class ReceiptActions {
       payload: invoices,
     };
   }
+  
+  static ITEM_TO_RECEIPT_ITEM = '[Receipt] Add Item to Receipt';
+
+  itemToReceiptItem(invoice, receipt): Action {
+    return {
+      type: ReceiptActions.ITEM_TO_RECEIPT_ITEM,
+      payload: {invoice: invoice, receipt: receipt}
+    };
+  }
+
+  static ITEM_TO_RECEIPT_ITEM_SUCCESS = '[Receipt] Add Item to Receipt Success';
+
+  itemToReceiptItemSuccess(message): Action {
+    return {
+      type: ReceiptActions.ITEM_TO_RECEIPT_ITEM_SUCCESS,
+      payload: message
+    };
+  }
 
 }

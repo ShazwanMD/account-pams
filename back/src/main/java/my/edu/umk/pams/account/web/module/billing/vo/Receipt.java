@@ -24,6 +24,7 @@ public class Receipt extends Document {
 	private BigDecimal totalApplied = BigDecimal.ZERO;
 	private BigDecimal totalReceived = BigDecimal.ZERO;
 	private BigDecimal totalAmount = new BigDecimal(0.00);
+	private BigDecimal totalPayment = BigDecimal.ZERO;
 	private Date receivedDate;
 	private Account account;
 	private PaymentMethod paymentMethod;
@@ -124,6 +125,14 @@ public class Receipt extends Document {
     public void setReceiptType(ReceiptType receiptType) {
         this.receiptType = receiptType;
     }
+
+	public BigDecimal getTotalPayment() {
+		return totalPayment;
+	}
+
+	public void setTotalPayment(BigDecimal totalPayment) {
+		this.totalPayment = totalPayment;
+	}
 
 	@JsonCreator
     public static Receipt create(String jsonString) {

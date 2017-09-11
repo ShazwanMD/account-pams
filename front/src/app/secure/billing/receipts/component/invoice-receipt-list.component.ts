@@ -53,7 +53,7 @@ export class InvoiceReceiptListComponent {
         config.width = '70%';
         config.height = '60%';
         config.position = {top: '0px'};
-        let editorDialogRef = this.dialog.open(InvoiceReceiptCreatorDialog, config);
+        let editorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
         editorDialogRef.componentInstance.receipt = receiptInvoice.receipt;
         editorDialogRef.componentInstance.invoice = receiptInvoice.invoice;
       }

@@ -52,6 +52,7 @@ export class InvoiceItemEditorDialog implements OnInit {
 
   submit(item: InvoiceItem, isValid: boolean) {
     item.description = item.chargeCode.description;
+    item.amount = item.balanceAmount;
     if (!item.id) this.store.dispatch(this.actions.addInvoiceItem(this._invoice, item));
     else  this.store.dispatch(this.actions.updateInvoiceItem(this._invoice, item));
     this.dialog.close();
