@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { AccountSponsorship } from './../../../../shared/model/account/account-sponsorship.interface';
 import {SecurityChargeEditorDialog} from '../dialog/security-charge-editor.dialog';
 import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
@@ -32,6 +33,10 @@ export class SponsorshipComponent implements OnInit {
   @Input() sponsorships: AccountSponsorship[];
   @Input() account: Account;
 
+
+  private editForm: FormGroup;
+
+  
   constructor(private actions: AccountActions,
               private vcf: ViewContainerRef,
               private store: Store<AccountModuleState>,
@@ -45,7 +50,7 @@ export class SponsorshipComponent implements OnInit {
   delete(): void {
     console.log('length: ' + this.selectedRows.length);
     for (let i: number = 0; i < this.selectedRows.length; i++) {
-    this.store.dispatch(this.actions.removeSponsorship(this.account, this.selectedRows[i]));
+    this.store.dispatch(this.actions.removeSponsorship(this.account,this.sponsorships, this.selectedRows[i]));
     }
     this.selectedRows = [];
   }
