@@ -668,17 +668,30 @@ public class AccountController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 	
-    @RequestMapping(value = "/accounts/{code}/sponsor/{id}/sponsorships/{referenceNo}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable Long id, @PathVariable String referenceNo, @RequestBody Sponsorship vo) {
-    	
+//    @RequestMapping(value = "/accounts/{code}/sponsor/{id}/sponsorships/{referenceNo}", method = RequestMethod.DELETE)
+//    public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable Long id, @PathVariable String referenceNo, @RequestBody Sponsorship vo) {
+//    	
+//    	AcSponsor sponsor = identityService.findSponsorById(id);
+//		AcAccount account = accountService.findAccountByCode(code);
+//		AcSponsorship sponsorship = accountService.findSponsorshipByReferenceNo(referenceNo);
+//        
+//		accountService.removeSponsorship(account, sponsorship);
+//        LOG.debug("Sponsorship " + referenceNo + " is deleted");
+//        return new ResponseEntity<>("Removed", HttpStatus.OK);
+//    }
+	
+    	@RequestMapping(value = "/accounts/{code}/sponsor/{id}/sponsorships/{referenceNo}", method = RequestMethod.DELETE)
+    	public ResponseEntity<String> removeSponsorship(@PathVariable String code, @PathVariable Long id, @PathVariable String referenceNo, @RequestBody Sponsorship vo) {
+
+
     	AcSponsor sponsor = identityService.findSponsorById(id);
-		AcAccount account = accountService.findAccountByCode(code);
-		AcSponsorship sponsorship = accountService.findSponsorshipByReferenceNo(referenceNo);
-        
-		accountService.removeSponsorship(account, sponsorship);
-        LOG.debug("Sponsorship " + referenceNo + " is deleted");
-        return new ResponseEntity<>("Removed", HttpStatus.OK);
+    	AcAccount account = accountService.findAccountByCode(code);
+    	AcSponsorship sponsorship = accountService.findSponsorshipByReferenceNo(referenceNo);
+    	
+    	accountService.removeSponsorship(account, sponsorship);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+
 
    
     // ====================================================================================================
