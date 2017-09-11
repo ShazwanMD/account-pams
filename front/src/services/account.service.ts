@@ -297,7 +297,7 @@ export class AccountService {
 
     addAccountSponsorships(account: Account, sponsor: Sponsor, sponsorship: AccountSponsorship): Observable<String> {
       console.log('addsponsorships account code :' + account.code);
-    return this._http.post(this.ACCOUNT_API + '/account/' + account.code + '/sponsor/' + sponsor.id + '/sponsorships', JSON.stringify(sponsorship))
+    return this._http.post(this.ACCOUNT_API + '/accounts/' + account.code + '/sponsor/' + sponsor.id + '/sponsorships', JSON.stringify(sponsorship))
       .flatMap((res: Response) => Observable.of(res.text()));
    }
 
@@ -313,9 +313,9 @@ export class AccountService {
 
   }
 
-    removeAccountSponsorships(account: Account, sponsorship: AccountSponsorship): Observable<String> {
+    removeAccountSponsorships(account: Account,  sponsor: Sponsor, sponsorship: AccountSponsorship): Observable<String> {
     console.log('removing account charge' + sponsorship.referenceNo);
-    return this._http.delete(this.ACCOUNT_API + '/accounts/' + account.code + '/accountSponsorships/' + sponsorship.referenceNo)
+    return this._http.delete(this.ACCOUNT_API + '/accounts/' + account.code + '/sponsor/' + sponsor.id + '/sponsorships/' + sponsorship.referenceNo)
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 

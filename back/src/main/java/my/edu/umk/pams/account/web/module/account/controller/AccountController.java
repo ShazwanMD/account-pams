@@ -625,7 +625,7 @@ public class AccountController {
 	}
     
 
-	@RequestMapping(value = "/account/{code}/sponsor/{id}/sponsorships", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{code}/sponsor/{id}/sponsorships", method = RequestMethod.POST)
 	public ResponseEntity<String> addSponsorship(@PathVariable String code, @PathVariable Long id,
 			@RequestBody Sponsorship vo) {
 
@@ -649,23 +649,37 @@ public class AccountController {
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value ="/account/{code}/sponsor/{id}/sponsorships/{referenceNo}", method = RequestMethod.PUT)
+	@RequestMapping(value ="/accounts/{code}/sponsor/{id}/sponsorships/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateSponsorship(@PathVariable String code, @PathVariable Long id, @PathVariable String referenceNo, @RequestBody Sponsorship vo) {
 		
 		AcSponsor sponsor = identityService.findSponsorById(id);
 		AcAccount account = accountService.findAccountByCode(code);
 		AcSponsorship sponsorship = accountService.findSponsorshipByReferenceNo(referenceNo);
         
-		//AcSponsorship sponsorship = identityService.findSponsorshipById(vo.getId());
-		sponsorship.setReferenceNo(vo.getReferenceNo());
+		sponsorship.setReferenceNo(referenceNo);
 		sponsorship.setAccountNo(vo.getAccountNo());
+		sponsorship.setSession(accountService.findCurrentAcademicSession());
 		sponsorship.setAmount(vo.getAmount());
+		sponsorship.setSponsor(sponsor);
 		sponsorship.setActive(vo.getActive());
 		sponsorship.setStartDate(vo.getStartDate());
 		sponsorship.setEndDate(vo.getEndDate());
-        identityService.updateSponsorship(sponsorship);
+        accountService.updateSponsorship(account, sponsorship);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+	
+    @RequestMapping(value = "/accounts/{code}/sponsor/{id}/sponsorships/{referenceNo}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteAccountCharge(@PathVariable String code, @PathVariable Long id, @PathVariable String referenceNo, @RequestBody Sponsorship vo) {
+    	
+    	AcSponsor sponsor = identityService.findSponsorById(id);
+		AcAccount account = accountService.findAccountByCode(code);
+		AcSponsorship sponsorship = accountService.findSponsorshipByReferenceNo(referenceNo);
+        
+		accountService.removeSponsorship(account, sponsorship);
+        LOG.debug("Sponsorship " + referenceNo + " is deleted");
+        return new ResponseEntity<>("Removed", HttpStatus.OK);
+    }
+
    
     // ====================================================================================================
     // PRIVATE METHODS

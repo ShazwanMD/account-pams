@@ -294,14 +294,16 @@ public interface AccountService {
 
     boolean hasSponsorship(AcStudent student);
     
-    void updateSponsorship(AcSponsorship sponsorship);
+//    void updateSponsorship(AcSponsorship sponsorship);
 
 	List<AcSponsorship> findSponsorships(AcAccount account);
 
 //	void addSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
 
-	void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship);
-
 	void addSponsorship(AcAccount account, AcSponsorship sponsorship);
+
+	void updateSponsorship(AcAccount account, AcSponsorship sponsorship);
+
+	void removeSponsorship(AcAccount account, AcSponsorship sponsorship);
 
 }

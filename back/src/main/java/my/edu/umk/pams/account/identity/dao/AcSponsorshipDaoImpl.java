@@ -110,7 +110,36 @@ public class AcSponsorshipDaoImpl extends GenericDaoSupport<Long, AcSponsorship>
 
         session.save(sponsorship);
     }
+    
+    @Override
+    public void updateSponsorship(AcAccount account, AcSponsorship sponsorship, AcUser user) {
+        Validate.notNull(account, "Account should not be null");
+        Validate.notNull(sponsorship, "Charge should not be null");
 
+        Session session = sessionFactory.getCurrentSession();
+        sponsorship.setAccount(account);
+
+        AcMetadata metadata = sponsorship.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        sponsorship.setMetadata(metadata);
+        session.update(sponsorship);
+    }
+
+    @Override
+    public void removeSponsorship(AcAccount account, AcSponsorship sponsorship, AcUser user) {
+        Validate.notNull(account, "Account should not be null");
+        Validate.notNull(sponsorship, "Sponsorship should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcMetadata metadata = sponsorship.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.INACTIVE);
+        sponsorship.setMetadata(metadata);
+        session.update(sponsorship);
+    }
 
 
 //    @Override
