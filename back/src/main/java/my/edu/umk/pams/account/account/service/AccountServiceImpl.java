@@ -827,8 +827,8 @@ public class AccountServiceImpl implements AccountService {
     }
     
     @Override
-    public void updateSponsorship(AcSponsorship sponsorship) {
-    	sponsorshipDao.save(sponsorship, securityService.getCurrentUser());
+    public void updateSponsorship(AcAccount account, AcSponsorship sponsorship) {
+    	sponsorshipDao.updateSponsorship(account, sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -851,12 +851,11 @@ public class AccountServiceImpl implements AccountService {
     }
     
     @Override
-    public void removeSponsorship(AcSponsor sponsor, AcSponsorship sponsorship) {
-        sponsorDao.removeSponsorship(sponsor, sponsorship, securityService.getCurrentUser());
+    public void removeSponsorship(AcAccount account, AcSponsorship sponsorship) {
+    	sponsorshipDao.removeSponsorship(account, sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-
-
+   
 
     // ==================================================================================================== //
     //  PRIVATE METHODS
