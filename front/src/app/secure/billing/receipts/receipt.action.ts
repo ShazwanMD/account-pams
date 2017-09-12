@@ -406,5 +406,23 @@ export class ReceiptActions {
       payload: message
     };
   }
+  
+  static UPDATE_ITEM_RECEIPT = '[Receipt] Update Item Receipt';
+
+  updateItemToReceipt(receipt, item): Action {
+    return {
+      type: ReceiptActions.UPDATE_ITEM_RECEIPT,
+      payload: {receipt: receipt, item: item}
+    };
+  }
+
+  static UPDATE_ITEM_RECEIPT_SUCCESS = '[Receipt] Update Item Receipt Success';
+
+  updateItemToReceiptSuccess(message): Action {
+    return {
+      type: ReceiptActions.UPDATE_ITEM_RECEIPT_SUCCESS,
+      payload: message
+    };
+  }
 
 }

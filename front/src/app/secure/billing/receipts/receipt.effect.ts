@@ -167,5 +167,14 @@ export class ReceiptEffects {
 //      .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
 //      .map((state) => state[1])
 //      .map((taskId) => this.billingService.findReceiptTaskByTaskId(taskId));
+  
+  @Effect() updateItemToReceipt$ = this.actions$
+  .ofType(ReceiptActions.UPDATE_ITEM_RECEIPT)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.updateItemToReceipt(payload.receipt, payload.item))
+  .map((message) => this.receiptActions.updateItemToReceiptSuccess(message))
+  .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+  .map((state) => state[1])
+  .map((receipt) => this.receiptActions.findReceiptItems(receipt));
 
 }

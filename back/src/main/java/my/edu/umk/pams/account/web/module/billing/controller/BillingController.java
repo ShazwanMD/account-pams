@@ -470,6 +470,18 @@ public class BillingController {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         billingService.itemToReceiptItem(invoice, receipt);
     }
+    
+    @RequestMapping(value = "/receipts/updateReceiptItems/{referenceNo}/receiptItems/{id}", method = RequestMethod.PUT)
+    public void updateItemToReceipt(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody ReceiptItem vo) {
+    	
+    	AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+    	AcReceiptItem receiptItem = billingService.findReceiptItemById(id);
+    	
+    		receiptItem.setAppliedAmount(vo.getAppliedAmount());
+    		billingService.updateReceiptItem(receipt, receiptItem);
+    		
+        //billingService.updateItemToReceipt(receipt);
+    }
 
     // ==================================================================================================== //
     //  DEBIT NOTE

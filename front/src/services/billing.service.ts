@@ -265,6 +265,11 @@ export class BillingService {
         return this._http.post( this.BILLING_API + '/invoices/' + invoice.referenceNo + '/receipts/' + receipt.id, JSON.stringify( receipt ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
+    
+    updateItemToReceipt( receipt: Receipt, item: ReceiptItem ) {
+        return this._http.put( this.BILLING_API + '/receipts/updateReceiptItems/' + receipt.referenceNo + '/receiptItems/' + item.id, JSON.stringify( item ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
 
     // ====================================================================================================
     // CREDIT NOTE
