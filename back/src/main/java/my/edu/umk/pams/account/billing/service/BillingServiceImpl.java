@@ -551,7 +551,6 @@ public class BillingServiceImpl implements BillingService {
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(invoice.getSession());
 		// tx.setChargeCode(item.getChargeCode());
-		tx.setBalanceAmount(invoice.getTotalAmount());
 		tx.setDescription(invoice.getDescription());
 		tx.setPostedDate(new Date());
 		tx.setSourceNo(invoice.getReferenceNo());
@@ -688,7 +687,6 @@ public class BillingServiceImpl implements BillingService {
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(debitNote.getInvoice().getSession());
 		tx.setChargeCode(debitNote.getChargeCode());
-		tx.setBalanceAmount(debitNote.getTotalAmount());
 		tx.setDescription(debitNote.getDescription());
 		tx.setPostedDate(new Date());
 		tx.setSourceNo(debitNote.getReferenceNo());
@@ -824,7 +822,6 @@ public class BillingServiceImpl implements BillingService {
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(creditNote.getInvoice().getSession());
 		tx.setChargeCode(creditNote.getChargeCode());
-		tx.setBalanceAmount(creditNote.getTotalAmount().negate());
 		tx.setDescription(creditNote.getDescription());
 		tx.setPostedDate(new Date());
 		tx.setSourceNo(creditNote.getReferenceNo());
@@ -1006,7 +1003,6 @@ public class BillingServiceImpl implements BillingService {
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(accountService.findCurrentAcademicSession());
 		// tx.setChargeCode(item.getChargeCode());
-		tx.setBalanceAmount(receipt.getTotalAmount().negate());
 		tx.setDescription(receipt.getDescription());
 		tx.setPostedDate(new Date());
 		tx.setSourceNo(receipt.getReferenceNo());
