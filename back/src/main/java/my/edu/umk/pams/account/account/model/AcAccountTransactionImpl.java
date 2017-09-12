@@ -28,10 +28,6 @@ public class AcAccountTransactionImpl implements AcAccountTransaction {
     private BigDecimal amount = BigDecimal.ZERO;
     
     @NotNull
-    @Column(name = "BALANCE_AMOUNT", nullable = false)
-    private BigDecimal balanceAmount = BigDecimal.ZERO;
-    
-    @NotNull
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
@@ -88,16 +84,6 @@ public class AcAccountTransactionImpl implements AcAccountTransaction {
     @Override
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-    
-    @Override
-    public BigDecimal getBalanceAmount() {
-        return balanceAmount;
-    }
-
-    @Override
-    public void setBalanceAmount(BigDecimal balanceAmount) {
-        this.balanceAmount = balanceAmount;
     }
     
     @Override

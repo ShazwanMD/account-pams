@@ -185,7 +185,8 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
                 "GROUP BY \n" +
                 "  SOURCE_NO, \n" +
                 "  POSTED_DATE, \n" +
-                "  TRANSACTION_CODE");
+                "  TRANSACTION_CODE\n" +
+                "ORDER BY POSTED_DATE ASC");
         sqlQuery.setLong("id", account.getId());
         sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
         sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
@@ -293,7 +294,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public BigDecimal sumBalanceAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(sat.balanceAmount) from AcAccountTransaction sat where " +
+        Query query = session.createQuery("select sum(sat.amount) from AcAccountTransaction sat where " +
                 "sat.account = :account " +
                 "and sat.metadata.state = :state ");
         query.setEntity("account", account);
