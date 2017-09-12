@@ -349,6 +349,19 @@ public class BillingServiceImpl implements BillingService {
 		}
 
 	}
+	
+	@Override
+	public void updateItemToReceipt(AcReceipt receipt) {
+		List<AcReceiptItem> receiptItems = billingService.findReceiptItems(receipt);
+		for (AcReceiptItem receiptItem : receiptItems) {
+			receiptItem.setTotalAmount(receiptItem.getDueAmount().subtract(receiptItem.getAppliedAmount()));
+			billingService.updateReceiptItem(receipt, receiptItem);
+		}
+		
+		receipt.setTotalPayment(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser()));
+		billingService.updateReceipt(receipt);
+
+	}
 
 	// ====================================================================================================
 	// INVOICE
