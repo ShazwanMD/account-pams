@@ -722,6 +722,25 @@
         INVOICE_ID int8,
         primary key (ID)
     );
+    
+    create table AC_KNOF_ITEM (
+        ID int8 not null,
+        DUE_AMOUNT numeric(19, 2),
+        APPLIED_AMOUNT numeric(19, 2),
+        TOTAL_AMOUNT numeric(19, 2),
+        DESCRIPTION varchar(255),
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        CHARGE_CODE_ID int8,
+        INVOICE_ID int8,
+        KNOCKOFF_ID int8,
+        primary key (ID)
+    );
 
     create table AC_MODL (
         ID int8 not null,
@@ -1693,7 +1712,12 @@ create table AC_RFND_PYMT (
         add constraint FK_f91f9no80f8qtl6r92n08r32m
         foreign key (ADVANCE_PAYMENT_ID) 
         references AC_ADVC_PYMT;
-
+        
+    alter table AC_KNOF_ITEM 
+        add constraint FK_2d6lwtme5e7ch5iextvyjus2k 
+        foreign key (KNOCKOFF_ID) 
+        references AC_KNOF;
+        
     alter table AC_PCPL_ROLE 
         add constraint FK_ofdb3qau30ii76rhetdhgtn2r 
         foreign key (PRINCIPAL_ID) 
@@ -1915,6 +1939,8 @@ create table AC_RFND_PYMT (
     create sequence SQ_AC_INVC_ITEM;
 
     create sequence SQ_AC_KNOF;
+    
+    create sequence SQ_AC_KNOF_ITEM;
 
     create sequence SQ_AC_MODL;
 
