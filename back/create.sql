@@ -1282,6 +1282,7 @@ create table AC_RFND_PYMT (
         REMOVE_COMMENT varchar(255),
         SOURCE_NO varchar(255),
         WAIVED_AMOUNT numeric(19, 2) not null,
+        WAIVER_TYPE int8,
         ACCOUNT_ID int8,
         SESSION_ID int8,
         primary key (ID)
