@@ -8,12 +8,14 @@ import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
 import my.edu.umk.pams.account.web.module.account.controller.AccountTransformer;
 import my.edu.umk.pams.account.web.module.billing.controller.BillingTransformer;
+import my.edu.umk.pams.account.web.module.billing.vo.ReceiptType;
 import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
 import my.edu.umk.pams.account.web.module.financialaid.vo.Settlement;
 import my.edu.umk.pams.account.web.module.financialaid.vo.SettlementItem;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationType;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
@@ -67,6 +69,7 @@ public class FinancialAidTransformer {
         task.setCandidate(task.getCandidate());
         task.setApplication(toWaiverApplicationVo(application));
         task.setAccount(accountTransformer.toAccountVo(application.getAccount()));
+        task.setType(WaiverApplicationType.get(application.getType().ordinal()));
         task.setFlowState(FlowState.get(application.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(application.getMetadata().getState().ordinal()));
         return task;
@@ -84,6 +87,7 @@ public class FinancialAidTransformer {
         vo.setEffectiveBalance(e.getEffectiveBalance());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
+        vo.setType(WaiverApplicationType.get(e.getType().ordinal()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;

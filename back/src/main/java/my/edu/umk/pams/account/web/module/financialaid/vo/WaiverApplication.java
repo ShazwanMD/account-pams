@@ -22,6 +22,7 @@ public class WaiverApplication extends Document {
     private BigDecimal gracedAmount;
     private Account account;
     private AcademicSession academicSession;
+    private WaiverApplicationType type;
 
     public String getReason() {
         return reason;
@@ -87,7 +88,15 @@ public class WaiverApplication extends Document {
         this.academicSession = academicSession;
     }
 
-    @JsonCreator
+    public WaiverApplicationType getType() {
+		return type;
+	}
+
+	public void setType(WaiverApplicationType type) {
+		this.type = type;
+	}
+
+	@JsonCreator
     public static WaiverApplication create(String jsonString) {
         WaiverApplication o = null;
         try {

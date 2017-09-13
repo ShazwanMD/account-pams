@@ -47,6 +47,10 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @NotNull
     @Column(name = "GRACED_AMOUNT", nullable = false)
     private BigDecimal gracedAmount = BigDecimal.ZERO;
+    
+    @Enumerated(value = EnumType.ORDINAL)
+    @Column(name = "WAIVER_TYPE", nullable = false)
+    private AcWaiverApplicationType type;
 
     @Column(name = "SOURCE_NO")
     private String sourceNo;
@@ -259,4 +263,15 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     public Class<?> getInterfaceClass() {
         return AcWaiverApplication.class;
     }
+
+	@Override
+	public AcWaiverApplicationType getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(AcWaiverApplicationType type) {
+		this.type = type;
+		
+	}
 }
