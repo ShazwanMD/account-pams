@@ -12,6 +12,7 @@ public class ReceiptTask extends Task {
 
     private Receipt receipt;
     private BigDecimal totalReceived;
+    private BigDecimal totalPayment;
 
     public Receipt getReceipt() {
         return receipt;
@@ -28,5 +29,13 @@ public class ReceiptTask extends Task {
 	public void setTotalReceived(BigDecimal totalReceived) {
 		this.totalReceived = totalReceived;
 	}
-    
+
+	public BigDecimal getTotalPayment() {
+		return totalPayment;
+	}
+
+	public void setTotalPayment(BigDecimal totalPayment) {
+		this.totalPayment = totalPayment;
+	}
+	    
 }

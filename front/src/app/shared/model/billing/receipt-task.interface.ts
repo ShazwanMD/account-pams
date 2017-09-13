@@ -18,4 +18,5 @@ export interface ReceiptTask extends Document {
   receiptType: ReceiptType;
   paymentMethod: PaymentMethod;
   totalReceived: number;
+  totalPayment: number;
 }

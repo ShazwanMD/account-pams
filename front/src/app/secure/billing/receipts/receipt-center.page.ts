@@ -49,6 +49,11 @@ export class ReceiptCenterPage implements OnInit {
     console.log('receipt: ' + task.taskId);
     this.store.dispatch(this.actions.claimReceiptTask(task));
   }
+  
+  viewReceipt(receipt: Receipt) {
+      console.log('receipt: ' + receipt);
+      this.router.navigate(['/secure/billing/receipts/view-item', receipt.referenceNo]);
+    }
 
   showDialog(): void {
     console.log('showDialog');

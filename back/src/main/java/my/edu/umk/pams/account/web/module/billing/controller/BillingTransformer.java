@@ -176,6 +176,7 @@ public class BillingTransformer {
         task.setFlowState(FlowState.get(receipt.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(receipt.getMetadata().getState().ordinal()));
         task.setTotalReceived(receipt.getTotalReceived());
+        task.setTotalPayment(receipt.getTotalPayment());
         return task;
         
     }
