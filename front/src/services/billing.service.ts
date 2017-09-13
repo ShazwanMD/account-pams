@@ -202,6 +202,12 @@ export class BillingService {
         return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptItems' )
             .map(( res: Response ) => <ReceiptItem[]>res.json() );
     }
+    
+    findInvoiceReceiptItems( receipt: Receipt, invoice:Invoice ): Observable<ReceiptItem[]> {
+        console.log( 'findReceiptItems' );
+        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/items/invoices/' + invoice.id )
+            .map(( res: Response ) => <ReceiptItem[]>res.json() );
+    }
 
     startReceiptTask( receipt: Receipt ): Observable<String> {
         console.log( 'receipt: ' + receipt );

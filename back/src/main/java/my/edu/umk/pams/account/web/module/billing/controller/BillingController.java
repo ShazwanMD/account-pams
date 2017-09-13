@@ -328,6 +328,15 @@ public class BillingController {
         return new ResponseEntity<List<ReceiptItem>>(billingTransformer
                 .toReceiptItemVos(billingService.findReceiptItems(receipt)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/items/invoices/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<ReceiptItem>> findInvoiceReceiptItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
+        return new ResponseEntity<List<ReceiptItem>>(billingTransformer
+                .toReceiptItemVos(billingService.findReceiptItems(receipt, invoice)), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/receipts/{referenceNo}/receiptItems", method = RequestMethod.POST)
     public void addReceiptItems(@PathVariable String referenceNo, @RequestBody ReceiptItem vo) {
@@ -346,11 +355,11 @@ public class BillingController {
         billingService.addReceiptItem(receipt, e);
     }
 
-    @RequestMapping(value = "/receipts/{referenceNo}/receiptItems", method = RequestMethod.PUT)
-    public void updateReceiptItems(@PathVariable String referenceNo, @RequestBody ReceiptItem vo) {
+    @RequestMapping(value = "/receipts/{referenceNo}/receiptItems/{id}", method = RequestMethod.PUT)
+    public void updateReceiptItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody ReceiptItem vo) {
         
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
-        AcReceiptItem e = billingService.findReceiptItemById(vo.getId());
+        AcReceiptItem e = billingService.findReceiptItemById(id);
         e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
         e.setTotalAmount(vo.getTotalAmount());
         e.setAdjustedAmount(vo.getAdjustedAmount());

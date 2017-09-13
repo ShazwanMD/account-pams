@@ -295,7 +295,7 @@ public class BillingServiceImpl implements BillingService {
 
 			else if (invoice.getBalanceAmount().compareTo(receipt.getTotalPayment()) > 0) {
 				
-				if (receipt.getTotalPayment().compareTo(invoiceItem.getBalanceAmount()) >= 0) {
+				if (receipt.getTotalPayment().compareTo(invoiceItem.getBalanceAmount()) > 0) {
 					AcReceiptItem receiptItem = new AcReceiptItemImpl();
 					receiptItem.setChargeCode(invoiceItem.getChargeCode());
 					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
@@ -325,7 +325,7 @@ public class BillingServiceImpl implements BillingService {
 					billingService.addReceiptItem(receipt, receiptItem);
 				}
 
-				else if (receipt.getTotalPayment().compareTo(BigDecimal.ZERO) == 0.00) {
+				else if (receipt.getTotalPayment().compareTo(BigDecimal.ZERO) == 0) {
 					AcReceiptItem receiptItem = new AcReceiptItemImpl();
 					receiptItem.setChargeCode(invoiceItem.getChargeCode());
 					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
@@ -344,9 +344,9 @@ public class BillingServiceImpl implements BillingService {
 				LOG.debug("value invoiceItem after looping {}", receipt.getTotalReceived());
 			}
 			
-//			receipt.setTotalReceived(receipt.getTotalReceived().subtract(invoice.getBalanceAmount()));
-//			LOG.debug("value invoice after looping {}", receipt.getTotalReceived());
 		}
+		
+		receipt.setTotalPayment(receipt.getTotalReceived().subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser())));
 
 	}
 	
@@ -913,6 +913,14 @@ public class BillingServiceImpl implements BillingService {
 	public void updateReceiptItem(AcReceipt receipt, AcReceiptItem item) {
 		receiptDao.updateItem(receipt, item, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
+		
+		item.setTotalAmount(item.getDueAmount().subtract(item.getAppliedAmount()));
+		receiptDao.updateItem(receipt, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		
+		receipt.setTotalPayment(receipt.getTotalReceived().subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser())));
+		receiptDao.update(receipt, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
 	}
 
 	@Override
@@ -986,6 +994,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<AcReceiptItem> findReceiptItems(AcReceipt receipt) {
 		return receiptDao.findItems(receipt);
+	}
+	
+	@Override
+	public List<AcReceiptItem> findReceiptItems(AcReceipt receipt, AcInvoice invoice) {
+		return receiptDao.findItems(receipt, invoice);
 	}
 
 	@Override
