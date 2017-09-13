@@ -40,6 +40,9 @@ import { InvoiceReceiptListComponent } from "./component/invoice-receipt-list.co
 import { InvoiceReceiptCreatorDialog } from "./dialog/invoice-receipt-creator.dialog";
 import { InvoiceItemSelectComponent } from "./component/invoice-items-select.component";
 import { ReceiptVerifyTaskPanel } from "./panel/receipt-verify-task.panel";
+import { ReceiptAccountChargeListComponent } from "./component/receipt-account-charge-list.component";
+import { AccountChargeReceiptDialog } from "./dialog/account-charge-receipt-creator.dialog";
+import { AccountChargeUnpaidSelectComponent } from "./component/account-charge-select-unpaid.component";
 
 @NgModule({
   imports: [
@@ -76,6 +79,8 @@ import { ReceiptVerifyTaskPanel } from "./panel/receipt-verify-task.panel";
     InvoiceUnpaidSelectComponent,
     InvoiceReceiptListComponent,
     InvoiceItemSelectComponent,
+    ReceiptAccountChargeListComponent,
+    AccountChargeUnpaidSelectComponent,
 
     // dialog
     ReceiptItemEditorDialog,
@@ -85,6 +90,7 @@ import { ReceiptVerifyTaskPanel } from "./panel/receipt-verify-task.panel";
     InvoiceUnpaidSelectComponent,
     InvoiceReceiptDialog,
     InvoiceReceiptCreatorDialog,
+    AccountChargeReceiptDialog,
   ],
   exports: [],
   entryComponents: [
@@ -97,6 +103,7 @@ import { ReceiptVerifyTaskPanel } from "./panel/receipt-verify-task.panel";
     InvoiceReceiptDialog,
     InvoiceReceiptListComponent,
     InvoiceReceiptCreatorDialog,
+    AccountChargeReceiptDialog,
   ],
 
 })
