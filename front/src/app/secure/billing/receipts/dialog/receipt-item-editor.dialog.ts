@@ -36,12 +36,12 @@ export class ReceiptItemEditorDialog implements OnInit {
   }
 
   set receiptItem(value: ReceiptItem) {
-    this.receiptItem = value;
+    this._receiptItem = value;
     this.edit = true;
   }
 
   ngOnInit(): void {
-    this.editForm = this.formBuilder.group(<ReceiptItem>{
+    this.editForm = this.formBuilder.group({
       id: null,
       description: '',
       totalAmount: 0,
@@ -57,8 +57,7 @@ export class ReceiptItemEditorDialog implements OnInit {
   }
 
   submit(item: ReceiptItem, isValid: boolean) {
-    if (!item.id) this.store.dispatch(this.actions.addReceiptItem(this._receipt, item));
-    else  this.store.dispatch(this.actions.updateReceiptItem(this._receipt, item));
+    this.store.dispatch(this.actions.updateReceiptItem(this._receipt, item));
     this.dialog.close();
   }
 }

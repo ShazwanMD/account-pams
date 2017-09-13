@@ -16,7 +16,7 @@ import {ReceiptItem} from '../../../../shared/model/billing/receipt-item.interfa
 export class ReceiptItemListComponent implements OnInit {
 
   private selectedRows: ReceiptItem[];
- // private editorDialogRef: MdDialogRef<ReceiptItemEditorDialog>;
+  private editorDialogRef: MdDialogRef<ReceiptItemEditorDialog>;
   private columns: any[] = [
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'description', label: 'Charge Code Description'},
@@ -43,8 +43,21 @@ export class ReceiptItemListComponent implements OnInit {
   }
 
   edit(receiptItem: ReceiptItem): void {
-    //this.showDialog(receiptItem);
+    this.showDialog(receiptItem);
   }
+  
+  showDialog(receiptItem: ReceiptItem): void {
+      console.log('showDialog');
+      let config = new MdDialogConfig();
+      config.viewContainerRef = this.vcf;
+      config.role = 'dialog';
+      config.width = '50%';
+      config.height = '60%';
+      config.position = {top: '65px'};
+      this.editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
+      this.editorDialogRef.componentInstance.receipt = this.receipt;
+      this.editorDialogRef.componentInstance.receiptItem = receiptItem;
+    }
 
 /*  delete(): void {
     console.log('length: ' + this.selectedRows.length);

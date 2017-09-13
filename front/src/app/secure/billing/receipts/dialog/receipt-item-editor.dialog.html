@@ -5,15 +5,8 @@
       <md-input-container flex>
         <input mdInput #description
                placeholder="Description"
-               formControlName="description"/>
-      </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput
-               placeholder="Total Amount"
-               formControlName="totalAmount"
-               type="number">
+               formControlName="description"
+               readonly/>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
@@ -21,7 +14,8 @@
         <input mdInput
                placeholder="Due Amount"
                formControlName="dueAmount"
-               type="number">
+               type="number"
+               readonly>
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
@@ -35,37 +29,11 @@
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput
-               placeholder="Adjusted Amount"
-               formControlName="adjustedAmount"
-               type="number">
+               placeholder="Total Amount"
+               formControlName="totalAmount"
+               type="number"
+               readonly>
       </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput
-               placeholder="Unit"
-               formControlName="unit"
-               type="number">
-      </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <md-input-container flex>
-        <input mdInput
-               placeholder="Price"
-               formControlName="price"
-               type="number">
-      </md-input-container>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <pams-charge-code-select
-        [placeholder]="'Charge Code'"
-        [innerFormControl]="editForm.controls['chargeCode']"></pams-charge-code-select>
-    </div>
-    <div layout="row" class="pad-bottom">
-      <pams-invoice-select
-        [placeholder]="'Invoice'"
-        [innerFormControl]="editForm.controls['invoice']"
-        [receipt]="_receipt"></pams-invoice-select>
     </div>
   </form>
 </md-dialog-content>

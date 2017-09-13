@@ -243,7 +243,26 @@ export class ReceiptActions {
     };
   }
 
+  static FIND_RECEIPT_INVOICE_ITEMS = '[Receipt] Find Receipt Invoice Items';
 
+  findInvoiceReceiptItems(receipt, invoice): Action {
+    console.log("findReceiptItems for receipt: " + receipt);
+    return {
+      type: ReceiptActions.FIND_RECEIPT_INVOICE_ITEMS,
+      payload: {receipt: receipt, invoice: invoice}
+    };
+  }
+
+  static FIND_RECEIPT_INVOICE_ITEMS_SUCCESS = '[Receipt] Find Receipt Invoice Items Success';
+
+  findInvoiceReceiptItemsSuccess(message): Action {
+    console.log("findReceiptItemsSuccess");
+    return {
+      type: ReceiptActions.FIND_RECEIPT_INVOICE_ITEMS_SUCCESS,
+      payload: message
+    };
+  }
+  
   static UPDATE_RECEIPT = '[Receipt] Update Receipt';
 
   updateReceipt(receipt): Action {
