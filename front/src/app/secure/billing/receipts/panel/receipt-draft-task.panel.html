@@ -48,8 +48,10 @@
                   </md-tab>
 
                   <md-tab label="Unpaid Charges">
-                      <md-tab label="Receipt Charges">
-                      </md-tab>
+                      <pams-receipt-account-charge-list
+                          [receipt]="receiptTask.receipt"
+                          [receiptItems]="receiptItems$ | async">
+                      </pams-receipt-account-charge-list>
                   </md-tab>
               </md-tab-group>
           </md-card>
