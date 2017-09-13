@@ -51,24 +51,6 @@ public class DebitNoteListener implements ApplicationListener<DebitNoteEvent> {
 			invoice.setPaid(false);
 			//invoice.setSourceNo(debitNote.getReferenceNo());
 			billingService.updateInvoice(invoice);
-			
-			List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
-			for (AcInvoiceItem invoiceItem : invoiceItems) {
-				if(debitNote.getChargeCode()==invoiceItem.getChargeCode()){
-					invoiceItem.setBalanceAmount(invoiceItem.getBalanceAmount().add(debitNote.getTotalAmount()));
-				}
-			}
-			
-			AcAccountTransaction tx = new AcAccountTransactionImpl();
-			tx.setSession(invoice.getSession());
-			tx.setPostedDate(new Date());
-			tx.setDescription(invoice.getDescription());
-			tx.setChargeCode(debitNote.getChargeCode());
-			tx.setSourceNo(invoice.getReferenceNo());
-			tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
-			tx.setAccount(invoice.getAccount());
-			tx.setAmount(invoice.getBalanceAmount());
-			accountService.addAccountTransaction(invoice.getAccount(), tx);
 		}
 	}
 }

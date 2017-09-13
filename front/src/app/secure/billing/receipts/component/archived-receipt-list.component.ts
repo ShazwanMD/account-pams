@@ -29,7 +29,7 @@ export class ArchivedReceiptListComponent {
 
   viewReceipt(receipt: Receipt): void {
     console.log('Emitting task');
-    let snackBarRef = this.snackBar.open('Viewing invoice', 'OK');
+    let snackBarRef = this.snackBar.open('Viewing Receipt', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(receipt);
     });

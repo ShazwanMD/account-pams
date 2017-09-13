@@ -50,16 +50,6 @@ public class CreditNoteListener implements ApplicationListener<CreditNoteEvent> 
 					invoiceItem.setBalanceAmount(invoiceItem.getBalanceAmount().subtract(creditNote.getTotalAmount()));
 				}
 			}
-			AcAccountTransaction tx = new AcAccountTransactionImpl();
-			tx.setSession(invoice.getSession());
-			tx.setPostedDate(new Date());
-			tx.setDescription(invoice.getDescription());
-			tx.setChargeCode(creditNote.getChargeCode());
-			tx.setSourceNo(invoice.getReferenceNo());
-			tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
-			tx.setAccount(invoice.getAccount());
-			tx.setAmount(invoice.getBalanceAmount());
-			accountService.addAccountTransaction(invoice.getAccount(), tx);
 		
 		}
 	}
