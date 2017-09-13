@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resit_rasmi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5889b6e-6960-492c-baea-9ed964348d01">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="1128b5b5-9bc6-4561-aca0-1630ba54df5d"/>
+	<queryString>
+		<![CDATA[SELECT
+     ac_acct."id" AS ac_acct_id,
+     ac_acct."code" AS ac_acct_code,
+     ac_acct."description" AS ac_acct_description,
+     ac_acct."c_ts" AS ac_acct_c_ts,
+     ac_acct."c_id" AS ac_acct_c_id,
+     ac_acct."d_ts" AS ac_acct_d_ts,
+     ac_acct."d_id" AS ac_acct_d_id,
+     ac_acct."m_ts" AS ac_acct_m_ts,
+     ac_acct."m_id" AS ac_acct_m_id,
+     ac_acct."m_st" AS ac_acct_m_st,
+     ac_acct."actor_id" AS ac_acct_actor_id,
+     ac_rcpt."id" AS ac_rcpt_id,
+     ac_rcpt."audit_no" AS ac_rcpt_audit_no,
+     ac_rcpt."cancel_comment" AS ac_rcpt_cancel_comment,
+     ac_rcpt."description" AS ac_rcpt_description,
+     ac_rcpt."av_ts" AS ac_rcpt_av_ts,
+     ac_rcpt."av_id" AS ac_rcpt_av_id,
+     ac_rcpt."cl_id" AS ac_rcpt_cl_id,
+     ac_rcpt."cl_ts" AS ac_rcpt_cl_ts,
+     ac_rcpt."ck_ts" AS ac_rcpt_ck_ts,
+     ac_rcpt."ck_id" AS ac_rcpt_ck_id,
+     ac_rcpt."dt_ts" AS ac_rcpt_dt_ts,
+     ac_rcpt."dt_id" AS ac_rcpt_dt_id,
+     ac_rcpt."ev_ts" AS ac_rcpt_ev_ts,
+     ac_rcpt."ev_id" AS ac_rcpt_ev_id,
+     ac_rcpt."pr_ts" AS ac_rcpt_pr_ts,
+     ac_rcpt."pr_id" AS ac_rcpt_pr_id,
+     ac_rcpt."ps_ts" AS ac_rcpt_ps_ts,
+     ac_rcpt."ps_id" AS ac_rcpt_ps_id,
+     ac_rcpt."rg_ts" AS ac_rcpt_rg_ts,
+     ac_rcpt."rg_id" AS ac_rcpt_rg_id,
+     ac_rcpt."rm_ts" AS ac_rcpt_rm_ts,
+     ac_rcpt."rm_id" AS ac_rcpt_rm_id,
+     ac_rcpt."rq_ts" AS ac_rcpt_rq_ts,
+     ac_rcpt."rq_id" AS ac_rcpt_rq_id,
+     ac_rcpt."sl_ts" AS ac_rcpt_sl_ts,
+     ac_rcpt."sl_id" AS ac_rcpt_sl_id,
+     ac_rcpt."fd_st" AS ac_rcpt_fd_st,
+     ac_rcpt."up_ts" AS ac_rcpt_up_ts,
+     ac_rcpt."up_id" AS ac_rcpt_up_id,
+     ac_rcpt."uv_ts" AS ac_rcpt_uv_ts,
+     ac_rcpt."uv_id" AS ac_rcpt_uv_id,
+     ac_rcpt."vf_ts" AS ac_rcpt_vf_ts,
+     ac_rcpt."vf_id" AS ac_rcpt_vf_id,
+     ac_rcpt."c_ts" AS ac_rcpt_c_ts,
+     ac_rcpt."c_id" AS ac_rcpt_c_id,
+     ac_rcpt."d_ts" AS ac_rcpt_d_ts,
+     ac_rcpt."d_id" AS ac_rcpt_d_id,
+     ac_rcpt."m_ts" AS ac_rcpt_m_ts,
+     ac_rcpt."m_id" AS ac_rcpt_m_id,
+     ac_rcpt."m_st" AS ac_rcpt_m_st,
+     ac_rcpt."payment_method" AS ac_rcpt_payment_method,
+     ac_rcpt."receipt_no" AS ac_rcpt_receipt_no,
+     ac_rcpt."receipt_type" AS ac_rcpt_receipt_type,
+     ac_rcpt."received_date" AS ac_rcpt_received_date,
+     ac_rcpt."reference_no" AS ac_rcpt_reference_no,
+     ac_rcpt."remove_comment" AS ac_rcpt_remove_comment,
+     ac_rcpt."source_no" AS ac_rcpt_source_no,
+     ac_rcpt."total_amount" AS ac_rcpt_total_amount,
+     ac_rcpt."total_applied" AS ac_rcpt_total_applied,
+     ac_rcpt."total_received" AS ac_rcpt_total_received,
+     ac_rcpt."total_payment" AS ac_rcpt_total_payment,
+     ac_rcpt."account_id" AS ac_rcpt_account_id,
+     ac_rcpt."session_id" AS ac_rcpt_session_id,
+     ac_rcpt_item."id" AS ac_rcpt_item_id,
+     ac_rcpt_item."adjusted_amount" AS ac_rcpt_item_adjusted_amount,
+     ac_rcpt_item."applied_amount" AS ac_rcpt_item_applied_amount,
+     ac_rcpt_item."description" AS ac_rcpt_item_description,
+     ac_rcpt_item."due_amount" AS ac_rcpt_item_due_amount,
+     ac_rcpt_item."c_ts" AS ac_rcpt_item_c_ts,
+     ac_rcpt_item."c_id" AS ac_rcpt_item_c_id,
+     ac_rcpt_item."d_ts" AS ac_rcpt_item_d_ts,
+     ac_rcpt_item."d_id" AS ac_rcpt_item_d_id,
+     ac_rcpt_item."m_ts" AS ac_rcpt_item_m_ts,
+     ac_rcpt_item."m_id" AS ac_rcpt_item_m_id,
+     ac_rcpt_item."m_st" AS ac_rcpt_item_m_st,
+     ac_rcpt_item."price" AS ac_rcpt_item_price,
+     ac_rcpt_item."total_amount" AS ac_rcpt_item_total_amount,
+     ac_rcpt_item."unit" AS ac_rcpt_item_unit,
+     ac_rcpt_item."charge_code_id" AS ac_rcpt_item_charge_code_id,
+     ac_rcpt_item."invoice_id" AS ac_rcpt_item_invoice_id,
+     ac_rcpt_item."receipt_id" AS ac_rcpt_item_receipt_id,
+     ac_rcpt_invc."id" AS ac_rcpt_invc_id,
+     ac_rcpt_invc."c_ts" AS ac_rcpt_invc_c_ts,
+     ac_rcpt_invc."c_id" AS ac_rcpt_invc_c_id,
+     ac_rcpt_invc."d_ts" AS ac_rcpt_invc_d_ts,
+     ac_rcpt_invc."d_id" AS ac_rcpt_invc_d_id,
+     ac_rcpt_invc."m_ts" AS ac_rcpt_invc_m_ts,
+     ac_rcpt_invc."m_id" AS ac_rcpt_invc_m_id,
+     ac_rcpt_invc."m_st" AS ac_rcpt_invc_m_st,
+     ac_rcpt_invc."invoice_id" AS ac_rcpt_invc_invoice_id,
+     ac_rcpt_invc."receipt_id" AS ac_rcpt_invc_receipt_id,
+     ac_gnrl_rcpt."id" AS ac_gnrl_rcpt_id,
+     ac_eltc_rcpt."id" AS ac_eltc_rcpt_id,
+     ac_bsry_rcpt."id" AS ac_bsry_rcpt_id,
+     ac_actr."id" AS ac_actr_id,
+     ac_actr."actor_type" AS ac_actr_actor_type,
+     ac_actr."address" AS ac_actr_address,
+     ac_actr."email" AS ac_actr_email,
+     ac_actr."fax" AS ac_actr_fax,
+     ac_actr."identity_no" AS ac_actr_identity_no,
+     ac_actr."c_ts" AS ac_actr_c_ts,
+     ac_actr."c_id" AS ac_actr_c_id,
+     ac_actr."d_ts" AS ac_actr_d_ts,
+     ac_actr."d_id" AS ac_actr_d_id,
+     ac_actr."m_ts" AS ac_actr_m_ts,
+     ac_actr."m_id" AS ac_actr_m_id,
+     ac_actr."m_st" AS ac_actr_m_st,
+     ac_actr."mobile" AS ac_actr_mobile,
+     ac_actr."name" AS ac_actr_name,
+     ac_actr."phone" AS ac_actr_phone
+FROM
+     "public"."ac_acct" ac_acct INNER JOIN "public"."ac_rcpt" ac_rcpt ON ac_acct."id" = ac_rcpt."account_id"
+     INNER JOIN "public"."ac_rcpt_item" ac_rcpt_item ON ac_rcpt."id" = ac_rcpt_item."receipt_id"
+     INNER JOIN "public"."ac_rcpt_invc" ac_rcpt_invc ON ac_rcpt."id" = ac_rcpt_invc."receipt_id"
+     INNER JOIN "public"."ac_gnrl_rcpt" ac_gnrl_rcpt ON ac_rcpt."id" = ac_gnrl_rcpt."id"
+     INNER JOIN "public"."ac_eltc_rcpt" ac_eltc_rcpt ON ac_rcpt."id" = ac_eltc_rcpt."id"
+     INNER JOIN "public"."ac_bsry_rcpt" ac_bsry_rcpt ON ac_rcpt."id" = ac_bsry_rcpt."id"
+     INNER JOIN "public"."ac_actr" ac_actr ON ac_acct."actor_id" = ac_actr."id"]]>
+	</queryString>
+	<field name="ac_acct_id" class="java.lang.Long"/>
+	<field name="ac_acct_code" class="java.lang.String"/>
+	<field name="ac_acct_description" class="java.lang.String"/>
+	<field name="ac_acct_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_c_id" class="java.lang.Long"/>
+	<field name="ac_acct_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_d_id" class="java.lang.Long"/>
+	<field name="ac_acct_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_m_id" class="java.lang.Long"/>
+	<field name="ac_acct_m_st" class="java.lang.Integer"/>
+	<field name="ac_acct_actor_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_audit_no" class="java.lang.String"/>
+	<field name="ac_rcpt_cancel_comment" class="java.lang.String"/>
+	<field name="ac_rcpt_description" class="java.lang.String"/>
+	<field name="ac_rcpt_av_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_av_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_cl_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_cl_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_ck_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_ck_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_dt_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_dt_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_ev_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_ev_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_pr_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_pr_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_ps_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_ps_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_rg_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_rg_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_rm_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_rm_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_rq_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_rq_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_sl_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_sl_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_fd_st" class="java.lang.Integer"/>
+	<field name="ac_rcpt_up_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_up_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_uv_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_uv_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_vf_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_vf_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_c_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_d_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_m_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_m_st" class="java.lang.Integer"/>
+	<field name="ac_rcpt_payment_method" class="java.lang.Integer"/>
+	<field name="ac_rcpt_receipt_no" class="java.lang.String"/>
+	<field name="ac_rcpt_receipt_type" class="java.lang.Integer"/>
+	<field name="ac_rcpt_received_date" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_reference_no" class="java.lang.String"/>
+	<field name="ac_rcpt_remove_comment" class="java.lang.String"/>
+	<field name="ac_rcpt_source_no" class="java.lang.String"/>
+	<field name="ac_rcpt_total_amount" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_total_applied" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_total_received" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_total_payment" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_account_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_session_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_item_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_item_adjusted_amount" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_item_applied_amount" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_item_description" class="java.lang.String"/>
+	<field name="ac_rcpt_item_due_amount" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_item_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_item_c_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_item_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_item_d_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_item_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_item_m_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_item_m_st" class="java.lang.Integer"/>
+	<field name="ac_rcpt_item_price" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_item_total_amount" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_item_unit" class="java.lang.Integer"/>
+	<field name="ac_rcpt_item_charge_code_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_item_invoice_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_item_receipt_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_invc_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_invc_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_invc_c_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_invc_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_invc_d_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_invc_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_invc_m_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_invc_m_st" class="java.lang.Integer"/>
+	<field name="ac_rcpt_invc_invoice_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_invc_receipt_id" class="java.lang.Long"/>
+	<field name="ac_gnrl_rcpt_id" class="java.lang.Long"/>
+	<field name="ac_eltc_rcpt_id" class="java.lang.Long"/>
+	<field name="ac_bsry_rcpt_id" class="java.lang.Long"/>
+	<field name="ac_actr_id" class="java.lang.Long"/>
+	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
+	<field name="ac_actr_address" class="java.lang.String"/>
+	<field name="ac_actr_email" class="java.lang.String"/>
+	<field name="ac_actr_fax" class="java.lang.String"/>
+	<field name="ac_actr_identity_no" class="java.lang.String"/>
+	<field name="ac_actr_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_c_id" class="java.lang.Long"/>
+	<field name="ac_actr_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_d_id" class="java.lang.Long"/>
+	<field name="ac_actr_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_m_id" class="java.lang.Long"/>
+	<field name="ac_actr_m_st" class="java.lang.Integer"/>
+	<field name="ac_actr_mobile" class="java.lang.String"/>
+	<field name="ac_actr_name" class="java.lang.String"/>
+	<field name="ac_actr_phone" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="237" y="10" width="116" height="20" uuid="4bce1da0-a731-4d34-bf2c-5e19a7d3426b"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[RESIT RASMI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="30" width="252" height="20" uuid="7b911c46-8190-4563-92db-8123e92cb40d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN (UMK)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="154" y="50" width="289" height="20" uuid="7d6ce844-aecc-4bdd-b27b-99f1ebbd86bf"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Karung Berkunci 36, 16100 Pengkalan Chepa, Kelantan]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="17" y="0" width="100" height="20" uuid="2accf7fc-7925-4ff5-8a41-d1ffed6c32bf"/>
+				<text><![CDATA[Daripada :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="20" width="100" height="20" uuid="db0097f2-4edf-4c19-a30f-630da7252516"/>
+				<text><![CDATA[No ID  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="40" width="174" height="20" uuid="efed04b2-4670-4f03-b3de-1486fa1bfd0f"/>
+				<text><![CDATA[Tunai / Cek / Draf / Lain-lain No  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="20" width="54" height="20" uuid="807837d3-0a07-4f51-b136-fc1625a2122a"/>
+				<text><![CDATA[Tarikh  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="40" width="54" height="20" uuid="abd42d03-198a-4f6e-afcf-994b4a165b14"/>
+				<text><![CDATA[Rujukan  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="20" width="137" height="20" uuid="c5fcd60f-7275-4ed3-9b96-fc28f2802e98"/>
+				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="0" width="100" height="20" uuid="0ca37e7f-a5a4-49fc-ae3e-ffa091d7b437"/>
+				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="0" width="133" height="20" uuid="f499baad-977f-4d96-bea2-327be772ecd3"/>
+				<textFieldExpression><![CDATA[$F{ac_rcpt_receipt_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="20" width="112" height="20" uuid="fa7b55f5-234b-4c01-a09f-10844fed1354"/>
+				<textFieldExpression><![CDATA[$F{ac_rcpt_received_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="40" width="112" height="20" uuid="ff77bf9e-9ad3-45f7-95ac-e5df58123b0a"/>
+				<textFieldExpression><![CDATA[$F{ac_rcpt_reference_no}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="21" y="22" width="133" height="20" uuid="448da444-88d5-4201-a6a8-b41c304c9420"/>
+				<text><![CDATA[MAKLUMAT BAYARAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="24" width="100" height="20" uuid="232e993b-2646-49be-a4e2-2daf34a23c15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[JUMLAH (RM)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="67" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="142" splitType="Stretch">
+			<rectangle>
+				<reportElement x="17" y="54" width="355" height="84" uuid="a5098d7b-6335-4a67-a0dc-b81a15e6cdb5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="21" y="58" width="70" height="20" uuid="e008b945-6b60-4751-97e5-96f6bc7c8a0c"/>
+				<text><![CDATA[MUSTAHAK :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="78" width="332" height="20" uuid="4cdc4895-1eb8-4413-b01c-15f063667b91"/>
+				<text><![CDATA[Simpan surat ini dengan baik, pastikan butiran di atas adalah betul. Ini ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="98" width="351" height="20" uuid="ae8f6392-eb8d-45f1-a68f-dd3f4707dc88"/>
+				<text><![CDATA[Ini akan mengelakkan kerumitan kelak, Resit ini dianggap batal jika cek tidak]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="118" width="115" height="20" uuid="926b0d9d-f286-4c32-bb24-381fe6f6c9ff"/>
+				<text><![CDATA[tidak diakui oleh bank.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="34" width="118" height="20" uuid="d31c9c6a-79ac-409e-abfb-9ade710e08c3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TANPA PRASANGKA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="54" width="54" height="20" uuid="127d64d5-c603-4caa-a03f-4b20b36daa6e"/>
+				<text><![CDATA[Penerima :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="74" width="54" height="20" uuid="46b3a684-ece6-4cf3-86bc-5cf79a33fae4"/>
+				<text><![CDATA[b.p UMK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="94" width="133" height="20" uuid="cceb0ec8-fce3-4e07-899b-a14a838c6b55"/>
+				<text><![CDATA[Diakui sah bila dicetak oleh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="114" width="100" height="20" uuid="7071fb7f-9261-45a4-81a1-369226eec580"/>
+				<text><![CDATA[komputer.]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
