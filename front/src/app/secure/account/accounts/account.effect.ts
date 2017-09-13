@@ -184,5 +184,11 @@ export class AccountEffects {
     .withLatestFrom(this.store$.select(...this.ACCOUNT))
     .map((state) => state[1])
     .map((account: Account) => this.accountActions.findAccountByCode(account.code));
+
+    @Effect() findAccountCharges$ = this.actions$
+    .ofType(AccountActions.FIND_ACCOUNT_CHARGES)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findAccountCharges(account))
+    .map((charges) => this.accountActions.findAccountChargesSuccess(charges));
 }
 
