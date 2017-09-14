@@ -25,10 +25,6 @@ public interface AcKnockoff extends AcDocument {
 
 	void setIssuedDate(Date issuedDate);
 
-	AcInvoice getInvoice();
-
-	void setInvoice(AcInvoice invoice);
-
 	String getSourceNo();
 
 	void setSourceNo(String sourceNo);

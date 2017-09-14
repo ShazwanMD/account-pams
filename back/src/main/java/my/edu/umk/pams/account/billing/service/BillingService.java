@@ -336,6 +336,10 @@ public interface BillingService {
 
     void removeKnockoff(AcKnockoff knockoff, AcUser user);
     
+    //void itemToKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
+    
+    void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice);
+    
     //TASK
     
     AcKnockoff findKnockoffByTaskId(String taskId);

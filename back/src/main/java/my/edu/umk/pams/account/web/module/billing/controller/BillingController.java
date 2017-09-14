@@ -878,7 +878,6 @@ public class BillingController {
         knockoff.setDescription(vo.getDescription());
         knockoff.setAmount(vo.getAmount());
         knockoff.setPayments(billingService.findAdvancePaymentById(vo.getPayments().getId()));
-        knockoff.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         return new ResponseEntity<String>(billingService.startKnockoffTask(knockoff), HttpStatus.OK);
        
     }
@@ -914,6 +913,16 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/knockoffs/{referenceNo}/invoice/{id}", method = RequestMethod.POST)
+    public void addKnockoffInvoice(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+        AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
+        AcKnockoffInvoice e = new AcKnockoffInvoiceImpl();
+        e.setKnockoff(knockoff);;
+        e.setInvoice(invoice);
+        billingService.addKnockoffInvoice(knockoff, invoice);
+    }
 
     // ==================================================================================================== //
     //  REFUND PAYMENT

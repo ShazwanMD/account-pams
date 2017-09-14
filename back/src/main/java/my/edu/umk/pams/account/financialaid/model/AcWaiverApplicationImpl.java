@@ -50,7 +50,7 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     
     @Enumerated(value = EnumType.ORDINAL)
     @Column(name = "WAIVER_TYPE", nullable = false)
-    private AcWaiverApplicationType type;
+    private AcWaiverApplicationType waiverType;
 
     @Column(name = "SOURCE_NO")
     private String sourceNo;
@@ -265,13 +265,13 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     }
 
 	@Override
-	public AcWaiverApplicationType getType() {
-		return type;
+	public AcWaiverApplicationType getWaiverType() {
+		return waiverType;
 	}
 
 	@Override
-	public void setType(AcWaiverApplicationType type) {
-		this.type = type;
+	public void setWaiverType(AcWaiverApplicationType waiverType) {
+		this.waiverType = waiverType;
 		
 	}
 }

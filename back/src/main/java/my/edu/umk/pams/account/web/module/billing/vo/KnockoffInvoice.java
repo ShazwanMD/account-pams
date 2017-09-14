@@ -1,41 +1,36 @@
 package my.edu.umk.pams.account.web.module.billing.vo;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import my.edu.umk.pams.account.web.module.core.vo.Task;
+import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
-public class KnockoffTask extends Task {
-
+public class KnockoffInvoice extends MetaObject {
+	
+	private Invoice invoice;
 	private Knockoff knockoff;
-	private AdvancePayment payments;
-
-	public AdvancePayment getPayments() {
-		return payments;
+	
+	public Invoice getInvoice() {
+		return invoice;
 	}
-
-	public void setPayments(AdvancePayment payments) {
-		this.payments = payments;
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
-
 	public Knockoff getKnockoff() {
 		return knockoff;
 	}
-
 	public void setKnockoff(Knockoff knockoff) {
 		this.knockoff = knockoff;
 	}
-
+	
 	@JsonCreator
-    public static KnockoffTask create(String jsonString) {
-		KnockoffTask o = null;
+    public static KnockoffInvoice create(String jsonString) {
+		KnockoffInvoice o = null;
         try {
             ObjectMapper mapper = new ObjectMapper();
-            o = mapper.readValue(jsonString, KnockoffTask.class);
+            o = mapper.readValue(jsonString, KnockoffInvoice.class);
         } catch (IOException e) {
             // handle
         }

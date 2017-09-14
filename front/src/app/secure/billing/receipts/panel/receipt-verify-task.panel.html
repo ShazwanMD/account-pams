@@ -2,15 +2,15 @@
   <div layout="column" layout-gt-md="row" class="inset">
     <div flex-gt-md="70">
       <md-card>
-        <md-card-title>{{receiptTask?.referenceNo}}</md-card-title>
-        <md-card-subtitle>{{receiptTask?.description}}</md-card-subtitle>
+        <md-card-title>{{receipt?.referenceNo}}</md-card-title>
+        <md-card-subtitle>{{receipt?.description}}</md-card-subtitle>
 
         <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
           <div layout="column" flex>
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{receiptTask?.referenceNo}}</h4>
+                <h4 md-line>{{receipt?.referenceNo}}</h4>
                 <p md-line>Reference No</p>
               </md-list-item>
             </md-list>
@@ -19,7 +19,7 @@
             <md-list dense>
               <md-list-item>
                 <md-icon md-list-icon>local_offer</md-icon>
-                <h4 md-line>{{receiptTask?.receipt?.account?.code}}</h4>
+                <h4 md-line>{{receipt?.receipt?.account?.code}}</h4>
                 <p md-line>Account</p>
               </md-list-item>
             </md-list>
@@ -30,15 +30,14 @@
       </md-card>
 
       <pams-receipt-item-list
-        [receipt]="receiptTask.receipt"
+        [receipt]="receipt"
         [receiptItems]="receiptItems$ | async">
-
       </pams-receipt-item-list>
 
     </div>
     <div flex-gt-md="30">
 
-      <pams-receipt-status [receipt]="receiptTask.receipt"></pams-receipt-status>
+      <pams-receipt-status [receipt]="receipt"></pams-receipt-status>
 
       <md-card>
         <md-card-title>Action</md-card-title>

@@ -2,8 +2,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ac_report_cukai_inbois" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7fb023f6-3bf2-4194-8c01-ca1815d2cd76">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
+	<property name="ireport.y" value="124"/>
+	<parameter name="reference_no" class="java.lang.String"/>
+	<queryString>
 		<![CDATA[SELECT
      ac_acct."id" AS ac_acct_id,
      ac_acct."code" AS ac_acct_code,
@@ -244,7 +245,10 @@ FROM
      INNER JOIN "public"."ac_actr" ac_actr ON ac_acct."actor_id" = ac_actr."id"
      INNER JOIN "public"."ac_user" ac_user ON ac_actr."id" = ac_user."actor_id"
      INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."program_code_id" = ac_prgm_code."id"
-     INNER JOIN "public"."ac_fcty_code" ac_fcty_code ON ac_prgm_code."faculty_code_id" = ac_fcty_code."id"]]>
+     INNER JOIN "public"."ac_fcty_code" ac_fcty_code ON ac_prgm_code."faculty_code_id" = ac_fcty_code."id"
+
+
+WHERE ac_invc."reference_no" = $P{reference_no}]]>
 	</queryString>
 	<field name="ac_acct_id" class="java.lang.Long"/>
 	<field name="ac_acct_code" class="java.lang.String"/>
@@ -569,16 +573,16 @@ FROM
 				<textFieldExpression><![CDATA[$F{ac_actr_address}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="447" y="18" width="106" height="20" uuid="3428ebac-d35a-4ae7-9640-2af9359d2519"/>
-				<textFieldExpression><![CDATA[$F{ac_invc_invoice_no}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="448" y="30" width="100" height="20" uuid="532b2ec5-0d3b-451d-9382-33a71f069c52"/>
 				<textFieldExpression><![CDATA[$F{ac_acct_actor_id}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="448" y="43" width="107" height="20" uuid="3ed4cbc6-c0b0-4818-9944-077ab6cbb6a7"/>
 				<textFieldExpression><![CDATA[$F{ac_invc_issued_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="18" width="118" height="20" uuid="4d99728c-c6e1-4fc7-a127-71cb67b9cae1"/>
+				<textFieldExpression><![CDATA[$F{ac_invc_reference_no}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
@@ -716,56 +720,56 @@ FROM
 				<text><![CDATA[1.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="122" width="118" height="20" uuid="65ea4671-5f13-44b5-906d-a25264448aa5"/>
+				<reportElement x="44" y="140" width="118" height="20" uuid="65ea4671-5f13-44b5-906d-a25264448aa5"/>
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
 				<text><![CDATA[- Yuran Penyelidikan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="222" width="118" height="20" uuid="18f5022a-e328-47b3-ba81-2db084d5b547"/>
+				<reportElement x="44" y="240" width="118" height="20" uuid="18f5022a-e328-47b3-ba81-2db084d5b547"/>
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
 				<text><![CDATA[- Yuran Komputer]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="142" width="118" height="20" uuid="62c60b35-349b-4e33-b770-2cee0c24389f"/>
+				<reportElement x="44" y="160" width="118" height="20" uuid="62c60b35-349b-4e33-b770-2cee0c24389f"/>
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
 				<text><![CDATA[- Yuran Perkhidmatan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="162" width="118" height="20" uuid="00044879-b207-431f-801a-566e84db1047"/>
+				<reportElement x="44" y="180" width="118" height="20" uuid="00044879-b207-431f-801a-566e84db1047"/>
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
 				<text><![CDATA[- Yuran Kesihatan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="182" width="118" height="20" uuid="1b79eeee-c5dc-4fff-818e-70f8e9f6df45"/>
+				<reportElement x="44" y="200" width="118" height="20" uuid="1b79eeee-c5dc-4fff-818e-70f8e9f6df45"/>
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
 				<text><![CDATA[- Yuran Perpustakaan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="202" width="118" height="20" uuid="f5e1afd7-1a7d-4558-a829-ed8f4dcdd845"/>
+				<reportElement x="44" y="220" width="118" height="20" uuid="f5e1afd7-1a7d-4558-a829-ed8f4dcdd845"/>
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
 				<text><![CDATA[- Insuran Berkelompok]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="242" width="118" height="20" uuid="1e3d3a52-68b2-45a4-8788-7f3dd8ad62ec"/>
+				<reportElement x="44" y="260" width="118" height="20" uuid="1e3d3a52-68b2-45a4-8788-7f3dd8ad62ec"/>
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
 				<text><![CDATA[- Yuran Kelab]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="262" width="186" height="20" uuid="4918d4ca-e728-471f-90d3-a2b7a3c6efdb"/>
+				<reportElement x="44" y="280" width="186" height="20" uuid="4918d4ca-e728-471f-90d3-a2b7a3c6efdb"/>
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
@@ -918,12 +922,24 @@ FROM
 				<textFieldExpression><![CDATA[$F{ac_acdm_sesn_description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="397" y="120" width="151" height="20" uuid="8cf5a92e-7f81-4cdf-afaa-1f2ee70b1375"/>
+				<reportElement x="394" y="120" width="151" height="20" uuid="8cf5a92e-7f81-4cdf-afaa-1f2ee70b1375"/>
 				<textFieldExpression><![CDATA[$F{ac_acct_chrg_tax_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="358" y="102" width="130" height="20" uuid="899f49b0-c434-4cc5-9317-2bce5b85d5cb"/>
 				<textFieldExpression><![CDATA[$F{ac_tax_code_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="122" width="151" height="20" uuid="b3ed69c4-041f-41f3-9847-3c8f47b812ef"/>
+				<textFieldExpression><![CDATA[$F{ac_invc_item_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="140" width="137" height="20" uuid="370094cc-d570-4088-a7f0-524fd95d26fc"/>
+				<textFieldExpression><![CDATA[$F{ac_acct_chrg_net_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="82" width="131" height="20" uuid="e6220001-e286-490b-bcac-a62fead370df"/>
+				<textFieldExpression><![CDATA[$F{ac_acct_chrg_amount}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

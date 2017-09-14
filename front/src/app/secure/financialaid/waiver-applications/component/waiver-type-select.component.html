@@ -1,0 +1,8 @@
+<md-select
+  [placeholder]="placeholder"
+  (change)="selectChangeEvent($event.value)" flex>
+
+  <md-option *ngFor="let waiverType of waiverTypes" [value]="waiverType">
+    {{waiverType}}
+  </md-option>
+</md-select>

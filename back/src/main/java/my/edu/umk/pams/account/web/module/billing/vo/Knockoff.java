@@ -19,7 +19,6 @@ public class Knockoff extends Document {
 	private String description;
 	private BigDecimal amount;
 	private Date issuedDate;
-	private Invoice invoice;
 	private AdvancePayment payments;
 
 	public String getReferenceNo() {
@@ -68,14 +67,6 @@ public class Knockoff extends Document {
 
 	public void setIssuedDate(Date issuedDate) {
 		this.issuedDate = issuedDate;
-	}
-
-	public Invoice getInvoice() {
-		return invoice;
-	}
-
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
 	}
 
 	public AdvancePayment getPayments() {

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,6 +25,7 @@ import my.edu.umk.pams.account.core.AcMetadata;
 
 @Entity(name = "AcKnockoff")
 @Table(name = "AC_KNOF")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class AcKnockoffImpl implements AcKnockoff {
 
     @Id
@@ -57,11 +60,6 @@ public class AcKnockoffImpl implements AcKnockoff {
     @NotNull
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
-    
-    @NotNull
-    @OneToOne(targetEntity = AcInvoiceImpl.class)
-    @JoinColumn(name = "INVOICE_ID")
-    private AcInvoice invoice;
 
     @NotNull
     @ManyToOne(targetEntity = AcAdvancePaymentImpl.class, fetch = FetchType.EAGER)
@@ -141,16 +139,6 @@ public class AcKnockoffImpl implements AcKnockoff {
     @Override
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
-    }
-
-    @Override
-    public AcInvoice getInvoice() {
-        return invoice;
-    }
-
-    @Override
-    public void setInvoice(AcInvoice invoice) {
-        this.invoice = invoice;
     }
     
     @Override	

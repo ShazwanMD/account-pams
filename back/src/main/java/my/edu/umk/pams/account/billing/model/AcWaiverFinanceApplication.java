@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.model.AcDocument;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
 public interface AcWaiverFinanceApplication extends AcDocument {
 
@@ -39,4 +40,8 @@ public interface AcWaiverFinanceApplication extends AcDocument {
 	AcAcademicSession getSession();
 
 	void setSession(AcAcademicSession session);
+	
+	AcWaiverApplicationType getWaiverType();
+	
+	void setWaiverType(AcWaiverApplicationType waiverType);
 }

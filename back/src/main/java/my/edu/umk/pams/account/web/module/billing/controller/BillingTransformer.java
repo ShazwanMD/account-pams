@@ -14,6 +14,7 @@ import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationType;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.activiti.engine.task.Task;
@@ -387,11 +388,18 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setAmount(e.getAmount());
         vo.setIssuedDate(e.getIssuedDate());
-        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         commonTransformer.decorateMeta(e,vo);
+        return vo;
+    }
+    
+    public KnockoffInvoice toKnockoffInvoiceVo(AcKnockoffInvoice r) {
+    	
+    	KnockoffInvoice vo = new KnockoffInvoice();
+    	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
+    	vo.setKnockoff(billingTransformer.toKnockoffVo(r.getKnockoff()));
         return vo;
     }
     
@@ -428,7 +436,6 @@ public class BillingTransformer {
         task.setAssignee(task.getAssignee());
         task.setDescription(knockoff.getDescription());
         task.setPayments(task.getPayments());
-        task.setInvoice(task.getInvoice());
         task.setFlowState(FlowState.get(knockoff.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(knockoff.getMetadata().getState().ordinal()));
         return task;
@@ -453,6 +460,7 @@ public class BillingTransformer {
         task.setAccount(accountTransformer.toAccountVo(application.getAccount()));
         task.setFlowState(FlowState.get(application.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(application.getMetadata().getState().ordinal()));
+        task.setWaiverType(WaiverApplicationType.get(application.getWaiverType().ordinal()));
         return task;
     }
 
@@ -470,6 +478,7 @@ public class BillingTransformer {
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setWaiverType(WaiverApplicationType.get(e.getWaiverType().ordinal()));
         commonTransformer.decorateMeta(e,vo);
         return vo;
     }
@@ -616,6 +625,12 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toWaiverFinanceApplicationVo(entry))
                 .collect(toCollection(() -> new ArrayList<WaiverFinanceApplication>()));
+    }
+    
+    public List<KnockoffInvoice> toKnockoffInvoiceVos(List<AcKnockoffInvoice> entries) {
+        return entries.stream()
+                .map((entry) -> toKnockoffInvoiceVo(entry))
+                .collect(toCollection(() -> new ArrayList<KnockoffInvoice>()));
     }
 
 }

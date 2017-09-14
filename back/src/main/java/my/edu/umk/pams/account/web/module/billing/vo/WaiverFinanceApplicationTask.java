@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.core.vo.Task;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationType;
 import my.edu.umk.pams.account.web.module.billing.vo.WaiverFinanceApplication;
 import my.edu.umk.pams.account.web.module.billing.vo.WaiverFinanceApplicationTask;
 
@@ -14,6 +15,7 @@ public class WaiverFinanceApplicationTask extends Task {
 
     private Account account;
     private WaiverFinanceApplication application;
+    private WaiverApplicationType waiverType;
 
     public Account getAccount() {
         return account;
@@ -31,7 +33,15 @@ public class WaiverFinanceApplicationTask extends Task {
         this.application = application;
     }
 
-    @JsonCreator
+    public WaiverApplicationType getWaiverType() {
+		return waiverType;
+	}
+
+	public void setWaiverType(WaiverApplicationType waiverType) {
+		this.waiverType = waiverType;
+	}
+
+	@JsonCreator
     public static WaiverFinanceApplicationTask create(String jsonString) {
     	WaiverFinanceApplicationTask o = null;
         try {

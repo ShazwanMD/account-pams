@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.dao;
 
 import java.util.List;
 
+import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
@@ -24,4 +25,6 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     void updateKnockoff(AcKnockoff knockoff, AcUser user);
 
     void removeKnockoff(AcKnockoff knockoff, AcUser user);
+    
+    void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice, AcUser user);
 }

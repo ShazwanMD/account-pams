@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcReceiptType;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
@@ -322,6 +323,7 @@ public class FinancialAidController {
         waiverApplication.setBalance(accountService.sumBalanceAmount(account));
         waiverApplication.setAccount(account);
         waiverApplication.setSession(academicSession);
+        waiverApplication.setWaiverType(AcWaiverApplicationType.get(vo.getWaiverType().ordinal()));
         return new ResponseEntity<String>(financialAidService.startWaiverApplicationTask(waiverApplication), HttpStatus.OK);
     }
 
