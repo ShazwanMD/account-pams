@@ -21,6 +21,7 @@ export class AssignedWaiverApplicationTaskListComponent {
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
     {name: 'application.waivedAmount', label: 'Waived Amount'},
+    {name: 'waiverType', label: 'Waiver Type'},
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];
