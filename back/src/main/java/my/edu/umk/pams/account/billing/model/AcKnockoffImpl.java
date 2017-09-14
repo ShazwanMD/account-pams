@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,6 +25,7 @@ import my.edu.umk.pams.account.core.AcMetadata;
 
 @Entity(name = "AcKnockoff")
 @Table(name = "AC_KNOF")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class AcKnockoffImpl implements AcKnockoff {
 
     @Id

@@ -571,7 +571,12 @@ export class BillingService {
         return this._http.get( this.BILLING_API + '/knockoffs/viewTask/' + taskId )
             .map(( res: Response ) => <KnockoffTask>res.json() );
     }
-
+    
+    addKnockoffInvoice( knockoff: Knockoff, invoice: Invoice ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/invoice/' + invoice.id, JSON.stringify( invoice ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
     // ====================================================================================================
   // WAIVER FINANCE APPLICATION
   // ====================================================================================================

@@ -17,6 +17,11 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffImpl;
+import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
+import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
+import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
+import my.edu.umk.pams.account.billing.model.AcReceiptInvoiceImpl;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -135,4 +140,26 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
 
 		session.update(knockoff);
 	}
+	
+    @Override
+    public void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice, AcUser user) {
+        LOG.info("knockoff id : " + knockoff.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(knockoff, "knockoff cannot be null");
+        Validate.notNull(invoice, "Invoice cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcKnockoffInvoice knockoffInvc = new AcKnockoffInvoiceImpl();
+        knockoffInvc.setInvoice(invoice);
+        knockoffInvc.setKnockoff(knockoff);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        knockoffInvc.setMetadata(metadata);
+        session.saveOrUpdate(knockoffInvc);
+    }
 }

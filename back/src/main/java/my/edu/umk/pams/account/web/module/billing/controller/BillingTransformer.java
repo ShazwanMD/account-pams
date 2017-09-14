@@ -396,6 +396,14 @@ public class BillingTransformer {
         return vo;
     }
     
+    public KnockoffInvoice toKnockoffInvoiceVo(AcKnockoffInvoice r) {
+    	
+    	KnockoffInvoice vo = new KnockoffInvoice();
+    	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
+    	vo.setKnockoff(billingTransformer.toKnockoffVo(r.getKnockoff()));
+        return vo;
+    }
+    
     public RefundPayment toRefundPaymentVo(AcRefundPayment e) {
     	RefundPayment vo = new RefundPayment();
         vo.setId(e.getId());
@@ -472,7 +480,7 @@ public class BillingTransformer {
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        vo.setType(WaiverApplicationType.get(e.getType().ordinal()));
+        vo.setWaiverType(WaiverApplicationType.get(e.getWaiverType().ordinal()));
         commonTransformer.decorateMeta(e,vo);
         return vo;
     }
@@ -619,6 +627,12 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toWaiverFinanceApplicationVo(entry))
                 .collect(toCollection(() -> new ArrayList<WaiverFinanceApplication>()));
+    }
+    
+    public List<KnockoffInvoice> toKnockoffInvoiceVos(List<AcKnockoffInvoice> entries) {
+        return entries.stream()
+                .map((entry) -> toKnockoffInvoiceVo(entry))
+                .collect(toCollection(() -> new ArrayList<KnockoffInvoice>()));
     }
 
 }

@@ -26,6 +26,7 @@ import {WaiverApplicationStatusComponent} from './component/waiver-application-s
 import {PipeModule} from '../../../app.pipe.module';
 import {ArchivedWaiverApplicationListComponent} from './component/archived-waiver-application-list.component';
 import {WaiverApplicationDetailPage} from './waiver-application-detail.page';
+import {WaiverTypeSelectComponent} from './component/waiver-type-select.component';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import {WaiverApplicationDetailPage} from './waiver-application-detail.page';
     WaiverApplicationStatusComponent,
     WaiverApplicationDetailPage,
     ArchivedWaiverApplicationListComponent,
+    WaiverTypeSelectComponent,
 
     // dialog
     WaiverApplicationCreatorDialog,

@@ -1258,6 +1258,12 @@ public class BillingServiceImpl implements BillingService {
 		knockoffDao.remove(knockoff, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	@Override
+	public void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice) {
+		knockoffDao.addKnockoffInvoice(knockoff, invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
 
 	// TASK
 
