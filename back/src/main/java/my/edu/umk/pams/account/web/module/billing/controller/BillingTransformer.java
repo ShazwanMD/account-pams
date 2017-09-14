@@ -454,7 +454,7 @@ public class BillingTransformer {
         task.setAccount(accountTransformer.toAccountVo(application.getAccount()));
         task.setFlowState(FlowState.get(application.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(application.getMetadata().getState().ordinal()));
-        task.setType(WaiverApplicationType.get(application.getType().ordinal()));
+        task.setWaiverType(WaiverApplicationType.get(application.getWaiverType().ordinal()));
         return task;
     }
 

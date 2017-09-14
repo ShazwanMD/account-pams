@@ -1,6 +1,8 @@
 import {Document} from '../../../core/document.interface';
 import {AcademicSession} from '../account/academic-session.interface';
 import {Account} from '../account/account.interface';
+import {WaiverApplicationType} from './waiver-application-type.enum';
+
 export interface WaiverApplication extends Document {
   referenceNo: string;
   sourceNo: string;

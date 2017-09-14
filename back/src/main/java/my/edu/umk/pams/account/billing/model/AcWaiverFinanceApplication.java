@@ -41,7 +41,7 @@ public interface AcWaiverFinanceApplication extends AcDocument {
 
 	void setSession(AcAcademicSession session);
 	
-	AcWaiverApplicationType getType();
+	AcWaiverApplicationType getWaiverType();
 	
-	void setType(AcWaiverApplicationType type);
+	void setWaiverType(AcWaiverApplicationType waiverType);
 }

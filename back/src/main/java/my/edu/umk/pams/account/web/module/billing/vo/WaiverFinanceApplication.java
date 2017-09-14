@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.account.vo.AcademicSession;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
 import my.edu.umk.pams.account.web.module.core.vo.Document;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationType;
 import my.edu.umk.pams.account.web.module.billing.vo.WaiverFinanceApplication;
 
 public class WaiverFinanceApplication extends Document {
@@ -21,6 +22,7 @@ public class WaiverFinanceApplication extends Document {
     private BigDecimal gracedAmount;
     private Account account;
     private AcademicSession academicSession;
+    private WaiverApplicationType waiverType;
 
     public String getReason() {
         return reason;
@@ -85,6 +87,14 @@ public class WaiverFinanceApplication extends Document {
     public void setAcademicSession(AcademicSession academicSession) {
         this.academicSession = academicSession;
     }
+    
+    public WaiverApplicationType getWaiverType() {
+		return waiverType;
+	}
+
+	public void setWaiverType(WaiverApplicationType waiverType) {
+		this.waiverType = waiverType;
+	}
 
     @JsonCreator
     public static WaiverFinanceApplication create(String jsonString) {

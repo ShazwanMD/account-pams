@@ -50,6 +50,15 @@
               </div>
       </md-input-container>
       </div>
+      
+       <div layout="row" class="pad-bottom" flex>
+      <pams-waiver-type-select
+        [placeholder]="'Select Waiver Type'"
+        [innerFormControl]="createForm.controls['waiverType']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
+      </pams-waiver-type-select>
+      </div> 
+      
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">

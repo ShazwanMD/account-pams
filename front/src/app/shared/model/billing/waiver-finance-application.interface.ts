@@ -1,6 +1,7 @@
 import {Document} from '../../../core/document.interface';
 import {AcademicSession} from '../account/academic-session.interface';
 import {Account} from '../account/account.interface';
+import { WaiverApplicationType } from "../financialaid/waiver-application-type.enum";
 export interface WaiverFinanceApplication extends Document {
   referenceNo: string;
   sourceNo: string;
@@ -13,5 +14,6 @@ export interface WaiverFinanceApplication extends Document {
   gracedAmount: number;
   account: Account;
   academicSession: AcademicSession;
+  waiverType: WaiverApplicationType;
 }
 

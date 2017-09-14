@@ -6,7 +6,7 @@ import {ReceiptActions} from '../receipt.action';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {BillingModuleState} from '../../index';
-import {ReceiptTask} from '../../../../shared/model/billing/receipt-task.interface';
+import {Receipt} from '../../../../shared/model/billing/receipt.interface';
 import {ReceiptItem} from '../../../../shared/model/billing/receipt-item.interface';
 
 @Component({
@@ -17,7 +17,7 @@ import {ReceiptItem} from '../../../../shared/model/billing/receipt-item.interfa
 export class ReceiptVerifyTaskPanel implements OnInit {
 
   private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split('.');
-  @Input() receiptTask: ReceiptTask;
+  @Input() receipt: Receipt;
   receiptItems$: Observable<ReceiptItem[]>;
 
   constructor(private router: Router,
@@ -31,7 +31,7 @@ export class ReceiptVerifyTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
+    this.store.dispatch(this.actions.findReceiptItems(this.receipt));
   }
 
   editItem(item: ReceiptItem) {
@@ -43,11 +43,6 @@ export class ReceiptVerifyTaskPanel implements OnInit {
     config.position = {top: '0px'};
     let editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
     editorDialogRef.componentInstance.receiptItem = item;
-  }
-
-  approve() {
-    this.store.dispatch(this.actions.completeReceiptTask(this.receiptTask));
-    this.goBack();
   }
 
   goBack(): void {

@@ -8,6 +8,7 @@ import {WaiverApplicationActions} from '../waiver-application.action';
 import {WaiverApplication} from '../../../../shared/model/financialaid/waiver-application.interface';
 import {AcademicSession} from '../../../../shared/model/account/academic-session.interface';
 import {Account} from '../../../../shared/model/account/account.interface';
+import { WaiverApplicationType } from "../../../../shared/model/financialaid/waiver-application-type.enum";
 
 @Component({
   selector: 'pams-waiver-application',
@@ -36,6 +37,7 @@ export class WaiverApplicationCreatorDialog implements OnInit {
       waivedAmount:[0,Validators.required],
       account: <Account>{},
       academicSession: <AcademicSession>{},
+      waiverType: <WaiverApplicationType>{},
     });
   }
 
