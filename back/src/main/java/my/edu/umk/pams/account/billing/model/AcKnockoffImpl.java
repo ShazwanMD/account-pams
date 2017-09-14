@@ -60,11 +60,6 @@ public class AcKnockoffImpl implements AcKnockoff {
     @NotNull
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
-    
-    @NotNull
-    @OneToOne(targetEntity = AcInvoiceImpl.class)
-    @JoinColumn(name = "INVOICE_ID")
-    private AcInvoice invoice;
 
     @NotNull
     @ManyToOne(targetEntity = AcAdvancePaymentImpl.class, fetch = FetchType.EAGER)
@@ -144,16 +139,6 @@ public class AcKnockoffImpl implements AcKnockoff {
     @Override
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
-    }
-
-    @Override
-    public AcInvoice getInvoice() {
-        return invoice;
-    }
-
-    @Override
-    public void setInvoice(AcInvoice invoice) {
-        this.invoice = invoice;
     }
     
     @Override	

@@ -388,7 +388,6 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setAmount(e.getAmount());
         vo.setIssuedDate(e.getIssuedDate());
-        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
@@ -437,7 +436,6 @@ public class BillingTransformer {
         task.setAssignee(task.getAssignee());
         task.setDescription(knockoff.getDescription());
         task.setPayments(task.getPayments());
-        task.setInvoice(task.getInvoice());
         task.setFlowState(FlowState.get(knockoff.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(knockoff.getMetadata().getState().ordinal()));
         return task;

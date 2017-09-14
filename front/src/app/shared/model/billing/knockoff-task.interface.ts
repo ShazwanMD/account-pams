@@ -15,7 +15,6 @@ export interface KnockoffTask extends Document {
   knockoff: Knockoff;
   receivedDate: number;
   totalAmount: number;
-  invoice: Invoice;
   payments?: AdvancePayment;
   flowState: FlowState;
 

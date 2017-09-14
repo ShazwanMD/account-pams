@@ -13,7 +13,6 @@ public class KnockoffTask extends Task {
 
 	private Knockoff knockoff;
 	private AdvancePayment payments;
-	private Invoice invoice;
 
 	public AdvancePayment getPayments() {
 		return payments;
@@ -21,14 +20,6 @@ public class KnockoffTask extends Task {
 
 	public void setPayments(AdvancePayment payments) {
 		this.payments = payments;
-	}
-
-	public Invoice getInvoice() {
-		return invoice;
-	}
-
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
 	}
 
 	public Knockoff getKnockoff() {
