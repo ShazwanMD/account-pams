@@ -41,6 +41,26 @@
         </md-card-actions>
       </md-card>
 
+      <div layout="column" layout-gt-md="row">
+        <div flex-gt-md="70">
+          <md-card>
+              <md-tab-group [selectedIndex]="0">
+                  <md-tab label="Invoices">
+                    <pams-knockoff-invoice-list
+                    [knockoff]="knockoffTask.knockoff"
+                    ></pams-knockoff-invoice-list>
+                  </md-tab>
+
+                  <md-tab label="Charges">
+                      
+                  </md-tab>
+              </md-tab-group>
+          </md-card>
+        <div>
+        </div>
+      </div>
+      </div>
+      
     </div>
     <div flex-gt-md="30">
 

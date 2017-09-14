@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {BillingModuleState} from '../../index';
 import {KnockoffTask} from '../../../../shared/model/billing/knockoff-task.interface';
 import { TdDialogService } from "@covalent/core";
+import { InvoiceActions } from "../../invoices/invoice.action";
 
 @Component({
   selector: 'pams-knockoff-draft-task',
@@ -21,6 +22,7 @@ export class KnockoffDraftTaskPanel implements OnInit {
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
               private actions: KnockoffActions,
+              private action: InvoiceActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
@@ -29,6 +31,7 @@ export class KnockoffDraftTaskPanel implements OnInit {
 
   ngOnInit(): void {
     //this.store.dispatch(this.actions.findInvoiceItems(this.invoiceTask.invoice));
+      this.store.dispatch(this.action.findUnpaidInvoices(this.knockoffTask.knockoff.payments.account));
   }
 
   register() {

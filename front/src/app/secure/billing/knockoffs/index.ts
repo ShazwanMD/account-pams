@@ -27,6 +27,7 @@ import { PooledKnockoffTaskListComponent } from './component/pooled-knockoff-tas
 import { ArchivedKnockoffListComponent } from './component/archived-knockoff-list.component';
 import { KnockoffCenterPage } from "./knockoff-center.page";
 import { KnockoffVerifyTaskPanel } from "./panel/knockoff-verify-task.panel";
+import { KnockoffInvoiceListComponent } from "./component/knockoff-invoice-list.component";
 
 @NgModule( {
     imports: [
@@ -56,6 +57,7 @@ import { KnockoffVerifyTaskPanel } from "./panel/knockoff-verify-task.panel";
         ArchivedKnockoffListComponent,
         KnockoffListComponent,
         KnockoffStatusComponent,
+        KnockoffInvoiceListComponent,
         
 
         // dialog
