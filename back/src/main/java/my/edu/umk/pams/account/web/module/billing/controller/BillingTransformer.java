@@ -14,6 +14,7 @@ import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationType;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.workflow.service.WorkflowService;
 import org.activiti.engine.task.Task;
@@ -453,6 +454,7 @@ public class BillingTransformer {
         task.setAccount(accountTransformer.toAccountVo(application.getAccount()));
         task.setFlowState(FlowState.get(application.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(application.getMetadata().getState().ordinal()));
+        task.setType(WaiverApplicationType.get(application.getType().ordinal()));
         return task;
     }
 
@@ -470,6 +472,7 @@ public class BillingTransformer {
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setType(WaiverApplicationType.get(e.getType().ordinal()));
         commonTransformer.decorateMeta(e,vo);
         return vo;
     }
