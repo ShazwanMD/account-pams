@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,6 +23,7 @@ import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
 @Entity(name = "AcWaiverFinanceApplication")
 @Table(name = "AC_WAVR_FNCE_APLN")
@@ -51,6 +54,10 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
     @NotNull
     @Column(name = "GRACED_AMOUNT", nullable = false)
     private BigDecimal gracedAmount = BigDecimal.ZERO;
+    
+    @Enumerated(value = EnumType.ORDINAL)
+    @Column(name = "WAIVER_TYPE", nullable = false)
+    private AcWaiverApplicationType type;
 
     @Column(name = "SOURCE_NO")
     private String sourceNo;
@@ -258,6 +265,17 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
     public void setFlowdata(AcFlowdata flowdata) {
         this.flowdata = flowdata;
     }
+    
+	@Override
+	public AcWaiverApplicationType getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(AcWaiverApplicationType type) {
+		this.type = type;
+		
+	}
 
     @Override
     public Class<?> getInterfaceClass() {
