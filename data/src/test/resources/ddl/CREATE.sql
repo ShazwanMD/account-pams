@@ -688,7 +688,6 @@
         ISSUED_DATE date,
         SOURCE_NO varchar(255),
         ADVANCE_PAYMENT_ID int8,
-        INVOICE_ID int8,
         primary key (ID)
     );
 
