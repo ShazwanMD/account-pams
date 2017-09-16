@@ -57,6 +57,12 @@ export class KnockoffEffects {
         .switchMap(( taskId ) => this.billingService.findKnockoffTaskByTaskId(taskId))
         .map(( task ) => this.knockoffActions.findKnockoffTaskByTaskIdSuccess(task) );
     
+    @Effect() findKnockoffsByInvoice$ = this.actions$
+    .ofType( KnockoffActions.FIND_INVOICE_BY_KNOCKOFF )
+    .map(( action ) => action.payload )
+    .switchMap(( knockoff ) => this.billingService.findKnockoffsByInvoice(knockoff))
+    .map(( knockoff ) => this.knockoffActions.findKnockoffsByInvoiceSuccess(knockoff) );
+    
     @Effect() startKnockoffTask$ = this.actions$
     .ofType(KnockoffActions.START_KNOCKOFF_TASK)
     .map((action) => action.payload)
@@ -101,4 +107,11 @@ export class KnockoffEffects {
                                 this.knockoffActions.findPooledKnockoffTasks(),
       ],
     ));
+  
+  @Effect() addKnockoffInvoice$ =
+      this.actions$
+        .ofType(KnockoffActions.ADD_KNOCKOFF_INVOICE)
+        .map((action) => action.payload)
+        .switchMap((payload) => this.billingService.addKnockoffInvoice(payload.knockoff, payload.invoice))
+        .map((message) => this.knockoffActions.addKnockoffInvoiceSuccess(message));
 }
