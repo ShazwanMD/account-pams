@@ -327,6 +327,8 @@ public interface BillingService {
 	List<AcKnockoff> findKnockoffsByFlowState(AcFlowState acFlowState);
 	
 	List<AcKnockoff> findKnockoffsByFlowStates(AcFlowState... flowStates );
+	
+	List<AcKnockoffInvoice> findKnockoffs(AcKnockoff knockoff);
 
     boolean hasKnockoff(AcKnockoff knockoff);
     
