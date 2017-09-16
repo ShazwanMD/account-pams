@@ -819,27 +819,13 @@ public class BillingController {
         return new ResponseEntity<Knockoff>(billingTransformer.toKnockoffVo(knockoffs), HttpStatus.OK);
     }
     
-//    @RequestMapping(value = "/knockoffs/{referenceNo}", method = RequestMethod.POST)
-//    public ResponseEntity<String> saveKnockoff(@PathVariable String referenceNo, @RequestBody Knockoff vo) {
-//        
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map.put("academicSession", accountService.findCurrentAcademicSession());
-//        String refNo = systemService.generateFormattedReferenceNo(AccountConstants.KNOCKOFF_REFRENCE_NO, map);
-//        
-//        AcAdvancePayment payment = billingService.findAdvancePaymentByReferenceNo(referenceNo);
-//        LOG.debug("payment controller" + payment);
-//        
-//        AcKnockoff knockoff = new AcKnockoffImpl();
-//        knockoff.setAmount(vo.getAmount());
-//        knockoff.setAuditNo(vo.getAuditNo());
-//        knockoff.setDescription(vo.getDescription());
-//        knockoff.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
-//        knockoff.setIssuedDate(vo.getIssuedDate());
-//        knockoff.setPayments(payment);
-//        knockoff.setReferenceNo(refNo);
-//        billingService.addKnockoff(knockoff);
-//        return new ResponseEntity<String>("Success", HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffInvoice", method = RequestMethod.GET)
+    public ResponseEntity<List<KnockoffInvoice>> findKnockoffsByInvoice(@PathVariable String referenceNo) {
+        
+        AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        return new ResponseEntity<List<KnockoffInvoice>>(billingTransformer
+                .toKnockoffInvoiceVos(billingService.findKnockoffs(knockoff)), HttpStatus.OK);
+    }
     
     @RequestMapping(value = "/knockoffs/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<Knockoff>> findKnockoffsByFlowState(@PathVariable String state) {
