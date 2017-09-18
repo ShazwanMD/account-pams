@@ -16,6 +16,7 @@ import {InvoiceActions} from '../../invoices/invoice.action';
 import { InvoiceReceiptDialog } from "../dialog/invoice-receipt.dialog";
 import { ReceiptInvoice } from "../../../../shared/model/billing/receipt-invoice.interface";
 import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.dialog";
+import { AccountActions } from '../../../account/accounts/account.action';
 
 @Component({
   selector: 'pams-receipt-draft-task',
@@ -40,6 +41,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private actions: ReceiptActions,
               private action: InvoiceActions,
+              private accountAction: AccountActions,
               private store: Store<BillingModuleState>,
               private stores: Store<AccountModuleState>,
               private dialog: MdDialog,
@@ -54,7 +56,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
     //this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
     this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
-    
+    this.store.dispatch(this.accountAction.findUnpaidAccountCharges(this.receiptTask.receipt.account));
   }
 
   editItem(item: ReceiptItem) {
