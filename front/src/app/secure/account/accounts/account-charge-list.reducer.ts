@@ -49,3 +49,17 @@ export function loanAccountChargeListReducer(state = initialState, action: Actio
     }
   }
 }
+
+export function accountChargeListReducer(state = initialState, action: Action): AccountChargeListState {
+  switch (action.type) {
+    case AccountActions.FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS: {
+      return action.payload;
+    }
+    case AccountActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS: {
+      return action.payload;
+    }
+    default: {
+      return state;
+    }
+  }
+}
