@@ -17,7 +17,7 @@ import { AccountActions } from "../../../account/accounts/account.action";
 })
 export class DebitNoteUnpaidSelectComponent implements OnInit {
 
-  private DEBIT_NOTES = 'billingModuleState.debitNote'.split('.');
+  private DEBIT_NOTES = 'billingModuleState.debitNotes'.split('.');
   private debitNotes$: Observable<DebitNote[]>;
   private selected: DebitNote;
 
