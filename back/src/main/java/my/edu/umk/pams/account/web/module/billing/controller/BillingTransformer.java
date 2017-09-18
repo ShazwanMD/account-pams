@@ -388,6 +388,7 @@ public class BillingTransformer {
         vo.setDescription(e.getDescription());
         vo.setAmount(e.getAmount());
         vo.setIssuedDate(e.getIssuedDate());
+        vo.setTotalAmount(e.getTotalAmount());
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
@@ -440,6 +441,22 @@ public class BillingTransformer {
         task.setMetaState(MetaState.get(knockoff.getMetadata().getState().ordinal()));
         return task;
 
+    }
+    
+    public KnockoffItem toKnockoffItemVo(AcKnockoffItem e) {
+    	KnockoffItem vo = new KnockoffItem();
+        vo.setId(e.getId());
+        vo.setDescription(e.getChargeCode().getDescription());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setAppliedAmount(e.getAppliedAmount());
+        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
+        vo.setDueAmount(e.getDueAmount());
+        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
+        vo.setKnockoff(billingTransformer.toKnockoffVo(e.getKnockoff()));
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
+        return vo;
     }
     
     
@@ -631,6 +648,12 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toKnockoffInvoiceVo(entry))
                 .collect(toCollection(() -> new ArrayList<KnockoffInvoice>()));
+    }
+    
+    public List<KnockoffItem> toKnockoffItemVos(List<AcKnockoffItem> entries) {
+        return entries.stream()
+                .map((entry) -> toKnockoffItemVo(entry))
+                .collect(toCollection(() -> new ArrayList<KnockoffItem>()));
     }
 
 }
