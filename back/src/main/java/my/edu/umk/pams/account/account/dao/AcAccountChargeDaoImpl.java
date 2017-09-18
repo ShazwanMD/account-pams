@@ -211,7 +211,7 @@ public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCha
     public List<AcAccountCharge> find(boolean paid, AcAccount account, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcAccountCharge s where " +
-        		"s.account= :account " +
+        		"s.account = :account " +
                 "and s.paid = :paid " +
                 "and s.metadata.state = :state " +
                 "and s.flowdata.state = :flowState ");
