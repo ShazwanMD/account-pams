@@ -17,7 +17,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class DebitNoteSelectComponent implements OnInit {
 
-  private DEBIT_NOTES: string[] = 'billingModuleState.debitNote'.split('.');
+  private DEBIT_NOTES: string[] = 'billingModuleState.debitNotes'.split('.');
   private debitNotes$: Observable<DebitNote[]>
 
   @Input() placeholder: string;
