@@ -48,7 +48,7 @@
                   </md-tab>
 
                   <md-tab label="Unpaid Charges">  
-                    <pams-account-charge-receipt-list
+                    <pams-account-charge-receipt-list        
                       [receipt]="receiptTask.receipt"
                       [receiptAccountCharge]="receiptAccountCharge$ | async"
                       (view)="view($event)">
