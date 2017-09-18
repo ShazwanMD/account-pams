@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.dao;
 
 import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,9 +20,11 @@ import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
+import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoiceImpl;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -84,6 +87,32 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
     }
     
     @Override
+    public List<AcKnockoffItem> findItems(AcKnockoff knockoff) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
+                "ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcKnockoffItem>) query.list();
+    }
+    
+    @Override
+    public List<AcKnockoffItem> findItems(AcKnockoff knockoff, AcInvoice invoice) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
+                "ri.knockoff = :knockoff " +
+        		"and ri.invoice = :invoice " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("knockoff", knockoff);
+        query.setEntity("invoice", invoice);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcKnockoffItem>) query.list();
+    }
+    
+    @Override
     public List<AcKnockoffInvoice> find(AcKnockoff knockoff) {
     	Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select ri from AcKnockoffInvoice ri where " +
@@ -106,22 +135,25 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
 		return count.intValue() > 0; // > 0 = true, <=0 false
 	}
 
-//	@Override
-//	public void addKnockoff(AcKnockoff knockoff, AcUser user) {
-//
-//		Validate.notNull(knockoff, "knockoff should not be null");
-//
-//		Session session = sessionFactory.getCurrentSession();
-//
-//		AcMetadata metadata = new AcMetadata();
-//		metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-//		metadata.setCreatorId(user.getId());
-//		metadata.setState(ACTIVE);
-//		knockoff.setMetadata(metadata);
-//
-//		session.save(knockoff);
-//
-//	}
+    @Override
+    public void addItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user) {
+        LOG.info("knockoff id : " + knockoff.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(knockoff, "knockoff cannot be null");
+        Validate.notNull(item, "Item cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        item.setKnockoff(knockoff);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        item.setMetadata(metadata);
+        session.save(item);
+    }
 
 	@Override
 	public void updateKnockoff(AcKnockoff knockoff, AcUser user) {
@@ -173,5 +205,18 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         metadata.setState(AcMetaState.ACTIVE);
         knockoffInvc.setMetadata(metadata);
         session.saveOrUpdate(knockoffInvc);
+    }
+    
+    @Override
+    public BigDecimal sumAppliedAmount(AcKnockoff knockoff, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +
+                "a.knockoff = :knockoff " +
+                "and a.metadata.state = :state ");
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
     }
 }

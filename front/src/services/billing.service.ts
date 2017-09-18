@@ -25,6 +25,7 @@ import { WaiverFinanceApplicationTask } from "../app/shared/model/billing/waiver
 import { RefundPayment } from '../app/shared/model/billing/refund-payment.interface';
 import { RefundPaymentTask } from '../app/shared/model/billing/refund-payment-task.interface';
 import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.interface";
+import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interface";
 @Injectable()
 export class BillingService {
 
@@ -581,6 +582,21 @@ export class BillingService {
     findKnockoffsByInvoice( knockoff: Knockoff ): Observable<KnockoffInvoice[]> {
         return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffInvoice' )
             .map(( res: Response ) => <KnockoffInvoice[]>res.json() );
+    }
+    
+    itemToKnockoffItem( invoice: Invoice, knockoff: Knockoff  ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/invoices/' + invoice.id, JSON.stringify( invoice ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
+    findKnockoffItems( knockoff: Knockoff ): Observable<KnockoffItem[]> {
+        return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffItems' )
+            .map(( res: Response ) => <KnockoffItem[]>res.json() );
+    }
+    
+    findKnockoffItemsByInvoice( knockoff: Knockoff, invoice: Invoice ): Observable<KnockoffItem[]> {
+        return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffItems/' +  invoice.id)
+            .map(( res: Response ) => <KnockoffItem[]>res.json() );
     }
     
     // ====================================================================================================

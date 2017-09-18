@@ -1237,6 +1237,16 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
+	public List<AcKnockoffItem> findAcKnockoffs(AcKnockoff knockoff) {
+		return knockoffDao.findItems(knockoff);
+	}
+	
+	@Override
+	public List<AcKnockoffItem> findAcKnockoffs(AcKnockoff knockoff, AcInvoice invoice) {
+		return knockoffDao.findItems(knockoff, invoice);
+	}
+	
+	@Override
 	public List<AcKnockoffInvoice> findKnockoffs(AcKnockoff knockoff) {
 		return knockoffDao.find(knockoff);
 	}
@@ -1265,8 +1275,77 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
+	public void itemToKnockoffItem(AcInvoice invoice, AcKnockoff knockoff) {
+		List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
+		for (AcInvoiceItem invoiceItem : invoiceItems) {
+			
+			if (invoice.getBalanceAmount().compareTo(knockoff.getTotalAmount()) <= 0) {
+				AcKnockoffItem knockoffItem = new AcKnockoffItemImpl();
+				knockoffItem.setChargeCode(invoiceItem.getChargeCode());
+				knockoffItem.setDescription(invoiceItem.getChargeCode().getDescription());
+				knockoffItem.setInvoice(invoice);
+				knockoffItem.setDueAmount(invoiceItem.getBalanceAmount());
+				knockoffItem.setAppliedAmount(invoiceItem.getBalanceAmount());
+				knockoffItem.setKnockoff(knockoff);
+				knockoffItem.setTotalAmount(BigDecimal.ZERO);
+				billingService.addKnockoffItem(knockoff, knockoffItem);
+			}
+
+			else if (invoice.getBalanceAmount().compareTo(knockoff.getTotalAmount()) > 0) {
+				
+				if (knockoff.getTotalAmount().compareTo(invoiceItem.getBalanceAmount()) > 0) {
+					AcKnockoffItem knockoffItem = new AcKnockoffItemImpl();
+					knockoffItem.setChargeCode(invoiceItem.getChargeCode());
+					knockoffItem.setDescription(invoiceItem.getChargeCode().getDescription());
+					knockoffItem.setInvoice(invoice);
+					knockoffItem.setDueAmount(invoiceItem.getBalanceAmount());
+					knockoffItem.setAppliedAmount(invoiceItem.getBalanceAmount());
+					knockoffItem.setKnockoff(knockoff);
+					knockoffItem.setTotalAmount(BigDecimal.ZERO);
+					billingService.addKnockoffItem(knockoff, knockoffItem);
+				}
+
+				else if (knockoff.getTotalAmount().compareTo(invoiceItem.getBalanceAmount()) < 0) {
+					AcKnockoffItem knockoffItem = new AcKnockoffItemImpl();
+					knockoffItem.setChargeCode(invoiceItem.getChargeCode());
+					knockoffItem.setDescription(invoiceItem.getChargeCode().getDescription());
+					knockoffItem.setInvoice(invoice);
+					knockoffItem.setDueAmount(invoiceItem.getBalanceAmount());
+					knockoffItem.setAppliedAmount(knockoff.getTotalAmount());
+					knockoffItem.setKnockoff(knockoff);
+					knockoffItem.setTotalAmount(invoiceItem.getBalanceAmount().subtract(knockoffItem.getAppliedAmount()));
+					billingService.addKnockoffItem(knockoff, knockoffItem);
+				
+					if (knockoff.getTotalAmount().compareTo(BigDecimal.ZERO) <= 0 ) {
+						knockoffItem.setChargeCode(invoiceItem.getChargeCode());
+						knockoffItem.setDescription(invoiceItem.getChargeCode().getDescription());
+						knockoffItem.setInvoice(invoice);
+						knockoffItem.setDueAmount(invoiceItem.getBalanceAmount());
+						knockoffItem.setAppliedAmount(BigDecimal.ZERO);
+						knockoffItem.setKnockoff(knockoff);
+						knockoffItem.setTotalAmount(invoiceItem.getBalanceAmount());
+						billingService.addKnockoffItem(knockoff, knockoffItem);
+					}
+				}
+				
+				knockoff.setTotalAmount(knockoff.getTotalAmount().subtract(invoiceItem.getBalanceAmount()));
+			}
+			
+		}
+		
+		knockoff.setTotalAmount(knockoff.getAmount().subtract(knockoffDao.sumAppliedAmount(knockoff, securityService.getCurrentUser())));
+
+	}
+	
+	@Override
 	public void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice) {
 		knockoffDao.addKnockoffInvoice(knockoff, invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
+	public void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item) {
+		knockoffDao.addItem(knockoff, item, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
 
