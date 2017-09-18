@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.model.AcStudyModeImpl;
 import my.edu.umk.pams.account.common.model.AcTaxCode;
 import my.edu.umk.pams.account.common.model.AcTaxCodeImpl;
+import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -115,6 +116,9 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     
     @Embedded
     private AcMetadata metadata;
+    
+    @Embedded
+    private AcFlowdata flowdata;
 
     @Override
     public Long getId() {
@@ -333,6 +337,16 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @Override
     public void setMetadata(AcMetadata metadata) {
         this.metadata = metadata;
+    }
+    
+    @Override
+    public AcFlowdata getFlowdata() {
+        return flowdata;
+    }
+
+    @Override
+    public void setFlowdata(AcFlowdata flowdata) {
+        this.flowdata = flowdata;
     }
 
     @Override

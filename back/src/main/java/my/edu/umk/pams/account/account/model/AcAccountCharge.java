@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.model.AcTaxCode;
+import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
 
@@ -95,5 +96,9 @@ public interface AcAccountCharge extends AcMetaObject {
 	Boolean getPaid();
 
 	void setPaid(Boolean paid);
+
+	AcFlowdata getFlowdata();
+
+	void setFlowdata(AcFlowdata flowdata);
 
 }

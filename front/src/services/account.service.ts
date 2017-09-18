@@ -194,6 +194,10 @@ export class AccountService {
       .map((res: Response) => <AccountTransaction[]>res.json());
   }
 
+  // ====================================================================================================
+  // ACCOUNT
+  // ====================================================================================================
+  
   // generic account charges
   findAccountCharges(account: Account): Observable<AccountCharge[]> {
     console.log('findAccountCharges');
@@ -285,6 +289,17 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
+  findUnpaidAccountCharges( account: Account ): Observable<AccountCharge[]> {
+    console.log( 'findUnpaidAccountCharges' );
+    return this._http.get( this.ACCOUNT_API + '/accountCharges/unpaidAccountCharges/' + account.code )
+        .map(( res: Response ) => <AccountCharge[]>res.json() );
+}
+
+findCompletedAccountCharges(): Observable<AccountCharge[]> {
+  console.log( 'findCompletedAccountCharges' );
+  return this._http.get( this.ACCOUNT_API + '/accountCharges/state/COMPLETED' )
+      .map(( res: Response ) => <AccountCharge[]>res.json() );
+}
   // ====================================================================================================
   // ACCOUNT - SPONSORSHIP
   // ====================================================================================================

@@ -190,5 +190,16 @@ export class AccountEffects {
     .map((action) => action.payload)
     .switchMap((account) => this.accountService.findAccountCharges(account))
     .map((charges) => this.accountActions.findAccountChargesSuccess(charges));
+
+    @Effect() findUnpaidAccountCharges$ = this.actions$
+    .ofType(AccountActions.FIND_UNPAID_ACCOUNT_CHARGES)
+    .map((action) => action.payload)
+    .switchMap((account) => this.accountService.findUnpaidAccountCharges(account))
+    .map((charges) => this.accountActions.findUnpaidAccountChargesSuccess(charges));
+
+    @Effect() findCompletedAccountCharges$ = this.actions$
+    .ofType(AccountActions.FIND_COMPLETED_ACCOUNT_CHARGES)
+    .switchMap(() => this.accountService.findCompletedAccountCharges())
+    .map((charges) => this.accountActions.findCompletedAccountChargesSuccess(charges));
 }
 
