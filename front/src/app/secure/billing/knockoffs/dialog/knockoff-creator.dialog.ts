@@ -39,6 +39,8 @@ export class KnockoffCreatorDialog {
             auditNo: '',
             description: '',
             amount: 0,
+            balanceAmount: 0,
+            totalAmount: 0,
             issuedDate: undefined,
             invoice: <Invoice>{},
             payments: <AdvancePayment>{},
@@ -50,6 +52,9 @@ export class KnockoffCreatorDialog {
     save( knockoff: Knockoff, isValid: boolean ) {
         if(isValid)
             knockoff.payments = this._advancePayment;
+            knockoff.amount = this._advancePayment.balanceAmount;
+            knockoff.totalAmount = this._advancePayment.balanceAmount;
+            knockoff.balanceAmount = this._advancePayment.balanceAmount;
         
         if(isValid)
         this.store.dispatch( this.actions.startKnockoffTask(knockoff) );
