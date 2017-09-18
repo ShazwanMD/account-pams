@@ -48,6 +48,7 @@
                   <md-tab label="Invoices">
                     <pams-knockoff-invoice-list
                     [knockoff]="knockoffTask.knockoff"
+                    [knockoffInvoice]="knockoffInvoice$ | async"
                     ></pams-knockoff-invoice-list>
                   </md-tab>
 

@@ -204,21 +204,41 @@ export class KnockoffActions {
         payload: knockoffs,
       };
     }
-//    static SAVE_KNOCKOFF = '[Knockoff] Save Knockoff';
-//
-//    saveKnockoff(knockoff, payment): Action {
-//      return {
-//        type: KnockoffActions.SAVE_KNOCKOFF,
-//        payload: {knockoff: knockoff, payment: payment},
-//      };
-//    }
-//
-//    static SAVE_KNOCKOFF_SUCCESS = '[Knockoff] Save Knockoff Success';
-//
-//    saveKnockoffSuccess(knockoff): Action {
-//      return {
-//        type: KnockoffActions.SAVE_KNOCKOFF_SUCCESS,
-//        payload: knockoff
-//      };
-//    }
+    
+    static FIND_INVOICE_BY_KNOCKOFF = '[Knockoff] Find Invoice By Knockoff';
+
+    findKnockoffsByInvoice(knockoff): Action {
+      return {
+        type: KnockoffActions.FIND_INVOICE_BY_KNOCKOFF,
+        payload: knockoff
+      };
+    }
+
+    static FIND_INVOICE_BY_KNOCKOFF_SUCCESS = '[Knockoff] Find Invoice By Knockoff Success';
+
+    findKnockoffsByInvoiceSuccess(knockoff): Action {
+      console.log("findKnockoffsByInvoiceSuccess");
+      return {
+        type: KnockoffActions.FIND_INVOICE_BY_KNOCKOFF_SUCCESS,
+        payload: knockoff
+      };
+    } 
+    
+    static ADD_KNOCKOFF_INVOICE = '[Knockoff] Save Knockoff Invoice';
+
+    addKnockoffInvoice(knockoff, invoice): Action {
+      return {
+        type: KnockoffActions.ADD_KNOCKOFF_INVOICE,
+        payload: {knockoff: knockoff, invoice: invoice},
+      };
+    }
+
+    static ADD_KNOCKOFF_INVOICE_SUCCESS = '[Knockoff] Save Knockoff Invoice Success';
+
+    addKnockoffInvoiceSuccess(message): Action {
+      return {
+        type: KnockoffActions.ADD_KNOCKOFF_INVOICE_SUCCESS,
+        payload: message
+      };
+    }
 }

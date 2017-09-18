@@ -9,17 +9,21 @@ import { InvoiceActions } from "../../invoices/invoice.action";
 import { Observable } from "rxjs/Observable";
 import { KnockoffInvoice } from "../../../../shared/model/billing/knockoff-invoice.interface";
 import { Knockoff } from "../../../../shared/model/billing/knockoff.interface";
+import { InvoiceKnockoffDialog } from "../dialog/knockoff-invoice-creator.dialog";
+import { KnockoffActions } from "../knockoff.action";
 
 @Component({
   selector: 'pams-knockoff-invoice-list',
   templateUrl: './knockoff-invoice-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KnockoffInvoiceListComponent {
+export class KnockoffInvoiceListComponent implements OnInit {
 
     @Input() knockoffInvoice: KnockoffInvoice[];
     @Input() knockoff: Knockoff;
     @Output() view = new EventEmitter<KnockoffInvoice>();
+    
+    private selectedRows: KnockoffInvoice[];
     
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Reference No'},
@@ -32,8 +36,35 @@ export class KnockoffInvoiceListComponent {
   constructor(private snackBar: MdSnackBar,
               private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
-              private action: InvoiceActions,
+              private actions: KnockoffActions,
               private dialog: MdDialog) {
+  }
+  
+  ngOnInit(): void {
+      
+      //this.selectedRows = this.knockoffInvoice.filter((value) => value.selected);
+    }
+  
+  filter(): void {
+  }
+
+  selectRow(item: KnockoffInvoice): void {
+  }
+
+  selectAllRows(item: KnockoffInvoice[]): void {
+  }
+  
+  create(): void {
+    console.log("knockoff create"  + this.knockoff.referenceNo);
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.viewContainerRef;
+    config.role = 'dialog';
+    config.width = '70%';
+    config.height = '60%';
+    config.position = {top: '0px'};
+    let editorDialogRef = this.dialog.open(InvoiceKnockoffDialog, config);
+    editorDialogRef.componentInstance.knockoff = this.knockoff;
+  
   }
   
 //  viewTask(receiptInvoice: ReceiptInvoice) {
@@ -42,20 +73,7 @@ export class KnockoffInvoiceListComponent {
 //      this.showDialog(receiptInvoice);
 //      
 //    }
-//    
-//    showDialog(receiptInvoice: ReceiptInvoice) {
-//        console.log("Receipt for create item dialog "+ receiptInvoice.receipt.referenceNo);
-//        console.log("Invoice for create item dialog "+ receiptInvoice.invoice.referenceNo);
-//        let config = new MdDialogConfig();
-//        config.viewContainerRef = this.viewContainerRef;
-//        config.role = 'dialog';
-//        config.width = '70%';
-//        config.height = '60%';
-//        config.position = {top: '0px'};
-//        let editorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
-//        editorDialogRef.componentInstance.receipt = receiptInvoice.receipt;
-//        editorDialogRef.componentInstance.invoice = receiptInvoice.invoice;
-//      }
+
   
 
 }

@@ -82,6 +82,18 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         query.setCacheable(true);
         return (List<AcKnockoff>) query.list();
     }
+    
+    @Override
+    public List<AcKnockoffInvoice> find(AcKnockoff knockoff) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcKnockoffInvoice ri where " +
+                "ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcKnockoffInvoice>) query.list();
+    }
 
 	@Override
 	public boolean hasKnockoff(AcKnockoff knockoff) {

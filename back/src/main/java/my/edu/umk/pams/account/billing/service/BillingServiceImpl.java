@@ -1235,6 +1235,11 @@ public class BillingServiceImpl implements BillingService {
 	public List<AcKnockoff> findKnockoffsByFlowStates(AcFlowState... flowStates) {
 		return knockoffDao.findByFlowStates(flowStates);
 	}
+	
+	@Override
+	public List<AcKnockoffInvoice> findKnockoffs(AcKnockoff knockoff) {
+		return knockoffDao.find(knockoff);
+	}
 
 	@Override
 	public boolean hasKnockoff(AcKnockoff knockoff) {

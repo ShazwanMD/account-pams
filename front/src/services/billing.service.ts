@@ -24,6 +24,7 @@ import { WaiverFinanceApplication } from "../app/shared/model/billing/waiver-fin
 import { WaiverFinanceApplicationTask } from "../app/shared/model/billing/waiver-finance-application-task.interface";
 import { RefundPayment } from '../app/shared/model/billing/refund-payment.interface';
 import { RefundPaymentTask } from '../app/shared/model/billing/refund-payment-task.interface';
+import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.interface";
 @Injectable()
 export class BillingService {
 
@@ -575,6 +576,11 @@ export class BillingService {
     addKnockoffInvoice( knockoff: Knockoff, invoice: Invoice ): Observable<String> {
         return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/invoice/' + invoice.id, JSON.stringify( invoice ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
+    findKnockoffsByInvoice( knockoff: Knockoff ): Observable<KnockoffInvoice[]> {
+        return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffInvoice' )
+            .map(( res: Response ) => <KnockoffInvoice[]>res.json() );
     }
     
     // ====================================================================================================
