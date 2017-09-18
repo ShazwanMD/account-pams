@@ -63,6 +63,24 @@ export class KnockoffEffects {
     .switchMap(( knockoff ) => this.billingService.findKnockoffsByInvoice(knockoff))
     .map(( knockoff ) => this.knockoffActions.findKnockoffsByInvoiceSuccess(knockoff) );
     
+    @Effect() findKnockoffItems$ = this.actions$
+    .ofType( KnockoffActions.FIND_KNOCKOFF_ITEM )
+    .map(( action ) => action.payload )
+    .switchMap(( knockoff ) => this.billingService.findKnockoffItems(knockoff) )
+    .map(( knockoff ) => this.knockoffActions.findKnockoffItemsSuccess(knockoff) );
+    
+    @Effect() findKnockoffItemsByInvoice$ = this.actions$
+    .ofType( KnockoffActions.FIND_KNOCKOFF_ITEM_BY_INVOICE )
+    .map(( action ) => action.payload )
+    .switchMap(( payload ) => this.billingService.findKnockoffItemsByInvoice(payload.knockoff, payload.invoice) )
+    .map(( knockoff ) => this.knockoffActions.findKnockoffItemsByInvoiceSuccess(knockoff) );
+    
+    @Effect() itemToKnockoffItem$ = this.actions$
+    .ofType( KnockoffActions.INVOICE_ITEM_TO_KNOCKOFF_ITEM )
+    .map(( action ) => action.payload )
+    .switchMap(( payload ) => this.billingService.itemToKnockoffItem(payload.invoice, payload.knockoff) )
+    .map(( knockoff ) => this.knockoffActions.itemToKnockoffItemSuccess(knockoff) );
+    
     @Effect() startKnockoffTask$ = this.actions$
     .ofType(KnockoffActions.START_KNOCKOFF_TASK)
     .map((action) => action.payload)

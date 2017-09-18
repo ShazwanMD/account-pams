@@ -9,6 +9,8 @@ export interface Knockoff extends MetaObject {
     auditNo: string;
     description: string;
     amount: number;
+    balanceAmount: number;
+    totalAmount: number;
     issuedDate: Date;
     payments?: AdvancePayment;
 }
