@@ -17,6 +17,8 @@ import { InvoiceReceiptDialog } from "../dialog/invoice-receipt.dialog";
 import { ReceiptInvoice } from "../../../../shared/model/billing/receipt-invoice.interface";
 import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.dialog";
 import { AccountActions } from '../../../account/accounts/account.action';
+import { ReceiptAccountCharge } from '../../../../shared/model/billing/receipt-account-charge.interface';
+import { Receipt } from '../../../../shared/model/billing/receipt.interface';
 
 @Component({
   selector: 'pams-receipt-draft-task',
@@ -29,10 +31,13 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
   private INVOICES: string[] = 'billingModuleState.invoices'.split('.');
   private RECEIPT_INVOICE: string[] = 'billingModuleState.receiptInvoice'.split('.');
+  private RECEIPT_ACCOUNT_CHARGE: string[] = 'billingModuleState.receiptAccountCharge'.split('.');
   private account$: Observable<Account>;
   private invoices$: Observable<Invoice[]>;
+  private receipt$: Observable<Receipt[]>;
   private receiptItems$: Observable<ReceiptItem[]>;
   private receiptInvoice$: Observable<ReceiptInvoice[]>;
+  private receiptAccountCharge$: Observable<ReceiptAccountCharge[]>;
 
   @Input() receiptTask: ReceiptTask;
 
@@ -50,6 +55,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
     this.account$ = this.stores.select(...this.ACCOUNT);
     this.invoices$ = this.store.select(...this.INVOICES);
     this.receiptInvoice$ = this.store.select(...this.RECEIPT_INVOICE);
+    this.receiptAccountCharge$ = this.store.select(...this.RECEIPT_ACCOUNT_CHARGE);
   }
 
   ngOnInit(): void {
