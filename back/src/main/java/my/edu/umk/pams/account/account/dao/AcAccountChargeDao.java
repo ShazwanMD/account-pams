@@ -51,6 +51,8 @@ public interface AcAccountChargeDao extends GenericDao<Long, AcAccountCharge> {
 	List<AcAccountCharge> findDetached(AcAccount account);
 
 	List<AcAccountCharge> findDetached(AcAcademicSession academicSession, AcAccount account);
+	
+	List<AcAccountCharge> find(boolean paid, AcAccount account, Integer offset, Integer limit);
 
 	// ====================================================================================================
 	// HELPER
@@ -75,5 +77,6 @@ public interface AcAccountChargeDao extends GenericDao<Long, AcAccountCharge> {
 	boolean isChargeExists(AcAccount account, String sourceNo);
 
 	boolean isChargeExists(AcAccount account, AcAcademicSession academicSession, AcAccountChargeType chargeType);
+	
 
 }

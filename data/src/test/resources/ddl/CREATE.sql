@@ -14,12 +14,14 @@
         primary key (ID)
     );
 
-    create table AC_ACCT_CHRG (
+     create table AC_ACCT_CHRG (
         ID int8 not null,
         AMOUNT numeric(19, 2) not null,
         NET_AMOUNT numeric(19, 2),
         TAX_AMOUNT numeric(19, 2),
+        BALANCE_AMOUNT numeric(19, 2),
         INCLUSIVE boolean,
+        PAID boolean,
         CHARGE_DATE timestamp,
         CHARGE_TYPE int4,
         CODE varchar(255),
@@ -43,6 +45,7 @@
         TAX_CODE_ID int8,
         primary key (ID)
     );
+
 
     create table AC_ACCT_STL (
         ID int8 not null,
@@ -923,6 +926,7 @@
         UNIT int4,
         CHARGE_CODE_ID int8,
         INVOICE_ID int8,
+        ACCOUNT_CHARGE_ID int8,
         RECEIPT_ID int8,
         primary key (ID)
     );
@@ -1725,6 +1729,11 @@
         add constraint FK_pvm4sa8mdj3fccu5i73wjl5e8
         foreign key (INVOICE_ID)
         references AC_INVC;
+        
+    alter table AC_RCPT_ITEM 
+        add constraint FK_pvm4sa8mdj3fccu5i73wjt7p1
+        foreign key (ACCOUNT_CHARGE_ID) 
+        references AC_ACCT_CHRG;                 
 
     alter table AC_RCPT_ITEM
         add constraint FK_369xjsjo5e6svl0ynmlab782g

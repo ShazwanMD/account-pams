@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.web.module.account.controller;
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcActor;
@@ -17,6 +18,7 @@ import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.web.module.identity.vo.ActorType;
 import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
+import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -328,6 +330,13 @@ public class AccountController {
         AcAccount account = accountService.findAccountByCode(code);
         return new ResponseEntity<List<AccountCharge>>(
                 accountTransformer.toAccountChargeVos(accountService.findAccountCharges(account)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/accountCharges/unpaidAccountCharges/{code}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountCharge>> findUnpaidAccountCharges(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        List<AcAccountCharge> accountCharges = accountService.findUnpaidAccountCharges(account, 0, 100);
+        return new ResponseEntity<List<AccountCharge>>(accountTransformer.toAccountChargeVos(accountCharges), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{code}/accountCharges/chargeType/{chargeType}", method = RequestMethod.GET)

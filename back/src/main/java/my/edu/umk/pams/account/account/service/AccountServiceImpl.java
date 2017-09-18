@@ -38,6 +38,7 @@ import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.account.model.AcFeeScheduleImpl;
 import my.edu.umk.pams.account.account.model.AcFeeScheduleItem;
 import my.edu.umk.pams.account.account.model.AcFeeScheduleItemImpl;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
@@ -662,15 +663,15 @@ public class AccountServiceImpl implements AccountService {
     public List<AcAccountCharge> findAccountCharges(AcAccount account, Integer offset, Integer limit) {
         return chargeDao.find(account, offset, limit);
     }
-
+    
     @Override
     public List<AcAccountCharge> findUnpaidAccountCharges(AcAccount account, Integer offset, Integer limit) {
-        return chargeDao.find(account, offset, limit); // TODO unpaid
+        return chargeDao.find(false, account, offset, limit); 
     }
 
     @Override
     public List<AcAccountCharge> findPaidAccountCharges(AcAccount account, Integer offset, Integer limit) {
-        return chargeDao.find(account, offset, limit); // TODO paid
+        return chargeDao.find(true, account, offset, limit); 
     }
 
     @Override
