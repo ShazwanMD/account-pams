@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.billing.model;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -48,6 +50,11 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     @ManyToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
+    
+    @NotNull
+    @ManyToOne(targetEntity = AcAccountChargeImpl.class)
+    @JoinColumn(name = "ACCOUNT_CHARGE_ID")
+    private AcAccountCharge accountCharge;
 
     @NotNull
     @ManyToOne(targetEntity = AcReceiptImpl.class)
@@ -149,8 +156,18 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     public void setInvoice(AcInvoice invoice) {
         this.invoice = invoice;
     }
+   
+    @Override
+    public AcAccountCharge getAccountCharge() {
+		return accountCharge;
+	}
 
     @Override
+	public void setAccountCharge(AcAccountCharge accountCharge) {
+		this.accountCharge = accountCharge;
+	}
+
+	@Override
     public AcReceipt getReceipt() {
         return receipt;
     }

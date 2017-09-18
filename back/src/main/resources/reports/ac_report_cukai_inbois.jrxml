@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ac_report_cukai_inbois" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7fb023f6-3bf2-4194-8c01-ca1815d2cd76">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="124"/>
+	<property name="ireport.y" value="268"/>
 	<parameter name="reference_no" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -472,6 +472,18 @@ WHERE ac_invc."reference_no" = $P{reference_no}]]>
 	<field name="ac_stdy_mode_m_id" class="java.lang.Long"/>
 	<field name="ac_stdy_mode_m_st" class="java.lang.Integer"/>
 	<field name="ac_stdy_mode_prefix" class="java.lang.String"/>
+	<variable name="totalChargeAmount" class="java.lang.Float" resetType="None" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_acct_chrg_amount}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0F]]></initialValueExpression>
+	</variable>
+	<variable name="totalChargeTaxAmnt" class="java.lang.Float" resetType="None">
+		<variableExpression><![CDATA[$F{ac_acct_chrg_tax_amount}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0F]]></initialValueExpression>
+	</variable>
+	<variable name="totalChargeNetAmnt" class="java.lang.Float" resetType="None">
+		<variableExpression><![CDATA[$F{ac_acct_chrg_net_amount}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0F]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -940,6 +952,18 @@ WHERE ac_invc."reference_no" = $P{reference_no}]]>
 			<textField>
 				<reportElement x="295" y="82" width="131" height="20" uuid="e6220001-e286-490b-bcac-a62fead370df"/>
 				<textFieldExpression><![CDATA[$F{ac_acct_chrg_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="298" y="305" width="58" height="15" uuid="2bf64675-8fab-4c10-925d-4eb36dd90dbd"/>
+				<textFieldExpression><![CDATA[$V{totalChargeAmount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="403" y="304" width="57" height="18" uuid="373c5117-aadd-4c37-a95f-3015581a3f30"/>
+				<textFieldExpression><![CDATA[$V{totalChargeTaxAmnt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="305" width="69" height="15" uuid="b6d5dd99-6d46-435d-93ee-66394aa5f169"/>
+				<textFieldExpression><![CDATA[$V{totalChargeNetAmnt}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

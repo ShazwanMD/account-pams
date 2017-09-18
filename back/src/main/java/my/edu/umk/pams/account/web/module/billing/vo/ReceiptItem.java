@@ -2,6 +2,8 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import my.edu.umk.pams.account.web.module.account.vo.AccountCharge;
 import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
@@ -22,6 +24,7 @@ public class ReceiptItem extends MetaObject {
     private Integer unit;
     private ChargeCode chargeCode;
     private Invoice invoice;
+    private AccountCharge accountCharge;
 
     public String getDescription() {
         return description;
@@ -93,6 +96,14 @@ public class ReceiptItem extends MetaObject {
 
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
+	}
+		
+	public AccountCharge getAccountCharge() {
+		return accountCharge;
+	}
+
+	public void setAccountCharge(AccountCharge accountCharge) {
+		this.accountCharge = accountCharge;
 	}
 
 	@JsonCreator

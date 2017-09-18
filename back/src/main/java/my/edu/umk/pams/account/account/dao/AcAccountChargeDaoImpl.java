@@ -1,6 +1,8 @@
 package my.edu.umk.pams.account.account.dao;
 
 import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcActor;
@@ -9,6 +11,8 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import static my.edu.umk.pams.account.core.AcMetaState.ACTIVE;
 
 import java.util.List;
 
@@ -200,6 +204,23 @@ public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCha
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         query.setCacheable(true);
+        return (List<AcAccountCharge>) query.list();
+    }
+    
+    @Override
+    public List<AcAccountCharge> find(boolean paid, AcAccount account, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcAccountCharge s where " +
+        		"s.account = :account " +
+                "and s.paid = :paid " +
+                "and s.metadata.state = :state " +
+                "and s.flowdata.state = :flowState ");
+        query.setEntity("account", account);
+        query.setBoolean("paid", paid);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setInteger("flowState", AcFlowState.COMPLETED.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
         return (List<AcAccountCharge>) query.list();
     }
 

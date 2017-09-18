@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.model.AcStudyModeImpl;
 import my.edu.umk.pams.account.common.model.AcTaxCode;
 import my.edu.umk.pams.account.common.model.AcTaxCodeImpl;
+import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -77,7 +78,9 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @Column(name = "NET_AMOUNT")
     private BigDecimal netAmount = BigDecimal.ZERO;
 
-  
+    @Column(name = "BALANCE_AMOUNT")
+    private BigDecimal balanceAmount = BigDecimal.ZERO;
+         
     @ManyToOne(targetEntity = AcAcademicSessionImpl.class)
     @JoinColumn(name = "SESSION_ID", nullable = true)
     private AcAcademicSession session;
@@ -108,8 +111,14 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @Column(name = "INCLUSIVE")
     private Boolean inclusive;
     
+    @Column(name = "PAID")
+    private Boolean paid = false;
+    
     @Embedded
     private AcMetadata metadata;
+    
+    @Embedded
+    private AcFlowdata flowdata;
 
     @Override
     public Long getId() {
@@ -249,8 +258,28 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     public void setCohortCode(AcCohortCode cohortCode) {
         this.cohortCode = cohortCode;
     }
-    
+       
     @Override
+    public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+    @Override
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
+    @Override
+    public Boolean getPaid() {
+		return paid;
+	}
+
+    @Override
+    public void setPaid(Boolean paid) {
+		this.paid = paid;
+	}
+
+	@Override
     public AcSecurityChargeCode getSecurityChargeCode() {
 		return securityChargeCode;
 	}
@@ -308,6 +337,16 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @Override
     public void setMetadata(AcMetadata metadata) {
         this.metadata = metadata;
+    }
+    
+    @Override
+    public AcFlowdata getFlowdata() {
+        return flowdata;
+    }
+
+    @Override
+    public void setFlowdata(AcFlowdata flowdata) {
+        this.flowdata = flowdata;
     }
 
     @Override

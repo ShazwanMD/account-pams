@@ -20,3 +20,14 @@ export function archivedDebitNoteListReducer(state = initialState, action: Actio
     }
   }
 }
+
+export function debitNoteListReducer(state = initialState, action: Action): DebitNoteListState {
+  switch (action.type) {
+    case DebitNoteActions.FIND_DEBIT_NOTES_SUCCESS: {
+      return action.payload;
+    }
+    default: {
+      return state;
+    }
+  }
+}

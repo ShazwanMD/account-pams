@@ -38,7 +38,7 @@ import {DebitNoteTask} from '../../shared/model/billing/debit-note-task.interfac
 import {DebitNote} from '../../shared/model/billing/debit-note.interface';
 import {creditNoteTaskReducer, CreditNoteTaskState} from './credit-notes/credit-note-task.reducer';
 import {creditNoteReducer, CreditNoteState} from './credit-notes/credit-note.reducer';
-import {archivedDebitNoteListReducer, DebitNoteListState} from './debit-notes/debit-note-list.reducer';
+import {archivedDebitNoteListReducer,debitNoteListReducer, DebitNoteListState} from './debit-notes/debit-note-list.reducer';
 import {CreditNoteTask} from '../../shared/model/billing/credit-note-task.interface';
 import {CreditNote} from '../../shared/model/billing/credit-note.interface';
 import {
@@ -107,6 +107,7 @@ export interface BillingModuleState {
   assignedDebitNoteTasks: DebitNoteTaskListState;
   pooledDebitNoteTasks: DebitNoteTaskListState;
   archivedDebitNotes: DebitNoteListState;
+  debitNotes: DebitNoteListState;
   debitNote: DebitNoteState;
   debitNoteTask: DebitNoteTaskState;
   assignedCreditNoteTasks: CreditNoteTaskListState;
@@ -162,6 +163,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     archivedDebitNotes: [],
     debitNoteTask: <DebitNoteTask>{},
     debitNote: <DebitNote>{},
+    debitNotes: [],
     // debitNoteItems: [],
     assignedCreditNoteTasks: [],
     pooledCreditNoteTasks: [],
@@ -212,6 +214,7 @@ export const billingModuleReducers = {
   pooledDebitNoteTasks: pooledDebitNoteTaskListReducer,
   archivedDebitNotes: archivedDebitNoteListReducer,
   debitNoteTask: debitNoteTaskReducer,
+  debitNotes: debitNoteListReducer,
   debitNote: debitNoteReducer,
   assignedCreditNoteTasks: assignedCreditNoteTaskListReducer,
   pooledCreditNoteTasks: pooledCreditNoteTaskListReducer,
