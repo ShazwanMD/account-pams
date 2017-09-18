@@ -863,6 +863,8 @@ public class BillingController {
         knockoff.setIssuedDate(vo.getIssuedDate());
         knockoff.setDescription(vo.getDescription());
         knockoff.setAmount(vo.getAmount());
+        knockoff.setTotalAmount(vo.getTotalAmount());
+        knockoff.setBalanceAmount(vo.getBalanceAmount());
         knockoff.setPayments(billingService.findAdvancePaymentById(vo.getPayments().getId()));
         return new ResponseEntity<String>(billingService.startKnockoffTask(knockoff), HttpStatus.OK);
        
@@ -908,6 +910,31 @@ public class BillingController {
         e.setKnockoff(knockoff);;
         e.setInvoice(invoice);
         billingService.addKnockoffInvoice(knockoff, invoice);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/invoices/{id}", method = RequestMethod.POST)
+    public void itemToKnockoffItem(@PathVariable Long id, @PathVariable String referenceNo) {
+    	
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
+        billingService.itemToKnockoffItem(invoice, knockoff);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems", method = RequestMethod.GET)
+    public ResponseEntity<List<KnockoffItem>> findKnockoffItems(@PathVariable String referenceNo) {
+        
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        return new ResponseEntity<List<KnockoffItem>>(billingTransformer
+                .toKnockoffItemVos(billingService.findAcKnockoffs(knockoff)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<KnockoffItem>> findKnockoffItemsByInvoice(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	AcInvoice invoice = billingService.findInvoiceById(id);
+        return new ResponseEntity<List<KnockoffItem>>(billingTransformer
+                .toKnockoffItemVos(billingService.findAcKnockoffs(knockoff,invoice)), HttpStatus.OK);
     }
 
     // ==================================================================================================== //

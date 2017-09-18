@@ -18,6 +18,8 @@ public class Knockoff extends Document {
 	private String auditNo;
 	private String description;
 	private BigDecimal amount;
+	private BigDecimal balanceAmount;
+	private BigDecimal totalAmount;
 	private Date issuedDate;
 	private AdvancePayment payments;
 
@@ -87,5 +89,21 @@ public class Knockoff extends Document {
 			// handle
 		}
 		return o;
+	}
+
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
 	}
 }

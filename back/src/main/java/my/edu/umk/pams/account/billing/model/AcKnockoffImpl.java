@@ -56,6 +56,12 @@ public class AcKnockoffImpl implements AcKnockoff {
 
     @Column(name = "AMOUNT")
     private BigDecimal amount = BigDecimal.ZERO;
+    
+    @Column(name = "BALANCE_AMOUNT")
+    private BigDecimal balanceAmount = BigDecimal.ZERO;
+    
+    @Column(name = "TOTAL_AMOUNT")
+    private BigDecimal totalAmount = BigDecimal.ZERO;
 
     @NotNull
     @Column(name = "ISSUED_DATE")
@@ -191,6 +197,22 @@ public class AcKnockoffImpl implements AcKnockoff {
         this.removeComment = removeComment;
     }
     
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
 	@Override
     public Class<?> getInterfaceClass() {
         return AcKnockoff.class;

@@ -11,19 +11,16 @@ import { KnockoffInvoice } from "../../../../shared/model/billing/knockoff-invoi
 import { Knockoff } from "../../../../shared/model/billing/knockoff.interface";
 import { InvoiceKnockoffDialog } from "../dialog/knockoff-invoice-creator.dialog";
 import { KnockoffActions } from "../knockoff.action";
+import { KnockoffItemDialog } from "../dialog/knockoff-item.dialog";
 
 @Component({
   selector: 'pams-knockoff-invoice-list',
   templateUrl: './knockoff-invoice-list.component.html',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KnockoffInvoiceListComponent implements OnInit {
 
     @Input() knockoffInvoice: KnockoffInvoice[];
     @Input() knockoff: Knockoff;
-    @Output() view = new EventEmitter<KnockoffInvoice>();
-    
-    private selectedRows: KnockoffInvoice[];
     
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Reference No'},
@@ -41,18 +38,8 @@ export class KnockoffInvoiceListComponent implements OnInit {
   }
   
   ngOnInit(): void {
-      
-      //this.selectedRows = this.knockoffInvoice.filter((value) => value.selected);
+
     }
-  
-  filter(): void {
-  }
-
-  selectRow(item: KnockoffInvoice): void {
-  }
-
-  selectAllRows(item: KnockoffInvoice[]): void {
-  }
   
   create(): void {
     console.log("knockoff create"  + this.knockoff.referenceNo);
@@ -67,12 +54,25 @@ export class KnockoffInvoiceListComponent implements OnInit {
   
   }
   
-//  viewTask(receiptInvoice: ReceiptInvoice) {
-//
-//      console.log('ref no for receipt: ' + receiptInvoice.receipt.referenceNo);
-//      this.showDialog(receiptInvoice);
-//      
-//    }
+  viewTask(item: KnockoffInvoice) {
+
+      this.showDialog(item);
+      
+    }
+  
+  showDialog(item: KnockoffInvoice): void {
+      console.log("knockoff create"  + item.knockoff.referenceNo);
+      console.log("invoice create"  + item.invoice.referenceNo);
+      let config = new MdDialogConfig();
+      config.viewContainerRef = this.viewContainerRef;
+      config.role = 'dialog';
+      config.width = '70%';
+      config.height = '60%';
+      config.position = {top: '0px'};
+      let editorDialogRef = this.dialog.open(KnockoffItemDialog, config);
+      editorDialogRef.componentInstance.knockoff = item.knockoff;
+      editorDialogRef.componentInstance.invoice = item.invoice;
+    }
 
   
 

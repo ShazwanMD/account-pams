@@ -9,6 +9,7 @@ import {KnockoffTask} from '../../../../shared/model/billing/knockoff-task.inter
 import { TdDialogService } from "@covalent/core";
 import { InvoiceActions } from "../../invoices/invoice.action";
 import { KnockoffInvoice } from "../../../../shared/model/billing/knockoff-invoice.interface";
+import { KnockoffItem } from "../../../../shared/model/billing/knockoff-item.interface";
 
 @Component({
   selector: 'pams-knockoff-draft-task',
@@ -20,7 +21,9 @@ export class KnockoffDraftTaskPanel implements OnInit {
   @Input() knockoffTask: KnockoffTask;
   
   private KNOCKOFF_INVOICE: string[] = 'billingModuleState.knockoffInvoice'.split('.');
+  private KNOCKOFF_ITEM: string[] = 'billingModuleState.knockoffItems'.split('.');
   private knockoffInvoice$: Observable<KnockoffInvoice[]>;
+  private knockoffItem$: Observable<KnockoffItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -32,10 +35,12 @@ export class KnockoffDraftTaskPanel implements OnInit {
               private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
       this.knockoffInvoice$ = this.store.select(...this.KNOCKOFF_INVOICE);
+      this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
   }
 
   ngOnInit(): void {
       this.store.dispatch(this.actions.findKnockoffsByInvoice(this.knockoffTask.knockoff));
+      this.store.dispatch(this.actions.findKnockoffItems(this.knockoffTask.knockoff));
       this.store.dispatch(this.action.findUnpaidInvoices(this.knockoffTask.knockoff.payments.account));
   }
 

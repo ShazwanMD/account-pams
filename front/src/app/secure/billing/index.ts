@@ -38,7 +38,7 @@ import {DebitNoteTask} from '../../shared/model/billing/debit-note-task.interfac
 import {DebitNote} from '../../shared/model/billing/debit-note.interface';
 import {creditNoteTaskReducer, CreditNoteTaskState} from './credit-notes/credit-note-task.reducer';
 import {creditNoteReducer, CreditNoteState} from './credit-notes/credit-note.reducer';
-import {archivedDebitNoteListReducer, DebitNoteListState} from './debit-notes/debit-note-list.reducer';
+import {archivedDebitNoteListReducer,debitNoteListReducer, DebitNoteListState} from './debit-notes/debit-note-list.reducer';
 import {CreditNoteTask} from '../../shared/model/billing/credit-note-task.interface';
 import {CreditNote} from '../../shared/model/billing/credit-note.interface';
 import {
@@ -84,6 +84,7 @@ import { RefundPaymentTask } from "../../shared/model/billing/refund-payment-tas
 import { RefundPaymentTaskListState, assignedRefundPaymentTaskListReducer, pooledRefundPaymentTaskListReducer } from "./refund-payments/refund-payment-task-list.reducer";
 import { KnockoffInvoiceListState, knockoffInvoiceListReducer } from "./knockoffs/knockoff-invoice.reducer";
 import { AccountChargeListState, accountChargeListReducer } from '../account/accounts/account-charge-list.reducer';
+import { KnockoffItemListState, knockoffItemListReducer } from "./knockoffs/knockoff-item-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -102,12 +103,12 @@ export interface BillingModuleState {
   receipt: ReceiptState;
   receiptItems: ReceiptItemListState;
   receiptInvoice: ReceiptInvoiceListState;
-  receiptAccountCharge: AccountChargeListState;
   // selectedInvoice: // previewed invoice to be applied
   // selectedInvoiceItems: // previewed invoice item to be applied
   assignedDebitNoteTasks: DebitNoteTaskListState;
   pooledDebitNoteTasks: DebitNoteTaskListState;
   archivedDebitNotes: DebitNoteListState;
+  debitNotes: DebitNoteListState;
   debitNote: DebitNoteState;
   debitNoteTask: DebitNoteTaskState;
   assignedCreditNoteTasks: CreditNoteTaskListState;
@@ -120,6 +121,7 @@ export interface BillingModuleState {
   knockoffs: KnockoffListState;
   knockoffTask: KnockoffTaskState;
   knockoffInvoice: KnockoffInvoiceListState;
+  knockoffItems: KnockoffItemListState;
   assignedKnockoffTasks: KnockoffTaskListState;
   pooledKnockoffTasks: KnockoffTaskListState;
   archivedKnockoffs: KnockoffListState;
@@ -157,12 +159,12 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     receipt: <Receipt>{},
     receiptItems: [],
     receiptInvoice: [],
-    receiptAccountCharge: [],
     assignedDebitNoteTasks: [],
     pooledDebitNoteTasks: [],
     archivedDebitNotes: [],
     debitNoteTask: <DebitNoteTask>{},
     debitNote: <DebitNote>{},
+    debitNotes: [],
     // debitNoteItems: [],
     assignedCreditNoteTasks: [],
     pooledCreditNoteTasks: [],
@@ -174,6 +176,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     knockoffs: <Knockoff[]>[],
     knockoffTask: <KnockoffTask>{},
     knockoffInvoice: [],
+    knockoffItems: [],
     assignedKnockoffTasks: [],
     pooledKnockoffTasks: [],
     archivedKnockoffs: [],
@@ -208,11 +211,11 @@ export const billingModuleReducers = {
   receipts: receiptReducer,
   receiptItems: receiptItemListReducer,
   receiptInvoice: receiptInvoiceListReducer,
-  receiptAccountCharge: accountChargeListReducer,
   assignedDebitNoteTasks: assignedDebitNoteTaskListReducer,
   pooledDebitNoteTasks: pooledDebitNoteTaskListReducer,
   archivedDebitNotes: archivedDebitNoteListReducer,
   debitNoteTask: debitNoteTaskReducer,
+  debitNotes: debitNoteListReducer,
   debitNote: debitNoteReducer,
   assignedCreditNoteTasks: assignedCreditNoteTaskListReducer,
   pooledCreditNoteTasks: pooledCreditNoteTaskListReducer,
@@ -224,6 +227,7 @@ export const billingModuleReducers = {
   knockoffs: knockoffListReducer,
   knockoffTask: knockoffTaskReducer,
   knockoffInvoice: knockoffInvoiceListReducer,
+  knockoffItems: knockoffItemListReducer,
   assignedKnockoffTasks: assignedKnockoffTaskListReducer,
   pooledKnockoffTasks: pooledKnockoffTaskListReducer,
   archivedKnockoffs: archivedKnockoffListReducer,

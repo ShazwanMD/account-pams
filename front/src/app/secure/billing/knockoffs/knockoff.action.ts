@@ -241,4 +241,59 @@ export class KnockoffActions {
         payload: message
       };
     }
+    
+    static FIND_KNOCKOFF_ITEM = '[Knockoff] Find Knockoff Item';
+
+    findKnockoffItems(knockoff): Action {
+      return {
+        type: KnockoffActions.FIND_KNOCKOFF_ITEM,
+        payload: knockoff
+      };
+    }
+
+    static FIND_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Find Knockoff Item Success';
+
+    findKnockoffItemsSuccess(knockoff): Action {
+      return {
+        type: KnockoffActions.FIND_KNOCKOFF_ITEM_SUCCESS,
+        payload: knockoff
+      };
+    } 
+    
+    static FIND_KNOCKOFF_ITEM_BY_INVOICE = '[Knockoff] Find Knockoff Item By Invoice';
+
+    findKnockoffItemsByInvoice(knockoff, invoice): Action {
+      return {
+        type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_INVOICE,
+        payload: {knockoff , invoice}
+      };
+    }
+
+    static FIND_KNOCKOFF_ITEM_BY_INVOICE_SUCCESS = '[Knockoff] Find Knockoff Item By Invoice Success';
+
+    findKnockoffItemsByInvoiceSuccess(knockoff): Action {
+      return {
+        type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_INVOICE_SUCCESS,
+        payload: knockoff
+      };
+    } 
+    
+    static INVOICE_ITEM_TO_KNOCKOFF_ITEM = '[Knockoff] Invoice Item to Knockoff Item';
+
+    itemToKnockoffItem(invoice, knockoff): Action {
+      return {
+        type: KnockoffActions.INVOICE_ITEM_TO_KNOCKOFF_ITEM,
+        payload: {invoice, knockoff}
+      };
+    }
+
+    static INVOICE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Invoice Item to Knockoff Item Success';
+
+    itemToKnockoffItemSuccess(knockoff): Action {
+      return {
+        type: KnockoffActions.INVOICE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS,
+        payload: knockoff
+      };
+    }
+
 }

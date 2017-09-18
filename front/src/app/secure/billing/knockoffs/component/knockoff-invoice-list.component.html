@@ -11,14 +11,12 @@
 <td-data-table
   [data]="knockoffInvoice"
   [columns]="columns"
-      [sortBy]="summary"
-    [sortOrder]="ASC"
-    [sortable]="false"
-    [multiple]="true"
-    [selectable]="true"
-    [(ngModel)]="selectedRows"
-    (rowSelect)="selectRow($event)"
-    (selectAll)="selectAllRows($event)" dense>
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  (rowSelect)="view.emit($event)" dense>
   <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <span flex>{{value}}</span>

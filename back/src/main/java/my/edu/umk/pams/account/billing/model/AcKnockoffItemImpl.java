@@ -40,7 +40,7 @@ public class AcKnockoffItemImpl implements AcKnockoffItem {
 	private BigDecimal appliedAmount = BigDecimal.ZERO;
 
 	@Column(name = "TOTAL_AMOUNT")
-	private BigDecimal totalAmount;
+	private BigDecimal totalAmount = BigDecimal.ZERO;
 
 	@NotNull
 	@ManyToOne(targetEntity = AcInvoiceImpl.class)

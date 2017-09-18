@@ -1,6 +1,6 @@
-
+<md-dialog-content>
 <td-data-table
-  [data]="knockoff"
+  [data]="knockoffItem"
   [columns]="columns"
   [sortBy]="summary"
   [sortOrder]="ASC"
@@ -19,11 +19,6 @@
   <template tdDataTableTemplate="amount" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['amount'] | currency:'MYR':true:'1.2-2'}}</div>
   </template>
-  <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
-    <div layout="row">
-      <a md-button color="accent" class="text-upper" (click)="viewInvoice(row)">
-        <span>View</span>
-      </a>
-    </div>
-  </template>
 </td-data-table>
+
+</md-dialog-content>

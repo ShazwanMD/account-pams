@@ -30,6 +30,8 @@ import { KnockoffVerifyTaskPanel } from "./panel/knockoff-verify-task.panel";
 import { KnockoffInvoiceListComponent } from "./component/knockoff-invoice-list.component";
 import { InvoiceUnpaidSelectComponent } from "./component/invoice-select-unpaid.component";
 import { InvoiceKnockoffDialog } from "./dialog/knockoff-invoice-creator.dialog";
+import { KnockoffItemListComponent } from "./component/knockoff-item-list.component";
+import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
 
 @NgModule( {
     imports: [
@@ -61,9 +63,11 @@ import { InvoiceKnockoffDialog } from "./dialog/knockoff-invoice-creator.dialog"
         KnockoffStatusComponent,
         KnockoffInvoiceListComponent,
         InvoiceUnpaidSelectComponent,
+        KnockoffItemListComponent,
 
         // dialog
         InvoiceKnockoffDialog,
+        KnockoffItemDialog,
     ],
     exports: [
         KnockoffListComponent,
@@ -75,6 +79,7 @@ import { InvoiceKnockoffDialog } from "./dialog/knockoff-invoice-creator.dialog"
         KnockoffDraftTaskPanel,
         KnockoffVerifyTaskPanel,
         InvoiceKnockoffDialog,
+        KnockoffItemDialog,
     ],
 
 } )

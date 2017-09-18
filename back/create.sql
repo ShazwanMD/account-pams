@@ -680,6 +680,8 @@
     create table AC_KNOF (
         ID int8 not null,
         AMOUNT numeric(19, 2),
+        TOTAL_AMOUNT numeric(19, 2),
+        BALANCE_AMOUNT numeric(19, 2),
         AUDIT_NO varchar(255),
         DESCRIPTION varchar(255),
         AV_TS timestamp,

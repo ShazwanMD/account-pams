@@ -328,6 +328,10 @@ public interface BillingService {
 	
 	List<AcKnockoff> findKnockoffsByFlowStates(AcFlowState... flowStates );
 	
+	List<AcKnockoffItem> findAcKnockoffs(AcKnockoff knockoff);
+	
+	List<AcKnockoffItem> findAcKnockoffs(AcKnockoff knockoff, AcInvoice invoice);
+	
 	List<AcKnockoffInvoice> findKnockoffs(AcKnockoff knockoff);
 
     boolean hasKnockoff(AcKnockoff knockoff);
@@ -338,9 +342,11 @@ public interface BillingService {
 
     void removeKnockoff(AcKnockoff knockoff, AcUser user);
     
-    //void itemToKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
+    void itemToKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
     
     void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice);
+    
+    void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
     
     //TASK
     

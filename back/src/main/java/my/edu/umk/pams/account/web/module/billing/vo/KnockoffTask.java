@@ -13,6 +13,7 @@ public class KnockoffTask extends Task {
 
 	private Knockoff knockoff;
 	private AdvancePayment payments;
+	private Date issuedDate;
 
 	public AdvancePayment getPayments() {
 		return payments;

@@ -8,7 +8,7 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.security.service.SecurityService;
-import my.edu.umk.pams.connector.payload.AccountPayload;
+//import my.edu.umk.pams.connector.payload.AccountPayload;
 
 import org.activiti.engine.impl.bpmn.behavior.BpmnActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
@@ -59,7 +59,6 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
 
 //        // fire event
 //        applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
-//
 //        AcAccount account = invoice.getAccount();
 //        AccountPayload payload = new AccountPayload();
 //        payload.setCode(account.getCode());
