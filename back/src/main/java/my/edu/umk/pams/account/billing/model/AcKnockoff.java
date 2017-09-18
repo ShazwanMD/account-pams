@@ -36,4 +36,12 @@ public interface AcKnockoff extends AcDocument {
 	AcAdvancePayment getPayments();
 
 	void setPayments(AcAdvancePayment payments);
+	
+	BigDecimal getTotalAmount();
+
+	void setTotalAmount(BigDecimal totalAmount);
+	
+	BigDecimal getBalanceAmount();
+
+	void setBalanceAmount(BigDecimal balanceAmount);
 }
