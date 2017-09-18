@@ -88,4 +88,12 @@ public interface AcAccountCharge extends AcMetaObject {
 
 	BigDecimal getNetAmount();
 
+	BigDecimal getBalanceAmount();
+
+	void setBalanceAmount(BigDecimal balanceAmount);
+
+	Boolean getPaid();
+
+	void setPaid(Boolean paid);
+
 }

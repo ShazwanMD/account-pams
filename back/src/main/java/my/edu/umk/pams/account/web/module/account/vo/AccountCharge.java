@@ -25,6 +25,7 @@ public class AccountCharge extends MetaObject {
 	private BigDecimal amount;
 	private BigDecimal netAmount;
 	private BigDecimal taxAmount;
+	private BigDecimal balanceAmount;
 	private AccountChargeType chargeType;
 	private AcademicSession session;
 	private CohortCode cohortCode;
@@ -36,6 +37,7 @@ public class AccountCharge extends MetaObject {
 	private String code;
 	private SecurityChargeCode securityChargeCode;
 	private boolean inclusive;
+	private boolean paid;
 
 	// transient
 	private boolean invoiced;
@@ -175,6 +177,22 @@ public class AccountCharge extends MetaObject {
 	public void setInclusive(Boolean inclusive) {
 		this.inclusive = inclusive;
 	}
+	
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
 
 	@JsonCreator
 	public static AccountCharge create(String jsonString) {
