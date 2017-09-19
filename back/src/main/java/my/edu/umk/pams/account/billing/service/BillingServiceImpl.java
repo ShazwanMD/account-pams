@@ -568,7 +568,7 @@ public class BillingServiceImpl implements BillingService {
 		tx.setSourceNo(invoice.getReferenceNo());
 		tx.setTransactionCode(AcAccountTransactionCode.INVOICE);
 		tx.setAccount(invoice.getAccount());
-		tx.setAmount(invoice.getTotalAmount());
+		tx.setAmount(invoice.getBalanceAmount());
 		accountService.addAccountTransaction(invoice.getAccount(), tx);
 		// }
 	}
@@ -961,8 +961,8 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
-	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice) {
-		return receiptDao.findReceiptItemByChargeCode(chargeCode, invoice);
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt) {
+		return receiptDao.findReceiptItemByChargeCode(chargeCode, invoice, receipt);
 	}
 
 	@Override
@@ -1033,7 +1033,7 @@ public class BillingServiceImpl implements BillingService {
 		tx.setSourceNo(receipt.getReferenceNo());
 		tx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
 		tx.setAccount(receipt.getAccount());
-		tx.setAmount(receipt.getTotalAmount().negate());
+		tx.setAmount(receipt.getTotalReceived().negate());
 		accountService.addAccountTransaction(receipt.getAccount(), tx);
 		// }
 	}
@@ -1086,8 +1086,8 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
-	public BigDecimal sumAppliedAmount(AcInvoice invoice) {
-		return receiptDao.sumAmount(invoice, securityService.getCurrentUser());
+	public BigDecimal sumAppliedAmount(AcInvoice invoice, AcReceipt receipt) {
+		return receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser());
 	}
 
 	// ====================================================================================================
@@ -1347,6 +1347,20 @@ public class BillingServiceImpl implements BillingService {
 	public void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item) {
 		knockoffDao.addItem(knockoff, item, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
+	public void post(AcKnockoff knockoff)  {
+		AcAccountTransaction tx = new AcAccountTransactionImpl();
+		tx.setSession(knockoff.getPayments().getSession());
+		//tx.setChargeCode(creditNote.getChargeCode());
+		tx.setDescription(knockoff.getDescription());
+		tx.setPostedDate(new Date());
+		tx.setSourceNo(knockoff.getReferenceNo());
+		tx.setTransactionCode(AcAccountTransactionCode.KNOCKOFF);
+		tx.setAccount(knockoff.getPayments().getAccount());
+		tx.setAmount(knockoff.getBalanceAmount().negate());
+		accountService.addAccountTransaction(knockoff.getPayments().getAccount(), tx);
 	}
 
 	// TASK

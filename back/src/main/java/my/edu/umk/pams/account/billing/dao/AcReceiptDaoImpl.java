@@ -68,14 +68,16 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
     
     @Override
-	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice) {
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt) {
     	Session session = sessionFactory.getCurrentSession();
     	Query query = session.createQuery("select ri from AcReceiptItem ri where " +
                 "ri.chargeCode = :chargeCode " +
     			"and ri.invoice = :invoice " +
+                "and ri.receipt = :receipt " +
                 "and ri.metadata.state = :metaState");
         query.setEntity("chargeCode", chargeCode);
         query.setEntity("invoice", invoice);
+        query.setEntity("receipt", receipt);
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         return (AcReceiptItem) query.uniqueResult();
 	}
@@ -340,12 +342,14 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
     
     @Override
-    public BigDecimal sumAmount(AcInvoice invoice, AcUser user) {
+    public BigDecimal sumAmount(AcInvoice invoice, AcReceipt receipt, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcReceiptItem a where " +
                 "a.invoice = :invoice " +
+        		"and a.receipt = :receipt " +
                 "and a.metadata.state = :state ");
         query.setEntity("invoice", invoice);
+        query.setEntity("receipt", receipt);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;

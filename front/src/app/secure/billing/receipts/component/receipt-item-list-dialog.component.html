@@ -1,0 +1,17 @@
+ <td-data-table
+  #dataTable
+  [data]="receiptItems"
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  [(ngModel)]="selectedRows"
+  (rowSelect)="view.emit($event)" dense>
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex="40">{{value}}</span>
+    </div>
+  </template>
+</td-data-table> 
