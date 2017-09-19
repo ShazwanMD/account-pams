@@ -64,6 +64,12 @@ export class ReceiptEffects {
   .map((action) => action.payload)
   .switchMap((receipt) => this.billingService.findReceiptsByInvoice(receipt))
   .map((receipts) => this.receiptActions.findReceiptsByInvoiceSuccess(receipts));
+
+  @Effect() findReceiptsByAccountCharge$ = this.actions$
+  .ofType(ReceiptActions.FIND_RECEIPTS_BY_ACCOUNT_CHARGE)
+  .map((action) => action.payload)
+  .switchMap((receipt) => this.billingService.findReceiptsByAccountCharge(receipt))
+  .map((receipts) => this.receiptActions.findReceiptsByAccountChargeSuccess(receipts));
   
   @Effect() findReceiptItems$ = this.actions$
     .ofType(ReceiptActions.FIND_RECEIPT_ITEMS)
