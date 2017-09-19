@@ -152,6 +152,7 @@
         M_ST int4,
         RECEIPT_ID int8,
         ACCOUNT_ID int8,
+        SESSION_ID int8,
         primary key (ID)
     );
 

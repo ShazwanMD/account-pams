@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.billing.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
@@ -43,4 +44,8 @@ public interface AcAdvancePayment extends AcMetaObject {
 	List<AcRefundPayment> getRefundPayment();
 
 	void setRefundPayment(List<AcRefundPayment> refundPayment);
+	
+    AcAcademicSession getSession();
+
+    void setSession(AcAcademicSession session);
 }
