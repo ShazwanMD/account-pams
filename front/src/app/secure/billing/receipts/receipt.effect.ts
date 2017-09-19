@@ -5,6 +5,7 @@ import {from} from 'rxjs/observable/from';
 import {BillingService} from '../../../../services/billing.service';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
+import { AccountService } from '../../../../services/account.service';
 
 @Injectable()
 export class ReceiptEffects {
@@ -15,6 +16,7 @@ export class ReceiptEffects {
   constructor(private actions$: Actions,
               private receiptActions: ReceiptActions,              
               private billingService: BillingService,
+              private accountService: AccountService,
               private store$: Store<BillingModuleState>) {
   }
 
@@ -183,4 +185,14 @@ export class ReceiptEffects {
   .map((state) => state[1])
   .map((receipt) => this.receiptActions.findReceiptItems(receipt));
 
+  @Effect() findUnpaidAccountCharges$ = this.actions$
+  .ofType(ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES)
+  .map((action) => action.payload)
+  .switchMap((account) => this.accountService.findUnpaidAccountCharges(account))
+  .map((charges) => this.receiptActions.findUnpaidAccountChargesSuccess(charges));
+
+  @Effect() findCompletedAccountCharges$ = this.actions$
+  .ofType(ReceiptActions.FIND_COMPLETED_ACCOUNT_CHARGES)
+  .switchMap(() => this.accountService.findCompletedAccountCharges())
+  .map((charges) => this.receiptActions.findCompletedAccountChargesSuccess(charges));
 }

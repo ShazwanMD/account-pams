@@ -103,6 +103,7 @@ export interface BillingModuleState {
   receipt: ReceiptState;
   receiptItems: ReceiptItemListState;
   receiptInvoice: ReceiptInvoiceListState;
+  receiptAccountCharge: AccountChargeListState;
   // selectedInvoice: // previewed invoice to be applied
   // selectedInvoiceItems: // previewed invoice item to be applied
   assignedDebitNoteTasks: DebitNoteTaskListState;
@@ -159,6 +160,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     receipt: <Receipt>{},
     receiptItems: [],
     receiptInvoice: [],
+    receiptAccountCharge: [],
     assignedDebitNoteTasks: [],
     pooledDebitNoteTasks: [],
     archivedDebitNotes: [],
@@ -211,6 +213,7 @@ export const billingModuleReducers = {
   receipts: receiptReducer,
   receiptItems: receiptItemListReducer,
   receiptInvoice: receiptInvoiceListReducer,
+  receiptAccountCharge: accountChargeListReducer,
   assignedDebitNoteTasks: assignedDebitNoteTaskListReducer,
   pooledDebitNoteTasks: pooledDebitNoteTaskListReducer,
   archivedDebitNotes: archivedDebitNoteListReducer,

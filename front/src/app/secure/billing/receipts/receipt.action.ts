@@ -444,4 +444,40 @@ export class ReceiptActions {
     };
   }
 
+  static FIND_UNPAID_ACCOUNT_CHARGES = '[Account] Find Unpaid Account Charges';
+  
+    findUnpaidAccountCharges(account): Action {
+      return {
+        type: ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES,
+        payload: account,
+      };
+    }
+  
+    static FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Unpaid Account Charges Success';
+  
+    findUnpaidAccountChargesSuccess(accountCharges): Action {
+      console.log('findUnpaidAccountChargesSuccess');
+      return {
+        type: ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS,
+        payload: accountCharges,
+      };
+    }
+  
+    static FIND_COMPLETED_ACCOUNT_CHARGES = '[Account] Find Completed Account Charges';
+    
+      findCompletedAccountCharges(): Action {
+        return {
+          type: ReceiptActions.FIND_COMPLETED_ACCOUNT_CHARGES,
+        };
+      }
+    
+      static FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Completed Account Charges Success';
+    
+      findCompletedAccountChargesSuccess(accountCharges): Action {
+        console.log('findCompletedAccountChargesSuccess');
+        return {
+          type: ReceiptActions.FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS,
+          payload: accountCharges,
+        };
+      }
 }
