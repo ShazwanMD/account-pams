@@ -9,7 +9,8 @@ public enum AccountTransactionCode {
     DEBIT_NOTE,   // 4
     CREDIT_NOTE,   // 5
     ADHOC,   // 6
-    ADVANCE_PAYMENT;
+    ADVANCE_PAYMENT,
+	KNOCKOFF;
 
     public static AccountTransactionCode get(int index){
         return values()[index];
