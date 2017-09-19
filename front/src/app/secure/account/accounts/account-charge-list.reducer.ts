@@ -1,6 +1,7 @@
 import {Action} from '@ngrx/store';
 import {AccountActions} from './account.action';
 import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
+import { ReceiptActions } from '../../billing/receipts/receipt.action';
 
 export type AccountChargeListState = AccountCharge[];
 
@@ -52,10 +53,10 @@ export function loanAccountChargeListReducer(state = initialState, action: Actio
 
 export function accountChargeListReducer(state = initialState, action: Action): AccountChargeListState {
   switch (action.type) {
-    case AccountActions.FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS: {
+    case ReceiptActions.FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS: {
       return action.payload;
     }
-    case AccountActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS: {
+    case ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS: {
       return action.payload;
     }
     default: {

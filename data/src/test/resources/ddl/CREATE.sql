@@ -377,6 +377,8 @@
         CANCEL_COMMENT varchar(255),
         DEBITNOTE_DATE timestamp,
         DESCRIPTION varchar(255),
+        BALANCE_AMOUNT numeric(19, 2),
+        PAID boolean,
         AV_TS timestamp,
         AV_ID int8,
         CL_ID int8,
@@ -930,6 +932,7 @@
         CHARGE_CODE_ID int8,
         INVOICE_ID int8,
         ACCOUNT_CHARGE_ID int8,
+        DEBIT_NOTE_ID int8,
         RECEIPT_ID int8,
         primary key (ID)
     );
@@ -1736,7 +1739,12 @@
     alter table AC_RCPT_ITEM 
         add constraint FK_pvm4sa8mdj3fccu5i73wjt7p1
         foreign key (ACCOUNT_CHARGE_ID) 
-        references AC_ACCT_CHRG;                 
+        references AC_ACCT_CHRG;  
+        
+    alter table AC_RCPT_ITEM 
+        add constraint FK_pvm4sa8mdj3fccu5i73wjt8p2
+        foreign key (DEBIT_NOTE_ID) 
+        references AC_DBIT_NOTE; 
 
     alter table AC_RCPT_ITEM
         add constraint FK_369xjsjo5e6svl0ynmlab782g
