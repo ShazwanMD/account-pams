@@ -28,7 +28,7 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
 
     AcReceipt findByReceiptNo(String receiptNo);
     
-    AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice);
+    AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt);
 
     List<AcReceipt> find(String filter, Integer offset, Integer limit);
 
@@ -76,7 +76,7 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     
     BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user);
     
-    BigDecimal sumAmount(AcInvoice invoice, AcUser user);
+    BigDecimal sumAmount(AcInvoice invoice, AcReceipt receipt, AcUser user);
     
     
 

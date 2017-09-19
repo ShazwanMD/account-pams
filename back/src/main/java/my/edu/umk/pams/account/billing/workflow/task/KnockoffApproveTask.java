@@ -37,6 +37,7 @@ public class KnockoffApproveTask extends BpmnActivityBehavior implements Activit
         knockoff.getFlowdata().setVerifiedDate(new Timestamp(System.currentTimeMillis()));
         knockoff.getFlowdata().setVerifierId(securityService.getCurrentUser().getId());
         billingService.updateKnockoff(knockoff);
+        billingService.post(knockoff);
 
     }
 

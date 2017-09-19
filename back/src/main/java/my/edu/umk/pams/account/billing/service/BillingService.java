@@ -264,7 +264,7 @@ public interface BillingService {
 
     AcReceiptItem findReceiptItemById(Long id);
 
-	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice);
+	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt);
 
     List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit);
 
@@ -298,7 +298,7 @@ public interface BillingService {
     
     BigDecimal sumAdvancePayment(AcReceipt receipt);
     
-    BigDecimal sumAppliedAmount(AcInvoice invoice);
+    BigDecimal sumAppliedAmount(AcInvoice invoice, AcReceipt receipt);
     
     // ==================================================================================================== //
     // ADVANCE PAYMENT
@@ -349,6 +349,8 @@ public interface BillingService {
     void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice);
     
     void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
+    
+    void post(AcKnockoff knockoff);
     
     //TASK
     

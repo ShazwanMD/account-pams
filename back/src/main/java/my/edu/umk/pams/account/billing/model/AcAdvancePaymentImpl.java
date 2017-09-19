@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -61,6 +63,11 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
     @ManyToOne(targetEntity = AcAccountImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "ACCOUNT_ID")
     private AcAccount account;
+    
+    @NotNull
+    @OneToOne(targetEntity = AcAcademicSessionImpl.class)
+    @JoinColumn(name = "SESSION_ID")
+    private AcAcademicSession session;
 
     @Embedded
     private AcMetadata metadata;
@@ -177,5 +184,15 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
     @Override
     public Class<?> getInterfaceClass() {
         return AcAdvancePayment.class;
+    }
+
+    @Override
+    public AcAcademicSession getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(AcAcademicSession session) {
+        this.session = session;
     }
 }

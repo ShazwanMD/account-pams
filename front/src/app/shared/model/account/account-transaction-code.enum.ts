@@ -7,4 +7,5 @@ export enum AccountTransactionCode {
   CREDIT_NOTE,
   ADHOC,
   ADVANCE_PAYMENT,
+  KNOCKOFF,
 }
