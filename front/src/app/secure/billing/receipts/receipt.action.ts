@@ -41,6 +41,25 @@ export class ReceiptActions {
     };
   } 
 
+  static FIND_RECEIPTS_BY_ACCOUNT_CHARGE = '[Receipt] Find Completed Receipts';
+  
+    findReceiptsByAccountCharge(receipt): Action {
+      return {
+        type: ReceiptActions.FIND_RECEIPTS_BY_ACCOUNT_CHARGE,
+        payload: receipt
+      };
+    }
+  
+    static FIND_RECEIPTS_BY_ACCOUNT_CHARGE_SUCCESS = '[Receipt] Find Completed Receipts Success';
+  
+    findReceiptsByAccountChargeSuccess(receipts): Action {
+      console.log("findReceiptsByAccountChargeSuccess");
+      return {
+        type: ReceiptActions.FIND_RECEIPTS_BY_ACCOUNT_CHARGE_SUCCESS,
+        payload: receipts
+      };
+    } 
+
   static FIND_ASSIGNED_RECEIPT_TASKS = '[Receipt] Find Assigned Receipt Tasks';
 
   findAssignedReceiptTasks(): Action {
