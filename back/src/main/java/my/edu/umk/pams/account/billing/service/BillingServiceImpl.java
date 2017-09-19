@@ -1004,6 +1004,11 @@ public class BillingServiceImpl implements BillingService {
 	public List<AcReceiptInvoice> findReceipts(AcReceipt receipt) {
 		return receiptDao.find(receipt);
 	}
+	
+	@Override
+	public List<AcReceiptAccountCharge> findReceiptsAccountCharge(AcReceipt receipt) {
+		return receiptDao.findReceiptAccountCharge(receipt);
+	}
 
 	@Override
 	public Integer countReceipt(AcReceiptType type) {
