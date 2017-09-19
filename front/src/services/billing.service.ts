@@ -26,6 +26,7 @@ import { RefundPayment } from '../app/shared/model/billing/refund-payment.interf
 import { RefundPaymentTask } from '../app/shared/model/billing/refund-payment-task.interface';
 import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.interface";
 import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interface";
+import { ReceiptAccountCharge } from '../app/shared/model/billing/receipt-account-charge.interface';
 @Injectable()
 export class BillingService {
 
@@ -267,6 +268,11 @@ export class BillingService {
     findReceiptsByInvoice( receipt: Receipt ): Observable<ReceiptInvoice[]> {
         return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptInvoice' )
             .map(( res: Response ) => <ReceiptInvoice[]>res.json() );
+    }
+
+    findReceiptsByAccountCharge( receipt: Receipt ): Observable<ReceiptAccountCharge[]> {
+        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptAccountCharge' )
+            .map(( res: Response ) => <ReceiptAccountCharge[]>res.json() );
     }
     
     itemToReceiptItem( invoice: Invoice, receipt: Receipt ): Observable<String> {
