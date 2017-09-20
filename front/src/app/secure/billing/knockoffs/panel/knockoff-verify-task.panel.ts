@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {BillingModuleState} from '../../index';
 import {KnockoffTask} from '../../../../shared/model/billing/knockoff-task.interface';
 import { TdDialogService } from "@covalent/core";
+import { KnockoffItem } from "../../../../shared/model/billing/knockoff-item.interface";
 
 @Component({
   selector: 'pams-knockoff-verify-task',
@@ -17,6 +18,9 @@ export class KnockoffVerifyTaskPanel implements OnInit {
 
   @Input() knockoffTask: KnockoffTask;
 
+  private KNOCKOFF_ITEM: string[] = 'billingModuleState.knockoffItems'.split('.');
+  private knockoffItem$: Observable<KnockoffItem[]>;
+  
   constructor(private router: Router,
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
@@ -25,10 +29,11 @@ export class KnockoffVerifyTaskPanel implements OnInit {
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
+      this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
   }
 
   ngOnInit(): void {
-    //this.store.dispatch(this.actions.findInvoiceItems(this.invoiceTask.invoice));
+      this.store.dispatch(this.actions.findKnockoffItems(this.knockoffTask.knockoff));
   }
 
   register() {

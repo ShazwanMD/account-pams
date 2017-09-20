@@ -251,6 +251,8 @@ public interface BillingService {
     void deleteReceiptItem(AcReceipt receipt, AcReceiptItem item);
     
     void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
+    
+    void deleteReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
 
     // ==================================================================================================== //
     // RECEIPT
@@ -324,6 +326,8 @@ public interface BillingService {
     
     AcKnockoff findKnockoffByReferenceNo(String referenceNo);
     
+    AcKnockoffItem findKnockoffItemById(Long id);
+    
     List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit);
     
 	List<AcKnockoff> findKnockoffsByFlowState(AcFlowState acFlowState);
@@ -346,9 +350,13 @@ public interface BillingService {
     
     void itemToKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
     
+    void updateitemToKnockoff(AcKnockoff knockoff);
+    
     void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice);
     
     void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
+    
+    void updateKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
     
     void post(AcKnockoff knockoff);
     

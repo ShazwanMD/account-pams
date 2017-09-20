@@ -605,6 +605,11 @@ export class BillingService {
             .map(( res: Response ) => <KnockoffItem[]>res.json() );
     }
     
+    updateitemToKnockoff( knockoff: Knockoff, knockoffItem: KnockoffItem  ) {
+        return this._http.put( this.BILLING_API + '/knockoffs/updateKnockoffItems/' + knockoff.referenceNo + '/knockoffItems/' + knockoffItem.id, JSON.stringify( knockoffItem ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
     // ====================================================================================================
   // WAIVER FINANCE APPLICATION
   // ====================================================================================================
