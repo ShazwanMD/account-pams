@@ -25,7 +25,7 @@ export class InvoiceReceiptListComponent implements OnInit {
     @Input() receipt: Receipt;
     @Output() view = new EventEmitter<ReceiptInvoice>();
     
-    private selectedRows: ReceiptInvoice[];
+    //private selectedRows: ReceiptInvoice[];
     
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Reference No'},
@@ -78,7 +78,7 @@ export class InvoiceReceiptListComponent implements OnInit {
       }
 
     ngOnInit(): void {
-        this.selectedRows = this.receiptInvoice.filter((value) => value.selected);
+        //this.selectedRows = this.receiptInvoice.filter((value) => value.selected);
       }
     
 //    delete(): void {
