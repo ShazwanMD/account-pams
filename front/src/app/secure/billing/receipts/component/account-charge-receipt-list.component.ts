@@ -20,7 +20,7 @@ import { AccountModuleState } from '../../../account/index';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountChargeReceiptListComponent {
-
+ 
     @Input() receiptAccountCharge: ReceiptAccountCharge[];
     @Input() receipt: Receipt;
     @Output() view = new EventEmitter<ReceiptAccountCharge>();
@@ -29,7 +29,7 @@ export class AccountChargeReceiptListComponent {
     {name: 'accountCharge.referenceNo', label: 'Reference No'},
     {name: 'accountCharge.description', label: 'Description'},
     {name: 'accountCharge.totalAmount', label: 'Total Amount'},
-    {name: 'accountCharge.balanceAmount', label: 'Balance Amount'},
+    {name: 'accountCharge.balanceAmount', label: 'Balance Amount test'},
     {name: 'action', label: ''},
   ];
 
@@ -43,7 +43,7 @@ export class AccountChargeReceiptListComponent {
   viewTask(receiptAccountCharge: ReceiptAccountCharge) {
 
       console.log('ref no for receipt: ' + receiptAccountCharge.receipt.referenceNo);
-    //   this.showDialog(receiptAccountCharge);
+      //  this.showDialog(receiptAccountCharge);
       
     }
     
@@ -58,8 +58,8 @@ export class AccountChargeReceiptListComponent {
     //     config.position = {top: '0px'};
     //     let editorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
     //     editorDialogRef.componentInstance.receipt = receiptAccountCharge.receipt;
-    //     editorDialogRef.componentInstance.invoice = receiptAccountCharge.invoice;
-    //   }
+        //editorDialogRef.componentInstance.invoice = receiptAccountCharge.invoice;
+      // }
   
 
 }
