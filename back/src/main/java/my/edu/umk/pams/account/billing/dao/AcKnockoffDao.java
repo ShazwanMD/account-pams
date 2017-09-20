@@ -44,5 +44,7 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     
     void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice, AcUser user);
     
+    void updateItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user);
+    
     BigDecimal sumAppliedAmount(AcKnockoff knockoff, AcUser user);
 }

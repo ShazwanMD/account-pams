@@ -208,6 +208,19 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
     }
     
     @Override
+    public void updateItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user) {
+        Validate.notNull(user, "User cannot be null");
+        Session session = sessionFactory.getCurrentSession();
+        item.setKnockoff(knockoff);
+
+        AcMetadata metadata = item.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        item.setMetadata(metadata);
+        session.update(item);
+    }
+    
+    @Override
     public BigDecimal sumAppliedAmount(AcKnockoff knockoff, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +

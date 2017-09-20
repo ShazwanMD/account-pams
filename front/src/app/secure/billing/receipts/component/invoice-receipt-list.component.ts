@@ -10,17 +10,22 @@ import { Observable } from "rxjs/Observable";
 import { ReceiptInvoice } from "../../../../shared/model/billing/receipt-invoice.interface";
 import { Receipt } from "../../../../shared/model/billing/receipt.interface";
 import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.dialog";
+import { InvoiceReceiptDialog } from "../dialog/invoice-receipt.dialog";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ReceiptActions } from "../receipt.action";
 
 @Component({
   selector: 'pams-invoice-receipt-list',
   templateUrl: './invoice-receipt-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceReceiptListComponent {
+export class InvoiceReceiptListComponent implements OnInit {
 
     @Input() receiptInvoice: ReceiptInvoice[];
     @Input() receipt: Receipt;
     @Output() view = new EventEmitter<ReceiptInvoice>();
+    
+    private selectedRows: ReceiptInvoice[];
     
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Reference No'},
@@ -33,7 +38,9 @@ export class InvoiceReceiptListComponent {
   constructor(private snackBar: MdSnackBar,
               private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
-              private action: InvoiceActions,
+              private router: Router,
+              private route: ActivatedRoute,
+              private action: ReceiptActions,
               private dialog: MdDialog) {
   }
   
@@ -58,5 +65,27 @@ export class InvoiceReceiptListComponent {
         editorDialogRef.componentInstance.invoice = receiptInvoice.invoice;
       }
   
+    create() {
+        console.log("ReceiptDialog "+ this.receipt.referenceNo);
+        let config = new MdDialogConfig();
+        config.viewContainerRef = this.viewContainerRef;
+        config.role = 'dialog';
+        config.width = '70%';
+        config.height = '60%';
+        config.position = {top: '0px'};
+        let editorDialogRef = this.dialog.open(InvoiceReceiptDialog, config);
+        editorDialogRef.componentInstance.receipt = this.receipt;
+      }
 
+    ngOnInit(): void {
+        this.selectedRows = this.receiptInvoice.filter((value) => value.selected);
+      }
+    
+//    delete(): void {
+//        console.log('length: ' + this.selectedRows.length);
+//        for (let i: number = 0; i < this.selectedRows.length; i++) {
+//          this.store.dispatch(this.action.dele);
+//        }
+//        this.selectedRows = [];
+//      }
 }

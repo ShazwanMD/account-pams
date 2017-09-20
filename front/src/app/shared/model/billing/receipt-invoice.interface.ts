@@ -5,4 +5,7 @@ import {Document} from '../../../core/document.interface';
 export interface ReceiptInvoice extends Document {
     invoice: Invoice;
     receipt: Receipt;
+
+// selection
+selected?: boolean;
 }
