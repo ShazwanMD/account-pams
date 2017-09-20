@@ -230,6 +230,14 @@ public class BillingTransformer {
         return vo;
     }
 
+    public ReceiptAccountCharge toReceiptAccountChargeVo(AcReceiptAccountCharge r) {
+    	
+    	ReceiptAccountCharge vo = new ReceiptAccountCharge();
+    	vo.setReceipt(billingTransformer.toReceiptVo(r.getReceipt()));
+    	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
+        return vo;
+    }
+
     public ReceiptItem toReceiptItemVo(AcReceiptItem e) {
         ReceiptItem vo = new ReceiptItem();
         vo.setId(e.getId());
@@ -601,6 +609,11 @@ public class BillingTransformer {
                 .collect(toCollection(() -> new ArrayList<ReceiptInvoice>()));
     }
     
+    public List<ReceiptAccountCharge> toReceiptAccountChargeVos(List<AcReceiptAccountCharge> entries) {
+        return entries.stream()
+                .map((entry) -> toReceiptAccountChargeVo(entry))
+                .collect(toCollection(() -> new ArrayList<ReceiptAccountCharge>()));
+    }
     public List<AdvancePayment> toAdvancePaymentVos(List<AcAdvancePayment> entries) {
         return entries.stream()
                 .map((entry) -> toAdvancePaymentVo(entry))

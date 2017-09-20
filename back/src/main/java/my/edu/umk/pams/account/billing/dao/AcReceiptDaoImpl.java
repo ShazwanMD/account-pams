@@ -206,6 +206,18 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         query.setCacheable(true);
         return (List<AcReceiptInvoice>) query.list();
     }
+    
+    @Override
+    public List<AcReceiptAccountCharge> findReceiptAccountCharge(AcReceipt receipt) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcReceiptAccountCharge ri where " +
+                "ri.receipt = :receipt " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("receipt", receipt);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcReceiptAccountCharge>) query.list();
+    }
 
     // ====================================================================================================
     // HELPER

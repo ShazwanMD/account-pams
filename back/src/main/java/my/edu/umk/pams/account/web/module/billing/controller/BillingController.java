@@ -387,6 +387,15 @@ public class BillingController {
         return new ResponseEntity<List<ReceiptInvoice>>(billingTransformer
                 .toReceiptInvoiceVos(billingService.findReceipts(receipt)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/receiptAccountCharge", method = RequestMethod.GET)
+    public ResponseEntity<List<ReceiptAccountCharge>> findReceiptsByAccountCharge(@PathVariable String referenceNo) {
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        return new ResponseEntity<List<ReceiptAccountCharge>>(billingTransformer.
+        		toReceiptAccountChargeVos(billingService.findReceiptsAccountCharge(receipt)), HttpStatus.OK);
+             
+    }
 
     @RequestMapping(value = "/receipts/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<ReceiptTask>> findAssignedReceipts() {

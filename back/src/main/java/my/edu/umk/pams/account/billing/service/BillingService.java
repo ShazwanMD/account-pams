@@ -283,6 +283,8 @@ public interface BillingService {
     List<AcReceiptItem> findReceiptItems(AcReceipt receipt, AcInvoice invoice);
     
     List<AcReceiptInvoice> findReceipts(AcReceipt receipt);
+    
+    List<AcReceiptAccountCharge> findReceiptsAccountCharge(AcReceipt receipt);
 
     Integer countReceipt(AcReceiptType type);
 
