@@ -1367,6 +1367,20 @@ create table AC_RFND_PYMT (
         primary key (ID)
     );
 
+    create table AC_WAVR_INVC (
+        ID int8 not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        INVOICE_ID int8,
+        WAIVER_FINANCE_ID int8,
+        primary key (ID)
+    );
+    
     create table AC_WTCH (
         ID int8 not null,
         C_TS timestamp,
@@ -1743,6 +1757,11 @@ create table AC_RFND_PYMT (
         foreign key (KNOCKOFF_ID) 
         references AC_KNOF;
         
+    alter table AC_KNOF_INVC 
+        add constraint FK_2d6lwrme5e7ch5iextvyjus2k 
+        foreign key (INVOICE_ID) 
+        references AC_INVC;  
+        
     alter table AC_KNOF_ITEM 
         add constraint FK_2d6lwtme5e7ch5iextvyjus2k 
         foreign key (KNOCKOFF_ID) 
@@ -1918,6 +1937,16 @@ create table AC_RFND_PYMT (
         foreign key (ACCOUNT_ID) 
         references AC_ACDM_SESN;
 
+   alter table AC_WAVR_INVC 
+        add constraint FK_9biewrgydh2os939x0wy6bw6
+        foreign key (INVOICE_ID) 
+        references AC_INVC; 
+        
+    alter table AC_WAVR_INVC 
+        add constraint FK_8biewrgydh2os939x0wy6bw6
+        foreign key (WAIVER_FINANCE_ID) 
+        references AC_WAVR_FNCE_APLN; 
+        
     create sequence SEQ_ACCT_CHRG;
 
     create sequence SQ_AC_ACCT;
@@ -2031,5 +2060,7 @@ create table AC_RFND_PYMT (
     create sequence SQ_AC_WAVR_APLN;
     
     create sequence SQ_AC_WAVR_FNCE_APLN;
+    
+    create sequence SQ_AC_WAVR_INVC;
 
     create sequence SQ_AC_WTCH;
