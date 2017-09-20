@@ -1347,6 +1347,27 @@
         primary key (ID)
     );
     
+    create table AC_WAVR_ITEM (
+        ID int8 not null,
+        APPLIED_AMOUNT numeric(19, 2) not null,
+        DESCRIPTION varchar(255),
+        DUE_AMOUNT numeric(19, 2) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        TOTAL_AMOUNT numeric(19, 2),
+        CHARGE_CODE_ID int8,
+        INVOICE_ID int8,
+        ACCOUNT_CHARGE_ID int8,
+        DEBIT_NOTE_ID int8,
+        WAIVER_FINANCE_ID int8,
+        primary key (ID)
+    );   
+    
     create table AC_WTCH (
         ID int8 not null,
         C_TS timestamp,
@@ -1879,7 +1900,12 @@
         add constraint FK_8biewrgydh2os939x0wy6bw6
         foreign key (WAIVER_FINANCE_ID) 
         references AC_WAVR_FNCE_APLN; 
-
+        
+    alter table AC_WAVR_ITEM
+        add constraint FK_3coqllo22hpahq7m73p6u1g74
+        foreign key (WAIVER_FINANCE_ID)
+        references AC_WAVR_FNCE_APLN;
+        
     create sequence SEQ_ACCT_CHRG;
 
     create sequence SQ_AC_ACCT;
@@ -1993,5 +2019,7 @@
     create sequence SQ_AC_WAVR_APLN;
     
     create sequence SQ_AC_WAVR_INVC;
-
+    
+    create sequence SQ_AC_WAVR_ITEM;
+    
     create sequence SQ_AC_WTCH;
