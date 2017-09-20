@@ -446,5 +446,11 @@ public interface BillingService {
 	Integer countWaiverFinanceApplication(AcAcademicSession academicSession);
 
 	List<AcWaiverFinanceApplication> findWaiverFinanceApplications(AcAcademicSession academicSession, Integer offset, Integer limit);
+	
+    void addWaiverInvoice(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+    
+    void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item);
+    
+	void itemToWaiverItem(AcWaiverFinanceApplication waiver, AcInvoice invoice);
 
 }

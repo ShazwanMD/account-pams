@@ -1642,6 +1642,83 @@ public class BillingServiceImpl implements BillingService {
 	public Integer countWaiverFinanceApplication(AcAcademicSession academicSession) {
 		return waiverFinanceApplicationDao.count(academicSession);
 	}
+	
+    @Override
+    public void addWaiverInvoice(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
+    	waiverFinanceApplicationDao.addWaiverInvoice(waiver, invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item) {
+    	waiverFinanceApplicationDao.addWaiverItem(waiver, item, securityService.getCurrentUser());;
+		sessionFactory.getCurrentSession().flush();
+    }
+	
+	@Override
+	public void itemToWaiverItem(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
+		List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
+		for (AcInvoiceItem invoiceItem : invoiceItems) {
+			
+			if (invoice.getBalanceAmount().compareTo(waiver.getGracedAmount()) <= 0) {
+				AcWaiverItem waiverItem = new AcWaiverItemImpl();
+				waiverItem.setAppliedAmount(invoiceItem.getBalanceAmount());
+				waiverItem.setDueAmount(invoiceItem.getBalanceAmount());
+				waiverItem.setChargeCode(invoiceItem.getChargeCode());
+				waiverItem.setDescription(invoiceItem.getChargeCode().getDescription());
+				waiverItem.setInvoice(invoice);
+				waiverItem.setTotalAmount(BigDecimal.ZERO);
+				waiverItem.setWaiverFinanceApplication(waiver);
+				billingService.addWaiverItem(waiver, waiverItem);
+			}
+
+			else if (invoice.getBalanceAmount().compareTo(waiver.getGracedAmount()) > 0) {
+				
+				if (waiver.getGracedAmount().compareTo(invoiceItem.getBalanceAmount()) > 0) {
+					AcWaiverItem waiverItem = new AcWaiverItemImpl();
+					waiverItem.setAppliedAmount(invoiceItem.getBalanceAmount());
+					waiverItem.setDueAmount(invoiceItem.getBalanceAmount());
+					waiverItem.setChargeCode(invoiceItem.getChargeCode());
+					waiverItem.setDescription(invoiceItem.getChargeCode().getDescription());
+					waiverItem.setInvoice(invoice);
+					waiverItem.setTotalAmount(BigDecimal.ZERO);
+					waiverItem.setWaiverFinanceApplication(waiver);
+					billingService.addWaiverItem(waiver, waiverItem);
+				}
+
+				else if (waiver.getGracedAmount().compareTo(invoiceItem.getBalanceAmount()) < 0) {
+					AcWaiverItem waiverItem = new AcWaiverItemImpl();
+					waiverItem.setAppliedAmount(waiver.getGracedAmount());
+					waiverItem.setDueAmount(invoiceItem.getBalanceAmount());
+					waiverItem.setChargeCode(invoiceItem.getChargeCode());
+					waiverItem.setDescription(invoiceItem.getChargeCode().getDescription());
+					waiverItem.setInvoice(invoice);
+					waiverItem.setTotalAmount(invoiceItem.getBalanceAmount().subtract(waiverItem.getAppliedAmount()));
+					waiverItem.setWaiverFinanceApplication(waiver);
+					billingService.addWaiverItem(waiver, waiverItem);
+
+				
+					if (waiver.getGracedAmount().compareTo(BigDecimal.ZERO) <= 0 ) {
+						waiverItem.setAppliedAmount(BigDecimal.ZERO);
+						waiverItem.setDueAmount(invoiceItem.getBalanceAmount());
+						waiverItem.setChargeCode(invoiceItem.getChargeCode());
+						waiverItem.setDescription(invoiceItem.getChargeCode().getDescription());
+						waiverItem.setInvoice(invoice);
+						waiverItem.setTotalAmount(invoiceItem.getBalanceAmount());
+						waiverItem.setWaiverFinanceApplication(waiver);
+						billingService.addWaiverItem(waiver, waiverItem);
+
+					}
+				}
+				
+				waiver.setGracedAmount(waiver.getGracedAmount().subtract(invoiceItem.getBalanceAmount()));
+			}
+			
+		}
+		
+		waiver.setGracedAmount(waiver.getGracedAmount().subtract(waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser())));
+
+	}
 
 	// ====================================================================================================
 	// //
