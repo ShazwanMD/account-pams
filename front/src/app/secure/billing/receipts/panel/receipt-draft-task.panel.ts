@@ -61,6 +61,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findUnpaidAccountCharges(this.receiptTask.receipt.account));
+    this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
   }
 
   editItem(item: ReceiptItem) {
