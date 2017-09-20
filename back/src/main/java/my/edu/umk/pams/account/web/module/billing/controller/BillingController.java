@@ -936,6 +936,18 @@ public class BillingController {
         return new ResponseEntity<List<KnockoffItem>>(billingTransformer
                 .toKnockoffItemVos(billingService.findAcKnockoffs(knockoff,invoice)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/knockoffs/updateKnockoffItems/{referenceNo}/knockoffItems/{id}", method = RequestMethod.PUT)
+    public void updateitemToKnockoff(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody ReceiptItem vo) {
+    	
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	AcKnockoffItem knockoffItem = billingService.findKnockoffItemById(id);
+    	
+    	knockoffItem.setAppliedAmount(vo.getAppliedAmount());
+    	billingService.updateKnockoffItem(knockoff, knockoffItem);
+    		
+        //billingService.updateItemToReceipt(receipt);
+    }
 
     // ==================================================================================================== //
     //  REFUND PAYMENT
@@ -1111,73 +1123,5 @@ public class BillingController {
         Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
     }
-   
 
-//    @RequestMapping(value = "/refundPayments/pooledTasks", method = RequestMethod.GET)
-//    public ResponseEntity<List<RefundPaymentTask>> findPooledRefundPayments() {
-//        
-//        List<Task> tasks = billingService.findPooledRefundPaymentTasks(0, 100);
-//        return new ResponseEntity<List<RefundPaymentTask>>(billingTransformer.toRefundPaymentTaskVos(tasks), HttpStatus.OK);
-//    }
-//    
-//    @RequestMapping(value = "/refundPayments/archived", method = RequestMethod.GET)
-//    public ResponseEntity<List<RefundPayment>> findArchivedRefundPayments() {
-//    	
-//        List<AcRefundPayment> refundPayments = billingService.findRefundPaymentsByFlowStates(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
-//        return new ResponseEntity<List<RefundPayment>>(billingTransformer.toRefundPaymentVos(refundPayments), HttpStatus.OK);
-//    }
-//    
-//    @RequestMapping(value = "/refundPayments/startTask/{referenceNo}", method = RequestMethod.POST)
-//    public ResponseEntity<String> startRefundPaymentTask(@PathVariable String referenceNo, @RequestBody RefundPayment vo) throws Exception {
-//
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map.put("academicSession", accountService.findCurrentAcademicSession());
-//        String refNo = systemService.generateFormattedReferenceNo(AccountConstants.REFUND_REFRENCE_NO, map);
-//
-//        AcRefundPayment refundPayment = new AcRefundPaymentImpl();
-//        refundPayment.setReferenceNo("123");
-//        refundPayment.setSourceNo(vo.getSourceNo());
-//        refundPayment.setAuditNo(vo.getAuditNo());
-//        refundPayment.setIssuedDate(vo.getIssuedDate());
-//        refundPayment.setDescription(vo.getDescription());
-//        refundPayment.setAmount(vo.getAmount());
-//        refundPayment.setPayments(billingService.findAdvancePaymentByReferenceNo(referenceNo));
-//        billingService.startRefundPaymentTask(refundPayment);
-//        return new ResponseEntity<String>(HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/refundPayments/viewTask/{taskId}", method = RequestMethod.GET)
-//    public ResponseEntity<RefundPaymentTask> findRefundPaymentTaskByTaskId(@PathVariable String taskId) {
-//        return new ResponseEntity<RefundPaymentTask>(billingTransformer
-//                .toRefundPaymentTaskVo(
-//                        billingService.findRefundPaymentTaskByTaskId(taskId)), HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/refundPayments/claimTask", method = RequestMethod.POST)
-//    public ResponseEntity<String> claimRefundPaymentTask(@RequestBody RefundPaymentTask vo) {
-//        
-//        Task task = billingService.findRefundPaymentTaskByTaskId(vo.getTaskId());
-//        workflowService.claimTask(task);
-//        return new ResponseEntity<String>("Success", HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/refundPayments/releaseTask", method = RequestMethod.POST)
-//    public ResponseEntity<String> releaseRefundPaymentTask(@RequestBody RefundPaymentTask vo) {
-//        
-//        Task task = billingService.findRefundPaymentTaskByTaskId(vo.getTaskId());
-//        workflowService.releaseTask(task);
-//        return new ResponseEntity<String>("Success", HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/refundPayments/completeTask", method = RequestMethod.POST)
-//    public ResponseEntity<String> completeRefundPaymentTask(@RequestBody RefundPaymentTask vo) {
-//        
-//        Task task = billingService.findRefundPaymentTaskByTaskId(vo.getTaskId());
-//        workflowService.completeTask(task);
-//        return new ResponseEntity<String>("Success", HttpStatus.OK);
-//    }
-    
-    // ====================================================================================================
-    // PRIVATE METHODS
-    // ====================================================================================================
 }

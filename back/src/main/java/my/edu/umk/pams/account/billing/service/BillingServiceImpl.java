@@ -933,6 +933,17 @@ public class BillingServiceImpl implements BillingService {
 		receiptDao.addReceiptInvoice(receipt, invoice, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	@Override
+	public void deleteReceiptInvoice(AcReceipt receipt, AcInvoice invoice) {
+		receiptDao.delete(receipt, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		
+		List<AcReceiptItem> receiptItems = billingService.findReceiptItems(receipt);
+		for(AcReceiptItem receiptItem: receiptItems) {
+			billingService.deleteReceiptItem(receipt, receiptItem);
+		}
+	}
 
 	// ====================================================================================================
 	// //
@@ -1220,6 +1231,11 @@ public class BillingServiceImpl implements BillingService {
 	public AcKnockoff findKnockoffByReferenceNo(String referenceNo) {
 		return knockoffDao.findByReferenceNo(referenceNo);
 	}
+	
+	@Override
+	public AcKnockoffItem findKnockoffItemById(Long id) {
+		return (AcKnockoffItem) knockoffDao.findById(id);
+	}
 
 	@Override
 	public List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit) {
@@ -1338,6 +1354,19 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
+	public void updateitemToKnockoff(AcKnockoff knockoff) {
+		List<AcKnockoffItem> knockoffItems = billingService.findAcKnockoffs(knockoff);
+		for (AcKnockoffItem knockoffItem : knockoffItems) {
+			knockoffItem.setTotalAmount(knockoffItem.getDueAmount().subtract(knockoffItem.getAppliedAmount()));
+			billingService.updateKnockoffItem(knockoff, knockoffItem);
+		}
+		
+		knockoff.setTotalAmount(knockoffDao.sumAppliedAmount(knockoff, securityService.getCurrentUser()));
+		billingService.updateKnockoff(knockoff);
+
+	}
+	
+	@Override
 	public void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice) {
 		knockoffDao.addKnockoffInvoice(knockoff, invoice, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
@@ -1346,6 +1375,20 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item) {
 		knockoffDao.addItem(knockoff, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
+	public void updateKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item) {
+		knockoffDao.updateItem(knockoff, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		
+		item.setTotalAmount(item.getDueAmount().subtract(item.getAppliedAmount()));
+		knockoffDao.updateItem(knockoff, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		
+		knockoff.setTotalAmount(knockoff.getBalanceAmount().subtract(knockoffDao.sumAppliedAmount(knockoff, securityService.getCurrentUser())));
+		knockoffDao.update(knockoff, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
 	
