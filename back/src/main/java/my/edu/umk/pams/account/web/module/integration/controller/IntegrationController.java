@@ -36,6 +36,8 @@ import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCodeImpl;
 import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.common.model.AcProgramCodeImpl;
+import my.edu.umk.pams.account.common.model.AcResidencyCode;
+import my.edu.umk.pams.account.common.model.AcResidencyCodeImpl;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
@@ -200,6 +202,11 @@ public class IntegrationController {
     @RequestMapping(value = "/candidates", method = RequestMethod.POST)
     public ResponseEntity<String> saveCandidate(@RequestBody CandidatePayload payload) {
         SecurityContext ctx = loginAsSystem();
+        
+        AcResidencyCode residencyCode = new AcResidencyCodeImpl();
+        residencyCode.setCode(payload.getNationalityCode().getCode());
+        residencyCode.setDescription(payload.getNationalityCode().getDescriptionEn());
+        commonService.saveResidencyCode(residencyCode);
 
         // student info
         AcStudent student = new AcStudentImpl();
@@ -212,9 +219,12 @@ public class IntegrationController {
 
         student.setStudentStatus(AcStudentStatus.ACTIVE);
         student.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode()));
-        student.setResidencyCode(commonService.findResidencyCodeByCode(payload.getResidencyCode().getCode()));
+        student.setResidencyCode(commonService.findResidencyCodeByCode(residencyCode.getCode()));
         identityService.saveStudent(student);
         AcStudent savedStudent = identityService.findStudentByMatricNo(payload.getMatricNo());
+        
+
+        
 
         // account
         AcAccount account = new AcAccountImpl();
