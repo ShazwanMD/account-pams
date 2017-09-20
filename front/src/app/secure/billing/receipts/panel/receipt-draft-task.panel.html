@@ -49,10 +49,14 @@
 
                   <md-tab label="Unpaid Charges">  
                     <pams-account-charge-receipt-list        
-                      [receipt]="receiptTask.receipt"
                       [receiptAccountCharge]="receiptAccountCharge$ | async"
                       (view)="view($event)">
                     </pams-account-charge-receipt-list>   
+
+                    <pams-receipt-account-charge-list
+                    [receipt]="receiptTask.receipt"
+                    [receiptItems]="receiptItems$ | async">
+                    </pams-receipt-account-charge-list>
                   </md-tab>
 
                   <md-tab label="Unpaid Debit Notes">
