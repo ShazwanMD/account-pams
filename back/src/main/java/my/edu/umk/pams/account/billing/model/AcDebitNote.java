@@ -35,5 +35,13 @@ public interface AcDebitNote extends AcDocument{
     Date getDebitNoteDate();
     
     void setDebitNoteDate(Date debitNoteDate);
+    
+    BigDecimal getBalanceAmount();
+
+    void setBalanceAmount(BigDecimal balanceAmount);
+
+    Boolean getPaid();
+
+    void setPaid(Boolean paid);
 
 }

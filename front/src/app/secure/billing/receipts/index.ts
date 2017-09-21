@@ -1,3 +1,4 @@
+import { DebitNoteReceiptListComponent } from './component/debit-note-receipt-list.component';
 import { DebitNoteReceiptDialog } from './dialog/debit-note-receipt-creator.dialog';
 import { ReceiptDebitNoteListComponent } from './component/receipt-debit-note-list.component';
 import { DebitNoteUnpaidSelectComponent } from './component/debit-note-select-unpaid.component';
@@ -89,6 +90,7 @@ import { AccountChargeReceiptListComponent } from './component/account-charge-re
     AccountChargeReceiptListComponent,
     DebitNoteUnpaidSelectComponent,
     ReceiptDebitNoteListComponent,
+    DebitNoteReceiptListComponent,
 
     // dialog
     ReceiptItemEditorDialog,

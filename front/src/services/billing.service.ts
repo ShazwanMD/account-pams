@@ -1,3 +1,5 @@
+import { ReceiptAccountCharge } from './../app/shared/model/billing/receipt-account-charge.interface';
+import { ReceiptDebitNote } from './../app/shared/model/billing/receipt-debit_note.interface';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { HttpInterceptorService } from '@covalent/http';
@@ -26,10 +28,13 @@ import { RefundPayment } from '../app/shared/model/billing/refund-payment.interf
 import { RefundPaymentTask } from '../app/shared/model/billing/refund-payment-task.interface';
 import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.interface";
 import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interface";
+<<<<<<< HEAD
 import { ReceiptAccountCharge } from '../app/shared/model/billing/receipt-account-charge.interface';
 import { WaiverInvoice } from "../app/shared/model/billing/waiver-invoice.interface";
 import { WaiverItem } from "../app/shared/model/billing/waiver-item.interface";
 
+=======
+>>>>>>> branch 'master' of http://119.110.101.9/pams/account.git
 @Injectable()
 export class BillingService {
 
@@ -273,8 +278,13 @@ export class BillingService {
             .map(( res: Response ) => <ReceiptInvoice[]>res.json() );
     }
 
+    findReceiptsByDebitNote( receipt: Receipt ): Observable<ReceiptDebitNote[]> {
+        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptDebitNote' )
+            .map(( res: Response ) => <ReceiptDebitNote[]>res.json() );
+    }
+
     findReceiptsByAccountCharge( receipt: Receipt ): Observable<ReceiptAccountCharge[]> {
-        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptAccountCharge' )
+        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptReceiptAccountCharge' )
             .map(( res: Response ) => <ReceiptAccountCharge[]>res.json() );
     }
     
@@ -392,6 +402,12 @@ export class BillingService {
     // ====================================================================================================
     // DEBIT NOTE
     // ====================================================================================================
+    
+    findDebitNotes(): Observable<DebitNote[]> {
+    return this._http.get(this.BILLING_API + '/debitNotes')
+      .map((res: Response) => <DebitNote[]>res.json());
+   }
+    
     findDebitNotesbyInvoice( invoice: Invoice ): Observable<DebitNote[]> {
         console.log( 'findDebitNotes' );
         return this._http.get( this.BILLING_API + '/invoice/' + invoice.referenceNo + '/debitNotes/' )
@@ -606,11 +622,6 @@ export class BillingService {
     findKnockoffItemsByInvoice( knockoff: Knockoff, invoice: Invoice ): Observable<KnockoffItem[]> {
         return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffItems/' +  invoice.id)
             .map(( res: Response ) => <KnockoffItem[]>res.json() );
-    }
-    
-    updateitemToKnockoff( knockoff: Knockoff, knockoffItem: KnockoffItem  ) {
-        return this._http.put( this.BILLING_API + '/knockoffs/updateKnockoffItems/' + knockoff.referenceNo + '/knockoffItems/' + knockoffItem.id, JSON.stringify( knockoffItem ) )
-            .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
     
     // ====================================================================================================
