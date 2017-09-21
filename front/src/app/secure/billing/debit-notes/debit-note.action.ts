@@ -25,6 +25,26 @@ export class DebitNoteActions {
   }
 
 
+  static FIND_UNPAID_DEBIT_NOTES = '[DebitNote] Find Unpaid Debit Notes';
+
+  findUnpaidDebitNotes(account): Action {
+    return {
+      type: DebitNoteActions.FIND_UNPAID_DEBIT_NOTES,
+      payload: account,
+    };
+  }
+
+  static FIND_UNPAID_DEBIT_NOTES_SUCCESS = '[DebitNote] Find Unpaid Debit Notes Success';
+
+  findUnpaidDebitNotesSuccess(debitNotes): Action {
+    console.log('findUnpaidDebitNotesSuccess');
+    return {
+      type: DebitNoteActions.FIND_UNPAID_DEBIT_NOTES_SUCCESS,
+      payload: debitNotes,
+    };
+  }
+
+
   static FIND_DEBIT_NOTES_BY_INVOICE = '[Invoice] Find Invoice';
 
   findDebitNotesByInvoice(invoice): Action {
