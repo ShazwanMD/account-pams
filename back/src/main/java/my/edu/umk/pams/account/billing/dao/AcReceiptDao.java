@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcReceiptDebitNote;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcReceiptType;
@@ -49,6 +50,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     List<AcReceiptInvoice> find(AcReceipt receipt);
     
     List<AcReceiptAccountCharge> findReceiptAccountCharge(AcReceipt receipt);
+    
+	List<AcReceiptDebitNote> findReceiptDebitNote(AcReceipt receipt);
 
     // ====================================================================================================
     // HELPER
@@ -77,6 +80,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user);
     
     BigDecimal sumAmount(AcInvoice invoice, AcReceipt receipt, AcUser user);
+
+
     
     
 
