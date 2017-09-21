@@ -1,3 +1,4 @@
+import { ReceiptDebitNote } from './../../../../shared/model/billing/receipt-debit_note.interface';
 import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ReceiptItem} from '../../../../shared/model/billing/receipt-item.interface';
@@ -32,12 +33,14 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private INVOICES: string[] = 'billingModuleState.invoices'.split('.');
   private RECEIPT_INVOICE: string[] = 'billingModuleState.receiptInvoice'.split('.');
   private RECEIPT_ACCOUNT_CHARGE: string[] = 'billingModuleState.receiptAccountCharge'.split('.');
+  private RECEIPT_DEBIT_NOTE: string[] = 'billingModuleState.receiptDebitNote'.split('.');
   private account$: Observable<Account>;
   private invoices$: Observable<Invoice[]>;
   private receipt$: Observable<Receipt[]>;
   private receiptItems$: Observable<ReceiptItem[]>;
   private receiptInvoice$: Observable<ReceiptInvoice[]>;
   private receiptAccountCharge$: Observable<ReceiptAccountCharge[]>;
+  private receiptDebitNote$: Observable<ReceiptDebitNote[]>;
 
   @Input() receiptTask: ReceiptTask;
 
@@ -56,12 +59,15 @@ export class ReceiptDraftTaskPanel implements OnInit {
     this.invoices$ = this.store.select(...this.INVOICES);
     this.receiptInvoice$ = this.store.select(...this.RECEIPT_INVOICE);
     this.receiptAccountCharge$ = this.store.select(...this.RECEIPT_ACCOUNT_CHARGE);
+    this.receiptDebitNote$ = this.store.select(...this.RECEIPT_DEBIT_NOTE);
   }
 
   ngOnInit(): void {
     this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findUnpaidAccountCharges(this.receiptTask.receipt.account));
+    this.store.dispatch(this.actions.findUnpaidDebitNotes(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
+    
   }
 
   editItem(item: ReceiptItem) {

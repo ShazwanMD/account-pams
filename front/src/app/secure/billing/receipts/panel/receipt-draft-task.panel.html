@@ -59,11 +59,16 @@
                     </pams-receipt-account-charge-list>
                   </md-tab>
 
-                  <md-tab label="Unpaid Debit Notes">
-                      <pams-receipt-debit-note-list
-                          [receipt]="receiptTask.receipt"
-                          [receiptItems]="receiptItems$ | async">
-                      </pams-receipt-debit-note-list>
+                  <md-tab label="Unpaid Debit Notes">  
+                    <pams-debit-note-receipt-list        
+                      [receiptDebitNote]="receiptDebitNote$ | async"
+                      (view)="view($event)">
+                    </pams-debit-note-receipt-list>   
+
+                  <pams-receipt-debit-note-list
+                    [receipt]="receiptTask.receipt"
+                    [receiptItems]="receiptItems$ | async">
+                    </pams-receipt-debit-note-list>
                   </md-tab>
               </md-tab-group>
           </md-card>
