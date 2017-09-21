@@ -1,3 +1,4 @@
+import { ReceiptAccountCharge } from './../app/shared/model/billing/receipt-account-charge.interface';
 import { ReceiptDebitNote } from './../app/shared/model/billing/receipt-debit_note.interface';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
@@ -273,6 +274,11 @@ export class BillingService {
     findReceiptsByDebitNote( receipt: Receipt ): Observable<ReceiptDebitNote[]> {
         return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptDebitNote' )
             .map(( res: Response ) => <ReceiptDebitNote[]>res.json() );
+    }
+
+    findReceiptsByAccountCharge( receipt: Receipt ): Observable<ReceiptAccountCharge[]> {
+        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptReceiptAccountCharge' )
+            .map(( res: Response ) => <ReceiptAccountCharge[]>res.json() );
     }
     
     itemToReceiptItem( invoice: Invoice, receipt: Receipt ): Observable<String> {

@@ -490,7 +490,7 @@ export class ReceiptActions {
         };
       }
     
-      static FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Completed Account Charges Success';
+    static FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Completed Account Charges Success';
     
       findCompletedAccountChargesSuccess(accountCharges): Action {
         console.log('findCompletedAccountChargesSuccess');
@@ -499,4 +499,23 @@ export class ReceiptActions {
           payload: accountCharges,
         };
       }
+
+    static FIND_RECEIPTS_BY_DEBIT_NOTE = '[Receipt] Find Completed Receipts';
+
+      findReceiptsByDebitNote(receipt): Action {
+       return {
+       type: ReceiptActions.FIND_RECEIPTS_BY_DEBIT_NOTE,
+       payload: receipt
+      };
+    }
+
+    static FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS = '[Receipt] Find Completed Receipts Success';
+
+      findReceiptsByDebitNoteSuccess(receipts): Action {
+      console.log("findCompletedReceiptsSuccess");
+      return {
+      type: ReceiptActions.FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS,
+      payload: receipts
+    };
+  }
 }
