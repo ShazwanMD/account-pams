@@ -30,6 +30,7 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountActivityHolder;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountWaiver;
@@ -925,6 +926,53 @@ public class AccountServiceImpl implements AccountService {
         Cell cell = row.getCell(colIndex);
         return toString(cell);
     }
+    
+    // ==================================================================================================== //
+    // ACCOUNT CHARGE TRANSACTIONS
+    // ==================================================================================================== //
+
+	@Override
+	public List<AcAccountChargeTransaction> findAccountChargeTransactions(AcAccount account) {
+		return accountDao.findAccountChargeTransactions(account);
+	}
+
+	@Override
+	public List<AcAccountChargeTransaction> findAccountChargeTransactions(AcAccount account, Integer offset,
+			Integer limit) {
+        return accountDao.findAccountChargeTransactions(account, offset, limit);
+	}
+
+	@Override
+	public List<AcAccountChargeTransaction> findAccountChargeTransactions(String filter, AcAccount account,
+			Integer offset, Integer limit) {
+		 return accountDao.findAccountChargeTransactions(filter, account, offset, limit);
+	}
+
+	@Override
+	public Integer countAccountChargeTransaction(AcAccount account) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer countAccountChargeTransaction(String filter, AcAccount account) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addAccountChargeTransaction(AcAccount acAccount, AcAccountChargeTransaction transaction) {
+        accountDao.addAccountChargeTransaction(acAccount, transaction, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+		
+	}
+
+	@Override
+	public void deleteAccountChargeTransaction(AcAccount acAccount, AcAccountChargeTransaction transaction) {
+		accountDao.deleteAccountChargeTransaction(acAccount, transaction, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+		
+	}
 
 	@Override
 	public List<AcSponsorship> findSponsorships(AcSponsor sponsor) {

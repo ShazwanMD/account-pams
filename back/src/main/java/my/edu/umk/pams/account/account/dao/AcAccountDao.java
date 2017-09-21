@@ -44,7 +44,23 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     List<AcAccountActivityHolder> findAccountActivities(AcAccount account);
 
     List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    // ==================================================================================================== //
+    // ACCOUNT CHARGE TRANSACTIONS
+    // ==================================================================================================== //
+    List<AcAccountChargeTransaction> findAccountChargeTransactions(AcAccount account);
 
+    List<AcAccountChargeTransaction> findAccountChargeTransactions(AcAccount account, Integer offset, Integer limit);
+    
+    List<AcAccountChargeTransaction> findAccountChargeTransactions(String filter, AcAccount account, Integer offset, Integer limit);
+    
+    Integer countAccountChargeTransaction(AcAccount account);
+
+    Integer countAccountChargeTransaction(String filter, AcAccount account);
+    
+    void addAccountChargeTransaction(AcAccount account, AcAccountChargeTransaction transaction, AcUser user);
+    
+    void deleteAccountChargeTransaction(AcAccount account, AcAccountChargeTransaction transaction, AcUser user);
+    
     // ====================================================================================================
     // HELPER
     // ====================================================================================================

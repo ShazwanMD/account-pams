@@ -579,6 +579,95 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Session session = sessionFactory.getCurrentSession();
         session.delete(transaction);
     }
+    
+    // ==================================================================================================== //
+    // ACCOUNT CHARGE TRANSACTIONS
+    // ==================================================================================================== //
+
+	@Override
+	public List<AcAccountChargeTransaction> findAccountChargeTransactions(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sa from AcAccountChargeTransaction sa where " +
+                "sa.account = :account " +
+                "and sa.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return (List<AcAccountChargeTransaction>) query.list();
+	}
+
+	@Override
+	public List<AcAccountChargeTransaction> findAccountChargeTransactions(AcAccount account, Integer offset,
+			Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sa from AcAccountChargeTransaction sa where " +
+                "sa.account = :account " +
+                "and sa.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<AcAccountChargeTransaction>) query.list();
+	}
+
+	@Override
+	public List<AcAccountChargeTransaction> findAccountChargeTransactions(String filter, AcAccount account,
+			Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sa from AcAccountChargeTransaction sa where " +
+                "sa.account = :account " +
+                "and sa.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<AcAccountChargeTransaction>) query.list();
+	}
+
+	@Override
+	public Integer countAccountChargeTransaction(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcAccountChargeTransaction s where " +
+                "s.account=:account " +
+                "and s.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
+	}
+
+	@Override
+	public Integer countAccountChargeTransaction(String filter, AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(s) from AcAccountChargeTransaction s where " +
+                "s.account=:account " +
+                "and s.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
+	}
+
+	@Override
+	public void addAccountChargeTransaction(AcAccount account, AcAccountChargeTransaction transaction, AcUser user) {
+        Validate.notNull(account, "Account should not be null");
+        Validate.notNull(transaction, "Transaction should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        transaction.setAccount(account);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        transaction.setMetadata(metadata);
+        session.save(transaction);
+		
+	}
+
+	@Override
+	public void deleteAccountChargeTransaction(AcAccount account, AcAccountChargeTransaction transaction, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(transaction);
+		
+	}
 
     // todo(uda): vo account tx
 

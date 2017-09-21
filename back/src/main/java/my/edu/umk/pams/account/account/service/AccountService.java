@@ -109,6 +109,23 @@ public interface AccountService {
     void deleteFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item);
 
     void parseFeeSchedule(InputStream inputStream);
+    // ==================================================================================================== //
+    // ACCOUNT CHARGE TRANSACTIONS
+    // ==================================================================================================== //
+    
+    List<AcAccountChargeTransaction> findAccountChargeTransactions(AcAccount account);
+
+    List<AcAccountChargeTransaction> findAccountChargeTransactions(AcAccount account, Integer offset, Integer limit);
+    
+    List<AcAccountChargeTransaction> findAccountChargeTransactions(String filter, AcAccount account, Integer offset, Integer limit);
+    
+    Integer countAccountChargeTransaction(AcAccount account);
+
+    Integer countAccountChargeTransaction(String filter, AcAccount account);
+    
+    void addAccountChargeTransaction(AcAccount acAccount, AcAccountChargeTransaction transaction);
+
+    void deleteAccountChargeTransaction(AcAccount acAccount, AcAccountChargeTransaction transaction);
 
     // ==================================================================================================== //
     // ACCOUNT
