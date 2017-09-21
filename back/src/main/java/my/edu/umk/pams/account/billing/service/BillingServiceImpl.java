@@ -1719,6 +1719,21 @@ public class BillingServiceImpl implements BillingService {
 		waiver.setGracedAmount(waiver.getGracedAmount().subtract(waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser())));
 
 	}
+	
+    @Override
+    public List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver) {
+    	return waiverFinanceApplicationDao.findItems(waiver);
+    }
+    
+    @Override
+    public List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
+    	return waiverFinanceApplicationDao.findItems(waiver, invoice);
+    }
+    
+    @Override
+    public List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver) {
+    	return waiverFinanceApplicationDao.findWaivers(waiver);
+    }
 
 	// ====================================================================================================
 	// //

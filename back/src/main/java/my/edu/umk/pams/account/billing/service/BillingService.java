@@ -452,5 +452,11 @@ public interface BillingService {
     void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item);
     
 	void itemToWaiverItem(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+	
+    List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver);
+    
+    List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+    
+    List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
 
 }

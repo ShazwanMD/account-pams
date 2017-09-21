@@ -1132,5 +1132,36 @@ public class BillingController {
         Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
     }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/invoice/{id}", method = RequestMethod.POST)
+    public void addWaiverInvoice(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcWaiverFinanceApplication waiverApplication = (AcWaiverFinanceApplication) billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
+        AcWaiverInvoice e = new AcWaiverInvoiceImpl();
+        e.setWaiverFinanceApplication(waiverApplication);
+        e.setInvoice(invoice);
+        billingService.addWaiverInvoice(waiverApplication, invoice);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/invoices/{id}", method = RequestMethod.POST)
+    public void itemToWaiverItem(@PathVariable Long id, @PathVariable String referenceNo) {
+    	
+    	AcWaiverFinanceApplication waiverApplication = (AcWaiverFinanceApplication) billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
+        billingService.itemToWaiverItem(waiverApplication, invoice);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/waiverItems/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverItem>> findWaiverItems(@PathVariable String referenceNo) {
+    	AcWaiverFinanceApplication waiverApplication = (AcWaiverFinanceApplication) billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        return new ResponseEntity<List<WaiverItem>>(billingTransformer.toWaiverItemVos(billingService.findWaiverItems(waiverApplication)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/waiverInvoices/{referenceNo}", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverInvoice>> findWaivers(@PathVariable String referenceNo) {
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        return new ResponseEntity<List<WaiverInvoice>>(billingTransformer.toWaiverInvoiceVos(billingService.findWaivers(waiverApplication)), HttpStatus.OK);
+    }
 
 }
