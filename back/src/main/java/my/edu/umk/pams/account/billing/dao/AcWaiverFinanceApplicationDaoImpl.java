@@ -19,6 +19,8 @@ import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
+import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplicationImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverInvoice;
@@ -95,6 +97,44 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
         query.setInteger("state", ACTIVE.ordinal());
         query.setParameterList("flowStates", flowState);
         return (List<AcWaiverFinanceApplication>) query.list();
+    }
+    
+    @Override
+    public List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverItem ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverItem>) query.list();
+    }
+    
+    @Override
+    public List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverItem ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+        		"and ri.invoice = :invoice " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setEntity("invoice", invoice);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverItem>) query.list();
+    }
+    
+    @Override
+    public List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverInvoice ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverInvoice>) query.list();    	
     }
     
     @Override
