@@ -1147,7 +1147,7 @@ public class BillingController {
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/invoices/{id}", method = RequestMethod.POST)
     public void itemToWaiverItem(@PathVariable Long id, @PathVariable String referenceNo) {
     	
-    	AcWaiverFinanceApplication waiverApplication = (AcWaiverFinanceApplication) billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
         AcInvoice invoice = billingService.findInvoiceById(id);
         billingService.itemToWaiverItem(waiverApplication, invoice);
     }

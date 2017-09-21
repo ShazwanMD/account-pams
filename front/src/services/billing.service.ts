@@ -28,13 +28,9 @@ import { RefundPayment } from '../app/shared/model/billing/refund-payment.interf
 import { RefundPaymentTask } from '../app/shared/model/billing/refund-payment-task.interface';
 import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.interface";
 import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interface";
-<<<<<<< HEAD
-import { ReceiptAccountCharge } from '../app/shared/model/billing/receipt-account-charge.interface';
 import { WaiverInvoice } from "../app/shared/model/billing/waiver-invoice.interface";
 import { WaiverItem } from "../app/shared/model/billing/waiver-item.interface";
 
-=======
->>>>>>> branch 'master' of http://119.110.101.9/pams/account.git
 @Injectable()
 export class BillingService {
 

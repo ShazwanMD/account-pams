@@ -1,0 +1,25 @@
+<h2 md-dialog-title>Apply Waiver Item</h2>
+<md-dialog-content>
+<!--  <td-data-table
+  #dataTable
+  [data]="waiverItems$"
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  [(ngModel)]="selectedRows"
+  (rowSelect)="view.emit($event)" dense>
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex="40">{{value}}</span>
+    </div>
+  </template>
+</td-data-table>  -->
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="Apply()" *ngIf="showHide">Display All</button>
+</md-dialog-actions>
+</md-dialog-content>
+
+

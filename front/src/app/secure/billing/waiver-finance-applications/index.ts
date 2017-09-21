@@ -28,6 +28,8 @@ import {WaiverFinanceApplicationDetailPage} from './waiver-finance-application-d
 import { WaiverInvoiceListComponent } from "./component/waiver-invoice-list.component";
 import { InvoiceUnpaidSelectComponent } from "./component/invoice-select-unpaid.component";
 import { WaiverReceiptDialog } from "./dialog/invoice-waiver.dialog";
+import { ItemApplicatorDialog } from "./dialog/item-applicator.dialog";
+import { WaiverItemListComponent } from "./component/waiver-item-list.component";
 
 @NgModule({
   imports: [
@@ -59,10 +61,12 @@ import { WaiverReceiptDialog } from "./dialog/invoice-waiver.dialog";
     ArchivedWaiverFinanceApplicationListComponent,
     WaiverInvoiceListComponent,
     InvoiceUnpaidSelectComponent,
+    WaiverItemListComponent,
 
     // dialog
     WaiverFinanceApplicationCreatorDialog,
     WaiverReceiptDialog,
+    ItemApplicatorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -71,6 +75,7 @@ import { WaiverReceiptDialog } from "./dialog/invoice-waiver.dialog";
     WaiverFinanceApplicationDraftTaskPanel,
     WaiverFinanceApplicationRegisterTaskPanel,
     WaiverFinanceApplicationVerifyTaskPanel,
+    ItemApplicatorDialog,
   ],
 
 })

@@ -183,7 +183,7 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
     public BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcWaiverItem a where " +
-                "a.waiver = :waiver " +
+                "a.waiverFinanceApplication = :waiver " +
                 "and a.metadata.state = :state ");
         query.setEntity("waiver", waiver);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
