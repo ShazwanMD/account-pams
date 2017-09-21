@@ -237,7 +237,15 @@ public class BillingTransformer {
     	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
         return vo;
     }
-
+    
+    public ReceiptDebitNote toReceiptDebitNoteVo(AcReceiptDebitNote r) {
+    	
+    	ReceiptDebitNote vo = new ReceiptDebitNote();
+    	vo.setReceipt(billingTransformer.toReceiptVo(r.getReceipt()));
+    	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
+        return vo;
+    }
+    
     public ReceiptItem toReceiptItemVo(AcReceiptItem e) {
         ReceiptItem vo = new ReceiptItem();
         vo.setId(e.getId());
