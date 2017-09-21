@@ -62,12 +62,19 @@ public class AcDebitNoteImpl implements AcDebitNote {
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
+    @Column(name = "BALANCE_AMOUNT")
+    private BigDecimal balanceAmount = BigDecimal.ZERO;
+    
+    @Column(name = "PAID")
+    private Boolean paid = false;
+    
 //    @NotNull
 //    @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.LAZY)
 //    @JoinColumn(name = "CHARGE_CODE_ID")
 //    private AcChargeCode chargeCode;
 
-    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
+   
+	@ManyToOne(targetEntity = AcChargeCodeImpl.class)
     @JoinColumn(name = "CHARGE_CODE_ID")
     private AcChargeCode chargeCode;
 
@@ -225,6 +232,27 @@ public class AcDebitNoteImpl implements AcDebitNote {
     public void setFlowdata(AcFlowdata flowdata) {
         this.flowdata = flowdata;
     }
+    
+    @Override
+    public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+    @Override
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
+    @Override
+	public Boolean getPaid() {
+		return paid;
+	}
+
+    @Override
+	public void setPaid(Boolean paid) {
+		this.paid = paid;
+	}
+
 
     @Override
     public Class<?> getInterfaceClass() {
