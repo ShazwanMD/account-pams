@@ -82,6 +82,26 @@
         SESSION_ID int8 not null,
         primary key (ID)
     );
+    
+     create table AC_ACCT_CHRG_TRSN (
+        ID int8 not null,
+        AMOUNT numeric(19, 2) not null,
+        DESCRIPTION varchar(255) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        POSTED_DATE timestamp not null,
+        SOURCE_NO varchar(255) not null,
+        TRANSACTION_CODE int4 not null,
+        ACCOUNT_ID int8,
+        CHARGE_CODE_ID int8,
+        SESSION_ID int8 not null,
+        primary key (ID)
+    );
 
     create table AC_ACCT_WAVR (
         ID int8 not null,
@@ -1540,8 +1560,18 @@
         add constraint FK_7scem81vjyp92ew1quqqrwebj
         foreign key (ACCOUNT_ID)
         references AC_ACCT;
+        
+    alter table AC_ACCT_CHRG_TRSN
+        add constraint FK_7scem81vjyp92ew1quqqrwebj
+        foreign key (ACCOUNT_ID)
+        references AC_ACCT;
 
     alter table AC_ACCT_TRSN
+        add constraint FK_tmeqyaoy1umx2f8t50j3m05oe
+        foreign key (CHARGE_CODE_ID)
+        references AC_CHRG_CODE;
+        
+    alter table AC_ACCT_CHRG_TRSN
         add constraint FK_tmeqyaoy1umx2f8t50j3m05oe
         foreign key (CHARGE_CODE_ID)
         references AC_CHRG_CODE;
@@ -1550,7 +1580,12 @@
         add constraint FK_gok5lgsyud20w75frwjala98a
         foreign key (SESSION_ID)
         references AC_ACDM_SESN;
-
+    
+   	alter table AC_ACCT_CHRG_TRSN
+        add constraint FK_gok5lgsyud20w75frwjala98a
+        foreign key (SESSION_ID)
+        references AC_ACDM_SESN;
+        
     alter table AC_ACCT_WAVR
         add constraint FK_7he1r0ld5dv236x5eu7yj4ktm
         foreign key (ACCOUNT_ID)
@@ -1913,6 +1948,8 @@
     create sequence SQ_AC_ACCT_STL;
 
     create sequence SQ_AC_ACCT_TRSN;
+    
+    create sequence SQ_AC_ACCT_CHRG_TRSN;
 
     create sequence SQ_AC_ACCT_WAVR;
 

@@ -19,6 +19,8 @@ import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
+import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplicationImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverInvoice;
@@ -98,6 +100,44 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
     }
     
     @Override
+    public List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverItem ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverItem>) query.list();
+    }
+    
+    @Override
+    public List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverItem ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+        		"and ri.invoice = :invoice " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setEntity("invoice", invoice);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverItem>) query.list();
+    }
+    
+    @Override
+    public List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverInvoice ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverInvoice>) query.list();    	
+    }
+    
+    @Override
     public void addWaiverInvoice(AcWaiverFinanceApplication waiver, AcInvoice invoice, AcUser user) {
         LOG.info("waiver id : " + waiver.getId());
         LOG.info("User : " + user.getRealName());
@@ -143,7 +183,7 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
     public BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcWaiverItem a where " +
-                "a.waiver = :waiver " +
+                "a.waiverFinanceApplication = :waiver " +
                 "and a.metadata.state = :state ");
         query.setEntity("waiver", waiver);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());

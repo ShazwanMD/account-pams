@@ -25,6 +25,11 @@ import {WaiverFinanceApplicationEffects} from './waiver-finance-application.effe
 import {WaiverFinanceApplicationTaskViewPage} from './waiver-finance-application-task-view.page';
 import {WaiverFinanceApplicationCenterPage} from './waiver-finance-application-center.page';
 import {WaiverFinanceApplicationDetailPage} from './waiver-finance-application-detail.page';
+import { WaiverInvoiceListComponent } from "./component/waiver-invoice-list.component";
+import { InvoiceUnpaidSelectComponent } from "./component/invoice-select-unpaid.component";
+import { WaiverReceiptDialog } from "./dialog/invoice-waiver.dialog";
+import { ItemApplicatorDialog } from "./dialog/item-applicator.dialog";
+import { WaiverItemListComponent } from "./component/waiver-item-list.component";
 
 @NgModule({
   imports: [
@@ -54,18 +59,23 @@ import {WaiverFinanceApplicationDetailPage} from './waiver-finance-application-d
     WaiverFinanceApplicationStatusComponent,
     WaiverFinanceApplicationDetailPage,
     ArchivedWaiverFinanceApplicationListComponent,
+    WaiverInvoiceListComponent,
+    InvoiceUnpaidSelectComponent,
+    WaiverItemListComponent,
 
     // dialog
     WaiverFinanceApplicationCreatorDialog,
-    //WaiverFinanceApplicationEditorDialog,
+    WaiverReceiptDialog,
+    ItemApplicatorDialog,
   ],
   exports: [],
   entryComponents: [
     WaiverFinanceApplicationCreatorDialog,
-   // WaiverFinanceApplicationEditorDialog,
+    WaiverReceiptDialog,
     WaiverFinanceApplicationDraftTaskPanel,
     WaiverFinanceApplicationRegisterTaskPanel,
     WaiverFinanceApplicationVerifyTaskPanel,
+    ItemApplicatorDialog,
   ],
 
 })

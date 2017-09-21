@@ -86,6 +86,8 @@ import { RefundPaymentTaskListState, assignedRefundPaymentTaskListReducer, poole
 import { KnockoffInvoiceListState, knockoffInvoiceListReducer } from "./knockoffs/knockoff-invoice.reducer";
 import { AccountChargeListState, accountChargeListReducer } from '../account/accounts/account-charge-list.reducer';
 import { KnockoffItemListState, knockoffItemListReducer } from "./knockoffs/knockoff-item-list.reducer";
+import { waiverInvoiceReducer, WaiverInvoiceState } from "./waiver-finance-applications/waiver-invoice.reducer";
+import { WaiverItemListState, waiverItemListReducer } from "./waiver-finance-applications/waiver-item-list.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -133,6 +135,8 @@ export interface BillingModuleState {
   waiverFinanceApplicationTask: WaiverFinanceApplicationTaskState;
   waiverFinanceApplication: WaiverFinanceApplicationState;
   waiverFinanceApplications: WaiverFinanceApplicationListState;
+  waiverInvoice: WaiverInvoiceState;
+  waiverItem: WaiverItemListState;
   refundPayment: RefundPaymentState;
   refundPayments: RefundPaymentListState;
   refundPaymentTask: RefundPaymentTaskState;
@@ -189,6 +193,8 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     waiverFinanceApplicationTask: <WaiverFinanceApplicationTask>{},
     waiverFinanceApplication: <WaiverFinanceApplicationState>{},
     waiverFinanceApplications: <WaiverFinanceApplication[]>[],
+    waiverInvoice: [],
+    waiverItem: [],
     refundPayment: <RefundPaymentState>{},
     refundPayments: <RefundPayment[]>[],
     refundPaymentTask: <RefundPaymentTask>{},
@@ -241,6 +247,8 @@ export const billingModuleReducers = {
   waiverFinanceApplicationTask: waiverFinanceApplicationTaskReducer,
   waiverFinanceApplication: waiverFinanceApplicationReducer,
   waiverFinanceApplications: waiverFinanceApplicationListReducer,
+  waiverInvoice: waiverInvoiceReducer,
+  waiverItem: waiverItemListReducer,
   refundPayment: refundPaymentReducer,
   refundPayments: refundPaymentListReducer,
   refundPaymentTask: refundPaymentTaskReducer,

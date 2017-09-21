@@ -28,6 +28,9 @@ import { RefundPayment } from '../app/shared/model/billing/refund-payment.interf
 import { RefundPaymentTask } from '../app/shared/model/billing/refund-payment-task.interface';
 import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.interface";
 import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interface";
+import { WaiverInvoice } from "../app/shared/model/billing/waiver-invoice.interface";
+import { WaiverItem } from "../app/shared/model/billing/waiver-item.interface";
+
 @Injectable()
 export class BillingService {
 
@@ -694,6 +697,25 @@ export class BillingService {
     //   .flatMap(data => Observable.of(true));
   }
 
+  addWaiverInvoice( waiverFinanceApplication: WaiverFinanceApplication, invoice: Invoice ): Observable<String> {
+      return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/invoice/' + invoice.id, JSON.stringify( invoice ) )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
+
+  itemToWaiverItem( invoice: Invoice, waiverFinanceApplication: WaiverFinanceApplication  ): Observable<String> {
+      return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/invoices/' + invoice.id, JSON.stringify( invoice ) )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
+
+  findWaiversByInvoice( waiverFinanceApplication: WaiverFinanceApplication ): Observable<WaiverInvoice[]> {
+      return this._http.get( this.BILLING_API + '/waiverFinanceApplications/waiverInvoices/' + waiverFinanceApplication.referenceNo )
+          .map(( res: Response ) => <WaiverInvoice[]>res.json() );
+  }
+  
+  findWaiverItems( waiverFinanceApplication: WaiverFinanceApplication ): Observable<WaiverItem[]> {
+      return this._http.get( this.BILLING_API + '/waiverFinanceApplications/waiverItems/' + waiverFinanceApplication.referenceNo )
+          .map(( res: Response ) => <WaiverItem[]>res.json() );
+  }
   
     // ====================================================================================================
     // REFUND PAYMENT

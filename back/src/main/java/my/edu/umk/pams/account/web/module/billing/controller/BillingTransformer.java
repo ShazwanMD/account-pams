@@ -516,6 +516,27 @@ public class BillingTransformer {
         commonTransformer.decorateMeta(e,vo);
         return vo;
     }
+    
+    public WaiverInvoice toWaiverInvoiceVo(AcWaiverInvoice r) {
+    	
+    	WaiverInvoice vo = new WaiverInvoice();
+    	vo.setWaiverFinanceApplication(billingTransformer.toWaiverFinanceApplicationVo(r.getWaiverFinanceApplication()));
+    	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
+        return vo;
+    }
+    
+    public WaiverItem toWaiverItemVo(AcWaiverItem r) {
+    	
+    	WaiverItem vo = new WaiverItem();
+    	vo.setAppliedAmount(r.getAppliedAmount());
+    	vo.setChargeCode(accountTransformer.toChargeCodeVo(r.getChargeCode()));
+    	vo.setDescription(r.getDescription());
+    	vo.setDueAmount(r.getDueAmount());
+    	vo.setTotalAmount(r.getTotalAmount());
+    	vo.setWaiverFinanceApplication(billingTransformer.toWaiverFinanceApplicationVo(r.getWaiverFinanceApplication()));
+    	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
+        return vo;
+    }
 
     public RefundPaymentTask toRefundPaymentTaskVo(Task t) {
     	Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
@@ -670,6 +691,18 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toWaiverFinanceApplicationVo(entry))
                 .collect(toCollection(() -> new ArrayList<WaiverFinanceApplication>()));
+    }
+    
+    public List<WaiverInvoice> toWaiverInvoiceVos(List<AcWaiverInvoice> entries) {
+        return entries.stream()
+                .map((entry) -> toWaiverInvoiceVo(entry))
+                .collect(toCollection(() -> new ArrayList<WaiverInvoice>()));
+    }
+    
+    public List<WaiverItem> toWaiverItemVos(List<AcWaiverItem> entries) {
+        return entries.stream()
+                .map((entry) -> toWaiverItemVo(entry))
+                .collect(toCollection(() -> new ArrayList<WaiverItem>()));
     }
     
     public List<KnockoffInvoice> toKnockoffInvoiceVos(List<AcKnockoffInvoice> entries) {

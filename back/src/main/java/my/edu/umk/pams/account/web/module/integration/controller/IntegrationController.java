@@ -203,12 +203,12 @@ public class IntegrationController {
     public ResponseEntity<String> saveCandidate(@RequestBody CandidatePayload payload) {
         SecurityContext ctx = loginAsSystem();
         
-        AcResidencyCode residencyCode = new AcResidencyCodeImpl();
-        residencyCode.setCode(payload.getNationalityCode().getCode());
-        residencyCode.setDescription(payload.getNationalityCode().getDescriptionEn());
-        commonService.saveResidencyCode(residencyCode);
+//        AcResidencyCode residencyCode = new AcResidencyCodeImpl();
+//        residencyCode.setCode(payload.getNationalityCode().getCode());
+//        residencyCode.setDescription(payload.getNationalityCode().getDescriptionEn());
+//        commonService.saveResidencyCode(residencyCode);
 
-        // student info
+        // student infos
         AcStudent student = new AcStudentImpl();
         student.setMatricNo(payload.getMatricNo());
         student.setName(payload.getName());
@@ -219,7 +219,7 @@ public class IntegrationController {
 
         student.setStudentStatus(AcStudentStatus.ACTIVE);
         student.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode()));
-        student.setResidencyCode(commonService.findResidencyCodeByCode(residencyCode.getCode()));
+//        student.setResidencyCode(commonService.findResidencyCodeByCode(residencyCode.getCode()));
         identityService.saveStudent(student);
         AcStudent savedStudent = identityService.findStudentByMatricNo(payload.getMatricNo());
         

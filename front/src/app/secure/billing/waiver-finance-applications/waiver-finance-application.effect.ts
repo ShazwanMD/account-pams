@@ -96,4 +96,27 @@ export class WaiverFinanceApplicationEffects {
     .switchMap((application) => this.billingService.updateWaiverFinanceApplication(application))
     .map((application) => this.waiverFinanceApplicationActions.updateWaiverFinanceApplicationSuccess(application));
 
+  @Effect() addWaiverInvoice$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.ADD_WAIVER_INVOICE)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.addWaiverInvoice(payload.waiverFinanceApplication, payload.invoice))
+  .map((message) => this.waiverFinanceApplicationActions.addWaiverInvoiceSuccess(message));
+  
+  @Effect() itemToWaiverItem$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.ITEM_TO_WAIVER_INVOICE)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.itemToWaiverItem(payload.invoice, payload.waiverFinanceApplication))
+  .map((message) => this.waiverFinanceApplicationActions.itemToWaiverItemSuccess(message));
+  
+  @Effect() findWaiversByInvoice$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE)
+  .map((action) => action.payload)
+  .switchMap((waiverFinanceApplication) => this.billingService.findWaiversByInvoice(waiverFinanceApplication))
+  .map((message) => this.waiverFinanceApplicationActions.findWaiversByInvoiceSuccess(message));
+
+  @Effect() findWaiverItems$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_ITEMS)
+  .map((action) => action.payload)
+  .switchMap((waiverFinanceApplication) => this.billingService.findWaiverItems(waiverFinanceApplication))
+  .map((message) => this.waiverFinanceApplicationActions.findWaiverItemsSuccess(message));
 }

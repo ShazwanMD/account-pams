@@ -5,7 +5,10 @@ import java.util.List;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
+import my.edu.umk.pams.account.billing.model.AcWaiverInvoice;
 import my.edu.umk.pams.account.billing.model.AcWaiverItem;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
@@ -25,6 +28,12 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
 	List<AcWaiverFinanceApplication> findByFlowState(AcFlowState acFlowState);
 	
 	List<AcWaiverFinanceApplication> findByFlowStates(AcFlowState... acFlowState);
+	
+    List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver);
+    
+    List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+    
+    List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
 	
 	void addWaiverInvoice(AcWaiverFinanceApplication waiver, AcInvoice invoice, AcUser user);
 	
