@@ -1,3 +1,4 @@
+import { DebitNote } from './../app/shared/model/billing/debit-note.interface';
 import { ReceiptAccountCharge } from './../app/shared/model/billing/receipt-account-charge.interface';
 import { ReceiptDebitNote } from './../app/shared/model/billing/receipt-debit_note.interface';
 import { Injectable } from '@angular/core';
@@ -12,7 +13,6 @@ import { ReceiptTask } from '../app/shared/model/billing/receipt-task.interface'
 import { Receipt } from '../app/shared/model/billing/receipt.interface';
 import { ReceiptItem } from '../app/shared/model/billing/receipt-item.interface';
 import { CreditNote } from '../app/shared/model/billing/credit-note.interface';
-import { DebitNote } from '../app/shared/model/billing/debit-note.interface';
 import { CreditNoteTask } from '../app/shared/model/billing/credit-note-task.interface';
 import { DebitNoteTask } from '../app/shared/model/billing/debit-note-task.interface';
 import { DebitNoteItem } from '../app/shared/model/billing/debit-note-item.interface';
@@ -502,6 +502,12 @@ export class BillingService {
     deleteDebitNoteItem( debitNote: DebitNote, item: DebitNoteItem ) {
         return this._http.delete( this.BILLING_API + '/debitNotes/' + debitNote.referenceNo + '/debitNoteItems/' + item.id )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
+    findUnpaidDebitNotes( account: Account ): Observable<DebitNote[]> {
+        console.log( 'findUnpaidDebitNotes' );
+        return this._http.get( this.BILLING_API + '/debitNotes/unpaidDebitNotes/' + account.code )
+            .map(( res: Response ) => <DebitNote[]>res.json() );
     }
 
     // ====================================================================================================
