@@ -1,5 +1,6 @@
+import { AmountValidation } from './../../../../shared/component/amount-validation';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BillingModuleState} from '../../index';
 import {MdDialogRef} from '@angular/material';
@@ -42,17 +43,19 @@ export class ReceiptItemEditorDialog implements OnInit {
 
   ngOnInit(): void {
     this.editForm = this.formBuilder.group({
-      id: null,
-      description: '',
-      totalAmount: 0,
-      adjustedAmount: 0,
-      appliedAmount: 0,
-      dueAmount: 0,
-      unit: 0,
-      price: 0,
+      id: [undefined],
+      description: [''],
+      totalAmount: [0],
+      adjustedAmount: [0],
+      appliedAmount: [0,Validators.required],
+      dueAmount: [0,Validators.required],
+      unit: [0],
+      price: [0],
       chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
-    });
+    },{
+      validator: AmountValidation.CheckAmount // validation method
+   });
     if (this.edit) this.editForm.patchValue(this._receiptItem);
   }
 
