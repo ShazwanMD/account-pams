@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.dao;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
@@ -28,6 +29,8 @@ public interface AcDebitNoteDao extends GenericDao<Long, AcDebitNote> {
     List<AcDebitNoteItem> findItems(AcDebitNote debitNote);
 
     List<AcDebitNoteItem> findItems(AcDebitNote debitNote, Integer offset, Integer limit);
+    
+	List<AcDebitNote> find(boolean paid, AcAccount account, Integer offset, Integer limit);
 
     // ====================================================================================================
     // HELPER
@@ -50,6 +53,8 @@ public interface AcDebitNoteDao extends GenericDao<Long, AcDebitNote> {
     void removeItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user);
 
     void deleteItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user);
+
+
 
 
 }
