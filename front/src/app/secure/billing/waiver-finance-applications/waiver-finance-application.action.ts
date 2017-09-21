@@ -259,4 +259,76 @@ export class WaiverFinanceApplicationActions {
       payload: invoice
     };
   }
+  
+  static ADD_WAIVER_INVOICE = '[WaiverFinanceApplication] Add Waiver Invoice';
+
+  addWaiverInvoice(waiverFinanceApplication, invoice): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ADD_WAIVER_INVOICE,
+      payload: {waiverFinanceApplication, invoice}
+    };
+  }
+
+  static ADD_WAIVER_INVOICE_SUCCESS = '[WaiverFinanceApplication] Add Waiver Invoice Success';
+
+  addWaiverInvoiceSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ADD_WAIVER_INVOICE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static ITEM_TO_WAIVER_INVOICE = '[WaiverFinanceApplication] Item to Waiver Item';
+
+  itemToWaiverItem(invoice, waiverFinanceApplication): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ITEM_TO_WAIVER_INVOICE,
+      payload: {invoice, waiverFinanceApplication}
+    };
+  }
+
+  static ITEM_TO_WAIVER_INVOICE_SUCCESS = '[WaiverFinanceApplication] Item to Waiver Item Success';
+
+  itemToWaiverItemSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ITEM_TO_WAIVER_INVOICE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static FIND_WAIVER_INVOICE = '[WaiverFinanceApplication] Find Waiver Invoice';
+
+  findWaiversByInvoice(waiverFinanceApplication): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE,
+      payload: waiverFinanceApplication
+    };
+  }
+
+  static FIND_WAIVER_INVOICE_SUCCESS = '[WaiverFinanceApplication] Find Waiver Invoice Success';
+
+  findWaiversByInvoiceSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static FIND_WAIVER_ITEMS = '[WaiverFinanceApplication] Find Waiver Items';
+
+  findWaiverItems(waiverFinanceApplication): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_ITEMS,
+      payload: waiverFinanceApplication
+    };
+  }
+
+  static FIND_WAIVER_ITEMS_SUCCESS = '[WaiverFinanceApplication] Find Waiver Items Success';
+
+  findWaiverItemsSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_ITEMS_SUCCESS,
+      payload: message
+    };
+  }
 }

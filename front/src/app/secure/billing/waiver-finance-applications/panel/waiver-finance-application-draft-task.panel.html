@@ -44,6 +44,34 @@
         <md-card-actions>
         </md-card-actions>
       </md-card>
+    <!-- version baru -->
+      <div layout="column" layout-gt-md="row">
+        <div flex-gt-md="70">
+          <md-card>
+              <md-tab-group [selectedIndex]="0">
+                  <md-tab label="Unpaid Invoices">
+                    <pams-waiver-invoice-list
+                      [waiverFinanceApplication]="waiverFinanceApplicationTask.application"
+                      [waiverInvoice]="waiverInvoice$ | async"
+                      (view)="view($event)">
+                    </pams-waiver-invoice-list>
+
+                  </md-tab>
+
+                  <md-tab label="Unpaid Charges">  
+
+                  </md-tab>
+
+                  <md-tab label="Unpaid Debit Notes">
+
+                  </md-tab>
+              </md-tab-group>
+          </md-card>
+        <div>
+        </div>
+      </div>
+      </div>
+
     </div>
     <div flex-gt-md="30">
 

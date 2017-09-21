@@ -10,6 +10,8 @@ import { WaiverFinanceApplication } from "../../../../shared/model/billing/waive
 import { WaiverFinanceApplicationTask } from "../../../../shared/model/billing/waiver-finance-application-task.interface";
 import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
 import { WaiverApplicationEditorDialog } from "../../../financialaid/waiver-applications/dialog/waiver-application-editor.dialog";
+import { WaiverInvoice } from "../../../../shared/model/billing/waiver-invoice.interface";
+import { InvoiceActions } from "../../invoices/invoice.action";
 
 @Component({
   selector: 'pams-waiver-finance-application-draft-task',
@@ -19,7 +21,10 @@ import { WaiverApplicationEditorDialog } from "../../../financialaid/waiver-appl
 export class WaiverFinanceApplicationDraftTaskPanel implements OnInit {
 
   private WAIVER_FINANCE_APPLICATION: string[] = 'billingModuleState.waiverFinanceApplication'.split('.');
+  private WAIVER_INVOICE: string[] = 'billingModuleState.waiverInvoice'.split('.');
   private waiverFinanceApplication$: Observable<WaiverFinanceApplication>;
+  private waiverInvoice$: Observable<WaiverInvoice[]>;
+
   private creatorDialogRef: MdDialogRef<WaiverApplicationEditorDialog>;
 
   @Input() waiverFinanceApplicationTask: WaiverFinanceApplicationTask;
@@ -28,16 +33,19 @@ export class WaiverFinanceApplicationDraftTaskPanel implements OnInit {
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
               private actions: WaiverFinanceApplicationActions,
+              private action: InvoiceActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private vcf: ViewContainerRef,
               private snackBar: MdSnackBar) {
 
     this.waiverFinanceApplication$ = this.store.select(...this.WAIVER_FINANCE_APPLICATION);
+    this.waiverInvoice$ = this.store.select(...this.WAIVER_INVOICE);
   }
 
   ngOnInit(): void {
-    //this.store.dispatch(this.actions.findW(this.invoice))
+      this.store.dispatch(this.actions.findWaiversByInvoice(this.waiverFinanceApplicationTask.application));
+      this.store.dispatch(this.action.findUnpaidInvoices(this.waiverFinanceApplicationTask.application.account));
   }
 
   register() {
