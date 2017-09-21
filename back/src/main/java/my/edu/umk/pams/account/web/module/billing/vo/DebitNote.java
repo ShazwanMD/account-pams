@@ -25,6 +25,9 @@ public class DebitNote extends Document {
 	private Date debitNoteDate;
 	private BigDecimal totalAmount = new BigDecimal(0.00);
 	private Invoice invoice;
+	private Boolean paid;
+    private BigDecimal balanceAmount;
+
 
 	// denormalized
 	private String accountCode;
@@ -108,6 +111,22 @@ public class DebitNote extends Document {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+	
+	public ChargeCode getSodoCode() {
+		return sodoCode;
+	}
+
+	public void setPaid(Boolean paid) {
+		this.paid = paid;
+	}
+
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
 	}
 
 	@JsonCreator
