@@ -175,6 +175,8 @@ public interface BillingService {
     boolean hasDebitNote(AcInvoice invoice);
 
     void post(AcDebitNote debitNote);
+    
+    List<AcDebitNote> findUnpaidDebitNotes(AcAccount account, Integer offset, Integer limit);
 
 
     // ==================================================================================================== //
@@ -285,6 +287,8 @@ public interface BillingService {
     List<AcReceiptInvoice> findReceipts(AcReceipt receipt);
     
     List<AcReceiptAccountCharge> findReceiptsAccountCharge(AcReceipt receipt);
+    
+    List<AcReceiptDebitNote> findReceiptsDebitNote(AcReceipt receipt);
 
     Integer countReceipt(AcReceiptType type);
 
@@ -452,5 +456,9 @@ public interface BillingService {
     void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item);
     
 	void itemToWaiverItem(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+
+	
+
+	
 
 }
