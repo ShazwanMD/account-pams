@@ -197,4 +197,21 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
     }
+    
+    @Override
+    public List<AcDebitNote> find(boolean paid, AcAccount account, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i from AcDebitNote i where " +
+                "i.account = :account " +
+                "and i.paid = :paid " +
+                "and i.metadata.state = :state " +
+                "and i.flowdata.state = :flowState ");
+        query.setEntity("account", account);
+        query.setBoolean("paid", paid);
+        query.setInteger("state", ACTIVE.ordinal());
+        query.setInteger("flowState", AcFlowState.COMPLETED.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<AcDebitNote>) query.list();
+    }
 }
