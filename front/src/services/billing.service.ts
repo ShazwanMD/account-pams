@@ -1,3 +1,4 @@
+import { ReceiptDebitNote } from './../app/shared/model/billing/receipt-debit_note.interface';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { HttpInterceptorService } from '@covalent/http';
@@ -268,6 +269,11 @@ export class BillingService {
         return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptInvoice' )
             .map(( res: Response ) => <ReceiptInvoice[]>res.json() );
     }
+
+    findReceiptsByDebitNote( receipt: Receipt ): Observable<ReceiptDebitNote[]> {
+        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptDebitNote' )
+            .map(( res: Response ) => <ReceiptDebitNote[]>res.json() );
+    }
     
     itemToReceiptItem( invoice: Invoice, receipt: Receipt ): Observable<String> {
         return this._http.post( this.BILLING_API + '/invoices/' + invoice.referenceNo + '/receipts/' + receipt.id, JSON.stringify( receipt ) )
@@ -383,6 +389,12 @@ export class BillingService {
     // ====================================================================================================
     // DEBIT NOTE
     // ====================================================================================================
+    
+    findDebitNotes(): Observable<DebitNote[]> {
+    return this._http.get(this.BILLING_API + '/debitNotes')
+      .map((res: Response) => <DebitNote[]>res.json());
+   }
+    
     findDebitNotesbyInvoice( invoice: Invoice ): Observable<DebitNote[]> {
         console.log( 'findDebitNotes' );
         return this._http.get( this.BILLING_API + '/invoice/' + invoice.referenceNo + '/debitNotes/' )
