@@ -41,24 +41,24 @@ export class ReceiptActions {
     };
   } 
 
-  static FIND_RECEIPTS_BY_DEBIT_NOTE = '[Receipt] Find Completed Receipts';
-
-  findReceiptsByDebitNote(receipt): Action {
-    return {
-      type: ReceiptActions.FIND_RECEIPTS_BY_DEBIT_NOTE,
-      payload: receipt
-    };
-  }
-
-  static FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS = '[Receipt] Find Completed Receipts Success';
-
-  findReceiptsByDebitNoteSuccess(receipts): Action {
-    console.log("findCompletedReceiptsSuccess");
-    return {
-      type: ReceiptActions.FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS,
-      payload: receipts
-    };
-  } 
+  static FIND_RECEIPTS_BY_ACCOUNT_CHARGE = '[Receipt] Find Completed Receipts';
+  
+    findReceiptsByAccountCharge(receipt): Action {
+      return {
+        type: ReceiptActions.FIND_RECEIPTS_BY_ACCOUNT_CHARGE,
+        payload: receipt
+      };
+    }
+  
+    static FIND_RECEIPTS_BY_ACCOUNT_CHARGE_SUCCESS = '[Receipt] Find Completed Receipts Success';
+  
+    findReceiptsByAccountChargeSuccess(receipts): Action {
+      console.log("findReceiptsByAccountChargeSuccess");
+      return {
+        type: ReceiptActions.FIND_RECEIPTS_BY_ACCOUNT_CHARGE_SUCCESS,
+        payload: receipts
+      };
+    } 
 
   static FIND_ASSIGNED_RECEIPT_TASKS = '[Receipt] Find Assigned Receipt Tasks';
 
@@ -479,25 +479,6 @@ export class ReceiptActions {
       return {
         type: ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS,
         payload: accountCharges,
-      };
-    }
-
-    static FIND_UNPAID_DEBIT_NOTES = '[Account] Find Unpaid Debit Notes';
-  
-    findUnpaidDebitNotes(account): Action {
-      return {
-        type: ReceiptActions.FIND_UNPAID_DEBIT_NOTES,
-        payload: account,
-      };
-    }
-  
-    static FIND_UNPAID_DEBIT_NOTES_SUCCESS = '[Account] Find Unpaid Debit Notes Success';
-  
-    findUnpaidDebitNotesSuccess(debitNotes): Action {
-      console.log('findUnpaidDebitNotesSuccess');
-      return {
-        type: ReceiptActions.FIND_UNPAID_DEBIT_NOTES_SUCCESS,
-        payload: debitNotes,
       };
     }
   

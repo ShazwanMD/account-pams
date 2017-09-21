@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.billing.dao;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.billing.model.AcReceiptAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcReceiptType;
@@ -46,6 +47,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     List<AcReceiptItem> findItems(AcReceipt receipt, Integer offset, Integer limit);
     
     List<AcReceiptInvoice> find(AcReceipt receipt);
+    
+    List<AcReceiptAccountCharge> findReceiptAccountCharge(AcReceipt receipt);
 
     // ====================================================================================================
     // HELPER

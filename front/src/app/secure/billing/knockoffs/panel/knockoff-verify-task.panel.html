@@ -40,11 +40,17 @@
 
         </md-card-actions>
       </md-card>
-
+      <md-card>
+					<pams-knockoff-item-list
+                    [knockoff]="knockoffTask.knockoff"
+                    [knockoffItem]="knockoffItem$ | async"
+                    ></pams-knockoff-item-list> 
+                    </md-card>
     </div>
+      
     <div flex-gt-md="30">
 
-      <!-- <pams-invoice-status [invoice]="invoiceTask.invoice"></pams-invoice-status> -->
+      <pams-knockoff-status [knockoff]="knockoffTask.knockoff"></pams-knockoff-status> 
 
       <md-card>
         <md-card-title>Action</md-card-title>
@@ -64,5 +70,5 @@
         </md-nav-list>
       </md-card>
     </div>
-  </div>
+  
 </div>

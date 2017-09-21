@@ -6,6 +6,7 @@ import {BillingService} from '../../../../services/billing.service';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import { AccountService } from '../../../../services/account.service';
+import { Router } from "@angular/router";
 
 @Injectable()
 export class ReceiptEffects {
@@ -17,6 +18,7 @@ export class ReceiptEffects {
               private receiptActions: ReceiptActions,              
               private billingService: BillingService,
               private accountService: AccountService,
+              private router: Router,
               private store$: Store<BillingModuleState>) {
   }
 
@@ -42,7 +44,7 @@ export class ReceiptEffects {
     .map((task) => this.receiptActions.findReceiptTaskByTaskIdSuccess(task))
     .mergeMap((action) => from([action,
         this.receiptActions.findReceiptItems(action.payload),
-        //this.receiptActions.findUnpaidInvoices(action.payload),
+        this.receiptActions.findReceiptsByInvoice(action.payload),
       ],
     ));
 
@@ -64,6 +66,12 @@ export class ReceiptEffects {
   .map((action) => action.payload)
   .switchMap((receipt) => this.billingService.findReceiptsByInvoice(receipt))
   .map((receipts) => this.receiptActions.findReceiptsByInvoiceSuccess(receipts));
+
+  @Effect() findReceiptsByAccountCharge$ = this.actions$
+  .ofType(ReceiptActions.FIND_RECEIPTS_BY_ACCOUNT_CHARGE)
+  .map((action) => action.payload)
+  .switchMap((receipt) => this.billingService.findReceiptsByAccountCharge(receipt))
+  .map((receipts) => this.receiptActions.findReceiptsByAccountChargeSuccess(receipts));
   
   @Effect() findReceiptItems$ = this.actions$
     .ofType(ReceiptActions.FIND_RECEIPT_ITEMS)
@@ -144,9 +152,6 @@ export class ReceiptEffects {
         .map((action) => action.payload)
         .switchMap((payload) => this.billingService.itemToReceiptItem(payload.invoice, payload.receipt))
         .map((message) => this.receiptActions.itemToReceiptItemSuccess(message));
-//      .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
-//      .map((state) => state[1])
-//      .map((payload) => this.receiptActions.findInvoiceReceiptItems(payload.receipt, payload.invoice));
 
   @Effect() updateReceiptItem$ = this.actions$
     .ofType(ReceiptActions.UPDATE_RECEIPT_ITEM)
@@ -172,9 +177,13 @@ export class ReceiptEffects {
       .map((action) => action.payload)
       .switchMap((payload) => this.billingService.addReceiptInvoiceItems(payload.receipt, payload.invoice))
       .map((message) => this.receiptActions.addReceiptInvoiceItemsSuccess(message));
-//      .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
-//      .map((state) => state[1])
-//      .map((taskId) => this.billingService.findReceiptTaskByTaskId(taskId));
+   //   .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+   //   .map((state) => state[1])
+   //   .map((taskid) => this.receiptActions.findReceiptTaskByTaskId(taskId));
+  /*  .map((state) => state[1])
+  .map((receipt) => this.receiptActions.findReceiptItems(receipt))
+  .do((action) => this.router.navigate(['/secure/billing/receipts/view-task/:taskId', action.payload])).ignoreElements();*/
+
   
   @Effect() updateItemToReceipt$ = this.actions$
   .ofType(ReceiptActions.UPDATE_ITEM_RECEIPT)
@@ -183,7 +192,8 @@ export class ReceiptEffects {
   .map((message) => this.receiptActions.updateItemToReceiptSuccess(message))
   .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
   .map((state) => state[1])
-  .map((receipt) => this.receiptActions.findReceiptItems(receipt));
+  .map((receipt) => this.receiptActions.findReceiptItems(receipt))
+  .do((action) => this.router.navigate(['/secure/billing/receipts/view-task/:taskId', action.payload])).ignoreElements();
 
   @Effect() findUnpaidAccountCharges$ = this.actions$
   .ofType(ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES)

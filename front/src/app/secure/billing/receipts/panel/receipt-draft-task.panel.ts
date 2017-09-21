@@ -59,10 +59,9 @@ export class ReceiptDraftTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
     this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
-    this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
     this.store.dispatch(this.actions.findUnpaidAccountCharges(this.receiptTask.receipt.account));
+    this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
   }
 
   editItem(item: ReceiptItem) {
@@ -76,28 +75,28 @@ export class ReceiptDraftTaskPanel implements OnInit {
     editorDialogRef.componentInstance.receiptItem = item;
   }
 
-  applyPromoCode() {
-    let config = new MdDialogConfig();
-    config.viewContainerRef = this.viewContainerRef;
-    config.role = 'dialog';
-    config.width = '70%';
-    config.height = '60%';
-    config.position = {top: '0px'};
-    let editorDialogRef = this.dialog.open(PromoCodeApplicatorDialog, config);
-    editorDialogRef.componentInstance.receipt = this.receiptTask.receipt;
-  }
-  
-  paidInvoices() {
-      console.log("ReceiptDialog "+ this.receiptTask.receipt.referenceNo);
-      let config = new MdDialogConfig();
-      config.viewContainerRef = this.viewContainerRef;
-      config.role = 'dialog';
-      config.width = '70%';
-      config.height = '60%';
-      config.position = {top: '0px'};
-      let editorDialogRef = this.dialog.open(InvoiceReceiptDialog, config);
-      editorDialogRef.componentInstance.receipt = this.receiptTask.receipt;
-    }
+//  applyPromoCode() {
+//    let config = new MdDialogConfig();
+//    config.viewContainerRef = this.viewContainerRef;
+//    config.role = 'dialog';
+//    config.width = '70%';
+//    config.height = '60%';
+//    config.position = {top: '0px'};
+//    let editorDialogRef = this.dialog.open(PromoCodeApplicatorDialog, config);
+//    editorDialogRef.componentInstance.receipt = this.receiptTask.receipt;
+//  }
+//  
+//  paidInvoices() {
+//      console.log("ReceiptDialog "+ this.receiptTask.receipt.referenceNo);
+//      let config = new MdDialogConfig();
+//      config.viewContainerRef = this.viewContainerRef;
+//      config.role = 'dialog';
+//      config.width = '70%';
+//      config.height = '60%';
+//      config.position = {top: '0px'};
+//      let editorDialogRef = this.dialog.open(InvoiceReceiptDialog, config);
+//      editorDialogRef.componentInstance.receipt = this.receiptTask.receipt;
+//    }
 
   register() {
     this.store.dispatch(this.actions.completeReceiptTask(this.receiptTask));

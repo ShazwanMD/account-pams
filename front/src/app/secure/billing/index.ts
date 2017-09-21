@@ -58,7 +58,7 @@ import {invoiceCreditNoteListReducer, InvoiceCreditNoteListState} from './invoic
 import {invoiceDebitNoteListReducer, InvoiceDebitNoteListState} from './invoices/invoice-debit-note-list.reducer';
 import {archivedReceiptListReducer, ReceiptListState} from './receipts/receipt-list.reducer';
 import {receiptInvoiceListReducer, ReceiptInvoiceListState} from './receipts/receipt-invoice.reducer';
-import {receiptDebitNoteListReducer, ReceiptDebitNoteListState} from './receipts/receipt-debit-note.reducer';
+import {receiptAccountChargeListReducer, ReceiptAccountChargeListState} from './receipts/receipt-account-charge.reducer';
 import { AdvancePaymentSubModule } from "./advance-payments/index";
 import {advancePaymentListReducer, AdvancePaymentListState} from './advance-payments/advance-payment-list.reducer';
 import {AdvancePayment} from '../../shared/model/billing/advance-payment.interface';
@@ -104,8 +104,7 @@ export interface BillingModuleState {
   receipt: ReceiptState;
   receiptItems: ReceiptItemListState;
   receiptInvoice: ReceiptInvoiceListState;
-  receiptAccountCharge: AccountChargeListState;
-  receiptDebitNote: ReceiptDebitNoteListState;
+  receiptAccountCharge: ReceiptAccountChargeListState;
   // selectedInvoice: // previewed invoice to be applied
   // selectedInvoiceItems: // previewed invoice item to be applied
   assignedDebitNoteTasks: DebitNoteTaskListState;
@@ -163,7 +162,6 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     receiptItems: [],
     receiptInvoice: [],
     receiptAccountCharge: [],
-    receiptDebitNote: [],
     assignedDebitNoteTasks: [],
     pooledDebitNoteTasks: [],
     archivedDebitNotes: [],
@@ -216,8 +214,7 @@ export const billingModuleReducers = {
   receipts: receiptReducer,
   receiptItems: receiptItemListReducer,
   receiptInvoice: receiptInvoiceListReducer,
-  receiptAccountCharge: accountChargeListReducer,
-  receiptDebitNote: receiptDebitNoteListReducer,
+  receiptAccountCharge: receiptAccountChargeListReducer,
   assignedDebitNoteTasks: assignedDebitNoteTaskListReducer,
   pooledDebitNoteTasks: pooledDebitNoteTaskListReducer,
   archivedDebitNotes: archivedDebitNoteListReducer,

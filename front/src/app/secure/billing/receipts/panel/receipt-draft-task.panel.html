@@ -49,10 +49,14 @@
 
                   <md-tab label="Unpaid Charges">  
                     <pams-account-charge-receipt-list        
-                      [receipt]="receiptTask.receipt"
                       [receiptAccountCharge]="receiptAccountCharge$ | async"
                       (view)="view($event)">
                     </pams-account-charge-receipt-list>   
+
+                    <pams-receipt-account-charge-list
+                    [receipt]="receiptTask.receipt"
+                    [receiptItems]="receiptItems$ | async">
+                    </pams-receipt-account-charge-list>
                   </md-tab>
 
                   <md-tab label="Unpaid Debit Notes">
@@ -88,14 +92,14 @@
             <h4 md-line>Remove</h4>
             <p md-line>Remove this receipt</p>
           </md-list-item>
-          <md-list-item (click)="applyPromoCode()">
+<!--           <md-list-item (click)="applyPromoCode()">
             <md-icon md-list-avatar>build</md-icon>
             <h4 md-line>Promo Code</h4>
             <p md-line>Apply promo code</p>
-          </md-list-item>
+          </md-list-item> -->
         </md-nav-list>
       </md-card>
-      <md-card>
+<!--       <md-card>
       <md-nav-list dense>
          <md-list-item (click)="paidInvoices()">
             <md-icon md-list-avatar>attach_money</md-icon>
@@ -103,7 +107,7 @@
             <p md-line>Paid Invoices for this Receipt</p>
           </md-list-item>
           </md-nav-list>
-      </md-card>
+      </md-card> -->
     </div>
   </div>
 </div>

@@ -9,6 +9,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -27,6 +29,7 @@ import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
 @Entity(name = "AcWaiverFinanceApplication")
 @Table(name = "AC_WAVR_FNCE_APLN")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplication {
 
     @Id
