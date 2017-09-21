@@ -712,6 +712,11 @@ public class BillingServiceImpl implements BillingService {
 	public Integer countDebitNote(AcInvoice invoice) {
 		return debitNoteDao.count(invoice);
 	}
+	
+	@Override
+	public List<AcDebitNote> findUnpaidDebitNotes(AcAccount account, Integer offset, Integer limit) {
+		return debitNoteDao.find(false, account, offset, limit);
+	}
 
 	// ====================================================================================================
 	// CREDIT NOTE
@@ -1019,6 +1024,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<AcReceiptAccountCharge> findReceiptsAccountCharge(AcReceipt receipt) {
 		return receiptDao.findReceiptAccountCharge(receipt);
+	}
+	
+	@Override
+	public List<AcReceiptDebitNote> findReceiptsDebitNote(AcReceipt receipt) {
+		return receiptDao.findReceiptDebitNote(receipt);
 	}
 
 	@Override
