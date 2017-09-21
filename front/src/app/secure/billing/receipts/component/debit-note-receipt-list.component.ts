@@ -1,3 +1,7 @@
+import { DebitNote } from './../../../../shared/model/billing/debit-note.interface';
+import { DebitNoteReceiptDialog } from './../dialog/debit-note-receipt-creator.dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReceiptActions } from './../receipt.action';
 import { ReceiptDebitNote } from './../../../../shared/model/billing/receipt-debit_note.interface';
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewContainerRef, OnInit} from '@angular/core';
 import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
@@ -24,41 +28,71 @@ export class DebitNoteReceiptListComponent {
     @Input() receipt: Receipt;
     @Output() view = new EventEmitter<ReceiptDebitNote>();
     
+    //private selectedRows: ReceiptInvoice[];
+    
   private columns: any[] = [
-    {name: 'accountCharge.referenceNo', label: 'Reference No'},
-    {name: 'accountCharge.description', label: 'Description'},
-    {name: 'accountCharge.totalAmount', label: 'Total Amount'},
-    {name: 'accountCharge.balanceAmount', label: 'Balance Amount'},
+    {name: 'debitNote.referenceNo', label: 'Reference No'},
+    {name: 'debitNote.description', label: 'Description'},
+    {name: 'debitNote.totalAmount', label: 'Total Amount'},
+    {name: 'debitNote.balanceAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
 
   constructor(private snackBar: MdSnackBar,
               private viewContainerRef: ViewContainerRef,
-              private store: Store<AccountModuleState>,
-              private action: AccountActions,
+              private store: Store<BillingModuleState>,
+              private router: Router,
+              private route: ActivatedRoute,
+              private action: ReceiptActions,
               private dialog: MdDialog) {
   }
   
   viewTask(receiptDebitNote: ReceiptDebitNote) {
 
       console.log('ref no for receipt: ' + receiptDebitNote.receipt.referenceNo);
-    //   this.showDialog(receiptAccountCharge);
+      //this.showDialog(receiptDebitNote);
       
     }
+
+    ngOnInit(): void {
+        //this.selectedRows = this.receiptInvoice.filter((value) => value.selected);
+      }
     
-    // showDialog(receiptAccountCharge: ReceiptAccountCharge) {
-    //     console.log("Receipt for create item dialog "+ receiptAccountCharge.receipt.referenceNo);
-    //     console.log("Invoice for create item dialog "+ receiptAccountCharge.accountCharge.referenceNo);
-    //     let config = new MdDialogConfig();
-    //     config.viewContainerRef = this.viewContainerRef;
-    //     config.role = 'dialog';
-    //     config.width = '70%';
-    //     config.height = '60%';
-    //     config.position = {top: '0px'};
-    //     let editorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
-    //     editorDialogRef.componentInstance.receipt = receiptAccountCharge.receipt;
-    //     editorDialogRef.componentInstance.invoice = receiptAccountCharge.invoice;
-    //   }
+//    delete(): void {
+//        console.log('length: ' + this.selectedRows.length);
+//        for (let i: number = 0; i < this.selectedRows.length; i++) {
+//          this.store.dispatch(this.action.dele);
+//        }
+//        this.selectedRows = [];
+//      }
+
+  //  showDialog(receiptDebitNote: ReceiptDebitNote) {
+  //       console.log("Receipt for create item dialog "+ receiptDebitNote.receipt.referenceNo);
+  //       console.log("DebitNote for create item dialog "+ receiptDebitNote.debitNote.referenceNo);
+  //       let config = new MdDialogConfig();
+  //       config.viewContainerRef = this.viewContainerRef;
+  //       config.role = 'dialog';
+  //       config.width = '70%';
+  //       config.height = '60%';
+  //       config.position = {top: '0px'};
+  //       let editorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
+  //       editorDialogRef.componentInstance.receipt = receiptDebitNote.receipt;
+  //       //editorDialogRef.componentInstance.debitNote = receiptDebitNote.debitNote;
+  //     }
   
+   UnpaidDebitNote(receiptDebitNote: ReceiptDebitNote): void {
+    let config: MdDialogConfig = new MdDialogConfig();
+    config.viewContainerRef = this.viewContainerRef;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '60%';
+    config.position = {top: '65px'};
+    let editorDialogRef = this.dialog.open(DebitNoteReceiptDialog, config);
+    //this.editorDialogRef.componentInstance.account = this.account;
+    editorDialogRef.afterClosed().subscribe((res) => {
+      // no op
+    });
+  }
 
 }
+
