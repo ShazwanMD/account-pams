@@ -245,6 +245,13 @@ public class BillingTransformer {
         return vo;
     }
 
+    public ReceiptDebitNote toReceiptDebitNoteVo(AcReceiptDebitNote r) {
+    	
+    	ReceiptDebitNote vo = new ReceiptDebitNote();
+    	vo.setReceipt(billingTransformer.toReceiptVo(r.getReceipt()));
+    	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
+        return vo;
+    }
 
     public DebitNote toDebitNoteVos(AcDebitNote e) {
         DebitNote vo = new DebitNote();
@@ -599,6 +606,12 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toReceiptInvoiceVo(entry))
                 .collect(toCollection(() -> new ArrayList<ReceiptInvoice>()));
+    }
+    
+    public List<ReceiptDebitNote> toReceiptDebitNoteVos(List<AcReceiptDebitNote> entries) {
+        return entries.stream()
+                .map((entry) -> toReceiptDebitNoteVo(entry))
+                .collect(toCollection(() -> new ArrayList<ReceiptDebitNote>()));
     }
     
     public List<AdvancePayment> toAdvancePaymentVos(List<AcAdvancePayment> entries) {
