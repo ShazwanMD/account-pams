@@ -284,7 +284,7 @@ export class BillingService {
     }
 
     findReceiptsByAccountCharge( receipt: Receipt ): Observable<ReceiptAccountCharge[]> {
-        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptReceiptAccountCharge' )
+        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptAccountCharge' )
             .map(( res: Response ) => <ReceiptAccountCharge[]>res.json() );
     }
     
