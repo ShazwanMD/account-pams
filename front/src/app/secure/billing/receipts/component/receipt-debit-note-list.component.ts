@@ -59,18 +59,18 @@ export class ReceiptDebitNoteListComponent implements OnInit {
   selectAllRows(receiptItems: ReceiptItem[]): void {
   }
 
-  UnpaidDebitNote(debitNotes: DebitNote): void {
-    let config: MdDialogConfig = new MdDialogConfig();
-    config.viewContainerRef = this.vcf;
-    config.role = 'dialog';
-    config.width = '50%';
-    config.height = '60%';
-    config.position = {top: '65px'};
-    this.editorDialogRef = this.dialog.open(DebitNoteReceiptDialog, config);
-    //this.editorDialogRef.componentInstance.account = this.account;
-    this.editorDialogRef.afterClosed().subscribe((res) => {
-      // no op
-    });
-  }
+  // UnpaidDebitNote(debitNotes: DebitNote): void {
+  //   let config: MdDialogConfig = new MdDialogConfig();
+  //   config.viewContainerRef = this.vcf;
+  //   config.role = 'dialog';
+  //   config.width = '50%';
+  //   config.height = '60%';
+  //   config.position = {top: '65px'};
+  //   this.editorDialogRef = this.dialog.open(DebitNoteReceiptDialog, config);
+  //   //this.editorDialogRef.componentInstance.account = this.account;
+  //   this.editorDialogRef.afterClosed().subscribe((res) => {
+  //     // no op
+  //   });
+  // }
 
 }
