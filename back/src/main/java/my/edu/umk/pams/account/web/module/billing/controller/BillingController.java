@@ -396,6 +396,16 @@ public class BillingController {
         		toReceiptAccountChargeVos(billingService.findReceiptsAccountCharge(receipt)), HttpStatus.OK);
              
     }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/receiptDebitNote", method = RequestMethod.GET)
+    public ResponseEntity<List<ReceiptDebitNote>> findReceiptsByDebitNote(@PathVariable String referenceNo) {
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        return new ResponseEntity<List<ReceiptDebitNote>>(billingTransformer.
+        		toReceiptDebitNoteVos(billingService.findReceiptsDebitNote(receipt)), HttpStatus.OK);
+             
+    }
+
 
     @RequestMapping(value = "/receipts/assignedTasks", method = RequestMethod.GET)
     public ResponseEntity<List<ReceiptTask>> findAssignedReceipts() {
@@ -645,6 +655,13 @@ public class BillingController {
         debitNotes.setTotalAmount(vo.getTotalAmount());
         billingService.updateDebitNote(debitNotes);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/debitnotes/unpaidDebitNotes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<List<DebitNote>> findUnpaidDebitNotes(@PathVariable String code) {
+        AcAccount account = accountService.findAccountByCode(code);
+        List<AcDebitNote> debitNotes = billingService.findUnpaidDebitNotes(account, 0, 100);
+        return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
 
     // ==================================================================================================== //
