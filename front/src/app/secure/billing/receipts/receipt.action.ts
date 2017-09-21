@@ -518,4 +518,23 @@ export class ReceiptActions {
       payload: receipts
     };
   }
+
+    static FIND_UNPAID_DEBIT_NOTES = '[Account] Find Unpaid Debit Notes';
+  
+    findUnpaidDebitNotes(account): Action {
+      return {
+        type: ReceiptActions.FIND_UNPAID_DEBIT_NOTES,
+        payload: account,
+      };
+    }
+  
+    static FIND_UNPAID_DEBIT_NOTES_SUCCESS = '[debitNotes] Find Unpaid Debit Notes Success';
+  
+    findUnpaidDebitNotesSuccess(debitNotes): Action {
+      console.log('findUnpaidDebitNotesSuccess');
+      return {
+        type: ReceiptActions.FIND_UNPAID_DEBIT_NOTES_SUCCESS,
+        payload: debitNotes,
+      };
+    }
 }
