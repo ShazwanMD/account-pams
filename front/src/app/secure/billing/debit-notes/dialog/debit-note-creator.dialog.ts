@@ -39,6 +39,7 @@ export class DebitNoteCreatorDialog implements OnInit {
       referenceNo: '',
       sourceNo: '',
       totalAmount: 0,
+      balanceAmount: 0,
       debitNoteDate: undefined,
       chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
@@ -51,7 +52,8 @@ export class DebitNoteCreatorDialog implements OnInit {
     debitNote.sourceNo = this._invoice.referenceNo;
     console.log('sourceNo: ' + debitNote.sourceNo);
     console.log('invoice: ' + this._invoice.referenceNo);
-
+    
+    debitNote.balanceAmount = debitNote.totalAmount;
     this.store.dispatch(this.actions.startDebitNoteTask(debitNote));
     this.dialog.close();
   }
