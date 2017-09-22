@@ -335,7 +335,11 @@ public class AccountController {
     @RequestMapping(value = "/accountCharges/unpaidAccountCharges/{code}", method = RequestMethod.GET)
     public ResponseEntity<List<AccountCharge>> findUnpaidAccountCharges(@PathVariable String code) {
         AcAccount account = accountService.findAccountByCode(code);
+        LOG.debug("acc by id {}", account.getId());
         List<AcAccountCharge> accountCharges = accountService.findUnpaidAccountCharges(account, 0, 100);
+        for(AcAccountCharge acc: accountCharges) {
+        LOG.debug("accountCharges unpaid {}", acc.getReferenceNo());
+        }
         return new ResponseEntity<List<AccountCharge>>(accountTransformer.toAccountChargeVos(accountCharges), HttpStatus.OK);
     }
 

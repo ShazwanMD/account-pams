@@ -53,10 +53,10 @@ export function loanAccountChargeListReducer(state = initialState, action: Actio
 
 export function accountChargeListReducer(state = initialState, action: Action): AccountChargeListState {
   switch (action.type) {
-    case ReceiptActions.FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS: {
-      return action.payload;
-    }
-    case ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS: {
+//    case ReceiptActions.FIND_COMPLETED_ACCOUNT_CHARGES_SUCCESS: {
+//      return action.payload;
+//    }
+    case AccountActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS: {
       return action.payload;
     }
     default: {

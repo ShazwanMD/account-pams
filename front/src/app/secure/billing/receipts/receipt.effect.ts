@@ -195,11 +195,11 @@ export class ReceiptEffects {
   .map((receipt) => this.receiptActions.findReceiptItems(receipt))
   .do((action) => this.router.navigate(['/secure/billing/receipts/view-task/:taskId', action.payload])).ignoreElements();
 
-  @Effect() findUnpaidAccountCharges$ = this.actions$
+/*  @Effect() findUnpaidAccountCharges$ = this.actions$
   .ofType(ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES)
   .map((action) => action.payload)
   .switchMap((account) => this.accountService.findUnpaidAccountCharges(account))
-  .map((charges) => this.receiptActions.findUnpaidAccountChargesSuccess(charges));
+  .map((charges) => this.receiptActions.findUnpaidAccountChargesSuccess(charges));*/
 
   @Effect() findCompletedAccountCharges$ = this.actions$
   .ofType(ReceiptActions.FIND_COMPLETED_ACCOUNT_CHARGES)

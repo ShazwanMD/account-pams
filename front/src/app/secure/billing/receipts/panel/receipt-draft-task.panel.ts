@@ -20,6 +20,7 @@ import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.d
 import { AccountActions } from '../../../account/accounts/account.action';
 import { ReceiptAccountCharge } from '../../../../shared/model/billing/receipt-account-charge.interface';
 import { Receipt } from '../../../../shared/model/billing/receipt.interface';
+import { AccountCharge } from "../../../../shared/model/account/account-charge.interface";
 
 @Component({
   selector: 'pams-receipt-draft-task',
@@ -34,6 +35,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private RECEIPT_INVOICE: string[] = 'billingModuleState.receiptInvoice'.split('.');
   private RECEIPT_ACCOUNT_CHARGE: string[] = 'billingModuleState.receiptAccountCharge'.split('.');
   private RECEIPT_DEBIT_NOTE: string[] = 'billingModuleState.receiptDebitNote'.split('.');
+  private ACCOUNT_CHARGES: string[] = 'accountModuleState.accountCharges'.split('.');
   private account$: Observable<Account>;
   private invoices$: Observable<Invoice[]>;
   private receipt$: Observable<Receipt[]>;
@@ -41,6 +43,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private receiptInvoice$: Observable<ReceiptInvoice[]>;
   private receiptAccountCharge$: Observable<ReceiptAccountCharge[]>;
   private receiptDebitNote$: Observable<ReceiptDebitNote[]>;
+  private accountCharges$: Observable<AccountCharge[]>;
 
   @Input() receiptTask: ReceiptTask;
 
@@ -60,11 +63,12 @@ export class ReceiptDraftTaskPanel implements OnInit {
     this.receiptInvoice$ = this.store.select(...this.RECEIPT_INVOICE);
     this.receiptAccountCharge$ = this.store.select(...this.RECEIPT_ACCOUNT_CHARGE);
     this.receiptDebitNote$ = this.store.select(...this.RECEIPT_DEBIT_NOTE);
+    this.accountCharges$ = this.stores.select(...this.ACCOUNT_CHARGES);
   }
 
   ngOnInit(): void {
     this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
-    this.store.dispatch(this.actions.findUnpaidAccountCharges(this.receiptTask.receipt.account));
+    this.stores.dispatch(this.accountAction.findUnpaidAccountCharges(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findUnpaidDebitNotes(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
     

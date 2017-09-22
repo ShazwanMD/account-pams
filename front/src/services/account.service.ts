@@ -293,13 +293,14 @@ export class AccountService {
     console.log( 'findUnpaidAccountCharges' );
     return this._http.get( this.ACCOUNT_API + '/accountCharges/unpaidAccountCharges/' + account.code )
         .map(( res: Response ) => <AccountCharge[]>res.json() );
-}
+  }
 
-findCompletedAccountCharges(): Observable<AccountCharge[]> {
-  console.log( 'findCompletedAccountCharges' );
-  return this._http.get( this.ACCOUNT_API + '/accountCharges/state/COMPLETED' )
+  findCompletedAccountCharges(): Observable<AccountCharge[]> {
+      console.log( 'findCompletedAccountCharges' );
+      return this._http.get( this.ACCOUNT_API + '/accountCharges/state/COMPLETED' )
       .map(( res: Response ) => <AccountCharge[]>res.json() );
-}
+  }
+  
   // ====================================================================================================
   // ACCOUNT - SPONSORSHIP
   // ====================================================================================================

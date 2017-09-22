@@ -143,6 +143,7 @@ export interface BillingModuleState {
   assignedRefundPaymentTasks: RefundPaymentTaskListState;
   pooledRefundPaymentTasks: RefundPaymentTaskListState;
   archivedRefundPayments: RefundPaymentListState;
+  accountCharges: AccountChargeListState;
 }
 ;
 
@@ -201,6 +202,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     assignedRefundPaymentTasks: [],
     pooledRefundPaymentTasks: [],
     archivedRefundPayments: [],
+    accountCharges: [],
   };
 
 export const billingModuleReducers = {
@@ -255,6 +257,7 @@ export const billingModuleReducers = {
   assignedRefundPaymentTasks: assignedRefundPaymentTaskListReducer,
   pooledRefundPaymentTasks: pooledRefundPaymentTaskListReducer,
   archivedRefundPayments: archivedRefundPaymentListReducer,
+  accountCharges: accountChargeListReducer,
 };
 
 @NgModule({

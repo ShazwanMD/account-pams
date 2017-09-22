@@ -132,7 +132,11 @@ public class BillingController {
     @RequestMapping(value = "/invoices/unpaidInvoices/{code}", method = RequestMethod.GET)
     public ResponseEntity<List<Invoice>> findUnpaidInvoices(@PathVariable String code) {
         AcAccount account = accountService.findAccountByCode(code);
+        
         List<AcInvoice> invoices = billingService.findUnpaidInvoices(account, 0, 100);
+        for(AcInvoice inv: invoices){
+        	LOG.debug("unpaid invoice {}", inv.getInvoiceNo());
+        }
         return new ResponseEntity<List<Invoice>>(billingTransformer.toInvoiceVos(invoices), HttpStatus.OK);
     }
 

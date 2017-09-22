@@ -463,7 +463,7 @@ export class ReceiptActions {
     };
   }
 
-  static FIND_UNPAID_ACCOUNT_CHARGES = '[Account] Find Unpaid Account Charges';
+/*  static FIND_UNPAID_ACCOUNT_CHARGES = '[Receipt] Find Unpaid Account Charges';
   
     findUnpaidAccountCharges(account): Action {
       return {
@@ -472,7 +472,7 @@ export class ReceiptActions {
       };
     }
   
-    static FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Unpaid Account Charges Success';
+    static FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS = '[Receipt] Find Unpaid Account Charges Success';
   
     findUnpaidAccountChargesSuccess(accountCharges): Action {
       console.log('findUnpaidAccountChargesSuccess');
@@ -480,7 +480,7 @@ export class ReceiptActions {
         type: ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS,
         payload: accountCharges,
       };
-    }
+    }*/
   
     static FIND_COMPLETED_ACCOUNT_CHARGES = '[Account] Find Completed Account Charges';
     

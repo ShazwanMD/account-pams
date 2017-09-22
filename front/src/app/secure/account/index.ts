@@ -32,7 +32,8 @@ import {
   admissionAccountChargeListReducer,
   loanAccountChargeListReducer,
   securityAccountChargeListReducer,
-  studentAffairsAccountChargeListReducer
+  studentAffairsAccountChargeListReducer,
+accountChargeListReducer
 } from './accounts/account-charge-list.reducer';
 import {ChargeCodeSelectComponent} from './charge-codes/component/charge-code-select.component';
 import {accountWaiverReducer, AccountWaiverState} from './accounts/account-waivers.reducer';
@@ -86,6 +87,7 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accountSponsorList: [],
     accountActivities: [],
     accountSponsorships: [],
+    accountCharges: [],
   };
 
 export const accountModuleReducers = {
@@ -108,7 +110,7 @@ export const accountModuleReducers = {
   accountSponsorList: accountSponsorListReducer,
   accountActivities: accountActivityListReducer,
   accountSponsorships:accountSponsorshipReducer,
-  
+  accountCharges:accountChargeListReducer,
 };
 
 @NgModule({

@@ -213,12 +213,11 @@ public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCha
         Query query = session.createQuery("select s from AcAccountCharge s where " +
         		"s.account = :account " +
                 "and s.paid = :paid " +
-                "and s.metadata.state = :state " +
-                "and s.flowdata.state = :flowState ");
+                "and s.metadata.state = :state ");
         query.setEntity("account", account);
         query.setBoolean("paid", paid);
         query.setInteger("state", ACTIVE.ordinal());
-        query.setInteger("flowState", AcFlowState.COMPLETED.ordinal());
+        //query.setInteger("flowState", AcFlowState.COMPLETED.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<AcAccountCharge>) query.list();

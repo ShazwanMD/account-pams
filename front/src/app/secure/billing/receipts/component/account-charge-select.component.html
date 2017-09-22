@@ -1,8 +1,9 @@
 <md-select
   [placeholder]="placeholder"
-  (change)="selectChangeEvent($event.value)" flex>
+  (change)="selectChangeEvent($event.value)" 
+  [(ngModel)]="selected" flex>
 
-  <md-option *ngFor="let accountCharges of accountCharges$ | async" [value]="accountCharges">
-    {{accountCharges.amount}}
+  <md-option *ngFor="let accountCharge of accountCharges$ | async" [value]="accountCharge">
+    {{accountCharge.amount}}
   </md-option>
 </md-select>

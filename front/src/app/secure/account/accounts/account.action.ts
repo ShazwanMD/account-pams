@@ -556,4 +556,23 @@ export class AccountActions {
         payload: accountCharges
       };
     }
+    
+    static FIND_UNPAID_ACCOUNT_CHARGES = '[Account] Find Unpaid Account Charges';
+    
+    findUnpaidAccountCharges(account): Action {
+      return {
+        type: AccountActions.FIND_UNPAID_ACCOUNT_CHARGES,
+        payload: account,
+      };
+    }
+  
+    static FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS = '[Account] Find Unpaid Account Charges Success';
+  
+    findUnpaidAccountChargesSuccess(accountCharges): Action {
+      console.log('findUnpaidAccountChargesSuccess');
+      return {
+        type: AccountActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS,
+        payload: accountCharges,
+      };
+    }
 }
