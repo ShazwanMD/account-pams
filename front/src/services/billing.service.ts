@@ -508,8 +508,8 @@ export class BillingService {
     }
 
     findUnpaidDebitNotes( account: Account ): Observable<DebitNote[]> {
-        console.log( 'findUnpaidDebitNotes' );
-        return this._http.get( this.BILLING_API + '/debitNotes/unpaidDebitNotes/' + account.code )
+        console.log( 'findUnpaidDebitNotes service' + account.code);
+        return this._http.get( this.BILLING_API + '/debitnotes/unpaidDebitNotes/' + account.code )
             .map(( res: Response ) => <DebitNote[]>res.json() );
     }
 

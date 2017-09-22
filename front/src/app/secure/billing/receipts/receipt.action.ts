@@ -462,26 +462,6 @@ export class ReceiptActions {
       payload: message
     };
   }
-
-/*  static FIND_UNPAID_ACCOUNT_CHARGES = '[Receipt] Find Unpaid Account Charges';
-  
-    findUnpaidAccountCharges(account): Action {
-      return {
-        type: ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES,
-        payload: account,
-      };
-    }
-  
-    static FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS = '[Receipt] Find Unpaid Account Charges Success';
-  
-    findUnpaidAccountChargesSuccess(accountCharges): Action {
-      console.log('findUnpaidAccountChargesSuccess');
-      return {
-        type: ReceiptActions.FIND_UNPAID_ACCOUNT_CHARGES_SUCCESS,
-        payload: accountCharges,
-      };
-    }*/
-  
     static FIND_COMPLETED_ACCOUNT_CHARGES = '[Account] Find Completed Account Charges';
     
       findCompletedAccountCharges(): Action {
@@ -519,22 +499,4 @@ export class ReceiptActions {
     };
   }
 
-    static FIND_UNPAID_DEBIT_NOTES = '[Account] Find Unpaid Debit Notes';
-  
-    findUnpaidDebitNotes(account): Action {
-      return {
-        type: ReceiptActions.FIND_UNPAID_DEBIT_NOTES,
-        payload: account,
-      };
-    }
-  
-    static FIND_UNPAID_DEBIT_NOTES_SUCCESS = '[debitNotes] Find Unpaid Debit Notes Success';
-  
-    findUnpaidDebitNotesSuccess(debitNotes): Action {
-      console.log('findUnpaidDebitNotesSuccess');
-      return {
-        type: ReceiptActions.FIND_UNPAID_DEBIT_NOTES_SUCCESS,
-        payload: debitNotes,
-      };
-    }
 }

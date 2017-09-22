@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -202,7 +203,7 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
     public List<AcDebitNote> find(boolean paid, AcAccount account, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select i from AcDebitNote i where " +
-                "i.account = :account " +
+                "i.invoice.account = :account " +
                 "and i.paid = :paid " +
                 "and i.metadata.state = :state " +
                 "and i.flowdata.state = :flowState ");

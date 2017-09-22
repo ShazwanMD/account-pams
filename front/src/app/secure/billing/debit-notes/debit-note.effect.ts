@@ -141,4 +141,9 @@ export class DebitNoteEffects {
     .map((state) => state[1])
     .map((debitNote) => this.debitNoteActions.findDebitNoteItems(debitNote));
 
+  @Effect() findUnpaidDebitNotes$ = this.actions$
+  .ofType(DebitNoteActions.FIND_UNPAID_DEBIT_NOTES)
+  .map((action) => action.payload)
+  .switchMap((account) => this.billingService.findUnpaidDebitNotes(account))
+  .map((debitNotes) => this.debitNoteActions.findUnpaidDebitNotesSuccess(debitNotes));
 }

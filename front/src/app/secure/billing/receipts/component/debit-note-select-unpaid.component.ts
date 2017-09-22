@@ -17,7 +17,7 @@ import { AccountActions } from "../../../account/accounts/account.action";
 })
 export class DebitNoteUnpaidSelectComponent implements OnInit {
 
-  private DEBIT_NOTES = 'billingModuleState.debitNotes'.split('.');
+  private DEBIT_NOTE = 'billingModuleState.debitNoteList'.split('.');
   private debitNotes$: Observable<DebitNote[]>;
   private selected: DebitNote;
 
@@ -28,7 +28,7 @@ export class DebitNoteUnpaidSelectComponent implements OnInit {
 
   constructor(private store: Store<BillingModuleState>,
               private actions: DebitNoteActions) {
-    this.debitNotes$ = this.store.select(...this.DEBIT_NOTES);
+    this.debitNotes$ = this.store.select(...this.DEBIT_NOTE);
   }
 
   ngOnInit() {

@@ -664,7 +664,11 @@ public class BillingController {
     @RequestMapping(value = "/debitnotes/unpaidDebitNotes/{code}", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNote>> findUnpaidDebitNotes(@PathVariable String code) {
         AcAccount account = accountService.findAccountByCode(code);
+        LOG.debug("unpaid acc debit notes {}", account.getCode());
         List<AcDebitNote> debitNotes = billingService.findUnpaidDebitNotes(account, 0, 100);
+        for(AcDebitNote inv: debitNotes){
+        	LOG.debug("unpaid debit notes {}", inv.getReferenceNo());
+        }
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
 

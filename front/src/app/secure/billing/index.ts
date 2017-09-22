@@ -38,7 +38,7 @@ import {DebitNoteTask} from '../../shared/model/billing/debit-note-task.interfac
 import {DebitNote} from '../../shared/model/billing/debit-note.interface';
 import {creditNoteTaskReducer, CreditNoteTaskState} from './credit-notes/credit-note-task.reducer';
 import {creditNoteReducer, CreditNoteState} from './credit-notes/credit-note.reducer';
-import {archivedDebitNoteListReducer,debitNoteListReducer, DebitNoteListState} from './debit-notes/debit-note-list.reducer';
+import {archivedDebitNoteListReducer,debitNoteListReducer, DebitNoteListState, dbtListReducer} from './debit-notes/debit-note-list.reducer';
 import {CreditNoteTask} from '../../shared/model/billing/credit-note-task.interface';
 import {CreditNote} from '../../shared/model/billing/credit-note.interface';
 import {
@@ -115,6 +115,7 @@ export interface BillingModuleState {
   debitNotes: DebitNoteListState;
   debitNote: DebitNoteState;
   debitNoteTask: DebitNoteTaskState;
+  debitNoteList: DebitNoteListState;
   assignedCreditNoteTasks: CreditNoteTaskListState;
   pooledCreditNoteTasks: CreditNoteTaskListState;
   archivedCreditNotes: CreditNoteListState;
@@ -158,7 +159,6 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     invoiceItems: [],
     invoiceDebitNotes: [],
     invoiceCreditNotes: [],
-    debitNoteList: [],
     assignedReceiptTasks: [],
     pooledReceiptTasks: [],
     archivedReceipts: [],
@@ -173,6 +173,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     debitNoteTask: <DebitNoteTask>{},
     debitNote: <DebitNote>{},
     debitNotes: [],
+    debitNoteList: [],
     // debitNoteItems: [],
     assignedCreditNoteTasks: [],
     pooledCreditNoteTasks: [],
@@ -229,6 +230,7 @@ export const billingModuleReducers = {
   debitNoteTask: debitNoteTaskReducer,
   debitNotes: debitNoteListReducer,
   debitNote: debitNoteReducer,
+  debitNoteList: dbtListReducer,
   assignedCreditNoteTasks: assignedCreditNoteTaskListReducer,
   pooledCreditNoteTasks: pooledCreditNoteTaskListReducer,
   archivedCreditNotes: archivedCreditNoteListReducer,

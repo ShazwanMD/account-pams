@@ -24,23 +24,23 @@ export class DebitNoteActions {
     };
   }
 
-
   static FIND_UNPAID_DEBIT_NOTES = '[DebitNote] Find Unpaid Debit Notes';
 
   findUnpaidDebitNotes(account): Action {
+      console.log('findUnpaidDebitNotes actions');
     return {
       type: DebitNoteActions.FIND_UNPAID_DEBIT_NOTES,
-      payload: account,
+      payload: account
     };
   }
 
   static FIND_UNPAID_DEBIT_NOTES_SUCCESS = '[DebitNote] Find Unpaid Debit Notes Success';
 
   findUnpaidDebitNotesSuccess(debitNotes): Action {
-    console.log('findUnpaidDebitNotesSuccess');
+    console.log('findUnpaidDebitNotesSuccess + actions');
     return {
       type: DebitNoteActions.FIND_UNPAID_DEBIT_NOTES_SUCCESS,
-      payload: debitNotes,
+      payload: debitNotes
     };
   }
 
@@ -328,7 +328,7 @@ export class DebitNoteActions {
     };
   }
 
-  static UPDATE_DEBIT_NOTE_ITEM = '[DebitNote] Update DebitNote Item';
+  static UPDATE_DEBIT_NOTE_ITEM = '[] Update DebitNote Item';
 
   updateDebitNoteItem(debitNote, item): Action {
     return {
@@ -336,7 +336,7 @@ export class DebitNoteActions {
       payload: {debitNote: debitNote, item: item}
     };
   }
-
+DebitNote
   static UPDATE_DEBIT_NOTE_ITEM_SUCCESS = '[Invoice] Update DebitNote Item Success';
 
   updateDebitNoteItemSuccess(message): Action {
@@ -363,4 +363,5 @@ export class DebitNoteActions {
       payload: message
     };
   }
+
 }

@@ -31,3 +31,15 @@ export function debitNoteListReducer(state = initialState, action: Action): Debi
     }
   }
 }
+
+export function dbtListReducer(state = initialState, action: Action): DebitNoteListState {
+    switch (action.type) {
+      case DebitNoteActions.FIND_UNPAID_DEBIT_NOTES_SUCCESS: {
+          console.log("try jupo dh")
+          return action.payload;
+        }
+      default: {
+        return state;
+      }
+    }
+  }
