@@ -327,6 +327,8 @@ public interface CommonService {
 
     void removeSecurityChargeCode(AcSecurityChargeCode securityChargeCode);
 
+	void calculateSecurityChargeCodeNetAmount(AcSecurityChargeCode securityChargeCode);
+
 
     
 }

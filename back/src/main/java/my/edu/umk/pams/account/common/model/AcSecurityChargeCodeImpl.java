@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -39,6 +42,12 @@ public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
     @Column(name = "OFFENSE_DESCRIPTION", nullable = false)
     private String offenseDescription;
     
+    @Column(name = "TAX_AMOUNT")
+    private BigDecimal taxAmount = BigDecimal.ZERO;
+    
+    @Column(name = "NET_AMOUNT")
+    private BigDecimal netAmount = BigDecimal.ZERO;
+    
     @NotNull
     @Column(name = "AMOUNT", nullable = false)
     private BigDecimal amount;
@@ -47,9 +56,17 @@ public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
     @Column(name = "AMOUNT_DESCRIPTION", nullable = false)
     private String amountDescription;
     
+    @Column(name = "INCLUSIVE")
+    private Boolean inclusive;
+    
     @NotNull
     @Column(name = "ACTIVE")
     private Boolean active;
+    
+    @NotNull
+    @ManyToOne(targetEntity = AcTaxCodeImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "TAX_CODE_ID")
+    private AcTaxCode taxCode;
     
     @Embedded
     private AcMetadata metadata;
@@ -112,7 +129,7 @@ public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
     @Override
     public void setAmount(BigDecimal amount) {
 		this.amount = amount;
-	}
+	}    
 
     @Override
     public String getAmountDescription() {
@@ -122,6 +139,36 @@ public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
     @Override
     public void setAmountDescription(String amountDescription) {
 		this.amountDescription = amountDescription;
+	}
+    
+    @Override
+	public BigDecimal getTaxAmount() {
+		return taxAmount;
+	}
+
+    @Override
+	public void setTaxAmount(BigDecimal taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+    @Override
+	public BigDecimal getNetAmount() {
+		return netAmount;
+	}
+
+    @Override
+	public void setNetAmount(BigDecimal netAmount) {
+		this.netAmount = netAmount;
+	}
+    
+    @Override
+    public Boolean getInclusive() {
+		return inclusive;
+	}
+
+    @Override
+    public void setInclusive(Boolean inclusive) {
+		this.inclusive = inclusive;
 	}
 
     @Override
@@ -133,6 +180,16 @@ public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
     public void setActive(Boolean active) {
 		this.active = active;
 	}
+    
+    @Override
+    public AcTaxCode getTaxCode() {
+        return taxCode;
+    }
+
+    @Override
+    public void setTaxCode(AcTaxCode taxCode) {
+        this.taxCode = taxCode;
+    }
 
     @Override
     public AcMetadata getMetadata() {

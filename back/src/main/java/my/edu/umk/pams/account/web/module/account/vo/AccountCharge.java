@@ -36,7 +36,7 @@ public class AccountCharge extends MetaObject {
 	private Integer ordinal;
 	private String code;
 	private SecurityChargeCode securityChargeCode;
-	private boolean inclusive;
+	private Boolean inclusive;
 	private boolean paid;
 
 	// transient

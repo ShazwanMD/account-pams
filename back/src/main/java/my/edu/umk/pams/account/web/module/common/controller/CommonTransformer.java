@@ -159,6 +159,10 @@ public class CommonTransformer {
         vo.setOffenseDescription(e.getOffenseDescription());
         vo.setAmount(e.getAmount());
         vo.setAmountDescription(e.getAmountDescription());
+        vo.setTaxAmount(e.getTaxAmount());
+        vo.setNetAmount(e.getNetAmount());
+        vo.setTaxCode(this.toTaxCodeVo(e.getTaxCode()));
+        vo.setInclusive(e.getInclusive());
         vo.setActive(e.getActive());
         return vo;
     }

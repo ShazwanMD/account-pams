@@ -471,10 +471,6 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 if (null != vo.getSecurityChargeCode())
                 	charge.setSecurityChargeCode(commonService.findSecurityChargeCodeById(vo.getSecurityChargeCode().getId()));
-                if (null != vo.getTaxCode())
-                    charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
-                charge.setInclusive(vo.getInclusive());
-                accountService.calculateSecurityChargeNetAmount(charge);
                 break;
             case STUDENT_AFFAIRS:
                 charge.setReferenceNo(referenceNo);
@@ -572,10 +568,6 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 if (null != vo.getSecurityChargeCode())
                     charge.setSecurityChargeCode(commonService.findSecurityChargeCodeById(vo.getSecurityChargeCode().getId()));
-                if (null != vo.getTaxCode())
-                    charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
-                charge.setInclusive(vo.getInclusive());
-                accountService.calculateSecurityChargeNetAmount(charge);
                 break;
             case STUDENT_AFFAIRS:
                 charge.setSourceNo(vo.getSourceNo());

@@ -28,10 +28,14 @@ export class SecurityChargeCodeListPage implements OnInit {
   private columns: any[] = [
     {name: 'section', label: 'Compound Section'},
     {name: 'description', label: 'Compound Description'},
+    {name: 'taxCode.code', label: 'Tax Code'},
     {name: 'offense', label: 'Compound Offense'},
     {name: 'offenseDescription', label: 'Compound Offense Description'},
     {name: 'amountDescription', label: 'Compound Amount Description'},
     {name: 'amount', label: 'Compound Amount'},
+    {name: 'taxAmount', label: 'Tax Amount'},
+    {name: 'inclusive', label: 'Inclusive'},
+    {name: 'netAmount', label: 'Net Amount'},
     {name: 'active', label: 'Compound Active'},
     {name: 'action', label: ''},
   ];

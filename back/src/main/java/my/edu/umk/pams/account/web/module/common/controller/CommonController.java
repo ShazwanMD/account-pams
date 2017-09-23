@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.web.module.common.controller;
 
+import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
@@ -21,6 +22,9 @@ public class CommonController {
 
     @Autowired
     private CommonService commonService;
+    
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private CommonTransformer commonTransformer;
@@ -360,8 +364,12 @@ public class CommonController {
         securityChargeCode.setOffense(vo.getOffense());
         securityChargeCode.setOffenseDescription(vo.getOffenseDescription());
         securityChargeCode.setAmount(vo.getAmount());
-        securityChargeCode.setAmountDescription(vo.getAmountDescription());
+        securityChargeCode.setAmountDescription(vo.getAmountDescription());                
         securityChargeCode.setActive(vo.getActive());
+        securityChargeCode.setInclusive(vo.getInclusive());
+        if (null != vo.getTaxCode())
+        	securityChargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
+        commonService.calculateSecurityChargeCodeNetAmount(securityChargeCode);
         commonService.saveSecurityChargeCode(securityChargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -378,6 +386,10 @@ public class CommonController {
         securityChargeCode.setAmount(vo.getAmount());
         securityChargeCode.setAmountDescription(vo.getAmountDescription());
         securityChargeCode.setActive(vo.getActive());
+        securityChargeCode.setInclusive(vo.getInclusive());
+        if (null != vo.getTaxCode())
+        	securityChargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
+        commonService.calculateSecurityChargeCodeNetAmount(securityChargeCode);
         commonService.updateSecurityChargeCode(securityChargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

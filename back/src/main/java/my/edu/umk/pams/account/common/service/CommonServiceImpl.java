@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.common.service;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.common.dao.*;
 import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.security.service.SecurityService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service("commonService")
@@ -825,4 +827,22 @@ public class CommonServiceImpl implements CommonService {
     	securityChargeCodeDao.remove(securityChargeCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+    
+    @Override
+	public void calculateSecurityChargeCodeNetAmount(AcSecurityChargeCode securityChargeCode) {
+        BigDecimal taxRate = securityChargeCode.getTaxCode().getTaxRate();
+        BigDecimal amount = securityChargeCode.getAmount();    
+        BigDecimal taxAmount = amount.multiply(taxRate);
+		BigDecimal netAmount = amount.add(taxAmount);				       
+        if (securityChargeCode.getInclusive() == false) {
+        	securityChargeCode.setNetAmount(netAmount);
+        	securityChargeCode.setTaxAmount(taxAmount);
+		}
+		else if (securityChargeCode.getInclusive() == true) {
+			securityChargeCode.setTaxAmount(taxAmount);
+			securityChargeCode.setNetAmount(amount);
+		}   
+    
+     }
+	
 }

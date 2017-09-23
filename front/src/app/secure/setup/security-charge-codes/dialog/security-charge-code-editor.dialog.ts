@@ -1,3 +1,4 @@
+import { TaxCode } from './../../../../shared/model/common/tax-code.interface';
 import {SecurityChargeCode} from '../../../../shared/model/common/security-charge-code.interface';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -41,18 +42,14 @@ export class SecurityChargeCodeEditorDialog implements OnInit {
       offenseDescription: ['',Validators.required],
       amount: ['0',Validators.required],
       amountDescription: ['',Validators.required],
+      taxCode: [<TaxCode>{}],
+      inclusive: [false],
       active: false,
 
     });
 
     if (this.edit) this.editorForm.patchValue(this._securityChargeCode);
   }
-
-  // submit(code: SecurityChargeCode, isValid: boolean) {
-  //   if (!code.id) this.store.dispatch(this.actions.saveSecurityChargeCode(code));
-  //   else  this.store.dispatch(this.actions.updateSecurityChargeCode(code.id));
-  //   this.dialog.close();
-  // }
 
   submit(code: SecurityChargeCode, isValid: boolean) {
     if (this.edit) this.store.dispatch(this.actions.updateSecurityChargeCode(code));

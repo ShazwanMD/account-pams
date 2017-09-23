@@ -49,8 +49,6 @@ export class SecurityChargeEditorDialog implements OnInit {
       chargeDate: [undefined,Validators.required],
       chargeType: AccountChargeType.SECURITY,
       securityChargeCode: [<SecurityChargeCode>{}],
-      taxCode: [<TaxCode>{}],
-      inclusive: [false],
     });
 
     if (this.edit) {

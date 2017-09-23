@@ -36,5 +36,21 @@ public interface AcSecurityChargeCode extends AcMetaObject {
 
 	void setActive(Boolean active);
 
+	Boolean getInclusive();
+
+	void setInclusive(Boolean inclusive);
+
+	BigDecimal getTaxAmount();
+
+	void setTaxAmount(BigDecimal taxAmount);
+
+	BigDecimal getNetAmount();
+
+	void setNetAmount(BigDecimal netAmount);
+
+	AcTaxCode getTaxCode();
+
+	void setTaxCode(AcTaxCode taxCode);
+
     
 }

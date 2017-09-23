@@ -16,13 +16,13 @@ export class SecurityChargeComponent implements OnInit {
   private securityChargeColumns: any[] = [
     {name: 'chargeDate', label: 'Date of Charge'},
     {name: 'session.code', label: 'Session'},
-    {name: 'taxCode.code', label: 'Tax Code'},
+    {name: 'securityChargeCode.taxCode.code', label: 'Tax Code'},
     {name: 'sourceNo', label: 'Source No'},
     {name: 'securityChargeCode.offenseDescription', label: 'Description'},
     {name: 'securityChargeCode.amount', label: 'Amount'},
-    {name: 'taxAmount', label: 'Tax Amount'},
-    {name: 'inclusive', label: 'Inclusive'},
-    {name: 'netAmount', label: 'Net Amount'},
+    {name: 'securityChargeCode.taxAmount', label: 'Tax Amount'},
+    {name: 'securityChargeCode.inclusive', label: 'Inclusive'},
+    {name: 'securityChargeCode.netAmount', label: 'Net Amount'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
 

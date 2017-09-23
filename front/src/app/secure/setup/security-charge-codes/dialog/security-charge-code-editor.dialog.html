@@ -67,6 +67,18 @@
                </div>
       </md-input-container>
     </div>
+    <div>
+      <pams-tax-code-select [placeholder]="'Tax Code'" [innerFormControl]="editorForm.controls['taxCode']" fxFlex="calc(100%-25px)"
+        class="pad-bottom">
+      </pams-tax-code-select>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-checkbox formControlName="inclusive">
+        <div layout="column" flex>
+          Inclusive
+        </div>
+      </md-checkbox>
+    </div>
     <div layout="row" class="pad-bottom">
       <md-checkbox formControlName="active">
         <div layout="column" flex>
