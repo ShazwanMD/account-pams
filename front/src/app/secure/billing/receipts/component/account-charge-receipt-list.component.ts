@@ -28,13 +28,14 @@ export class AccountChargeReceiptListComponent {
     
     private editorDialogRef: MdDialogRef<AccountChargeReceiptDialog>;
     
-  private columns: any[] = [
-    {name: 'accountCharge.referenceNo', label: 'Reference No'},
-    {name: 'accountCharge.description', label: 'Description'},
-    {name: 'accountCharge.amount', label: 'Total Amount'},
-    {name: 'accountCharge.balanceAmount', label: 'Balance Amount'},
-    {name: 'action', label: ''},
-  ];
+    private columns: any[] = [
+      {name: 'accountCharge.referenceNo', label: 'Reference No'},
+      {name: 'accountCharge.description', label: 'Description'},
+      {name: 'accountCharge.netAmount', label: 'Total Amount'},
+      {name: 'accountCharge.balanceAmount', label: 'Balance Amount'},
+      {name: 'action', label: ''},
+    ];
+  
 
   constructor(private snackBar: MdSnackBar,
               private viewContainerRef: ViewContainerRef,
