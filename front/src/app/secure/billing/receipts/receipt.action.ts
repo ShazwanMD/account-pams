@@ -408,6 +408,24 @@ export class ReceiptActions {
     };
   }
   
+  static ADD_RECEIPT_CHARGE = '[Receipt] Add Receipt Charge';
+  
+  addReceiptCharge( receipt, charge): Action {
+      return {
+          type: ReceiptActions.ADD_RECEIPT_CHARGE,
+          payload: {receipt: receipt, charge: charge}
+        };
+  }
+  
+  static ADD_RECEIPT_CHARGE_SUCCESS = '[Receipt] Add Receipt Charge Success';
+  
+  addReceiptChargeSuccess(message): Action {
+      return {
+          type: ReceiptActions.ADD_RECEIPT_CHARGE_SUCCESS,
+          payload: message
+        };
+  }
+  
   static FIND_UNPAID_INVOICES = '[Invoice] Find Unpaid Invoices';
 
   findUnpaidInvoices(account): Action {

@@ -949,6 +949,12 @@ public class BillingServiceImpl implements BillingService {
 			billingService.deleteReceiptItem(receipt, receiptItem);
 		}
 	}
+	
+	@Override
+	public void addReceiptCharge(AcReceipt receipt, AcAccountCharge accountCharge) {
+		receiptDao.addReceiptCharge(receipt, accountCharge, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
 
 	// ====================================================================================================
 	// //

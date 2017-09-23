@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.dao;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -351,6 +352,28 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         metadata.setState(AcMetaState.ACTIVE);
         receiptItem.setMetadata(metadata);
         session.saveOrUpdate(receiptItem);
+    }
+    
+    @Override
+    public void addReceiptCharge(AcReceipt receipt, AcAccountCharge accountCharge, AcUser user) {
+        LOG.info("Receipt id : " + receipt.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(receipt, "Receipt cannot be null");
+        Validate.notNull(accountCharge, "charge cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcReceiptAccountCharge receiptCharge = new AcReceiptAccountChargeImpl();
+        receiptCharge.setReceipt(receipt);
+        receiptCharge.setAccountCharge(accountCharge);;
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        receiptCharge.setMetadata(metadata);
+        session.saveOrUpdate(receiptCharge);
     }
     
     @Override

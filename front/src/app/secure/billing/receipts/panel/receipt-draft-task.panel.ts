@@ -74,6 +74,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
     this.stores.dispatch(this.accountAction.findUnpaidAccountCharges(this.receiptTask.receipt.account));
     this.store.dispatch(this.dbtAction.findUnpaidDebitNotes(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
+    this.store.dispatch(this.actions.findReceiptsByAccountCharge(this.receiptTask.receipt));
     
   }
 

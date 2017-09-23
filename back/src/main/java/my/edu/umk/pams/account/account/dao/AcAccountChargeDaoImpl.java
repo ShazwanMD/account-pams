@@ -217,7 +217,6 @@ public class AcAccountChargeDaoImpl extends GenericDaoSupport<Long, AcAccountCha
         query.setEntity("account", account);
         query.setBoolean("paid", paid);
         query.setInteger("state", ACTIVE.ordinal());
-        //query.setInteger("flowState", AcFlowState.COMPLETED.ordinal());
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<AcAccountCharge>) query.list();

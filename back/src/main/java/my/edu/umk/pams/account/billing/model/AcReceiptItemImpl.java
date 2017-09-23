@@ -46,12 +46,10 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     @Column(name = "UNIT")
     private Integer unit;
 
-    @NotNull
     @ManyToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
-    @NotNull
     @ManyToOne(targetEntity = AcAccountChargeImpl.class)
     @JoinColumn(name = "ACCOUNT_CHARGE_ID")
     private AcAccountCharge accountCharge;

@@ -199,4 +199,11 @@ export class ReceiptEffects {
   .ofType(ReceiptActions.FIND_COMPLETED_ACCOUNT_CHARGES)
   .switchMap(() => this.accountService.findCompletedAccountCharges())
   .map((charges) => this.receiptActions.findCompletedAccountChargesSuccess(charges));
+  
+  @Effect() addReceiptCharge$ =
+      this.actions$
+        .ofType(ReceiptActions.ADD_RECEIPT_CHARGE)
+        .map((action) => action.payload)
+        .switchMap((payload) => this.billingService.addReceiptCharge(payload.receipt, payload.charge))
+        .map((message) => this.receiptActions.addReceiptChargeSuccess(message));
 }

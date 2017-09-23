@@ -30,6 +30,7 @@ import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.in
 import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interface";
 import { WaiverInvoice } from "../app/shared/model/billing/waiver-invoice.interface";
 import { WaiverItem } from "../app/shared/model/billing/waiver-item.interface";
+import { AccountCharge } from "../app/shared/model/account/account-charge.interface";
 
 @Injectable()
 export class BillingService {
@@ -244,6 +245,7 @@ export class BillingService {
     }
 
     addReceiptItem( receipt: Receipt, item: ReceiptItem ): Observable<String> {
+        console.log("receipt " + receipt.referenceNo + " item")
         return this._http.post( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/receiptItems', JSON.stringify( item ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
@@ -291,6 +293,11 @@ export class BillingService {
     
     updateItemToReceipt( receipt: Receipt, item: ReceiptItem ) {
         return this._http.put( this.BILLING_API + '/receipts/updateReceiptItems/' + receipt.referenceNo + '/receiptItems/' + item.id, JSON.stringify( item ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
+    addReceiptCharge( receipt: Receipt, charge: AccountCharge ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/accountCharge/' + charge.id, JSON.stringify( charge ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
 

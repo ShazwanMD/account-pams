@@ -19,13 +19,11 @@ import { ReceiptActions } from "../receipt.action";
   templateUrl: './invoice-receipt-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceReceiptListComponent implements OnInit {
+export class InvoiceReceiptListComponent {
 
     @Input() receiptInvoice: ReceiptInvoice[];
     @Input() receipt: Receipt;
     @Output() view = new EventEmitter<ReceiptInvoice>();
-    
-    //private selectedRows: ReceiptInvoice[];
     
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Reference No'},
@@ -77,15 +75,4 @@ export class InvoiceReceiptListComponent implements OnInit {
         editorDialogRef.componentInstance.receipt = this.receipt;
       }
 
-    ngOnInit(): void {
-        //this.selectedRows = this.receiptInvoice.filter((value) => value.selected);
-      }
-    
-//    delete(): void {
-//        console.log('length: ' + this.selectedRows.length);
-//        for (let i: number = 0; i < this.selectedRows.length; i++) {
-//          this.store.dispatch(this.action.dele);
-//        }
-//        this.selectedRows = [];
-//      }
 }

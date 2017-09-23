@@ -15,7 +15,7 @@ export interface AccountCharge extends MetaObject {
   chargeDate: Date;
   taxAmount: number;
   netAmount: number;
-
+  balanceAmount: number;
 
   // admission
   studyMode?: StudyMode;

@@ -255,6 +255,8 @@ public interface BillingService {
     void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
     
     void deleteReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
+    
+    void addReceiptCharge(AcReceipt receipt, AcAccountCharge accountCharge);
 
     // ==================================================================================================== //
     // RECEIPT

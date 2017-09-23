@@ -5,6 +5,6 @@
   flex>
 
   <md-option *ngFor="let accountCharges of accountCharges$ | async" [value]="accountCharges">
-    {{accountCharges.referenceNo}}
+    {{accountCharges.referenceNo}} :: {{accountCharges.balanceAmount}} 
   </md-option>
 </md-select>

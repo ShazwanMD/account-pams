@@ -13,6 +13,7 @@ import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.d
 import {ReceiptAccountCharge} from "../../../../shared/model/billing/receipt-account-charge.interface";
 import { AccountActions } from '../../../account/accounts/account.action';
 import { AccountModuleState } from '../../../account/index';
+import { AccountChargeReceiptDialog } from "../dialog/account-charge-receipt-creator.dialog";
 
 @Component({
   selector: 'pams-account-charge-receipt-list',
@@ -25,11 +26,13 @@ export class AccountChargeReceiptListComponent {
     @Input() receipt: Receipt;
     @Output() view = new EventEmitter<ReceiptAccountCharge>();
     
+    private editorDialogRef: MdDialogRef<AccountChargeReceiptDialog>;
+    
   private columns: any[] = [
     {name: 'accountCharge.referenceNo', label: 'Reference No'},
     {name: 'accountCharge.description', label: 'Description'},
-    {name: 'accountCharge.totalAmount', label: 'Total Amount'},
-    {name: 'accountCharge.balanceAmount', label: 'Balance Amount test'},
+    {name: 'accountCharge.amount', label: 'Total Amount'},
+    {name: 'accountCharge.balanceAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
 
@@ -43,23 +46,36 @@ export class AccountChargeReceiptListComponent {
   viewTask(receiptAccountCharge: ReceiptAccountCharge) {
 
       console.log('ref no for receipt: ' + receiptAccountCharge.receipt.referenceNo);
-      //  this.showDialog(receiptAccountCharge);
+      this.showDialog(receiptAccountCharge);
       
     }
     
-    // showDialog(receiptAccountCharge: ReceiptAccountCharge) {
-    //     console.log("Receipt for create item dialog "+ receiptAccountCharge.receipt.referenceNo);
-    //     console.log("Invoice for create item dialog "+ receiptAccountCharge.accountCharge.referenceNo);
-    //     let config = new MdDialogConfig();
-    //     config.viewContainerRef = this.viewContainerRef;
-    //     config.role = 'dialog';
-    //     config.width = '70%';
-    //     config.height = '60%';
-    //     config.position = {top: '0px'};
-    //     let editorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
-    //     editorDialogRef.componentInstance.receipt = receiptAccountCharge.receipt;
-        //editorDialogRef.componentInstance.invoice = receiptAccountCharge.invoice;
-      // }
-  
+     showDialog(receiptAccountCharge: ReceiptAccountCharge) {
+         console.log("Receipt for create item dialog "+ receiptAccountCharge.receipt.referenceNo);
+         console.log("Invoice for create item dialog "+ receiptAccountCharge.accountCharge.referenceNo);
+         let config = new MdDialogConfig();
+         config.viewContainerRef = this.viewContainerRef;
+         config.role = 'dialog';
+         config.width = '70%';
+         config.height = '60%';
+         config.position = {top: '0px'};
+         let editorDialogRef = this.dialog.open(InvoiceReceiptCreatorDialog, config);
+         editorDialogRef.componentInstance.receipt = receiptAccountCharge.receipt;
+        editorDialogRef.componentInstance.accountCharge = receiptAccountCharge.accountCharge;
+       }
+     
+  create(): void {
+      let config: MdDialogConfig = new MdDialogConfig();
+      config.viewContainerRef = this.viewContainerRef;
+      config.role = 'dialog';
+      config.width = '50%';
+      config.height = '60%';
+      config.position = {top: '65px'};
+      this.editorDialogRef = this.dialog.open(AccountChargeReceiptDialog, config);
+      this.editorDialogRef.componentInstance.receipt = this.receipt;
+      this.editorDialogRef.afterClosed().subscribe((res) => {
+        // no op
+      });
+    }
 
 }

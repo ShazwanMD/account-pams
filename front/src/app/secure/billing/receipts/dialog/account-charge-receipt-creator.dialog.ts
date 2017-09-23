@@ -51,7 +51,7 @@ export class AccountChargeReceiptDialog implements OnInit {
       console.log("receiptNo" + this._receipt.referenceNo);
       console.log("Account Charge ref No" + this.createForm.get('accountCharge').value.referenceNo);
       
-    this.store.dispatch(this.actions.addReceiptInvoiceItems(this._receipt, this.createForm.get('accountCharge').value));
+    this.store.dispatch(this.actions.addReceiptCharge(this._receipt, this.createForm.get('accountCharge').value));
     this.dialog.close();
   }
 }

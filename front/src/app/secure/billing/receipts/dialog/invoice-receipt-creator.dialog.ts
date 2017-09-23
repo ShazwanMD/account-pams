@@ -13,6 +13,7 @@ import { Account } from "../../../../shared/model/account/account.interface";
 import { TdDialogService, ITdDataTableColumn } from "@covalent/core";
 import { ChargeCode } from "../../../../shared/model/account/charge-code.interface";
 import { Observable } from "rxjs/Observable";
+import { AccountCharge } from "../../../../shared/model/account/account-charge.interface";
 
 @Component( {
     selector: 'pams-invoice-receipt-creator',
@@ -24,11 +25,8 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
     private createForm: FormGroup;
     private displayForm: FormGroup;
     private _receipt: Receipt;
-    private _invoice: Invoice;
+    private _accountCharge: AccountCharge;
     private edit: boolean = false;
-
-    private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split('.');
-    private receiptItems$: Observable<ReceiptItem[]>;
 
     constructor( private router: Router,
         private route: ActivatedRoute,
@@ -38,24 +36,19 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
         private actions: ReceiptActions,
         private _dialogService: TdDialogService,
         private dialog: MdDialogRef<InvoiceReceiptCreatorDialog> ) {
-        
-        this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
     }
 
     set receipt( value: Receipt ) {
         this._receipt = value;
     }
 
-    set invoice( value: Invoice ) {
-        this._invoice = value;
+    set accountCharge( value: AccountCharge ) {
+        this._accountCharge = value;
         this.edit = true;
 
     }
 
     ngOnInit(): void {
-        this.displayForm = this.formBuilder.group( {
-            invoiceItem: <InvoiceItem>{},
-        } );
         this.createForm = this.formBuilder.group({
             id: [undefined],
             description: [''],
@@ -67,24 +60,22 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
             unit: [0],
             chargeCode: [<ChargeCode>{}],
             invoice: [<Invoice>{}],
+            accountCharge: [<AccountCharge>{}]
         } );
 
         if ( this.edit )
-            this.createForm.patchValue( { invoice: this._invoice } );
-    }
-
-    display( invoiceItem: InvoiceItem, isValid: boolean ) {
-        console.log( "Invc Item from select component" +
-            this.displayForm.get( 'invoiceItem' ).value.chargeCode.code );
-
-        let x = this.displayForm.get( 'invoiceItem' ).value;
-
-        if ( isValid ) {
-            this.createForm.patchValue( { description: x.chargeCode.description } );
-            this.createForm.patchValue( { dueAmount: x.amount } );
-            this.createForm.patchValue( { chargeCode: x.chargeCode } );
-        }
-
+            this.createForm.patchValue( { accountCharge: this._accountCharge } );
+            this.createForm.patchValue( { dueAmount: this._accountCharge.balanceAmount } );
+            
+            if(this._accountCharge.balanceAmount <= this._receipt.totalPayment) {
+                this.createForm.patchValue( { appliedAmount: this._accountCharge.balanceAmount } );
+                this.createForm.patchValue( { totalAmount: 0 } );
+            } 
+            
+            if(this._accountCharge.balanceAmount > this._receipt.totalPayment){
+                this.createForm.patchValue( { appliedAmount: this._receipt.totalPayment } );
+                this.createForm.patchValue( { totalAmount: this._accountCharge.balanceAmount-this._receipt.totalPayment } );
+            }
     }
 
     submit( item: ReceiptItem, isValid: boolean ) {
@@ -92,5 +83,8 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
         console.log("hantar dh kan" + this._receipt.referenceNo);
         this.store.dispatch( this.actions.addReceiptItem( this._receipt, item ) );
         this.dialog.close();
+        
+        //this._receipt.totalPayment = this._receipt.totalPayment - item.appliedAmount;
+        //this.store.dispatch( this.actions.updateReceiptItem(this._receipt, item) );
     }
 }

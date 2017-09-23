@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.web.module.billing.controller;
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
@@ -356,6 +357,7 @@ public class BillingController {
         e.setPrice(vo.getPrice());
         e.setDescription(vo.getDescription());
         e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
         billingService.addReceiptItem(receipt, e);
     }
 
@@ -513,6 +515,17 @@ public class BillingController {
     		billingService.updateReceiptItem(receipt, receiptItem);
     		
         //billingService.updateItemToReceipt(receipt);
+    }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/accountCharge/{id}", method = RequestMethod.POST)
+    public void addReceiptCharge(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        AcAccountCharge charge = accountService.findAccountChargeById(id);
+        AcReceiptAccountCharge e = new AcReceiptAccountChargeImpl();
+        e.setReceipt(receipt);
+        e.setAccountCharge(charge);
+        billingService.addReceiptCharge(receipt, charge);
     }
 
     // ==================================================================================================== //

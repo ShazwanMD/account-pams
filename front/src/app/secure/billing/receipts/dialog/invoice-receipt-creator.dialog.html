@@ -1,19 +1,5 @@
 <h2 md-dialog-title>Receipt Item Creator</h2>
 <md-dialog-content>
-  <form [formGroup]="displayForm">
-   <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <pams-invoice-items-select
-        [invoice]="_invoice"
-        [placeholder]="'Select Invoice Items'"
-        [innerFormControl]="displayForm.controls['invoiceItem']"
-        fxFlex="calc(100%-25px)" class="pad-bottom">
-      </pams-invoice-items-select> 
-    </div>
-    </form>
-<md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="display(displayForm.value, displayForm.valid)">Display</button>
-</md-dialog-actions>
-</md-dialog-content>
 <md-dialog-content>
 	<form [formGroup]="createForm">
     <div layout="row" class="pad-bottom">
@@ -31,6 +17,7 @@
                placeholder="Due Amount"
                formControlName="dueAmount"
                value="DueAmount"
+               readonly
                flex/>
       </md-input-container>
     </div>
@@ -40,6 +27,7 @@
                placeholder="Applied Amount"
                formControlName="appliedAmount"
                value="AppliedAmount"
+               readonly
                flex/>
       </md-input-container>
     </div>
@@ -49,6 +37,7 @@
                placeholder="Total Amount"
                formControlName="totalAmount"
                value="TotalAmount"
+               readonly
                flex/>
       </md-input-container>
     </div>
@@ -58,10 +47,5 @@
   <button md-raised-button color="accent" (click)="submit(createForm.value, createForm.valid)">Save</button>
 </md-dialog-actions>
 <md-dialog-content>
-<!-- <pams-receipt-item-list
-            [receipt]="_receipt"
-            [receiptItems]="receiptItems$ | async">
-          </pams-receipt-item-list>
-          </md-dialog-content> -->
     
 

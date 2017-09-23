@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.dao;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
@@ -76,6 +77,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     void deleteItem(AcReceipt receipt, AcReceiptItem item, AcUser user);
     
     void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice, AcUser user);
+    
+    void addReceiptCharge(AcReceipt receipt, AcAccountCharge accountCharge, AcUser user);
     
     BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user);
     

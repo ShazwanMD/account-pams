@@ -1,6 +1,7 @@
 import {MetaObject} from '../../../core/meta-object.interface';
 import {Invoice} from './invoice.interface';
 import {ChargeCode} from '../account/charge-code.interface';
+import { AccountCharge } from "../account/account-charge.interface";
 
 export interface ReceiptItem extends MetaObject {
   description: string;
@@ -12,6 +13,7 @@ export interface ReceiptItem extends MetaObject {
   unit: number;
   chargeCode: ChargeCode;
   invoice: Invoice;
+  accountCharge: AccountCharge;
 
   // selection
   selected?: boolean;
