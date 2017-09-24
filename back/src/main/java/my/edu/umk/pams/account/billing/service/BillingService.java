@@ -257,6 +257,8 @@ public interface BillingService {
     void deleteReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
     
     void addReceiptCharge(AcReceipt receipt, AcAccountCharge accountCharge);
+    
+	void addReceiptDebitNote(AcReceipt receipt, AcDebitNote debitNote);
 
     // ==================================================================================================== //
     // RECEIPT
@@ -464,6 +466,8 @@ public interface BillingService {
     List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
     
     List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
+
+
 
 	
 
