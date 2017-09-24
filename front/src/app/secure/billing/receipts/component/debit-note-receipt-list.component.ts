@@ -69,19 +69,19 @@ export class DebitNoteReceiptListComponent {
 //        this.selectedRows = [];
 //      }
 
-  //  showDialog(receiptDebitNote: ReceiptDebitNote) {
-  //       console.log("Receipt for create item dialog "+ receiptDebitNote.receipt.referenceNo);
-  //       console.log("DebitNote for create item dialog "+ receiptDebitNote.debitNote.referenceNo);
-  //       let config = new MdDialogConfig();
-  //       config.viewContainerRef = this.viewContainerRef;
-  //       config.role = 'dialog';
-  //       config.width = '70%';
-  //       config.height = '60%';
-  //       config.position = {top: '0px'};
-  //       let editorDialogRef = this.dialog.open(DebitNoteReceiptCreatorDialog, config);
-  //       editorDialogRef.componentInstance.receipt = receiptDebitNote.receipt;
-  //       editorDialogRef.componentInstance.debitNote = receiptDebitNote.debitNote;
-  //     }
+   showDialog(receiptDebitNote: ReceiptDebitNote) {
+        console.log("Receipt for create item dialog "+ receiptDebitNote.receipt.referenceNo);
+        console.log("DebitNote for create item dialog "+ receiptDebitNote.debitNote.referenceNo);
+        let config = new MdDialogConfig();
+        config.viewContainerRef = this.viewContainerRef;
+        config.role = 'dialog';
+        config.width = '70%';
+        config.height = '60%';
+        config.position = {top: '0px'};
+        let editorDialogRef = this.dialog.open(DebitNoteReceiptCreatorDialog, config);
+        editorDialogRef.componentInstance.receipt = receiptDebitNote.receipt;
+        editorDialogRef.componentInstance.debitNote = receiptDebitNote.debitNote;
+      }
 
       create(): void {
       let config: MdDialogConfig = new MdDialogConfig();

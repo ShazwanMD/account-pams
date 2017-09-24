@@ -36,6 +36,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private INVOICES: string[] = 'billingModuleState.invoices'.split('.');
   private RECEIPT_INVOICE: string[] = 'billingModuleState.receiptInvoice'.split('.');
   private RECEIPT_ACCOUNT_CHARGE: string[] = 'billingModuleState.receiptAccountCharge'.split('.');
+  private RECEIPT_DEBIT_NOTE: string[] = 'billingModuleState.ReceiptDebitNote'.split('.');
   private DEBIT_NOTE: string[] = 'billingModuleState.debitNoteList'.split('.');
   private ACCOUNT_CHARGES: string[] = 'accountModuleState.accountCharges'.split('.');
   private account$: Observable<Account>;
@@ -44,6 +45,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private receiptItems$: Observable<ReceiptItem[]>;
   private receiptInvoice$: Observable<ReceiptInvoice[]>;
   private receiptAccountCharge$: Observable<ReceiptAccountCharge[]>;
+  private receiptDebitNote$: Observable<ReceiptDebitNote[]>;
   private debitNotes$: Observable<DebitNote[]>;
   private accountCharges$: Observable<AccountCharge[]>;
 
@@ -65,6 +67,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
     this.invoices$ = this.store.select(...this.INVOICES);
     this.receiptInvoice$ = this.store.select(...this.RECEIPT_INVOICE);
     this.receiptAccountCharge$ = this.store.select(...this.RECEIPT_ACCOUNT_CHARGE);
+    this.receiptDebitNote$ = this.store.select(...this.RECEIPT_DEBIT_NOTE);
     this.debitNotes$ = this.store.select(...this.DEBIT_NOTE);
     this.accountCharges$ = this.stores.select(...this.ACCOUNT_CHARGES);
   }
@@ -75,6 +78,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
     this.store.dispatch(this.dbtAction.findUnpaidDebitNotes(this.receiptTask.receipt.account));
     this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
     this.store.dispatch(this.actions.findReceiptsByAccountCharge(this.receiptTask.receipt));
+    this.store.dispatch(this.actions.findReceiptsByDebitNote(this.receiptTask.receipt));
     
   }
 
