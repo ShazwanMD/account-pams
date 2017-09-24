@@ -59,7 +59,7 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     @JoinColumn(name = "RECEIPT_ID")
     private AcReceipt receipt;
 
-    @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
     @JoinColumn(name = "CHARGE_CODE_ID")
     private AcChargeCode chargeCode;
 
