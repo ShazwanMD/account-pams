@@ -348,6 +348,7 @@ public class BillingController {
         
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         AcReceiptItem e = new AcReceiptItemImpl();
+        if (null != vo.getChargeCode())
         e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
         e.setAdjustedAmount(vo.getAdjustedAmount());
         e.setAppliedAmount(vo.getAppliedAmount());
@@ -356,6 +357,7 @@ public class BillingController {
         e.setUnit(vo.getUnit());
         e.setPrice(vo.getPrice());
         e.setDescription(vo.getDescription());
+        if (null != vo.getInvoice())
         e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
         billingService.addReceiptItem(receipt, e);
