@@ -19,7 +19,7 @@ public class SecurityChargeCode {
 	private String amountDescription;
 	private Boolean inclusive;
 	private Boolean active;
-
+	private BigDecimal balanceAmount;
 	private TaxCode taxCode;
 	
     public Long getId() {
@@ -118,6 +118,14 @@ public class SecurityChargeCode {
 		this.taxCode = taxCode;
 	}
 
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+	
 	@JsonCreator
     public static SecurityChargeCode create(String jsonString) {
         SecurityChargeCode o = null;

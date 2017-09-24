@@ -53,6 +53,10 @@ public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
     private BigDecimal amount;
     
     @NotNull
+    @Column(name = "BALANCE_AMOUNT", nullable = false)
+    private BigDecimal balanceAmount;
+
+	@NotNull
     @Column(name = "AMOUNT_DESCRIPTION", nullable = false)
     private String amountDescription;
     
@@ -190,6 +194,16 @@ public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
     public void setTaxCode(AcTaxCode taxCode) {
         this.taxCode = taxCode;
     }
+    
+    @Override
+    public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+    @Override
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
 
     @Override
     public AcMetadata getMetadata() {
@@ -203,8 +217,7 @@ public class AcSecurityChargeCodeImpl implements AcSecurityChargeCode {
 
 	@Override
 	public Class<?> getInterfaceClass() {
-		// TODO Auto-generated method stub
-		return null;
+		return AcSecurityChargeCode.class;
 	} 
 
 }

@@ -52,5 +52,8 @@ public interface AcSecurityChargeCode extends AcMetaObject {
 
 	void setTaxCode(AcTaxCode taxCode);
 
+	BigDecimal getBalanceAmount();
+    
+	void setBalanceAmount(BigDecimal balanceAmount);
     
 }

@@ -63,6 +63,7 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
 
         if ( this.edit )
             this.createForm.patchValue( { accountCharge: this._accountCharge } );
+            this.createForm.patchValue( { description: this._accountCharge.description } );
             this.createForm.patchValue( { dueAmount: this._accountCharge.balanceAmount } );
             
             if(this._accountCharge.balanceAmount <= this._receipt.totalPayment) {
@@ -82,7 +83,7 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
         this.store.dispatch( this.actions.addReceiptItem( this._receipt, item ) );
         this.dialog.close();
         
-       // this._receipt.totalPayment = this._receipt.totalPayment - item.appliedAmount;
-        //this.store.dispatch( this.actions.updateReceipt(this._receipt) );
+        this._receipt.totalPayment = this._receipt.totalPayment - item.appliedAmount;
+        this.store.dispatch( this.actions.updateReceipt(this._receipt) );
     }
 }

@@ -367,6 +367,7 @@ public class CommonController {
         securityChargeCode.setAmountDescription(vo.getAmountDescription());                
         securityChargeCode.setActive(vo.getActive());
         securityChargeCode.setInclusive(vo.getInclusive());
+        securityChargeCode.setBalanceAmount(vo.getBalanceAmount());
         if (null != vo.getTaxCode())
         	securityChargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
         commonService.calculateSecurityChargeCodeNetAmount(securityChargeCode);
@@ -387,6 +388,7 @@ public class CommonController {
         securityChargeCode.setAmountDescription(vo.getAmountDescription());
         securityChargeCode.setActive(vo.getActive());
         securityChargeCode.setInclusive(vo.getInclusive());
+        securityChargeCode.setBalanceAmount(vo.getBalanceAmount());
         if (null != vo.getTaxCode())
         	securityChargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
         commonService.calculateSecurityChargeCodeNetAmount(securityChargeCode);
