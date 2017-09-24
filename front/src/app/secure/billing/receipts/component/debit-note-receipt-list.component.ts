@@ -1,5 +1,6 @@
+import { DebitNoteReceiptCreatorDialog } from './../dialog/debit-note-receipt-creator.dialog';
+import { DebitNoteReceiptDialog } from './../dialog/debit-note-receipt.dialog';
 import { DebitNote } from './../../../../shared/model/billing/debit-note.interface';
-import { DebitNoteReceiptDialog } from './../dialog/debit-note-receipt-creator.dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReceiptActions } from './../receipt.action';
 import { ReceiptDebitNote } from './../../../../shared/model/billing/receipt-debit_note.interface';
@@ -29,6 +30,8 @@ export class DebitNoteReceiptListComponent {
     @Output() view = new EventEmitter<ReceiptDebitNote>();
     
     //private selectedRows: ReceiptInvoice[];
+
+     private editorDialogRef: MdDialogRef<DebitNoteReceiptDialog>;
     
   private columns: any[] = [
     {name: 'debitNote.referenceNo', label: 'Reference No'},
@@ -50,7 +53,7 @@ export class DebitNoteReceiptListComponent {
   viewTask(receiptDebitNote: ReceiptDebitNote) {
 
       console.log('ref no for receipt: ' + receiptDebitNote.receipt.referenceNo);
-      //this.showDialog(receiptDebitNote);
+     // this.showDialog(receiptDebitNote);
       
     }
 
@@ -75,24 +78,38 @@ export class DebitNoteReceiptListComponent {
   //       config.width = '70%';
   //       config.height = '60%';
   //       config.position = {top: '0px'};
-  //       let editorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
+  //       let editorDialogRef = this.dialog.open(DebitNoteReceiptCreatorDialog, config);
   //       editorDialogRef.componentInstance.receipt = receiptDebitNote.receipt;
-  //       //editorDialogRef.componentInstance.debitNote = receiptDebitNote.debitNote;
+  //       editorDialogRef.componentInstance.debitNote = receiptDebitNote.debitNote;
   //     }
+
+      create(): void {
+      let config: MdDialogConfig = new MdDialogConfig();
+      config.viewContainerRef = this.viewContainerRef;
+      config.role = 'dialog';
+      config.width = '50%';
+      config.height = '60%';
+      config.position = {top: '65px'};
+      this.editorDialogRef = this.dialog.open(DebitNoteReceiptDialog, config);
+      this.editorDialogRef.componentInstance.receipt = this.receipt;
+      this.editorDialogRef.afterClosed().subscribe((res) => {
+        // no op
+      });
+    }
   
-   UnpaidDebitNote(receiptDebitNote: ReceiptDebitNote): void {
-    let config: MdDialogConfig = new MdDialogConfig();
-    config.viewContainerRef = this.viewContainerRef;
-    config.role = 'dialog';
-    config.width = '50%';
-    config.height = '60%';
-    config.position = {top: '65px'};
-    let editorDialogRef = this.dialog.open(DebitNoteReceiptDialog, config);
-    //this.editorDialogRef.componentInstance.account = this.account;
-    editorDialogRef.afterClosed().subscribe((res) => {
-      // no op
-    });
-  }
+  //  UnpaidDebitNote(receiptDebitNote: ReceiptDebitNote): void {
+  //   let config: MdDialogConfig = new MdDialogConfig();
+  //   config.viewContainerRef = this.viewContainerRef;
+  //   config.role = 'dialog';
+  //   config.width = '50%';
+  //   config.height = '60%';
+  //   config.position = {top: '65px'};
+  //   let editorDialogRef = this.dialog.open(DebitNoteReceiptDialog, config);
+  //   //this.editorDialogRef.componentInstance.account = this.account;
+  //   editorDialogRef.afterClosed().subscribe((res) => {
+  //     // no op
+  //   });
+  // }
 
 }
 
