@@ -61,7 +61,8 @@
                   </md-tab>
 
                   <md-tab label="Unpaid Debit Notes">  
-                    <pams-debit-note-receipt-list        
+                    <pams-debit-note-receipt-list  
+                      [receipt]="receiptTask.receipt"       
                       [receiptDebitNote]="receiptDebitNote$ | async"
                       (view)="view($event)">
                     </pams-debit-note-receipt-list>   
