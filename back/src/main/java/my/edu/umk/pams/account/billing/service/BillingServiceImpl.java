@@ -955,6 +955,12 @@ public class BillingServiceImpl implements BillingService {
 		receiptDao.addReceiptCharge(receipt, accountCharge, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	@Override
+	public void addReceiptDebitNote(AcReceipt receipt, AcDebitNote debitNote) {
+		receiptDao.addReceiptDebitNote(receipt, debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
 
 	// ====================================================================================================
 	// //

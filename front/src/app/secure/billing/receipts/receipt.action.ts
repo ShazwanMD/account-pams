@@ -425,6 +425,24 @@ export class ReceiptActions {
           payload: message
         };
   }
+
+   static ADD_RECEIPT_DEBIT_NOTE = '[Receipt] Add Receipt Debit Note';
+  
+  addReceiptDebitNote( receipt, debitNote): Action {
+      return {
+          type: ReceiptActions.ADD_RECEIPT_DEBIT_NOTE,
+          payload: {receipt: receipt, debitNote: debitNote}
+        };
+  }
+  
+  static ADD_RECEIPT_DEBIT_NOTE_SUCCESS = '[Receipt] Add Receipt Debit Note Success';
+  
+  addReceiptDebitNoteSuccess(message): Action {
+      return {
+          type: ReceiptActions.ADD_RECEIPT_DEBIT_NOTE_SUCCESS,
+          payload: message
+        };
+  }
   
   static FIND_UNPAID_INVOICES = '[Invoice] Find Unpaid Invoices';
 
@@ -498,7 +516,7 @@ export class ReceiptActions {
         };
       }
 
-    static FIND_RECEIPTS_BY_DEBIT_NOTE = '[Receipt] Find Completed Receipts';
+    static FIND_RECEIPTS_BY_DEBIT_NOTE = '[Receipt] Find Completed Debit Note';
 
       findReceiptsByDebitNote(receipt): Action {
        return {
@@ -507,7 +525,7 @@ export class ReceiptActions {
       };
     }
 
-    static FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS = '[Receipt] Find Completed Receipts Success';
+    static FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS = '[Receipt] Find Completed Debit Note Success';
 
       findReceiptsByDebitNoteSuccess(receipts): Action {
       console.log("findCompletedReceiptsSuccess");

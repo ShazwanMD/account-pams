@@ -529,6 +529,17 @@ public class BillingController {
         e.setAccountCharge(charge);
         billingService.addReceiptCharge(receipt, charge);
     }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/debitNote/{id}", method = RequestMethod.POST)
+    public void addReceiptDebitNote(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        AcDebitNote debitNote = billingService.findDebitNoteById(id);
+        AcReceiptDebitNote e = new AcReceiptDebitNoteImpl();
+        e.setReceipt(receipt);
+        e.setDebitNote(debitNote);
+        billingService.addReceiptDebitNote(receipt, debitNote);
+    }
 
     // ==================================================================================================== //
     //  DEBIT NOTE

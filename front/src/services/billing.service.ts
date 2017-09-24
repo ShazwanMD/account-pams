@@ -301,6 +301,11 @@ export class BillingService {
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
 
+    addReceiptDebitNote( receipt: Receipt, debitNote: DebitNote ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/debitNote/' + debitNote.id, JSON.stringify( debitNote ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
     // ====================================================================================================
     // CREDIT NOTE
     // ====================================================================================================
