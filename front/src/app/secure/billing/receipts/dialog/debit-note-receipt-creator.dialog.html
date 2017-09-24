@@ -1,16 +1,51 @@
-<h2 md-dialog-title>Receipt Debit Note Creator</h2>
+<h2 md-dialog-title>Receipt Item Creator</h2>
 <md-dialog-content>
-  <form [formGroup]="createForm">
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-      <pams-debit-note-select-unpaid
-        [placeholder]="'Select Unpaid Debit Note'"
-        [innerFormControl]="createForm.controls['debitNote']"
-        fxFlex="calc(100%-25px)" class="pad-bottom">
-      </pams-debit-note-select-unpaid>
+<md-dialog-content>
+	<form [formGroup]="createForm">
+    <div layout="row" class="pad-bottom">
+      <md-input-container fxFlex="calc(100%-25px)">
+        <input mdInput #description
+               placeholder="Description"
+               formControlName="description"
+               value="Description"
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container fxFlex="calc(100%-25px)">
+        <input mdInput #dueAmount
+               placeholder="Due Amount"
+               formControlName="dueAmount"
+               value="DueAmount"
+               readonly
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container fxFlex="calc(100%-25px)">
+        <input mdInput #appliedAmount
+               placeholder="Applied Amount"
+               formControlName="appliedAmount"
+               value="AppliedAmount"
+               readonly
+               flex/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container fxFlex="calc(100%-25px)">
+        <input mdInput #totalAmount
+               placeholder="Total Amount"
+               formControlName="totalAmount"
+               value="TotalAmount"
+               readonly
+               flex/>
+      </md-input-container>
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="submit(createForm.value, createForm.valid)">Save</button>
 </md-dialog-actions>
+<md-dialog-content>
+    
 
