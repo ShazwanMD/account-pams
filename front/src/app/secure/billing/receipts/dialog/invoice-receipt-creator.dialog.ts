@@ -84,7 +84,7 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
         this.store.dispatch( this.actions.addReceiptItem( this._receipt, item ) );
         this.dialog.close();
         
-        //this._receipt.totalPayment = this._receipt.totalPayment - item.appliedAmount;
-        //this.store.dispatch( this.actions.updateReceiptItem(this._receipt, item) );
+       // this._receipt.totalPayment = this._receipt.totalPayment - item.appliedAmount;
+        //this.store.dispatch( this.actions.updateReceipt(this._receipt) );
     }
 }
