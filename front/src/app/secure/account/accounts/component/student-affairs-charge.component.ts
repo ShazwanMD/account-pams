@@ -23,6 +23,7 @@ export class StudentAffairsChargeComponent implements OnInit {
     {name: 'taxAmount', label: 'Tax Amount'},
     {name: 'inclusive', label: 'Inclusive'},
     {name: 'netAmount', label: 'Net Amount'},
+    {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
   ];

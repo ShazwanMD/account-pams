@@ -36,6 +36,7 @@ export class SecurityChargeCodeListPage implements OnInit {
     {name: 'taxAmount', label: 'Tax Amount'},
     {name: 'inclusive', label: 'Inclusive'},
     {name: 'netAmount', label: 'Net Amount'},
+    {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'active', label: 'Compound Active'},
     {name: 'action', label: ''},
   ];
