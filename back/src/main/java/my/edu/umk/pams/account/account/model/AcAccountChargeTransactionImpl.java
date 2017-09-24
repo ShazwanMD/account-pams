@@ -46,12 +46,11 @@ public class AcAccountChargeTransactionImpl implements AcAccountChargeTransactio
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "TRANSACTION_CODE", nullable = false)
-    private AcAccountTransactionCode transactionCode;
+    private AcAccountChargeType transactionCode;
 
-    //@NotNull
-    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
-    @JoinColumn(name = "CHARGE_CODE_ID", nullable = true)
-    private AcChargeCode chargeCode;
+    @ManyToOne(targetEntity = AcAccountChargeImpl.class)
+    @JoinColumn(name = "CHARGE_ID", nullable = true)
+    private AcAccountCharge chargeCode;
 
     @NotNull
     @OneToOne(targetEntity = AcAcademicSessionImpl.class)
@@ -106,19 +105,19 @@ public class AcAccountChargeTransactionImpl implements AcAccountChargeTransactio
 		this.postedDate = postedDate;
 	}
 
-	public AcAccountTransactionCode getTransactionCode() {
+	public AcAccountChargeType getTransactionCode() {
 		return transactionCode;
 	}
 
-	public void setTransactionCode(AcAccountTransactionCode transactionCode) {
+	public void setTransactionCode(AcAccountChargeType transactionCode) {
 		this.transactionCode = transactionCode;
 	}
 
-	public AcChargeCode getChargeCode() {
+	public AcAccountCharge getChargeCode() {
 		return chargeCode;
 	}
 
-	public void setChargeCode(AcChargeCode chargeCode) {
+	public void setChargeCode(AcAccountCharge chargeCode) {
 		this.chargeCode = chargeCode;
 	}
 

@@ -174,6 +174,10 @@ public interface AccountService {
     List<AcAccountActivityHolder> findAccountActivities(AcAccount account);
 
     List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    
+    List<AcActivityChargeHolder> findAccountActivitiesCharge(AcAccount account);
+
+    List<AcActivityChargeHolder> findAccountActivitiesCharge(AcAcademicSession academicSession, AcAccount account);
 
     Integer countAccountTransaction(AcAccount account);
 

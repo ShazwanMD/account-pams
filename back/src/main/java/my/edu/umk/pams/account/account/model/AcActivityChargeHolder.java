@@ -3,11 +3,10 @@ package my.edu.umk.pams.account.account.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-public class AcAccountActivityHolder {
+public class AcActivityChargeHolder {
 
 	private String sourceNo;
-    private AcAccountTransactionCode transactionCode;
+    private AcAccountChargeType transactionCode;
     private BigDecimal totalAmount;
     private Integer transactionCodeOrdinal;
     private Date postedDate;
@@ -29,11 +28,11 @@ public class AcAccountActivityHolder {
         this.sourceNo = sourceNo;
     }
 
-    public AcAccountTransactionCode getTransactionCode() {
+    public AcAccountChargeType getTransactionCode() {
         return transactionCode;
     }
 
-    public void setTransactionCode(AcAccountTransactionCode transactionCode) {
+    public void setTransactionCode(AcAccountChargeType transactionCode) {
         this.transactionCode = transactionCode;
     }
 
@@ -60,5 +59,4 @@ public class AcAccountActivityHolder {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-    
 }

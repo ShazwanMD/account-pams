@@ -1,13 +1,18 @@
-package my.edu.umk.pams.account.account.model;
+package my.edu.umk.pams.account.web.module.account.vo;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AcAccountActivityHolder {
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+
+public class ActivityChargeHolder {
 
 	private String sourceNo;
-    private AcAccountTransactionCode transactionCode;
+    private AccountChargeType transactionCode;
     private BigDecimal totalAmount;
     private Integer transactionCodeOrdinal;
     private Date postedDate;
@@ -29,11 +34,11 @@ public class AcAccountActivityHolder {
         this.sourceNo = sourceNo;
     }
 
-    public AcAccountTransactionCode getTransactionCode() {
+    public AccountChargeType getTransactionCode() {
         return transactionCode;
     }
 
-    public void setTransactionCode(AcAccountTransactionCode transactionCode) {
+    public void setTransactionCode(AccountChargeType transactionCode) {
         this.transactionCode = transactionCode;
     }
 
@@ -60,5 +65,16 @@ public class AcAccountActivityHolder {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-    
+	
+	@JsonCreator
+    public static ActivityChargeHolder create(String jsonString) {
+		ActivityChargeHolder o = null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            o = mapper.readValue(jsonString, ActivityChargeHolder.class);
+        } catch (IOException e) {
+            // handle
+        }
+        return o;
+    }
 }

@@ -44,6 +44,11 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     List<AcAccountActivityHolder> findAccountActivities(AcAccount account);
 
     List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account);
+    
+    List<AcActivityChargeHolder> findAccountActivitiesCharge(AcAccount account);
+
+    List<AcActivityChargeHolder> findAccountActivitiesCharge(AcAcademicSession academicSession, AcAccount account);
+    
     // ==================================================================================================== //
     // ACCOUNT CHARGE TRANSACTIONS
     // ==================================================================================================== //
@@ -117,6 +122,8 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     void deleteWaiver(AcAccount account, AcAcademicSession academicSession, AcAccountWaiver waiver, AcUser user);
 
     void addTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
+    
+    void addTransaction(AcAccount account, AcAccountChargeTransaction transaction, AcUser user);
 
     void updateAccountTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user);
 

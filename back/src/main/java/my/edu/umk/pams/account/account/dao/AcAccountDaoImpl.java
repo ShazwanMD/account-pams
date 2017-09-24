@@ -177,6 +177,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
                 "  SOURCE_NO as sourceNo, \n" +
                 "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
+                "  AC_ACCT_TRSN.DESCRIPTION as description, \n" +
                 "  SUM(AMOUNT) as totalAmount, \n" +
                 "  POSTED_DATE as postedDate \n" +
                 "FROM AC_ACCT_TRSN\n" +
@@ -185,6 +186,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
                 "GROUP BY \n" +
                 "  SOURCE_NO, \n" +
                 "  POSTED_DATE, \n" +
+                "  AC_ACCT_TRSN.DESCRIPTION, \n" +
                 "  TRANSACTION_CODE\n" +
                 "ORDER BY POSTED_DATE ASC");
         sqlQuery.setLong("id", account.getId());
@@ -192,6 +194,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
         sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
         sqlQuery.addScalar("postedDate", StandardBasicTypes.DATE);
+        sqlQuery.addScalar("description", StandardBasicTypes.STRING);
         sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityHolder.class));
         List<AcAccountActivityHolder> results = sqlQuery.list();
         // unpack id
@@ -203,31 +206,113 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
 
     @Override
     public List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
-        // todo(hajar): tambah academicSession code in query
         Session session = sessionFactory.getCurrentSession();
         SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
                 "  SOURCE_NO as sourceNo, \n" +
-                "  TRANSACTION_CODE as transactionCode, \n" +
-                "  SUM(AMOUNT) as totalAmount \n" +
+                "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
+                "  AC_ACCT_TRSN.DESCRIPTION as description, \n" +
+                "  SUM(AMOUNT) as totalAmount, \n" +
+                "  POSTED_DATE as postedDate \n" +
                 "FROM AC_ACCT_TRSN\n" +
-                "INNER JOIN AC_ACDM_SESN ON AC_ACCT_TRSN.SESSION_ID = AC_ACDM_SESN.ID\n" +
+                "INNER JOIN AC_ACCT ON AC_ACCT.ID = AC_ACCT_TRSN.ACCOUNT_ID\n" +
+                "INNER JOIN AC_ACDM_SESN ON AC_ACDM_SESN.ID = AC_ACCT_TRSN.SESSION_ID\n" +
+                "WHERE AC_ACCT.ID = :id\n" +
+                "AND AC_ACDM_SESN.ID = :aid\n" +
                 "GROUP BY \n" +
                 "  SOURCE_NO, \n" +
-                "  TRANSACTION_CODE");
+                "  POSTED_DATE, \n" +
+                "  AC_ACCT_TRSN.DESCRIPTION, \n" +
+                "  SESSION_ID, \n" +
+                "  TRANSACTION_CODE\n" +
+                "ORDER BY POSTED_DATE ASC");
+        sqlQuery.setLong("id", account.getId());
+        sqlQuery.setLong("aid", academicSession.getId());
         sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
-        sqlQuery.addScalar("transactionCode", StandardBasicTypes.INTEGER);
+        sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
         sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
-        sqlQuery.addScalar("academicSession", StandardBasicTypes.STRING);
+        sqlQuery.addScalar("postedDate", StandardBasicTypes.DATE);
+        sqlQuery.addScalar("description", StandardBasicTypes.STRING);
         sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcAccountActivityHolder.class));
         List<AcAccountActivityHolder> results = sqlQuery.list();
         // unpack id
         for (AcAccountActivityHolder holder : results) {
-            //holder.setTransactionCode(AcAccountTransactionCode.get(holder.getTransactionCodeOrdinal()));
+            holder.setTransactionCode(AcAccountTransactionCode.get(holder.getTransactionCodeOrdinal()));
             //holder.setSourceNo((AcAccountTransaction) session.load(AcAccountTransactionImpl.class, holder.getSourceNo()));
         }
         return results;
     }
 
+    @Override
+    public List<AcActivityChargeHolder> findAccountActivitiesCharge(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
+                "  SOURCE_NO as sourceNo, \n" +
+                "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
+                "  AC_ACCT_CHRG_TRSN.DESCRIPTION as description, \n" +
+                "  SUM(AMOUNT) as totalAmount, \n" +
+                "  POSTED_DATE as postedDate \n" +
+                "FROM AC_ACCT_CHRG_TRSN\n" +
+                "INNER JOIN AC_ACCT ON AC_ACCT.ID = AC_ACCT_CHRG_TRSN.ACCOUNT_ID\n" +
+                "WHERE AC_ACCT.ID = :id\n" +
+                "GROUP BY \n" +
+                "  SOURCE_NO, \n" +
+                "  POSTED_DATE, \n" +
+                "  AC_ACCT_CHRG_TRSN.DESCRIPTION, \n" +
+                "  TRANSACTION_CODE\n" +
+                "ORDER BY POSTED_DATE ASC");
+        sqlQuery.setLong("id", account.getId());
+        sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
+        sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
+        sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
+        sqlQuery.addScalar("postedDate", StandardBasicTypes.DATE);
+        sqlQuery.addScalar("description", StandardBasicTypes.STRING);
+        sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcActivityChargeHolder.class));
+        List<AcActivityChargeHolder> results = sqlQuery.list();
+        // unpack id
+        for (AcActivityChargeHolder holder : results) {
+            holder.setTransactionCode(AcAccountChargeType.get(holder.getTransactionCodeOrdinal()));
+        }
+        return results;
+    }
+
+    @Override
+    public List<AcActivityChargeHolder> findAccountActivitiesCharge(AcAcademicSession academicSession, AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        SQLQuery sqlQuery = session.createSQLQuery("SELECT \n" +
+                "  SOURCE_NO as sourceNo, \n" +
+                "  TRANSACTION_CODE as transactionCodeOrdinal, \n" +
+                "  AC_ACCT_CHRG_TRSN.DESCRIPTION as description, \n" +
+                "  SUM(AMOUNT) as totalAmount, \n" +
+                "  POSTED_DATE as postedDate \n" +
+                "FROM AC_ACCT_CHRG_TRSN\n" +
+                "INNER JOIN AC_ACCT ON AC_ACCT.ID = AC_ACCT_CHRG_TRSN.ACCOUNT_ID\n" +
+                "INNER JOIN AC_ACDM_SESN ON AC_ACDM_SESN.ID = AC_ACCT_CHRG_TRSN.SESSION_ID\n" +
+                "WHERE AC_ACCT.ID = :id\n" +
+                "AND AC_ACDM_SESN.ID = :aid\n" +
+                "GROUP BY \n" +
+                "  SOURCE_NO, \n" +
+                "  POSTED_DATE, \n" +
+                "  AC_ACCT_CHRG_TRSN.DESCRIPTION, \n" +
+                "  SESSION_ID, \n" +
+                "  TRANSACTION_CODE\n" +
+                "ORDER BY POSTED_DATE ASC");
+        sqlQuery.setLong("id", account.getId());
+        sqlQuery.setLong("aid", academicSession.getId());
+        sqlQuery.addScalar("sourceNo", StandardBasicTypes.STRING);
+        sqlQuery.addScalar("transactionCodeOrdinal", StandardBasicTypes.INTEGER);
+        sqlQuery.addScalar("totalAmount", StandardBasicTypes.BIG_DECIMAL);
+        sqlQuery.addScalar("postedDate", StandardBasicTypes.DATE);
+        sqlQuery.addScalar("description", StandardBasicTypes.STRING);
+        sqlQuery.setResultTransformer(new AliasToBeanResultTransformer(AcActivityChargeHolder.class));
+        List<AcActivityChargeHolder> results = sqlQuery.list();
+        // unpack id
+        for (AcActivityChargeHolder holder : results) {
+            holder.setTransactionCode(AcAccountChargeType.get(holder.getTransactionCodeOrdinal()));
+            //holder.setSourceNo((AcAccountTransaction) session.load(AcAccountTransactionImpl.class, holder.getSourceNo()));
+        }
+        return results;
+    }
+    
     @Override
     public Integer count(String filter) {
         Session session = sessionFactory.getCurrentSession();
@@ -544,6 +629,22 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public void addTransaction(AcAccount account, AcAccountTransaction transaction, AcUser user) {
         Validate.notNull(account, "Account should not be null");
+        Validate.notNull(transaction, "Transaction should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        transaction.setAccount(account);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        transaction.setMetadata(metadata);
+        session.save(transaction);
+    }
+    
+    @Override
+    public void addTransaction(AcAccount account, AcAccountChargeTransaction transaction, AcUser user) {
+    	Validate.notNull(account, "Account should not be null");
         Validate.notNull(transaction, "Transaction should not be null");
 
         Session session = sessionFactory.getCurrentSession();

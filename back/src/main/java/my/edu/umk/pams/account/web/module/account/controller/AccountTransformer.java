@@ -116,6 +116,19 @@ public class AccountTransformer {
         return m;
     }
     
+    public AccountChargeTransaction toAccountChargeTransactionVo(AcAccountChargeTransaction e) {
+    	AccountChargeTransaction m = new AccountChargeTransaction();
+        m.setId(e.getId());
+        m.setSourceNo(e.getSourceNo());
+        m.setPostedDate(e.getPostedDate());
+        m.setAmount(e.getAmount());
+        m.setChargeCode(toAccountChargeVo(e.getChargeCode()));
+        m.setAccount(toAccountVo(e.getAccount()));
+        m.setSession(toAcademicSessionVo(e.getSession()));
+        commonTransformer.decorateMeta(e,m);
+        return m;
+    }
+    
     public AccountCharge toAccountChargeVo(AcAccountCharge e) {
         AccountCharge m = new AccountCharge();
         m.setId(e.getId());
@@ -191,6 +204,19 @@ public class AccountTransformer {
         m.setTotalAmount(e.getTotalAmount());
         m.setTransactionCode(AccountTransactionCode.get(e.getTransactionCode().ordinal()));
         m.setPostedDate(e.getPostedDate());
+        m.setDescription(e.getDescription());
+        return m;
+    }
+    
+    public ActivityChargeHolder toActivityChargeHolderVo(AcActivityChargeHolder e) {
+        if (null == e) return null;
+        ActivityChargeHolder m = new ActivityChargeHolder();
+
+        m.setSourceNo(e.getSourceNo());
+        m.setTotalAmount(e.getTotalAmount());
+        m.setTransactionCode(AccountChargeType.get(e.getTransactionCode().ordinal()));
+        m.setPostedDate(e.getPostedDate());
+        m.setDescription(e.getDescription());
         return m;
     }
 
@@ -204,6 +230,12 @@ public class AccountTransformer {
         return accounts.stream()
                 .map((accountTx) -> toAccountTransactionVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountTransaction>()));
+    }
+    
+    public List<AccountChargeTransaction> toAccountChargeTransactionVos(List<AcAccountChargeTransaction> accounts) {
+        return accounts.stream()
+                .map((accountTx) -> toAccountChargeTransactionVo(accountTx))
+                .collect(toCollection(() -> new ArrayList<AccountChargeTransaction>()));
     }
 
     public List<AccountCharge> toAccountChargeVos(List<AcAccountCharge> accounts) {
@@ -234,6 +266,12 @@ public class AccountTransformer {
         return accountActivities.stream()
                 .map((accountTx) -> toAccountActivityVo(accountTx))
                 .collect(toCollection(() -> new ArrayList<AccountActivityHolder>()));
+    }
+    
+    public List<ActivityChargeHolder> toActivityChargeHolderVos(List<AcActivityChargeHolder> accountActivities) {
+        return accountActivities.stream()
+                .map((accountTx) -> toActivityChargeHolderVo(accountTx))
+                .collect(toCollection(() -> new ArrayList<ActivityChargeHolder>()));
     }
 
 

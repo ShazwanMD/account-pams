@@ -34,6 +34,7 @@ import my.edu.umk.pams.account.account.model.AcAccountChargeTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountWaiver;
+import my.edu.umk.pams.account.account.model.AcActivityChargeHolder;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.account.model.AcFeeScheduleImpl;
@@ -529,6 +530,16 @@ public class AccountServiceImpl implements AccountService {
     public List<AcAccountActivityHolder> findAccountActivities(AcAcademicSession academicSession, AcAccount account) {
         return accountDao.findAccountActivities(academicSession, account);
     }
+    
+    @Override
+    public List<AcActivityChargeHolder> findAccountActivitiesCharge(AcAccount account) {
+    	return accountDao.findAccountActivitiesCharge(account);
+    }
+
+    @Override
+    public List<AcActivityChargeHolder> findAccountActivitiesCharge(AcAcademicSession academicSession, AcAccount account) {
+    	return accountDao.findAccountActivitiesCharge(academicSession, account);
+    }
 
     @Override
     public Integer countAccountTransaction(AcAccount account) {
@@ -565,6 +576,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void addAccountTransaction(AcAccount account, AcAccountTransaction transaction) {
         accountDao.addTransaction(account, transaction, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public void addAccountChargeTransaction(AcAccount account, AcAccountChargeTransaction transaction) {
+    	accountDao.addTransaction(account, transaction, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -959,14 +976,7 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void addAccountChargeTransaction(AcAccount acAccount, AcAccountChargeTransaction transaction) {
-        accountDao.addAccountChargeTransaction(acAccount, transaction, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-		
-	}
-
+	
 	@Override
 	public void deleteAccountChargeTransaction(AcAccount acAccount, AcAccountChargeTransaction transaction) {
 		accountDao.deleteAccountChargeTransaction(acAccount, transaction, securityService.getCurrentUser());

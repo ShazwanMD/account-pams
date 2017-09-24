@@ -13,6 +13,7 @@ public class AccountActivityHolder {
 	    private AccountTransactionCode transactionCode;
 	    private BigDecimal totalAmount;
 	    private Date postedDate;
+	    private String description;
 
 	    public String getSourceNo() {
 	        return sourceNo;
@@ -44,6 +45,14 @@ public class AccountActivityHolder {
 
 		public void setPostedDate(Date postedDate) {
 			this.postedDate = postedDate;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
 		}
 
 		@JsonCreator

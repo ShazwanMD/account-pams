@@ -11,6 +11,9 @@ export function accountActivityListReducer(state = initialState, action: Action)
     case AccountActions.FIND_ACCOUNT_ACTIVITIES_SUCCESS: {
       return action.payload;
     }
+    case AccountActions.FIND_ACCOUNT_ACTIVITIES_BY_SESSION_SUCCESS: {
+        return action.payload;
+      }
     default: {
       return state;
     }

@@ -7,4 +7,5 @@ export  interface AccountActivity extends MetaObject {
   totalAmount: number;
   transactionCode: AccountTransactionCode;
   postedDate: Date;
+  description: string;
 }

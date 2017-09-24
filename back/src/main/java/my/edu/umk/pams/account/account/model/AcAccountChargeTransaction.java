@@ -23,17 +23,17 @@ public interface AcAccountChargeTransaction extends AcMetaObject {
 
 	void setPostedDate(Date postedDate);
 
-	AcAccountTransactionCode getTransactionCode();
+	AcAccountChargeType getTransactionCode();
 
-	void setTransactionCode(AcAccountTransactionCode transactionCode);
+	void setTransactionCode(AcAccountChargeType transactionCode);
 
 	AcAccount getAccount();
 
 	void setAccount(AcAccount account);
 
-	AcChargeCode getChargeCode();
+	AcAccountCharge getChargeCode();
 
-	void setChargeCode(AcChargeCode chargeCode);
+	void setChargeCode(AcAccountCharge chargeCode);
 
 	AcAcademicSession getSession();
 

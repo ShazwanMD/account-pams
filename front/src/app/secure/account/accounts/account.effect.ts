@@ -56,7 +56,8 @@ export class AccountEffects {
     .mergeMap((action) => from([action,
       //this.accountActions.findAccountTransactions(action.payload),
       //this.accountActions.findInvoicesByAccount(action.payload),
-      this.accountActions.findAccountActivities(action.payload),
+      //this.accountActions.findAccountActivities(action.payload),
+      this.accountActions.findAccountActivitiesByAcademicSession(action.payload),                          
       this.accountActions.findSecurityAccountCharges(action.payload),
       this.accountActions.findAdmissionAccountCharges(action.payload),
       this.accountActions.findStudentAffairsAccountCharges(action.payload),
@@ -70,6 +71,12 @@ export class AccountEffects {
     .map((action) => action.payload)
     .switchMap((account) => this.accountService.findAccountActivities(account))
     .map((account) => this.accountActions.findAccountActivitiesSuccess(account));
+  
+  @Effect() findAccountActivitiesByAcademicSession$ = this.actions$
+  .ofType(AccountActions.FIND_ACCOUNT_ACTIVITIES_BY_SESSION)
+  .map((action) => action.payload)
+  .switchMap((account) => this.accountService.findAccountActivitiesByAcademicSession(account))
+  .map((account) => this.accountActions.findAccountActivitiesByAcademicSessionSuccess(account));
 
   @Effect() findAccountTransactions$ = this.actions$
     .ofType(AccountActions.FIND_ACCOUNT_TRANSACTIONS)

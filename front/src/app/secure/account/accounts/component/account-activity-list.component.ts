@@ -26,6 +26,7 @@ export class AccountActivityListComponent {
   private columns: any[] = [
     {name: 'postedDate', label: 'Date'},                        
     {name: 'sourceNo', label: 'Document No'},
+    {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Amount'},
     {name: 'action', label: ''}
   ];

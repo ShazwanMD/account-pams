@@ -98,7 +98,7 @@
         SOURCE_NO varchar(255) not null,
         TRANSACTION_CODE int4 not null,
         ACCOUNT_ID int8,
-        CHARGE_CODE_ID int8,
+        CHARGE_ID int8,
         SESSION_ID int8 not null,
         primary key (ID)
     );
@@ -1572,9 +1572,9 @@
         references AC_CHRG_CODE;
         
     alter table AC_ACCT_CHRG_TRSN
-        add constraint FK_tmeqyaoy1umx2f8t50j3m05oe
-        foreign key (CHARGE_CODE_ID)
-        references AC_CHRG_CODE;
+        add constraint FK_tmeqyaoy1umx2f8t50j3m15oe
+        foreign key (CHARGE_ID)
+        references AC_ACCT_CHRG;
 
     alter table AC_ACCT_TRSN
         add constraint FK_gok5lgsyud20w75frwjala98a

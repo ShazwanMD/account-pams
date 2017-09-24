@@ -372,6 +372,19 @@ public class AccountController {
         transaction.setTransactionCode(AcAccountTransactionCode.ADHOC);
         accountService.addAccountTransaction(account, transaction);
     }
+    
+    @RequestMapping(value = "/account/{code}/accountChargeTransactions", method = RequestMethod.POST)
+    public void addAccountChargeTransaction(@PathVariable String code, @RequestBody AccountChargeTransaction vo) {
+
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAccountChargeTransaction transaction = new AcAccountChargeTransactionImpl();
+        transaction.setChargeCode(accountService.findAccountChargeById(vo.getChargeCode().getId()));
+        transaction.setAmount(vo.getAmount());
+        transaction.setPostedDate(vo.getPostedDate());
+        transaction.setSession(accountService.findAcademicSessionById(vo.getSession().getId()));
+        transaction.setTransactionCode(AcAccountChargeType.ACADEMIC_LATE);
+        accountService.addAccountChargeTransaction(account, transaction);
+    }
 
     @RequestMapping(value = "/accounts/{id}/accountActivities", method = RequestMethod.GET)
     public ResponseEntity<List<AccountActivityHolder>> findAccountActivities(@PathVariable Long id) {
@@ -381,13 +394,15 @@ public class AccountController {
                 accountTransformer.toAccountActivityVos(accountService.findAccountActivities(account)), HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/accounts/{code}/academicSessions", method = RequestMethod.GET)
-//    public ResponseEntity<List<AccountActivityHolder>> findAccountActivitiesByAcademicSession(@PathVariable String code) {
-//
-//        AcAccount account = accountService.findAccountByCode(code);
-//        return new ResponseEntity<List<AccountActivityHolder>>(
-//                accountTransformer.toAccountActivityVos(accountService.findAccountActivities(accountService.findCurrentAcademicSession(), account)), HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/accounts/{code}/academicSessions", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountActivityHolder>> findAccountActivitiesByAcademicSession(@PathVariable String code) {
+
+        AcAccount account = accountService.findAccountByCode(code);
+        LOG.debug("Acc activity {}", account.getCode());
+        LOG.debug("Acc activity current academic session {}", accountService.findCurrentAcademicSession().getCode());
+        return new ResponseEntity<List<AccountActivityHolder>>(
+                accountTransformer.toAccountActivityVos(accountService.findAccountActivities(accountService.findCurrentAcademicSession(), account)), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/accounts/{code}/revise", method = RequestMethod.POST)
     public ResponseEntity<String> reviseAccount(@PathVariable String code, @RequestBody Account vo) {
