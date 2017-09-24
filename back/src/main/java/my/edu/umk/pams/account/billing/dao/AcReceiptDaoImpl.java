@@ -41,6 +41,12 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
 
     @Override
+    public AcReceiptAccountChargeItem findChargeItemById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcReceiptAccountChargeItem) session.get(AcReceiptAccountChargeItemImpl.class, id);
+    }
+    
+    @Override
     public AcReceipt findByReferenceNo(String referenceNo) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select r from AcReceipt r where " +
@@ -197,6 +203,48 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
     
     @Override
+    public List<AcReceiptAccountChargeItem> findChargeItems(AcReceipt receipt) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcReceiptAccountChargeItem ri where " +
+                "ri.receipt = :receipt " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("receipt", receipt);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcReceiptAccountChargeItem>) query.list();
+    }
+    
+    @Override
+    public List<AcReceiptAccountChargeItem> findChargeItems(AcReceipt receipt, AcAccountCharge charge) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcReceiptAccountChargeItem ri where " +
+                "ri.receipt = :receipt " +
+        		"and ri.invoice = :invoice " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("receipt", receipt);
+        query.setEntity("charge", charge);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcReceiptAccountChargeItem>) query.list();
+    }
+
+    @Override
+    public List<AcReceiptAccountChargeItem> findChargeItems(AcReceipt receipt, Integer offset, Integer limit) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcReceiptAccountChargeItem ri where " +
+                "ri.receipt = :receipt " +
+                "and ri.metadata.state = :metaState " +
+                "order by ri.id desc");
+        query.setEntity("receipt", receipt);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        query.setCacheable(true);
+        return (List<AcReceiptAccountChargeItem>) query.list();
+    }
+    
+    
+    @Override
     public List<AcReceiptInvoice> find(AcReceipt receipt) {
     	Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select ri from AcReceiptInvoice ri where " +
@@ -332,6 +380,62 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         session.delete(item);
     }
     
+    @Override
+    public void addChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user) {
+        LOG.info("Receipt id : " + receipt.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(receipt, "Receipt cannot be null");
+        Validate.notNull(item, "Item cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        item.setReceipt(receipt);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        item.setMetadata(metadata);
+        session.save(item);
+    }
+
+    @Override
+    public void updateChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user) {
+        Validate.notNull(user, "User cannot be null");
+        Session session = sessionFactory.getCurrentSession();
+        item.setReceipt(receipt);
+
+        AcMetadata metadata = item.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        item.setMetadata(metadata);
+        session.update(item);
+    }
+
+    @Override
+    public void removeChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user) {
+        Validate.notNull(user, "User cannot be null");
+        Session session = sessionFactory.getCurrentSession();
+        item.setReceipt(receipt);
+
+        AcMetadata metadata = item.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.INACTIVE);
+        item.setMetadata(metadata);
+        session.update(item);
+    }
+
+    @Override
+    public void deleteChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user) {
+        Validate.notNull(receipt, "receipt cannot be null");
+        Validate.notNull(item, "payment cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(item);
+    }
     @Override
     public void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice, AcUser user) {
         LOG.info("Receipt id : " + receipt.getId());
