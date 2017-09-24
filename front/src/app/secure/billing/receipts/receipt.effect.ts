@@ -72,6 +72,12 @@ export class ReceiptEffects {
   .map((action) => action.payload)
   .switchMap((receipt) => this.billingService.findReceiptsByAccountCharge(receipt))
   .map((receipts) => this.receiptActions.findReceiptsByAccountChargeSuccess(receipts));
+
+  @Effect() findReceiptsByDebitNote$ = this.actions$
+  .ofType(ReceiptActions.FIND_RECEIPTS_BY_DEBIT_NOTE)
+  .map((action) => action.payload)
+  .switchMap((receipt) => this.billingService.findReceiptsByDebitNote(receipt))
+  .map((receipts) => this.receiptActions.findReceiptsByDebitNoteSuccess(receipts));
   
   @Effect() findReceiptItems$ = this.actions$
     .ofType(ReceiptActions.FIND_RECEIPT_ITEMS)
@@ -206,4 +212,13 @@ export class ReceiptEffects {
         .map((action) => action.payload)
         .switchMap((payload) => this.billingService.addReceiptCharge(payload.receipt, payload.charge))
         .map((message) => this.receiptActions.addReceiptChargeSuccess(message));
-}
+
+  @Effect() addReceiptDebitNote$ =
+      this.actions$
+        .ofType(ReceiptActions.ADD_RECEIPT_DEBIT_NOTE)
+        .map((action) => action.payload)
+        .switchMap((payload) => this.billingService.addReceiptDebitNote(payload.receipt, payload.debitNote))
+        .map((message) => this.receiptActions.addReceiptChargeSuccess(message));
+ }
+
+ 

@@ -2,8 +2,6 @@ package my.edu.umk.pams.account.billing.model;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
-import my.edu.umk.pams.account.account.model.AcChargeCode;
-import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -13,13 +11,13 @@ import java.math.BigDecimal;
 /**
  * @author PAMS
  */
-@Entity(name = "AcReceiptItem")
-@Table(name = "AC_RCPT_ITEM")
-public class AcReceiptItemImpl implements AcReceiptItem {
+@Entity(name = "AcReceiptAccountChargeItem")
+@Table(name = "AC_RCPT_CHRG_ITEM")
+public class AcReceiptAccountChargeItemImpl implements AcReceiptAccountChargeItem {
 
     @Id
-    @GeneratedValue(generator = "SQ_AC_INVC_ITEM")
-    @SequenceGenerator(name = "SQ_AC_INVC_ITEM", sequenceName = "SQ_AC_INVC_ITEM", allocationSize = 1)
+    @GeneratedValue(generator = "SQ_AC_CHRG_ITEM")
+    @SequenceGenerator(name = "SQ_AC_CHRG_ITEM", sequenceName = "SQ_AC_CHRG_ITEM", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 
@@ -45,10 +43,6 @@ public class AcReceiptItemImpl implements AcReceiptItem {
 
     @Column(name = "UNIT")
     private Integer unit;
-
-    @ManyToOne(targetEntity = AcInvoiceImpl.class)
-    @JoinColumn(name = "INVOICE_ID")
-    private AcInvoice invoice;
     
     @ManyToOne(targetEntity = AcAccountChargeImpl.class)
     @JoinColumn(name = "ACCOUNT_CHARGE_ID")
@@ -58,10 +52,6 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     @ManyToOne(targetEntity = AcReceiptImpl.class)
     @JoinColumn(name = "RECEIPT_ID")
     private AcReceipt receipt;
-
-    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
-    @JoinColumn(name = "CHARGE_CODE_ID")
-    private AcChargeCode chargeCode;
 
     @Embedded
     private AcMetadata metadata;
@@ -144,16 +134,6 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     public void setUnit(Integer unit) {
         this.unit = unit;
     }
-
-    @Override
-    public AcInvoice getInvoice() {
-        return invoice;
-    }
-
-    @Override
-    public void setInvoice(AcInvoice invoice) {
-        this.invoice = invoice;
-    }
    
     @Override
     public AcAccountCharge getAccountCharge() {
@@ -176,16 +156,6 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     }
 
     @Override
-    public AcChargeCode getChargeCode() {
-        return chargeCode;
-    }
-
-    @Override
-    public void setChargeCode(AcChargeCode chargeCode) {
-        this.chargeCode = chargeCode;
-    }
-
-    @Override
     public AcMetadata getMetadata() {
         return metadata;
     }
@@ -197,6 +167,6 @@ public class AcReceiptItemImpl implements AcReceiptItem {
 
     @Override
     public Class<?> getInterfaceClass() {
-        return AcReceiptItem.class;
+        return AcReceiptAccountChargeItem.class;
     }
 }

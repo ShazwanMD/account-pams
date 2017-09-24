@@ -123,7 +123,14 @@ public interface BillingService {
     void executeScheduler();
 
     void post(AcInvoice invoice);
-
+    
+    // ==================================================================================================== //
+    // ACCOUNT CHARGE
+    // workflow
+    // ==================================================================================================== //
+    
+    void itemToReceiptChargeItem(AcAccountCharge charge, String code, AcReceipt receipt);
+    
     // ==================================================================================================== //
     // DEBIT NOTE
     // workflow
@@ -257,6 +264,13 @@ public interface BillingService {
     void deleteReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
     
     void addReceiptCharge(AcReceipt receipt, AcAccountCharge accountCharge);
+    
+    void addReceiptChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item);
+
+    void updateReceiptChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item);
+
+    void deleteReceiptChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item);
+	void addReceiptDebitNote(AcReceipt receipt, AcDebitNote debitNote);
 
     // ==================================================================================================== //
     // RECEIPT
@@ -272,6 +286,8 @@ public interface BillingService {
 
 	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt);
 
+	AcReceiptAccountChargeItem findReceiptChargeItemById(Long id);
+	
     List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit);
 
     List<AcReceipt> findReceipts(AcReceiptType type, Integer offset, Integer limit);
@@ -282,6 +298,10 @@ public interface BillingService {
     
     List<AcReceipt> findReceiptsByFlowState(AcFlowState... flowStates);
 
+    List<AcReceiptAccountChargeItem> findReceiptChargeItems(AcReceipt receipt);
+    
+    List<AcReceiptAccountChargeItem> findReceiptChargeItems(AcReceipt receipt, AcAccountCharge charge);
+    
     List<AcReceiptItem> findReceiptItems(AcReceipt receipt);
     
     List<AcReceiptItem> findReceiptItems(AcReceipt receipt, AcInvoice invoice);
@@ -297,6 +317,8 @@ public interface BillingService {
     Integer countReceipt(AcReceiptType type, String filter);
 
     Integer countReceiptItem(AcReceipt receipt);
+    
+    Integer countReceiptChargeItem(AcReceipt receipt);
 
     void post(AcReceipt receipt);
     
@@ -464,6 +486,8 @@ public interface BillingService {
     List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
     
     List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
+
+
 
 	
 

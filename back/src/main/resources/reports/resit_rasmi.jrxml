@@ -24,6 +24,9 @@
 		</box>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="1128b5b5-9bc6-4561-aca0-1630ba54df5d"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\samiya\\git\\account\\back\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      ac_acct."id" AS ac_acct_id,
@@ -339,7 +342,13 @@ FROM
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="67" splitType="Stretch"/>
+		<band height="91" splitType="Stretch">
+			<subreport>
+				<reportElement x="7" y="12" width="538" height="67" uuid="f6930ce8-c075-4e58-b733-d42e4ab64c4d"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "resit_rasmi_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="142" splitType="Stretch">

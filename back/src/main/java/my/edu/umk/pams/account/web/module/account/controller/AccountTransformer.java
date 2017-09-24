@@ -4,6 +4,9 @@ import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCodeImpl;
+import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
@@ -36,6 +39,9 @@ public class AccountTransformer {
 
     @Autowired
     private AccountService accountService;
+    
+    @Autowired
+    private CommonService commonService;
 
     @Autowired
     private IdentityTransformer identityTransformer;
@@ -55,6 +61,7 @@ public class AccountTransformer {
     }
 
     public ChargeCode toChargeCodeVo(AcChargeCode e) {
+    	if(null == e) return null;
         ChargeCode m = new ChargeCode();
         m.setId(e.getId());
         m.setCode(e.getCode());
@@ -130,6 +137,8 @@ public class AccountTransformer {
     }
     
     public AccountCharge toAccountChargeVo(AcAccountCharge e) {
+    	if(null == e) return null;
+    	
         AccountCharge m = new AccountCharge();
         m.setId(e.getId());
         m.setSourceNo(e.getSourceNo());
@@ -143,7 +152,7 @@ public class AccountTransformer {
         m.setSession(toAcademicSessionVo(e.getSession()));
         m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
         m.setTaxCode(commonTransformer.toTaxCodeVo(e.getTaxCode()));
-        m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
+        m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));        
         m.setSecurityChargeCode(commonTransformer.toSecurityChargeCodeVo(e.getSecurityChargeCode()));
         m.setChargeDate(e.getChargeDate());
         m.setOrdinal(e.getOrdinal());

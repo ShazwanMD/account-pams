@@ -58,8 +58,6 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
             appliedAmount: [0],
             price: [0],
             unit: [0],
-            chargeCode: [<ChargeCode>{}],
-            invoice: [<Invoice>{}],
             accountCharge: [<AccountCharge>{}]
         } );
 

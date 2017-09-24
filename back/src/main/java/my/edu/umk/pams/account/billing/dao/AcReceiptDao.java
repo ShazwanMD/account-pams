@@ -2,9 +2,11 @@ package my.edu.umk.pams.account.billing.dao;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcReceiptAccountChargeItem;
 import my.edu.umk.pams.account.billing.model.AcReceiptDebitNote;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
@@ -23,6 +25,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     // ====================================================================================================
 
     AcReceiptItem findItemById(Long id);
+    
+    AcReceiptAccountChargeItem findChargeItemById(Long id);
 
     AcReceipt findByReferenceNo(String referenceNo);
 
@@ -47,6 +51,12 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     List<AcReceiptItem> findItems(AcReceipt receipt, AcInvoice invoice);
 
     List<AcReceiptItem> findItems(AcReceipt receipt, Integer offset, Integer limit);
+    
+    List<AcReceiptAccountChargeItem> findChargeItems(AcReceipt receipt);
+    
+    List<AcReceiptAccountChargeItem> findChargeItems(AcReceipt receipt, AcAccountCharge charge);
+
+    List<AcReceiptAccountChargeItem> findChargeItems(AcReceipt receipt, Integer offset, Integer limit);
     
     List<AcReceiptInvoice> find(AcReceipt receipt);
     
@@ -76,6 +86,14 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
 
     void deleteItem(AcReceipt receipt, AcReceiptItem item, AcUser user);
     
+    void addChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user);
+
+    void updateChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user);
+
+    void removeChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user);
+
+    void deleteChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user);
+    
     void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice, AcUser user);
     
     void addReceiptCharge(AcReceipt receipt, AcAccountCharge accountCharge, AcUser user);
@@ -83,6 +101,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user);
     
     BigDecimal sumAmount(AcInvoice invoice, AcReceipt receipt, AcUser user);
+
+	void addReceiptDebitNote(AcReceipt receipt, AcDebitNote debitNote, AcUser currentUser);
 
 
     

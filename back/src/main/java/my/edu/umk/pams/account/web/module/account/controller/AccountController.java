@@ -479,13 +479,18 @@ public class AccountController {
             case SECURITY:
                 charge.setReferenceNo(referenceNo);
                 charge.setSourceNo(vo.getSourceNo());
-                charge.setAmount(vo.getAmount());
-                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getSecurityChargeCode().getAmount());
+                charge.setNetAmount(vo.getSecurityChargeCode().getNetAmount());
+                charge.setTaxAmount(vo.getSecurityChargeCode().getTaxAmount());
+                charge.setDescription(vo.getSecurityChargeCode().getDescription());
+                charge.setInclusive(vo.getSecurityChargeCode().getInclusive());
                 charge.setChargeDate(vo.getChargeDate());
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 if (null != vo.getSecurityChargeCode())
                 	charge.setSecurityChargeCode(commonService.findSecurityChargeCodeById(vo.getSecurityChargeCode().getId()));
+                if (null != vo.getSecurityChargeCode().getTaxCode())
+                    charge.setTaxCode(commonService.findTaxCodeById(vo.getSecurityChargeCode().getTaxCode().getId()));
                 break;
             case STUDENT_AFFAIRS:
                 charge.setReferenceNo(referenceNo);
@@ -576,13 +581,18 @@ public class AccountController {
                 break;
             case SECURITY:
                 charge.setSourceNo(vo.getSourceNo());
-                charge.setAmount(vo.getAmount());
-                charge.setDescription(vo.getDescription());
+                charge.setAmount(vo.getSecurityChargeCode().getAmount());
+                charge.setNetAmount(vo.getSecurityChargeCode().getNetAmount());
+                charge.setTaxAmount(vo.getSecurityChargeCode().getTaxAmount());
+                charge.setDescription(vo.getSecurityChargeCode().getDescription());
+                charge.setInclusive(vo.getSecurityChargeCode().getInclusive());
                 charge.setChargeDate(vo.getChargeDate());
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 if (null != vo.getSecurityChargeCode())
                     charge.setSecurityChargeCode(commonService.findSecurityChargeCodeById(vo.getSecurityChargeCode().getId()));
+                if (null != vo.getSecurityChargeCode().getTaxCode())
+                    charge.setTaxCode(commonService.findTaxCodeById(vo.getSecurityChargeCode().getTaxCode().getId()));
                 break;
             case STUDENT_AFFAIRS:
                 charge.setSourceNo(vo.getSourceNo());

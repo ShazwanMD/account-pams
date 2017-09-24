@@ -349,6 +349,8 @@ public class BillingController {
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         AcReceiptItem e = new AcReceiptItemImpl();
         
+        if (null != vo.getChargeCode())
+        e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
         e.setAdjustedAmount(vo.getAdjustedAmount());
         e.setAppliedAmount(vo.getAppliedAmount());
         e.setTotalAmount(vo.getTotalAmount());
@@ -356,6 +358,7 @@ public class BillingController {
         e.setUnit(vo.getUnit());
         e.setPrice(vo.getPrice());
         e.setDescription(vo.getDescription());
+        if (null != vo.getInvoice())
         e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
         e.setChargeCode(accountService.findChargeCodeById(0L));
@@ -527,6 +530,17 @@ public class BillingController {
         e.setReceipt(receipt);
         e.setAccountCharge(charge);
         billingService.addReceiptCharge(receipt, charge);
+    }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/debitNote/{id}", method = RequestMethod.POST)
+    public void addReceiptDebitNote(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        AcDebitNote debitNote = billingService.findDebitNoteById(id);
+        AcReceiptDebitNote e = new AcReceiptDebitNoteImpl();
+        e.setReceipt(receipt);
+        e.setDebitNote(debitNote);
+        billingService.addReceiptDebitNote(receipt, debitNote);
     }
 
     // ==================================================================================================== //
