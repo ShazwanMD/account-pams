@@ -59,6 +59,7 @@ import {invoiceDebitNoteListReducer, InvoiceDebitNoteListState} from './invoices
 import {archivedReceiptListReducer, ReceiptListState} from './receipts/receipt-list.reducer';
 import {receiptInvoiceListReducer, ReceiptInvoiceListState} from './receipts/receipt-invoice.reducer';
 import {receiptAccountChargeListReducer, ReceiptAccountChargeListState} from './receipts/receipt-account-charge.reducer';
+import {receiptDebitNoteListReducer, ReceiptDebitNoteListState} from './receipts/receipt-debit-note.reducer';
 import { AdvancePaymentSubModule } from "./advance-payments/index";
 import {advancePaymentListReducer, AdvancePaymentListState} from './advance-payments/advance-payment-list.reducer';
 import {AdvancePayment} from '../../shared/model/billing/advance-payment.interface';
@@ -107,6 +108,7 @@ export interface BillingModuleState {
   receiptItems: ReceiptItemListState;
   receiptInvoice: ReceiptInvoiceListState;
   receiptAccountCharge: ReceiptAccountChargeListState;
+  receiptDebitNote: ReceiptDebitNoteListState;
   // selectedInvoice: // previewed invoice to be applied
   // selectedInvoiceItems: // previewed invoice item to be applied
   assignedDebitNoteTasks: DebitNoteTaskListState;
@@ -167,6 +169,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     receiptItems: [],
     receiptInvoice: [],
     receiptAccountCharge: [],
+    receiptDebitNote: [],
     assignedDebitNoteTasks: [],
     pooledDebitNoteTasks: [],
     archivedDebitNotes: [],
@@ -224,6 +227,7 @@ export const billingModuleReducers = {
   receiptItems: receiptItemListReducer,
   receiptInvoice: receiptInvoiceListReducer,
   receiptAccountCharge: receiptAccountChargeListReducer,
+  receiptDebitNote: receiptDebitNoteListReducer,
   assignedDebitNoteTasks: assignedDebitNoteTaskListReducer,
   pooledDebitNoteTasks: pooledDebitNoteTaskListReducer,
   archivedDebitNotes: archivedDebitNoteListReducer,
