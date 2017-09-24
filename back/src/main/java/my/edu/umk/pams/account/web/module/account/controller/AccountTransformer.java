@@ -4,6 +4,9 @@ import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCodeImpl;
+import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
@@ -36,6 +39,9 @@ public class AccountTransformer {
 
     @Autowired
     private AccountService accountService;
+    
+    @Autowired
+    private CommonService commonService;
 
     @Autowired
     private IdentityTransformer identityTransformer;
@@ -117,26 +123,27 @@ public class AccountTransformer {
     }
     
     public AccountCharge toAccountChargeVo(AcAccountCharge e) {
+    	
         AccountCharge m = new AccountCharge();
         m.setId(e.getId());
         m.setSourceNo(e.getSourceNo());
         m.setReferenceNo(e.getReferenceNo());
-        m.setDescription(e.getDescription());
-        m.setAmount(e.getAmount());
-        m.setTaxAmount(e.getTaxAmount());
-        m.setNetAmount(e.getNetAmount());
+        m.setDescription(e.getSecurityChargeCode().getAmountDescription());
+        m.setAmount(e.getSecurityChargeCode().getAmount());
+        m.setTaxAmount(e.getSecurityChargeCode().getTaxAmount());
+        m.setNetAmount(e.getSecurityChargeCode().getNetAmount());
         m.setBalanceAmount(e.getBalanceAmount());
         m.setChargeType(AccountChargeType.get(e.getChargeType().ordinal()));
         m.setSession(toAcademicSessionVo(e.getSession()));
         m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
-        m.setTaxCode(commonTransformer.toTaxCodeVo(e.getTaxCode()));
-        m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
+        m.setTaxCode(commonTransformer.toTaxCodeVo(e.getSecurityChargeCode().getTaxCode()));
+        m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));        
         m.setSecurityChargeCode(commonTransformer.toSecurityChargeCodeVo(e.getSecurityChargeCode()));
         m.setChargeDate(e.getChargeDate());
         m.setOrdinal(e.getOrdinal());
         //m.setCode(e.getCohortCode());
         m.setInvoiced(null != e.getInvoice());
-        m.setInclusive(e.getInclusive());
+        m.setInclusive(e.getSecurityChargeCode().getInclusive());
         m.setPaid(e.getPaid());
         commonTransformer.decorateMeta(e,m);
         return m;
