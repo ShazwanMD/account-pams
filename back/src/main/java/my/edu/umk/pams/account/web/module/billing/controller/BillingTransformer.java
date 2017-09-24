@@ -248,6 +248,7 @@ public class BillingTransformer {
     
     public ReceiptItem toReceiptItemVo(AcReceiptItem e) {
         ReceiptItem vo = new ReceiptItem();
+
         vo.setId(e.getId());
         vo.setDescription(e.getDescription());
         vo.setAdjustedAmount(e.getAdjustedAmount());
@@ -257,7 +258,20 @@ public class BillingTransformer {
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
- //       vo.setAccountCharge(accountTransformer.toAccountChargeVo(e.getAccountCharge()));
+        vo.setAccountCharge(accountTransformer.toAccountChargeVo(e.getAccountCharge()));
+        return vo;
+    }
+
+    public ReceiptAccountChargeItem toReceiptAccountChargeItemVo(AcReceiptAccountChargeItem e) {
+    	ReceiptAccountChargeItem vo = new ReceiptAccountChargeItem();
+        vo.setId(e.getId());
+        vo.setDescription(e.getDescription());
+        vo.setAdjustedAmount(e.getAdjustedAmount());
+        vo.setAppliedAmount(e.getAppliedAmount());
+        vo.setDueAmount(e.getDueAmount());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setAccountCharge(accountTransformer.toAccountChargeVo(e.getAccountCharge()));
         return vo;
     }
 
@@ -606,6 +620,12 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toReceiptItemVo(entry))
                 .collect(toCollection(() -> new ArrayList<ReceiptItem>()));
+    }
+    
+    public List<ReceiptAccountChargeItem> toReceiptAccountChargeItemVos(List<AcReceiptAccountChargeItem> entries) {
+        return entries.stream()
+                .map((entry) -> toReceiptAccountChargeItemVo(entry))
+                .collect(toCollection(() -> new ArrayList<ReceiptAccountChargeItem>()));
     }
 
     public List<DebitNoteTask> toDebitNoteTaskVos(List<Task> tasks) {
