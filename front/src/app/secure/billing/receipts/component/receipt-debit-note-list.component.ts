@@ -1,4 +1,4 @@
-import { DebitNoteReceiptDialog } from './../dialog/debit-note-receipt-creator.dialog';
+import { DebitNoteReceiptDialog } from './../dialog/debit-note-receipt.dialog';
 import { DebitNote } from './../../../../shared/model/billing/debit-note.interface';
 import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {ReceiptItemEditorDialog} from '../dialog/receipt-item-editor.dialog';
