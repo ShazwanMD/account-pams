@@ -981,6 +981,11 @@ public class BillingServiceImpl implements BillingService {
 	public AcReceiptItem findReceiptItemById(Long id) {
 		return receiptDao.findItemById(id);
 	}
+	
+	@Override
+	public AcReceiptAccountChargeItem findReceiptChargeItemById(Long id) {
+		return receiptDao.findChargeItemById(id);
+	}
 
 	@Override
 	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt) {
@@ -1010,6 +1015,16 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<AcReceipt> findReceiptsByFlowState(AcFlowState... flowStates) {
 		return receiptDao.findByFlowStates(flowStates);
+	}
+	
+	@Override
+	public List<AcReceiptAccountChargeItem> findReceiptChargeItems(AcReceipt receipt) {
+		return receiptDao.findChargeItems(receipt);
+	}
+	
+	@Override
+	public List<AcReceiptAccountChargeItem> findReceiptChargeItems(AcReceipt receipt, AcAccountCharge charge) {
+		return receiptDao.findChargeItems(receipt, charge);
 	}
 
 	@Override
@@ -1049,6 +1064,11 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public Integer countReceiptItem(AcReceipt receipt) {
+		return receiptDao.countItem(receipt);
+	}
+	
+	@Override
+	public Integer countReceiptChargeItem(AcReceipt receipt) {
 		return receiptDao.countItem(receipt);
 	}
 
@@ -1750,6 +1770,108 @@ public class BillingServiceImpl implements BillingService {
     public List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver) {
     	return waiverFinanceApplicationDao.findWaivers(waiver);
     }
+    
+	// ====================================================================================================
+	// ACCOUNT CHARGE
+	// ====================================================================================================
+	// 
+
+	@Override
+	public void itemToReceiptChargeItem(AcAccountCharge charge, String code, AcReceipt receipt) {
+		
+		
+		AcAccount account = accountService.findAccountByCode(code);
+		List<AcAccountCharge> accountCharges = accountService.findAccountCharges(account);
+		for (AcAccountCharge accountCharge : accountCharges) {
+			
+				
+			if (accountCharge.getBalanceAmount().compareTo(receipt.getTotalPayment()) <= 0) {
+				AcReceiptAccountChargeItem receiptItem = new AcReceiptAccountChargeItemImpl();
+				receiptItem.setDueAmount(accountCharge.getBalanceAmount());
+				receiptItem.setDescription(accountCharge.getDescription());
+				receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+				receiptItem.setAppliedAmount(accountCharge.getBalanceAmount());
+				receiptItem.setPrice(BigDecimal.ZERO);
+				receiptItem.setReceipt(receipt);
+				receiptItem.setTotalAmount(BigDecimal.ZERO);
+				receiptItem.setUnit(0);
+
+				billingService.addReceiptChargeItem(receipt, receiptItem);
+			}
+
+			else if (accountCharge.getBalanceAmount().compareTo(receipt.getTotalPayment()) > 0) {
+				
+				if (receipt.getTotalPayment().compareTo(accountCharge.getBalanceAmount()) > 0) {
+					AcReceiptAccountChargeItem receiptItem = new AcReceiptAccountChargeItemImpl();
+					receiptItem.setDueAmount(accountCharge.getBalanceAmount());
+					receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+					receiptItem.setAppliedAmount(accountCharge.getBalanceAmount());
+					receiptItem.setPrice(BigDecimal.ZERO);
+					receiptItem.setReceipt(receipt);
+					receiptItem.setTotalAmount(BigDecimal.ZERO);
+					receiptItem.setUnit(0);
+					
+					billingService.addReceiptChargeItem(receipt, receiptItem);
+				}
+
+				else if (receipt.getTotalPayment().compareTo(accountCharge.getBalanceAmount()) < 0) {
+					AcReceiptAccountChargeItem receiptItem = new AcReceiptAccountChargeItemImpl();
+					receiptItem.setDueAmount(accountCharge.getBalanceAmount());
+					receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+					receiptItem.setAppliedAmount(receipt.getTotalPayment());
+					receiptItem.setPrice(BigDecimal.ZERO);
+					receiptItem.setReceipt(receipt);
+					receiptItem.setTotalAmount(accountCharge.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
+					receiptItem.setUnit(0);
+					billingService.addReceiptChargeItem(receipt, receiptItem);
+				
+					if (receipt.getTotalPayment().compareTo(BigDecimal.ZERO) <= 0 ) {
+						receiptItem.setDueAmount(accountCharge.getBalanceAmount());
+						receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+						receiptItem.setAppliedAmount(BigDecimal.ZERO);
+						receiptItem.setPrice(BigDecimal.ZERO);
+						receiptItem.setReceipt(receipt);
+						receiptItem.setTotalAmount(accountCharge.getBalanceAmount());
+						receiptItem.setUnit(0);
+						billingService.addReceiptChargeItem(receipt, receiptItem);
+					}
+				}
+				
+				receipt.setTotalPayment(receipt.getTotalPayment().subtract(accountCharge.getBalanceAmount()));
+				LOG.debug("value invoiceItem after looping {}", receipt.getTotalReceived());
+			}
+			
+		}
+		
+		receipt.setTotalPayment(receipt.getTotalReceived().subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser())));
+
+	}
+    
+    @Override
+	public void addReceiptChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item) {
+		receiptDao.addChargeItem(receipt, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void updateReceiptChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item) {
+		receiptDao.updateChargeItem(receipt, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		
+		item.setTotalAmount(item.getDueAmount().subtract(item.getAppliedAmount()));
+		receiptDao.updateChargeItem(receipt, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		
+		receipt.setTotalPayment(receipt.getTotalReceived().subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser())));
+		receiptDao.update(receipt, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void deleteReceiptChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item) {
+		receiptDao.deleteChargeItem(receipt, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
 
 	// ====================================================================================================
 	// //
@@ -1770,5 +1892,4 @@ public class BillingServiceImpl implements BillingService {
 			invoiceItem.setNetAmount(amount);
 		}
 	}
-
 }
