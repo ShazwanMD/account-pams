@@ -1801,20 +1801,20 @@
         foreign key (RECEIPT_ID)
         references AC_RCPT;
 
-    alter table AC_RCPT_ITEM
-        add constraint FK_dtmemhqcipfpet4tyyrd9copt
-        foreign key (CHARGE_CODE_ID)
-        references AC_CHRG_CODE;
+--    alter table AC_RCPT_ITEM
+--        add constraint FK_dtmemhqcipfpet4tyyrd9copt
+--        foreign key (CHARGE_CODE_ID)
+--        references AC_CHRG_CODE;
 
-    alter table AC_RCPT_ITEM
-        add constraint FK_pvm4sa8mdj3fccu5i73wjl5e8
-        foreign key (INVOICE_ID)
-        references AC_INVC;
+--    alter table AC_RCPT_ITEM
+--        add constraint FK_pvm4sa8mdj3fccu5i73wjl5e8
+--        foreign key (INVOICE_ID)
+--        references AC_INVC;
         
-    alter table AC_RCPT_ITEM 
-        add constraint FK_pvm4sa8mdj3fccu5i73wjt7p1
-        foreign key (ACCOUNT_CHARGE_ID) 
-        references AC_ACCT_CHRG;  
+--    alter table AC_RCPT_ITEM 
+--        add constraint FK_pvm4sa8mdj3fccu5i73wjt7p1
+--        foreign key (ACCOUNT_CHARGE_ID) 
+--        references AC_ACCT_CHRG;  
         
     alter table AC_RCPT_ITEM 
         add constraint FK_pvm4sa8mdj3fccu5i73wjt8p2
