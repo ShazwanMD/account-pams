@@ -55,6 +55,7 @@ public class AccountTransformer {
     }
 
     public ChargeCode toChargeCodeVo(AcChargeCode e) {
+    	if(null == e) return null;
         ChargeCode m = new ChargeCode();
         m.setId(e.getId());
         m.setCode(e.getCode());
@@ -117,6 +118,7 @@ public class AccountTransformer {
     }
     
     public AccountCharge toAccountChargeVo(AcAccountCharge e) {
+    	if(null == e) return null;
         AccountCharge m = new AccountCharge();
         m.setId(e.getId());
         m.setSourceNo(e.getSourceNo());
