@@ -377,6 +377,28 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
     
     @Override
+    public void addReceiptDebitNote(AcReceipt receipt, AcDebitNote debitNote, AcUser user) {
+        LOG.info("Receipt id : " + receipt.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(receipt, "Receipt cannot be null");
+        Validate.notNull(debitNote, "charge cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcReceiptDebitNote receiptDebitNote = new  AcReceiptDebitNoteImpl();
+        receiptDebitNote.setReceipt(receipt);
+        receiptDebitNote.setDebitNote(debitNote);;
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        receiptDebitNote.setMetadata(metadata);
+        session.saveOrUpdate(receiptDebitNote);
+    }
+    
+    @Override
     public BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcReceiptItem a where " +
