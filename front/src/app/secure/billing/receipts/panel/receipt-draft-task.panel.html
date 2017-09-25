@@ -40,24 +40,13 @@
                       [receiptInvoice]="receiptInvoice$ | async"
                       (view)="view($event)">
                     </pams-invoice-receipt-list>
-
-                    <pams-receipt-item-list
-                      [receipt]="receiptTask.receipt"
-                      [receiptItems]="receiptItems$ | async">
-                    </pams-receipt-item-list>
-                  </md-tab>
-
+				</md-tab>
                   <md-tab label="Unpaid Charges">  
                     <pams-account-charge-receipt-list 
                       [receipt]="receiptTask.receipt"       
                       [receiptAccountCharge]="receiptAccountCharge$ | async"
                       (view)="view($event)">
                     </pams-account-charge-receipt-list>   
-
-                    <pams-receipt-account-charge-list
-                    [receipt]="receiptTask.receipt"
-                    [receiptItems]="receiptItems$ | async">
-                    </pams-receipt-account-charge-list>
                   </md-tab>
 
                   <md-tab label="Unpaid Debit Notes">  
@@ -66,11 +55,6 @@
                       [receiptDebitNote]="receiptDebitNote$ | async"
                       (view)="view($event)">
                     </pams-debit-note-receipt-list>   
-
-                  <pams-receipt-debit-note-list
-                    [receipt]="receiptTask.receipt"
-                    [receiptItems]="receiptItems$ | async">
-                    </pams-receipt-debit-note-list>
                   </md-tab>
               </md-tab-group>
           </md-card>
@@ -78,6 +62,16 @@
         </div>
       </div>
       </div>
+      <div layout="column" layout-gt-md="row">
+        <div flex-gt-md="70">
+          <md-card>
+                          <pams-receipt-item-list
+                      [receipt]="receiptTask.receipt"
+                      [receiptItems]="receiptItems$ | async">
+                    </pams-receipt-item-list>
+                    </md-card>
+                 </div> 
+                 </div>
 
     </div>
     <div flex-gt-md="30">

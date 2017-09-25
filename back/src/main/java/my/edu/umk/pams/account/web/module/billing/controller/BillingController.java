@@ -320,9 +320,11 @@ public class BillingController {
         return new ResponseEntity<Receipt>(billingTransformer.toReceiptVo(receipt), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/receipts/{referenceNo}", method = RequestMethod.POST)
+    @RequestMapping(value = "/receipts/{referenceNo}", method = RequestMethod.PUT)
     public ResponseEntity<Receipt> updateReceipt(@PathVariable String referenceNo, @RequestBody Receipt vo) {
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        receipt.setTotalPayment(vo.getTotalPayment());
+        billingService.updateReceipt(receipt);
         return new ResponseEntity<Receipt>(billingTransformer.toReceiptVo(receipt), HttpStatus.OK);
     }
 
@@ -363,6 +365,7 @@ public class BillingController {
         e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
         e.setChargeCode(accountService.findChargeCodeById(0L));
         billingService.addReceiptItem(receipt, e);
+        
     }
 
     @RequestMapping(value = "/receipts/{referenceNo}/receiptItems/{id}", method = RequestMethod.PUT)

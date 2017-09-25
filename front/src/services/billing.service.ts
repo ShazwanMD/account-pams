@@ -240,7 +240,7 @@ export class BillingService {
     }
 
     updateReceipt( receipt: Receipt ): Observable<String> {
-        return this._http.put( this.BILLING_API + '/receipts', JSON.stringify( receipt ) )
+        return this._http.put( this.BILLING_API + '/receipts/'  + receipt.referenceNo , JSON.stringify( receipt ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
 
