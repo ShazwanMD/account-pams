@@ -55,4 +55,8 @@ public interface AcReceiptItem extends AcMetaObject{
 
 	void setAccountCharge(AcAccountCharge accountCharge);
 
+	AcDebitNote getDebitNote();
+	
+	void setDebitNote(AcDebitNote debitNote);
+
 }
