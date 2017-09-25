@@ -117,9 +117,14 @@ public class DebitNote extends Document {
 		return sodoCode;
 	}
 
-	public void setPaid(Boolean paid) {
-		this.paid = paid;
+	 public Boolean getPaid() {
+	        return paid;
+    }
+
+	 public void setPaid(Boolean paid) {
+	        this.paid = paid;
 	}
+
 
 	public BigDecimal getBalanceAmount() {
 		return balanceAmount;
