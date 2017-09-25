@@ -286,6 +286,8 @@ public interface BillingService {
 
 	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt);
 
+	AcReceiptItem findReceiptItemByCharge(AcAccountCharge charge, AcReceipt receipt);
+	
 	AcReceiptAccountChargeItem findReceiptChargeItemById(Long id);
 	
     List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit);

@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.billing.event;
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountTransactionCode;
 import my.edu.umk.pams.account.account.model.AcAccountTransactionImpl;
@@ -54,38 +55,56 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 	public void onApplicationEvent(ReceiptEvent event) {
 		if (event instanceof ReceiptApprovedEvent) {
 			AcReceipt receipt = event.getReceipt();
-			List<AcInvoice> invoices = receipt.getInvoices();
-			for (AcInvoice invoice : invoices) {
-				List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
-				for (AcInvoiceItem invoiceItem : invoiceItems) {
-					// find matching receipt item
-					AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode(),
-							invoiceItem.getInvoice(), receipt);
-					
-					if (receiptItem != null) {
-						LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
-						invoiceItem.setBalanceAmount(receiptItem.getTotalAmount());
-						billingService.updateInvoiceItem(invoice, invoiceItem);
+			//if (receipt.getInvoices() != null && receipt.getAccountCharges() == null) {
+				List<AcInvoice> invoices = receipt.getInvoices();
+				for (AcInvoice invoice : invoices) {
+					List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
+					for (AcInvoiceItem invoiceItem : invoiceItems) {
+						// find matching receipt item
+						AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(
+								invoiceItem.getChargeCode(), invoiceItem.getInvoice(), receipt);
+
+						if (receiptItem != null) {
+							LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
+							invoiceItem.setBalanceAmount(receiptItem.getTotalAmount());
+							billingService.updateInvoiceItem(invoice, invoiceItem);
+						}
+
+					}
+					invoice.setBalanceAmount(
+							invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice, receipt)));
+					LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
+					billingService.updateInvoice(invoice);
+
+					if (invoice.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+						invoice.setPaid(true);
+						billingService.updateInvoice(invoice);
 					}
 
 				}
-				invoice.setBalanceAmount(invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice, receipt)));
-				LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
-				billingService.updateInvoice(invoice);
+			//}
 
-				if(invoice.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0){
-					invoice.setPaid(true);
-					billingService.updateInvoice(invoice);
+			//else if (receipt.getAccountCharges() != null && receipt.getInvoices() == null) {
+				List<AcAccountCharge> accountCharges = receipt.getAccountCharges();
+				for (AcAccountCharge accountCharge : accountCharges) {
+					
+					LOG.debug("receipt get acc charges ", receipt.getAccountCharges());
+					
+					AcReceiptItem receiptItem = billingService.findReceiptItemByCharge(accountCharge, receipt);
+					accountCharge.setBalanceAmount(receiptItem.getTotalAmount());
+					accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
+
+					if (accountCharge.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+						accountCharge.setPaid(true);
+						accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
+					}
 				}
-				
-			}
-			
+			//}
 			BigDecimal balance = receipt.getTotalReceived().subtract(receipt.getTotalApplied());
 
 			if (balance.signum() > 0) {
-				
-				String referenceNo = systemService
-						.generateReferenceNo(AccountConstants.ADVANCE_PAYMENT_REFRENCE_NO);
+
+				String referenceNo = systemService.generateReferenceNo(AccountConstants.ADVANCE_PAYMENT_REFRENCE_NO);
 				LOG.debug("Processing application with refNo {}", referenceNo);
 
 				AcAdvancePayment advancePayment = new AcAdvancePaymentImpl();

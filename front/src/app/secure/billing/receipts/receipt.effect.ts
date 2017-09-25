@@ -44,7 +44,7 @@ export class ReceiptEffects {
     .map((task) => this.receiptActions.findReceiptTaskByTaskIdSuccess(task))
     .mergeMap((action) => from([action,
         this.receiptActions.findReceiptItems(action.payload),
-        this.receiptActions.findReceiptsByInvoice(action.payload),
+        //this.receiptActions.findReceiptsByInvoice(action.payload),
       ],
     ));
 

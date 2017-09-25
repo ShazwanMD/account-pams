@@ -3,6 +3,8 @@ package my.edu.umk.pams.account.billing.model;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.common.model.AcPaymentMethod;
 import my.edu.umk.pams.account.core.AcFlowdata;
@@ -95,6 +97,13 @@ public class AcReceiptImpl implements AcReceipt {
             inverseJoinColumns = {@JoinColumn(name = "INVOICE_ID",
                     nullable = false, updatable = false)})
     private List<AcInvoice> invoices;
+	
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcAccountChargeImpl.class)
+    @JoinTable(name = "AC_RCPT_ACCT_CHRG", joinColumns = {
+            @JoinColumn(name = "RECEIPT_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "ACCOUNT_CHARGE_ID",
+                    nullable = false, updatable = false)})
+    private List<AcAccountCharge> accountCharges;
 
 	@Embedded
 	private AcMetadata metadata;
@@ -260,6 +269,11 @@ public class AcReceiptImpl implements AcReceipt {
 	@Override
 	public List<AcInvoice> getInvoices() {
 		return invoices;
+	}
+	
+	@Override
+	public List<AcAccountCharge> getAccountCharges() {
+		return accountCharges;
 	}
 
 	@Override
