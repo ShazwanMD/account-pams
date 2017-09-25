@@ -53,7 +53,7 @@ export class DebitNoteReceiptListComponent {
   viewTask(receiptDebitNote: ReceiptDebitNote) {
 
       console.log('ref no for receipt: ' + receiptDebitNote.receipt.referenceNo);
-     // this.showDialog(receiptDebitNote);
+      this.showDialog(receiptDebitNote);
       
     }
 
@@ -96,20 +96,5 @@ export class DebitNoteReceiptListComponent {
         // no op
       });
     }
-  
-  //  UnpaidDebitNote(receiptDebitNote: ReceiptDebitNote): void {
-  //   let config: MdDialogConfig = new MdDialogConfig();
-  //   config.viewContainerRef = this.viewContainerRef;
-  //   config.role = 'dialog';
-  //   config.width = '50%';
-  //   config.height = '60%';
-  //   config.position = {top: '65px'};
-  //   let editorDialogRef = this.dialog.open(DebitNoteReceiptDialog, config);
-  //   //this.editorDialogRef.componentInstance.account = this.account;
-  //   editorDialogRef.afterClosed().subscribe((res) => {
-  //     // no op
-  //   });
-  // }
-
 }
 
