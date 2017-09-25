@@ -147,7 +147,7 @@ public class AccountTransformer {
         m.setAmount(e.getAmount());
         m.setTaxAmount(e.getTaxAmount());
         m.setNetAmount(e.getNetAmount());
-        m.setBalanceAmount(e.getAmount());
+        m.setBalanceAmount(e.getNetAmount());
         m.setChargeType(AccountChargeType.get(e.getChargeType().ordinal()));
         m.setSession(toAcademicSessionVo(e.getSession()));
         m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
