@@ -56,6 +56,8 @@ public interface AcReceipt extends AcDocument{
     
     List<AcAccountCharge> getAccountCharges();
     
+    List<AcDebitNote> getDebitNotes();
+    
     AcAcademicSession getSession();
 
 	void setSession(AcAcademicSession session);

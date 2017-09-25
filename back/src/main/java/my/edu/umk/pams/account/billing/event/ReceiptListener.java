@@ -4,12 +4,15 @@ import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.dao.AcAccountDao;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeTransaction;
+import my.edu.umk.pams.account.account.model.AcAccountChargeTransactionImpl;
 import my.edu.umk.pams.account.account.model.AcAccountTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountTransactionCode;
 import my.edu.umk.pams.account.account.model.AcAccountTransactionImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
 import my.edu.umk.pams.account.billing.model.AcAdvancePaymentImpl;
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
@@ -55,7 +58,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 	public void onApplicationEvent(ReceiptEvent event) {
 		if (event instanceof ReceiptApprovedEvent) {
 			AcReceipt receipt = event.getReceipt();
-			//if (receipt.getInvoices() != null && receipt.getAccountCharges() == null) {
+
 				List<AcInvoice> invoices = receipt.getInvoices();
 				for (AcInvoice invoice : invoices) {
 					List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
@@ -82,9 +85,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					}
 
 				}
-			//}
 
-			//else if (receipt.getAccountCharges() != null && receipt.getInvoices() == null) {
 				List<AcAccountCharge> accountCharges = receipt.getAccountCharges();
 				for (AcAccountCharge accountCharge : accountCharges) {
 					
@@ -98,9 +99,33 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 						accountCharge.setPaid(true);
 						accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
 					}
+					
+/*					AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
+					tx.setSession(receipt.getSession());
+					tx.setPostedDate(new Date());
+					tx.setDescription(accountCharge.getDescription());
+					tx.setSourceNo(accountCharge.getReferenceNo());
+					tx.setTransactionCode(AcAccountChargeType.);
+					tx.setAccount(receipt.getAccount());
+					tx.setAmount(advancePayment.getAmount().negate());
+					accountService.addAccountTransaction(receipt.getAccount(), tx);*/
 				}
-			//}
-			BigDecimal balance = receipt.getTotalReceived().subtract(receipt.getTotalApplied());
+				
+				List<AcDebitNote> debitNotes = receipt.getDebitNotes();
+				for(AcDebitNote debitNote: debitNotes) {
+					
+					AcReceiptItem receiptItem = billingService.findReceiptItemByDebitNote(debitNote, receipt);
+					debitNote.setBalanceAmount(receiptItem.getTotalAmount());
+					billingService.updateDebitNote(debitNote);
+					
+					if(debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+						debitNote.setPaid(true);
+						billingService.updateDebitNote(debitNote);
+					}
+					
+				}
+
+			BigDecimal balance = receipt.getTotalPayment();
 
 			if (balance.signum() > 0) {
 

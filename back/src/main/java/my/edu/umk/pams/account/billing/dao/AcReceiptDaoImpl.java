@@ -101,6 +101,19 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         return (AcReceiptItem) query.uniqueResult();
     }
+    
+    @Override
+	public AcReceiptItem findReceiptItemByDebitNote(AcDebitNote debitNote, AcReceipt receipt) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcReceiptItem ri where " +
+                "ri.debitNote = :debitNote " +
+                "and ri.receipt = :receipt " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("debitNote", debitNote);
+        query.setEntity("receipt", receipt);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcReceiptItem) query.uniqueResult();
+    }
 
     @Override
     public List<AcReceipt> find(String filter, Integer offset, Integer limit) {

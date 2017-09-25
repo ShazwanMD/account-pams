@@ -104,6 +104,13 @@ public class AcReceiptImpl implements AcReceipt {
             inverseJoinColumns = {@JoinColumn(name = "ACCOUNT_CHARGE_ID",
                     nullable = false, updatable = false)})
     private List<AcAccountCharge> accountCharges;
+	
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcDebitNoteImpl.class)
+    @JoinTable(name = "AC_RCPT_DBT", joinColumns = {
+            @JoinColumn(name = "RECEIPT_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "DEBITNOTE_ID",
+                    nullable = false, updatable = false)})
+    private List<AcDebitNote> debitNotes;
 
 	@Embedded
 	private AcMetadata metadata;
@@ -274,6 +281,11 @@ public class AcReceiptImpl implements AcReceipt {
 	@Override
 	public List<AcAccountCharge> getAccountCharges() {
 		return accountCharges;
+	}
+	
+	@Override
+	public List<AcDebitNote> getDebitNotes() {
+		return debitNotes;
 	}
 
 	@Override
