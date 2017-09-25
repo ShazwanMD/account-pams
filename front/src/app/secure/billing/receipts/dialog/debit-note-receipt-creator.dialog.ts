@@ -66,6 +66,9 @@ export class DebitNoteReceiptCreatorDialog implements OnInit {
 
         if ( this.edit )
             this.createForm.patchValue( { debitNote: this._debitNote } );
+            this.createForm.patchValue( { invoice: this._debitNote.invoice } );
+            this.createForm.patchValue( { chargeCode: this._debitNote.chargeCode } );
+            this.createForm.patchValue( { description: this._debitNote.description } );
             this.createForm.patchValue( { dueAmount: this._debitNote.balanceAmount } );
             
             if(this._debitNote.balanceAmount <= this._receipt.totalPayment) {
@@ -85,7 +88,7 @@ export class DebitNoteReceiptCreatorDialog implements OnInit {
         this.store.dispatch( this.actions.addReceiptItem( this._receipt, item ) );
         this.dialog.close();
         
-       // this._receipt.totalPayment = this._receipt.totalPayment - item.appliedAmount;
-        //this.store.dispatch( this.actions.updateReceipt(this._receipt) );
+        this._receipt.totalPayment = this._receipt.totalPayment - item.appliedAmount;
+        this.store.dispatch( this.actions.updateReceipt(this._receipt) );
     }
 }

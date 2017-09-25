@@ -442,8 +442,7 @@ public class AccountController {
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                charge.setInclusive(vo.getInclusive());
-                charge.setBalanceAmount(vo.getAmount());
+                charge.setInclusive(vo.getInclusive());               
                 accountService.calculateNetAmount(charge);
                 break;
             case ACADEMIC:
@@ -462,7 +461,6 @@ public class AccountController {
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 charge.setInclusive(vo.getInclusive());
-                charge.setBalanceAmount(vo.getAmount());
                 accountService.calculateNetAmount(charge);
                 break;         
             case COMPOUND:
@@ -475,7 +473,6 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 if (null != vo.getTaxCode())
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
-                charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
                 break;
             case SECURITY:
@@ -489,7 +486,7 @@ public class AccountController {
                 charge.setChargeDate(vo.getChargeDate());
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                charge.setBalanceAmount(vo.getSecurityChargeCode().getBalanceAmount());
+                charge.setBalanceAmount(vo.getSecurityChargeCode().getNetAmount());
                 if (null != vo.getSecurityChargeCode())
                 	charge.setSecurityChargeCode(commonService.findSecurityChargeCodeById(vo.getSecurityChargeCode().getId()));
                 if (null != vo.getSecurityChargeCode().getTaxCode())
@@ -506,7 +503,6 @@ public class AccountController {
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 charge.setInclusive(vo.getInclusive());
-                charge.setBalanceAmount(vo.getAmount());
                 accountService.calculateNetAmount(charge);
                 break;
             case LOAN:
@@ -550,7 +546,6 @@ public class AccountController {
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                charge.setBalanceAmount(vo.getAmount());
                 charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
                 break;         
@@ -569,7 +564,6 @@ public class AccountController {
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                charge.setBalanceAmount(vo.getAmount());
                 charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
                 break;         
@@ -595,7 +589,7 @@ public class AccountController {
                 charge.setChargeDate(vo.getChargeDate());
                 charge.setSession(accountService.findCurrentAcademicSession());
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
-                charge.setBalanceAmount(vo.getSecurityChargeCode().getBalanceAmount());
+                charge.setBalanceAmount(vo.getSecurityChargeCode().getNetAmount());
                 if (null != vo.getSecurityChargeCode())
                     charge.setSecurityChargeCode(commonService.findSecurityChargeCodeById(vo.getSecurityChargeCode().getId()));
                 if (null != vo.getSecurityChargeCode().getTaxCode())
@@ -611,7 +605,6 @@ public class AccountController {
                 if (null != vo.getTaxCode())
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
                 charge.setInclusive(vo.getInclusive());
-                charge.setBalanceAmount(vo.getAmount());
                 accountService.calculateNetAmount(charge);
                 break;
             case LOAN:

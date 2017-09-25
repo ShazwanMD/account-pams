@@ -25,6 +25,7 @@ public class ReceiptItem extends MetaObject {
     private ChargeCode chargeCode;
     private Invoice invoice;
     private AccountCharge accountCharge;
+    private DebitNote debitNote;
 
     public String getDescription() {
         return description;
@@ -105,6 +106,14 @@ public class ReceiptItem extends MetaObject {
 	public void setAccountCharge(AccountCharge accountCharge) {
 		this.accountCharge = accountCharge;
 	}
+	
+	public DebitNote getDebitNote() {
+		return debitNote;
+	}
+
+	public void setDebitNote(DebitNote debitNote) {
+		this.debitNote = debitNote;
+	}
 
 	@JsonCreator
     public static ReceiptItem create(String jsonString) {
@@ -117,4 +126,6 @@ public class ReceiptItem extends MetaObject {
         }
         return o;
     }
+
+
 }

@@ -164,7 +164,7 @@ public class CommonTransformer {
         vo.setTaxCode(this.toTaxCodeVo(e.getTaxCode()));
         vo.setInclusive(e.getInclusive());
         vo.setActive(e.getActive());
-        vo.setBalanceAmount(e.getAmount());
+        vo.setBalanceAmount(e.getNetAmount());
         return vo;
     }
 

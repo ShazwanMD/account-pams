@@ -1,3 +1,4 @@
+import { DebitNote } from './debit-note.interface';
 import {MetaObject} from '../../../core/meta-object.interface';
 import {Invoice} from './invoice.interface';
 import {ChargeCode} from '../account/charge-code.interface';
@@ -14,6 +15,7 @@ export interface ReceiptItem extends MetaObject {
   chargeCode: ChargeCode;
   invoice: Invoice;
   accountCharge: AccountCharge;
+  debitNote: DebitNote;
 
   // selection
   selected?: boolean;

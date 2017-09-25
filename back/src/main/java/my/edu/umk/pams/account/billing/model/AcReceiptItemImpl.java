@@ -53,6 +53,10 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     @ManyToOne(targetEntity = AcAccountChargeImpl.class)
     @JoinColumn(name = "ACCOUNT_CHARGE_ID")
     private AcAccountCharge accountCharge;
+    
+    @ManyToOne(targetEntity = AcDebitNoteImpl.class)
+    @JoinColumn(name = "DEBIT_NOTE_ID")
+    private AcDebitNote debitNote;
 
     @NotNull
     @ManyToOne(targetEntity = AcReceiptImpl.class)
@@ -164,6 +168,16 @@ public class AcReceiptItemImpl implements AcReceiptItem {
 	public void setAccountCharge(AcAccountCharge accountCharge) {
 		this.accountCharge = accountCharge;
 	}
+    
+    @Override
+    public AcDebitNote getDebitNote() {
+		return debitNote;
+	}
+
+    @Override
+	public void setDebitNote(AcDebitNote debitNote) {
+		this.debitNote = debitNote;
+	}
 
 	@Override
     public AcReceipt getReceipt() {
@@ -199,4 +213,6 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     public Class<?> getInterfaceClass() {
         return AcReceiptItem.class;
     }
+
+	
 }

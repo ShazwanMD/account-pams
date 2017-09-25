@@ -360,8 +360,11 @@ public class BillingController {
         e.setUnit(vo.getUnit());
         e.setPrice(vo.getPrice());
         e.setDescription(vo.getDescription());
+        if (null != vo.getDebitNote())
+        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
         if (null != vo.getInvoice())
         e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+        if (null != vo.getAccountCharge())
         e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
         e.setChargeCode(accountService.findChargeCodeById(0L));
         billingService.addReceiptItem(receipt, e);

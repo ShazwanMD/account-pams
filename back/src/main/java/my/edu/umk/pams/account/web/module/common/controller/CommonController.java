@@ -366,11 +366,11 @@ public class CommonController {
         securityChargeCode.setAmount(vo.getAmount());
         securityChargeCode.setAmountDescription(vo.getAmountDescription());                
         securityChargeCode.setActive(vo.getActive());
-        securityChargeCode.setInclusive(vo.getInclusive());
-        securityChargeCode.setBalanceAmount(vo.getBalanceAmount());
+        securityChargeCode.setInclusive(vo.getInclusive());        
         if (null != vo.getTaxCode())
         	securityChargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
         commonService.calculateSecurityChargeCodeNetAmount(securityChargeCode);
+        securityChargeCode.setBalanceAmount(vo.getNetAmount());
         commonService.saveSecurityChargeCode(securityChargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -388,10 +388,10 @@ public class CommonController {
         securityChargeCode.setAmountDescription(vo.getAmountDescription());
         securityChargeCode.setActive(vo.getActive());
         securityChargeCode.setInclusive(vo.getInclusive());
-        securityChargeCode.setBalanceAmount(vo.getBalanceAmount());
         if (null != vo.getTaxCode())
         	securityChargeCode.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
         commonService.calculateSecurityChargeCodeNetAmount(securityChargeCode);
+        securityChargeCode.setBalanceAmount(vo.getNetAmount());
         commonService.updateSecurityChargeCode(securityChargeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

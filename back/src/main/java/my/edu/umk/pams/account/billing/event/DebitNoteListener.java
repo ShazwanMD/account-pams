@@ -47,10 +47,8 @@ public class DebitNoteListener implements ApplicationListener<DebitNoteEvent> {
 			
 			LOG.debug("Invoice for debitNote", invoice.getReferenceNo());
 			
-/*			invoice.setBalanceAmount(debitNote.getTotalAmount().add(invoice.getBalanceAmount()));
-			invoice.setPaid(false);
-			//invoice.setSourceNo(debitNote.getReferenceNo());
-			billingService.updateInvoice(invoice);*/
+			debitNote.setBalanceAmount(debitNote.getTotalAmount());
+			billingService.updateDebitNote(debitNote);
 		}
 	}
 }

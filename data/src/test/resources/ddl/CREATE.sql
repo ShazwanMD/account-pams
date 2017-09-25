@@ -1044,6 +1044,10 @@
         ID int8 not null,
         ACTIVE boolean,
         AMOUNT numeric(19, 2) not null,
+        NET_AMOUNT numeric(19, 2),
+        TAX_AMOUNT numeric(19, 2),
+        BALANCE_AMOUNT numeric(19, 2),
+        INCLUSIVE boolean,
         AMOUNT_DESCRIPTION varchar(255) not null,
         DESCRIPTION varchar(255) not null,
         C_TS timestamp,
@@ -1056,6 +1060,7 @@
         OFFENSE varchar(255) not null,
         OFFENSE_DESCRIPTION varchar(255) not null,
         SECTION varchar(255) not null,
+        TAX_CODE_ID int8,
         primary key (ID)
     );
 
@@ -1830,6 +1835,11 @@
         add constraint FK_i9dv9aqu0m3layaisbx625v83
         foreign key (ADVANCE_PAYMENT_ID)
         references AC_ADVC_PYMT;
+        
+    alter table AC_SCTY_CHRG_CODE
+        add constraint FK_1pi4606wcpiir5b1fve6uf8k6
+        foreign key (TAX_CODE_ID)
+        references AC_TAX_CODE;         
 
     alter table AC_SMDL
         add constraint FK_l5iijx9gif3hcfpnfhketwebo
