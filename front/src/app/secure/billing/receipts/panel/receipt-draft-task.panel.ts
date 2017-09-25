@@ -36,7 +36,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   private INVOICES: string[] = 'billingModuleState.invoices'.split('.');
   private RECEIPT_INVOICE: string[] = 'billingModuleState.receiptInvoice'.split('.');
   private RECEIPT_ACCOUNT_CHARGE: string[] = 'billingModuleState.receiptAccountCharge'.split('.');
-  private RECEIPT_DEBIT_NOTE: string[] = 'billingModuleState.ReceiptDebitNote'.split('.');
+  private RECEIPT_DEBIT_NOTE: string[] = 'billingModuleState.receiptDebitNote'.split('.');
   private DEBIT_NOTE: string[] = 'billingModuleState.debitNoteList'.split('.');
   private ACCOUNT_CHARGES: string[] = 'accountModuleState.accountCharges'.split('.');
   private account$: Observable<Account>;
