@@ -259,6 +259,7 @@ public class BillingTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         vo.setAccountCharge(accountTransformer.toAccountChargeVo(e.getAccountCharge()));
+        vo.setDebitNote(billingTransformer.toDebitNoteVo(e.getDebitNote()));
         return vo;
     }
 
@@ -287,6 +288,8 @@ public class BillingTransformer {
         vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
         vo.setDescription(e.getDescription());
         vo.setTotalAmount(e.getTotalAmount());
+        vo.setBalanceAmount(e.getBalanceAmount());
+        vo.setPaid(e.getPaid());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
@@ -296,6 +299,7 @@ public class BillingTransformer {
 
     public DebitNote toDebitNoteVo(AcDebitNote e) {
         DebitNote vo = new DebitNote();
+        if(null == e) return null;
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
@@ -305,6 +309,8 @@ public class BillingTransformer {
         vo.setAccountCode(e.getInvoice().getAccount().getCode());
         vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
         vo.setTotalAmount(e.getTotalAmount());
+        vo.setBalanceAmount(e.getBalanceAmount());
+        vo.setPaid(e.getPaid());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
