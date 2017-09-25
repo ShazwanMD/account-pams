@@ -778,10 +778,12 @@ public class AccountServiceImpl implements AccountService {
         if (accountCharge.getInclusive() == false) {
         	accountCharge.setNetAmount(netAmount);
         	accountCharge.setTaxAmount(taxAmount);
+        	accountCharge.setBalanceAmount(netAmount);
 		}
 		else if (accountCharge.getInclusive() == true) {
 			accountCharge.setTaxAmount(taxAmount);
 			accountCharge.setNetAmount(amount);
+			accountCharge.setBalanceAmount(amount);
 		}
 	}
 	

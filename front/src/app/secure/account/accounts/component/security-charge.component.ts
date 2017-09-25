@@ -20,10 +20,10 @@ export class SecurityChargeComponent implements OnInit {
     {name: 'sourceNo', label: 'Source No'},
     {name: 'securityChargeCode.offenseDescription', label: 'Description'},
     {name: 'amount', label: 'Amount'},
-    {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'taxAmount', label: 'Tax Amount'},
     {name: 'inclusive', label: 'Inclusive'},
     {name: 'netAmount', label: 'Net Amount'},
+    {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'action', label: ''},
 
