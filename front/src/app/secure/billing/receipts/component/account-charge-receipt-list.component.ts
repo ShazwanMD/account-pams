@@ -30,8 +30,8 @@ export class AccountChargeReceiptListComponent {
     
   private columns: any[] = [
     {name: 'accountCharge.referenceNo', label: 'Reference No'},
-    {name: 'accountCharge.securityChargeCode.description', label: 'Description'},
-    {name: 'accountCharge.securityChargeCode.netAmount', label: 'Total Amount'},
+    {name: 'accountCharge.description', label: 'Description'},
+    {name: 'accountCharge.netAmount', label: 'Total Amount'},
     {name: 'accountCharge.balanceAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
