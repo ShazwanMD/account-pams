@@ -444,7 +444,6 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 charge.setInclusive(vo.getInclusive());               
                 accountService.calculateNetAmount(charge);
-                charge.setBalanceAmount(vo.getNetAmount());
                 break;
             case ACADEMIC:
             	charge.setReferenceNo(referenceNo);
@@ -463,7 +462,6 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
-                charge.setBalanceAmount(vo.getNetAmount());
                 break;         
             case COMPOUND:
                 charge.setReferenceNo(referenceNo);
@@ -476,7 +474,6 @@ public class AccountController {
                 if (null != vo.getTaxCode())
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
                 accountService.calculateNetAmount(charge);
-                charge.setBalanceAmount(vo.getNetAmount());
                 break;
             case SECURITY:
                 charge.setReferenceNo(referenceNo);
@@ -507,7 +504,6 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
-                charge.setBalanceAmount(vo.getNetAmount());
                 break;
             case LOAN:
                 charge.setReferenceNo(referenceNo);
@@ -552,7 +548,6 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
-                charge.setBalanceAmount(vo.getNetAmount());
                 break;         
             case ACADEMIC:
             	charge.setReferenceNo(referenceNo);
@@ -571,7 +566,6 @@ public class AccountController {
                 charge.setChargeType(AcAccountChargeType.get(vo.getChargeType().ordinal()));
                 charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
-                charge.setBalanceAmount(vo.getNetAmount());
                 break;         
             case COMPOUND:
                 charge.setSourceNo(vo.getSourceNo());
@@ -584,7 +578,6 @@ public class AccountController {
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
                 charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
-                charge.setBalanceAmount(vo.getNetAmount());
                 break;
             case SECURITY:
                 charge.setSourceNo(vo.getSourceNo());
@@ -613,7 +606,6 @@ public class AccountController {
                     charge.setTaxCode(commonService.findTaxCodeById(vo.getTaxCode().getId()));
                 charge.setInclusive(vo.getInclusive());
                 accountService.calculateNetAmount(charge);
-                charge.setBalanceAmount(vo.getNetAmount());
                 break;
             case LOAN:
                 charge.setReferenceNo(referenceNo);
