@@ -22,35 +22,37 @@ export class ReceiptActions {
     };
   }
   
-  static FIND_RECEIPTS_BY_INVOICE = '[Receipt] Find Completed Receipts';
+  static FIND_RECEIPTS_BY_INVOICE = '[Receipt] Find Receipts By Invoice';
 
   findReceiptsByInvoice(receipt): Action {
+    console.log("findReceiptsByInvoices");
     return {
       type: ReceiptActions.FIND_RECEIPTS_BY_INVOICE,
       payload: receipt
     };
   }
 
-  static FIND_RECEIPTS_BY_INVOICE_SUCCESS = '[Receipt] Find Completed Receipts Success';
+  static FIND_RECEIPTS_BY_INVOICE_SUCCESS = '[Receipt] Find Receipts By Invoice Success';
 
   findReceiptsByInvoiceSuccess(receipts): Action {
-    console.log("findCompletedReceiptsSuccess");
+    console.log("findReceiptsByInvoicesSuccess");
     return {
       type: ReceiptActions.FIND_RECEIPTS_BY_INVOICE_SUCCESS,
       payload: receipts
     };
   } 
 
-  static FIND_RECEIPTS_BY_ACCOUNT_CHARGE = '[Receipt] Find Completed Receipts';
+  static FIND_RECEIPTS_BY_ACCOUNT_CHARGE = '[Receipt] Find Receipts By Account Charge';
   
     findReceiptsByAccountCharge(receipt): Action {
+      console.log("findReceiptsByAccountCharge");
       return {
         type: ReceiptActions.FIND_RECEIPTS_BY_ACCOUNT_CHARGE,
         payload: receipt
       };
     }
   
-    static FIND_RECEIPTS_BY_ACCOUNT_CHARGE_SUCCESS = '[Receipt] Find Completed Receipts Success';
+    static FIND_RECEIPTS_BY_ACCOUNT_CHARGE_SUCCESS = '[Receipt] Find Receipts By Account Charge Success';
   
     findReceiptsByAccountChargeSuccess(receipts): Action {
       console.log("findReceiptsByAccountChargeSuccess");
@@ -447,6 +449,7 @@ export class ReceiptActions {
   static FIND_UNPAID_INVOICES = '[Invoice] Find Unpaid Invoices';
 
   findUnpaidInvoices(account): Action {
+    console.log('findUnpaidInvoices');
     return {
       type: ReceiptActions.FIND_UNPAID_INVOICES,
       payload: account,
@@ -516,19 +519,20 @@ export class ReceiptActions {
         };
       }
 
-    static FIND_RECEIPTS_BY_DEBIT_NOTE = '[Receipt] Find Completed Debit Note';
+    static FIND_RECEIPTS_BY_DEBIT_NOTE = '[Receipt] Find Receipts By Debit Note';
 
       findReceiptsByDebitNote(receipt): Action {
+      console.log("findReceiptsByDebitNote");
        return {
        type: ReceiptActions.FIND_RECEIPTS_BY_DEBIT_NOTE,
        payload: receipt
       };
     }
 
-    static FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS = '[Receipt] Find Completed Debit Note Success';
+    static FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS = '[Receipt] Find Receipts By Debit Note Success';
 
       findReceiptsByDebitNoteSuccess(receipts): Action {
-      console.log("findCompletedReceiptsSuccess");
+      console.log("findReceiptsByDebitNoteSuccess");
       return {
       type: ReceiptActions.FIND_RECEIPTS_BY_DEBIT_NOTE_SUCCESS,
       payload: receipts
