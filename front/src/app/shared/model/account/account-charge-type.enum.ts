@@ -8,4 +8,5 @@ export enum AccountChargeType {
   COMPOUND,
   STUDENT_AFFAIRS,
   LOAN,
+  RECEIPT,
 }

@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.dao;
 
+import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
@@ -549,6 +550,53 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         		"and a.receipt = :receipt " +
                 "and a.metadata.state = :state ");
         query.setEntity("invoice", invoice);
+        query.setEntity("receipt", receipt);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcReceipt receipt, AcAccountCharge accountCharge, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcReceiptItem a where " +
+                "a.accountCharge = :accountCharge " +
+        		"and a.receipt = :receipt " +
+                "and a.metadata.state = :state ");
+        query.setEntity("accountCharge", accountCharge);
+        query.setEntity("receipt", receipt);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcReceipt receipt, AcDebitNote debitNote, AcInvoice invoice, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcReceiptItem a where " +
+                "a.receipt = :receipt " +
+        		"and a.invoice = :invoice " +
+                "or a.debitNote = :debitNote " +
+                "and a.metadata.state = :state ");
+        query.setEntity("invoice", invoice);
+        query.setEntity("debitNote", debitNote);
+        query.setEntity("receipt", receipt);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcReceipt receipt, AcDebitNote debitNote, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcReceiptItem a where " +
+                "a.receipt = :receipt " +
+        		"and a.debitNote = :debitNote " +
+                "and a.metadata.state = :state ");
+        query.setEntity("debitNote", debitNote);
         query.setEntity("receipt", receipt);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();

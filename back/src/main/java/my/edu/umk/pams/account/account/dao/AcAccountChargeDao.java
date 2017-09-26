@@ -4,9 +4,12 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
+import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcUser;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -77,6 +80,4 @@ public interface AcAccountChargeDao extends GenericDao<Long, AcAccountCharge> {
 	boolean isChargeExists(AcAccount account, String sourceNo);
 
 	boolean isChargeExists(AcAccount account, AcAcademicSession academicSession, AcAccountChargeType chargeType);
-	
-
 }

@@ -6,10 +6,12 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountChargeTransactionImpl;
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountTransactionCode;
 import my.edu.umk.pams.account.account.model.AcAccountTransactionImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
 import my.edu.umk.pams.account.billing.model.AcAdvancePaymentImpl;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
@@ -54,76 +56,97 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 	@Autowired
 	private SecurityService securityService;
 
+	@Autowired
+	private AcReceiptDao receiptDao;
+
 	@Override
 	public void onApplicationEvent(ReceiptEvent event) {
 		if (event instanceof ReceiptApprovedEvent) {
 			AcReceipt receipt = event.getReceipt();
+			
+			BigDecimal total = BigDecimal.ZERO;
+			
+			List<AcInvoice> invoices = receipt.getInvoices();
+			for (AcInvoice invoice : invoices) {
+				List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
+				for (AcInvoiceItem invoiceItem : invoiceItems) {
+					// find matching receipt item
+					AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(invoiceItem.getChargeCode(),
+							invoiceItem.getInvoice(), receipt);
 
-				List<AcInvoice> invoices = receipt.getInvoices();
-				for (AcInvoice invoice : invoices) {
-					List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
-					for (AcInvoiceItem invoiceItem : invoiceItems) {
-						// find matching receipt item
-						AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(
-								invoiceItem.getChargeCode(), invoiceItem.getInvoice(), receipt);
-
-						if (receiptItem != null) {
-							LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
-							invoiceItem.setBalanceAmount(receiptItem.getTotalAmount());
-							billingService.updateInvoiceItem(invoice, invoiceItem);
-						}
-
-					}
-					invoice.setBalanceAmount(
-							invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice, receipt)));
-					LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
-					billingService.updateInvoice(invoice);
-
-					if (invoice.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
-						invoice.setPaid(true);
-						billingService.updateInvoice(invoice);
+					if (receiptItem != null) {
+						LOG.debug("Invoice Item ", invoiceItem.getBalanceAmount());
+						invoiceItem.setBalanceAmount(receiptItem.getTotalAmount());
+						billingService.updateInvoiceItem(invoice, invoiceItem);
 					}
 
 				}
+				invoice.setBalanceAmount(
+						invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice, receipt)));
+				LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
+				billingService.updateInvoice(invoice);
 
-				List<AcAccountCharge> accountCharges = receipt.getAccountCharges();
-				for (AcAccountCharge accountCharge : accountCharges) {
-					
-					LOG.debug("receipt get acc charges ", receipt.getAccountCharges());
-					
-					AcReceiptItem receiptItem = billingService.findReceiptItemByCharge(accountCharge, receipt);
-					accountCharge.setBalanceAmount(receiptItem.getTotalAmount());
-					accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
-
-					if (accountCharge.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
-						accountCharge.setPaid(true);
-						accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
-					}
-					
-/*					AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
-					tx.setSession(receipt.getSession());
-					tx.setPostedDate(new Date());
-					tx.setDescription(accountCharge.getDescription());
-					tx.setSourceNo(accountCharge.getReferenceNo());
-					tx.setTransactionCode(AcAccountChargeType.);
-					tx.setAccount(receipt.getAccount());
-					tx.setAmount(advancePayment.getAmount().negate());
-					accountService.addAccountTransaction(receipt.getAccount(), tx);*/
+				if (invoice.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+					invoice.setPaid(true);
+					billingService.updateInvoice(invoice);
 				}
 				
-				List<AcDebitNote> debitNotes = receipt.getDebitNotes();
-				for(AcDebitNote debitNote: debitNotes) {
-					
-					AcReceiptItem receiptItem = billingService.findReceiptItemByDebitNote(debitNote, receipt);
-					debitNote.setBalanceAmount(receiptItem.getTotalAmount());
-					billingService.updateDebitNote(debitNote);
-					
-					if(debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
-						debitNote.setPaid(true);
-						billingService.updateDebitNote(debitNote);
-					}
-					
+				total = receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser());
+
+			}
+
+			List<AcAccountCharge> accountCharges = receipt.getAccountCharges();
+			for (AcAccountCharge accountCharge : accountCharges) {
+
+				LOG.debug("receipt get acc charges ", receipt.getAccountCharges());
+
+				AcReceiptItem receiptItem = billingService.findReceiptItemByCharge(accountCharge, receipt);
+				accountCharge.setBalanceAmount(receiptItem.getTotalAmount());
+				accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
+
+				if (accountCharge.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+					accountCharge.setPaid(true);
+					accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
 				}
+
+				AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
+				tx.setSession(receipt.getSession());
+				tx.setPostedDate(new Date());
+				tx.setDescription(receipt.getDescription());
+				tx.setSourceNo(receipt.getReferenceNo());
+				tx.setTransactionCode(AcAccountChargeType.RECEIPT);
+				tx.setAccount(receipt.getAccount());
+				tx.setAmount(receiptDao.sumTotalAmount(receipt, accountCharge, securityService.getCurrentUser()));
+				accountService.addAccountChargeTransaction(receipt.getAccount(), tx);
+			}
+			
+			BigDecimal totaldebit = BigDecimal.ZERO;
+
+			List<AcDebitNote> debitNotes = receipt.getDebitNotes();
+			for (AcDebitNote debitNote : debitNotes) {
+
+				AcReceiptItem receiptItem = billingService.findReceiptItemByDebitNote(debitNote, receipt);
+				debitNote.setBalanceAmount(receiptItem.getTotalAmount());
+				billingService.updateDebitNote(debitNote);
+
+				if (debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+					debitNote.setPaid(true);
+					billingService.updateDebitNote(debitNote);
+				}
+				
+				totaldebit = receiptDao.sumTotalAmount(receipt, debitNote, securityService.getCurrentUser());
+
+			}
+
+			AcAccountTransaction trx = new AcAccountTransactionImpl();
+			trx.setSession(receipt.getSession());
+			trx.setPostedDate(new Date());
+			trx.setDescription(receipt.getDescription());
+			trx.setSourceNo(receipt.getReferenceNo());
+			trx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
+			trx.setAccount(receipt.getAccount());
+			trx.setAmount(total.add(totaldebit));
+			accountService.addAccountTransaction(receipt.getAccount(), trx);
 
 			BigDecimal balance = receipt.getTotalPayment();
 
