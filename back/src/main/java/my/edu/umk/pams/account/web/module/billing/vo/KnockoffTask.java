@@ -14,6 +14,7 @@ public class KnockoffTask extends Task {
 	private Knockoff knockoff;
 	private AdvancePayment payments;
 	private Date issuedDate;
+	private BigDecimal totalAmount;
 
 	public AdvancePayment getPayments() {
 		return payments;
@@ -29,6 +30,22 @@ public class KnockoffTask extends Task {
 
 	public void setKnockoff(Knockoff knockoff) {
 		this.knockoff = knockoff;
+	}
+
+	public Date getIssuedDate() {
+		return issuedDate;
+	}
+
+	public void setIssuedDate(Date issuedDate) {
+		this.issuedDate = issuedDate;
+	}
+
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 
 	@JsonCreator

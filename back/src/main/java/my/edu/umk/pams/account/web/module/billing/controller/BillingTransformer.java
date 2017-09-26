@@ -463,6 +463,8 @@ public class BillingTransformer {
        
         KnockoffTask task = new KnockoffTask();
         task.setId(knockoff.getId());
+        task.setIssuedDate(knockoff.getIssuedDate());
+        task.setTotalAmount(knockoff.getTotalAmount());
         task.setKnockoff(toKnockoffVo(knockoff));
         task.setTaskId(t.getId());
         task.setReceivedDate(task.getReceivedDate());

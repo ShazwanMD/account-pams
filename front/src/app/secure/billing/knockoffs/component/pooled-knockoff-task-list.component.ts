@@ -13,7 +13,7 @@ export class PooledKnockoffTaskListComponent {
                               {name: 'issuedDate', label: 'Date'},                        
                               {name: 'referenceNo', label: 'Reference No'},
                               {name: 'description', label: 'Description'},
-                              {name: 'amount', label: 'Total Amount'},
+                              {name: 'totalAmount', label: 'Total Amount'},
                               {name: 'knockoff.creatorUsername', label: 'Creator'},
                               {name: 'knockoff.createdDate', label: 'Created Date'},
                               {name: 'action', label: ''},
