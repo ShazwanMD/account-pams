@@ -449,6 +449,14 @@ public class BillingTransformer {
         return vo;
     }
     
+    public KnockoffDebitNote toKnockoffDebitNoteVo(AcKnockoffDebitNote r) {
+    	
+    	KnockoffDebitNote vo = new KnockoffDebitNote();
+    	vo.setKnockoff(billingTransformer.toKnockoffVo(r.getKnockoff()));
+    	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
+        return vo;
+    }
+    
     public RefundPayment toRefundPaymentVo(AcRefundPayment e) {
     	RefundPayment vo = new RefundPayment();
         vo.setId(e.getId());

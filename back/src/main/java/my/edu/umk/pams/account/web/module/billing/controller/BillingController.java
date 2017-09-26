@@ -1035,6 +1035,25 @@ public class BillingController {
     		
         //billingService.updateItemToReceipt(receipt);
     }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/debitNote/{id}", method = RequestMethod.POST)
+    public void addKnockoffDebitNote(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+        AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        AcDebitNote debitNote = billingService.findDebitNoteById(id);
+        AcKnockoffDebitNote e = new AcKnockoffDebitNoteImpl();
+        e.setKnockoff(knockoff);
+        e.setDebitNote(debitNote);
+        billingService.addKnockoffDebitNote(knockoff, debitNote);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}", method = RequestMethod.PUT)
+    public ResponseEntity<Knockoff> updateKnockoff(@PathVariable String referenceNo, @RequestBody Knockoff vo) {
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	knockoff.setTotalAmount(vo.getTotalAmount());
+        billingService.updateKnockoff(knockoff);
+        return new ResponseEntity<Knockoff>(billingTransformer.toKnockoffVo(knockoff), HttpStatus.OK);
+    }
 
     // ==================================================================================================== //
     //  REFUND PAYMENT

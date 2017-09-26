@@ -649,6 +649,16 @@ export class BillingService {
             .map(( res: Response ) => <KnockoffItem[]>res.json() );
     }
     
+    addKnockoffDebitNote( knockoff: Knockoff, debitNote: DebitNote ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/debitNote/' + debitNote.id, JSON.stringify( debitNote ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }    
+
+    updateKnockoff( knockoff: Knockoff ): Observable<String> {
+        return this._http.put( this.BILLING_API + '/knockoffs/'  + knockoff.referenceNo , JSON.stringify( knockoff ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
     // ====================================================================================================
   // WAIVER FINANCE APPLICATION
   // ====================================================================================================

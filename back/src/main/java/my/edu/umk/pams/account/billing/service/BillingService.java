@@ -270,6 +270,7 @@ public interface BillingService {
     void updateReceiptChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item);
 
     void deleteReceiptChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item);
+    
 	void addReceiptDebitNote(AcReceipt receipt, AcDebitNote debitNote);
 
     // ==================================================================================================== //
@@ -387,6 +388,8 @@ public interface BillingService {
     void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice);
     
 	void addKnockoffAccountCharge(AcKnockoff knockoff, AcAccountCharge accountCharge);
+	
+	void addKnockoffDebitNote(AcKnockoff knockoff, AcDebitNote debitNote);
     
     void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
     

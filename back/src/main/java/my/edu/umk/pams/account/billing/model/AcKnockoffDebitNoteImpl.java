@@ -64,8 +64,8 @@ public class AcKnockoffDebitNoteImpl implements AcKnockoffDebitNote {
 	}
 
 	@Override
-	public void setDebitNote(AcDebitNote invoice) {
-		this.invoice = invoice;
+	public void setDebitNote(AcDebitNote debitNote) {
+		this.debitNote = debitNote;
 		
 	}
 	

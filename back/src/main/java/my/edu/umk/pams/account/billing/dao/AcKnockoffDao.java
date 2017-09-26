@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffAccountCharge;
@@ -49,6 +50,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice, AcUser user);
     
     void addKnockoffAccountCharge(AcKnockoff knockoff, AcAccountCharge accountCharge, AcUser user);
+    
+    void addKnockoffDebitNote(AcKnockoff knockoff, AcDebitNote debitNote, AcUser user);
     
     void updateItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user);
     
