@@ -13,10 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcCreditNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
+import my.edu.umk.pams.account.billing.model.AcKnockoffAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcKnockoffAccountChargeImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
@@ -123,6 +126,18 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         query.setCacheable(true);
         return (List<AcKnockoffInvoice>) query.list();
     }
+    
+    @Override
+    public List<AcKnockoffAccountCharge> findAccountCharge(AcKnockoff knockoff) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcKnockoffAccountCharge ri where " +
+                "ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcKnockoffAccountCharge>) query.list();
+    }
 
 	@Override
 	public boolean hasKnockoff(AcKnockoff knockoff) {
@@ -205,6 +220,28 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         metadata.setState(AcMetaState.ACTIVE);
         knockoffInvc.setMetadata(metadata);
         session.saveOrUpdate(knockoffInvc);
+    }
+    
+    @Override
+    public void addKnockoffAccountCharge(AcKnockoff knockoff, AcAccountCharge accountCharge, AcUser user) {
+        LOG.info("knockoff id : " + knockoff.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(knockoff, "knockoff cannot be null");
+        Validate.notNull(accountCharge, "Invoice cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcKnockoffAccountCharge knockoffChrg = new AcKnockoffAccountChargeImpl();
+        knockoffChrg.setAccountCharge(accountCharge);
+        knockoffChrg.setKnockoff(knockoff);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        knockoffChrg.setMetadata(metadata);
+        session.saveOrUpdate(knockoffChrg);
     }
     
     @Override
