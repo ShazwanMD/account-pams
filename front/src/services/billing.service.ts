@@ -27,6 +27,7 @@ import { WaiverFinanceApplicationTask } from "../app/shared/model/billing/waiver
 import { RefundPayment } from '../app/shared/model/billing/refund-payment.interface';
 import { RefundPaymentTask } from '../app/shared/model/billing/refund-payment-task.interface';
 import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.interface";
+import { KnockoffAccountCharge } from "../app/shared/model/billing/knockoff-account-charge.interface";
 import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interface";
 import { WaiverInvoice } from "../app/shared/model/billing/waiver-invoice.interface";
 import { WaiverItem } from "../app/shared/model/billing/waiver-item.interface";
@@ -621,6 +622,16 @@ export class BillingService {
     findKnockoffsByInvoice( knockoff: Knockoff ): Observable<KnockoffInvoice[]> {
         return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffInvoice' )
             .map(( res: Response ) => <KnockoffInvoice[]>res.json() );
+    }
+    
+    addKnockoffAccountCharge( knockoff: Knockoff, accountCharge: AccountCharge ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/accountCharge/' + accountCharge.id, JSON.stringify( accountCharge ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
+    findKnockoffsByAccountCharge( knockoff: Knockoff ): Observable<KnockoffAccountCharge[]> {
+        return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffAccountCharge' )
+            .map(( res: Response ) => <KnockoffAccountCharge[]>res.json() );
     }
     
     itemToKnockoffItem( invoice: Invoice, knockoff: Knockoff  ): Observable<String> {
