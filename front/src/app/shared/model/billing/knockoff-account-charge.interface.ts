@@ -1,4 +1,4 @@
-import { AccountCharge } from "../account/account-charge.interface";
+import { AccountCharge } from '../account/account-charge.interface';
 import {Knockoff} from './knockoff.interface';
 import {Document} from '../../../core/document.interface';
 
