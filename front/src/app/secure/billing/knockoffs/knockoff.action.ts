@@ -333,7 +333,7 @@ export class KnockoffActions {
             payload: message
         };
     }
-
+    
     static ADD_KNOCKOFF_ACCOUNT_CHARGE = '[Knockoff] Save Knockoff Account Charge';
 
     addKnockoffAccountCharge( knockoff, accountCharge ): Action {

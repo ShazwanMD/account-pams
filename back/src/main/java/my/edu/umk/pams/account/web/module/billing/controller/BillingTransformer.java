@@ -563,6 +563,22 @@ public class BillingTransformer {
         return vo;
     }
     
+    public WaiverAccountCharge toWaiverAccountChargeVo(AcWaiverAccountCharge r) {
+    	
+    	WaiverAccountCharge vo = new WaiverAccountCharge();
+    	vo.setWaiverFinanceApplication(billingTransformer.toWaiverFinanceApplicationVo(r.getWaiverFinanceApplication()));
+    	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
+        return vo;
+    }
+    
+    public WaiverDebitNote toWaiverDebitNoteVo(AcWaiverDebitNote r) {
+    	
+    	WaiverDebitNote vo = new WaiverDebitNote();
+    	vo.setWaiverFinanceApplication(billingTransformer.toWaiverFinanceApplicationVo(r.getWaiverFinanceApplication()));
+    	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
+        return vo;
+    }
+    
     public WaiverItem toWaiverItemVo(AcWaiverItem r) {
     	
     	WaiverItem vo = new WaiverItem();
@@ -741,6 +757,18 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toWaiverInvoiceVo(entry))
                 .collect(toCollection(() -> new ArrayList<WaiverInvoice>()));
+    }
+    
+    public List<WaiverAccountCharge> toWaiverAccountChargeVos(List<AcWaiverAccountCharge> entries) {
+        return entries.stream()
+                .map((entry) -> toWaiverAccountChargeVo(entry))
+                .collect(toCollection(() -> new ArrayList<WaiverAccountCharge>()));
+    }
+    
+    public List<WaiverDebitNote> toWaiverDebitNoteVos(List<AcWaiverDebitNote> entries) {
+        return entries.stream()
+                .map((entry) -> toWaiverDebitNoteVo(entry))
+                .collect(toCollection(() -> new ArrayList<WaiverDebitNote>()));
     }
     
     public List<WaiverItem> toWaiverItemVos(List<AcWaiverItem> entries) {

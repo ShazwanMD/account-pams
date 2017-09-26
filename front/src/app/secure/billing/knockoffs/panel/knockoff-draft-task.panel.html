@@ -42,25 +42,43 @@
       </md-card>
 
       <div layout="column" layout-gt-md="row">
-          <div flex-gt-md="70">
-            <md-card>
-                <md-tab-group [selectedIndex]="0">
-                    <md-tab label="Invoices">
-                      <pams-knockoff-invoice-list
-                      [knockoff]="knockoffTask.knockoff"
-                      [knockoffInvoice]="knockoffInvoice$ | async"
-                      ></pams-knockoff-invoice-list>
-                    </md-tab>
-                    <md-tab label="Charges">
-                            <pams-knockoff-account-charge-list
-                            [knockoff]="knockoffTask.knockoff"
-                            [knockoffAccountCharge]="knockoffAccountCharge$ | async"
-                        ></pams-knockoff-account-charge-list>
-                    </md-tab>
-                </md-tab-group> 
-            </md-card>
-          <div>
+
+        <div flex-gt-md="70">
+          <md-card>
+              <md-tab-group [selectedIndex]="0">
+                  <md-tab label="Invoices">
+                    <pams-knockoff-invoice-list
+                    [knockoff]="knockoffTask.knockoff"
+                    [knockoffInvoice]="knockoffInvoice$ | async"
+                    ></pams-knockoff-invoice-list>
+                     <pams-knockoff-item-list
+                    [knockoff]="knockoffTask.knockoff"
+                    [knockoffItem]="knockoffItem$ | async"
+                    ></pams-knockoff-item-list> 
+                  </md-tab>
+
+                  <md-tab label="Charges">
+                          <pams-knockoff-account-charge-list
+                          [knockoff]="knockoffTask.knockoff"
+                          [knockoffAccountCharge]="knockoffAccountCharge$ | async"
+                      ></pams-knockoff-account-charge-list>
+                  </md-tab>
+
+                 <md-tab label="Debit Notes">
+                          <pams-knockoff-debit-note-list
+                          [knockoff]="knockoffTask.knockoff"
+                          [knockoffDebitNote]="knockoffDebitNote$ | async"
+                      ></pams-knockoff-debit-note-list>
+                       <pams-knockoff-item-list
+                    [knockoff]="knockoffTask.knockoff"
+                    [knockoffItem]="knockoffItem$ | async"
+                    ></pams-knockoff-item-list> 
+                  </md-tab>
+              </md-tab-group> 
+          </md-card>
+        <div>
           </div>
+
         </div>
         </div>
 

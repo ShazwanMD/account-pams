@@ -1,0 +1,16 @@
+<h2 md-dialog-title>Knockoff Debit Note Creator</h2>
+<md-dialog-content>
+  <form [formGroup]="createForm">
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <pams-debit-note-select-unpaid
+        [placeholder]="'Select Unpaid Debit Note'"
+        [innerFormControl]="createForm.controls['debitNote']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
+      </pams-debit-note-select-unpaid>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+</md-dialog-actions>
+

@@ -736,8 +736,23 @@ export class BillingService {
     //   .flatMap(data => Observable.of(true));
   }
 
+  addWaiverAccountCharge( waiverFinanceApplication: WaiverFinanceApplication, accountCharge: AccountCharge ): Observable<String> {
+      return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/accountCharge/' + accountCharge.id, JSON.stringify( accountCharge ) )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
+  
   addWaiverInvoice( waiverFinanceApplication: WaiverFinanceApplication, invoice: Invoice ): Observable<String> {
       return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/invoice/' + invoice.id, JSON.stringify( invoice ) )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
+  
+  addWaiverDebitNote( waiverFinanceApplication: WaiverFinanceApplication, debitNote: DebitNote ): Observable<String> {
+      return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/debitNote/' + debitNote.id, JSON.stringify( debitNote ) )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
+  
+  updateWaivers( waiverFinanceApplication: WaiverFinanceApplication ): Observable<String> {
+      return this._http.put( this.BILLING_API + '/waiverFinanceApplications/'  + waiverFinanceApplication.referenceNo + '/updateWaivers', JSON.stringify( waiverFinanceApplication ) )
           .flatMap(( res: Response ) => Observable.of( res.text() ) );
   }
 

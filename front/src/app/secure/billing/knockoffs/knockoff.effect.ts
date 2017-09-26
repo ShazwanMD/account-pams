@@ -164,5 +164,5 @@ export class KnockoffEffects {
     .ofType( KnockoffActions.FIND_DEBIT_NOTE_BY_KNOCKOFF )
     .map(( action ) => action.payload )
     .switchMap(( knockoff ) => this.billingService.findKnockoffsByDebitNote(knockoff) )
-    .map(( message ) => this.knockoffActions.findKnockoffsByDebitNoteSuccess(message) );
+    .map(( knockoff ) => this.knockoffActions.findKnockoffsByDebitNoteSuccess(knockoff) );
 }

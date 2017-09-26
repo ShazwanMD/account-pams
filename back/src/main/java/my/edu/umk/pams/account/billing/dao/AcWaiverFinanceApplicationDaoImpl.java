@@ -14,13 +14,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
+import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
+import my.edu.umk.pams.account.billing.model.AcWaiverAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcWaiverAccountChargeImpl;
+import my.edu.umk.pams.account.billing.model.AcWaiverDebitNote;
+import my.edu.umk.pams.account.billing.model.AcWaiverDebitNoteImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplicationImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverInvoice;
@@ -138,6 +145,30 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
     }
     
     @Override
+    public List<AcWaiverAccountCharge> findWaiverAccountCharge(AcWaiverFinanceApplication waiver) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverAccountCharge ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverAccountCharge>) query.list();  
+    }
+    
+    @Override
+    public List<AcWaiverDebitNote> findWaiverDebitNote(AcWaiverFinanceApplication waiver) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverDebitNote ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverDebitNote>) query.list(); 
+    }
+    
+    @Override
     public void addWaiverInvoice(AcWaiverFinanceApplication waiver, AcInvoice invoice, AcUser user) {
         LOG.info("waiver id : " + waiver.getId());
         LOG.info("User : " + user.getRealName());
@@ -149,6 +180,50 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
         Session session = sessionFactory.getCurrentSession();
         AcWaiverInvoice waiverInvc = new AcWaiverInvoiceImpl();
         waiverInvc.setInvoice(invoice);
+        waiverInvc.setWaiverFinanceApplication(waiver);;
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        waiverInvc.setMetadata(metadata);
+        session.saveOrUpdate(waiverInvc);
+    }
+    
+    @Override
+    public void addWaiverAccountCharge(AcWaiverFinanceApplication waiver, AcAccountCharge accountCharge, AcUser user) {
+    	LOG.info("waiver id : " + waiver.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(waiver, "waiver cannot be null");
+        Validate.notNull(accountCharge, "accountCharge cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcWaiverAccountCharge waiverInvc = new AcWaiverAccountChargeImpl();
+        waiverInvc.setAccountCharge(accountCharge);
+        waiverInvc.setWaiverFinanceApplication(waiver);;
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        waiverInvc.setMetadata(metadata);
+        session.saveOrUpdate(waiverInvc);
+    }
+    
+    @Override
+    public void addWaiverDebitNote(AcWaiverFinanceApplication waiver, AcDebitNote debitNote, AcUser user) {
+    	LOG.info("waiver id : " + waiver.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(waiver, "waiver cannot be null");
+        Validate.notNull(debitNote, "debitNote cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcWaiverDebitNote waiverInvc = new AcWaiverDebitNoteImpl();
+        waiverInvc.setDebitNote(debitNote);
         waiverInvc.setWaiverFinanceApplication(waiver);;
 
         AcMetadata metadata = new AcMetadata();

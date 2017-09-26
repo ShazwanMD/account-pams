@@ -1,3 +1,5 @@
+import { DebitNoteActions } from './../../debit-notes/debit-note.action';
+import { KnockoffDebitNote } from './../../../../shared/model/billing/knockoff-debit-note.interface';
 import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog, MdDialogConfig, MdSnackBar} from '@angular/material';
@@ -24,9 +26,11 @@ export class KnockoffDraftTaskPanel implements OnInit {
   
   private KNOCKOFF_INVOICE: string[] = 'billingModuleState.knockoffInvoice'.split('.');
   private KNOCKOFF_ACCOUNT_CHARGE: string[] = 'billingModuleState.knockoffAccountCharge'.split('.');
+  private KNOCKOFF_DEBIT_NOTE: string[] = 'billingModuleState.knockoffDebitNote'.split('.');
   private KNOCKOFF_ITEM: string[] = 'billingModuleState.knockoffItems'.split('.');
   private knockoffInvoice$: Observable<KnockoffInvoice[]>;
   private knockoffAccountCharge$: Observable<KnockoffAccountCharge[]>;
+  private knockoffDebitNote$: Observable<KnockoffDebitNote[]>;
   private knockoffItem$: Observable<KnockoffItem[]>;
 
   constructor(private router: Router,
@@ -35,12 +39,14 @@ export class KnockoffDraftTaskPanel implements OnInit {
               private actions: KnockoffActions,
               private action: InvoiceActions,
               private actionCharge: AccountActions,
+              private dbtAction: DebitNoteActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
       this.knockoffInvoice$ = this.store.select(...this.KNOCKOFF_INVOICE);
       this.knockoffAccountCharge$ = this.store.select(...this.KNOCKOFF_ACCOUNT_CHARGE);
+      this.knockoffDebitNote$ = this.store.select(...this.KNOCKOFF_DEBIT_NOTE);
       this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
   }
 
@@ -50,6 +56,8 @@ export class KnockoffDraftTaskPanel implements OnInit {
       this.store.dispatch(this.action.findUnpaidInvoices(this.knockoffTask.knockoff.payments.account));
       this.store.dispatch(this.actions.findKnockoffsByAccountCharge(this.knockoffTask.knockoff));
       this.store.dispatch(this.actionCharge.findUnpaidAccountCharges(this.knockoffTask.knockoff.payments.account));
+      this.store.dispatch(this.actions.findKnockoffsByDebitNote(this.knockoffTask.knockoff));
+      this.store.dispatch(this.dbtAction.findUnpaidDebitNotes(this.knockoffTask.knockoff.payments.account));
   }
 
   register() {

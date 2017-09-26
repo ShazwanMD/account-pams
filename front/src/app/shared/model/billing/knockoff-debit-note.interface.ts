@@ -1,4 +1,4 @@
-import {DebitNote} from './debit-note.interface';
+import { DebitNote } from './debit-note.interface';
 import {Knockoff} from './knockoff.interface';
 import {Document} from '../../../core/document.interface';
 
