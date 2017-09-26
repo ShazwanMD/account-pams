@@ -1441,6 +1441,12 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
+	public void addKnockoffDebitNote(AcKnockoff knockoff, AcDebitNote debitNote) {
+		knockoffDao.addKnockoffDebitNote(knockoff, debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
 	public void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item) {
 		knockoffDao.addItem(knockoff, item, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();

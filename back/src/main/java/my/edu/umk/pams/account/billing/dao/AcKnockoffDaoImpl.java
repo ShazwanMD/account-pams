@@ -15,11 +15,14 @@ import org.springframework.stereotype.Repository;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcCreditNote;
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcKnockoffAccountChargeImpl;
+import my.edu.umk.pams.account.billing.model.AcKnockoffDebitNote;
+import my.edu.umk.pams.account.billing.model.AcKnockoffDebitNoteImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
@@ -242,6 +245,28 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         metadata.setState(AcMetaState.ACTIVE);
         knockoffChrg.setMetadata(metadata);
         session.saveOrUpdate(knockoffChrg);
+    }
+    
+    @Override
+    public void addKnockoffDebitNote(AcKnockoff knockoff, AcDebitNote debitNote, AcUser user) {
+    	LOG.info("knockoff id : " + knockoff.getId());
+        LOG.info("User : " + user.getRealName());
+
+        Validate.notNull(knockoff, "knockoff cannot be null");
+        Validate.notNull(debitNote, "debitNote cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcKnockoffDebitNote knockoffdebt = new AcKnockoffDebitNoteImpl();
+        knockoffdebt.setDebitNote(debitNote);
+        knockoffdebt.setKnockoff(knockoff);
+
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        knockoffdebt.setMetadata(metadata);
+        session.saveOrUpdate(knockoffdebt);
     }
     
     @Override
