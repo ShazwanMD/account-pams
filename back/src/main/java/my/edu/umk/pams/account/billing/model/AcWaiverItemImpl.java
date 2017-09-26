@@ -62,7 +62,11 @@ public class AcWaiverItemImpl implements AcWaiverItem {
     @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "CHARGE_CODE_ID")
     private AcChargeCode chargeCode;
-
+    
+    @ManyToOne(targetEntity = AcDebitNoteImpl.class)
+    @JoinColumn(name = "DEBIT_NOTE_ID")
+    private AcDebitNote debitNote;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -165,6 +169,16 @@ public class AcWaiverItemImpl implements AcWaiverItem {
         this.metadata = metadata;
     }
 
+    @Override
+    public AcDebitNote getDebitNote() {
+		return debitNote;
+	}
+
+    @Override
+	public void setDebitNote(AcDebitNote debitNote) {
+		this.debitNote = debitNote;
+	}
+    
     @Override
     public Class<?> getInterfaceClass() {
         return AcWaiverItem.class;

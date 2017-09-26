@@ -32,6 +32,7 @@ import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interfac
 import { WaiverInvoice } from "../app/shared/model/billing/waiver-invoice.interface";
 import { WaiverItem } from "../app/shared/model/billing/waiver-item.interface";
 import { AccountCharge } from "../app/shared/model/account/account-charge.interface";
+import { KnockoffDebitNote } from "../app/shared/model/billing/knockoff-debit-note.interface";
 
 @Injectable()
 export class BillingService {
@@ -657,6 +658,11 @@ export class BillingService {
     updateKnockoff( knockoff: Knockoff ): Observable<String> {
         return this._http.put( this.BILLING_API + '/knockoffs/'  + knockoff.referenceNo , JSON.stringify( knockoff ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
+    findKnockoffsByDebitNote( knockoff: Knockoff ): Observable<KnockoffDebitNote[]> {
+        return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffDebitNote' )
+            .map(( res: Response ) => <KnockoffDebitNote[]>res.json() );
     }
 
     // ====================================================================================================
