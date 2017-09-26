@@ -145,7 +145,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 			trx.setSourceNo(receipt.getReferenceNo());
 			trx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
 			trx.setAccount(receipt.getAccount());
-			trx.setAmount(total.add(totaldebit));
+			trx.setAmount(total.add(totaldebit).negate());
 			accountService.addAccountTransaction(receipt.getAccount(), trx);
 
 			BigDecimal balance = receipt.getTotalPayment();
