@@ -90,6 +90,7 @@ import { AccountChargeListState, accountChargeListReducer } from '../account/acc
 import { KnockoffItemListState, knockoffItemListReducer } from "./knockoffs/knockoff-item-list.reducer";
 import { waiverInvoiceReducer, WaiverInvoiceState } from "./waiver-finance-applications/waiver-invoice.reducer";
 import { WaiverItemListState, waiverItemListReducer } from "./waiver-finance-applications/waiver-item-list.reducer";
+import { AccountCharge } from '../../shared/model/account/account-charge.interface';
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -160,6 +161,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     invoiceTask: <InvoiceTask>{},
     invoices: <Invoice[]>[],
     invoice: <Invoice>{},
+    accountCharge: <AccountCharge>{},
     invoiceItems: [],
     invoiceDebitNotes: [],
     invoiceCreditNotes: [],

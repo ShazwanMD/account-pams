@@ -298,7 +298,7 @@ export class KnockoffActions {
 
     static FIND_ACCOUNT_CHARGE_BY_KNOCKOFF = '[Knockoff] Find Account Charge By Knockoff';
     
-        findKnockoffsBy(accountCharge): Action {
+        findKnockoffsByAccountCharge(accountCharge): Action {
           return {
             type: KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF,
             payload: accountCharge

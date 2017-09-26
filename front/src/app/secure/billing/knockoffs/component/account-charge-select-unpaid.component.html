@@ -4,7 +4,7 @@
   [(ngModel)]="selected"
   flex>
 
-  <md-option *ngFor="let accountCharges of accountCharges$ | async" [value]="accountCharge">
-    {{accountCharge.referenceNo}}: {{accountCharge.balanceAmount}}
+  <md-option *ngFor="let accountCharge of accountCharges$ | async" [value]="accountCharge">
+      {{accountCharge.referenceNo}} : {{accountCharge.balanceAmount}}
   </md-option>
 </md-select>

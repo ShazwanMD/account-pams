@@ -3,10 +3,11 @@ import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {BillingModuleState} from '../../index';
-import {Invoice} from '../../../../shared/model/billing/invoice.interface';
+
 import {Receipt} from '../../../../shared/model/billing/receipt.interface';
-import { InvoiceActions } from "../../invoices/invoice.action";
+
 import { AccountCharge } from '../../../../shared/model/account/account-charge.interface';
+import { AccountActions } from '../../../account/accounts/account.action';
 
 @Component({
   selector: 'pams-account-charge-select-unpaid',
@@ -24,7 +25,7 @@ export class AccountChargeUnpaidSelectComponent implements OnInit {
   @Input() receipt: Receipt;
 
   constructor(private store: Store<BillingModuleState>,
-              private actions: InvoiceActions) {
+              private actions: AccountActions) {
     this.accountCharges$ = this.store.select(...this.ACCOUNT_CHARGES);
   }
 
