@@ -105,7 +105,9 @@ import { AccountChargeReceiptListComponent } from './component/account-charge-re
     DebitNoteReceiptDialog,
     DebitNoteReceiptCreatorDialog,
   ],
-  exports: [],
+  exports: [
+    DebitNoteUnpaidSelectComponent,
+  ],
   entryComponents: [
     ReceiptDraftTaskPanel,
     ReceiptRegisterTaskPanel,
