@@ -372,6 +372,10 @@ public interface BillingService {
 	List<AcKnockoffItem> findAcKnockoffs(AcKnockoff knockoff, AcInvoice invoice);
 	
 	List<AcKnockoffInvoice> findKnockoffs(AcKnockoff knockoff);
+	
+	List<AcKnockoffAccountCharge> findKnockoffAccountCharges(AcKnockoff knockoff);
+	
+	List<AcKnockoffDebitNote> findKnockoffDebitNotes(AcKnockoff knockoff);
 
     boolean hasKnockoff(AcKnockoff knockoff);
     
@@ -495,8 +499,6 @@ public interface BillingService {
     List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
     
     List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
-
-	List<AcKnockoffAccountCharge> findKnockoffsAccountCharge(AcKnockoff knockoff);
 
 
 

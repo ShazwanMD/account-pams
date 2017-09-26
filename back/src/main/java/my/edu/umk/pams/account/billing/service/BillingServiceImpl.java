@@ -1325,8 +1325,13 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
-	public List<AcKnockoffAccountCharge> findKnockoffsAccountCharge(AcKnockoff knockoff) {
+	public List<AcKnockoffAccountCharge> findKnockoffAccountCharges(AcKnockoff knockoff) {
 		return knockoffDao.findAccountCharge(knockoff);
+	}
+	
+	@Override
+	public List<AcKnockoffDebitNote> findKnockoffDebitNotes(AcKnockoff knockoff) {
+		return knockoffDao.findAccountDebitNote(knockoff);
 	}
 
 	@Override

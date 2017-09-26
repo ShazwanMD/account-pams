@@ -11,6 +11,7 @@ import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcKnockoffDebitNote;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
@@ -38,6 +39,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     List<AcKnockoffInvoice> find(AcKnockoff knockoff);
     
     List<AcKnockoffAccountCharge> findAccountCharge(AcKnockoff knockoff);
+    
+    List<AcKnockoffDebitNote> findAccountDebitNote(AcKnockoff knockoff);
 	
 	boolean hasKnockoff(AcKnockoff knockoff);
 	

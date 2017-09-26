@@ -146,4 +146,16 @@ export class KnockoffEffects {
             .map(( action ) => action.payload )
             .switchMap(( knockoff ) => this.billingService.updateKnockoff(knockoff) )
             .map(( message ) => this.knockoffActions.updateKnockoffSuccess(message) );
+    
+    @Effect() findKnockoffsByAccountCharge$ = this.actions$
+    .ofType( KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF )
+    .map(( action ) => action.payload )
+    .switchMap(( knockoff ) => this.billingService.findKnockoffsByAccountCharge(knockoff) )
+    .map(( accountCharge ) => this.knockoffActions.findKnockoffsByAccountChargeSuccess(accountCharge) );
+    
+    @Effect() findKnockoffsByDebitNote$ = this.actions$
+    .ofType( KnockoffActions.FIND_DEBIT_NOTE_BY_KNOCKOFF )
+    .map(( action ) => action.payload )
+    .switchMap(( knockoff ) => this.billingService.findKnockoffsByDebitNote(knockoff) )
+    .map(( message ) => this.knockoffActions.findKnockoffsByDebitNoteSuccess(message) );
 }

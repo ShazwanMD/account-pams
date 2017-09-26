@@ -900,7 +900,7 @@ public class BillingController {
         
         AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
         return new ResponseEntity<List<KnockoffAccountCharge>>(billingTransformer
-                .toKnockoffAccountChargeVos(billingService.findKnockoffsAccountCharge(knockoff)), HttpStatus.OK);
+                .toKnockoffAccountChargeVos(billingService.findKnockoffAccountCharges(knockoff)), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/knockoffs/state/{state}", method = RequestMethod.GET)
@@ -1053,6 +1053,14 @@ public class BillingController {
     	knockoff.setTotalAmount(vo.getTotalAmount());
         billingService.updateKnockoff(knockoff);
         return new ResponseEntity<Knockoff>(billingTransformer.toKnockoffVo(knockoff), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffDebitNote", method = RequestMethod.GET)
+    public ResponseEntity<List<KnockoffDebitNote>> findKnockoffsByDebitNote(@PathVariable String referenceNo) {
+        
+        AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        return new ResponseEntity<List<KnockoffDebitNote>>(billingTransformer
+                .toKnockoffDebitNoteVos(billingService.findKnockoffDebitNotes(knockoff)), HttpStatus.OK);
     }
 
     // ==================================================================================================== //

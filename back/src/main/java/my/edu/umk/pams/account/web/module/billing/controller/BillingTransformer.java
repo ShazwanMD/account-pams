@@ -767,4 +767,9 @@ public class BillingTransformer {
                 .collect(toCollection(() -> new ArrayList<KnockoffItem>()));
     }
 
+    public List<KnockoffDebitNote> toKnockoffDebitNoteVos(List<AcKnockoffDebitNote> entries) {
+        return entries.stream()
+                .map((entry) -> toKnockoffDebitNoteVo(entry))
+                .collect(toCollection(() -> new ArrayList<KnockoffDebitNote>()));
+    }
 }

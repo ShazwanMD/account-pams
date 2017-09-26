@@ -91,6 +91,7 @@ import { KnockoffItemListState, knockoffItemListReducer } from "./knockoffs/knoc
 import { waiverInvoiceReducer, WaiverInvoiceState } from "./waiver-finance-applications/waiver-invoice.reducer";
 import { WaiverItemListState, waiverItemListReducer } from "./waiver-finance-applications/waiver-item-list.reducer";
 import { AccountCharge } from '../../shared/model/account/account-charge.interface';
+import { KnockoffDebitNoteListState, knockoffDebitNoteListReducer } from "./knockoffs/knockoff-debit-note.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -131,6 +132,7 @@ export interface BillingModuleState {
   knockoffTask: KnockoffTaskState;
   knockoffInvoice: KnockoffInvoiceListState;
   knockoffAccountCharge: KnockoffAccountChargeListState;
+  knockoffDebitNote: KnockoffDebitNoteListState;
   knockoffItems: KnockoffItemListState;
   assignedKnockoffTasks: KnockoffTaskListState;
   pooledKnockoffTasks: KnockoffTaskListState;
@@ -194,6 +196,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     knockoffInvoice: [],
     knockoffAccountCharge: [],
     knockoffItems: [],
+    knockoffDebitNote: [],
     assignedKnockoffTasks: [],
     pooledKnockoffTasks: [],
     archivedKnockoffs: [],
@@ -252,6 +255,7 @@ export const billingModuleReducers = {
   knockoffInvoice: knockoffInvoiceListReducer,
   knockoffAccountCharge: knockoffAccountChargeListReducer,
   knockoffItems: knockoffItemListReducer,
+  knockoffDebitNote: knockoffDebitNoteListReducer,
   assignedKnockoffTasks: assignedKnockoffTaskListReducer,
   pooledKnockoffTasks: pooledKnockoffTaskListReducer,
   archivedKnockoffs: archivedKnockoffListReducer,
