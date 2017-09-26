@@ -1,3 +1,6 @@
+import { DebitNoteUnpaidSelectComponent } from './../receipts/component/debit-note-select-unpaid.component';
+import { DebitNoteKnockoffDialog } from './dialog/knockoff-debit-note-creator.dialog';
+import { KnockoffDebitNoteListComponent } from './component/knockoff-debit-note-list.component';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -66,14 +69,17 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         KnockoffStatusComponent,
         KnockoffInvoiceListComponent,
         KnockoffAccountChargeListComponent,
+        KnockoffDebitNoteListComponent,
         InvoiceUnpaidSelectComponent,
         AccountChargeUnpaidSelectComponent,
         KnockoffItemListComponent,
+        
 
         // dialog
         InvoiceKnockoffDialog,
         AccountChargeKnockoffDialog,
         KnockoffItemDialog,
+        DebitNoteKnockoffDialog,
     ],
     exports: [
         KnockoffListComponent,
@@ -81,6 +87,9 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         KnockoffCenterPage,
         InvoiceKnockoffDialog,
         AccountChargeKnockoffDialog,
+        KnockoffDebitNoteListComponent,
+        DebitNoteKnockoffDialog,
+        
     ],
     entryComponents: [
         KnockoffDraftTaskPanel,
@@ -88,6 +97,7 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         InvoiceKnockoffDialog,
         AccountChargeKnockoffDialog,
         KnockoffItemDialog,
+        DebitNoteKnockoffDialog,
     ],
 
 } )
