@@ -386,6 +386,8 @@ public interface BillingService {
     
     void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice);
     
+	void addKnockoffAccountCharge(AcKnockoff knockoff, AcAccountCharge accountCharge);
+    
     void addKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
     
     void updateKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
@@ -490,6 +492,8 @@ public interface BillingService {
     List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
     
     List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
+
+	List<AcKnockoffAccountCharge> findKnockoffsAccountCharge(AcKnockoff knockoff);
 
 
 
