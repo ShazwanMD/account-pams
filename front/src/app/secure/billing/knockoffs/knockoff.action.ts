@@ -296,4 +296,41 @@ export class KnockoffActions {
       };
     }
 
+    static FIND_ACCOUNT_CHARGE_BY_KNOCKOFF = '[Knockoff] Find Account Charge By Knockoff';
+    
+        findKnockoffsBy(accountCharge): Action {
+          return {
+            type: KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF,
+            payload: accountCharge
+          };
+        }
+    
+        static FIND_ACCOUNT_CHARGE_BY_KNOCKOFF_SUCCESS = '[Knockoff] Find Account Charge By Knockoff Success';
+    
+        findKnockoffsByAccountChargeSuccess(accountCharge): Action {
+          console.log("findKnockoffsByAccountChargeSuccess");
+          return {
+            type: KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF_SUCCESS,
+            payload: accountCharge
+          };
+        } 
+
+        static ADD_KNOCKOFF_ACCOUNT_CHARGE = '[Knockoff] Save Knockoff Account Charge';
+        
+            addKnockoffAccountCharge(knockoff, accountCharge): Action {
+              return {
+                type: KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE,
+                payload: {knockoff: knockoff, invoice: accountCharge},
+              };
+            }
+        
+            static ADD_KNOCKOFF_ACCOUNT_CHARGE_SUCCESS = '[Knockoff] Save Knockoff Account Charge Success';
+        
+            addKnockoffAccountChargeSuccess(message): Action {
+              return {
+                type: KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE_SUCCESS,
+                payload: message
+              };
+            }
+
 }
