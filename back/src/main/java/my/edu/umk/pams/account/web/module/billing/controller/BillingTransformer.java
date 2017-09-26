@@ -441,6 +441,14 @@ public class BillingTransformer {
         return vo;
     }
     
+    public KnockoffAccountCharge toKnockoffAccountChargeVo(AcKnockoffAccountCharge r) {
+    	
+    	KnockoffAccountCharge vo = new KnockoffAccountCharge();
+    	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
+    	vo.setKnockoff(billingTransformer.toKnockoffVo(r.getKnockoff()));
+        return vo;
+    }
+    
     public RefundPayment toRefundPaymentVo(AcRefundPayment e) {
     	RefundPayment vo = new RefundPayment();
         vo.setId(e.getId());
@@ -737,6 +745,12 @@ public class BillingTransformer {
         return entries.stream()
                 .map((entry) -> toKnockoffInvoiceVo(entry))
                 .collect(toCollection(() -> new ArrayList<KnockoffInvoice>()));
+    }
+
+    public List<KnockoffAccountCharge> toKnockoffAccountChargeVos(List<AcKnockoffAccountCharge> entries) {
+        return entries.stream()
+                .map((entry) -> toKnockoffAccountChargeVo(entry))
+                .collect(toCollection(() -> new ArrayList<KnockoffAccountCharge>()));
     }
     
     public List<KnockoffItem> toKnockoffItemVos(List<AcKnockoffItem> entries) {
