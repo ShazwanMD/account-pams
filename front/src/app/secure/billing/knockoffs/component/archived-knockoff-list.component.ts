@@ -13,7 +13,7 @@ export class ArchivedKnockoffListComponent {
                               {name: 'issuedDate', label: 'Date'},                        
                               {name: 'referenceNo', label: 'Reference No'},
                               {name: 'description', label: 'Description'},
-                              {name: 'amount', label: 'Total Amount'},
+                              {name: 'totalAmount', label: 'Total Amount'},
                               {name: 'creatorUsername', label: 'Creator'},
                               {name: 'createdDate', label: 'Created Date'},
                               {name: 'action', label: ''},
