@@ -575,4 +575,24 @@ export class AccountActions {
         payload: accountCharges,
       };
     }
+    
+    static FIND_ACCOUNT_CHARGES_ACTIVITIES = '[Account] Find Account Charges Activities';
+    
+    findAccountChargeActivities(account): Action {
+      return {
+        type: AccountActions.FIND_ACCOUNT_CHARGES_ACTIVITIES,
+        payload: account,
+      };
+    }
+  
+    static FIND_ACCOUNT_CHARGES_ACTIVITIES_SUCCESS = '[Account] Find Account Charges Activities Success';
+  
+    findAccountChargeActivitiesSuccess(accountCharges): Action {
+      console.log('findUnpaidAccountChargesSuccess');
+      return {
+        type: AccountActions.FIND_ACCOUNT_CHARGES_ACTIVITIES_SUCCESS,
+        payload: accountCharges,
+      };
+    }
+    
 }

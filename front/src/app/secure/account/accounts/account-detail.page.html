@@ -15,6 +15,10 @@
               <pams-account-activity-list
                 [activity]="accountActivities$ | async"
               ></pams-account-activity-list>
+              
+              <pams-account-charge-activity-list
+              [chargeActivity]="accountChargesActivities$ | async">
+              </pams-account-charge-activity-list>
             </md-tab>
 
             <md-tab label="Charges">

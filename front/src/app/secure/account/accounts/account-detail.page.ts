@@ -10,6 +10,7 @@ import {AccountModuleState} from '../index';
 import {AccountWaiver} from '../../../shared/model/account/account-waiver.interface';
 import {AccountCharge} from '../../../shared/model/account/account-charge.interface';
 import {AccountActivity} from '../../../shared/model/account/account-activity.interface';
+import {AccountActivityCharge} from '../../../shared/model/account/account-activity-charge.interface';
 import {InvoiceItemDialog} from './dialog/invoice-item.dialog';
 import { AccountTransaction } from "../../../shared/model/account/account-transaction.interface";
 import {InvoiceItem} from '../../../shared/model/billing/invoice-item.interface';
@@ -26,10 +27,12 @@ export class AccountDetailPage implements OnInit {
     @Input() invoice: Invoice;
     @Input() invoiceItems: InvoiceItem[];
     @Input() activity: AccountActivity[];
+    @Input() chargeActivity: AccountActivityCharge[];
     
   private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
   private ACCOUNT_ACTIVITY: string[] = 'accountModuleState.accountActivities'.split('.');
   private ACCOUNT_WAIVERS: string[] = 'accountModuleState.accountWaiver'.split('.');
+  private ACCOUNT_CHARGES_ACTIVITY: string[] = 'accountModuleState.accountChargesActivities'.split('.');
   private ACCOUNT_TRANSACTIONS: string[] = 'accountModuleState.accountTransactions'.split('.');
   private SECURITY_ACCOUNT_CHARGES: string[] = 'accountModuleState.securityAccountCharges'.split('.');
   private ADMISSION_ACCOUNT_CHARGES: string[] = 'accountModuleState.admissionAccountCharges'.split('.');
@@ -45,7 +48,7 @@ export class AccountDetailPage implements OnInit {
   private loanAccountCharges$: Observable<AccountCharge[]>;
   private accountTransactions$: Observable<AccountTransaction[]>;
   private sponsorships$: Observable<AccountSponsorship[]>;
-  
+  private accountChargesActivities$: Observable<AccountActivityCharge[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -63,6 +66,7 @@ export class AccountDetailPage implements OnInit {
     this.loanAccountCharges$ = this.store.select(...this.LOAN_ACCOUNT_CHARGES);
     this.accountTransactions$ = this.store.select(...this.ACCOUNT_TRANSACTIONS);
     this.sponsorships$ = this.store.select(...this.ACCOUNT_SPONSORSHIPS);
+    this.accountChargesActivities$ = this.store.select(...this.ACCOUNT_CHARGES_ACTIVITY);
   }
 
   ngOnInit(): void {

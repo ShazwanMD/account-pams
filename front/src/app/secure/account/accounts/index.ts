@@ -45,6 +45,7 @@ import { CreditNoteItemListAccountComponent } from "./component/credit-note-item
 import { AccountSponsorshipListComponent } from "./component/account-sponsorship-list.component";
 import { SponsorshipEditorDialog } from "./dialog/sponsorship-editor.dialog";
 import { SponsorshipComponent } from "./component/sponsorship.component";
+import { AccountActivityChargeListComponent } from "./component/account-charge-activity-list.component";
 
 @NgModule({
   imports: [
@@ -93,7 +94,7 @@ import { SponsorshipComponent } from "./component/sponsorship.component";
     AccountSponsorshipListComponent,
     SponsorshipEditorDialog,
     SponsorshipComponent,
-
+    AccountActivityChargeListComponent,
   ],
   exports: [
     AccountComboBoxComponent,

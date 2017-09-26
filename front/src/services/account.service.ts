@@ -14,6 +14,7 @@ import {AccountCharge} from '../app/shared/model/account/account-charge.interfac
 import {AccountWaiver} from '../app/shared/model/account/account-waiver.interface';
 import {AccountActivity} from '../app/shared/model/account/account-activity.interface';
 import { AccountSponsorship } from "../app/shared/model/account/account-sponsorship.interface";
+import { AccountActivityCharge } from "../app/shared/model/account/account-activity-charge.interface";
 
 @Injectable()
 export class AccountService {
@@ -193,6 +194,12 @@ export class AccountService {
     return this._http.get(this.ACCOUNT_API + '/accounts/' + account.code + '/accountTransactions')
       .map((res: Response) => <AccountTransaction[]>res.json());
   }
+
+  findAccountChargeActivities(account: Account): Observable<AccountActivityCharge[]> {
+      console.log('findAccountActivities :' + account.id);
+      return this._http.get(this.ACCOUNT_API + '/accounts/' + account.id + '/accountChargeActivities')
+        .map((res: Response) => <AccountActivityCharge[]>res.json());
+    }
 
   // ====================================================================================================
   // ACCOUNT

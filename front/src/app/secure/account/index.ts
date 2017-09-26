@@ -41,6 +41,7 @@ import {accountStudentListReducer, AccountStudentListState} from './accounts/acc
 import {accountSponsorListReducer, AccountSponsorListState} from './accounts/account-sponsor-list.reducer';
 import {accountActivityListReducer, AccountActivityListState} from './accounts/account-activity.reducer';
 import { AccountSponsorshipState, accountSponsorshipReducer } from "./accounts/account-sponsorship.reducer";
+import { AccountChargeActivityListState, accountChargeActivityListReducer } from "./accounts/account-activity-charge.reducer";
 
 export interface AccountModuleState {
   academicSessions: AcademicSessionListState;
@@ -63,6 +64,7 @@ export interface AccountModuleState {
   accountSponsorList: AccountSponsorListState;
   accountActivities: AccountActivityListState;
   accountSponsorships:AccountSponsorshipState;
+  accountChargesActivities: AccountChargeActivityListState;
 }
 ;
 
@@ -88,6 +90,7 @@ export const INITIAL_ACCOUNT_STATE: AccountModuleState =
     accountActivities: [],
     accountSponsorships: [],
     accountCharges: [],
+    accountChargesActivities: [],
   };
 
 export const accountModuleReducers = {
@@ -111,6 +114,7 @@ export const accountModuleReducers = {
   accountActivities: accountActivityListReducer,
   accountSponsorships:accountSponsorshipReducer,
   accountCharges:accountChargeListReducer,
+  accountChargesActivities: accountChargeActivityListReducer,
 };
 
 @NgModule({

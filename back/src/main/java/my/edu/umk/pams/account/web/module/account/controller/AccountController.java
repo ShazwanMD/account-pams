@@ -386,6 +386,14 @@ public class AccountController {
         accountService.addAccountChargeTransaction(account, transaction);
     }
 
+    @RequestMapping(value = "/accounts/{id}/accountChargeActivities", method = RequestMethod.GET)
+    public ResponseEntity<List<ActivityChargeHolder>> findAccountChargeActivities(@PathVariable Long id) {
+
+        AcAccount account = accountService.findAccountById(id);
+        return new ResponseEntity<List<ActivityChargeHolder>>(
+                accountTransformer.toActivityChargeHolderVos(accountService.findAccountActivitiesCharge(account)), HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/accounts/{id}/accountActivities", method = RequestMethod.GET)
     public ResponseEntity<List<AccountActivityHolder>> findAccountActivities(@PathVariable Long id) {
 
@@ -520,6 +528,18 @@ public class AccountController {
                 break;
         }
         accountService.addAccountCharge(account, charge);
+        
+        AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
+        tx.setChargeCode(charge);
+        tx.setDescription(charge.getDescription());
+        tx.setSourceNo(charge.getReferenceNo());
+        tx.setAccount(account);
+        tx.setAmount(charge.getAmount());
+        tx.setPostedDate(charge.getChargeDate());
+        tx.setSession(charge.getSession());
+        tx.setTransactionCode(charge.getChargeType());
+        accountService.addAccountChargeTransaction(account, tx);
+        
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
