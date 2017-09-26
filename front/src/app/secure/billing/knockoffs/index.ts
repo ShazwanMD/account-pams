@@ -28,8 +28,11 @@ import { ArchivedKnockoffListComponent } from './component/archived-knockoff-lis
 import { KnockoffCenterPage } from "./knockoff-center.page";
 import { KnockoffVerifyTaskPanel } from "./panel/knockoff-verify-task.panel";
 import { KnockoffInvoiceListComponent } from "./component/knockoff-invoice-list.component";
+import { KnockoffAccountChargeListComponent } from "./component/knockoff-account-charge-list.component";
 import { InvoiceUnpaidSelectComponent } from "./component/invoice-select-unpaid.component";
+import { AccountChargeUnpaidSelectComponent } from "./component/account-charge-select-unpaid.component";
 import { InvoiceKnockoffDialog } from "./dialog/knockoff-invoice-creator.dialog";
+import { AccountChargeKnockoffDialog } from "./dialog/knockoff-account-charge-creator.dialog";
 import { KnockoffItemListComponent } from "./component/knockoff-item-list.component";
 import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
 
@@ -62,11 +65,14 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         KnockoffListComponent,
         KnockoffStatusComponent,
         KnockoffInvoiceListComponent,
+        KnockoffAccountChargeListComponent,
         InvoiceUnpaidSelectComponent,
+        AccountChargeUnpaidSelectComponent,
         KnockoffItemListComponent,
 
         // dialog
         InvoiceKnockoffDialog,
+        AccountChargeKnockoffDialog,
         KnockoffItemDialog,
     ],
     exports: [
@@ -74,11 +80,13 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         KnockoffDraftTaskPanel,
         KnockoffCenterPage,
         InvoiceKnockoffDialog,
+        AccountChargeKnockoffDialog,
     ],
     entryComponents: [
         KnockoffDraftTaskPanel,
         KnockoffVerifyTaskPanel,
         InvoiceKnockoffDialog,
+        AccountChargeKnockoffDialog,
         KnockoffItemDialog,
     ],
 
