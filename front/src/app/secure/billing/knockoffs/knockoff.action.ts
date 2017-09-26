@@ -315,6 +315,25 @@ export class KnockoffActions {
         };
     }
 
+     static FIND_DEBIT_NOTE_BY_KNOCKOFF = '[Knockoff] Find Debit Note By Knockoff';
+
+    findKnockoffsByDebitNote( debitNote ): Action {
+        return {
+            type: KnockoffActions.FIND_DEBIT_NOTE_BY_KNOCKOFF,
+            payload: debitNote
+        };
+    }
+
+    static FIND_DEBIT_NOTE_BY_KNOCKOFF_SUCCESS = '[Knockoff] Find Debit Note By Knockoff Success';
+
+    findKnockoffsByDebitNoteSuccess( debitNote ): Action {
+        console.log( "findKnockoffsByDebitNoteSuccess" );
+        return {
+            type: KnockoffActions.FIND_DEBIT_NOTE_BY_KNOCKOFF_SUCCESS,
+            payload: debitNote
+        };
+    }
+
     static ADD_KNOCKOFF_ACCOUNT_CHARGE = '[Knockoff] Save Knockoff Account Charge';
 
     addKnockoffAccountCharge( knockoff, accountCharge ): Action {
