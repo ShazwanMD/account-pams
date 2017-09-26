@@ -6,8 +6,10 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
+import my.edu.umk.pams.account.billing.model.AcKnockoffAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
@@ -33,6 +35,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     List<AcKnockoffItem> findItems(AcKnockoff knockoff, AcInvoice invoice);
     
     List<AcKnockoffInvoice> find(AcKnockoff knockoff);
+    
+    List<AcKnockoffAccountCharge> findAccountCharge(AcKnockoff knockoff);
 	
 	boolean hasKnockoff(AcKnockoff knockoff);
 	
@@ -43,6 +47,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     void removeKnockoff(AcKnockoff knockoff, AcUser user);
     
     void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice, AcUser user);
+    
+    void addKnockoffAccountCharge(AcKnockoff knockoff, AcAccountCharge accountCharge, AcUser user);
     
     void updateItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user);
     
