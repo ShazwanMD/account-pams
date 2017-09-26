@@ -10,6 +10,8 @@ import { TdDialogService } from "@covalent/core";
 import { InvoiceActions } from "../../invoices/invoice.action";
 import { KnockoffInvoice } from "../../../../shared/model/billing/knockoff-invoice.interface";
 import { KnockoffItem } from "../../../../shared/model/billing/knockoff-item.interface";
+import { KnockoffAccountCharge } from '../../../../shared/model/billing/knockoff-account-charge.interface';
+import { AccountActions } from '../../../account/accounts/account.action';
 
 @Component({
   selector: 'pams-knockoff-draft-task',
@@ -21,8 +23,10 @@ export class KnockoffDraftTaskPanel implements OnInit {
   @Input() knockoffTask: KnockoffTask;
   
   private KNOCKOFF_INVOICE: string[] = 'billingModuleState.knockoffInvoice'.split('.');
+  private KNOCKOFF_ACCOUNT_CHARGE: string[] = 'billingModuleState.knockoffAccountCharge'.split('.');
   private KNOCKOFF_ITEM: string[] = 'billingModuleState.knockoffItems'.split('.');
   private knockoffInvoice$: Observable<KnockoffInvoice[]>;
+  private knockoffAccountCharge$: Observable<KnockoffAccountCharge[]>;
   private knockoffItem$: Observable<KnockoffItem[]>;
 
   constructor(private router: Router,
@@ -30,11 +34,13 @@ export class KnockoffDraftTaskPanel implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private actions: KnockoffActions,
               private action: InvoiceActions,
+              private actionCharge: AccountActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
       this.knockoffInvoice$ = this.store.select(...this.KNOCKOFF_INVOICE);
+      this.knockoffAccountCharge$ = this.store.select(...this.KNOCKOFF_ACCOUNT_CHARGE);
       this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
   }
 
@@ -42,6 +48,8 @@ export class KnockoffDraftTaskPanel implements OnInit {
       this.store.dispatch(this.actions.findKnockoffsByInvoice(this.knockoffTask.knockoff));
       this.store.dispatch(this.actions.findKnockoffItems(this.knockoffTask.knockoff));
       this.store.dispatch(this.action.findUnpaidInvoices(this.knockoffTask.knockoff.payments.account));
+      this.store.dispatch(this.actions.findKnockoffsByAccountCharge(this.knockoffTask.knockoff));
+      this.store.dispatch(this.actionCharge.findUnpaidAccountCharges(this.knockoffTask.knockoff.payments.account));
   }
 
   register() {
