@@ -63,6 +63,14 @@
                       ></pams-knockoff-account-charge-list>
                   </md-tab>
               </md-tab-group> 
+
+                 <md-tab label="Debit Notes">
+                          <pams-knockoff-debit-note-list
+                          [knockoff]="knockoffTask.knockoff"
+                          [knockoffDebitNote]="knockoffDebitNote$ | async"
+                      ></pams-knockoff-debit-note-list>
+                  </md-tab>
+              </md-tab-group> 
           </md-card>
         <div>
         </div>
