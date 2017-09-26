@@ -1,4 +1,13 @@
-<md-dialog-content>
+    <md-card class="">
+        <div toolbar-buttons layout="row" layout-align="start center" flex>
+          <md-card-title>Knockoff Items
+          </md-card-title>
+          <span flex></span>
+          <button md-button class="md-icon-button" (click)="create()">
+            <md-icon class="md-24 tc-grey-300">add</md-icon>
+          </button>
+          </div>
+          </md-card>
 <td-data-table
   [data]="knockoffItem"
   [columns]="columns"
@@ -20,5 +29,3 @@
     <div layout="row">{{row['amount'] | currency:'MYR':true:'1.2-2'}}</div>
   </template>
 </td-data-table>
-
-</md-dialog-content>
