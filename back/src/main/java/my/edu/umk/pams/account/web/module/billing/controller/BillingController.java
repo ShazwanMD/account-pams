@@ -983,7 +983,7 @@ public class BillingController {
         AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
         AcAccountCharge accountCharge = accountService.findAccountChargeById(id);
         AcKnockoffAccountCharge e = new AcKnockoffAccountChargeImpl();
-        e.setKnockoff(knockoff);;
+        e.setKnockoff(knockoff);
         e.setAccountCharge(accountCharge);
         billingService.addKnockoffAccountCharge(knockoff, accountCharge);
     }
@@ -994,7 +994,7 @@ public class BillingController {
         AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
         AcInvoice invoice = billingService.findInvoiceById(id);
         AcKnockoffInvoice e = new AcKnockoffInvoiceImpl();
-        e.setKnockoff(knockoff);;
+        e.setKnockoff(knockoff);
         e.setInvoice(invoice);
         billingService.addKnockoffInvoice(knockoff, invoice);
     }

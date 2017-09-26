@@ -133,6 +133,13 @@ export class KnockoffEffects {
         .switchMap(( payload ) => this.billingService.addKnockoffInvoice( payload.knockoff, payload.invoice ) )
         .map(( message ) => this.knockoffActions.addKnockoffInvoiceSuccess( message ) );
 
+        @Effect() addKnockoffAccountCharge$ =
+        this.actions$
+            .ofType( KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE )
+            .map(( action ) => action.payload )
+            .switchMap(( payload ) => this.billingService.addKnockoffAccountCharge( payload.knockoff, payload.accountCharge ) )
+            .map(( message ) => this.knockoffActions.addKnockoffAccountChargeSuccess( message ) );       
+
     @Effect() addKnockoffDebitNote$ =
     this.actions$
         .ofType( KnockoffActions.ADD_KNOCKOFF_DEBIT_NOTE )
@@ -147,11 +154,11 @@ export class KnockoffEffects {
             .switchMap(( knockoff ) => this.billingService.updateKnockoff(knockoff) )
             .map(( message ) => this.knockoffActions.updateKnockoffSuccess(message) );
     
-    @Effect() findKnockoffsByAccountCharge$ = this.actions$
-    .ofType( KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF )
-    .map(( action ) => action.payload )
-    .switchMap(( knockoff ) => this.billingService.findKnockoffsByAccountCharge(knockoff) )
-    .map(( accountCharge ) => this.knockoffActions.findKnockoffsByAccountChargeSuccess(accountCharge) );
+            @Effect() findKnockoffsByAccountCharge$ = this.actions$
+            .ofType( KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF )
+            .map(( action ) => action.payload )
+            .switchMap(( knockoff ) => this.billingService.findKnockoffsByAccountCharge( knockoff ) )
+            .map(( knockoff ) => this.knockoffActions.findKnockoffsByAccountChargeSuccess( knockoff ) );
     
     @Effect() findKnockoffsByDebitNote$ = this.actions$
     .ofType( KnockoffActions.FIND_DEBIT_NOTE_BY_KNOCKOFF )

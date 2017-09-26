@@ -1,0 +1,11 @@
+<h2 md-dialog-title>Knockoff Items</h2>
+<md-dialog-content>
+      <pams-knockoff-item-list
+        [knockoff]= "_knockoff"
+        [invoice] = "_invoice"
+        [knockoffItem] = "knockoffItem$ | async">
+      </pams-knockoff-item-list>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="Apply()" *ngIf="showHide">Display All</button>
+</md-dialog-actions>

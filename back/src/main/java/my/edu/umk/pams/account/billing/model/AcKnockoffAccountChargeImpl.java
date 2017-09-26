@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 @Entity(name = "AcKnockoffAccountCharge")
@@ -28,7 +29,7 @@ public class AcKnockoffAccountChargeImpl implements AcKnockoffAccountCharge {
 	@SequenceGenerator(name = "SQ_AC_KNOF_CHRG", sequenceName = "SQ_AC_KNOF_CHRG", allocationSize = 1)
 	private Long id;
 	
-    @OneToOne(targetEntity = AcInvoiceImpl.class)
+    @OneToOne(targetEntity = AcAccountChargeImpl.class)
     @JoinColumn(name = "ACCOUNT_CHARGE_ID")
     private AcAccountCharge accountCharge;
     

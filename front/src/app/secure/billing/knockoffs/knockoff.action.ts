@@ -298,20 +298,20 @@ export class KnockoffActions {
 
     static FIND_ACCOUNT_CHARGE_BY_KNOCKOFF = '[Knockoff] Find Account Charge By Knockoff';
 
-    findKnockoffsByAccountCharge( accountCharge ): Action {
+    findKnockoffsByAccountCharge( knockoff ): Action {
         return {
             type: KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF,
-            payload: accountCharge
+            payload: knockoff
         };
     }
 
     static FIND_ACCOUNT_CHARGE_BY_KNOCKOFF_SUCCESS = '[Knockoff] Find Account Charge By Knockoff Success';
 
-    findKnockoffsByAccountChargeSuccess( accountCharge ): Action {
+    findKnockoffsByAccountChargeSuccess( knockoff ): Action {
         console.log( "findKnockoffsByAccountChargeSuccess" );
         return {
             type: KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF_SUCCESS,
-            payload: accountCharge
+            payload: knockoff
         };
     }
     
@@ -337,15 +337,17 @@ export class KnockoffActions {
     static ADD_KNOCKOFF_ACCOUNT_CHARGE = '[Knockoff] Save Knockoff Account Charge';
 
     addKnockoffAccountCharge( knockoff, accountCharge ): Action {
+        console.log( "addKnockoffAccountCharge" );
         return {
             type: KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE,
-            payload: { knockoff: knockoff, invoice: accountCharge },
+            payload: { knockoff: knockoff, accountCharge: accountCharge },
         };
     }
 
     static ADD_KNOCKOFF_ACCOUNT_CHARGE_SUCCESS = '[Knockoff] Save Knockoff Account Charge Success';
 
     addKnockoffAccountChargeSuccess( message ): Action {
+        console.log( "addKnockoffAccountChargeSuccess" );
         return {
             type: KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE_SUCCESS,
             payload: message
@@ -388,4 +390,39 @@ export class KnockoffActions {
       };
     }
 
+    static ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM = '[Knockoff] Account Charge Item to Knockoff Item';
+    
+        itemToKnockoffAccountChargeItem(  accountCharge, knockoff ): Action {
+            return {
+                type: KnockoffActions.ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM,
+                payload: { accountCharge, knockoff }
+            };
+        }
+    
+        static ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Account Charge Item to Knockoff Item Success';
+    
+        itemToKnockoffAccountChargeItemSuccess( knockoff ): Action {
+            return {
+                type: KnockoffActions.ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS,
+                payload: knockoff
+            };
+        }
+    
+        static FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE = '[Knockoff] Find Knockoff Item By Account Charge';
+        
+            findKnockoffItemsByAccountCharge( knockoff, accountCharge ): Action {
+                return {
+                    type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE,
+                    payload: { knockoff, accountCharge }
+                };
+            }
+        
+            static FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE_SUCCESS = '[Knockoff] Find Knockoff Item By Account Charge Success';
+        
+            findKnockoffItemsByAccountChargeSuccess( knockoff ): Action {
+                return {
+                    type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE_SUCCESS,
+                    payload: knockoff
+                };
+            }
 }

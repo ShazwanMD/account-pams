@@ -2,6 +2,7 @@ import { Invoice } from './invoice.interface';
 import { Knockoff } from './knockoff.interface';
 import { Document } from '../../../core/document.interface';
 import { ChargeCode } from "../account/charge-code.interface";
+import { AccountCharge } from '../account/account-charge.interface';
 
 export interface KnockoffItem extends Document {
     id: number;
@@ -10,6 +11,7 @@ export interface KnockoffItem extends Document {
     appliedAmount: number;
     totalAmount: number;
     chargeCode: ChargeCode;
+    accountCharge: AccountCharge;
     invoice: Invoice;
     knockoff: Knockoff;
 }
