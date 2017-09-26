@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5270fd6a-534b-45bb-8407-2b40fe397a35">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="receipt_no" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      ac_acct."id" AS ac_acct_id,
@@ -160,7 +164,9 @@ FROM
      "public"."ac_invc" ac_invc INNER JOIN "public"."ac_rcpt_item" ac_rcpt_item ON ac_invc."id" = ac_rcpt_item."invoice_id"
      INNER JOIN "public"."ac_rcpt" ac_rcpt ON ac_rcpt_item."receipt_id" = ac_rcpt."id"
      INNER JOIN "public"."ac_acct" ac_acct ON ac_rcpt."account_id" = ac_acct."id"
-     INNER JOIN "public"."ac_actr" ac_actr ON ac_acct."actor_id" = ac_actr."id"]]>
+     INNER JOIN "public"."ac_actr" ac_actr ON ac_acct."actor_id" = ac_actr."id"
+
+WHERE ac_rcpt."receipt_no" = $P{receipt_no}]]>
 	</queryString>
 	<field name="ac_acct_id" class="java.lang.Long"/>
 	<field name="ac_acct_code" class="java.lang.String"/>
@@ -342,7 +348,7 @@ FROM
 		</band>
 	</title>
 	<pageHeader>
-		<band height="77" splitType="Stretch">
+		<band height="94" splitType="Stretch">
 			<staticText>
 				<reportElement x="10" y="30" width="100" height="20" uuid="a21c0f9a-c86b-4316-aec7-c8801e48c089"/>
 				<text><![CDATA[No ID  :]]></text>
@@ -379,10 +385,6 @@ FROM
 				<reportElement x="436" y="30" width="100" height="20" uuid="60516e39-f5d0-4b29-928b-6aa841ab863a"/>
 				<textFieldExpression><![CDATA[$F{ac_rcpt_received_date}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="436" y="50" width="100" height="20" uuid="c3fc6ca0-e304-45c0-a708-2eddf95c8ecb"/>
-				<textFieldExpression><![CDATA[$F{ac_rcpt_reference_no}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -396,26 +398,38 @@ FROM
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[JUMLAH (RM)]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="32" width="554" height="1" uuid="0658f5b9-edd4-46d8-8700-58aeb21814c8"/>
+			</line>
+			<line>
+				<reportElement x="0" y="9" width="554" height="1" uuid="6047eff7-f723-45f8-aaf9-ca6bd49ab7f8"/>
+			</line>
+			<frame>
+				<reportElement x="5" y="10" width="548" height="23" uuid="d7de7ac2-ad47-4042-abe1-e5e3483e8d11"/>
+			</frame>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="59" splitType="Stretch">
+		<band height="41" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="553" height="38" uuid="06621a08-850a-4a11-929a-443430e229fa"/>
+				<textField>
+					<reportElement x="453" y="18" width="100" height="20" uuid="95b381a3-0983-440c-84b6-01cfe107826f"/>
+					<textFieldExpression><![CDATA[$V{sumOfTotal}]]></textFieldExpression>
+				</textField>
+			</frame>
 			<textField>
 				<reportElement x="129" y="0" width="299" height="20" uuid="f9f7fb90-4b0b-412e-87da-e86815f1f17c"/>
 				<textFieldExpression><![CDATA[$F{ac_rcpt_item_description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="0" width="100" height="20" uuid="0e6bde27-7c52-430c-832b-206685cc5ada"/>
+				<reportElement x="453" y="0" width="100" height="20" uuid="0e6bde27-7c52-430c-832b-206685cc5ada"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{ac_rcpt_item_total_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="100" height="20" uuid="32ef4521-8818-4c2e-8db2-50f3bc7f4c08"/>
+				<reportElement x="3" y="0" width="100" height="20" uuid="32ef4521-8818-4c2e-8db2-50f3bc7f4c08"/>
 				<textFieldExpression><![CDATA[$F{ac_invc_reference_no}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="30" width="100" height="20" uuid="f377a5b9-d2cb-43cb-b7a6-700e18b146db"/>
-				<textFieldExpression><![CDATA[$V{sumOfTotal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
