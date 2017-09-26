@@ -1,0 +1,16 @@
+<h2 md-dialog-title>Knockoff Account Charge Creator</h2>
+<md-dialog-content>
+  <form [formGroup]="createForm">
+    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+      <pams-account-charge-select-unpaid
+        [placeholder]="'Select Unpaid Account Charge'"
+        [innerFormControl]="createForm.controls['accountCharge']"
+        fxFlex="calc(100%-25px)" class="pad-bottom">
+      </pams-account-charge-select-unpaid>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+</md-dialog-actions>
+
