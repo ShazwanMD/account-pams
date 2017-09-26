@@ -1323,6 +1323,11 @@ public class BillingServiceImpl implements BillingService {
 	public List<AcKnockoffInvoice> findKnockoffs(AcKnockoff knockoff) {
 		return knockoffDao.find(knockoff);
 	}
+	
+	@Override
+	public List<AcKnockoffAccountCharge> findKnockoffsAccountCharge(AcKnockoff knockoff) {
+		return knockoffDao.findAccountCharge(knockoff);
+	}
 
 	@Override
 	public boolean hasKnockoff(AcKnockoff knockoff) {
@@ -1426,6 +1431,12 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void addKnockoffInvoice(AcKnockoff knockoff, AcInvoice invoice) {
 		knockoffDao.addKnockoffInvoice(knockoff, invoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
+	public void addKnockoffAccountCharge(AcKnockoff knockoff, AcAccountCharge accountCharge) {
+		knockoffDao.addKnockoffAccountCharge(knockoff, accountCharge, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
 	
