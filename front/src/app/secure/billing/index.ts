@@ -85,6 +85,7 @@ import { RefundPaymentTaskState, refundPaymentTaskReducer } from "./refund-payme
 import { RefundPaymentTask } from "../../shared/model/billing/refund-payment-task.interface";
 import { RefundPaymentTaskListState, assignedRefundPaymentTaskListReducer, pooledRefundPaymentTaskListReducer } from "./refund-payments/refund-payment-task-list.reducer";
 import { KnockoffInvoiceListState, knockoffInvoiceListReducer } from "./knockoffs/knockoff-invoice.reducer";
+import { KnockoffAccountChargeListState, knockoffAccountChargeListReducer } from "./knockoffs/knockoff-account-charge.reducer";
 import { AccountChargeListState, accountChargeListReducer } from '../account/accounts/account-charge-list.reducer';
 import { KnockoffItemListState, knockoffItemListReducer } from "./knockoffs/knockoff-item-list.reducer";
 import { waiverInvoiceReducer, WaiverInvoiceState } from "./waiver-finance-applications/waiver-invoice.reducer";
@@ -128,6 +129,7 @@ export interface BillingModuleState {
   knockoffs: KnockoffListState;
   knockoffTask: KnockoffTaskState;
   knockoffInvoice: KnockoffInvoiceListState;
+  knockoffAccountCharge: KnockoffAccountChargeListState;
   knockoffItems: KnockoffItemListState;
   assignedKnockoffTasks: KnockoffTaskListState;
   pooledKnockoffTasks: KnockoffTaskListState;
@@ -188,6 +190,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     knockoffs: <Knockoff[]>[],
     knockoffTask: <KnockoffTask>{},
     knockoffInvoice: [],
+    knockoffAccountCharge: [],
     knockoffItems: [],
     assignedKnockoffTasks: [],
     pooledKnockoffTasks: [],
@@ -245,6 +248,7 @@ export const billingModuleReducers = {
   knockoffs: knockoffListReducer,
   knockoffTask: knockoffTaskReducer,
   knockoffInvoice: knockoffInvoiceListReducer,
+  knockoffAccountCharge: knockoffAccountChargeListReducer,
   knockoffItems: knockoffItemListReducer,
   assignedKnockoffTasks: assignedKnockoffTaskListReducer,
   pooledKnockoffTasks: pooledKnockoffTaskListReducer,

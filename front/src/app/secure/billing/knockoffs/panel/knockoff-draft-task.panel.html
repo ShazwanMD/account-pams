@@ -57,9 +57,12 @@
                   </md-tab>
 
                   <md-tab label="Charges">
-                      
+                          <pams-knockoff-account-charge-list
+                          [knockoff]="knockoffTask.knockoff"
+                          [knockoffAccountCharge]="knockoffAccountCharge$ | async"
+                      ></pams-knockoff-account-charge-list>
                   </md-tab>
-              </md-tab-group>
+              </md-tab-group> 
           </md-card>
         <div>
         </div>
