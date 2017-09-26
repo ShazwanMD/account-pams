@@ -34,4 +34,8 @@ public interface AcKnockoffItem extends AcMetaObject{
     AcKnockoff getKnockoff();
 
     void setKnockoff(AcKnockoff knockoff);
+    
+    AcDebitNote getDebitNote();
+
+	void setDebitNote(AcDebitNote debitNote); 
 }

@@ -56,6 +56,10 @@ public class AcKnockoffItemImpl implements AcKnockoffItem {
 	@JoinColumn(name = "KNOCKOFF_ID")
 	private AcKnockoff knockoff;
 
+    @ManyToOne(targetEntity = AcDebitNoteImpl.class)
+    @JoinColumn(name = "DEBIT_NOTE_ID")
+    private AcDebitNote debitNote;
+    
 	@Embedded
 	private AcMetadata metadata;
 
@@ -152,6 +156,14 @@ public class AcKnockoffItemImpl implements AcKnockoffItem {
 	public void setKnockoff(AcKnockoff knockoff) {
 		this.knockoff = knockoff;
 
+	}
+
+	public AcDebitNote getDebitNote() {
+		return debitNote;
+	}
+
+	public void setDebitNote(AcDebitNote debitNote) {
+		this.debitNote = debitNote;
 	}
 
 }
