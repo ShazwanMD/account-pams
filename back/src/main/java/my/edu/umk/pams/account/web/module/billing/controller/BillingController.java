@@ -895,6 +895,14 @@ public class BillingController {
                 .toKnockoffInvoiceVos(billingService.findKnockoffs(knockoff)), HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffAccountCharge", method = RequestMethod.GET)
+    public ResponseEntity<List<KnockoffAccountCharge>> findKnockoffsByAccountCharge(@PathVariable String referenceNo) {
+        
+        AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        return new ResponseEntity<List<KnockoffAccountCharge>>(billingTransformer
+                .toKnockoffAccountChargeVos(billingService.findKnockoffsAccountCharge(knockoff)), HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/knockoffs/state/{state}", method = RequestMethod.GET)
     public ResponseEntity<List<Knockoff>> findKnockoffsByFlowState(@PathVariable String state) {
         List<AcKnockoff> Knockoffs = billingService.findKnockoffsByFlowState(AcFlowState.valueOf(state));
@@ -967,6 +975,17 @@ public class BillingController {
         Task task = billingService.findKnockoffTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/accountCharge/{id}", method = RequestMethod.POST)
+    public void addKnockoffAccountCharge(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+        AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        AcAccountCharge accountCharge = accountService.findAccountChargeById(id);
+        AcKnockoffAccountCharge e = new AcKnockoffAccountChargeImpl();
+        e.setKnockoff(knockoff);;
+        e.setAccountCharge(accountCharge);
+        billingService.addKnockoffAccountCharge(knockoff, accountCharge);
     }
     
     @RequestMapping(value = "/knockoffs/{referenceNo}/invoice/{id}", method = RequestMethod.POST)
