@@ -490,9 +490,15 @@ public interface BillingService {
 	
     void addWaiverInvoice(AcWaiverFinanceApplication waiver, AcInvoice invoice);
     
+    void addWaiverAccountCharge(AcWaiverFinanceApplication waiver, AcAccountCharge accountCharge);
+    
+    void addWaiverDebitNote(AcWaiverFinanceApplication waiver, AcDebitNote debitNote);
+    
     void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item);
     
 	void itemToWaiverItem(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+	
+	void updateWaiver(AcWaiverFinanceApplication waiver);
 	
     List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver);
     
@@ -500,9 +506,9 @@ public interface BillingService {
     
     List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
 
+    List<AcWaiverAccountCharge> findWaiverAccountCharge(AcWaiverFinanceApplication waiver);
 
-
-	
+    List<AcWaiverDebitNote> findDebitNote(AcWaiverFinanceApplication waiver);
 
 	
 

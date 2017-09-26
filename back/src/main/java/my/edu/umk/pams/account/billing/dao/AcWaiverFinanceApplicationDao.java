@@ -4,9 +4,15 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.billing.model.AcReceiptAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcReceiptDebitNote;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
+import my.edu.umk.pams.account.billing.model.AcWaiverAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcWaiverDebitNote;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.model.AcWaiverInvoice;
 import my.edu.umk.pams.account.billing.model.AcWaiverItem;
@@ -34,8 +40,16 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
     List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
     
     List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
+    
+    List<AcWaiverAccountCharge> findWaiverAccountCharge(AcWaiverFinanceApplication waiver);
+    
+	List<AcWaiverDebitNote> findWaiverDebitNote(AcWaiverFinanceApplication waiver);
 	
 	void addWaiverInvoice(AcWaiverFinanceApplication waiver, AcInvoice invoice, AcUser user);
+	
+	void addWaiverAccountCharge(AcWaiverFinanceApplication waiver, AcAccountCharge accountCharge, AcUser user);
+	
+	void addWaiverDebitNote(AcWaiverFinanceApplication waiver, AcDebitNote debitNote, AcUser user);
 	
 	void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item, AcUser user);
 	

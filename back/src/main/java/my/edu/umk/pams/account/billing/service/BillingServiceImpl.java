@@ -1724,10 +1724,28 @@ public class BillingServiceImpl implements BillingService {
     }
     
     @Override
+    public void addWaiverAccountCharge(AcWaiverFinanceApplication waiver, AcAccountCharge accountCharge) {
+    	waiverFinanceApplicationDao.addWaiverAccountCharge(waiver, accountCharge, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public void addWaiverDebitNote(AcWaiverFinanceApplication waiver, AcDebitNote debitNote) {
+    	waiverFinanceApplicationDao.addWaiverDebitNote(waiver, debitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
     public void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item) {
     	waiverFinanceApplicationDao.addWaiverItem(waiver, item, securityService.getCurrentUser());;
 		sessionFactory.getCurrentSession().flush();
     }
+    
+	@Override
+	public void updateWaiver(AcWaiverFinanceApplication waiver) {
+		waiverFinanceApplicationDao.update(waiver, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
 	
 	@Override
 	public void itemToWaiverItem(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
@@ -1807,6 +1825,16 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver) {
     	return waiverFinanceApplicationDao.findWaivers(waiver);
+    }
+    
+    @Override
+    public List<AcWaiverAccountCharge> findWaiverAccountCharge(AcWaiverFinanceApplication waiver) {
+    	return waiverFinanceApplicationDao.findWaiverAccountCharge(waiver);
+    }
+
+    @Override
+    public List<AcWaiverDebitNote> findDebitNote(AcWaiverFinanceApplication waiver) {
+    	return waiverFinanceApplicationDao.findWaiverDebitNote(waiver);
     }
     
 	// ====================================================================================================
