@@ -1,3 +1,4 @@
+import { ReceiptSubModule } from './../receipts/index';
 import { DebitNoteUnpaidSelectComponent } from './../receipts/component/debit-note-select-unpaid.component';
 import { DebitNoteKnockoffDialog } from './dialog/knockoff-debit-note-creator.dialog';
 import { KnockoffDebitNoteListComponent } from './component/knockoff-debit-note-list.component';
@@ -50,6 +51,7 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         ChargeCodeSubModule.forRoot(),
         CreditNoteSubModule.forRoot(),
         DebitNoteSubModule.forRoot(),
+        ReceiptSubModule.forRoot(),
         EffectsModule.run( KnockoffEffects ),
         PipeModule,
     ],
@@ -73,6 +75,7 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         InvoiceUnpaidSelectComponent,
         AccountChargeUnpaidSelectComponent,
         KnockoffItemListComponent,
+
         
 
         // dialog
