@@ -1,3 +1,5 @@
+import { DebitNoteKnockoffListComponent } from './component/debit-note-knockoff-list.component';
+import { DebitNoteKnockoffCreatorDialog } from './dialog/debit-note-knockoff-creator.dialog';
 import { ReceiptSubModule } from './../receipts/index';
 import { DebitNoteUnpaidSelectComponent } from './../receipts/component/debit-note-select-unpaid.component';
 import { DebitNoteKnockoffDialog } from './dialog/knockoff-debit-note-creator.dialog';
@@ -75,6 +77,8 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         InvoiceUnpaidSelectComponent,
         AccountChargeUnpaidSelectComponent,
         KnockoffItemListComponent,
+        DebitNoteKnockoffListComponent,
+        
 
         
 
@@ -83,6 +87,7 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         AccountChargeKnockoffDialog,
         KnockoffItemDialog,
         DebitNoteKnockoffDialog,
+        DebitNoteKnockoffCreatorDialog,
     ],
     exports: [
         KnockoffListComponent,
@@ -92,6 +97,7 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         AccountChargeKnockoffDialog,
         KnockoffDebitNoteListComponent,
         DebitNoteKnockoffDialog,
+        DebitNoteKnockoffCreatorDialog,
         
     ],
     entryComponents: [
@@ -101,6 +107,7 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         AccountChargeKnockoffDialog,
         KnockoffItemDialog,
         DebitNoteKnockoffDialog,
+        DebitNoteKnockoffCreatorDialog,
     ],
 
 } )
