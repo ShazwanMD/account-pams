@@ -165,4 +165,15 @@ export class KnockoffEffects {
     .map(( action ) => action.payload )
     .switchMap(( knockoff ) => this.billingService.findKnockoffsByDebitNote(knockoff) )
     .map(( knockoff ) => this.knockoffActions.findKnockoffsByDebitNoteSuccess(knockoff) );
+
+@Effect() addKnockoffItem$ =
+    this.actions$
+      .ofType(KnockoffActions.ADD_KNOCKOFF_ITEM)
+      .map((action) => action.payload)
+      .switchMap((payload) => this.billingService.addKnockoffItem(payload.knockoff, payload.item))
+      .map((message) => this.knockoffActions.addKnockoffItemSuccess(message))
+      //.withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
+      .map((state) => state[1])
+      .map((knockoff) => this.knockoffActions.findKnockoffItems(knockoff));
 }
+

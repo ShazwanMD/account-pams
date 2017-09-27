@@ -14,7 +14,7 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFFS_SUCCESS = '[Knockoff] Find Knockoffs Success';
 
-    findKnockoffsSuccess( knockoff ): Action {
+    findKnockoffsSuccess(knockoff): Action {
         return {
             type: KnockoffActions.FIND_KNOCKOFFS_SUCCESS,
             payload: knockoff
@@ -23,7 +23,7 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFF_BY_REFERENCE_NO = '[Knockoff] Find Knockoff By Reference No';
 
-    findKnockoffByReferenceNo( referenceNo ): Action {
+    findKnockoffByReferenceNo(referenceNo): Action {
         return {
             type: KnockoffActions.FIND_KNOCKOFF_BY_REFERENCE_NO,
             payload: referenceNo
@@ -32,7 +32,7 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFF_BY_REFERENCE_NO_SUCCESS = '[Knockoff] Find Knockoff By Reference No Success';
 
-    findKnockoffByReferenceNoSuccess( knockoff ): Action {
+    findKnockoffByReferenceNoSuccess(knockoff): Action {
         return {
             type: KnockoffActions.FIND_KNOCKOFF_BY_REFERENCE_NO_SUCCESS,
             payload: knockoff
@@ -41,8 +41,8 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFF_TASK_BY_TASK_ID = '[Knockoff] Find Knockoff Task By Task Id';
 
-    findKnockoffTaskByTaskId( taskId ): Action {
-        console.log( 'findKnockoffTaskByTaskId' );
+    findKnockoffTaskByTaskId(taskId): Action {
+        console.log('findKnockoffTaskByTaskId');
         return {
             type: KnockoffActions.FIND_KNOCKOFF_TASK_BY_TASK_ID,
             payload: taskId,
@@ -51,8 +51,8 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFF_TASK_BY_TASK_ID_SUCCESS = '[Knockoff] Find Knockoff Task By Task Id Success';
 
-    findKnockoffTaskByTaskIdSuccess( task ): Action {
-        console.log( 'findKnockoffTaskByTaskIdSuccess' );
+    findKnockoffTaskByTaskIdSuccess(task): Action {
+        console.log('findKnockoffTaskByTaskIdSuccess');
         return {
             type: KnockoffActions.FIND_KNOCKOFF_TASK_BY_TASK_ID_SUCCESS,
             payload: task,
@@ -60,8 +60,8 @@ export class KnockoffActions {
     }
 
     static START_KNOCKOFF_TASK = '[Knockoff] Start Knockoff Task';
-    startKnockoffTask( knockoff ): Action {
-        console.log( "kncokoff dlm action: " + knockoff );
+    startKnockoffTask(knockoff): Action {
+        console.log("kncokoff dlm action: " + knockoff);
         return {
             type: KnockoffActions.START_KNOCKOFF_TASK,
             payload: knockoff
@@ -70,7 +70,7 @@ export class KnockoffActions {
 
     static START_KNOCKOFF_TASK_SUCCESS = '[Knockoff] Start Knockoff Task Success';
 
-    startKnockoffTaskSuccess( referenceNo ): Action {
+    startKnockoffTaskSuccess(referenceNo): Action {
         return {
             type: KnockoffActions.START_KNOCKOFF_TASK_SUCCESS,
             payload: referenceNo,
@@ -79,7 +79,7 @@ export class KnockoffActions {
 
     static COMPLETE_KNOCKOFF_TASK = '[Knockoff] Complete Knockoff Task';
 
-    completeKnockoffTask( knockoff ): Action {
+    completeKnockoffTask(knockoff): Action {
         return {
             type: KnockoffActions.COMPLETE_KNOCKOFF_TASK,
             payload: knockoff,
@@ -88,7 +88,7 @@ export class KnockoffActions {
 
     static COMPLETE_KNOCKOFF_TASK_SUCCESS = '[Knockoff] Complete Knockoff Task Success';
 
-    completeKnockoffTaskSuccess( message ): Action {
+    completeKnockoffTaskSuccess(message): Action {
         return {
             type: KnockoffActions.COMPLETE_KNOCKOFF_TASK_SUCCESS,
             payload: message,
@@ -97,7 +97,7 @@ export class KnockoffActions {
 
     static CLAIM_KNOCKOFF_TASK = '[Knockoff] Assign Knockoff Task';
 
-    claimKnockoffTask( knockoff ): Action {
+    claimKnockoffTask(knockoff): Action {
         return {
             type: KnockoffActions.CLAIM_KNOCKOFF_TASK,
             payload: knockoff,
@@ -106,7 +106,7 @@ export class KnockoffActions {
 
     static CLAIM_KNOCKOFF_TASK_SUCCESS = '[Knockoff] Assign Knockoff Task Success';
 
-    claimKnockoffTaskSuccess( message ): Action {
+    claimKnockoffTaskSuccess(message): Action {
         return {
             type: KnockoffActions.CLAIM_KNOCKOFF_TASK_SUCCESS,
             payload: message,
@@ -115,7 +115,7 @@ export class KnockoffActions {
 
     static RELEASE_KNOCKOFF_TASK = '[Knockoff] Release Knockoff Task';
 
-    releaseKnockoffTask( knockoff ): Action {
+    releaseKnockoffTask(knockoff): Action {
         return {
             type: KnockoffActions.RELEASE_KNOCKOFF_TASK,
             payload: knockoff,
@@ -124,7 +124,7 @@ export class KnockoffActions {
 
     static RELEASE_KNOCKOFF_TASK_SUCCESS = '[Knockoff] Release Knockoff Task Success';
 
-    releaseKnockoffTaskSuccess( message ): Action {
+    releaseKnockoffTaskSuccess(message): Action {
         return {
             type: KnockoffActions.RELEASE_KNOCKOFF_TASK_SUCCESS,
             payload: message,
@@ -141,8 +141,8 @@ export class KnockoffActions {
 
     static FIND_COMPLETED_KNOCKOFFS_SUCCESS = '[Knockoff] Find Completed Knockoff Success';
 
-    findCompletedKnockoffsSuccess( knockoffs ): Action {
-        console.log( 'findCompletedKnockoffsSuccess' );
+    findCompletedKnockoffsSuccess(knockoffs): Action {
+        console.log('findCompletedKnockoffsSuccess');
         return {
             type: KnockoffActions.FIND_COMPLETED_KNOCKOFFS_SUCCESS,
             payload: knockoffs,
@@ -159,8 +159,8 @@ export class KnockoffActions {
 
     static FIND_ARCHIVED_KNOCKOFFS_SUCCESS = '[Knockoff] Find Archived Knockoff Success';
 
-    findArchivedknockoffsSuccess( knockoffs ): Action {
-        console.log( 'findArchivedInvoicesSuccess' );
+    findArchivedknockoffsSuccess(knockoffs): Action {
+        console.log('findArchivedInvoicesSuccess');
         return {
             type: KnockoffActions.FIND_ARCHIVED_KNOCKOFFS_SUCCESS,
             payload: knockoffs,
@@ -170,7 +170,7 @@ export class KnockoffActions {
     static FIND_ASSIGNED_KNOCKOFF_TASKS = '[Knockoff] Find Assigned Knockoff Tasks';
 
     findAssignedKnockoffTasks(): Action {
-        console.log( 'find Assigned Knockoff Tasks before success' );
+        console.log('find Assigned Knockoff Tasks before success');
         return {
             type: KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS,
         };
@@ -178,9 +178,9 @@ export class KnockoffActions {
 
     static FIND_ASSIGNED_KNOCKOFF_TASKS_SUCCESS = '[Knockoff] Find Assigned Knockoff Tasks Success';
 
-    findAssignedKnockoffTasksSuccess( tasks ): Action {
-        console.log( 'findAssignedKnockoffTasksSuccess' );
-        console.log( 'action knockoff' + tasks );
+    findAssignedKnockoffTasksSuccess(tasks): Action {
+        console.log('findAssignedKnockoffTasksSuccess');
+        console.log('action knockoff' + tasks);
         return {
             type: KnockoffActions.FIND_ASSIGNED_KNOCKOFF_TASKS_SUCCESS,
             payload: tasks,
@@ -197,8 +197,8 @@ export class KnockoffActions {
 
     static FIND_POOLED_KNOCKOFF_TASKS_SUCCESS = '[Knockoff] Find Pooled Knockoff Tasks Success';
 
-    findPooledKnockoffTasksSuccess( knockoffs ): Action {
-        console.log( 'findPooledKnockoffTasksSuccess' );
+    findPooledKnockoffTasksSuccess(knockoffs): Action {
+        console.log('findPooledKnockoffTasksSuccess');
         return {
             type: KnockoffActions.FIND_POOLED_KNOCKOFF_TASKS_SUCCESS,
             payload: knockoffs,
@@ -207,7 +207,7 @@ export class KnockoffActions {
 
     static FIND_INVOICE_BY_KNOCKOFF = '[Knockoff] Find Invoice By Knockoff';
 
-    findKnockoffsByInvoice( knockoff ): Action {
+    findKnockoffsByInvoice(knockoff): Action {
         return {
             type: KnockoffActions.FIND_INVOICE_BY_KNOCKOFF,
             payload: knockoff
@@ -216,8 +216,8 @@ export class KnockoffActions {
 
     static FIND_INVOICE_BY_KNOCKOFF_SUCCESS = '[Knockoff] Find Invoice By Knockoff Success';
 
-    findKnockoffsByInvoiceSuccess( knockoff ): Action {
-        console.log( "findKnockoffsByInvoiceSuccess" );
+    findKnockoffsByInvoiceSuccess(knockoff): Action {
+        console.log("findKnockoffsByInvoiceSuccess");
         return {
             type: KnockoffActions.FIND_INVOICE_BY_KNOCKOFF_SUCCESS,
             payload: knockoff
@@ -226,7 +226,7 @@ export class KnockoffActions {
 
     static ADD_KNOCKOFF_INVOICE = '[Knockoff] Save Knockoff Invoice';
 
-    addKnockoffInvoice( knockoff, invoice ): Action {
+    addKnockoffInvoice(knockoff, invoice): Action {
         return {
             type: KnockoffActions.ADD_KNOCKOFF_INVOICE,
             payload: { knockoff: knockoff, invoice: invoice },
@@ -235,7 +235,7 @@ export class KnockoffActions {
 
     static ADD_KNOCKOFF_INVOICE_SUCCESS = '[Knockoff] Save Knockoff Invoice Success';
 
-    addKnockoffInvoiceSuccess( message ): Action {
+    addKnockoffInvoiceSuccess(message): Action {
         return {
             type: KnockoffActions.ADD_KNOCKOFF_INVOICE_SUCCESS,
             payload: message
@@ -244,7 +244,7 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFF_ITEM = '[Knockoff] Find Knockoff Item';
 
-    findKnockoffItems( knockoff ): Action {
+    findKnockoffItems(knockoff): Action {
         return {
             type: KnockoffActions.FIND_KNOCKOFF_ITEM,
             payload: knockoff
@@ -253,7 +253,7 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Find Knockoff Item Success';
 
-    findKnockoffItemsSuccess( knockoff ): Action {
+    findKnockoffItemsSuccess(knockoff): Action {
         return {
             type: KnockoffActions.FIND_KNOCKOFF_ITEM_SUCCESS,
             payload: knockoff
@@ -262,7 +262,7 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFF_ITEM_BY_INVOICE = '[Knockoff] Find Knockoff Item By Invoice';
 
-    findKnockoffItemsByInvoice( knockoff, invoice ): Action {
+    findKnockoffItemsByInvoice(knockoff, invoice): Action {
         return {
             type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_INVOICE,
             payload: { knockoff, invoice }
@@ -271,7 +271,7 @@ export class KnockoffActions {
 
     static FIND_KNOCKOFF_ITEM_BY_INVOICE_SUCCESS = '[Knockoff] Find Knockoff Item By Invoice Success';
 
-    findKnockoffItemsByInvoiceSuccess( knockoff ): Action {
+    findKnockoffItemsByInvoiceSuccess(knockoff): Action {
         return {
             type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_INVOICE_SUCCESS,
             payload: knockoff
@@ -280,7 +280,7 @@ export class KnockoffActions {
 
     static INVOICE_ITEM_TO_KNOCKOFF_ITEM = '[Knockoff] Invoice Item to Knockoff Item';
 
-    itemToKnockoffItem( invoice, knockoff ): Action {
+    itemToKnockoffItem(invoice, knockoff): Action {
         return {
             type: KnockoffActions.INVOICE_ITEM_TO_KNOCKOFF_ITEM,
             payload: { invoice, knockoff }
@@ -289,7 +289,7 @@ export class KnockoffActions {
 
     static INVOICE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Invoice Item to Knockoff Item Success';
 
-    itemToKnockoffItemSuccess( knockoff ): Action {
+    itemToKnockoffItemSuccess(knockoff): Action {
         return {
             type: KnockoffActions.INVOICE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS,
             payload: knockoff
@@ -298,7 +298,7 @@ export class KnockoffActions {
 
     static FIND_ACCOUNT_CHARGE_BY_KNOCKOFF = '[Knockoff] Find Account Charge By Knockoff';
 
-    findKnockoffsByAccountCharge( knockoff ): Action {
+    findKnockoffsByAccountCharge(knockoff): Action {
         return {
             type: KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF,
             payload: knockoff
@@ -307,17 +307,17 @@ export class KnockoffActions {
 
     static FIND_ACCOUNT_CHARGE_BY_KNOCKOFF_SUCCESS = '[Knockoff] Find Account Charge By Knockoff Success';
 
-    findKnockoffsByAccountChargeSuccess( knockoff ): Action {
-        console.log( "findKnockoffsByAccountChargeSuccess" );
+    findKnockoffsByAccountChargeSuccess(knockoff): Action {
+        console.log("findKnockoffsByAccountChargeSuccess");
         return {
             type: KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF_SUCCESS,
             payload: knockoff
         };
     }
-    
+
     static FIND_DEBIT_NOTE_BY_KNOCKOFF = '[Knockoff] Find Debit Note By Knockoff';
-    
-    findKnockoffsByDebitNote( debitNote ): Action {
+
+    findKnockoffsByDebitNote(debitNote): Action {
         return {
             type: KnockoffActions.FIND_DEBIT_NOTE_BY_KNOCKOFF,
             payload: debitNote
@@ -326,18 +326,18 @@ export class KnockoffActions {
 
     static FIND_DEBIT_NOTE_BY_KNOCKOFF_SUCCESS = '[Knockoff] Find Debit Note By Knockoff Success';
 
-    findKnockoffsByDebitNoteSuccess( message ): Action {
-        console.log( "findKnockoffsByDebitNoteSuccess" );
+    findKnockoffsByDebitNoteSuccess(message): Action {
+        console.log("findKnockoffsByDebitNoteSuccess");
         return {
             type: KnockoffActions.FIND_DEBIT_NOTE_BY_KNOCKOFF_SUCCESS,
             payload: message
         };
     }
-    
+
     static ADD_KNOCKOFF_ACCOUNT_CHARGE = '[Knockoff] Save Knockoff Account Charge';
 
-    addKnockoffAccountCharge( knockoff, accountCharge ): Action {
-        console.log( "addKnockoffAccountCharge" );
+    addKnockoffAccountCharge(knockoff, accountCharge): Action {
+        console.log("addKnockoffAccountCharge");
         return {
             type: KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE,
             payload: { knockoff: knockoff, accountCharge: accountCharge },
@@ -346,83 +346,121 @@ export class KnockoffActions {
 
     static ADD_KNOCKOFF_ACCOUNT_CHARGE_SUCCESS = '[Knockoff] Save Knockoff Account Charge Success';
 
-    addKnockoffAccountChargeSuccess( message ): Action {
-        console.log( "addKnockoffAccountChargeSuccess" );
+    addKnockoffAccountChargeSuccess(message): Action {
+        console.log("addKnockoffAccountChargeSuccess");
         return {
             type: KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE_SUCCESS,
             payload: message
         };
     }
-    
+
     static ADD_KNOCKOFF_DEBIT_NOTE = '[Knockoff] Save Knockoff Debit Note';
 
     addKnockoffDebitNote(knockoff, debitNote): Action {
-      return {
-        type: KnockoffActions.ADD_KNOCKOFF_DEBIT_NOTE,
-        payload: {knockoff: knockoff, debitNote: debitNote},
-      };
+        return {
+            type: KnockoffActions.ADD_KNOCKOFF_DEBIT_NOTE,
+            payload: { knockoff: knockoff, debitNote: debitNote },
+        };
     }
 
     static ADD_KNOCKOFF_DEBIT_NOTE_SUCCESS = '[Knockoff] Save Knockoff Debit Note Success';
 
     addKnockoffDebitNoteSuccess(message): Action {
-      return {
-        type: KnockoffActions.ADD_KNOCKOFF_DEBIT_NOTE_SUCCESS,
-        payload: message
-      };
+        return {
+            type: KnockoffActions.ADD_KNOCKOFF_DEBIT_NOTE_SUCCESS,
+            payload: message
+        };
     }
-    
+
     static UPDATE_KNOCKOFF = '[Knockoff] Update Knockoff';
 
     updateKnockoff(knockoff): Action {
-      return {
-        type: KnockoffActions.UPDATE_KNOCKOFF,
-        payload: knockoff
-      };
+        return {
+            type: KnockoffActions.UPDATE_KNOCKOFF,
+            payload: knockoff
+        };
     }
 
     static UPDATE_KNOCKOFF_SUCCESS = '[Knockoff] Update Knockoff Success';
 
     updateKnockoffSuccess(message): Action {
-      return {
-        type: KnockoffActions.UPDATE_KNOCKOFF_SUCCESS,
-        payload: message
-      };
+        return {
+            type: KnockoffActions.UPDATE_KNOCKOFF_SUCCESS,
+            payload: message
+        };
     }
 
+    static ADD_KNOCKOFF_ITEM = '[Knockoff] Add Knockoff Item';
+
+    addKnockoffItem(knockoff, item): Action {
+        return {
+            type: KnockoffActions.ADD_KNOCKOFF_ITEM,
+            payload: { knockoff: knockoff, item: item }
+        };
+    }
+
+    static ADD_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Add Knockoff Item Success';
+
+    addKnockoffItemSuccess(message): Action {
+        return {
+            type: KnockoffActions.ADD_KNOCKOFF_ITEM_SUCCESS,
+            payload: message
+        };
+    }
+
+
     static ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM = '[Knockoff] Account Charge Item to Knockoff Item';
-    
-        itemToKnockoffAccountChargeItem(  accountCharge, knockoff ): Action {
-            return {
-                type: KnockoffActions.ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM,
-                payload: { accountCharge, knockoff }
-            };
-        }
-    
-        static ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Account Charge Item to Knockoff Item Success';
-    
-        itemToKnockoffAccountChargeItemSuccess( knockoff ): Action {
-            return {
-                type: KnockoffActions.ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS,
-                payload: knockoff
-            };
-        }
-    
-        static FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE = '[Knockoff] Find Knockoff Item By Account Charge';
-        
-            findKnockoffItemsByAccountCharge( knockoff, accountCharge ): Action {
-                return {
-                    type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE,
-                    payload: { knockoff, accountCharge }
-                };
-            }
-        
-            static FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE_SUCCESS = '[Knockoff] Find Knockoff Item By Account Charge Success';
-        
-            findKnockoffItemsByAccountChargeSuccess( knockoff ): Action {
-                return {
-                    type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE_SUCCESS,
-                    payload: knockoff
-                };
-            }
+
+    itemToKnockoffAccountChargeItem(accountCharge, knockoff): Action {
+        return {
+            type: KnockoffActions.ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM,
+            payload: { accountCharge, knockoff }
+        };
+    }
+
+    static ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Account Charge Item to Knockoff Item Success';
+
+    itemToKnockoffAccountChargeItemSuccess(knockoff): Action {
+        return {
+            type: KnockoffActions.ACCOUNT_CHARGE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS,
+            payload: knockoff
+        };
+    }
+
+    static FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE = '[Knockoff] Find Knockoff Item By Account Charge';
+
+    findKnockoffItemsByAccountCharge(knockoff, accountCharge): Action {
+        return {
+            type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE,
+            payload: { knockoff, accountCharge }
+        };
+    }
+
+    static FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE_SUCCESS = '[Knockoff] Find Knockoff Item By Account Charge Success';
+
+    findKnockoffItemsByAccountChargeSuccess(knockoff): Action {
+        return {
+            type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_ACCOUNT_CHARGE_SUCCESS,
+            payload: knockoff
+        };
+    }
+
+
+    static UPDATE_KNOCKOFF_ITEM = '[Knockoff] Update Knockoff Item';
+
+    updateKnockoffItem(Knockoff, item): Action {
+        return {
+            type: KnockoffActions.UPDATE_KNOCKOFF_ITEM,
+            payload: { Knockoff: Knockoff, item: item }
+        };
+    }
+
+    static UPDATE_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Update Knockoff Item Success';
+
+    updateKnockoffItemSuccess(message): Action {
+        return {
+            type: KnockoffActions.UPDATE_KNOCKOFF_ITEM_SUCCESS,
+            payload: message
+        };
+    }
 }
