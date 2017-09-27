@@ -49,7 +49,6 @@ public class AcWaiverItemImpl implements AcWaiverItem {
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
-    @NotNull
     @ManyToOne(targetEntity = AcAccountChargeImpl.class)
     @JoinColumn(name = "ACCOUNT_CHARGE_ID")
     private AcAccountCharge accountCharge;

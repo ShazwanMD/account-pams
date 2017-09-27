@@ -34,6 +34,10 @@ import { DebitNoteUnpaidSelectComponent } from "./component/debit-note-select-un
 import { DebitNoteWaiverListComponent } from "./component/debit-note-waiver-list.component";
 import { DebitNoteWaiverDialog } from "./dialog/debit-note-waiver.dialog";
 import { DebitNoteWaiverCreatorDialog } from "./dialog/debit-note-waiver-creator.dialog";
+import { AccountChargeUnpaidSelectComponent } from "./component/account-charge-select-unpaid.component";
+import { AccountChargeWaiverDialog } from "./dialog/account-charge-waiver-creator.dialog";
+import { AccountChargeWaiverListComponent } from "./component/account-charge-waiver-list.component";
+import { WaiverChargeCreatorDialog } from "./dialog/waiver-charge-creator.dialog";
 
 @NgModule({
   imports: [
@@ -68,6 +72,8 @@ import { DebitNoteWaiverCreatorDialog } from "./dialog/debit-note-waiver-creator
     WaiverItemListComponent,
     DebitNoteUnpaidSelectComponent,
     DebitNoteWaiverListComponent,
+    AccountChargeUnpaidSelectComponent,
+    AccountChargeWaiverListComponent,
 
     // dialog
     WaiverFinanceApplicationCreatorDialog,
@@ -75,6 +81,8 @@ import { DebitNoteWaiverCreatorDialog } from "./dialog/debit-note-waiver-creator
     ItemApplicatorDialog,
     DebitNoteWaiverDialog,
     DebitNoteWaiverCreatorDialog,
+    AccountChargeWaiverDialog,
+    WaiverChargeCreatorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -86,6 +94,8 @@ import { DebitNoteWaiverCreatorDialog } from "./dialog/debit-note-waiver-creator
     ItemApplicatorDialog,
     DebitNoteWaiverDialog,
     DebitNoteWaiverCreatorDialog,
+    AccountChargeWaiverDialog,
+    WaiverChargeCreatorDialog,
   ],
 
 })

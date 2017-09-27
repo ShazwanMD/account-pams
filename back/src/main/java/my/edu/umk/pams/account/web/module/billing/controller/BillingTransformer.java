@@ -591,7 +591,10 @@ public class BillingTransformer {
     	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
     	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
     	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
+    	vo.setMetaState(MetaState.get(r.getMetadata().getState().ordinal()));
         return vo;
+        
+
     }
 
     public RefundPaymentTask toRefundPaymentTaskVo(Task t) {

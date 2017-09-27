@@ -55,13 +55,14 @@
                       [waiverInvoice]="waiverInvoice$ | async"
                       (view)="view($event)">
                     </pams-waiver-invoice-list>
-                    
-                    
-
                   </md-tab>
 
                   <md-tab label="Unpaid Charges">  
-
+					<pams-account-charge-waiver-list
+					  [waiverFinanceApplication]="waiverFinanceApplicationTask.application"
+                      [waiverAccountCharge]="waiverAccountCharge$ | async"
+                      (view)="view($event)">
+                      </pams-account-charge-waiver-list>
                   </md-tab>
 
                   <md-tab label="Unpaid Debit Notes">
