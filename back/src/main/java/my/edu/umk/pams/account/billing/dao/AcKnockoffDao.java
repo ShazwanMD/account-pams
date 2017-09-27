@@ -36,6 +36,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     
     List<AcKnockoffItem> findItems(AcKnockoff knockoff, AcInvoice invoice);
     
+    List<AcKnockoffItem> findItems(AcKnockoff knockoff, AcDebitNote debitNote);
+    
     List<AcKnockoffInvoice> find(AcKnockoff knockoff);
     
     List<AcKnockoffAccountCharge> findAccountCharge(AcKnockoff knockoff);
