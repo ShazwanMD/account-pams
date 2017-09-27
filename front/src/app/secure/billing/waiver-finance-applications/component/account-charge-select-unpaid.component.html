@@ -1,0 +1,10 @@
+<md-select
+  [placeholder]="placeholder"
+  (change)="selectChangeEvent($event.value)"
+  [(ngModel)]="selected"
+  flex>
+
+  <md-option *ngFor="let accountCharges of accountCharges$ | async" [value]="accountCharges">
+    {{accountCharges.referenceNo}} :: {{accountCharges.balanceAmount}} 
+  </md-option>
+</md-select>

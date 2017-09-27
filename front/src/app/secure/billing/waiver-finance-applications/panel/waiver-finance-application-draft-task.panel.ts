@@ -15,6 +15,9 @@ import { InvoiceActions } from "../../invoices/invoice.action";
 import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
 import { WaiverDebitNote } from "../../../../shared/model/billing/waiver-debit-note.interface";
 import { DebitNoteActions } from "../../debit-notes/debit-note.action";
+import { WaiverAccountCharge } from "../../../../shared/model/billing/waiver-account-charge.interface";
+import { AccountModuleState } from "../../../account/index";
+import { AccountActions } from "../../../account/accounts/account.action";
 
 @Component({
   selector: 'pams-waiver-finance-application-draft-task',
@@ -27,10 +30,12 @@ export class WaiverFinanceApplicationDraftTaskPanel implements OnInit {
   private WAIVER_INVOICE: string[] = 'billingModuleState.waiverInvoice'.split('.');
   private WAIVER_ITEM: string[] = 'billingModuleState.waiverItem'.split('.');
   private WAIVER_DEBIT_NOTE: string[] = 'billingModuleState.waiverDebitNote'.split('.');
+  private WAIVER_ACCOUNT_CHARGE: string[] = 'billingModuleState.waiverAccountCharge'.split('.');
   private waiverFinanceApplication$: Observable<WaiverFinanceApplication>;
   private waiverInvoice$: Observable<WaiverInvoice[]>;
   private waiverItem$: Observable<WaiverItem[]>;
   private waiverDebitNote$: Observable<WaiverDebitNote[]>; 
+  private waiverAccountCharge$: Observable<WaiverAccountCharge[]>; 
   private creatorDialogRef: MdDialogRef<WaiverApplicationEditorDialog>;
 
   @Input() waiverFinanceApplicationTask: WaiverFinanceApplicationTask;
@@ -41,7 +46,9 @@ export class WaiverFinanceApplicationDraftTaskPanel implements OnInit {
               private actions: WaiverFinanceApplicationActions,
               private action: InvoiceActions,
               private dbtAction: DebitNoteActions,
+              private accountAction: AccountActions,
               private store: Store<BillingModuleState>,
+              private stores: Store<AccountModuleState>,
               private dialog: MdDialog,
               private vcf: ViewContainerRef,
               private snackBar: MdSnackBar) {
@@ -50,6 +57,7 @@ export class WaiverFinanceApplicationDraftTaskPanel implements OnInit {
     this.waiverInvoice$ = this.store.select(...this.WAIVER_INVOICE);
     this.waiverItem$ = this.store.select(...this.WAIVER_ITEM);
     this.waiverDebitNote$ = this.store.select(...this.WAIVER_DEBIT_NOTE);
+    this.waiverAccountCharge$ = this.store.select(...this.WAIVER_ACCOUNT_CHARGE);
   }
 
   ngOnInit(): void {
@@ -58,6 +66,8 @@ export class WaiverFinanceApplicationDraftTaskPanel implements OnInit {
       this.store.dispatch(this.actions.findWaiverItems(this.waiverFinanceApplicationTask.application));
       this.store.dispatch(this.dbtAction.findUnpaidDebitNotes(this.waiverFinanceApplicationTask.application.account));
       this.store.dispatch(this.actions.findWaiverByDebitNote(this.waiverFinanceApplicationTask.application));
+      this.store.dispatch(this.actions.findWaiverByAccountCharge(this.waiverFinanceApplicationTask.application));
+      this.stores.dispatch(this.accountAction.findUnpaidAccountCharges(this.waiverFinanceApplicationTask.application.account));
   }
 
   register() {
