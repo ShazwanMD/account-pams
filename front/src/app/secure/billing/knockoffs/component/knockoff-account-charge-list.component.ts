@@ -12,6 +12,7 @@ import { Knockoff } from "../../../../shared/model/billing/knockoff.interface";
 import { AccountChargeKnockoffDialog } from "../dialog/knockoff-account-charge-creator.dialog";
 import { KnockoffActions } from "../knockoff.action";
 import { KnockoffItemDialog } from "../dialog/knockoff-item.dialog";
+import { KnockoffAccountChargeItemDialog } from '../dialog/knockoff-account-charge-item.dialog';
 
 @Component({
   selector: 'pams-knockoff-account-charge-list',
@@ -25,7 +26,7 @@ export class KnockoffAccountChargeListComponent implements OnInit {
   private columns: any[] = [
     {name: 'accountCharge.referenceNo', label: 'Reference No'},
     {name: 'accountCharge.description', label: 'Description'},
-    {name: 'accountCharge.totalAmount', label: 'Total Amount'},
+    {name: 'accountCharge.netAmount', label: 'Total Amount'},
     {name: 'accountCharge.balanceAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
@@ -54,25 +55,25 @@ export class KnockoffAccountChargeListComponent implements OnInit {
   
   }
   
-  // viewTask(item: KnockoffAccountCharge) {
+  viewTask(item: KnockoffAccountCharge) {
 
-  //     this.showDialog(item);
+      this.showDialog(item);
       
-  //   }
+    }
   
-  // showDialog(item: KnockoffAccountCharge): void {
-  //     console.log("knockoff create"  + item.knockoff.referenceNo);
-  //     console.log("invoice create"  + item.accountCharge.referenceNo);
-  //     let config = new MdDialogConfig();
-  //     config.viewContainerRef = this.viewContainerRef;
-  //     config.role = 'dialog';
-  //     config.width = '70%';
-  //     config.height = '60%';
-  //     config.position = {top: '0px'};
-  //     let editorDialogRef = this.dialog.open(KnockoffItemDialog, config);
-  //     editorDialogRef.componentInstance.knockoff = item.knockoff;
-  //     editorDialogRef.componentInstance.accountCharge = item.accountCharge;
-  //   }
+  showDialog(item: KnockoffAccountCharge): void {
+      console.log("knockoff create"  + item.knockoff.referenceNo);
+      console.log("account charge create"  + item.accountCharge.referenceNo);
+      let config = new MdDialogConfig();
+      config.viewContainerRef = this.viewContainerRef;
+      config.role = 'dialog';
+      config.width = '70%';
+      config.height = '60%';
+      config.position = {top: '0px'};
+      let editorDialogRef = this.dialog.open(KnockoffAccountChargeItemDialog, config);
+      editorDialogRef.componentInstance.knockoff = item.knockoff;
+      editorDialogRef.componentInstance.accountCharge = item.accountCharge;
+    }
 
   
 
