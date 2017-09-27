@@ -22,12 +22,14 @@ import { AccountCharge } from '../../../../shared/model/account/account-charge.i
 
 export class KnockoffAccountChargeItemDialog implements OnInit {
 
+  private createForm: FormGroup;
+  private displayForm: FormGroup;
   private _knockoff: Knockoff;
   private _accountCharge: AccountCharge;
-  showHide: boolean;
+  private edit: boolean = false;
 
-  private KNOCKOFF_ITEM: string[] = 'billingModuleState.knockoffItems'.split('.');
-  private knockoffItem$: Observable<KnockoffItem[]>;
+  // private KNOCKOFF_ITEM: string[] = 'billingModuleState.knockoffItems'.split('.');
+  // private knockoffItem$: Observable<KnockoffItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -36,8 +38,7 @@ export class KnockoffAccountChargeItemDialog implements OnInit {
               private store: Store<BillingModuleState>,
               private actions: KnockoffActions,
               private dialog: MdDialogRef<KnockoffAccountChargeItemDialog>) {
-      this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
-      this.showHide = true;
+      // this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
   }
 
   set knockoff(value: Knockoff) {
@@ -46,14 +47,46 @@ export class KnockoffAccountChargeItemDialog implements OnInit {
   
   set accountCharge(value: AccountCharge) {
       this._accountCharge = value;
+      this.edit = true;
     }
 
   ngOnInit(): void {
-      this.store.dispatch(this.actions.findKnockoffItemsByAccountCharge(this._knockoff, this._accountCharge));
+    this.createForm = this.formBuilder.group({
+      id: [undefined],
+      description: [''],
+      dueAmount: [0],
+      totalAmount:[0],
+      adjustedAmount: [0],
+      appliedAmount: [0],
+      price: [0],
+      unit: [0],
+      accountCharge: [<AccountCharge>{}]
+  } );
+
+  if ( this.edit )
+  this.createForm.patchValue( { accountCharge: this._accountCharge } );
+  this.createForm.patchValue( { description: this._accountCharge.description } );
+  this.createForm.patchValue( { dueAmount: this._accountCharge.balanceAmount } );
+
+  if(this._accountCharge.balanceAmount <= this._knockoff.totalAmount) {
+    this.createForm.patchValue( { appliedAmount: this._accountCharge.balanceAmount } );
+    this.createForm.patchValue( { totalAmount: 0 } );
+} 
+
+if(this._accountCharge.balanceAmount > this._knockoff.totalAmount){
+    this.createForm.patchValue( { appliedAmount: this._knockoff.totalAmount } );
+    this.createForm.patchValue( { totalAmount: this._accountCharge.balanceAmount-this._knockoff.totalAmount } );
+}
   }
 
-  Apply(): void {
-      this.showHide = !this.showHide;
-      this.store.dispatch( this.actions.itemToKnockoffAccountChargeItem(this._accountCharge, this._knockoff));
+
+  submit( item: KnockoffItem, isValid: boolean ) {
+    
+      console.log("hantar dh kan" + this._knockoff.referenceNo);
+      this.store.dispatch( this.actions.addKnockoffAccountCharge( this._knockoff, item ) );
+      this.dialog.close();
+      
+      this._knockoff.totalAmount = this._knockoff.totalAmount - item.appliedAmount;
+      this.store.dispatch( this.actions.updateKnockoff(this._knockoff) );
   }
 }
