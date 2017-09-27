@@ -507,6 +507,7 @@ public class BillingTransformer {
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         vo.setDueAmount(e.getDueAmount());
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
+        vo.setDebitNote(billingTransformer.toDebitNoteVo(e.getDebitNote()));
         vo.setKnockoff(billingTransformer.toKnockoffVo(e.getKnockoff()));
         vo.setTotalAmount(e.getTotalAmount());
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
