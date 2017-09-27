@@ -39,6 +39,7 @@ import { InvoiceKnockoffDialog } from "./dialog/knockoff-invoice-creator.dialog"
 import { AccountChargeKnockoffDialog } from "./dialog/knockoff-account-charge-creator.dialog";
 import { KnockoffItemListComponent } from "./component/knockoff-item-list.component";
 import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
+import {KnockoffAccountChargeItemDialog} from "./dialog/knockoff-account-charge-item.dialog";
 
 @NgModule( {
     imports: [
@@ -82,6 +83,7 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         InvoiceKnockoffDialog,
         AccountChargeKnockoffDialog,
         KnockoffItemDialog,
+        KnockoffAccountChargeItemDialog,
         DebitNoteKnockoffDialog,
     ],
     exports: [
@@ -100,6 +102,7 @@ import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
         InvoiceKnockoffDialog,
         AccountChargeKnockoffDialog,
         KnockoffItemDialog,
+        KnockoffAccountChargeItemDialog,
         DebitNoteKnockoffDialog,
     ],
 
