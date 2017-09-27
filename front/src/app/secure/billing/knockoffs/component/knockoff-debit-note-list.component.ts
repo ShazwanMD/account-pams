@@ -1,3 +1,4 @@
+import { DebitNoteKnockoffCreatorDialog } from './../dialog/debit-note-knockoff-creator.dialog';
 import { KnockoffDebitNote } from './../../../../shared/model/billing/knockoff-debit-note.interface';
 import { DebitNoteKnockoffDialog } from './../dialog/knockoff-debit-note-creator.dialog';
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewContainerRef, OnInit} from '@angular/core';
@@ -56,25 +57,25 @@ export class KnockoffDebitNoteListComponent implements OnInit {
   
   }
   
-  // viewTask(item: KnockoffDebitNote) {
+  viewTask(item: KnockoffDebitNote) {
 
-  //     this.showDialog(item);
+      this.showDialog(item);
       
-  //   }
+    }
   
-  // showDialog(item: KnockoffAccountCharge): void {
-  //     console.log("knockoff create"  + item.knockoff.referenceNo);
-  //     console.log("invoice create"  + item.accountCharge.referenceNo);
-  //     let config = new MdDialogConfig();
-  //     config.viewContainerRef = this.viewContainerRef;
-  //     config.role = 'dialog';
-  //     config.width = '70%';
-  //     config.height = '60%';
-  //     config.position = {top: '0px'};
-  //     let editorDialogRef = this.dialog.open(KnockoffItemDialog, config);
-  //     editorDialogRef.componentInstance.knockoff = item.knockoff;
-  //     editorDialogRef.componentInstance.accountCharge = item.accountCharge;
-  //   }
+  showDialog(item: KnockoffDebitNote): void {
+      console.log("knockoff create"  + item.knockoff.referenceNo);
+      console.log("invoice create"  + item.debitNote.referenceNo);
+      let config = new MdDialogConfig();
+      config.viewContainerRef = this.viewContainerRef;
+      config.role = 'dialog';
+      config.width = '70%';
+      config.height = '60%';
+      config.position = {top: '0px'};
+      let editorDialogRef = this.dialog.open(DebitNoteKnockoffCreatorDialog, config);
+      editorDialogRef.componentInstance.knockoff = item.knockoff;
+      editorDialogRef.componentInstance.debitNote = item.debitNote;
+    }
 
   
 
