@@ -589,6 +589,8 @@ public class BillingTransformer {
     	vo.setTotalAmount(r.getTotalAmount());
     	vo.setWaiverFinanceApplication(billingTransformer.toWaiverFinanceApplicationVo(r.getWaiverFinanceApplication()));
     	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
+    	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
+    	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
         return vo;
     }
 

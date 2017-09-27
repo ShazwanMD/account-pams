@@ -92,6 +92,7 @@ import { waiverInvoiceReducer, WaiverInvoiceState } from "./waiver-finance-appli
 import { WaiverItemListState, waiverItemListReducer } from "./waiver-finance-applications/waiver-item-list.reducer";
 import { AccountCharge } from '../../shared/model/account/account-charge.interface';
 import { KnockoffDebitNoteListState, knockoffDebitNoteListReducer } from "./knockoffs/knockoff-debit-note.reducer";
+import { WaiverDebitNoteState, waiverDebitNoteReducer } from "./waiver-finance-applications/waiver-debit-note.reducer";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -145,6 +146,7 @@ export interface BillingModuleState {
   waiverFinanceApplications: WaiverFinanceApplicationListState;
   waiverInvoice: WaiverInvoiceState;
   waiverItem: WaiverItemListState;
+  waiverDebitNote: WaiverDebitNoteState;
   refundPayment: RefundPaymentState;
   refundPayments: RefundPaymentListState;
   refundPaymentTask: RefundPaymentTaskState;
@@ -208,6 +210,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     waiverFinanceApplications: <WaiverFinanceApplication[]>[],
     waiverInvoice: [],
     waiverItem: [],
+    waiverDebitNote: [],
     refundPayment: <RefundPaymentState>{},
     refundPayments: <RefundPayment[]>[],
     refundPaymentTask: <RefundPaymentTask>{},
@@ -267,6 +270,7 @@ export const billingModuleReducers = {
   waiverFinanceApplications: waiverFinanceApplicationListReducer,
   waiverInvoice: waiverInvoiceReducer,
   waiverItem: waiverItemListReducer,
+  waiverDebitNote: waiverDebitNoteReducer,
   refundPayment: refundPaymentReducer,
   refundPayments: refundPaymentListReducer,
   refundPaymentTask: refundPaymentTaskReducer,

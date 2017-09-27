@@ -56,10 +56,7 @@
                       (view)="view($event)">
                     </pams-waiver-invoice-list>
                     
-                    <pams-waiver-item-list
-                    [waiverFinanceApplication]="waiverFinanceApplicationTask.application"
-                    [waiverItem]="waiverItem$ | async">
-                    </pams-waiver-item-list>
+                    
 
                   </md-tab>
 
@@ -68,7 +65,11 @@
                   </md-tab>
 
                   <md-tab label="Unpaid Debit Notes">
-
+					<pams-debit-note-waiver-list
+					  [waiverFinanceApplication]="waiverFinanceApplicationTask.application"
+                      [waiverDebitNote]="waiverDebitNote$ | async"
+                      (view)="view($event)">
+                      </pams-debit-note-waiver-list>
                   </md-tab>
               </md-tab-group>
           </md-card>
@@ -77,6 +78,22 @@
       </div>
       </div>
 
+        <div layout="column" layout-gt-md="row">
+            <div flex-gt-md="70">
+              <md-card>
+                  <md-tab-group [selectedIndex]="0">
+                      <md-tab label="Waiver Item">
+                         <pams-waiver-item-list
+                    [waiverFinanceApplication]="waiverFinanceApplicationTask.application"
+                    [waiverItem]="waiverItem$ | async">
+                    </pams-waiver-item-list>
+                      </md-tab>
+                  </md-tab-group> 
+              </md-card>
+            <div>
+            </div>
+          </div>
+          </div>
     </div>
     <div flex-gt-md="30">
 

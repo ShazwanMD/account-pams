@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.web.module.account.vo.AccountCharge;
 import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
@@ -20,6 +21,7 @@ public class WaiverItem extends MetaObject {
 	private Invoice invoice;
 	private AccountCharge accountCharge;
 	private WaiverFinanceApplication waiverFinanceApplication;
+	private DebitNote debitNote;
 
 	public String getDescription() {
 		return description;
@@ -83,6 +85,14 @@ public class WaiverItem extends MetaObject {
 
 	public void setWaiverFinanceApplication(WaiverFinanceApplication waiverFinanceApplication) {
 		this.waiverFinanceApplication = waiverFinanceApplication;
+	}
+
+	public DebitNote getDebitNote() {
+		return debitNote;
+	}
+
+	public void setDebitNote(DebitNote debitNote) {
+		this.debitNote = debitNote;
 	}
 
 	@JsonCreator

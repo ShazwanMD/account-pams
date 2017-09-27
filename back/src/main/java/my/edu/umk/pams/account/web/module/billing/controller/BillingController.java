@@ -1238,6 +1238,30 @@ public class BillingController {
         workflowService.completeTask(task);
     }
     
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/waiverFinanceApplicationItems", method = RequestMethod.POST)
+    public void addWaiverItem(@PathVariable String referenceNo, @RequestBody WaiverItem vo) {
+        
+        LOG.debug("referenceNo: {}", referenceNo);
+
+        AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        AcWaiverItem e = new AcWaiverItemImpl();
+
+        if (null != vo.getChargeCode())
+        e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        e.setAppliedAmount(vo.getAppliedAmount());
+        e.setTotalAmount(vo.getTotalAmount());
+        e.setDueAmount(vo.getDueAmount());
+        e.setDescription(vo.getDescription());
+        if (null != vo.getDebitNote())
+        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
+        if (null != vo.getInvoice())
+        e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+        if (null != vo.getAccountCharge())
+        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
+        e.setChargeCode(accountService.findChargeCodeById(0L));
+        billingService.addWaiverItem(waiverApplication, e);
+    }
+    
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/invoice/{id}", method = RequestMethod.POST)
     public void addWaiverInvoice(@PathVariable String referenceNo, @PathVariable Long id) {
         
@@ -1299,6 +1323,22 @@ public class BillingController {
     	waiverApplication.setGracedAmount(vo.getGracedAmount());
         billingService.updateWaiverFinanceApplication(waiverApplication);
         return new ResponseEntity<WaiverFinanceApplication>(billingTransformer.toWaiverFinanceApplicationVo(waiverApplication), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/debitNotes", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverDebitNote>> findWaiverByDebitNote(@PathVariable String referenceNo) {
+        
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);;
+        return new ResponseEntity<List<WaiverDebitNote>>(billingTransformer
+                .toWaiverDebitNoteVos(billingService.findDebitNote(waiverApplication)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/accountCharges", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverAccountCharge>> findWaiverByAccountCharge(@PathVariable String referenceNo) {
+        
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);;
+        return new ResponseEntity<List<WaiverAccountCharge>>(billingTransformer
+                .toWaiverAccountChargeVos(billingService.findWaiverAccountCharge(waiverApplication)), HttpStatus.OK);
     }
 
 }
