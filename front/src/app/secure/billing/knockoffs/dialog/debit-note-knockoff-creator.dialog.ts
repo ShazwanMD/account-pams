@@ -74,14 +74,14 @@ export class DebitNoteKnockoffCreatorDialog implements OnInit {
             this.createForm.patchValue( { description: this._debitNote.description } );
             this.createForm.patchValue( { dueAmount: this._debitNote.balanceAmount } );
             
-            if(this._debitNote.balanceAmount <= this._knockoff.totalAmount) {
+            if(this._debitNote.balanceAmount <= this._knockoff.payments.amount) {
                 this.createForm.patchValue( { appliedAmount: this._debitNote.balanceAmount } );
                 this.createForm.patchValue( { totalAmount: 0 } );
             } 
             
-            if(this._debitNote.balanceAmount > this._knockoff.totalAmount){
-                this.createForm.patchValue( { appliedAmount: this._knockoff.totalAmount } );
-                this.createForm.patchValue( { totalAmount: this._debitNote.balanceAmount-this._knockoff.totalAmount } );
+            if(this._debitNote.balanceAmount > this._knockoff.payments.amount){
+                this.createForm.patchValue( { appliedAmount: this._knockoff.payments.amount} );
+                this.createForm.patchValue( { totalAmount: this._debitNote.balanceAmount-this._knockoff.payments.amount } );
             }
     }
 
