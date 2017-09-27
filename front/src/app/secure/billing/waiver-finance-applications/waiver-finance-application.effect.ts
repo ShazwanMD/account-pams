@@ -102,6 +102,24 @@ export class WaiverFinanceApplicationEffects {
   .switchMap((payload) => this.billingService.addWaiverInvoice(payload.waiverFinanceApplication, payload.invoice))
   .map((message) => this.waiverFinanceApplicationActions.addWaiverInvoiceSuccess(message));
   
+  @Effect() addWaiverAccountCharge$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.ADD_WAIVER_ACCOUNT_CHARGE)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.addWaiverAccountCharge(payload.waiverFinanceApplication, payload.accountCharge))
+  .map((message) => this.waiverFinanceApplicationActions.addWaiverAccountChargeSuccess(message));
+  
+  @Effect() addWaiverDebitNote$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.ADD_WAIVER_DEBIT_NOTE)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.addWaiverDebitNote(payload.waiverFinanceApplication, payload.debitNote))
+  .map((message) => this.waiverFinanceApplicationActions.addWaiverDebitNoteSuccess(message));
+  
+  @Effect() updateWaivers$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.UPDATE_WAIVER)
+  .map((action) => action.payload)
+  .switchMap((waiverFinanceApplication) => this.billingService.updateWaivers(waiverFinanceApplication))
+  .map((message) => this.waiverFinanceApplicationActions.updateWaiversSuccess(message));
+  
   @Effect() itemToWaiverItem$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.ITEM_TO_WAIVER_INVOICE)
   .map((action) => action.payload)

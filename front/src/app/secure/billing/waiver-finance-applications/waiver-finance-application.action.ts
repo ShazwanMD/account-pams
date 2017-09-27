@@ -278,6 +278,60 @@ export class WaiverFinanceApplicationActions {
     };
   }
   
+  static ADD_WAIVER_ACCOUNT_CHARGE = '[WaiverFinanceApplication] Add Waiver Account Charge';
+
+  addWaiverAccountCharge(waiverFinanceApplication, accountCharge): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ADD_WAIVER_ACCOUNT_CHARGE,
+      payload: {waiverFinanceApplication, accountCharge}
+    };
+  }
+
+  static ADD_WAIVER_ACCOUNT_CHARGE_SUCCESS = '[WaiverFinanceApplication] Add Waiver Account Charge Success';
+
+  addWaiverAccountChargeSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ADD_WAIVER_ACCOUNT_CHARGE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static ADD_WAIVER_DEBIT_NOTE = '[WaiverFinanceApplication] Add Waiver Debit Note';
+
+  addWaiverDebitNote(waiverFinanceApplication, debitNote): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ADD_WAIVER_DEBIT_NOTE,
+      payload: {waiverFinanceApplication, debitNote}
+    };
+  }
+
+  static ADD_WAIVER_DEBIT_NOTE_SUCCESS = '[WaiverFinanceApplication] Add Waiver Debit Note Success';
+
+  addWaiverDebitNoteSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ADD_WAIVER_DEBIT_NOTE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static UPDATE_WAIVER = '[WaiverFinanceApplication] Update Waiver';
+
+  updateWaivers(waiverFinanceApplication): Action {
+    return {
+      type: WaiverFinanceApplicationActions.UPDATE_WAIVER,
+      payload: waiverFinanceApplication
+    };
+  }
+
+  static UPDATE_WAIVER_SUCCESS = '[WaiverFinanceApplication] Update Waiver Success';
+
+  updateWaiversSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.UPDATE_WAIVER_SUCCESS,
+      payload: message
+    };
+  }
+  
   static ITEM_TO_WAIVER_INVOICE = '[WaiverFinanceApplication] Item to Waiver Item';
 
   itemToWaiverItem(invoice, waiverFinanceApplication): Action {
