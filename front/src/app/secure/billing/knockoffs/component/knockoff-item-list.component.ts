@@ -1,3 +1,4 @@
+import { DebitNote } from './../../../../shared/model/billing/debit-note.interface';
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewContainerRef, OnInit} from '@angular/core';
 import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
 import {Invoice} from '../../../../shared/model/billing/invoice.interface';
@@ -21,6 +22,8 @@ export class KnockoffItemListComponent implements OnInit {
     @Input() knockoffItem: KnockoffItem[];
     @Input() knockoff: Knockoff;
     @Input() invoice: Invoice;
+    
+
     
   private columns: any[] = [
                             
