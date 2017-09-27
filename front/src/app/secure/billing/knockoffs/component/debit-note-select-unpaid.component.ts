@@ -42,5 +42,5 @@ export class DebitNoteUnpaidSelectComponent implements OnInit {
     this.selected = event;
   }
 }
-}
+
 
