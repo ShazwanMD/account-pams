@@ -18,6 +18,7 @@ public class KnockoffItem extends MetaObject {
 	private Invoice invoice;
 	private ChargeCode chargeCode;
 	private Knockoff knockoff;
+	private DebitNote debitNote;
 
 	public String getDescription() {
 		return description;
@@ -73,6 +74,14 @@ public class KnockoffItem extends MetaObject {
 
 	public void setKnockoff(Knockoff knockoff) {
 		this.knockoff = knockoff;
+	}
+	
+	public DebitNote getDebitNote() {
+		return debitNote;
+	}
+
+	public void setDebitNote(DebitNote debitNote) {
+		this.debitNote = debitNote;
 	}
 	
 	@JsonCreator
