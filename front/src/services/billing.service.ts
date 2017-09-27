@@ -30,6 +30,8 @@ import { KnockoffInvoice } from "../app/shared/model/billing/knockoff-invoice.in
 import { KnockoffAccountCharge } from "../app/shared/model/billing/knockoff-account-charge.interface";
 import { KnockoffItem } from "../app/shared/model/billing/knockoff-item.interface";
 import { WaiverInvoice } from "../app/shared/model/billing/waiver-invoice.interface";
+import { WaiverDebitNote } from "../app/shared/model/billing/waiver-debit-note.interface";
+import { WaiverAccountCharge } from "../app/shared/model/billing/waiver-account-charge.interface";
 import { WaiverItem } from "../app/shared/model/billing/waiver-item.interface";
 import { AccountCharge } from "../app/shared/model/account/account-charge.interface";
 import { KnockoffDebitNote } from "../app/shared/model/billing/knockoff-debit-note.interface";
@@ -772,9 +774,24 @@ export class BillingService {
           .map(( res: Response ) => <WaiverInvoice[]>res.json() );
   }
   
+  findWaiverByDebitNote( waiverFinanceApplication: WaiverFinanceApplication ): Observable<WaiverDebitNote[]> {
+      return this._http.get( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/debitNotes' )
+          .map(( res: Response ) => <WaiverDebitNote[]>res.json() );
+  }
+  
+  findWaiverByAccountCharge( waiverFinanceApplication: WaiverFinanceApplication ): Observable<WaiverAccountCharge[]> {
+      return this._http.get( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/accountCharges' )
+          .map(( res: Response ) => <WaiverAccountCharge[]>res.json() );
+  }
+
   findWaiverItems( waiverFinanceApplication: WaiverFinanceApplication ): Observable<WaiverItem[]> {
       return this._http.get( this.BILLING_API + '/waiverFinanceApplications/waiverItems/' + waiverFinanceApplication.referenceNo )
           .map(( res: Response ) => <WaiverItem[]>res.json() );
+  }
+  
+  addWaiverItem( waiverFinanceApplication: WaiverFinanceApplication, item: WaiverItem): Observable<String> {
+      return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/waiverFinanceApplicationItems', JSON.stringify( item ) )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
   }
   
     // ====================================================================================================

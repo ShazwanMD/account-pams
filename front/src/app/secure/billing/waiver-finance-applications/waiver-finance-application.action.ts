@@ -313,6 +313,24 @@ export class WaiverFinanceApplicationActions {
       payload: message
     };
   }
+
+  static ADD_WAIVER_ITEM = '[WaiverFinanceApplication] Add Waiver Item';
+
+  addWaiverItem(waiverFinanceApplication, item): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ADD_WAIVER_ITEM,
+      payload: {waiverFinanceApplication: waiverFinanceApplication, item:item}
+    };
+  }
+
+  static ADD_WAIVER_ITEM_SUCCESS = '[WaiverFinanceApplication] Add Waiver Item Success';
+
+  addWaiverItemSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ADD_WAIVER_ITEM_SUCCESS,
+      payload: message
+    };
+  }
   
   static UPDATE_WAIVER = '[WaiverFinanceApplication] Update Waiver';
 
@@ -364,6 +382,42 @@ export class WaiverFinanceApplicationActions {
   findWaiversByInvoiceSuccess(message): Action {
     return {
       type: WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static FIND_WAIVER_DEBIT_NOTE = '[WaiverFinanceApplication] Find Waiver Debit Note';
+
+  findWaiverByDebitNote(waiverFinanceApplication): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_DEBIT_NOTE,
+      payload: waiverFinanceApplication
+    };
+  }
+
+  static FIND_WAIVER_DEBIT_NOTE_SUCCESS = '[WaiverFinanceApplication] Find Waiver Debit Note Success';
+
+  findWaiverByDebitNoteSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_DEBIT_NOTE_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static FIND_WAIVER_ACCOUNT_CHARGE = '[WaiverFinanceApplication] Find Waiver Account Charge';
+
+  findWaiverByAccountCharge(waiverFinanceApplication): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_ACCOUNT_CHARGE,
+      payload: waiverFinanceApplication
+    };
+  }
+
+  static FIND_WAIVER_ACCOUNT_CHARGE_SUCCESS = '[WaiverFinanceApplication] Find Waiver Account Charge Success';
+
+  findWaiverByAccountChargeSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_ACCOUNT_CHARGE_SUCCESS,
       payload: message
     };
   }

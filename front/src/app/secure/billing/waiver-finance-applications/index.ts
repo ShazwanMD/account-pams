@@ -30,6 +30,14 @@ import { InvoiceUnpaidSelectComponent } from "./component/invoice-select-unpaid.
 import { WaiverReceiptDialog } from "./dialog/invoice-waiver.dialog";
 import { ItemApplicatorDialog } from "./dialog/item-applicator.dialog";
 import { WaiverItemListComponent } from "./component/waiver-item-list.component";
+import { DebitNoteUnpaidSelectComponent } from "./component/debit-note-select-unpaid.component";
+import { DebitNoteWaiverListComponent } from "./component/debit-note-waiver-list.component";
+import { DebitNoteWaiverDialog } from "./dialog/debit-note-waiver.dialog";
+import { DebitNoteWaiverCreatorDialog } from "./dialog/debit-note-waiver-creator.dialog";
+import { AccountChargeUnpaidSelectComponent } from "./component/account-charge-select-unpaid.component";
+import { AccountChargeWaiverDialog } from "./dialog/account-charge-waiver-creator.dialog";
+import { AccountChargeWaiverListComponent } from "./component/account-charge-waiver-list.component";
+import { WaiverChargeCreatorDialog } from "./dialog/waiver-charge-creator.dialog";
 
 @NgModule({
   imports: [
@@ -62,11 +70,19 @@ import { WaiverItemListComponent } from "./component/waiver-item-list.component"
     WaiverInvoiceListComponent,
     InvoiceUnpaidSelectComponent,
     WaiverItemListComponent,
+    DebitNoteUnpaidSelectComponent,
+    DebitNoteWaiverListComponent,
+    AccountChargeUnpaidSelectComponent,
+    AccountChargeWaiverListComponent,
 
     // dialog
     WaiverFinanceApplicationCreatorDialog,
     WaiverReceiptDialog,
     ItemApplicatorDialog,
+    DebitNoteWaiverDialog,
+    DebitNoteWaiverCreatorDialog,
+    AccountChargeWaiverDialog,
+    WaiverChargeCreatorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -76,6 +92,10 @@ import { WaiverItemListComponent } from "./component/waiver-item-list.component"
     WaiverFinanceApplicationRegisterTaskPanel,
     WaiverFinanceApplicationVerifyTaskPanel,
     ItemApplicatorDialog,
+    DebitNoteWaiverDialog,
+    DebitNoteWaiverCreatorDialog,
+    AccountChargeWaiverDialog,
+    WaiverChargeCreatorDialog,
   ],
 
 })
