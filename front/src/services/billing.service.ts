@@ -665,6 +665,12 @@ export class BillingService {
             .map(( res: Response ) => <KnockoffDebitNote[]>res.json() );
     }
 
+    addKnockoffItem( knockoff: Knockoff, item: KnockoffItem ): Observable<String> {
+        console.log("knockoff " + knockoff.referenceNo + " item")
+        return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffItems', JSON.stringify( item ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
     // ====================================================================================================
   // WAIVER FINANCE APPLICATION
   // ====================================================================================================

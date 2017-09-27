@@ -14,4 +14,7 @@ export interface KnockoffItem extends Document {
     accountCharge: AccountCharge;
     invoice: Invoice;
     knockoff: Knockoff;
+
+      // selection
+    selected?: boolean;
 }
