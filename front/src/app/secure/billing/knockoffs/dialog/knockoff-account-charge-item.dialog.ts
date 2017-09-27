@@ -63,22 +63,21 @@ export class KnockoffAccountChargeItemDialog implements OnInit {
       accountCharge: [<AccountCharge>{}]
   } );
 
-  if ( this.edit )
-  this.createForm.patchValue( { accountCharge: this._accountCharge } );
-  this.createForm.patchValue( { description: this._accountCharge.description } );
-  this.createForm.patchValue( { dueAmount: this._accountCharge.balanceAmount } );
+if ( this.edit )
+this.createForm.patchValue( { accountCharge: this._accountCharge } );
+this.createForm.patchValue( { description: this._accountCharge.description } );
+this.createForm.patchValue( { dueAmount: this._accountCharge.balanceAmount } );
 
-  if(this._accountCharge.balanceAmount <= this._knockoff.totalAmount) {
+if(this._accountCharge.balanceAmount <= this._knockoff.payments.amount) {
     this.createForm.patchValue( { appliedAmount: this._accountCharge.balanceAmount } );
     this.createForm.patchValue( { totalAmount: 0 } );
 } 
 
-if(this._accountCharge.balanceAmount > this._knockoff.totalAmount){
-    this.createForm.patchValue( { appliedAmount: this._knockoff.totalAmount } );
-    this.createForm.patchValue( { totalAmount: this._accountCharge.balanceAmount-this._knockoff.totalAmount } );
+if(this._accountCharge.balanceAmount > this._knockoff.payments.amount){
+    this.createForm.patchValue( { appliedAmount: this._knockoff.payments.amount } );
+    this.createForm.patchValue( { totalAmount: this._accountCharge.balanceAmount-this._knockoff.payments.amount } );
 }
   }
-
 
   submit( item: KnockoffItem, isValid: boolean ) {
     
