@@ -57,8 +57,6 @@ export class WaiverChargeCreatorDialog implements OnInit {
             dueAmount: [0],
             totalAmount:[0],
             appliedAmount: [0],
-            chargeCode: [<ChargeCode>{}],
-            invoice: [<Invoice>{}],
             accountCharge: [<AccountCharge>{}]
         } );
 
