@@ -1024,6 +1024,16 @@ public class BillingController {
                 .toKnockoffItemVos(billingService.findAcKnockoffs(knockoff,invoice)), HttpStatus.OK);
     }
     
+//    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems/{id}", method = RequestMethod.GET)
+//    public ResponseEntity<List<KnockoffItem>> findKnockoffItemsByDebitNote(@PathVariable String referenceNo, @PathVariable Long id) {
+//        
+//    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+//    	AcDebitNote debitNote = billingService.findDebitNoteById(id);
+//        return new ResponseEntity<List<KnockoffItem>>(billingTransformer
+//                .toKnockoffItemVos(billingService.findAcKnockoffs(knockoff,debitNote)), HttpStatus.OK);
+//    }
+    
+    
     @RequestMapping(value = "/knockoffs/updateKnockoffItems/{referenceNo}/knockoffItems/{id}", method = RequestMethod.PUT)
     public void updateitemToKnockoff(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody ReceiptItem vo) {
     	
@@ -1061,6 +1071,32 @@ public class BillingController {
         AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
         return new ResponseEntity<List<KnockoffDebitNote>>(billingTransformer
                 .toKnockoffDebitNoteVos(billingService.findKnockoffDebitNotes(knockoff)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems", method = RequestMethod.POST)
+    public void addKnockoffItems(@PathVariable String referenceNo, @RequestBody AcKnockoffItem vo) {
+        
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	AcKnockoffItem e = new AcKnockoffItemImpl();
+        
+        if (null != vo.getChargeCode())
+        e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        //e.setAdjustedAmount(vo.getAdjustedAmount());
+        e.setAppliedAmount(vo.getAppliedAmount());
+        e.setTotalAmount(vo.getTotalAmount());
+        e.setDueAmount(vo.getDueAmount());
+        //e.setUnit(vo.getUnit());
+        //e.setPrice(vo.getPrice());
+        e.setDescription(vo.getDescription());
+        if (null != vo.getDebitNote())
+        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
+        if (null != vo.getInvoice())
+        e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
+//        if (null != vo.getAccountCharge())
+//        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
+        e.setChargeCode(accountService.findChargeCodeById(0L));
+        billingService.addKnockoffItem(knockoff, e);
+        
     }
 
     // ==================================================================================================== //
