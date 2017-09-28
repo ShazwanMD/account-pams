@@ -439,6 +439,8 @@ public interface BillingService {
     
     void calculateNetAmount(AcInvoiceItem invoiceItem);
     
+    void post(AcRefundPayment refund);
+    
     //TASK
     
     AcRefundPayment findRefundPaymentByTaskId(String taskId);

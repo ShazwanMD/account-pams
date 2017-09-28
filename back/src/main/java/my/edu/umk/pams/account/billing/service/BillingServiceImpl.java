@@ -1583,6 +1583,19 @@ public class BillingServiceImpl implements BillingService {
 		refundPaymentDao.remove(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	@Override
+	public void post(AcRefundPayment refund) {
+		AcAccountTransaction tx = new AcAccountTransactionImpl();
+		tx.setSession(refund.getPayments().getSession());
+		tx.setDescription(refund.getDescription());
+		tx.setPostedDate(new Date());
+		tx.setSourceNo(refund.getReferenceNo());
+		tx.setTransactionCode(AcAccountTransactionCode.REFUND);
+		tx.setAccount(refund.getPayments().getAccount());
+		tx.setAmount(refund.getAmount().negate());
+		accountService.addAccountTransaction(refund.getPayments().getAccount(), tx);
+	}
 
 	// TASK REFUND
 
