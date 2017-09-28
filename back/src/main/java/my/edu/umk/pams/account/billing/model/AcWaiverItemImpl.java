@@ -44,7 +44,6 @@ public class AcWaiverItemImpl implements AcWaiverItem {
     @Column(name = "TOTAL_AMOUNT")
     private BigDecimal totalAmount;
 
-    @NotNull
     @ManyToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
@@ -58,7 +57,7 @@ public class AcWaiverItemImpl implements AcWaiverItem {
     @JoinColumn(name = "WAIVER_FINANCE_ID")
     private AcWaiverFinanceApplication waiverFinanceApplication;
 
-    @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
     @JoinColumn(name = "CHARGE_CODE_ID")
     private AcChargeCode chargeCode;
     

@@ -14,6 +14,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -51,6 +53,10 @@ public class AcKnockoffItemImpl implements AcKnockoffItem {
 	@JoinColumn(name = "CHARGE_CODE_ID")
 	private AcChargeCode chargeCode;
 
+    @ManyToOne(targetEntity = AcAccountChargeImpl.class)
+    @JoinColumn(name = "ACCOUNT_CHARGE_ID")
+    private AcAccountCharge accountCharge;
+	
 	@NotNull
 	@ManyToOne(targetEntity = AcKnockoffImpl.class)
 	@JoinColumn(name = "KNOCKOFF_ID")
@@ -164,6 +170,16 @@ public class AcKnockoffItemImpl implements AcKnockoffItem {
 
 	public void setDebitNote(AcDebitNote debitNote) {
 		this.debitNote = debitNote;
+	}
+	
+    @Override
+    public AcAccountCharge getAccountCharge() {
+		return accountCharge;
+	}
+
+    @Override
+	public void setAccountCharge(AcAccountCharge accountCharge) {
+		this.accountCharge = accountCharge;
 	}
 
 }

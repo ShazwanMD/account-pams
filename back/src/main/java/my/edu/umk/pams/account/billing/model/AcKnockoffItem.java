@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.model;
 
 import java.math.BigDecimal;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
@@ -38,4 +39,8 @@ public interface AcKnockoffItem extends AcMetaObject{
     AcDebitNote getDebitNote();
 
 	void setDebitNote(AcDebitNote debitNote); 
+	
+	AcAccountCharge getAccountCharge();
+
+	void setAccountCharge(AcAccountCharge accountCharge);
 }

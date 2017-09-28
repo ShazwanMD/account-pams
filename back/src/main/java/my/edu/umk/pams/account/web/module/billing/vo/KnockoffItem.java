@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import my.edu.umk.pams.account.web.module.account.vo.AccountCharge;
 import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
@@ -19,6 +20,7 @@ public class KnockoffItem extends MetaObject {
 	private ChargeCode chargeCode;
 	private Knockoff knockoff;
 	private DebitNote debitNote;
+	private AccountCharge accountCharge;
 
 	public String getDescription() {
 		return description;
@@ -84,6 +86,14 @@ public class KnockoffItem extends MetaObject {
 		this.debitNote = debitNote;
 	}
 	
+	public AccountCharge getAccountCharge() {
+		return accountCharge;
+	}
+
+	public void setAccountCharge(AccountCharge accountCharge) {
+		this.accountCharge = accountCharge;
+	}
+
 	@JsonCreator
     public static KnockoffItem create(String jsonString) {
 		KnockoffItem o = null;
