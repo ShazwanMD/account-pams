@@ -13,7 +13,8 @@ public enum  AcAccountChargeType {
     COMPOUND,		//6	
     STUDENT_AFFAIRS,//7
     LOAN,			//8
-	RECEIPT;		//9
+	RECEIPT,		//9
+	KNOCKOFF;
 	
 
 	public static AcAccountChargeType get(int index) {

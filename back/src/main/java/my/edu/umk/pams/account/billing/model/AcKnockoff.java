@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.core.model.AcDocument;
 
@@ -44,4 +45,10 @@ public interface AcKnockoff extends AcDocument {
 	BigDecimal getBalanceAmount();
 
 	void setBalanceAmount(BigDecimal balanceAmount);
+	
+    List<AcInvoice> getInvoices();
+    
+    List<AcAccountCharge> getAccountCharges();
+    
+    List<AcDebitNote> getDebitNotes();
 }

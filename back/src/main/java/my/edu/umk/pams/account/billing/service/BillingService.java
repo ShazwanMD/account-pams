@@ -361,6 +361,12 @@ public interface BillingService {
     
     AcKnockoffItem findKnockoffItemById(Long id);
     
+    AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff);
+    
+    AcKnockoffItem findKnockoffItemByCharge(AcAccountCharge charge, AcKnockoff knockoff);
+    
+    AcKnockoffItem findKnockoffReceiptItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff);
+    
     List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit);
     
 	List<AcKnockoff> findKnockoffsByFlowState(AcFlowState acFlowState);
@@ -402,6 +408,8 @@ public interface BillingService {
     void updateKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
     
     void post(AcKnockoff knockoff);
+    
+    BigDecimal sumAppliedAmount(AcInvoice invoice, AcKnockoff knockoff);
     
     //TASK
     

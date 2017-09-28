@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -20,6 +22,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
 
@@ -78,6 +82,27 @@ public class AcKnockoffImpl implements AcKnockoff {
     @Embedded
     private AcFlowdata flowdata;
     
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcKnockoffImpl.class)
+    @JoinTable(name = "AC_KNOF_INVC", joinColumns = {
+            @JoinColumn(name = "KNOCKOFF_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "INVOICE_ID",
+                    nullable = false, updatable = false)})
+    private List<AcInvoice> invoices;
+	
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcAccountChargeImpl.class)
+    @JoinTable(name = "AC_RCPT_ACCT_CHRG", joinColumns = {
+            @JoinColumn(name = "RECEIPT_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "ACCOUNT_CHARGE_ID",
+                    nullable = false, updatable = false)})
+    private List<AcAccountCharge> accountCharges;
+	
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcDebitNoteImpl.class)
+    @JoinTable(name = "AC_RCPT_DBT", joinColumns = {
+            @JoinColumn(name = "RECEIPT_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "DEBITNOTE_ID",
+                    nullable = false, updatable = false)})
+    private List<AcDebitNote> debitNotes;
+	
     @Override
     public Long getId() {
         return id;
@@ -211,6 +236,21 @@ public class AcKnockoffImpl implements AcKnockoff {
 
 	public void setBalanceAmount(BigDecimal balanceAmount) {
 		this.balanceAmount = balanceAmount;
+	}
+	
+	@Override
+	public List<AcInvoice> getInvoices() {
+		return invoices;
+	}
+	
+	@Override
+	public List<AcAccountCharge> getAccountCharges() {
+		return accountCharges;
+	}
+	
+	@Override
+	public List<AcDebitNote> getDebitNotes() {
+		return debitNotes;
 	}
 
 	@Override

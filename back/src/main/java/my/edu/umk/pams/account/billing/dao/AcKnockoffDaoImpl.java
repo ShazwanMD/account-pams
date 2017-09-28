@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcCreditNote;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
@@ -56,7 +57,48 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
 		query.setInteger("state", ACTIVE.ordinal());
 		return (AcKnockoff) query.uniqueResult();
 	}
-
+	
+	@Override
+	public AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
+                "ri.chargeCode = :chargeCode " +
+    			"and ri.invoice = :invoice " +
+                "and ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("chargeCode", chargeCode);
+        query.setEntity("invoice", invoice);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcKnockoffItem) query.uniqueResult();
+	}
+	
+	@Override
+	public AcKnockoffItem findKnockoffItemByChare(AcAccountCharge charge, AcKnockoff knockoff) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
+                "ri.accountCharge = :charge " +
+                "and ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("charge", charge);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcKnockoffItem) query.uniqueResult();
+	}
+	
+	@Override
+	public AcKnockoffItem findKnockoffItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff) {
+		Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
+                "ri.debitNote = :debitNote " +
+                "and ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("debitNote", debitNote);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcKnockoffItem) query.uniqueResult();
+	}
+	
 	@Override
 	public List<AcKnockoff> find(String filter, Integer offset, Integer limit) {
 		Session session = sessionFactory.getCurrentSession();
@@ -314,6 +356,51 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +
                 "a.knockoff = :knockoff " +
                 "and a.metadata.state = :state ");
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumAmount(AcInvoice invoice, AcKnockoff knockoff, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +
+                "a.invoice = :invoice " +
+        		"and a.knockoff = :knockoff " +
+                "and a.metadata.state = :state ");
+        query.setEntity("invoice", invoice);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcKnockoff knockoff, AcAccountCharge accountCharge, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +
+                "a.accountCharge = :accountCharge " +
+        		"and a.receipt = :receipt " +
+                "and a.metadata.state = :state ");
+        query.setEntity("accountCharge", accountCharge);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcDebitNote debitNote, AcKnockoff knockoff, AcUser user) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +
+                "a.knockoff = :knockoff " +
+        		"and a.debitNote = :debitNote " +
+                "and a.metadata.state = :state ");
+        query.setEntity("debitNote", debitNote);
         query.setEntity("knockoff", knockoff);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();

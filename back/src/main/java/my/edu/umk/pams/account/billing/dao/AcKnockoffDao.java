@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
@@ -25,6 +26,12 @@ import my.edu.umk.pams.account.identity.model.AcUser;
 public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
 
 	AcKnockoff findByReferenceNo(String referenceNo);
+	
+	AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff);
+	
+	AcKnockoffItem findKnockoffItemByChare(AcAccountCharge charge, AcKnockoff knockoff);
+	
+	AcKnockoffItem findKnockoffItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff);
 	
 	List<AcKnockoff> find(String filter, Integer offset, Integer limit);
 	
@@ -61,4 +68,10 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     void updateItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user);
     
     BigDecimal sumAppliedAmount(AcKnockoff knockoff, AcUser user);
+    
+    BigDecimal sumAmount(AcInvoice invoice, AcKnockoff knockoff, AcUser user);
+    
+    BigDecimal sumTotalAmount(AcKnockoff knockoff, AcAccountCharge accountCharge, AcUser user);
+    
+    BigDecimal sumTotalAmount(AcDebitNote debitNote, AcKnockoff knockoff, AcUser user);
 }

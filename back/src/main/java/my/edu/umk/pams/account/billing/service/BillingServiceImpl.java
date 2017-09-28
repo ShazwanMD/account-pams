@@ -1293,6 +1293,21 @@ public class BillingServiceImpl implements BillingService {
 	public AcKnockoffItem findKnockoffItemById(Long id) {
 		return (AcKnockoffItem) knockoffDao.findById(id);
 	}
+	
+	@Override
+	public AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff) {
+		return knockoffDao.findKnockoffItemByChargeCode(chargeCode, invoice, knockoff);
+	}
+	
+	@Override
+	public AcKnockoffItem findKnockoffItemByCharge(AcAccountCharge charge, AcKnockoff knockoff) {
+		return knockoffDao.findKnockoffItemByChare(charge, knockoff);
+	}
+	
+	@Override
+	public AcKnockoffItem findKnockoffReceiptItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff) {
+		return knockoffDao.findKnockoffItemByDebitNote(debitNote, knockoff);
+	}
 
 	@Override
 	public List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit) {
@@ -1488,6 +1503,11 @@ public class BillingServiceImpl implements BillingService {
 		tx.setAccount(knockoff.getPayments().getAccount());
 		tx.setAmount(knockoff.getBalanceAmount().negate());
 		accountService.addAccountTransaction(knockoff.getPayments().getAccount(), tx);
+	}
+	
+	@Override
+	public BigDecimal sumAppliedAmount(AcInvoice invoice, AcKnockoff knockoff) {
+		return knockoffDao.sumAmount(invoice, knockoff, securityService.getCurrentUser());
 	}
 
 	// TASK
