@@ -1722,6 +1722,21 @@ public class BillingServiceImpl implements BillingService {
 	public AcWaiverFinanceApplication findWaiverFinanceApplicationByReferenceNo(String referenceNo) {
 		return waiverFinanceApplicationDao.findByReferenceNo(referenceNo);
 	}
+	
+	@Override
+	public AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcWaiverFinanceApplication waiver) {
+		return waiverFinanceApplicationDao.findWaiverItemByChargeCode(chargeCode, invoice, waiver);
+	}
+
+	@Override
+	public AcWaiverItem findWaiverItemByCharge(AcAccountCharge charge, AcWaiverFinanceApplication waiver) {
+		return waiverFinanceApplicationDao.findWaiverItemByCharge(charge, waiver);
+	}
+	
+	@Override
+	public AcWaiverItem findWaiverItemByDebitNote(AcDebitNote debitNote, AcWaiverFinanceApplication waiver) {
+		return waiverFinanceApplicationDao.findWaiverItemByDebitNote(debitNote, waiver);
+	}
 
 	@Override
 	public List<AcWaiverFinanceApplication> findWaiverFinanceApplicationsByFlowState(AcFlowState acFlowState) {
@@ -1782,6 +1797,12 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void updateWaiver(AcWaiverFinanceApplication waiver) {
 		waiverFinanceApplicationDao.update(waiver, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
+	public void updateWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem waiverItem) {
+		waiverFinanceApplicationDao.updateItem(waiver, waiverItem, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
 	
@@ -1873,6 +1894,16 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public List<AcWaiverDebitNote> findDebitNote(AcWaiverFinanceApplication waiver) {
     	return waiverFinanceApplicationDao.findWaiverDebitNote(waiver);
+    }
+    
+    @Override
+    public BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver) {
+    	return waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser());
+    }
+    
+    @Override
+    public BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver) {
+    	return waiverFinanceApplicationDao.sumAppliedAmount(invoice, waiver, securityService.getCurrentUser());
     }
     
 	// ====================================================================================================

@@ -20,6 +20,8 @@ import my.edu.umk.pams.account.account.model.AcAccountTransactionImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.dao.AcKnockoffDao;
 import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
+import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
+import my.edu.umk.pams.account.billing.model.AcAdvancePaymentImpl;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
@@ -138,7 +140,13 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 			trx.setAccount(knockoff.getPayments().getAccount());
 			trx.setAmount(total.add(totaldebit).negate());
 			accountService.addAccountTransaction(knockoff.getPayments().getAccount(), trx);
+			
+			AcAdvancePayment advance = new AcAdvancePaymentImpl();
+			advance.setBalanceAmount(knockoff.getTotalAmount());
+			billingService.updateAdvancePayment(advance);
 
 		}
+		
+		
 	}
 }

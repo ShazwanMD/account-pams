@@ -14,7 +14,8 @@ public enum  AcAccountChargeType {
     STUDENT_AFFAIRS,//7
     LOAN,			//8
 	RECEIPT,		//9
-	KNOCKOFF;
+	KNOCKOFF,
+	WAIVER;
 	
 
 	public static AcAccountChargeType get(int index) {

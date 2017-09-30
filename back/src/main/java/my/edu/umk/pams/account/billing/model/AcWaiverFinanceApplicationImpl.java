@@ -1,18 +1,23 @@
 package my.edu.umk.pams.account.billing.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -21,10 +26,11 @@ import javax.validation.constraints.NotNull;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
-import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
 @Entity(name = "AcWaiverFinanceApplication")
@@ -99,7 +105,30 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
     @Embedded
     private AcFlowdata flowdata;
 
-
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcInvoiceImpl.class)
+    @JoinTable(name = "AC_WAVR_INVC", joinColumns = {
+            @JoinColumn(name = "WAIVER_FINANCE_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "INVOICE_ID",
+                    nullable = false, updatable = false)})
+    private List<AcInvoice> invoices;
+	
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcAccountChargeImpl.class)
+    @JoinTable(name = "AC_WAVR_ACCT_CHRG", joinColumns = {
+            @JoinColumn(name = "WAIVER_FINANCE_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "ACCOUNT_CHARGE_ID",
+                    nullable = false, updatable = false)})
+    private List<AcAccountCharge> accountCharges;
+	
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcDebitNoteImpl.class)
+    @JoinTable(name = "AC_WAVR_DEBT_NOTE", joinColumns = {
+            @JoinColumn(name = "WAIVER_FINANCE_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "DEBITNOTE_ID",
+                    nullable = false, updatable = false)})
+    private List<AcDebitNote> debitNotes;
+	
+	@OneToMany(targetEntity = AcWaiverItemImpl.class, mappedBy = "waiverFinanceApplication")
+	private List<AcWaiverItem> items;
+    
     @Override
     public Long getId() {
         return id;
@@ -280,7 +309,33 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
 		
 	}
 
-    @Override
+	@Override
+	public List<AcInvoice> getInvoices() {
+		return invoices;
+	}
+	
+	@Override
+	public List<AcAccountCharge> getAccountCharges() {
+		return accountCharges;
+	}
+	
+	@Override
+	public List<AcDebitNote> getDebitNotes() {
+		return debitNotes;
+	}
+	
+	@Override
+	public List<AcWaiverItem> getItems() {
+		return items;
+	}
+	
+	@Override
+    public void setWaivers(List<AcWaiverItem> items) {
+		this.items = items;
+	}
+
+    
+	@Override
     public Class<?> getInterfaceClass() {
         return AcWaiverFinanceApplication.class;
     }

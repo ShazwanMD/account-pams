@@ -5,6 +5,7 @@ import java.util.List;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
@@ -28,6 +29,12 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
     // ====================================================================================================
 	
 	AcWaiverFinanceApplication findByReferenceNo(String referenceNo);
+	
+	AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcWaiverFinanceApplication waiver);
+
+	AcWaiverItem findWaiverItemByCharge(AcAccountCharge charge, AcWaiverFinanceApplication waiver);
+	
+	AcWaiverItem findWaiverItemByDebitNote(AcDebitNote debitNote, AcWaiverFinanceApplication waiver);
 	
 	List<AcWaiverFinanceApplication> find(AcAcademicSession academicSession, Integer offset, Integer limit);
 	
@@ -53,15 +60,25 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
 	
 	void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item, AcUser user);
 	
+	void updateItem(AcWaiverFinanceApplication waiver, AcWaiverItem waiverItem, AcUser user);
+	
 	BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver, AcUser user);
+	
+	BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver, AcUser user);
 
     // ====================================================================================================
     // HELPER
     // ====================================================================================================
 
     Integer count(AcAcademicSession academicSession);
-
-	
+    
+    BigDecimal sumAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver, AcUser user);
+    
+    BigDecimal sumTotalAmount(AcWaiverFinanceApplication waiver, AcAccountCharge accountCharge, AcUser user);
+    
+    BigDecimal sumTotalAmount(AcWaiverFinanceApplication waiver, AcDebitNote debitNote, AcInvoice invoice, AcUser user);
+    
+    BigDecimal sumTotalAmount(AcWaiverFinanceApplication waiver, AcDebitNote debitNote, AcUser user);
 
 	
 
