@@ -395,7 +395,7 @@ export class KnockoffActions {
     addKnockoffItem(knockoff, item): Action {
         return {
             type: KnockoffActions.ADD_KNOCKOFF_ITEM,
-            payload: { knockoff: knockoff, item: item }
+            payload: { knockoff: knockoff, item:item }
         };
     }
 

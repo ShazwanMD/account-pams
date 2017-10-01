@@ -1,3 +1,4 @@
+import { TdDialogService } from '@covalent/core';
 import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -37,6 +38,7 @@ export class KnockoffAccountChargeItemDialog implements OnInit {
         private viewContainerRef: ViewContainerRef,
         private store: Store<BillingModuleState>,
         private actions: KnockoffActions,
+        private _dialogService: TdDialogService,
         private dialog: MdDialogRef<KnockoffAccountChargeItemDialog> ) {
         // this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
     }
@@ -58,11 +60,15 @@ export class KnockoffAccountChargeItemDialog implements OnInit {
             totalAmount: [0],
             appliedAmount: [0],
             accountCharge: [<AccountCharge>{}],
-            knockoff: [<Knockoff>{}],
+           // knockoff: [<Knockoff>{}],
+            
         } );
 
+        
+
+
         if ( this.edit )
-            this.createForm.patchValue( { accountCharge: this._accountCharge } );
+        this.createForm.patchValue( { accountCharge: this._accountCharge } );
         this.createForm.patchValue( { description: this._accountCharge.description } );
         this.createForm.patchValue( { dueAmount: this._accountCharge.balanceAmount } );
 
@@ -73,14 +79,15 @@ export class KnockoffAccountChargeItemDialog implements OnInit {
 
         if ( this._accountCharge.balanceAmount > this._knockoff.payments.amount ) {
             this.createForm.patchValue( { appliedAmount: this._knockoff.payments.amount } );
-            this.createForm.patchValue( { totalAmount: this._accountCharge.balanceAmount - this._knockoff.payments.amount } );
+            this.createForm.patchValue( { totalAmount: this._accountCharge.balanceAmount-this._knockoff.payments.amount } );
         }
-    }
+     }
 
     submit( item: KnockoffItem, isValid: boolean ) {
 
         console.log( "hantar dh kan" + this._knockoff.referenceNo );
-        this.store.dispatch( this.actions.addKnockoffAccountCharge( this._knockoff, item ) );
+        console.log( "hantar dh kan item" + item );
+        this.store.dispatch( this.actions.addKnockoffItem( this._knockoff, item ) );
         this.dialog.close();
 
         this._knockoff.totalAmount = this._knockoff.totalAmount - item.appliedAmount;

@@ -263,6 +263,8 @@ public class BillingTransformer {
         return vo;
     }
 
+    
+    
     public ReceiptAccountChargeItem toReceiptAccountChargeItemVo(AcReceiptAccountChargeItem e) {
     	ReceiptAccountChargeItem vo = new ReceiptAccountChargeItem();
         vo.setId(e.getId());
@@ -498,22 +500,22 @@ public class BillingTransformer {
 
     }
     
-    public KnockoffItem toKnockoffItemVo(AcKnockoffItem e) {
+    public KnockoffItem toKnockoffItemVo(AcKnockoffItem r) {
+    	
     	KnockoffItem vo = new KnockoffItem();
-        vo.setId(e.getId());
-        vo.setDescription(e.getChargeCode().getDescription());
-        vo.setTotalAmount(e.getTotalAmount());
-        vo.setAppliedAmount(e.getAppliedAmount());
-        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
-        vo.setDueAmount(e.getDueAmount());
-        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
-        vo.setDebitNote(billingTransformer.toDebitNoteVo(e.getDebitNote()));
-        vo.setKnockoff(billingTransformer.toKnockoffVo(e.getKnockoff()));
-        vo.setAccountCharge(accountTransformer.toAccountChargeVo(e.getAccountCharge()));
-        vo.setTotalAmount(e.getTotalAmount());
-        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        commonTransformer.decorateMeta(e,vo);
+    	vo.setAppliedAmount(r.getAppliedAmount());
+    	vo.setChargeCode(accountTransformer.toChargeCodeVo(r.getChargeCode()));
+    	vo.setDescription(r.getDescription());
+    	vo.setDueAmount(r.getDueAmount());
+    	vo.setTotalAmount(r.getTotalAmount());
+    	vo.setKnockoff(billingTransformer.toKnockoffVo(r.getKnockoff()));
+    	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
+    	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
+    	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
+    	vo.setMetaState(MetaState.get(r.getMetadata().getState().ordinal()));
         return vo;
+        
+
     }
     
     

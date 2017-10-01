@@ -1,20 +1,22 @@
+import { MetaObject } from './../../../core/meta-object.interface';
+import { DebitNote } from './debit-note.interface';
 import { Invoice } from './invoice.interface';
 import { Knockoff } from './knockoff.interface';
 import { Document } from '../../../core/document.interface';
 import { ChargeCode } from "../account/charge-code.interface";
 import { AccountCharge } from '../account/account-charge.interface';
 
-export interface KnockoffItem extends Document {
-    id: number;
-    description: string;
-    dueAmount: number;
-    appliedAmount: number;
-    totalAmount: number;
-    chargeCode: ChargeCode;
-    accountCharge: AccountCharge;
-    invoice: Invoice;
-    knockoff: Knockoff;
 
-      // selection
-    selected?: boolean;
+export interface KnockoffItem extends MetaObject {
+  description: string;
+  dueAmount: number;
+  totalAmount: number;
+  appliedAmount: number;
+  chargeCode: ChargeCode;
+  invoice: Invoice;
+  debitNote: DebitNote;
+  knockoff: Knockoff;
+  accountCharge: AccountCharge;
+  // selection
+  selected?: boolean;
 }

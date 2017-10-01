@@ -171,9 +171,7 @@ export class KnockoffEffects {
       .ofType(KnockoffActions.ADD_KNOCKOFF_ITEM)
       .map((action) => action.payload)
       .switchMap((payload) => this.billingService.addKnockoffItem(payload.knockoff, payload.item))
-      .map((message) => this.knockoffActions.addKnockoffItemSuccess(message))
-      //.withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
-      .map((state) => state[1])
-      .map((knockoff) => this.knockoffActions.findKnockoffItems(knockoff));
+      .map((message) => this.knockoffActions.addKnockoffItemSuccess(message));
 }
+
 
