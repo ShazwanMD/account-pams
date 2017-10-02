@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45fc871c-c11e-422d-95ea-213569af8a10">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="cbd3c2e6-fb7f-42a1-826a-aa657110b068"/>
+	<queryString>
+		<![CDATA[SELECT
+     ac_actr."id" AS ac_actr_id,
+     ac_actr."actor_type" AS ac_actr_actor_type,
+     ac_actr."address" AS ac_actr_address,
+     ac_actr."email" AS ac_actr_email,
+     ac_actr."fax" AS ac_actr_fax,
+     ac_actr."identity_no" AS ac_actr_identity_no,
+     ac_actr."c_ts" AS ac_actr_c_ts,
+     ac_actr."c_id" AS ac_actr_c_id,
+     ac_actr."d_ts" AS ac_actr_d_ts,
+     ac_actr."d_id" AS ac_actr_d_id,
+     ac_actr."m_ts" AS ac_actr_m_ts,
+     ac_actr."m_id" AS ac_actr_m_id,
+     ac_actr."m_st" AS ac_actr_m_st,
+     ac_actr."mobile" AS ac_actr_mobile,
+     ac_actr."name" AS ac_actr_name,
+     ac_actr."phone" AS ac_actr_phone,
+     ac_prgm_code."id" AS ac_prgm_code_id,
+     ac_prgm_code."code" AS ac_prgm_code_code,
+     ac_prgm_code."description" AS ac_prgm_code_description,
+     ac_prgm_code."c_ts" AS ac_prgm_code_c_ts,
+     ac_prgm_code."c_id" AS ac_prgm_code_c_id,
+     ac_prgm_code."d_ts" AS ac_prgm_code_d_ts,
+     ac_prgm_code."d_id" AS ac_prgm_code_d_id,
+     ac_prgm_code."m_ts" AS ac_prgm_code_m_ts,
+     ac_prgm_code."m_id" AS ac_prgm_code_m_id,
+     ac_prgm_code."m_st" AS ac_prgm_code_m_st,
+     ac_prgm_code."faculty_code_id" AS ac_prgm_code_faculty_code_id,
+     ac_fcty_code."id" AS ac_fcty_code_id,
+     ac_fcty_code."code" AS ac_fcty_code_code,
+     ac_fcty_code."description" AS ac_fcty_code_description,
+     ac_fcty_code."c_ts" AS ac_fcty_code_c_ts,
+     ac_fcty_code."c_id" AS ac_fcty_code_c_id,
+     ac_fcty_code."d_ts" AS ac_fcty_code_d_ts,
+     ac_fcty_code."d_id" AS ac_fcty_code_d_id,
+     ac_fcty_code."m_ts" AS ac_fcty_code_m_ts,
+     ac_fcty_code."m_id" AS ac_fcty_code_m_id,
+     ac_fcty_code."m_st" AS ac_fcty_code_m_st,
+     ac_acct."id" AS ac_acct_id,
+     ac_acct."code" AS ac_acct_code,
+     ac_acct."description" AS ac_acct_description,
+     ac_acct."c_ts" AS ac_acct_c_ts,
+     ac_acct."c_id" AS ac_acct_c_id,
+     ac_acct."d_ts" AS ac_acct_d_ts,
+     ac_acct."d_id" AS ac_acct_d_id,
+     ac_acct."m_ts" AS ac_acct_m_ts,
+     ac_acct."m_id" AS ac_acct_m_id,
+     ac_acct."m_st" AS ac_acct_m_st,
+     ac_acct."actor_id" AS ac_acct_actor_id,
+     ac_acdm_sesn."id" AS ac_acdm_sesn_id,
+     ac_acdm_sesn."code" AS ac_acdm_sesn_code,
+     ac_acdm_sesn."current_" AS ac_acdm_sesn_current_,
+     ac_acdm_sesn."description" AS ac_acdm_sesn_description,
+     ac_acdm_sesn."end_date" AS ac_acdm_sesn_end_date,
+     ac_acdm_sesn."c_ts" AS ac_acdm_sesn_c_ts,
+     ac_acdm_sesn."c_id" AS ac_acdm_sesn_c_id,
+     ac_acdm_sesn."d_ts" AS ac_acdm_sesn_d_ts,
+     ac_acdm_sesn."d_id" AS ac_acdm_sesn_d_id,
+     ac_acdm_sesn."m_ts" AS ac_acdm_sesn_m_ts,
+     ac_acdm_sesn."m_id" AS ac_acdm_sesn_m_id,
+     ac_acdm_sesn."m_st" AS ac_acdm_sesn_m_st,
+     ac_acdm_sesn."start_date" AS ac_acdm_sesn_start_date,
+     ac_acct_trsn."id" AS ac_acct_trsn_id,
+     ac_acct_trsn."amount" AS ac_acct_trsn_amount,
+     ac_acct_trsn."description" AS ac_acct_trsn_description,
+     ac_acct_trsn."c_ts" AS ac_acct_trsn_c_ts,
+     ac_acct_trsn."c_id" AS ac_acct_trsn_c_id,
+     ac_acct_trsn."d_ts" AS ac_acct_trsn_d_ts,
+     ac_acct_trsn."d_id" AS ac_acct_trsn_d_id,
+     ac_acct_trsn."m_ts" AS ac_acct_trsn_m_ts,
+     ac_acct_trsn."m_id" AS ac_acct_trsn_m_id,
+     ac_acct_trsn."m_st" AS ac_acct_trsn_m_st,
+     ac_acct_trsn."posted_date" AS ac_acct_trsn_posted_date,
+     ac_acct_trsn."source_no" AS ac_acct_trsn_source_no,
+     ac_acct_trsn."transaction_code" AS ac_acct_trsn_transaction_code,
+     ac_acct_trsn."account_id" AS ac_acct_trsn_account_id,
+     ac_acct_trsn."charge_code_id" AS ac_acct_trsn_charge_code_id,
+     ac_acct_trsn."session_id" AS ac_acct_trsn_session_id
+FROM
+     "public"."ac_fcty_code" ac_fcty_code INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_fcty_code."id" = ac_prgm_code."faculty_code_id",
+     "public"."ac_actr" ac_actr INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
+     INNER JOIN "public"."ac_acct_trsn" ac_acct_trsn ON ac_acct."id" = ac_acct_trsn."account_id"
+     INNER JOIN "public"."ac_acdm_sesn" ac_acdm_sesn ON ac_acct_trsn."session_id" = ac_acdm_sesn."id"]]>
+	</queryString>
+	<field name="ac_actr_id" class="java.lang.Long"/>
+	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
+	<field name="ac_actr_address" class="java.lang.String"/>
+	<field name="ac_actr_email" class="java.lang.String"/>
+	<field name="ac_actr_fax" class="java.lang.String"/>
+	<field name="ac_actr_identity_no" class="java.lang.String"/>
+	<field name="ac_actr_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_c_id" class="java.lang.Long"/>
+	<field name="ac_actr_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_d_id" class="java.lang.Long"/>
+	<field name="ac_actr_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_actr_m_id" class="java.lang.Long"/>
+	<field name="ac_actr_m_st" class="java.lang.Integer"/>
+	<field name="ac_actr_mobile" class="java.lang.String"/>
+	<field name="ac_actr_name" class="java.lang.String"/>
+	<field name="ac_actr_phone" class="java.lang.String"/>
+	<field name="ac_prgm_code_id" class="java.lang.Long"/>
+	<field name="ac_prgm_code_code" class="java.lang.String"/>
+	<field name="ac_prgm_code_description" class="java.lang.String"/>
+	<field name="ac_prgm_code_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_prgm_code_c_id" class="java.lang.Long"/>
+	<field name="ac_prgm_code_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_prgm_code_d_id" class="java.lang.Long"/>
+	<field name="ac_prgm_code_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_prgm_code_m_id" class="java.lang.Long"/>
+	<field name="ac_prgm_code_m_st" class="java.lang.Integer"/>
+	<field name="ac_prgm_code_faculty_code_id" class="java.lang.Long"/>
+	<field name="ac_fcty_code_id" class="java.lang.Long"/>
+	<field name="ac_fcty_code_code" class="java.lang.String"/>
+	<field name="ac_fcty_code_description" class="java.lang.String"/>
+	<field name="ac_fcty_code_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_fcty_code_c_id" class="java.lang.Long"/>
+	<field name="ac_fcty_code_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_fcty_code_d_id" class="java.lang.Long"/>
+	<field name="ac_fcty_code_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_fcty_code_m_id" class="java.lang.Long"/>
+	<field name="ac_fcty_code_m_st" class="java.lang.Integer"/>
+	<field name="ac_acct_id" class="java.lang.Long"/>
+	<field name="ac_acct_code" class="java.lang.String"/>
+	<field name="ac_acct_description" class="java.lang.String"/>
+	<field name="ac_acct_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_c_id" class="java.lang.Long"/>
+	<field name="ac_acct_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_d_id" class="java.lang.Long"/>
+	<field name="ac_acct_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_m_id" class="java.lang.Long"/>
+	<field name="ac_acct_m_st" class="java.lang.Integer"/>
+	<field name="ac_acct_actor_id" class="java.lang.Long"/>
+	<field name="ac_acdm_sesn_id" class="java.lang.Long"/>
+	<field name="ac_acdm_sesn_code" class="java.lang.String"/>
+	<field name="ac_acdm_sesn_current_" class="java.lang.Boolean"/>
+	<field name="ac_acdm_sesn_description" class="java.lang.String"/>
+	<field name="ac_acdm_sesn_end_date" class="java.sql.Timestamp"/>
+	<field name="ac_acdm_sesn_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acdm_sesn_c_id" class="java.lang.Long"/>
+	<field name="ac_acdm_sesn_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acdm_sesn_d_id" class="java.lang.Long"/>
+	<field name="ac_acdm_sesn_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acdm_sesn_m_id" class="java.lang.Long"/>
+	<field name="ac_acdm_sesn_m_st" class="java.lang.Integer"/>
+	<field name="ac_acdm_sesn_start_date" class="java.sql.Timestamp"/>
+	<field name="ac_acct_trsn_id" class="java.lang.Long"/>
+	<field name="ac_acct_trsn_amount" class="java.math.BigDecimal"/>
+	<field name="ac_acct_trsn_description" class="java.lang.String"/>
+	<field name="ac_acct_trsn_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_trsn_c_id" class="java.lang.Long"/>
+	<field name="ac_acct_trsn_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_trsn_d_id" class="java.lang.Long"/>
+	<field name="ac_acct_trsn_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_acct_trsn_m_id" class="java.lang.Long"/>
+	<field name="ac_acct_trsn_m_st" class="java.lang.Integer"/>
+	<field name="ac_acct_trsn_posted_date" class="java.sql.Timestamp"/>
+	<field name="ac_acct_trsn_source_no" class="java.lang.String"/>
+	<field name="ac_acct_trsn_transaction_code" class="java.lang.Integer"/>
+	<field name="ac_acct_trsn_account_id" class="java.lang.Long"/>
+	<field name="ac_acct_trsn_charge_code_id" class="java.lang.Long"/>
+	<field name="ac_acct_trsn_session_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="350" y="2" width="149" height="20" uuid="d8c7434f-4236-44c3-a228-c9d31e74dc2a"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUSTOMER STATEMENT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="109" splitType="Stretch">
+			<textField>
+				<reportElement x="76" y="3" width="174" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
+				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="3" width="100" height="20" uuid="6167f570-f00a-4f62-b50d-2d7136c5340e"/>
+				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="3" width="76" height="20" uuid="84c1cf90-e511-4673-9040-1aea3c4384e5"/>
+				<text><![CDATA[Student Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="3" width="38" height="20" uuid="9ea5d075-f04d-4356-a090-7463d0125f4e"/>
+				<text><![CDATA[ID No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="23" width="38" height="20" uuid="c6a1a69a-29c8-4b80-940c-a30141bf1094"/>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="40" width="38" height="24" uuid="04a0e5dc-fd7f-45fb-8230-a0fc2466fb7a"/>
+				<text><![CDATA[Status :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="76" height="20" uuid="78081c34-b027-4ed8-835d-d5378e89adaf"/>
+				<text><![CDATA[Address :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="44" width="87" height="20" uuid="e2dd2ca2-d477-47b1-a179-da92efc69901"/>
+				<text><![CDATA[Parent/Guardian :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="64" width="115" height="15" uuid="c299acba-0cf0-40e5-a464-9e8d1fb9f492"/>
+				<text><![CDATA[Sponsor Reference No :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="79" width="250" height="21" uuid="352e923c-da69-4701-a9cf-ec8c80846e2d"/>
+				<textFieldExpression><![CDATA[$F{ac_acct_description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="265" y="62" width="45" height="17" uuid="d31041b4-fe10-4169-93e5-f9fcd6052336"/>
+				<text><![CDATA[Course :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="265" y="82" width="100" height="18" uuid="338e69b2-2340-47a6-8897-12f4a13edc53"/>
+				<textFieldExpression><![CDATA[$F{ac_prgm_code_description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="389" y="62" width="46" height="17" uuid="ddb04609-900c-46b9-850d-38abbe25e43f"/>
+				<text><![CDATA[IC No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="64" width="86" height="20" uuid="2bc11cc5-9fa7-44d1-b689-7763e97b8cb9"/>
+				<text><![CDATA[Intake Semester :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="469" y="84" width="86" height="18" uuid="f2db7765-4e99-4a4c-996b-972810759af6"/>
+				<textFieldExpression><![CDATA[$F{ac_acdm_sesn_code}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="130" y="1" width="100" height="20" uuid="a9cdee61-6cdc-4298-9927-2d4c0be3e7f3"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Document No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="1" width="100" height="20" uuid="a18e2710-29fb-4f7c-99a7-f32c139d632f"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="1" width="105" height="20" uuid="2692920c-e259-466c-9909-5b13fc8a6b18"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Debit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="1" width="100" height="20" uuid="2c116ec3-2065-403e-bb03-7c045d92daca"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="30" height="20" uuid="19352dde-d162-4965-8c4e-b23f935f030a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Bil]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="100" height="20" uuid="92c99a45-15db-4235-9ddd-e41645b6f4f5"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ac_acct_trsn_posted_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="100" height="20" uuid="c2f73da2-7f3e-4fad-8ae2-7354be07b645"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ac_acct_trsn_source_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="100" height="20" uuid="f294e669-e590-4fa6-97a7-0d3fe3935130"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ac_acct_trsn_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="105" height="20" uuid="bb6be1a2-619e-4487-bbe4-8b477554220e"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ac_acct_trsn_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="30" height="20" uuid="81e54de7-20bc-451d-a2e7-ed912a375514"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="23" splitType="Stretch"/>
+	</summary>
+</jasperReport>
