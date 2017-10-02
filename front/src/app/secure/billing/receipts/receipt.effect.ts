@@ -1,3 +1,5 @@
+import { AccountActions } from './../../account/accounts/account.action';
+import { AccountCharge } from './../../../shared/model/account/account-charge.interface';
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {ReceiptActions} from './receipt.action';
@@ -7,15 +9,20 @@ import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import { AccountService } from '../../../../services/account.service';
 import { Router } from "@angular/router";
+import { Receipt } from './../../../shared/model/billing/receipt.interface';
+import {Account} from '../../../shared/model/account/account.interface';
 
 @Injectable()
 export class ReceiptEffects {
 
   private RECEIPT_TASK: string[] = 'billingModuleState.receiptTask'.split('.');
   private RECEIPT: string[] = 'billingModuleState.receipt'.split('.');
+  private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
+
 
   constructor(private actions$: Actions,
-              private receiptActions: ReceiptActions,              
+              private receiptActions: ReceiptActions, 
+              private accountActions: AccountActions,                   
               private billingService: BillingService,
               private accountService: AccountService,
               private router: Router,
@@ -157,7 +164,10 @@ export class ReceiptEffects {
         .ofType(ReceiptActions.ITEM_TO_RECEIPT_ITEM)
         .map((action) => action.payload)
         .switchMap((payload) => this.billingService.itemToReceiptItem(payload.invoice, payload.receipt))
-        .map((message) => this.receiptActions.itemToReceiptItemSuccess(message));
+        .map((message) => this.receiptActions.itemToReceiptItemSuccess(message))
+        .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+        .map((state) => state[1])
+        .map((receipt) => this.receiptActions.findReceiptItems(receipt));
 
   @Effect() updateReceiptItem$ = this.actions$
     .ofType(ReceiptActions.UPDATE_RECEIPT_ITEM)
@@ -182,13 +192,10 @@ export class ReceiptEffects {
       .ofType(ReceiptActions.ADD_RECEIPT_INVOICE_ITEM)
       .map((action) => action.payload)
       .switchMap((payload) => this.billingService.addReceiptInvoiceItems(payload.receipt, payload.invoice))
-      .map((message) => this.receiptActions.addReceiptInvoiceItemsSuccess(message));
-   //   .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
-   //   .map((state) => state[1])
-   //   .map((taskid) => this.receiptActions.findReceiptTaskByTaskId(taskId));
-  /*  .map((state) => state[1])
-  .map((receipt) => this.receiptActions.findReceiptItems(receipt))
-  .do((action) => this.router.navigate(['/secure/billing/receipts/view-task/:taskId', action.payload])).ignoreElements();*/
+      .map((message) => this.receiptActions.addReceiptInvoiceItemsSuccess(message))
+      .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+      .map((state) => state[1])
+      .map((receipt) => this.receiptActions.findReceiptsByInvoice(receipt));
 
   
   @Effect() updateItemToReceipt$ = this.actions$
@@ -211,14 +218,21 @@ export class ReceiptEffects {
         .ofType(ReceiptActions.ADD_RECEIPT_CHARGE)
         .map((action) => action.payload)
         .switchMap((payload) => this.billingService.addReceiptCharge(payload.receipt, payload.charge))
-        .map((message) => this.receiptActions.addReceiptChargeSuccess(message));
+        .map((message) => this.receiptActions.addReceiptChargeSuccess(message))
+        .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+        .map((state) => state[1])
+        .map((receipt) => this.receiptActions.findReceiptsByAccountCharge(receipt));
+
 
   @Effect() addReceiptDebitNote$ =
       this.actions$
         .ofType(ReceiptActions.ADD_RECEIPT_DEBIT_NOTE)
         .map((action) => action.payload)
         .switchMap((payload) => this.billingService.addReceiptDebitNote(payload.receipt, payload.debitNote))
-        .map((message) => this.receiptActions.addReceiptChargeSuccess(message));
+        .map((message) => this.receiptActions.addReceiptChargeSuccess(message))
+        .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+        .map((state) => state[1])
+        .map((receipt) => this.receiptActions.findReceiptsByDebitNote(receipt));
  }
 
  
