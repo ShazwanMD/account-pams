@@ -1762,7 +1762,7 @@
         references AC_KNOF;
         
     alter table AC_KNOF_INVC 
-        add constraint FK_2d6lwrme5e7ch5iextvyjus2k 
+        add constraint FK_2d6lwrme5e8ch5iextvyjus2k 
         foreign key (INVOICE_ID) 
         references AC_INVC; 
         

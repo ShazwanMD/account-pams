@@ -993,9 +993,9 @@ public class BillingController {
         
         AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
         AcInvoice invoice = billingService.findInvoiceById(id);
-        AcKnockoffInvoice e = new AcKnockoffInvoiceImpl();
-        e.setKnockoff(knockoff);
-        e.setInvoice(invoice);
+//        AcKnockoffInvoice e = new AcKnockoffInvoiceImpl();
+//        e.setKnockoff(knockoff);
+//        e.setInvoice(invoice);
         billingService.addKnockoffInvoice(knockoff, invoice);
     }
     

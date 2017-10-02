@@ -82,7 +82,7 @@ public class AcKnockoffImpl implements AcKnockoff {
     @Embedded
     private AcFlowdata flowdata;
     
-	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcKnockoffImpl.class)
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcInvoiceImpl.class)
     @JoinTable(name = "AC_KNOF_INVC", joinColumns = {
             @JoinColumn(name = "KNOCKOFF_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "INVOICE_ID",
@@ -90,15 +90,15 @@ public class AcKnockoffImpl implements AcKnockoff {
     private List<AcInvoice> invoices;
 	
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcAccountChargeImpl.class)
-    @JoinTable(name = "AC_RCPT_ACCT_CHRG", joinColumns = {
-            @JoinColumn(name = "RECEIPT_ID", nullable = false, updatable = false)},
+    @JoinTable(name = "AC_KNOF_CHRG", joinColumns = {
+            @JoinColumn(name = "KNOCKOFF_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "ACCOUNT_CHARGE_ID",
                     nullable = false, updatable = false)})
     private List<AcAccountCharge> accountCharges;
 	
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcDebitNoteImpl.class)
-    @JoinTable(name = "AC_RCPT_DBT", joinColumns = {
-            @JoinColumn(name = "RECEIPT_ID", nullable = false, updatable = false)},
+    @JoinTable(name = "AC_KNOF_DBT_NOTE", joinColumns = {
+            @JoinColumn(name = "KNOCKOFF_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "DEBITNOTE_ID",
                     nullable = false, updatable = false)})
     private List<AcDebitNote> debitNotes;

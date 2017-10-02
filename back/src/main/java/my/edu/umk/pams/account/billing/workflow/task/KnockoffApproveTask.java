@@ -9,8 +9,11 @@ import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import my.edu.umk.pams.account.billing.event.KnockoffApprovedEvent;
+import my.edu.umk.pams.account.billing.event.WaiverApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -26,6 +29,9 @@ public class KnockoffApproveTask extends BpmnActivityBehavior implements Activit
 
     @Autowired
     private SecurityService securityService;
+    
+	@Autowired
+	private ApplicationContext applicationContext;
 
     public void execute(ActivityExecution execution) throws Exception {
     	Long knockoffId = (Long) execution.getVariable(KNOCKOFF_ID);
@@ -37,8 +43,8 @@ public class KnockoffApproveTask extends BpmnActivityBehavior implements Activit
         knockoff.getFlowdata().setVerifiedDate(new Timestamp(System.currentTimeMillis()));
         knockoff.getFlowdata().setVerifierId(securityService.getCurrentUser().getId());
         billingService.updateKnockoff(knockoff);
-        billingService.post(knockoff);
-
+        //billingService.post(knockoff);
+        applicationContext.publishEvent(new KnockoffApprovedEvent(knockoff));
     }
 
 }

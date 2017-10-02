@@ -10,11 +10,14 @@ import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import my.edu.umk.pams.account.account.model.AcAccountWaiver;
 import my.edu.umk.pams.account.account.model.AcAccountWaiverImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.event.ReceiptApprovedEvent;
+import my.edu.umk.pams.account.billing.event.WaiverApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -33,6 +36,9 @@ public class WaiverFinanceApplicationApproveTask extends BpmnActivityBehavior im
 
     @Autowired
     private SecurityService securityService;
+    
+	@Autowired
+	private ApplicationContext applicationContext;
 
     public void execute(ActivityExecution execution) throws Exception {
         Long applicationId = (Long) execution.getVariable(WAIVER_FINANCE_APPLICATION_ID);
@@ -54,5 +60,7 @@ public class WaiverFinanceApplicationApproveTask extends BpmnActivityBehavior im
 
         // save waiver
         accountService.addAccountWaiver(application.getAccount(), application.getSession(), waiver);
+        
+        applicationContext.publishEvent(new WaiverApprovedEvent(application));
     }
 }

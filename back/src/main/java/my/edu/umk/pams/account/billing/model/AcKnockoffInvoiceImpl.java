@@ -27,6 +27,7 @@ public class AcKnockoffInvoiceImpl implements AcKnockoffInvoice {
 	@SequenceGenerator(name = "SQ_AC_KNOF_INVC", sequenceName = "SQ_AC_KNOF_INVC", allocationSize = 1)
 	private Long id;
 	
+	@NotNull
     @OneToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
