@@ -1,17 +1,21 @@
+<div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+  <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)" [alwaysVisible]="true" flex>
+  </td-search-box>
+</div>
+<md-divider></md-divider>
 <td-data-table
-  [data]="refundPaymentTasks"
+  #dataTable
+  [data]="filteredData" 
   [columns]="columns"
-  [sortBy]="summary"
-  [sortOrder]="ASC"
-  [sortable]="false"
-  [multiple]="false"
-  [selectable]="false"
-  (rowSelect)="view.emit($event)" dense>
-  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
-    <div layout="row">
-      <span flex>{{value}}</span>
-    </div>
-  </template>
+  [sortable]="true"
+  [sortBy]="sortBy"
+  [sortOrder]="sortOrder"
+  (sortChange)="sort($event)">
+<template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+  <div layout="row">
+    <span flex>{{value}}</span>
+  </div>
+</template>
     <template tdDataTableTemplate="issuedDate" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['issuedDate'] | date: 'dd-MMM-yyyy'}}</div>
   </template>
@@ -29,3 +33,7 @@
     </div>
   </template>
 </td-data-table>
+<td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
+  <span td-paging-bar-label hide-xs>Row per page:</span>
+  {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+</td-paging-bar>
