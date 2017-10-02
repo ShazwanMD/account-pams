@@ -849,6 +849,12 @@ public class AccountServiceImpl implements AccountService {
         sessionFactory.getCurrentSession().flush();
     }
     
+    @Override
+    public void updateAccountWaiver(AcAccountWaiver waiver) {
+    	waiverDao.update(waiver, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
   //====================================================================================================
     // SPONSORSHIP
     //====================================================================================================

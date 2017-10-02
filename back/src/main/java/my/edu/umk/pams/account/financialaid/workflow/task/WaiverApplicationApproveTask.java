@@ -73,6 +73,7 @@ public class WaiverApplicationApproveTask extends BpmnActivityBehavior
         waiverFinanceApplication.setAccount(waiver.getAccount());
         waiverFinanceApplication.setSession(waiver.getSession());
         waiverFinanceApplication.setWaiverType(application.getWaiverType());
+        waiverFinanceApplication.setAccWaiver(waiver);
         billingService.startWaiverFinanceApplicationTask(waiverFinanceApplication);
     }
 }

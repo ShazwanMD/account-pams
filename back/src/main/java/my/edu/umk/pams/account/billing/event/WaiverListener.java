@@ -17,6 +17,7 @@ import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountTransactionCode;
 import my.edu.umk.pams.account.account.model.AcAccountTransactionImpl;
+import my.edu.umk.pams.account.account.model.AcAccountWaiver;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.dao.AcWaiverFinanceApplicationDao;
@@ -145,9 +146,15 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 			trx.setAmount(total.add(totaldebit).negate());
 			accountService.addAccountTransaction(waiver.getAccount(), trx);
 			
-			AcWaiverApplication waiverApp = new AcWaiverApplicationImpl();
+			AcWaiverApplication waiverApp = financialAidService.findWaiverApplicationById(waiver.getAccWaiver().getId());
 			waiverApp.setBalance(waiver.getGracedAmount());
 			financialAidService.updateWaiverApplication(waiverApp);
+			
+			if(waiverApp.getBalance().compareTo(BigDecimal.ZERO) == 0) {
+				AcAccountWaiver accWaiver = accountService.findAccountWaiverById(waiver.getAccWaiver().getId());
+				accWaiver.setStatus(true);
+				accountService.updateAccountWaiver(accWaiver);
+			}
 		}
 	}
 

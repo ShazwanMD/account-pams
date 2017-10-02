@@ -1269,7 +1269,7 @@ public class BillingController {
         AcWaiverFinanceApplication waiverFinanceApplication = new AcWaiverFinanceApplicationImpl();
         waiverFinanceApplication.setDescription(vo.getDescription());
         waiverFinanceApplication.setWaivedAmount(vo.getWaivedAmount());
-        waiverFinanceApplication.setGracedAmount(BigDecimal.ZERO);
+        waiverFinanceApplication.setGracedAmount(vo.getWaivedAmount());
         waiverFinanceApplication.setEffectiveBalance(accountService.sumEffectiveBalanceAmount(account, academicSession));
         waiverFinanceApplication.setBalance(accountService.sumBalanceAmount(account));
         waiverFinanceApplication.setAccount(account);

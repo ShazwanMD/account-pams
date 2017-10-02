@@ -2,14 +2,19 @@ package my.edu.umk.pams.account.account.dao;
 
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.core.AcMetaState;
+import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcActor;
+import my.edu.umk.pams.account.identity.model.AcUser;
+
+import org.apache.commons.lang.Validate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -167,5 +172,19 @@ public class AcAccountWaiverDaoImpl extends GenericDaoSupport<Long, AcAccountWai
         query.setString("sourceNo", sourceNo);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         return ((Long) query.uniqueResult()).intValue() > 0;
+    }
+    
+    @Override
+    public void update(AcAccountWaiver waiver, AcUser user) {
+        Validate.notNull(waiver, "waiver should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+
+        AcMetadata metadata = waiver.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.ACTIVE);
+        waiver.setMetadata(metadata);
+        session.update(waiver);
     }
 }

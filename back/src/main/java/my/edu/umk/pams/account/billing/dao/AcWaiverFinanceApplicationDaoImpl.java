@@ -332,7 +332,7 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcWaiverItem a where " +
                 "a.waiverFinanceApplication = :waiver " +
-        		"a.invoice = :invoice " +
+        		"and a.invoice = :invoice " +
                 "and a.metadata.state = :state ");
         query.setEntity("waiver", waiver);
         query.setEntity("invoice", invoice);
