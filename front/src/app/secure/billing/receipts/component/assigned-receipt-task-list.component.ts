@@ -1,4 +1,19 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {
+  Component, 
+  Input, 
+  EventEmitter, 
+  Output, 
+  ChangeDetectionStrategy, 
+  AfterViewInit, 
+  OnChanges, 
+  SimpleChange
+} from '@angular/core';
+import {
+TdDataTableSortingOrder,
+TdDataTableService,
+ITdDataTableSortChangeEvent,
+IPageChangeEvent
+} from '@covalent/core';
 import {ReceiptTask} from '../../../../shared/model/billing/receipt-task.interface';
 import {MdSnackBar} from '@angular/material';
 
@@ -7,7 +22,7 @@ import {MdSnackBar} from '@angular/material';
   templateUrl: './assigned-receipt-task-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AssignedReceiptTaskListComponent {
+export class AssignedReceiptTaskListComponent implements OnChanges{
 
   private columns: any[] = [
     {name: 'receivedDate', label: 'Date'},
@@ -21,12 +36,20 @@ export class AssignedReceiptTaskListComponent {
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];
-
+  filteredData: any[];
+  filteredTotal: number;
+  searchTerm: string = '';
+  fromRow: number = 1;
+  currentPage: number = 1;
+  pageSize: number = 5;
+  sortBy: string = 'referenceNo';
+  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
   @Input() receiptTasks: ReceiptTask[];
   @Output() view = new EventEmitter<ReceiptTask>();
 
-  constructor(private snackBar: MdSnackBar) {
-  }
+  constructor(private _dataTableService: TdDataTableService,
+    private snackBar: MdSnackBar) {
+}
 
   viewTask(task: ReceiptTask): void {
     console.log('Emitting task');
@@ -34,5 +57,36 @@ export class AssignedReceiptTaskListComponent {
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(task);
     });
+  }
+
+  ngOnChanges(changes: {[ propName: string]: SimpleChange}) {
+    if (changes['receiptTasks']){
+        this.filteredData = changes['receiptTasks'].currentValue; 
+        this.filteredTotal = changes['receiptTasks'].currentValue.length;
+        this.filter();
+      }
+    }
+  sort(sortEvent: ITdDataTableSortChangeEvent): void {
+    this.sortBy = sortEvent.name;
+    this.sortOrder = sortEvent.order;
+    this.filter();
+  }
+  search(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    this.filter();
+  }
+  page(pagingEvent: IPageChangeEvent): void {
+    this.fromRow = pagingEvent.fromRow;
+    this.currentPage = pagingEvent.page;
+    this.pageSize = pagingEvent.pageSize;
+    this.filter();
+  }
+  filter(): void {
+    let newData: any[] = this.receiptTasks;
+    newData = this._dataTableService.filterData(newData, this.searchTerm, true);
+    this.filteredTotal = newData.length;
+    newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
+    newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+    this.filteredData = newData;
   }
 }
