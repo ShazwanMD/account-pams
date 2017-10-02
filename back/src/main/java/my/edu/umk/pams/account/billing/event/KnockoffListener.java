@@ -141,9 +141,14 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 			trx.setAmount(total.add(totaldebit).negate());
 			accountService.addAccountTransaction(knockoff.getPayments().getAccount(), trx);
 			
-			AcAdvancePayment advance = new AcAdvancePaymentImpl();
+			AcAdvancePayment advance = billingService.findAdvancePaymentByReferenceNo(knockoff.getPayments().getReferenceNo());
 			advance.setBalanceAmount(knockoff.getTotalAmount());
 			billingService.updateAdvancePayment(advance);
+			
+			if(advance.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+				advance.setStatus(true);
+				billingService.updateAdvancePayment(advance);
+			}
 
 		}
 		
