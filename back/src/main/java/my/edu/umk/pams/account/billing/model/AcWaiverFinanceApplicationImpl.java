@@ -29,6 +29,8 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
+import my.edu.umk.pams.account.account.model.AcAccountWaiver;
+import my.edu.umk.pams.account.account.model.AcAccountWaiverImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
@@ -98,6 +100,10 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
     @OneToOne(targetEntity = AcAcademicSessionImpl.class)
     @JoinColumn(name = "SESSION_ID")
     private AcAcademicSession session;
+    
+    @ManyToOne(targetEntity = AcAccountWaiverImpl.class)
+    @JoinColumn(name = "ACC_WAIVER_ID")
+    private AcAccountWaiver accWaiver;
 
     @Embedded
     private AcMetadata metadata;
@@ -126,9 +132,6 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
                     nullable = false, updatable = false)})
     private List<AcDebitNote> debitNotes;
 	
-	@OneToMany(targetEntity = AcWaiverItemImpl.class, mappedBy = "waiverFinanceApplication")
-	private List<AcWaiverItem> items;
-    
     @Override
     public Long getId() {
         return id;
@@ -323,18 +326,15 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
 	public List<AcDebitNote> getDebitNotes() {
 		return debitNotes;
 	}
-	
-	@Override
-	public List<AcWaiverItem> getItems() {
-		return items;
-	}
-	
-	@Override
-    public void setWaivers(List<AcWaiverItem> items) {
-		this.items = items;
+    
+	public AcAccountWaiver getAccWaiver() {
+		return accWaiver;
 	}
 
-    
+	public void setAccWaiver(AcAccountWaiver accWaiver) {
+		this.accWaiver = accWaiver;
+	}
+
 	@Override
     public Class<?> getInterfaceClass() {
         return AcWaiverFinanceApplication.class;

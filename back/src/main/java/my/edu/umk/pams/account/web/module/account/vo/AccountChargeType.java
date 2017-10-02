@@ -13,7 +13,9 @@ public enum AccountChargeType {
     COMPOUND,
     STUDENT_AFFAIRS,
     LOAN,
-	RECEIPT;
+	RECEIPT,
+	KNOCKOFF,
+	WAIVER;
 
     public static AccountChargeType get(int index){
         return values()[index];

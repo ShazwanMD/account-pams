@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.account.model;
 
+import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
+import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplicationImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
@@ -24,6 +26,9 @@ public class AcAccountWaiverImpl implements AcAccountWaiver {
 
     @Column(name = "AMOUNT")
     private BigDecimal amount = BigDecimal.ZERO;
+    
+    @Column(name = "STATUS")
+    private Boolean status = false;
 
     @ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
@@ -92,7 +97,15 @@ public class AcAccountWaiverImpl implements AcAccountWaiver {
         this.metadata = metadata;
     }
 
-    @Override
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	@Override
     public Class<?> getInterfaceClass() {
         return AcAccountWaiver.class;
     }

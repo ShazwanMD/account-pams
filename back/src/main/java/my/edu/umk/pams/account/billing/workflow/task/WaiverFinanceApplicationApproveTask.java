@@ -52,14 +52,14 @@ public class WaiverFinanceApplicationApproveTask extends BpmnActivityBehavior im
         billingService.updateWaiverFinanceApplication(application);
 
         // setup account waiver
-        AcAccountWaiver waiver = new AcAccountWaiverImpl();
-        waiver.setSourceNo(application.getReferenceNo());
-        waiver.setAmount(application.getWaivedAmount());
-        waiver.setSession(application.getSession());
-        waiver.setAccount(application.getAccount());
+//        AcAccountWaiver waiver = new AcAccountWaiverImpl();
+//        waiver.setSourceNo(application.getReferenceNo());
+//        waiver.setAmount(application.getWaivedAmount());
+//        waiver.setSession(application.getSession());
+//        waiver.setAccount(application.getAccount());
 
         // save waiver
-        accountService.addAccountWaiver(application.getAccount(), application.getSession(), waiver);
+        //accountService.upda;
         
         applicationContext.publishEvent(new WaiverApprovedEvent(application));
     }

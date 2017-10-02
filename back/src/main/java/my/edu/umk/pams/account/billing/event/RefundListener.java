@@ -48,6 +48,11 @@ public class RefundListener implements ApplicationListener<RefundEvent> {
 			BigDecimal balanceAmount = advance.getBalanceAmount().subtract(refund.getAmount());
 			advance.setBalanceAmount(balanceAmount);
 			billingService.updateAdvancePayment(advance);
+			
+			if(advance.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+				advance.setStatus(true);
+				billingService.updateAdvancePayment(advance);
+			}
 		}
 	}
 }

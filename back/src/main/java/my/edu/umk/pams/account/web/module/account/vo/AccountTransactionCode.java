@@ -10,7 +10,8 @@ public enum AccountTransactionCode {
     CREDIT_NOTE,   // 5
     ADHOC,   // 6
     ADVANCE_PAYMENT,
-	KNOCKOFF;
+	KNOCKOFF,
+	WAIVER;
 
     public static AccountTransactionCode get(int index){
         return values()[index];

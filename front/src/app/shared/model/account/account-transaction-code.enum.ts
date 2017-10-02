@@ -8,4 +8,5 @@ export enum AccountTransactionCode {
   ADHOC,
   ADVANCE_PAYMENT,
   KNOCKOFF,
+  WAIVER,
 }

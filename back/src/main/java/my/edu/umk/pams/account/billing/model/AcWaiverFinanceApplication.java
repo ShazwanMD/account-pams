@@ -6,6 +6,7 @@ import java.util.List;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountWaiver;
 import my.edu.umk.pams.account.core.model.AcDocument;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
@@ -53,7 +54,7 @@ public interface AcWaiverFinanceApplication extends AcDocument {
 	
 	List<AcDebitNote> getDebitNotes();
 	
-	List<AcWaiverItem> getItems();
+	AcAccountWaiver getAccWaiver(); 
 	
-	void setWaivers(List<AcWaiverItem> items);
+	void setAccWaiver(AcAccountWaiver accWaiver);
 }

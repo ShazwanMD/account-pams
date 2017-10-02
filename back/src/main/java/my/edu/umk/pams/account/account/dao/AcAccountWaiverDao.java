@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountWaiver;
 import my.edu.umk.pams.account.core.GenericDao;
+import my.edu.umk.pams.account.identity.model.AcUser;
 
 import java.util.List;
 
@@ -41,4 +42,6 @@ public interface AcAccountWaiverDao extends GenericDao<Long, AcAccountWaiver> {
     boolean isWaiverExists(AcAccount account, AcAcademicSession academicSession);
 
     boolean isWaiverExists(AcAccount account, String sourceNo);
+    
+    void update(AcAccountWaiver waiver, AcUser user);
 }
