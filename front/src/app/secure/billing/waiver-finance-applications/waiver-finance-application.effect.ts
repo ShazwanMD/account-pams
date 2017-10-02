@@ -1,3 +1,5 @@
+import { BillingModuleState } from './../index';
+import { Store } from '@ngrx/store';
 import { BillingService } from './../../../../services/billing.service';
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
@@ -7,9 +9,13 @@ import { WaiverFinanceApplicationActions } from "./waiver-finance-application.ac
 
 @Injectable()
 export class WaiverFinanceApplicationEffects {
+
+  private WAIVER_FINANCE_APPLICATION_TASK: string[] = 'billingModuleState.waiverFinanceApplicationTask'.split('.');
+
   constructor(private actions$: Actions,
               private waiverFinanceApplicationActions: WaiverFinanceApplicationActions,
-              private billingService: BillingService) {
+              private billingService: BillingService,
+              private store$: Store<BillingModuleState>) {
   }
 
   @Effect() findCompletedWaiverFinanceApplications$ = this.actions$
@@ -100,25 +106,37 @@ export class WaiverFinanceApplicationEffects {
   .ofType(WaiverFinanceApplicationActions.ADD_WAIVER_ITEM)
   .map((action) => action.payload)
   .switchMap((payload) => this.billingService.addWaiverItem(payload.waiverFinanceApplication, payload.item))
-  .map((message) => this.waiverFinanceApplicationActions.addWaiverItemSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.addWaiverItemSuccess(message))
+  .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+  .map((state) => state[1])
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication));
   
   @Effect() addWaiverInvoice$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.ADD_WAIVER_INVOICE)
   .map((action) => action.payload)
   .switchMap((payload) => this.billingService.addWaiverInvoice(payload.waiverFinanceApplication, payload.invoice))
-  .map((message) => this.waiverFinanceApplicationActions.addWaiverInvoiceSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.addWaiverInvoiceSuccess(message))
+  .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+  .map((state) => state[1])
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiversByInvoice(waiverFinanceApplication));
   
   @Effect() addWaiverAccountCharge$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.ADD_WAIVER_ACCOUNT_CHARGE)
   .map((action) => action.payload)
   .switchMap((payload) => this.billingService.addWaiverAccountCharge(payload.waiverFinanceApplication, payload.accountCharge))
-  .map((message) => this.waiverFinanceApplicationActions.addWaiverAccountChargeSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.addWaiverAccountChargeSuccess(message))
+  .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+  .map((state) => state[1])
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverByAccountCharge(waiverFinanceApplication)); 
   
   @Effect() addWaiverDebitNote$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.ADD_WAIVER_DEBIT_NOTE)
   .map((action) => action.payload)
   .switchMap((payload) => this.billingService.addWaiverDebitNote(payload.waiverFinanceApplication, payload.debitNote))
-  .map((message) => this.waiverFinanceApplicationActions.addWaiverDebitNoteSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.addWaiverDebitNoteSuccess(message))
+  .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+  .map((state) => state[1])
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverByDebitNote(waiverFinanceApplication));   
   
   @Effect() updateWaivers$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.UPDATE_WAIVER)
@@ -130,7 +148,10 @@ export class WaiverFinanceApplicationEffects {
   .ofType(WaiverFinanceApplicationActions.ITEM_TO_WAIVER_INVOICE)
   .map((action) => action.payload)
   .switchMap((payload) => this.billingService.itemToWaiverItem(payload.invoice, payload.waiverFinanceApplication))
-  .map((message) => this.waiverFinanceApplicationActions.itemToWaiverItemSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.itemToWaiverItemSuccess(message))
+  .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+  .map((state) => state[1])
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication));  
   
   @Effect() findWaiversByInvoice$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE)
