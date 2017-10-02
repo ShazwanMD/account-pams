@@ -9,4 +9,6 @@ export enum AccountChargeType {
   STUDENT_AFFAIRS,
   LOAN,
   RECEIPT,
+  KNOCKOFF,
+  WAIVER,
 }
