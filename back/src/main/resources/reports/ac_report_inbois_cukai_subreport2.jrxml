@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ac_report_inbois_cukai_subreport2" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7e848c49-1a53-4b81-a1bf-db603f5500e4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="invc_ref_no" class="java.lang.String"/>
+	<parameter name="chrge_code" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     ac_invc."id" AS ac_invc_id,
+     ac_invc."audit_no" AS ac_invc_audit_no,
+     ac_invc."balance_amount" AS ac_invc_balance_amount,
+     ac_invc."cancel_comment" AS ac_invc_cancel_comment,
+     ac_invc."description" AS ac_invc_description,
+     ac_invc."av_ts" AS ac_invc_av_ts,
+     ac_invc."av_id" AS ac_invc_av_id,
+     ac_invc."cl_id" AS ac_invc_cl_id,
+     ac_invc."cl_ts" AS ac_invc_cl_ts,
+     ac_invc."ck_ts" AS ac_invc_ck_ts,
+     ac_invc."ck_id" AS ac_invc_ck_id,
+     ac_invc."dt_ts" AS ac_invc_dt_ts,
+     ac_invc."dt_id" AS ac_invc_dt_id,
+     ac_invc."ev_ts" AS ac_invc_ev_ts,
+     ac_invc."ev_id" AS ac_invc_ev_id,
+     ac_invc."pr_ts" AS ac_invc_pr_ts,
+     ac_invc."pr_id" AS ac_invc_pr_id,
+     ac_invc."ps_ts" AS ac_invc_ps_ts,
+     ac_invc."ps_id" AS ac_invc_ps_id,
+     ac_invc."rg_ts" AS ac_invc_rg_ts,
+     ac_invc."rg_id" AS ac_invc_rg_id,
+     ac_invc."rm_ts" AS ac_invc_rm_ts,
+     ac_invc."rm_id" AS ac_invc_rm_id,
+     ac_invc."rq_ts" AS ac_invc_rq_ts,
+     ac_invc."rq_id" AS ac_invc_rq_id,
+     ac_invc."sl_ts" AS ac_invc_sl_ts,
+     ac_invc."sl_id" AS ac_invc_sl_id,
+     ac_invc."fd_st" AS ac_invc_fd_st,
+     ac_invc."up_ts" AS ac_invc_up_ts,
+     ac_invc."up_id" AS ac_invc_up_id,
+     ac_invc."uv_ts" AS ac_invc_uv_ts,
+     ac_invc."uv_id" AS ac_invc_uv_id,
+     ac_invc."vf_ts" AS ac_invc_vf_ts,
+     ac_invc."vf_id" AS ac_invc_vf_id,
+     ac_invc."invoice_no" AS ac_invc_invoice_no,
+     ac_invc."issued_date" AS ac_invc_issued_date,
+     ac_invc."c_ts" AS ac_invc_c_ts,
+     ac_invc."c_id" AS ac_invc_c_id,
+     ac_invc."d_ts" AS ac_invc_d_ts,
+     ac_invc."d_id" AS ac_invc_d_id,
+     ac_invc."m_ts" AS ac_invc_m_ts,
+     ac_invc."m_id" AS ac_invc_m_id,
+     ac_invc."m_st" AS ac_invc_m_st,
+     ac_invc."paid" AS ac_invc_paid,
+     ac_invc."reference_no" AS ac_invc_reference_no,
+     ac_invc."remove_comment" AS ac_invc_remove_comment,
+     ac_invc."source_no" AS ac_invc_source_no,
+     ac_invc."total_amount" AS ac_invc_total_amount,
+     ac_invc."account_id" AS ac_invc_account_id,
+     ac_invc."session_id" AS ac_invc_session_id,
+     ac_invc."tax_code_id" AS ac_invc_tax_code_id,
+     ac_invc_item."id" AS ac_invc_item_id,
+     ac_invc_item."amount" AS ac_invc_item_amount,
+     ac_invc_item."net_amount" AS ac_invc_item_net_amount,
+     ac_invc_item."tax_amount" AS ac_invc_item_tax_amount,
+     ac_invc_item."inclusive" AS ac_invc_item_inclusive,
+     ac_invc_item."balance_amount" AS ac_invc_item_balance_amount,
+     ac_invc_item."description" AS ac_invc_item_description,
+     ac_invc_item."c_ts" AS ac_invc_item_c_ts,
+     ac_invc_item."c_id" AS ac_invc_item_c_id,
+     ac_invc_item."d_ts" AS ac_invc_item_d_ts,
+     ac_invc_item."d_id" AS ac_invc_item_d_id,
+     ac_invc_item."m_ts" AS ac_invc_item_m_ts,
+     ac_invc_item."m_id" AS ac_invc_item_m_id,
+     ac_invc_item."m_st" AS ac_invc_item_m_st,
+     ac_invc_item."charge_code_id" AS ac_invc_item_charge_code_id,
+     ac_invc_item."invoice_id" AS ac_invc_item_invoice_id,
+     ac_invc_item."tax_code_id" AS ac_invc_item_tax_code_id,
+     ac_chrg_code."id" AS ac_chrg_code_id,
+     ac_chrg_code."charge_type" AS ac_chrg_code_charge_type,
+     ac_chrg_code."code" AS ac_chrg_code_code,
+     ac_chrg_code."description" AS ac_chrg_code_description,
+     ac_chrg_code."inclusive" AS ac_chrg_code_inclusive,
+     ac_chrg_code."active" AS ac_chrg_code_active,
+     ac_chrg_code."c_ts" AS ac_chrg_code_c_ts,
+     ac_chrg_code."c_id" AS ac_chrg_code_c_id,
+     ac_chrg_code."d_ts" AS ac_chrg_code_d_ts,
+     ac_chrg_code."d_id" AS ac_chrg_code_d_id,
+     ac_chrg_code."m_ts" AS ac_chrg_code_m_ts,
+     ac_chrg_code."m_id" AS ac_chrg_code_m_id,
+     ac_chrg_code."m_st" AS ac_chrg_code_m_st,
+     ac_chrg_code."priority" AS ac_chrg_code_priority,
+     ac_chrg_code."tax_code_id" AS ac_chrg_code_tax_code_id,
+     ac_tax_code."id" AS ac_tax_code_id,
+     ac_tax_code."code" AS ac_tax_code_code,
+     ac_tax_code."description" AS ac_tax_code_description,
+     ac_tax_code."c_ts" AS ac_tax_code_c_ts,
+     ac_tax_code."c_id" AS ac_tax_code_c_id,
+     ac_tax_code."d_ts" AS ac_tax_code_d_ts,
+     ac_tax_code."d_id" AS ac_tax_code_d_id,
+     ac_tax_code."m_ts" AS ac_tax_code_m_ts,
+     ac_tax_code."m_id" AS ac_tax_code_m_id,
+     ac_tax_code."m_st" AS ac_tax_code_m_st,
+     ac_tax_code."tax_rate" AS ac_tax_code_tax_rate,
+     ac_chrg_code_A."id" AS ac_chrg_code_A_id,
+     ac_chrg_code_A."charge_type" AS ac_chrg_code_A_charge_type,
+     ac_chrg_code_A."code" AS ac_chrg_code_A_code,
+     ac_chrg_code_A."description" AS ac_chrg_code_A_description,
+     ac_chrg_code_A."inclusive" AS ac_chrg_code_A_inclusive,
+     ac_chrg_code_A."active" AS ac_chrg_code_A_active,
+     ac_chrg_code_A."c_ts" AS ac_chrg_code_A_c_ts,
+     ac_chrg_code_A."c_id" AS ac_chrg_code_A_c_id,
+     ac_chrg_code_A."d_ts" AS ac_chrg_code_A_d_ts,
+     ac_chrg_code_A."d_id" AS ac_chrg_code_A_d_id,
+     ac_chrg_code_A."m_ts" AS ac_chrg_code_A_m_ts,
+     ac_chrg_code_A."m_id" AS ac_chrg_code_A_m_id,
+     ac_chrg_code_A."m_st" AS ac_chrg_code_A_m_st,
+     ac_chrg_code_A."priority" AS ac_chrg_code_A_priority,
+     ac_chrg_code_A."tax_code_id" AS ac_chrg_code_A_tax_code_id
+FROM
+     "public"."ac_invc" ac_invc INNER JOIN "public"."ac_invc_item" ac_invc_item ON ac_invc."id" = ac_invc_item."invoice_id"
+     INNER JOIN "public"."ac_chrg_code" ac_chrg_code ON ac_invc_item."charge_code_id" = ac_chrg_code."id"
+     INNER JOIN "public"."ac_chrg_code" ac_chrg_code_A ON ac_invc_item."charge_code_id" = ac_chrg_code_A."id"
+     INNER JOIN "public"."ac_tax_code" ac_tax_code ON ac_chrg_code_A."tax_code_id" = ac_tax_code."id"
+     AND ac_tax_code."id" = ac_chrg_code."tax_code_id"]]>
+	</queryString>
+	<field name="ac_invc_id" class="java.lang.Long"/>
+	<field name="ac_invc_audit_no" class="java.lang.String"/>
+	<field name="ac_invc_balance_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_cancel_comment" class="java.lang.String"/>
+	<field name="ac_invc_description" class="java.lang.String"/>
+	<field name="ac_invc_av_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_av_id" class="java.lang.Long"/>
+	<field name="ac_invc_cl_id" class="java.lang.Long"/>
+	<field name="ac_invc_cl_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_ck_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_ck_id" class="java.lang.Long"/>
+	<field name="ac_invc_dt_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_dt_id" class="java.lang.Long"/>
+	<field name="ac_invc_ev_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_ev_id" class="java.lang.Long"/>
+	<field name="ac_invc_pr_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_pr_id" class="java.lang.Long"/>
+	<field name="ac_invc_ps_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_ps_id" class="java.lang.Long"/>
+	<field name="ac_invc_rg_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_rg_id" class="java.lang.Long"/>
+	<field name="ac_invc_rm_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_rm_id" class="java.lang.Long"/>
+	<field name="ac_invc_rq_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_rq_id" class="java.lang.Long"/>
+	<field name="ac_invc_sl_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_sl_id" class="java.lang.Long"/>
+	<field name="ac_invc_fd_st" class="java.lang.Integer"/>
+	<field name="ac_invc_up_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_up_id" class="java.lang.Long"/>
+	<field name="ac_invc_uv_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_uv_id" class="java.lang.Long"/>
+	<field name="ac_invc_vf_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_vf_id" class="java.lang.Long"/>
+	<field name="ac_invc_invoice_no" class="java.lang.String"/>
+	<field name="ac_invc_issued_date" class="java.sql.Timestamp"/>
+	<field name="ac_invc_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_c_id" class="java.lang.Long"/>
+	<field name="ac_invc_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_d_id" class="java.lang.Long"/>
+	<field name="ac_invc_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_m_id" class="java.lang.Long"/>
+	<field name="ac_invc_m_st" class="java.lang.Integer"/>
+	<field name="ac_invc_paid" class="java.lang.Boolean"/>
+	<field name="ac_invc_reference_no" class="java.lang.String"/>
+	<field name="ac_invc_remove_comment" class="java.lang.String"/>
+	<field name="ac_invc_source_no" class="java.lang.String"/>
+	<field name="ac_invc_total_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_account_id" class="java.lang.Long"/>
+	<field name="ac_invc_session_id" class="java.lang.Long"/>
+	<field name="ac_invc_tax_code_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_item_net_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_item_tax_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_item_inclusive" class="java.lang.Boolean"/>
+	<field name="ac_invc_item_balance_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_item_description" class="java.lang.String"/>
+	<field name="ac_invc_item_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_item_c_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_item_d_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_invc_item_m_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_m_st" class="java.lang.Integer"/>
+	<field name="ac_invc_item_charge_code_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_invoice_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_tax_code_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_charge_type" class="java.lang.Integer"/>
+	<field name="ac_chrg_code_code" class="java.lang.String"/>
+	<field name="ac_chrg_code_description" class="java.lang.String"/>
+	<field name="ac_chrg_code_inclusive" class="java.lang.Boolean"/>
+	<field name="ac_chrg_code_active" class="java.lang.Boolean"/>
+	<field name="ac_chrg_code_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrg_code_c_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrg_code_d_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrg_code_m_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_m_st" class="java.lang.Integer"/>
+	<field name="ac_chrg_code_priority" class="java.lang.Integer"/>
+	<field name="ac_chrg_code_tax_code_id" class="java.lang.Long"/>
+	<field name="ac_tax_code_id" class="java.lang.Long"/>
+	<field name="ac_tax_code_code" class="java.lang.String"/>
+	<field name="ac_tax_code_description" class="java.lang.String"/>
+	<field name="ac_tax_code_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_tax_code_c_id" class="java.lang.Long"/>
+	<field name="ac_tax_code_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_tax_code_d_id" class="java.lang.Long"/>
+	<field name="ac_tax_code_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_tax_code_m_id" class="java.lang.Long"/>
+	<field name="ac_tax_code_m_st" class="java.lang.Integer"/>
+	<field name="ac_tax_code_tax_rate" class="java.math.BigDecimal"/>
+	<field name="ac_chrg_code_a_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_a_charge_type" class="java.lang.Integer"/>
+	<field name="ac_chrg_code_a_code" class="java.lang.String"/>
+	<field name="ac_chrg_code_a_description" class="java.lang.String"/>
+	<field name="ac_chrg_code_a_inclusive" class="java.lang.Boolean"/>
+	<field name="ac_chrg_code_a_active" class="java.lang.Boolean"/>
+	<field name="ac_chrg_code_a_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrg_code_a_c_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_a_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrg_code_a_d_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_a_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrg_code_a_m_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_a_m_st" class="java.lang.Integer"/>
+	<field name="ac_chrg_code_a_priority" class="java.lang.Integer"/>
+	<field name="ac_chrg_code_a_tax_code_id" class="java.lang.Long"/>
+	<variable name="ac_invc_item_amount_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_invc_item_amount}]]></variableExpression>
+	</variable>
+	<variable name="ac_invc_item_tax_amount_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_invc_item_tax_amount}]]></variableExpression>
+	</variable>
+	<filterExpression><![CDATA[$F{ac_invc_reference_no}.equals( $P{invc_ref_no} ) &&
+$F{ac_tax_code_code}.equals( $P{chrge_code} )]]></filterExpression>
+	<group name="ac_tax_code_code">
+		<groupExpression><![CDATA[$F{ac_tax_code_code}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="17" y="0" width="100" height="20" uuid="58d27274-209d-4338-9ff2-d7c7332a4ba4"/>
+				<textFieldExpression><![CDATA[$F{ac_tax_code_code}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="43" splitType="Stretch"/>
+	</summary>
+</jasperReport>
