@@ -99,7 +99,7 @@ public class AcKnockoffImpl implements AcKnockoff {
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = AcDebitNoteImpl.class)
     @JoinTable(name = "AC_KNOF_DBT_NOTE", joinColumns = {
             @JoinColumn(name = "KNOCKOFF_ID", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "DEBITNOTE_ID",
+            inverseJoinColumns = {@JoinColumn(name = "DEBIT_NOTE_ID",
                     nullable = false, updatable = false)})
     private List<AcDebitNote> debitNotes;
 	

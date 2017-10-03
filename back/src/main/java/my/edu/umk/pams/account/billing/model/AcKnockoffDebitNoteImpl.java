@@ -26,6 +26,7 @@ public class AcKnockoffDebitNoteImpl implements AcKnockoffDebitNote {
 	@SequenceGenerator(name = "SQ_AC_KNOF_DBT_NOTE", sequenceName = "SQ_AC_KNOF_DBT_NOTE", allocationSize = 1)
 	private Long id;
 	
+
     @OneToOne(targetEntity = AcDebitNoteImpl.class)
     @JoinColumn(name = "DEBIT_NOTE_ID")
     private AcDebitNote debitNote;
