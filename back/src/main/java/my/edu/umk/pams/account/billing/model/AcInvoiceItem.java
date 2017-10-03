@@ -30,10 +30,6 @@ public interface AcInvoiceItem extends AcMetaObject{
 
     void setChargeCode(AcChargeCode chargeCode);
 
-    AcTaxCode getTaxCode();
-
-    void setTaxCode(AcTaxCode TaxCode);
-
     AcInvoice getInvoice();
 
     void setInvoice(AcInvoice invoice);

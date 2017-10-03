@@ -63,7 +63,6 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
             item.setAmount(scheduleItem.getAmount());
             item.setBalanceAmount(scheduleItem.getAmount());
             item.setChargeCode(scheduleItem.getChargeCode());
-            item.setTaxCode(scheduleItem.getChargeCode().getTaxCode());
             item.setInvoice(invoice);
             billingService.calculateNetAmount(item);
             totalAmount = totalAmount.add(scheduleItem.getAmount());

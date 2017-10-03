@@ -99,9 +99,9 @@ public class CalculateNetAmountTest {
     		
     		LOG.debug("Invoice ada x:{}", invoice );
 		
-		LOG.debug("tax Rate:{}", invoiceItem.getTaxCode().getTaxRate());
+		LOG.debug("tax Rate:{}", invoiceItem.getChargeCode().getTaxCode().getTaxRate());
 		
-		BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate().setScale(2, RoundingMode.HALF_UP);
+		BigDecimal taxRate = invoiceItem.getChargeCode().getTaxCode().getTaxRate().setScale(2, RoundingMode.HALF_UP);
 		LOG.debug("Tax Rate", taxRate);
 		
 		BigDecimal amount = invoiceItem.getAmount().setScale(2, RoundingMode.HALF_UP);
