@@ -48,11 +48,6 @@
 
       <pams-fee-schedule-list [feeSchedules]="feeSchedules$ | async">
       </pams-fee-schedule-list>
-
-      <td-search-box class="push-left push-right" placeholder="search" [alwaysVisible]="true"
-                     (searchDebounce)="filter($event)">
-      </td-search-box>
-
     </md-card>
   </td-layout-manage-list>
 </td-layout-nav>

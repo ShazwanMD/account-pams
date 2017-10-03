@@ -34,13 +34,6 @@
     </div>
 
     <md-card>
-      <td-search-box class="push-left push-right"
-                     placeholder="search"
-                     [alwaysVisible]="true"
-                     (searchDebounce)="filter($event)">
-
-      </td-search-box>
-
       <pams-settlement-list
         [settlements]="settlements$ | async"
         (view)="view($event)"></pams-settlement-list>
