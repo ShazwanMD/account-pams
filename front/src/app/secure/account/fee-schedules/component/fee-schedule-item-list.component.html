@@ -6,14 +6,14 @@
       <md-chip color="accent">{{promoCodeItems?.length}}</md-chip>
     </md-chip-list>
     <span flex></span>
-    <button md-button class="md-icon-button" (click)="create()">
+    <button md-button class="md-icon-button" (click)="createDialog()">
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 0}">add</md-icon>
     </button>
     <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
     </button>
-    <button md-button class="md-icon-button" (click)="delete(selectedRows[0])" [disabled]="selectedRows.length != 1">
-      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">delete</md-icon>
+    <button md-button class="md-icon-button" (click)="delete">
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length > 0}">delete</md-icon>
     </button>
   </div>
   <md-divider></md-divider>
