@@ -10,7 +10,7 @@ import { KnockoffActions } from './knockoff.action';
 export class KnockoffEffects {
 
     //private KNOCKOFF: string[] = 'billingModuleState.knockoffs'.split( '.' );
-    //private KNOCKOFF_TASK: string[] = 'billingModuleState.knockoffTask'.split('.');
+    private KNOCKOFF_TASK: string[] = 'billingModuleState.knockoffTask'.split('.');
 
     constructor( private actions$: Actions,
         private knockoffActions: KnockoffActions,
@@ -79,7 +79,10 @@ export class KnockoffEffects {
         .ofType( KnockoffActions.INVOICE_ITEM_TO_KNOCKOFF_ITEM )
         .map(( action ) => action.payload )
         .switchMap(( payload ) => this.billingService.itemToKnockoffItem( payload.invoice, payload.knockoff ) )
-        .map(( knockoff ) => this.knockoffActions.itemToKnockoffItemSuccess( knockoff ) );
+        .map(( knockoff ) => this.knockoffActions.itemToKnockoffItemSuccess( knockoff ) )
+        .withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
+        .map((state) => state[1])
+        .map((knockoff) => this.knockoffActions.findKnockoffItems(knockoff));       
 
     @Effect() startKnockoffTask$ = this.actions$
         .ofType( KnockoffActions.START_KNOCKOFF_TASK )
@@ -131,34 +134,43 @@ export class KnockoffEffects {
         .ofType( KnockoffActions.ADD_KNOCKOFF_INVOICE )
         .map(( action ) => action.payload )
         .switchMap(( payload ) => this.billingService.addKnockoffInvoice( payload.knockoff, payload.invoice ) )
-        .map(( message ) => this.knockoffActions.addKnockoffInvoiceSuccess( message ) );
+        .map(( message ) => this.knockoffActions.addKnockoffInvoiceSuccess( message ) )
+        .withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
+        .map((state) => state[1])
+        .map((knockoff) => this.knockoffActions.findKnockoffsByInvoice(knockoff));  
 
-        @Effect() addKnockoffAccountCharge$ =
-        this.actions$
-            .ofType( KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE )
-            .map(( action ) => action.payload )
-            .switchMap(( payload ) => this.billingService.addKnockoffAccountCharge( payload.knockoff, payload.accountCharge ) )
-            .map(( message ) => this.knockoffActions.addKnockoffAccountChargeSuccess( message ) );       
+    @Effect() addKnockoffAccountCharge$ =
+    this.actions$
+        .ofType( KnockoffActions.ADD_KNOCKOFF_ACCOUNT_CHARGE )
+        .map(( action ) => action.payload )
+        .switchMap(( payload ) => this.billingService.addKnockoffAccountCharge( payload.knockoff, payload.accountCharge ) )
+        .map(( message ) => this.knockoffActions.addKnockoffAccountChargeSuccess( message ) )
+        .withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
+        .map((state) => state[1])
+        .map((knockoff) => this.knockoffActions.findKnockoffsByAccountCharge(knockoff));         
 
     @Effect() addKnockoffDebitNote$ =
     this.actions$
         .ofType( KnockoffActions.ADD_KNOCKOFF_DEBIT_NOTE )
         .map(( action ) => action.payload )
         .switchMap(( payload ) => this.billingService.addKnockoffDebitNote( payload.knockoff, payload.debitNote ) )
-        .map(( message ) => this.knockoffActions.addKnockoffDebitNoteSuccess( message ) );
+        .map(( message ) => this.knockoffActions.addKnockoffDebitNoteSuccess( message ) )
+        .withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
+        .map((state) => state[1])
+        .map((knockoff) => this.knockoffActions.findKnockoffsByDebitNote(knockoff)); 
     
     @Effect() updateKnockoff$ =
-        this.actions$
-            .ofType( KnockoffActions.UPDATE_KNOCKOFF )
-            .map(( action ) => action.payload )
-            .switchMap(( knockoff ) => this.billingService.updateKnockoff(knockoff) )
-            .map(( message ) => this.knockoffActions.updateKnockoffSuccess(message) );
+    this.actions$
+         .ofType( KnockoffActions.UPDATE_KNOCKOFF )
+         .map(( action ) => action.payload )
+         .switchMap(( knockoff ) => this.billingService.updateKnockoff(knockoff) )
+        .map(( message ) => this.knockoffActions.updateKnockoffSuccess(message) );
     
-            @Effect() findKnockoffsByAccountCharge$ = this.actions$
-            .ofType( KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF )
-            .map(( action ) => action.payload )
-            .switchMap(( knockoff ) => this.billingService.findKnockoffsByAccountCharge( knockoff ) )
-            .map(( knockoff ) => this.knockoffActions.findKnockoffsByAccountChargeSuccess( knockoff ) );
+     @Effect() findKnockoffsByAccountCharge$ = this.actions$
+     .ofType( KnockoffActions.FIND_ACCOUNT_CHARGE_BY_KNOCKOFF )
+     .map(( action ) => action.payload )
+    .switchMap(( knockoff ) => this.billingService.findKnockoffsByAccountCharge( knockoff ) )
+    .map(( knockoff ) => this.knockoffActions.findKnockoffsByAccountChargeSuccess( knockoff ) );
     
     @Effect() findKnockoffsByDebitNote$ = this.actions$
     .ofType( KnockoffActions.FIND_DEBIT_NOTE_BY_KNOCKOFF )
@@ -166,12 +178,16 @@ export class KnockoffEffects {
     .switchMap(( knockoff ) => this.billingService.findKnockoffsByDebitNote(knockoff) )
     .map(( knockoff ) => this.knockoffActions.findKnockoffsByDebitNoteSuccess(knockoff) );
 
-@Effect() addKnockoffItem$ =
+    @Effect() addKnockoffItem$ =
     this.actions$
       .ofType(KnockoffActions.ADD_KNOCKOFF_ITEM)
       .map((action) => action.payload)
       .switchMap((payload) => this.billingService.addKnockoffItem(payload.knockoff, payload.item))
-      .map((message) => this.knockoffActions.addKnockoffItemSuccess(message));
+      .map((message) => this.knockoffActions.addKnockoffItemSuccess(message))
+      .withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
+      .map((state) => state[1])
+      .map((knockoff) => this.knockoffActions.findKnockoffItems(knockoff));       
+
 }
 
 
