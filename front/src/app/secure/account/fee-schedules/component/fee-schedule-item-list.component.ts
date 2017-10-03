@@ -16,6 +16,7 @@ import {FeeScheduleItem} from '../../../../shared/model/account/fee-schedule-ite
 export class FeeScheduleItemListComponent implements OnInit {
 
   private creatorDialogRef: MdDialogRef<FeeScheduleItemEditorDialog>;
+  private editorDialogRef: MdDialogRef<FeeScheduleItemEditorDialog>;
   private selectedRows: FeeScheduleItem[];
   private columns: any[] = [
     {name: 'chargeCode', label: 'ChargeCode'},
@@ -40,7 +41,7 @@ export class FeeScheduleItemListComponent implements OnInit {
   }
 
   edit(scheduleItem: FeeScheduleItem): void {
-    // this.showDialog(scheduleItem);
+    this.showDialog(scheduleItem);
   }
 
   delete(scheduleItem: FeeScheduleItem): void {
@@ -56,7 +57,11 @@ export class FeeScheduleItemListComponent implements OnInit {
   selectAllRows(item: FeeScheduleItem[]): void {
   }
 
-  create(): void {
+  createDialog(): void {
+    this.showDialog(null);
+  }
+
+    showDialog(scheduleItem: FeeScheduleItem): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
@@ -64,13 +69,15 @@ export class FeeScheduleItemListComponent implements OnInit {
     config.width = '50%';
     config.height = '60%';
     config.position = {top: '0px'};
-    this.creatorDialogRef = this.dialog.open(FeeScheduleItemEditorDialog, config);
-    this.creatorDialogRef.componentInstance.feeSchedule = this.feeSchedule;
-
-    // close
-    this.creatorDialogRef.afterClosed().subscribe((res) => {
+    this.editorDialogRef = this.dialog.open(FeeScheduleItemEditorDialog, config);
+    this.editorDialogRef.componentInstance.feeSchedule = this.feeSchedule;
+    if (scheduleItem) this.editorDialogRef.componentInstance.feeScheduleItem = scheduleItem; // set
+    this.editorDialogRef.afterClosed().subscribe((res) => {
       console.log('close dialog');
-      // load something here
     });
   }
+
+
+
+
 }

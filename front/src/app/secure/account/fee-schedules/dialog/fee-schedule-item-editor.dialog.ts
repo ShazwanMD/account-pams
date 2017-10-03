@@ -19,6 +19,7 @@ export class FeeScheduleItemEditorDialog implements OnInit {
   private editForm: FormGroup;
   private _feeScheduleItem: FeeScheduleItem;
   private _feeSchedule: FeeSchedule;
+  private edit: boolean = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -31,6 +32,7 @@ export class FeeScheduleItemEditorDialog implements OnInit {
 
   set feeScheduleItem(value: FeeScheduleItem) {
     this._feeScheduleItem = value;
+    this.edit = true;
   }
 
   set feeSchedule(value: FeeSchedule) {
@@ -47,15 +49,24 @@ export class FeeScheduleItemEditorDialog implements OnInit {
       chargeCode: <ChargeCode>{},
     });
     // this.editForm.patchValue(this.feeScheduleItem);
+     if (this.edit) this.editForm.patchValue(this._feeScheduleItem);
   }
 
-  save(item: FeeScheduleItem, isValid: boolean) {
-    item.description = item.chargeCode.description;
-    this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item));
-    this.close();
-  }
+  // save(item: FeeScheduleItem, isValid: boolean) {
+  //   item.description = item.chargeCode.description;
+  //   this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item));
+  //   this.close();
+  // }
 
-  close(): void {
+    submit(item: FeeScheduleItem, isValid: boolean) {
+    item.description = item.chargeCode.description;    
+    if (!item.id) this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item));
+
+    else  this.store.dispatch(this.actions.updateFeeScheduleItem(this._feeSchedule.code, item.id));
+    console.log('update item' + item.id);
+    console.log('update feeSchedule item' + this._feeSchedule.code);
     this.dialog.close();
   }
+
+
 }
