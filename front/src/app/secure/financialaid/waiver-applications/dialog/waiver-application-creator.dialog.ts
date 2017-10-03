@@ -44,7 +44,6 @@ export class WaiverApplicationCreatorDialog implements OnInit {
   save(waiverApplicationCreator: WaiverApplication, isValid: boolean) {
     this.store.dispatch(this.actions.startWaiverApplicationTask(waiverApplicationCreator));
     this.dialog.close();
-    window.location.reload();
   }
 
 }
