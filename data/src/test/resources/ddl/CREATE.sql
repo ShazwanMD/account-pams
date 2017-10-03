@@ -665,7 +665,6 @@
         M_ST int4,
         CHARGE_CODE_ID int8,
         INVOICE_ID int8,
-        TAX_CODE_ID int8,
         primary key (ID)
     );
 
@@ -1740,11 +1739,6 @@
         add constraint FK_tl5yy4kfw6sbodu0jgbgo3ek8
         foreign key (CHARGE_CODE_ID)
         references AC_CHRG_CODE;
-        
-    alter table AC_INVC_ITEM 
-        add constraint FK_2d6lwtme5e7ch5iextvyjuh2k 
-        foreign key (TAX_CODE_ID) 
-        references AC_TAX_CODE;      
 
     alter table AC_INVC_ITEM
         add constraint FK_g7nihxqxxqx22a3mjlwodfl43
