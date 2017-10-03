@@ -2,12 +2,9 @@ import { Component, OnInit, ViewContainerRef, ElementRef, Input, ChangeDetection
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Receipt } from '../../../../shared/model/billing/receipt.interface';
-import { BillingModuleState } from '../../index';
 import { MdDialogRef } from '@angular/material';
-import { ReceiptActions } from '../receipt.action';
 import { Store } from '@ngrx/store';
 import { Invoice } from "../../../../shared/model/billing/invoice.interface";
-import { InvoiceActions } from "../../invoices/invoice.action";
 import { Observable } from "rxjs/Observable";
 import { ReceiptItem } from "../../../../shared/model/billing/receipt-item.interface";
 
@@ -18,8 +15,6 @@ import { ReceiptItem } from "../../../../shared/model/billing/receipt-item.inter
 
 export class ReceiptItemListDialog {
 
-    @Input() receipt: Receipt;
-    @Input() invoice: Invoice;
     @Input() receiptItems: ReceiptItem[];
     
     private columns: any[] = [

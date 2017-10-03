@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
+import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,9 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
 
     @Autowired
     private AccountService accountService;
+    
+    @Autowired
+    private BillingService billingService;    
 
     // TODO: update invoice total amount
     @Override
@@ -51,7 +55,7 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
         	
         	if(scheduleItem.getOrdinal() == admissionCharge.getOrdinal()){
             AcInvoiceItem item = new AcInvoiceItemImpl();
-            item.setDescription(String.format("Admission Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
+            item.setDescription(scheduleItem.getChargeCode().getDescription());
             // todo(hajar): pretax, tax, total
 //            item.setPretaxAmount(ZERO);
 //            item.setTaxAmount(ZERO);
@@ -59,8 +63,8 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
             item.setAmount(scheduleItem.getAmount());
             item.setBalanceAmount(scheduleItem.getAmount());
             item.setChargeCode(scheduleItem.getChargeCode());
-            item.setTaxCode(scheduleItem.getChargeCode().getTaxCode());
             item.setInvoice(invoice);
+            billingService.calculateNetAmount(item);
             totalAmount = totalAmount.add(scheduleItem.getAmount());
             invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
             sessionFactory.getCurrentSession().flush();

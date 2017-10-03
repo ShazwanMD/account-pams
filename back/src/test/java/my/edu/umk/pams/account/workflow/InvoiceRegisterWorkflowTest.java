@@ -109,7 +109,7 @@ public class InvoiceRegisterWorkflowTest {
             AcChargeCode chargeCode1 = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79321");
             AcInvoiceItem item1 = new AcInvoiceItemImpl();
             item1.setChargeCode(chargeCode1);
-            item1.setTaxCode(chargeCode1.getTaxCode());
+      //      item1.setTaxCode(chargeCode1.getTaxCode());
             item1.setDescription("YURAN PENDAFTARAN");
             item1.setAmount(BigDecimal.valueOf(2000.00));
             billingService.addInvoiceItem(draftedInvoice, item1);
@@ -117,7 +117,7 @@ public class InvoiceRegisterWorkflowTest {
             AcChargeCode chargeCode2 = accountService.findChargeCodeByCode("TMGSEB-MBA-00-H79331");
             AcInvoiceItem item2 = new AcInvoiceItemImpl();
             item2.setChargeCode(chargeCode2);
-            item2.setTaxCode(chargeCode2.getTaxCode());
+      //      item2.setTaxCode(chargeCode2.getTaxCode());
             item2.setDescription("YURAN KAD MATRIK");
             item2.setAmount(BigDecimal.valueOf(20.00));
             billingService.addInvoiceItem(draftedInvoice, item2);

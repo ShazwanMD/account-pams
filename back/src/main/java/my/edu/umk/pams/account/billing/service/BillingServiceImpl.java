@@ -2015,7 +2015,7 @@ public class BillingServiceImpl implements BillingService {
 	// //
 
 	public void calculateNetAmount(AcInvoiceItem invoiceItem) {
-		BigDecimal taxRate = invoiceItem.getTaxCode().getTaxRate();
+		BigDecimal taxRate = invoiceItem.getChargeCode().getTaxCode().getTaxRate();
 		BigDecimal amount = invoiceItem.getAmount();
 		BigDecimal taxAmount = amount.multiply(taxRate);
 		BigDecimal netAmount = amount.add(taxAmount);
