@@ -1,20 +1,29 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {
+  Component, 
+  Input, 
+  EventEmitter, 
+  Output, 
+  ChangeDetectionStrategy, 
+  AfterViewInit, 
+  OnChanges, 
+  SimpleChange
+} from '@angular/core';
+import {
+TdDataTableSortingOrder,
+TdDataTableService,
+ITdDataTableSortChangeEvent,
+IPageChangeEvent
+} from '@covalent/core';
 import {MdSnackBar} from '@angular/material';
 import {CreditNoteTask} from '../../../../shared/model/billing/credit-note-task.interface';
 import {ActivatedRoute, Router} from '@angular/router';
-import {
-  IPageChangeEvent,
-  ITdDataTableSortChangeEvent,
-  TdDataTableService,
-  TdDataTableSortingOrder
-} from '@covalent/core';
 
 @Component({
   selector: 'pams-pooled-credit-note-task-list',
   templateUrl: './pooled-credit-note-task-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PooledCreditNoteTaskListComponent {
+export class PooledCreditNoteTaskListComponent implements OnChanges{
 
   private columns: any[] = [
     {name: 'creditNoteDate', label: 'Date'},
@@ -29,18 +38,17 @@ export class PooledCreditNoteTaskListComponent {
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];
-
-  @Input() creditNoteTasks: CreditNoteTask[];
-  @Output() claim = new EventEmitter<CreditNoteTask>();
-
   filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';
   fromRow: number = 1;
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 5;
   sortBy: string = 'referenceNo';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+  
+  @Input() creditNoteTasks: CreditNoteTask[];
+  @Output() claim = new EventEmitter<CreditNoteTask>();
 
   constructor(private snackBar: MdSnackBar,
               private router: Router,
@@ -56,30 +64,28 @@ export class PooledCreditNoteTaskListComponent {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.filteredData = this.creditNoteTasks;
-    this.filteredTotal = this.creditNoteTasks.length;
-    this.filter();
-  }
-
+  ngOnChanges(changes: {[ propName: string]: SimpleChange}) {
+    if (changes['creditNoteTasks']){
+        this.filteredData = changes['creditNoteTasks'].currentValue; 
+        this.filteredTotal = changes['creditNoteTasks'].currentValue.length;
+        this.filter();
+      }
+    }
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
     this.filter();
   }
-
   search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.filter();
   }
-
   page(pagingEvent: IPageChangeEvent): void {
     this.fromRow = pagingEvent.fromRow;
     this.currentPage = pagingEvent.page;
     this.pageSize = pagingEvent.pageSize;
     this.filter();
   }
-
   filter(): void {
     let newData: any[] = this.creditNoteTasks;
     newData = this._dataTableService.filterData(newData, this.searchTerm, true);
