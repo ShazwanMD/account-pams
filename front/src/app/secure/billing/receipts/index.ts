@@ -51,6 +51,7 @@ import { AccountChargeReceiptDialog } from "./dialog/account-charge-receipt-crea
 import { AccountChargeUnpaidSelectComponent } from "./component/account-charge-select-unpaid.component";
 import { AccountChargeReceiptListComponent } from './component/account-charge-receipt-list.component';
 
+
 @NgModule({
   imports: [
     appRoutes,

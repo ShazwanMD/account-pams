@@ -46,6 +46,8 @@ import { AccountSponsorshipListComponent } from "./component/account-sponsorship
 import { SponsorshipEditorDialog } from "./dialog/sponsorship-editor.dialog";
 import { SponsorshipComponent } from "./component/sponsorship.component";
 import { AccountActivityChargeListComponent } from "./component/account-charge-activity-list.component";
+import { ReceiptItemDialog } from "./dialog/receipt-item.dialog";
+import { ReceiptItemListDialog } from "./component/receipt-item-list-dialog.component";
 
 @NgModule({
   imports: [
@@ -95,6 +97,8 @@ import { AccountActivityChargeListComponent } from "./component/account-charge-a
     SponsorshipEditorDialog,
     SponsorshipComponent,
     AccountActivityChargeListComponent,
+    ReceiptItemDialog,
+    ReceiptItemListDialog,
   ],
   exports: [
     AccountComboBoxComponent,
@@ -129,6 +133,7 @@ import { AccountActivityChargeListComponent } from "./component/account-charge-a
     AccountSponsorshipListComponent,
     SponsorshipEditorDialog,
     SponsorshipComponent,
+    ReceiptItemDialog,
   ],
 
 })
