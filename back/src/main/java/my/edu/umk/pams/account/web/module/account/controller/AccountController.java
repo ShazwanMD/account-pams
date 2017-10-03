@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcActor;
@@ -19,6 +20,7 @@ import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransforme
 import my.edu.umk.pams.account.web.module.identity.vo.ActorType;
 import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
 import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
+import my.edu.umk.pams.account.web.module.billing.vo.InvoiceItem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,7 +157,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateFeeScheduleItem(@PathVariable String code, @RequestBody FeeScheduleItem item) {
+    public ResponseEntity<String> updateFeeScheduleItem(@PathVariable String code, @PathVariable Long id, @RequestBody FeeScheduleItem item) {
 
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
         AcFeeScheduleItem e = accountService.findFeeScheduleItemById(item.getId());
@@ -166,6 +168,8 @@ public class AccountController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
+    
+    
     @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteFeeScheduleItem(@PathVariable String code, @PathVariable Long id) {
 
