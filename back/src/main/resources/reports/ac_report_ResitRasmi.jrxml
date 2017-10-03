@@ -164,9 +164,7 @@ FROM
      "public"."ac_invc" ac_invc INNER JOIN "public"."ac_rcpt_item" ac_rcpt_item ON ac_invc."id" = ac_rcpt_item."invoice_id"
      INNER JOIN "public"."ac_rcpt" ac_rcpt ON ac_rcpt_item."receipt_id" = ac_rcpt."id"
      INNER JOIN "public"."ac_acct" ac_acct ON ac_rcpt."account_id" = ac_acct."id"
-     INNER JOIN "public"."ac_actr" ac_actr ON ac_acct."actor_id" = ac_actr."id"
-
-WHERE ac_rcpt."receipt_no" = $P{receipt_no}]]>
+     INNER JOIN "public"."ac_actr" ac_actr ON ac_acct."actor_id" = ac_actr."id"]]>
 	</queryString>
 	<field name="ac_acct_id" class="java.lang.Long"/>
 	<field name="ac_acct_code" class="java.lang.String"/>
@@ -323,6 +321,7 @@ WHERE ac_rcpt."receipt_no" = $P{receipt_no}]]>
 		<variableExpression><![CDATA[$F{ac_rcpt_item_total_amount}]]></variableExpression>
 		<initialValueExpression><![CDATA[0.00F]]></initialValueExpression>
 	</variable>
+	<filterExpression><![CDATA[$F{ac_rcpt_receipt_no}.equals( $P{receipt_no} )]]></filterExpression>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -391,8 +390,7 @@ WHERE ac_rcpt."receipt_no" = $P{receipt_no}]]>
 			</textField>
 			<textField>
 				<reportElement x="237" y="50" width="104" height="20" uuid="c9366fa0-490b-4b82-b403-828aa9861ad4"/>
-				<textFieldExpression><![CDATA[($F{ac_rcpt_payment_method}.equals( "0" ) ? "CASH" : $F{ac_rcpt_payment_method}.equals( "1" ) ? "CEK" : $F{ac_rcpt_payment_method}.equals( "2" ) ? "KREDIT KE BANK" : "BANK DRAF" )
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{ac_rcpt_payment_method}.equals( "0" ) ? "CASH" : $F{ac_rcpt_payment_method}.equals( "1" ) ? "CEK" : $F{ac_rcpt_payment_method}.equals( "2" ) ? "KREDIT KE BANK" : "BANK DRAF" )]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="161" y="50" width="76" height="20" uuid="43493e05-b413-4675-9c92-a578d2928163"/>
@@ -459,7 +457,7 @@ WHERE ac_rcpt."receipt_no" = $P{receipt_no}]]>
 	<summary>
 		<band height="140" splitType="Stretch">
 			<rectangle>
-				<reportElement x="27" y="50" width="355" height="84" uuid="d319b4e6-a875-4a67-91f5-7ba93e750dee"/>
+				<reportElement x="27" y="50" width="300" height="84" uuid="d319b4e6-a875-4a67-91f5-7ba93e750dee"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="399" y="70" width="54" height="20" uuid="8220bf8b-dcff-410e-8277-5dfc366efede"/>
@@ -469,7 +467,7 @@ WHERE ac_rcpt."receipt_no" = $P{receipt_no}]]>
 				<text><![CDATA[b.p UMK]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="272" y="34" width="118" height="20" uuid="eb101d1d-e20d-4185-8d32-d111c825f6ea"/>
+				<reportElement x="223" y="35" width="118" height="20" uuid="eb101d1d-e20d-4185-8d32-d111c825f6ea"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -497,18 +495,18 @@ WHERE ac_rcpt."receipt_no" = $P{receipt_no}]]>
 				<text><![CDATA[MUSTAHAK :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="31" y="74" width="332" height="20" uuid="bec752f2-1371-4e42-85e0-3e1f6fa0a084"/>
+				<reportElement x="31" y="74" width="270" height="20" uuid="bec752f2-1371-4e42-85e0-3e1f6fa0a084"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Simpan surat ini dengan baik, pastikan butiran di atas adalah betul.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="31" y="94" width="351" height="20" uuid="2ca0eef0-6275-4496-bc09-21cbf85c6832"/>
+				<reportElement x="31" y="94" width="270" height="20" uuid="2ca0eef0-6275-4496-bc09-21cbf85c6832"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Ini akan mengelakkan kerumitan kelak, Resit ini dianggap batal jika cek tidak]]></text>
+				<text><![CDATA[Ini akan mengelakkan kerumitan kelak. Resit ini dianggap batal jika cek]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="31" y="114" width="115" height="20" uuid="9dc6926e-b6cb-43e7-bf4c-182b33ffaeef"/>
@@ -531,7 +529,7 @@ WHERE ac_rcpt."receipt_no" = $P{receipt_no}]]>
 				<reportElement x="1" y="20" width="553" height="1" uuid="4d1c529a-9281-49d7-8cde-f3e4e4751199"/>
 			</line>
 			<textField>
-				<reportElement x="455" y="20" width="100" height="17" uuid="e574c4f5-331a-43ef-ab44-63902f936675"/>
+				<reportElement x="454" y="5" width="100" height="17" uuid="e574c4f5-331a-43ef-ab44-63902f936675"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{sumOfTotal}]]></textFieldExpression>
 			</textField>
