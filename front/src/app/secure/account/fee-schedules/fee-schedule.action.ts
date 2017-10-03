@@ -120,6 +120,7 @@ export class FeeScheduleActions {
   static ADD_FEE_SCHEDULE_ITEM = '[FeeSchedule] Add FeeSchedule Item';
 
   addFeeScheduleItem(feeSchedule, item): Action {
+     console.log('addFeeSchedule');
     return {
       type: FeeScheduleActions.ADD_FEE_SCHEDULE_ITEM,
       payload: {feeSchedule: feeSchedule, item: item},
@@ -129,6 +130,7 @@ export class FeeScheduleActions {
   static ADD_FEE_SCHEDULE_ITEM_SUCCESS = '[FeeSchedule] Add FeeSchedule Item Success';
 
   addFeeScheduleItemSuccess(message): Action {
+    console.log('addFeeScheduleSuccess');
     return {
       type: FeeScheduleActions.ADD_FEE_SCHEDULE_ITEM_SUCCESS,
       payload: message,
@@ -156,6 +158,7 @@ export class FeeScheduleActions {
   static UPDATE_FEE_SCHEDULE_ITEM = '[FeeSchedule] Update FeeSchedule Item';
 
   updateFeeScheduleItem(feeSchedule, item): Action {
+    console.log('updateFeeScheduleItem');
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM,
       payload: {feeSchedule: feeSchedule, item: item},
@@ -165,6 +168,7 @@ export class FeeScheduleActions {
   static UPDATE_FEE_SCHEDULE_ITEM_SUCCESS = '[FeeSchedule] Update FeeSchedule Item Success';
 
   updateFeeScheduleItemSuccess(message): Action {
+    console.log('updateFeeScheduleItem');
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_ITEM_SUCCESS,
       payload: message,
