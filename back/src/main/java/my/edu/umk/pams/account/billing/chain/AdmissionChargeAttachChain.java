@@ -51,7 +51,7 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
         	
         	if(scheduleItem.getOrdinal() == admissionCharge.getOrdinal()){
             AcInvoiceItem item = new AcInvoiceItemImpl();
-            item.setDescription(String.format("Admission Charge; %s; %s", invoice.getSession().getCode(), invoice.getAccount().getActor().getName()));
+            item.setDescription(scheduleItem.getChargeCode().getDescription());
             // todo(hajar): pretax, tax, total
 //            item.setPretaxAmount(ZERO);
 //            item.setTaxAmount(ZERO);
