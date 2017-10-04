@@ -337,4 +337,20 @@ export class CreditNoteActions {
       payload: message,
     };
   }
+  
+  static REMOVE_CREDIT_NOTE_TASK = '[CreditNote] Remove CreditNote Task';
+  removeCreditNoteTask(creditNoteTask): Action {
+      return {
+          type: CreditNoteActions.REMOVE_CREDIT_NOTE_TASK,
+          payload: creditNoteTask,
+    };
+  }
+
+  static REMOVE_CREDIT_NOTE_TASK_SUCCESS = '[CreditNote] Remove CreditNote Task Success';
+  removeCreditNoteTaskSuccess(task): Action {
+      return {
+          type: CreditNoteActions.REMOVE_CREDIT_NOTE_TASK_SUCCESS,
+          payload: task,
+    };
+  }
 }
