@@ -55,6 +55,5 @@ export class SecurityChargeCodeEditorDialog implements OnInit {
     if (this.edit) this.store.dispatch(this.actions.updateSecurityChargeCode(code));
     else  this.store.dispatch(this.actions.saveSecurityChargeCode(code));
     this.dialog.close();
-    window.location.reload();
   }
 }
