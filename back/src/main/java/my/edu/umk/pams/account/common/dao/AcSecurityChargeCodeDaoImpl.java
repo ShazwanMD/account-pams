@@ -12,6 +12,7 @@ import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
 import my.edu.umk.pams.account.common.model.AcSecurityChargeCodeImpl;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 
+
 @Repository("securityChargesDao")
 public class AcSecurityChargeCodeDaoImpl extends GenericDaoSupport<Long, AcSecurityChargeCode> implements AcSecurityChargeCodeDao {
 
@@ -41,6 +42,15 @@ public class AcSecurityChargeCodeDaoImpl extends GenericDaoSupport<Long, AcSecur
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         query.setCacheable(true);
+        return (List<AcSecurityChargeCode>) query.list();
+    }
+    
+    @Override
+    public List<AcSecurityChargeCode> findAcSecurityChargeCodesByActive(Boolean active) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select p from AcSecurityChargeCode p " +
+                "where p.active = :active ");
+        query.setBoolean("active", active);
         return (List<AcSecurityChargeCode>) query.list();
     }
 

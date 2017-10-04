@@ -762,6 +762,27 @@ export class SetupActions {
     };
   }
 
+//9------------------------------------------------------------------------------------------//
+static FIND_SECURITY_CHARGE_CODES_BY_ACTIVE = '[Setup] Find Security Charge Codes By Active';
+
+  findSecurityChargeCodesByActive(): Action {
+    console.log("findSecurityChargeCodesByActive");
+    return {
+      type: SetupActions.FIND_SECURITY_CHARGE_CODES_BY_ACTIVE,
+    };
+  }
+
+//10------------------------------------------------------------------------------------------//
+  static FIND_SECURITY_CHARGE_CODES_BY_ACTIVE_SUCCESS = '[Setup] Find Security Charge Codes By Active Success';
+
+  findSecurityChargeCodesByActiveSuccess(codes): Action {
+    console.log("findSecurityChargeCodesByActiveSuccess");
+    return {
+      type: SetupActions.FIND_SECURITY_CHARGE_CODES_BY_ACTIVE_SUCCESS,
+      payload: codes
+    };
+  }  
+
 }
 
 //===========================================================================================//

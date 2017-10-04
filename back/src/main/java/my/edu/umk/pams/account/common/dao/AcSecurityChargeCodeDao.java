@@ -13,6 +13,8 @@ public interface AcSecurityChargeCodeDao extends GenericDao<Long, AcSecurityChar
     AcSecurityChargeCode findByCode(String code);
 
     List<AcSecurityChargeCode> find(String filter, Integer offset, Integer limit);
+    
+	List<AcSecurityChargeCode> findAcSecurityChargeCodesByActive(Boolean current);
 
     // ====================================================================================================
     // HELPER
@@ -20,4 +22,6 @@ public interface AcSecurityChargeCodeDao extends GenericDao<Long, AcSecurityChar
     Integer count(String filter);
 
     boolean isExists(String code);
+
+
 }

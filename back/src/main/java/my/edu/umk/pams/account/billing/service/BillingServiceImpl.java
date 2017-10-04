@@ -683,6 +683,11 @@ public class BillingServiceImpl implements BillingService {
 	public List<AcDebitNote> findDebitNotesByFlowState(AcFlowState flowState) {
 		return debitNoteDao.findByFlowState(flowState);
 	}
+	
+	@Override
+	public List<AcDebitNote> findDebitNotesByFlowStates(AcFlowState... flowStates ) {
+		return debitNoteDao.findByFlowStates(flowStates);
+	}
 
 	@Override
 	public List<AcDebitNoteItem> findDebitNoteItems(AcDebitNote debitNote) {
@@ -822,6 +827,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<AcCreditNote> findCreditNotesByFlowState(AcFlowState flowState) {
 		return creditNoteDao.findByFlowState(flowState);
+	}
+	
+	@Override
+	public List<AcCreditNote> findCreditNotesByFlowStates(AcFlowState... flowStates ) {
+		return creditNoteDao.findByFlowStates(flowStates);
 	}
 
 	@Override
