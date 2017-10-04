@@ -82,10 +82,28 @@
      ac_acct_trsn."transaction_code" AS ac_acct_trsn_transaction_code,
      ac_acct_trsn."account_id" AS ac_acct_trsn_account_id,
      ac_acct_trsn."charge_code_id" AS ac_acct_trsn_charge_code_id,
-     ac_acct_trsn."session_id" AS ac_acct_trsn_session_id
+     ac_acct_trsn."session_id" AS ac_acct_trsn_session_id,
+     ac_stdn."student_status" AS ac_stdn_student_status,
+     ac_stdn."id" AS ac_stdn_id,
+     ac_stdn."cohort_code_id" AS ac_stdn_cohort_code_id,
+     ac_stdn."residency_code_id" AS ac_stdn_residency_code_id,
+     ac_chrt_code."id" AS ac_chrt_code_id,
+     ac_chrt_code."code" AS ac_chrt_code_code,
+     ac_chrt_code."description" AS ac_chrt_code_description,
+     ac_chrt_code."c_ts" AS ac_chrt_code_c_ts,
+     ac_chrt_code."c_id" AS ac_chrt_code_c_id,
+     ac_chrt_code."d_ts" AS ac_chrt_code_d_ts,
+     ac_chrt_code."d_id" AS ac_chrt_code_d_id,
+     ac_chrt_code."m_ts" AS ac_chrt_code_m_ts,
+     ac_chrt_code."m_id" AS ac_chrt_code_m_id,
+     ac_chrt_code."m_st" AS ac_chrt_code_m_st,
+     ac_chrt_code."program_code_id" AS ac_chrt_code_program_code_id
 FROM
-     "public"."ac_fcty_code" ac_fcty_code INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_fcty_code."id" = ac_prgm_code."faculty_code_id",
-     "public"."ac_actr" ac_actr INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
+     "public"."ac_fcty_code" ac_fcty_code INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_fcty_code."id" = ac_prgm_code."faculty_code_id"
+     INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_prgm_code."id" = ac_chrt_code."program_code_id"
+     INNER JOIN "public"."ac_stdn" ac_stdn ON ac_chrt_code."id" = ac_stdn."cohort_code_id"
+     INNER JOIN "public"."ac_actr" ac_actr ON ac_stdn."id" = ac_actr."id"
+     INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
      INNER JOIN "public"."ac_acct_trsn" ac_acct_trsn ON ac_acct."id" = ac_acct_trsn."account_id"
      INNER JOIN "public"."ac_acdm_sesn" ac_acdm_sesn ON ac_acct_trsn."session_id" = ac_acdm_sesn."id"]]>
 	</queryString>
@@ -166,6 +184,21 @@ FROM
 	<field name="ac_acct_trsn_account_id" class="java.lang.Long"/>
 	<field name="ac_acct_trsn_charge_code_id" class="java.lang.Long"/>
 	<field name="ac_acct_trsn_session_id" class="java.lang.Long"/>
+	<field name="ac_stdn_student_status" class="java.lang.Integer"/>
+	<field name="ac_stdn_id" class="java.lang.Long"/>
+	<field name="ac_stdn_cohort_code_id" class="java.lang.Long"/>
+	<field name="ac_stdn_residency_code_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_code" class="java.lang.String"/>
+	<field name="ac_chrt_code_description" class="java.lang.String"/>
+	<field name="ac_chrt_code_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrt_code_c_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_d_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrt_code_d_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_m_ts" class="java.sql.Timestamp"/>
+	<field name="ac_chrt_code_m_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_m_st" class="java.lang.Integer"/>
+	<field name="ac_chrt_code_program_code_id" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -181,7 +214,7 @@ FROM
 		</band>
 	</title>
 	<pageHeader>
-		<band height="109" splitType="Stretch">
+		<band height="102" splitType="Stretch">
 			<textField>
 				<reportElement x="76" y="3" width="174" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
@@ -247,7 +280,7 @@ FROM
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="130" y="1" width="100" height="20" uuid="a9cdee61-6cdc-4298-9927-2d4c0be3e7f3"/>
+				<reportElement x="115" y="1" width="83" height="20" uuid="a9cdee61-6cdc-4298-9927-2d4c0be3e7f3"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="1.0"/>
@@ -259,7 +292,7 @@ FROM
 				<text><![CDATA[Document No]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="1" width="100" height="20" uuid="a18e2710-29fb-4f7c-99a7-f32c139d632f"/>
+				<reportElement x="199" y="1" width="158" height="20" uuid="a18e2710-29fb-4f7c-99a7-f32c139d632f"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="1.0"/>
@@ -271,7 +304,7 @@ FROM
 				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="330" y="1" width="105" height="20" uuid="2692920c-e259-466c-9909-5b13fc8a6b18"/>
+				<reportElement x="356" y="1" width="47" height="20" uuid="2692920c-e259-466c-9909-5b13fc8a6b18"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="1.0"/>
@@ -283,7 +316,7 @@ FROM
 				<text><![CDATA[Debit]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="1" width="100" height="20" uuid="2c116ec3-2065-403e-bb03-7c045d92daca"/>
+				<reportElement x="30" y="1" width="85" height="20" uuid="2c116ec3-2065-403e-bb03-7c045d92daca"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -304,12 +337,36 @@ FROM
 				</box>
 				<text><![CDATA[Bil]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="404" y="1" width="50" height="20" uuid="6d707189-8448-4820-99a4-af158afde6c0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Credit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="1" width="50" height="20" uuid="66af4c93-14c3-4e93-ad7e-9deff8dc9512"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Balance]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="30" y="0" width="100" height="20" uuid="92c99a45-15db-4235-9ddd-e41645b6f4f5"/>
+				<reportElement x="30" y="0" width="85" height="20" uuid="92c99a45-15db-4235-9ddd-e41645b6f4f5"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="1.0"/>
@@ -320,7 +377,7 @@ FROM
 				<textFieldExpression><![CDATA[$F{ac_acct_trsn_posted_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="130" y="0" width="100" height="20" uuid="c2f73da2-7f3e-4fad-8ae2-7354be07b645"/>
+				<reportElement x="115" y="0" width="83" height="20" uuid="c2f73da2-7f3e-4fad-8ae2-7354be07b645"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="1.0"/>
@@ -331,9 +388,9 @@ FROM
 				<textFieldExpression><![CDATA[$F{ac_acct_trsn_source_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="230" y="0" width="100" height="20" uuid="f294e669-e590-4fa6-97a7-0d3fe3935130"/>
+				<reportElement x="199" y="0" width="157" height="20" uuid="f294e669-e590-4fa6-97a7-0d3fe3935130"/>
 				<box>
-					<pen lineWidth="0.0"/>
+					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -342,7 +399,7 @@ FROM
 				<textFieldExpression><![CDATA[$F{ac_acct_trsn_description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="330" y="0" width="105" height="20" uuid="bb6be1a2-619e-4487-bbe4-8b477554220e"/>
+				<reportElement x="357" y="0" width="46" height="20" uuid="bb6be1a2-619e-4487-bbe4-8b477554220e"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="1.0"/>
@@ -350,6 +407,7 @@ FROM
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{ac_acct_trsn_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
