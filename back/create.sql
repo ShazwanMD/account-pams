@@ -80,6 +80,26 @@
         TAX_CODE_ID int8,
         primary key (ID)
     );
+    
+     create table AC_ACCT_CHRG_TRSN (
+        ID int8 not null,
+        AMOUNT numeric(19, 2) not null,
+        DESCRIPTION varchar(255) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        POSTED_DATE timestamp not null,
+        SOURCE_NO varchar(255) not null,
+        TRANSACTION_CODE int4 not null,
+        ACCOUNT_ID int8,
+        CHARGE_ID int8,
+        SESSION_ID int8 not null,
+        primary key (ID)
+    );    
 
 
     create table AC_ACCT_STL (
@@ -1586,7 +1606,22 @@ create table AC_RFND_PYMT (
         add constraint FK_cjojy4m3cr24g4hx7n23fnuge 
         foreign key (STUDY_MODE_ID) 
         references AC_STDY_MODE;
-
+        
+    alter table AC_ACCT_CHRG_TRSN
+        add constraint FK_7scem81vjyp92ew1quqqrwebj
+        foreign key (ACCOUNT_ID)
+        references AC_ACCT;
+        
+     alter table AC_ACCT_CHRG_TRSN
+        add constraint FK_tmeqyaoy1umx2f8t50j3m15oe
+        foreign key (CHARGE_ID)
+        references AC_ACCT_CHRG;
+        
+    alter table AC_ACCT_CHRG_TRSN
+        add constraint FK_gok5lgsyud20w75frwjala98a
+        foreign key (SESSION_ID)
+        references AC_ACDM_SESN;
+        
     alter table AC_ACCT_STL 
         add constraint FK_e4ftnj68uuggufmccnc1tm136 
         foreign key (ACCOUNT_ID) 
