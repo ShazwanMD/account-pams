@@ -247,6 +247,11 @@ export class BillingService {
         return this._http.post( this.BILLING_API + '/receipts/releaseTask', JSON.stringify( receiptTask ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
+    
+    removeReceiptTask(receiptTask: ReceiptTask): Observable<String> {
+        return this._http.post(this.BILLING_API + '/receipts/removeTask', JSON.stringify(receiptTask))
+            .flatMap((res: Response) => Observable.of(res.text()));
+    }
 
     updateReceipt( receipt: Receipt ): Observable<String> {
         return this._http.put( this.BILLING_API + '/receipts/'  + receipt.referenceNo , JSON.stringify( receipt ) )
@@ -393,6 +398,11 @@ export class BillingService {
         return this._http.post( this.BILLING_API + '/creditNotes/releaseTask', JSON.stringify( creditNoteTask ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
+    
+    removeCreditNoteTask(creditNoteTask: CreditNoteTask): Observable<String> {
+        return this._http.post(this.BILLING_API + '/creditNotes/removeTask', JSON.stringify(creditNoteTask))
+            .flatMap((res: Response) => Observable.of(res.text()));
+    }
 
     updateCreditNote( creditNote: CreditNote ) {
         console.log( 'saving creditNote' + creditNote.id );
@@ -505,6 +515,11 @@ export class BillingService {
         return this._http.post( this.BILLING_API + '/debitNotes/releaseTask', JSON.stringify( debitNoteTask ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
+    
+    removeDebitNoteTask(debitNoteTask: DebitNoteTask): Observable<String> {
+        return this._http.post(this.BILLING_API + '/debitNotes/removeTask', JSON.stringify(debitNoteTask))
+            .flatMap((res: Response) => Observable.of(res.text()));
+    }
 
     updateDebitNote( debitNote: DebitNote ) {
         console.log( 'saving creditNote' + debitNote.id );
@@ -584,6 +599,11 @@ export class BillingService {
     releaseKnockoffTask( knockoffTask: KnockoffTask ): Observable<String> {
         return this._http.post( this.BILLING_API + '/knockoffs/releaseTask', JSON.stringify( knockoffTask ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
+    removeKnockoffTask(knockoffTask: KnockoffTask): Observable<String> {
+        return this._http.post(this.BILLING_API + '/knockoffs/removeTask', JSON.stringify(knockoffTask))
+            .flatMap((res: Response) => Observable.of(res.text()));
     }
 
     findCompletedKnockoffs(): Observable<Knockoff[]> {
@@ -742,6 +762,11 @@ export class BillingService {
   releaseWaiverFinanceApplicationTask(waiverFinanceApplicationTask: WaiverFinanceApplicationTask): Observable<String> {
     return this._http.post(this.BILLING_API + '/waiverFinanceApplications/releaseTask', JSON.stringify(waiverFinanceApplicationTask))
       .flatMap((res: Response) => Observable.of(res.text()));
+  }
+  
+  removeWaiverFinanceApplicationTask(waiverFinanceApplicationTask: WaiverFinanceApplicationTask): Observable<String> {
+      return this._http.post(this.BILLING_API + '/waiverFinanceApplications/removeTask', JSON.stringify(waiverFinanceApplicationTask))
+          .flatMap((res: Response) => Observable.of(res.text()));
   }
 
   updateWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplication): Observable<Boolean> {

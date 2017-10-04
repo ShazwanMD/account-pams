@@ -213,6 +213,17 @@ export class ReceiptEffects {
   .switchMap(() => this.accountService.findCompletedAccountCharges())
   .map((charges) => this.receiptActions.findCompletedAccountChargesSuccess(charges));
   
+  @Effect() removeReceiptTask$ = this.actions$
+  .ofType(ReceiptActions.REMOVE_RECEIPT_TASK)
+  .map((action) => action.payload)
+  .switchMap((receiptTask) => this.billingService.removeReceiptTask(receiptTask))
+  .map((task) => this.receiptActions.removeReceiptTaskSuccess(task))
+  .mergeMap((action) => from([action,
+                              this.receiptActions.findAssignedReceiptTasks(),
+                              this.receiptActions.findPooledReceiptTasks(),
+    ],
+  ));
+  
   @Effect() addReceiptCharge$ =
       this.actions$
         .ofType(ReceiptActions.ADD_RECEIPT_CHARGE)

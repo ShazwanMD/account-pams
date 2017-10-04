@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 import {BillingModuleState} from '../../index';
 import {ReceiptTask} from '../../../../shared/model/billing/receipt-task.interface';
 import {ReceiptItem} from '../../../../shared/model/billing/receipt-item.interface';
+import { TdDialogService } from "@covalent/core";
 
 @Component({
   selector: 'pams-receipt-register-task',
@@ -26,6 +27,7 @@ export class ReceiptRegisterTaskPanel implements OnInit {
               private actions: ReceiptActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
+              private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
     this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
   }
@@ -53,4 +55,23 @@ export class ReceiptRegisterTaskPanel implements OnInit {
   goBack(): void {
     this.router.navigate(['/secure/billing/receipts']);
   }
+  
+  cancel(): void {
+      console.log("Receipt " + this.receiptTask.receipt);
+      this._dialogService.openConfirm({
+        message: 'Cancel Receipt ' + this.receiptTask.receipt.referenceNo + ' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.viewContainerRef,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.removeReceiptTask(this.receiptTask));
+          this.router.navigate(['/secure/billing/receipts']);
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    }
+  
 }

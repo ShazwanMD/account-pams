@@ -557,6 +557,16 @@ public class BillingController {
         e.setDebitNote(debitNote);
         billingService.addReceiptDebitNote(receipt, debitNote);
     }
+    
+    @RequestMapping(value = "/receipts/removeTask", method = RequestMethod.POST)
+ 	public void removeReceiptTask(@RequestBody ReceiptTask vo) {
+
+       Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
+    }
 
     // ==================================================================================================== //
     //  DEBIT NOTE
@@ -714,6 +724,16 @@ public class BillingController {
         }
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/debitnotes/removeTask", method = RequestMethod.POST)
+ 	public void removeDebitNoteTask(@RequestBody DebitNoteTask vo) {
+
+       Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
+    }
 
     // ==================================================================================================== //
     //  CREDIT NOTE
@@ -858,6 +878,16 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/creditNotes/removeTask", method = RequestMethod.POST)
+ 	public void removeCreditNoteTask(@RequestBody CreditNoteTask vo) {
+
+       Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
+    }
+    
     // ==================================================================================================== //
     //  KNOCKOFF
     // ==================================================================================================== //
@@ -984,6 +1014,16 @@ public class BillingController {
         Task task = billingService.findKnockoffTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/removeTask", method = RequestMethod.POST)
+ 	public void removeKnockoffTask(@RequestBody KnockoffTask vo) {
+
+       Task task = billingService.findKnockoffTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
     }
     
     @RequestMapping(value = "/knockoffs/{referenceNo}/accountCharge/{id}", method = RequestMethod.POST)
@@ -1193,6 +1233,16 @@ public class BillingController {
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/refundPayments/removeTask", method = RequestMethod.POST)
+ 	public void removeRefundPaymentTask(@RequestBody RefundPaymentTask vo) {
+
+       Task task = billingService.findRefundPaymentTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
+    }
 
     // ====================================================================================================
     // WAIVER FINANCE APPLICATION
@@ -1383,6 +1433,16 @@ public class BillingController {
     	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);;
         return new ResponseEntity<List<WaiverAccountCharge>>(billingTransformer
                 .toWaiverAccountChargeVos(billingService.findWaiverAccountCharge(waiverApplication)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/removeTask", method = RequestMethod.POST)
+ 	public void removeWaiverFinanceApplicationTask(@RequestBody WaiverFinanceApplicationTask vo) {
+
+       Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
     }
 
 }
