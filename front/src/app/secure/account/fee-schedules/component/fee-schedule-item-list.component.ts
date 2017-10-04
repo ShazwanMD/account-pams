@@ -45,7 +45,11 @@ export class FeeScheduleItemListComponent implements OnInit {
   }
 
   delete(scheduleItem: FeeScheduleItem): void {
-    this.store.dispatch(this.actions.deleteFeeScheduleItem(this.feeSchedule, scheduleItem));
+    console.log('length: ' + this.selectedRows.length);
+    for (let i: number = 0; i < this.selectedRows.length; i++) {
+      this.store.dispatch(this.actions.deleteFeeScheduleItem(this.feeSchedule, this.selectedRows[i]));
+    }
+    this.selectedRows = [];
   }
 
   filter(): void {
