@@ -221,6 +221,7 @@ export class ReceiptEffects {
   .mergeMap((action) => from([action,
                               this.receiptActions.findAssignedReceiptTasks(),
                               this.receiptActions.findPooledReceiptTasks(),
+                              this.receiptActions.findArchivedReceipts(),
     ],
   ));
   
