@@ -8,6 +8,7 @@ import {BillingModuleState} from '../../index';
 import {Observable} from 'rxjs/Observable';
 import {InvoiceTask} from '../../../../shared/model/billing/invoice-task.interface';
 import {InvoiceItem} from '../../../../shared/model/billing/invoice-item.interface';
+import { TdDialogService } from "@covalent/core";
 
 @Component({
   selector: 'pams-invoice-register-task',
@@ -26,6 +27,7 @@ export class InvoiceRegisterTaskPanel {
               private actions: InvoiceActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
+              private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
     this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
   }
@@ -53,4 +55,22 @@ export class InvoiceRegisterTaskPanel {
   goBack(): void {
     this.router.navigate(['/secure/billing/invoices']);
   }
+  
+  cancel(): void {
+      console.log("Invoice" + this.invoiceTask.invoice);
+      this._dialogService.openConfirm({
+        message: 'Cancel Invoice ' + this.invoiceTask.invoice.referenceNo + ' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.viewContainerRef,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.removeInvoiceTask(this.invoiceTask));
+          this.router.navigate(['/secure/billing/invoices']);
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    }
 }

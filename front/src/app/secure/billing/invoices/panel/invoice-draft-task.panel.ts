@@ -56,7 +56,7 @@ export class InvoiceDraftTaskPanel implements OnInit {
     this.router.navigate(['/secure/billing/invoices']);
   }
   
-  cancelDialog(): void {
+  cancel(): void {
       console.log("Invoice" + this.invoiceTask.invoice);
       this._dialogService.openConfirm({
         message: 'Cancel Invoice ' + this.invoiceTask.invoice.referenceNo + ' ?',
@@ -66,12 +66,11 @@ export class InvoiceDraftTaskPanel implements OnInit {
         acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
       }).afterClosed().subscribe((accept: boolean) => {
         if (accept) {
-          this.store.dispatch(this.actions.cancelInvoice(this.invoiceTask.invoice));
+          this.store.dispatch(this.actions.removeInvoiceTask(this.invoiceTask));
           this.router.navigate(['/secure/billing/invoices']);
         } else {
           // DO SOMETHING ELSE
         }
       });
-
     }
 }

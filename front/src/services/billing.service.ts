@@ -138,6 +138,11 @@ export class BillingService {
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
 
+    removeInvoiceTask(invoiceTask: InvoiceTask): Observable<String> {
+        return this._http.post(this.BILLING_API + '/invoices/removeTask', JSON.stringify(invoiceTask))
+            .flatMap((res: Response) => Observable.of(res.text()));
+    }
+    
     updateInvoice( invoice: Invoice ): Observable<String> {
         return this._http.put( this.BILLING_API + '/invoices', JSON.stringify( invoice ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );

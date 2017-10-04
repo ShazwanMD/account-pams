@@ -161,6 +161,7 @@ public class BillingController {
  	public void removeInvoiceTask(@RequestBody InvoiceTask vo) {
 
        Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
        Map<String, Object> variables = new HashMap<String, Object>();
        variables.put(REMOVE_DECISION, TRUE);
        workflowService.completeTask(task, variables);
