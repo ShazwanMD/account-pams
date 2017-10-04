@@ -59,6 +59,7 @@ public class WaiverApplicationApproveTask extends BpmnActivityBehavior
         waiver.setAmount(application.getWaivedAmount());
         waiver.setSession(application.getSession());
         waiver.setAccount(application.getAccount());
+        waiver.setWaiverType(application.getWaiverType());
 
         // save waiver
         accountService.addAccountWaiver(application.getAccount(), application.getSession(), waiver);

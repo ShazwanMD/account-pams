@@ -13,4 +13,7 @@
       <span flex>{{value}}</span>
     </div>
   </template>
+  <template tdDataTableTemplate="status" let-value="value" let-row="row" let-column="column">
+      <div layout="row">{{row['status'] ? 'Used' : 'Unused'}}</div>
+    </template>
 </td-data-table>

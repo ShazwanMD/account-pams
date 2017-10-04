@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.web.module.common.vo.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import static java.lang.Boolean.TRUE;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -347,6 +350,12 @@ public class CommonController {
                 commonService.findSecurityChargeCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/securityChargeCodesActive", method = RequestMethod.GET)
+    public ResponseEntity<List<SecurityChargeCode>> findSecurityChargeCodesByActive() {
+        List<AcSecurityChargeCode> securityChargeCodes = commonService.findSecurityChargeCodesByActive(TRUE);
+        return new ResponseEntity<List<SecurityChargeCode>>(commonTransformer.toSecurityChargeCodeVos(securityChargeCodes), HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/securityChargeCode/{code}", method = RequestMethod.GET)
     public ResponseEntity<SecurityChargeCode> findSecurityChargeCode(@PathVariable String code) {
         return new ResponseEntity<SecurityChargeCode>(commonTransformer.toSecurityChargeCodeVo(

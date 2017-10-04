@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.common.dao.*;
 import my.edu.umk.pams.account.common.model.*;
 import my.edu.umk.pams.account.security.service.SecurityService;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -789,6 +790,11 @@ public class CommonServiceImpl implements CommonService {
         return securityChargeCodeDao.findByCode(code);
     }
 
+    @Override
+    public List<AcSecurityChargeCode> findSecurityChargeCodesByActive(Boolean active) {
+        return securityChargeCodeDao.findAcSecurityChargeCodesByActive(active);
+    }
+        
     @Override
     public List<AcSecurityChargeCode> findSecurityChargeCodes() {
         return securityChargeCodeDao.find();

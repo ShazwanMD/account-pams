@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.web.module.account.vo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationType;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -15,6 +16,8 @@ public class AccountWaiver extends MetaObject{
     private String sourceNo;
     private BigDecimal amount;
     private AcademicSession session;
+    private boolean status;
+    private WaiverApplicationType waiverType;
 
     public String getSourceNo() {
         return sourceNo;
@@ -40,7 +43,23 @@ public class AccountWaiver extends MetaObject{
         this.session = session;
     }
 
-    @JsonCreator
+    public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public WaiverApplicationType getWaiverType() {
+		return waiverType;
+	}
+
+	public void setWaiverType(WaiverApplicationType waiverType) {
+		this.waiverType = waiverType;
+	}
+
+	@JsonCreator
     public static AccountWaiver create(String jsonString) {
         AccountWaiver o = null;
         try {

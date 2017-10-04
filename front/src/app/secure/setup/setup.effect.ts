@@ -191,6 +191,12 @@ export class SetupEffects {
     .switchMap(() => this.commonService.findSecurityChargeCodes())
     .map(codes => this.setupActions.findSecurityChargeCodesSuccess(codes));
 
+  @Effect() findSecurityChargeCodesByActive$ = this.actions$
+    .ofType(SetupActions.FIND_SECURITY_CHARGE_CODES_BY_ACTIVE)
+    .map((action) => action.payload)
+    .switchMap(() => this.commonService.findSecurityChargeCodesByActive())
+    .map(codes => this.setupActions.findSecurityChargeCodesByActiveSuccess(codes));
+
   @Effect() saveSecurityChargeCode$ = this.actions$
     .ofType(SetupActions.SAVE_SECURITY_Charge_CODE)
     .map(action => action.payload)

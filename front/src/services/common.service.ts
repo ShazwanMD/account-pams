@@ -245,9 +245,15 @@ export class CommonService {
   // SECURITY Charge CODES
   // ====================================================================================================
 
-    findSecurityChargeCodes(): Observable<SecurityChargeCode[]> {
+  findSecurityChargeCodes(): Observable<SecurityChargeCode[]> {
     console.log('findSecurityChargeCodes');
     return this._http.get(this.COMMON_API + '/securityChargeCodes')
+      .map((res: Response) => <SecurityChargeCode[]>res.json());
+  }
+
+  findSecurityChargeCodesByActive(): Observable<SecurityChargeCode[]> {
+    console.log('findSecurityChargeCodesActive');
+    return this._http.get(this.COMMON_API + '/securityChargeCodesActive')
       .map((res: Response) => <SecurityChargeCode[]>res.json());
   }
 

@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.account.model;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplicationImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,6 +40,10 @@ public class AcAccountWaiverImpl implements AcAccountWaiver {
     @JoinColumn(name = "SESSION_ID")
     private AcAcademicSession session;
 
+    @Enumerated(value = EnumType.ORDINAL)
+    @Column(name = "WAIVER_TYPE", nullable = false)
+    private AcWaiverApplicationType waiverType;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -97,12 +102,24 @@ public class AcAccountWaiverImpl implements AcAccountWaiver {
         this.metadata = metadata;
     }
 
+    @Override
 	public Boolean getStatus() {
 		return status;
 	}
 
+    @Override
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+    @Override
+	public AcWaiverApplicationType getWaiverType() {
+		return waiverType;
+	}
+
+    @Override
+	public void setWaiverType(AcWaiverApplicationType waiverType) {
+		this.waiverType = waiverType;
 	}
 
 	@Override

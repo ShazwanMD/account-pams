@@ -19,6 +19,7 @@ import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.billing.vo.DebitNote;
 import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
+import my.edu.umk.pams.account.web.module.billing.vo.WaiverFinanceApplicationTask;
 import my.edu.umk.pams.account.web.module.financialaid.vo.Settlement;
 import my.edu.umk.pams.account.web.module.financialaid.vo.SettlementItem;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
@@ -43,6 +44,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import static java.lang.Boolean.TRUE;
+import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_DECISION;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -50,7 +54,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -346,6 +352,16 @@ public class FinancialAidController {
         
         Task task = financialAidService.findWaiverApplicationTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
+    }
+    
+    @RequestMapping(value = "/waiverApplications/removeTask", method = RequestMethod.POST)
+ 	public void removeWaiverApplicationTask(@RequestBody WaiverApplicationTask vo) {
+
+       Task task = financialAidService.findWaiverApplicationTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
     }
 
     // ====================================================================================================
