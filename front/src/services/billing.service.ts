@@ -860,6 +860,11 @@ export class BillingService {
         return this._http.post( this.BILLING_API + '/refundPayments/releaseTask', JSON.stringify( refundPaymentTask ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
+    
+    removeRefundPaymentTask(refundPaymentTask: RefundPaymentTask): Observable<String> {
+        return this._http.post(this.BILLING_API + '/refundPayments/removeTask', JSON.stringify(refundPaymentTask))
+            .flatMap((res: Response) => Observable.of(res.text()));
+    }
 
     findCompletedRefundPayments(): Observable<RefundPayment[]> {
         console.log( 'findCompletedRefundPayments' );
