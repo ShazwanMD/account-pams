@@ -10,6 +10,7 @@ import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
+import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationType;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.web.module.identity.vo.ActorType;
 import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
@@ -192,6 +193,8 @@ public class AccountTransformer {
         m.setSourceNo(e.getSourceNo());
         m.setAmount(e.getAmount());
         m.setSession(toAcademicSessionVo(e.getSession()));
+        m.setStatus(e.getStatus());
+        m.setWaiverType(WaiverApplicationType.get(e.getWaiverType().ordinal()));
         return m;
     }
 

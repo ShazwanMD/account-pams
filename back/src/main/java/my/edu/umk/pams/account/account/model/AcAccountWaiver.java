@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.model;
 
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.core.AcMetaObject;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
 import java.math.BigDecimal;
 
@@ -42,4 +43,7 @@ public interface AcAccountWaiver extends AcMetaObject {
 
 	void setStatus(Boolean status);
 
+	AcWaiverApplicationType getWaiverType();
+
+	void setWaiverType(AcWaiverApplicationType waiverType);
 }

@@ -15,5 +15,6 @@ export interface WaiverApplication extends Document {
   gracedAmount: number;
   account: Account;
   academicSession: AcademicSession;
+  waiverType: WaiverApplicationType;
 }
 

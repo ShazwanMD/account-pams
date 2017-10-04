@@ -18,6 +18,8 @@ export class AccountWaiverListComponent implements OnInit {
     {name: 'sourceNo', label: 'Source No'},
     {name: 'amount', label: 'Amount'},
     {name: 'session.code', label: 'Session'},
+    {name: 'waiverType', label: 'Type'},
+    {name: 'status', label: 'Status'},
     {name: 'action', label: ''},
   ];
 
