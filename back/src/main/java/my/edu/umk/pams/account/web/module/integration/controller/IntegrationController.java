@@ -142,6 +142,8 @@ public class IntegrationController {
 
         // this is admission
         AcAcademicSession academicSession = accountService.findAcademicSessionByCode(payload.getAcademicSession().getCode());
+        LOG.debug("AcademicSession:{}",academicSession.getCode());
+        
         AcStudent student = identityService.findStudentByMatricNo(payload.getStudent().getMatricNo());
         AcAccount account = accountService.findAccountByActor(student);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -163,6 +165,7 @@ public class IntegrationController {
             charge.setStudyMode(commonService.findStudyModeByCode(payload.getStudyMode().getCode()));
         accountService.addAccountCharge(account, charge);
 
+        LOG.debug("AfterAddAccountCharge:{}",charge.getAccount().getActor().getIdentityNo());
         logoutAsSystem(ctx);
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
