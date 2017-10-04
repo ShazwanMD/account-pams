@@ -6,6 +6,7 @@ import {Store} from '@ngrx/store';
 import {BillingModuleState } from '../../index';
 import {WaiverApplicationTask} from '../../../../shared/model/financialaid/waiver-application-task.interface';
 import { WaiverFinanceApplicationTask } from "../../../../shared/model/billing/waiver-finance-application-task.interface";
+import { TdDialogService } from "@covalent/core";
 
 @Component({
   selector: 'pams-waiver-finance-application-register-task',
@@ -22,6 +23,7 @@ export class WaiverFinanceApplicationRegisterTaskPanel implements OnInit {
               private actions: WaiverFinanceApplicationActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
+              private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
   }
 
@@ -36,4 +38,22 @@ export class WaiverFinanceApplicationRegisterTaskPanel implements OnInit {
   goBack(): void {
     this.router.navigate(['/secure/billing/waiver-finance-applications']);
   }
+  
+  cancel(): void {
+      console.log("Waiver Finance Application" + this.waiverFinanceApplicationTask.application);
+      this._dialogService.openConfirm({
+        message: 'Cancel Waiver Finance Application ' + this.waiverFinanceApplicationTask.application.referenceNo + ' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.viewContainerRef,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.removeWaiverFinanceApplicationTask(this.waiverFinanceApplicationTask));
+          this.router.navigate(['/secure/billing/waiver-finance-applications']);
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    }
 }

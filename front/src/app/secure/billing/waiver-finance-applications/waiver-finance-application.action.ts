@@ -439,4 +439,20 @@ export class WaiverFinanceApplicationActions {
       payload: message
     };
   }
+  
+  static REMOVE_WAIVER_TASK = '[WaiverFinanceApplication] Remove WaiverFinanceApplication Task';
+  removeWaiverFinanceApplicationTask(waiverTask): Action {
+      return {
+          type: WaiverFinanceApplicationActions.REMOVE_WAIVER_TASK,
+          payload: waiverTask,
+    };
+  }
+
+  static REMOVE_WAIVER_TASK_SUCCESS = '[WaiverFinanceApplication] Remove WaiverFinanceApplication Task Success';
+  removeWaiverFinanceApplicationTaskSuccess(task): Action {
+      return {
+          type: WaiverFinanceApplicationActions.REMOVE_WAIVER_TASK_SUCCESS,
+          payload: task,
+    };
+  }
 }

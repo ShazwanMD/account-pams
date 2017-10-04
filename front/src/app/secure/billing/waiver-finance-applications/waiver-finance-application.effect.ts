@@ -62,6 +62,17 @@ export class WaiverFinanceApplicationEffects {
       ],
     ));
 
+  @Effect() removeWaiverFinanceApplicationTask$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.REMOVE_WAIVER_TASK)
+  .map((action) => action.payload)
+  .switchMap((waiverFinanceApplicationTask) => this.billingService.removeWaiverFinanceApplicationTask(waiverFinanceApplicationTask))
+  .map((task) => this.waiverFinanceApplicationActions.removeWaiverFinanceApplicationTaskSuccess(task))
+  .mergeMap((action) => from([action,
+                              this.waiverFinanceApplicationActions.findAssignedWaiverFinanceApplicationTasks(),
+                              this.waiverFinanceApplicationActions.findPooledWaiverFinanceApplicationTasks(),
+    ],
+  ));
+  
   @Effect() completeWaiverFinanceApplicationTask$ = this.actions$
     .ofType(WaiverFinanceApplicationActions.COMPLETE_WAIVER_FINANCE_APPLICATION_TASK)
     .map((action) => action.payload)
