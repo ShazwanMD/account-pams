@@ -50,6 +50,8 @@ import java.util.List;
 import java.util.Map;
 
 import static my.edu.umk.pams.account.AccountConstants.RECEIPT_REFERENCE_NO;
+import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_DECISION;
+import static java.lang.Boolean.TRUE;
 
 @Transactional
 @RestController
@@ -153,6 +155,15 @@ public class BillingController {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         billingService.cancelInvoice(invoice);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/invoices/removeTask", method = RequestMethod.POST)
+ 	public void removeInvoiceTask(@RequestBody InvoiceTask vo) {
+
+       Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
     }
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.GET)
