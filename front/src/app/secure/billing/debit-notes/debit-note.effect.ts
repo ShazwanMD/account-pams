@@ -71,6 +71,17 @@ export class DebitNoteEffects {
         this.debitNoteActions.findPooledDebitNoteTasks(),
       ],
     ));
+  
+  @Effect() removeDebitNoteTask$ = this.actions$
+  .ofType(DebitNoteActions.REMOVE_DEBIT_NOTE_TASK)
+  .map((action) => action.payload)
+  .switchMap((debitNoteTask) => this.billingService.removeDebitNoteTask(debitNoteTask))
+  .map((task) => this.debitNoteActions.removeDebitNoteTaskSuccess(task))
+  .mergeMap((action) => from([action,
+                              this.debitNoteActions.findAssignedDebitNoteTasks(),
+                              this.debitNoteActions.findPooledDebitNoteTasks(),
+    ],
+  ));
 
   @Effect() completeDebitNoteTask$ = this.actions$
     .ofType(DebitNoteActions.COMPLETE_DEBIT_NOTE_TASK)
