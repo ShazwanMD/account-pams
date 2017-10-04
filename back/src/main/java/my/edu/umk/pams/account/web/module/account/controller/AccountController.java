@@ -156,11 +156,11 @@ public class AccountController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems", method = RequestMethod.PUT)
+    @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateFeeScheduleItem(@PathVariable String code, @PathVariable Long id, @RequestBody FeeScheduleItem item) {
 
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
-        AcFeeScheduleItem e = accountService.findFeeScheduleItemById(item.getId());
+        AcFeeScheduleItem e = accountService.findFeeScheduleItemById(id);
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setOrdinal(item.getOrdinal());
         e.setAmount(item.getAmount());
@@ -168,7 +168,6 @@ public class AccountController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    
     
     @RequestMapping(value = "/feeSchedules/{code}/feeScheduleItems/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteFeeScheduleItem(@PathVariable String code, @PathVariable Long id) {
