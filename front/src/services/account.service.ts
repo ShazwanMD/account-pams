@@ -59,7 +59,7 @@ export class AccountService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem) {
+  updateFeeScheduleItem(feeSchedule: FeeSchedule, item: FeeScheduleItem): Observable<String> {
     console.log('saving feeSchedule item' + item.id);
     return this._http.put(this.ACCOUNT_API + '/feeSchedules/' + feeSchedule.code + '/feeScheduleItems/' + item.id, JSON.stringify(item))
       .flatMap((res: Response) => Observable.of(res.text()));

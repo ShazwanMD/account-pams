@@ -48,24 +48,16 @@ export class FeeScheduleItemEditorDialog implements OnInit {
       balanceAmount: 0,
       chargeCode: <ChargeCode>{},
     });
-    // this.editForm.patchValue(this.feeScheduleItem);
      if (this.edit) this.editForm.patchValue(this._feeScheduleItem);
   }
-
-  // save(item: FeeScheduleItem, isValid: boolean) {
-  //   item.description = item.chargeCode.description;
-  //   this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item));
-  //   this.close();
-  // }
-
-    submit(item: FeeScheduleItem, isValid: boolean) {
-    item.description = item.chargeCode.description;    
-    if (!item.id) this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item));
-
-    else  this.store.dispatch(this.actions.updateFeeScheduleItem(this._feeSchedule.code, item.id));
-    console.log('update item' + item.id);
-    console.log('update feeSchedule item' + this._feeSchedule.code);
+  
+ submit(item: FeeScheduleItem, isValid: boolean) {
+    item.description = item.chargeCode.description;  
+    
+    if (this.edit) this.store.dispatch(this.actions.updateFeeScheduleItem(this._feeSchedule, item));
+    else  this.store.dispatch(this.actions.addFeeScheduleItem(this._feeSchedule, item));
     this.dialog.close();
+
   }
 
 
