@@ -44,11 +44,6 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
     private AcChargeCode chargeCode;
 
     @NotNull
-    @ManyToOne(targetEntity = AcTaxCodeImpl.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "TAX_CODE_ID")
-    private AcTaxCode taxCode;
-
-    @NotNull
     @ManyToOne(targetEntity = AcInvoiceImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
@@ -123,15 +118,6 @@ public class AcInvoiceItemImpl implements AcInvoiceItem {
     @Override
     public void setChargeCode(AcChargeCode chargeCode) {
         this.chargeCode = chargeCode;
-    }
-
-    @Override
-    public AcTaxCode getTaxCode() {
-        return taxCode;
-    }
-
-    public void setTaxCode(AcTaxCode taxCode) {
-        this.taxCode = taxCode;
     }
 
     @Override

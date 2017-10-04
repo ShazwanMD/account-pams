@@ -50,6 +50,7 @@ import { FacultyCode } from "../../shared/model/common/faculty-code.interface";
 import { facultyCodeListReducer, FacultyCodeListState } from "../../common/faculty-codes/faculty-code-list.reducer";
 import { ProgramCode } from "../../shared/model/common/program-code.interface";
 import { programCodeListReducer, ProgramCodeListState } from "../../common/program-codes/program-code-list.reducer";
+import { SecurityChargeCodeComponent } from './security-charge-codes/component/security-charge-code';
 
 export interface SetupModuleState {
   title: TitleState;
@@ -125,6 +126,7 @@ export const setupModuleReducers = {
 
     // component
     BankCodesComponent,
+    SecurityChargeCodeComponent,
     CohortCodesComponent,
     FacultyCodesComponent,
     ProgramCodesComponent,

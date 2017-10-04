@@ -183,10 +183,8 @@ public class BillingController {
         AcChargeCode chargeCode = accountService.findChargeCodeById(item.getChargeCode().getId());
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = new AcInvoiceItemImpl();
-
         e.setDescription(item.getDescription());
         e.setChargeCode(chargeCode);
-        e.setTaxCode(chargeCode.getTaxCode());
         e.setAmount(item.getAmount());
         e.setBalanceAmount(item.getAmount());
         billingService.calculateNetAmount(e);
@@ -201,7 +199,6 @@ public class BillingController {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         AcInvoiceItem e = billingService.findInvoiceItemById(item.getId());
         e.setChargeCode(chargeCode);
-        e.setTaxCode(chargeCode.getTaxCode());
         e.setDescription(item.getDescription());
         e.setAmount(item.getAmount());
         e.setTaxAmount(item.getTaxAmount());

@@ -25,32 +25,8 @@ export class SecurityChargeCodeListPage implements OnInit {
   private SECURITY_CHARGE_CODES = 'setupModuleState.securityChargeCodes'.split('.');
   private securityChargeCodes$: Observable<SecurityChargeCode[]>;
   private creatorDialogRef: MdDialogRef<SecurityChargeCodeEditorDialog>;
-  private columns: any[] = [
-    {name: 'section', label: 'Compound Section'},
-    {name: 'description', label: 'Compound Description'},
-    {name: 'taxCode.code', label: 'Tax Code'},
-    {name: 'offense', label: 'Compound Offense'},
-    {name: 'offenseDescription', label: 'Compound Offense Description'},
-    {name: 'amountDescription', label: 'Compound Amount Description'},
-    {name: 'amount', label: 'Compound Amount'},
-    {name: 'taxAmount', label: 'Tax Amount'},
-    {name: 'inclusive', label: 'Inclusive'},
-    {name: 'netAmount', label: 'Net Amount'},
-    {name: 'balanceAmount', label: 'Balance Amount'},
-    {name: 'active', label: 'Compound Active'},
-    {name: 'action', label: ''},
-  ];
 
   private securityChargeCodes: SecurityChargeCode[];
-
-  filteredData: any[];
-  filteredTotal: number;
-  searchTerm: string = '';
-  fromRow: number = 1;
-  currentPage: number = 1;
-  pageSize: number = 5;
-  sortBy: string = 'section';
-  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
   constructor(private actions: SetupActions,
               private store: Store<SetupModuleState>,
@@ -74,37 +50,9 @@ export class SecurityChargeCodeListPage implements OnInit {
     this.showDialog(code);
   }
 
-  delete(code: SecurityChargeCode): void {
-    this.store.dispatch(this.actions.removeSecurityChargeCode(code));
-  }
-
-  sort(sortEvent: ITdDataTableSortChangeEvent): void {
-    this.sortBy = sortEvent.name;
-    this.sortOrder = sortEvent.order;
-    this.filter();
-  }
-
-  search(searchTerm: string): void {
-    this.searchTerm = searchTerm;
-    this.filter();
-  }
-
-  page(pagingEvent: IPageChangeEvent): void {
-    this.fromRow = pagingEvent.fromRow;
-    this.currentPage = pagingEvent.page;
-    this.pageSize = pagingEvent.pageSize;
-    this.filter();
-  }
-
-  filter(): void {
-    console.log('filter');
-    let newData: any[] = this.securityChargeCodes;
-    newData = this._dataTableService.filterData(newData, this.searchTerm, true);
-    this.filteredTotal = newData.length;
-    newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
-    newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
-    this.filteredData = newData;
-  }
+  // delete(code: SecurityChargeCode): void {
+  //   this.store.dispatch(this.actions.removeSecurityChargeCode(code));
+  // }
 
   private showDialog(code: SecurityChargeCode): void {
     console.log('create');

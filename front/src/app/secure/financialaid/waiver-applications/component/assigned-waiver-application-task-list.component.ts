@@ -1,20 +1,30 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {
+  Component, 
+  Input, 
+  EventEmitter, 
+  Output, 
+  ChangeDetectionStrategy, 
+  AfterViewInit, 
+  OnChanges, 
+  SimpleChange
+} from '@angular/core';
+import {
+TdDataTableSortingOrder,
+TdDataTableService,
+ITdDataTableSortChangeEvent,
+IPageChangeEvent
+} from '@covalent/core';
 import {MdSnackBar} from '@angular/material';
 import {WaiverApplicationTask} from '../../../../shared/model/financialaid/waiver-application-task.interface';
 import {ActivatedRoute, Router} from '@angular/router';
-import {
-  IPageChangeEvent,
-  ITdDataTableSortChangeEvent,
-  TdDataTableService,
-  TdDataTableSortingOrder
-} from '@covalent/core';
+
 
 @Component({
   selector: 'pams-assigned-waiver-application-task-list',
   templateUrl: './assigned-waiver-application-task-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AssignedWaiverApplicationTaskListComponent {
+export class AssignedWaiverApplicationTaskListComponent implements OnChanges{
 
   private columns: any[] = [
     {name: 'referenceNo', label: 'ReferenceNo'},
@@ -25,6 +35,15 @@ export class AssignedWaiverApplicationTaskListComponent {
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];
+
+  filteredData: any[];
+  filteredTotal: number;
+  searchTerm: string = '';
+  fromRow: number = 1;
+  currentPage: number = 1;
+  pageSize: number = 5;
+  sortBy: string = 'referenceNo';
+  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
   @Input() waiverApplicationTasks: WaiverApplicationTask[];
   @Output() view = new EventEmitter<WaiverApplicationTask>();
@@ -43,39 +62,28 @@ export class AssignedWaiverApplicationTaskListComponent {
     });
   }
 
-  filteredData: any[];
-  filteredTotal: number;
-  searchTerm: string = '';
-  fromRow: number = 1;
-  currentPage: number = 1;
-  pageSize: number = 10;
-  sortBy: string = 'referenceNo';
-  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
-
-  ngAfterViewInit(): void {
-    this.filteredData = this.waiverApplicationTasks;
-    this.filteredTotal = this.waiverApplicationTasks.length;
-    this.filter();
-  }
-
+  ngOnChanges(changes: {[ propName: string]: SimpleChange}) {
+    if (changes['waiverApplicationTasks']){
+        this.filteredData = changes['waiverApplicationTasks'].currentValue; 
+        this.filteredTotal = changes['waiverApplicationTasks'].currentValue.length;
+        this.filter();
+      }
+    }
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
     this.filter();
   }
-
   search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.filter();
   }
-
   page(pagingEvent: IPageChangeEvent): void {
     this.fromRow = pagingEvent.fromRow;
     this.currentPage = pagingEvent.page;
     this.pageSize = pagingEvent.pageSize;
     this.filter();
   }
-
   filter(): void {
     let newData: any[] = this.waiverApplicationTasks;
     newData = this._dataTableService.filterData(newData, this.searchTerm, true);
