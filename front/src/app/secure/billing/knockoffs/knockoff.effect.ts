@@ -128,7 +128,18 @@ export class KnockoffEffects {
             this.knockoffActions.findPooledKnockoffTasks(),
         ],
         ) );
-
+    
+    @Effect() removeKnockoffTask$ = this.actions$
+    .ofType(KnockoffActions.REMOVE_KNOCKOFF_TASK)
+    .map((action) => action.payload)
+    .switchMap((knockoffTask) => this.billingService.removeKnockoffTask(knockoffTask))
+    .map((task) => this.knockoffActions.removeKnockoffTask(task))
+    .mergeMap((action) => from([action,
+                                this.knockoffActions.findAssignedKnockoffTasks(),
+                                this.knockoffActions.findPooledKnockoffTasks(),
+      ],
+    ));
+    
     @Effect() addKnockoffInvoice$ =
     this.actions$
         .ofType( KnockoffActions.ADD_KNOCKOFF_INVOICE )

@@ -463,4 +463,20 @@ export class KnockoffActions {
             payload: message
         };
     }
+    
+    static REMOVE_KNOCKOFF_TASK = '[Knockoff] Remove Knockoff Task';
+    removeKnockoffTask( knockoffTask ): Action {
+        return {
+            type: KnockoffActions.REMOVE_KNOCKOFF_TASK,
+            payload: knockoffTask,
+        };
+    }
+
+    static REMOVE_KNOCKOFF_TASK_SUCCESS = '[Knockoff] Remove Knockoff Task Success';
+    removeReceiptTaskSuccess( task ): Action {
+        return {
+            type: KnockoffActions.REMOVE_KNOCKOFF_TASK_SUCCESS,
+            payload: task,
+        };
+    }
 }
