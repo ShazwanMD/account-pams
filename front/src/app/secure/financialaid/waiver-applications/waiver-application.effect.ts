@@ -78,6 +78,18 @@ export class WaiverApplicationEffects {
       ],
     ));
 
+  @Effect() removeWaiverApplicationTask$ = this.actions$
+  .ofType(WaiverApplicationActions.REMOVE_WAIVER_APPLICATION_TASK)
+  .map((action) => action.payload)
+  .switchMap((waiverApplicationTask) => this.financialaidService.removeWaiverApplicationTask(waiverApplicationTask))
+  .map((task) => this.waiverApplicationActions.removeWaiverApplicationTaskSuccess(task))
+  .mergeMap((action) => from([action,
+                              this.waiverApplicationActions.findAssignedWaiverApplicationTasks(),
+                              this.waiverApplicationActions.findPooledWaiverApplicationTasks(),
+                              this.waiverApplicationActions.findArchivedWaiverApplications(),
+    ],
+  ));
+  
   @Effect() releaseWaiverApplicationTask$ = this.actions$
     .ofType(WaiverApplicationActions.RELEASE_WAIVER_APPLICATION_TASK)
     .map((action) => action.payload)
