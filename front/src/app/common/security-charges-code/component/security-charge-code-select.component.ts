@@ -13,17 +13,21 @@ import { SetupActions } from "../../../secure/setup/setup.action";
   styleUrls: ['./security-charge-code-select.scss'],
 })
 export class SecurityChargeCodeSelectComponent implements OnInit {
-  private SECURITY_CHARGE_CODES = 'setupModuleState.securityChargeCodes'.split('.');
-  private securityChargeCodes$: Observable<SecurityChargeCode[]>;
+  private SECURITY_CHARGE_CODES_BY_ACTIVE = 'setupModuleState.securityChargeCodesByActive'.split('.');
+  private securityChargeCodesByActive$: Observable<SecurityChargeCode[]>;
+
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
-  constructor(private store: Store<SetupModuleState>,
+
+   constructor(private store: Store<SetupModuleState>,
               private actions: SetupActions) {
-    this.securityChargeCodes$ = this.store.select(...this.SECURITY_CHARGE_CODES);
+   this.securityChargeCodesByActive$ = this.store.select(...this.SECURITY_CHARGE_CODES_BY_ACTIVE);
   }
+
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findSecurityChargeCodes());
+    this.store.dispatch(this.actions.findSecurityChargeCodesByActive());
   }
+  
   selectChangeEvent(event: SecurityChargeCode) {
     this.innerFormControl.setValue(event, {emitEvent: false});
   }

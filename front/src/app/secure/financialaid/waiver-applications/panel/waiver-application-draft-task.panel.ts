@@ -8,6 +8,7 @@ import {WaiverApplicationEditorDialog} from '../dialog/waiver-application-editor
 import {Observable} from 'rxjs/Observable';
 import {WaiverApplicationTask} from '../../../../shared/model/financialaid/waiver-application-task.interface';
 import {WaiverApplication} from '../../../../shared/model/financialaid/waiver-application.interface';
+import { TdDialogService } from "@covalent/core";
 
 @Component({
   selector: 'pams-waiver-application-draft-task',
@@ -28,6 +29,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
               private actions: WaiverApplicationActions,
               private store: Store<FinancialaidModuleState>,
               private dialog: MdDialog,
+              private _dialogService: TdDialogService,
               private vcf: ViewContainerRef,
               private snackBar: MdSnackBar) {
 
@@ -64,4 +66,21 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
     });
   }
 
+  cancel(): void {
+      console.log("Waiver Application" + this.waiverApplicationTask.application);
+      this._dialogService.openConfirm({
+        message: 'Cancel Waiver Application ' + this.waiverApplicationTask.application.referenceNo + ' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.viewContainerRef,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.removeWaiverApplicationTask(this.waiverApplicationTask.application));
+          this.router.navigate(['/secure/billing/invoices']);
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    }
 }

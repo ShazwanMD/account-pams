@@ -191,4 +191,9 @@ export class FinancialaidService {
     // return this._http.put(this.FINANCIALAID_API + '/waiverApplications', JSON.stringify(waiverApplication))
     //   .flatMap(data => Observable.of(true));
   }
+  
+  removeWaiverApplicationTask(waiverApplicationTask: WaiverApplicationTask): Observable<String> {
+      return this._http.post(this.FINANCIALAID_API + '/waiverApplications/removeTask', JSON.stringify(waiverApplicationTask))
+          .flatMap((res: Response) => Observable.of(res.text()));
+  }
 }

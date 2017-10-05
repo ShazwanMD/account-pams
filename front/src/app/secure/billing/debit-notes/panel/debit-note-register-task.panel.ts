@@ -8,6 +8,7 @@ import {DebitNoteItemEditorDialog} from '../dialog/debit-note-item-editor.dialog
 import {DebitNoteActions} from '../debit-note.action';
 import {DebitNoteTask} from '../../../../shared/model/billing/debit-note-task.interface';
 import {DebitNoteItem} from '../../../../shared/model/billing/debit-note-item.interface';
+import { TdDialogService } from "@covalent/core";
 
 @Component({
   selector: 'pams-debit-note-register-task',
@@ -26,6 +27,7 @@ export class DebitNoteRegisterTaskPanel implements OnInit {
               private actions: DebitNoteActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
+              private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
     this.debitNoteItems$ = this.store.select(...this.DEBIT_NOTE_ITEMS);
   }
@@ -54,4 +56,22 @@ export class DebitNoteRegisterTaskPanel implements OnInit {
   goBack(): void {
     this.router.navigate(['/secure/billing/debit-notes']);
   }
+  
+  cancel(): void {
+      console.log("Debit Note " + this.debitNoteTask.debitNote);
+      this._dialogService.openConfirm({
+        message: 'Cancel Debit Note ' + this.debitNoteTask.debitNote.referenceNo + ' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.viewContainerRef,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.removeDebitNoteTask(this.debitNoteTask));
+          this.router.navigate(['/secure/billing/debit-notes']);
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    }
 }

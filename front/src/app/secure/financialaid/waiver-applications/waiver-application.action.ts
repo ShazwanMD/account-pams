@@ -258,4 +258,20 @@ export class WaiverApplicationActions {
       payload: invoice
     };
   }
+  
+  static REMOVE_WAIVER_APPLICATION_TASK = '[WaiverApplication] Remove WaiverApplication Task';
+  removeWaiverApplicationTask(waiverApplicationTask): Action {
+      return {
+          type: WaiverApplicationActions.REMOVE_WAIVER_APPLICATION_TASK,
+          payload: waiverApplicationTask,
+    };
+  }
+
+  static REMOVE_WAIVER_APPLICATION_TASK_SUCCESS = '[WaiverApplication] Remove WaiverApplication Task Success';
+  removeWaiverApplicationTaskSuccess(task): Action {
+      return {
+          type: WaiverApplicationActions.REMOVE_WAIVER_APPLICATION_TASK_SUCCESS,
+          payload: task,
+    };
+  }
 }

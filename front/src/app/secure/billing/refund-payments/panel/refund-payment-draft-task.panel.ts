@@ -39,5 +39,23 @@ export class RefundPaymentDraftTaskPanel implements OnInit {
   goBack(): void {
     this.router.navigate(['/secure/billing/refund-payments']);
   }
+  
+  cancel(): void {
+      console.log("Refund" + this.refundPaymentTask.refundPayment);
+      this._dialogService.openConfirm({
+        message: 'Cancel Refund Payments ' + this.refundPaymentTask.refundPayment.referenceNo + ' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.viewContainerRef,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.removeRefundPaymentTask(this.refundPaymentTask));
+          this.router.navigate(['/secure/billing/refund-payments']);
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    }
 
 }

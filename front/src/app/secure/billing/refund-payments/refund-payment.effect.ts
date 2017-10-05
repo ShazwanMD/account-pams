@@ -68,6 +68,17 @@ export class RefundPaymentEffects {
       ],
     ));
 
+    @Effect() removeRefundPaymentTask$ = this.actions$
+    .ofType(RefundPaymentActions.REMOVE_REFUND_PAYMENT_TASK)
+    .map((action) => action.payload)
+    .switchMap((refundPaymentTask) => this.billingService.removeRefundPaymentTask(refundPaymentTask))
+    .map((task) => this.refundPaymentActions.removeRefundPaymentTaskSuccess(task))
+    .mergeMap((action) => from([action,
+                                this.refundPaymentActions.findAssignedRefundPaymentTasks(),
+                                this.refundPaymentActions.findPooledRefundPaymentTasks(),
+      ],
+    ));
+    
   @Effect() completeRefundPaymentTask$ = this.actions$
     .ofType(RefundPaymentActions.COMPLETE_REFUND_PAYMENT_TASK)
     .map((action) => action.payload)

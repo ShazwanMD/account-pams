@@ -37,10 +37,17 @@ export class InvoiceEffects {
     .switchMap(() => this.billingService.findArchivedInvoices())
     .map((invoices) => this.invoiceActions.findArchivedInvoicesSuccess(invoices));
 
-//  @Effect() findCancelInvoices$ = this.actions$
-//  .ofType(InvoiceActions.FIND_CANCELED_INVOICES)
-//  .switchMap(() => this.billingService.findCancelInvoices())
-//  .map(invoices => this.invoiceActions.findCancelInvoicesSuccess(invoices));
+ @Effect() removeInvoiceTask$ = this.actions$
+    .ofType(InvoiceActions.REMOVE_INVOICE_TASK)
+    .map((action) => action.payload)
+    .switchMap((invoiceTask) => this.billingService.removeInvoiceTask(invoiceTask))
+    .map((task) => this.invoiceActions.removeInvoiceTaskSuccess(task))
+    .mergeMap((action) => from([action,
+                                this.invoiceActions.findAssignedInvoiceTasks(),
+                                this.invoiceActions.findPooledInvoiceTasks(),
+                                this.invoiceActions.findArchivedInvoices(),
+      ],
+    ));
 
   @Effect() findAssignedInvoiceTasks$ = this.actions$
     .ofType(InvoiceActions.FIND_ASSIGNED_INVOICE_TASKS)

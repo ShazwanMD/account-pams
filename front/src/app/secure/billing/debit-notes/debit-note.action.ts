@@ -363,5 +363,21 @@ DebitNote
       payload: message
     };
   }
+  
+  static REMOVE_DEBIT_NOTE_TASK = '[DebitNote] Remove DebitNote Task';
+  removeDebitNoteTask( debitNoteTask ): Action {
+      return {
+          type: DebitNoteActions.REMOVE_DEBIT_NOTE_TASK,
+          payload: debitNoteTask,
+      };
+  }
+
+  static REMOVE_DEBIT_NOTE_TASK_SUCCESS = '[DebitNote] Remove DebitNote Task Success';
+  removeDebitNoteTaskSuccess( task ): Action {
+      return {
+          type: DebitNoteActions.REMOVE_DEBIT_NOTE_TASK_SUCCESS,
+          payload: task,
+      };
+  }
 
 }

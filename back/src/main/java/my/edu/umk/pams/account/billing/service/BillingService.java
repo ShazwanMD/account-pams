@@ -174,6 +174,8 @@ public interface BillingService {
     List<AcDebitNote> findDebitNotes(AcInvoice invoice, String filter, Integer offset, Integer limit);
 
     List<AcDebitNote> findDebitNotesByFlowState(AcFlowState flowState);
+    
+    List<AcDebitNote> findDebitNotesByFlowStates(AcFlowState... flowStates );
 
     List<AcDebitNoteItem> findDebitNoteItems(AcDebitNote debitNote);
 
@@ -226,6 +228,8 @@ public interface BillingService {
     List<AcCreditNote> findCreditNotes(AcInvoice invoice);
 
     List<AcCreditNote> findCreditNotesByFlowState(AcFlowState flowState);
+    
+    List<AcCreditNote> findCreditNotesByFlowStates(AcFlowState... flowStates );
 
     List<AcCreditNoteItem> findCreditNoteItems(AcCreditNote creditNote);
 

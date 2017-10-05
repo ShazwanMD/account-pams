@@ -390,4 +390,20 @@ export class InvoiceActions {
       payload: notes,
     };
   }
+  
+  static REMOVE_INVOICE_TASK = '[Invoice] Remove Invoice Task';
+  removeInvoiceTask(invoiceTask): Action {
+      return {
+          type: InvoiceActions.REMOVE_INVOICE_TASK,
+          payload: invoiceTask,
+    };
+  }
+
+  static REMOVE_INVOICE_TASK_SUCCESS = '[Invoice] Remove Invoice Task Success';
+  removeInvoiceTaskSuccess(task): Action {
+      return {
+          type: InvoiceActions.REMOVE_INVOICE_TASK_SUCCESS,
+          payload: task,
+    };
+  }
 }

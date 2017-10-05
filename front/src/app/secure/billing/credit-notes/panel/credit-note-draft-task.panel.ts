@@ -8,6 +8,7 @@ import {CreditNoteItemEditorDialog} from '../dialog/credit-note-item-editor.dial
 import {CreditNoteActions} from '../credit-note.action';
 import {CreditNoteItem} from '../../../../shared/model/billing/credit-note-item.interface';
 import {CreditNoteTask} from '../../../../shared/model/billing/credit-note-task.interface';
+import { TdDialogService } from "@covalent/core";
 
 @Component({
   selector: 'pams-credit-note-draft-task',
@@ -26,6 +27,7 @@ export class CreditNoteDraftTaskPanel implements OnInit {
               private actions: CreditNoteActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
+              private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
     this.creditNoteItems$ = this.store.select(...this.CREDIT_NOTE_ITEMS);
   }
@@ -54,4 +56,22 @@ export class CreditNoteDraftTaskPanel implements OnInit {
   goBack(): void {
     this.router.navigate(['/secure/billing/credit-notes']);
   }
+  
+  cancel(): void {
+      console.log("Credit Note" + this.creditNoteTask.creditNote);
+      this._dialogService.openConfirm({
+        message: 'Cancel Credit Note ' + this.creditNoteTask.creditNote.referenceNo + ' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.viewContainerRef,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.removeCreditNoteTask(this.creditNoteTask));
+          this.router.navigate(['/secure/billing/credit-notes']);
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    }
 }

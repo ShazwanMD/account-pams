@@ -329,6 +329,10 @@ public interface CommonService {
 
 	void calculateSecurityChargeCodeNetAmount(AcSecurityChargeCode securityChargeCode);
 
+	List<AcSecurityChargeCode> findSecurityChargeCodesByActive(Boolean active);
+
+
+
 
     
 }

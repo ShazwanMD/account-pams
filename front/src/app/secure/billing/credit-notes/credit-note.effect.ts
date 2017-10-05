@@ -73,7 +73,18 @@ export class CreditNoteEffects {
         this.creditNoteActions.findPooledCreditNoteTasks(),
       ],
     ));
-
+  
+  @Effect() removeCreditNoteTask$ = this.actions$
+  .ofType(CreditNoteActions.REMOVE_CREDIT_NOTE_TASK)
+  .map((action) => action.payload)
+  .switchMap((creditNoteTask) => this.billingService.removeCreditNoteTask(creditNoteTask))
+  .map((task) => this.creditNoteActions.removeCreditNoteTaskSuccess(task))
+  .mergeMap((action) => from([action,
+                              this.creditNoteActions.findAssignedCreditNoteTasks(),
+                              this.creditNoteActions.findPooledCreditNoteTasks(),
+    ],
+  ));
+  
   @Effect() completeCreditNoteTask$ = this.actions$
     .ofType(CreditNoteActions.COMPLETE_CREDIT_NOTE_TASK)
     .map((action) => action.payload)

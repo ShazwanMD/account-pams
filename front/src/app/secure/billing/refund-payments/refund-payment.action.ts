@@ -204,21 +204,20 @@ export class RefundPaymentActions {
         payload: refundPayments,
       };
     }
-//    static SAVE_KNOCKOFF = '[Knockoff] Save Knockoff';
-//
-//    saveKnockoff(knockoff, payment): Action {
-//      return {
-//        type: KnockoffActions.SAVE_KNOCKOFF,
-//        payload: {knockoff: knockoff, payment: payment},
-//      };
-//    }
-//
-//    static SAVE_KNOCKOFF_SUCCESS = '[Knockoff] Save Knockoff Success';
-//
-//    saveKnockoffSuccess(knockoff): Action {
-//      return {
-//        type: KnockoffActions.SAVE_KNOCKOFF_SUCCESS,
-//        payload: knockoff
-//      };
-//    }
+
+    static REMOVE_REFUND_PAYMENT_TASK = '[RefundPayment] Remove RefundPayment Task';
+    removeRefundPaymentTask(refundPaymentTask): Action {
+        return {
+            type: RefundPaymentActions.REMOVE_REFUND_PAYMENT_TASK,
+            payload: refundPaymentTask,
+      };
+    }
+
+    static REMOVE_REFUND_PAYMENT_TASK_SUCCESS = '[RefundPayment] Remove RefundPayment Task Success';
+    removeRefundPaymentTaskSuccess(task): Action {
+        return {
+            type: RefundPaymentActions.REMOVE_REFUND_PAYMENT_TASK_SUCCESS,
+            payload: task,
+      };
+    }
 }

@@ -69,4 +69,21 @@ export class KnockoffDraftTaskPanel implements OnInit {
     this.router.navigate(['/secure/billing/knockoffs']);
   }
 
+  cancel(): void {
+      console.log("Knockoff " + this.knockoffTask.knockoff);
+      this._dialogService.openConfirm({
+        message: 'Cancel Knockoff ' + this.knockoffTask.knockoff.referenceNo + ' ?',
+        disableClose: false, // defaults to false
+        viewContainerRef: this.viewContainerRef,
+        cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+        acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+      }).afterClosed().subscribe((accept: boolean) => {
+        if (accept) {
+          this.store.dispatch(this.actions.removeKnockoffTask(this.knockoffTask));
+          this.router.navigate(['/secure/billing/knockoffs']);
+        } else {
+          // DO SOMETHING ELSE
+        }
+      });
+    }
 }

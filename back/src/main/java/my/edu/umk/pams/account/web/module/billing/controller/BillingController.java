@@ -50,6 +50,8 @@ import java.util.List;
 import java.util.Map;
 
 import static my.edu.umk.pams.account.AccountConstants.RECEIPT_REFERENCE_NO;
+import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_DECISION;
+import static java.lang.Boolean.TRUE;
 
 @Transactional
 @RestController
@@ -153,6 +155,16 @@ public class BillingController {
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
         billingService.cancelInvoice(invoice);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/invoices/removeTask", method = RequestMethod.POST)
+ 	public void removeInvoiceTask(@RequestBody InvoiceTask vo) {
+
+       Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
     }
 
     @RequestMapping(value = "/invoices/{referenceNo}/invoiceItems", method = RequestMethod.GET)
@@ -545,6 +557,16 @@ public class BillingController {
         e.setDebitNote(debitNote);
         billingService.addReceiptDebitNote(receipt, debitNote);
     }
+    
+    @RequestMapping(value = "/receipts/removeTask", method = RequestMethod.POST)
+ 	public void removeReceiptTask(@RequestBody ReceiptTask vo) {
+
+       Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
+    }
 
     // ==================================================================================================== //
     //  DEBIT NOTE
@@ -560,7 +582,7 @@ public class BillingController {
     // todo: archive will be using ACL
     @RequestMapping(value = "/debitNotes/archived", method = RequestMethod.GET)
     public ResponseEntity<List<DebitNote>> findArchivedDebitNotes(@PathVariable String state) {
-        List<AcDebitNote> debitNotes = billingService.findDebitNotesByFlowState(AcFlowState.valueOf(state));
+        List<AcDebitNote> debitNotes = billingService.findDebitNotesByFlowStates(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
 
@@ -702,6 +724,16 @@ public class BillingController {
         }
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/debitnotes/removeTask", method = RequestMethod.POST)
+ 	public void removeDebitNoteTask(@RequestBody DebitNoteTask vo) {
+
+       Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
+    }
 
     // ==================================================================================================== //
     //  CREDIT NOTE
@@ -716,7 +748,7 @@ public class BillingController {
     // todo: archive will be using ACL
     @RequestMapping(value = "/creditNotes/archived", method = RequestMethod.GET)
     public ResponseEntity<List<CreditNote>> findArchivedCreditNotes(@PathVariable String state) {
-        List<AcCreditNote> creditNotes = billingService.findCreditNotesByFlowState(AcFlowState.valueOf(state));
+        List<AcCreditNote> creditNotes = billingService.findCreditNotesByFlowStates(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
         return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
     }
 
@@ -846,6 +878,16 @@ public class BillingController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/creditNotes/removeTask", method = RequestMethod.POST)
+ 	public void removeCreditNoteTask(@RequestBody CreditNoteTask vo) {
+
+       Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
+    }
+    
     // ==================================================================================================== //
     //  KNOCKOFF
     // ==================================================================================================== //
@@ -972,6 +1014,16 @@ public class BillingController {
         Task task = billingService.findKnockoffTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/removeTask", method = RequestMethod.POST)
+ 	public void removeKnockoffTask(@RequestBody KnockoffTask vo) {
+
+       Task task = billingService.findKnockoffTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
     }
     
     @RequestMapping(value = "/knockoffs/{referenceNo}/accountCharge/{id}", method = RequestMethod.POST)
@@ -1181,6 +1233,16 @@ public class BillingController {
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/refundPayments/removeTask", method = RequestMethod.POST)
+ 	public void removeRefundPaymentTask(@RequestBody RefundPaymentTask vo) {
+
+       Task task = billingService.findRefundPaymentTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
+    }
 
     // ====================================================================================================
     // WAIVER FINANCE APPLICATION
@@ -1371,6 +1433,16 @@ public class BillingController {
     	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);;
         return new ResponseEntity<List<WaiverAccountCharge>>(billingTransformer
                 .toWaiverAccountChargeVos(billingService.findWaiverAccountCharge(waiverApplication)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/removeTask", method = RequestMethod.POST)
+ 	public void removeWaiverFinanceApplicationTask(@RequestBody WaiverFinanceApplicationTask vo) {
+
+       Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
+       LOG.debug("Task id {}", task.getId());
+       Map<String, Object> variables = new HashMap<String, Object>();
+       variables.put(REMOVE_DECISION, TRUE);
+       workflowService.completeTask(task, variables);
     }
 
 }
