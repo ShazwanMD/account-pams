@@ -70,6 +70,7 @@ export class WaiverFinanceApplicationEffects {
   .mergeMap((action) => from([action,
                               this.waiverFinanceApplicationActions.findAssignedWaiverFinanceApplicationTasks(),
                               this.waiverFinanceApplicationActions.findPooledWaiverFinanceApplicationTasks(),
+                              this.waiverFinanceApplicationActions.findArchivedWaiverFinanceApplications(),
     ],
   ));
   

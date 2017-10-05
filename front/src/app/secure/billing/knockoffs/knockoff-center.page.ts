@@ -54,6 +54,11 @@ export class KnockoffCenterPage implements OnInit {
     this.router.navigate(['/secure/billing/knockoffs/knockoff-task-detail', task.taskId]);
   }
 
+  viewKnockoff(knockoff: Knockoff) {
+    console.log('Knockoff: ' + knockoff.referenceNo);
+    this.router.navigate(['/secure/billing/knockoffs/knockoff-detail', knockoff.referenceNo]);
+  }
+
 //  showDialog(): void {
 //    console.log('showDialog');
 //    let config: MdDialogConfig = new MdDialogConfig();

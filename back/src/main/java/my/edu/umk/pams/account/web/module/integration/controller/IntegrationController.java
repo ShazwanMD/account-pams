@@ -87,15 +87,17 @@ public class IntegrationController {
 
     @RequestMapping(value = "/cohortCodes", method = RequestMethod.POST)
     public ResponseEntity<String> saveCohortCode(@RequestBody CohortCodePayload payload) {
-        LOG.info("incoming cohort code");
+        LOG.info("Incoming Cohort Code Payload");
         SecurityContext ctx = loginAsSystem();
-
+        
+        AcProgramCode programCode = commonService.findProgramCodeByCode(payload.getProgramCode().getCode());
+               
         AcCohortCode cohortCode = new AcCohortCodeImpl();
         cohortCode.setCode(payload.getCode());
         cohortCode.setDescription(payload.getDescription());
-        cohortCode.setProgramCode(commonService.findProgramCodeByCode(payload.getProgramCode().getCode()));
+        cohortCode.setProgramCode(programCode);
         commonService.saveCohortCode(cohortCode);
-
+        LOG.info("Received Cohort Code Payload");
         logoutAsSystem(ctx);
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
