@@ -388,6 +388,17 @@ public class AccountController {
         transaction.setTransactionCode(AcAccountChargeType.ACADEMIC_LATE);
         accountService.addAccountChargeTransaction(account, transaction);
     }
+    
+    @RequestMapping(value = "/accounts/{code}/accountChargeTransactions/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteAccountChargeTransaction(@PathVariable String code, @PathVariable Long id) {
+        AcAccount account = accountService.findAccountByCode(code);
+        AcAccountChargeTransaction transaction = accountService.findAccountChargeTransactionById(id);
+        accountService.deleteAccountChargeTransaction(account, transaction);
+        LOG.debug("account charge transaction " + id + " is deleted");
+        return new ResponseEntity<>("Removed", HttpStatus.OK);
+    }    
+    
+        
 
     @RequestMapping(value = "/accounts/{id}/accountChargeActivities", method = RequestMethod.GET)
     public ResponseEntity<List<ActivityChargeHolder>> findAccountChargeActivities(@PathVariable Long id) {

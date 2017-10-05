@@ -329,4 +329,6 @@ public interface AccountService {
 
 	void removeSponsorship(AcAccount account, AcSponsorship sponsorship);
 
+	AcAccountChargeTransaction findAccountChargeTransactionById(Long id);
+
 }

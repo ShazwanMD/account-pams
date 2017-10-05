@@ -971,6 +971,12 @@ public class AccountServiceImpl implements AccountService {
 			Integer offset, Integer limit) {
 		 return accountDao.findAccountChargeTransactions(filter, account, offset, limit);
 	}
+	
+
+    @Override
+    public AcAccountChargeTransaction findAccountChargeTransactionById(Long id) {
+        return accountDao.findAccountChargeTransactionById(id);
+    }
 
 	@Override
 	public Integer countAccountChargeTransaction(AcAccount account) {
