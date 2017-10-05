@@ -133,7 +133,7 @@ export class KnockoffEffects {
     .ofType(KnockoffActions.REMOVE_KNOCKOFF_TASK)
     .map((action) => action.payload)
     .switchMap((knockoffTask) => this.billingService.removeKnockoffTask(knockoffTask))
-    .map((task) => this.knockoffActions.removeKnockoffTask(task))
+    .map((task) => this.knockoffActions.removeKnockoffTaskSuccess(task))
     .mergeMap((action) => from([action,
                                 this.knockoffActions.findAssignedKnockoffTasks(),
                                 this.knockoffActions.findPooledKnockoffTasks(),

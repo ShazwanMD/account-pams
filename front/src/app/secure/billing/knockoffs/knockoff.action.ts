@@ -473,7 +473,7 @@ export class KnockoffActions {
     }
 
     static REMOVE_KNOCKOFF_TASK_SUCCESS = '[Knockoff] Remove Knockoff Task Success';
-    removeReceiptTaskSuccess( task ): Action {
+    removeKnockoffTaskSuccess( task ): Action {
         return {
             type: KnockoffActions.REMOVE_KNOCKOFF_TASK_SUCCESS,
             payload: task,
