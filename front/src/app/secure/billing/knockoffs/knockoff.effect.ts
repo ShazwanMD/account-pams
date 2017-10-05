@@ -137,6 +137,7 @@ export class KnockoffEffects {
     .mergeMap((action) => from([action,
                                 this.knockoffActions.findAssignedKnockoffTasks(),
                                 this.knockoffActions.findPooledKnockoffTasks(),
+                                this.knockoffActions.findArchivedknockoffs(),
       ],
     ));
     
