@@ -82,6 +82,7 @@ export class CreditNoteEffects {
   .mergeMap((action) => from([action,
                               this.creditNoteActions.findAssignedCreditNoteTasks(),
                               this.creditNoteActions.findPooledCreditNoteTasks(),
+                              this.creditNoteActions.findArchivedCreditNotes(),
     ],
   ));
   
