@@ -76,7 +76,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
         acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
       }).afterClosed().subscribe((accept: boolean) => {
         if (accept) {
-          this.store.dispatch(this.actions.removeWaiverApplicationTask(this.waiverApplicationTask.application));
+          this.store.dispatch(this.actions.removeWaiverApplicationTask(this.waiverApplicationTask));
           this.router.navigate(['/secure/financialaid/waiver-applications']);
         } else {
           // DO SOMETHING ELSE
