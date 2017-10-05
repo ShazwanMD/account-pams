@@ -42,6 +42,7 @@ import { AccountChargeKnockoffDialog } from "./dialog/knockoff-account-charge-cr
 import { KnockoffItemListComponent } from "./component/knockoff-item-list.component";
 import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
 import {KnockoffAccountChargeItemDialog} from "./dialog/knockoff-account-charge-item.dialog";
+import { KnockoffDetailPage } from './knockoff-detail.page';
 
 @NgModule( {
     imports: [
@@ -79,6 +80,7 @@ import {KnockoffAccountChargeItemDialog} from "./dialog/knockoff-account-charge-
         AccountChargeUnpaidSelectComponent,
         KnockoffItemListComponent,
         DebitNoteKnockoffListComponent,
+        KnockoffDetailPage,
         
 
         
