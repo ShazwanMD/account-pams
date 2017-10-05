@@ -80,6 +80,7 @@ export class DebitNoteEffects {
   .mergeMap((action) => from([action,
                               this.debitNoteActions.findAssignedDebitNoteTasks(),
                               this.debitNoteActions.findPooledDebitNoteTasks(),
+                              this.debitNoteActions.findArchivedDebitNotes(),
     ],
   ));
 
