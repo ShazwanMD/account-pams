@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ac_report_inbois_cukai" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db4466dc-5424-40f9-9d63-6eabf2d1ff33">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="153"/>
 	<subDataset name="sum_amount_by_tx_code" uuid="68568418-c35b-43ba-8ddf-dc5de12f0811">
 		<parameter name="invc_ref_no" class="java.lang.String"/>
 		<queryString>
@@ -543,19 +543,9 @@ FROM
 					<leftPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<staticText>
-					<reportElement x="0" y="0" width="73" height="20" uuid="31fe8ac1-d75b-46d5-8568-6b3eb1ea442c"/>
-					<box>
-						<topPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement textAlignment="Left"/>
-					<text><![CDATA[Tuntutan Yuran]]></text>
-				</staticText>
 				<textField>
-					<reportElement x="73" y="0" width="253" height="27" uuid="f8d5d6ab-6ca0-47a2-869f-b4d1167fe674"/>
-					<textFieldExpression><![CDATA[$F{ac_chrt_code_description}]]></textFieldExpression>
+					<reportElement x="0" y="0" width="326" height="27" uuid="f8d5d6ab-6ca0-47a2-869f-b4d1167fe674"/>
+					<textFieldExpression><![CDATA["Tuntutan Yuran" + " "+$F{ac_chrt_code_description}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="27" width="73" height="20" uuid="0aa9eabb-a1bc-4169-b387-1127f0527b40"/>
