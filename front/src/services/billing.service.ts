@@ -339,7 +339,7 @@ export class BillingService {
     // todo: this goes thru ACL
     findArchivedCreditNotes(): Observable<CreditNote[]> {
         console.log( 'findArchivedCreditNotes' );
-        return this._http.get( this.BILLING_API + '/creditNotes/state/COMPLETED' )
+        return this._http.get( this.BILLING_API + '/creditNotes/archived' )
             .map(( res: Response ) => <CreditNote[]>res.json() );
     }
 
@@ -450,7 +450,7 @@ export class BillingService {
     // todo: this goes thru ACL
     findArchivedDebitNotes(): Observable<DebitNote[]> {
         console.log( 'findArchivedDebitNotes' );
-        return this._http.get( this.BILLING_API + '/debitNotes/state/COMPLETED' )
+        return this._http.get( this.BILLING_API + '/debitNotes/archived' )
             .map(( res: Response ) => <DebitNote[]>res.json() );
     }
 
@@ -517,7 +517,7 @@ export class BillingService {
     }
     
     removeDebitNoteTask(debitNoteTask: DebitNoteTask): Observable<String> {
-        return this._http.post(this.BILLING_API + '/debitNotes/removeTask', JSON.stringify(debitNoteTask))
+        return this._http.post(this.BILLING_API + '/debitnotes/removeTask', JSON.stringify(debitNoteTask))
             .flatMap((res: Response) => Observable.of(res.text()));
     }
 

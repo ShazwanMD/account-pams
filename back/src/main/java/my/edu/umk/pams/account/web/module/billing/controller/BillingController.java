@@ -581,7 +581,7 @@ public class BillingController {
 
     // todo: archive will be using ACL
     @RequestMapping(value = "/debitNotes/archived", method = RequestMethod.GET)
-    public ResponseEntity<List<DebitNote>> findArchivedDebitNotes(@PathVariable String state) {
+    public ResponseEntity<List<DebitNote>> findArchivedDebitNotes() {
         List<AcDebitNote> debitNotes = billingService.findDebitNotesByFlowStates(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
         return new ResponseEntity<List<DebitNote>>(billingTransformer.toDebitNoteVos(debitNotes), HttpStatus.OK);
     }
@@ -747,7 +747,7 @@ public class BillingController {
 
     // todo: archive will be using ACL
     @RequestMapping(value = "/creditNotes/archived", method = RequestMethod.GET)
-    public ResponseEntity<List<CreditNote>> findArchivedCreditNotes(@PathVariable String state) {
+    public ResponseEntity<List<CreditNote>> findArchivedCreditNotes() {
         List<AcCreditNote> creditNotes = billingService.findCreditNotesByFlowStates(AcFlowState.CANCELLED, AcFlowState.REMOVED, AcFlowState.COMPLETED);
         return new ResponseEntity<List<CreditNote>>(billingTransformer.toCreditNoteVos(creditNotes), HttpStatus.OK);
     }
