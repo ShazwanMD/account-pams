@@ -45,6 +45,7 @@ export class InvoiceEffects {
     .mergeMap((action) => from([action,
                                 this.invoiceActions.findAssignedInvoiceTasks(),
                                 this.invoiceActions.findPooledInvoiceTasks(),
+                                this.invoiceActions.findArchivedInvoices(),
       ],
     ));
 
