@@ -31,6 +31,7 @@ export class PooledRefundPaymentTaskListComponent {
     { name: 'amount', label: 'Total Amount' },
     { name: 'refundPayment.creatorUsername', label: 'Creator' },
     { name: 'refundPayment.createdDate', label: 'Created Date' },
+    { name: 'flowState', label: 'Status' },
     { name: 'action', label: '' },
   ];
   filteredData: any[];

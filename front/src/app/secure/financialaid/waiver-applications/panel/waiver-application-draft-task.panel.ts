@@ -77,7 +77,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
       }).afterClosed().subscribe((accept: boolean) => {
         if (accept) {
           this.store.dispatch(this.actions.removeWaiverApplicationTask(this.waiverApplicationTask.application));
-          this.router.navigate(['/secure/billing/invoices']);
+          this.router.navigate(['/secure/financialaid/waiver-applications']);
         } else {
           // DO SOMETHING ELSE
         }
