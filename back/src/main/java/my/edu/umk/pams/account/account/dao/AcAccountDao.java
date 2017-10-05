@@ -132,4 +132,6 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
 	BigDecimal sumChargeAmount(AcAccount account);
 
 	BigDecimal sumSecurityChargeAmount(AcAccount account);
+
+	AcAccountChargeTransaction findAccountChargeTransactionById(Long id);
 }

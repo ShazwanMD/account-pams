@@ -73,6 +73,12 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
 
     @Override
+    public AcAccountChargeTransaction findAccountChargeTransactionById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcAccountChargeTransaction) session.get(AcAccountChargeTransactionImpl.class, id);
+    }    
+    
+    @Override
     public List<AcAccount> find(String filter, Integer offset, Integer limit) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select s from AcAccount s where " +
