@@ -273,6 +273,8 @@ public interface IdentityService {
 
 	void addGuardian(AcStudent student, AcGuardian guardian);
 
+	void removeGuardian(AcStudent student, AcGuardian guardian);
+
 
 
 }

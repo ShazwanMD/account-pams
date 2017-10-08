@@ -56,4 +56,6 @@ public interface AcStudentDao extends GenericDao<Long, AcStudent> {
 
 	void addGuardian(AcStudent student, AcGuardian guardian, AcUser user);
 
+	void removeGuardian(AcStudent student, AcGuardian guardian, AcUser user);
+
 }
