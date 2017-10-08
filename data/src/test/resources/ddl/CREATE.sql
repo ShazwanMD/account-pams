@@ -1745,7 +1745,7 @@
     alter table AC_GRDN
         add constraint FKE7DAD15154FCB007
         foreign key (STUDENT_ID)
-        references AD_STDN;
+        references AC_STDN;
         
     alter table AC_INVC
         add constraint FK_lqa5mht7w78noknfxwfeyopuq
