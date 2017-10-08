@@ -31,6 +31,7 @@ export class PooledKnockoffTaskListComponent {
     { name: 'totalAmount', label: 'Total Amount' },
     { name: 'knockoff.creatorUsername', label: 'Creator' },
     { name: 'knockoff.createdDate', label: 'Created Date' },
+    {name: 'flowState', label: 'Status'},
     { name: 'action', label: '' },
   ];
   filteredData: any[];

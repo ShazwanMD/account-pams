@@ -76,6 +76,7 @@ export class RefundPaymentEffects {
     .mergeMap((action) => from([action,
                                 this.refundPaymentActions.findAssignedRefundPaymentTasks(),
                                 this.refundPaymentActions.findPooledRefundPaymentTasks(),
+                                this.refundPaymentActions.findArchivedRefundPayments(),
       ],
     ));
     

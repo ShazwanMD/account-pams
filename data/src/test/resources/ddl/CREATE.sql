@@ -592,6 +592,23 @@
         PRINCIPAL_ID int8,
         primary key (GROUP_ID, PRINCIPAL_ID)
     );
+    
+    create table AC_GRDN (
+        ID int8 not null,
+        IDENTITY_NO varchar(255) not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        NAME varchar(255) not null,
+        PHONE varchar(255),
+        GUARDIAN_TYPE int4,
+        STUDENT_ID int8,
+        primary key (ID)
+    );
 
     create table AC_INVC (
         ID int8 not null,
@@ -1724,7 +1741,12 @@
         add constraint FK_770jh71hts8dap5ljwxtvgby0
         foreign key (PRINCIPAL_ID)
         references AC_PCPL;
-
+        
+    alter table AC_GRDN
+        add constraint FKE7DAD15154FCB007
+        foreign key (STUDENT_ID)
+        references AC_STDN;
+        
     alter table AC_INVC
         add constraint FK_lqa5mht7w78noknfxwfeyopuq
         foreign key (ACCOUNT_ID)
@@ -2002,6 +2024,8 @@
     create sequence SQ_AC_FEE_SCDL_ITEM;
 
     create sequence SQ_AC_GROP_MMBR;
+    
+    create sequence SQ_AC_GRDN;
 
     create sequence SQ_AC_INVC;
 
