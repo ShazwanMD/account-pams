@@ -397,6 +397,8 @@ public interface BillingService {
 
     boolean hasKnockoff(AcKnockoff knockoff);
     
+    boolean hasKnockoff(AcKnockoff knockoff, AcInvoice invoice);
+    
     void addKnockoff(AcKnockoff knockoff);
 
     void updateKnockoff(AcKnockoff knockoff);
@@ -543,5 +545,7 @@ public interface BillingService {
     BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver);
 
     BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver);
+    
+    boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice);
 
 }

@@ -1057,7 +1057,11 @@ public class BillingController {
     	
     	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
         AcInvoice invoice = billingService.findInvoiceById(id);
-        billingService.itemToKnockoffItem(invoice, knockoff);
+        Boolean kncfItem = billingService.hasKnockoff(knockoff, invoice);
+        
+        if(kncfItem == false) {
+        	billingService.itemToKnockoffItem(invoice, knockoff);
+        }
     }
     
     @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems", method = RequestMethod.GET)
@@ -1400,7 +1404,11 @@ public class BillingController {
     	
     	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
         AcInvoice invoice = billingService.findInvoiceById(id);
-        billingService.itemToWaiverItem(waiverApplication, invoice);
+        Boolean wvrItem = billingService.hasWaiver(waiverApplication, invoice);
+        
+        if(wvrItem == false) {
+        	billingService.itemToWaiverItem(waiverApplication, invoice);
+        }
     }
     
     @RequestMapping(value = "/waiverFinanceApplications/waiverItems/{referenceNo}", method = RequestMethod.GET)
@@ -1434,7 +1442,7 @@ public class BillingController {
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/accountCharges", method = RequestMethod.GET)
     public ResponseEntity<List<WaiverAccountCharge>> findWaiverByAccountCharge(@PathVariable String referenceNo) {
         
-    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);;
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
         return new ResponseEntity<List<WaiverAccountCharge>>(billingTransformer
                 .toWaiverAccountChargeVos(billingService.findWaiverAccountCharge(waiverApplication)), HttpStatus.OK);
     }
@@ -1447,6 +1455,15 @@ public class BillingController {
        Map<String, Object> variables = new HashMap<String, Object>();
        variables.put(REMOVE_DECISION, TRUE);
        workflowService.completeTask(task, variables);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/items/invoices/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverItem>> findInvoiceWaiverItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
+        return new ResponseEntity<List<WaiverItem>>(billingTransformer
+                .toWaiverItemVos(billingService.findWaiverItems(waiverApplication, invoice)), HttpStatus.OK);
     }
 
 }

@@ -1383,6 +1383,11 @@ public class BillingServiceImpl implements BillingService {
 	public boolean hasKnockoff(AcKnockoff knockoff) {
 		return knockoffDao.hasKnockoff(knockoff);
 	}
+	
+	@Override
+	public boolean hasKnockoff(AcKnockoff knockoff, AcInvoice invoice) {
+		return knockoffDao.hasKnockoff(knockoff, invoice);
+	}
 
 	@Override
 	public void addKnockoff(AcKnockoff knockoff) {
@@ -1929,6 +1934,11 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver) {
     	return waiverFinanceApplicationDao.sumAppliedAmount(invoice, waiver, securityService.getCurrentUser());
+    }
+    
+    @Override
+    public boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
+    	return waiverFinanceApplicationDao.hasWaiver(waiver, invoice);
     }
     
 	// ====================================================================================================

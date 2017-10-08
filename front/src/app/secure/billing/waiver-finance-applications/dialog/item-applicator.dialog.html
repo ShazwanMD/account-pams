@@ -1,8 +1,8 @@
 <h2 md-dialog-title>Apply Waiver Item</h2>
 <md-dialog-content>
-<!--  <td-data-table
+<td-data-table
   #dataTable
-  [data]="waiverItems$"
+  [data]="waiverItems$|async"
   [columns]="columns"
   [sortBy]="summary"
   [sortOrder]="ASC"
@@ -16,9 +16,9 @@
       <span flex="40">{{value}}</span>
     </div>
   </template>
-</td-data-table>  -->
+</td-data-table>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="Apply()" *ngIf="showHide">Display All</button>
+  <button md-raised-button color="accent" (click)="Apply()">Paid All</button>
 </md-dialog-actions>
 </md-dialog-content>
 
