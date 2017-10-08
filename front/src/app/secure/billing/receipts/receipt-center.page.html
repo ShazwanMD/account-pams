@@ -43,7 +43,7 @@
         <md-tab label="Archived">
           <pams-archived-receipt-list
             [receipts]="archivedReceipts$ | async"
-            (claim)="viewReceipt($event)"></pams-archived-receipt-list>
+            (view)="viewReceipt($event)"></pams-archived-receipt-list>
         </md-tab>
       </md-tab-group>
     </md-card>
