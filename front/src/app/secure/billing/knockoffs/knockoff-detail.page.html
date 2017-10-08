@@ -27,7 +27,7 @@
               <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(knockoff$|async)?.account?.code}}</h4>
+                  <h4 md-line>{{(knockoff$|async)?.payments?.account?.code}}</h4>
                   <p md-line>Account</p>
                 </md-list-item>
               </md-list>
@@ -47,8 +47,8 @@
               <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(knockoff$|async)?.waivedAmount}}</h4>
-                  <p md-line>Waived Amount</p>
+                  <h4 md-line>{{(knockoff$|async)?.amount}}</h4>
+                  <p md-line>Knockoff Amount</p>
                 </md-list-item>
               </md-list>
             </div>
