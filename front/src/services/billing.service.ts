@@ -825,6 +825,11 @@ export class BillingService {
           .flatMap(( res: Response ) => Observable.of( res.text() ) );
   }
   
+  findInvoiceWaiverItems( waiverFinanceApplication: WaiverFinanceApplication, invoice:Invoice ): Observable<WaiverItem[]> {
+      return this._http.get( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/items/invoices/' + invoice.id )
+          .map(( res: Response ) => <WaiverItem[]>res.json() );
+  } 
+  
     // ====================================================================================================
     // REFUND PAYMENT
     // ==================================================================================================== 

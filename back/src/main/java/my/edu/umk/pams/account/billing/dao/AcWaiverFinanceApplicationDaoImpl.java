@@ -341,6 +341,19 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
     }
+    
+    @Override
+    public boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcWaiverItem a " + "where a.waiverFinanceApplication = :waiver "
+				+ "and a.invoice = :invoice "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("waiver", waiver);
+		query.setEntity("invoice", invoice);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
+    }
 
     // ====================================================================================================
     // HELPER

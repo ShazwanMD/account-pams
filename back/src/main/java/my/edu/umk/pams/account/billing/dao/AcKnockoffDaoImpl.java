@@ -221,6 +221,19 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
 		return count.intValue() > 0; // > 0 = true, <=0 false
 	}
 
+	@Override
+	public boolean hasKnockoff(AcKnockoff knockoff, AcInvoice invoice) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcKnockoffItem a " + "where a.knockoff = :knockoff "
+				+ "and a.invoice = :invoice "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("knockoff", knockoff);
+		query.setEntity("invoice", invoice);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
+	}
+	
     @Override
     public void addItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user) {
         LOG.info("knockoff id : " + knockoff.getId());

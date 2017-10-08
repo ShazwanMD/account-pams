@@ -2,7 +2,7 @@
 <md-dialog-content>
  <td-data-table
   #dataTable
-  [data]="receiptItems$"
+  [data]="receiptItems$|async"
   [columns]="columns"
   [sortBy]="summary"
   [sortOrder]="ASC"
@@ -18,7 +18,7 @@
   </template>
 </td-data-table> 
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="Apply()" *ngIf="showHide">Display All</button>
+  <button md-raised-button color="accent" (click)="Apply()">Paid Invoice</button> 
 </md-dialog-actions>
 </md-dialog-content>
 

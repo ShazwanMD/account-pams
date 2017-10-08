@@ -343,7 +343,7 @@ public class BillingServiceImpl implements BillingService {
 				LOG.debug("value invoiceItem after looping {}", receipt.getTotalReceived());
 			}
 			
-		}
+			}
 		
 		receipt.setTotalPayment(receipt.getTotalReceived().subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser())));
 
@@ -1017,6 +1017,16 @@ public class BillingServiceImpl implements BillingService {
 	public AcReceiptItem findReceiptItemByDebitNote(AcDebitNote debitNote, AcReceipt receipt) {
 		return receiptDao.findReceiptItemByDebitNote(debitNote, receipt);
 	}
+	
+	@Override
+	public AcReceiptItem findReceiptItem(AcInvoice invoice, AcReceipt receipt) {
+		return receiptDao.findReceiptItem(invoice, receipt);
+	}
+	
+	@Override
+	public AcReceiptInvoice findReceiptInvoice(AcInvoice invoice, AcReceipt receipt) {
+		return receiptDao.findReceiptInvoice(invoice, receipt);
+	}
 
 	@Override
 	public List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit) {
@@ -1166,6 +1176,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public BigDecimal sumAppliedAmount(AcInvoice invoice, AcReceipt receipt) {
 		return receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser());
+	}
+	
+	@Override
+	public boolean hasReceiptItem(AcInvoice invoice, AcReceipt receipt) {
+		return receiptDao.hasReceiptItem(receipt, invoice);
 	}
 
 	// ====================================================================================================
@@ -1367,6 +1382,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public boolean hasKnockoff(AcKnockoff knockoff) {
 		return knockoffDao.hasKnockoff(knockoff);
+	}
+	
+	@Override
+	public boolean hasKnockoff(AcKnockoff knockoff, AcInvoice invoice) {
+		return knockoffDao.hasKnockoff(knockoff, invoice);
 	}
 
 	@Override
@@ -1914,6 +1934,11 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver) {
     	return waiverFinanceApplicationDao.sumAppliedAmount(invoice, waiver, securityService.getCurrentUser());
+    }
+    
+    @Override
+    public boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice) {
+    	return waiverFinanceApplicationDao.hasWaiver(waiver, invoice);
     }
     
 	// ====================================================================================================

@@ -115,6 +115,32 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         return (AcReceiptItem) query.uniqueResult();
     }
+    
+    @Override
+	public AcReceiptItem findReceiptItem(AcInvoice invoice, AcReceipt receipt) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcReceiptItem ri where " +
+                "ri.invoice = :invoice " +
+                "and ri.receipt = :receipt " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("invoice", invoice);
+        query.setEntity("receipt", receipt);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcReceiptItem) query.uniqueResult();   
+    }
+    
+    @Override
+	public AcReceiptInvoice findReceiptInvoice(AcInvoice invoice, AcReceipt receipt) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcReceiptInvoice ri where " +
+                "ri.invoice = :invoice " +
+                "and ri.receipt = :receipt " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("invoice", invoice);
+        query.setEntity("receipt", receipt);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcReceiptInvoice) query.uniqueResult();    	
+    }
 
     @Override
     public List<AcReceipt> find(String filter, Integer offset, Integer limit) {
@@ -368,6 +394,7 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         metadata.setState(AcMetaState.ACTIVE);
         item.setMetadata(metadata);
         session.save(item);
+
     }
 
     @Override
@@ -527,6 +554,19 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         metadata.setState(AcMetaState.ACTIVE);
         receiptDebitNote.setMetadata(metadata);
         session.saveOrUpdate(receiptDebitNote);
+    }
+    
+    @Override
+    public boolean hasReceiptItem(AcReceipt receipt, AcInvoice invoice) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcReceiptItem a " + "where a.receipt = :receipt "
+				+ "and a.invoice = :invoice "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("receipt", receipt);
+		query.setEntity("invoice", invoice);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
     }
     
     @Override

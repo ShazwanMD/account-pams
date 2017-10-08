@@ -295,6 +295,10 @@ public interface BillingService {
 	
 	AcReceiptItem findReceiptItemByDebitNote(AcDebitNote debitNote, AcReceipt receipt);
 	
+	AcReceiptItem findReceiptItem(AcInvoice invoice, AcReceipt receipt);
+	
+	AcReceiptInvoice findReceiptInvoice(AcInvoice invoice, AcReceipt receipt);
+	
 	AcReceiptAccountChargeItem findReceiptChargeItemById(Long id);
 	
     List<AcReceipt> findReceipts(String filter, Integer offset, Integer limit);
@@ -338,6 +342,8 @@ public interface BillingService {
     BigDecimal sumAdvancePayment(AcReceipt receipt);
     
     BigDecimal sumAppliedAmount(AcInvoice invoice, AcReceipt receipt);
+    
+    boolean hasReceiptItem(AcInvoice invoice, AcReceipt receipt);
     
     // ==================================================================================================== //
     // ADVANCE PAYMENT
@@ -390,6 +396,8 @@ public interface BillingService {
 	List<AcKnockoffDebitNote> findKnockoffDebitNotes(AcKnockoff knockoff);
 
     boolean hasKnockoff(AcKnockoff knockoff);
+    
+    boolean hasKnockoff(AcKnockoff knockoff, AcInvoice invoice);
     
     void addKnockoff(AcKnockoff knockoff);
 
@@ -537,5 +545,7 @@ public interface BillingService {
     BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver);
 
     BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver);
+    
+    boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice);
 
 }

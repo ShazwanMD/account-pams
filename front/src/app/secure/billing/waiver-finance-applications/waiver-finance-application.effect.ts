@@ -171,6 +171,12 @@ export class WaiverFinanceApplicationEffects {
   .switchMap((waiverFinanceApplication) => this.billingService.findWaiversByInvoice(waiverFinanceApplication))
   .map((message) => this.waiverFinanceApplicationActions.findWaiversByInvoiceSuccess(message));
   
+  @Effect() findInvoiceWaiverItems$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE_ITEMS)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.findInvoiceWaiverItems(payload.waiverFinanceApplication, payload.invoice))
+  .map((message) => this.waiverFinanceApplicationActions.findInvoiceWaiverItemsSuccess(message));
+  
   @Effect() findWaiverByDebitNote$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_DEBIT_NOTE)
   .map((action) => action.payload)

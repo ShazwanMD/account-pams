@@ -12,18 +12,19 @@ import { InvoiceItem } from "../../../../shared/model/billing/invoice-item.inter
 import { ReceiptItem } from "../../../../shared/model/billing/receipt-item.interface";
 import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
 import { WaiverFinanceApplication } from "../../../../shared/model/billing/waiver-finance-application.interface";
+import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
 
 @Component( {
     selector: 'pams-item-applicator',
     templateUrl: './item-applicator.dialog.html',
 } )
 
-export class ItemApplicatorDialog {
+export class ItemApplicatorDialog implements OnInit {
 
+    private WAIVER_ITEMS: string[] = 'billingModuleState.waiverItem'.split( '.' );
     private _invoice: Invoice;
     private _waiverFinanceApplication: WaiverFinanceApplication;
-    
-    showHide: boolean;
+    private waiverItems$: Observable<WaiverItem[]>;
 
     constructor( private router: Router,
         private route: ActivatedRoute,
@@ -32,8 +33,23 @@ export class ItemApplicatorDialog {
         private store: Store<BillingModuleState>,
         private actions: WaiverFinanceApplicationActions,
         private dialog: MdDialogRef<ItemApplicatorDialog> ) {
+        
+        this.waiverItems$ = this.store.select( ...this.WAIVER_ITEMS );
 
-        this.showHide = true;
+    }
+    
+    private columns: any[] = [
+                              { name: 'chargeCode.code', label: 'Charge Code' },
+                              { name: 'description', label: 'Charge Code Description' },
+                              { name: 'dueAmount', label: 'Amount' },
+                              { name: 'appliedAmount', label: 'Received Amount' },
+                              { name: 'totalAmount', label: 'Balance Amount' },
+                              { name: 'action', label: '' },
+                          ];
+    
+    ngOnInit(): void {
+        console.log( "refNo" + this._invoice.referenceNo );
+        this.store.dispatch( this.actions.findInvoiceWaiverItems(this._waiverFinanceApplication, this._invoice));
     }
 
     set invoice( value: Invoice ) {
@@ -45,7 +61,6 @@ export class ItemApplicatorDialog {
     }
 
     Apply(): void {
-        this.showHide = !this.showHide;
         console.log("waiver ref no " + this._waiverFinanceApplication.referenceNo);
         this.store.dispatch( this.actions.itemToWaiverItem(this._invoice, this._waiverFinanceApplication));
     }

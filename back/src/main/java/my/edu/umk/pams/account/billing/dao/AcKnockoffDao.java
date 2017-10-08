@@ -53,6 +53,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
 	
 	boolean hasKnockoff(AcKnockoff knockoff);
 	
+	boolean hasKnockoff(AcKnockoff knockoff, AcInvoice invoice);
+	
     void addItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user);
 
     void updateKnockoff(AcKnockoff knockoff, AcUser user);
