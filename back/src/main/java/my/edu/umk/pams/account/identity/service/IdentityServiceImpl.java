@@ -38,6 +38,7 @@ import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.model.AcCoverage;
 import my.edu.umk.pams.account.identity.model.AcGroup;
 import my.edu.umk.pams.account.identity.model.AcGroupImpl;
+import my.edu.umk.pams.account.identity.model.AcGuardian;
 import my.edu.umk.pams.account.identity.model.AcPrincipal;
 import my.edu.umk.pams.account.identity.model.AcPrincipalRole;
 import my.edu.umk.pams.account.identity.model.AcPrincipalRoleImpl;
@@ -664,6 +665,12 @@ public class IdentityServiceImpl implements IdentityService {
         studentDao.addSponsorship(student, sponsorship, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+    
+    @Override
+    public void addGuardian(AcStudent student, AcGuardian guardian) {
+        studentDao.addGuardian(student, guardian, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }    
 
     @Override
     public void removeSponsorship(AcStudent student, AcSponsorship sponsorship) {

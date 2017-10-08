@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.common.model.AcProgramCode;
 import my.edu.umk.pams.account.core.GenericDao;
+import my.edu.umk.pams.account.identity.model.AcGuardian;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.model.AcStudent;
@@ -52,5 +53,7 @@ public interface AcStudentDao extends GenericDao<Long, AcStudent> {
 	void addSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user);
 
 	void removeSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user);
+
+	void addGuardian(AcStudent student, AcGuardian guardian, AcUser user);
 
 }
