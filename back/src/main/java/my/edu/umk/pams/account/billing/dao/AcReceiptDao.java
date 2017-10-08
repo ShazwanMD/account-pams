@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcReceiptAccountChargeItem;
@@ -40,6 +41,10 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     AcReceiptItem findReceiptItemByCharge(AcAccountCharge charge, AcReceipt receipt);
     
     AcReceiptItem findReceiptItemByDebitNote(AcDebitNote debitNote, AcReceipt receipt);
+    
+    AcReceiptItem findReceiptItem(AcInvoice invoice, AcReceipt receipt);
+    
+    AcReceiptInvoice findReceiptInvoice(AcInvoice invoice, AcReceipt receipt);
 
     List<AcReceipt> find(String filter, Integer offset, Integer limit);
 
@@ -115,5 +120,5 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
 
 	void addReceiptDebitNote(AcReceipt receipt, AcDebitNote debitNote, AcUser currentUser);
 
-
+	boolean hasReceiptItem(AcReceipt receipt, AcInvoice invoice);
 }

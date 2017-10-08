@@ -13,6 +13,7 @@ import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.d
 import { InvoiceReceiptDialog } from "../dialog/invoice-receipt.dialog";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ReceiptActions } from "../receipt.action";
+import { TdDialogService } from "@covalent/core";
 
 @Component({
   selector: 'pams-invoice-receipt-list',
@@ -39,6 +40,7 @@ export class InvoiceReceiptListComponent {
               private router: Router,
               private route: ActivatedRoute,
               private action: ReceiptActions,
+              private _dialogService: TdDialogService,
               private dialog: MdDialog) {
   }
   

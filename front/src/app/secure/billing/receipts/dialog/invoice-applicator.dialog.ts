@@ -23,7 +23,7 @@ export class InvoiceApplicatorDialog implements OnInit {
     private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split( '.' );
     private _invoice: Invoice;
     private _receipt: Receipt;
-
+    private edit: boolean = false;
     private receiptItems$: Observable<ReceiptItem[]>;
     
     showHide: boolean;
@@ -41,6 +41,7 @@ export class InvoiceApplicatorDialog implements OnInit {
 
     set invoice( value: Invoice ) {
         this._invoice = value;
+        this.edit = true;
     }
 
     set receipt( value: Receipt ) {
@@ -62,7 +63,6 @@ export class InvoiceApplicatorDialog implements OnInit {
     ];
 
     Apply(): void {
-        this.showHide = !this.showHide;
-        this.store.dispatch( this.actions.itemToReceiptItem( this._invoice, this._receipt ) );
+            this.store.dispatch( this.actions.itemToReceiptItem( this._invoice, this._receipt ) );
     }
 }

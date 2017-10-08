@@ -521,7 +521,11 @@ public class BillingController {
     	
     	AcReceipt receipt = billingService.findReceiptById(id);
         AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
-        billingService.itemToReceiptItem(invoice, receipt);
+        Boolean rcptItem = billingService.hasReceiptItem(invoice, receipt);
+        
+        if(rcptItem == false) {
+        	billingService.itemToReceiptItem(invoice, receipt); 
+        }
     }
     
     @RequestMapping(value = "/receipts/updateReceiptItems/{referenceNo}/receiptItems/{id}", method = RequestMethod.PUT)
