@@ -199,7 +199,7 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
 
         session.save(sponsorship);
     }
-
+    
     @Override
     public void removeSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user) {
         Validate.notNull(student, "Student should not be null");
@@ -211,6 +211,36 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
         metadata.setModifierId(user.getId());
         metadata.setState(AcMetaState.INACTIVE);
         sponsorship.setMetadata(metadata);
+        session.update(student);
+    }    
+    
+    @Override
+    public void addGuardian(AcStudent student, AcGuardian guardian, AcUser user) {
+        Validate.notNull(student, "Student should not be null");
+        Validate.notNull(guardian, "Guardian should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        //sponsorship.setStudent(student);
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(ACTIVE);
+        guardian.setMetadata(metadata);
+
+        session.save(guardian);
+    }    
+
+    @Override
+    public void removeGuardian(AcStudent student, AcGuardian guardian, AcUser user) {
+        Validate.notNull(student, "Student should not be null");
+        Validate.notNull(guardian, "Guardian should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        AcMetadata metadata = guardian.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        metadata.setState(AcMetaState.INACTIVE);
+        guardian.setMetadata(metadata);
         session.update(student);
     }
 
