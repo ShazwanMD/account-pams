@@ -1333,6 +1333,11 @@ public class BillingServiceImpl implements BillingService {
 	public AcKnockoffItem findKnockoffReceiptItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff) {
 		return knockoffDao.findKnockoffItemByDebitNote(debitNote, knockoff);
 	}
+	
+	@Override
+	public List<AcKnockoffItem> findInvoiceKnockoffItem(AcInvoice invoice, AcKnockoff knockoff) {
+		return knockoffDao.findInvoiceKnockoffItem(invoice, knockoff);
+	}
 
 	@Override
 	public List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit) {
