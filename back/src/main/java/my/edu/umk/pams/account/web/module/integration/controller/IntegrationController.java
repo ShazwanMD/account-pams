@@ -39,6 +39,9 @@ import my.edu.umk.pams.account.common.model.AcProgramCodeImpl;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCodeImpl;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.identity.model.AcGuardian;
+import my.edu.umk.pams.account.identity.model.AcGuardianImpl;
+import my.edu.umk.pams.account.identity.model.AcGuardianType;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.model.AcStudentStatus;
@@ -52,6 +55,7 @@ import my.edu.umk.pams.connector.payload.AdmissionPayload;
 import my.edu.umk.pams.connector.payload.CandidatePayload;
 import my.edu.umk.pams.connector.payload.CohortCodePayload;
 import my.edu.umk.pams.connector.payload.FacultyCodePayload;
+import my.edu.umk.pams.connector.payload.GuardianPayload;
 import my.edu.umk.pams.connector.payload.IntakePayload;
 import my.edu.umk.pams.connector.payload.IntakeSessionCodePayload;
 import my.edu.umk.pams.connector.payload.ProgramCodePayload;
@@ -133,6 +137,31 @@ public class IntegrationController {
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/guardians", method = RequestMethod.POST)
+    public ResponseEntity<String> saveGuardian(@RequestBody GuardianPayload payload) {
+        LOG.info("incoming Guardian");
+        SecurityContext ctx = loginAsSystem();
+
+        AcStudent student = identityService.findStudentByMatricNo(payload.getStudentPayload().getMatricNo());
+        LOG.debug("Student Guardian:{}", student.getIdentityNo());
+        
+        AcGuardian guardian = new AcGuardianImpl();
+        guardian.setIdentityNo(payload.getIdentityNo());
+        guardian.setName(payload.getName());
+        guardian.setPhone(payload.getPhone());
+        guardian.setStudent(student);
+        guardian.setType(AcGuardianType.get(payload.getType().ordinal()));
+        
+        identityService.addGuardian(student, guardian);
+        LOG.debug("Student Guardian:{}", guardian.getId());
+        LOG.info("Finish Receive Guardian");
+
+
+
+        logoutAsSystem(ctx);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+    
     // ====================================================================================================
     // ADMISSION & ENROLLMENT
     // ====================================================================================================
