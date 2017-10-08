@@ -16,6 +16,12 @@
       <span flex>{{value}}</span>
     </div>
   </template>
+  <template tdDataTableTemplate="inclusive" let-value="value" let-row="row" let-column="column">
+      <div layout="row">{{row['inclusive'] ? 'Inclusive' : 'Exclusive'}}</div>
+  </template>
+    <template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
+      <div layout="row">{{row['active'] ? 'Active' : 'Inactive'}}</div>
+  </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <button md-icon-button [md-menu-trigger-for]="menu">
