@@ -667,14 +667,20 @@ public class IdentityServiceImpl implements IdentityService {
     }
     
     @Override
+    public void removeSponsorship(AcStudent student, AcSponsorship sponsorship) {
+        studentDao.removeSponsorship(student, sponsorship, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
     public void addGuardian(AcStudent student, AcGuardian guardian) {
         studentDao.addGuardian(student, guardian, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }    
 
     @Override
-    public void removeSponsorship(AcStudent student, AcSponsorship sponsorship) {
-        studentDao.removeSponsorship(student, sponsorship, securityService.getCurrentUser());
+    public void removeGuardian(AcStudent student, AcGuardian guardian) {
+    	  studentDao.removeGuardian(student, guardian, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
 

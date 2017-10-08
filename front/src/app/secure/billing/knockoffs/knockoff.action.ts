@@ -479,4 +479,22 @@ export class KnockoffActions {
             payload: task,
         };
     }
+    
+    static FIND_INVOICE_KNOCKOFF_ITEM = '[Knockoff] Find Knockoff Item By Invoice';
+
+    findInvoiceKnockoffItems(knockoff, invoice): Action {
+        return {
+            type: KnockoffActions.FIND_INVOICE_KNOCKOFF_ITEM,
+            payload: { knockoff, invoice }
+        };
+    }
+
+    static FIND_INVOICE_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Find Knockoff Item By Invoice Success';
+
+    findInvoiceKnockoffItemsSuccess(knockoff): Action {
+        return {
+            type: KnockoffActions.FIND_INVOICE_KNOCKOFF_ITEM_SUCCESS,
+            payload: knockoff
+        };
+    }
 }

@@ -377,6 +377,8 @@ public interface BillingService {
     
     AcKnockoffItem findKnockoffReceiptItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff);
     
+    List<AcKnockoffItem> findInvoiceKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
+    
     List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit);
     
 	List<AcKnockoff> findKnockoffsByFlowState(AcFlowState acFlowState);

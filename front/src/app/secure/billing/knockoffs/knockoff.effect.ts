@@ -200,6 +200,11 @@ export class KnockoffEffects {
       .map((state) => state[1])
       .map((knockoff) => this.knockoffActions.findKnockoffItems(knockoff));       
 
+    @Effect() findInvoiceKnockoffItems$ = this.actions$
+    .ofType( KnockoffActions.FIND_INVOICE_KNOCKOFF_ITEM )
+    .map(( action ) => action.payload )
+    .switchMap(( payload ) => this.billingService.findInvoiceKnockoffItems( payload.knockoff, payload.invoice ) )
+    .map(( knockoff ) => this.knockoffActions.findInvoiceKnockoffItemsSuccess(knockoff) );
 }
 
 

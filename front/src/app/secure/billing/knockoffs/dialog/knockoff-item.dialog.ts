@@ -23,7 +23,6 @@ export class KnockoffItemDialog implements OnInit {
 
   private _knockoff: Knockoff;
   private _invoice: Invoice;
-  showHide: boolean;
 
   private KNOCKOFF_ITEM: string[] = 'billingModuleState.knockoffItems'.split('.');
   private knockoffItem$: Observable<KnockoffItem[]>;
@@ -36,7 +35,6 @@ export class KnockoffItemDialog implements OnInit {
               private actions: KnockoffActions,
               private dialog: MdDialogRef<KnockoffItemDialog>) {
       this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
-      this.showHide = true;
   }
 
   set knockoff(value: Knockoff) {
@@ -47,12 +45,20 @@ export class KnockoffItemDialog implements OnInit {
       this._invoice = value;
     }
 
+  private columns: any[] = [
+                            { name: 'chargeCode.code', label: 'Charge Code' },
+                            { name: 'description', label: 'Charge Code Description' },
+                            { name: 'dueAmount', label: 'Amount' },
+                            { name: 'appliedAmount', label: 'Received Amount' },
+                            { name: 'totalAmount', label: 'Balance Amount' },
+                            { name: 'action', label: '' },
+                        ];
+    
   ngOnInit(): void {
-      this.store.dispatch(this.actions.findKnockoffItemsByInvoice(this._knockoff, this._invoice));
+      this.store.dispatch(this.actions.findInvoiceKnockoffItems(this._knockoff, this._invoice));
   }
 
   Apply(): void {
-      this.showHide = !this.showHide;
       this.store.dispatch( this.actions.itemToKnockoffItem(this._invoice, this._knockoff));
   }
 }

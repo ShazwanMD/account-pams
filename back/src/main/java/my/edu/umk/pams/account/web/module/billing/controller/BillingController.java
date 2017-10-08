@@ -1154,6 +1154,15 @@ public class BillingController {
         e.setChargeCode(accountService.findChargeCodeById(0L));
         billingService.addKnockoffItem(knockoff, e);
     }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/items/invoices/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<KnockoffItem>> findInvoiceKnockoffItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
+        return new ResponseEntity<List<KnockoffItem>>(billingTransformer
+        		.toKnockoffItemVos(billingService.findInvoiceKnockoffItem(invoice, knockoff)), HttpStatus.OK);
+    }
 
     // ==================================================================================================== //
     //  REFUND PAYMENT
