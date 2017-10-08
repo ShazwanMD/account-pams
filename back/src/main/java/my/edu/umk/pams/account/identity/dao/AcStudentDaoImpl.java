@@ -199,6 +199,22 @@ public class AcStudentDaoImpl extends GenericDaoSupport<Long, AcStudent> impleme
 
         session.save(sponsorship);
     }
+    
+    @Override
+    public void addGuardian(AcStudent student, AcGuardian guardian, AcUser user) {
+        Validate.notNull(student, "Student should not be null");
+        Validate.notNull(guardian, "Guardian should not be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        //sponsorship.setStudent(student);
+        AcMetadata metadata = new AcMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(ACTIVE);
+        guardian.setMetadata(metadata);
+
+        session.save(guardian);
+    }    
 
     @Override
     public void removeSponsorship(AcStudent student, AcSponsorship sponsorship, AcUser user) {

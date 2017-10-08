@@ -271,6 +271,8 @@ public interface IdentityService {
 
 	List<AcSponsorship> findSponsorships(AcAccount account);
 
+	void addGuardian(AcStudent student, AcGuardian guardian);
+
 
 
 }
