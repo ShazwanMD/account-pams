@@ -1,3 +1,4 @@
+import { ReceiptActions } from './receipt.action';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -18,26 +19,26 @@ export class ReceiptItemDetailPage implements OnInit {
 
   private INVOICE: string[] = 'billingModuleState.invoice'.split('.');
   private INVOICE_ITEMS: string[] = 'billingModuleState.invoiceItems'.split('.');
-  private RECEIPT: string[] = 'billingModuleState.receipt'.split('.');
+  private RECEIPTS: string[] = 'billingModuleState.receipts'.split('.');
   private invoice$: Observable<Invoice>;
   private invoiceItems$: Observable<InvoiceItem[]>;
-  private receipt$: Observable<Receipt>;
+  private receipts$: Observable<Receipt>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private viewContainerRef: ViewContainerRef,
               private dialog: MdDialog,
-              private actions: InvoiceActions) {
+              private actions: ReceiptActions) {
     this.invoice$ = this.store.select(...this.INVOICE);
     this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
-    this.receipt$ = this.store.select(...this.RECEIPT);
+    this.receipts$ = this.store.select(...this.RECEIPTS);
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: { referenceNo: string }) => {
       let referenceNo: string = params.referenceNo;
-      this.store.dispatch(this.actions.findInvoiceByReferenceNo(referenceNo));
+      this.store.dispatch(this.actions.findReceiptByReferenceNo(referenceNo));
     });
   }
 

@@ -52,7 +52,7 @@ export class ArchivedReceiptListComponent  implements OnChanges{
 }
   viewReceipt(receipt: Receipt): void {
     console.log('Emitting task');
-    let snackBarRef = this.snackBar.open('Viewing Receipt', 'OK');
+    let snackBarRef = this.snackBar.open('Viewing Receipt Detail', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(receipt);
     });
