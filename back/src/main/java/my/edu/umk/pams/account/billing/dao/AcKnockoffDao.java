@@ -33,6 +33,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
 	
 	AcKnockoffItem findKnockoffItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff);
 	
+	List<AcKnockoffItem> findInvoiceKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
+	
 	List<AcKnockoff> find(String filter, Integer offset, Integer limit);
 	
     List<AcKnockoff> findByFlowState(AcFlowState flowState);

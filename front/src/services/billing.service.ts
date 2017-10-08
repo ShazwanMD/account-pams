@@ -677,6 +677,12 @@ export class BillingService {
             .map(( res: Response ) => <KnockoffItem[]>res.json() );
     }
     
+    findInvoiceKnockoffItems( knockoff: Knockoff, invoice:Invoice ): Observable<KnockoffItem[]> {
+        console.log( 'findReceiptItems' );
+        return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/items/invoices/' + invoice.id )
+            .map(( res: Response ) => <KnockoffItem[]>res.json() );
+    }
+    
     addKnockoffDebitNote( knockoff: Knockoff, debitNote: DebitNote ): Observable<String> {
         return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/debitNote/' + debitNote.id, JSON.stringify( debitNote ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );

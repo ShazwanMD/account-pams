@@ -17,7 +17,7 @@ import { KnockoffActions } from "../knockoff.action";
   selector: 'pams-knockoff-item-list',
   templateUrl: './knockoff-item-list.component.html',
 })
-export class KnockoffItemListComponent implements OnInit {
+export class KnockoffItemListComponent {
 
     @Input() knockoffItem: KnockoffItem[];
     @Input() knockoff: Knockoff;
@@ -41,11 +41,6 @@ export class KnockoffItemListComponent implements OnInit {
               private actions: KnockoffActions,
               private dialog: MdDialog) {
   }
-  
-  ngOnInit(): void {
-      
-      //this.selectedRows = this.knockoffInvoice.filter((value) => value.selected);
-    }
   
 
 }

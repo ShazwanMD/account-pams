@@ -32,6 +32,8 @@ import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
+import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
+import my.edu.umk.pams.account.billing.model.AcWaiverItem;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -97,6 +99,20 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         query.setEntity("knockoff", knockoff);
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         return (AcKnockoffItem) query.uniqueResult();
+	}
+	
+	@Override
+	public List<AcKnockoffItem> findInvoiceKnockoffItem(AcInvoice invoice, AcKnockoff knockoff) {
+		Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
+                "ri.invoice = :invoice " +
+                "and ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("invoice", invoice);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcKnockoffItem>) query.list();		
 	}
 	
 	@Override
