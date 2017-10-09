@@ -1,5 +1,5 @@
 ----FIAT-PHD-0001-CHRT-201720181, M, Full Time 
-INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts)
+INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts, status)
 VALUES (nextval('SQ_AC_FEE_SCDL'),
          (SELECT ID from AC_RSCY_CODE where code = 'M'),
         (SELECT ID
@@ -9,7 +9,7 @@ VALUES (nextval('SQ_AC_FEE_SCDL'),
         (SELECT ID FROM AC_STDY_MODE where code = '1'),
         'Y1-M-FIAT-PHD-0001-CHRT-201720181',
         'YURAN BAGI COHORT FIAT-PHD-0001-CHRT-201720181 SEPENUH MASA PERMASTAUTIN TETAP', 12370.00,
-        1, 1, CURRENT_TIMESTAMP);
+        1, 1, CURRENT_TIMESTAMP, true);
 
 --Semester 1--
 INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, ordinal, description, amount, m_st, c_id, c_ts)
@@ -356,7 +356,7 @@ values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
 --        1, 1, CURRENT_TIMESTAMP);
 --
 ----FIAT-PHD-0001-CHRT-201720181, X, Part Time 
-INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts)
+INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts, status)
 VALUES (nextval('SQ_AC_FEE_SCDL'),
          (SELECT ID from AC_RSCY_CODE where code = 'X'),
         (SELECT ID
@@ -366,7 +366,7 @@ VALUES (nextval('SQ_AC_FEE_SCDL'),
         (SELECT ID FROM AC_STDY_MODE where code = '2'),
         'Y2-X-FIAT-PHD-0001-CHRT-201720181',
         'YURAN BAGI COHORT FIAT-PHD-0001-CHRT-201720181 SEPARUH MASA BUKAN WARGANEGARA', 17120.00,
-        1, 1, CURRENT_TIMESTAMP);
+        1, 1, CURRENT_TIMESTAMP, true);
 --
 ----Semester 1--
 --INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, ordinal, description, amount, m_st, c_id, c_ts)

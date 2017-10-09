@@ -29,6 +29,10 @@ public class AcFeeScheduleImpl implements AcFeeSchedule {
 
     @Column(name = "TOTAL_AMOUNT", nullable = false)
     private BigDecimal totalAmount;
+    
+    @NotNull
+    @Column(name = "STATUS")
+    private Boolean status = true;
 
     @NotNull
     @OneToOne(targetEntity = AcCohortCodeImpl.class)
@@ -126,6 +130,16 @@ public class AcFeeScheduleImpl implements AcFeeSchedule {
     public void setMetadata(AcMetadata metadata) {
         this.metadata = metadata;
     }
+    
+    @Override
+    public Boolean getStatus() {
+		return status;
+	}
+
+    @Override
+    public void setStatus(Boolean status) {
+		this.status = status;
+	}
 
     @Override
     public Class<?> getInterfaceClass() {

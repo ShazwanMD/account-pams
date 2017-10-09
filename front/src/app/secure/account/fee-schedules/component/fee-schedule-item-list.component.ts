@@ -61,7 +61,7 @@ export class FeeScheduleItemListComponent implements OnInit {
     this.showDialog(null);
   }
 
-    showDialog(scheduleItem: FeeScheduleItem): void {
+  showDialog(scheduleItem: FeeScheduleItem): void {
     console.log('showDialog');
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
