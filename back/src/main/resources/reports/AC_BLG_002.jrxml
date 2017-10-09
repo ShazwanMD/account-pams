@@ -491,7 +491,7 @@ FROM
 				<textFieldExpression><![CDATA[$F{ac_actr_address}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="40" width="100" height="20" uuid="6e8ba411-37cd-4158-8db8-4d8bb5aa360f"/>
+				<reportElement x="455" y="40" width="86" height="20" uuid="6e8ba411-37cd-4158-8db8-4d8bb5aa360f"/>
 				<textFieldExpression><![CDATA[$F{ac_stdn_student_status}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -712,8 +712,7 @@ FROM
 			</frame>
 			<textField>
 				<reportElement x="458" y="0" width="41" height="20" uuid="4cb8e2eb-13e6-4973-b889-3ab73acefae5"/>
-				<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount} < 0.00 ? $F{ac_acct_chrg_trsn_amount} : 0.00)
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount} < 0.00 ? $F{ac_acct_chrg_trsn_amount} : 0.00)]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement x="389" y="0" width="60" height="20" uuid="7e26fdbe-031b-4134-9ad4-50961f51ce0e"/>
