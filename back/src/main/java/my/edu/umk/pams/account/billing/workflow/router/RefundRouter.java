@@ -26,26 +26,31 @@ public class RefundRouter extends RouterServiceSupport{
         Validate.notNull(refundId, "Id must not be null");
 
         String candidate = null;
+        String kerani = null;
+        
         AcRefundPayment refundPayment = billingService.findRefundPaymentById(refundId);
         candidate = "GRP_ADM";
+        kerani = "GRP_KRN_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(receipt, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate);
+        return Arrays.asList(candidate, kerani);
     }
 
     public List<String> findVerifierCandidates(Long refundId) {
         Validate.notNull(refundId, "Id must not be null");
 
         String candidate = null;
+        String pegawai = null;
 
         AcRefundPayment refundPayment = billingService.findRefundPaymentById(refundId);
         candidate = "GRP_ADM";
+        pegawai = "GRP_PGW_ADM_BEND";   
 
         // publish access event
         // publishAccessEvent(receipt, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate);
+        return Arrays.asList(candidate, pegawai);
     }
 }
