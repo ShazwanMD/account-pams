@@ -35,4 +35,8 @@ public interface AcFeeSchedule extends AcMetaObject{
     AcStudyMode getStudyMode();
 
     void setStudyMode(AcStudyMode studyMode);
+    
+    Boolean getStatus();
+
+    void setStatus(Boolean status);
 }
