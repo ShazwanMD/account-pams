@@ -50,7 +50,7 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
                 "sa.cohortCode = :cohortCode " +
                 "and sa.residencyCode = :residencyCode " +
                 "and sa.studyMode = :studyMode " +
-                "and sa.status = true" +
+                "and sa.status = true " +
                 "and sa.metadata.state = :state");
         query.setEntity("cohortCode", cohortCode);
         query.setEntity("residencyCode", residencyCode);
