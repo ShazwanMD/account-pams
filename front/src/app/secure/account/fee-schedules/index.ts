@@ -1,3 +1,4 @@
+import { FeeScheduleEditorDialog } from './dialog/fee-schedule-editor.dialog';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -41,6 +42,7 @@ import {FeeScheduleStatusComponent} from './component/fee-schedule-status.compon
     // dialog
     FeeScheduleCreatorDialog,
     FeeScheduleItemEditorDialog,
+    FeeScheduleEditorDialog,
 
     // component
     FeeScheduleComponent,
@@ -52,6 +54,7 @@ import {FeeScheduleStatusComponent} from './component/fee-schedule-status.compon
   entryComponents: [
     FeeScheduleCreatorDialog,
     FeeScheduleItemEditorDialog,
+    FeeScheduleEditorDialog,
   ],
 
 })
