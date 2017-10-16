@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ac_report_inbois_cukai" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db4466dc-5424-40f9-9d63-6eabf2d1ff33">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="249"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="sum_amount_by_tx_code" uuid="68568418-c35b-43ba-8ddf-dc5de12f0811">
 		<parameter name="invc_ref_no" class="java.lang.String"/>
 		<queryString>
@@ -31,7 +31,9 @@ GROUP BY ac_tax_code."code", ac_tax_code."tax_rate",ac_invc."reference_no"]]>
 		<filterExpression><![CDATA[$F{ac_invc_reference_no}.equals( $P{invc_ref_no} )]]></filterExpression>
 	</subDataset>
 	<subDataset name="dataset1" uuid="7e102b17-3647-4071-a259-6330b70e7460"/>
-	<parameter name="inv_ref_no" class="java.lang.String"/>
+	<parameter name="inv_ref_no" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\samiya\\git\\account\\back\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
 	</parameter>
@@ -421,28 +423,28 @@ FROM
 			<staticText>
 				<reportElement x="210" y="119" width="158" height="13" uuid="e3d7cfb7-25a9-458f-83a8-5330eeda5cf5"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Narrow" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<text><![CDATA[Email :kew.pelajar@umk.edu.my]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="414" y="119" width="138" height="13" uuid="0fdc5235-8e0d-47cb-bfb4-1072be44eae1"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial Narrow" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<text><![CDATA[TELEFAX : (+609)-7717102]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="239" y="66" width="100" height="47" uuid="286b5eec-08b5-430a-b9ae-8268561d856e"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Narrow" size="10" isBold="false"/>
+					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[KARUNG BERKUNCI 36 PENGKALAN CHEPA 16100 KOTA BHARU KELANTAN, MALAYSIA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="8" y="118" width="135" height="14" uuid="57e54ba7-0979-46fc-8b1a-ced0a0b35b72"/>
 				<textElement>
-					<font fontName="Arial Narrow" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<text><![CDATA[TELEFON : (+609)-7717111]]></text>
 			</staticText>
@@ -455,14 +457,10 @@ FROM
 			<staticText>
 				<reportElement x="214" y="110" width="146" height="22" uuid="60b6f7e5-4e75-470a-a34b-7366d7ad049c"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Narrow" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<text><![CDATA[GST ID no : 000546836480]]></text>
 			</staticText>
-			<image>
-				<reportElement x="272" y="0" width="35" height="66" uuid="6c986981-5f8a-4764-8dbf-e36b6ab6bb94"/>
-				<imageExpression><![CDATA["C:\\Users\\samiya\\git\\account\\back\\src\\main\\resources\\reports\\Logo_Universiti_Malaysia_Kelantankecik.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -472,22 +470,30 @@ FROM
 			</rectangle>
 			<textField>
 				<reportElement x="21" y="3" width="286" height="20" uuid="9b5376e1-7fde-4c83-9543-290560ab8afb"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="23" y="19" width="284" height="57" uuid="6583a262-412e-4da2-abdc-0a7ad23cf4e3"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_address}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="452" y="24" width="103" height="20" uuid="94e2e5bb-68b3-4afa-afbd-9b3b438804e2"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_invc_reference_no}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="452" y="44" width="103" height="20" uuid="10fe7d0f-aa1d-4d25-911f-3ca40da28232"/>
-				<textFieldExpression><![CDATA[$F{ac_acct_actor_id}]]></textFieldExpression>
-			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="452" y="64" width="103" height="20" uuid="7471d6d2-f64d-472a-b102-b48adba3b3fe"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_invc_issued_date}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -497,7 +503,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Left"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[INBOIS            :]]></text>
 			</staticText>
 			<staticText>
@@ -507,7 +515,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Left"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[CUST ID         :]]></text>
 			</staticText>
 			<staticText>
@@ -517,7 +527,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Left"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[TARIKH           :]]></text>
 			</staticText>
 			<staticText>
@@ -528,10 +540,14 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Left">
-					<font size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INBOIS CUKAI]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="452" y="44" width="103" height="20" uuid="e3da3b07-56eb-46d0-a353-ca24f3b61c55"/>
+				<textFieldExpression><![CDATA[$F{ac_acct_code}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -846,7 +862,7 @@ FROM
 			<staticText>
 				<reportElement x="12" y="210" width="156" height="20" uuid="e8a0ebf6-2ec0-46dc-832f-edbbabc42ef1"/>
 				<textElement>
-					<font fontName="Arial Narrow"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Penolong Akauntan ]]></text>
 			</staticText>
@@ -859,35 +875,35 @@ FROM
 			<staticText>
 				<reportElement x="377" y="210" width="140" height="21" uuid="a142a027-055e-4ec8-9320-0e3591a052af"/>
 				<textElement>
-					<font fontName="Arial Narrow"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Penolong Bendahari]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="12" y="220" width="178" height="13" uuid="9ee0ae7a-3f32-4305-a218-8a95c49ff710"/>
 				<textElement>
-					<font fontName="Arial Narrow"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="377" y="221" width="178" height="13" uuid="87bb9b0d-abe1-454b-866e-552bc72092be"/>
 				<textElement>
-					<font fontName="Arial Narrow"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="380" y="159" width="100" height="20" uuid="c2df1b45-fe40-435d-9db0-e3f922163974"/>
 				<textElement>
-					<font fontName="Arial Narrow"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Disahkan Oleh :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="13" y="158" width="100" height="20" uuid="516f79a9-cb39-42f0-9909-738e8304bbbb"/>
 				<textElement>
-					<font fontName="Arial Narrow"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Disediakan Oleh :]]></text>
 			</staticText>
@@ -897,28 +913,28 @@ FROM
 			<staticText>
 				<reportElement x="321" y="83" width="217" height="20" uuid="c05cc819-f936-4360-a6a0-558e87c7b126"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Narrow" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="353" y="105" width="149" height="24" uuid="4596ca6e-0b39-436d-aa28-eaddb8243d6f"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Narrow" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<text><![CDATA[Di Bank Islam Malaysia Berhad, Cawangan Kota Bharu]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="311" y="72" width="224" height="15" uuid="7d36c921-a81d-4e9f-91cb-4c5d85bf6718"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Narrow" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<text><![CDATA[Cek hendaklah dipalang dan dibayar atas nama :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="345" y="93" width="170" height="20" uuid="3e581511-062a-4ebd-b8a5-42c551c3c1d7"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial Narrow" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<text><![CDATA[No. Akaun : 03036010016919]]></text>
 			</staticText>

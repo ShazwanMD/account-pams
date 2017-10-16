@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ac_report_inbois_cukai" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db4466dc-5424-40f9-9d63-6eabf2d1ff33">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="110"/>
-	<property name="ireport.y" value="405"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="165"/>
 	<subDataset name="sum_amount_by_tx_code" uuid="68568418-c35b-43ba-8ddf-dc5de12f0811">
 		<parameter name="invc_ref_no" class="java.lang.String"/>
 		<queryString>
@@ -215,7 +215,9 @@ FROM
      INNER JOIN "public"."ac_stdn" ac_stdn ON ac_actr."id" = ac_stdn."id"
      INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_stdn."cohort_code_id" = ac_chrt_code."id"
      INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."program_code_id" = ac_prgm_code."id"
-     INNER JOIN "public"."ac_fcty_code" ac_fcty_code ON ac_prgm_code."faculty_code_id" = ac_fcty_code."id"]]>
+     INNER JOIN "public"."ac_fcty_code" ac_fcty_code ON ac_prgm_code."faculty_code_id" = ac_fcty_code."id"
+
+WHERE ac_invc."fd_st" = 16]]>
 	</queryString>
 	<field name="ac_acct_id" class="java.lang.Long"/>
 	<field name="ac_acct_code" class="java.lang.String"/>
@@ -414,6 +416,12 @@ FROM
 	<variable name="ac_invc_item_amount_3" class="java.math.BigDecimal" resetType="Group" resetGroup="actor" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_invc_item_amount}]]></variableExpression>
 	</variable>
+	<variable name="ac_invc_item_tax_amount_1" class="java.math.BigDecimal" resetType="Group" resetGroup="actor" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_invc_item_tax_amount}]]></variableExpression>
+	</variable>
+	<variable name="ac_invc_item_net_amount_1" class="java.math.BigDecimal" resetType="Group" resetGroup="actor" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_invc_item_net_amount}]]></variableExpression>
+	</variable>
 	<group name="actor">
 		<groupExpression><![CDATA[$F{ac_acct_id}]]></groupExpression>
 		<groupHeader>
@@ -433,7 +441,7 @@ FROM
 					<text><![CDATA[TELEFAX : (+609)-7717102]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="227" y="80" width="116" height="52" uuid="286b5eec-08b5-430a-b9ae-8268561d856e"/>
+					<reportElement x="227" y="78" width="116" height="52" uuid="286b5eec-08b5-430a-b9ae-8268561d856e"/>
 					<textElement textAlignment="Center">
 						<font fontName="SansSerif" size="10" isBold="false"/>
 					</textElement>
@@ -483,14 +491,7 @@ FROM
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_invc_reference_no}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="452" y="196" width="103" height="20" uuid="10fe7d0f-aa1d-4d25-911f-3ca40da28232"/>
-					<textElement>
-						<font fontName="SansSerif"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{ac_acct_actor_id}]]></textFieldExpression>
-				</textField>
-				<textField>
+				<textField pattern="dd/MM/yyyy">
 					<reportElement x="452" y="216" width="103" height="20" uuid="7471d6d2-f64d-472a-b102-b48adba3b3fe"/>
 					<textElement>
 						<font fontName="SansSerif"/>
@@ -545,10 +546,6 @@ FROM
 					</textElement>
 					<text><![CDATA[INBOIS CUKAI]]></text>
 				</staticText>
-				<textField>
-					<reportElement x="190" y="196" width="100" height="20" uuid="4a4d6ad5-685f-46b6-95f9-08605a2e38d5"/>
-					<textFieldExpression><![CDATA[$F{ac_invc_fd_st}]]></textFieldExpression>
-				</textField>
 				<frame>
 					<reportElement x="4" y="239" width="23" height="34" uuid="f6cdb676-b87e-4bf2-b9a4-818e3e7429b3"/>
 					<box>
@@ -658,11 +655,6 @@ FROM
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
 					</box>
-					<textField>
-						<reportElement x="0" y="3" width="23" height="20" uuid="d7344e6b-4672-483b-9442-335c196a44ae"/>
-						<textElement textAlignment="Center"/>
-						<textFieldExpression><![CDATA[$V{bil}]]></textFieldExpression>
-					</textField>
 				</frame>
 				<frame>
 					<reportElement x="355" y="273" width="56" height="89" uuid="11e121d3-fdb9-4309-992a-95ec63a647da"/>
@@ -757,6 +749,14 @@ FROM
 						<rightPen lineWidth="1.0"/>
 					</box>
 				</frame>
+				<staticText>
+					<reportElement x="13" y="276" width="10" height="20" uuid="4eea16c6-d10b-4d05-961e-ed0c21cbda28"/>
+					<text><![CDATA[1.]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="452" y="196" width="103" height="20" uuid="bbc63dbe-b55b-4deb-bf0a-a0f04d7b9cf2"/>
+					<textFieldExpression><![CDATA[$F{ac_acct_code}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -769,6 +769,13 @@ FROM
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
+					<textField>
+						<reportElement x="0" y="0" width="45" height="16" uuid="6e040d1c-dcd1-4daf-984c-8ba5460db532"/>
+						<textElement textAlignment="Right">
+							<font isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$V{ac_invc_item_net_amount_1}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<line>
 					<reportElement x="13" y="208" width="152" height="1" uuid="c04041b6-7b5b-4847-85e2-7b377ae14cb2"/>
@@ -974,6 +981,13 @@ FROM
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="0.0"/>
 					</box>
+					<textField>
+						<reportElement x="0" y="0" width="45" height="16" uuid="1f4f37bf-a355-4321-bdcd-4502355c5dab"/>
+						<textElement textAlignment="Right">
+							<font isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$V{ac_invc_item_tax_amount_1}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
 					<reportElement x="354" y="0" width="57" height="16" uuid="6b9cf23d-daf4-4df4-a691-5c3f2bb8d4ce"/>
@@ -984,45 +998,13 @@ FROM
 						<rightPen lineWidth="0.0"/>
 					</box>
 					<textField>
-						<reportElement x="0" y="0" width="51" height="16" uuid="9c7fff81-9816-4c87-97e4-79bb473e1787"/>
-						<textElement textAlignment="Right"/>
+						<reportElement x="0" y="0" width="53" height="16" uuid="9c7fff81-9816-4c87-97e4-79bb473e1787"/>
+						<textElement textAlignment="Right">
+							<font isBold="true"/>
+						</textElement>
 						<textFieldExpression><![CDATA[$V{ac_invc_item_amount_3}]]></textFieldExpression>
 					</textField>
 				</frame>
-				<textField>
-					<reportElement x="452" y="37" width="43" height="16" uuid="6da8f1c5-7f9e-40d9-8667-277500c63859"/>
-					<box>
-						<topPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-					</box>
-					<textElement textAlignment="Right">
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{total_tax_amnt}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="499" y="37" width="45" height="16" uuid="cfca964a-a059-4843-8866-c011a2bc77f6"/>
-					<box>
-						<topPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement textAlignment="Right">
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{total_net_amnt}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="354" y="33" width="50" height="16" uuid="4cbe12ab-ccd2-41c7-b024-673fb060e262"/>
-					<box>
-						<topPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-					</box>
-					<textElement textAlignment="Right">
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{total_amnt}]]></textFieldExpression>
-				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -1055,7 +1037,7 @@ FROM
 				</box>
 			</frame>
 			<textField>
-				<reportElement x="355" y="1" width="49" height="20" uuid="220d99fa-d7fc-485e-a11b-f18bac6880b0"/>
+				<reportElement x="354" y="1" width="53" height="20" uuid="220d99fa-d7fc-485e-a11b-f18bac6880b0"/>
 				<box>
 					<rightPen lineWidth="0.0"/>
 				</box>
@@ -1063,7 +1045,7 @@ FROM
 				<textFieldExpression><![CDATA[$F{ac_invc_item_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="456" y="1" width="43" height="20" uuid="b028af53-8009-416c-9421-da829a9caac6"/>
+				<reportElement x="454" y="1" width="45" height="20" uuid="b028af53-8009-416c-9421-da829a9caac6"/>
 				<box>
 					<rightPen lineWidth="0.0"/>
 				</box>
