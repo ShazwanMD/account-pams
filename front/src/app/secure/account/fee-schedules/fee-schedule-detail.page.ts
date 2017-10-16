@@ -1,11 +1,12 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import { FeeScheduleEditorDialog } from './dialog/fee-schedule-editor.dialog';
+import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {FeeScheduleActions} from './fee-schedule.action';
 import {AccountModuleState} from '../index';
-import {MdDialog} from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import {FeeSchedule} from '../../../shared/model/account/fee-schedule.interface';
 import {FeeScheduleItem} from '../../../shared/model/account/fee-schedule-item.interface';
 
@@ -20,6 +21,9 @@ export class FeeScheduleDetailPage implements OnInit {
   private FEE_SCHEDULE_ITEMS: string[] = 'accountModuleState.feeScheduleItems'.split('.');
   private feeSchedule$: Observable<FeeSchedule>;
   private feeScheduleItems$: Observable<FeeScheduleItem[]>;
+  private editorDialogRef: MdDialogRef<FeeScheduleEditorDialog>;
+
+  @Input() feeSchedule: FeeSchedule;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -41,6 +45,25 @@ export class FeeScheduleDetailPage implements OnInit {
 
   goBack(route: string): void {
     this.router.navigate(['/feeSchedules']);
+  }
+
+  edit(feeSchedule:FeeSchedule): void {
+    this.showDialog(feeSchedule);
+  }
+
+  showDialog(feeSchedule: FeeSchedule): void {
+    console.log('showDialog');
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '60%';
+    config.position = {top: '0px'};
+    this.editorDialogRef = this.dialog.open(FeeScheduleEditorDialog, config);
+    this.editorDialogRef.componentInstance.feeSchedule = this.feeSchedule;
+    this.editorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
+    });
   }
 }
 
