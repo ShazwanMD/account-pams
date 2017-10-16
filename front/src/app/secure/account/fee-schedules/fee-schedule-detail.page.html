@@ -25,7 +25,7 @@
           <md-divider></md-divider>
 
           <md-nav-list flex dense>
-            <md-list-item [routerLink]="['/accounts-reopen', account?.code]">
+            <md-list-item (click)="edit()">
               <md-icon md-list-avatar>gavel</md-icon>
               <h4 md-line>Edit</h4>
               <p md-line>Edit this schedule</p>
