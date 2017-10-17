@@ -17,7 +17,8 @@ import {FeeSchedule} from '../../../../shared/model/account/fee-schedule.interfa
 
 export class FeeScheduleEditorDialog implements OnInit {
 
-  private editForm: FormGroup;  feeSchedule: FeeSchedule;
+  private editForm: FormGroup; feeSchedule: FeeSchedule;
+  private edit: boolean = false;
 
 
   constructor(private router: Router,
@@ -37,16 +38,22 @@ export class FeeScheduleEditorDialog implements OnInit {
       residencyCode: [<ResidencyCode>{}],
       cohortCode: [<CohortCode>{}],
       studyMode: [<StudyMode>{}],
-      active: [true],
+      status: [true],
     });
+
+    if (this.edit) {
+      this.editForm.patchValue(this.feeSchedule);
+    }
+  
   }
 
-  save(feeSchedule: FeeSchedule, isValid: boolean): void {
-    console.log('saving fee');
-
+  submit(feeSchedule: FeeSchedule, isValid: boolean) {
+    feeSchedule.description = feeSchedule.description;  
     feeSchedule.code = 'Y' + feeSchedule.studyMode.code + '-' + feeSchedule.residencyCode.code + '-' + feeSchedule.cohortCode.code;
-    this.store.dispatch(this.actions.saveFeeSchedule(feeSchedule));
+    if (this.edit) this.store.dispatch(this.actions.updateFeeSchedule(this.feeSchedule));
+  //  else  this.store.dispatch(this.actions.saveFeeSchedule(this.feeSchedule));
     this.dialog.close();
+
   }
 }
 
