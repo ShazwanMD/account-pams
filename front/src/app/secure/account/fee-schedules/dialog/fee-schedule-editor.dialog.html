@@ -1,7 +1,7 @@
 <h2 md-dialog-title>Fee Schedule Editor Dialog</h2>
 <md-dialog-content>
   <form [formGroup]="editForm" novalidate>
-      <div layout="row" class="pad-bottom pad-top">
+      <!-- <div layout="row" class="pad-bottom pad-top">
       <pams-cohort-code-select
         [placeholder]="'Select Cohort'"
         [innerFormControl]="editForm.controls.cohortCode" fxFlex="calc(100%-25px)" class="pad=bottom">
@@ -30,7 +30,7 @@
                  *ngIf="editForm.get('residencyCode').invalid && editForm.get('residencyCode').touched">
              Residency is required!
         </div>
-    </div>
+    </div> -->
     <div layout="row" class="pad-bottom pad-top">
       <md-input-container fxFlex="calc(50%-25px)">
         <input mdInput
@@ -40,7 +40,7 @@
       </md-input-container>
     </div>
     <div layout="row" class="pad-bottom">
-      <md-checkbox formControlName="active">
+      <md-checkbox formControlName="status">
         <div layout="column" flex>
           Active
         </div>
@@ -49,8 +49,9 @@
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(editForm.value, editForm.valid)"
-  [disabled] = "!editForm.valid">Save</button>
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
 </md-dialog-actions>
 
 
