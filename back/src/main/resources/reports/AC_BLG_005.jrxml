@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5270fd6a-534b-45bb-8407-2b40fe397a35">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="123"/>
-	<property name="ireport.y" value="37"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="159"/>
 	<queryString>
 		<![CDATA[SELECT
      ac_acct."id" AS ac_acct_id,
@@ -489,14 +489,14 @@ WHERE ac_invc."fd_st" = 16]]>
 				<line>
 					<reportElement x="0" y="19" width="555" height="1" uuid="4d1c529a-9281-49d7-8cde-f3e4e4751199"/>
 				</line>
-				<textField evaluationTime="Group" evaluationGroup="actor">
-					<reportElement x="453" y="0" width="100" height="20" printWhenGroupChanges="actor" uuid="f59d68ad-e1a3-45e5-a2c9-534ac0c13640"/>
-					<textElement textAlignment="Right"/>
-					<textFieldExpression><![CDATA[$V{ac_rcpt_item_total_amount_1}]]></textFieldExpression>
-				</textField>
 				<line>
 					<reportElement x="0" y="0" width="555" height="1" uuid="edd18661-1426-494a-a7b9-abdc1606bb47"/>
 				</line>
+				<textField>
+					<reportElement x="453" y="4" width="99" height="16" uuid="b2802586-6c1b-4cc9-9943-4b5f938f551e"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{ac_rcpt_total_received}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -516,15 +516,15 @@ WHERE ac_invc."fd_st" = 16]]>
 		<band height="20" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="0" width="553" height="20" uuid="06621a08-850a-4a11-929a-443430e229fa"/>
+				<textField>
+					<reportElement x="452" y="0" width="100" height="20" uuid="fa0bcadc-9622-4812-bea6-16c5d86ff374"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<textField>
 				<reportElement x="71" y="0" width="299" height="20" uuid="f9f7fb90-4b0b-412e-87da-e86815f1f17c"/>
 				<textFieldExpression><![CDATA[$F{ac_rcpt_item_description}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="453" y="0" width="100" height="20" uuid="0e6bde27-7c52-430c-832b-206685cc5ada"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{ac_rcpt_item_total_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="3" y="0" width="68" height="20" uuid="32ef4521-8818-4c2e-8db2-50f3bc7f4c08"/>
