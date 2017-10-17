@@ -18,6 +18,7 @@ public class FeeSchedule {
     private CohortCode cohortCode;
     private StudyMode studyMode;
     private BigDecimal totalAmount;
+    private Boolean status;
 
     public Long getId() {
         return id;
@@ -75,7 +76,15 @@ public class FeeSchedule {
         this.totalAmount = totalAmount;
     }
 
-    @JsonCreator
+    public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	@JsonCreator
     public static FeeSchedule create(String jsonString) {
     	FeeSchedule o = null;
         try {
