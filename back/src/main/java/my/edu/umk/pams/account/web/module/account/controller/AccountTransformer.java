@@ -58,6 +58,7 @@ public class AccountTransformer {
         m.setCohortCode(commonTransformer.toCohortCodeVo(e.getCohortCode()));
         m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
         m.setTotalAmount(e.getTotalAmount());
+        m.setStatus(e.getStatus());
         return m;
     }
 
