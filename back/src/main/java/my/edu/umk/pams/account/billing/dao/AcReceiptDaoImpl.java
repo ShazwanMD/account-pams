@@ -87,7 +87,7 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         query.setEntity("invoice", invoice);
         query.setEntity("receipt", receipt);
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
-        return (AcReceiptItem) query.uniqueResult();
+        return (AcReceiptItem) query.setMaxResults(1).uniqueResult();
 	}
     
     @Override
