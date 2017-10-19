@@ -93,11 +93,11 @@ export class FeeScheduleActions {
 
   static UPDATE_FEE_SCHEDULE_SUCCESS = '[FeeSchedule] Update FeeSchedule Success';
 
-  updateFeeScheduleSuccess(feeSchedule): Action {
+  updateFeeScheduleSuccess(message): Action {
     console.log('updateFeeScheduleSuccess');
     return {
       type: FeeScheduleActions.UPDATE_FEE_SCHEDULE_SUCCESS,
-      payload: feeSchedule,
+      payload: message,
     };
   }
 

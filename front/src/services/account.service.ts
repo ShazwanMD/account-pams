@@ -50,6 +50,7 @@ export class AccountService {
   }
 
   updateFeeSchedule(feeSchedule: FeeSchedule): Observable<String> {
+    console.log('updating feeSchedule' + feeSchedule.code);
     return this._http.put(this.ACCOUNT_API + '/feeSchedules/' + feeSchedule.code, JSON.stringify(feeSchedule))
       .flatMap((res: Response) => Observable.of(res.text()));
   }

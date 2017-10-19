@@ -17,8 +17,9 @@ import {FeeSchedule} from '../../../../shared/model/account/fee-schedule.interfa
 
 export class FeeScheduleEditorDialog implements OnInit {
 
-  private editForm: FormGroup; feeSchedule: FeeSchedule;
+  private editForm: FormGroup; 
   private edit: boolean = false;
+  private _feeSchedule: FeeSchedule;
 
 
   constructor(private router: Router,
@@ -30,28 +31,29 @@ export class FeeScheduleEditorDialog implements OnInit {
               private dialog: MdDialogRef<FeeScheduleEditorDialog>) {
   }
 
+  set feeSchedule(value: FeeSchedule) {
+    this._feeSchedule = value;
+  } 
+
   ngOnInit(): void {
     this.editForm = this.formBuilder.group({
       id: [undefined],
       code: [''],
       description: [''],
-      residencyCode: [<ResidencyCode>{}],
-      cohortCode: [<CohortCode>{}],
-      studyMode: [<StudyMode>{}],
+      // residencyCode: [<ResidencyCode>{}],
+      // cohortCode: [<CohortCode>{}],
+      // studyMode: [<StudyMode>{}],
       status: [true],
     });
 
-    if (this.edit) {
-      this.editForm.patchValue(this.feeSchedule);
-    }
-  
+    if (this.edit) this.editForm.patchValue(this._feeSchedule);
   }
-
+  
+  
   submit(feeSchedule: FeeSchedule, isValid: boolean) {
     feeSchedule.description = feeSchedule.description;  
-    feeSchedule.code = 'Y' + feeSchedule.studyMode.code + '-' + feeSchedule.residencyCode.code + '-' + feeSchedule.cohortCode.code;
-    if (this.edit) this.store.dispatch(this.actions.updateFeeSchedule(this.feeSchedule));
-  //  else  this.store.dispatch(this.actions.saveFeeSchedule(this.feeSchedule));
+
+    this.store.dispatch(this.actions.updateFeeSchedule(this._feeSchedule));
     this.dialog.close();
 
   }
