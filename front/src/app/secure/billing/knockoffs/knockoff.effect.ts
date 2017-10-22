@@ -28,7 +28,12 @@ export class KnockoffEffects {
         .ofType( KnockoffActions.FIND_KNOCKOFF_BY_REFERENCE_NO )
         .map(( action ) => action.payload )
         .switchMap(( referenceNo ) => this.billingService.findKnockoffByReferenceNo( referenceNo ) )
-        .map(( knockoff ) => this.knockoffActions.findKnockoffByReferenceNoSuccess( knockoff ) );
+        .map(( knockoff ) => this.knockoffActions.findKnockoffByReferenceNoSuccess( knockoff ) )
+        .mergeMap((action) => from([action,
+            this.knockoffActions.findKnockoffItems(action.payload),
+            //this.receiptActions.findReceiptsByInvoice(action.payload),
+          ],
+    ));
 
     @Effect() findCompletedKnockoffs$ = this.actions$
         .ofType( KnockoffActions.FIND_COMPLETED_KNOCKOFFS )

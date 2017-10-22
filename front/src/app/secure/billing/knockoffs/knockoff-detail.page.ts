@@ -6,6 +6,7 @@ import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import {KnockoffTask} from '../../../shared/model/billing/knockoff-task.interface';
 import { Knockoff } from '../../../shared/model/billing/knockoff.interface';
+import { KnockoffItem } from "../../../shared/model/billing/knockoff-item.interface";
 
 @Component({
   selector: 'pams-knockoff-detail',
@@ -15,12 +16,15 @@ export class KnockoffDetailPage implements OnInit {
 
   private KNOCKOFF: string[] = 'billingModuleState.knockoff'.split('.');
   private knockoff$: Observable<Knockoff>;
+  private KNOCKOFF_ITEM: string[] = 'billingModuleState.knockoffItems'.split('.');
+  private knockoffItem$: Observable<KnockoffItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<BillingModuleState>,
               private actions: KnockoffActions) {
               this.knockoff$ = this.store.select(...this.KNOCKOFF);
+              this.knockoffItem$ = this.store.select(...this.KNOCKOFF_ITEM);
   }
 
   ngOnInit(): void {

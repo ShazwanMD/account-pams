@@ -58,6 +58,15 @@
           </md-card-actions>
         </md-card>
 
+        <div layout="column" layout-gt-md="row">
+            <div flex-gt-md="70">
+            <md-card>
+                         <pams-knockoff-item-list-only
+                        [knockoffItem]="knockoffItem$ | async"
+                        ></pams-knockoff-item-list-only> 
+                        </md-card>
+          </div>
+          </div>
       </div>
       <div flex-gt-md="30">
         <pams-knockoff-status
