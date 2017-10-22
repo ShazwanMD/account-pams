@@ -38,6 +38,7 @@ import { AccountChargeUnpaidSelectComponent } from "./component/account-charge-s
 import { AccountChargeWaiverDialog } from "./dialog/account-charge-waiver-creator.dialog";
 import { AccountChargeWaiverListComponent } from "./component/account-charge-waiver-list.component";
 import { WaiverChargeCreatorDialog } from "./dialog/waiver-charge-creator.dialog";
+import { WaiverItemListOnly } from './component/waiver-item-list-only.component';
 
 @NgModule({
   imports: [
@@ -74,6 +75,7 @@ import { WaiverChargeCreatorDialog } from "./dialog/waiver-charge-creator.dialog
     DebitNoteWaiverListComponent,
     AccountChargeUnpaidSelectComponent,
     AccountChargeWaiverListComponent,
+    WaiverItemListOnly,
 
     // dialog
     WaiverFinanceApplicationCreatorDialog,

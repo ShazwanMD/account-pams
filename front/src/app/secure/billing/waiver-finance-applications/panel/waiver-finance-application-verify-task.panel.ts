@@ -26,7 +26,8 @@ export class WaiverFinanceApplicationVerifyTaskPanel implements OnInit {
   }
 
   ngOnInit(): void {
-  }
+    this.store.dispatch(this.actions.findWaiverItems(this.waiverFinanceApplicationTask.application));
+}
 
   register() {
     this.store.dispatch(this.actions.completeWaiverFinanceApplicationTask(this.waiverFinanceApplicationTask));

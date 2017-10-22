@@ -44,7 +44,10 @@ export class WaiverFinanceApplicationEffects {
     .map((action) => action.payload)
     .switchMap((referenceNo) => this.billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo))
     .map((waiverApplication) => this.waiverFinanceApplicationActions.findWaiverFinanceApplicationByReferenceNoSuccess(waiverApplication))
-    .mergeMap((action) => from([action, this.waiverFinanceApplicationActions.findWaiverFinanceApplicationItems(action.payload)]));
+    .mergeMap((action) => from([action, 
+      this.waiverFinanceApplicationActions.findWaiverFinanceApplicationItems(action.payload),
+      this.waiverFinanceApplicationActions.findWaiverItems(action.payload),
+    ]));
 
   @Effect() findArchivedWaiverFinanceApplications$ = this.actions$
     .ofType(WaiverFinanceApplicationActions.FIND_ARCHIVED_WAIVER_FINANCE_APPLICATIONS)

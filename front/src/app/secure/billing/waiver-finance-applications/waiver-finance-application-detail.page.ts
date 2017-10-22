@@ -7,6 +7,7 @@ import {WaiverApplication} from '../../../shared/model/financialaid/waiver-appli
 import { WaiverFinanceApplication } from "../../../shared/model/billing/waiver-finance-application.interface";
 import { WaiverFinanceApplicationActions } from "./waiver-finance-application.action";
 import { BillingModuleState } from "../index";
+import { WaiverItem } from '../../../shared/model/billing/waiver-item.interface';
 
 @Component({
   selector: 'pams-waiver-finance-application-detail',
@@ -15,7 +16,8 @@ import { BillingModuleState } from "../index";
 export class WaiverFinanceApplicationDetailPage implements OnInit {
 
   private WAIVER_FINANCE_APPLICATION: string[] = 'billingModuleState.waiverFinanceApplication'.split('.');
-
+  private WAIVER_ITEM: string[] = 'billingModuleState.waiverItem'.split('.');
+  private waiverItem$: Observable<WaiverItem[]>;
   private waiverFinanceApplication$: Observable<WaiverFinanceApplication>;
 
   constructor(private router: Router,
@@ -25,6 +27,7 @@ export class WaiverFinanceApplicationDetailPage implements OnInit {
               private dialog: MdDialog,
               private actions: WaiverFinanceApplicationActions) {
     this.waiverFinanceApplication$ = this.store.select(...this.WAIVER_FINANCE_APPLICATION);
+    this.waiverItem$ = this.store.select(...this.WAIVER_ITEM);
   }
 
   ngOnInit(): void {
