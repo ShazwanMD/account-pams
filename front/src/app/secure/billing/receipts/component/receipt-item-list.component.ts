@@ -62,13 +62,6 @@ export class ReceiptItemListComponent implements OnInit {
       this.editorDialogRef.componentInstance.receiptItem = receiptItem;
     }
 
-/*  delete(): void {
-    console.log('length: ' + this.selectedRows.length);
-    for (let i = 0; i < this.selectedRows.length; i++) {
-      this.store.dispatch(this.actions.deleteReceiptItem(this.receipt, this.selectedRows[i]));
-    }
-  }*/
-
   filter(): void {
   }
 
