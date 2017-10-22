@@ -25,6 +25,8 @@ import my.edu.umk.pams.account.identity.model.AcUser;
 
 public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
 
+	AcKnockoffItem findItemById(Long id);
+	
 	AcKnockoff findByReferenceNo(String referenceNo);
 	
 	AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff);

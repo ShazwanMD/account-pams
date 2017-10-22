@@ -1316,7 +1316,7 @@ public class BillingServiceImpl implements BillingService {
 	
 	@Override
 	public AcKnockoffItem findKnockoffItemById(Long id) {
-		return (AcKnockoffItem) knockoffDao.findById(id);
+		return knockoffDao.findItemById(id);
 	}
 	
 	@Override
@@ -1514,8 +1514,8 @@ public class BillingServiceImpl implements BillingService {
 	
 	@Override
 	public void updateKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item) {
-		knockoffDao.updateItem(knockoff, item, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();
+/*		knockoffDao.updateItem(knockoff, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();*/
 		
 		item.setTotalAmount(item.getDueAmount().subtract(item.getAppliedAmount()));
 		knockoffDao.updateItem(knockoff, item, securityService.getCurrentUser());

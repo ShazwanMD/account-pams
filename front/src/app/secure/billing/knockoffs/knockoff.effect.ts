@@ -55,7 +55,12 @@ export class KnockoffEffects {
         .ofType( KnockoffActions.FIND_KNOCKOFF_TASK_BY_TASK_ID )
         .map(( action ) => action.payload )
         .switchMap(( taskId ) => this.billingService.findKnockoffTaskByTaskId( taskId ) )
-        .map(( task ) => this.knockoffActions.findKnockoffTaskByTaskIdSuccess( task ) );
+        .map(( task ) => this.knockoffActions.findKnockoffTaskByTaskIdSuccess( task ) )
+        .mergeMap((action) => from([action,
+            this.knockoffActions.findKnockoffItems(action.payload),
+            //this.receiptActions.findReceiptsByInvoice(action.payload),
+          ],
+    ));
 
     @Effect() findKnockoffsByInvoice$ = this.actions$
         .ofType( KnockoffActions.FIND_INVOICE_BY_KNOCKOFF )
@@ -205,6 +210,15 @@ export class KnockoffEffects {
     .map(( action ) => action.payload )
     .switchMap(( payload ) => this.billingService.findInvoiceKnockoffItems( payload.knockoff, payload.invoice ) )
     .map(( knockoff ) => this.knockoffActions.findInvoiceKnockoffItemsSuccess(knockoff) );
+    
+    @Effect() updateKnockoffItems$ = this.actions$
+    .ofType(KnockoffActions.UPDATE_KNOCKOFF_ITEM)
+    .map((action) => action.payload)
+    .switchMap((payload) => this.billingService.updateKnockoffItems(payload.knockoff, payload.item))
+    .map((message) => this.knockoffActions.updateKnockoffItemsSuccess(message))
+    .withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
+    .map((state) => state[1])
+    .map((knockoff) => this.knockoffActions.findKnockoffItems(knockoff));
 }
 
 

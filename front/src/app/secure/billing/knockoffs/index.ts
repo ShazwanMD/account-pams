@@ -43,6 +43,7 @@ import { KnockoffItemListComponent } from "./component/knockoff-item-list.compon
 import { KnockoffItemDialog } from "./dialog/knockoff-item.dialog";
 import {KnockoffAccountChargeItemDialog} from "./dialog/knockoff-account-charge-item.dialog";
 import { KnockoffDetailPage } from './knockoff-detail.page';
+import { KnockoffItemEditorDialog } from "./dialog/knockoff-item-editor.dialog";
 
 @NgModule( {
     imports: [
@@ -92,6 +93,7 @@ import { KnockoffDetailPage } from './knockoff-detail.page';
         KnockoffAccountChargeItemDialog,
         DebitNoteKnockoffDialog,
         DebitNoteKnockoffCreatorDialog,
+        KnockoffItemEditorDialog,
     ],
     exports: [
         KnockoffListComponent,
@@ -113,6 +115,7 @@ import { KnockoffDetailPage } from './knockoff-detail.page';
         KnockoffAccountChargeItemDialog,
         DebitNoteKnockoffDialog,
         DebitNoteKnockoffCreatorDialog,
+        KnockoffItemEditorDialog,
     ],
 
 } )

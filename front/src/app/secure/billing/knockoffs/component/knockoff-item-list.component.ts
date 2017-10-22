@@ -12,18 +12,21 @@ import { KnockoffItem } from "../../../../shared/model/billing/knockoff-item.int
 import { Knockoff } from "../../../../shared/model/billing/knockoff.interface";
 import { InvoiceKnockoffDialog } from "../dialog/knockoff-invoice-creator.dialog";
 import { KnockoffActions } from "../knockoff.action";
+import { KnockoffItemEditorDialog } from "../dialog/knockoff-item-editor.dialog";
 
 @Component({
   selector: 'pams-knockoff-item-list',
   templateUrl: './knockoff-item-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KnockoffItemListComponent {
+export class KnockoffItemListComponent implements OnInit {
 
     @Input() knockoffItem: KnockoffItem[];
     @Input() knockoff: Knockoff;
     @Input() invoice: Invoice;
     
-
+    private selectedRows: KnockoffItem[];
+    private editorDialogRef: MdDialogRef<KnockoffItemEditorDialog>;
     
   private columns: any[] = [
                             
@@ -39,8 +42,39 @@ export class KnockoffItemListComponent {
               private viewContainerRef: ViewContainerRef,
               private store: Store<BillingModuleState>,
               private actions: KnockoffActions,
+              private vcf: ViewContainerRef,
               private dialog: MdDialog) {
   }
   
+  edit(knockoffItem: KnockoffItem): void {
+      this.showDialog(knockoffItem);
+    }
+  
+  ngOnInit(): void {
+      this.selectedRows = this.knockoffItem.filter((value) => value.selected);
+    }
+    
+    showDialog(knockoffItem: KnockoffItem): void {
+        console.log('showDialog');
+        console.log("knockoff ref no" + this.knockoff.referenceNo);
+        console.log("knockoff item ref no" + this.knockoffItem);
+        let config = new MdDialogConfig();
+        config.viewContainerRef = this.vcf;
+        config.role = 'dialog';
+        config.width = '50%';
+        config.height = '60%';
+        config.position = {top: '65px'};
+        this.editorDialogRef = this.dialog.open(KnockoffItemEditorDialog, config);
+        this.editorDialogRef.componentInstance.knockoff = this.knockoff;
+        this.editorDialogRef.componentInstance.knockoffItem = knockoffItem;
+      }
+    
+    filter(): void {
+    }
 
+    selectRow(knockoffItem: KnockoffItem): void {
+    }
+
+    selectAllRows(knockoffItem: KnockoffItem[]): void {
+    }
 }

@@ -503,6 +503,7 @@ public class BillingTransformer {
     public KnockoffItem toKnockoffItemVo(AcKnockoffItem r) {
     	
     	KnockoffItem vo = new KnockoffItem();
+    	vo.setId(r.getId());
     	vo.setAppliedAmount(r.getAppliedAmount());
     	vo.setChargeCode(accountTransformer.toChargeCodeVo(r.getChargeCode()));
     	vo.setDescription(r.getDescription());
@@ -514,8 +515,6 @@ public class BillingTransformer {
     	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
     	vo.setMetaState(MetaState.get(r.getMetadata().getState().ordinal()));
         return vo;
-        
-
     }
     
     

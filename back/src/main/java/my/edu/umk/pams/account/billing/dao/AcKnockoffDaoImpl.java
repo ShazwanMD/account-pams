@@ -28,10 +28,12 @@ import my.edu.umk.pams.account.billing.model.AcKnockoffImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
+import my.edu.umk.pams.account.billing.model.AcKnockoffItemImpl;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
+import my.edu.umk.pams.account.billing.model.AcReceiptItemImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.model.AcWaiverItem;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -48,6 +50,12 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
 	public AcKnockoffDaoImpl() {
 		super(AcKnockoffImpl.class);
 	}
+	
+    @Override
+    public AcKnockoffItem findItemById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcKnockoffItem) session.get(AcKnockoffItemImpl.class, id);
+    }
 
 	@Override
 	public AcKnockoff findByReferenceNo(String referenceNo) {

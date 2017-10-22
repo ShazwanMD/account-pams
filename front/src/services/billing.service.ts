@@ -693,6 +693,12 @@ export class BillingService {
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
     
+    updateKnockoffItems( knockoff: Knockoff, item: KnockoffItem ) {
+        //console.log( 'Knockoff servis ref no ' + knockoff.referenceNo );
+        return this._http.put( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffItems/' + item.id, JSON.stringify( item ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
     findKnockoffsByDebitNote( knockoff: Knockoff ): Observable<KnockoffDebitNote[]> {
         return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffDebitNote' )
             .map(( res: Response ) => <KnockoffDebitNote[]>res.json() );

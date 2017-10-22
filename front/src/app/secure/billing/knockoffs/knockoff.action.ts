@@ -448,16 +448,17 @@ export class KnockoffActions {
 
     static UPDATE_KNOCKOFF_ITEM = '[Knockoff] Update Knockoff Item';
 
-    updateKnockoffItem(Knockoff, item): Action {
+    updateKnockoffItems(Knockoff, Item): Action {
+        console.log("action knockoff ")
         return {
             type: KnockoffActions.UPDATE_KNOCKOFF_ITEM,
-            payload: { Knockoff: Knockoff, item: item }
+            payload: { knockoff: Knockoff, item: Item }
         };
     }
 
     static UPDATE_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Update Knockoff Item Success';
 
-    updateKnockoffItemSuccess(message): Action {
+    updateKnockoffItemsSuccess(message): Action {
         return {
             type: KnockoffActions.UPDATE_KNOCKOFF_ITEM_SUCCESS,
             payload: message

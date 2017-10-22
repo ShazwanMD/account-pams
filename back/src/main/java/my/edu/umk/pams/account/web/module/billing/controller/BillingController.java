@@ -385,7 +385,13 @@ public class BillingController {
         
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         AcReceiptItem e = billingService.findReceiptItemById(id);
+        if (null != vo.getChargeCode())
         e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        if (null != vo.getAccountCharge())
+        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
+        e.setChargeCode(accountService.findChargeCodeById(0L));
+        if (null != vo.getDebitNote())
+        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
         e.setTotalAmount(vo.getTotalAmount());
         e.setAdjustedAmount(vo.getAdjustedAmount());
         e.setAppliedAmount(vo.getAppliedAmount());
@@ -1153,6 +1159,27 @@ public class BillingController {
         e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
         e.setChargeCode(accountService.findChargeCodeById(0L));
         billingService.addKnockoffItem(knockoff, e);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems/{id}", method = RequestMethod.PUT)
+    public void updateKnockoffItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody KnockoffItem vo) {
+        
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	LOG.debug("Knockoff cntroller {}", knockoff.getReferenceNo());
+    	AcKnockoffItem e = billingService.findKnockoffItemById(id);
+    	
+        if (null != vo.getChargeCode())
+        e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        if (null != vo.getAccountCharge())
+        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
+        //e.setChargeCode(accountService.findChargeCodeById(0L));
+        if (null != vo.getDebitNote())
+        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
+        e.setTotalAmount(vo.getTotalAmount());
+        e.setAppliedAmount(vo.getAppliedAmount());
+        e.setTotalAmount(vo.getTotalAmount());
+        e.setDescription(vo.getDescription());
+        billingService.updateKnockoffItem(knockoff, e);
     }
     
     @RequestMapping(value = "/knockoffs/{referenceNo}/items/invoices/{id}", method = RequestMethod.GET)

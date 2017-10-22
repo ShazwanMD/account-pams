@@ -52,7 +52,7 @@ export class KnockoffDraftTaskPanel implements OnInit {
 
   ngOnInit(): void {
       this.store.dispatch(this.actions.findKnockoffsByInvoice(this.knockoffTask.knockoff));
-      this.store.dispatch(this.actions.findKnockoffItems(this.knockoffTask.knockoff));
+      //this.store.dispatch(this.actions.findKnockoffItems(this.knockoffTask.knockoff));
       this.store.dispatch(this.action.findUnpaidInvoices(this.knockoffTask.knockoff.payments.account));
       this.store.dispatch(this.actions.findKnockoffsByAccountCharge(this.knockoffTask.knockoff));
       this.store.dispatch(this.actionCharge.findUnpaidAccountCharges(this.knockoffTask.knockoff.payments.account));

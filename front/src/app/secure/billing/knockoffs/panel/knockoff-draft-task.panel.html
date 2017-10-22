@@ -77,18 +77,12 @@
 
         <div layout="column" layout-gt-md="row">
             <div flex-gt-md="70">
-              <md-card>
-                  <md-tab-group [selectedIndex]="0">
-                      <md-tab label="Knockoff Item">
+            <md-card>
                          <pams-knockoff-item-list
                         [knockoff]="knockoffTask.knockoff"
                         [knockoffItem]="knockoffItem$ | async"
                         ></pams-knockoff-item-list> 
-                      </md-tab>
-                  </md-tab-group> 
-              </md-card>
-            <div>
-            </div>
+                        </md-card>
           </div>
           </div>
           
