@@ -19,6 +19,8 @@ export class ReceiptItemListComponent implements OnInit {
   private editorDialogRef: MdDialogRef<ReceiptItemEditorDialog>;
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Invoice'},
+    {name: 'accountCharge.referenceNo', label: 'Account Charge'}, 
+    {name: 'debitNote.referenceNo', label: 'Debit Note'},   
     {name: 'chargeCode.code', label: 'Charge Code'},
     {name: 'description', label: 'Charge Code Description'},
     {name: 'dueAmount', label: 'Amount'},

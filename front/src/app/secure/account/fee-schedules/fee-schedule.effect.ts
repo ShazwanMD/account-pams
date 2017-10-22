@@ -49,8 +49,8 @@ export class FeeScheduleEffects {
   @Effect() updateFeeSchedule$ = this.actions$
     .ofType(FeeScheduleActions.UPDATE_FEE_SCHEDULE)
     .map((action) => action.payload)
-    .switchMap((account) => this.accountService.updateFeeSchedule(account))
-    .map((account) => this.feeScheduleActions.updateFeeScheduleSuccess(account));
+    .switchMap((feeSchedule) => this.accountService.updateFeeSchedule(feeSchedule))
+    .map((message) => this.feeScheduleActions.updateFeeScheduleSuccess(message));
 
   @Effect() addFeeScheduleItem$ =
     this.actions$

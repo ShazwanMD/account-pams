@@ -1,0 +1,59 @@
+<h2 md-dialog-title>Fee Schedule Editor Dialog</h2>
+<md-dialog-content>
+  <form [formGroup]="editForm" novalidate>
+      <!-- <div layout="row" class="pad-bottom pad-top">
+      <pams-cohort-code-select
+        [placeholder]="'Select Cohort'"
+        [innerFormControl]="editForm.controls.cohortCode" fxFlex="calc(100%-25px)" class="pad=bottom">
+      </pams-cohort-code-select>
+       <div class="error" class="tc-red-600"
+                 *ngIf="editForm.get('cohortCode').invalid && editForm.get('cohortCode').touched">
+              Cohort is required!
+        </div>
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-study-mode-select
+        [placeholder]="'Select Study Mode'"
+        [innerFormControl]="editForm.controls.studyMode" fxFlex="calc(100%-25px)">
+      </pams-study-mode-select>
+      <div class="error" class="tc-red-600"
+                 *ngIf="editForm.get('studyMode').invalid && editForm.get('studyMode').touched">
+              Study Mode is required!
+      </div>
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
+      <pams-residency-code-select
+        [placeholder]="'Select Residency'"
+        [innerFormControl]="editForm.controls.residencyCode" fxFlex="calc(100%-25px)">
+      </pams-residency-code-select>
+       <div class="error" class="tc-red-600"
+                 *ngIf="editForm.get('residencyCode').invalid && editForm.get('residencyCode').touched">
+             Residency is required!
+        </div>
+    </div> -->
+    <div layout="row" class="pad-bottom pad-top">
+      <md-input-container fxFlex="calc(50%-25px)">
+        <input mdInput
+               type="text"
+               placeholder="Description"
+               formControlName="description">
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-checkbox formControlName="status">
+        <div layout="column" flex>
+          Active
+        </div>
+      </md-checkbox>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
+</md-dialog-actions>
+
+
+
+

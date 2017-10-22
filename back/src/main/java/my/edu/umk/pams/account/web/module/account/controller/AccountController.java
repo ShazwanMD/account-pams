@@ -138,6 +138,7 @@ public class AccountController {
         feeSchedule.setCode(vo.getCode());
         feeSchedule.setDescription(vo.getDescription());
         feeSchedule.setTotalAmount(vo.getTotalAmount());
+        feeSchedule.setStatus(vo.getStatus());
         accountService.updateFeeSchedule(feeSchedule);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

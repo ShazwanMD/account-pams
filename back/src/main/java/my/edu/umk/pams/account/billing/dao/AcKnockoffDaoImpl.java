@@ -412,7 +412,7 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +
                 "a.accountCharge = :accountCharge " +
-        		"and a.receipt = :receipt " +
+                "and a.knockoff = :knockoff " +
                 "and a.metadata.state = :state ");
         query.setEntity("accountCharge", accountCharge);
         query.setEntity("knockoff", knockoff);

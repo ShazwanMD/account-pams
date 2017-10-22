@@ -9,4 +9,5 @@ export  interface FeeSchedule extends MetaObject {
   cohortCode: CohortCode;
   studyMode: StudyMode;
   totalAmount: number;
+  status:boolean;
 }
