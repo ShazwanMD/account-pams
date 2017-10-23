@@ -22,6 +22,7 @@ import {FeeScheduleDetailPage} from './fee-schedule-detail.page';
 import {FeeScheduleItemListComponent} from './component/fee-schedule-item-list.component';
 import {FeeScheduleListComponent} from './component/fee-schedule-list.component';
 import {FeeScheduleStatusComponent} from './component/fee-schedule-status.component';
+import { FeeScheduleActionComponent } from "./component/fee-schedule-action.component";
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import {FeeScheduleStatusComponent} from './component/fee-schedule-status.compon
     FeeScheduleListComponent,
     FeeScheduleItemListComponent,
     FeeScheduleStatusComponent,
+    FeeScheduleActionComponent,
   ],
   exports: [],
   entryComponents: [

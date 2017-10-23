@@ -33,6 +33,7 @@ export class FeeScheduleEditorDialog implements OnInit {
 
   set feeSchedule(value: FeeSchedule) {
     this._feeSchedule = value;
+    this.edit = true;
   } 
 
   ngOnInit(): void {
@@ -51,9 +52,9 @@ export class FeeScheduleEditorDialog implements OnInit {
   
   
   submit(feeSchedule: FeeSchedule, isValid: boolean) {
-    feeSchedule.description = feeSchedule.description;  
+    //feeSchedule.description = feeSchedule.description;  
 
-    this.store.dispatch(this.actions.updateFeeSchedule(this._feeSchedule));
+    this.store.dispatch(this.actions.updateFeeSchedule(feeSchedule));
     this.dialog.close();
 
   }

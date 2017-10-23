@@ -135,9 +135,9 @@ public class AccountController {
     public ResponseEntity<String> updateFeeSchedule(@PathVariable String code, @RequestBody FeeSchedule vo) {
 
         AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCode(code);
-        feeSchedule.setCode(vo.getCode());
+        //feeSchedule.setCode(vo.getCode());
         feeSchedule.setDescription(vo.getDescription());
-        feeSchedule.setTotalAmount(vo.getTotalAmount());
+        //feeSchedule.setTotalAmount(vo.getTotalAmount());
         feeSchedule.setStatus(vo.getStatus());
         accountService.updateFeeSchedule(feeSchedule);
         return new ResponseEntity<String>("Success", HttpStatus.OK);

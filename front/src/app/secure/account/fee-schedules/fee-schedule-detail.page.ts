@@ -47,23 +47,19 @@ export class FeeScheduleDetailPage implements OnInit {
     this.router.navigate(['/feeSchedules']);
   }
 
-  edit(feeSchedule:FeeSchedule): void {
-    this.showDialog(feeSchedule);
-  }
-
-  showDialog(feeSchedule: FeeSchedule): void {
-    console.log('showDialog');
-    let config = new MdDialogConfig();
-    config.viewContainerRef = this.vcf;
-    config.role = 'dialog';
-    config.width = '50%';
-    config.height = '60%';
-    config.position = {top: '0px'};
-    this.editorDialogRef = this.dialog.open(FeeScheduleEditorDialog, config);
-    this.editorDialogRef.componentInstance.feeSchedule = this.feeSchedule;
-    this.editorDialogRef.afterClosed().subscribe((res) => {
-      console.log('close dialog');
-    });
+  edit(feeSchedule: FeeSchedule): void {
+      console.log('showDialog' + feeSchedule.code);
+      let config = new MdDialogConfig();
+      config.viewContainerRef = this.vcf;
+      config.role = 'dialog';
+      config.width = '50%';
+      config.height = '60%';
+      config.position = {top: '0px'};
+      this.editorDialogRef = this.dialog.open(FeeScheduleEditorDialog, config);
+      this.editorDialogRef.componentInstance.feeSchedule = feeSchedule;
+      this.editorDialogRef.afterClosed().subscribe((res) => {
+        console.log('close dialog');
+      });
   }
 }
 
