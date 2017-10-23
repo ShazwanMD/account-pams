@@ -3,6 +3,7 @@
     <div class="md-display-1">{{ waiverFinanceApplication?.flowState | flowStatePipe}}</div>
     <div layout="column" layout-padding>
       <div class="md-subhead tc-grey-100">{{waiverFinanceApplication?.status}}</div>
+      <div class="md-subhead tc-grey-100">Waived Amount: {{ waiverFinanceApplication?.waivedAmount | currency:'MYR':true:'1.2-2' }}</div>
 
     </div>
   </md-card-content>

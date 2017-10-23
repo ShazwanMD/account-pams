@@ -3,7 +3,8 @@
     <div class="md-display-1">{{ debitNote?.flowState | flowStatePipe}}</div>
     <div layout="column" layout-padding>
       <div class="md-subhead tc-grey-100">{{debitNote?.status}}</div>
-      <div class="md-caption  tc-grey-100">Some Status</div>
+      <div class="md-subhead  tc-grey-100">Total Amount: {{ debitNote?.totalAmount | currency:'MYR':true:'1.2-2'}}</div>
+      <div class="md-subhead  tc-grey-100">Balance Amount: {{debitNote?.balanceAmount | currency:'MYR':true:'1.2-2'}}</div>
     </div>
   </md-card-content>
 </md-card>
