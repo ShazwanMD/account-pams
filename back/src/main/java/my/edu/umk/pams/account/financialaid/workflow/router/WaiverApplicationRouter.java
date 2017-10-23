@@ -36,7 +36,7 @@ public class WaiverApplicationRouter extends RouterServiceSupport{
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate);
+        return Arrays.asList(candidate, kerani);
     }
 
     public List<String> findVerifierCandidates(Long waiverApplicationId) {
@@ -52,6 +52,6 @@ public class WaiverApplicationRouter extends RouterServiceSupport{
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate);
+        return Arrays.asList(candidate, pegawai);
     }
 }
