@@ -82,14 +82,10 @@
         <div layout="column" layout-gt-md="row">
             <div flex-gt-md="70">
               <md-card>
-                  <md-tab-group [selectedIndex]="0">
-                      <md-tab label="Waiver Item">
-                         <pams-waiver-item-list
+                 <pams-waiver-item-list
                     [waiverFinanceApplication]="waiverFinanceApplicationTask.application"
                     [waiverItem]="waiverItem$ | async">
-                    </pams-waiver-item-list>
-                      </md-tab>
-                  </md-tab-group> 
+                 </pams-waiver-item-list>
               </md-card>
             <div>
             </div>

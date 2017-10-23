@@ -6,6 +6,7 @@ import {Store} from '@ngrx/store';
 import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
 import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
 import { WaiverFinanceApplication } from "../../../../shared/model/billing/waiver-finance-application.interface";
+import { WaiverItemEditorDialog } from "../dialog/waiver-item-editor.dialog";
 
 @Component({
   selector: 'pams-waiver-item-list',
@@ -15,7 +16,7 @@ import { WaiverFinanceApplication } from "../../../../shared/model/billing/waive
 export class WaiverItemListComponent implements OnInit {
 
   private selectedRows: WaiverItem[];
-  //private editorDialogRef: MdDialogRef<ReceiptItemEditorDialog>;
+  private editorDialogRef: MdDialogRef<WaiverItemEditorDialog>;
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Invoice'},
     {name: 'chargeCode.code', label: 'Charge Code'},
@@ -42,11 +43,11 @@ export class WaiverItemListComponent implements OnInit {
     this.selectedRows = this.waiverItem.filter((value) => value.selected);
   }
 
-/*  edit(receiptItem: ReceiptItem): void {
-    this.showDialog(receiptItem);
+  edit(waiverItem: WaiverItem): void {
+    this.showDialog(waiverItem);
   }
   
-  showDialog(receiptItem: ReceiptItem): void {
+  showDialog(waiverItem: WaiverItem): void {
       console.log('showDialog');
       let config = new MdDialogConfig();
       config.viewContainerRef = this.vcf;
@@ -54,25 +55,25 @@ export class WaiverItemListComponent implements OnInit {
       config.width = '50%';
       config.height = '60%';
       config.position = {top: '65px'};
-      this.editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
-      this.editorDialogRef.componentInstance.receipt = this.receipt;
-      this.editorDialogRef.componentInstance.receiptItem = receiptItem;
-    }*/
+      this.editorDialogRef = this.dialog.open(WaiverItemEditorDialog, config);
+      this.editorDialogRef.componentInstance.waiverFinanceApplication = this.waiverFinanceApplication;
+      this.editorDialogRef.componentInstance.waiverItem = waiverItem;
+    }
 
 /*  delete(): void {
     console.log('length: ' + this.selectedRows.length);
     for (let i = 0; i < this.selectedRows.length; i++) {
       this.store.dispatch(this.actions.deleteReceiptItem(this.receipt, this.selectedRows[i]));
     }
-  }
+  }*/
 
   filter(): void {
   }
 
-  selectRow(receiptItem: ReceiptItem): void {
+  selectRow(waiverItem: WaiverItem): void {
   }
 
-  selectAllRows(receiptItems: ReceiptItem[]): void {
-  }*/
+  selectAllRows(waiverItem: WaiverItem[]): void {
+  }
 
 }

@@ -7,6 +7,8 @@ import {BillingModuleState } from '../../index';
 import {WaiverApplicationTask} from '../../../../shared/model/financialaid/waiver-application-task.interface';
 import { WaiverFinanceApplicationTask } from "../../../../shared/model/billing/waiver-finance-application-task.interface";
 import { TdDialogService } from "@covalent/core";
+import { Observable } from "rxjs/Observable";
+import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
 
 @Component({
   selector: 'pams-waiver-finance-application-register-task',
@@ -16,6 +18,9 @@ import { TdDialogService } from "@covalent/core";
 export class WaiverFinanceApplicationRegisterTaskPanel implements OnInit {
 
   @Input() waiverFinanceApplicationTask: WaiverFinanceApplicationTask;
+  
+  private WAIVER_ITEM: string[] = 'billingModuleState.waiverItem'.split('.');
+  private waiverItem$: Observable<WaiverItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -25,9 +30,11 @@ export class WaiverFinanceApplicationRegisterTaskPanel implements OnInit {
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
+      this.waiverItem$ = this.store.select(...this.WAIVER_ITEM);
   }
 
   ngOnInit(): void {
+      this.store.dispatch(this.actions.findWaiverItems(this.waiverFinanceApplicationTask.application));
   }
 
   register() {

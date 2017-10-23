@@ -1,3 +1,13 @@
+ <md-card class="">
+  <div toolbar-buttons layout="row" layout-align="start center" flex>
+    <md-card-title>Waiver Items
+    </md-card-title>
+    <span flex></span>
+    <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
+      <md-icon class="md-24 tc-grey-700" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
+    </button>
+  </div>
+  <md-divider></md-divider>
   <td-data-table
     #dataTable
     [data]="waiverItem"

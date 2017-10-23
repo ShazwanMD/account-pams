@@ -1,0 +1,50 @@
+<h2 md-dialog-title>Waiver Item Editor</h2>
+<md-dialog-content>
+  <form [formGroup]="editForm">
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput #description
+               placeholder="Description"
+               formControlName="description"
+               readonly/>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Due Amount"
+               formControlName="dueAmount"
+               type="number"
+               readonly>
+      </md-input-container>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Applied Amount"
+               formControlName="appliedAmount"
+               type="number">
+      </md-input-container>
+      <div class="error" class="tc-red-600" *ngIf="editForm.controls.appliedAmount.errors?.CheckAmount">
+      </div>
+    <div class="error" class="tc-red-600" *ngIf="editForm.get('appliedAmount').invalid && editForm.get('appliedAmount').touched">
+      Applied Amount should be less or equal to Due Amount!
+    </div>
+    </div>
+    <div layout="row" class="pad-bottom">
+      <md-input-container flex>
+        <input mdInput
+               placeholder="Total Amount"
+               formControlName="totalAmount"
+               type="number"
+               readonly>
+      </md-input-container>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)" [disabled]="!editForm.valid">
+    {{edit ? 'Update' : 'Save'}}
+  </button>
+</md-dialog-actions>
+

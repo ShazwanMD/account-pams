@@ -1400,6 +1400,25 @@ public class BillingController {
         billingService.addWaiverItem(waiverApplication, e);
     }
     
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/waiverFinanceApplicationItems/{id}", method = RequestMethod.PUT)
+    public void updateWaiverItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody WaiverItem vo) {
+        
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        AcWaiverItem e = billingService.findWaiverItemById(id);
+        if (null != vo.getChargeCode())
+        e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        if (null != vo.getAccountCharge())
+        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
+        //e.setChargeCode(accountService.findChargeCodeById(0L));
+        if (null != vo.getDebitNote())
+        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
+        e.setTotalAmount(vo.getTotalAmount());
+        e.setAppliedAmount(vo.getAppliedAmount());
+        e.setTotalAmount(vo.getTotalAmount());
+        e.setDescription(vo.getDescription());
+        billingService.updateWaiverItem(waiverApplication, e);
+    }
+    
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/invoice/{id}", method = RequestMethod.POST)
     public void addWaiverInvoice(@PathVariable String referenceNo, @PathVariable Long id) {
         

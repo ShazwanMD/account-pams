@@ -481,6 +481,8 @@ public interface BillingService {
     // workflow
 
 	AcWaiverFinanceApplication findWaiverfinanceApplicationByTaskId(String taskId);
+	
+	AcWaiverItem findWaiverItemById(Long id);
 
 	Task findWaiverFinanceApplicationTaskByTaskId(String taskId);
 

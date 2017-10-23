@@ -585,6 +585,7 @@ public class BillingTransformer {
     public WaiverItem toWaiverItemVo(AcWaiverItem r) {
     	
     	WaiverItem vo = new WaiverItem();
+    	vo.setId(r.getId());
     	vo.setAppliedAmount(r.getAppliedAmount());
     	vo.setChargeCode(accountTransformer.toChargeCodeVo(r.getChargeCode()));
     	vo.setDescription(r.getDescription());

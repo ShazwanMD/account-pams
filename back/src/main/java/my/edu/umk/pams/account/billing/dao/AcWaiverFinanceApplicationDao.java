@@ -28,6 +28,8 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
     // FINDER
     // ====================================================================================================
 	
+	AcWaiverItem findItemById(Long id);
+	
 	AcWaiverFinanceApplication findByReferenceNo(String referenceNo);
 	
 	AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcWaiverFinanceApplication waiver);

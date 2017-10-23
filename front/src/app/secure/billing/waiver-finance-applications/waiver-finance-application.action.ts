@@ -350,6 +350,24 @@ export class WaiverFinanceApplicationActions {
     };
   }
   
+  static UPDATE_WAIVER_ITEMS = '[WaiverFinanceApplication] Update Waiver Items';
+
+  updateWaiverItems(waiverFinanceApplication, item): Action {
+      return {
+          type: WaiverFinanceApplicationActions.UPDATE_WAIVER_ITEMS,
+          payload: {waiverFinanceApplication: waiverFinanceApplication, item:item}
+        };
+      }
+  
+  static UPDATE_WAIVER_ITEMS_SUCCESS = '[WaiverFinanceApplication] Update Waiver Items Success';
+
+  updateWaiverItemsSuccess(message): Action {
+      return {
+          type: WaiverFinanceApplicationActions.UPDATE_WAIVER_ITEMS_SUCCESS,
+          payload: message
+        };
+      }
+  
   static ITEM_TO_WAIVER_INVOICE = '[WaiverFinanceApplication] Item to Waiver Item';
 
   itemToWaiverItem(invoice, waiverFinanceApplication): Action {

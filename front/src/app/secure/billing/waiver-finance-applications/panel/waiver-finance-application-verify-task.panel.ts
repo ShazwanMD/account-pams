@@ -6,6 +6,8 @@ import {Store} from '@ngrx/store';
 import {WaiverApplicationTask} from '../../../../shared/model/financialaid/waiver-application-task.interface';
 import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
 import { WaiverFinanceApplicationTask } from "../../../../shared/model/billing/waiver-finance-application-task.interface";
+import { Observable } from "rxjs/Observable";
+import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
 
 @Component({
   selector: 'pams-waiver-finance-application-verify-task',
@@ -16,6 +18,9 @@ export class WaiverFinanceApplicationVerifyTaskPanel implements OnInit {
 
   @Input() waiverFinanceApplicationTask: WaiverFinanceApplicationTask;
 
+  private WAIVER_ITEM: string[] = 'billingModuleState.waiverItem'.split('.');
+  private waiverItem$: Observable<WaiverItem[]>;
+  
   constructor(private router: Router,
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
@@ -23,6 +28,7 @@ export class WaiverFinanceApplicationVerifyTaskPanel implements OnInit {
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private snackBar: MdSnackBar) {
+      this.waiverItem$ = this.store.select(...this.WAIVER_ITEM);
   }
 
   ngOnInit(): void {

@@ -1702,6 +1702,11 @@ public class BillingServiceImpl implements BillingService {
 		Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
 		return waiverFinanceApplicationDao.findById((Long) map.get(WAIVER_FINANCE_APPLICATION_ID));
 	}
+	
+	@Override
+	public AcWaiverItem findWaiverItemById(Long id) {
+		return waiverFinanceApplicationDao.findItemById(id);
+	}
 
 	@Override
 	public Task findWaiverFinanceApplicationTaskByTaskId(String taskId) {
@@ -1837,7 +1842,13 @@ public class BillingServiceImpl implements BillingService {
 	
 	@Override
 	public void updateWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem waiverItem) {
+		
+		waiverItem.setTotalAmount(waiverItem.getDueAmount().subtract(waiverItem.getAppliedAmount()));
 		waiverFinanceApplicationDao.updateItem(waiver, waiverItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		
+		waiver.setGracedAmount(waiver.getEffectiveBalance().subtract(waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser())));
+		waiverFinanceApplicationDao.update(waiver, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
 	

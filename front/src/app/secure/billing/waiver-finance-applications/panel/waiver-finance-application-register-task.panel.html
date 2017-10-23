@@ -45,6 +45,18 @@
 
         </md-card-actions>
       </md-card>
+              <div layout="column" layout-gt-md="row">
+            <div flex-gt-md="70">
+              <md-card>
+                         <pams-waiver-item-list
+                    [waiverFinanceApplication]="waiverFinanceApplicationTask.application"
+                    [waiverItem]="waiverItem$ | async">
+                    </pams-waiver-item-list>
+              </md-card>
+            <div>
+            </div>
+          </div>
+          </div>
     </div>
 
 

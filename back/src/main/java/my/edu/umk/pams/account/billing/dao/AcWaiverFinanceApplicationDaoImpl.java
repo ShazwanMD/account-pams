@@ -23,6 +23,7 @@ import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
+import my.edu.umk.pams.account.billing.model.AcKnockoffItemImpl;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
@@ -35,6 +36,7 @@ import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplicationImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverInvoice;
 import my.edu.umk.pams.account.billing.model.AcWaiverInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverItem;
+import my.edu.umk.pams.account.billing.model.AcWaiverItemImpl;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -61,6 +63,12 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
     // FINDER
     // ====================================================================================================
 
+    @Override
+    public AcWaiverItem findItemById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcWaiverItem) session.get(AcWaiverItemImpl.class, id);
+    }
+    
     @Override
     public AcWaiverFinanceApplication findByReferenceNo(String referenceNo) {
         Session session = sessionFactory.getCurrentSession();

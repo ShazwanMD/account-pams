@@ -807,6 +807,11 @@ export class BillingService {
           .flatMap(( res: Response ) => Observable.of( res.text() ) );
   }
 
+  updateWaiverItems( waiverFinanceApplication: WaiverFinanceApplication, item: WaiverItem ): Observable<String> {
+      return this._http.put( this.BILLING_API + '/waiverFinanceApplications/'  + waiverFinanceApplication.referenceNo + '/waiverFinanceApplicationItems/' + item.id, JSON.stringify( item ) )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
+  
   itemToWaiverItem( invoice: Invoice, waiverFinanceApplication: WaiverFinanceApplication  ): Observable<String> {
       return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/invoices/' + invoice.id, JSON.stringify( invoice ) )
           .flatMap(( res: Response ) => Observable.of( res.text() ) );

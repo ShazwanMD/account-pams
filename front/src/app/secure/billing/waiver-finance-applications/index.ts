@@ -39,6 +39,7 @@ import { AccountChargeWaiverDialog } from "./dialog/account-charge-waiver-creato
 import { AccountChargeWaiverListComponent } from "./component/account-charge-waiver-list.component";
 import { WaiverChargeCreatorDialog } from "./dialog/waiver-charge-creator.dialog";
 import { WaiverItemListOnly } from './component/waiver-item-list-only.component';
+import { WaiverItemEditorDialog } from "./dialog/waiver-item-editor.dialog";
 
 @NgModule({
   imports: [
@@ -85,6 +86,7 @@ import { WaiverItemListOnly } from './component/waiver-item-list-only.component'
     DebitNoteWaiverCreatorDialog,
     AccountChargeWaiverDialog,
     WaiverChargeCreatorDialog,
+    WaiverItemEditorDialog,
   ],
   exports: [],
   entryComponents: [
@@ -98,6 +100,7 @@ import { WaiverItemListOnly } from './component/waiver-item-list-only.component'
     DebitNoteWaiverCreatorDialog,
     AccountChargeWaiverDialog,
     WaiverChargeCreatorDialog,
+    WaiverItemEditorDialog,
   ],
 
 })
