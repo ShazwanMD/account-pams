@@ -27,8 +27,11 @@ public class WaiverApplicationRouter extends RouterServiceSupport{
         Validate.notNull(waiverApplicationId, "Id must not be null");
 
         String candidate = null;
+        String kerani = null; 
+        
         AcWaiverApplication application = financialAidService.findWaiverApplicationById(waiverApplicationId);
         candidate = "GRP_ADM";
+        kerani = "GRP_KRN_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
@@ -40,8 +43,11 @@ public class WaiverApplicationRouter extends RouterServiceSupport{
         Validate.notNull(waiverApplicationId, "Id must not be null");
 
         String candidate = null;
+        String pegawai = null; 
+        
         AcWaiverApplication application = financialAidService.findWaiverApplicationById(waiverApplicationId);
         candidate = "GRP_ADM";
+        pegawai = "GRP_PGW_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
