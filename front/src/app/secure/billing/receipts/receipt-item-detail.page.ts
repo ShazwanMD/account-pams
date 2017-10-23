@@ -10,6 +10,7 @@ import {InvoiceItem} from '../../../shared/model/billing/invoice-item.interface'
 import {InvoiceActions} from '../invoices/invoice.action';
 import {PromoCodeApplicatorDialog} from './dialog/promo-code-applicator.dialog';
 import {Receipt} from '../../../shared/model/billing/receipt.interface';
+import { ReceiptItem } from '../../../shared/model/billing/receipt-item.interface';
 
 @Component({
   selector: 'pams-receipt-item-detail',
@@ -23,6 +24,8 @@ export class ReceiptItemDetailPage implements OnInit {
   private invoice$: Observable<Invoice>;
   private invoiceItems$: Observable<InvoiceItem[]>;
   private receipts$: Observable<Receipt>;
+  private RECEIPT_ITEM: string[] = 'billingModuleState.receiptItems'.split('.');
+  private receiptItem$: Observable<ReceiptItem[]>;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -33,6 +36,7 @@ export class ReceiptItemDetailPage implements OnInit {
     this.invoice$ = this.store.select(...this.INVOICE);
     this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
     this.receipts$ = this.store.select(...this.RECEIPTS);
+    this.receiptItem$ = this.store.select(...this.RECEIPT_ITEM);
   }
 
   ngOnInit(): void {
