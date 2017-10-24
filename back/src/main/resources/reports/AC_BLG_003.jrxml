@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45fc871c-c11e-422d-95ea-213569af8a10">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45fc871c-c11e-422d-95ea-213569af8a10">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -210,8 +210,7 @@ FROM
 		<variableExpression><![CDATA[$F{ac_acct_trsn_amount}]]></variableExpression>
 	</variable>
 	<variable name="DEBIT_AMOUNT" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{ac_acct_trsn_amount})<0)
-   ]]></variableExpression>
+		<variableExpression><![CDATA[($F{ac_acct_trsn_amount}.doubleValue()< new java.math.BigDecimal(0.00).doubleValue())]]></variableExpression>
 	</variable>
 	<variable name="ac_acct_trsn_amount_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_acct_trsn_amount}]]></variableExpression>
@@ -233,7 +232,7 @@ FROM
 	<pageHeader>
 		<band height="118" splitType="Stretch">
 			<textField>
-				<reportElement x="76" y="3" width="174" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
+				<reportElement x="76" y="3" width="274" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -294,11 +293,11 @@ FROM
 			</textField>
 			<textField>
 				<reportElement x="76" y="23" width="313" height="20" uuid="2e2800ef-1792-429e-a2bc-d9a8e142d766"/>
-				<textFieldExpression><![CDATA[$F{ac_actr_address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{ac_actr_address}==null)? "-": $F{ac_actr_address})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="40" width="100" height="20" uuid="6e8ba411-37cd-4158-8db8-4d8bb5aa360f"/>
-				<textFieldExpression><![CDATA[$F{ac_stdn_student_status}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{ac_stdn_student_status}==null)? "-": $F{ac_stdn_student_status})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="389" y="92" width="60" height="15" uuid="772539f6-14a1-4a80-9180-6bc107642e2d"/>
@@ -446,6 +445,15 @@ FROM
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement x="377" y="0" width="51" height="20" uuid="8718076a-cc9b-4a26-a8dc-899848e1f162"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
 			<textField>
 				<reportElement x="36" y="0" width="79" height="20" uuid="92c99a45-15db-4235-9ddd-e41645b6f4f5"/>
 				<box>
@@ -454,7 +462,7 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textFieldExpression><![CDATA[ $F{ac_acct_trsn_posted_date}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ac_acct_trsn_posted_date}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="127" y="0" width="71" height="20" uuid="c2f73da2-7f3e-4fad-8ae2-7354be07b645"/>
@@ -464,7 +472,7 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textFieldExpression><![CDATA[  $F{ac_acct_trsn_source_no}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ac_acct_trsn_source_no}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="209" y="0" width="159" height="20" uuid="f294e669-e590-4fa6-97a7-0d3fe3935130"/>
@@ -474,7 +482,7 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textFieldExpression><![CDATA[   $F{ac_acct_trsn_description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ac_acct_trsn_description}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="30" height="20" uuid="81e54de7-20bc-451d-a2e7-ed912a375514"/>
@@ -496,8 +504,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[ ( $F{ac_acct_trsn_amount} > 0.00 ? $F{ac_acct_trsn_amount} : 0.00 )
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{ac_acct_trsn_amount}.doubleValue() > new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_trsn_amount} : 0.00 )]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;(###0.00)">
 				<reportElement x="428" y="0" width="46" height="20" uuid="18ef878d-5cca-4369-a1df-10047cb2ffee"/>
@@ -508,8 +515,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[ ( $F{ac_acct_trsn_amount} < 0.00 ? $F{ac_acct_trsn_amount} : 0.00 )
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{ac_acct_trsn_amount}.doubleValue() < new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_trsn_amount} : 0.00 )]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="504" y="0" width="45" height="20" uuid="dc22f2c0-135b-45db-affd-c2fd0a9389a7"/>
@@ -551,15 +557,6 @@ FROM
 			</frame>
 			<frame>
 				<reportElement x="480" y="0" width="75" height="20" uuid="590db50e-19d7-4fb3-90f8-70f53c74de25"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
-			<frame>
-				<reportElement x="377" y="0" width="51" height="20" uuid="8718076a-cc9b-4a26-a8dc-899848e1f162"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -611,7 +608,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[ $V{ac_acct_trsn_amount_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{ac_acct_trsn_amount_1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

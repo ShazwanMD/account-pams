@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45fc871c-c11e-422d-95ea-213569af8a10">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45fc871c-c11e-422d-95ea-213569af8a10">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="cbd3c2e6-fb7f-42a1-826a-aa657110b068"/>
+	<parameter name="IDENTITY_NO" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      ac_actr."id" AS ac_actr_id,
@@ -410,6 +413,7 @@ FROM
 	<variable name="Balance_amount" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_acct_chrg_trsn_amount}]]></variableExpression>
 	</variable>
+	<filterExpression><![CDATA[$F{ac_actr_identity_no}.equals( $P{IDENTITY_NO} )]]></filterExpression>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -427,7 +431,7 @@ FROM
 	<pageHeader>
 		<band height="118" splitType="Stretch">
 			<textField>
-				<reportElement x="76" y="3" width="174" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
+				<reportElement x="76" y="3" width="274" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -488,11 +492,11 @@ FROM
 			</textField>
 			<textField>
 				<reportElement x="76" y="23" width="313" height="20" uuid="2e2800ef-1792-429e-a2bc-d9a8e142d766"/>
-				<textFieldExpression><![CDATA[$F{ac_actr_address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{ac_actr_address}==null)? "-": $F{ac_actr_address})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="40" width="86" height="20" uuid="6e8ba411-37cd-4158-8db8-4d8bb5aa360f"/>
-				<textFieldExpression><![CDATA[$F{ac_stdn_student_status}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{ac_stdn_student_status}==null)? "-": $F{ac_stdn_student_status})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="389" y="92" width="60" height="15" uuid="772539f6-14a1-4a80-9180-6bc107642e2d"/>
@@ -643,6 +647,33 @@ FROM
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement x="499" y="0" width="56" height="20" uuid="c15abacc-7aa8-4ca3-ace3-be4079a0d64c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="449" y="0" width="50" height="20" uuid="3af8661b-166d-44f2-9cb7-38ba7b6a7930"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="389" y="0" width="60" height="20" uuid="7e26fdbe-031b-4134-9ad4-50961f51ce0e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
 			<textField>
 				<reportElement x="0" y="0" width="30" height="20" uuid="81e54de7-20bc-451d-a2e7-ed912a375514"/>
 				<box>
@@ -677,7 +708,7 @@ FROM
 			</textField>
 			<textField>
 				<reportElement x="398" y="0" width="51" height="20" uuid="235867b9-0d33-4699-bb0d-b957b9a519fe"/>
-				<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount} > 0.00 ? $F{ac_acct_chrg_trsn_amount} : 0.00)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount}.doubleValue() > new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_chrg_trsn_amount} : 0.00 )]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="509" y="0" width="46" height="20" uuid="c58e854c-9872-4c90-8b1e-85b7e651c80a"/>
@@ -712,35 +743,8 @@ FROM
 			</frame>
 			<textField>
 				<reportElement x="458" y="0" width="41" height="20" uuid="4cb8e2eb-13e6-4973-b889-3ab73acefae5"/>
-				<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount} < 0.00 ? $F{ac_acct_chrg_trsn_amount} : 0.00)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount}.doubleValue() < new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_chrg_trsn_amount} : 0.00)]]></textFieldExpression>
 			</textField>
-			<frame>
-				<reportElement x="389" y="0" width="60" height="20" uuid="7e26fdbe-031b-4134-9ad4-50961f51ce0e"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
-			<frame>
-				<reportElement x="449" y="0" width="50" height="20" uuid="3af8661b-166d-44f2-9cb7-38ba7b6a7930"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
-			<frame>
-				<reportElement x="499" y="0" width="56" height="20" uuid="c15abacc-7aa8-4ca3-ace3-be4079a0d64c"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
 		</band>
 	</detail>
 	<columnFooter>
