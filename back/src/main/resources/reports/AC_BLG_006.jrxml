@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ac_report_inbois_cukai" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db4466dc-5424-40f9-9d63-6eabf2d1ff33">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="165"/>
+	<property name="ireport.y" value="213"/>
 	<subDataset name="sum_amount_by_tx_code" uuid="68568418-c35b-43ba-8ddf-dc5de12f0811">
 		<parameter name="invc_ref_no" class="java.lang.String"/>
 		<queryString>
@@ -482,7 +482,7 @@ WHERE ac_invc."fd_st" = 16]]>
 					<textElement>
 						<font fontName="SansSerif"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{ac_actr_address}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[(($F{ac_actr_address}==null)? "-": $F{ac_actr_address})]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="452" y="176" width="103" height="20" uuid="94e2e5bb-68b3-4afa-afbd-9b3b438804e2"/>
