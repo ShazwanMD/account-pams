@@ -186,10 +186,10 @@ export class FinancialaidService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateWaiverApplication(waiverApplication: WaiverApplication): Observable<Boolean> {
-    return Observable.of(true);
-    // return this._http.put(this.FINANCIALAID_API + '/waiverApplications', JSON.stringify(waiverApplication))
-    //   .flatMap(data => Observable.of(true));
+  updateWaiverApplication(waiverApplication: WaiverApplication): Observable<String> {
+     console.log('updatedWaiverApplications' + waiverApplication.referenceNo);
+     return this._http.put(this.FINANCIALAID_API + '/waiverApplications/' + waiverApplication.referenceNo + '/update', JSON.stringify(waiverApplication))
+     .flatMap((res: Response) => Observable.of(res.text()));
   }
   
   removeWaiverApplicationTask(waiverApplicationTask: WaiverApplicationTask): Observable<String> {

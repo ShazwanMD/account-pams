@@ -66,7 +66,10 @@ export class ReceiptEffects {
     .map((action) => action.payload)
     .switchMap((referenceNo) => this.billingService.findReceiptByReferenceNo(referenceNo))
     .map((receipt) => this.receiptActions.findReceiptByReferenceNoSuccess(receipt))
-    .mergeMap((action) => from([action, this.receiptActions.findReceiptItems(action.payload)]));
+    .mergeMap((action) => from([action, 
+                                this.receiptActions.findReceiptItems(action.payload),
+                                ],
+                                ));
 
   @Effect() findReceiptsByInvoice$ = this.actions$
   .ofType(ReceiptActions.FIND_RECEIPTS_BY_INVOICE)

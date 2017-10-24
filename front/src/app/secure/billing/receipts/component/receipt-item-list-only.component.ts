@@ -23,8 +23,6 @@ export class ReceiptItemListOnly implements OnInit {
 
   @Input() receiptItem: ReceiptItem[];
 
-
-
   constructor(private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,

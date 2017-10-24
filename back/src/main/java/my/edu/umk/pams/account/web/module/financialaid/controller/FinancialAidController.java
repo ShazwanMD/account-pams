@@ -2,9 +2,11 @@ package my.edu.umk.pams.account.web.module.financialaid.controller;
 
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcReceiptType;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
@@ -281,10 +283,12 @@ public class FinancialAidController {
         return new ResponseEntity<WaiverApplication>(financialAidTransformer.toWaiverApplicationVo(waiverApplication), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/waiverApplications/{referenceNo}", method = RequestMethod.PUT)
-    public ResponseEntity<WaiverApplication> updateWaiverApplication(@PathVariable String referenceNo, @RequestBody WaiverApplication vo) {
-        AcWaiverApplication waiverApplication = (AcWaiverApplication) financialAidService.findWaiverApplicationByReferenceNo(referenceNo);
-        return new ResponseEntity<WaiverApplication>(financialAidTransformer.toWaiverApplicationVo(waiverApplication), HttpStatus.OK);
+    @RequestMapping(value = "/waiverApplications/{referenceNo}/update", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateWaiverApplication(@PathVariable String referenceNo, @RequestBody WaiverApplication vo) {
+        AcWaiverApplication waiverApplication = financialAidService.findWaiverApplicationByReferenceNo(referenceNo);
+        waiverApplication.setWaivedAmount(vo.getWaivedAmount());
+        financialAidService.updateWaiverApplication(waiverApplication);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/waiverApplications/assignedTasks", method = RequestMethod.GET)

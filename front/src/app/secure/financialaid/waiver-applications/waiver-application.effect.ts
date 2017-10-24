@@ -3,11 +3,17 @@ import {Actions, Effect} from '@ngrx/effects';
 import {from} from 'rxjs/observable/from';
 import {WaiverApplicationActions} from './waiver-application.action';
 import {FinancialaidService} from '../../../../services/financialaid.service';
+import { Store } from "@ngrx/store";
+import { FinancialaidModuleState } from "../index";
 
 @Injectable()
 export class WaiverApplicationEffects {
+  
+  private WAIVER_APPLICATION_TASK: string[] = 'financialaidModuleState.waiverApplicationTask'.split('.');
+
   constructor(private actions$: Actions,
               private waiverApplicationActions: WaiverApplicationActions,
+              private store$: Store<FinancialaidModuleState>,
               private financialaidService: FinancialaidService) {
   }
 
@@ -104,7 +110,9 @@ export class WaiverApplicationEffects {
   @Effect() updateWaiverApplication$ = this.actions$
     .ofType(WaiverApplicationActions.UPDATE_WAIVER_APPLICATION)
     .map((action) => action.payload)
-    .switchMap((application) => this.financialaidService.updateWaiverApplication(application))
-    .map((application) => this.waiverApplicationActions.updateWaiverApplicationSuccess(application));
-
+    .switchMap((waiverApplication) => this.financialaidService.updateWaiverApplication(waiverApplication))
+    .map((message) => this.waiverApplicationActions.updateWaiverApplicationSuccess(message));
+/*    .withLatestFrom(this.store$.select(...this.WAIVER_APPLICATION_TASK))
+    .map((state) => state[1])
+    .map((task) => this.waiverApplicationActions.findWaiverApplicationTaskByTaskId(task));*/
 }

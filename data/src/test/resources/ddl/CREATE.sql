@@ -750,6 +750,34 @@
         primary key (ID)
     );
     
+    create table AC_KNOF_CHRG (
+        ID int8 not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        ACCOUNT_CHARGE_ID int8,
+        KNOCKOFF_ID int8,
+        primary key (ID)
+    );
+    
+    create table AC_KNOF_DBT_NOTE (
+        ID int8 not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        DEBIT_NOTE_ID int8,
+        KNOCKOFF_ID int8,
+        primary key (ID)
+    ); 
+    
     create table AC_KNOF_ITEM (
         ID int8 not null,
         DUE_AMOUNT numeric(19, 2),
@@ -949,7 +977,35 @@
         RECEIPT_ID int8,
         primary key (ID)
     );
-
+    
+    create table AC_RCPT_ACCT_CHRG (
+        ID int8 not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        ACCOUNT_CHARGE_ID int8,
+        RECEIPT_ID int8,
+        primary key (ID)
+    );
+    
+    create table AC_RCPT_DBT (
+        ID int8 not null,
+        C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        DEBITNOTE_ID int8,
+        RECEIPT_ID int8,
+        primary key (ID)
+    );    
+    
     create table AC_RCPT_ITEM (
         ID int8 not null,
         ADJUSTED_AMOUNT numeric(19, 2),
@@ -1319,6 +1375,20 @@
         primary key (ID)
     );
     
+    CREATE TABLE AC_WAVR_ACCT_CHRG (
+    	ID int8 not null,
+    	C_TS timestamp,
+        C_ID int8,
+        D_TS timestamp,
+        D_ID int8,
+        M_TS timestamp,
+        M_ID int8,
+        M_ST int4,
+        ACCOUNT_CHARGE_ID int8,
+        WAIVER_FINANCE_ID int8,
+        primary key (ID)
+    );
+    
      create table AC_WAVR_FNCE_APLN (
         ID int8 not null,
         AUDIT_NO varchar(255),
@@ -1622,7 +1692,17 @@
         add constraint FK_f91f9no80f8qtl6r92n08r32n 
         foreign key (RECEIPT_ID) 
         references AC_RCPT;
-
+        
+    alter table AC_ADVC_PYMT 
+        add constraint FK_9t91j02sig23ethl9u8niayai
+        foreign key (SESSION_ID) 
+        references AC_ACDM_SESN;
+        
+    alter table AC_ADVC_PYMT 
+        add constraint FK_mtp68skukh4by78nxjcu8ckok
+        foreign key (ACCOUNT_ID) 
+        references AC_ACCT;  
+        
     alter table AC_BSRY_RCPT
         add constraint FK_jc1lhth7un8oggnbjsew0mhs8
         foreign key (ID)
@@ -1773,6 +1853,26 @@
         foreign key (ADVANCE_PAYMENT_ID)
         references AC_ADVC_PYMT;
         
+    alter table AC_KNOF_CHRG
+        add constraint FK_pmppmcg3vqrq6o0sg3flbrxrg
+        foreign key (ACCOUNT_CHARGE_ID)
+        references AC_ACCT_CHRG;
+        
+    alter table AC_KNOF_CHRG
+        add constraint FK_tjix5e3uwv7wf2k0ugru675q6
+        foreign key (KNOCKOFF_ID)
+        references AC_KNOF;
+        
+    alter table AC_KNOF_DBT_NOTE
+        add constraint FK_78y5esdtg1sh9sufj7m9cc03f 
+        foreign key (DEBIT_NOTE_ID)
+        references AC_DBIT_NOTE;      
+        
+    alter table AC_KNOF_DBT_NOTE
+        add constraint FK_sf0p92ff8eegoaf3oupp3q27f
+        foreign key (KNOCKOFF_ID)
+        references AC_KNOF; 
+        
     alter table AC_KNOF_INVC 
         add constraint FK_rpj1wg5pqyv2jprmu6pm5g9pc 
         foreign key (KNOCKOFF_ID) 
@@ -1787,6 +1887,26 @@
         add constraint FK_2d6lwtme5e7ch5iextvyjus2k 
         foreign key (KNOCKOFF_ID) 
         references AC_KNOF;
+        
+--    alter table AC_KNOF_ITEM 
+--        add constraint FK_9c8dq7a0lt5w6xw5hg7kvga1w 
+--        foreign key (DEBIT_NOTE_ID) 
+--        references AC_DBIT_NOTE;   
+--        
+--    alter table AC_KNOF_ITEM 
+--        add constraint FK_cvb6l8r7mqsg6uwv42fox1sb3
+--        foreign key (ACCOUNT_CHARGE_ID) 
+--        references AC_ACCT_CHRG;    
+        
+    alter table AC_KNOF_ITEM 
+        add constraint FK_ihcbtdkqv3f788ok84ikf68vk
+        foreign key (CHARGE_CODE_ID) 
+        references AC_CHRG_CODE;
+        
+    alter table AC_KNOF_ITEM 
+        add constraint FK_lxa2hldcd6061vnf7bri9x5xx
+        foreign key (INVOICE_ID) 
+        references AC_INVC;  
         
     alter table AC_PCPL_ROLE
         add constraint FK_ofdb3qau30ii76rhetdhgtn2r
@@ -1812,7 +1932,12 @@
         add constraint FK_fnxq30p92pj8aepx0smoaexos
         foreign key (ACCOUNT_ID)
         references AC_ACCT;
-
+        
+--    alter table AC_RCPT
+--        add constraint FK_qhr2bjjsvs73ja9rpvjei1pav
+--        foreign key (SESSION_ID)
+--        references AC_ACDM_SESN;
+        
     alter table AC_RCPT_INVC
         add constraint FK_rpj1wg5pqyv2jpqmu6pm5g9pc
         foreign key (INVOICE_ID)
@@ -1822,7 +1947,27 @@
         add constraint FK_su460f3lvgsf3h4079asbbi3s
         foreign key (RECEIPT_ID)
         references AC_RCPT;
-
+        
+    alter table AC_RCPT_ACCT_CHRG
+        add constraint FK_3seqkkr06puuid2q2vcv0pydc
+        foreign key (ACCOUNT_CHARGE_ID)
+        references AC_ACCT_CHRG;
+        
+    alter table AC_RCPT_ACCT_CHRG
+        add constraint FK_a2c5yoeldso04qymw9ygot2og
+        foreign key (RECEIPT_ID)
+        references AC_RCPT;
+        
+    alter table AC_RCPT_DBT
+        add constraint FK_6bj5r5aoalbjtlo64782iu5w8
+        foreign key (RECEIPT_ID)
+        references AC_RCPT;  
+        
+--    alter table AC_RCPT_DBT
+--        add constraint FK_6bj5r5aoalbjtlo64782iu5w8
+--        foreign key (DEBITNOTE_ID)
+--        references AC_DBIT_NOTE;  
+        
     alter table AC_RCPT_ITEM
         add constraint FK_dtmemhqcipfpet4tyyrd9copt
         foreign key (CHARGE_CODE_ID)
@@ -1867,7 +2012,12 @@
         add constraint FK_st6klbsxd7yrnqvdrvy0b53n2
         foreign key (SPONSOR_ID)
         references AC_SPSR;
-
+        
+--    alter table AC_SPHP
+--        add constraint FK_9mgc3kpojgfpx0yjnlpxcuenj
+--        foreign key (ACCOUNT_ID)
+--        references AC_ACCT;
+        
     alter table AC_SPHP 
         add constraint FK_ng5avp5mj8tim7n76tyny5tsa 
         foreign key (SESSION_ID) 
@@ -1953,6 +2103,26 @@
         foreign key (SESSION_ID)
         references AC_ACDM_SESN;
         
+--   alter table AC_WAVR_DEBT_NOTE
+--        add constraint FK_pf4jdfa5al2eduoux9tyf8als
+--        foreign key (WAIVER_FINANCE_ID) 
+--        references AC_WAVR_FNCE_APLN;
+
+--   alter table AC_WAVR_DEBT_NOTE
+--        add constraint FK_j3qyt5k5aq13p04ql7lcto8as
+--        foreign key (DEBITNOTE_ID) 
+--        references AC_DBIT_NOTE;
+        
+   alter table AC_WAVR_ACCT_CHRG
+        add constraint FK_2oyu1kp4bdfmnrrtlwfr3vdo8
+        foreign key (WAIVER_FINANCE_ID) 
+        references AC_WAVR_FNCE_APLN; 
+        
+   alter table AC_WAVR_ACCT_CHRG
+        add constraint FK_o6adful921g0efni2hyg2pj09
+        foreign key (ACCOUNT_CHARGE_ID) 
+        references AC_ACCT_CHRG;  
+        
     alter table AC_WAVR_INVC 
         add constraint FK_9biewrgydh2os939x0wy6bw6
         foreign key (INVOICE_ID) 
@@ -2034,6 +2204,10 @@
 
     create sequence SQ_AC_KNOF;
     
+    create sequence SQ_AC_KNOF_DBT_NOTE;
+    
+    create sequence SQ_AC_KNOF_CHRG;
+    
     create sequence SQ_AC_KNOF_INVC;
     
     create sequence SQ_AC_KNOF_ITEM;
@@ -2055,6 +2229,12 @@
     create sequence SQ_AC_RCPT;
 
     create sequence SQ_AC_RCPT_INVC;
+    
+    create sequence SQ_AC_RCPT_ACCT_CHRG;
+     
+    create sequence SQ_AC_RCPT_DBT;
+    
+    create sequence SQ_AC_RCPT_ITEM;
 
     create sequence SQ_AC_RFND_PYMT;
 
@@ -2083,6 +2263,10 @@
     create sequence SQ_AC_TAX_CODE;
 
     create sequence SQ_AC_WAVR_APLN;
+    
+    create sequence SQ_AC_WAVR_DEBT_NOTE;
+    
+    create sequence SQ_AC_WAVR_ACCT_CHRG;
     
     create sequence SQ_AC_WAVR_INVC;
     
