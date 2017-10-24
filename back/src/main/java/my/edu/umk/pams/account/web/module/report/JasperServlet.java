@@ -70,7 +70,7 @@ public class JasperServlet extends HttpServlet {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasReport, map, connection);
 
             response.setContentType("application/pdf");
-            response.setHeader("Content-disposition", "attachment; filename="+ reportName + ".pdf" );
+            response.setHeader("Content-disposition", "inline; filename="+ reportName + ".pdf" );
 
             // export
             JRPdfExporter exporter = new JRPdfExporter();
