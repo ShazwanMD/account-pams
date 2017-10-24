@@ -58,7 +58,7 @@ import {InvoicePaidListComponent} from './component/invoice-paid-list.component'
     InvoiceCenterPage,
     InvoiceTaskDetailPage,
     InvoiceDetailPage,
-    ReceiptItemDetailPage,
+    
 
     // components
     AssignedInvoiceTaskListComponent,
