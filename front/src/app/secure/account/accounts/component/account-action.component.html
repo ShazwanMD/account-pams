@@ -9,13 +9,13 @@
       <p md-line>Revise account</p>
     </md-list-item> -->  
     <md-nav-list list-items>
-      <a md-list-item href="http://localhost:8080/servlet/report?report=AC_BLG_003.jrxml&report.pdf" [target]="'_blank'">
+      <a md-list-item href="http://localhost:8080/servlet/report?report=AC_BLG_003.jrxml&report.pdf&IDENTITY_NO={{account.actor?.identityNo}}" [target]="'_blank'">
         <md-icon md-list-avatar>print</md-icon>
         <p md-line>Print Customer Statement</p>
       </a>
     </md-nav-list> 
     <md-nav-list list-items>
-      <a md-list-item href="http://localhost:8080/servlet/report?report=AC_BLG_002.jrxml&report.pdf" [target]="'_blank'">
+      <a md-list-item href="http://localhost:8080/servlet/report?report=AC_BLG_002.jrxml&report.pdf&IDENTITY_NO={{account.actor?.identityNo}}" [target]="'_blank'">
         <md-icon md-list-avatar>print</md-icon>
         <p md-line>Print Charge Statement</p>
       </a>
