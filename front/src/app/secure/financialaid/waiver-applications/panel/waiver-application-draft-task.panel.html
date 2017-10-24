@@ -2,25 +2,28 @@
   <div layout="column" layout-gt-md="row" class="inset">
     <div flex-gt-md="70">
       <md-card>
-        <md-card-title>{{waiverApplicationTask?.referenceNo}}</md-card-title>
+        <md-card-title>#{{waiverApplicationTask?.referenceNo}}</md-card-title>
         <md-card-subtitle>{{waiverApplicationTask?.description}}</md-card-subtitle>
 
         <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
           <div layout="column" flex>
             <md-list dense>
               <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{waiverApplicationTask?.application?.referenceNo}}</h4>
                 <p md-line>Reference No</p>
               </md-list-item>
             </md-list>
             <md-list dense>
               <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{waiverApplicationTask?.application?.effectiveBalance}}</h4>
                 <p md-line>Balance</p>
               </md-list-item>
             </md-list>
             <md-list dense>
               <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{waiverApplicationTask?.application?.waivedAmount}}</h4>
                 <p md-line>Waived Amount</p>
               </md-list-item>
@@ -29,12 +32,14 @@
           <div layout="column" flex>
             <md-list dense>
               <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{waiverApplicationTask?.application?.account?.code}}</h4>
                 <p md-line>Account</p>
               </md-list-item>
             </md-list>
             <md-list dense>
               <md-list-item>
+                <md-icon md-list-icon>local_offer</md-icon>
                 <h4 md-line>{{waiverApplicationTask?.application?.gracedAmount}}</h4>
                 <p md-line>Graced Amount</p>
               </md-list-item>
