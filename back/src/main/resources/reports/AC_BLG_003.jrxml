@@ -232,7 +232,7 @@ FROM
 	<pageHeader>
 		<band height="118" splitType="Stretch">
 			<textField>
-				<reportElement x="76" y="3" width="174" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
+				<reportElement x="76" y="3" width="274" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 			</textField>
 			<textField>

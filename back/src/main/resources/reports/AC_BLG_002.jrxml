@@ -431,7 +431,7 @@ FROM
 	<pageHeader>
 		<band height="118" splitType="Stretch">
 			<textField>
-				<reportElement x="76" y="3" width="174" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
+				<reportElement x="76" y="3" width="274" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -492,11 +492,11 @@ FROM
 			</textField>
 			<textField>
 				<reportElement x="76" y="23" width="313" height="20" uuid="2e2800ef-1792-429e-a2bc-d9a8e142d766"/>
-				<textFieldExpression><![CDATA[$F{ac_actr_address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{ac_actr_address}==null)? "-": $F{ac_actr_address})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="40" width="86" height="20" uuid="6e8ba411-37cd-4158-8db8-4d8bb5aa360f"/>
-				<textFieldExpression><![CDATA[$F{ac_stdn_student_status}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{ac_stdn_student_status}==null)? "-": $F{ac_stdn_student_status})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="389" y="92" width="60" height="15" uuid="772539f6-14a1-4a80-9180-6bc107642e2d"/>
