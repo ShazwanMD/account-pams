@@ -225,19 +225,19 @@ export class WaiverApplicationActions {
 
   static UPDATE_WAIVER_APPLICATION = '[WaiverApplication] Update WaiverApplication';
 
-  updateWaiverApplication(invoice): Action {
+  updateWaiverApplication(waiverApplication): Action {
     return {
       type: WaiverApplicationActions.UPDATE_WAIVER_APPLICATION,
-      payload: invoice
+      payload: waiverApplication
     };
   }
 
   static UPDATE_WAIVER_APPLICATION_SUCCESS = '[WaiverApplication] Update WaiverApplication Success';
 
-  updateWaiverApplicationSuccess(invoice): Action {
+  updateWaiverApplicationSuccess(message): Action {
     return {
       type: WaiverApplicationActions.UPDATE_WAIVER_APPLICATION_SUCCESS,
-      payload: invoice
+      payload: message
     };
   }
 

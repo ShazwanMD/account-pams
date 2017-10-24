@@ -50,6 +50,7 @@ export class WaiverApplicationDraftTaskPanel implements OnInit {
   }
 
   showDialog(): void {
+      console.log("Waiver Application" + this.waiverApplicationTask.application.referenceNo);
     let config = new MdDialogConfig();
     config.viewContainerRef = this.vcf;
     config.role = 'dialog';

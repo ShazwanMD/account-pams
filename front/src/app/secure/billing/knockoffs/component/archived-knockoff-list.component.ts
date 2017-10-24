@@ -52,7 +52,7 @@ export class ArchivedKnockoffListComponent {
 
   viewKnockoff(invoice: Knockoff): void {
     console.log('Emitting task');
-    let snackBarRef = this.snackBar.open('Viewing invoice', 'OK');
+    let snackBarRef = this.snackBar.open('Viewing knockoff', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(invoice);
     });

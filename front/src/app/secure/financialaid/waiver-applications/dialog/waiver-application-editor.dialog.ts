@@ -18,6 +18,7 @@ export class WaiverApplicationEditorDialog implements OnInit {
 
   private editForm: FormGroup;
   private _application: WaiverApplication;
+  private edit: boolean = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -27,8 +28,14 @@ export class WaiverApplicationEditorDialog implements OnInit {
               private actions: WaiverApplicationActions,
               private dialog: MdDialogRef<WaiverApplicationEditorDialog>) {
   }
+  
+  set application(value: WaiverApplication) {
+      this._application = value;
+      this.edit = true;
+    }
 
   ngOnInit(): void {
+      
     this.editForm = this.formBuilder.group(<WaiverApplication>{
       referenceNo: '',
       sourceNo: '',
@@ -43,15 +50,12 @@ export class WaiverApplicationEditorDialog implements OnInit {
       academicSession: <AcademicSession>{},
     });
 
-    if (this._application) this.editForm.patchValue(this._application);
+    if (this.edit) this.editForm.patchValue(this._application);
   }
 
-  set application(value: WaiverApplication) {
-    this._application = value;
-  }
-
-  save(waiverApplication: WaiverApplication, isValid: boolean) {
-    this.store.dispatch(this.actions.updateWaiverApplication(waiverApplication));
+  save(application: WaiverApplication, isValid: boolean) {
+    console.log("waiver updated" + this._application.referenceNo);
+    this.store.dispatch(this.actions.updateWaiverApplication(application));
     this.dialog.close();
   }
 }
