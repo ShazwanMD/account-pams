@@ -4,6 +4,9 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="cbd3c2e6-fb7f-42a1-826a-aa657110b068"/>
+	<parameter name="IDENTITY_NO" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      ac_actr."id" AS ac_actr_id,
@@ -410,6 +413,7 @@ FROM
 	<variable name="Balance_amount" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_acct_chrg_trsn_amount}]]></variableExpression>
 	</variable>
+	<filterExpression><![CDATA[$F{ac_actr_identity_no}.equals( $P{IDENTITY_NO} )]]></filterExpression>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
