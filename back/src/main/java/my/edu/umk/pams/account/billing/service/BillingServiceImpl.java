@@ -1182,6 +1182,16 @@ public class BillingServiceImpl implements BillingService {
 	public boolean hasReceiptItem(AcInvoice invoice, AcReceipt receipt) {
 		return receiptDao.hasReceiptItem(receipt, invoice);
 	}
+	
+	@Override
+	public boolean hasChargeReceiptItem(AcAccountCharge accountCharge, AcReceipt receipt) {
+		return receiptDao.hasChargeReceiptItem(accountCharge, receipt);
+	}
+	
+	@Override
+	public boolean hasDebitReceiptItem(AcDebitNote debitNote, AcReceipt receipt) {
+		return receiptDao.hasDebitReceiptItem(debitNote, receipt);
+	}
 
 	// ====================================================================================================
 	// PRIVATE METHODS

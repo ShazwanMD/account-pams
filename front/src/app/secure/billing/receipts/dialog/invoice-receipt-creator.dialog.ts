@@ -14,6 +14,7 @@ import { TdDialogService, ITdDataTableColumn } from "@covalent/core";
 import { ChargeCode } from "../../../../shared/model/account/charge-code.interface";
 import { Observable } from "rxjs/Observable";
 import { AccountCharge } from "../../../../shared/model/account/account-charge.interface";
+import { ReceiptItemType } from '../../../../shared/model/billing/receipt-item-type.enum';
 
 @Component( {
     selector: 'pams-invoice-receipt-creator',
@@ -58,6 +59,7 @@ export class InvoiceReceiptCreatorDialog implements OnInit {
             appliedAmount: [0],
             price: [0],
             unit: [0],
+            receiptItemType: ReceiptItemType.ACCOUNT_CHARGE,
             accountCharge: [<AccountCharge>{}]
         } );
 

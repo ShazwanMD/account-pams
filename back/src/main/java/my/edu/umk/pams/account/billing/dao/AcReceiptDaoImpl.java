@@ -570,6 +570,32 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
     }
     
     @Override
+    public boolean hasChargeReceiptItem(AcAccountCharge accountCharge, AcReceipt receipt) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcReceiptItem a " + "where a.receipt = :receipt "
+				+ "and a.accountCharge = :accountCharge "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("receipt", receipt);
+		query.setEntity("accountCharge", accountCharge);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
+    }
+    
+    @Override
+    public boolean hasDebitReceiptItem(AcDebitNote debitNote, AcReceipt receipt) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcReceiptItem a " + "where a.receipt = :receipt "
+				+ "and a.debitNote = :debitNote "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("receipt", receipt);
+		query.setEntity("debitNote", debitNote);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
+    }    
+    
+    @Override
     public BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcReceiptItem a where " +

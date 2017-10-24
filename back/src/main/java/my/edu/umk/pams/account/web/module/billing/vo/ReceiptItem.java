@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.edu.umk.pams.account.web.module.account.vo.AccountCharge;
+import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
 import my.edu.umk.pams.account.web.module.account.vo.ChargeCode;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
@@ -26,6 +27,7 @@ public class ReceiptItem extends MetaObject {
     private Invoice invoice;
     private AccountCharge accountCharge;
     private DebitNote debitNote;
+    private ReceiptItemType receiptItemType;
 
     public String getDescription() {
         return description;
@@ -113,6 +115,14 @@ public class ReceiptItem extends MetaObject {
 
 	public void setDebitNote(DebitNote debitNote) {
 		this.debitNote = debitNote;
+	}
+	
+	public ReceiptItemType getReceiptItemType() {
+		return receiptItemType;
+	}
+
+	public void setReceiptItemType(ReceiptItemType receiptItemType) {
+		this.receiptItemType = receiptItemType;
 	}
 
 	@JsonCreator

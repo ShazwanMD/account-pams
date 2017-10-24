@@ -360,8 +360,12 @@ public class BillingController {
         AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
         AcReceiptItem e = new AcReceiptItemImpl();
         
-        if (null != vo.getChargeCode())
-        e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+     switch (vo.getReceiptItemType()) {  
+        case ACCOUNT_CHARGE:             	       	
+        AcAccountCharge accountCharge = accountService.findAccountChargeById(vo.getAccountCharge().getId());
+       	Boolean chargeRcptItem = billingService.hasChargeReceiptItem(accountCharge, receipt);
+    	
+       	if(chargeRcptItem == false) {
         e.setAdjustedAmount(vo.getAdjustedAmount());
         e.setAppliedAmount(vo.getAppliedAmount());
         e.setTotalAmount(vo.getTotalAmount());
@@ -369,16 +373,33 @@ public class BillingController {
         e.setUnit(vo.getUnit());
         e.setPrice(vo.getPrice());
         e.setDescription(vo.getDescription());
-        if (null != vo.getDebitNote())
-        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
-        if (null != vo.getInvoice())
-        e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         if (null != vo.getAccountCharge())
-        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
+        e.setAccountCharge(accountCharge);
         e.setChargeCode(accountService.findChargeCodeById(0L));
         billingService.addReceiptItem(receipt, e);
+     }
+        break;        
         
+        case DEBIT_NOTE:       	       	
+        AcDebitNote debitNote = billingService.findDebitNoteById(vo.getDebitNote().getId());
+      	Boolean debitRcptItem = billingService.hasDebitReceiptItem(debitNote, receipt);        	
+      	
+      	if(debitRcptItem == false) {
+          e.setAdjustedAmount(vo.getAdjustedAmount());
+          e.setAppliedAmount(vo.getAppliedAmount());
+          e.setTotalAmount(vo.getTotalAmount());
+          e.setDueAmount(vo.getDueAmount());
+          e.setUnit(vo.getUnit());
+          e.setPrice(vo.getPrice());
+          e.setDescription(vo.getDescription());
+          if (null != vo.getDebitNote())
+          e.setDebitNote(debitNote);
+          billingService.addReceiptItem(receipt, e);
+      	}
+        break;
+     }
     }
+        
 
     @RequestMapping(value = "/receipts/{referenceNo}/receiptItems/{id}", method = RequestMethod.PUT)
     public void updateReceiptItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody ReceiptItem vo) {

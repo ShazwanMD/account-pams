@@ -247,8 +247,9 @@ public class BillingTransformer {
     }
     
     public ReceiptItem toReceiptItemVo(AcReceiptItem e) {
-        ReceiptItem vo = new ReceiptItem();
-
+    	if(null == e) return null;
+    	
+        ReceiptItem vo = new ReceiptItem();       
         vo.setId(e.getId());
         vo.setDescription(e.getDescription());
         vo.setAdjustedAmount(e.getAdjustedAmount());
@@ -259,6 +260,8 @@ public class BillingTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
         vo.setAccountCharge(accountTransformer.toAccountChargeVo(e.getAccountCharge()));
+     //   vo.setReceiptItemType(ReceiptItemType.get(e.getReceiptItemType().ordinal()));
+        //m.setInvoiced(null != e.getInvoice());
         vo.setDebitNote(billingTransformer.toDebitNoteVo(e.getDebitNote()));
         return vo;
     }

@@ -15,6 +15,7 @@ import { TdDialogService, ITdDataTableColumn } from "@covalent/core";
 import { ChargeCode } from "../../../../shared/model/account/charge-code.interface";
 import { Observable } from "rxjs/Observable";
 import { AccountCharge } from "../../../../shared/model/account/account-charge.interface";
+import { ReceiptItemType } from '../../../../shared/model/billing/receipt-item-type.enum';
 
 @Component( {
     selector: 'pams-debit-note-receipt-creator',
@@ -59,8 +60,7 @@ export class DebitNoteReceiptCreatorDialog implements OnInit {
             appliedAmount: [0],
             price: [0],
             unit: [0],
-            chargeCode: [<ChargeCode>{}],
-            invoice: [<Invoice>{}],
+            receiptItemType: ReceiptItemType.DEBIT_NOTE,
             debitNote: [<DebitNote>{}]
         } );
 

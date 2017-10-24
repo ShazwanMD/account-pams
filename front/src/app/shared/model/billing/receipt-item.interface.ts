@@ -3,6 +3,7 @@ import {MetaObject} from '../../../core/meta-object.interface';
 import {Invoice} from './invoice.interface';
 import {ChargeCode} from '../account/charge-code.interface';
 import { AccountCharge } from "../account/account-charge.interface";
+import {ReceiptItemType} from './receipt-item-type.enum';
 
 export interface ReceiptItem extends MetaObject {
   description: string;
@@ -16,6 +17,7 @@ export interface ReceiptItem extends MetaObject {
   invoice: Invoice;
   accountCharge: AccountCharge;
   debitNote: DebitNote;
+  receiptItemType: ReceiptItemType;
 
   // selection
   selected?: boolean;

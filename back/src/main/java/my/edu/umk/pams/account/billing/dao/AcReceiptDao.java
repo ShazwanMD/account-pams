@@ -121,4 +121,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
 	void addReceiptDebitNote(AcReceipt receipt, AcDebitNote debitNote, AcUser currentUser);
 
 	boolean hasReceiptItem(AcReceipt receipt, AcInvoice invoice);
+
+	boolean hasChargeReceiptItem(AcAccountCharge accountCharge, AcReceipt receipt);
+
+	boolean hasDebitReceiptItem(AcDebitNote debitNote, AcReceipt receipt);
 }

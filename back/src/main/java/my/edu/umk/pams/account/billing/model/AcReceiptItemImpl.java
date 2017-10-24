@@ -2,12 +2,16 @@ package my.edu.umk.pams.account.billing.model;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
+import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 
 /**
@@ -29,6 +33,12 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     @NotNull
     @Column(name = "DUE_AMOUNT", nullable = false)
     private BigDecimal dueAmount = BigDecimal.ZERO;
+    
+    @NotNull
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "RECEIPT_ITEM_TYPE")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private AcReceiptItemType receiptItemType;
 
     @NotNull
     @Column(name = "APPLIED_AMOUNT", nullable = false)
@@ -133,8 +143,18 @@ public class AcReceiptItemImpl implements AcReceiptItem {
     public BigDecimal getPrice() {
         return price;
     }
+    
+    @Override
+    public AcReceiptItemType getReceiptItemType() {
+		return receiptItemType;
+	}
 
     @Override
+	public void setReceiptItemType(AcReceiptItemType receiptItemType) {
+		this.receiptItemType = receiptItemType;
+	}
+
+	@Override
     public void setPrice(BigDecimal price) {
         this.price = price;
     }

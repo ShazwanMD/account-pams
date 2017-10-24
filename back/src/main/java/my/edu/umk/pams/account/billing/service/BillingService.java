@@ -552,4 +552,8 @@ public interface BillingService {
     
     boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice);
 
+	boolean hasChargeReceiptItem(AcAccountCharge accountCharge, AcReceipt receipt);
+
+	boolean hasDebitReceiptItem(AcDebitNote debitNote, AcReceipt receipt);
+
 }
