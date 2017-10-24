@@ -1,3 +1,4 @@
+import { ReceiptItemDetailPage } from './receipt-item-detail.page';
 import { DebitNoteReceiptCreatorDialog } from './dialog/debit-note-receipt-creator.dialog';
 import { DebitNoteReceiptDialog } from './dialog/debit-note-receipt.dialog';
 import { DebitNoteReceiptListComponent } from './component/debit-note-receipt-list.component';
@@ -70,6 +71,7 @@ import { ReceiptItemListOnly } from './component/receipt-item-list-only.componen
     // page
     ReceiptCenterPage,
     ReceiptTaskViewPage,
+    ReceiptItemDetailPage,
 
     // components
     AssignedReceiptTaskListComponent,
