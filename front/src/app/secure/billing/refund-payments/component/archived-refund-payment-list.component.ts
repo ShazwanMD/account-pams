@@ -51,7 +51,7 @@ export class ArchivedRefundPaymentListComponent implements OnChanges {
 }
   viewRefundPayment(invoice: RefundPayment): void {
     console.log('Emitting task');
-    let snackBarRef = this.snackBar.open('Viewing invoice', 'OK');
+    let snackBarRef = this.snackBar.open('Viewing refundPayment', 'OK');
     snackBarRef.afterDismissed().subscribe(() => {
       this.view.emit(invoice);
     });
