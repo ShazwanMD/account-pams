@@ -51,7 +51,7 @@ export class PooledRefundPaymentTaskListComponent {
 
   claimTask(task: RefundPaymentTask): void {
     console.log('Emitting task');
-    let snackBarRef: MdSnackBarRef<SimpleSnackBar> = this.snackBar.open('Claiming invoice');
+    let snackBarRef: MdSnackBarRef<SimpleSnackBar> = this.snackBar.open('Claiming refundPayment');
     snackBarRef.dismiss();
     snackBarRef.afterDismissed().subscribe(() => {
       this.claim.emit(task);
