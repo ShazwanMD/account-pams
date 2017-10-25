@@ -2103,9 +2103,12 @@ public class BillingServiceImpl implements BillingService {
 		if (invoiceItem.getChargeCode().getInclusive() == false) {
 			invoiceItem.setNetAmount(netAmount);
 			invoiceItem.setTaxAmount(taxAmount);
+			invoiceItem.setBalanceAmount(netAmount);
+			
 		} else if (invoiceItem.getChargeCode().getInclusive() == true) {
 			invoiceItem.setTaxAmount(taxAmount);
 			invoiceItem.setNetAmount(amount);
+			invoiceItem.setBalanceAmount(amount);
 		}
 	}
 }
