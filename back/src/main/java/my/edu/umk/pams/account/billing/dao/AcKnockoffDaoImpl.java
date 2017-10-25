@@ -40,6 +40,7 @@ import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
 @Repository("acKnockoffDao")
@@ -444,4 +445,31 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
     }
+    
+    @Override
+    public boolean hasChargeKnockoffItem(AcAccountCharge accountCharge, AcKnockoff knockoff) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcKnockoffItem a " + "where a.knockoff = :knockoff "
+				+ "and a.accountCharge = :accountCharge "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("knockoff", knockoff);
+		query.setEntity("accountCharge", accountCharge);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
+    }  
+    
+    @Override
+    public boolean hasDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcKnockoffItem a " + "where a.knockoff = :knockoff "
+				+ "and a.debitNote = :debitNote "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("knockoff", knockoff);
+		query.setEntity("debitNote", debitNote);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
+    }   
+    
 }

@@ -59,13 +59,10 @@ export class DebitNoteKnockoffCreatorDialog implements OnInit {
             description: [''],
             dueAmount: [0],
             totalAmount:[0],
-            adjustedAmount: [0],
             appliedAmount: [0],
-            price: [0],
-            unit: [0],
+            knockoffItemType: KnockoffItemType.DEBIT_NOTE,
             chargeCode: [<ChargeCode>{}],
             invoice: [<Invoice>{}],
-            knockoffItemType: KnockoffItemType.DEBIT_NOTE,
             debitNote: [<DebitNote>{}]
         } );
 

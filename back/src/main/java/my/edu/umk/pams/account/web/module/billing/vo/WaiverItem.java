@@ -22,6 +22,7 @@ public class WaiverItem extends MetaObject {
 	private AccountCharge accountCharge;
 	private WaiverFinanceApplication waiverFinanceApplication;
 	private DebitNote debitNote;
+	private WaiverItemType waiverItemType;
 
 	public String getDescription() {
 		return description;
@@ -93,6 +94,14 @@ public class WaiverItem extends MetaObject {
 
 	public void setDebitNote(DebitNote debitNote) {
 		this.debitNote = debitNote;
+	}
+	
+	public WaiverItemType getWaiverItemType() {
+		return waiverItemType;
+	}
+
+	public void setWaiverItemType(WaiverItemType waiverItemType) {
+		this.waiverItemType = waiverItemType;
 	}
 
 	@JsonCreator

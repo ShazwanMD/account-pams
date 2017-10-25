@@ -438,6 +438,32 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
     }
+    
+    @Override
+    public boolean hasChargeWaiverItem(AcAccountCharge accountCharge, AcWaiverFinanceApplication waiverFinanceApplication) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcWaiverItem a " + "where a.waiverFinanceApplication = :waiverFinanceApplication "
+				+ "and a.accountCharge = :accountCharge "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("waiverFinanceApplication", waiverFinanceApplication);
+		query.setEntity("accountCharge", accountCharge);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
+    }  
+    
+    @Override
+    public boolean hasDebitWaiverItem(AcDebitNote debitNote, AcWaiverFinanceApplication waiverFinanceApplication) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select count(*) from AcWaiverItem a " + "where a.waiverFinanceApplication = :waiverFinanceApplication "
+				+ "and a.debitNote = :debitNote "
+				+ "and a.metadata.state = :state ");
+		query.setEntity("waiverFinanceApplication", waiverFinanceApplication);
+		query.setEntity("debitNote", debitNote);
+		query.setInteger("state", ACTIVE.ordinal());
+		Long count = (Long) query.uniqueResult();
+		return count.intValue() > 0; // > 0 = true, <=0 false
+    } 
 
 }
 
