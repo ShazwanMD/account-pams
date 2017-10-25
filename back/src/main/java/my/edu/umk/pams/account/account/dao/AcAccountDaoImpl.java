@@ -442,12 +442,77 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
             else return BigDecimal.ZERO;
         }
     }
+    
+    @Override
+    public BigDecimal sumAdvancePayment(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(w.amount) from AcAdvancePayment w where " +
+                "w.account = :account " +
+                "and w.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;    	
+    }
+    
+    @Override
+    public BigDecimal sumInvoice(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(w.totalAmount) from AcInvoice w where " +
+                "w.account = :account " +
+                "and w.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;      	
+    }
+    
+    @Override
+    public BigDecimal sumReceipt(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(w.totalReceived) from AcReceipt w where " +
+                "w.account = :account " +
+                "and w.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;     	
+    }
+    
+    @Override
+    public BigDecimal sumKnockoff(AcAccount account) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(w.appliedAmount) from AcKnockoffItem w where " +
+                "w.knockoff.payments.account = :account " +
+                "and w.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result; 
+    }
 
     @Override
     public BigDecimal sumWaiverAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(w.amount) from AcAccountWaiver w where " +
                 "w.account = :account " +
+                "and w.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumRefundPayment(AcAccount account) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(w.amount) from AcRefundPayment w where " +
+                "w.payments.account = :account " +
                 "and w.metadata.state = :state ");
         query.setEntity("account", account);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
