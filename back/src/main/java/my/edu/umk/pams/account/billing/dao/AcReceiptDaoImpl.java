@@ -1,6 +1,5 @@
 package my.edu.umk.pams.account.billing.dao;
 
-import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.*;
@@ -594,7 +593,7 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
 		Long count = (Long) query.uniqueResult();
 		return count.intValue() > 0; // > 0 = true, <=0 false
     }    
-    
+        
     @Override
     public BigDecimal sumAppliedAmount(AcReceipt receipt, AcUser user) {
         Session session = sessionFactory.getCurrentSession();

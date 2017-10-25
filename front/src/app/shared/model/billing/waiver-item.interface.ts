@@ -3,6 +3,7 @@ import {Invoice} from './invoice.interface';
 import {ChargeCode} from '../account/charge-code.interface';
 import { WaiverFinanceApplication } from './waiver-finance-application.interface';
 import { DebitNote } from "./debit-note.interface";
+import { WaiverItemType } from './waiver-item-type.enum';
 
 export interface WaiverItem extends MetaObject {
   description: string;
@@ -13,6 +14,7 @@ export interface WaiverItem extends MetaObject {
   invoice: Invoice;
   debitNote: DebitNote;
   waiverApplication: WaiverFinanceApplication;
+  waiverItemType: WaiverItemType;
   // selection
   selected?: boolean;
 }

@@ -498,7 +498,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public BigDecimal sumWaiverAmount(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(w.amount) from AcAccountWaiver w where " +
+        Query query = session.createQuery("select sum(w.waivedAmount) from AcWaiverFinanceApplication w where " +
                 "w.account = :account " +
                 "and w.metadata.state = :state ");
         query.setEntity("account", account);
@@ -519,6 +519,19 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumCreditNote(AcAccount account) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(w.totalAmount) from AcCreditNote w where " +
+                "w.invoice.account = :account " +
+                "and w.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;    	
     }
 
     @Override

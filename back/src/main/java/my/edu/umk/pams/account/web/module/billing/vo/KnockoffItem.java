@@ -21,6 +21,7 @@ public class KnockoffItem extends MetaObject {
 	private Knockoff knockoff;
 	private DebitNote debitNote;
 	private AccountCharge accountCharge;
+    private KnockoffItemType knockoffItemType;
 
 	public String getDescription() {
 		return description;
@@ -92,6 +93,14 @@ public class KnockoffItem extends MetaObject {
 
 	public void setAccountCharge(AccountCharge accountCharge) {
 		this.accountCharge = accountCharge;
+	}
+	
+	public KnockoffItemType getKnockoffItemType() {
+		return knockoffItemType;
+	}
+
+	public void setKnockoffItemType(KnockoffItemType knockoffItemType) {
+		this.knockoffItemType = knockoffItemType;
 	}
 
 	@JsonCreator

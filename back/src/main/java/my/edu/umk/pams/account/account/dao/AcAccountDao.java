@@ -99,6 +99,8 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     BigDecimal sumWaiverAmount(AcAccount account);
     
     BigDecimal sumRefundPayment(AcAccount account);
+    
+    BigDecimal sumCreditNote(AcAccount account);
 
     BigDecimal sumAccountTransaction(AcAccount account);
 

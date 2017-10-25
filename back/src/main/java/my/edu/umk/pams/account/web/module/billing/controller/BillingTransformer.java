@@ -504,7 +504,7 @@ public class BillingTransformer {
     }
     
     public KnockoffItem toKnockoffItemVo(AcKnockoffItem r) {
-    	
+    	if(null == r) return null;
     	KnockoffItem vo = new KnockoffItem();
     	vo.setId(r.getId());
     	vo.setAppliedAmount(r.getAppliedAmount());
@@ -586,7 +586,7 @@ public class BillingTransformer {
     }
     
     public WaiverItem toWaiverItemVo(AcWaiverItem r) {
-    	
+    	if(null == r) return null;
     	WaiverItem vo = new WaiverItem();
     	vo.setId(r.getId());
     	vo.setAppliedAmount(r.getAppliedAmount());

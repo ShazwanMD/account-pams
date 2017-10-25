@@ -15,6 +15,7 @@ import { KnockoffActions } from "../knockoff.action";
 import { Observable } from "rxjs/Observable";
 import { KnockoffItem } from "../../../../shared/model/billing/knockoff-item.interface";
 import { AccountCharge } from '../../../../shared/model/account/account-charge.interface';
+import { KnockoffItemType } from '../../../../shared/model/billing/knockoff-item-type.enum';
 
 @Component( {
     selector: 'pams-knockoff-account-charge-item',
@@ -60,6 +61,7 @@ export class KnockoffAccountChargeItemDialog implements OnInit {
             totalAmount: [0],
             appliedAmount: [0],
             accountCharge: [<AccountCharge>{}],
+            knockoffItemType: KnockoffItemType.ACCOUNT_CHARGE,
            // knockoff: [<Knockoff>{}],
             
         } );
