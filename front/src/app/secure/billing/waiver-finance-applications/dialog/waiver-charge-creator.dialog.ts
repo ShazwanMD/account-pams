@@ -16,6 +16,7 @@ import { AccountCharge } from "../../../../shared/model/account/account-charge.i
 import { WaiverFinanceApplication } from "../../../../shared/model/billing/waiver-finance-application.interface";
 import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
 import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
+import { WaiverItemType } from '../../../../shared/model/billing/waiver-item-type.enum';
 
 @Component( {
     selector: 'pams-waiver-charge-creator',
@@ -57,6 +58,7 @@ export class WaiverChargeCreatorDialog implements OnInit {
             dueAmount: [0],
             totalAmount:[0],
             appliedAmount: [0],
+            waiverItemType: WaiverItemType.ACCOUNT_CHARGE,
             accountCharge: [<AccountCharge>{}]
         } );
 
