@@ -18,6 +18,7 @@ import { TdDialogService, ITdDataTableColumn } from "@covalent/core";
 import { ChargeCode } from "../../../../shared/model/account/charge-code.interface";
 import { Observable } from "rxjs/Observable";
 import { AccountCharge } from "../../../../shared/model/account/account-charge.interface";
+import { KnockoffItemType } from '../../../../shared/model/billing/knockoff-item-type.enum';
 
 @Component( {
     selector: 'pams-debit-note-knockoff-creator',
@@ -64,6 +65,7 @@ export class DebitNoteKnockoffCreatorDialog implements OnInit {
             unit: [0],
             chargeCode: [<ChargeCode>{}],
             invoice: [<Invoice>{}],
+            knockoffItemType: KnockoffItemType.DEBIT_NOTE,
             debitNote: [<DebitNote>{}]
         } );
 
