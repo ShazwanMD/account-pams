@@ -5,7 +5,7 @@
   flex>
 
   <md-option *ngFor="let account of accounts$ | async" [value]="account">
-    <span>{{account.code}}: {{account.name}} </span>
+    <span>{{account.code}}: {{account.name}}: </span>
     <span flex></span>
     <span>{{ account?.balance | currency:'MYR':true:'1.2-2'}}</span>
   </md-option>

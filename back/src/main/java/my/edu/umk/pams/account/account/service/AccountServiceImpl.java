@@ -427,8 +427,7 @@ public class AccountServiceImpl implements AccountService {
     public List<AcAccount> findAccounts(String filter, Integer offset, Integer limit) {
         return accountDao.find(filter, offset, limit);
     }
-
-    // todo(uda): decorate
+    
     @Override
     public List<AcAccount> findAccounts(String filter, AcActorType actorType, Integer offset, Integer limit) {
         return accountDao.find(filter, actorType, offset, limit);
@@ -492,7 +491,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
     	BigDecimal paid = accountDao.sumDebitAmount(account).subtract(accountDao.sumReceipt(account));
-    	BigDecimal payment = paid.add(accountDao.sumRefundPayment(account));
+    	BigDecimal credit = paid.subtract(accountDao.sumCreditNote(account));
+    	BigDecimal payment = credit.add(accountDao.sumRefundPayment(account));
         return payment;
     }
     
