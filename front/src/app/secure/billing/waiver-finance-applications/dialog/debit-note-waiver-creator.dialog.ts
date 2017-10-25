@@ -17,6 +17,7 @@ import { AccountCharge } from "../../../../shared/model/account/account-charge.i
 import { WaiverFinanceApplication } from "../../../../shared/model/billing/waiver-finance-application.interface";
 import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
 import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
+import { WaiverItemType } from '../../../../shared/model/billing/waiver-item-type.enum';
 
 @Component( {
     selector: 'pams-debit-note-waiver-creator',
@@ -59,6 +60,7 @@ export class DebitNoteWaiverCreatorDialog implements OnInit {
             appliedAmount: [0],
             chargeCode: [<ChargeCode>{}],
             invoice: [<Invoice>{}],
+            waiverItemType: WaiverItemType.DEBIT_NOTE,
             debitNote: [<DebitNote>{}]
         } );
 

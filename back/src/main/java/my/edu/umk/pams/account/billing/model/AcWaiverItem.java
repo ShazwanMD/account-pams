@@ -38,9 +38,15 @@ public interface AcWaiverItem extends AcMetaObject {
 
 	AcAccountCharge getAccountCharge();
 
-	void setAccountCharge(AcAccountCharge accountCharge);
-	
-	AcDebitNote getDebitNote();
+	void setAccountCharge(AcAccountCharge accountCharge);	
 	
 	void setDebitNote(AcDebitNote debitNote);
+	
+	AcDebitNote getDebitNote();
+
+	AcWaiverItemType getWaiverItemType();
+
+	void setWaiverItemType(AcWaiverItemType waiverItemType);
+
+
 }

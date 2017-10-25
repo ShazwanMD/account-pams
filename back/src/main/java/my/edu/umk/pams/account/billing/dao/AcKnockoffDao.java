@@ -80,4 +80,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     BigDecimal sumTotalAmount(AcKnockoff knockoff, AcAccountCharge accountCharge, AcUser user);
     
     BigDecimal sumTotalAmount(AcDebitNote debitNote, AcKnockoff knockoff, AcUser user);
+
+	boolean hasChargeKnockoffItem(AcAccountCharge accountCharge, AcKnockoff knockoff);
+
+	boolean hasDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff);
 }

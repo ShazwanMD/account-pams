@@ -1108,16 +1108,8 @@ public class BillingController {
                 .toKnockoffItemVos(billingService.findAcKnockoffs(knockoff,invoice)), HttpStatus.OK);
     }
     
-//    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems/{id}", method = RequestMethod.GET)
-//    public ResponseEntity<List<KnockoffItem>> findKnockoffItemsByDebitNote(@PathVariable String referenceNo, @PathVariable Long id) {
-//        
-//    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
-//    	AcDebitNote debitNote = billingService.findDebitNoteById(id);
-//        return new ResponseEntity<List<KnockoffItem>>(billingTransformer
-//                .toKnockoffItemVos(billingService.findAcKnockoffs(knockoff,debitNote)), HttpStatus.OK);
-//    }
-    
-    
+
+       
     @RequestMapping(value = "/knockoffs/updateKnockoffItems/{referenceNo}/knockoffItems/{id}", method = RequestMethod.PUT)
     public void updateitemToKnockoff(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody ReceiptItem vo) {
     	
@@ -1165,23 +1157,46 @@ public class BillingController {
 
         AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
         AcKnockoffItem e = new AcKnockoffItemImpl();
-
-        if (null != vo.getChargeCode())
-        e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        
+        LOG.debug("knockoff: {}", knockoff);
+        LOG.debug("knockoff item: {}", e);
+        
+        switch (vo.getKnockoffItemType()) {  
+        case ACCOUNT_CHARGE:             	       	
+        AcAccountCharge accountCharge = accountService.findAccountChargeById(vo.getAccountCharge().getId());
+       	Boolean chargeKnockoffItem = billingService.hasChargeKnockoffItem(accountCharge, knockoff);
+    	
+       	if(chargeKnockoffItem == false) {
         e.setAppliedAmount(vo.getAppliedAmount());
         e.setTotalAmount(vo.getTotalAmount());
         e.setDueAmount(vo.getDueAmount());
         e.setDescription(vo.getDescription());
-        if (null != vo.getDebitNote())
-        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
-        if (null != vo.getInvoice())
-        e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         if (null != vo.getAccountCharge())
-        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
+        e.setAccountCharge(accountCharge);
         e.setChargeCode(accountService.findChargeCodeById(0L));
         billingService.addKnockoffItem(knockoff, e);
+     }
+        break;        
+        
+        case DEBIT_NOTE:       	       	
+        AcDebitNote debitNote = billingService.findDebitNoteById(vo.getDebitNote().getId());
+      	Boolean debitKnockoffItem = billingService.hasDebitKnockoffItem(debitNote, knockoff);        	
+      	
+      	if(debitKnockoffItem == false) {
+          e.setAppliedAmount(vo.getAppliedAmount());
+          e.setTotalAmount(vo.getTotalAmount());
+          e.setDueAmount(vo.getDueAmount());
+          e.setDescription(vo.getDescription());
+          if (null != vo.getDebitNote())
+          e.setDebitNote(debitNote);
+          billingService.addKnockoffItem(knockoff, e);
+      	}
+        break;
+     }
     }
     
+
+           
     @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems/{id}", method = RequestMethod.PUT)
     public void updateKnockoffItems(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody KnockoffItem vo) {
         
@@ -1396,29 +1411,47 @@ public class BillingController {
         Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
     }
-    
+        
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/waiverFinanceApplicationItems", method = RequestMethod.POST)
     public void addWaiverItem(@PathVariable String referenceNo, @RequestBody WaiverItem vo) {
         
         LOG.debug("referenceNo: {}", referenceNo);
 
-        AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        AcWaiverFinanceApplication waiverFinanceApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
         AcWaiverItem e = new AcWaiverItemImpl();
-
-        if (null != vo.getChargeCode())
-        e.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        
+        switch (vo.getWaiverItemType()) {  
+        case ACCOUNT_CHARGE:             	       	
+        AcAccountCharge accountCharge = accountService.findAccountChargeById(vo.getAccountCharge().getId());
+       	Boolean chargeWaiverItem = billingService.hasChargeWaiverItem(accountCharge, waiverFinanceApplication);
+    	
+       	if(chargeWaiverItem == false) {
         e.setAppliedAmount(vo.getAppliedAmount());
         e.setTotalAmount(vo.getTotalAmount());
         e.setDueAmount(vo.getDueAmount());
         e.setDescription(vo.getDescription());
-        if (null != vo.getDebitNote())
-        e.setDebitNote(billingService.findDebitNoteById(vo.getDebitNote().getId()));
-        if (null != vo.getInvoice())
-        e.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
         if (null != vo.getAccountCharge())
-        e.setAccountCharge(accountService.findAccountChargeById(vo.getAccountCharge().getId()));
+        e.setAccountCharge(accountCharge);
         e.setChargeCode(accountService.findChargeCodeById(0L));
-        billingService.addWaiverItem(waiverApplication, e);
+        billingService.addWaiverItem(waiverFinanceApplication, e);
+     }
+        break;        
+        
+        case DEBIT_NOTE:       	       	
+        AcDebitNote debitNote = billingService.findDebitNoteById(vo.getDebitNote().getId());
+      	Boolean debitWaiverItem = billingService.hasDebitWaiverItem(debitNote, waiverFinanceApplication);        	
+      	
+      	if(debitWaiverItem == false) {
+          e.setAppliedAmount(vo.getAppliedAmount());
+          e.setTotalAmount(vo.getTotalAmount());
+          e.setDueAmount(vo.getDueAmount());
+          e.setDescription(vo.getDescription());
+          if (null != vo.getDebitNote())
+          e.setDebitNote(debitNote);
+          billingService.addWaiverItem(waiverFinanceApplication, e);
+      	}
+        break;
+     }
     }
     
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/waiverFinanceApplicationItems/{id}", method = RequestMethod.PUT)

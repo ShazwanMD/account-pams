@@ -5,6 +5,7 @@ import { Knockoff } from './knockoff.interface';
 import { Document } from '../../../core/document.interface';
 import { ChargeCode } from "../account/charge-code.interface";
 import { AccountCharge } from '../account/account-charge.interface';
+import { KnockoffItemType } from './knockoff-item-type.enum';
 
 
 export interface KnockoffItem extends MetaObject {
@@ -17,6 +18,7 @@ export interface KnockoffItem extends MetaObject {
   debitNote: DebitNote;
   knockoff: Knockoff;
   accountCharge: AccountCharge;
+  knockoffItemType: KnockoffItemType;
   // selection
   selected?: boolean;
 }

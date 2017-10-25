@@ -556,4 +556,12 @@ public interface BillingService {
 
 	boolean hasDebitReceiptItem(AcDebitNote debitNote, AcReceipt receipt);
 
+	boolean hasDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff);
+
+	boolean hasChargeWaiverItem(AcAccountCharge accountCharge, AcWaiverFinanceApplication waiverApplication);
+
+	boolean hasDebitWaiverItem(AcDebitNote debitNote, AcWaiverFinanceApplication waiverApplication);
+
+	boolean hasChargeKnockoffItem(AcAccountCharge accountCharge, AcKnockoff knockoff);
+
 }

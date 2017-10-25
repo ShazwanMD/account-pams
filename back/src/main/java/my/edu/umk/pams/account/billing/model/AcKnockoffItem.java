@@ -43,4 +43,8 @@ public interface AcKnockoffItem extends AcMetaObject{
 	AcAccountCharge getAccountCharge();
 
 	void setAccountCharge(AcAccountCharge accountCharge);
+
+	AcKnockoffItemType getKnockoffItemType();
+
+	void setKnockoffItemType(AcKnockoffItemType knockoffItemType);
 }

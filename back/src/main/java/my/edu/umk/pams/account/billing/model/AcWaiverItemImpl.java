@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,12 +16,18 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.model.AcChargeCodeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
+/**
+ * @author PAMS10
+ *
+ */
 @Entity(name = "AcWaiverItem")
 @Table(name = "AC_WAVR_ITEM")
 public class AcWaiverItemImpl implements AcWaiverItem {
@@ -36,6 +44,12 @@ public class AcWaiverItemImpl implements AcWaiverItem {
     @NotNull
     @Column(name = "DUE_AMOUNT", nullable = false)
     private BigDecimal dueAmount = BigDecimal.ZERO;
+    
+    @NotNull
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "WAIVER_ITEM_TYPE")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private AcWaiverItemType waiverItemType;
 
     @NotNull
     @Column(name = "APPLIED_AMOUNT", nullable = false)
@@ -166,8 +180,18 @@ public class AcWaiverItemImpl implements AcWaiverItem {
     public void setMetadata(AcMetadata metadata) {
         this.metadata = metadata;
     }
-
+    
     @Override
+    public AcWaiverItemType getWaiverItemType() {
+		return waiverItemType;
+	}
+    
+    @Override
+	public void setWaiverItemType(AcWaiverItemType waiverItemType) {
+		this.waiverItemType = waiverItemType;
+	}
+
+	@Override
     public AcDebitNote getDebitNote() {
 		return debitNote;
 	}

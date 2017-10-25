@@ -215,6 +215,7 @@ FROM
 	<variable name="ac_acct_trsn_amount_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_acct_trsn_amount}]]></variableExpression>
 	</variable>
+	<filterExpression><![CDATA[$F{ac_acct_code}.equals( $P{IDENTITY_NO} )]]></filterExpression>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

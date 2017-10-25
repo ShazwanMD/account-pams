@@ -1192,6 +1192,26 @@ public class BillingServiceImpl implements BillingService {
 	public boolean hasDebitReceiptItem(AcDebitNote debitNote, AcReceipt receipt) {
 		return receiptDao.hasDebitReceiptItem(debitNote, receipt);
 	}
+	
+	@Override
+	public boolean hasChargeWaiverItem(AcAccountCharge accountCharge, AcWaiverFinanceApplication waiverFinanceApplication) {
+		return waiverFinanceApplicationDao.hasChargeWaiverItem(accountCharge, waiverFinanceApplication);
+	}
+	
+	@Override
+	public boolean hasDebitWaiverItem(AcDebitNote debitNote, AcWaiverFinanceApplication waiverFinanceApplication) {
+		return waiverFinanceApplicationDao.hasDebitWaiverItem(debitNote, waiverFinanceApplication);
+	}
+	
+	@Override
+	public boolean hasChargeKnockoffItem(AcAccountCharge accountCharge, AcKnockoff knockoff) {
+		return knockoffDao.hasChargeKnockoffItem(accountCharge, knockoff);
+	}
+	
+	@Override
+	public boolean hasDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff) {
+		return knockoffDao.hasDebitKnockoffItem(debitNote, knockoff);
+	}
 
 	// ====================================================================================================
 	// PRIVATE METHODS

@@ -15,6 +15,7 @@ import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcReceiptType;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
+import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
 import java.math.BigDecimal;
@@ -125,4 +126,5 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
 	boolean hasChargeReceiptItem(AcAccountCharge accountCharge, AcReceipt receipt);
 
 	boolean hasDebitReceiptItem(AcDebitNote debitNote, AcReceipt receipt);
+
 }

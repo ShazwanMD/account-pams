@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
@@ -36,6 +40,12 @@ public class AcKnockoffItemImpl implements AcKnockoffItem {
 	@NotNull
 	@Column(name = "DUE_AMOUNT", nullable = false)
 	private BigDecimal dueAmount = BigDecimal.ZERO;
+	
+    @NotNull
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "KNOCKOFF_ITEM_TYPE")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private AcKnockoffItemType knockoffItemType;
 
 	@NotNull
 	@Column(name = "APPLIED_AMOUNT", nullable = false)
@@ -164,15 +174,27 @@ public class AcKnockoffItemImpl implements AcKnockoffItem {
 
 	}
 
+	@Override
 	public AcDebitNote getDebitNote() {
 		return debitNote;
 	}
 
+	@Override
 	public void setDebitNote(AcDebitNote debitNote) {
 		this.debitNote = debitNote;
 	}
-	
-    @Override
+		
+	@Override
+    public AcKnockoffItemType getKnockoffItemType() {
+		return knockoffItemType;
+	}
+
+	@Override
+	public void setKnockoffItemType(AcKnockoffItemType knockoffItemType) {
+		this.knockoffItemType = knockoffItemType;
+	}
+
+	@Override
     public AcAccountCharge getAccountCharge() {
 		return accountCharge;
 	}
