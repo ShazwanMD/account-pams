@@ -56,22 +56,17 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
         	if(scheduleItem.getOrdinal() == admissionCharge.getOrdinal()){
             AcInvoiceItem item = new AcInvoiceItemImpl();
             item.setDescription(scheduleItem.getChargeCode().getDescription());
-            // todo(hajar): pretax, tax, total
-//            item.setPretaxAmount(ZERO);
-//            item.setTaxAmount(ZERO);
-//            item.setTotalAmount(ZERO);
             item.setAmount(scheduleItem.getAmount());
             item.setBalanceAmount(scheduleItem.getAmount());
             item.setChargeCode(scheduleItem.getChargeCode());
             item.setInvoice(invoice);
             billingService.calculateNetAmount(item);
-            totalAmount = totalAmount.add(scheduleItem.getAmount());
             invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
             sessionFactory.getCurrentSession().flush();
         	}
         }
-        invoice.setTotalAmount(totalAmount);
-        invoice.setBalanceAmount(invoice.getBalanceAmount().add(totalAmount));
+        invoice.setTotalAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
+        invoice.setBalanceAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
         admissionCharge.setInvoice(invoice);
         accountChargeDao.update(admissionCharge, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
