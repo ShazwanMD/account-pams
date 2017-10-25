@@ -970,6 +970,7 @@
         APPLIED_AMOUNT numeric(19, 2) not null,
         DESCRIPTION varchar(255),
         DUE_AMOUNT numeric(19, 2) not null,
+        RECEIPT_ITEM_TYPE int4,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
