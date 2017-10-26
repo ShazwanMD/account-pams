@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.dao;
 
 import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
@@ -92,13 +93,13 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     
     BigDecimal sumInvoice(AcAccount account);
     
-    BigDecimal sumReceipt(AcAccount account);
+    BigDecimal sumReceipt(AcAccount account, AcFlowState flowstate);
     
-    BigDecimal sumKnockoff(AcAccount account);
+    BigDecimal sumKnockoff(AcAccount account, AcFlowState flowstate);
 
-    BigDecimal sumWaiverAmount(AcAccount account);
+    BigDecimal sumWaiverAmount(AcAccount account, AcFlowState flowstate);
     
-    BigDecimal sumRefundPayment(AcAccount account);
+    BigDecimal sumRefundPayment(AcAccount account, AcFlowState flowstate);
     
     BigDecimal sumCreditNote(AcAccount account);
 

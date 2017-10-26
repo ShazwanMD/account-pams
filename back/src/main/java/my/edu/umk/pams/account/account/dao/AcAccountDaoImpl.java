@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.account.dao;
 
 import my.edu.umk.pams.account.account.model.*;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -459,7 +460,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public BigDecimal sumInvoice(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(w.totalAmount) from AcInvoice w where " +
+        Query query = session.createQuery("select sum(w.balanceAmount) from AcInvoice w where " +
                 "w.account = :account " +
                 "and w.metadata.state = :state ");
         query.setEntity("account", account);
@@ -470,52 +471,60 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
     
     @Override
-    public BigDecimal sumReceipt(AcAccount account) {
+    public BigDecimal sumReceipt(AcAccount account, AcFlowState flowstate) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(w.totalReceived) from AcReceipt w where " +
                 "w.account = :account " +
-                "and w.metadata.state = :state ");
+                "and w.metadata.state = :state " +
+                "and w.flowdata.state = :flowState");
         query.setEntity("account", account);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("flowState", flowstate.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;     	
     }
     
     @Override
-    public BigDecimal sumKnockoff(AcAccount account) {
+    public BigDecimal sumKnockoff(AcAccount account, AcFlowState flowstate) {
     	Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(w.appliedAmount) from AcKnockoffItem w where " +
-                "w.knockoff.payments.account = :account " +
-                "and w.metadata.state = :state ");
+        Query query = session.createQuery("select sum(w.balanceAmount) from AcKnockoff w where " +
+                "w.payments.account = :account " +
+                "and w.metadata.state = :state " +
+                "and w.flowdata.state = :flowState");
         query.setEntity("account", account);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("flowState", flowstate.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result; 
     }
 
     @Override
-    public BigDecimal sumWaiverAmount(AcAccount account) {
+    public BigDecimal sumWaiverAmount(AcAccount account, AcFlowState flowstate) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(w.waivedAmount) from AcWaiverFinanceApplication w where " +
                 "w.account = :account " +
-                "and w.metadata.state = :state ");
+                "and w.metadata.state = :state " +
+                "and w.flowdata.state = :flowState");
         query.setEntity("account", account);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("flowState", flowstate.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
     }
     
     @Override
-    public BigDecimal sumRefundPayment(AcAccount account) {
+    public BigDecimal sumRefundPayment(AcAccount account, AcFlowState flowstate) {
     	Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(w.amount) from AcRefundPayment w where " +
                 "w.payments.account = :account " +
-                "and w.metadata.state = :state ");
+                "and w.metadata.state = :state " +
+                "and w.flowdata.state = :flowState");
         query.setEntity("account", account);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("flowState", flowstate.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
