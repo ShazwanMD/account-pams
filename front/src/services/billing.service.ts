@@ -781,10 +781,10 @@ export class BillingService {
           .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-  updateWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplication): Observable<Boolean> {
-    return Observable.of(true);
-    // return this._http.put(this.FINANCIALAID_API + '/waiverApplications', JSON.stringify(waiverApplication))
-    //   .flatMap(data => Observable.of(true));
+updateWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplication): Observable<String> {
+    console.log('updateWaiverFinanceApplication' + waiverFinanceApplication.referenceNo);
+    return this._http.put(this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/updateWaivers', JSON.stringify(waiverFinanceApplication))
+    .flatMap((res: Response) => Observable.of(res.text()));
   }
 
   addWaiverAccountCharge( waiverFinanceApplication: WaiverFinanceApplication, accountCharge: AccountCharge ): Observable<String> {
