@@ -69,10 +69,10 @@
           </md-card-actions>
         </md-card>
 
-        <pams-invoice-item-list
+        <pams-invoice-item-list-only
           [invoice]="invoice$ | async"
           [invoiceItems]="invoiceItems$ | async">
-        </pams-invoice-item-list>
+        </pams-invoice-item-list-only>
 
         <pams-invoice-debit-note-list
           [invoice]="invoice$ | async"
