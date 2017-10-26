@@ -496,8 +496,9 @@ public class AccountServiceImpl implements AccountService {
     	BigDecimal totalReceipt = accountDao.sumReceipt(account, AcFlowState.COMPLETED);
     	BigDecimal totalWaiver = accountDao.sumWaiverAmount(account, AcFlowState.COMPLETED);
     	BigDecimal totalRefund = accountDao.sumRefundPayment(account, AcFlowState.COMPLETED);
+    	BigDecimal totalCreditNote = accountDao.sumCreditNote(account, AcFlowState.COMPLETED);
     	
-    	BigDecimal totalBalanceAmount = (((totalDebit.subtract(totalWaiver)).subtract(totalReceipt)).subtract(totalKnockoff)).subtract(totalRefund);
+    	BigDecimal totalBalanceAmount = ((((totalDebit.subtract(totalCreditNote)).subtract(totalWaiver)).subtract(totalReceipt)).subtract(totalKnockoff)).subtract(totalRefund);
         return totalBalanceAmount;
     }
     
