@@ -7,9 +7,9 @@
     <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
     </button>
-    <button md-button class="md-icon-button" (click)="delete()">
+    <!-- <button md-button class="md-icon-button" (click)="delete()">
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length > 0}">delete</md-icon>
-    </button>
+    </button> -->
   </div>
 
   <td-data-table

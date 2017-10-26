@@ -16,6 +16,7 @@ export interface AccountCharge extends MetaObject {
   taxAmount: number;
   netAmount: number;
   balanceAmount: number;
+  paid:Boolean;
 
   // admission
   studyMode?: StudyMode;
@@ -25,6 +26,7 @@ export interface AccountCharge extends MetaObject {
   // transient
   invoiced?: boolean;
   inclusive: boolean;
+  
 
   // selection
   selected?: boolean;

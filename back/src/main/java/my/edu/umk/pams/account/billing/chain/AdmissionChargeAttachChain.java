@@ -57,7 +57,6 @@ public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
             AcInvoiceItem item = new AcInvoiceItemImpl();
             item.setDescription(scheduleItem.getChargeCode().getDescription());
             item.setAmount(scheduleItem.getAmount());
-            //item.setBalanceAmount(scheduleItem.getAmount());
             item.setChargeCode(scheduleItem.getChargeCode());
             item.setInvoice(invoice);
             billingService.calculateNetAmount(item);
