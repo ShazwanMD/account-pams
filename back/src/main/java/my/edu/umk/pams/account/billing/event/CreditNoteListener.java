@@ -39,16 +39,17 @@ public class CreditNoteListener implements ApplicationListener<CreditNoteEvent> 
 			
 			LOG.debug("Invoice for creditNote", invoice.getReferenceNo());
 			
-			invoice.setBalanceAmount(invoice.getBalanceAmount().subtract(creditNote.getTotalAmount()));
-			invoice.setPaid(false);
-			//invoice.setSourceNo(creditNote.getReferenceNo());
-			billingService.updateInvoice(invoice);
-			
 			List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
 			for (AcInvoiceItem invoiceItem : invoiceItems) {
 				if(creditNote.getChargeCode()==invoiceItem.getChargeCode()){
 					invoiceItem.setBalanceAmount(invoiceItem.getBalanceAmount().subtract(creditNote.getTotalAmount()));
+					
+					invoice.setBalanceAmount(invoice.getBalanceAmount().subtract(creditNote.getTotalAmount()));
+					invoice.setPaid(false);
+					billingService.updateInvoice(invoice);
 				}
+				
+				
 			}
 		
 		}

@@ -46,6 +46,7 @@ import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.dao.AcSponsorDao;
 import my.edu.umk.pams.account.identity.dao.AcSponsorshipDao;
 import my.edu.umk.pams.account.identity.dao.AcStudentDao;
@@ -473,10 +474,10 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.sumBalanceAmount(account).add(sumChargeAmount(account)).add(sumSecurityChargeAmount(account));
     }
 
-    @Override
+/*    @Override
     public BigDecimal sumWaiverAmount(AcAccount account) {
         return accountDao.sumWaiverAmount(account);
-    }
+    }*/
     
     @Override
     public BigDecimal sumChargeAmount(AcAccount account) {
@@ -490,10 +491,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
-    	BigDecimal paid = accountDao.sumDebitAmount(account).subtract(accountDao.sumReceipt(account));
-    	BigDecimal credit = paid.subtract(accountDao.sumCreditNote(account));
-    	BigDecimal payment = credit.add(accountDao.sumRefundPayment(account));
-        return payment;
+    	BigDecimal totalDebit = accountDao.sumDebitAmount(account); //include invoice, debitNote
+    	BigDecimal totalKnockoff = accountDao.sumKnockoff(account, AcFlowState.COMPLETED);
+    	BigDecimal totalReceipt = accountDao.sumReceipt(account, AcFlowState.COMPLETED);
+    	BigDecimal totalWaiver = accountDao.sumWaiverAmount(account, AcFlowState.COMPLETED);
+    	BigDecimal totalRefund = accountDao.sumRefundPayment(account, AcFlowState.COMPLETED);
+    	BigDecimal totalCreditNote = accountDao.sumCreditNote(account, AcFlowState.COMPLETED);
+    	
+    	BigDecimal totalBalanceAmount = ((((totalDebit.subtract(totalCreditNote)).subtract(totalWaiver)).subtract(totalReceipt)).subtract(totalKnockoff)).subtract(totalRefund);
+        return totalBalanceAmount;
     }
     
     @Override
