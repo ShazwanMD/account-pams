@@ -488,10 +488,10 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public BigDecimal sumKnockoff(AcAccount account, AcFlowState flowstate) {
     	Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(w.balanceAmount) from AcKnockoff w where " +
-                "w.payments.account = :account " +
+        Query query = session.createQuery("select sum(w.appliedAmount) from AcKnockoffItem w where " +
+                "w.knockoff.payments.account = :account " +
                 "and w.metadata.state = :state " +
-                "and w.flowdata.state = :flowState");
+                "and w.knockoff.flowdata.state = :flowState");
         query.setEntity("account", account);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setInteger("flowState", flowstate.ordinal());
