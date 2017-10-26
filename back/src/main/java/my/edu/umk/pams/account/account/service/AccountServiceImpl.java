@@ -492,14 +492,24 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
     	BigDecimal totalDebit = accountDao.sumDebitAmount(account); //include invoice, debitNote
+    	BigDecimal totalDebitNote = accountDao.sumDebitNote(account, AcFlowState.COMPLETED);
     	BigDecimal totalKnockoff = accountDao.sumKnockoff(account, AcFlowState.COMPLETED);
     	BigDecimal totalReceipt = accountDao.sumReceipt(account, AcFlowState.COMPLETED);
     	BigDecimal totalWaiver = accountDao.sumWaiverAmount(account, AcFlowState.COMPLETED);
     	BigDecimal totalRefund = accountDao.sumRefundPayment(account, AcFlowState.COMPLETED);
     	BigDecimal totalCreditNote = accountDao.sumCreditNote(account, AcFlowState.COMPLETED);
+    	BigDecimal totalAdvPayment = accountDao.sumAdvancePayment(account);
     	
-    	BigDecimal totalBalanceAmount = ((((totalDebit.subtract(totalCreditNote)).subtract(totalWaiver)).subtract(totalReceipt)).subtract(totalKnockoff)).subtract(totalRefund);
-        return totalBalanceAmount;
+    	if(totalReceipt.compareTo(totalDebit)<0) {
+    		BigDecimal totalBalanceAmount = (((totalDebit.subtract(totalCreditNote)).subtract(totalWaiver))
+        			.subtract(totalReceipt));
+    		return totalBalanceAmount;
+    	}
+    	
+    	else {
+    		BigDecimal totalBalanceAmount = (totalKnockoff.subtract(totalAdvPayment)).add(totalRefund);
+    		return totalBalanceAmount;
+    	}
     }
     
     @Override
