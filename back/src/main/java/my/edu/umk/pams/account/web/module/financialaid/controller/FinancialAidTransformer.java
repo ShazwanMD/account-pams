@@ -112,6 +112,7 @@ public class FinancialAidTransformer {
         vo.setDescription(e.getDescription());
         vo.setExecuted(e.isExecuted());
         vo.setIssuedDate(e.getIssuedDate());
+        vo.setSourceNo(e.getSourceNo());
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
