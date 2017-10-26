@@ -226,19 +226,19 @@ export class WaiverFinanceApplicationActions {
 
   static UPDATE_WAIVER_FINANCE_APPLICATION = '[WaiverFinanceApplication] Update WaiverFinanceApplication';
 
-  updateWaiverFinanceApplication(invoice): Action {
+  updateWaiverFinanceApplication(waiverFinanceApplication): Action {
     return {
       type: WaiverFinanceApplicationActions.UPDATE_WAIVER_FINANCE_APPLICATION,
-      payload: invoice
+      payload: waiverFinanceApplication
     };
   }
 
   static UPDATE_WAIVER_FINANCE_APPLICATION_SUCCESS = '[WaiverFinanceApplication] Update WaiverFinanceApplication Success';
 
-  updateWaiverFinanceApplicationSuccess(invoice): Action {
+  updateWaiverFinanceApplicationSuccess(message): Action {
     return {
       type: WaiverFinanceApplicationActions.UPDATE_WAIVER_FINANCE_APPLICATION_SUCCESS,
-      payload: invoice
+      payload: message
     };
   }
 

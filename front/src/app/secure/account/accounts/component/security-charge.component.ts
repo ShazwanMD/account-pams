@@ -25,7 +25,7 @@ export class SecurityChargeComponent implements OnInit {
     {name: 'netAmount', label: 'Net Amount'},
     {name: 'balanceAmount', label: 'Balance Amount'},
     {name: 'creatorUsername', label: 'Creator'},
-    {name: 'action', label: ''},
+    {name: 'paid', label: 'Status'},
 
   ];
   private selectedRows: AccountCharge[];

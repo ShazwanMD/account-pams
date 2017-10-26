@@ -115,7 +115,7 @@ export class WaiverFinanceApplicationEffects {
     .ofType(WaiverFinanceApplicationActions.UPDATE_WAIVER_FINANCE_APPLICATION)
     .map((action) => action.payload)
     .switchMap((application) => this.billingService.updateWaiverFinanceApplication(application))
-    .map((application) => this.waiverFinanceApplicationActions.updateWaiverFinanceApplicationSuccess(application));
+    .map((message) => this.waiverFinanceApplicationActions.updateWaiverFinanceApplicationSuccess(message));
 
   @Effect() addWaiverItem$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.ADD_WAIVER_ITEM)
