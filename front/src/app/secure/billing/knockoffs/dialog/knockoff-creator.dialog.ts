@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { MdDialogRef } from '@angular/material';
 import { KnockoffActions } from "../../knockoffs/knockoff.action";
@@ -32,18 +32,18 @@ export class KnockoffCreatorDialog {
     }
 
     ngOnInit(): void {
-        this.createForm = this.formBuilder.group(<Knockoff>{
-            id: null,
-            referenceNo: '',
-            sourceNo: '',
-            auditNo: '',
-            description: '',
-            amount: 0,
-            balanceAmount: 0,
+        this.createForm = this.formBuilder.group({
+            id: [null],
+            referenceNo: [''],
+            sourceNo: [''],
+            auditNo: [''],
+            description: [''],
+            amount: [0],
+            balanceAmount: [0],
             totalAmount: 0,
-            issuedDate: undefined,
-            invoice: <Invoice>{},
-            payments: <AdvancePayment>{},
+            issuedDate: [undefined,Validators.required],
+            invoice: [<Invoice>{}],
+            payments: [<AdvancePayment>{}],
         } );
 
         this.createForm.patchValue( { payments: this._advancePayment} );
