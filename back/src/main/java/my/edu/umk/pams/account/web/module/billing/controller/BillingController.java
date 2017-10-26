@@ -1533,11 +1533,11 @@ public class BillingController {
     }
     
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/updateWaivers", method = RequestMethod.PUT)
-    public ResponseEntity<WaiverFinanceApplication> updateWaivers(@PathVariable String referenceNo, @RequestBody WaiverFinanceApplication vo) {
+    public ResponseEntity<String> updateWaivers(@PathVariable String referenceNo, @RequestBody WaiverFinanceApplication vo) {
     	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
-    	waiverApplication.setGracedAmount(vo.getGracedAmount());
+    	waiverApplication.setWaivedAmount(vo.getWaivedAmount());
         billingService.updateWaiverFinanceApplication(waiverApplication);
-        return new ResponseEntity<WaiverFinanceApplication>(billingTransformer.toWaiverFinanceApplicationVo(waiverApplication), HttpStatus.OK);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
     
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/debitNotes", method = RequestMethod.GET)
