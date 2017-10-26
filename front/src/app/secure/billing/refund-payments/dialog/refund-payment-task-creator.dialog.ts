@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
 import {AcademicSession} from '../../../../shared/model/account/academic-session.interface';
@@ -31,14 +31,14 @@ export class RefundPaymentTaskCreatorDialog implements OnInit {
 }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<RefundPayment>{
-      id: null,
-      referenceNo: '',
-      sourceNo: '',
-      auditNo: '',
-      description: '',
-      amount: 0,
-      issuedDate: undefined,
+    this.createForm = this.formBuilder.group({
+      id: [null],
+      referenceNo: [''],
+      sourceNo: [''],
+      auditNo: [''],
+      description: [''],
+      amount: [0],
+      issuedDate: [undefined, Validators.required],
       advancePayment: <AdvancePayment>{},
     });
   }
