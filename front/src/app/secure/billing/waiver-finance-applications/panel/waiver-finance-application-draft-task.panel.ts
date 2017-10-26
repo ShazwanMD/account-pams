@@ -9,7 +9,7 @@ import {WaiverApplication} from '../../../../shared/model/financialaid/waiver-ap
 import { WaiverFinanceApplication } from "../../../../shared/model/billing/waiver-finance-application.interface";
 import { WaiverFinanceApplicationTask } from "../../../../shared/model/billing/waiver-finance-application-task.interface";
 import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
-import { WaiverApplicationEditorDialog } from "../../../financialaid/waiver-applications/dialog/waiver-application-editor.dialog";
+import { WaiverApplicationEditorDialog } from "../../../billing/waiver-finance-applications/dialog/waiver-application-editor.dialog";
 import { WaiverInvoice } from "../../../../shared/model/billing/waiver-invoice.interface";
 import { InvoiceActions } from "../../invoices/invoice.action";
 import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
