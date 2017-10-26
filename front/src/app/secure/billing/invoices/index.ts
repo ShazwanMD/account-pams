@@ -38,6 +38,7 @@ import {PipeModule} from '../../../app.pipe.module';
 import {InvoiceItemPaidListComponent} from './component/invoice-item-paid-list.component';
 import {ReceiptItemDetailPage} from '../receipts/receipt-item-detail.page';
 import {InvoicePaidListComponent} from './component/invoice-paid-list.component';
+import { InvoiceItemListOnlyComponent } from './component/invoice-item-list-only.component';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import {InvoicePaidListComponent} from './component/invoice-paid-list.component'
     InvoiceItemEditorDialog,
     InvoiceTaskCreatorDialog,
     InvoiceItemListComponent,
+    InvoiceItemListOnlyComponent,
     InvoiceSelectComponent,
     InvoiceStatusComponent,
     InvoiceDebitNoteListComponent,
@@ -91,6 +93,7 @@ import {InvoicePaidListComponent} from './component/invoice-paid-list.component'
     InvoicePaidListComponent,
     InvoiceItemPaidListComponent,
     InvoiceItemListComponent,
+    InvoiceItemListOnlyComponent,
   ],
   entryComponents: [
     InvoiceDraftTaskPanel,
@@ -100,6 +103,7 @@ import {InvoicePaidListComponent} from './component/invoice-paid-list.component'
     InvoiceTaskCreatorDialog,
     InvoiceSelectComponent,
     InvoiceItemListComponent,
+    InvoiceItemListOnlyComponent,
     InvoiceItemPaidListComponent,
   ],
 
