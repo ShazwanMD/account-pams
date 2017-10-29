@@ -36,6 +36,7 @@ export class AssignedReceiptTaskListComponent implements OnChanges{
     {name: 'flowState', label: 'Status'},
     {name: 'action', label: ''},
   ];
+
   filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';

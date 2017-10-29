@@ -25,7 +25,7 @@ import {Receipt} from '../../../../shared/model/billing/receipt.interface';
 export class ArchivedReceiptListComponent  implements OnChanges{
 
   private columns: any[] = [
-    {name: 'issuedDate', label: 'Date'},
+    {name: 'receivedDate', label: 'Date'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},

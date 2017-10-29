@@ -28,13 +28,18 @@ export class PooledReceiptTaskListComponent implements OnChanges{
   @Output() claim = new EventEmitter<ReceiptTask>();
 
   private columns: any[] = [
-    {name: 'referenceNo', label: 'ReferenceNo'},
-    {name: 'description', label: 'Description'},
-    {name: 'receipt.creatorUsername', label: 'Creator'},
-    {name: 'receipt.createdDate', label: 'Created Date'},
-    {name: 'flowState', label: 'Status'},
-    {name: 'action', label: ''},
-  ];
+                            {name: 'receivedDate', label: 'Date'},
+                            {name: 'referenceNo', label: 'Reference No'},
+                            {name: 'description', label: 'Description'},
+                            {name: 'receiptType', label: 'Receipt Type'},
+                            {name: 'paymentMethod', label: 'Payment Method'},
+                            {name: 'sourceNo', label: 'Source No'},
+                            {name: 'receipt.creatorUsername', label: 'Creator'},
+                            {name: 'receipt.createdDate', label: 'Created Date'},
+                            {name: 'flowState', label: 'Status'},
+                            {name: 'action', label: ''},
+                          ];
+  
   filteredData: any[];
   filteredTotal: number;
   searchTerm: string = '';
