@@ -474,13 +474,15 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     }
     
     @Override
-    public BigDecimal sumInvoice(AcAccount account) {
+    public BigDecimal sumInvoice(AcAccount account, AcFlowState flowstate) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(w.balanceAmount) from AcInvoice w where " +
                 "w.account = :account " +
-                "and w.metadata.state = :state ");
+                "and w.metadata.state = :state " +
+                "and w.flowdata.state = :flowState");
         query.setEntity("account", account);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setInteger("flowState", flowstate.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;      	

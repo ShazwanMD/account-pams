@@ -474,10 +474,8 @@ public class AccountServiceImpl implements AccountService {
     	
     	BigDecimal totalAdvancePayment = accountDao.sumAdvancePayment(account);   	
     	
-    	BigDecimal total = accountDao.sumChargeDebitAmount(account).add(accountDao.sumInvoice(account)).
+    	BigDecimal total = accountDao.sumChargeDebitAmount(account).add(accountDao.sumInvoice(account, AcFlowState.COMPLETED)).
     			add(accountDao.sumDebitNote(account, AcFlowState.COMPLETED));
-    	
-    	//return total;
     	
     	if(totalAdvancePayment.compareTo(BigDecimal.ZERO) > 0) {
     		return totalAdvancePayment.negate();
@@ -486,11 +484,6 @@ public class AccountServiceImpl implements AccountService {
     	return total;
     	
     }
-
-/*    @Override
-    public BigDecimal sumWaiverAmount(AcAccount account) {
-        return accountDao.sumWaiverAmount(account);
-    }*/
     
     @Override
     public BigDecimal sumChargeAmount(AcAccount account) {
@@ -504,31 +497,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
-/*    	BigDecimal totalDebit = accountDao.sumDebitAmount(account); //include invoice, debitNote
-    	BigDecimal totalKnockoff = accountDao.sumKnockoff(account, AcFlowState.COMPLETED);
-    	BigDecimal totalReceipt = accountDao.sumReceipt(account, AcFlowState.COMPLETED);
-    	BigDecimal totalWaiver = accountDao.sumWaiverAmount(account, AcFlowState.COMPLETED);
-    	BigDecimal totalRefund = accountDao.sumRefundPayment(account, AcFlowState.COMPLETED);
-    	BigDecimal totalCreditNote = accountDao.sumCreditNote(account, AcFlowState.COMPLETED);
-    	BigDecimal totalAdvPayment = accountDao.sumAdvancePayment(account);
-    	
-    	if(totalReceipt.compareTo(totalDebit)<=0) {
-    		BigDecimal totalBalanceAmount = (((totalDebit.subtract(totalCreditNote)).subtract(totalWaiver))
-        			.subtract(totalReceipt));
-    		return totalBalanceAmount;
-    	}
-    	
-    	else {
-    		BigDecimal totalBalanceAmount = (totalKnockoff.subtract(totalAdvPayment)).add(totalRefund);
-    		return totalBalanceAmount;
-    	}*/
-    	
+   	
     	BigDecimal totalAdvancePayment = accountDao.sumAdvancePayment(account);   	
     	
-    	BigDecimal total = accountDao.sumInvoice(account).
+    	BigDecimal total = accountDao.sumInvoice(account, AcFlowState.COMPLETED).
     			add(accountDao.sumDebitNote(account, AcFlowState.COMPLETED));
-    	
-    	//return total;
     	
     	if(totalAdvancePayment.compareTo(BigDecimal.ZERO) > 0) {
     		return totalAdvancePayment.negate();
@@ -539,24 +512,16 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public BigDecimal sumInvoiceBalanceAmount(AcAccount account, AcAcademicSession academicSession) {
-    	BigDecimal totalDebit = accountDao.sumDebitAmount(account); //include invoice, debitNote
-    	BigDecimal totalKnockoff = accountDao.sumKnockoff(account, AcFlowState.COMPLETED);
-    	BigDecimal totalReceipt = accountDao.sumReceipt(account, AcFlowState.COMPLETED);
-    	BigDecimal totalWaiver = accountDao.sumWaiverAmount(account, AcFlowState.COMPLETED);
-    	BigDecimal totalRefund = accountDao.sumRefundPayment(account, AcFlowState.COMPLETED);
-    	BigDecimal totalCreditNote = accountDao.sumCreditNote(account, AcFlowState.COMPLETED);
-    	BigDecimal totalAdvPayment = accountDao.sumAdvancePayment(account);
+    	BigDecimal totalAdvancePayment = accountDao.sumAdvancePayment(account);   	
     	
-    	if(totalReceipt.compareTo(totalDebit)<0) {
-    		BigDecimal totalBalanceAmount = (((totalDebit.subtract(totalCreditNote)).subtract(totalWaiver))
-        			.subtract(totalReceipt));
-    		return totalBalanceAmount;
+    	BigDecimal total = accountDao.sumInvoice(account, AcFlowState.COMPLETED).
+    			add(accountDao.sumDebitNote(account, AcFlowState.COMPLETED));
+    	
+    	if(totalAdvancePayment.compareTo(BigDecimal.ZERO) > 0) {
+    		return totalAdvancePayment.negate();
     	}
     	
-    	else {
-    		BigDecimal totalBalanceAmount = (totalKnockoff.subtract(totalAdvPayment)).add(totalRefund);
-    		return totalBalanceAmount;
-    	}
+    	return total;
     }
 
     @Override

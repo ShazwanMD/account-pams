@@ -93,7 +93,7 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     
     BigDecimal sumAdvancePayment(AcAccount account);
     
-    BigDecimal sumInvoice(AcAccount account);
+    BigDecimal sumInvoice(AcAccount account, AcFlowState flowstate);
     
     BigDecimal sumReceipt(AcAccount account, AcFlowState flowstate);
     
