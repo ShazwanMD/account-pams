@@ -1,13 +1,14 @@
 import { BillingModuleState } from './../../index';
 import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MdDialog, MdSnackBar} from '@angular/material';
+import {MdDialog, MdSnackBar, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {WaiverApplicationTask} from '../../../../shared/model/financialaid/waiver-application-task.interface';
 import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
 import { WaiverFinanceApplicationTask } from "../../../../shared/model/billing/waiver-finance-application-task.interface";
 import { Observable } from "rxjs/Observable";
 import { WaiverItem } from "../../../../shared/model/billing/waiver-item.interface";
+import { WaiverApplicationEditorDialog } from '../dialog/waiver-application-editor.dialog';
 
 @Component({
   selector: 'pams-waiver-finance-application-verify-task',
@@ -20,6 +21,7 @@ export class WaiverFinanceApplicationVerifyTaskPanel implements OnInit {
 
   private WAIVER_ITEM: string[] = 'billingModuleState.waiverItem'.split('.');
   private waiverItem$: Observable<WaiverItem[]>;
+  private creatorDialogRef: MdDialogRef<WaiverApplicationEditorDialog>;
   
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -27,6 +29,7 @@ export class WaiverFinanceApplicationVerifyTaskPanel implements OnInit {
               private actions: WaiverFinanceApplicationActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
+              private vcf: ViewContainerRef,
               private snackBar: MdSnackBar) {
       this.waiverItem$ = this.store.select(...this.WAIVER_ITEM);
   }
@@ -42,5 +45,22 @@ export class WaiverFinanceApplicationVerifyTaskPanel implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/secure/billing/waiver-finance-applications']);
+  }
+
+  showDialog(): void {
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.vcf;
+    config.role = 'dialog';
+    config.width = '50%';
+    config.height = '40%';
+    config.position = {top: '65px'};
+    this.creatorDialogRef = this.dialog.open(WaiverApplicationEditorDialog, config);
+    this.creatorDialogRef.componentInstance.application = this.waiverFinanceApplicationTask.application;
+
+    // close
+    this.creatorDialogRef.afterClosed().subscribe((res) => {
+      console.log('close dialog');
+      // load something here
+    });
   }
 }
