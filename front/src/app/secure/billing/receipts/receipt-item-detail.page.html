@@ -8,6 +8,8 @@
     <div layout="column" layout-gt-md="row" class="inset">
       <div flex-gt-md="70">
         <md-card>
+          <md-card-title>{{(receipts$|async)?.referenceNo}}</md-card-title>
+          <md-card-subtitle>{{(receipts$|async)?.description}}</md-card-subtitle>
 
           <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
             <div layout="column" flex>
@@ -65,8 +67,11 @@
 
       </div>
       <div flex-gt-md="30">
-        <pams-receipt-status [receipt]="receipt$ | async"></pams-receipt-status>
+        <pams-receipt-status [receipt]="receipts$ | async"></pams-receipt-status>
         <md-card>
+        <md-card-title>Action</md-card-title>
+        <md-card-subtitle>Actions available on current receipt</md-card-subtitle>
+        <md-divider></md-divider>
           <md-list-item>
             <md-nav-list list-items>
               <a md-list-item href="http://localhost:8080/servlet/report?report=AC_BLG_004.jrxml&report.pdf&receipt_ref_no={{(receipts$|async)?.referenceNo}}"
