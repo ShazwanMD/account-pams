@@ -86,6 +86,8 @@ public interface AcAccountDao extends GenericDao<Long, AcAccount> {
     BigDecimal sumSurplusAmount(AcAccount account);
 
     BigDecimal sumDebitAmount(AcAccount account);
+    
+    BigDecimal sumChargeDebitAmount(AcAccount account);
 
     BigDecimal sumCreditAmount(AcAccount account);
     

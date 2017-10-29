@@ -116,7 +116,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				tx.setSourceNo(receipt.getReferenceNo());
 				tx.setTransactionCode(AcAccountChargeType.RECEIPT);
 				tx.setAccount(receipt.getAccount());
-				tx.setAmount(receiptDao.sumTotalAmount(receipt, accountCharge, securityService.getCurrentUser()));
+				tx.setAmount(receiptDao.sumTotalAmount(receipt, accountCharge, securityService.getCurrentUser()).negate());
 				accountService.addAccountChargeTransaction(receipt.getAccount(), tx);
 			}
 			

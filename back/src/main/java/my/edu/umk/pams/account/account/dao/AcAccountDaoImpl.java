@@ -427,6 +427,22 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
             else return BigDecimal.ZERO;
         }
     }
+    
+    @Override
+    public BigDecimal sumChargeDebitAmount(AcAccount account) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(sat.balanceAmount) from AcAccountCharge sat where " +
+                "sat.account = :account " +
+                "and sat.metadata.state = :state ");
+        query.setEntity("account", account);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else {
+            if (((BigDecimal) result).compareTo(BigDecimal.ZERO) > 0) return (BigDecimal) result;
+            else return BigDecimal.ZERO;
+        }    	
+    }
 
     @Override
     public BigDecimal sumCreditAmount(AcAccount account) {
@@ -447,7 +463,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public BigDecimal sumAdvancePayment(AcAccount account) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(w.amount) from AcAdvancePayment w where " +
+        Query query = session.createQuery("select sum(w.balanceAmount) from AcAdvancePayment w where " +
                 "w.account = :account " +
                 "and w.metadata.state = :state ");
         query.setEntity("account", account);
@@ -548,7 +564,7 @@ public class AcAccountDaoImpl extends GenericDaoSupport<Long, AcAccount> impleme
     @Override
     public BigDecimal sumDebitNote(AcAccount account, AcFlowState flowstate) {
     	Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select sum(w.totalAmount) from AcDebitNote w where " +
+        Query query = session.createQuery("select sum(w.balanceAmount) from AcDebitNote w where " +
                 "w.invoice.account = :account " +
                 "and w.metadata.state = :state "+
                 "and w.flowdata.state = :flowState");

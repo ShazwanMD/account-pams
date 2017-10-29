@@ -94,7 +94,8 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 				LOG.debug("receipt get acc charges ", knockoff.getAccountCharges());
 
 				AcKnockoffItem knockoffItem = billingService.findKnockoffItemByCharge(accountCharge, knockoff);
-				accountCharge.setBalanceAmount(knockoffItem.getTotalAmount());
+				BigDecimal balanceAmount = knockoffDao.sumTotalAmount(knockoff, accountCharge, securityService.getCurrentUser());
+				accountCharge.setBalanceAmount(balanceAmount);
 				accountService.updateAccountCharge(knockoff.getPayments().getAccount(), accountCharge);
 
 				if (accountCharge.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
@@ -109,7 +110,7 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 				tx.setSourceNo(knockoff.getReferenceNo());
 				tx.setTransactionCode(AcAccountChargeType.KNOCKOFF);
 				tx.setAccount(knockoff.getPayments().getAccount());
-				tx.setAmount(knockoffDao.sumTotalAmount(knockoff, accountCharge, securityService.getCurrentUser()));
+				tx.setAmount(knockoffDao.sumTotalAmount(knockoff, accountCharge, securityService.getCurrentUser()).negate());
 				accountService.addAccountChargeTransaction(knockoff.getPayments().getAccount(), tx);
 			}
 			

@@ -774,7 +774,7 @@ public class AccountController {
         account.setBalance(accountService.sumBalanceAmount(account));
         account.setEffectiveBalance(
                 accountService.sumEffectiveBalanceAmount(account, accountService.findCurrentAcademicSession()));
-                accountService.sumInvoiceBalanceAmount(account, accountService.findCurrentAcademicSession());
+                //accountService.sumInvoiceBalanceAmount(account, accountService.findCurrentAcademicSession());
         return account;
     }
     
