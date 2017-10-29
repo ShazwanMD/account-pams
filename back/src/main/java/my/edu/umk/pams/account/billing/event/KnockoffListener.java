@@ -143,7 +143,8 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 			accountService.addAccountTransaction(knockoff.getPayments().getAccount(), trx);
 			
 			AcAdvancePayment advance = billingService.findAdvancePaymentByReferenceNo(knockoff.getPayments().getReferenceNo());
-			advance.setBalanceAmount(knockoff.getTotalAmount());
+			BigDecimal amountItem = knockoffDao.sumAppliedAmount(knockoff, securityService.getCurrentUser());
+			advance.setBalanceAmount(advance.getBalanceAmount().subtract(amountItem));
 			billingService.updateAdvancePayment(advance);
 			
 			if(advance.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
