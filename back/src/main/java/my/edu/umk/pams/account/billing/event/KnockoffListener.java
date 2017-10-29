@@ -95,7 +95,7 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 
 				AcKnockoffItem knockoffItem = billingService.findKnockoffItemByCharge(accountCharge, knockoff);
 				BigDecimal balanceAmount = knockoffDao.sumTotalAmount(knockoff, accountCharge, securityService.getCurrentUser());
-				accountCharge.setBalanceAmount(balanceAmount);
+				accountCharge.setBalanceAmount(accountCharge.getBalanceAmount().subtract(balanceAmount));
 				accountService.updateAccountCharge(knockoff.getPayments().getAccount(), accountCharge);
 
 				if (accountCharge.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
