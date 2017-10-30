@@ -132,15 +132,19 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 
 			}
 			
-			AcAccountTransaction trx = new AcAccountTransactionImpl();
-			trx.setSession(knockoff.getPayments().getSession());
-			trx.setPostedDate(new Date());
-			trx.setDescription(knockoff.getDescription());
-			trx.setSourceNo(knockoff.getReferenceNo());
-			trx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
-			trx.setAccount(knockoff.getPayments().getAccount());
-			trx.setAmount(total.add(totaldebit).negate());
-			accountService.addAccountTransaction(knockoff.getPayments().getAccount(), trx);
+			BigDecimal Amount = total.add(totaldebit);
+			
+			if(Amount.compareTo(BigDecimal.ZERO) > 0) {
+				AcAccountTransaction trx = new AcAccountTransactionImpl();
+				trx.setSession(knockoff.getPayments().getSession());
+				trx.setPostedDate(new Date());
+				trx.setDescription(knockoff.getDescription());
+				trx.setSourceNo(knockoff.getReferenceNo());
+				trx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
+				trx.setAccount(knockoff.getPayments().getAccount());
+				trx.setAmount(Amount.negate());
+				accountService.addAccountTransaction(knockoff.getPayments().getAccount(), trx);
+			}
 			
 			AcAdvancePayment advance = billingService.findAdvancePaymentByReferenceNo(knockoff.getPayments().getReferenceNo());
 			BigDecimal amountItem = knockoffDao.sumAppliedAmount(knockoff, securityService.getCurrentUser());
