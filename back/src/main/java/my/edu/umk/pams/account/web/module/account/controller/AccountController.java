@@ -534,6 +534,7 @@ public class AccountController {
                 charge.setDescription(vo.getDescription());
                 charge.setAmount(vo.getAmount());
                 charge.setChargeDate(vo.getChargeDate());
+                charge.setBalanceAmount(vo.getAmount());
                 if (null != vo.getCohortCode())
                     charge.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
                 if (null != vo.getStudyMode())
@@ -549,7 +550,7 @@ public class AccountController {
         tx.setDescription(charge.getDescription());
         tx.setSourceNo(charge.getReferenceNo());
         tx.setAccount(account);
-        tx.setAmount(charge.getAmount());
+        tx.setAmount(charge.getBalanceAmount());
         tx.setPostedDate(charge.getChargeDate());
         tx.setSession(charge.getSession());
         tx.setTransactionCode(charge.getChargeType());
