@@ -63,6 +63,6 @@ export class AccountCenterPage implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(this.actions.findAccountsByActor());
-    this.store.dispatch(this.actions.findAccountsByActorSponsor());
+    //this.store.dispatch(this.actions.findAccountsByActorSponsor());
   }
 }
