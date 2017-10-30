@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -33,18 +33,18 @@ export class CreditNoteCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<CreditNote>{
-      id: null,
-      code: '',
-      description: '',
-      referenceNo: '',
-      sourceNo: '',
-      totalAmount: 0,
-      accountCode: '',
-      creditNoteDate: undefined,
-      accountName: '',
-      chargeCode: <ChargeCode>{},
-      invoice: <Invoice>{},
+    this.createForm = this.formBuilder.group({
+      id: [null],
+      code: [''],
+      description: ['',Validators.required],
+      referenceNo: [''],
+      sourceNo: [''],
+      totalAmount:['',Validators.required],
+      accountCode: [''],
+      creditNoteDate: [undefined,Validators.required],
+      accountName: [''],
+      chargeCode: [<ChargeCode>{}],
+      invoice: [<Invoice>{}],
     });
     this.createForm.patchValue({invoice: this._invoice});
   }
