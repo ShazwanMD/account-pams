@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CreditNoteCreatorDialog} from '../../credit-notes/dialog/credit-note-creator.dialog';
 import {DebitNoteCreatorDialog} from '../../debit-notes/dialog/debit-note-creator.dialog';
 import {TdDialogService} from '@covalent/core';
+import { ReportActions } from '../../../../shared/report/report.action';
 
 @Component({
   selector: 'pams-invoice-action',
@@ -26,6 +27,7 @@ export class InvoiceActionComponent {
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
+              private reportActions: ReportActions,
               private actions: InvoiceActions) {
   }
 
@@ -61,6 +63,9 @@ export class InvoiceActionComponent {
     });
   }
 
-
+  downloadReport(reportId,parameterReport:Invoice): void {
+    let repParam = reportId+'&inv_ref_no='+ parameterReport.referenceNo;  
+    this.store.dispatch(this.reportActions.downloadReport(repParam));
+  }
 
 }
