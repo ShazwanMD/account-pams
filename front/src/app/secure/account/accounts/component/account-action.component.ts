@@ -6,6 +6,8 @@ import {TdDialogService} from '@covalent/core';
 import {AccountActions} from '../account.action';
 import {AccountModuleState} from '../../index';
 import {Account} from '../../../../shared/model/account/account.interface';
+import {AccountChargeTransaction} from '../../../../shared/model/account/account-charge-transaction.interface';
+import { ReportActions } from '../../../../shared/report/report.action';
 
 @Component({
   selector: 'pams-account-action',
@@ -22,6 +24,7 @@ export class AccountActionComponent {
               private vcf: ViewContainerRef,
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
+              private reportActions: ReportActions,
               private actions: AccountActions) {
   }
 
@@ -29,4 +32,9 @@ export class AccountActionComponent {
     console.log('revise account');
     this.store.dispatch(this.actions.reviseAccount(this.account));
   }
+
+ downloadReport(reportId,parameterReport:Account): void {
+   let repParam = reportId+'&IDENTITY_NO='+ parameterReport.actor.identityNo;  
+   this.store.dispatch(this.reportActions.downloadReport(repParam));
+   }
 }
