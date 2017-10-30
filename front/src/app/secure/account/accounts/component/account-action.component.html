@@ -3,18 +3,13 @@
   <md-card-subtitle>Actions available on this account</md-card-subtitle>
   <md-divider></md-divider>
   <md-nav-list dense>
-<!--     <md-list-item (click)="reviseAccount()">
-      <md-icon md-list-avatar>remove_circle</md-icon>
-      <h4 md-line>Revise</h4>
-      <p md-line>Revise account</p>
-    </md-list-item> -->  
-    <md-nav-list list-items>
-      <a md-list-item href="http://localhost:8080/servlet/report?report=AC_BLG_003.jrxml&report.pdf&IDENTITY_NO={{account.actor?.identityNo}}" [target]="'_blank'">
-        <md-icon md-list-avatar>print</md-icon>
-        <h4 md-line >Print</h4>
-        <p md-line>Print Customer Statement</p>
-      </a>
-    </md-nav-list> 
+      <md-nav-list list-items>
+          <a md-list-item (click)="downloadReport('AC_BLG_003.jrxml&report.pdf', account)" [target]="'_blank'"> 
+          <md-icon md-list-avatar>print</md-icon>
+          <h4 md-line >Print</h4>
+          <p md-line>Print Customer Statement</p>
+        </a>
+      </md-nav-list> 
     <md-nav-list list-items>
       <a md-list-item href="http://localhost:8080/servlet/report?report=AC_BLG_002.jrxml&report.pdf&IDENTITY_NO={{account.actor?.identityNo}}" [target]="'_blank'">
         <md-icon md-list-avatar>print</md-icon>
