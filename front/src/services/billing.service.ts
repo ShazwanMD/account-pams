@@ -319,6 +319,21 @@ export class BillingService {
         return this._http.post( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/debitNote/' + debitNote.id, JSON.stringify( debitNote ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
+    
+    deleteReceiptInvoices( receiptInvoice: ReceiptInvoice ): Observable<String> {
+        return this._http.delete( this.BILLING_API + '/receiptInvoices/' + receiptInvoice.id )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
+    deleteReceiptAccCharges( receiptAccountCharge: ReceiptAccountCharge ): Observable<String> {
+        return this._http.delete( this.BILLING_API + '/receiptAccCharges/' + receiptAccountCharge.id )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
+    deleteReceiptDebitNotes( receiptDebitNote: ReceiptDebitNote ): Observable<String> {
+        return this._http.delete( this.BILLING_API + '/receiptDebitNotes/' + receiptDebitNote.id )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
 
     // ====================================================================================================
     // CREDIT NOTE

@@ -598,6 +598,39 @@ public class BillingController {
        variables.put(REMOVE_DECISION, TRUE);
        workflowService.completeTask(task, variables);
     }
+    
+    @RequestMapping(value = "/receiptInvoices/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteReceiptInvoices(@PathVariable Long id) {
+        
+        AcReceiptInvoice e = billingService.findReceiptInvoiceById(id);
+        billingService.deleteReceiptInvoice(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/receiptAccCharges/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteReceiptAccCharges(@PathVariable Long id) {
+        
+    	AcReceiptAccountCharge e = billingService.findReceiptAccChargeById(id);
+        billingService.deleteReceiptAccCharge(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/receiptDebitNotes/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteReceiptDebitNotes(@PathVariable Long id) {
+        
+    	AcReceiptDebitNote e = billingService.findReceiptDebitNoteById(id);
+        billingService.deleteReceiptDebitNote(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/receiptItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteReceiptItem(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+    	AcReceiptItem receiptItem = billingService.findReceiptItemById(id);
+        billingService.deleteReceiptItem(receipt, receiptItem);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
     // ==================================================================================================== //
     //  DEBIT NOTE

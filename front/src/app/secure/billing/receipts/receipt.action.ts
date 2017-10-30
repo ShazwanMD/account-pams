@@ -554,5 +554,59 @@ export class ReceiptActions {
             payload: task,
         };
     }
+    
+    static DELETE_RECEIPT_INVOICE = '[Receipt] Delete Receipt Invoice';
+
+    deleteReceiptInvoices( receiptInvoice ): Action {
+        return {
+            type: ReceiptActions.DELETE_RECEIPT_INVOICE,
+            payload: receiptInvoice,
+        };
+    }
+
+    static DELETE_RECEIPT_INVOICE_SUCCESS = '[Receipt] Delete Receipt Invoice Success';
+
+    deleteReceiptInvoicesSuccess( message ): Action {
+        return {
+            type: ReceiptActions.DELETE_RECEIPT_INVOICE_SUCCESS,
+            payload: message
+        };
+    }
+    
+    static DELETE_RECEIPT_ACC_CHARGE = '[Receipt] Delete Receipt Account Charge';
+
+    deleteReceiptAccCharges( receiptAccountCharge ): Action {
+        return {
+            type: ReceiptActions.DELETE_RECEIPT_ACC_CHARGE,
+            payload: receiptAccountCharge,
+        };
+    }
+
+    static DELETE_RECEIPT_ACC_CHARGE_SUCCESS = '[Receipt] Delete Receipt Account Charge Success';
+
+    deleteReceiptAccChargesSuccess( message ): Action {
+        return {
+            type: ReceiptActions.DELETE_RECEIPT_ACC_CHARGE_SUCCESS,
+            payload: message
+        };
+    }
+    
+    static DELETE_RECEIPT_DEBIT_NOTE = '[Receipt] Delete Receipt Debit Note';
+
+    deleteReceiptDebitNotes( receiptDebitNote ): Action {
+        return {
+            type: ReceiptActions.DELETE_RECEIPT_DEBIT_NOTE,
+            payload: receiptDebitNote,
+        };
+    }
+
+    static DELETE_RECEIPT_DEBIT_NOTE_SUCCESS = '[Receipt] Delete Receipt Debit Note Success';
+
+    deleteReceiptDebitNotesSuccess( message ): Action {
+        return {
+            type: ReceiptActions.DELETE_RECEIPT_DEBIT_NOTE_SUCCESS,
+            payload: message
+        };
+    }
 
 }

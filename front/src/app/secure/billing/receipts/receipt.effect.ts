@@ -238,7 +238,6 @@ export class ReceiptEffects {
         .map((state) => state[1])
         .map((receipt) => this.receiptActions.findReceiptsByAccountCharge(receipt));
 
-
   @Effect() addReceiptDebitNote$ =
       this.actions$
         .ofType(ReceiptActions.ADD_RECEIPT_DEBIT_NOTE)
@@ -248,6 +247,24 @@ export class ReceiptEffects {
         .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
         .map((state) => state[1])
         .map((receipt) => this.receiptActions.findReceiptsByDebitNote(receipt));
+  
+  @Effect() deleteReceiptInvoices$ = this.actions$
+  .ofType(ReceiptActions.DELETE_RECEIPT_INVOICE)
+  .map((action) => action.payload)
+  .switchMap((receiptInvoice) => this.billingService.deleteReceiptInvoices(receiptInvoice))
+  .map((message) => this.receiptActions.deleteReceiptInvoicesSuccess(message));
+  
+  @Effect() deleteReceiptAccCharges$ = this.actions$
+  .ofType(ReceiptActions.DELETE_RECEIPT_ACC_CHARGE)
+  .map((action) => action.payload)
+  .switchMap((receiptAccountCharge) => this.billingService.deleteReceiptAccCharges(receiptAccountCharge))
+  .map((message) => this.receiptActions.deleteReceiptAccChargesSuccess(message));
+  
+  @Effect() deleteReceiptDebitNotes$ = this.actions$
+  .ofType(ReceiptActions.DELETE_RECEIPT_DEBIT_NOTE)
+  .map((action) => action.payload)
+  .switchMap((receiptDebitNote) => this.billingService.deleteReceiptDebitNotes(receiptDebitNote))
+  .map((message) => this.receiptActions.deleteReceiptDebitNotesSuccess(message));
  }
 
  

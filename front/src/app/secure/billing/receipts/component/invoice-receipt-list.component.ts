@@ -33,6 +33,8 @@ export class InvoiceReceiptListComponent {
     {name: 'invoice.balanceAmount', label: 'Balance Amount'},
     {name: 'action', label: ''},
   ];
+    
+    private selectedRows: ReceiptInvoice[];
 
   constructor(private snackBar: MdSnackBar,
               private viewContainerRef: ViewContainerRef,
@@ -75,6 +77,25 @@ export class InvoiceReceiptListComponent {
         config.position = {top: '0px'};
         let editorDialogRef = this.dialog.open(InvoiceReceiptDialog, config);
         editorDialogRef.componentInstance.receipt = this.receipt;
+      }
+    
+    ngOnInit(): void {
+        this.selectedRows = this.receiptInvoice.filter((value) => value.selected);
+      }
+
+    delete(): void {
+        console.log('length: ' + this.selectedRows.length);
+        for (let i: number = 0; i < this.selectedRows.length; i++) {
+          this.store.dispatch(this.action.deleteReceiptInvoices(this.selectedRows[i]));
+          console.log("selected rows receipt invoice" + this.selectedRows[i].invoice.referenceNo)
+        }
+        this.selectedRows = [];
+      }
+
+      selectRow(receiptInvoice: ReceiptInvoice): void {
+      }
+
+      selectAllRows(receiptInvoice: ReceiptInvoice[]): void {
       }
 
 }
