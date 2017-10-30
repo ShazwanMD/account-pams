@@ -224,6 +224,30 @@ export class KnockoffEffects {
     .withLatestFrom(this.store$.select(...this.KNOCKOFF_TASK))
     .map((state) => state[1])
     .map((knockoff) => this.knockoffActions.findKnockoffItems(knockoff));
+    
+    @Effect() deleteKnockoffDebitNotes$ = this.actions$
+    .ofType(KnockoffActions.DELETE_KNOCKOFF_DEBIT_NOTE)
+    .map((action) => action.payload)
+    .switchMap((knockoffDebitNote) => this.billingService.deleteKnockoffDebitNotes(knockoffDebitNote))
+    .map((message) => this.knockoffActions.deleteKnockoffDebitNotesSuccess(message));
+    
+    @Effect() deleteKnockoffInvoices$ = this.actions$
+    .ofType(KnockoffActions.DELETE_KNOCKOFF_INVOICE)
+    .map((action) => action.payload)
+    .switchMap((knockoffInvoice) => this.billingService.deleteKnockoffInvoices(knockoffInvoice))
+    .map((message) => this.knockoffActions.deleteKnockoffInvoicesSuccess(message));
+    
+    @Effect() deleteKnockoffAccCharges$ = this.actions$
+    .ofType(KnockoffActions.DELETE_KNOCKOFF_ACC_CHARGES)
+    .map((action) => action.payload)
+    .switchMap((knockoffAccountCharge) => this.billingService.deleteKnockoffAccCharges(knockoffAccountCharge))
+    .map((message) => this.knockoffActions.deleteKnockoffAccChargesSuccess(message));
+    
+    @Effect() deleteKnockoffItem$ = this.actions$
+    .ofType(KnockoffActions.DELETE_KNOCKOFF_ITEM)
+    .map((action) => action.payload)
+    .switchMap((payload) => this.billingService.deleteKnockoffItem(payload.knockoff, payload.item))
+    .map((message) => this.knockoffActions.deleteKnockoffItemSuccess(message));
 }
 
 

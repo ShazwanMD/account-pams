@@ -1259,6 +1259,39 @@ public class BillingController {
         return new ResponseEntity<List<KnockoffItem>>(billingTransformer
         		.toKnockoffItemVos(billingService.findInvoiceKnockoffItem(invoice, knockoff)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/knockoffDebitNotes/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteKnockoffDebitNotes(@PathVariable Long id) {
+        
+    	AcKnockoffDebitNote e = billingService.findKnockoffDebitNoteById(id);
+        billingService.deleteKnockoffDebitNote(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffInvoices/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteKnockoffInvoices(@PathVariable Long id) {
+        
+    	AcKnockoffInvoice e = billingService.findKnockoffInvoiceById(id);
+        billingService.deleteKnockoffInvoice(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffAccCharges/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteKnockoffAccCharges(@PathVariable Long id) {
+        
+    	AcKnockoffAccountCharge e = billingService.findKnockoffAccChargeById(id);
+        billingService.deleteKnockoffAccCharge(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteKnockoffItem(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	AcKnockoffItem e = billingService.findKnockoffItemById(id);
+        billingService.deleteKnockoffItem(knockoff, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
     // ==================================================================================================== //
     //  REFUND PAYMENT

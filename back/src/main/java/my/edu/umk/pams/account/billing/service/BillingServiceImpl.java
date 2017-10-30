@@ -966,6 +966,7 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public void deleteReceiptInvoice(AcReceiptInvoice receiptInvoice) {	
 		receiptDao.deleteReceiptInvoice(receiptInvoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
 	}
 	
 	@Override
@@ -1373,6 +1374,21 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
+	public AcKnockoffInvoice findKnockoffInvoiceById(Long id) {
+		return knockoffDao.findItemInvoiceById(id);
+	}
+    
+	@Override
+	public AcKnockoffAccountCharge findKnockoffAccChargeById(Long id) {
+		return knockoffDao.findItemAccChargeById(id);
+	}
+    
+	@Override
+	public AcKnockoffDebitNote findKnockoffDebitNoteById(Long id) {
+		return knockoffDao.findItemDebitNoteById(id);
+	}
+	
+	@Override
 	public AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff) {
 		return knockoffDao.findKnockoffItemByChargeCode(chargeCode, invoice, knockoff);
 	}
@@ -1445,6 +1461,34 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public boolean hasKnockoff(AcKnockoff knockoff, AcInvoice invoice) {
 		return knockoffDao.hasKnockoff(knockoff, invoice);
+	}
+	
+	@Override
+	public void deleteKnockoffInvoice(AcKnockoffInvoice knockoffInvoice) {
+		knockoffDao.deleteKnockoffInvoice(knockoffInvoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+    
+	@Override
+	public void deleteKnockoffAccCharge(AcKnockoffAccountCharge knockoffAccCharge) {
+		knockoffDao.deleteKnockoffAccCharge(knockoffAccCharge, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+    
+	@Override
+	public void deleteKnockoffDebitNote(AcKnockoffDebitNote knockoffDebitNote) {
+		knockoffDao.deleteKnockoffDebitNote(knockoffDebitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
+	public void deleteKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item) {
+		knockoffDao.deleteItem(knockoff, item, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+
+		knockoff.setTotalAmount(knockoff.getBalanceAmount().subtract(knockoffDao.sumAppliedAmount(knockoff, securityService.getCurrentUser())));
+		knockoffDao.update(knockoff, securityService.getCurrentUser());
+
 	}
 
 	@Override

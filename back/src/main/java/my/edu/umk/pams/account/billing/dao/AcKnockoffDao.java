@@ -12,10 +12,14 @@ import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
 import my.edu.umk.pams.account.billing.model.AcKnockoffAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcKnockoffAccountChargeImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffDebitNote;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
+import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.billing.model.AcReceiptAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcReceiptDebitNote;
 import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -26,6 +30,12 @@ import my.edu.umk.pams.account.identity.model.AcUser;
 public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
 
 	AcKnockoffItem findItemById(Long id);
+	
+    AcKnockoffInvoice findItemInvoiceById(Long id);
+    
+    AcKnockoffAccountCharge findItemAccChargeById(Long id);
+    
+    AcKnockoffDebitNote findItemDebitNoteById(Long id);
 	
 	AcKnockoff findByReferenceNo(String referenceNo);
 	
@@ -72,6 +82,14 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     void addKnockoffDebitNote(AcKnockoff knockoff, AcDebitNote debitNote, AcUser user);
     
     void updateItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user);
+    
+    void deleteKnockoffInvoice(AcKnockoffInvoice knockoffInvoice, AcUser user);
+    
+    void deleteKnockoffAccCharge(AcKnockoffAccountCharge knockoffAccCharge, AcUser user);
+    
+    void deleteKnockoffDebitNote(AcKnockoffDebitNote knockoffDebitNote, AcUser user);
+    
+    void deleteItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user);
     
     BigDecimal sumAppliedAmount(AcKnockoff knockoff, AcUser user);
     

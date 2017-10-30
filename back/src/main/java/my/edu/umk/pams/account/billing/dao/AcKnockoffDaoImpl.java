@@ -57,6 +57,24 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         Session session = sessionFactory.getCurrentSession();
         return (AcKnockoffItem) session.get(AcKnockoffItemImpl.class, id);
     }
+    
+    @Override
+    public AcKnockoffInvoice findItemInvoiceById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcKnockoffInvoice) session.get(AcKnockoffInvoiceImpl.class, id);
+    }
+    
+    @Override
+    public AcKnockoffAccountCharge findItemAccChargeById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcKnockoffAccountCharge) session.get(AcKnockoffAccountChargeImpl.class, id);
+    }
+    
+    @Override
+    public AcKnockoffDebitNote findItemDebitNoteById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcKnockoffDebitNote) session.get(AcKnockoffDebitNoteImpl.class, id);
+    }
 
 	@Override
 	public AcKnockoff findByReferenceNo(String referenceNo) {
@@ -386,6 +404,43 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
         metadata.setModifierId(user.getId());
         item.setMetadata(metadata);
         session.update(item);
+    }
+    
+    @Override
+    public void deleteKnockoffInvoice(AcKnockoffInvoice knockoffInvoice, AcUser user) {
+        Validate.notNull(knockoffInvoice, "knockoff invoice cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(knockoffInvoice);
+    }
+    
+    @Override
+    public void deleteKnockoffAccCharge(AcKnockoffAccountCharge knockoffAccCharge, AcUser user) {
+    	Validate.notNull(knockoffAccCharge, "knockoff acc charge cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(knockoffAccCharge);
+    }
+    
+    @Override
+    public void deleteKnockoffDebitNote(AcKnockoffDebitNote knockoffDebitNote, AcUser user) {
+    	Validate.notNull(knockoffDebitNote, "knockoff debit note cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(knockoffDebitNote);
+    }
+    
+    @Override
+    public void deleteItem(AcKnockoff knockoff, AcKnockoffItem item, AcUser user) {
+        Validate.notNull(knockoff, "knockoff cannot be null");
+        Validate.notNull(item, "payment cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(item);
     }
     
     @Override

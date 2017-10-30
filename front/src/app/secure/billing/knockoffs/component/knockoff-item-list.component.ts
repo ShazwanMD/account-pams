@@ -69,6 +69,14 @@ export class KnockoffItemListComponent implements OnInit {
         this.editorDialogRef.componentInstance.knockoffItem = knockoffItem;
       }
     
+    delete(): void {
+        console.log('length: ' + this.selectedRows.length);
+        for (let i: number = 0; i < this.selectedRows.length; i++) {
+          this.store.dispatch(this.actions.deleteKnockoffItem(this.knockoff, this.selectedRows[i]));
+        }
+        this.selectedRows = [];
+    }
+    
     filter(): void {
     }
 

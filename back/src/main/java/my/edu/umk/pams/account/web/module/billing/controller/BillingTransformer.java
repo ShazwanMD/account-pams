@@ -444,6 +444,7 @@ public class BillingTransformer {
     public KnockoffInvoice toKnockoffInvoiceVo(AcKnockoffInvoice r) {
     	
     	KnockoffInvoice vo = new KnockoffInvoice();
+    	vo.setId(r.getId());
     	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
     	vo.setKnockoff(billingTransformer.toKnockoffVo(r.getKnockoff()));
         return vo;
@@ -452,6 +453,7 @@ public class BillingTransformer {
     public KnockoffAccountCharge toKnockoffAccountChargeVo(AcKnockoffAccountCharge r) {
     	
     	KnockoffAccountCharge vo = new KnockoffAccountCharge();
+    	vo.setId(r.getId());
     	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
     	vo.setKnockoff(billingTransformer.toKnockoffVo(r.getKnockoff()));
         return vo;
@@ -460,6 +462,7 @@ public class BillingTransformer {
     public KnockoffDebitNote toKnockoffDebitNoteVo(AcKnockoffDebitNote r) {
     	
     	KnockoffDebitNote vo = new KnockoffDebitNote();
+    	vo.setId(r.getId());
     	vo.setKnockoff(billingTransformer.toKnockoffVo(r.getKnockoff()));
     	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
         return vo;

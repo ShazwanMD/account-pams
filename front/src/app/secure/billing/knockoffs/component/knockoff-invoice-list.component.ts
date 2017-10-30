@@ -22,6 +22,8 @@ export class KnockoffInvoiceListComponent implements OnInit {
     @Input() knockoffInvoice: KnockoffInvoice[];
     @Input() knockoff: Knockoff;
     
+    private selectedRows: KnockoffInvoice[];
+    
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Reference No'},
     {name: 'invoice.description', label: 'Description'},
@@ -38,7 +40,7 @@ export class KnockoffInvoiceListComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
+      this.selectedRows = this.knockoffInvoice.filter((value) => value.selected);
     }
   
   create(): void {
@@ -73,7 +75,23 @@ export class KnockoffInvoiceListComponent implements OnInit {
       editorDialogRef.componentInstance.knockoff = item.knockoff;
       editorDialogRef.componentInstance.invoice = item.invoice;
     }
+  
+  delete(): void {
+      console.log('length: ' + this.selectedRows.length);
+      for (let i: number = 0; i < this.selectedRows.length; i++) {
+        this.store.dispatch(this.actions.deleteKnockoffInvoices(this.selectedRows[i]));
+      }
+      this.selectedRows = [];
+  }
+  
+  filter(): void {
+  }
 
+  selectRow(knockoffInvoice: KnockoffInvoice): void {
+  }
+
+  selectAllRows(knockoffInvoice: KnockoffInvoice[]): void {
+  }
   
 
 }

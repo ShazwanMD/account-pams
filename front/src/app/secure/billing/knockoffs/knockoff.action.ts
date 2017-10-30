@@ -498,4 +498,77 @@ export class KnockoffActions {
             payload: knockoff
         };
     }
+    
+    static DELETE_KNOCKOFF_DEBIT_NOTE = '[Knockoff] Delete Knockoff Debit Note';
+
+    deleteKnockoffDebitNotes( knockoffDebitNote ): Action {
+        return {
+            type: KnockoffActions.DELETE_KNOCKOFF_DEBIT_NOTE,
+            payload: knockoffDebitNote,
+        };
+    }
+
+    static DELETE_KNOCKOFF_DEBIT_NOTE_SUCCESS = '[Knockoff] Delete Knockoff Debit Note Success';
+
+    deleteKnockoffDebitNotesSuccess( message ): Action {
+        return {
+            type: KnockoffActions.DELETE_KNOCKOFF_DEBIT_NOTE_SUCCESS,
+            payload: message
+        };
+    }
+
+    static DELETE_KNOCKOFF_INVOICE = '[Knockoff] Delete Knockoff Invoice';
+
+    deleteKnockoffInvoices( knockoffInvoice ): Action {
+        return {
+            type: KnockoffActions.DELETE_KNOCKOFF_INVOICE,
+            payload: knockoffInvoice,
+        };
+    }
+
+    static DELETE_KNOCKOFF_INVOICE_SUCCESS = '[Knockoff] Delete Knockoff Invoice Success';
+
+    deleteKnockoffInvoicesSuccess( message ): Action {
+        return {
+            type: KnockoffActions.DELETE_KNOCKOFF_INVOICE_SUCCESS,
+            payload: message
+        };
+    }
+
+    static DELETE_KNOCKOFF_ACC_CHARGES = '[Knockoff] Delete Knockoff Account Charges';
+
+    deleteKnockoffAccCharges( knockoffAccCharges ): Action {
+        return {
+            type: KnockoffActions.DELETE_KNOCKOFF_INVOICE,
+            payload: knockoffAccCharges,
+        };
+    }
+
+    static DELETE_KNOCKOFF_ACC_CHARGES_SUCCESS = '[Knockoff] Delete Knockoff Account Charges Success';
+
+    deleteKnockoffAccChargesSuccess( message ): Action {
+        return {
+            type: KnockoffActions.DELETE_KNOCKOFF_INVOICE_SUCCESS,
+            payload: message
+        };
+    }
+
+    static DELETE_KNOCKOFF_ITEM = '[Knockoff] Delete Knockoff Item';
+
+    deleteKnockoffItem( Knockoff, Item ): Action {
+        return {
+            type: KnockoffActions.DELETE_KNOCKOFF_ITEM,
+            payload: { knockoff: Knockoff, item: Item },
+        };
+    }
+
+    static DELETE_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Delete Knockoff Item Success';
+
+    deleteKnockoffItemSuccess( message ): Action {
+        return {
+            type: KnockoffActions.DELETE_KNOCKOFF_ITEM_SUCCESS,
+            payload: message
+        };
+    }
+
 }

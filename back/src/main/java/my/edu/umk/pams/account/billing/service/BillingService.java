@@ -381,6 +381,12 @@ public interface BillingService {
     
     AcKnockoffItem findKnockoffItemById(Long id);
     
+    AcKnockoffInvoice findKnockoffInvoiceById(Long id);
+    
+    AcKnockoffAccountCharge findKnockoffAccChargeById(Long id);
+    
+    AcKnockoffDebitNote findKnockoffDebitNoteById(Long id);
+    
     AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff);
     
     AcKnockoffItem findKnockoffItemByCharge(AcAccountCharge charge, AcKnockoff knockoff);
@@ -410,6 +416,14 @@ public interface BillingService {
     boolean hasKnockoff(AcKnockoff knockoff);
     
     boolean hasKnockoff(AcKnockoff knockoff, AcInvoice invoice);
+    
+    void deleteKnockoffInvoice(AcKnockoffInvoice knockoffInvoice);
+    
+    void deleteKnockoffAccCharge(AcKnockoffAccountCharge knockoffAccCharge);
+    
+    void deleteKnockoffDebitNote(AcKnockoffDebitNote knockoffDebitNote);
+    
+    void deleteKnockoffItem(AcKnockoff knockoff, AcKnockoffItem item);
     
     void addKnockoff(AcKnockoff knockoff);
 

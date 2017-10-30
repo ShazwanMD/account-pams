@@ -23,6 +23,8 @@ export class KnockoffAccountChargeListComponent implements OnInit {
     @Input() knockoffAccountCharge: KnockoffAccountCharge[];
     @Input() knockoff: Knockoff;
     
+    private selectedRows: KnockoffAccountCharge[];
+    
   private columns: any[] = [
     {name: 'accountCharge.referenceNo', label: 'Reference No'},
     {name: 'accountCharge.description', label: 'Description'},
@@ -39,7 +41,7 @@ export class KnockoffAccountChargeListComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
+      this.selectedRows = this.knockoffAccountCharge.filter((value) => value.selected);
     }
   
   create(): void {
@@ -75,6 +77,21 @@ export class KnockoffAccountChargeListComponent implements OnInit {
       editorDialogRef.componentInstance.accountCharge = item.accountCharge;
     }
 
+  delete(): void {
+      console.log('length: ' + this.selectedRows.length);
+      for (let i: number = 0; i < this.selectedRows.length; i++) {
+        this.store.dispatch(this.actions.deleteKnockoffAccCharges(this.selectedRows[i]));
+      }
+      this.selectedRows = [];
+  }
   
+  filter(): void {
+  }
+
+  selectRow(knockoffAccountCharge: KnockoffAccountCharge): void {
+  }
+
+  selectAllRows(knockoffAccountCharge: KnockoffAccountCharge[]): void {
+  }
 
 }

@@ -724,7 +724,26 @@ export class BillingService {
         return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffItems', JSON.stringify( item ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
+    
+    deleteKnockoffDebitNotes( knockoffDebitNote: KnockoffDebitNote ): Observable<String> {
+        return this._http.delete( this.BILLING_API + '/knockoffDebitNotes/' + knockoffDebitNote.id )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
 
+    deleteKnockoffInvoices( knockoffInvoice: KnockoffInvoice ): Observable<String> {
+        return this._http.delete( this.BILLING_API + '/knockoffInvoices/' + knockoffInvoice.id )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
+    deleteKnockoffAccCharges( knockoffAccountCharge: KnockoffAccountCharge ): Observable<String> {
+        return this._http.delete( this.BILLING_API + '/knockoffAccCharges/' + knockoffAccountCharge.id )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+
+    deleteKnockoffItem( knockoff: Knockoff, item: KnockoffItem ): Observable<String> {
+        return this._http.delete( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffItems/' + item.id )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
 
     // ====================================================================================================
   // WAIVER FINANCE APPLICATION

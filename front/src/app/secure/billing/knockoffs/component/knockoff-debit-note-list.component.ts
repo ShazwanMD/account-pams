@@ -25,6 +25,8 @@ export class KnockoffDebitNoteListComponent implements OnInit {
     @Input() knockoffDebitNote: KnockoffDebitNote[];
     @Input() knockoff: Knockoff;
     
+    private selectedRows: KnockoffDebitNote[];
+    
   private columns: any[] = [
     {name: 'debitNote.referenceNo', label: 'Reference No'},
     {name: 'debitNote.description', label: 'Description'},
@@ -41,7 +43,7 @@ export class KnockoffDebitNoteListComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
+      this.selectedRows = this.knockoffDebitNote.filter((value) => value.selected);
     }
   
   create(): void {
@@ -77,6 +79,22 @@ export class KnockoffDebitNoteListComponent implements OnInit {
       editorDialogRef.componentInstance.debitNote = item.debitNote;
     }
 
+  delete(): void {
+      console.log('length: ' + this.selectedRows.length);
+      for (let i: number = 0; i < this.selectedRows.length; i++) {
+        this.store.dispatch(this.actions.deleteKnockoffDebitNotes(this.selectedRows[i]));
+      }
+      this.selectedRows = [];
+  }
+  
+  filter(): void {
+  }
+
+  selectRow(knockoffDebitNote: KnockoffDebitNote): void {
+  }
+
+  selectAllRows(knockoffDebitNote: KnockoffDebitNote[]): void {
+  }
   
 
 }
