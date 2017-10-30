@@ -9,6 +9,7 @@ import {BillingModuleState} from '../index';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {InvoiceTaskCreatorDialog} from './dialog/invoice-task-creator.dialog';
 import {Invoice} from '../../../shared/model/billing/invoice.interface';
+import { ReportActions } from '../../../shared/report/report.action';
 
 @Component({
   selector: 'pams-invoice-center',
@@ -30,6 +31,7 @@ export class InvoiceCenterPage implements OnInit {
               private actions: InvoiceActions,
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
+              private reportActions: ReportActions,
               private dialog: MdDialog) {
     this.assignedInvoiceTasks$ = this.store.select(...this.ASSIGNED_INVOICE_TASKS);
     this.pooledInvoiceTasks$ = this.store.select(...this.POOLED_INVOICE_TASKS);
@@ -75,6 +77,11 @@ export class InvoiceCenterPage implements OnInit {
     this.store.dispatch(this.actions.findAssignedInvoiceTasks());
     this.store.dispatch(this.actions.findPooledInvoiceTasks());
     this.store.dispatch(this.actions.findArchivedInvoices());
+  }
+
+  downloadReport(reportId): void {
+    let repParam = reportId;  
+    this.store.dispatch(this.reportActions.downloadReport(repParam));
   }
 }
 

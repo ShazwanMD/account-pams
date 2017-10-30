@@ -137,17 +137,21 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				totaldebit = receiptDao.sumTotalAmount(receipt, debitNote, securityService.getCurrentUser());
 
 			}
-
-			AcAccountTransaction trx = new AcAccountTransactionImpl();
-			trx.setSession(receipt.getSession());
-			trx.setPostedDate(new Date());
-			trx.setDescription(receipt.getDescription());
-			trx.setSourceNo(receipt.getReferenceNo());
-			trx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
-			trx.setAccount(receipt.getAccount());
-			trx.setAmount(total.add(totaldebit).negate());
-			accountService.addAccountTransaction(receipt.getAccount(), trx);
-
+			
+			BigDecimal Amount = total.add(totaldebit);
+			
+			if(Amount.compareTo(BigDecimal.ZERO) > 0) {
+				AcAccountTransaction trx = new AcAccountTransactionImpl();
+				trx.setSession(receipt.getSession());
+				trx.setPostedDate(new Date());
+				trx.setDescription(receipt.getDescription());
+				trx.setSourceNo(receipt.getReferenceNo());
+				trx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
+				trx.setAccount(receipt.getAccount());
+				trx.setAmount(Amount.negate());
+				accountService.addAccountTransaction(receipt.getAccount(), trx);
+			}
+			
 			BigDecimal balance = receipt.getTotalPayment();
 
 			if (balance.signum() > 0) {
