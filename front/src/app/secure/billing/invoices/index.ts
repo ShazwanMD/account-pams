@@ -39,6 +39,8 @@ import {InvoiceItemPaidListComponent} from './component/invoice-item-paid-list.c
 import {ReceiptItemDetailPage} from '../receipts/receipt-item-detail.page';
 import {InvoicePaidListComponent} from './component/invoice-paid-list.component';
 import { InvoiceItemListOnlyComponent } from './component/invoice-item-list-only.component';
+import { ReportActions } from '../../../shared/report/report.action';
+import { ReportModule } from '../../../shared/report/index';
 
 @NgModule({
   imports: [
@@ -51,6 +53,7 @@ import { InvoiceItemListOnlyComponent } from './component/invoice-item-list-only
     ChargeCodeSubModule.forRoot(),
     CreditNoteSubModule.forRoot(),
     DebitNoteSubModule.forRoot(),
+    ReportModule.forRoot(),
     EffectsModule.run(InvoiceEffects),
     PipeModule,
   ],
@@ -119,6 +122,7 @@ export class InvoiceSubModule {
         AccountService,
         BillingService,
         InvoiceActions,
+        ReportActions,
       ],
     };
   }
