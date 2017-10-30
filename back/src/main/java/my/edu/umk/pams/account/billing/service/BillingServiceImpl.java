@@ -941,6 +941,10 @@ public class BillingServiceImpl implements BillingService {
 	public void deleteReceiptItem(AcReceipt receipt, AcReceiptItem item) {
 		receiptDao.deleteItem(receipt, item, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
+
+		receipt.setTotalPayment(receipt.getTotalReceived().subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser())));
+		receiptDao.update(receipt, securityService.getCurrentUser());
+
 	}
 
 	@Override
@@ -950,14 +954,18 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
-	public void deleteReceiptInvoice(AcReceipt receipt, AcInvoice invoice) {
-		receiptDao.delete(receipt, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();
-		
-		List<AcReceiptItem> receiptItems = billingService.findReceiptItems(receipt);
-		for(AcReceiptItem receiptItem: receiptItems) {
-			billingService.deleteReceiptItem(receipt, receiptItem);
-		}
+	public void deleteReceiptAccCharge(AcReceiptAccountCharge receiptAccCharge) {	
+		receiptDao.deleteReceiptAccCharge(receiptAccCharge, securityService.getCurrentUser());
+	}
+
+	@Override
+	public void deleteReceiptDebitNote(AcReceiptDebitNote receiptDebitNote) {	
+		receiptDao.deleteReceiptDebitNote(receiptDebitNote, securityService.getCurrentUser());
+	}
+	
+	@Override
+	public void deleteReceiptInvoice(AcReceiptInvoice receiptInvoice) {	
+		receiptDao.deleteReceiptInvoice(receiptInvoice, securityService.getCurrentUser());
 	}
 	
 	@Override
@@ -981,6 +989,21 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public AcReceipt findReceiptById(Long id) {
 		return receiptDao.findById(id);
+	}
+	
+	@Override
+	public AcReceiptInvoice findReceiptInvoiceById(Long id) {
+		return receiptDao.findReceiptInvoiceById(id);
+	}
+	
+	@Override
+	public AcReceiptAccountCharge findReceiptAccChargeById(Long id) {
+		return receiptDao.findReceiptAccChargeById(id);
+	}
+    
+	@Override
+	public AcReceiptDebitNote findReceiptDebitNoteById(Long id) {
+		return receiptDao.findReceiptDebitNoteById(id);
 	}
 
 	@Override

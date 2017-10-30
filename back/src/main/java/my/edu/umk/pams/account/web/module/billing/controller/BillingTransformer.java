@@ -225,6 +225,7 @@ public class BillingTransformer {
     public ReceiptInvoice toReceiptInvoiceVo(AcReceiptInvoice r) {
     	
     	ReceiptInvoice vo = new ReceiptInvoice();
+    	vo.setId(r.getId());
     	vo.setReceipt(billingTransformer.toReceiptVo(r.getReceipt()));
     	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
         return vo;
@@ -233,6 +234,7 @@ public class BillingTransformer {
     public ReceiptAccountCharge toReceiptAccountChargeVo(AcReceiptAccountCharge r) {
     	
     	ReceiptAccountCharge vo = new ReceiptAccountCharge();
+    	vo.setId(r.getId());
     	vo.setReceipt(billingTransformer.toReceiptVo(r.getReceipt()));
     	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
         return vo;
@@ -241,6 +243,7 @@ public class BillingTransformer {
     public ReceiptDebitNote toReceiptDebitNoteVo(AcReceiptDebitNote r) {
     	
     	ReceiptDebitNote vo = new ReceiptDebitNote();
+    	vo.setId(r.getId());
     	vo.setReceipt(billingTransformer.toReceiptVo(r.getReceipt()));
     	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
         return vo;

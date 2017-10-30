@@ -39,6 +39,24 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
         Session session = sessionFactory.getCurrentSession();
         return (AcReceiptItem) session.get(AcReceiptItemImpl.class, id);
     }
+    
+    @Override
+    public AcReceiptInvoice findReceiptInvoiceById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcReceiptInvoice) session.get(AcReceiptInvoiceImpl.class, id);
+    }
+    
+    @Override
+    public AcReceiptAccountCharge findReceiptAccChargeById(Long id) {
+    	Session session = sessionFactory.getCurrentSession();
+        return (AcReceiptAccountCharge) session.get(AcReceiptAccountChargeImpl.class, id);
+    }
+    
+    @Override
+    public AcReceiptDebitNote findReceiptDebitNoteById(Long id) {
+    	Session session = sessionFactory.getCurrentSession();
+        return (AcReceiptDebitNote) session.get(AcReceiptDebitNoteImpl.class, id);
+    }
 
     @Override
     public AcReceiptAccountChargeItem findChargeItemById(Long id) {
@@ -431,6 +449,33 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
+    }
+    
+    @Override
+    public void deleteReceiptInvoice(AcReceiptInvoice receiptInvoice, AcUser user) {
+        Validate.notNull(receiptInvoice, "receipt invoice cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(receiptInvoice);
+    }
+    
+    @Override
+    public void deleteReceiptAccCharge(AcReceiptAccountCharge receiptAccCharge, AcUser user) {
+        Validate.notNull(receiptAccCharge, "receipt account charge cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(receiptAccCharge);
+    }
+    
+    @Override
+    public void deleteReceiptDebitNote(AcReceiptDebitNote receiptDebitNote, AcUser user) {
+        Validate.notNull(receiptDebitNote, "receipt debit note cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(receiptDebitNote);
     }
     
     @Override

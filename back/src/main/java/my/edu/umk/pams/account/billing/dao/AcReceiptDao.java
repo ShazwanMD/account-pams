@@ -21,6 +21,9 @@ import my.edu.umk.pams.account.identity.model.AcUser;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
+import org.hibernate.Session;
+
 public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
 
     // ====================================================================================================
@@ -28,6 +31,12 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     // ====================================================================================================
 
     AcReceiptItem findItemById(Long id);
+    
+    AcReceiptInvoice findReceiptInvoiceById(Long id);
+    
+    AcReceiptAccountCharge findReceiptAccChargeById(Long id);
+    
+    AcReceiptDebitNote findReceiptDebitNoteById(Long id);
     
     AcReceiptAccountChargeItem findChargeItemById(Long id);
 
@@ -96,6 +105,12 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     void removeItem(AcReceipt receipt, AcReceiptItem item, AcUser user);
 
     void deleteItem(AcReceipt receipt, AcReceiptItem item, AcUser user);
+    
+    void deleteReceiptInvoice(AcReceiptInvoice receiptInvoice, AcUser user);
+    
+    void deleteReceiptAccCharge(AcReceiptAccountCharge receiptAccCharge, AcUser user);
+    
+    void deleteReceiptDebitNote(AcReceiptDebitNote receiptDebitNote, AcUser user);
     
     void addChargeItem(AcReceipt receipt, AcReceiptAccountChargeItem item, AcUser user);
 

@@ -265,7 +265,11 @@ public interface BillingService {
     
     void addReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
     
-    void deleteReceiptInvoice(AcReceipt receipt, AcInvoice invoice);
+    void deleteReceiptInvoice(AcReceiptInvoice receiptInvoice);
+    
+    void deleteReceiptAccCharge(AcReceiptAccountCharge receiptAccCharge);
+    
+    void deleteReceiptDebitNote(AcReceiptDebitNote receiptDebitNote);
     
     void addReceiptCharge(AcReceipt receipt, AcAccountCharge accountCharge);
     
@@ -282,6 +286,12 @@ public interface BillingService {
     // ==================================================================================================== //
 
     AcReceipt findReceiptById(Long id);
+    
+    AcReceiptInvoice findReceiptInvoiceById(Long id);
+    
+    AcReceiptAccountCharge findReceiptAccChargeById(Long id);
+    
+    AcReceiptDebitNote findReceiptDebitNoteById(Long id);
 
     AcReceipt findReceiptByReferenceNo(String referenceNo);
 

@@ -29,7 +29,7 @@ export class DebitNoteReceiptListComponent {
     @Input() receipt: Receipt;
     @Output() view = new EventEmitter<ReceiptDebitNote>();
     
-    //private selectedRows: ReceiptInvoice[];
+    private selectedRows: ReceiptDebitNote[];
 
      private editorDialogRef: MdDialogRef<DebitNoteReceiptDialog>;
     
@@ -58,16 +58,22 @@ export class DebitNoteReceiptListComponent {
     }
 
     ngOnInit(): void {
-        //this.selectedRows = this.receiptInvoice.filter((value) => value.selected);
+        this.selectedRows = this.receiptDebitNote.filter((value) => value.selected);
       }
     
-//    delete(): void {
-//        console.log('length: ' + this.selectedRows.length);
-//        for (let i: number = 0; i < this.selectedRows.length; i++) {
-//          this.store.dispatch(this.action.dele);
-//        }
-//        this.selectedRows = [];
-//      }
+    delete(): void {
+        console.log('length: ' + this.selectedRows.length);
+        for (let i: number = 0; i < this.selectedRows.length; i++) {
+          this.store.dispatch(this.action.deleteReceiptDebitNotes(this.selectedRows[i]));
+        }
+        this.selectedRows = [];
+      }
+
+      selectRow(receiptDebitNote: ReceiptDebitNote): void {
+      }
+
+      selectAllRows(receiptDebitNote: ReceiptDebitNote[]): void {
+      }
 
    showDialog(receiptDebitNote: ReceiptDebitNote) {
         console.log("Receipt for create item dialog "+ receiptDebitNote.receipt.referenceNo);

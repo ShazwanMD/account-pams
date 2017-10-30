@@ -14,6 +14,7 @@ import {ReceiptAccountCharge} from "../../../../shared/model/billing/receipt-acc
 import { AccountActions } from '../../../account/accounts/account.action';
 import { AccountModuleState } from '../../../account/index';
 import { AccountChargeReceiptDialog } from "../dialog/account-charge-receipt-creator.dialog";
+import { ReceiptActions } from "../receipt.action";
 
 @Component({
   selector: 'pams-account-charge-receipt-list',
@@ -27,6 +28,7 @@ export class AccountChargeReceiptListComponent {
     @Output() view = new EventEmitter<ReceiptAccountCharge>();
     
     private editorDialogRef: MdDialogRef<AccountChargeReceiptDialog>;
+    private selectedRows: ReceiptAccountCharge[];
     
   private columns: any[] = [
     {name: 'accountCharge.referenceNo', label: 'Reference No'},
@@ -40,6 +42,7 @@ export class AccountChargeReceiptListComponent {
               private viewContainerRef: ViewContainerRef,
               private store: Store<AccountModuleState>,
               private action: AccountActions,
+              private actions: ReceiptActions,
               private dialog: MdDialog) {
   }
   
@@ -78,4 +81,24 @@ export class AccountChargeReceiptListComponent {
       });
     }
 
+  ngOnInit(): void {
+      this.selectedRows = this.receiptAccountCharge.filter((value) => value.selected);
+    }
+  
+  delete(): void {
+      console.log('length: ' + this.selectedRows.length);
+      for (let i: number = 0; i < this.selectedRows.length; i++) {
+        this.store.dispatch(this.actions.deleteReceiptAccCharges(this.selectedRows[i]));
+      }
+      this.selectedRows = [];
+  }
+  
+  filter(): void {
+  }
+
+  selectRow(receiptAccountCharge: ReceiptAccountCharge): void {
+  }
+
+  selectAllRows(receiptAccountCharge: ReceiptAccountCharge[]): void {
+  }
 }
