@@ -1,12 +1,15 @@
 <h2 md-dialog-title>Credit Note Creator</h2>
 <md-dialog-content>
-  <form [formGroup]="createForm">
+  <form [formGroup]="createForm" novalidate>
     <md-input-container flex>
       <input mdInput type="date"
              placeholder="Date"
              formControlName="creditNoteDate"
              flex/>
     </md-input-container>
+      <div class="error" class="tc-red-600"
+         *ngIf="createForm.get('creditNoteDate').invalid && createForm.get('creditNoteDate').touched">Credit Date is Required!
+      </div> 
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #description
@@ -15,13 +18,14 @@
                value="description"
                flex/>
       </md-input-container>
+    <div class="error" class="tc-red-600"
+      *ngIf="createForm.get('description').invalid && createForm.get('description').touched">Description is Required!
+    </div> 
     </div>
-    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+    <div fxLayout fxLayout.xs="column">
       <pams-charge-code-select
         [placeholder]="'Charge Code'"
-        [innerFormControl]="createForm.controls['chargeCode']"
-        fxFlex="calc(100%-25px)"
-        class="pad-bottom">
+        [innerFormControl]="createForm.controls['chargeCode']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-charge-code-select>
     </div>
     <div layout="row" class="pad-bottom">
@@ -32,10 +36,13 @@
                value="TotalAmount"
                flex/>
       </md-input-container>
+    <div class="error" class="tc-red-600"
+      *ngIf="createForm.get('totalAmount').invalid && createForm.get('totalAmount').touched">Total Amount is Required!
+    </div> 
     </div>
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)">Save</button>
+  <button md-raised-button color="accent" (click)="save(createForm.value, createForm.valid)" [disabled]="!createForm.valid">Save</button>
 </md-dialog-actions>
 
