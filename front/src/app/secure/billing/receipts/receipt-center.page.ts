@@ -9,6 +9,7 @@ import {BillingModuleState} from '../index';
 import {ReceiptTaskCreatorDialog} from './dialog/receipt-task-creator.dialog';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Receipt} from '../../../shared/model/billing/receipt.interface';
+import { ReportActions } from '../../../shared/report/report.action';
 
 @Component({
   selector: 'pams-receipt-center',
@@ -30,6 +31,7 @@ export class ReceiptCenterPage implements OnInit {
               private actions: ReceiptActions,
               private store: Store<BillingModuleState>,
               private vcf: ViewContainerRef,
+              private reportActions: ReportActions,
               private dialog: MdDialog) {
     this.assignedReceiptTasks$ = this.store.select(...this.ASSIGNED_RECEIPT_TASKS);
     this.pooledReceiptTasks$ = this.store.select(...this.POOLED_RECEIPT_TASKS);
@@ -75,5 +77,10 @@ export class ReceiptCenterPage implements OnInit {
     this.store.dispatch(this.actions.findAssignedReceiptTasks());
     this.store.dispatch(this.actions.findPooledReceiptTasks());
     this.store.dispatch(this.actions.findArchivedReceipts());
+  }
+
+  downloadReport(reportId): void {
+    let repParam = reportId;  
+    this.store.dispatch(this.reportActions.downloadReport(repParam));
   }
 }
