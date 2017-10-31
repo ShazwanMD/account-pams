@@ -71,18 +71,22 @@ left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id]]>
 			<staticText>
 				<reportElement x="224" y="14" width="116" height="20" uuid="2dd71bcc-cf2d-407f-a255-aed22b2de864"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[RESIT RASMI]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="151" y="34" width="252" height="20" uuid="92822a5f-45f8-412d-872c-2c3ff5a7dd40"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN (UMK)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="131" y="54" width="289" height="20" uuid="95307303-d210-4a35-82bf-3ac56f767bc0"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Karung Berkunci 36, 16100 Pengkalan Chepa, Kelantan]]></text>
 			</staticText>
 		</band>
@@ -91,54 +95,85 @@ left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id]]>
 		<band height="71" splitType="Stretch">
 			<staticText>
 				<reportElement x="10" y="30" width="61" height="20" uuid="a21c0f9a-c86b-4316-aec7-c8801e48c089"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[No ID  :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="399" y="50" width="54" height="20" uuid="c5cd9f2f-9003-404a-8651-f9fcc6f49c6b"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Rujukan  :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="399" y="30" width="54" height="20" uuid="021d9ef4-6e15-4248-a01f-3c9e51a7ca4a"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Tarikh  :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="10" y="10" width="61" height="20" uuid="be62618f-563f-46fb-8a38-841729c6f21a"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Daripada :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="10" y="50" width="151" height="20" uuid="fbefd9b4-2fa2-4597-ae21-15aa3a4f8ee8"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Tunai / Cek / Draf / Lain-lain No  :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="71" y="10" width="328" height="20" uuid="10e59582-3daa-4670-900a-d0d335952e20"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="71" y="30" width="328" height="20" uuid="55159c7e-4c64-421b-9a59-26714a831849"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_ac_code}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MMM-yy">
 				<reportElement x="453" y="50" width="100" height="20" uuid="60516e39-f5d0-4b29-928b-6aa841ab863a"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_received_date}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="237" y="50" width="104" height="20" uuid="c9366fa0-490b-4b82-b403-828aa9861ad4"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[($F{ac_payment_method}.equals( "0" ) ? "CASH" : $F{ac_payment_method}.equals( "1" ) ? "CEK" : $F{ac_payment_method}.equals( "2" ) ? "KREDIT KE BANK" : "BANK DRAF" )]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="161" y="50" width="76" height="20" uuid="43493e05-b413-4675-9c92-a578d2928163"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_source_no}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MMM-yy">
 				<reportElement x="453" y="30" width="100" height="20" uuid="62cd5d24-c143-43a9-adc2-3f4070be10cb"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="399" y="10" width="152" height="20" uuid="fdbbfb49-f6ad-4160-8cf8-b25f7a48de29"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_receipt_ref_no}]]></textFieldExpression>
 			</textField>
@@ -152,14 +187,14 @@ left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id]]>
 			<staticText>
 				<reportElement x="5" y="6" width="123" height="20" uuid="ccea7a1b-b5f3-47e4-99f5-54374ec2d512"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MAKLUMAT BAYARAN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="455" y="6" width="100" height="20" uuid="3d2da4ed-faae-46cb-b207-951975831e2d"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[JUMLAH (RM)]]></text>
 			</staticText>
@@ -177,16 +212,24 @@ left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id]]>
 				<reportElement x="0" y="0" width="553" height="20" uuid="06621a08-850a-4a11-929a-443430e229fa"/>
 				<textField>
 					<reportElement x="453" y="3" width="98" height="17" uuid="f7b2dfa6-5f93-44fe-8501-27570bbe6cac"/>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<textField>
 				<reportElement x="127" y="0" width="326" height="20" uuid="f9f7fb90-4b0b-412e-87da-e86815f1f17c"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_rcpt_item_description}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="127" height="20" isRemoveLineWhenBlank="true" uuid="32ef4521-8818-4c2e-8db2-50f3bc7f4c08"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[( $F{ac_invc_reference_no} != null ? $F{ac_invc_reference_no} : "" ) +
 ( $F{ac_account_charge_reference_no} != null ? $F{ac_account_charge_reference_no} : "" )+
 ( $F{ac_debit_note_reference_no} != null ? $F{ac_debit_note_reference_no} : "" )]]></textFieldExpression>
@@ -210,63 +253,63 @@ left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id]]>
 			<staticText>
 				<reportElement x="399" y="70" width="54" height="20" uuid="8220bf8b-dcff-410e-8277-5dfc366efede"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[b.p UMK]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="223" y="35" width="118" height="20" uuid="eb101d1d-e20d-4185-8d32-d111c825f6ea"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TANPA PRASANGKA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="399" y="55" width="54" height="20" uuid="a86a1ad6-106a-42e8-8885-b622227bae87"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Penerima :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="399" y="100" width="100" height="20" uuid="86b1245d-2914-41b3-9f0c-b6801bf32009"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[komputer.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="31" y="54" width="70" height="20" uuid="1d463784-e948-43c3-a629-b68989a954b5"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[MUSTAHAK :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="31" y="74" width="270" height="20" uuid="bec752f2-1371-4e42-85e0-3e1f6fa0a084"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Simpan surat ini dengan baik, pastikan butiran di atas adalah betul.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="31" y="94" width="270" height="20" uuid="2ca0eef0-6275-4496-bc09-21cbf85c6832"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Ini akan mengelakkan kerumitan kelak. Resit ini dianggap batal jika cek]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="31" y="114" width="115" height="20" uuid="9dc6926e-b6cb-43e7-bf4c-182b33ffaeef"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[tidak diakui oleh bank.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="399" y="86" width="133" height="20" uuid="074b1c7b-d5d3-47d3-b593-489f16fec30b"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Diakui sah bila dicetak oleh]]></text>
 			</staticText>
@@ -278,7 +321,9 @@ left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id]]>
 			</line>
 			<textField>
 				<reportElement x="456" y="4" width="96" height="17" uuid="0b223ac4-aa1e-4fbb-b352-6686f715accd"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{ac_rcpt_item_applied_amount_1}]]></textFieldExpression>
 			</textField>
 		</band>
