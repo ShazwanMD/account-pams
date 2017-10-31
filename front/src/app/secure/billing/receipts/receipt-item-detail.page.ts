@@ -21,9 +21,11 @@ export class ReceiptItemDetailPage implements OnInit {
   private INVOICE: string[] = 'billingModuleState.invoice'.split('.');
   private INVOICE_ITEMS: string[] = 'billingModuleState.invoiceItems'.split('.');
   private RECEIPTS: string[] = 'billingModuleState.receipts'.split('.');
+  private RECEIPT: string[] = 'billingModuleState.receipt'.split('.');
   private invoice$: Observable<Invoice>;
   private invoiceItems$: Observable<InvoiceItem[]>;
-  private receipts$: Observable<Receipt>;
+  private receipt$: Observable<Receipt>;
+  private receipts$: Observable<Receipt[]>;
   private RECEIPT_ITEM: string[] = 'billingModuleState.receiptItems'.split('.');
   private receiptItem$: Observable<ReceiptItem[]>;
 
@@ -36,6 +38,7 @@ export class ReceiptItemDetailPage implements OnInit {
     this.invoice$ = this.store.select(...this.INVOICE);
     this.invoiceItems$ = this.store.select(...this.INVOICE_ITEMS);
     this.receipts$ = this.store.select(...this.RECEIPTS);
+    this.receipt$ = this.store.select(...this.RECEIPT);
     this.receiptItem$ = this.store.select(...this.RECEIPT_ITEM);
   }
 
