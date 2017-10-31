@@ -6,7 +6,14 @@
 
   <td-layout-manage-list #list>
     <md-nav-list list-items>
-
+	<a md-list-item [routerLink]="['/secure/billing/knockoffs']">
+        <md-icon>label</md-icon>
+        Knockoff
+      </a>
+    <a md-list-item [routerLink]="['/secure/billing/refund-payments']">
+        <md-icon>label</md-icon>
+        Refund Payment
+      </a>
     </md-nav-list>
     <div toolbar-buttons layout="row" layout-align="start center" flex>
       <span flex>Advance Payment Center</span>
