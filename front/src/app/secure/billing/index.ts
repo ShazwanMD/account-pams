@@ -56,7 +56,7 @@ import {creditNoteItemListReducer, CreditNoteItemListState} from './credit-notes
 import {PipeModule} from '../../app.pipe.module';
 import {invoiceCreditNoteListReducer, InvoiceCreditNoteListState} from './invoices/invoice-credit-note-list.reducer';
 import {invoiceDebitNoteListReducer, InvoiceDebitNoteListState} from './invoices/invoice-debit-note-list.reducer';
-import {archivedReceiptListReducer, ReceiptListState} from './receipts/receipt-list.reducer';
+import {archivedReceiptListReducer, ReceiptListState, receiptListReducer} from './receipts/receipt-list.reducer';
 import {receiptInvoiceListReducer, ReceiptInvoiceListState} from './receipts/receipt-invoice.reducer';
 import {receiptAccountChargeListReducer, ReceiptAccountChargeListState} from './receipts/receipt-account-charge.reducer';
 import {receiptDebitNoteListReducer, ReceiptDebitNoteListState} from './receipts/receipt-debit-note.reducer';
@@ -110,6 +110,7 @@ export interface BillingModuleState {
   archivedReceipts: ReceiptListState;
   receiptTask: ReceiptTaskState;
   receipt: ReceiptState;
+  receipts: ReceiptListState;
   receiptItems: ReceiptItemListState;
   receiptInvoice: ReceiptInvoiceListState;
   receiptAccountCharge: ReceiptAccountChargeListState;
@@ -176,6 +177,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     archivedReceipts: [],
     receiptTask: <ReceiptTask>{},
     receipt: <Receipt>{},
+    receipts: <Receipt[]>[],
     receiptItems: [],
     receiptInvoice: [],
     receiptAccountCharge: [],
@@ -237,7 +239,8 @@ export const billingModuleReducers = {
   pooledReceiptTasks: pooledReceiptTaskListReducer,
   archivedReceipts: archivedReceiptListReducer,
   receiptTask: receiptTaskReducer,
-  receipts: receiptReducer,
+  receipt: receiptReducer,
+  receipts: receiptListReducer,
   receiptItems: receiptItemListReducer,
   receiptInvoice: receiptInvoiceListReducer,
   receiptAccountCharge: receiptAccountChargeListReducer,
