@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5270fd6a-534b-45bb-8407-2b40fe397a35">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="145"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select ac_rcpt.account_id as "ac_account_id",
 ac_acct.code as "ac_ac_code",
@@ -64,63 +64,92 @@ where ac_rcpt.fd_st = 16]]>
 				<staticText>
 					<reportElement x="2" y="243" width="123" height="20" uuid="ccea7a1b-b5f3-47e4-99f5-54374ec2d512"/>
 					<textElement>
-						<font isBold="true"/>
+						<font fontName="SansSerif" isBold="true"/>
 					</textElement>
 					<text><![CDATA[MAKLUMAT BAYARAN]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="452" y="243" width="100" height="20" uuid="3d2da4ed-faae-46cb-b207-951975831e2d"/>
 					<textElement textAlignment="Right">
-						<font isBold="true"/>
+						<font fontName="SansSerif" isBold="true"/>
 					</textElement>
 					<text><![CDATA[JUMLAH (RM)]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="7" y="197" width="61" height="20" uuid="a21c0f9a-c86b-4316-aec7-c8801e48c089"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[No ID  :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="396" y="217" width="54" height="20" uuid="c5cd9f2f-9003-404a-8651-f9fcc6f49c6b"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[Rujukan  :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="396" y="197" width="54" height="20" uuid="021d9ef4-6e15-4248-a01f-3c9e51a7ca4a"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[Tarikh  :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="7" y="177" width="61" height="20" uuid="be62618f-563f-46fb-8a38-841729c6f21a"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[Daripada :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="7" y="217" width="151" height="20" uuid="fbefd9b4-2fa2-4597-ae21-15aa3a4f8ee8"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[Tunai / Cek / Draf / Lain-lain No  :]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="68" y="177" width="328" height="20" uuid="10e59582-3daa-4670-900a-d0d335952e20"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="68" y="197" width="328" height="20" uuid="55159c7e-4c64-421b-9a59-26714a831849"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_ac_code}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="398" y="177" width="144" height="20" uuid="c43c41a8-af0f-496b-abfb-b41071d638dd"/>
 					<textElement>
-						<font size="12" isBold="true"/>
+						<font fontName="SansSerif" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_receipt_ref_no}]]></textFieldExpression>
 				</textField>
 				<textField pattern="dd-MMM-yy">
 					<reportElement x="450" y="217" width="100" height="20" uuid="60516e39-f5d0-4b29-928b-6aa841ab863a"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_received_date}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="234" y="217" width="104" height="20" uuid="c9366fa0-490b-4b82-b403-828aa9861ad4"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[($F{ac_payment_method}.equals( "0" ) ? "CASH" : $F{ac_payment_method}.equals( "1" ) ? "CEK" : $F{ac_payment_method}.equals( "2" ) ? "KREDIT KE BANK" : "BANK DRAF" )]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="158" y="217" width="76" height="20" uuid="43493e05-b413-4675-9c92-a578d2928163"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_source_no}]]></textFieldExpression>
 				</textField>
 				<line>
@@ -132,23 +161,29 @@ where ac_rcpt.fd_st = 16]]>
 				<staticText>
 					<reportElement x="227" y="79" width="116" height="20" uuid="2dd71bcc-cf2d-407f-a255-aed22b2de864"/>
 					<textElement textAlignment="Center">
-						<font size="12" isBold="true" isUnderline="true"/>
+						<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[RESIT RASMI]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="163" y="99" width="252" height="20" uuid="92822a5f-45f8-412d-872c-2c3ff5a7dd40"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN (UMK)]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="144" y="119" width="289" height="20" uuid="95307303-d210-4a35-82bf-3ac56f767bc0"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[Karung Berkunci 36, 16100 Pengkalan Chepa, Kelantan]]></text>
 				</staticText>
 				<textField pattern="dd-MMM-yy">
 					<reportElement x="450" y="197" width="100" height="20" uuid="aacbcce5-7fa4-4af6-a591-dd0e4a5a06dd"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</band>
@@ -161,63 +196,63 @@ where ac_rcpt.fd_st = 16]]>
 				<staticText>
 					<reportElement x="391" y="71" width="54" height="20" uuid="8220bf8b-dcff-410e-8277-5dfc366efede"/>
 					<textElement>
-						<font size="8"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<text><![CDATA[b.p UMK]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="215" y="36" width="118" height="20" uuid="eb101d1d-e20d-4185-8d32-d111c825f6ea"/>
 					<textElement>
-						<font isBold="true"/>
+						<font fontName="SansSerif" isBold="true"/>
 					</textElement>
 					<text><![CDATA[TANPA PRASANGKA]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="391" y="56" width="54" height="20" uuid="a86a1ad6-106a-42e8-8885-b622227bae87"/>
 					<textElement>
-						<font size="8"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<text><![CDATA[Penerima :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="391" y="101" width="100" height="20" uuid="86b1245d-2914-41b3-9f0c-b6801bf32009"/>
 					<textElement>
-						<font size="8"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<text><![CDATA[komputer.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="23" y="55" width="70" height="20" uuid="1d463784-e948-43c3-a629-b68989a954b5"/>
 					<textElement>
-						<font size="8"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<text><![CDATA[MUSTAHAK :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="23" y="75" width="270" height="20" uuid="bec752f2-1371-4e42-85e0-3e1f6fa0a084"/>
 					<textElement>
-						<font size="8"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<text><![CDATA[Simpan surat ini dengan baik, pastikan butiran di atas adalah betul.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="23" y="95" width="270" height="20" uuid="2ca0eef0-6275-4496-bc09-21cbf85c6832"/>
 					<textElement>
-						<font size="8"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<text><![CDATA[Ini akan mengelakkan kerumitan kelak. Resit ini dianggap batal jika cek]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="23" y="115" width="115" height="20" uuid="9dc6926e-b6cb-43e7-bf4c-182b33ffaeef"/>
 					<textElement>
-						<font size="8"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<text><![CDATA[tidak diakui oleh bank.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="391" y="87" width="133" height="20" uuid="074b1c7b-d5d3-47d3-b593-489f16fec30b"/>
 					<textElement>
-						<font size="8"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<text><![CDATA[Diakui sah bila dicetak oleh]]></text>
 				</staticText>
@@ -229,7 +264,9 @@ where ac_rcpt.fd_st = 16]]>
 				</line>
 				<textField>
 					<reportElement x="452" y="3" width="100" height="16" uuid="66453c24-ac56-41c2-8561-fcfb731ad7e6"/>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{ac_rcpt_item_applied_amount_1}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -253,16 +290,24 @@ where ac_rcpt.fd_st = 16]]>
 				<reportElement x="0" y="0" width="553" height="20" uuid="06621a08-850a-4a11-929a-443430e229fa"/>
 				<textField>
 					<reportElement x="452" y="0" width="100" height="20" uuid="fa0bcadc-9622-4812-bea6-16c5d86ff374"/>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<textField>
 				<reportElement x="125" y="0" width="328" height="20" uuid="f9f7fb90-4b0b-412e-87da-e86815f1f17c"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_rcpt_item_description}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="2" y="0" width="123" height="20" uuid="32ef4521-8818-4c2e-8db2-50f3bc7f4c08"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[( $F{ac_invc_reference_no} != null ? $F{ac_invc_reference_no} : "" ) +
 ( $F{ac_account_charge_reference_no} != null ? $F{ac_account_charge_reference_no} : "" )+
 ( $F{ac_debit_note_reference_no} != null ? $F{ac_debit_note_reference_no} : "" )]]></textFieldExpression>

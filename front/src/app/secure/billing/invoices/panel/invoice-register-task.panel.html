@@ -47,6 +47,15 @@
           </div>
         </div>
         <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+            <div layout="column" flex>
+                <md-list dense>
+                  <md-list-item>
+                    <md-icon md-list-icon>local_offer</md-icon>
+                    <h4 md-line>{{invoiceTask?.invoice?.createdDate}}</h4>
+                    <p md-line>Created Date</p>
+                  </md-list-item>
+                </md-list>
+              </div>
           <div layout="column" flex>
           <md-list dense>
             <md-list-item>

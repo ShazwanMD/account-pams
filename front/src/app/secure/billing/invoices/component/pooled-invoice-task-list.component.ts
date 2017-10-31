@@ -33,6 +33,7 @@ export class PooledInvoiceTaskListComponent implements OnChanges{
     {name: 'flowState', label: 'Status'},
     {name: 'invoice.creatorUsername', label: 'Creator'},
     {name: 'invoice.createdDate', label: 'Created Date'},
+    { name: 'paid', label: 'Status' },
     {name: 'action', label: ''},
   ];
 

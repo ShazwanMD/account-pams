@@ -224,7 +224,7 @@ FROM
 			<staticText>
 				<reportElement x="350" y="2" width="149" height="20" uuid="d8c7434f-4236-44c3-a228-c9d31e74dc2a"/>
 				<textElement>
-					<font fontName="Lucida Sans" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CUSTOMER STATEMENT]]></text>
 			</staticText>
@@ -234,78 +234,135 @@ FROM
 		<band height="118" splitType="Stretch">
 			<textField>
 				<reportElement x="76" y="3" width="274" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="3" width="100" height="20" uuid="6167f570-f00a-4f62-b50d-2d7136c5340e"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="3" width="76" height="20" uuid="84c1cf90-e511-4673-9040-1aea3c4384e5"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Student Name :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="417" y="3" width="38" height="20" uuid="9ea5d075-f04d-4356-a090-7463d0125f4e"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[ID No :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="417" y="23" width="38" height="20" uuid="c6a1a69a-29c8-4b80-940c-a30141bf1094"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="417" y="40" width="38" height="20" uuid="04a0e5dc-fd7f-45fb-8230-a0fc2466fb7a"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Status :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="23" width="76" height="20" uuid="78081c34-b027-4ed8-835d-d5378e89adaf"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Address :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="44" width="87" height="20" uuid="e2dd2ca2-d477-47b1-a179-da92efc69901"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Parent/Guardian :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="74" width="115" height="15" uuid="c299acba-0cf0-40e5-a464-9e8d1fb9f492"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Sponsor Reference No :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="92" width="198" height="15" uuid="352e923c-da69-4701-a9cf-ec8c80846e2d"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_acct_description}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="198" y="74" width="45" height="15" uuid="d31041b4-fe10-4169-93e5-f9fcd6052336"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Course :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="198" y="92" width="167" height="15" uuid="338e69b2-2340-47a6-8897-12f4a13edc53"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_prgm_code_description}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="389" y="74" width="33" height="15" uuid="ddb04609-900c-46b9-850d-38abbe25e43f"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[IC No :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="455" y="74" width="86" height="17" uuid="2bc11cc5-9fa7-44d1-b689-7763e97b8cb9"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Intake Semester :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="455" y="92" width="86" height="15" uuid="f2db7765-4e99-4a4c-996b-972810759af6"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_acdm_sesn_code}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="76" y="23" width="313" height="20" uuid="2e2800ef-1792-429e-a2bc-d9a8e142d766"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[(($F{ac_actr_address}==null)? "-": $F{ac_actr_address})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="40" width="100" height="20" uuid="6e8ba411-37cd-4158-8db8-4d8bb5aa360f"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[(($F{ac_stdn_student_status}==null)? "-": $F{ac_stdn_student_status})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="389" y="92" width="60" height="15" uuid="772539f6-14a1-4a80-9180-6bc107642e2d"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MMM-yyyy">
 				<reportElement x="455" y="20" width="100" height="20" uuid="03e1e825-5b81-411e-bbd4-4a6a07f08291"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -320,7 +377,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Document No]]></text>
 			</staticText>
 			<staticText>
@@ -331,7 +390,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
@@ -342,7 +403,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Debit]]></text>
 			</staticText>
 			<staticText>
@@ -353,7 +416,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
@@ -364,6 +429,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Bil]]></text>
 			</staticText>
 			<staticText>
@@ -374,7 +442,9 @@ FROM
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Balance]]></text>
 			</staticText>
 			<frame>
@@ -412,7 +482,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Credit]]></text>
 			</staticText>
 			<frame>
@@ -463,6 +535,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_acct_trsn_posted_date}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -473,6 +548,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_acct_trsn_source_no}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -483,6 +561,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_acct_trsn_description}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -493,7 +574,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -504,7 +587,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[( $F{ac_acct_trsn_amount}.doubleValue() > new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_trsn_amount} : 0.00 )]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;(###0.00)">
@@ -515,7 +600,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[( $F{ac_acct_trsn_amount}.doubleValue() < new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_trsn_amount} : 0.00 )]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -526,7 +613,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{ac_acct_trsn_amount_1}]]></textFieldExpression>
 			</textField>
 			<frame>
@@ -598,6 +687,9 @@ FROM
 			</rectangle>
 			<staticText>
 				<reportElement x="398" y="0" width="71" height="14" uuid="d556b9c0-98cc-44cc-99ba-e30ad957814d"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<text><![CDATA[Total Balance :]]></text>
 			</staticText>
 			<textField>
@@ -608,7 +700,9 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{ac_acct_trsn_amount_1}]]></textFieldExpression>
 			</textField>
 		</band>

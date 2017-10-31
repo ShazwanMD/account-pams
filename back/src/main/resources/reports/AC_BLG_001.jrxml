@@ -546,6 +546,9 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement x="452" y="44" width="103" height="20" uuid="e3da3b07-56eb-46d0-a353-ca24f3b61c55"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_acct_code}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -573,7 +576,7 @@ FROM
 						<rightPen lineWidth="0.0"/>
 					</box>
 					<textElement textAlignment="Center">
-						<font isBold="true"/>
+						<font fontName="SansSerif" isBold="true"/>
 					</textElement>
 					<text><![CDATA[PERIHAL]]></text>
 				</staticText>
@@ -587,6 +590,9 @@ FROM
 				</box>
 				<textField>
 					<reportElement x="5" y="3" width="321" height="20" uuid="f8d5d6ab-6ca0-47a2-869f-b4d1167fe674"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA["Tuntutan Yuran" + " "+$F{ac_prgm_code_description}]]></textFieldExpression>
 				</textField>
 				<staticText>
@@ -596,7 +602,9 @@ FROM
 						<bottomPen lineWidth="0.0"/>
 						<rightPen lineWidth="0.0"/>
 					</box>
-					<textElement textAlignment="Left"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[Nama Pelajar :]]></text>
 				</staticText>
 				<staticText>
@@ -606,7 +614,9 @@ FROM
 						<bottomPen lineWidth="0.0"/>
 						<rightPen lineWidth="0.0"/>
 					</box>
-					<textElement textAlignment="Left"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[No. Kad Pengenalan :]]></text>
 				</staticText>
 				<staticText>
@@ -616,7 +626,9 @@ FROM
 						<bottomPen lineWidth="0.0"/>
 						<rightPen lineWidth="0.0"/>
 					</box>
-					<textElement textAlignment="Left"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<text><![CDATA[Tahun Pengajian :]]></text>
 				</staticText>
 			</frame>
@@ -627,7 +639,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[JUMLAH (RM)]]></text>
 			</staticText>
@@ -638,7 +650,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[KOD GST]]></text>
 			</staticText>
@@ -649,7 +661,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AMAUN GST (RM)]]></text>
 			</staticText>
@@ -660,20 +672,29 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[JUMLAH (RM)]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="109" y="61" width="244" height="20" uuid="01710c5c-4c2f-4925-8c14-9ac63899d852"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="137" y="81" width="181" height="20" uuid="ff72b67e-9e70-41bf-a4db-c0dc1192b9d6"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="122" y="102" width="231" height="20" uuid="78ab8590-5a02-4018-b4ce-22b43d466b1f"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_acdm_sesn_description}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -684,7 +705,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[BIL]]></text>
 			</staticText>
@@ -696,7 +717,9 @@ FROM
 				</box>
 				<textField>
 					<reportElement x="0" y="3" width="23" height="20" uuid="d7344e6b-4672-483b-9442-335c196a44ae"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="SansSerif"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{bil}]]></textFieldExpression>
 				</textField>
 			</frame>
@@ -776,7 +799,9 @@ FROM
 				<box>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_invc_item_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -784,13 +809,15 @@ FROM
 				<box>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_invc_item_tax_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="58" y="1" width="287" height="20" uuid="6f094396-a85c-45ad-be77-a17b83d267ef"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_chrg_code_description}]]></textFieldExpression>
 			</textField>
@@ -799,7 +826,9 @@ FROM
 				<box>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_invc_item_net_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -807,7 +836,9 @@ FROM
 				<box>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_tax_code_code}]]></textFieldExpression>
 			</textField>
 			<frame>
@@ -953,28 +984,28 @@ FROM
 							<textField>
 								<reportElement x="5" y="0" width="32" height="14" uuid="e04675eb-5822-455a-90de-372eedeeb966"/>
 								<textElement>
-									<font size="8"/>
+									<font fontName="SansSerif" size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{ac_tax_code_code}]]></textFieldExpression>
 							</textField>
 							<textField pattern="#,##0.00 %">
 								<reportElement x="36" y="0" width="49" height="14" uuid="e73bf3a2-0c1e-4796-b0fa-bc34f38aa0b4"/>
 								<textElement>
-									<font size="8"/>
+									<font fontName="SansSerif" size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{ac_tax_code_tax_rate}]]></textFieldExpression>
 							</textField>
 							<textField pattern="">
 								<reportElement x="92" y="0" width="68" height="14" uuid="5654df3a-4fe8-42e2-a860-f1fa3168b838"/>
 								<textElement>
-									<font size="8"/>
+									<font fontName="SansSerif" size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA["RM"+ " " + $F{ac_invc_item_amount}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="171" y="1" width="56" height="14" uuid="20bc27bd-dce2-4000-8400-84a0904c38f2"/>
 								<textElement textAlignment="Left">
-									<font size="8"/>
+									<font fontName="SansSerif" size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA["RM"+ " " + $F{ac_invc_item_tax_amount}]]></textFieldExpression>
 							</textField>
@@ -989,7 +1020,7 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{total_amnt}]]></textFieldExpression>
 			</textField>
@@ -1000,7 +1031,7 @@ FROM
 					<bottomPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{total_tax_amnt}]]></textFieldExpression>
 			</textField>
@@ -1012,7 +1043,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{total_net_amnt}]]></textFieldExpression>
 			</textField>
@@ -1024,7 +1055,7 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[JUMLAH]]></text>
 			</staticText>
@@ -1055,7 +1086,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Ringkasan GST]]></text>
 			</staticText>
@@ -1067,7 +1098,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[JUMLAH]]></text>
 			</staticText>
@@ -1079,7 +1110,7 @@ FROM
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[GST]]></text>
 			</staticText>
