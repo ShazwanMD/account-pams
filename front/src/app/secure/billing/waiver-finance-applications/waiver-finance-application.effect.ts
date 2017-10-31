@@ -208,23 +208,35 @@ export class WaiverFinanceApplicationEffects {
   .ofType(WaiverFinanceApplicationActions.DELETE_WAIVER_ACC_CHARGES)
   .map((action) => action.payload)
   .switchMap((waiverAccountCharge) => this.billingService.deleteWaiverAccCharges(waiverAccountCharge))
-  .map((message) => this.waiverFinanceApplicationActions.deleteWaiverAccChargesSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.deleteWaiverAccChargesSuccess(message))
+  .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+      .map((state) => state[1])
+      .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverByAccountCharge(waiverFinanceApplication));
   
   @Effect() deleteWaiverDebitNotes$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.DELETE_WAIVER_DEBIT_NOTE)
   .map((action) => action.payload)
   .switchMap((waiverDebitNote) => this.billingService.deleteWaiverDebitNotes(waiverDebitNote))
-  .map((message) => this.waiverFinanceApplicationActions.deleteWaiverDebitNotesSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.deleteWaiverDebitNotesSuccess(message))
+    .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+      .map((state) => state[1])
+      .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverByDebitNote(waiverFinanceApplication));
   
   @Effect() deleteWaiverInvoices$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.DELETE_WAIVER_INVOICE)
   .map((action) => action.payload)
   .switchMap((waiverInvoice) => this.billingService.deleteWaiverInvoices(waiverInvoice))
-  .map((message) => this.waiverFinanceApplicationActions.deleteWaiverInvoicesSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.deleteWaiverInvoicesSuccess(message))
+    .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+      .map((state) => state[1])
+      .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiversByInvoice(waiverFinanceApplication));
   
   @Effect() deleteWaiverItem$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.DELETE_WAIVER_ITEM)
   .map((action) => action.payload)
   .switchMap((payload) => this.billingService.deleteWaiverItem(payload.waiverFinanceApplication, payload.item))
-  .map((message) => this.waiverFinanceApplicationActions.deleteWaiverItemSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.deleteWaiverItemSuccess(message))
+  .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+  .map((state) => state[1])
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication));
 }

@@ -539,7 +539,7 @@ export class KnockoffActions {
 
     deleteKnockoffAccCharges( knockoffAccCharges ): Action {
         return {
-            type: KnockoffActions.DELETE_KNOCKOFF_INVOICE,
+            type: KnockoffActions.DELETE_KNOCKOFF_ACC_CHARGES,
             payload: knockoffAccCharges,
         };
     }
@@ -548,7 +548,7 @@ export class KnockoffActions {
 
     deleteKnockoffAccChargesSuccess( message ): Action {
         return {
-            type: KnockoffActions.DELETE_KNOCKOFF_INVOICE_SUCCESS,
+            type: KnockoffActions.DELETE_KNOCKOFF_ACC_CHARGES_SUCCESS,
             payload: message
         };
     }
