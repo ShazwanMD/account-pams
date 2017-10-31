@@ -60,8 +60,8 @@
           <md-list dense>
             <md-list-item>
               <md-icon md-list-icon>local_offer</md-icon>
-              <h4 md-line>{{invoiceTask?.flowState}}</h4>
-              <p md-line>Status</p>
+              <h4 md-line>{{invoiceTask?.invoice?.paid? 'Paid' : 'Unpaid'}}</h4>
+              <p md-line>Payment Status</p>
             </md-list-item>
           </md-list>
         </div>
