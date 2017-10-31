@@ -1640,5 +1640,38 @@ public class BillingController {
         return new ResponseEntity<List<WaiverItem>>(billingTransformer
                 .toWaiverItemVos(billingService.findWaiverItems(waiverApplication, invoice)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/waiverDebitNotes/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteWaiverDebitNotes(@PathVariable Long id) {
+        
+    	AcWaiverDebitNote e = billingService.findWaiverDebitNoteById(id);
+        billingService.deleteWaiverDebitNote(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverInvoices/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteWaiverInvoices(@PathVariable Long id) {
+        
+    	AcWaiverInvoice e = billingService.findWaiverInvoiceById(id);
+        billingService.deleteWaiverInvoice(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverAccCharges/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteWaiverAccCharges(@PathVariable Long id) {
+        
+    	AcWaiverAccountCharge e = billingService.findWaiverAccChargeById(id);
+        billingService.deleteWaiverAccountCharge(e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/waiverItems/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteWaiverItem(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+        AcWaiverItem e = billingService.findWaiverItemById(id);
+        billingService.deleteWaiverItem(waiverApplication, e);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
 
 }

@@ -3,6 +3,7 @@ import { Invoice } from './invoice.interface';
 import { Document } from '../../../core/document.interface';
 
 export interface WaiverInvoice extends Document {
+    id: number;
     invoice: Invoice;
     waiverApplication: WaiverFinanceApplication;
 

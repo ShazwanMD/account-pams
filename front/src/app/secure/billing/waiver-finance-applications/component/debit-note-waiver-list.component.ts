@@ -30,7 +30,7 @@ export class DebitNoteWaiverListComponent {
     @Input() waiverFinanceApplication: WaiverFinanceApplication;
     @Output() view = new EventEmitter<WaiverDebitNote>();
     
-    //private selectedRows: ReceiptInvoice[];
+    private selectedRows: WaiverDebitNote[];
 
      private editorDialogRef: MdDialogRef<DebitNoteWaiverDialog>;
     
@@ -59,8 +59,22 @@ export class DebitNoteWaiverListComponent {
     }
 
     ngOnInit(): void {
-        //this.selectedRows = this.receiptInvoice.filter((value) => value.selected);
+        this.selectedRows = this.waiverDebitNote.filter((value) => value.selected);
+    }
+
+  delete(): void {
+      console.log('length: ' + this.selectedRows.length);
+      for (let i: number = 0; i < this.selectedRows.length; i++) {
+        this.store.dispatch(this.action.deleteWaiverDebitNotes(this.selectedRows[i]));
       }
+      this.selectedRows = [];
+    }
+
+    selectRow(waiverDebitNote: WaiverDebitNote): void {
+    }
+
+    selectAllRows(waiverDebitNote: WaiverDebitNote[]): void {
+    }
 
    showDialog(waiverDebitNote: WaiverDebitNote) {
         console.log("DebitNote for create item dialog "+ waiverDebitNote.debitNote.referenceNo);

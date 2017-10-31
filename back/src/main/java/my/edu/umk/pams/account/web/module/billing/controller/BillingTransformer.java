@@ -570,6 +570,7 @@ public class BillingTransformer {
     public WaiverInvoice toWaiverInvoiceVo(AcWaiverInvoice r) {
     	
     	WaiverInvoice vo = new WaiverInvoice();
+    	vo.setId(r.getId());
     	vo.setWaiverFinanceApplication(billingTransformer.toWaiverFinanceApplicationVo(r.getWaiverFinanceApplication()));
     	vo.setInvoice(billingTransformer.toInvoiceVo(r.getInvoice()));
         return vo;
@@ -578,6 +579,7 @@ public class BillingTransformer {
     public WaiverAccountCharge toWaiverAccountChargeVo(AcWaiverAccountCharge r) {
     	
     	WaiverAccountCharge vo = new WaiverAccountCharge();
+    	vo.setId(r.getId());
     	vo.setWaiverFinanceApplication(billingTransformer.toWaiverFinanceApplicationVo(r.getWaiverFinanceApplication()));
     	vo.setAccountCharge(accountTransformer.toAccountChargeVo(r.getAccountCharge()));
         return vo;
@@ -586,6 +588,7 @@ public class BillingTransformer {
     public WaiverDebitNote toWaiverDebitNoteVo(AcWaiverDebitNote r) {
     	
     	WaiverDebitNote vo = new WaiverDebitNote();
+    	vo.setId(r.getId());
     	vo.setWaiverFinanceApplication(billingTransformer.toWaiverFinanceApplicationVo(r.getWaiverFinanceApplication()));
     	vo.setDebitNote(billingTransformer.toDebitNoteVo(r.getDebitNote()));
         return vo;

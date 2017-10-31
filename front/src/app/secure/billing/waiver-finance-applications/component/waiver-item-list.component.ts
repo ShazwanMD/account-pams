@@ -60,12 +60,14 @@ export class WaiverItemListComponent implements OnInit {
       this.editorDialogRef.componentInstance.waiverItem = waiverItem;
     }
 
-/*  delete(): void {
-    console.log('length: ' + this.selectedRows.length);
-    for (let i = 0; i < this.selectedRows.length; i++) {
-      this.store.dispatch(this.actions.deleteReceiptItem(this.receipt, this.selectedRows[i]));
+  delete(): void {
+      console.log('length: ' + this.selectedRows.length);
+      for (let i: number = 0; i < this.selectedRows.length; i++) {
+        this.store.dispatch(this.actions.deleteWaiverItem(this.waiverFinanceApplication, this.selectedRows[i]));
+        console.log("selected rows receipt invoice" + this.selectedRows[i].invoice.referenceNo)
+      }
+      this.selectedRows = [];
     }
-  }*/
 
   filter(): void {
   }

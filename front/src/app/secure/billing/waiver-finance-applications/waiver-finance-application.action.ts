@@ -492,4 +492,76 @@ export class WaiverFinanceApplicationActions {
     };
   }
   
+  static DELETE_WAIVER_ACC_CHARGES = '[WaiverFinanceApplication] Delete Waiver Account Charges';
+
+  deleteWaiverAccCharges( waiverAccountCharge ): Action {
+      return {
+          type: WaiverFinanceApplicationActions.DELETE_WAIVER_ACC_CHARGES,
+          payload: waiverAccountCharge,
+      };
+  }
+
+  static DELETE_WAIVER_ACC_CHARGES_SUCCESS = '[WaiverFinanceApplication] Delete Waiver Account Charges Success';
+
+  deleteWaiverAccChargesSuccess( message ): Action {
+      return {
+          type: WaiverFinanceApplicationActions.DELETE_WAIVER_ACC_CHARGES_SUCCESS,
+          payload: message
+      };
+  }
+  
+  static DELETE_WAIVER_DEBIT_NOTE = '[WaiverFinanceApplication] Delete Waiver DEBIT NOTE';
+
+  deleteWaiverDebitNotes( waiverDebitNote ): Action {
+      return {
+          type: WaiverFinanceApplicationActions.DELETE_WAIVER_DEBIT_NOTE,
+          payload: waiverDebitNote,
+      };
+  }
+
+  static DELETE_WAIVER_DEBIT_NOTE_SUCCESS = '[WaiverFinanceApplication] Delete Waiver DEBIT NOTE Success';
+
+  deleteWaiverDebitNotesSuccess( message ): Action {
+      return {
+          type: WaiverFinanceApplicationActions.DELETE_WAIVER_DEBIT_NOTE_SUCCESS,
+          payload: message
+      };
+  }
+  
+  static DELETE_WAIVER_INVOICE = '[WaiverFinanceApplication] Delete Waiver INVOICE';
+
+  deleteWaiverInvoices( waiverInvoice ): Action {
+      return {
+          type: WaiverFinanceApplicationActions.DELETE_WAIVER_INVOICE,
+          payload: waiverInvoice,
+      };
+  }
+
+  static DELETE_WAIVER_INVOICE_SUCCESS = '[WaiverFinanceApplication] Delete Waiver INVOICE Success';
+
+  deleteWaiverInvoicesSuccess( message ): Action {
+      return {
+          type: WaiverFinanceApplicationActions.DELETE_WAIVER_INVOICE_SUCCESS,
+          payload: message
+      };
+  }
+  
+  static DELETE_WAIVER_ITEM = '[WaiverFinanceApplication] Delete Waiver ITEM';
+
+  deleteWaiverItem(waiverFinanceApplication, item): Action {
+      return {
+          type: WaiverFinanceApplicationActions.DELETE_WAIVER_ITEM,
+          payload: {waiverFinanceApplication: waiverFinanceApplication, item:item},
+      };
+  }
+
+  static DELETE_WAIVER_ITEM_SUCCESS = '[WaiverFinanceApplication] Delete Waiver ITEM Success';
+
+  deleteWaiverItemSuccess( message ): Action {
+      return {
+          type: WaiverFinanceApplicationActions.DELETE_WAIVER_ITEM_SUCCESS,
+          payload: message
+      };
+  }
+  
 }

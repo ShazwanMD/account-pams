@@ -3,6 +3,7 @@ import { AccountCharge } from '../account/account-charge.interface';
 import { Document } from '../../../core/document.interface';
 
 export interface WaiverAccountCharge extends Document {
+    id: number;
     accountCharge: AccountCharge;
     waiverApplication: WaiverFinanceApplication;
 

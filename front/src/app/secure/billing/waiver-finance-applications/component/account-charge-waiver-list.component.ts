@@ -15,6 +15,7 @@ import { AccountActions } from '../../../account/accounts/account.action';
 import { AccountModuleState } from '../../../account/index';
 import { AccountChargeWaiverDialog } from "../dialog/account-charge-waiver-creator.dialog";
 import { WaiverChargeCreatorDialog } from "../dialog/waiver-charge-creator.dialog";
+import { WaiverFinanceApplicationActions } from "../waiver-finance-application.action";
 
 @Component({
   selector: 'pams-account-charge-waiver-list',
@@ -26,6 +27,8 @@ export class AccountChargeWaiverListComponent {
     @Input() waiverAccountCharge: WaiverAccountCharge[];
     @Input() waiverFinanceApplication: WaiverFinanceApplication;
     @Output() view = new EventEmitter<WaiverAccountCharge>();
+    
+    private selectedRows: WaiverAccountCharge[];
     
     private editorDialogRef: MdDialogRef<AccountChargeWaiverDialog>;
     
@@ -39,6 +42,8 @@ export class AccountChargeWaiverListComponent {
 
   constructor(private snackBar: MdSnackBar,
               private viewContainerRef: ViewContainerRef,
+              private store: Store<BillingModuleState>,
+              private actions: WaiverFinanceApplicationActions,
               private dialog: MdDialog) {
   }
   
@@ -72,6 +77,24 @@ export class AccountChargeWaiverListComponent {
       this.editorDialogRef.afterClosed().subscribe((res) => {
         // no op
       });
+    }
+  
+  ngOnInit(): void {
+      this.selectedRows = this.waiverAccountCharge.filter((value) => value.selected);
+    }
+
+  delete(): void {
+      console.log('length: ' + this.selectedRows.length);
+      for (let i: number = 0; i < this.selectedRows.length; i++) {
+        this.store.dispatch(this.actions.deleteWaiverAccCharges(this.selectedRows[i]));
+      }
+      this.selectedRows = [];
+    }
+
+    selectRow(waiverAccountCharge: WaiverAccountCharge): void {
+    }
+
+    selectAllRows(waiverAccountCharge: WaiverAccountCharge[]): void {
     }
 
 }

@@ -1854,6 +1854,21 @@ public class BillingServiceImpl implements BillingService {
 	public AcWaiverFinanceApplication findWaiverFinanceApplicationById(Long id) {
 		return waiverFinanceApplicationDao.findById(id);
 	}
+	
+	@Override
+	public AcWaiverInvoice findWaiverInvoiceById(Long id) {
+		return waiverFinanceApplicationDao.findWaiverInvoiceById(id);
+	}
+    
+	@Override
+	public AcWaiverAccountCharge findWaiverAccChargeById(Long id) {
+		return waiverFinanceApplicationDao.findWaiverAccChargeById(id);
+	}
+    
+	@Override
+	public AcWaiverDebitNote findWaiverDebitNoteById(Long id) {
+		return waiverFinanceApplicationDao.findWaiverDebitNoteById(id);
+	}
 
 	@Override
 	public AcWaiverFinanceApplication findWaiverFinanceApplicationByReferenceNo(String referenceNo) {
@@ -1942,6 +1957,34 @@ public class BillingServiceImpl implements BillingService {
 		
 		waiverItem.setTotalAmount(waiverItem.getDueAmount().subtract(waiverItem.getAppliedAmount()));
 		waiverFinanceApplicationDao.updateItem(waiver, waiverItem, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+		
+		waiver.setGracedAmount(waiver.getEffectiveBalance().subtract(waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser())));
+		waiverFinanceApplicationDao.update(waiver, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+	
+	@Override
+	public void deleteWaiverInvoice(AcWaiverInvoice waiverInvoice) {
+		waiverFinanceApplicationDao.deleteWaiverInvoice(waiverInvoice, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+    
+	@Override
+	public void deleteWaiverAccountCharge(AcWaiverAccountCharge waiverAccCharge) {
+		waiverFinanceApplicationDao.deleteWaiverAccountCharge(waiverAccCharge, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+    
+	@Override
+	public void deleteWaiverDebitNote(AcWaiverDebitNote waiverDebitNote) {
+		waiverFinanceApplicationDao.deleteWaiverDebitNote(waiverDebitNote, securityService.getCurrentUser());
+		sessionFactory.getCurrentSession().flush();
+	}
+    
+	@Override
+	public void deleteWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item) {
+		waiverFinanceApplicationDao.deleteWaiverItem(waiver, item, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 		
 		waiver.setGracedAmount(waiver.getEffectiveBalance().subtract(waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser())));

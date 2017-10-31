@@ -6,17 +6,23 @@
     <button md-button class="md-icon-button" (click)="create()">
       <md-icon class="md-24 tc-grey-700">add</md-icon>
     </button>
+    <button md-button class="md-icon-button" (click)="delete()">
+      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length > 0}">delete</md-icon>
+    </button>
     </div>
     </md-card>
 <td-data-table
   [data]="waiverInvoice"
   [columns]="columns"
-  [sortBy]="summary"
-  [sortOrder]="ASC"
-  [sortable]="false"
-  [multiple]="false"
-  [selectable]="false"
-  (rowSelect)="view.emit($event)" dense>
+    [sortBy]="summary"
+    [sortOrder]="ASC"
+    [sortable]="false"
+    [multiple]="true"
+    [selectable]="true"
+    [(ngModel)]="selectedRows"
+    (rowSelect)="selectRow($event)"
+    (selectAll)="selectAllRows($event)"
+    dense>
   <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <span flex>{{value}}</span>

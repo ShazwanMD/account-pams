@@ -881,6 +881,26 @@ updateWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplicatio
           .map(( res: Response ) => <WaiverItem[]>res.json() );
   } 
   
+  deleteWaiverDebitNotes( waiverDebitNote: WaiverDebitNote ): Observable<String> {
+      return this._http.delete( this.BILLING_API + '/waiverDebitNotes/' + waiverDebitNote.id )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
+
+  deleteWaiverInvoices( waiverInvoice: WaiverInvoice ): Observable<String> {
+      return this._http.delete( this.BILLING_API + '/waiverInvoices/' + waiverInvoice.id )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
+  
+  deleteWaiverAccCharges( waiverAccountCharge: WaiverAccountCharge ): Observable<String> {
+      return this._http.delete( this.BILLING_API + '/waiverAccCharges/' + waiverAccountCharge.id )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  } 
+  
+  deleteWaiverItem( waiverFinanceApplication: WaiverFinanceApplication, item: WaiverItem ): Observable<String> {
+      return this._http.delete( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo +  '/waiverItems/' + item.id )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  } 
+  
     // ====================================================================================================
     // REFUND PAYMENT
     // ==================================================================================================== 

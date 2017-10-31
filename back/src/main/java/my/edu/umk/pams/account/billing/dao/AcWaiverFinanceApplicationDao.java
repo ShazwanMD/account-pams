@@ -3,6 +3,8 @@ package my.edu.umk.pams.account.billing.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcChargeCode;
@@ -13,9 +15,11 @@ import my.edu.umk.pams.account.billing.model.AcReceiptAccountCharge;
 import my.edu.umk.pams.account.billing.model.AcReceiptDebitNote;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcWaiverAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcWaiverAccountChargeImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverDebitNote;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.model.AcWaiverInvoice;
+import my.edu.umk.pams.account.billing.model.AcWaiverInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcWaiverItem;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
@@ -29,6 +33,12 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
     // ====================================================================================================
 	
 	AcWaiverItem findItemById(Long id);
+	
+    AcWaiverInvoice findWaiverInvoiceById(Long id);
+    
+    AcWaiverAccountCharge findWaiverAccChargeById(Long id);
+    
+    AcWaiverDebitNote findWaiverDebitNoteById(Long id);
 	
 	AcWaiverFinanceApplication findByReferenceNo(String referenceNo);
 	
@@ -63,6 +73,14 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
 	void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item, AcUser user);
 	
 	void updateItem(AcWaiverFinanceApplication waiver, AcWaiverItem waiverItem, AcUser user);
+	
+    void deleteWaiverInvoice(AcWaiverInvoice waiverInvoice, AcUser user);
+    
+    void deleteWaiverAccountCharge(AcWaiverAccountCharge waiverAccCharge, AcUser user);
+    
+    void deleteWaiverDebitNote(AcWaiverDebitNote waiverDebitNote, AcUser user);
+    
+    void deleteWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item, AcUser user);
 	
 	BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver, AcUser user);
 	

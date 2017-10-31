@@ -20,6 +20,10 @@ import my.edu.umk.pams.account.billing.model.AcDebitNote;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
+import my.edu.umk.pams.account.billing.model.AcKnockoffAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcKnockoffAccountChargeImpl;
+import my.edu.umk.pams.account.billing.model.AcKnockoffDebitNote;
+import my.edu.umk.pams.account.billing.model.AcKnockoffDebitNoteImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
 import my.edu.umk.pams.account.billing.model.AcKnockoffInvoiceImpl;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
@@ -67,6 +71,24 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
     public AcWaiverItem findItemById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return (AcWaiverItem) session.get(AcWaiverItemImpl.class, id);
+    }
+    
+    @Override
+    public AcWaiverInvoice findWaiverInvoiceById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcWaiverInvoice) session.get(AcWaiverInvoiceImpl.class, id);
+    }
+    
+    @Override
+    public AcWaiverAccountCharge findWaiverAccChargeById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcWaiverAccountCharge) session.get(AcWaiverAccountChargeImpl.class, id);
+    }
+    
+    @Override
+    public AcWaiverDebitNote findWaiverDebitNoteById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (AcWaiverDebitNote) session.get(AcWaiverDebitNoteImpl.class, id);
     }
     
     @Override
@@ -320,6 +342,43 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
         waiverItem.setMetadata(metadata);
 
         session.update(waiverItem);
+    }
+    
+    @Override
+    public void deleteWaiverInvoice(AcWaiverInvoice waiverInvoice, AcUser user) {
+        Validate.notNull(waiverInvoice, "waiver Invoice cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(waiverInvoice);
+    }
+    
+    @Override
+    public void deleteWaiverAccountCharge(AcWaiverAccountCharge waiverAccCharge, AcUser user) {
+    	Validate.notNull(waiverAccCharge, "waiver Acc Charge cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(waiverAccCharge);
+    }
+    
+    @Override
+    public void deleteWaiverDebitNote(AcWaiverDebitNote waiverDebitNote, AcUser user) {
+    	Validate.notNull(waiverDebitNote, "waiver debit note cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(waiverDebitNote);
+    }
+    
+    @Override
+    public void deleteWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item, AcUser user) {
+        Validate.notNull(waiver, "waiver cannot be null");
+        Validate.notNull(item, "item cannot be null");
+        Validate.notNull(user, "User cannot be null");
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(item);
     }
     
     @Override

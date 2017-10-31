@@ -525,6 +525,12 @@ public interface BillingService {
     // ==================================================================================================== //
 	
 	AcWaiverFinanceApplication findWaiverFinanceApplicationById(Long id);
+	
+	AcWaiverInvoice findWaiverInvoiceById(Long id);
+    
+	AcWaiverAccountCharge findWaiverAccChargeById(Long id);
+    
+	AcWaiverDebitNote findWaiverDebitNoteById(Long id);
 
 	AcWaiverFinanceApplication findWaiverFinanceApplicationByReferenceNo(String referenceNo);
 	
@@ -559,6 +565,14 @@ public interface BillingService {
 	void updateWaiver(AcWaiverFinanceApplication waiver);
 	
 	void updateWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem waiverItem);
+	
+    void deleteWaiverInvoice(AcWaiverInvoice waiverInvoice);
+    
+    void deleteWaiverAccountCharge(AcWaiverAccountCharge waiverAccCharge);
+    
+    void deleteWaiverDebitNote(AcWaiverDebitNote waiverDebitNote);
+    
+    void deleteWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item);
 	
     List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver);
     

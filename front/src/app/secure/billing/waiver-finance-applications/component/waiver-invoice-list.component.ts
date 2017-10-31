@@ -25,6 +25,8 @@ export class WaiverInvoiceListComponent implements OnInit {
     @Input() waiverFinanceApplication: WaiverFinanceApplication;
     @Output() view = new EventEmitter<WaiverInvoice>();
     
+    private selectedRows: WaiverInvoice[];
+    
   private columns: any[] = [
     {name: 'invoice.referenceNo', label: 'Reference No'},
     {name: 'invoice.description', label: 'Description'},
@@ -75,7 +77,21 @@ export class WaiverInvoiceListComponent implements OnInit {
       }
 
     ngOnInit(): void {
-
+        this.selectedRows = this.waiverInvoice.filter((value) => value.selected);
       }
 
+    delete(): void {
+        console.log('length: ' + this.selectedRows.length);
+        for (let i: number = 0; i < this.selectedRows.length; i++) {
+          this.store.dispatch(this.actions.deleteWaiverInvoices(this.selectedRows[i]));
+          console.log("selected rows receipt invoice" + this.selectedRows[i].invoice.referenceNo)
+        }
+        this.selectedRows = [];
+      }
+
+      selectRow(waiverInvoice: WaiverInvoice): void {
+      }
+
+      selectAllRows(waiverInvoice: WaiverInvoice[]): void {
+      }
 }
