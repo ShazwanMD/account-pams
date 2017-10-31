@@ -33,7 +33,7 @@ export class ArchivedInvoiceListComponent implements OnChanges {
     { name: 'flowState', label: 'Status' },
     { name: 'creatorUsername', label: 'Creator' },
     { name: 'createdDate', label: 'Created Date' },
-    { name: 'paid', label: 'Status' },
+    { name: 'paid', label: 'Payment Status' },
     { name: 'action', label: '' },
   ];
 
