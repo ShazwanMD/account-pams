@@ -210,12 +210,18 @@ public class BillingServiceImpl implements BillingService {
 	public void updateInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
 		invoiceDao.updateItem(invoice, invoiceItem, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
+		
+		invoice.setBalanceAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
+		billingService.updateInvoice(invoice);
 	}
 
 	@Override
 	public void deleteInvoiceItem(AcInvoice invoice, AcInvoiceItem invoiceItem) {
 		invoiceDao.deleteItem(invoice, invoiceItem, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
+		
+		invoice.setBalanceAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
+		billingService.updateInvoice(invoice);
 	}
 
 	@Override
