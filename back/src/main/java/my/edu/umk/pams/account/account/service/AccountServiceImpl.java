@@ -317,12 +317,18 @@ public class AccountServiceImpl implements AccountService {
     public void updateFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item) {
         feeScheduleDao.updateItem(schedule, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
+        
+        schedule.setTotalAmount(feeScheduleDao.sumTotalAmount(schedule, securityService.getCurrentUser()));
+        accountService.updateFeeSchedule(schedule);
     }
 
     @Override
     public void deleteFeeScheduleItem(AcFeeSchedule schedule, AcFeeScheduleItem item) {
         feeScheduleDao.deleteItem(schedule, item, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
+        
+        schedule.setTotalAmount(feeScheduleDao.sumTotalAmount(schedule, securityService.getCurrentUser()));
+        accountService.updateFeeSchedule(schedule);
     }
 
     @Override
