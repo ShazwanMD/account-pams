@@ -2053,7 +2053,7 @@ public class BillingServiceImpl implements BillingService {
 			
 		}
 		
-		waiver.setGracedAmount(waiver.getGracedAmount().subtract(waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser())));
+		waiver.setGracedAmount(waiver.getWaivedAmount().subtract(waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser())));
 
 	}
 	
