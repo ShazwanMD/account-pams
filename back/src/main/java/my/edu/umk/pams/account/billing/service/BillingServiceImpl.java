@@ -211,6 +211,7 @@ public class BillingServiceImpl implements BillingService {
 		invoiceDao.updateItem(invoice, invoiceItem, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 		
+		invoice.setTotalAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
 		invoice.setBalanceAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
 		billingService.updateInvoice(invoice);
 	}
@@ -220,6 +221,7 @@ public class BillingServiceImpl implements BillingService {
 		invoiceDao.deleteItem(invoice, invoiceItem, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 		
+		invoice.setTotalAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
 		invoice.setBalanceAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
 		billingService.updateInvoice(invoice);
 	}

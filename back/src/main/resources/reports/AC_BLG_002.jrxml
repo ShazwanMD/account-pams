@@ -9,407 +9,61 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-     ac_actr."id" AS ac_actr_id,
-     ac_actr."actor_type" AS ac_actr_actor_type,
-     ac_actr."address" AS ac_actr_address,
-     ac_actr."email" AS ac_actr_email,
-     ac_actr."fax" AS ac_actr_fax,
-     ac_actr."identity_no" AS ac_actr_identity_no,
-     ac_actr."c_ts" AS ac_actr_c_ts,
-     ac_actr."c_id" AS ac_actr_c_id,
-     ac_actr."d_ts" AS ac_actr_d_ts,
-     ac_actr."d_id" AS ac_actr_d_id,
-     ac_actr."m_ts" AS ac_actr_m_ts,
-     ac_actr."m_id" AS ac_actr_m_id,
-     ac_actr."m_st" AS ac_actr_m_st,
-     ac_actr."mobile" AS ac_actr_mobile,
-     ac_actr."name" AS ac_actr_name,
-     ac_actr."phone" AS ac_actr_phone,
-     ac_prgm_code."id" AS ac_prgm_code_id,
-     ac_prgm_code."code" AS ac_prgm_code_code,
-     ac_prgm_code."description" AS ac_prgm_code_description,
-     ac_prgm_code."c_ts" AS ac_prgm_code_c_ts,
-     ac_prgm_code."c_id" AS ac_prgm_code_c_id,
-     ac_prgm_code."d_ts" AS ac_prgm_code_d_ts,
-     ac_prgm_code."d_id" AS ac_prgm_code_d_id,
-     ac_prgm_code."m_ts" AS ac_prgm_code_m_ts,
-     ac_prgm_code."m_id" AS ac_prgm_code_m_id,
-     ac_prgm_code."m_st" AS ac_prgm_code_m_st,
-     ac_prgm_code."faculty_code_id" AS ac_prgm_code_faculty_code_id,
-     ac_fcty_code."id" AS ac_fcty_code_id,
-     ac_fcty_code."code" AS ac_fcty_code_code,
-     ac_fcty_code."description" AS ac_fcty_code_description,
-     ac_fcty_code."c_ts" AS ac_fcty_code_c_ts,
-     ac_fcty_code."c_id" AS ac_fcty_code_c_id,
-     ac_fcty_code."d_ts" AS ac_fcty_code_d_ts,
-     ac_fcty_code."d_id" AS ac_fcty_code_d_id,
-     ac_fcty_code."m_ts" AS ac_fcty_code_m_ts,
-     ac_fcty_code."m_id" AS ac_fcty_code_m_id,
-     ac_fcty_code."m_st" AS ac_fcty_code_m_st,
-     ac_acct."id" AS ac_acct_id,
-     ac_acct."code" AS ac_acct_code,
-     ac_acct."description" AS ac_acct_description,
-     ac_acct."c_ts" AS ac_acct_c_ts,
-     ac_acct."c_id" AS ac_acct_c_id,
-     ac_acct."d_ts" AS ac_acct_d_ts,
-     ac_acct."d_id" AS ac_acct_d_id,
-     ac_acct."m_ts" AS ac_acct_m_ts,
-     ac_acct."m_id" AS ac_acct_m_id,
-     ac_acct."m_st" AS ac_acct_m_st,
-     ac_acct."actor_id" AS ac_acct_actor_id,
-     ac_acdm_sesn."id" AS ac_acdm_sesn_id,
-     ac_acdm_sesn."code" AS ac_acdm_sesn_code,
-     ac_acdm_sesn."current_" AS ac_acdm_sesn_current_,
-     ac_acdm_sesn."description" AS ac_acdm_sesn_description,
-     ac_acdm_sesn."end_date" AS ac_acdm_sesn_end_date,
-     ac_acdm_sesn."c_ts" AS ac_acdm_sesn_c_ts,
-     ac_acdm_sesn."c_id" AS ac_acdm_sesn_c_id,
-     ac_acdm_sesn."d_ts" AS ac_acdm_sesn_d_ts,
-     ac_acdm_sesn."d_id" AS ac_acdm_sesn_d_id,
-     ac_acdm_sesn."m_ts" AS ac_acdm_sesn_m_ts,
-     ac_acdm_sesn."m_id" AS ac_acdm_sesn_m_id,
-     ac_acdm_sesn."m_st" AS ac_acdm_sesn_m_st,
-     ac_acdm_sesn."start_date" AS ac_acdm_sesn_start_date,
-     ac_stdn."student_status" AS ac_stdn_student_status,
-     ac_stdn."id" AS ac_stdn_id,
-     ac_stdn."cohort_code_id" AS ac_stdn_cohort_code_id,
-     ac_stdn."residency_code_id" AS ac_stdn_residency_code_id,
-     ac_chrt_code."id" AS ac_chrt_code_id,
-     ac_chrt_code."code" AS ac_chrt_code_code,
-     ac_chrt_code."description" AS ac_chrt_code_description,
-     ac_chrt_code."c_ts" AS ac_chrt_code_c_ts,
-     ac_chrt_code."c_id" AS ac_chrt_code_c_id,
-     ac_chrt_code."d_ts" AS ac_chrt_code_d_ts,
-     ac_chrt_code."d_id" AS ac_chrt_code_d_id,
-     ac_chrt_code."m_ts" AS ac_chrt_code_m_ts,
-     ac_chrt_code."m_id" AS ac_chrt_code_m_id,
-     ac_chrt_code."m_st" AS ac_chrt_code_m_st,
-     ac_chrt_code."program_code_id" AS ac_chrt_code_program_code_id,
-     ac_acct_chrg_trsn."id" AS ac_acct_chrg_trsn_id,
-     ac_acct_chrg_trsn."amount" AS ac_acct_chrg_trsn_amount,
-     ac_acct_chrg_trsn."description" AS ac_acct_chrg_trsn_description,
-     ac_acct_chrg_trsn."c_ts" AS ac_acct_chrg_trsn_c_ts,
-     ac_acct_chrg_trsn."c_id" AS ac_acct_chrg_trsn_c_id,
-     ac_acct_chrg_trsn."d_ts" AS ac_acct_chrg_trsn_d_ts,
-     ac_acct_chrg_trsn."d_id" AS ac_acct_chrg_trsn_d_id,
-     ac_acct_chrg_trsn."m_ts" AS ac_acct_chrg_trsn_m_ts,
-     ac_acct_chrg_trsn."m_id" AS ac_acct_chrg_trsn_m_id,
-     ac_acct_chrg_trsn."m_st" AS ac_acct_chrg_trsn_m_st,
-     ac_acct_chrg_trsn."posted_date" AS ac_acct_chrg_trsn_posted_date,
-     ac_acct_chrg_trsn."source_no" AS ac_acct_chrg_trsn_source_no,
-     ac_acct_chrg_trsn."transaction_code" AS ac_acct_chrg_trsn_transaction_code,
-     ac_acct_chrg_trsn."account_id" AS ac_acct_chrg_trsn_account_id,
-     ac_acct_chrg_trsn."charge_id" AS ac_acct_chrg_trsn_charge_id,
-     ac_acct_chrg_trsn."session_id" AS ac_acct_chrg_trsn_session_id,
-     ac_acct_chrg."id" AS ac_acct_chrg_id,
-     ac_acct_chrg."amount" AS ac_acct_chrg_amount,
-     ac_acct_chrg."net_amount" AS ac_acct_chrg_net_amount,
-     ac_acct_chrg."tax_amount" AS ac_acct_chrg_tax_amount,
-     ac_acct_chrg."balance_amount" AS ac_acct_chrg_balance_amount,
-     ac_acct_chrg."inclusive" AS ac_acct_chrg_inclusive,
-     ac_acct_chrg."paid" AS ac_acct_chrg_paid,
-     ac_acct_chrg."charge_date" AS ac_acct_chrg_charge_date,
-     ac_acct_chrg."charge_type" AS ac_acct_chrg_charge_type,
-     ac_acct_chrg."code" AS ac_acct_chrg_code,
-     ac_acct_chrg."description" AS ac_acct_chrg_description,
-     ac_acct_chrg."c_ts" AS ac_acct_chrg_c_ts,
-     ac_acct_chrg."c_id" AS ac_acct_chrg_c_id,
-     ac_acct_chrg."d_ts" AS ac_acct_chrg_d_ts,
-     ac_acct_chrg."d_id" AS ac_acct_chrg_d_id,
-     ac_acct_chrg."m_ts" AS ac_acct_chrg_m_ts,
-     ac_acct_chrg."m_id" AS ac_acct_chrg_m_id,
-     ac_acct_chrg."m_st" AS ac_acct_chrg_m_st,
-     ac_acct_chrg."ordinal" AS ac_acct_chrg_ordinal,
-     ac_acct_chrg."reference_no" AS ac_acct_chrg_reference_no,
-     ac_acct_chrg."source_no" AS ac_acct_chrg_source_no,
-     ac_acct_chrg."account_id" AS ac_acct_chrg_account_id,
-     ac_acct_chrg."cohort_code_id" AS ac_acct_chrg_cohort_code_id,
-     ac_acct_chrg."invoice_id" AS ac_acct_chrg_invoice_id,
-     ac_acct_chrg."session_id" AS ac_acct_chrg_session_id,
-     ac_acct_chrg."study_mode_id" AS ac_acct_chrg_study_mode_id,
-     ac_acct_chrg."security_charge_code_id" AS ac_acct_chrg_security_charge_code_id,
-     ac_acct_chrg."tax_code_id" AS ac_acct_chrg_tax_code_id,
-     ac_acct_chrg."av_ts" AS ac_acct_chrg_av_ts,
-     ac_acct_chrg."av_id" AS ac_acct_chrg_av_id,
-     ac_acct_chrg."cl_id" AS ac_acct_chrg_cl_id,
-     ac_acct_chrg."cl_ts" AS ac_acct_chrg_cl_ts,
-     ac_acct_chrg."ck_ts" AS ac_acct_chrg_ck_ts,
-     ac_acct_chrg."ck_id" AS ac_acct_chrg_ck_id,
-     ac_acct_chrg."dt_ts" AS ac_acct_chrg_dt_ts,
-     ac_acct_chrg."dt_id" AS ac_acct_chrg_dt_id,
-     ac_acct_chrg."ev_ts" AS ac_acct_chrg_ev_ts,
-     ac_acct_chrg."ev_id" AS ac_acct_chrg_ev_id,
-     ac_acct_chrg."pr_ts" AS ac_acct_chrg_pr_ts,
-     ac_acct_chrg."pr_id" AS ac_acct_chrg_pr_id,
-     ac_acct_chrg."ps_ts" AS ac_acct_chrg_ps_ts,
-     ac_acct_chrg."ps_id" AS ac_acct_chrg_ps_id,
-     ac_acct_chrg."rg_ts" AS ac_acct_chrg_rg_ts,
-     ac_acct_chrg."rg_id" AS ac_acct_chrg_rg_id,
-     ac_acct_chrg."rm_ts" AS ac_acct_chrg_rm_ts,
-     ac_acct_chrg."rm_id" AS ac_acct_chrg_rm_id,
-     ac_acct_chrg."rq_ts" AS ac_acct_chrg_rq_ts,
-     ac_acct_chrg."rq_id" AS ac_acct_chrg_rq_id,
-     ac_acct_chrg."sl_ts" AS ac_acct_chrg_sl_ts,
-     ac_acct_chrg."sl_id" AS ac_acct_chrg_sl_id,
-     ac_acct_chrg."fd_st" AS ac_acct_chrg_fd_st,
-     ac_acct_chrg."up_ts" AS ac_acct_chrg_up_ts,
-     ac_acct_chrg."up_id" AS ac_acct_chrg_up_id,
-     ac_acct_chrg."uv_ts" AS ac_acct_chrg_uv_ts,
-     ac_acct_chrg."uv_id" AS ac_acct_chrg_uv_id,
-     ac_acct_chrg."vf_ts" AS ac_acct_chrg_vf_ts,
-     ac_acct_chrg."vf_id" AS ac_acct_chrg_vf_id,
-     ac_stdy_mode."id" AS ac_stdy_mode_id,
-     ac_stdy_mode."code" AS ac_stdy_mode_code,
-     ac_stdy_mode."description_en" AS ac_stdy_mode_description_en,
-     ac_stdy_mode."description_ms" AS ac_stdy_mode_description_ms,
-     ac_stdy_mode."c_ts" AS ac_stdy_mode_c_ts,
-     ac_stdy_mode."c_id" AS ac_stdy_mode_c_id,
-     ac_stdy_mode."d_ts" AS ac_stdy_mode_d_ts,
-     ac_stdy_mode."d_id" AS ac_stdy_mode_d_id,
-     ac_stdy_mode."m_ts" AS ac_stdy_mode_m_ts,
-     ac_stdy_mode."m_id" AS ac_stdy_mode_m_id,
-     ac_stdy_mode."m_st" AS ac_stdy_mode_m_st,
-     ac_stdy_mode."prefix" AS ac_stdy_mode_prefix,
-     ac_scty_chrg_code."id" AS ac_scty_chrg_code_id,
-     ac_scty_chrg_code."active" AS ac_scty_chrg_code_active,
-     ac_scty_chrg_code."amount" AS ac_scty_chrg_code_amount,
-     ac_scty_chrg_code."net_amount" AS ac_scty_chrg_code_net_amount,
-     ac_scty_chrg_code."tax_amount" AS ac_scty_chrg_code_tax_amount,
-     ac_scty_chrg_code."balance_amount" AS ac_scty_chrg_code_balance_amount,
-     ac_scty_chrg_code."inclusive" AS ac_scty_chrg_code_inclusive,
-     ac_scty_chrg_code."amount_description" AS ac_scty_chrg_code_amount_description,
-     ac_scty_chrg_code."description" AS ac_scty_chrg_code_description,
-     ac_scty_chrg_code."c_ts" AS ac_scty_chrg_code_c_ts,
-     ac_scty_chrg_code."c_id" AS ac_scty_chrg_code_c_id,
-     ac_scty_chrg_code."d_ts" AS ac_scty_chrg_code_d_ts,
-     ac_scty_chrg_code."d_id" AS ac_scty_chrg_code_d_id,
-     ac_scty_chrg_code."m_ts" AS ac_scty_chrg_code_m_ts,
-     ac_scty_chrg_code."m_id" AS ac_scty_chrg_code_m_id,
-     ac_scty_chrg_code."m_st" AS ac_scty_chrg_code_m_st,
-     ac_scty_chrg_code."offense" AS ac_scty_chrg_code_offense,
-     ac_scty_chrg_code."offense_description" AS ac_scty_chrg_code_offense_description,
-     ac_scty_chrg_code."section" AS ac_scty_chrg_code_section,
-     ac_scty_chrg_code."tax_code_id" AS ac_scty_chrg_code_tax_code_id,
-     ac_tax_code."id" AS ac_tax_code_id,
-     ac_tax_code."code" AS ac_tax_code_code,
-     ac_tax_code."description" AS ac_tax_code_description,
-     ac_tax_code."c_ts" AS ac_tax_code_c_ts,
-     ac_tax_code."c_id" AS ac_tax_code_c_id,
-     ac_tax_code."d_ts" AS ac_tax_code_d_ts,
-     ac_tax_code."d_id" AS ac_tax_code_d_id,
-     ac_tax_code."m_ts" AS ac_tax_code_m_ts,
-     ac_tax_code."m_id" AS ac_tax_code_m_id,
-     ac_tax_code."m_st" AS ac_tax_code_m_st,
-     ac_tax_code."tax_rate" AS ac_tax_code_tax_rate
-FROM
-     "public"."ac_fcty_code" ac_fcty_code INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_fcty_code."id" = ac_prgm_code."faculty_code_id"
-     INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_prgm_code."id" = ac_chrt_code."program_code_id"
-     INNER JOIN "public"."ac_stdn" ac_stdn ON ac_chrt_code."id" = ac_stdn."cohort_code_id"
-     INNER JOIN "public"."ac_acct_chrg" ac_acct_chrg ON ac_chrt_code."id" = ac_acct_chrg."cohort_code_id"
-     INNER JOIN "public"."ac_acct" ac_acct ON ac_acct_chrg."account_id" = ac_acct."id"
-     INNER JOIN "public"."ac_acdm_sesn" ac_acdm_sesn ON ac_acct_chrg."session_id" = ac_acdm_sesn."id"
-     INNER JOIN "public"."ac_acct_chrg_trsn" ac_acct_chrg_trsn ON ac_acct_chrg."id" = ac_acct_chrg_trsn."charge_id"
-     INNER JOIN "public"."ac_stdy_mode" ac_stdy_mode ON ac_acct_chrg."study_mode_id" = ac_stdy_mode."id"
-     INNER JOIN "public"."ac_scty_chrg_code" ac_scty_chrg_code ON ac_acct_chrg."security_charge_code_id" = ac_scty_chrg_code."id"
-     INNER JOIN "public"."ac_tax_code" ac_tax_code ON ac_acct_chrg."tax_code_id" = ac_tax_code."id"
-     AND ac_tax_code."id" = ac_scty_chrg_code."tax_code_id"
-     AND ac_acdm_sesn."id" = ac_acct_chrg_trsn."session_id"
-     AND ac_acct."id" = ac_acct_chrg_trsn."account_id"
-     INNER JOIN "public"."ac_actr" ac_actr ON ac_acct."actor_id" = ac_actr."id"
-     AND ac_stdn."id" = ac_actr."id"]]>
+
+ac_acct_chrg_trsn.amount as "ac_acct_chrg_trsn_amount",
+ac_acct_chrg_trsn.description as "ac_acct_chrg_trsn_description",
+ac_acct_chrg_trsn.posted_date as "ac_acct_chrg_trsn_posted_date",
+ac_acct_chrg_trsn.source_no as "ac_acct_chrg_trsn_source_no",
+ac_acct_chrg_trsn.account_id as "ac_acct_chrg_trsn_account_id",
+ac_acct_chrg_trsn.session_id as "ac_acct_chrg_trsn_session_id",
+ac_acct_chrg_trsn.charge_id as "ac_acct_chrg_trsn_charge_id",
+
+ac_actr.address as "ac_actr_address",
+ac_actr.name as "ac_actr_name",
+ac_actr.identity_no as "ac_actr_identity_no",
+
+ac_acdm_sesn.code as "ac_acdm_sesn_code",
+ac_acct_chrg.cohort_code_id as "ac_acct_chrg_cohort_code_id",
+ac_chrt_code.program_code_id as "ac_chrt_code_program_code_id",
+
+ac_prgm_code.description as "ac_prgm_code_description",
+ac_stdn.student_status as "ac_stdn_student_status",
+
+ac_acct.description as "ac_acct_description",
+ac_acct_chrg.study_mode_id as "ac_acct_chrg_study_mode_id",
+ac_acct_chrg.cohort_code_id as "ac_acct_chrg_cohort_code_id"
+
+from ac_acct_chrg_trsn
+
+inner join ac_acct on ac_acct_chrg_trsn.account_id = ac_acct.id
+inner join ac_actr on ac_acct.actor_id = ac_actr.id
+inner join ac_stdn on ac_actr.id = ac_stdn.id
+left outer join ac_grdn on ac_stdn.id = ac_grdn.id
+inner join ac_acdm_sesn on ac_acct_chrg_trsn.session_id = ac_acdm_sesn.id
+inner join ac_acct_chrg on ac_acct_chrg_trsn.charge_id = ac_acct_chrg.id
+left outer join ac_chrt_code on ac_acct_chrg.id =  ac_chrt_code.id
+and ac_acct.id = ac_acct_chrg.account_id
+
+inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id
+]]>
 	</queryString>
-	<field name="ac_actr_id" class="java.lang.Long"/>
-	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
-	<field name="ac_actr_address" class="java.lang.String"/>
-	<field name="ac_actr_email" class="java.lang.String"/>
-	<field name="ac_actr_fax" class="java.lang.String"/>
-	<field name="ac_actr_identity_no" class="java.lang.String"/>
-	<field name="ac_actr_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_actr_c_id" class="java.lang.Long"/>
-	<field name="ac_actr_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_actr_d_id" class="java.lang.Long"/>
-	<field name="ac_actr_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_actr_m_id" class="java.lang.Long"/>
-	<field name="ac_actr_m_st" class="java.lang.Integer"/>
-	<field name="ac_actr_mobile" class="java.lang.String"/>
-	<field name="ac_actr_name" class="java.lang.String"/>
-	<field name="ac_actr_phone" class="java.lang.String"/>
-	<field name="ac_prgm_code_id" class="java.lang.Long"/>
-	<field name="ac_prgm_code_code" class="java.lang.String"/>
-	<field name="ac_prgm_code_description" class="java.lang.String"/>
-	<field name="ac_prgm_code_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_prgm_code_c_id" class="java.lang.Long"/>
-	<field name="ac_prgm_code_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_prgm_code_d_id" class="java.lang.Long"/>
-	<field name="ac_prgm_code_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_prgm_code_m_id" class="java.lang.Long"/>
-	<field name="ac_prgm_code_m_st" class="java.lang.Integer"/>
-	<field name="ac_prgm_code_faculty_code_id" class="java.lang.Long"/>
-	<field name="ac_fcty_code_id" class="java.lang.Long"/>
-	<field name="ac_fcty_code_code" class="java.lang.String"/>
-	<field name="ac_fcty_code_description" class="java.lang.String"/>
-	<field name="ac_fcty_code_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_fcty_code_c_id" class="java.lang.Long"/>
-	<field name="ac_fcty_code_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_fcty_code_d_id" class="java.lang.Long"/>
-	<field name="ac_fcty_code_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_fcty_code_m_id" class="java.lang.Long"/>
-	<field name="ac_fcty_code_m_st" class="java.lang.Integer"/>
-	<field name="ac_acct_id" class="java.lang.Long"/>
-	<field name="ac_acct_code" class="java.lang.String"/>
-	<field name="ac_acct_description" class="java.lang.String"/>
-	<field name="ac_acct_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_c_id" class="java.lang.Long"/>
-	<field name="ac_acct_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_d_id" class="java.lang.Long"/>
-	<field name="ac_acct_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_m_id" class="java.lang.Long"/>
-	<field name="ac_acct_m_st" class="java.lang.Integer"/>
-	<field name="ac_acct_actor_id" class="java.lang.Long"/>
-	<field name="ac_acdm_sesn_id" class="java.lang.Long"/>
-	<field name="ac_acdm_sesn_code" class="java.lang.String"/>
-	<field name="ac_acdm_sesn_current_" class="java.lang.Boolean"/>
-	<field name="ac_acdm_sesn_description" class="java.lang.String"/>
-	<field name="ac_acdm_sesn_end_date" class="java.sql.Timestamp"/>
-	<field name="ac_acdm_sesn_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acdm_sesn_c_id" class="java.lang.Long"/>
-	<field name="ac_acdm_sesn_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acdm_sesn_d_id" class="java.lang.Long"/>
-	<field name="ac_acdm_sesn_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acdm_sesn_m_id" class="java.lang.Long"/>
-	<field name="ac_acdm_sesn_m_st" class="java.lang.Integer"/>
-	<field name="ac_acdm_sesn_start_date" class="java.sql.Timestamp"/>
-	<field name="ac_stdn_student_status" class="java.lang.Integer"/>
-	<field name="ac_stdn_id" class="java.lang.Long"/>
-	<field name="ac_stdn_cohort_code_id" class="java.lang.Long"/>
-	<field name="ac_stdn_residency_code_id" class="java.lang.Long"/>
-	<field name="ac_chrt_code_id" class="java.lang.Long"/>
-	<field name="ac_chrt_code_code" class="java.lang.String"/>
-	<field name="ac_chrt_code_description" class="java.lang.String"/>
-	<field name="ac_chrt_code_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_chrt_code_c_id" class="java.lang.Long"/>
-	<field name="ac_chrt_code_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_chrt_code_d_id" class="java.lang.Long"/>
-	<field name="ac_chrt_code_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_chrt_code_m_id" class="java.lang.Long"/>
-	<field name="ac_chrt_code_m_st" class="java.lang.Integer"/>
-	<field name="ac_chrt_code_program_code_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_trsn_id" class="java.lang.Long"/>
 	<field name="ac_acct_chrg_trsn_amount" class="java.math.BigDecimal"/>
 	<field name="ac_acct_chrg_trsn_description" class="java.lang.String"/>
-	<field name="ac_acct_chrg_trsn_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_trsn_c_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_trsn_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_trsn_d_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_trsn_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_trsn_m_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_trsn_m_st" class="java.lang.Integer"/>
 	<field name="ac_acct_chrg_trsn_posted_date" class="java.sql.Timestamp"/>
 	<field name="ac_acct_chrg_trsn_source_no" class="java.lang.String"/>
-	<field name="ac_acct_chrg_trsn_transaction_code" class="java.lang.Integer"/>
 	<field name="ac_acct_chrg_trsn_account_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_trsn_charge_id" class="java.lang.Long"/>
 	<field name="ac_acct_chrg_trsn_session_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_amount" class="java.math.BigDecimal"/>
-	<field name="ac_acct_chrg_net_amount" class="java.math.BigDecimal"/>
-	<field name="ac_acct_chrg_tax_amount" class="java.math.BigDecimal"/>
-	<field name="ac_acct_chrg_balance_amount" class="java.math.BigDecimal"/>
-	<field name="ac_acct_chrg_inclusive" class="java.lang.Boolean"/>
-	<field name="ac_acct_chrg_paid" class="java.lang.Boolean"/>
-	<field name="ac_acct_chrg_charge_date" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_charge_type" class="java.lang.Integer"/>
-	<field name="ac_acct_chrg_code" class="java.lang.String"/>
-	<field name="ac_acct_chrg_description" class="java.lang.String"/>
-	<field name="ac_acct_chrg_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_c_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_d_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_m_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_m_st" class="java.lang.Integer"/>
-	<field name="ac_acct_chrg_ordinal" class="java.lang.Integer"/>
-	<field name="ac_acct_chrg_reference_no" class="java.lang.String"/>
-	<field name="ac_acct_chrg_source_no" class="java.lang.String"/>
-	<field name="ac_acct_chrg_account_id" class="java.lang.Long"/>
+	<field name="ac_acct_chrg_trsn_charge_id" class="java.lang.Long"/>
+	<field name="ac_actr_address" class="java.lang.String"/>
+	<field name="ac_actr_name" class="java.lang.String"/>
+	<field name="ac_actr_identity_no" class="java.lang.String"/>
+	<field name="ac_acdm_sesn_code" class="java.lang.String"/>
 	<field name="ac_acct_chrg_cohort_code_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_invoice_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_session_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_program_code_id" class="java.lang.Long"/>
+	<field name="ac_prgm_code_description" class="java.lang.String"/>
+	<field name="ac_stdn_student_status" class="java.lang.Integer"/>
+	<field name="ac_acct_description" class="java.lang.String"/>
 	<field name="ac_acct_chrg_study_mode_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_security_charge_code_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_tax_code_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_av_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_av_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_cl_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_cl_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_ck_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_ck_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_dt_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_dt_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_ev_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_ev_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_pr_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_pr_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_ps_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_ps_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_rg_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_rg_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_rm_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_rm_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_rq_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_rq_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_sl_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_sl_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_fd_st" class="java.lang.Integer"/>
-	<field name="ac_acct_chrg_up_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_up_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_uv_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_uv_id" class="java.lang.Long"/>
-	<field name="ac_acct_chrg_vf_ts" class="java.sql.Timestamp"/>
-	<field name="ac_acct_chrg_vf_id" class="java.lang.Long"/>
-	<field name="ac_stdy_mode_id" class="java.lang.Long"/>
-	<field name="ac_stdy_mode_code" class="java.lang.String"/>
-	<field name="ac_stdy_mode_description_en" class="java.lang.String"/>
-	<field name="ac_stdy_mode_description_ms" class="java.lang.String"/>
-	<field name="ac_stdy_mode_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_stdy_mode_c_id" class="java.lang.Long"/>
-	<field name="ac_stdy_mode_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_stdy_mode_d_id" class="java.lang.Long"/>
-	<field name="ac_stdy_mode_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_stdy_mode_m_id" class="java.lang.Long"/>
-	<field name="ac_stdy_mode_m_st" class="java.lang.Integer"/>
-	<field name="ac_stdy_mode_prefix" class="java.lang.String"/>
-	<field name="ac_scty_chrg_code_id" class="java.lang.Long"/>
-	<field name="ac_scty_chrg_code_active" class="java.lang.Boolean"/>
-	<field name="ac_scty_chrg_code_amount" class="java.math.BigDecimal"/>
-	<field name="ac_scty_chrg_code_net_amount" class="java.math.BigDecimal"/>
-	<field name="ac_scty_chrg_code_tax_amount" class="java.math.BigDecimal"/>
-	<field name="ac_scty_chrg_code_balance_amount" class="java.math.BigDecimal"/>
-	<field name="ac_scty_chrg_code_inclusive" class="java.lang.Boolean"/>
-	<field name="ac_scty_chrg_code_amount_description" class="java.lang.String"/>
-	<field name="ac_scty_chrg_code_description" class="java.lang.String"/>
-	<field name="ac_scty_chrg_code_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_scty_chrg_code_c_id" class="java.lang.Long"/>
-	<field name="ac_scty_chrg_code_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_scty_chrg_code_d_id" class="java.lang.Long"/>
-	<field name="ac_scty_chrg_code_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_scty_chrg_code_m_id" class="java.lang.Long"/>
-	<field name="ac_scty_chrg_code_m_st" class="java.lang.Integer"/>
-	<field name="ac_scty_chrg_code_offense" class="java.lang.String"/>
-	<field name="ac_scty_chrg_code_offense_description" class="java.lang.String"/>
-	<field name="ac_scty_chrg_code_section" class="java.lang.String"/>
-	<field name="ac_scty_chrg_code_tax_code_id" class="java.lang.Long"/>
-	<field name="ac_tax_code_id" class="java.lang.Long"/>
-	<field name="ac_tax_code_code" class="java.lang.String"/>
-	<field name="ac_tax_code_description" class="java.lang.String"/>
-	<field name="ac_tax_code_c_ts" class="java.sql.Timestamp"/>
-	<field name="ac_tax_code_c_id" class="java.lang.Long"/>
-	<field name="ac_tax_code_d_ts" class="java.sql.Timestamp"/>
-	<field name="ac_tax_code_d_id" class="java.lang.Long"/>
-	<field name="ac_tax_code_m_ts" class="java.sql.Timestamp"/>
-	<field name="ac_tax_code_m_id" class="java.lang.Long"/>
-	<field name="ac_tax_code_m_st" class="java.lang.Integer"/>
-	<field name="ac_tax_code_tax_rate" class="java.math.BigDecimal"/>
 	<variable name="Balance_amount" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_acct_chrg_trsn_amount}]]></variableExpression>
 	</variable>
@@ -720,6 +374,33 @@ FROM
 	<detail>
 		<band height="20" splitType="Stretch">
 			<frame>
+				<reportElement x="30" y="0" width="90" height="20" uuid="9d64df78-c9a3-482e-8d7f-6f4992ea72c7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="0" y="0" width="30" height="20" uuid="849b6916-a13c-4e93-9452-a2bc064a4781"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="210" y="0" width="179" height="20" uuid="1d18aef6-0773-418d-9f17-a488991b5677"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<frame>
 				<reportElement x="499" y="0" width="56" height="20" uuid="c15abacc-7aa8-4ca3-ace3-be4079a0d64c"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -745,9 +426,16 @@ FROM
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
+				<textField>
+					<reportElement x="9" y="5" width="51" height="15" uuid="235867b9-0d33-4699-bb0d-b957b9a519fe"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount}.doubleValue() > new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_chrg_trsn_amount} : 0.00 )]]></textFieldExpression>
+				</textField>
 			</frame>
 			<textField>
-				<reportElement x="0" y="0" width="30" height="20" uuid="81e54de7-20bc-451d-a2e7-ed912a375514"/>
+				<reportElement x="0" y="5" width="30" height="15" uuid="81e54de7-20bc-451d-a2e7-ed912a375514"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -759,15 +447,6 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
-			<frame>
-				<reportElement x="0" y="0" width="30" height="20" uuid="849b6916-a13c-4e93-9452-a2bc064a4781"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
 			<textField>
 				<reportElement x="33" y="5" width="85" height="15" uuid="83d27195-8018-4938-b4bc-b26df2176ceb"/>
 				<textElement>
@@ -790,28 +469,12 @@ FROM
 				<textFieldExpression><![CDATA[$F{ac_acct_chrg_trsn_description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="398" y="0" width="51" height="20" uuid="235867b9-0d33-4699-bb0d-b957b9a519fe"/>
-				<textElement>
-					<font fontName="SansSerif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount}.doubleValue() > new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_chrg_trsn_amount} : 0.00 )]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="509" y="0" width="46" height="20" uuid="c58e854c-9872-4c90-8b1e-85b7e651c80a"/>
+				<reportElement x="509" y="5" width="46" height="15" uuid="c58e854c-9872-4c90-8b1e-85b7e651c80a"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Balance_amount}]]></textFieldExpression>
 			</textField>
-			<frame>
-				<reportElement x="30" y="0" width="90" height="20" uuid="9d64df78-c9a3-482e-8d7f-6f4992ea72c7"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
 			<frame>
 				<reportElement x="120" y="0" width="90" height="20" uuid="f924b94d-c93a-433b-b5de-821bb5ec77c9"/>
 				<box>
@@ -821,17 +484,8 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 			</frame>
-			<frame>
-				<reportElement x="210" y="0" width="179" height="20" uuid="1d18aef6-0773-418d-9f17-a488991b5677"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
 			<textField>
-				<reportElement x="458" y="0" width="41" height="20" uuid="4cb8e2eb-13e6-4973-b889-3ab73acefae5"/>
+				<reportElement x="458" y="5" width="41" height="15" uuid="4cb8e2eb-13e6-4973-b889-3ab73acefae5"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -851,14 +505,14 @@ FROM
 				<reportElement x="0" y="0" width="555" height="20" uuid="5334214d-267f-4086-85f6-5961a3a0756a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="398" y="0" width="71" height="14" uuid="d556b9c0-98cc-44cc-99ba-e30ad957814d"/>
+				<reportElement x="427" y="5" width="71" height="14" uuid="d556b9c0-98cc-44cc-99ba-e30ad957814d"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Total Balance :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="469" y="0" width="86" height="14" uuid="444ff3f5-ebcf-4cd1-b629-98d90cb6e535"/>
+				<reportElement x="509" y="5" width="46" height="14" uuid="444ff3f5-ebcf-4cd1-b629-98d90cb6e535"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>

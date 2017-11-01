@@ -22,63 +22,14 @@ export class HomePage implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     {
-      this.items = [{
-        title: 'Dashboard',
-        route: '/dashboard',
-        icon: 'dashboard',
+      this.items = [        {
+        title: 'Login Account',
+        route: '/login',
+        icon: 'assignment',
         color: 'blue-700',
         description: '',
-      },
-        {
-          title: 'Account',
-          route: '/account',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: '',
-        }
-        ,
-        {
-          title: 'Billing',
-          route: '/billing',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: '',
-        },
-        {
-          title: 'Financial Aid',
-          route: '/financialaid',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: '',
-        },
-        {
-          title: 'Marketing',
-          route: '/marketing',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: '',
-        },
-/*        {
-          title: 'Identities',
-          route: '/identity',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: ' ',
-        },
-        {
-          title: 'System',
-          route: '/system',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: ' ',
-        },*/
-        {
-          title: 'Setup',
-          route: '/setup',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: ' ',
-        },
+      }
+        
       ];
     }
   }
