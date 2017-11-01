@@ -45,9 +45,7 @@ left outer join ac_chrt_code on ac_acct_chrg.id =  ac_chrt_code.id
 and ac_acct.id = ac_acct_chrg.account_id
 
 inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id
-
-where ac_acct_chrg.cohort_code_id is null
-and ac_acct_chrg.study_mode_id is null;]]>
+]]>
 	</queryString>
 	<field name="ac_acct_chrg_trsn_amount" class="java.math.BigDecimal"/>
 	<field name="ac_acct_chrg_trsn_description" class="java.lang.String"/>
