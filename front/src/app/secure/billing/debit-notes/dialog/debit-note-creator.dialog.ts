@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {MdDialogRef} from '@angular/material';
@@ -33,14 +33,14 @@ export class DebitNoteCreatorDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group(<DebitNote>{
-      id: null,
-      description: '',
-      referenceNo: '',
-      sourceNo: '',
-      totalAmount: 0,
-      balanceAmount: 0,
-      debitNoteDate: undefined,
+    this.createForm = this.formBuilder.group({
+      id:[null],
+      description: ['',Validators.required],
+      referenceNo: [''],
+      sourceNo: [''],
+      totalAmount: [0],
+      balanceAmount:[0],
+      debitNoteDate:[undefined, Validators.required],
       chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     });
