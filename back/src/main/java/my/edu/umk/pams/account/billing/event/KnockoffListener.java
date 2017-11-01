@@ -84,9 +84,10 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 					billingService.updateInvoice(invoice);
 				}
 				
-				total = knockoffDao.sumAmount(invoice, knockoff, securityService.getCurrentUser());
+				total = total.add(knockoffDao.sumAmount(invoice, knockoff, securityService.getCurrentUser()));
 
 			}
+			BigDecimal totalCharge = BigDecimal.ZERO;
 			
 			List<AcAccountCharge> accountCharges = knockoff.getAccountCharges();
 			for (AcAccountCharge accountCharge : accountCharges) {
@@ -102,16 +103,9 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 					accountCharge.setPaid(true);
 					accountService.updateAccountCharge(knockoff.getPayments().getAccount(), accountCharge);
 				}
+				
+				totalCharge = totalCharge.add(knockoffDao.sumTotalAmount(knockoff, accountCharge, securityService.getCurrentUser()));
 
-				AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
-				tx.setSession(knockoff.getPayments().getSession());
-				tx.setPostedDate(new Date());
-				tx.setDescription(knockoff.getDescription());
-				tx.setSourceNo(knockoff.getReferenceNo());
-				tx.setTransactionCode(AcAccountChargeType.KNOCKOFF);
-				tx.setAccount(knockoff.getPayments().getAccount());
-				tx.setAmount(knockoffDao.sumTotalAmount(knockoff, accountCharge, securityService.getCurrentUser()).negate());
-				accountService.addAccountChargeTransaction(knockoff.getPayments().getAccount(), tx);
 			}
 			
 			BigDecimal totaldebit = BigDecimal.ZERO;
@@ -128,7 +122,7 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 					billingService.updateDebitNote(debitNote);
 				}
 				
-				totaldebit = knockoffDao.sumTotalAmount(debitNote, knockoff, securityService.getCurrentUser());
+				totaldebit = totaldebit.add(knockoffDao.sumTotalAmount(debitNote, knockoff, securityService.getCurrentUser()));
 
 			}
 			
@@ -144,6 +138,18 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 				trx.setAccount(knockoff.getPayments().getAccount());
 				trx.setAmount(Amount.negate());
 				accountService.addAccountTransaction(knockoff.getPayments().getAccount(), trx);
+			}
+			
+			if(totalCharge.compareTo(BigDecimal.ZERO) > 0) {
+				AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
+				tx.setSession(knockoff.getPayments().getSession());
+				tx.setPostedDate(new Date());
+				tx.setDescription(knockoff.getDescription());
+				tx.setSourceNo(knockoff.getReferenceNo());
+				tx.setTransactionCode(AcAccountChargeType.KNOCKOFF);
+				tx.setAccount(knockoff.getPayments().getAccount());
+				tx.setAmount(totalCharge.negate());
+				accountService.addAccountChargeTransaction(knockoff.getPayments().getAccount(), tx);
 			}
 			
 			AcAdvancePayment advance = billingService.findAdvancePaymentByReferenceNo(knockoff.getPayments().getReferenceNo());

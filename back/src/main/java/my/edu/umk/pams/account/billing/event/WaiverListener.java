@@ -90,9 +90,11 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 					billingService.updateInvoice(invoice);
 				}
 				
-				total = waiverDao.sumAmount(invoice, waiver, securityService.getCurrentUser());
+				total = total.add(waiverDao.sumAmount(invoice, waiver, securityService.getCurrentUser()));
 
 			}
+			
+			BigDecimal totalCharge = BigDecimal.ZERO;
 			
 			List<AcAccountCharge> accountCharges = waiver.getAccountCharges();
 			for (AcAccountCharge accountCharge : accountCharges) {
@@ -108,15 +110,8 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 					accountService.updateAccountCharge(waiver.getAccount(), accountCharge);
 				}
 
-				AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
-				tx.setSession(waiver.getSession());
-				tx.setPostedDate(new Date());
-				tx.setDescription(waiver.getDescription());
-				tx.setSourceNo(waiver.getReferenceNo());
-				tx.setTransactionCode(AcAccountChargeType.WAIVER);
-				tx.setAccount(waiver.getAccount());
-				tx.setAmount(waiverDao.sumTotalAmount(waiver, accountCharge, securityService.getCurrentUser()));
-				accountService.addAccountChargeTransaction(waiver.getAccount(), tx);
+				totalCharge = totalCharge.add(waiverDao.sumTotalAmount(waiver, accountCharge, securityService.getCurrentUser()));
+				
 			}
 			
 			BigDecimal totaldebit = BigDecimal.ZERO;
@@ -133,18 +128,34 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 					billingService.updateDebitNote(debitNote);
 				}
 				
-				totaldebit = waiverDao.sumTotalAmount(waiver, debitNote, securityService.getCurrentUser());
+				totaldebit = totaldebit.add(waiverDao.sumTotalAmount(waiver, debitNote, securityService.getCurrentUser()));
 			}
 			
-			AcAccountTransaction trx = new AcAccountTransactionImpl();
-			trx.setSession(waiver.getSession());
-			trx.setPostedDate(new Date());
-			trx.setDescription(waiver.getDescription());
-			trx.setSourceNo(waiver.getReferenceNo());
-			trx.setTransactionCode(AcAccountTransactionCode.WAIVER);
-			trx.setAccount(waiver.getAccount());
-			trx.setAmount(total.add(totaldebit).negate());
-			accountService.addAccountTransaction(waiver.getAccount(), trx);
+			BigDecimal Amount = total.add(totaldebit);
+			
+			if(Amount.compareTo(BigDecimal.ZERO) > 0) {
+				AcAccountTransaction trx = new AcAccountTransactionImpl();
+				trx.setSession(waiver.getSession());
+				trx.setPostedDate(new Date());
+				trx.setDescription(waiver.getDescription());
+				trx.setSourceNo(waiver.getReferenceNo());
+				trx.setTransactionCode(AcAccountTransactionCode.WAIVER);
+				trx.setAccount(waiver.getAccount());
+				trx.setAmount(total.add(totaldebit).negate());
+				accountService.addAccountTransaction(waiver.getAccount(), trx);
+			}
+			
+			if(totalCharge.compareTo(BigDecimal.ZERO) > 0) {
+				AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
+				tx.setSession(waiver.getSession());
+				tx.setPostedDate(new Date());
+				tx.setDescription(waiver.getDescription());
+				tx.setSourceNo(waiver.getReferenceNo());
+				tx.setTransactionCode(AcAccountChargeType.WAIVER);
+				tx.setAccount(waiver.getAccount());
+				tx.setAmount(totalCharge.negate());
+				accountService.addAccountChargeTransaction(waiver.getAccount(), tx);
+			}
 			
 			AcWaiverApplication waiverApp = financialAidService.findWaiverApplicationById(waiver.getAccWaiver().getId());
 			waiverApp.setBalance(waiver.getGracedAmount());

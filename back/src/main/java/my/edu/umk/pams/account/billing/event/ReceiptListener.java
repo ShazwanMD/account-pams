@@ -87,9 +87,11 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					billingService.updateInvoice(invoice);
 				}
 				
-				total = receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser());
+				total = total.add(receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser()));
 
 			}
+			
+			BigDecimal totalCharge = BigDecimal.ZERO;
 
 			List<AcAccountCharge> accountCharges = receipt.getAccountCharges();
 			for (AcAccountCharge accountCharge : accountCharges) {
@@ -104,16 +106,8 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					accountCharge.setPaid(true);
 					accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
 				}
-
-				AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
-				tx.setSession(receipt.getSession());
-				tx.setPostedDate(new Date());
-				tx.setDescription(receipt.getDescription());
-				tx.setSourceNo(receipt.getReferenceNo());
-				tx.setTransactionCode(AcAccountChargeType.RECEIPT);
-				tx.setAccount(receipt.getAccount());
-				tx.setAmount(receiptDao.sumTotalAmount(receipt, accountCharge, securityService.getCurrentUser()).negate());
-				accountService.addAccountChargeTransaction(receipt.getAccount(), tx);
+				
+				totalCharge = totalCharge.add(receiptDao.sumTotalAmount(receipt, accountCharge, securityService.getCurrentUser()));
 			}
 			
 			BigDecimal totaldebit = BigDecimal.ZERO;
@@ -130,7 +124,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					billingService.updateDebitNote(debitNote);
 				}
 				
-				totaldebit = receiptDao.sumTotalAmount(receipt, debitNote, securityService.getCurrentUser());
+				totaldebit = totaldebit.add(receiptDao.sumTotalAmount(receipt, debitNote, securityService.getCurrentUser()));
 
 			}
 			
@@ -146,6 +140,18 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				trx.setAccount(receipt.getAccount());
 				trx.setAmount(Amount.negate());
 				accountService.addAccountTransaction(receipt.getAccount(), trx);
+			}
+			
+			if(totalCharge.compareTo(BigDecimal.ZERO) > 0) {
+				AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
+				tx.setSession(receipt.getSession());
+				tx.setPostedDate(new Date());
+				tx.setDescription(receipt.getDescription());
+				tx.setSourceNo(receipt.getReferenceNo());
+				tx.setTransactionCode(AcAccountChargeType.RECEIPT);
+				tx.setAccount(receipt.getAccount());
+				tx.setAmount(totalCharge.negate());
+				accountService.addAccountChargeTransaction(receipt.getAccount(), tx);
 			}
 			
 			BigDecimal balance = receipt.getTotalPayment();
