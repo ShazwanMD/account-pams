@@ -24,25 +24,30 @@ ac_actr.identity_no as "ac_actr_identity_no",
 
 ac_acdm_sesn.code as "ac_acdm_sesn_code",
 ac_acct_chrg.cohort_code_id as "ac_acct_chrg_cohort_code_id",
---ac_acct_chrg.study_mode_id as "ac_acct_chrg_study_mode_id",
 ac_chrt_code.program_code_id as "ac_chrt_code_program_code_id",
 
 ac_prgm_code.description as "ac_prgm_code_description",
 ac_stdn.student_status as "ac_stdn_student_status",
 
-ac_acct.description as "ac_acct_description"
+ac_acct.description as "ac_acct_description",
+ac_acct_chrg.study_mode_id as "ac_acct_chrg_study_mode_id",
+ac_acct_chrg.cohort_code_id as "ac_acct_chrg_cohort_code_id"
 
 from ac_acct_chrg_trsn
+
 inner join ac_acct on ac_acct_chrg_trsn.account_id = ac_acct.id
 inner join ac_actr on ac_acct.actor_id = ac_actr.id
 inner join ac_stdn on ac_actr.id = ac_stdn.id
 left outer join ac_grdn on ac_stdn.id = ac_grdn.id
 inner join ac_acdm_sesn on ac_acct_chrg_trsn.session_id = ac_acdm_sesn.id
 inner join ac_acct_chrg on ac_acct_chrg_trsn.charge_id = ac_acct_chrg.id
+left outer join ac_chrt_code on ac_acct_chrg.id =  ac_chrt_code.id
 and ac_acct.id = ac_acct_chrg.account_id
-inner join ac_chrt_code on ac_chrt_code.id = ac_acct_chrg.cohort_code_id
-inner join ac_stdy_mode on ac_acct_chrg.study_mode_id = ac_stdy_mode.id
-inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
+
+inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id
+
+where ac_acct_chrg.cohort_code_id is null
+and ac_acct_chrg.study_mode_id is null;]]>
 	</queryString>
 	<field name="ac_acct_chrg_trsn_amount" class="java.math.BigDecimal"/>
 	<field name="ac_acct_chrg_trsn_description" class="java.lang.String"/>
@@ -60,6 +65,7 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
 	<field name="ac_prgm_code_description" class="java.lang.String"/>
 	<field name="ac_stdn_student_status" class="java.lang.Integer"/>
 	<field name="ac_acct_description" class="java.lang.String"/>
+	<field name="ac_acct_chrg_study_mode_id" class="java.lang.Long"/>
 	<variable name="Balance_amount" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_acct_chrg_trsn_amount}]]></variableExpression>
 	</variable>
@@ -370,6 +376,24 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<frame>
+				<reportElement x="30" y="0" width="90" height="20" uuid="9d64df78-c9a3-482e-8d7f-6f4992ea72c7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="0" y="0" width="30" height="20" uuid="849b6916-a13c-4e93-9452-a2bc064a4781"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<frame>
 				<reportElement x="210" y="0" width="179" height="20" uuid="1d18aef6-0773-418d-9f17-a488991b5677"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -404,9 +428,16 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
+				<textField>
+					<reportElement x="9" y="5" width="51" height="15" uuid="235867b9-0d33-4699-bb0d-b957b9a519fe"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount}.doubleValue() > new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_chrg_trsn_amount} : 0.00 )]]></textFieldExpression>
+				</textField>
 			</frame>
 			<textField>
-				<reportElement x="0" y="0" width="30" height="20" uuid="81e54de7-20bc-451d-a2e7-ed912a375514"/>
+				<reportElement x="0" y="5" width="30" height="15" uuid="81e54de7-20bc-451d-a2e7-ed912a375514"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -418,15 +449,6 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
-			<frame>
-				<reportElement x="0" y="0" width="30" height="20" uuid="849b6916-a13c-4e93-9452-a2bc064a4781"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
 			<textField>
 				<reportElement x="33" y="5" width="85" height="15" uuid="83d27195-8018-4938-b4bc-b26df2176ceb"/>
 				<textElement>
@@ -449,28 +471,12 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
 				<textFieldExpression><![CDATA[$F{ac_acct_chrg_trsn_description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="398" y="0" width="51" height="20" uuid="235867b9-0d33-4699-bb0d-b957b9a519fe"/>
-				<textElement>
-					<font fontName="SansSerif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{ac_acct_chrg_trsn_amount}.doubleValue() > new java.math.BigDecimal(0.00).doubleValue() ? $F{ac_acct_chrg_trsn_amount} : 0.00 )]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="509" y="0" width="46" height="20" uuid="c58e854c-9872-4c90-8b1e-85b7e651c80a"/>
+				<reportElement x="509" y="5" width="46" height="15" uuid="c58e854c-9872-4c90-8b1e-85b7e651c80a"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Balance_amount}]]></textFieldExpression>
 			</textField>
-			<frame>
-				<reportElement x="30" y="0" width="90" height="20" uuid="9d64df78-c9a3-482e-8d7f-6f4992ea72c7"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</frame>
 			<frame>
 				<reportElement x="120" y="0" width="90" height="20" uuid="f924b94d-c93a-433b-b5de-821bb5ec77c9"/>
 				<box>
@@ -481,7 +487,7 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
 				</box>
 			</frame>
 			<textField>
-				<reportElement x="458" y="0" width="41" height="20" uuid="4cb8e2eb-13e6-4973-b889-3ab73acefae5"/>
+				<reportElement x="458" y="5" width="41" height="15" uuid="4cb8e2eb-13e6-4973-b889-3ab73acefae5"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -501,14 +507,14 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
 				<reportElement x="0" y="0" width="555" height="20" uuid="5334214d-267f-4086-85f6-5961a3a0756a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="398" y="0" width="71" height="14" uuid="d556b9c0-98cc-44cc-99ba-e30ad957814d"/>
+				<reportElement x="427" y="5" width="71" height="14" uuid="d556b9c0-98cc-44cc-99ba-e30ad957814d"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Total Balance :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="469" y="0" width="86" height="14" uuid="444ff3f5-ebcf-4cd1-b629-98d90cb6e535"/>
+				<reportElement x="509" y="5" width="46" height="14" uuid="444ff3f5-ebcf-4cd1-b629-98d90cb6e535"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
