@@ -5,6 +5,7 @@ import {WaiverApplicationActions} from './waiver-application.action';
 import {FinancialaidService} from '../../../../services/financialaid.service';
 import { Store } from "@ngrx/store";
 import { FinancialaidModuleState } from "../index";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class WaiverApplicationEffects {
@@ -14,6 +15,7 @@ export class WaiverApplicationEffects {
   constructor(private actions$: Actions,
               private waiverApplicationActions: WaiverApplicationActions,
               private store$: Store<FinancialaidModuleState>,
+              private router: Router,
               private financialaidService: FinancialaidService) {
   }
 
@@ -111,8 +113,6 @@ export class WaiverApplicationEffects {
     .ofType(WaiverApplicationActions.UPDATE_WAIVER_APPLICATION)
     .map((action) => action.payload)
     .switchMap((waiverApplication) => this.financialaidService.updateWaiverApplication(waiverApplication))
-    .map((message) => this.waiverApplicationActions.updateWaiverApplicationSuccess(message));
-/*    .withLatestFrom(this.store$.select(...this.WAIVER_APPLICATION_TASK))
-    .map((state) => state[1])
-    .map((task) => this.waiverApplicationActions.findWaiverApplicationTaskByTaskId(task));*/
+    .map((message) => this.waiverApplicationActions.updateWaiverApplicationSuccess(message))
+    .do((action) => this.router.navigate(['/secure/financialaid/waiver-applications/view-task/:taskId', action.payload])).ignoreElements();
 }

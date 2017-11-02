@@ -6,6 +6,7 @@ import {Actions, Effect} from '@ngrx/effects';
 import {from} from 'rxjs/observable/from';
 import {FinancialaidService} from '../../../../services/financialaid.service';
 import { WaiverFinanceApplicationActions } from "./waiver-finance-application.action";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class WaiverFinanceApplicationEffects {
@@ -15,6 +16,7 @@ export class WaiverFinanceApplicationEffects {
   constructor(private actions$: Actions,
               private waiverFinanceApplicationActions: WaiverFinanceApplicationActions,
               private billingService: BillingService,
+              private router: Router,
               private store$: Store<BillingModuleState>) {
   }
 
@@ -163,7 +165,11 @@ export class WaiverFinanceApplicationEffects {
   .ofType(WaiverFinanceApplicationActions.UPDATE_WAIVER_ITEMS)
   .map((action) => action.payload)
   .switchMap((payload) => this.billingService.updateWaiverItems(payload.waiverFinanceApplication, payload.item))
-  .map((message) => this.waiverFinanceApplicationActions.updateWaiverItemsSuccess(message));
+  .map((message) => this.waiverFinanceApplicationActions.updateWaiverItemsSuccess(message))
+    .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+  .map((state) => state[1])
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication))
+  .do((action) => this.router.navigate(['/secure/billing/waiver-finance-applications/view-task/:taskId', action.payload])).ignoreElements();
   
   @Effect() itemToWaiverItem$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.ITEM_TO_WAIVER_INVOICE)
@@ -238,5 +244,6 @@ export class WaiverFinanceApplicationEffects {
   .map((message) => this.waiverFinanceApplicationActions.deleteWaiverItemSuccess(message))
   .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
   .map((state) => state[1])
-  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication));
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication))
+  .do((action) => this.router.navigate(['/secure/billing/waiver-finance-applications/view-task/:taskId', action.payload])).ignoreElements();
 }
