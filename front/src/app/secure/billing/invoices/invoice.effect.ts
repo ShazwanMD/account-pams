@@ -7,6 +7,7 @@ import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import 'rxjs/add/operator/withLatestFrom';
 import {DebitNoteActions} from '../debit-notes/debit-note.action';
+import { Router } from "@angular/router";
 
 @Injectable()
 export class InvoiceEffects {
@@ -18,6 +19,7 @@ export class InvoiceEffects {
               private invoiceActions: InvoiceActions,
               private debitNoteActions: DebitNoteActions,
               private billingService: BillingService,
+              private router: Router,
               private store$: Store<BillingModuleState>) {
   }
 
@@ -151,7 +153,8 @@ export class InvoiceEffects {
       .map((message) => this.invoiceActions.addInvoiceItemSuccess(message))
       .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
       .map((state) => state[1])
-      .map((invoice) => this.invoiceActions.findInvoiceItems(invoice));
+      .map((invoice) => this.invoiceActions.findInvoiceItems(invoice))
+  .do((action) => this.router.navigate(['/secure/billing/invoices/invoice-task-detail/:taskId', action.payload])).ignoreElements();
 
   @Effect() updateInvoiceItem$ = this.actions$
     .ofType(InvoiceActions.UPDATE_INVOICE_ITEM)
@@ -160,7 +163,8 @@ export class InvoiceEffects {
     .map((message) => this.invoiceActions.updateInvoiceItemSuccess(message))
     .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
     .map((state) => state[1])
-    .map((invoice) => this.invoiceActions.findInvoiceItems(invoice));
+    .map((invoice) => this.invoiceActions.findInvoiceItems(invoice))
+  .do((action) => this.router.navigate(['/secure/billing/invoices/invoice-task-detail/:taskId', action.payload])).ignoreElements();
 
   @Effect() deleteInvoiceItem$ = this.actions$
     .ofType(InvoiceActions.DELETE_INVOICE_ITEM)
@@ -169,7 +173,8 @@ export class InvoiceEffects {
     .map((message) => this.invoiceActions.deleteInvoiceItemSuccess(message))
     .withLatestFrom(this.store$.select(...this.INVOICE_TASK))
     .map((state) => state[1])
-    .map((invoice) => this.invoiceActions.findInvoiceItems(invoice));
+    .map((invoice) => this.invoiceActions.findInvoiceItems(invoice))
+  .do((action) => this.router.navigate(['/secure/billing/invoices/invoice-task-detail/:taskId', action.payload])).ignoreElements();
 
   @Effect() findDebitNotesByInvoice = this.actions$
     .ofType(InvoiceActions.FIND_DEBIT_NOTES_BY_INVOICE)
