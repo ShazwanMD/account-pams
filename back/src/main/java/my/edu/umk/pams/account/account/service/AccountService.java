@@ -157,8 +157,6 @@ public interface AccountService {
 
     BigDecimal sumBalanceAmount(AcAccount account);
 
-    //BigDecimal sumWaiverAmount(AcAccount account);
-
     BigDecimal sumEffectiveBalanceAmount(AcAccount account, AcAcademicSession academicSession);
     
     BigDecimal sumInvoiceBalanceAmount(AcAccount account, AcAcademicSession academicSession);

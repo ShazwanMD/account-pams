@@ -486,9 +486,7 @@ public class AccountServiceImpl implements AccountService {
     	if(totalAdvancePayment.compareTo(BigDecimal.ZERO) > 0) {
     		return totalAdvancePayment.negate();
     	}
-    	
     	return total;
-    	
     }
     
     @Override
