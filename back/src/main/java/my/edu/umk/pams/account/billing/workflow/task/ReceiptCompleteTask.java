@@ -1,18 +1,27 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
+import my.edu.umk.pams.account.account.event.AccountRevisedEvent;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.event.ReceiptApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.security.service.SecurityService;
+import my.edu.umk.pams.connector.payload.AccountPayload;
+
 import org.activiti.engine.impl.bpmn.behavior.BpmnActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import static my.edu.umk.pams.account.AccountConstants.RECEIPT_ID;
+
+import java.math.BigDecimal;
 
 @Component("receipt_complete_ST")
 public class ReceiptCompleteTask extends BpmnActivityBehavior implements ActivityBehavior {
@@ -24,6 +33,14 @@ public class ReceiptCompleteTask extends BpmnActivityBehavior implements Activit
 
     @Autowired
     private SecurityService securityService;
+    
+    @Autowired
+    private ApplicationContext applicationContext;
+    
+    @Autowired
+    private AccountService accountService;
+    
+    
 
     public void execute(ActivityExecution execution) throws Exception {
 
@@ -37,5 +54,27 @@ public class ReceiptCompleteTask extends BpmnActivityBehavior implements Activit
         receipt.getFlowdata().setState(AcFlowState.COMPLETED);
         billingService.updateReceipt(receipt);
 
+        applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
+        LOG.info("event start");      
+		 AcAccount account = receipt.getAccount();
+		 AccountPayload payload = new AccountPayload();
+		 		 
+		 payload.setCode(account.getCode());
+		 payload.setMatricNo(account.getActor().getIdentityNo());
+		 
+	     BigDecimal accountBalance = accountService.sumBalanceAmount(account); 
+
+	     if( accountBalance.compareTo(BigDecimal.ZERO) > 0 ){
+	    	 
+	    	  payload.setOutstanding(true);
+	      }else{
+	    	  payload.setOutstanding(false);
+	      }
+	      payload.setBalance(accountService.sumBalanceAmount(account));
+	      
+		 AccountRevisedEvent event = new AccountRevisedEvent(payload);
+		 		 
+		 applicationContext.publishEvent(event);
+		 LOG.info("event broadcast");
     }
 }

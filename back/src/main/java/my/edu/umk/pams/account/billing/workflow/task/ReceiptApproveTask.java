@@ -71,17 +71,7 @@ public class ReceiptApproveTask extends BpmnActivityBehavior implements Activity
 		receipt.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
 		receipt.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
 		billingService.updateReceipt(receipt);
-		//billingService.post(receipt);
-		applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
+		billingService.post(receipt);
 
-		//
-		// AcAccount account = receipt.getAccount();
-		// AccountPayload payload = new AccountPayload();
-		// payload.setCode(account.getCode());
-		// payload.setMatricNo(account.getActor().getIdentityNo());
-		// payload.setOutstanding(accountService.hasBalance(account));
-		// payload.setBalance(accountService.sumBalanceAmount(account));
-		// AccountRevisedEvent event = new AccountRevisedEvent(payload);
-		// applicationContext.publishEvent(event);
 	}
 }

@@ -50,7 +50,6 @@ export class InvoiceReceiptListComponent {
 
       console.log('ref no for receipt: ' + receiptInvoice.receipt.referenceNo);
       this.showDialog(receiptInvoice);
-      
     }
     
     showDialog(receiptInvoice: ReceiptInvoice) {
@@ -65,6 +64,12 @@ export class InvoiceReceiptListComponent {
         let editorDialogRef = this.dialog.open(InvoiceApplicatorDialog, config);
         editorDialogRef.componentInstance.receipt = receiptInvoice.receipt;
         editorDialogRef.componentInstance.invoice = receiptInvoice.invoice;
+        editorDialogRef.afterClosed().subscribe((res) => {
+          this.route.params.subscribe((params: { taskId: string }) => {
+            let taskId: string = params.taskId;
+            this.store.dispatch(this.action.findReceiptTaskByTaskId(taskId));
+         });
+         });
       }
   
     create() {

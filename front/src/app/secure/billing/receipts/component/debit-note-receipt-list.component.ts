@@ -87,6 +87,12 @@ export class DebitNoteReceiptListComponent {
         let editorDialogRef = this.dialog.open(DebitNoteReceiptCreatorDialog, config);
         editorDialogRef.componentInstance.receipt = receiptDebitNote.receipt;
         editorDialogRef.componentInstance.debitNote = receiptDebitNote.debitNote;
+        editorDialogRef.afterClosed().subscribe((res) => {
+          this.route.params.subscribe((params: { taskId: string }) => {
+            let taskId: string = params.taskId;
+            this.store.dispatch(this.action.findReceiptTaskByTaskId(taskId));
+         });
+         });
       }
 
       create(): void {
