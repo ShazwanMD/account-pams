@@ -15,6 +15,7 @@ import { AccountActions } from '../../../account/accounts/account.action';
 import { AccountModuleState } from '../../../account/index';
 import { AccountChargeReceiptDialog } from "../dialog/account-charge-receipt-creator.dialog";
 import { ReceiptActions } from "../receipt.action";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'pams-account-charge-receipt-list',
@@ -42,6 +43,7 @@ export class AccountChargeReceiptListComponent {
               private viewContainerRef: ViewContainerRef,
               private store: Store<AccountModuleState>,
               private action: AccountActions,
+              private route: ActivatedRoute,
               private actions: ReceiptActions,
               private dialog: MdDialog) {
   }
@@ -65,6 +67,12 @@ export class AccountChargeReceiptListComponent {
          let editorDialogRef = this.dialog.open(InvoiceReceiptCreatorDialog, config);
          editorDialogRef.componentInstance.receipt = receiptAccountCharge.receipt;
         editorDialogRef.componentInstance.accountCharge = receiptAccountCharge.accountCharge;
+        editorDialogRef.afterClosed().subscribe((res) => {
+          this.route.params.subscribe((params: { taskId: string }) => {
+            let taskId: string = params.taskId;
+            this.store.dispatch(this.actions.findReceiptTaskByTaskId(taskId));
+         });
+         });
        }
      
   create(): void {
