@@ -1,18 +1,14 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
 import my.edu.umk.pams.account.account.event.AccountRevisedEvent;
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.event.InvoiceApprovedEvent;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
-import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.connector.payload.AccountPayload;
-
-import static org.mockito.Matchers.booleanThat;
 
 import java.math.BigDecimal;
 
