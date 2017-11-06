@@ -49,7 +49,7 @@ public class JmsConfig {
             queueMap.put(ProgramCodePayload.class.getName(), new ActiveMQQueue("programCodeQueue"));
             queueMap.put(FacultyCodePayload.class.getName(), new ActiveMQQueue("facultyCodeQueue"));
             queueMap.put(CandidatePayload.class.getName(), new ActiveMQQueue("candidateQueue"));
-            queueMap.put(AccountPayload.class.getName(), new ActiveMQQueue("accountQueue"));
+            queueMap.put(AccountPayload.class.getName(), new ActiveMQQueue("accountQueue1"));
             queueMap.put(AdmissionPayload.class.getName(), new ActiveMQQueue("AdmissionPayloadQueue"));
             queueMap.put(GuardianPayload.class.getName(), new ActiveMQQueue("GuardianPayloadQueue"));
         }
