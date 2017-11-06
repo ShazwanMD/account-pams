@@ -51,6 +51,7 @@ export class ReceiptItemEditorDialog implements OnInit {
       dueAmount: [0,Validators.required],
       unit: [0],
       price: [0],
+      totalPaid:this._receipt.totalPayment,
       chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     },{
