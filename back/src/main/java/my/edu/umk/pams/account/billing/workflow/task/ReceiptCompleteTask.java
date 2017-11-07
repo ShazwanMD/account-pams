@@ -54,27 +54,27 @@ public class ReceiptCompleteTask extends BpmnActivityBehavior implements Activit
         receipt.getFlowdata().setState(AcFlowState.COMPLETED);
         billingService.updateReceipt(receipt);
 
-        applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
-        LOG.info("event start");      
-		 AcAccount account = receipt.getAccount();
-		 AccountPayload payload = new AccountPayload();
-		 		 
-		 payload.setCode(account.getCode());
-		 payload.setMatricNo(account.getActor().getIdentityNo());
-		 
-	     BigDecimal accountBalance = accountService.sumBalanceAmount(account); 
-
-	     if( accountBalance.compareTo(BigDecimal.ZERO) > 0 ){
-	    	 
-	    	  payload.setOutstanding(true);
-	      }else{
-	    	  payload.setOutstanding(false);
-	      }
-	      payload.setBalance(accountService.sumBalanceAmount(account));
-	      
-		 AccountRevisedEvent event = new AccountRevisedEvent(payload);
-		 		 
-		 applicationContext.publishEvent(event);
-		 LOG.info("event broadcast");
+//        applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
+//        LOG.info("event start");      
+//		 AcAccount account = receipt.getAccount();
+//		 AccountPayload payload = new AccountPayload();
+//		 		 
+//		 payload.setCode(account.getCode());
+//		 payload.setMatricNo(account.getActor().getIdentityNo());
+//		 
+//	     BigDecimal accountBalance = accountService.sumBalanceAmount(account); 
+//
+//	     if( accountBalance.compareTo(BigDecimal.ZERO) > 0 ){
+//	    	 
+//	    	  payload.setOutstanding(true);
+//	      }else{
+//	    	  payload.setOutstanding(false);
+//	      }
+//	      payload.setBalance(accountService.sumBalanceAmount(account));
+//	      
+//		 AccountRevisedEvent event = new AccountRevisedEvent(payload);
+//		 		 
+//		 applicationContext.publishEvent(event);
+//		 LOG.info("event broadcast");
     }
 }
