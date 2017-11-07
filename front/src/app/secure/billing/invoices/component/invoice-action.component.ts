@@ -42,8 +42,12 @@ export class InvoiceActionComponent {
     this.debitCreatorDialogRef = this.dialog.open(DebitNoteCreatorDialog, config);
     this.debitCreatorDialogRef.componentInstance.invoice = this.invoice;
     this.debitCreatorDialogRef.afterClosed().subscribe((res) => {
-      console.log('close dialog');
-      // load something here
+    console.log('close dialog');
+    this.route.params.subscribe((params: { referenceNo: string }) => {
+    let referenceNo: string = params.referenceNo;
+    this.store.dispatch(this.actions.findInvoiceByReferenceNo(referenceNo));
+       });
+
     });
   }
 
@@ -58,8 +62,12 @@ export class InvoiceActionComponent {
     this.creditCreatorDialogRef = this.dialog.open(CreditNoteCreatorDialog, config);
     this.creditCreatorDialogRef.componentInstance.invoice = this.invoice;
     this.creditCreatorDialogRef.afterClosed().subscribe((res) => {
-      console.log('close dialog');
-      // load something here
+     console.log('close dialog');
+    this.route.params.subscribe((params: { referenceNo: string }) => {
+    let referenceNo: string = params.referenceNo;
+    this.store.dispatch(this.actions.findInvoiceByReferenceNo(referenceNo));
+       });
+
     });
   }
 
