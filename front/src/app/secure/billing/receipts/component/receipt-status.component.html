@@ -2,6 +2,7 @@
   <md-card-content class="text-center">
     <div class="md-display-1">{{ receipt?.flowState | flowStatePipe}}</div>
     <div layout="column" layout-padding>
+      <div class="md-subhead tc-grey-100">{{receipt?.status}}</div>
       <div class="md-subhead tc-grey-100">Balance Payment: {{ receipt?.totalPayment | currency:'MYR':true:'1.2-2' }}</div>
     </div>
   </md-card-content>
