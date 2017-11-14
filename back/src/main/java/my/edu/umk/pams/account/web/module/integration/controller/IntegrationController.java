@@ -58,6 +58,7 @@ import my.edu.umk.pams.connector.payload.FacultyCodePayload;
 import my.edu.umk.pams.connector.payload.GuardianPayload;
 import my.edu.umk.pams.connector.payload.IntakePayload;
 import my.edu.umk.pams.connector.payload.IntakeSessionCodePayload;
+import my.edu.umk.pams.connector.payload.MinAmountPayload;
 import my.edu.umk.pams.connector.payload.ProgramCodePayload;
 
 @Transactional
@@ -277,6 +278,51 @@ public class IntegrationController {
         user.setActor(savedStudent);
         identityService.saveUser(user);
 
+        logoutAsSystem(ctx);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
+    // ====================================================================================================
+    // MIN AMOUNT
+    // incoming from academic
+    // ====================================================================================================
+    
+    @RequestMapping(value = "/minAmounts", method = RequestMethod.POST)
+    public ResponseEntity<String> saveMinimumAmount(@RequestBody MinAmountPayload payload) {
+       
+        SecurityContext ctx = loginAsSystem();
+        
+        LOG.info("Start Receive AcAccountCharge");
+        
+        AcAccount account = accountService.findAccountByCode(payload.getStudentPayload().getMatricNo());
+        LOG.debug("Student MatricNO:{}",account.getCode());
+        
+        AcStudent student = identityService.findStudentByMatricNo(payload.getStudentPayload().getMatricNo());
+        LOG.debug("Student Name:{}",student.getName());
+        
+        AcCohortCode cohort = student.getCohortCode();
+              
+        AcAccountCharge accountCharge = new AcAccountChargeImpl();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("academicSession", accountService.findCurrentAcademicSession());
+        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO,
+                map);
+        accountCharge.setReferenceNo(referenceNo);
+        accountCharge.setSourceNo(payload.getStudentPayload().getMatricNo());
+        accountCharge.setDescription("Minimal amount for this student" + payload.getStudentPayload().getMatricNo());        
+        accountCharge.setAmount(payload.getMinimalAmount());
+        accountCharge.setChargeType(AcAccountChargeType.ACADEMIC);
+        accountCharge.setAccount(account);
+        accountCharge.setSession(accountService.findCurrentAcademicSession());
+        accountCharge.setCode(payload.getStudentPayload().getMatricNo());      
+        accountCharge.setCohortCode(cohort);
+
+
+        
+        accountService.addAccountCharge(account, accountCharge);
+        
+        LOG.info("Finish Receive AcAccountCharge");
+        
         logoutAsSystem(ctx);
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
