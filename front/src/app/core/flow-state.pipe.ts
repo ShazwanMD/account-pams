@@ -24,6 +24,9 @@ export class FlowStatePipe implements PipeTransform {
       case FlowState.COMPLETED : {
         return 'FINAL';
       }
+      case FlowState.REMOVED : {
+          return 'CANCELLED';
+      }
       default: {
         return value;
       }
