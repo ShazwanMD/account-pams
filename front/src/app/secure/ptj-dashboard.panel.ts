@@ -38,6 +38,15 @@ export class PtjDashboardPanel implements OnInit {
       }
         ,
 
+        {
+          title: 'Marketing',
+          route: '/secure/marketing',
+          icon: 'assignment',
+          color: 'blue-700',
+          description: ' ',
+  
+          
+        },
         //to be determined
       ];
 

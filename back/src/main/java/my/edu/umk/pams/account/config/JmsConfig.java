@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.command.ActiveMQDestination;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import my.edu.umk.pams.connector.payload.AdmissionPayload;
 import my.edu.umk.pams.connector.payload.CandidatePayload;
 import my.edu.umk.pams.connector.payload.FacultyCodePayload;
 import my.edu.umk.pams.connector.payload.GuardianPayload;
+import my.edu.umk.pams.connector.payload.MinAmountPayload;
 import my.edu.umk.pams.connector.payload.ProgramCodePayload;
 
 @Configuration
@@ -41,7 +43,7 @@ public class JmsConfig {
     }
 
     private class DestinationExpressionFunction implements Function<GenericMessage, Object> {
-        private final Map<String, ActiveMQQueue> queueMap;
+        private final Map<String, ActiveMQDestination> queueMap;
 
         // map to queue or topic
         public DestinationExpressionFunction() {
@@ -52,6 +54,7 @@ public class JmsConfig {
             queueMap.put(AccountPayload.class.getName(), new ActiveMQQueue("accountQueue1"));
             queueMap.put(AdmissionPayload.class.getName(), new ActiveMQQueue("AdmissionPayloadQueue"));
             queueMap.put(GuardianPayload.class.getName(), new ActiveMQQueue("GuardianPayloadQueue"));
+            queueMap.put(MinAmountPayload.class.getName(), new ActiveMQQueue("MinAmountPayloadQueue"));
         }
 
         @Override

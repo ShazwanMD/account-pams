@@ -20,7 +20,7 @@ export class AdministratorDashboardPanel implements OnInit {
     {
       this.items = [{
         title: 'Dashboard',
-        route: '/secure/dashboard',
+        route: '/secure',
         icon: 'dashboard',
         color: 'blue-700',
         description: '',

@@ -39,9 +39,17 @@ import my.edu.umk.pams.account.common.model.AcProgramCodeImpl;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCodeImpl;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.identity.model.AcGroup;
+import my.edu.umk.pams.account.identity.model.AcGroupMember;
+import my.edu.umk.pams.account.identity.model.AcGroupMemberImpl;
 import my.edu.umk.pams.account.identity.model.AcGuardian;
 import my.edu.umk.pams.account.identity.model.AcGuardianImpl;
 import my.edu.umk.pams.account.identity.model.AcGuardianType;
+import my.edu.umk.pams.account.identity.model.AcPrincipal;
+import my.edu.umk.pams.account.identity.model.AcPrincipalRole;
+import my.edu.umk.pams.account.identity.model.AcPrincipalRoleImpl;
+import my.edu.umk.pams.account.identity.model.AcPrincipalType;
+import my.edu.umk.pams.account.identity.model.AcRoleType;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.model.AcStudentStatus;
@@ -58,6 +66,7 @@ import my.edu.umk.pams.connector.payload.FacultyCodePayload;
 import my.edu.umk.pams.connector.payload.GuardianPayload;
 import my.edu.umk.pams.connector.payload.IntakePayload;
 import my.edu.umk.pams.connector.payload.IntakeSessionCodePayload;
+import my.edu.umk.pams.connector.payload.MinAmountPayload;
 import my.edu.umk.pams.connector.payload.ProgramCodePayload;
 
 @Transactional
@@ -65,239 +74,290 @@ import my.edu.umk.pams.connector.payload.ProgramCodePayload;
 @RequestMapping("/api/integration")
 public class IntegrationController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(IntegrationController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IntegrationController.class);
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private CommonService commonService;
+	@Autowired
+	private CommonService commonService;
 
-    @Autowired
-    private AccountService accountService;
+	@Autowired
+	private AccountService accountService;
 
-    @Autowired
-    private BillingService billingService;
+	@Autowired
+	private BillingService billingService;
 
-    @Autowired
-    private IdentityService identityService;
+	@Autowired
+	private IdentityService identityService;
 
-    @Autowired
-    private SystemService systemService;
+	@Autowired
+	private SystemService systemService;
 
-    // ====================================================================================================
-    // CODES
-    // ====================================================================================================
+	// ====================================================================================================
+	// CODES
+	// ====================================================================================================
 
-    @RequestMapping(value = "/cohortCodes", method = RequestMethod.POST)
-    public ResponseEntity<String> saveCohortCode(@RequestBody CohortCodePayload payload) {
-        LOG.info("Incoming Cohort Code Payload");
-        SecurityContext ctx = loginAsSystem();
-        
-        AcProgramCode programCode = commonService.findProgramCodeByCode(payload.getProgramCode().getCode());
-               
-        AcCohortCode cohortCode = new AcCohortCodeImpl();
-        cohortCode.setCode(payload.getCode());
-        cohortCode.setDescription(payload.getDescription());
-        cohortCode.setProgramCode(programCode);
-        commonService.saveCohortCode(cohortCode);
-        LOG.info("Received Cohort Code Payload");
-        logoutAsSystem(ctx);
-        return new ResponseEntity<String>("success", HttpStatus.OK);
-    }
+	@RequestMapping(value = "/cohortCodes", method = RequestMethod.POST)
+	public ResponseEntity<String> saveCohortCode(@RequestBody CohortCodePayload payload) {
+		LOG.info("Incoming Cohort Code Payload");
+		SecurityContext ctx = loginAsSystem();
 
-    @RequestMapping(value = "/programCodes", method = RequestMethod.POST)
-    public ResponseEntity<String> saveProgramCode(@RequestBody ProgramCodePayload payload) {
-        LOG.info("incoming program code");
-        SecurityContext ctx = loginAsSystem();
+		AcProgramCode programCode = commonService.findProgramCodeByCode(payload.getProgramCode().getCode());
 
-        // check, validate
+		AcCohortCode cohortCode = new AcCohortCodeImpl();
+		cohortCode.setCode(payload.getCode());
+		cohortCode.setDescription(payload.getDescription());
+		cohortCode.setProgramCode(programCode);
+		commonService.saveCohortCode(cohortCode);
+		LOG.info("Received Cohort Code Payload");
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
-        AcProgramCode programCode = new AcProgramCodeImpl();
-        programCode.setCode(payload.getCode());
-        programCode.setDescription(payload.getDescription());
-        programCode.setFacultyCode(commonService.findFacultyCodeByCode(payload.getFacultyCode().getCode()));
-        commonService.saveProgramCode(programCode);
+	@RequestMapping(value = "/programCodes", method = RequestMethod.POST)
+	public ResponseEntity<String> saveProgramCode(@RequestBody ProgramCodePayload payload) {
+		LOG.info("Start Receive program code");
+		SecurityContext ctx = loginAsSystem();
 
-        logoutAsSystem(ctx);
-        return new ResponseEntity<String>("success", HttpStatus.OK);
-    }
+		AcProgramCode programCode = new AcProgramCodeImpl();
+		programCode.setCode(payload.getCode());
+		programCode.setDescription(payload.getDescriptionMs());
+		programCode.setFacultyCode(commonService.findFacultyCodeByCode(payload.getFacultyCode().getCode()));
+		commonService.saveProgramCode(programCode);
 
-    @RequestMapping(value = "/facultyCodes", method = RequestMethod.POST)
-    public ResponseEntity<String> saveFacultyCode(@RequestBody FacultyCodePayload payload) {
-        LOG.info("incoming faculty code");
-        SecurityContext ctx = loginAsSystem();
+		LOG.info("Finish Receive program code");
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
-        AcFacultyCode facultyCode = new AcFacultyCodeImpl();
-        facultyCode.setCode(payload.getCode());
-        facultyCode.setDescription(payload.getDescription());
-        commonService.saveFacultyCode(facultyCode);
+	@RequestMapping(value = "/facultyCodes", method = RequestMethod.POST)
+	public ResponseEntity<String> saveFacultyCode(@RequestBody FacultyCodePayload payload) {
+		LOG.info("Start Receive faculty code");
+		SecurityContext ctx = loginAsSystem();
 
-        logoutAsSystem(ctx);
-        return new ResponseEntity<String>("success", HttpStatus.OK);
-    }
+		AcFacultyCode facultyCode = new AcFacultyCodeImpl();
+		facultyCode.setCode(payload.getCode());
+		facultyCode.setDescription(payload.getDescription());
+		commonService.saveFacultyCode(facultyCode);
 
-    @RequestMapping(value = "/guardians", method = RequestMethod.POST)
-    public ResponseEntity<String> saveGuardian(@RequestBody GuardianPayload payload) {
-        LOG.info("incoming Guardian");
-        SecurityContext ctx = loginAsSystem();
+		LOG.info("Finish Reveive faculty code");
 
-        AcStudent student = identityService.findStudentByMatricNo(payload.getStudentPayload().getMatricNo());
-        LOG.debug("Student Guardian:{}", student.getIdentityNo());
-        
-        AcGuardian guardian = new AcGuardianImpl();
-        guardian.setIdentityNo(payload.getIdentityNo());
-        guardian.setName(payload.getName());
-        guardian.setPhone(payload.getPhone());
-        guardian.setStudent(student);
-        guardian.setType(AcGuardianType.get(payload.getType().ordinal()));
-        
-        identityService.addGuardian(student, guardian);
-        LOG.debug("Student Guardian:{}", guardian.getId());
-        LOG.info("Finish Receive Guardian");
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
+	@RequestMapping(value = "/guardians", method = RequestMethod.POST)
+	public ResponseEntity<String> saveGuardian(@RequestBody GuardianPayload payload) {
+		LOG.info("incoming Guardian");
+		SecurityContext ctx = loginAsSystem();
 
+		AcStudent student = identityService.findStudentByMatricNo(payload.getStudentPayload().getMatricNo());
+		LOG.debug("Student Guardian:{}", student.getIdentityNo());
 
-        logoutAsSystem(ctx);
-        return new ResponseEntity<String>("success", HttpStatus.OK);
-    }
-    
-    // ====================================================================================================
-    // ADMISSION & ENROLLMENT
-    // ====================================================================================================
+		AcGuardian guardian = new AcGuardianImpl();
+		guardian.setIdentityNo(payload.getIdentityNo());
+		guardian.setName(payload.getName());
+		guardian.setPhone(payload.getPhone());
+		guardian.setStudent(student);
+		guardian.setType(AcGuardianType.get(payload.getType().ordinal()));
 
-    @RequestMapping(value = "/admissions", method = RequestMethod.POST)
-    public ResponseEntity<String> saveAdmission(@RequestBody AdmissionPayload payload) {
-        LOG.info("incoming admission");
-        SecurityContext ctx = loginAsSystem();
+		identityService.addGuardian(student, guardian);
+		LOG.debug("Student Guardian:{}", guardian.getId());
+		LOG.info("Finish Receive Guardian");
 
-        // this is admission
-        AcAcademicSession academicSession = accountService.findAcademicSessionByCode(payload.getAcademicSession().getCode());
-        LOG.debug("AcademicSession:{}",academicSession.getCode());
-        
-        AcStudent student = identityService.findStudentByMatricNo(payload.getStudent().getMatricNo());
-        AcAccount account = accountService.findAccountByActor(student);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("academicSession", accountService.findCurrentAcademicSession());
-        String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO, map);
-        AcAccountCharge charge = new AcAccountChargeImpl();
-        charge.setChargeType(AcAccountChargeType.ADMISSION);
-        charge.setAccount(account);
-        charge.setSession(academicSession);
-        charge.setChargeDate(new Date());
-        charge.setReferenceNo(referenceNo);
-        charge.setSourceNo("SN"); // todo:
-        charge.setDescription("DESCRIPTION"); // todo:
-        charge.setAmount(BigDecimal.ZERO); // todo
-        charge.setOrdinal(payload.getOrdinal());
-        if (null != payload.getCohortCode())
-            charge.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode().getCode()));
-        if (null != payload.getStudyMode())
-            charge.setStudyMode(commonService.findStudyModeByCode(payload.getStudyMode().getCode()));
-        accountService.addAccountCharge(account, charge);
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
-        LOG.debug("AfterAddAccountCharge:{}",charge.getAccount().getActor().getIdentityNo());
-        logoutAsSystem(ctx);
-        return new ResponseEntity<String>("success", HttpStatus.OK);
-    }
+	// ====================================================================================================
+	// ADMISSION & ENROLLMENT
+	// ====================================================================================================
 
-    // ====================================================================================================
-    // COHORT
-    // ====================================================================================================
-    @RequestMapping(value = "/intakes", method = RequestMethod.POST)
-    public ResponseEntity<String> ingestIntake(@RequestBody IntakePayload payload) {
-        SecurityContext ctx = loginAsSystem();
+	@RequestMapping(value = "/admissions", method = RequestMethod.POST)
+	public ResponseEntity<String> saveAdmission(@RequestBody AdmissionPayload payload) {
+		LOG.info("incoming admission");
+		SecurityContext ctx = loginAsSystem();
 
-        IntakeSessionCodePayload intakeSession = payload.getIntakeSession();
-        List<ProgramCodePayload> offeredProgramCodes = payload.getOfferedProgramCodes();
+		// this is admission
+		AcAcademicSession academicSession = accountService
+				.findAcademicSessionByCode(payload.getAcademicSession().getCode());
+		LOG.debug("AcademicSession:{}", academicSession.getCode());
 
-        for (ProgramCodePayload offeredProgramCode : offeredProgramCodes) {
+		AcStudent student = identityService.findStudentByMatricNo(payload.getStudent().getMatricNo());
+		AcAccount account = accountService.findAccountByActor(student);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("academicSession", accountService.findCurrentAcademicSession());
+		String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO,
+				map);
+		AcAccountCharge charge = new AcAccountChargeImpl();
+		charge.setChargeType(AcAccountChargeType.ADMISSION);
+		charge.setAccount(account);
+		charge.setSession(academicSession);
+		charge.setChargeDate(new Date());
+		charge.setReferenceNo(referenceNo);
+		charge.setSourceNo("SN"); // todo:
+		charge.setDescription("DESCRIPTION"); // todo:
+		charge.setAmount(BigDecimal.ZERO); // todo
+		charge.setOrdinal(payload.getOrdinal());
+		if (null != payload.getCohortCode())
+			charge.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode().getCode()));
+		if (null != payload.getStudyMode())
+			charge.setStudyMode(commonService.findStudyModeByCode(payload.getStudyMode().getCode()));
+		accountService.addAccountCharge(account, charge);
 
-            String cohortCode =
-                    offeredProgramCode.getFacultyCode().getCode()
-                            + "-" + offeredProgramCode.getProgramLevel().getCode()
-                            + "-" + offeredProgramCode.getCode()
-                            + "-CHRT"
-                            + "-" + intakeSession.getCode();
+		LOG.debug("AfterAddAccountCharge:{}", charge.getAccount().getActor().getIdentityNo());
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
-            AcCohortCode cohort = new AcCohortCodeImpl();
-            cohort.setCode(cohortCode);
-            cohort.setDescription(cohortCode);
-            cohort.setProgramCode(commonService.findProgramCodeByCode(offeredProgramCode.getCode()));
-            commonService.saveCohortCode(cohort);
-        }
-        return new ResponseEntity<String>("success", HttpStatus.OK);
-    }
+	// ====================================================================================================
+	// COHORT
+	// ====================================================================================================
+	@RequestMapping(value = "/intakes", method = RequestMethod.POST)
+	public ResponseEntity<String> ingestIntake(@RequestBody IntakePayload payload) {
+		SecurityContext ctx = loginAsSystem();
 
-    // ====================================================================================================
-    // CANDIDATE
-    // incoming from intake
-    // ====================================================================================================
-    @RequestMapping(value = "/candidates", method = RequestMethod.POST)
-    public ResponseEntity<String> saveCandidate(@RequestBody CandidatePayload payload) {
-        SecurityContext ctx = loginAsSystem();
-        
-//        AcResidencyCode residencyCode = new AcResidencyCodeImpl();
-//        residencyCode.setCode(payload.getNationalityCode().getCode());
-//        residencyCode.setDescription(payload.getNationalityCode().getDescriptionEn());
-//        commonService.saveResidencyCode(residencyCode);
+		IntakeSessionCodePayload intakeSession = payload.getIntakeSession();
+		List<ProgramCodePayload> offeredProgramCodes = payload.getOfferedProgramCodes();
 
-        // student infos
-        AcStudent student = new AcStudentImpl();
-        student.setMatricNo(payload.getMatricNo());
-        student.setName(payload.getName());
-        student.setEmail(payload.getEmail()); // todo: email university?
-        student.setFax(payload.getFax());
-        student.setPhone(payload.getPhone());
-        student.setMobile(payload.getMobile());
+		for (ProgramCodePayload offeredProgramCode : offeredProgramCodes) {
 
-        student.setStudentStatus(AcStudentStatus.ACTIVE);
-        student.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode()));
-//        student.setResidencyCode(commonService.findResidencyCodeByCode(residencyCode.getCode()));
-        identityService.saveStudent(student);
-        AcStudent savedStudent = identityService.findStudentByMatricNo(payload.getMatricNo());
-        
+			String cohortCode = offeredProgramCode.getFacultyCode().getCode() + "-"
+					+ offeredProgramCode.getProgramLevel().getCode() + "-" + offeredProgramCode.getCode() + "-CHRT"
+					+ "-" + intakeSession.getCode();
 
-        
+			AcCohortCode cohort = new AcCohortCodeImpl();
+			cohort.setCode(cohortCode);
+			cohort.setDescription(cohortCode);
+			cohort.setProgramCode(commonService.findProgramCodeByCode(offeredProgramCode.getCode()));
+			commonService.saveCohortCode(cohort);
+		}
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
-        // account
-        AcAccount account = new AcAccountImpl();
-        account.setActor(savedStudent);
-        account.setCode(student.getMatricNo());
-        account.setDescription("ACCOUNT;STUDENT;" + student.getMatricNo());
-        accountService.saveAccount(account);
+	// ====================================================================================================
+	// CANDIDATE
+	// incoming from intake
+	// ====================================================================================================
+	@RequestMapping(value = "/candidates", method = RequestMethod.POST)
+	public ResponseEntity<String> saveCandidate(@RequestBody CandidatePayload payload) {
+		SecurityContext ctx = loginAsSystem();
 
-        // save user
-        AcUser user = new AcUserImpl();
-        user.setUsername(payload.getMatricNo());
-        user.setPassword("abc123");
-        user.setRealName(payload.getName());
-        user.setLocked(true);
-        user.setEnabled(true);
-        user.setActor(savedStudent);
-        identityService.saveUser(user);
+		LOG.info("Start Receive Candidate");
 
-        logoutAsSystem(ctx);
-        return new ResponseEntity<String>("success", HttpStatus.OK);
-    }
+		if(commonService.findResidencyCodeByCode(payload.getNationalityCode().getCode()) == null){
+		AcResidencyCode residencyCode = new AcResidencyCodeImpl();
+		residencyCode.setCode(payload.getNationalityCode().getCode());
+		residencyCode.setDescription(payload.getNationalityCode().getDescriptionEn());
+		commonService.saveResidencyCode(residencyCode);
+		}
+		
+		if(commonService.findCohortCodeByCode(payload.getCohortCode()) == null){
+			
+		
+		AcCohortCode cohortCode = new AcCohortCodeImpl();
+		cohortCode.setCode(payload.getCohortCode());
+		cohortCode.setDescription(payload.getCohortCode());
+		cohortCode.setProgramCode(commonService.findProgramCodeByCode(payload.getProgramCode()));
+		commonService.saveCohortCode(cohortCode);
+		}
+		
+		// student infos
+		AcStudent student = new AcStudentImpl();
+		student.setMatricNo(payload.getMatricNo());
+		student.setName(payload.getName());
+		student.setEmail(payload.getEmail()); // todo: email university?
+		student.setFax(payload.getFax());
+		student.setPhone(payload.getPhone());
+		student.setMobile(payload.getMobile());
 
-    // ====================================================================================================
-    // PRIVATE METHODS
-    // ====================================================================================================
+		student.setStudentStatus(AcStudentStatus.ACTIVE);
+		student.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode()));
+		student.setResidencyCode(commonService.findResidencyCodeByCode(payload.getNationalityCode().getCode()));
+		identityService.saveStudent(student);
 
-    private SecurityContext loginAsSystem() {
-        SecurityContext savedCtx = SecurityContextHolder.getContext();
-        AcAutoLoginToken authenticationToken = new AcAutoLoginToken("system");
-        Authentication authed = authenticationManager.authenticate(authenticationToken);
-        SecurityContext system = new NonSerializableSecurityContext();
-        system.setAuthentication(authed);
-        SecurityContextHolder.setContext(system);
-        return savedCtx;
-    }
+		// account
+		AcAccount account = new AcAccountImpl();
+		account.setActor(student);
+		account.setCode(student.getMatricNo());
+		account.setDescription("ACCOUNT;STUDENT;" + student.getMatricNo());
+		account.setBalance(BigDecimal.ZERO);
+		accountService.saveAccount(account);
 
-    private void logoutAsSystem(SecurityContext context) {
-        SecurityContextHolder.setContext(context);
-    }
+		// save user
+		AcUser user = new AcUserImpl();
+		user.setUsername(payload.getEmail());
+		user.setPassword(payload.getUserPayload().getPassword());
+		user.setRealName(payload.getName());
+		user.setEmail(payload.getEmail());
+		user.setActor(student);
+		identityService.saveUser(user);
+
+		LOG.info("Finish Receive Candidates");
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+
+	// ====================================================================================================
+	// MIN AMOUNT
+	// incoming from academic
+	// ====================================================================================================
+
+	@RequestMapping(value = "/minAmounts", method = RequestMethod.POST)
+	public ResponseEntity<String> saveMinimumAmount(@RequestBody MinAmountPayload payload) {
+
+		SecurityContext ctx = loginAsSystem();
+
+		LOG.info("Start Receive AcAccountCharge");
+
+		AcAccount account = accountService.findAccountByCode(payload.getStudentPayload().getMatricNo());
+		LOG.debug("Student MatricNO:{}", account.getCode());
+
+		AcStudent student = identityService.findStudentByMatricNo(payload.getStudentPayload().getMatricNo());
+		LOG.debug("Student Name:{}", student.getName());
+
+		AcCohortCode cohort = student.getCohortCode();
+
+		AcAccountCharge accountCharge = new AcAccountChargeImpl();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("academicSession", accountService.findCurrentAcademicSession());
+		String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO,
+				map);
+		accountCharge.setReferenceNo(referenceNo);
+		accountCharge.setSourceNo(payload.getStudentPayload().getMatricNo());
+		accountCharge.setDescription("Minimal amount for this student" + payload.getStudentPayload().getMatricNo());
+		accountCharge.setAmount(payload.getMinimalAmount());
+		accountCharge.setChargeType(AcAccountChargeType.ACADEMIC);
+		accountCharge.setAccount(account);
+		accountCharge.setSession(accountService.findCurrentAcademicSession());
+		accountCharge.setCode(payload.getStudentPayload().getMatricNo());
+		accountCharge.setCohortCode(cohort);
+
+		accountService.addAccountCharge(account, accountCharge);
+
+		LOG.info("Finish Receive AcAccountCharge");
+
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+
+	// ====================================================================================================
+	// PRIVATE METHODS
+	// ====================================================================================================
+
+	private SecurityContext loginAsSystem() {
+		SecurityContext savedCtx = SecurityContextHolder.getContext();
+		AcAutoLoginToken authenticationToken = new AcAutoLoginToken("system");
+		Authentication authed = authenticationManager.authenticate(authenticationToken);
+		SecurityContext system = new NonSerializableSecurityContext();
+		system.setAuthentication(authed);
+		SecurityContextHolder.setContext(system);
+		return savedCtx;
+	}
+
+	private void logoutAsSystem(SecurityContext context) {
+		SecurityContextHolder.setContext(context);
+	}
 
 }
-

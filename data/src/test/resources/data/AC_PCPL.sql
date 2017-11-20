@@ -22,6 +22,10 @@ INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani PTJ Secetary', 'keraniptjsec@umk.edu.my', 'abc123');
 
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pegawai-ptj-sec', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Pegawai PTJ Secetary', 'pegawaiptjsec@umk.edu.my', 'abc123');
+
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'system', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS System', 'system@umk.edu.my', 'abc123');
@@ -367,7 +371,11 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_PTJ_SEC'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-ptj-sec'), 1, 1, CURRENT_TIMESTAMP);	                                                                                    
                                                                                  
-                                                                                 
+--USER PTJ SEC PEGAWAI                                                                              
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_PTJ_SEC'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'pegawai-ptj-sec'), 1, 1, CURRENT_TIMESTAMP);	  
+                                                                                
                                                                                  
                                                                                  
                                                                                  
