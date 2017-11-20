@@ -54,7 +54,7 @@ public class ReceiptCompleteTask extends BpmnActivityBehavior implements Activit
         receipt.getFlowdata().setState(AcFlowState.COMPLETED);
         billingService.updateReceipt(receipt);
 
-//        applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
+        applicationContext.publishEvent(new ReceiptApprovedEvent(receipt));
 //        LOG.info("event start");      
 //		 AcAccount account = receipt.getAccount();
 //		 AccountPayload payload = new AccountPayload();

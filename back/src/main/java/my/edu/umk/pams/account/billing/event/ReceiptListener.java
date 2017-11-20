@@ -172,7 +172,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				advancePayment.setSession(receipt.getSession());
 				billingService.addAdvancePayment(advancePayment, securityService.getCurrentUser());
 
-				AcAccountTransaction tx = new AcAccountTransactionImpl();
+/*				AcAccountTransaction tx = new AcAccountTransactionImpl();
 				tx.setSession(receipt.getSession());
 				tx.setPostedDate(new Date());
 				tx.setDescription(advancePayment.getDescription());
@@ -180,7 +180,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				tx.setTransactionCode(AcAccountTransactionCode.ADVANCE_PAYMENT);
 				tx.setAccount(receipt.getAccount());
 				tx.setAmount(advancePayment.getAmount().negate());
-				accountService.addAccountTransaction(receipt.getAccount(), tx);
+				accountService.addAccountTransaction(receipt.getAccount(), tx);*/
 			}
 		}
 	}
