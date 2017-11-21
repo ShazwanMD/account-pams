@@ -59,9 +59,9 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 	public void onApplicationEvent(ReceiptEvent event) {
 		if (event instanceof ReceiptApprovedEvent) {
 			AcReceipt receipt = event.getReceipt();
-			
+
+			// Invoice
 			BigDecimal total = BigDecimal.ZERO;
-			
 			List<AcInvoice> invoices = receipt.getInvoices();
 			for (AcInvoice invoice : invoices) {
 				List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
@@ -86,13 +86,14 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					invoice.setPaid(true);
 					billingService.updateInvoice(invoice);
 				}
-				
+
 				total = total.add(receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser()));
-
+				LOG.debug("total receipt {}", total);
 			}
-			
-			BigDecimal totalCharge = BigDecimal.ZERO;
 
+			// Charges
+
+			BigDecimal totalCharge = BigDecimal.ZERO;
 			List<AcAccountCharge> accountCharges = receipt.getAccountCharges();
 			for (AcAccountCharge accountCharge : accountCharges) {
 
@@ -106,12 +107,14 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					accountCharge.setPaid(true);
 					accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
 				}
-				
-				totalCharge = totalCharge.add(receiptDao.sumTotalAmount(receipt, accountCharge, securityService.getCurrentUser()));
-			}
-			
-			BigDecimal totaldebit = BigDecimal.ZERO;
 
+				totalCharge = totalCharge
+						.add(receiptDao.sumTotalAmount(receipt, accountCharge, securityService.getCurrentUser()));
+			}
+
+			// debit note
+
+			BigDecimal totaldebit = BigDecimal.ZERO;
 			List<AcDebitNote> debitNotes = receipt.getDebitNotes();
 			for (AcDebitNote debitNote : debitNotes) {
 
@@ -123,14 +126,15 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					debitNote.setPaid(true);
 					billingService.updateDebitNote(debitNote);
 				}
-				
-				totaldebit = totaldebit.add(receiptDao.sumTotalAmount(receipt, debitNote, securityService.getCurrentUser()));
 
+				totaldebit = totaldebit
+						.add(receiptDao.sumTotalAmount(receipt, debitNote, securityService.getCurrentUser()));
 			}
-			
+
+
 			BigDecimal Amount = total.add(totaldebit);
-			
-			if(Amount.compareTo(BigDecimal.ZERO) > 0) {
+
+			if (Amount.signum() > 0) {
 				AcAccountTransaction trx = new AcAccountTransactionImpl();
 				trx.setSession(receipt.getSession());
 				trx.setPostedDate(new Date());
@@ -142,7 +146,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				accountService.addAccountTransaction(receipt.getAccount(), trx);
 			}
 			
-			if(totalCharge.compareTo(BigDecimal.ZERO) > 0) {
+			if (totalCharge.signum() > 0) {
 				AcAccountChargeTransaction tx = new AcAccountChargeTransactionImpl();
 				tx.setSession(receipt.getSession());
 				tx.setPostedDate(new Date());
@@ -153,7 +157,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				tx.setAmount(totalCharge.negate());
 				accountService.addAccountChargeTransaction(receipt.getAccount(), tx);
 			}
-			
+
 			BigDecimal balance = receipt.getTotalPayment();
 
 			if (balance.signum() > 0) {
@@ -172,15 +176,17 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				advancePayment.setSession(receipt.getSession());
 				billingService.addAdvancePayment(advancePayment, securityService.getCurrentUser());
 
-/*				AcAccountTransaction tx = new AcAccountTransactionImpl();
-				tx.setSession(receipt.getSession());
-				tx.setPostedDate(new Date());
-				tx.setDescription(advancePayment.getDescription());
-				tx.setSourceNo(advancePayment.getReferenceNo());
-				tx.setTransactionCode(AcAccountTransactionCode.ADVANCE_PAYMENT);
-				tx.setAccount(receipt.getAccount());
-				tx.setAmount(advancePayment.getAmount().negate());
-				accountService.addAccountTransaction(receipt.getAccount(), tx);*/
+				/*
+				 * AcAccountTransaction tx = new AcAccountTransactionImpl();
+				 * tx.setSession(receipt.getSession()); tx.setPostedDate(new
+				 * Date()); tx.setDescription(advancePayment.getDescription());
+				 * tx.setSourceNo(advancePayment.getReferenceNo());
+				 * tx.setTransactionCode(AcAccountTransactionCode.
+				 * ADVANCE_PAYMENT); tx.setAccount(receipt.getAccount());
+				 * tx.setAmount(advancePayment.getAmount().negate());
+				 * accountService.addAccountTransaction(receipt.getAccount(),
+				 * tx);
+				 */
 			}
 		}
 	}
