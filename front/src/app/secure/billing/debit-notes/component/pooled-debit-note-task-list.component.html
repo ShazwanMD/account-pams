@@ -17,7 +17,7 @@
   </div>
 </template>
   <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
-    <div layout="row">{{row['totalAmount'] | currency:'MYR':true:'1.2-2'}}</div>
+    <div layout="row">{{row['totalAmount'] | number:'1.2-2'}}</div>
   </template>
   <template tdDataTableTemplate="debitNoteDate" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['debitNoteDate'] | date: 'dd-MMM-yyyy'}}</div>
