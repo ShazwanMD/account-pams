@@ -26,7 +26,7 @@
       <div layout="row">{{row['creditNoteDate'] | date: 'dd-MMM-yyyy'}}</div>
     </template>
     <template tdDataTableTemplate="totalAmount" let-value="value" let-row="row" let-column="column">
-      <div layout="row">{{row['totalAmount'] | currency:'MYR':true:'1.2-2'}}</div>
+      <div layout="row">{{row['totalAmount'] | number:'1.2-2'}}</div>
     </template>
     <template tdDataTableTemplate="flowState" let-value="value" let-row="row" let-column="column">
       <div layout="row">{{row['flowState'] | flowStatePipe }}</div>
