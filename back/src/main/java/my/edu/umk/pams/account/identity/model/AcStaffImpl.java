@@ -33,14 +33,22 @@ public class AcStaffImpl extends AcActorImpl implements AcStaff {
 
 	@Override
 	public String getStaffDeptCode() {
-		// TODO Auto-generated method stub
 		return getStaffDeptCode();
 	}
 
 	@Override
 	public void setStaffDeptCode(String staffDeptCode) {
-		// TODO Auto-generated method stub
 		setStaffDeptCode(staffDeptCode);
+	}
+
+	@Override
+	public String getStaffCategory() {
+		return getStaffCategory();
+	}
+
+	@Override
+	public void setStaffCategory(String staffCategory) {
+		setStaffCategory(staffCategory);
 	}
 
 }

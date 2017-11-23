@@ -562,6 +562,7 @@ public class IdentityServiceImpl implements IdentityService {
         
     	staffDao.save(staff, securityService.getCurrentUser());
     	try {
+    		
             AcGroup group = identityService.findGroupByName("GRP_PTJ_"+staff.getStaffDeptCode());
             AcPrincipal principal = identityService.findPrincipalByName(user.getName());
             System.out.println("group :"+group);
