@@ -48,11 +48,16 @@ import my.edu.umk.pams.account.identity.model.AcSponsorship;
 import my.edu.umk.pams.account.identity.model.AcStaff;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcUser;
+import my.edu.umk.pams.account.identity.model.AcUserImpl;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.security.integration.NonSerializableSecurityContext;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.system.service.SystemServiceImpl;
+import my.edu.umk.pams.intake.identity.model.InGroup;
+import my.edu.umk.pams.intake.identity.model.InPrincipal;
+import my.edu.umk.pams.intake.identity.model.InUser;
+import my.edu.umk.pams.intake.identity.model.InUserImpl;
 
 /**
  * @author canang technologies
@@ -539,6 +544,34 @@ public class IdentityServiceImpl implements IdentityService {
     @Override
     public void saveStaff(AcStaff staff) {
         staffDao.save(staff, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+    
+    @Override
+    public void saveStaffNonAcdmcActv(AcStaff staff) {
+    	
+    	AcUser user = new AcUserImpl();
+        user.setUsername(staff.getEmail());
+        user.setEmail(staff.getEmail());
+        user.setRealName(staff.getName());
+        user.setPassword(staff.getStaffNo());
+        user.setEnabled(false);
+        user.setLocked(true);
+        
+        identityService.saveUser(user);
+        
+    	staffDao.save(staff, securityService.getCurrentUser());
+    	try {
+            AcGroup group = identityService.findGroupByName("GRP_PTJ_"+staff.getStaffDeptCode());
+            AcPrincipal principal = identityService.findPrincipalByName(user.getName());
+            System.out.println("group :"+group);
+			identityService.addGroupMember(group, principal);
+		} catch (RecursiveGroupException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        
         sessionFactory.getCurrentSession().flush();
     }
 

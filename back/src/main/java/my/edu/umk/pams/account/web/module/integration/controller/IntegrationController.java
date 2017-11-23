@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import my.edu.umk.pams.academic.identity.model.AdStaff;
+import my.edu.umk.pams.academic.identity.model.AdStaffImpl;
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
@@ -50,6 +52,8 @@ import my.edu.umk.pams.account.identity.model.AcPrincipalRole;
 import my.edu.umk.pams.account.identity.model.AcPrincipalRoleImpl;
 import my.edu.umk.pams.account.identity.model.AcPrincipalType;
 import my.edu.umk.pams.account.identity.model.AcRoleType;
+import my.edu.umk.pams.account.identity.model.AcStaff;
+import my.edu.umk.pams.account.identity.model.AcStaffImpl;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.identity.model.AcStudentImpl;
 import my.edu.umk.pams.account.identity.model.AcStudentStatus;
@@ -68,6 +72,7 @@ import my.edu.umk.pams.connector.payload.IntakePayload;
 import my.edu.umk.pams.connector.payload.IntakeSessionCodePayload;
 import my.edu.umk.pams.connector.payload.MinAmountPayload;
 import my.edu.umk.pams.connector.payload.ProgramCodePayload;
+import my.edu.umk.pams.connector.payload.StaffPayload;
 
 @Transactional
 @RestController
@@ -97,6 +102,37 @@ public class IntegrationController {
 	// ====================================================================================================
 	// CODES
 	// ====================================================================================================
+
+	// ====================================================================================================
+	// IMS STAFF
+	// ====================================================================================================
+	@RequestMapping(value = "/staffs/nonAcademicActive", method = RequestMethod.POST)
+	public ResponseEntity<String> saveStaff(@RequestBody List<StaffPayload> payloads) {
+		SecurityContext ctx = loginAsSystem();
+
+		for (StaffPayload payload : payloads) {
+
+			// find if staf exist
+			AcStaff isExist = identityService.findStaffByStaffNo(payload.getStaffId());
+
+			if (isExist.getIdentityNo().isEmpty()) {
+				AcStaff staff = new AcStaffImpl();
+				staff.setIdentityNo(payload.getStaffId());
+				staff.setName(payload.getStaffName());
+				identityService.saveStaffNonAcdmcActv(staff);
+			}
+			else
+			{
+				AcStaff staff = new AcStaffImpl();
+				staff.setIdentityNo(payload.getStaffId());
+				staff.setName(payload.getStaffName());
+				identityService.updateStaff(staff);
+			}
+		}
+
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/cohortCodes", method = RequestMethod.POST)
 	public ResponseEntity<String> saveCohortCode(@RequestBody CohortCodePayload payload) {
@@ -246,23 +282,22 @@ public class IntegrationController {
 
 		LOG.info("Start Receive Candidate");
 
-		if(commonService.findResidencyCodeByCode(payload.getNationalityCode().getCode()) == null){
-		AcResidencyCode residencyCode = new AcResidencyCodeImpl();
-		residencyCode.setCode(payload.getNationalityCode().getCode());
-		residencyCode.setDescription(payload.getNationalityCode().getDescriptionEn());
-		commonService.saveResidencyCode(residencyCode);
+		if (commonService.findResidencyCodeByCode(payload.getNationalityCode().getCode()) == null) {
+			AcResidencyCode residencyCode = new AcResidencyCodeImpl();
+			residencyCode.setCode(payload.getNationalityCode().getCode());
+			residencyCode.setDescription(payload.getNationalityCode().getDescriptionEn());
+			commonService.saveResidencyCode(residencyCode);
 		}
-		
-		if(commonService.findCohortCodeByCode(payload.getCohortCode()) == null){
-			
-		
-		AcCohortCode cohortCode = new AcCohortCodeImpl();
-		cohortCode.setCode(payload.getCohortCode());
-		cohortCode.setDescription(payload.getCohortCode());
-		cohortCode.setProgramCode(commonService.findProgramCodeByCode(payload.getProgramCode()));
-		commonService.saveCohortCode(cohortCode);
+
+		if (commonService.findCohortCodeByCode(payload.getCohortCode()) == null) {
+
+			AcCohortCode cohortCode = new AcCohortCodeImpl();
+			cohortCode.setCode(payload.getCohortCode());
+			cohortCode.setDescription(payload.getCohortCode());
+			cohortCode.setProgramCode(commonService.findProgramCodeByCode(payload.getProgramCode()));
+			commonService.saveCohortCode(cohortCode);
 		}
-		
+
 		// student infos
 		AcStudent student = new AcStudentImpl();
 		student.setMatricNo(payload.getMatricNo());
