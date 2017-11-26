@@ -33,7 +33,10 @@ export class ChargeCodeEffects {
     .ofType(ChargeCodeActions.SAVE_CHARGE_CODE)
     .map(action => action.payload)
     .switchMap(chargeCode => this.accountService.saveChargeCode(chargeCode))
-    .map(message => this.chargeCodeActions.saveChargeCodeSuccess(message));
+    .map(message => this.chargeCodeActions.saveChargeCodeSuccess(message))
+    .withLatestFrom(this.store$.select(...this.CHARGE_CODE))
+    .map((state) => state[1])
+    .map(() => this.chargeCodeActions.findChargeCodes());
 
   @Effect() updateChargeCode$ = this.actions$
     .ofType(ChargeCodeActions.UPDATE_CHARGE_CODE)
