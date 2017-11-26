@@ -7,9 +7,6 @@
     <button md-button class="md-icon-button" (click)="edit(selectedRows[0])" [disabled]="selectedRows.length != 1">
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length === 1}">edit</md-icon>
     </button>
-    <!-- <button md-button class="md-icon-button" (click)="delete()">
-      <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length > 0}">delete</md-icon>
-    </button> -->
   </div>
 
   <td-data-table
@@ -30,7 +27,7 @@
       </div>
     </template>
     <template tdDataTableTemplate="amount" let-value="value" let-row="row" let-column="column">
-      <div layout="row">{{row['amount'] | number:'1.2-2'}}</div>
+      <div layout="row" layout-align="end">{{row['amount'] | number:'1.2-2'}}</div>
     </template>
   </td-data-table>
 </td-expansion-panel>

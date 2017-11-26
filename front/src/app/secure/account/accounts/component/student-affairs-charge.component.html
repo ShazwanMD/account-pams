@@ -11,8 +11,6 @@
       <md-icon class="md-24 tc-grey-300" [ngClass]="{'tc-grey-700': selectedRows.length > 0}">delete</md-icon>
     </button> -->
   </div>
-<!-- {{studentAffairsAccountCharges | json}} -->
-
   <td-data-table
     [data]="studentAffairsAccountCharges"
     [columns]="studentAffairsChargeColumns"
@@ -31,16 +29,16 @@
       </div>
     </template>
     <template tdDataTableTemplate="amount" let-value="value" let-row="row" let-column="column">
-      <div layout="row">{{row['amount'] | number:'1.2-2'}}</div>
+      <div layout="row" layout-align="end">{{row['amount'] | number:'1.2-2'}}</div>
     </template>
     <template tdDataTableTemplate="taxAmount" let-value="value" let-row="row" let-column="column">
-      <div layout="row">{{row['taxAmount'] | number:'1.2-2'}}</div>
+      <div layout="row" layout-align="end">{{row['taxAmount'] | number:'1.2-2'}}</div>
     </template>
     <template tdDataTableTemplate="netAmount" let-value="value" let-row="row" let-column="column">
-      <div layout="row">{{row['netAmount'] | number:'1.2-2'}}</div>
+      <div layout="row" layout-align="end">{{row['netAmount'] | number:'1.2-2'}}</div>
     </template>
     <template tdDataTableTemplate="balanceAmount" let-value="value" let-row="row" let-column="column">
-      <div layout="row">{{row['balanceAmount'] | number:'1.2-2'}}</div>
+      <div layout="row" layout-align="end">{{row['balanceAmount'] | number:'1.2-2'}}</div>
     </template>
   </td-data-table>
 </td-expansion-panel>
