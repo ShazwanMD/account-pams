@@ -30,7 +30,7 @@ public class KnockoffRouter extends RouterServiceSupport{
                 
         AcKnockoff knockoff = billingService.findKnockoffById(knockoffId);
         candidate = "GRP_ADM";
-        kerani = "GRP_KRN_ADM_BEND";
+        kerani = "GRP_PGW_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(receipt, identityService.findGroupByName(candidate), AcPermission.VIEW);

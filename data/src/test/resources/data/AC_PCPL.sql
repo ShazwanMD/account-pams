@@ -14,6 +14,10 @@ INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani Admin Bendahari', 'keraniadminbendahari@umk.edu.my', 'abc123');
 
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pen-pegawai-admin-bendahari', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Penolong Pegawai Admin Bendahari', 'penolongpegawaiadminbendahari@umk.edu.my', 'abc123');
+
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pegawai-admin-bendahari', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Pegawai Admin Bendahari', 'pegawaiadminbendahari@umk.edu.my', 'abc123');
@@ -22,9 +26,37 @@ INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani PTJ Secetary', 'keraniptjsec@umk.edu.my', 'abc123');
 
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pen-pegawai-ptj-sec', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Penolong Pegawai PTJ Secetary', 'penolongpegawaiptjsec@umk.edu.my', 'abc123');
+
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pegawai-ptj-sec', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
 VALUES (currval('SQ_AC_PCPL'), 'PAMS Pegawai PTJ Secetary', 'pegawaiptjsec@umk.edu.my', 'abc123');
+
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'kerani-ptj-cps', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani PTJ CPS', 'keraniptjcps@umk.edu.my', 'abc123');
+
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pen-pegawai-ptj-cps', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Penolong Pegawai PTJ CPS', 'penolongpegawaiptjcps@umk.edu.my', 'abc123');
+
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pegawai-ptj-cps', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Pegawai PTJ CPS', 'pegawaiptjcps@umk.edu.my', 'abc123');
+
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'kerani-ptj-mgseb', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Kerani PTJ MGSEB', 'keraniptjmgseb@umk.edu.my', 'abc123');
+
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pen-pegawai-ptj-mgseb', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Penolong Pegawai PTJ MGSEB', 'penolongpegawaiptjmgseb@umk.edu.my', 'abc123');
+
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'pegawai-ptj-mgseb', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_AC_PCPL'), 'PAMS Pegawai PTJ MGSEB', 'pegawaiptjmgseb@umk.edu.my', 'abc123');
 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'system', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_USER (ID, REAL_NAME, EMAIL, PASSWORD)
@@ -109,6 +141,14 @@ INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES 
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_ADM_BEND'), 1, 1, CURRENT_TIMESTAMP);
+
+-- PENOLONG PEGAWAI ADMIN BENDAHARI
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PEN_PGW_ADM_BEND', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_ADM_BEND'), 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_ADM_BEND'), 1, 1, CURRENT_TIMESTAMP);                                                                                 
                                                                                  
 -- PEGAWAI ADMIN BENDAHARI                                                                                 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PGW_ADM_BEND', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
@@ -188,6 +228,14 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PTJ_SEC'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_PTJ_SEC'), 1, 1, CURRENT_TIMESTAMP);
 
+-- PENOLONG PEGAWAI PTJ SEC
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PEN_PGW_PTJ_SEC', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_SEC'), 3, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PTJ_SEC'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_SEC'), 1, 1, CURRENT_TIMESTAMP);                                                                                   
+                                                                                 
 -- PEGAWAI PTJ SEC
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PGW_PTJ_SEC', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
@@ -229,6 +277,14 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PTJ_MGSEB'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_PTJ_MGSEB'), 1, 1, CURRENT_TIMESTAMP);
 
+-- PENOLONG PEGAWAI PTJ MGSEB
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PEN_PGW_PTJ_MGSEB', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_MGSEB'), 3, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PTJ_MGSEB'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_MGSEB'), 1, 1, CURRENT_TIMESTAMP);                                                                                 
+                                                                                 
 -- PEGAWAI PTJ MGSEB
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PGW_PTJ_MGSEB', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
@@ -270,6 +326,14 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PTJ_CPS'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_PTJ_CPS'), 1, 1, CURRENT_TIMESTAMP);
 
+-- PENOLONG PEGAWAI PTJ CPS
+INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PEN_PGW_PTJ_CPS', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_CPS'), 3, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PTJ_CPS'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_CPS'), 1, 1, CURRENT_TIMESTAMP);                                                                                 
+                                                                                 
 -- PEGAWAI PTJ CPS
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PGW_PTJ_CPS', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
@@ -361,6 +425,11 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_ADM_BEND'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-admin-bendahari'), 1, 1, CURRENT_TIMESTAMP);	
                                                                                  
+--USER ADMIN BENDAHARI PENOLONG PEGAWAI                                                                             
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_ADM_BEND'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'pen-pegawai-admin-bendahari'), 1, 1, CURRENT_TIMESTAMP);	                                                                                 
+                                                                                 
 --USER ADMIN BENDAHARI PEGAWAI                                                                              
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_ADM_BEND'),
@@ -369,16 +438,47 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
 --USER PTJ SEC KERANI                                                                              
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_PTJ_SEC'),
-                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-ptj-sec'), 1, 1, CURRENT_TIMESTAMP);	                                                                                    
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-ptj-sec'), 1, 1, CURRENT_TIMESTAMP);
+                                                                                 
+--USER PTJ SEC PENOLONG PEGAWAI                                                                              
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_SEC'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'pen-pegawai-ptj-sec'), 1, 1, CURRENT_TIMESTAMP);	                                                                                  
                                                                                  
 --USER PTJ SEC PEGAWAI                                                                              
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_PTJ_SEC'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'pegawai-ptj-sec'), 1, 1, CURRENT_TIMESTAMP);	  
                                                                                 
+--KERANI PTJ CPS                                                                             
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_PTJ_CPS'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-ptj-cps'), 1, 1, CURRENT_TIMESTAMP);
                                                                                  
+--PENOLONG PEGAWAI PTJ CPS                                                                        
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_CPS'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'pen-pegawai-ptj-cps'), 1, 1, CURRENT_TIMESTAMP);	                                                                                  
                                                                                  
+--PEGAWAI PTJ CPS                                                                             
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_PTJ_CPS'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'pegawai-ptj-cps'), 1, 1, CURRENT_TIMESTAMP);	                                                                           
                                                                                  
+--KERANI PTJ MGSEB                                                                             
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_PTJ_MGSEB'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'kerani-ptj-mgseb'), 1, 1, CURRENT_TIMESTAMP);
+                                                                                 
+--PENOLONG PEGAWAI PTJ MGSEB                                                                        
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_PTJ_MGSEB'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'pen-pegawai-ptj-mgseb'), 1, 1, CURRENT_TIMESTAMP);	                                                                                  
+                                                                                 
+--PEGAWAI PTJ MGSEB                                                                             
+INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_PTJ_MGSEB'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'pegawai-ptj-mgseb'), 1, 1, CURRENT_TIMESTAMP);	                                                                                      
                                                                           
                                                                                                                                    
 

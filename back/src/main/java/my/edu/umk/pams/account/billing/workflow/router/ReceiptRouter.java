@@ -31,7 +31,7 @@ public class ReceiptRouter extends RouterServiceSupport{
         
         AcReceipt receipt = billingService.findReceiptById(receiptId);
         candidate = "GRP_ADM";
-        kerani = "GRP_KRN_ADM_BEND";
+        kerani = "GRP_PGW_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(receipt, identityService.findGroupByName(candidate), AcPermission.VIEW);

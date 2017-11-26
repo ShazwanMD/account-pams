@@ -29,15 +29,18 @@ public class WaiverFinanceApplicationRouter extends RouterServiceSupport {
 
         String candidate = null;
         String kerani = null;
+        String penPgw = null;
         
         AcWaiverFinanceApplication application = billingService.findWaiverFinanceApplicationById(waiverFinanceApplicationId);
         candidate = "GRP_ADM";
         kerani = "GRP_KRN_ADM_BEND";
+        penPgw = "GRP_PEN_PGW_ADM_BEND";
+        
 
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate, kerani);
+        return Arrays.asList(candidate, kerani, penPgw);
     }
 
     public List<String> findVerifierCandidates(Long waiverFinanceApplicationId) {

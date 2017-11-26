@@ -31,7 +31,7 @@ public class InvoiceRouter extends RouterServiceSupport{
         
         AcInvoice invoice = billingService.findInvoiceById(invoiceId);
         candidate = "GRP_ADM";
-        kerani = "GRP_KRN_ADM_BEND";
+        kerani = "GRP_PEN_PGW_ADM_BEND";
         
 
         // publish access event

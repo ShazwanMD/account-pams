@@ -32,7 +32,7 @@ public class CreditNoteRouter extends RouterServiceSupport{
         
         AcCreditNote creditNote = billingService.findCreditNoteById(creditNoteId);
         candidate = "GRP_ADM";
-        kerani = "GRP_KRN_ADM_BEND";
+        kerani = "GRP_PEN_PGW_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);

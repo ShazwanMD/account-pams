@@ -31,7 +31,7 @@ public class DebitNoteRouter extends RouterServiceSupport{
         
         AcDebitNote debitNote = billingService.findDebitNoteById(debitNoteId);
         candidate = "GRP_ADM";
-        kerani = "GRP_KRN_ADM_BEND";
+        kerani = "GRP_PEN_PGW_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(debitNote, identityService.findGroupByName(candidate), AcPermission.VIEW);

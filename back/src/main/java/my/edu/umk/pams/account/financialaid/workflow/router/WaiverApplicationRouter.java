@@ -27,31 +27,37 @@ public class WaiverApplicationRouter extends RouterServiceSupport{
         Validate.notNull(waiverApplicationId, "Id must not be null");
 
         String candidate = null;
-        String kerani = null; 
+        String penPgwCps = null; 
+        String penPgwMgseb = null; 
+        
         
         AcWaiverApplication application = financialAidService.findWaiverApplicationById(waiverApplicationId);
         candidate = "GRP_ADM";
-        kerani = "GRP_KRN_ADM_BEND";
+        penPgwCps = "GRP_PEN_PGW_PTJ_CPS";
+        penPgwMgseb = "GRP_PEN_PGW_PTJ_MGSEB";
+        
 
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate, kerani);
+        return Arrays.asList(candidate, penPgwCps, penPgwMgseb);
     }
 
     public List<String> findVerifierCandidates(Long waiverApplicationId) {
         Validate.notNull(waiverApplicationId, "Id must not be null");
 
         String candidate = null;
-        String pegawai = null; 
+        String PgwCps = null; 
+        String PgwMgseb = null; 
         
         AcWaiverApplication application = financialAidService.findWaiverApplicationById(waiverApplicationId);
         candidate = "GRP_ADM";
-        pegawai = "GRP_PGW_ADM_BEND";
+        PgwCps = "GRP_PGW_PTJ_CPS";
+        PgwMgseb = "GRP_PGW_PTJ_MGSEB";
 
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate, pegawai);
+        return Arrays.asList(candidate, PgwCps, PgwMgseb);
     }
 }
