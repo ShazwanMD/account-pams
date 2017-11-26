@@ -24,6 +24,7 @@ import java.util.Map;
 
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
@@ -40,6 +41,8 @@ import my.edu.umk.pams.account.common.model.AcProgramCodeImpl;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCodeImpl;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.identity.dao.RecursiveGroupException;
+import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.model.AcGroup;
 import my.edu.umk.pams.account.identity.model.AcGroupMember;
 import my.edu.umk.pams.account.identity.model.AcGroupMemberImpl;
@@ -62,6 +65,7 @@ import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
 import my.edu.umk.pams.account.security.integration.NonSerializableSecurityContext;
 import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.connector.payload.AcademicSessionCodePayload;
 import my.edu.umk.pams.connector.payload.AdmissionPayload;
 import my.edu.umk.pams.connector.payload.CandidatePayload;
 import my.edu.umk.pams.connector.payload.CohortCodePayload;
@@ -272,6 +276,41 @@ public class IntegrationController {
 	}
 
 	// ====================================================================================================
+	// ACADEMIC SESSIONS
+	// ====================================================================================================
+	@RequestMapping(value = "/sessions", method = RequestMethod.POST)
+	public ResponseEntity<String> saveAcademicSession(@RequestBody AcademicSessionCodePayload payload) {
+		SecurityContext ctx = loginAsSystem();
+
+		if (accountService.isAcademicSessionCodeExists(payload.getCode())) {
+
+			System.out.println("Duplicate session:" + payload.getCode());
+			return new ResponseEntity<String>("Duplicate", HttpStatus.OK);
+		} else {
+
+			System.out.println("Update previous session TRUE to FALSE first then save");
+
+			AcAcademicSession academicSession1 = accountService.findCurrentAcademicSession();
+			if (academicSession1.isCurrent() == true) {
+				System.out.println("Check state TRUE" + academicSession1.isCurrent());
+				academicSession1.setCurrent(false);
+				accountService.updateAcademicSession(academicSession1);
+				System.out.println("Updated session:" + academicSession1);
+
+				AcAcademicSession academicSession = new AcAcademicSessionImpl();
+				academicSession.setCode(payload.getCode());
+				academicSession.setCurrent(true);
+				academicSession.setDescription(payload.getDescription());
+				academicSession.setStartDate(payload.getStartDate());
+				academicSession.setEndDate(payload.getEndDate());
+				accountService.saveAcademicSession(academicSession);
+				LOG.info("Finish save academic session");
+			}
+		}
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+
+	// ====================================================================================================
 	// CANDIDATE
 	// incoming from intake
 	// ====================================================================================================
@@ -329,6 +368,63 @@ public class IntegrationController {
 		identityService.saveUser(user);
 
 		LOG.info("Finish Receive Candidates");
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+
+	// ====================================================================================================
+	// STAFF
+	// ====================================================================================================
+	@RequestMapping(value = "/staff", method = RequestMethod.POST)
+	public ResponseEntity<String> saveStaff(@RequestBody List<StaffPayload> staffPayload)
+			throws RecursiveGroupException {
+		SecurityContext ctx = loginAsSystem();
+
+		LOG.info("Start Receive Staff From IMS");
+		for (StaffPayload payload : staffPayload) {
+
+			LOG.debug("Staff Staff_No:{}", payload.getStaffId());
+			LOG.debug("Staff Name:{}", payload.getStaffName());
+
+			AcStaff staff = new AcStaffImpl();
+			staff.setIdentityNo(payload.getStaffId());
+			staff.setName(payload.getStaffName());
+			staff.setActorType(AcActorType.STAFF);
+			identityService.saveStaff(staff);
+
+			// User
+			AcUser user = new AcUserImpl();
+			user.setActor(staff);
+			user.setEmail(payload.getStaffEmail());
+			user.setUsername(payload.getStaffEmail());
+			user.setPassword("ABC123");
+			user.setRealName(payload.getStaffName());
+			identityService.saveUser(user);
+
+			// Principal
+			AcPrincipal principal = identityService.findPrincipalByName(payload.getStaffEmail());
+			principal.setName(payload.getStaffEmail());
+			principal.setPrincipalType(AcPrincipalType.USER);
+			principal.setEnabled(true);
+			principal.setLocked(true);
+
+			// Principal Role
+			AcPrincipalRole role = new AcPrincipalRoleImpl();
+			role.setPrincipal(principal);
+			role.setRole(AcRoleType.ROLE_USER);
+			identityService.addPrincipalRole(principal, role);
+
+			// Group
+			AcGroup group = identityService.findGroupByName("GRP_STDN");
+			// GroupMember
+			AcGroupMember member = new AcGroupMemberImpl();
+			member.setGroup(group);
+			member.setPrincipal(principal);
+			identityService.addGroupMember(group, principal);
+
+		}
+		LOG.info("Finish Receive Staff From IMS");
+
 		logoutAsSystem(ctx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
