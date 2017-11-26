@@ -31,4 +31,24 @@ public class AcStaffImpl extends AcActorImpl implements AcStaff {
         return AcStaff.class;
     }
 
+	@Override
+	public String getStaffDeptCode() {
+		return getStaffDeptCode();
+	}
+
+	@Override
+	public void setStaffDeptCode(String staffDeptCode) {
+		setStaffDeptCode(staffDeptCode);
+	}
+
+	@Override
+	public String getStaffCategory() {
+		return getStaffCategory();
+	}
+
+	@Override
+	public void setStaffCategory(String staffCategory) {
+		setStaffCategory(staffCategory);
+	}
+
 }

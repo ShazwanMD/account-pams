@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import my.edu.umk.pams.academic.identity.model.AdStaff;
+import my.edu.umk.pams.academic.identity.model.AdStaffImpl;
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
@@ -104,6 +106,37 @@ public class IntegrationController {
 	// ====================================================================================================
 	// CODES
 	// ====================================================================================================
+
+	// ====================================================================================================
+	// IMS STAFF
+	// ====================================================================================================
+	@RequestMapping(value = "/staffs/nonAcademicActive", method = RequestMethod.POST)
+	public ResponseEntity<String> saveStaff(@RequestBody List<StaffPayload> payloads) {
+		SecurityContext ctx = loginAsSystem();
+
+		for (StaffPayload payload : payloads) {
+
+			// find if staf exist
+			AcStaff isExist = identityService.findStaffByStaffNo(payload.getStaffId());
+
+			if (isExist.getIdentityNo().isEmpty()) {
+				AcStaff staff = new AcStaffImpl();
+				staff.setIdentityNo(payload.getStaffId());
+				staff.setName(payload.getStaffName());
+				identityService.saveStaffNonAcdmcActv(staff);
+			}
+			else
+			{
+				AcStaff staff = new AcStaffImpl();
+				staff.setIdentityNo(payload.getStaffId());
+				staff.setName(payload.getStaffName());
+				identityService.updateStaff(staff);
+			}
+		}
+
+		logoutAsSystem(ctx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/cohortCodes", method = RequestMethod.POST)
 	public ResponseEntity<String> saveCohortCode(@RequestBody CohortCodePayload payload) {

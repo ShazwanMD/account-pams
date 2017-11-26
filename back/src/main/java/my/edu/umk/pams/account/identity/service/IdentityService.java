@@ -275,6 +275,8 @@ public interface IdentityService {
 
 	void removeGuardian(AcStudent student, AcGuardian guardian);
 
+	void saveStaffNonAcdmcActv(AcStaff staff);
+
 
 
 }
