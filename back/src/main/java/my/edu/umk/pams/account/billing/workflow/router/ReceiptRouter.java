@@ -27,16 +27,16 @@ public class ReceiptRouter extends RouterServiceSupport{
         Validate.notNull(receiptId, "Id must not be null");
 
         String candidate = null;
-        String kerani = null;
+        String pegawai = null;
         
         AcReceipt receipt = billingService.findReceiptById(receiptId);
         candidate = "GRP_ADM";
-        kerani = "GRP_PGW_ADM_BEND";
+        pegawai = "GRP_PGW_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(receipt, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate, kerani);
+        return Arrays.asList(candidate, pegawai);
     }
 
     public List<String> findVerifierCandidates(Long receiptId) {

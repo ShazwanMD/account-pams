@@ -58,14 +58,14 @@ public class JasperServlet extends HttpServlet {
 
             // report and image path
             String reportName = req.getParameter(PARAM_REPORT);
-            String path = "reports/" + reportName;
+            String path = "/reports/" + reportName;
             ClassPathResource resource = new ClassPathResource(path);
 
             // get connection
             connection = dataSource.getConnection();
 
             // load report
-            JasperDesign jasDesign = JRXmlLoader.load(resource.getFile());
+            JasperDesign jasDesign = JRXmlLoader.load(resource.getInputStream());
             JasperReport jasReport = JasperCompileManager.compileReport(jasDesign);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasReport, map, connection);
 

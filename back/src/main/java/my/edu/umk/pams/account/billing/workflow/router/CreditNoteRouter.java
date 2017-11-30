@@ -28,16 +28,16 @@ public class CreditNoteRouter extends RouterServiceSupport{
         Validate.notNull(creditNoteId, "Id must not be null");
 
         String candidate = null;
-        String kerani = null; 
+        String penPgw = null; 
         
         AcCreditNote creditNote = billingService.findCreditNoteById(creditNoteId);
         candidate = "GRP_ADM";
-        kerani = "GRP_PEN_PGW_ADM_BEND";
+        penPgw = "GRP_PEN_PGW_ADM_BEND";
 
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate, kerani);
+        return Arrays.asList(candidate, penPgw);
     }
 
     public List<String> findVerifierCandidates(Long creditNoteId) {

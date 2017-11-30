@@ -27,17 +27,17 @@ public class InvoiceRouter extends RouterServiceSupport{
         Validate.notNull(invoiceId, "Id must not be null");
 
         String candidate = null;
-        String kerani = null;
+        String penPgw = null;
         
         AcInvoice invoice = billingService.findInvoiceById(invoiceId);
         candidate = "GRP_ADM";
-        kerani = "GRP_PEN_PGW_ADM_BEND";
+        penPgw = "GRP_PEN_PGW_ADM_BEND";
         
 
         // publish access event
         // publishAccessEvent(invoice, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate, kerani);
+        return Arrays.asList(candidate, penPgw);
     }
 
     public List<String> findVerifierCandidates(Long invoiceId) {
