@@ -23,7 +23,7 @@ public class CreditNote extends Document {
 	private Invoice invoice;
 	private String accountCode;
 	private String accountName;
-	private ChargeCode sodoCode;
+	//private ChargeCode sodoCode;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -89,13 +89,13 @@ public class CreditNote extends Document {
 		this.accountCode = accountCode;
 	}
 	
-	public ChargeCode getChargeCode() {
+/*	public ChargeCode getChargeCode() {
         return sodoCode;
     }
 
     public void setChargeCode(ChargeCode sodoCode) {
         this.sodoCode = sodoCode;
-    }
+    }*/
 	
 	public String getAccountName() {
 		return accountName;

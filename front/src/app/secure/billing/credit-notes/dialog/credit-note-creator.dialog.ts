@@ -8,6 +8,7 @@ import {CreditNote} from '../../../../shared/model/billing/credit-note.interface
 import {CreditNoteActions} from '../credit-note.action';
 import {Invoice} from '../../../../shared/model/billing/invoice.interface';
 import {ChargeCode} from '../../../../shared/model/account/charge-code.interface';
+import { AmountValidation } from "../../../../shared/component/amount-validation";
 
 @Component({
   selector: 'pams-credit-note-creator',
@@ -39,12 +40,14 @@ export class CreditNoteCreatorDialog implements OnInit {
       description: ['',Validators.required],
       referenceNo: [''],
       sourceNo: [''],
-      totalAmount:['',Validators.required],
+      totalAmount:[''],
       accountCode: [''],
       creditNoteDate: [undefined,Validators.required],
       accountName: [''],
-      chargeCode: [<ChargeCode>{}],
-      invoice: [<Invoice>{}],
+      //chargeCode: <ChargeCode>{},
+      invoice: <Invoice>{},
+    },{
+        //validator: AmountValidation.CreditNoteAmount // validation method
     });
     this.createForm.patchValue({invoice: this._invoice});
   }
@@ -55,7 +58,6 @@ export class CreditNoteCreatorDialog implements OnInit {
 
     console.log('sourceNo: ' + creditNote.sourceNo);
     console.log('invoice: ' + this._invoice.referenceNo);
-    // creditNote.totalAmount = creditNote.totalAmount * (-1) ;
 
     this.store.dispatch(this.actions.startCreditNoteTask(creditNote));
     this.dialog.close();

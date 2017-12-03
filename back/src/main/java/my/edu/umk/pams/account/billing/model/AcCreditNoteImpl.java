@@ -62,9 +62,9 @@ public class AcCreditNoteImpl implements AcCreditNote {
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
-    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
+/*    @ManyToOne(targetEntity = AcChargeCodeImpl.class)
     @JoinColumn(name = "CHARGE_CODE_ID")
-    private AcChargeCode chargeCode;
+    private AcChargeCode chargeCode;*/
 
     @Embedded
     private AcMetadata metadata;
@@ -211,7 +211,7 @@ public class AcCreditNoteImpl implements AcCreditNote {
         this.flowdata = flowdata;
     }
     
-    @Override
+/*    @Override
     public AcChargeCode getChargeCode(){
         return chargeCode;
     };
@@ -219,7 +219,7 @@ public class AcCreditNoteImpl implements AcCreditNote {
     @Override
     public void setChargeCode(AcChargeCode chargeCode) {
         this.chargeCode = chargeCode;
-    };
+    };*/
 
     @Override
     public Class<?> getInterfaceClass() {

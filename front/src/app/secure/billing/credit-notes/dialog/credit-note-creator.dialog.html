@@ -22,12 +22,16 @@
       *ngIf="createForm.get('description').invalid && createForm.get('description').touched">Description is Required!
     </div> 
     </div>
-    <div fxLayout fxLayout.xs="column">
+<!--     <div fxLayout fxLayout.xs="column">
       <pams-charge-code-select
         [placeholder]="'Charge Code'"
         [innerFormControl]="createForm.controls['chargeCode']" fxFlex="calc(100%-25px)" class="pad-bottom">
       </pams-charge-code-select>
-    </div>
+      <div class="error" class="tc-red-600"
+      *ngIf="createForm.get('chargeCode').touched && createForm.get('chargeCode').hasError('nomatch')">
+          Charge code must match with charge code invoice
+        </div>
+    </div> 
     <div layout="row" class="pad-bottom">
       <md-input-container flex>
         <input mdInput #totalAmount type = 'number'
@@ -39,7 +43,7 @@
     <div class="error" class="tc-red-600"
       *ngIf="createForm.get('totalAmount').invalid && createForm.get('totalAmount').touched">Total Amount is Required!
     </div> 
-    </div>
+    </div>-->
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">

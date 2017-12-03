@@ -617,7 +617,7 @@ public class IdentityServiceImpl implements IdentityService {
 			// Principal Role
 			AcPrincipalRole role = new AcPrincipalRoleImpl();
 			role.setPrincipal(principal);
-			role.setRole(AcRoleType.ROLE_CPS);
+			role.setRole(AcRoleType.ROLE_ADMINISTRATOR);
 			addPrincipalRole(principal, role);
 
 			try {
@@ -638,7 +638,7 @@ public class IdentityServiceImpl implements IdentityService {
 			// Principal Role
 			AcPrincipalRole role = new AcPrincipalRoleImpl();
 			role.setPrincipal(principal);
-			role.setRole(AcRoleType.ROLE_CPS);
+			role.setRole(AcRoleType.ROLE_ADMINISTRATOR);
 			addPrincipalRole(principal, role);
 
 			try {

@@ -31,8 +31,8 @@ public interface AcCreditNote extends AcDocument {
     
     void setCreditNoteDate(Date creditNoteDate);
     
-    AcChargeCode getChargeCode();
+/*    AcChargeCode getChargeCode();
 
-    void setChargeCode(AcChargeCode chargeCode);
+    void setChargeCode(AcChargeCode chargeCode);*/
 
 }

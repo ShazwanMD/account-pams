@@ -10,7 +10,6 @@ import java.util.Date;
  * @author PAMS
  */
 
-@Deprecated // buang later
 public interface AcCreditNoteItem extends AcMetaObject {
 
     String getDescription();
