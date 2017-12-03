@@ -1185,6 +1185,7 @@
         ID int8 not null,
         DEPT_CODE varchar(255),
         CATEGORY varchar(255),
+        STAFF_CATEGORY varchar(255),
         primary key (ID)
     );
 

@@ -92,7 +92,8 @@ public class AcStaffDaoImpl extends GenericDaoSupport<Long, AcStaff> implements 
                 "and s.metadata.state = :state ");
         query.setString("staffNo", staffNo);
         query.setInteger("state", my.edu.umk.pams.account.core.AcMetaState.ACTIVE.ordinal());
-        return ((Integer) query.uniqueResult() > 0);
+        //return ((Integer) query.uniqueResult() > 0);
+        return 0 < ((Long) query.uniqueResult()).intValue();
     }
 
     @Override
