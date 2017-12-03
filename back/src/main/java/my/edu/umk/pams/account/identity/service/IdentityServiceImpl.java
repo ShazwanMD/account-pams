@@ -38,10 +38,13 @@ import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.model.AcCoverage;
 import my.edu.umk.pams.account.identity.model.AcGroup;
 import my.edu.umk.pams.account.identity.model.AcGroupImpl;
+import my.edu.umk.pams.account.identity.model.AcGroupMember;
+import my.edu.umk.pams.account.identity.model.AcGroupMemberImpl;
 import my.edu.umk.pams.account.identity.model.AcGuardian;
 import my.edu.umk.pams.account.identity.model.AcPrincipal;
 import my.edu.umk.pams.account.identity.model.AcPrincipalRole;
 import my.edu.umk.pams.account.identity.model.AcPrincipalRoleImpl;
+import my.edu.umk.pams.account.identity.model.AcPrincipalType;
 import my.edu.umk.pams.account.identity.model.AcRoleType;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
 import my.edu.umk.pams.account.identity.model.AcSponsorship;
@@ -54,7 +57,6 @@ import my.edu.umk.pams.account.security.integration.NonSerializableSecurityConte
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.system.service.SystemServiceImpl;
-
 
 /**
  * @author canang technologies
@@ -307,6 +309,11 @@ public class IdentityServiceImpl implements IdentityService {
 	}
 
 	@Override
+	public AcGroup findGroupByUser(AcUser user) {
+		return userDao.findGroupByUser(user);
+	}
+
+	@Override
 	public List<AcGroup> findGroups(Integer offset, Integer limit) {
 		return groupDao.find(offset, limit);
 	}
@@ -541,6 +548,159 @@ public class IdentityServiceImpl implements IdentityService {
 	}
 
 	@Override
+	public void saveStaffIMSNonAcademicActive(AcStaff staff) {
+		staffDao.save(staff, securityService.getCurrentUser());
+		LOG.info("Save Staff IMS Service");
+
+		LOG.debug("Staff Email In Service:{}", staff.getEmail());
+		// User
+		AcUser user = new AcUserImpl();
+		user.setActor(staff);
+		user.setEmail(staff.getEmail());
+		user.setUsername(staff.getEmail());
+		user.setPassword(staff.getStaffNo());
+		user.setRealName(staff.getName());
+		// Username Principal
+		user.setName(staff.getEmail());
+		user.setEnabled(true);
+		user.setLocked(true);
+		user.setPrincipalType(AcPrincipalType.USER);
+		saveUser(user);
+
+		// Principal
+		AcPrincipal principal = findPrincipalByName(staff.getEmail());
+		if (staff.getFacultyCode().getCode().equals("A10") && staff.getStaffCategory().equals("A")) {
+			LOG.info("If Faculty A10 MGSEB && Category A");
+
+			// Principal Role
+			AcPrincipalRole role = new AcPrincipalRoleImpl();
+			role.setPrincipal(principal);
+			role.setRole(AcRoleType.ROLE_MGSEB);
+			addPrincipalRole(principal, role);
+
+			try {
+				// Group
+				AcGroup group = findGroupByName("GRP_PGW_ADM_A10");
+				// GroupMember
+				AcGroupMember member = new AcGroupMemberImpl();
+				member.setGroup(group);
+				member.setPrincipal(principal);
+				addGroupMember(group, principal);
+			} catch (RecursiveGroupException e) {
+
+				e.printStackTrace();
+			}
+		} else if (staff.getFacultyCode().getCode().equals("A10")) {
+			LOG.info("If Faculty A10 MGSEB Only");
+
+			// Principal Role
+			AcPrincipalRole role = new AcPrincipalRoleImpl();
+			role.setPrincipal(principal);
+			role.setRole(AcRoleType.ROLE_MGSEB);
+			addPrincipalRole(principal, role);
+
+			try {
+				// Group
+				AcGroup group = findGroupByName("GRP_KRN_ADM_A10");
+				// GroupMember
+				AcGroupMember member = new AcGroupMemberImpl();
+				member.setGroup(group);
+				member.setPrincipal(principal);
+				addGroupMember(group, principal);
+			} catch (RecursiveGroupException e) {
+
+				e.printStackTrace();
+			}
+		} else if (staff.getFacultyCode().getCode().equals("A09") && staff.getStaffCategory().equals("A")) {
+			LOG.info("If Faculty A09 CPS && Category A");
+
+			// Principal Role
+			AcPrincipalRole role = new AcPrincipalRoleImpl();
+			role.setPrincipal(principal);
+			role.setRole(AcRoleType.ROLE_CPS);
+			addPrincipalRole(principal, role);
+
+			try {
+				// Group
+				AcGroup group = findGroupByName("GRP_PGW_ADM_A09");
+				// GroupMember
+				AcGroupMember member = new AcGroupMemberImpl();
+				member.setGroup(group);
+				member.setPrincipal(principal);
+				addGroupMember(group, principal);
+			} catch (RecursiveGroupException e) {
+
+				e.printStackTrace();
+			}
+		} else if (staff.getFacultyCode().getCode().equals("A09")) {
+			LOG.info("If Faculty A09 CPS Only");
+
+			// Principal Role
+			AcPrincipalRole role = new AcPrincipalRoleImpl();
+			role.setPrincipal(principal);
+			role.setRole(AcRoleType.ROLE_CPS);
+			addPrincipalRole(principal, role);
+
+			try {
+				// Group
+				AcGroup group = findGroupByName("GRP_KRN_ADM_A09");
+				// GroupMember
+				AcGroupMember member = new AcGroupMemberImpl();
+				member.setGroup(group);
+				member.setPrincipal(principal);
+				addGroupMember(group, principal);
+			} catch (RecursiveGroupException e) {
+
+				e.printStackTrace();
+			}
+		} else if (staff.getStaffCategory().equals("A")) {
+			LOG.info("If All Faculty and Category A Only");
+
+			// Principal Role
+			AcPrincipalRole role = new AcPrincipalRoleImpl();
+			role.setPrincipal(principal);
+			role.setRole(AcRoleType.ROLE_FACULTY);
+			addPrincipalRole(principal, role);
+
+			try {
+				// Group
+				AcGroup group = findGroupByName("GRP_PGW_FCTY_" + staff.getFacultyCode().getCode());
+				// GroupMember
+
+				AcGroupMember member = new AcGroupMemberImpl();
+				member.setGroup(group);
+				member.setPrincipal(principal);
+				addGroupMember(group, principal);
+			} catch (RecursiveGroupException e) {
+
+				e.printStackTrace();
+			}
+		} else {
+			LOG.info("If All Faculty Only");
+
+			// Principal Role
+			AcPrincipalRole role = new AcPrincipalRoleImpl();
+			role.setPrincipal(principal);
+			role.setRole(AcRoleType.ROLE_FACULTY);
+			addPrincipalRole(principal, role);
+
+			try {
+				// Group
+				AcGroup group = findGroupByName("GRP_KRN_FCTY_" + staff.getFacultyCode().getCode());
+				// GroupMember
+				AcGroupMember member = new AcGroupMemberImpl();
+				member.setGroup(group);
+				member.setPrincipal(principal);
+				addGroupMember(group, principal);
+			} catch (RecursiveGroupException e) {
+
+				e.printStackTrace();
+			}
+		}
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
 	public void saveStaffNonAcdmcActv(AcStaff staff) {
 
 		AcUser user = new AcUserImpl();
@@ -560,9 +720,7 @@ public class IdentityServiceImpl implements IdentityService {
 				AcPrincipal principal = identityService.findPrincipalByName(user.getName());
 				System.out.println("group :" + group);
 				identityService.addGroupMember(group, principal);
-			}
-			else
-			{
+			} else {
 				AcGroup group = identityService.findGroupByName("GRP_KRN_PTJ_" + staff.getStaffDeptCode());
 				AcPrincipal principal = identityService.findPrincipalByName(user.getName());
 				System.out.println("group :" + group);

@@ -12,6 +12,8 @@ public enum AcRoleType {
 	ROLE_PTJ,			// 3
 	ROLE_STDN,			// 4
 	ROLE_MGT,			// 5
-	ROLE_SPNSR;			// 6
+	ROLE_SPNSR,			// 6
+	ROLE_FACULTY,
+	ROLE_MGSEB;
 	
 }

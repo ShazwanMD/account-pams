@@ -503,6 +503,11 @@ public class CommonServiceImpl implements CommonService {
         facultyCodeDao.remove(facultyCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
+    
+    @Override
+    public boolean isFacultyExists(String code) {
+    	return facultyCodeDao.isExists(code);
+    }
 
     //====================================================================================================
     // STUDY CENTER CODE

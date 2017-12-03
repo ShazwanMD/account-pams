@@ -21,6 +21,8 @@ public interface AcUserDao extends GenericDao<Long, AcUser> {
     List<AcUser> find(String filter, Integer offset, Integer limit);
 
     List<AcGroup> findGroups(AcUser user);
+    
+    AcGroup findGroupByUser(AcUser user);
 
     Integer count(String filter);
 
