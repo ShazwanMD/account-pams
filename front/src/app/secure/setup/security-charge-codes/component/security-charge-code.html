@@ -16,6 +16,9 @@
       <span flex>{{value}}</span>
     </div>
   </template>
+  <template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['active'] ? 'Active' : 'Inactive'}}</div>
+ </template>
   <template tdDataTableTemplate="amount" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['amount'] | number:'1.2-2'}}</div>
   </template>
