@@ -12,11 +12,13 @@ public interface AcTaxCodeDao extends GenericDao<Long, AcTaxCode> {
     AcTaxCode findByCode(String code);
 
     List<AcTaxCode> find(String filter, Integer offset, Integer limit);
-
+    
     // ====================================================================================================
     // HELPER
     // ====================================================================================================
     Integer count(String filter);
 
     boolean isExists(String code);
+
+	List<AcTaxCode> findAcTaxCodesByActive(Boolean active);
 }

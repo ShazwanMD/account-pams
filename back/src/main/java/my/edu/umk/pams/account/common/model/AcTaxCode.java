@@ -15,5 +15,9 @@ public interface AcTaxCode extends my.edu.umk.pams.account.core.AcMetaObject {
 	BigDecimal getTaxRate();
 
 	void setTaxRate(BigDecimal taxRate);
-    
+
+	Boolean getActive();
+
+	void setActive(Boolean active);
+
 }

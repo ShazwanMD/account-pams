@@ -315,6 +315,7 @@ public class CommonController {
         taxCode.setCode(vo.getCode());
         taxCode.setDescription(vo.getDescription());
         taxCode.setTaxRate(vo.getTaxRate());
+        taxCode.setActive(vo.getActive());
         commonService.saveTaxCode(taxCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -327,6 +328,7 @@ public class CommonController {
         taxCode.setCode(vo.getCode());
         taxCode.setDescription(vo.getDescription());
         taxCode.setTaxRate(vo.getTaxRate());
+        taxCode.setActive(vo.getActive());
         commonService.updateTaxCode(taxCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -338,6 +340,12 @@ public class CommonController {
         AcTaxCode taxCode = commonService.findTaxCodeByCode(code);
         commonService.removeTaxCode(taxCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/taxCodesActive", method = RequestMethod.GET)
+    public ResponseEntity<List<TaxCode>> findTaxCodesByActive() {
+        List<AcTaxCode> taxCodes = commonService.findTaxCodesByActive(TRUE);
+        return new ResponseEntity<List<TaxCode>>(commonTransformer.toTaxCodeVos(taxCodes), HttpStatus.OK);
     }
     
     //====================================================================================================

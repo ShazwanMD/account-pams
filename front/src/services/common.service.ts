@@ -241,6 +241,12 @@ export class CommonService {
       .flatMap((res: Response) => Observable.of(res.text()));
   }
 
+  findTaxCodesByActive(): Observable<TaxCode[]> {
+    console.log('findTaxCodesActive');
+    return this._http.get(this.COMMON_API + '/taxCodesActive')
+      .map((res: Response) => <TaxCode[]>res.json());
+  }
+
   // ====================================================================================================
   // SECURITY Charge CODES
   // ====================================================================================================

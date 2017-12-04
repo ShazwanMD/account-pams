@@ -678,7 +678,25 @@ export class SetupActions {
       payload: message
     };
   }
+//9------------------------------------------------------------------------------------------//
+    static FIND_TAX_CODES_BY_ACTIVE = '[Setup] Find Tax Codes By Active';
+  
+    findTaxCodesByActive(): Action {
+      console.log("findTaxCodesByActive");
+      return {
+        type: SetupActions.FIND_TAX_CODES_BY_ACTIVE,
+      };
+    }
+//10------------------------------------------------------------------------------------------//
+static FIND_TAX_CODES_BY_ACTIVE_SUCCESS = '[Setup] Find Tax Codes By Active Success';
 
+  findTaxCodesByActiveSuccess(codes): Action {
+    console.log("findTaxCodesByActiveSuccess");
+    return {
+      type: SetupActions.FIND_TAX_CODES_BY_ACTIVE_SUCCESS,
+      payload: codes
+    };
+  } 
 //===========================================================================================//
 // SECURITY CHARGE CODE                                                                      //
 //===========================================================================================//

@@ -35,6 +35,10 @@ public class AcTaxCodeImpl implements AcTaxCode {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
     
+    @NotNull
+    @Column(name = "ACTIVE")
+    private Boolean active;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -76,6 +80,16 @@ public class AcTaxCodeImpl implements AcTaxCode {
     @Override
     public void setTaxRate(BigDecimal taxRate) {
 		this.taxRate = taxRate;
+	}
+    
+    @Override
+	public Boolean getActive() {
+		return active;
+	}
+
+    @Override
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@Override

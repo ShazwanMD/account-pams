@@ -774,7 +774,11 @@ public class CommonServiceImpl implements CommonService {
     	taxCodeDao.remove(taxCode, securityService.getCurrentUser());
         sessionFactory.getCurrentSession().flush();
     }
-
+    
+    @Override
+    public List<AcTaxCode> findTaxCodesByActive(Boolean active) {
+      return taxCodeDao.findAcTaxCodesByActive(active);
+    }
     
     //====================================================================================================
     // SECURITY CHARGE CODE 

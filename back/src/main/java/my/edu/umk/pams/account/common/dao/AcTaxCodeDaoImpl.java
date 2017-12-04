@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
 import my.edu.umk.pams.account.common.model.AcTaxCode;
 import my.edu.umk.pams.account.common.model.AcTaxCodeImpl;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
@@ -47,7 +48,16 @@ public class AcTaxCodeDaoImpl extends GenericDaoSupport<Long, AcTaxCode> impleme
         query.setCacheable(true);
         return (List<AcTaxCode>) query.list();
     }
-
+    
+    @Override
+    public List<AcTaxCode> findAcTaxCodesByActive(Boolean active) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from AcTaxCode s " +
+                "where s.active = :active ");
+        query.setBoolean("active", active);
+        return (List<AcTaxCode>) query.list();
+    }
+    
     @Override
     public Integer count(String filter) {
         Session session = sessionFactory.getCurrentSession();

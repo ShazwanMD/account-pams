@@ -5,6 +5,8 @@ import {FormControl} from '@angular/forms';
 import {CommonActions} from '../../common.action';
 import {CommonModuleState} from '../../index';
 import {TaxCode} from '../../../shared/model/common/tax-code.interface';
+import { SetupActions } from '../../../secure/setup/setup.action';
+import { SetupModuleState } from '../../../secure/setup/index';
 
 @Component({
   selector: 'pams-tax-code-select',
@@ -13,18 +15,20 @@ import {TaxCode} from '../../../shared/model/common/tax-code.interface';
 })
 export class TaxCodeSelectComponent implements OnInit {
 
-  private TAX_CODES = 'commonModuleState.taxCodes'.split('.');
+  private TAX_CODES_BY_ACTIVE = 'setupModuleState.taxCodesByActive'.split('.');
+  private taxCodesByActive$: Observable<TaxCode[]>;
+
   @Input() placeholder: string;
   @Input() innerFormControl: FormControl;
-  taxCodes$: Observable<TaxCode[]>;
 
-  constructor(private store: Store<CommonModuleState>,
-              private actions: CommonActions) {
-    this.taxCodes$ = this.store.select(...this.TAX_CODES);
-  }
+  constructor(private store: Store<SetupModuleState>,
+    private actions: SetupActions) {
+  this.taxCodesByActive$ = this.store.select(...this.TAX_CODES_BY_ACTIVE);
+}
+
 
   ngOnInit() {
-    this.store.dispatch(this.actions.findTaxCodes());
+    this.store.dispatch(this.actions.findTaxCodesByActive());
   }
 
   selectChangeEvent(event: TaxCode) {

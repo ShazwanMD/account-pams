@@ -135,6 +135,7 @@ public class CommonTransformer {
         vo.setCode(e.getCode());
         vo.setDescription(e.getDescription());
         vo.setTaxRate(e.getTaxRate());
+        vo.setActive(e.getActive());
         return vo;
     }
 

@@ -331,6 +331,8 @@ public interface CommonService {
 
 	List<AcSecurityChargeCode> findSecurityChargeCodesByActive(Boolean active);
 
+	List<AcTaxCode> findTaxCodesByActive(Boolean active);
+
 
 
 

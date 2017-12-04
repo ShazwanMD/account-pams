@@ -12,6 +12,7 @@ public class TaxCode {
 	private String code;
 	private BigDecimal taxRate;
 	private String description;
+	private Boolean active;
 
 	public Long getId() {
 		return id;
@@ -37,9 +38,15 @@ public class TaxCode {
 		this.description = description;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
 
-	
-    public BigDecimal getTaxRate() {
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public BigDecimal getTaxRate() {
 		return taxRate;
 	}
 

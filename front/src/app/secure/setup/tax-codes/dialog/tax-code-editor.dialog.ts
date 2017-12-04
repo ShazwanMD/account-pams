@@ -38,6 +38,7 @@ export class TaxCodeEditorDialog implements OnInit {
       code: ['',Validators.required],
       description: ['',Validators.required],
       taxRate: ['0',Validators.required],
+      active: false,
     });
 
     if (this.edit) this.editorForm.patchValue(this._taxCode);

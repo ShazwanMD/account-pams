@@ -1303,6 +1303,7 @@
         ID int8 not null,
         CODE varchar(255) not null,
         DESCRIPTION varchar(255) not null,
+        ACTIVE boolean,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,

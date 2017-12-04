@@ -185,6 +185,12 @@ export class SetupEffects {
     .map(message => this.setupActions.removeTaxCodeSuccess(message))
     .mergeMap(action => from([action, this.setupActions.findTaxCodes()]));
 
+    @Effect() findTaxCodesByActive$ = this.actions$
+    .ofType(SetupActions.FIND_TAX_CODES_BY_ACTIVE)
+    .map((action) => action.payload)
+    .switchMap(() => this.commonService.findTaxCodesByActive())
+    .map(codes => this.setupActions.findTaxCodesByActiveSuccess(codes));
+
   @Effect() findSecurityChargeCodes$ = this.actions$
     .ofType(SetupActions.FIND_SECURITY_CHARGE_CODES)
     .map(action => action.payload)

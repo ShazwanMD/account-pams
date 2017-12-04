@@ -51,6 +51,7 @@ import { facultyCodeListReducer, FacultyCodeListState } from "../../common/facul
 import { ProgramCode } from "../../shared/model/common/program-code.interface";
 import { programCodeListReducer, ProgramCodeListState } from "../../common/program-codes/program-code-list.reducer";
 import { SecurityChargeCodeComponent } from './security-charge-codes/component/security-charge-code';
+import { TaxCodeByActiveListState, taxCodeByActiveListReducer } from './tax-codes/tax-code-by-active-list.reducer';
 
 export interface SetupModuleState {
   title: TitleState;
@@ -60,6 +61,7 @@ export interface SetupModuleState {
   taxCodes: TaxCodeListState;
   securityChargeCodes: SecurityChargeCodeListState;
   securityChargeCodesByActive: SecurityChargeCodeByActiveListState;
+  taxCodesByActive: TaxCodeByActiveListState;
   facultyCodes: FacultyCodeListState;
   programCodes: ProgramCodeListState;
 
@@ -75,6 +77,7 @@ export const INITIAL_SETUP_STATE: SetupModuleState =
     programCodes: <ProgramCode[]>[],
     residencyCodes: <ResidencyCode[]>[],
     taxCodes: <TaxCode[]>[],
+    taxCodesByActive: <TaxCode[]>[],
     securityChargeCodes: <SecurityChargeCode[]>[],
     securityChargeCodesByActive: <SecurityChargeCode[]>[],
   };
@@ -88,6 +91,7 @@ export const setupModuleReducers = {
   programCodes: programCodeListReducer,
   residencyCodes: residencyCodeListReducer,
   taxCodes: taxCodeListReducer,
+  taxCodesByActive: taxCodeByActiveListReducer,
   securityChargeCodes: securityChargeCodeListReducer,
   securityChargeCodesByActive: securityChargeCodeByActiveListReducer,
 }

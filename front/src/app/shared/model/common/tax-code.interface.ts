@@ -3,4 +3,5 @@ export interface TaxCode extends MetaObject {
   code: string;
   description: string;
   taxRate: number;
+  active: boolean;
 }
