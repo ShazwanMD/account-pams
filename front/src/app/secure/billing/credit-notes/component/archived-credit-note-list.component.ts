@@ -31,7 +31,6 @@ export class ArchivedCreditNoteListComponent implements OnChanges{
     {name: 'sourceNo', label: 'Invoice'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
-    {name: 'chargeCode.description', label: 'Charge Code'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'createdDate', label: 'Created Date'},

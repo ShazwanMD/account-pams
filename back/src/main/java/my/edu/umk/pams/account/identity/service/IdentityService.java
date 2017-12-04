@@ -77,6 +77,8 @@ public interface IdentityService {
     AcGroup findOrCreateGroupByName(String name);
 
     AcGroup findGroupById(Long id);
+    
+    AcGroup findGroupByUser(AcUser user);
 
     List<AcGroup> findGroups(Integer offset, Integer limit);
 
@@ -164,6 +166,8 @@ public interface IdentityService {
     boolean isStaffNoExists(String StaffNo);
 
     void saveStaff(AcStaff Staff);
+    
+    void saveStaffIMSNonAcademicActive(AcStaff staff);
 
     void updateStaff(AcStaff Staff);
 

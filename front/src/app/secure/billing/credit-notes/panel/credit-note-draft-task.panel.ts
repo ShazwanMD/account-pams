@@ -19,6 +19,7 @@ export class CreditNoteDraftTaskPanel implements OnInit {
 
   private CREDIT_NOTE_ITEMS: string[] = 'billingModuleState.creditNoteItems'.split('.');
   private creditNoteItems$: Observable<CreditNoteItem[]>;
+
   @Input() creditNoteTask: CreditNoteTask;
 
   constructor(private router: Router,

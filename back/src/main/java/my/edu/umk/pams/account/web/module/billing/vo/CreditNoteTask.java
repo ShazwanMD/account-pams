@@ -20,7 +20,7 @@ public class CreditNoteTask extends Task {
 	private Date creditNoteDate;
     
     private String accountName;
-    private ChargeCode sodoCode;
+    //private ChargeCode sodoCode;
     
 
     public CreditNote getCreditNote() {
@@ -63,13 +63,13 @@ public class CreditNoteTask extends Task {
 		this.accountName = accountName;
 	}
 	
-	public ChargeCode getChargeCode() {
+/*	public ChargeCode getChargeCode() {
         return sodoCode;
     }
 
     public void setChargeCode(ChargeCode sodoCode) {
         this.sodoCode = sodoCode;
-    }
+    }*/
     
 }
 

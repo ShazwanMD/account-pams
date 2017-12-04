@@ -120,6 +120,8 @@ public interface CommonService {
     void updateFacultyCode(AcFacultyCode facultyCode);
 
     void removeFacultyCode(AcFacultyCode facultyCode);
+    
+    boolean isFacultyExists(String code);
 
     //====================================================================================================
     // STUDY CENTER CODE

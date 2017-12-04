@@ -129,6 +129,7 @@ export interface BillingModuleState {
   archivedCreditNotes: CreditNoteListState;
   creditNote: CreditNoteState;
   creditNoteTask: CreditNoteTaskState;
+  creditNoteItems: CreditNoteItemListState;
   advancePayments: AdvancePaymentListState;
   knockoff: KnockoffState;
   knockoffs: KnockoffListState;
@@ -195,6 +196,7 @@ export const INITIAL_BILLING_STATE: BillingModuleState =
     archivedCreditNotes: [],
     creditNoteTask: <CreditNoteTask>{},
     creditNote: <CreditNote>{},
+    creditNoteItems: [],
     advancePayments: <AdvancePayment[]>[],
     knockoff: <Knockoff>{},
     knockoffs: <Knockoff[]>[],
@@ -257,6 +259,7 @@ export const billingModuleReducers = {
   archivedCreditNotes: archivedCreditNoteListReducer,
   creditNoteTask: creditNoteTaskReducer,
   creditNote: creditNoteReducer,
+  creditNoteItems: creditNoteItemListReducer,
   advancePayments: advancePaymentListReducer,
   knockoff: knockoffReducer,
   knockoffs: knockoffListReducer,

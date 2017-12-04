@@ -631,6 +631,48 @@ public class BillingController {
         billingService.deleteReceiptItem(receipt, receiptItem);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/invoices/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> hasReceiptItem(@PathVariable String referenceNo, @PathVariable Long id) {
+
+    	AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        AcInvoice invoice = billingService.findInvoiceById(id);
+        billingService.hasReceiptItem(invoice, receipt);
+        return new ResponseEntity<Boolean>(HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/checkReceipt", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> checkReceipts(@PathVariable String referenceNo) {
+
+    	AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+    	
+    	List<AcReceiptInvoice> receiptInvoices = billingService.findReceipts(receipt);
+    	for(AcReceiptInvoice receiptInvoice: receiptInvoices) {
+    		Boolean hasItem = billingService.hasReceiptItem(receiptInvoice.getInvoice(), receipt);
+    		if(hasItem == true) {
+    			LOG.debug("Invoice has Item controller {}" + hasItem);
+    			//return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    		}
+    	}
+    	
+/*    	List<AcReceiptDebitNote> receiptDebitNotes = billingService.findReceiptsDebitNote(receipt);
+    	for(AcReceiptDebitNote receiptDebitNote: receiptDebitNotes) {
+    		Boolean hasItem = billingService.hasDebitReceiptItem(receiptDebitNote.getDebitNote(), receipt);
+    		if(hasItem == true) {
+    			billingService.findReceiptItems(receipt);
+    		}
+    	}
+    	
+    	List<AcReceiptAccountCharge> receiptAccCharges = billingService.findReceiptsAccountCharge(receipt);
+    	for(AcReceiptAccountCharge receiptAccCharge: receiptAccCharges) {
+    		Boolean hasItem = billingService.hasChargeReceiptItem(receiptAccCharge.getAccountCharge(), receipt);
+    		if(hasItem == true) {
+    			billingService.findReceiptItems(receipt);
+    		}
+    	}*/
+    	
+    	return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
 
     // ==================================================================================================== //
     //  DEBIT NOTE
@@ -901,9 +943,9 @@ public class BillingController {
         creditNote.setDescription(vo.getDescription());
         creditNote.setCreditNoteDate(vo.getCreditNoteDate());
         creditNote.setTotalAmount(BigDecimal.ZERO);
-        creditNote.setTotalAmount(vo.getTotalAmount());
+        //creditNote.setTotalAmount(vo.getTotalAmount());
         creditNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
-        creditNote.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        //creditNote.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
         return new ResponseEntity<String>(billingService.startCreditNoteTask(creditNote), HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.identity.dao;
 
+import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcGroup;
@@ -92,6 +93,18 @@ public class AcUserDaoImpl extends GenericDaoSupport<Long, AcUser> implements Ac
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<AcUser>) query.list();
+    }
+    
+    @Override
+    public AcGroup findGroupByUser(AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select p from AcGroup p where " +
+                "p in (select gm.group from AcGroupMember gm where gm.principal = :user)" +
+                "and p.metadata.state = :state " +
+                "order by p.name asc");
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setEntity("user", user);
+        return (AcGroup) query.uniqueResult();
     }
 
     @Override

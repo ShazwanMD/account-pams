@@ -260,7 +260,6 @@
         REMOVE_COMMENT varchar(255),
         SOURCE_NO varchar(255),
         TOTAL_AMOUNT numeric(19, 2),
-        CHARGE_CODE_ID int8,
         INVOICE_ID int8,
         primary key (ID)
     );
@@ -1186,6 +1185,7 @@
         ID int8 not null,
         DEPT_CODE varchar(255),
         CATEGORY varchar(255),
+        STAFF_CATEGORY varchar(255),
         primary key (ID)
     );
 
@@ -1713,11 +1713,6 @@
         add constraint FK_jc1lhth7un8oggnbjsew0mhs8
         foreign key (ID)
         references AC_RCPT;
-
-    alter table AC_CDIT_NOTE
-        add constraint FK_5p75fcqqvmyqo7m945gf6xaj3
-        foreign key (CHARGE_CODE_ID)
-        references AC_CHRG_CODE;
 
     alter table AC_CDIT_NOTE
         add constraint FK_kn1ige6q5d3um3d1y9l1vpsua
