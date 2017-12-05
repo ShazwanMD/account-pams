@@ -51,16 +51,10 @@ public class WaiverFinanceApplicationApproveTask extends BpmnActivityBehavior im
         application.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateWaiverFinanceApplication(application);
 
-        // setup account waiver
-//        AcAccountWaiver waiver = new AcAccountWaiverImpl();
-//        waiver.setSourceNo(application.getReferenceNo());
-//        waiver.setAmount(application.getWaivedAmount());
-//        waiver.setSession(application.getSession());
-//        waiver.setAccount(application.getAccount());
-
-        // save waiver
-        //accountService.upda;
-        
         applicationContext.publishEvent(new WaiverApprovedEvent(application));
+        
+        // Approve Task hok ni hantar ko event nak buat calculation
+        // Tak perlu tambah method post sebab dalam event tu sendiri dah ada method untuk post terus
+        // pada account transaction
     }
 }

@@ -44,8 +44,11 @@ public class CreditNoteApproveTask extends BpmnActivityBehavior
         creditNote.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
         creditNote.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateCreditNote(creditNote);
-        
-        billingService.post(creditNote);
+
         applicationContext.publishEvent(new CreditNoteApprovedEvent(creditNote));
+        
+        // Approve Task hok ni hantar ko event nak buat calculation
+        // Tak perlu tambah method post sebab dalam event tu sendiri dah ada method untuk post terus
+        // pada account transaction
     }
 }

@@ -37,7 +37,10 @@ public class KnockoffCompleteTask extends BpmnActivityBehavior implements Activi
 
         knockoff.getFlowdata().setState(AcFlowState.COMPLETED);
         billingService.updateKnockoff(knockoff);
-
+        
+        // Mintak TOLONG jangan buat apa-apa pada complete task, complete hanya 
+        // untuk pergi next task. 
+        // Task yang last baru send ke event (untuk buat calculation) iaitu approve task
     }
 
 }

@@ -43,29 +43,10 @@ public class InvoiceCompleteTask extends BpmnActivityBehavior
 
         invoice.getFlowdata().setState(AcFlowState.COMPLETED);
         billingService.updateInvoice(invoice);
-//        
-//     // fire event
-//      applicationContext.publishEvent(new InvoiceApprovedEvent(invoice));
-//  
-//      
-//      AcAccount account = invoice.getAccount();
-//      AccountPayload payload = new AccountPayload();
-//      payload.setCode(account.getCode());
-//      payload.setMatricNo(account.getActor().getIdentityNo());
-//      
-//     BigDecimal accountBalance = accountService.sumBalanceAmount(account); 
-//
-//     if( accountBalance.compareTo(BigDecimal.ZERO) > 0 ){
-//    	 
-//    	  payload.setOutstanding(true);
-//      }else{
-//    	  payload.setOutstanding(false);
-//      }
-//      payload.setBalance(accountService.sumBalanceAmount(account));
-//      
-//      AccountRevisedEvent event = new AccountRevisedEvent(payload);
-//      applicationContext.publishEvent(event);
-//
-//        // todo(uda): post acocunt transaction
+        
+        // Mintak TOLONG jangan buat apa-apa pada complete task, complete hanya 
+        // untuk pergi next task. 
+        // Task yang last baru send ke event (untuk buat calculation) iaitu approve task
+
     }
 }
