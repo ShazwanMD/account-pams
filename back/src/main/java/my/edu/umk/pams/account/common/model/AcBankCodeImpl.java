@@ -27,9 +27,9 @@ public class AcBankCodeImpl implements AcBankCode {
     @Column(name = "SWIFT_CODE", unique = true, nullable = false)
     private String swiftCode;
 
-    @NotNull
-    @Column(name = "IBG_CODE", unique = true, nullable = false)
-    private String ibgCode;
+//    @NotNull
+//    @Column(name = "IBG_CODE", unique = true, nullable = false)
+//    private String ibgCode;
 
     @Embedded
     private AcMetadata metadata;
@@ -63,15 +63,15 @@ public class AcBankCodeImpl implements AcBankCode {
         this.swiftCode = swiftCode;
     }
 
-    @Override
-    public String getIbgCode() {
-        return ibgCode;
-    }
-
-    @Override
-    public void setIbgCode(String ibgCode) {
-        this.ibgCode = ibgCode;
-    }
+//    @Override
+//    public String getIbgCode() {
+//        return ibgCode;
+//    }
+//
+//    @Override
+//    public void setIbgCode(String ibgCode) {
+//        this.ibgCode = ibgCode;
+//    }
 
     @Override
     public String getName() {

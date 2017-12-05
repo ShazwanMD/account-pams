@@ -38,7 +38,7 @@ export class BankCodeEditorDialog implements OnInit {
       code: ['',Validators.required],
       name: [''],
       swiftCode: [''],
-      ibgCode: [''],
+      // ibgCode: [''],
     });
 
     if (this.edit) this.editorForm.patchValue(this._bankCode);

@@ -10,7 +10,13 @@ public enum AcPaymentMethod {
 
     EFT("KREDIT KE BANK"),
 
-    BANK_DRAFT("BANK DERAF");
+    BANK_DRAFT("BANK DERAF"),
+	
+    PO_MO("PO MO"),
+    
+    BANKERS_CHEQUE("BANKERS CHEQUE"),
+    
+    TELEGRAPHIC_TRANSFER("TELEGRAPHIC TRANSFER");
 
     private String description;
 

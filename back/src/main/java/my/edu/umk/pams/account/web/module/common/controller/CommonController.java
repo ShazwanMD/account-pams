@@ -264,7 +264,7 @@ public class CommonController {
         bankCode.setCode(vo.getCode());
         bankCode.setName(vo.getName());
         bankCode.setSwiftCode(vo.getSwiftCode());
-        bankCode.setIbgCode(vo.getIbgCode());
+//        bankCode.setIbgCode(vo.getIbgCode());
         commonService.saveBankCode(bankCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -277,7 +277,7 @@ public class CommonController {
         bankCode.setCode(vo.getCode());
         bankCode.setName(vo.getName());
         bankCode.setSwiftCode(vo.getSwiftCode());
-        bankCode.setIbgCode(vo.getIbgCode());
+//        bankCode.setIbgCode(vo.getIbgCode());
         commonService.updateBankCode(bankCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

@@ -26,7 +26,7 @@ export class BankCodesComponent implements OnChanges {
     {name: 'code', label: 'Code'},
     {name: 'name', label: 'Name'},
     {name: 'swiftCode', label: 'SwiftCode'},
-    {name: 'ibgCode', label: 'IbgCode'},
+    // {name: 'ibgCode', label: 'IbgCode'},
     {name: 'action', label: ''}
   ];
   filteredData: any[];

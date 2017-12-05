@@ -10,9 +10,9 @@ public interface AcBankCode extends my.edu.umk.pams.account.core.AcMetaObject {
 
     void setSwiftCode(String swiftCode);
 
-    String getIbgCode();
-
-    void setIbgCode(String ibgCode);
+//    String getIbgCode();
+//
+//    void setIbgCode(String ibgCode);
 
     String getName();
 

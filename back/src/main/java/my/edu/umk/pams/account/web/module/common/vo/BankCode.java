@@ -13,7 +13,7 @@ public class BankCode extends MetaObject {
     private String code;
     private String name;
     private String swiftCode;
-    private String ibgCode; 
+//    private String ibgCode; 
 
     public String getCode() {
         return code;
@@ -39,13 +39,13 @@ public class BankCode extends MetaObject {
         this.swiftCode = swiftCode;
     }
 
-    public String getIbgCode() {
-        return ibgCode;
-    }
-
-    public void setIbgCode(String ibgCode) {
-        this.ibgCode = ibgCode;
-    }
+//    public String getIbgCode() {
+//        return ibgCode;
+//    }
+//
+//    public void setIbgCode(String ibgCode) {
+//        this.ibgCode = ibgCode;
+//    }
 
     @JsonCreator
     public static BankCode create(String jsonString) {

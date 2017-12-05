@@ -3,7 +3,7 @@ export interface BankCode extends MetaObject {
   code: string;
   name: string;
   swiftCode: string;
-  ibgCode: string;
+  // ibgCode: string;
 
 
 }

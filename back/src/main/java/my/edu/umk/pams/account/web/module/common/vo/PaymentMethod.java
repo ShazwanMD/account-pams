@@ -4,7 +4,10 @@ public enum PaymentMethod {
     CASH,
     CHEQUE,
     EFT,
-    BANK_DRAFT;
+    BANK_DRAFT,
+    PO_MO,
+    BANKERS_CHEQUE,
+    TELEGRAPHIC_TRANSFER;;
 
     public static PaymentMethod get(int index){
         return values()[index];
