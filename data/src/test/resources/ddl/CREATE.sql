@@ -266,6 +266,7 @@
     create table AC_CDIT_NOTE_ITEM (
         ID int8 not null,
         AMOUNT numeric(19, 2),
+        BALANCE_AMOUNT numeric(19, 2),
         CREDITNOTEITEM_DATE timestamp,
         DESCRIPTION varchar(255),
         C_TS timestamp,
