@@ -195,7 +195,6 @@
     create table AC_BANK_CODE (
         ID int8 not null,
         CODE varchar(255) not null,
-        IBG_CODE varchar(255) not null,
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,
@@ -1524,9 +1523,6 @@
     	
     alter table AC_BANK_CODE
         add constraint UK_ige90lfk9a8cmikt70bs8q8gf unique (CODE);
-
-    alter table AC_BANK_CODE
-        add constraint UK_n47g6j6o605xn376al3ohj5hi unique (IBG_CODE);
 
     alter table AC_BANK_CODE
         add constraint UK_j0fsw80ly5hte8rvqk5o0rhcs unique (SWIFT_CODE);

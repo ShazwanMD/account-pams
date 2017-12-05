@@ -111,7 +111,7 @@ public class CommonTransformer {
         BankCode vo = new BankCode();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
-        vo.setIbgCode(e.getIbgCode());
+//        vo.setIbgCode(e.getIbgCode());
         vo.setSwiftCode(e.getSwiftCode());
         vo.setName(e.getName());
         return vo;
