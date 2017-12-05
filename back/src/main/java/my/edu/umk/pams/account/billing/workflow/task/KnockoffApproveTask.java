@@ -45,6 +45,10 @@ public class KnockoffApproveTask extends BpmnActivityBehavior implements Activit
         billingService.updateKnockoff(knockoff);
         //billingService.post(knockoff);
         applicationContext.publishEvent(new KnockoffApprovedEvent(knockoff));
+        
+        // Approve Task hok ni hantar ko event nak buat calculation
+        // Tak perlu tambah method post sebab dalam event tu sendiri dah ada method untuk post terus
+        // pada account transaction
     }
 
 }

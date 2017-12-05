@@ -20,7 +20,7 @@ public class CreditNoteTask extends Task {
 	private Date creditNoteDate;
     
     private String accountName;
-    //private ChargeCode sodoCode;
+    private Invoice invoice;
     
 
     public CreditNote getCreditNote() {
@@ -62,14 +62,16 @@ public class CreditNoteTask extends Task {
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
-	
-/*	public ChargeCode getChargeCode() {
-        return sodoCode;
-    }
 
-    public void setChargeCode(ChargeCode sodoCode) {
-        this.sodoCode = sodoCode;
-    }*/
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+	
+	
     
 }
 

@@ -334,7 +334,17 @@ export class BillingService {
         return this._http.delete( this.BILLING_API + '/receiptDebitNotes/' + receiptDebitNote.id )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
-
+    
+    hasReceiptItem( receipt: Receipt, invoice: Invoice ): Observable<Boolean> {
+        return this._http.get(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/invoices/' + invoice.id)
+          .map((res: Response) => <Boolean>res.json());
+      }
+    
+    checkReceipts( receipt: Receipt ): Observable<Boolean> {
+        console.log("receipt " + receipt.referenceNo + " check receipt")
+        return this._http.post(this.BILLING_API + '/receipts/' + receipt.referenceNo + '/checkReceipt', JSON.stringify( receipt ))
+        .map((res: Response) => <Boolean>res.json() );
+      }
     // ====================================================================================================
     // CREDIT NOTE
     // ====================================================================================================

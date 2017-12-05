@@ -27,6 +27,9 @@ public class AcCreditNoteItemImpl implements AcCreditNoteItem {
 
     @Column(name = "AMOUNT")
     private BigDecimal amount = BigDecimal.ZERO;
+    
+    @Column(name = "BALANCE_AMOUNT")
+    private BigDecimal balanceAmount = BigDecimal.ZERO;
 
     @NotNull
     @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.LAZY)
@@ -38,7 +41,7 @@ public class AcCreditNoteItemImpl implements AcCreditNoteItem {
     @JoinColumn(name = "CREDIT_NOTE_ID")
     private AcCreditNote creditNote;
     
-//  @NotNull
+    @NotNull
     @Column(name = "CREDITNOTEITEM_DATE")
     private Date creditNoteItemDate;
 
@@ -115,8 +118,17 @@ public class AcCreditNoteItemImpl implements AcCreditNoteItem {
         this.creditNoteItemDate = creditNoteItemDate;
     }
 
+    @Override
+    public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
 
     @Override
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
+	@Override
     public Class<?> getInterfaceClass() {
         return AcCreditNote.class;
     }

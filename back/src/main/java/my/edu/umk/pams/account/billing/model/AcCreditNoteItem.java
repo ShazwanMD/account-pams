@@ -19,6 +19,10 @@ public interface AcCreditNoteItem extends AcMetaObject {
     BigDecimal getAmount();
 
     void setAmount(BigDecimal amount);
+    
+    BigDecimal getBalanceAmount();
+
+    void setBalanceAmount(BigDecimal balanceAmount);
 
     AcChargeCode getChargeCode();
 

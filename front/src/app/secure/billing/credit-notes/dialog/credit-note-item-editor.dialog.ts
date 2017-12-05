@@ -8,6 +8,7 @@ import {Store} from '@ngrx/store';
 import {CreditNoteItem} from '../../../../shared/model/billing/credit-note-item.interface';
 import {CreditNote} from '../../../../shared/model/billing/credit-note.interface';
 import {CreditNoteActions} from '../credit-note.action';
+import { InvoiceItem } from "../../../../shared/model/billing/invoice-item.interface";
 
 @Component({
   selector: 'pams-credit-note-item-editor',
@@ -17,6 +18,7 @@ import {CreditNoteActions} from '../credit-note.action';
 export class CreditNoteItemEditorDialog implements OnInit {
 
   private editForm: FormGroup;
+  private chargeCodeForm: FormGroup;
   private _creditNoteItem: CreditNoteItem;
   private _creditNote: CreditNote;
   private edit: boolean = false;
@@ -40,20 +42,32 @@ export class CreditNoteItemEditorDialog implements OnInit {
   }
 
   ngOnInit(): void {
+    this.chargeCodeForm = this.formBuilder.group({
+       invoiceItem: <InvoiceItem>{}, 
+    });
     this.editForm = this.formBuilder.group(<CreditNoteItem>{
       id: null,
       description: '',
       amount: 0,
+      balanceAmount: 0,
       creditNoteItemDate: undefined,
       chargeCode: <ChargeCode>{},
+      creditNote: <CreditNote>{},
     });
     if (this.edit) this.editForm.patchValue(this._creditNoteItem);
   }
 
   submit(item: CreditNoteItem, isValid: boolean) {
-    item.description = item.chargeCode.description;
+    item.creditNoteItemDate = this._creditNote.creditNoteDate;
+    
     if (!item.id) this.store.dispatch(this.actions.addCreditNoteItem(this._creditNote, item));
     else  this.store.dispatch(this.actions.updateCreditNoteItem(this._creditNote, item));
     this.dialog.close();
+  }
+  
+  show() {
+      this.editForm.patchValue( { description: this.chargeCodeForm.get('invoiceItem').value.description } );
+      this.editForm.patchValue( { amount: this.chargeCodeForm.get('invoiceItem').value.balanceAmount } );
+      this.editForm.patchValue( { chargeCode: this.chargeCodeForm.get('invoiceItem').value.chargeCode } );
   }
 }

@@ -36,5 +36,9 @@ public class WaiverFinanceApplicationCompleteTask extends BpmnActivityBehavior i
 
         application.getFlowdata().setState(AcFlowState.COMPLETED);
         billingService.updateWaiverFinanceApplication(application);
+        
+        // Mintak TOLONG jangan buat apa-apa pada complete task, complete hanya 
+        // untuk pergi next task. 
+        // Task yang last baru send ke event (untuk buat calculation) iaitu approve task
     }
 }

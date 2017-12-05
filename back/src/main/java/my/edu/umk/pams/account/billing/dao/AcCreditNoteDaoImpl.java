@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -155,6 +156,9 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
         item.setMetadata(metadata);
 
         session.save(item);
+        
+        creditNote.setTotalAmount(sumTotalAmount(creditNote, user));
+        session.update(creditNote);
     }
 
     @Override
@@ -172,6 +176,9 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
         item.setMetadata(metadata);
 
         session.update(item);
+        
+        creditNote.setTotalAmount(sumTotalAmount(creditNote, user));
+        session.update(creditNote);
     }
 
     @Override
@@ -187,6 +194,9 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
         item.setMetadata(metadata);
 
         session.update(item);
+        
+        creditNote.setTotalAmount(sumTotalAmount(creditNote, user));
+        session.update(creditNote);
     }
 
     @Override
@@ -196,5 +206,18 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcCreditNote creditNote, AcUser user) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.balanceAmount) from AcCreditNoteItem a where " +
+                "a.creditNote = :creditNote " +
+                "and a.metadata.state = :state ");
+        query.setEntity("creditNote", creditNote);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
     }
 }

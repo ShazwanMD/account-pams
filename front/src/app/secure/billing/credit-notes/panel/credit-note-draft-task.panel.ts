@@ -9,6 +9,8 @@ import {CreditNoteActions} from '../credit-note.action';
 import {CreditNoteItem} from '../../../../shared/model/billing/credit-note-item.interface';
 import {CreditNoteTask} from '../../../../shared/model/billing/credit-note-task.interface';
 import { TdDialogService } from "@covalent/core";
+import { InvoiceActions } from "../../invoices/invoice.action";
+import { InvoiceItem } from "../../../../shared/model/billing/invoice-item.interface";
 
 @Component({
   selector: 'pams-credit-note-draft-task',
@@ -18,6 +20,8 @@ import { TdDialogService } from "@covalent/core";
 export class CreditNoteDraftTaskPanel implements OnInit {
 
   private CREDIT_NOTE_ITEMS: string[] = 'billingModuleState.creditNoteItems'.split('.');
+  private INVOICE_ITEMS: string[] = 'billingModuleState.invoiceItems'.split( '.' );
+  private invoiceItems$: Observable<InvoiceItem[]>;
   private creditNoteItems$: Observable<CreditNoteItem[]>;
 
   @Input() creditNoteTask: CreditNoteTask;
@@ -26,16 +30,20 @@ export class CreditNoteDraftTaskPanel implements OnInit {
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
               private actions: CreditNoteActions,
+              private action: InvoiceActions,
               private store: Store<BillingModuleState>,
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
     this.creditNoteItems$ = this.store.select(...this.CREDIT_NOTE_ITEMS);
+    this.invoiceItems$ = this.store.select( ...this.INVOICE_ITEMS );
   }
 
   ngOnInit(): void {
     console.log('reference no ' + this.creditNoteTask.referenceNo);
+    console.log('reference no invoice ' + this.creditNoteTask.creditNote.invoice.referenceNo);
     this.store.dispatch(this.actions.findCreditNoteItems(this.creditNoteTask));
+    this.store.dispatch(this.action.findInvoiceItems(this.creditNoteTask.creditNote.invoice));
   }
 
   editItem(item: CreditNoteItem) {

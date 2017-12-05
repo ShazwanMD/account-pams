@@ -1,0 +1,9 @@
+<md-select
+  [placeholder]="placeholder"
+  (change)="selectChangeEvent($event.value)" 
+  [(ngModel)]="selected"
+  flex>
+  <md-option *ngFor="let invoiceItems of invoiceItems$ | async" [value]="invoiceItems">
+    {{invoiceItems.chargeCode.code}}: {{invoiceItems.chargeCode.description}} : {{invoiceItems.amount}}
+  </md-option>
+</md-select>

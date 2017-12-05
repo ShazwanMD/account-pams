@@ -11,6 +11,7 @@ import java.util.List;
  * @author PAMS
  */
 public interface AcCreditNote extends AcDocument {
+	
     BigDecimal getTotalAmount();
 
     void setTotalAmount(BigDecimal totalAmount);
@@ -30,9 +31,5 @@ public interface AcCreditNote extends AcDocument {
     Date getCreditNoteDate();
     
     void setCreditNoteDate(Date creditNoteDate);
-    
-/*    AcChargeCode getChargeCode();
-
-    void setChargeCode(AcChargeCode chargeCode);*/
 
 }
