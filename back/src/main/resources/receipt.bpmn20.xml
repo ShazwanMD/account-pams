@@ -39,7 +39,7 @@
         <userTask id="receipt_draft_UT" name="my.edu.umk.pams.account.billing.model.AcReceipt:DRAFTED"
                   activiti:assignee="${userCreator}">
             <documentation>
-                Draft Receipt / Deraf Resit
+                Draft Receipt / Draf Resit
             </documentation>
         </userTask>
 
@@ -47,7 +47,7 @@
             <conditionExpression>${removeDecision}</conditionExpression>
         </sequenceFlow>
 
-        <sequenceFlow id="flow2.3" sourceRef="receipt_draft_UT" targetRef="receipt_register_ST">
+        <sequenceFlow id="flow2.3" sourceRef="receipt_draft_UT" targetRef="receipt_approve_ST">
             <conditionExpression>${!removeDecision}</conditionExpression>
         </sequenceFlow>
 
