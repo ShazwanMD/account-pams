@@ -29,11 +29,41 @@
         </md-card-actions>
       </md-card>
 
+      <!-- version baru -->
+          <md-card>
+              <md-tab-group [selectedIndex]="0">
+                  <md-tab label="Unpaid Invoices">
+                    <pams-invoice-receipt-list
+                      [receipt]="receiptTask.receipt"
+                      [receiptInvoice]="receiptInvoice$ | async"
+                      (view)="view($event)">
+                    </pams-invoice-receipt-list>
+				</md-tab>
+                  <md-tab label="Unpaid Charges">  
+                    <pams-account-charge-receipt-list 
+                      [receipt]="receiptTask.receipt"       
+                      [receiptAccountCharge]="receiptAccountCharge$ | async"
+                      (view)="view($event)">
+                    </pams-account-charge-receipt-list>   
+                  </md-tab>
+
+                  <md-tab label="Unpaid Debit Notes">  
+                    <pams-debit-note-receipt-list  
+                      [receipt]="receiptTask.receipt"       
+                      [receiptDebitNote]="receiptDebitNote$ | async"
+                      (view)="view($event)">
+                    </pams-debit-note-receipt-list>   
+                  </md-tab>
+              </md-tab-group>
+          </md-card>
+        <div>
+        </div>
+
       <pams-receipt-item-list
         [receipt]="receiptTask.receipt"
         [receiptItems]="receiptItems$ | async">
       </pams-receipt-item-list>
-
+                 
     </div>
     <div flex-gt-md="30">
 

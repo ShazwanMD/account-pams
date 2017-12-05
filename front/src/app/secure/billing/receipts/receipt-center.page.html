@@ -29,11 +29,11 @@
             [receiptTasks]="assignedReceiptTasks$ | async"
             (view)="view($event)"></pams-assigned-receipt-task-list>
         </md-tab>
-        <md-tab label="Pooled">
+<!--         <md-tab label="Pooled">
           <pams-pooled-receipt-task-list
             [receiptTasks]="pooledReceiptTasks$ | async"
             (claim)="claim($event)"></pams-pooled-receipt-task-list>
-        </md-tab>
+        </md-tab> -->
         <md-tab label="Archived">
           <pams-archived-receipt-list
             [receipts]="archivedReceipts$ | async"

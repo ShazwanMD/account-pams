@@ -9,6 +9,18 @@ import {BillingModuleState} from '../../index';
 import {ReceiptTask} from '../../../../shared/model/billing/receipt-task.interface';
 import {ReceiptItem} from '../../../../shared/model/billing/receipt-item.interface';
 import { TdDialogService } from "@covalent/core";
+import { Invoice } from "../../../../shared/model/billing/invoice.interface";
+import { Receipt } from "../../../../shared/model/billing/receipt.interface";
+import { ReceiptInvoice } from "../../../../shared/model/billing/receipt-invoice.interface";
+import { ReceiptAccountCharge } from "../../../../shared/model/billing/receipt-account-charge.interface";
+import { ReceiptDebitNote } from "../../../../shared/model/billing/receipt-debit_note.interface";
+import { DebitNote } from "../../../../shared/model/billing/debit-note.interface";
+import { AccountCharge } from "../../../../shared/model/account/account-charge.interface";
+import { AccountModuleState } from "../../../account/index";
+import { InvoiceActions } from "../../invoices/invoice.action";
+import { AccountActions } from "../../../account/accounts/account.action";
+import { DebitNoteActions } from "../../debit-notes/debit-note.action";
+import {Account} from '../../../../shared/model/account/account.interface';
 
 @Component({
   selector: 'pams-receipt-register-task',
@@ -17,23 +29,55 @@ import { TdDialogService } from "@covalent/core";
 
 export class ReceiptRegisterTaskPanel implements OnInit {
 
-  private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split('.');
-  @Input() receiptTask: ReceiptTask;
-  receiptItems$: Observable<ReceiptItem[]>;
+    private RECEIPT_ITEMS: string[] = 'billingModuleState.receiptItems'.split('.');
+    private ACCOUNT: string[] = 'accountModuleState.account'.split('.');
+    private INVOICES: string[] = 'billingModuleState.invoices'.split('.');
+    private RECEIPT_INVOICE: string[] = 'billingModuleState.receiptInvoice'.split('.');
+    private RECEIPT_ACCOUNT_CHARGE: string[] = 'billingModuleState.receiptAccountCharge'.split('.');
+    private RECEIPT_DEBIT_NOTE: string[] = 'billingModuleState.receiptDebitNote'.split('.');
+    private DEBIT_NOTE: string[] = 'billingModuleState.debitNoteList'.split('.');
+    private ACCOUNT_CHARGES: string[] = 'accountModuleState.accountCharges'.split('.');
+    private account$: Observable<Account>;
+    private invoices$: Observable<Invoice[]>;
+    private receipt$: Observable<Receipt[]>;
+    private receiptItems$: Observable<ReceiptItem[]>;
+    private receiptInvoice$: Observable<ReceiptInvoice[]>;
+    private receiptAccountCharge$: Observable<ReceiptAccountCharge[]>;
+    private receiptDebitNote$: Observable<ReceiptDebitNote[]>;
+    private debitNotes$: Observable<DebitNote[]>;
+    private accountCharges$: Observable<AccountCharge[]>;
+
+    @Input() receiptTask: ReceiptTask;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private viewContainerRef: ViewContainerRef,
               private actions: ReceiptActions,
+              private action: InvoiceActions,
+              private accountAction: AccountActions,
+              private dbtAction: DebitNoteActions,
               private store: Store<BillingModuleState>,
+              private stores: Store<AccountModuleState>,
               private dialog: MdDialog,
               private _dialogService: TdDialogService,
               private snackBar: MdSnackBar) {
-    this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
+      this.receiptItems$ = this.store.select(...this.RECEIPT_ITEMS);
+      this.account$ = this.stores.select(...this.ACCOUNT);
+      this.invoices$ = this.store.select(...this.INVOICES);
+      this.receiptInvoice$ = this.store.select(...this.RECEIPT_INVOICE);
+      this.receiptAccountCharge$ = this.store.select(...this.RECEIPT_ACCOUNT_CHARGE);
+      this.receiptDebitNote$ = this.store.select(...this.RECEIPT_DEBIT_NOTE);
+      this.debitNotes$ = this.store.select(...this.DEBIT_NOTE);
+      this.accountCharges$ = this.stores.select(...this.ACCOUNT_CHARGES);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.actions.findReceiptItems(this.receiptTask.receipt));
+      this.store.dispatch(this.action.findUnpaidInvoices(this.receiptTask.receipt.account));
+      this.stores.dispatch(this.accountAction.findUnpaidAccountCharges(this.receiptTask.receipt.account));
+      this.store.dispatch(this.dbtAction.findUnpaidDebitNotes(this.receiptTask.receipt.account));
+      this.store.dispatch(this.actions.findReceiptsByInvoice(this.receiptTask.receipt));
+      this.store.dispatch(this.actions.findReceiptsByAccountCharge(this.receiptTask.receipt));
+      this.store.dispatch(this.actions.findReceiptsByDebitNote(this.receiptTask.receipt));
   }
 
   editItem(item: ReceiptItem) {

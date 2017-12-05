@@ -141,7 +141,7 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 				trx.setSourceNo(waiver.getReferenceNo());
 				trx.setTransactionCode(AcAccountTransactionCode.WAIVER);
 				trx.setAccount(waiver.getAccount());
-				trx.setAmount(total.add(totaldebit).negate());
+				trx.setAmount(Amount.negate());
 				accountService.addAccountTransaction(waiver.getAccount(), trx);
 			}
 			
