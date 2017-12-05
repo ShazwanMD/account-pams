@@ -46,12 +46,11 @@ public class DebitNoteApproveTask extends BpmnActivityBehavior
         debitNote.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateDebitNote(debitNote);
 
-        //billingService.post(debitNote);
+        billingService.post(debitNote);
         applicationContext.publishEvent(new DebitNoteApprovedEvent(debitNote));
         
         // Approve Task hok ni hantar ko event nak buat calculation
-        // Tak perlu tambah method post sebab dalam event tu sendiri dah ada method untuk post terus
-        // pada account transaction
+        // Post yang ni kita guna
 
     }
 }
