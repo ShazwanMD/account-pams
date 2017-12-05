@@ -21,7 +21,7 @@
      {name: 'creditNoteItemDate', label: 'Date'},
      {name: 'chargeCode.code', label: 'Charge Code'},
      {name: 'description', label: 'Description'},
-     {name: 'amount', label: 'Amount'},
+     {name: 'balanceAmount', label: 'Amount'},
      {name: 'action', label: ''},
    ];
 

@@ -5,6 +5,7 @@ import {from} from 'rxjs/observable/from';
 import {BillingService} from '../../../../services/billing.service';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
+import { Router } from "@angular/router";
 
 @Injectable()
 export class CreditNoteEffects {
@@ -14,6 +15,7 @@ export class CreditNoteEffects {
   constructor(private actions$: Actions,
               private creditNoteActions: CreditNoteActions,
               private billingService: BillingService,
+              private router: Router,
               private store$: Store<BillingModuleState>) {
   }
 
@@ -154,5 +156,5 @@ export class CreditNoteEffects {
     .withLatestFrom(this.store$.select(...this.CREDIT_NOTE_TASK))
     .map((state) => state[1])
     .map((creditNote) => this.creditNoteActions.findCreditNoteItems(creditNote));
-
+    
 }

@@ -1,7 +1,6 @@
 package my.edu.umk.pams.account.billing.event;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,15 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import my.edu.umk.pams.account.account.model.AcAccountTransaction;
-import my.edu.umk.pams.account.account.model.AcAccountTransactionCode;
-import my.edu.umk.pams.account.account.model.AcAccountTransactionImpl;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.dao.AcInvoiceDao;
 import my.edu.umk.pams.account.billing.model.AcCreditNote;
+import my.edu.umk.pams.account.billing.model.AcCreditNoteItem;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.security.event.AccessListener;
+import my.edu.umk.pams.account.security.service.SecurityService;
 
 @Component("creditNoteListener")
 public class CreditNoteListener implements ApplicationListener<CreditNoteEvent> {
@@ -29,7 +28,10 @@ public class CreditNoteListener implements ApplicationListener<CreditNoteEvent> 
 	private BillingService billingService;
 
 	@Autowired
-	private AccountService accountService;
+	private SecurityService securityService;
+	
+	@Autowired
+	private AcInvoiceDao invoiceDao;
 	
 	@Override
 	public void onApplicationEvent(CreditNoteEvent event) {
@@ -39,16 +41,22 @@ public class CreditNoteListener implements ApplicationListener<CreditNoteEvent> 
 			
 			LOG.debug("Invoice for creditNote", invoice.getReferenceNo());
 			
-			List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
-			for (AcInvoiceItem invoiceItem : invoiceItems) {
-				if(creditNote.getChargeCode()==invoiceItem.getChargeCode()){
-					invoiceItem.setBalanceAmount(invoiceItem.getBalanceAmount().subtract(creditNote.getTotalAmount()));
-					
-					invoice.setBalanceAmount(invoice.getBalanceAmount().subtract(creditNote.getTotalAmount()));
-					invoice.setPaid(false);
-					billingService.updateInvoice(invoice);
-				}
+			List<AcCreditNoteItem> creditNoteItems = billingService.findCreditNoteItems(creditNote);
+			for(AcCreditNoteItem creditNoteItem: creditNoteItems) {
 				
+				List<AcInvoiceItem> invoiceItems = billingService.findInvoiceItems(invoice);
+				for (AcInvoiceItem invoiceItem : invoiceItems) {
+					if(creditNoteItem.getChargeCode() == invoiceItem.getChargeCode()) {
+						invoiceItem.setBalanceAmount(creditNoteItem.getBalanceAmount());
+						billingService.updateInvoiceItem(invoice, invoiceItem);
+					}
+					
+					invoice.setBalanceAmount(invoiceDao.sumBalanceAmount(invoice, invoiceItem, securityService.getCurrentUser()));
+					if (invoice.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
+						invoice.setPaid(true);
+						billingService.updateInvoice(invoice);
+					}
+				}
 				
 			}
 		

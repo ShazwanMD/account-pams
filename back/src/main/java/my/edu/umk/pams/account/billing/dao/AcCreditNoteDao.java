@@ -1,10 +1,12 @@
 package my.edu.umk.pams.account.billing.dao;
 
+import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.billing.model.*;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
 import my.edu.umk.pams.account.identity.model.AcUser;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -51,5 +53,5 @@ public interface AcCreditNoteDao extends GenericDao<Long, AcCreditNote> {
 
     void deleteItem(AcCreditNote creditNote, AcCreditNoteItem item, AcUser user);
 
-
+    BigDecimal sumTotalAmount(AcCreditNote creditNote, AcUser user);
 }

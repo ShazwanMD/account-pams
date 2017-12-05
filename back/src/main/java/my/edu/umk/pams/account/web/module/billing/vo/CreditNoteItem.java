@@ -17,12 +17,12 @@ public class CreditNoteItem extends MetaObject {
 
     private String description;
     private BigDecimal amount;
-    private BigDecimal debitAmount;
-    private BigDecimal creditAmount;
+    private BigDecimal balanceAmount;
     private boolean readOnly;
     private ChargeCode sodoCode;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date creditNoteItemDate;
+	private CreditNote creditNote;
 
     public String getDescription() {
         return description;
@@ -55,24 +55,16 @@ public class CreditNoteItem extends MetaObject {
     public void setChargeCode(ChargeCode sodoCode) {
         this.sodoCode = sodoCode;
     }
+  
+    public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
 
-    public BigDecimal getDebitAmount() {
-        return debitAmount;
-    }
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
 
-    public void setDebitAmount(BigDecimal debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public BigDecimal getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(BigDecimal creditAmount) {
-        this.creditAmount = creditAmount;
-    }
-    
-    public Date getCreditNoteItemDate() {
+	public Date getCreditNoteItemDate() {
 		return creditNoteItemDate;
 	}
 	
@@ -80,7 +72,15 @@ public class CreditNoteItem extends MetaObject {
 		this.creditNoteItemDate = creditNoteItemDate;
 	}
 
-    @JsonCreator
+	public CreditNote getCreditNote() {
+		return creditNote;
+	}
+
+	public void setCreditNote(CreditNote creditNote) {
+		this.creditNote = creditNote;
+	}
+
+	@JsonCreator
     public static CreditNoteItem create(String jsonString) {
         CreditNoteItem o = null;
         try {

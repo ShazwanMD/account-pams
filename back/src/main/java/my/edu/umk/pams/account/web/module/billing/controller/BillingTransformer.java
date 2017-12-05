@@ -143,6 +143,66 @@ public class BillingTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
+    
+    public CreditNote toCreditNoteVo(AcCreditNote e) {
+        CreditNote vo = new CreditNote();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setAccountCode(e.getInvoice().getAccount().getCode());
+        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
+        vo.setDescription(e.getDescription());
+        vo.setCreditNoteDate(e.getCreditNoteDate());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
+        commonTransformer.decorateMeta(e,vo);
+        return vo;
+    }
+    
+    public CreditNote toCreditNoteVos(AcCreditNote e) {
+        CreditNote vo = new CreditNote();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setAccountCode(e.getInvoice().getAccount().getCode());
+        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
+        vo.setDescription(e.getDescription());
+        vo.setCreditNoteDate(e.getCreditNoteDate());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setInvoice(billingTransformer.toInvoiceVo(e.getInvoice()));
+        commonTransformer.decorateMeta(e,vo);
+        return vo;
+    }
+
+    public CreditNoteTask toCreditNoteTaskVo(Task t) {
+        Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
+        AcCreditNote creditNote = billingService.findCreditNoteById((Long) vars.get(AccountConstants.CREDIT_NOTE_ID));
+
+        CreditNoteTask task = new CreditNoteTask();
+        task.setId(creditNote.getId());
+        task.setTaskId(t.getId());
+        task.setReferenceNo(creditNote.getReferenceNo());
+        task.setSourceNo(creditNote.getSourceNo());
+        task.setDescription(creditNote.getDescription());
+        task.setTaskName(t.getName());
+        task.setTotalAmount(creditNote.getTotalAmount());
+        task.setAccountCode(creditNote.getInvoice().getAccount().getCode());
+        task.setAccountName(creditNote.getInvoice().getAccount().getActor().getName());
+        task.setAssignee(task.getAssignee());
+        task.setCreditNoteDate(creditNote.getCreditNoteDate());
+        task.setCandidate(task.getCandidate());
+        task.setCreditNote(toCreditNoteVo(creditNote));
+        task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));
+        task.setMetaState(MetaState.get(creditNote.getMetadata().getState().ordinal()));
+        task.setInvoice(task.getInvoice());
+        return task;
+    }
 
     public CreditNoteItem toCreditNoteItemVo(AcCreditNoteItem e) {
         CreditNoteItem vo = new CreditNoteItem();
@@ -150,9 +210,9 @@ public class BillingTransformer {
         vo.setAmount(e.getAmount());
         vo.setDescription(e.getDescription());
         vo.setCreditNoteItemDate(e.getCreditNoteItemDate());
-        vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) < 0 ? e.getAmount().negate() : null);
-        vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) > 0 ? e.getAmount() : null);
+        vo.setBalanceAmount(e.getBalanceAmount());
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
+        
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
     }
@@ -347,66 +407,6 @@ public class BillingTransformer {
         task.setFlowState(FlowState.get(debitNote.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(debitNote.getMetadata().getState().ordinal()));
         task.setChargeCode(accountTransformer.toChargeCodeVo(debitNote.getChargeCode()));
-        return task;
-    }
-
-    public CreditNote toCreditNoteVos(AcCreditNote e) {
-        CreditNote vo = new CreditNote();
-        vo.setId(e.getId());
-        vo.setReferenceNo(e.getReferenceNo());
-        vo.setSourceNo(e.getSourceNo());
-        vo.setAuditNo(e.getAuditNo());
-        vo.setAccountCode(e.getInvoice().getAccount().getCode());
-        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
-        vo.setDescription(e.getDescription());
-        vo.setCreditNoteDate(e.getCreditNoteDate());
-        vo.setTotalAmount(e.getTotalAmount());
-        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        //vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
-        commonTransformer.decorateMeta(e,vo);
-        return vo;
-    }
-
-    public CreditNote toCreditNoteVo(AcCreditNote e) {
-        CreditNote vo = new CreditNote();
-        vo.setId(e.getId());
-        vo.setReferenceNo(e.getReferenceNo());
-        vo.setSourceNo(e.getSourceNo());
-        vo.setAuditNo(e.getAuditNo());
-        vo.setAccountCode(e.getInvoice().getAccount().getCode());
-        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
-        vo.setDescription(e.getDescription());
-        vo.setCreditNoteDate(e.getCreditNoteDate());
-        vo.setTotalAmount(e.getTotalAmount());
-        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        //vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
-        commonTransformer.decorateMeta(e,vo);
-        return vo;
-    }
-
-    public CreditNoteTask toCreditNoteTaskVo(Task t) {
-        Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
-        AcCreditNote creditNote = billingService.findCreditNoteById((Long) vars.get(AccountConstants.CREDIT_NOTE_ID));
-
-        CreditNoteTask task = new CreditNoteTask();
-        task.setId(creditNote.getId());
-        task.setTaskId(t.getId());
-        task.setReferenceNo(creditNote.getReferenceNo());
-        task.setSourceNo(creditNote.getSourceNo());
-        task.setDescription(creditNote.getDescription());
-        task.setTaskName(t.getName());
-        task.setTotalAmount(creditNote.getTotalAmount());
-        task.setAccountCode(creditNote.getInvoice().getAccount().getCode());
-        task.setAccountName(creditNote.getInvoice().getAccount().getActor().getName());
-        task.setAssignee(task.getAssignee());
-        task.setCreditNoteDate(creditNote.getCreditNoteDate());
-        task.setCandidate(task.getCandidate());
-        task.setCreditNote(toCreditNoteVo(creditNote));
-        task.setFlowState(FlowState.get(creditNote.getFlowdata().getState().ordinal()));
-        task.setMetaState(MetaState.get(creditNote.getMetadata().getState().ordinal()));
-        //task.setChargeCode(accountTransformer.toChargeCodeVo(creditNote.getChargeCode()));
         return task;
     }
     

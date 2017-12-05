@@ -856,7 +856,7 @@ public class BillingServiceImpl implements BillingService {
 	public void post(AcCreditNote creditNote) {
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(creditNote.getInvoice().getSession());
-		tx.setChargeCode(creditNote.getChargeCode());
+		//tx.setChargeCode(creditNote.getChargeCode());
 		tx.setDescription(creditNote.getDescription());
 		tx.setPostedDate(new Date());
 		tx.setSourceNo(creditNote.getReferenceNo());

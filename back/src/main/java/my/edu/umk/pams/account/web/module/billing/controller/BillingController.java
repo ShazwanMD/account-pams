@@ -883,6 +883,7 @@ public class BillingController {
         AcCreditNoteItem e = new AcCreditNoteItemImpl();
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
+        e.setBalanceAmount(item.getBalanceAmount());
         e.setDescription(item.getDescription());
         e.setCreditNoteItemDate(item.getCreditNoteItemDate());
         billingService.addCreditNoteItem(creditNote, e);
@@ -896,6 +897,7 @@ public class BillingController {
         AcCreditNoteItem e = billingService.findCreditNoteItemById(item.getId());
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
+        e.setBalanceAmount(item.getBalanceAmount());
         e.setDescription(item.getDescription());
         e.setCreditNoteItemDate(item.getCreditNoteItemDate());
         billingService.updateCreditNoteItem(creditNote, e);

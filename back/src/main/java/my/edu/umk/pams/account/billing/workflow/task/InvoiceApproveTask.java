@@ -55,11 +55,8 @@ public class InvoiceApproveTask extends BpmnActivityBehavior
         invoice.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
         billingService.updateInvoice(invoice);
 
-        //billingService.post(invoice);
-        
-        // Approve Task hok ni hantar ko event nak buat calculation
-        // Tak perlu tambah method post sebab dalam event tu sendiri dah ada method untuk post terus
-        // pada account transaction
+        billingService.post(invoice);
+        //post ni jangan buang
 
     }
 }
