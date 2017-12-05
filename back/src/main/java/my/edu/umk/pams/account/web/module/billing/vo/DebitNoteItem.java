@@ -17,8 +17,7 @@ public class DebitNoteItem extends MetaObject {
 
     private String description;
     private BigDecimal amount;
-    private BigDecimal debitAmount;
-    private BigDecimal creditAmount;
+    private BigDecimal balanceAmount;
     private boolean readOnly;
     private ChargeCode sodoCode;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -56,23 +55,15 @@ public class DebitNoteItem extends MetaObject {
         this.sodoCode = sodoCode;
     }
 
-    public BigDecimal getDebitAmount() {
-        return debitAmount;
-    }
+    public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
 
-    public void setDebitAmount(BigDecimal debitAmount) {
-        this.debitAmount = debitAmount;
-    }
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
 
-    public BigDecimal getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(BigDecimal creditAmount) {
-        this.creditAmount = creditAmount;
-    }
-    
-    public Date getDebitNoteItemDate() {
+	public Date getDebitNoteItemDate() {
 		return debitNoteItemDate;
 	}
 	

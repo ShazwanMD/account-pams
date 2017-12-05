@@ -41,7 +41,7 @@ export class DebitNoteCreatorDialog implements OnInit {
       totalAmount: [0],
       balanceAmount:[0],
       debitNoteDate:[undefined, Validators.required],
-      chargeCode: <ChargeCode>{},
+      //chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     });
     this.createForm.patchValue({invoice: this._invoice});

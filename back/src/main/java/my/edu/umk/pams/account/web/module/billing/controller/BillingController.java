@@ -717,6 +717,7 @@ public class BillingController {
         AcDebitNoteItem e = new AcDebitNoteItemImpl();
         e.setChargeCode(accountService.findChargeCodeById(item.getChargeCode().getId()));
         e.setAmount(item.getAmount());
+        e.setBalanceAmount(item.getAmount());
         e.setDebitNoteItemDate(item.getDebitNoteItemDate());
         e.setDescription(item.getDescription());
         billingService.addDebitNoteItem(debitNote, e);
@@ -732,6 +733,7 @@ public class BillingController {
         e.setAmount(item.getAmount());
         e.setDescription(item.getDescription());
         e.setDebitNoteItemDate(item.getDebitNoteItemDate());
+        e.setBalanceAmount(item.getAmount());
         billingService.updateDebitNoteItem(debitNote, e);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -771,7 +773,7 @@ public class BillingController {
         debitNote.setTotalAmount(vo.getTotalAmount());
         debitNote.setDebitNoteDate(vo.getDebitNoteDate());
         debitNote.setInvoice(billingService.findInvoiceById(vo.getInvoice().getId()));
-        debitNote.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
+        //debitNote.setChargeCode(accountService.findChargeCodeById(vo.getChargeCode().getId()));
         return new ResponseEntity<String>(billingService.startDebitNoteTask(debitNote), HttpStatus.OK);
     }
 

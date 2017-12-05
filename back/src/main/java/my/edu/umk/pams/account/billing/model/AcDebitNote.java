@@ -27,10 +27,6 @@ public interface AcDebitNote extends AcDocument{
     AcInvoice getInvoice();
 
     void setInvoice(AcInvoice invoice);
-    
-    AcChargeCode getChargeCode();
-
-    void setChargeCode(AcChargeCode chargeCode);
 
     Date getDebitNoteDate();
     

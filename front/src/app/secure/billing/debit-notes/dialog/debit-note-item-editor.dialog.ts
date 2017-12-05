@@ -52,6 +52,7 @@ export class DebitNoteItemEditorDialog implements OnInit {
 
   submit(item: DebitNoteItem, isValid: boolean) {
     item.description = item.chargeCode.description;
+    item.debitNoteItemDate = this._debitNote.debitNoteDate;
     if (!item.id) this.store.dispatch(this.actions.addDebitNoteItem(this._debitNote, item));
     else  this.store.dispatch(this.actions.updateDebitNoteItem(this._debitNote, item));
     this.dialog.close();

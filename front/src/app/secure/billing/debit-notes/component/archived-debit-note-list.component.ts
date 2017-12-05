@@ -30,7 +30,6 @@ export class ArchivedDebitNoteListComponent implements OnChanges {
     {name: 'sourceNo', label: 'Invoice'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
-    {name: 'chargeCode.description', label: 'Charge Code'},
     {name: 'creatorUsername', label: 'Creator'},
     {name: 'createdDate', label: 'Created Date'},
     {name: 'totalAmount', label: 'Total Amount'},

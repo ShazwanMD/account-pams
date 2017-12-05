@@ -5,10 +5,16 @@
   </div>
 
   <td-layout-manage-list #list>
+  <md-nav-list list-items>
+        <a md-list-item [routerLink]="['/secure/financialaid/settlements']">
+        <md-icon>create</md-icon>
+        Auto Generate Invoices
+      </a>
+      </md-nav-list>
     <md-nav-list list-items>
       <a md-list-item (click)="showDialog()">
         <md-icon>create</md-icon>
-        Create Invoice
+        Create Invoice Individually
       </a>
     </md-nav-list>
     <md-nav-list list-items>

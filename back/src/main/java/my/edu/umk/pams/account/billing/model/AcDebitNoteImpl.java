@@ -45,7 +45,7 @@ public class AcDebitNoteImpl implements AcDebitNote {
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
     
-//  @NotNull
+    @NotNull
     @Column(name = "DEBITNOTE_DATE")
     private Date debitNoteDate;
 
@@ -62,21 +62,12 @@ public class AcDebitNoteImpl implements AcDebitNote {
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
     
+    @NotNull
     @Column(name = "BALANCE_AMOUNT")
     private BigDecimal balanceAmount = BigDecimal.ZERO;
     
     @Column(name = "PAID")
     private Boolean paid = false;
-    
-//    @NotNull
-//    @ManyToOne(targetEntity = AcChargeCodeImpl.class, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "CHARGE_CODE_ID")
-//    private AcChargeCode chargeCode;
-
-   
-	@ManyToOne(targetEntity = AcChargeCodeImpl.class)
-    @JoinColumn(name = "CHARGE_CODE_ID")
-    private AcChargeCode chargeCode;
 
     @Embedded
     private AcMetadata metadata;
@@ -152,16 +143,6 @@ public class AcDebitNoteImpl implements AcDebitNote {
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
     }
-
-    @Override
-    public AcChargeCode getChargeCode(){
-        return chargeCode;
-    };
-
-    @Override
-    public void setChargeCode(AcChargeCode chargeCode) {
-        this.chargeCode = chargeCode;
-    };
 
     @Override
     public Date getDebitNoteDate() {

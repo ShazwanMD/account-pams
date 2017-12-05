@@ -30,7 +30,6 @@ export class AssignedDebitNoteTaskListComponent implements OnChanges{
     {name: 'sourceNo', label: 'Invoice'},
     {name: 'accountCode', label: 'Account'},
     {name: 'description', label: 'Description'},
-    {name: 'chargeCode.description', label: 'Charge Code'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'debitNote.creatorUsername', label: 'Creator'},
     {name: 'debitNote.createdDate', label: 'Created Date'},

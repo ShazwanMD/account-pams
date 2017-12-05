@@ -130,15 +130,75 @@ public class BillingTransformer {
         return vo;
     }
 
+    public DebitNote toDebitNoteVos(AcDebitNote e) {
+        DebitNote vo = new DebitNote();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDebitNoteDate(e.getDebitNoteDate());
+        vo.setAccountCode(e.getInvoice().getAccount().getCode());
+        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
+        vo.setDescription(e.getDescription());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setBalanceAmount(e.getBalanceAmount());
+        vo.setPaid(e.getPaid());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
+        return vo;
+    }
 
+    public DebitNote toDebitNoteVo(AcDebitNote e) {
+        DebitNote vo = new DebitNote();
+        if(null == e) return null;
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setSourceNo(e.getSourceNo());
+        vo.setAuditNo(e.getAuditNo());
+        vo.setDebitNoteDate(e.getDebitNoteDate());
+        vo.setDescription(e.getDescription());
+        vo.setAccountCode(e.getInvoice().getAccount().getCode());
+        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
+        vo.setTotalAmount(e.getTotalAmount());
+        vo.setBalanceAmount(e.getBalanceAmount());
+        vo.setPaid(e.getPaid());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        commonTransformer.decorateMeta(e,vo);
+        return vo;
+    }
+
+    public DebitNoteTask toDebitNoteTaskVo(Task t) {
+        Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
+        AcDebitNote debitNote = billingService.findDebitNoteById((Long) vars.get(AccountConstants.DEBIT_NOTE_ID));
+
+        DebitNoteTask task = new DebitNoteTask();
+        task.setId(debitNote.getId());
+        task.setTaskId(t.getId());
+        task.setReferenceNo(debitNote.getReferenceNo());
+        task.setSourceNo(debitNote.getSourceNo());
+        task.setAccountCode(debitNote.getInvoice().getAccount().getCode());
+        task.setAccountName(debitNote.getInvoice().getAccount().getActor().getName());
+        task.setDescription(debitNote.getDescription());
+        task.setDebitNoteDate(debitNote.getDebitNoteDate());
+        task.setTotalAmount(debitNote.getTotalAmount());
+        task.setTaskName(t.getName());
+        task.setAssignee(task.getAssignee());
+        task.setCandidate(task.getCandidate());
+        task.setDebitNote(toDebitNoteVo(debitNote));
+        task.setFlowState(FlowState.get(debitNote.getFlowdata().getState().ordinal()));
+        task.setMetaState(MetaState.get(debitNote.getMetadata().getState().ordinal()));
+        return task;
+    }
+    
     public DebitNoteItem toDebitNoteItemVo(AcDebitNoteItem e) {
         DebitNoteItem vo = new DebitNoteItem();
         vo.setId(e.getId());
         vo.setAmount(e.getAmount());
         vo.setDescription(e.getDescription());
         vo.setDebitNoteItemDate(e.getDebitNoteItemDate());
-        vo.setDebitAmount(e.getAmount().compareTo(BigDecimal.ZERO) < 0 ? e.getAmount().negate() : null);
-        vo.setCreditAmount(e.getAmount().compareTo(BigDecimal.ZERO) > 0 ? e.getAmount() : null);
+        vo.setBalanceAmount(e.getBalanceAmount());
         vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         return vo;
@@ -342,72 +402,6 @@ public class BillingTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setAccountCharge(accountTransformer.toAccountChargeVo(e.getAccountCharge()));
         return vo;
-    }
-
-
-    public DebitNote toDebitNoteVos(AcDebitNote e) {
-        DebitNote vo = new DebitNote();
-        vo.setId(e.getId());
-        vo.setReferenceNo(e.getReferenceNo());
-        vo.setSourceNo(e.getSourceNo());
-        vo.setAuditNo(e.getAuditNo());
-        vo.setDebitNoteDate(e.getDebitNoteDate());
-        vo.setAccountCode(e.getInvoice().getAccount().getCode());
-        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
-        vo.setDescription(e.getDescription());
-        vo.setTotalAmount(e.getTotalAmount());
-        vo.setBalanceAmount(e.getBalanceAmount());
-        vo.setPaid(e.getPaid());
-        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
-        commonTransformer.decorateMeta(e,vo);
-        return vo;
-    }
-
-    public DebitNote toDebitNoteVo(AcDebitNote e) {
-        DebitNote vo = new DebitNote();
-        if(null == e) return null;
-        vo.setId(e.getId());
-        vo.setReferenceNo(e.getReferenceNo());
-        vo.setSourceNo(e.getSourceNo());
-        vo.setAuditNo(e.getAuditNo());
-        vo.setDebitNoteDate(e.getDebitNoteDate());
-        vo.setDescription(e.getDescription());
-        vo.setAccountCode(e.getInvoice().getAccount().getCode());
-        vo.setAccountName(e.getInvoice().getAccount().getActor().getName());
-        vo.setTotalAmount(e.getTotalAmount());
-        vo.setBalanceAmount(e.getBalanceAmount());
-        vo.setPaid(e.getPaid());
-        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
-        vo.setChargeCode(accountTransformer.toChargeCodeVo(e.getChargeCode()));
-        commonTransformer.decorateMeta(e,vo);
-        return vo;
-    }
-
-    public DebitNoteTask toDebitNoteTaskVo(Task t) {
-        Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
-        AcDebitNote debitNote = billingService.findDebitNoteById((Long) vars.get(AccountConstants.DEBIT_NOTE_ID));
-
-        DebitNoteTask task = new DebitNoteTask();
-        task.setId(debitNote.getId());
-        task.setTaskId(t.getId());
-        task.setReferenceNo(debitNote.getReferenceNo());
-        task.setSourceNo(debitNote.getSourceNo());
-        task.setAccountCode(debitNote.getInvoice().getAccount().getCode());
-        task.setAccountName(debitNote.getInvoice().getAccount().getActor().getName());
-        task.setDescription(debitNote.getDescription());
-        task.setDebitNoteDate(debitNote.getDebitNoteDate());
-        task.setTotalAmount(debitNote.getTotalAmount());
-        task.setTaskName(t.getName());
-        task.setAssignee(task.getAssignee());
-        task.setCandidate(task.getCandidate());
-        task.setDebitNote(toDebitNoteVo(debitNote));
-        task.setFlowState(FlowState.get(debitNote.getFlowdata().getState().ordinal()));
-        task.setMetaState(MetaState.get(debitNote.getMetadata().getState().ordinal()));
-        task.setChargeCode(accountTransformer.toChargeCodeVo(debitNote.getChargeCode()));
-        return task;
     }
     
     public AdvancePayment toAdvancePaymentVo(AcAdvancePayment e) {

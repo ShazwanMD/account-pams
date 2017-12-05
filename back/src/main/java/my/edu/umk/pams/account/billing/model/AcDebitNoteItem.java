@@ -31,4 +31,8 @@ public interface AcDebitNoteItem extends AcMetaObject {
     Date getDebitNoteItemDate();
     
     void setDebitNoteItemDate(Date debitNoteItemDate);
+    
+    BigDecimal getBalanceAmount();
+
+    void setBalanceAmount(BigDecimal balanceAmount);
 }

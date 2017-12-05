@@ -156,6 +156,10 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
         item.setMetadata(metadata);
 
         session.save(item);
+        
+        debitNote.setTotalAmount(sumTotalAmount(debitNote, user));
+        debitNote.setBalanceAmount(sumTotalAmount(debitNote, user));
+        session.update(debitNote);
     }
 
     @Override
@@ -173,6 +177,10 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
         item.setMetadata(metadata);
 
         session.update(item);
+        
+        debitNote.setTotalAmount(sumTotalAmount(debitNote, user));
+        debitNote.setBalanceAmount(sumTotalAmount(debitNote, user));
+        session.update(debitNote);
     }
 
     @Override
@@ -197,6 +205,23 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(item);
+        
+        debitNote.setTotalAmount(sumTotalAmount(debitNote, user));
+        debitNote.setBalanceAmount(sumTotalAmount(debitNote, user));
+        session.update(debitNote);
+    }
+    
+    @Override
+    public BigDecimal sumTotalAmount(AcDebitNote debitNote, AcUser user) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.balanceAmount) from AcDebitNoteItem a where " +
+                "a.debitNote = :debitNote " +
+                "and a.metadata.state = :state ");
+        query.setEntity("debitNote", debitNote);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
     }
     
     @Override

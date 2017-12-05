@@ -16,5 +16,5 @@ export interface DebitNoteTask extends Document {
   debitNote: DebitNote;
   accountName: string;
   flowState: FlowState;
-  chargeCode: ChargeCode;
+  //chargeCode: ChargeCode;
 }

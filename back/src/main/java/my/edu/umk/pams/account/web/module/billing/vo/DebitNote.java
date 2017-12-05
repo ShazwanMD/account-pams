@@ -20,7 +20,7 @@ public class DebitNote extends Document {
 	private String sourceNo;
 	private String auditNo;
 	private String description;
-	private ChargeCode sodoCode;
+	//private ChargeCode sodoCode;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date debitNoteDate;
 	private BigDecimal totalAmount = new BigDecimal(0.00);
@@ -89,13 +89,13 @@ public class DebitNote extends Document {
 		this.invoice = invoice;
 	}
 	
-    public ChargeCode getChargeCode() {
+/*    public ChargeCode getChargeCode() {
         return sodoCode;
     }
 
     public void setChargeCode(ChargeCode sodoCode) {
         this.sodoCode = sodoCode;
-    }
+    }*/
 
 	public String getAccountCode() {
 		return accountCode;
@@ -111,10 +111,6 @@ public class DebitNote extends Document {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
-	}
-	
-	public ChargeCode getSodoCode() {
-		return sodoCode;
 	}
 
 	 public Boolean getPaid() {
