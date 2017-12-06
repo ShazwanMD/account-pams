@@ -23,24 +23,38 @@ public class WaiverFinanceApplicationRouter extends RouterServiceSupport {
     
     @Autowired
     private BillingService billingService;
+    
+    public List<String> findCreatorCandidates(Long waiverFinanceApplicationId) {
+        Validate.notNull(waiverFinanceApplicationId, "Id must not be null");
+
+        String candidate = null;
+        String KeraniBendahari = null;
+        
+        AcWaiverFinanceApplication application = billingService.findWaiverFinanceApplicationById(waiverFinanceApplicationId);
+        candidate = "GRP_ADM";
+        KeraniBendahari = "GRP_KRN_ADM_BEND";
+
+        // publish access event
+        // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
+
+        return Arrays.asList(candidate, KeraniBendahari);
+    }
 
     public List<String> findRegistererCandidates(Long waiverFinanceApplicationId) {
         Validate.notNull(waiverFinanceApplicationId, "Id must not be null");
 
         String candidate = null;
-        String kerani = null;
         String penPgw = null;
         
         AcWaiverFinanceApplication application = billingService.findWaiverFinanceApplicationById(waiverFinanceApplicationId);
         candidate = "GRP_ADM";
-        kerani = "GRP_KRN_ADM_BEND";
         penPgw = "GRP_PEN_PGW_ADM_BEND";
         
 
         // publish access event
         // publishAccessEvent(creditNote, identityService.findGroupByName(candidate), AcPermission.VIEW);
 
-        return Arrays.asList(candidate, kerani, penPgw);
+        return Arrays.asList(candidate, penPgw);
     }
 
     public List<String> findVerifierCandidates(Long waiverFinanceApplicationId) {
