@@ -277,6 +277,24 @@ export class KnockoffActions {
             payload: knockoff
         };
     }
+    
+    static FIND_KNOCKOFF_ITEM_BY_DEBIT = '[Knockoff] Find Knockoff Item By Debit Note';
+
+    findDebitKnockoffItems(knockoff, debitNote): Action {
+        return {
+            type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_DEBIT,
+            payload: { knockoff, debitNote }
+        };
+    }
+
+    static FIND_KNOCKOFF_ITEM_BY_DEBIT_SUCCESS = '[Knockoff] Find Knockoff Item By Debit Note Success';
+
+    findDebitKnockoffItemsSuccess(knockoff): Action {
+        return {
+            type: KnockoffActions.FIND_KNOCKOFF_ITEM_BY_DEBIT_SUCCESS,
+            payload: knockoff
+        };
+    }
 
     static INVOICE_ITEM_TO_KNOCKOFF_ITEM = '[Knockoff] Invoice Item to Knockoff Item';
 
@@ -292,6 +310,24 @@ export class KnockoffActions {
     itemToKnockoffItemSuccess(knockoff): Action {
         return {
             type: KnockoffActions.INVOICE_ITEM_TO_KNOCKOFF_ITEM_SUCCESS,
+            payload: knockoff
+        };
+    }
+    
+    static DEBIT_ITEM_TO_KNOCKOFF_ITEM = '[Knockoff] Debit Note Item to Knockoff Item';
+
+    debitToKnockoffItem(debitNote, knockoff): Action {
+        return {
+            type: KnockoffActions.DEBIT_ITEM_TO_KNOCKOFF_ITEM,
+            payload: { debitNote, knockoff }
+        };
+    }
+
+    static DEBIT_ITEM_TO_KNOCKOFF_ITEM_SUCCESS = '[Knockoff] Debit Note Item to Knockoff Item Success';
+
+    debitToKnockoffItemSuccess(knockoff): Action {
+        return {
+            type: KnockoffActions.DEBIT_ITEM_TO_KNOCKOFF_ITEM_SUCCESS,
             payload: knockoff
         };
     }

@@ -15,6 +15,7 @@ import { Knockoff } from "../../../../shared/model/billing/knockoff.interface";
 import { AccountChargeKnockoffDialog } from "../dialog/knockoff-account-charge-creator.dialog";
 import { KnockoffActions } from "../knockoff.action";
 import { KnockoffItemDialog } from "../dialog/knockoff-item.dialog";
+import { DebitKnockoffItemDialog } from "../dialog/debit-knockoff-applicator.dialog";
 
 @Component({
   selector: 'pams-knockoff-debit-note-list',
@@ -74,7 +75,7 @@ export class KnockoffDebitNoteListComponent implements OnInit {
       config.width = '70%';
       config.height = '60%';
       config.position = {top: '0px'};
-      let editorDialogRef = this.dialog.open(DebitNoteKnockoffCreatorDialog, config);
+      let editorDialogRef = this.dialog.open(DebitKnockoffItemDialog, config);
       editorDialogRef.componentInstance.knockoff = item.knockoff;
       editorDialogRef.componentInstance.debitNote = item.debitNote;
     }

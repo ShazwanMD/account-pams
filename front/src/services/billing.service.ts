@@ -703,6 +703,11 @@ export class BillingService {
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
     
+    debitToKnockoffItem( debitNote: DebitNote, knockoff: Knockoff  ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/debitNotes/' + debitNote.id, JSON.stringify( debitNote ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
     findKnockoffItems( knockoff: Knockoff ): Observable<KnockoffItem[]> {
         return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/knockoffItems' )
             .map(( res: Response ) => <KnockoffItem[]>res.json() );
@@ -716,6 +721,12 @@ export class BillingService {
     findInvoiceKnockoffItems( knockoff: Knockoff, invoice:Invoice ): Observable<KnockoffItem[]> {
         console.log( 'findReceiptItems' );
         return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/items/invoices/' + invoice.id )
+            .map(( res: Response ) => <KnockoffItem[]>res.json() );
+    }
+    
+    findDebitKnockoffItems( knockoff: Knockoff, debitNote:DebitNote ): Observable<KnockoffItem[]> {
+        console.log( 'findReceiptItems' );
+        return this._http.get( this.BILLING_API + '/knockoffs/' + knockoff.referenceNo + '/items/debits/' + debitNote.id )
             .map(( res: Response ) => <KnockoffItem[]>res.json() );
     }
     

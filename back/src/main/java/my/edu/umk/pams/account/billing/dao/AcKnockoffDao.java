@@ -41,11 +41,15 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
 	
 	AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff);
 	
+	AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcKnockoff knockoff);
+	
 	AcKnockoffItem findKnockoffItemByChare(AcAccountCharge charge, AcKnockoff knockoff);
 	
 	AcKnockoffItem findKnockoffItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff);
 	
 	List<AcKnockoffItem> findInvoiceKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
+	
+	List<AcKnockoffItem> findDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff);
 	
 	List<AcKnockoff> find(String filter, Integer offset, Integer limit);
 	

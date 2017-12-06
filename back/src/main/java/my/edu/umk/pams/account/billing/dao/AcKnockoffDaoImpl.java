@@ -103,6 +103,23 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
 	}
 	
 	@Override
+	public AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcKnockoff knockoff) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
+                "ri.chargeCode = :chargeCode " +
+    			"and ri.invoice = :invoice " +
+    			"and ri.debitNote = :debitNote " +
+                "and ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("chargeCode", chargeCode);
+        query.setEntity("invoice", invoice);
+        query.setEntity("debitNote", debitNote);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcKnockoffItem) query.uniqueResult();
+	}
+	
+	@Override
 	public AcKnockoffItem findKnockoffItemByChare(AcAccountCharge charge, AcKnockoff knockoff) {
     	Session session = sessionFactory.getCurrentSession();
     	Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
@@ -136,6 +153,20 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
                 "and ri.knockoff = :knockoff " +
                 "and ri.metadata.state = :metaState");
         query.setEntity("invoice", invoice);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcKnockoffItem>) query.list();		
+	}
+	
+	@Override
+	public List<AcKnockoffItem> findDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff) {
+		Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcKnockoffItem ri where " +
+                "ri.debitNote = :debitNote " +
+                "and ri.knockoff = :knockoff " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("debitNote", debitNote);
         query.setEntity("knockoff", knockoff);
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);

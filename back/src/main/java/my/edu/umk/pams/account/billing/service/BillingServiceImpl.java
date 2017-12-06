@@ -1498,6 +1498,11 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
+	public AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcKnockoff knockoff) {
+		return knockoffDao.findKnockoffItemByChargeCode(chargeCode, invoice, debitNote, knockoff);
+	}
+	
+	@Override
 	public AcKnockoffItem findKnockoffItemByCharge(AcAccountCharge charge, AcKnockoff knockoff) {
 		return knockoffDao.findKnockoffItemByChare(charge, knockoff);
 	}
@@ -1510,6 +1515,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<AcKnockoffItem> findInvoiceKnockoffItem(AcInvoice invoice, AcKnockoff knockoff) {
 		return knockoffDao.findInvoiceKnockoffItem(invoice, knockoff);
+	}
+	
+	@Override
+	public List<AcKnockoffItem> findDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff) {
+		return knockoffDao.findDebitKnockoffItem(debitNote, knockoff);
 	}
 
 	@Override
@@ -1668,6 +1678,73 @@ public class BillingServiceImpl implements BillingService {
 				}
 				
 				knockoff.setTotalAmount(knockoff.getTotalAmount().subtract(invoiceItem.getBalanceAmount()));
+			}
+			
+		}
+		
+		knockoff.setTotalAmount(knockoff.getAmount().subtract(knockoffDao.sumAppliedAmount(knockoff, securityService.getCurrentUser())));
+
+	}
+	
+	@Override
+	public void debitToKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff) {
+		List<AcDebitNoteItem> debitNoteItems = billingService.findDebitNoteItems(debitNote);
+		for (AcDebitNoteItem debitNoteItem : debitNoteItems) {
+			
+			if (debitNote.getBalanceAmount().compareTo(knockoff.getTotalAmount()) <= 0) {
+				AcKnockoffItem knockoffItem = new AcKnockoffItemImpl();
+				knockoffItem.setChargeCode(debitNoteItem.getChargeCode());
+				knockoffItem.setDescription(debitNoteItem.getChargeCode().getDescription());
+				knockoffItem.setInvoice(debitNote.getInvoice());
+				knockoffItem.setDebitNote(debitNote);
+				knockoffItem.setDueAmount(debitNoteItem.getBalanceAmount());
+				knockoffItem.setAppliedAmount(debitNoteItem.getBalanceAmount());
+				knockoffItem.setKnockoff(knockoff);
+				knockoffItem.setTotalAmount(BigDecimal.ZERO);
+				billingService.addKnockoffItem(knockoff, knockoffItem);
+			}
+
+			else if (debitNote.getBalanceAmount().compareTo(knockoff.getTotalAmount()) > 0) {
+				
+				if (knockoff.getTotalAmount().compareTo(debitNoteItem.getBalanceAmount()) > 0) {
+					AcKnockoffItem knockoffItem = new AcKnockoffItemImpl();
+					knockoffItem.setChargeCode(debitNoteItem.getChargeCode());
+					knockoffItem.setDescription(debitNoteItem.getChargeCode().getDescription());
+					knockoffItem.setInvoice(debitNote.getInvoice());
+					knockoffItem.setDebitNote(debitNote);
+					knockoffItem.setDueAmount(debitNoteItem.getBalanceAmount());
+					knockoffItem.setAppliedAmount(debitNoteItem.getBalanceAmount());
+					knockoffItem.setKnockoff(knockoff);
+					knockoffItem.setTotalAmount(BigDecimal.ZERO);
+					billingService.addKnockoffItem(knockoff, knockoffItem);
+				}
+
+				else if (knockoff.getTotalAmount().compareTo(debitNoteItem.getBalanceAmount()) < 0) {
+					AcKnockoffItem knockoffItem = new AcKnockoffItemImpl();
+					knockoffItem.setChargeCode(debitNoteItem.getChargeCode());
+					knockoffItem.setDescription(debitNoteItem.getChargeCode().getDescription());
+					knockoffItem.setInvoice(debitNote.getInvoice());
+					knockoffItem.setDebitNote(debitNote);
+					knockoffItem.setDueAmount(debitNoteItem.getBalanceAmount());
+					knockoffItem.setAppliedAmount(knockoff.getTotalAmount());
+					knockoffItem.setKnockoff(knockoff);
+					knockoffItem.setTotalAmount(debitNoteItem.getBalanceAmount().subtract(knockoffItem.getAppliedAmount()));
+					billingService.addKnockoffItem(knockoff, knockoffItem);
+				
+					if (knockoff.getTotalAmount().compareTo(BigDecimal.ZERO) <= 0 ) {
+						knockoffItem.setChargeCode(debitNoteItem.getChargeCode());
+						knockoffItem.setDescription(debitNoteItem.getChargeCode().getDescription());
+						knockoffItem.setInvoice(debitNote.getInvoice());
+						knockoffItem.setDebitNote(debitNote);
+						knockoffItem.setDueAmount(debitNoteItem.getBalanceAmount());
+						knockoffItem.setAppliedAmount(BigDecimal.ZERO);
+						knockoffItem.setKnockoff(knockoff);
+						knockoffItem.setTotalAmount(debitNoteItem.getBalanceAmount());
+						billingService.addKnockoffItem(knockoff, knockoffItem);
+					}
+				}
+				
+				knockoff.setTotalAmount(knockoff.getTotalAmount().subtract(debitNoteItem.getBalanceAmount()));
 			}
 			
 		}

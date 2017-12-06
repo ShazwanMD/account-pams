@@ -396,11 +396,15 @@ public interface BillingService {
     
     AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcKnockoff knockoff);
     
+    AcKnockoffItem findKnockoffItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcKnockoff knockoff);
+    
     AcKnockoffItem findKnockoffItemByCharge(AcAccountCharge charge, AcKnockoff knockoff);
     
     AcKnockoffItem findKnockoffReceiptItemByDebitNote(AcDebitNote debitNote, AcKnockoff knockoff);
     
     List<AcKnockoffItem> findInvoiceKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
+    
+    List<AcKnockoffItem> findDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff);
     
     List<AcKnockoff> findKnockoffs(String filter, Integer offset, Integer limit);
     
@@ -439,6 +443,8 @@ public interface BillingService {
     void removeKnockoff(AcKnockoff knockoff, AcUser user);
     
     void itemToKnockoffItem(AcInvoice invoice, AcKnockoff knockoff);
+    
+    void debitToKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff);
     
     void updateitemToKnockoff(AcKnockoff knockoff);
     

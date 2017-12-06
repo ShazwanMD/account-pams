@@ -1,0 +1,27 @@
+<h2 md-dialog-title>Knockoff Items</h2>
+<md-dialog-content>
+<td-data-table
+  [data]="knockoffItem$|async"
+  [columns]="columns"
+  [sortBy]="summary"
+  [sortOrder]="ASC"
+  [sortable]="false"
+  [multiple]="false"
+  [selectable]="false"
+  (rowSelect)="view.emit($event)" dense>
+  <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+    <div layout="row">
+      <span flex>{{value}}</span>
+    </div>
+  </template>
+    <template tdDataTableTemplate="issuedDate" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['issuedDate'] | date: 'dd-MMM-yyyy'}}</div>
+  </template>
+  <template tdDataTableTemplate="amount" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['amount'] | currency:'MYR':true:'1.2-2'}}</div>
+  </template>
+</td-data-table>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-raised-button color="accent" (click)="Apply()">Paid</button>
+</md-dialog-actions>

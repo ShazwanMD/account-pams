@@ -1158,6 +1158,18 @@ public class BillingController {
         }
     }
     
+    @RequestMapping(value = "/knockoffs/{referenceNo}/debitNotes/{id}", method = RequestMethod.POST)
+    public void debitToKnockoffItem(@PathVariable Long id, @PathVariable String referenceNo) {
+    	
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	AcDebitNote debitNote = billingService.findDebitNoteById(id);
+        Boolean rcptItem = billingService.hasDebitKnockoffItem(debitNote, knockoff);
+        
+        if(rcptItem == false) {
+        	billingService.debitToKnockoffItem(debitNote, knockoff); 
+        }
+    }
+    
     @RequestMapping(value = "/knockoffs/{referenceNo}/knockoffItems", method = RequestMethod.GET)
     public ResponseEntity<List<KnockoffItem>> findKnockoffItems(@PathVariable String referenceNo) {
         
@@ -1174,8 +1186,6 @@ public class BillingController {
         return new ResponseEntity<List<KnockoffItem>>(billingTransformer
                 .toKnockoffItemVos(billingService.findAcKnockoffs(knockoff,invoice)), HttpStatus.OK);
     }
-    
-
        
     @RequestMapping(value = "/knockoffs/updateKnockoffItems/{referenceNo}/knockoffItems/{id}", method = RequestMethod.PUT)
     public void updateitemToKnockoff(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody ReceiptItem vo) {
@@ -1292,6 +1302,15 @@ public class BillingController {
         AcInvoice invoice = billingService.findInvoiceById(id);
         return new ResponseEntity<List<KnockoffItem>>(billingTransformer
         		.toKnockoffItemVos(billingService.findInvoiceKnockoffItem(invoice, knockoff)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/knockoffs/{referenceNo}/items/debits/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<KnockoffItem>> findDebitKnockoffItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	AcDebitNote debitNote = billingService.findDebitNoteById(id);
+        return new ResponseEntity<List<KnockoffItem>>(billingTransformer
+                .toKnockoffItemVos(billingService.findDebitKnockoffItem(debitNote, knockoff)), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/knockoffDebitNotes/{id}", method = RequestMethod.DELETE)

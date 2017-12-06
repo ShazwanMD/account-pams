@@ -16,6 +16,9 @@ export function knockoffItemListReducer(state = initialState, action: Action): K
     case KnockoffActions.FIND_KNOCKOFF_ITEM_BY_INVOICE_SUCCESS: {
         return action.payload;
       }
+    case KnockoffActions.FIND_KNOCKOFF_ITEM_BY_DEBIT_SUCCESS: {
+        return action.payload;
+    }
     default: {
       return state;
     }
