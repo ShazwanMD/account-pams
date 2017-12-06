@@ -17,6 +17,7 @@ import { Receipt } from "../../../../shared/model/billing/receipt.interface";
 import { InvoiceReceiptCreatorDialog } from "../dialog/invoice-receipt-creator.dialog";
 import { AccountActions } from '../../../account/accounts/account.action';
 import { AccountModuleState } from '../../../account/index';
+import { DebitNoteApplicatorDialog } from "../dialog/debit-note-applicator.dialog";
 
 @Component({
   selector: 'pams-debit-note-receipt-list',
@@ -84,7 +85,7 @@ export class DebitNoteReceiptListComponent {
         config.width = '70%';
         config.height = '60%';
         config.position = {top: '0px'};
-        let editorDialogRef = this.dialog.open(DebitNoteReceiptCreatorDialog, config);
+        let editorDialogRef = this.dialog.open(DebitNoteApplicatorDialog, config);
         editorDialogRef.componentInstance.receipt = receiptDebitNote.receipt;
         editorDialogRef.componentInstance.debitNote = receiptDebitNote.debitNote;
         editorDialogRef.afterClosed().subscribe((res) => {

@@ -54,6 +54,7 @@ import { AccountChargeReceiptListComponent } from './component/account-charge-re
 import { ReceiptItemListOnly } from './component/receipt-item-list-only.component';
 import { ReceiptActionComponent } from './component/receipt-action.component';
 import { ReportActions } from '../../../shared/report/report.action';
+import { DebitNoteApplicatorDialog } from "./dialog/debit-note-applicator.dialog";
 
 
 @NgModule({
@@ -112,6 +113,7 @@ import { ReportActions } from '../../../shared/report/report.action';
     AccountChargeReceiptDialog,
     DebitNoteReceiptDialog,
     DebitNoteReceiptCreatorDialog,
+    DebitNoteApplicatorDialog,
   ],
   exports: [
     DebitNoteUnpaidSelectComponent,
@@ -133,6 +135,7 @@ import { ReportActions } from '../../../shared/report/report.action';
     DebitNoteReceiptDialog,
     DebitNoteReceiptCreatorDialog,
     ReceiptItemListOnly,
+    DebitNoteApplicatorDialog,
   ],
 
 })

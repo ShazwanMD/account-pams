@@ -66,7 +66,6 @@ export class ReceiptItemListComponent implements OnInit {
       console.log('length: ' + this.selectedRows.length);
       for (let i: number = 0; i < this.selectedRows.length; i++) {
         this.store.dispatch(this.actions.deleteReceiptItem(this.receipt, this.selectedRows[i]));
-        //console.log("selected rows receipt invoice" + this.selectedRows[i].invoice.referenceNo)
       }
       this.selectedRows = [];
   }
@@ -80,4 +79,5 @@ export class ReceiptItemListComponent implements OnInit {
   selectAllRows(receiptItems: ReceiptItem[]): void {
   }
 
+  
 }

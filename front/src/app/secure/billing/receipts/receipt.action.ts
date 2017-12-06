@@ -283,6 +283,26 @@ export class ReceiptActions {
             payload: message
         };
     }
+    
+    static FIND_RECEIPT_DEBIT_ITEMS = '[Receipt] Find Receipt Debit Note Items';
+    
+    findDebitNoteReceiptItems( receipt, debitNote ): Action {
+        console.log( "findReceiptItems for receipt: " + receipt );
+        return {
+            type: ReceiptActions.FIND_RECEIPT_DEBIT_ITEMS,
+            payload: { receipt: receipt, debitNote: debitNote }
+        };
+    }
+
+    static FIND_RECEIPT_DEBIT_ITEMS_SUCCESS = '[Receipt] Find Receipt Debit Note Items Success';
+
+    findDebitNoteReceiptItemsSuccess( message ): Action {
+        console.log( "findReceiptItemsSuccess" );
+        return {
+            type: ReceiptActions.FIND_RECEIPT_DEBIT_ITEMS_SUCCESS,
+            payload: message
+        };
+    }
 
     static UPDATE_RECEIPT = '[Receipt] Update Receipt';
 
@@ -484,6 +504,24 @@ export class ReceiptActions {
         };
     }
 
+    static DEBIT_TO_RECEIPT_ITEM = '[Receipt] Add Debit Note Item to Receipt';
+
+    debitItemToReceiptItem( debitNote, receipt ): Action {
+        return {
+            type: ReceiptActions.DEBIT_TO_RECEIPT_ITEM,
+            payload: { debitNote: debitNote, receipt: receipt }
+        };
+    }
+
+    static DEBIT_TO_RECEIPT_ITEM_SUCCESS = '[Receipt] Add Debit Note Item to Receipt Success';
+
+    debitItemToReceiptItemSuccess( message ): Action {
+        return {
+            type: ReceiptActions.DEBIT_TO_RECEIPT_ITEM_SUCCESS,
+            payload: message
+        };
+    }
+    
     static UPDATE_ITEM_RECEIPT = '[Receipt] Update Item Receipt';
 
     updateItemToReceipt( receipt, item ): Action {

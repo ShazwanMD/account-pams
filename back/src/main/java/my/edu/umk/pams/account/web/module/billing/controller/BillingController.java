@@ -353,6 +353,15 @@ public class BillingController {
         return new ResponseEntity<List<ReceiptItem>>(billingTransformer
                 .toReceiptItemVos(billingService.findReceiptItems(receipt, invoice)), HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/receipts/{referenceNo}/items/debitNotes/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<ReceiptItem>> findDebitNoteReceiptItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+        AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+        AcDebitNote debitNote = billingService.findDebitNoteById(id);
+        return new ResponseEntity<List<ReceiptItem>>(billingTransformer
+                .toReceiptItemVos(billingService.findReceiptItems(receipt, debitNote)), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/receipts/{referenceNo}/receiptItems", method = RequestMethod.POST)
     public void addReceiptItems(@PathVariable String referenceNo, @RequestBody ReceiptItem vo) {
@@ -641,37 +650,16 @@ public class BillingController {
         return new ResponseEntity<Boolean>(HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/receipts/{referenceNo}/checkReceipt", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> checkReceipts(@PathVariable String referenceNo) {
-
-    	AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+    @RequestMapping(value = "/receipts/{referenceNo}/debitNotes/{id}", method = RequestMethod.POST)
+    public void debitItemToReceiptItem(@PathVariable Long id, @PathVariable String referenceNo) {
     	
-    	List<AcReceiptInvoice> receiptInvoices = billingService.findReceipts(receipt);
-    	for(AcReceiptInvoice receiptInvoice: receiptInvoices) {
-    		Boolean hasItem = billingService.hasReceiptItem(receiptInvoice.getInvoice(), receipt);
-    		if(hasItem == true) {
-    			LOG.debug("Invoice has Item controller {}" + hasItem);
-    			//return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-    		}
-    	}
-    	
-/*    	List<AcReceiptDebitNote> receiptDebitNotes = billingService.findReceiptsDebitNote(receipt);
-    	for(AcReceiptDebitNote receiptDebitNote: receiptDebitNotes) {
-    		Boolean hasItem = billingService.hasDebitReceiptItem(receiptDebitNote.getDebitNote(), receipt);
-    		if(hasItem == true) {
-    			billingService.findReceiptItems(receipt);
-    		}
-    	}
-    	
-    	List<AcReceiptAccountCharge> receiptAccCharges = billingService.findReceiptsAccountCharge(receipt);
-    	for(AcReceiptAccountCharge receiptAccCharge: receiptAccCharges) {
-    		Boolean hasItem = billingService.hasChargeReceiptItem(receiptAccCharge.getAccountCharge(), receipt);
-    		if(hasItem == true) {
-    			billingService.findReceiptItems(receipt);
-    		}
-    	}*/
-    	
-    	return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    	AcReceipt receipt = billingService.findReceiptById(id);
+    	AcDebitNote debitNote = billingService.findDebitNoteByReferenceNo(referenceNo);
+        Boolean rcptItem = billingService.hasDebitReceiptItem(debitNote, receipt);
+        
+        if(rcptItem == false) {
+        	billingService.debitItemToReceiptItem(debitNote, receipt); 
+        }
     }
 
     // ==================================================================================================== //

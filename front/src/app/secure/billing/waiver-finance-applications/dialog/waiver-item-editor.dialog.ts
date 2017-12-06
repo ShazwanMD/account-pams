@@ -56,7 +56,7 @@ export class WaiverItemEditorDialog implements OnInit {
       chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     },{
-       validator: AmountValidation.CheckAmountWaiver // validation method
+       //validator: AmountValidation.CheckAmountWaiver // validation method
    });
     if (this.edit) this.editForm.patchValue(this._waiverItem);
   }

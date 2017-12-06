@@ -187,6 +187,7 @@ public interface BillingService {
     
     List<AcDebitNote> findUnpaidDebitNotes(AcAccount account, Integer offset, Integer limit);
 
+    void debitItemToReceiptItem(AcDebitNote debitNote, AcReceipt receipt);
 
     // ==================================================================================================== //
     // CREDIT NOTE
@@ -300,6 +301,8 @@ public interface BillingService {
     AcReceiptItem findReceiptItemById(Long id);
 
 	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt);
+	
+	AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcReceipt receipt);
 
 	AcReceiptItem findReceiptItemByCharge(AcAccountCharge charge, AcReceipt receipt);
 	
@@ -329,6 +332,8 @@ public interface BillingService {
     
     List<AcReceiptItem> findReceiptItems(AcReceipt receipt, AcInvoice invoice);
     
+    List<AcReceiptItem> findReceiptItems(AcReceipt receipt, AcDebitNote debitNote);
+    
     List<AcReceiptInvoice> findReceipts(AcReceipt receipt);
     
     List<AcReceiptAccountCharge> findReceiptsAccountCharge(AcReceipt receipt);
@@ -352,6 +357,8 @@ public interface BillingService {
     BigDecimal sumAdvancePayment(AcReceipt receipt);
     
     BigDecimal sumAppliedAmount(AcInvoice invoice, AcReceipt receipt);
+    
+    BigDecimal sumAppliedAmount(AcDebitNote debitNote, AcReceipt receipt);
     
     boolean hasReceiptItem(AcInvoice invoice, AcReceipt receipt);
     
