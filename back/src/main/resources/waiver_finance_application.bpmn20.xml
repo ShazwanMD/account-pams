@@ -38,7 +38,7 @@
 
         <userTask id="waiverFinanceApplication_draft_UT"
                   name="my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication:DRAFTED"
-                  activiti:candidateGroups="${waiverFinanceApplicationRouter.findRegistererCandidates(waiverFinanceApplicationId)}">
+                  activiti:candidateGroups="${waiverFinanceApplicationRouter.findCreatorCandidates(waiverFinanceApplicationId)}">
             <documentation>
                 Draft Invoice
             </documentation>
