@@ -225,6 +225,12 @@ export class BillingService {
         return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/items/invoices/' + invoice.id )
             .map(( res: Response ) => <ReceiptItem[]>res.json() );
     }
+    
+    findDebitNoteReceiptItems( receipt: Receipt, debitNote:DebitNote ): Observable<ReceiptItem[]> {
+        console.log( 'findReceiptItems' );
+        return this._http.get( this.BILLING_API + '/receipts/' + receipt.referenceNo + '/items/debitNotes/' + debitNote.id )
+            .map(( res: Response ) => <ReceiptItem[]>res.json() );
+    }
 
     startReceiptTask( receipt: Receipt ): Observable<String> {
         console.log( 'receipt: ' + receipt );
@@ -302,6 +308,11 @@ export class BillingService {
     
     itemToReceiptItem( invoice: Invoice, receipt: Receipt ): Observable<String> {
         return this._http.post( this.BILLING_API + '/invoices/' + invoice.referenceNo + '/receipts/' + receipt.id, JSON.stringify( receipt ) )
+            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
+    
+    debitItemToReceiptItem( debitNote: DebitNote, receipt: Receipt ): Observable<String> {
+        return this._http.post( this.BILLING_API + '/receipts/' + debitNote.referenceNo + '/debitNotes/' + receipt.id, JSON.stringify( receipt ) )
             .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
     

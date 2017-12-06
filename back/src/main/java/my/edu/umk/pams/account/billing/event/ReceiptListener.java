@@ -23,6 +23,7 @@ import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
 import my.edu.umk.pams.account.billing.model.AcAdvancePaymentImpl;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
+import my.edu.umk.pams.account.billing.model.AcDebitNoteItem;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
@@ -117,11 +118,25 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 			BigDecimal totaldebit = BigDecimal.ZERO;
 			List<AcDebitNote> debitNotes = receipt.getDebitNotes();
 			for (AcDebitNote debitNote : debitNotes) {
+				
+				List<AcDebitNoteItem>  debitNoteItems = billingService.findDebitNoteItems(debitNote);
+				for (AcDebitNoteItem debitNoteItem : debitNoteItems) {
+					AcReceiptItem receiptItem = billingService.findReceiptItemByChargeCode(debitNoteItem.getChargeCode(),
+							debitNote.getInvoice(), debitNote, receipt);
 
-				AcReceiptItem receiptItem = billingService.findReceiptItemByDebitNote(debitNote, receipt);
-				debitNote.setBalanceAmount(receiptItem.getTotalAmount());
+					if (receiptItem != null) {
+						LOG.debug("Invoice Item ", debitNoteItem.getBalanceAmount());
+						debitNoteItem.setBalanceAmount(receiptItem.getTotalAmount());
+						billingService.updateDebitNoteItem(debitNote, debitNoteItem);;
+					}
+
+				}
+				
+				debitNote.setBalanceAmount(
+						debitNote.getBalanceAmount().subtract(billingService.sumAppliedAmount(debitNote, receipt)));
+				LOG.debug("Invoice Balance Amount after subtract ", debitNote.getBalanceAmount());
 				billingService.updateDebitNote(debitNote);
-
+				
 				if (debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
 					debitNote.setPaid(true);
 					billingService.updateDebitNote(debitNote);

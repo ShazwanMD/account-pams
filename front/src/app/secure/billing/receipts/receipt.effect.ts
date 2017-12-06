@@ -101,6 +101,12 @@ export class ReceiptEffects {
   .switchMap((payload) => this.billingService.findInvoiceReceiptItems(payload.receipt, payload.invoice))
   .map((message) => this.receiptActions.findInvoiceReceiptItemsSuccess(message));
   
+  @Effect() findDebitNoteReceiptItems$ = this.actions$
+  .ofType(ReceiptActions.FIND_RECEIPT_DEBIT_ITEMS)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.findDebitNoteReceiptItems(payload.receipt, payload.debitNote))
+  .map((message) => this.receiptActions.findDebitNoteReceiptItemsSuccess(message));
+  
   @Effect() startReceiptTask$ = this.actions$
     .ofType(ReceiptActions.START_RECEIPT_TASK)
     .map((action) => action.payload)
@@ -168,6 +174,16 @@ export class ReceiptEffects {
         .map((action) => action.payload)
         .switchMap((payload) => this.billingService.itemToReceiptItem(payload.invoice, payload.receipt))
         .map((message) => this.receiptActions.itemToReceiptItemSuccess(message))
+        .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
+        .map((state) => state[1])
+        .map((receipt) => this.receiptActions.findReceiptItems(receipt));
+  
+  @Effect() debitItemToReceiptItem$ =
+      this.actions$
+        .ofType(ReceiptActions.DEBIT_TO_RECEIPT_ITEM)
+        .map((action) => action.payload)
+        .switchMap((payload) => this.billingService.debitItemToReceiptItem(payload.debitNote, payload.receipt))
+        .map((message) => this.receiptActions.debitItemToReceiptItemSuccess(message))
         .withLatestFrom(this.store$.select(...this.RECEIPT_TASK))
         .map((state) => state[1])
         .map((receipt) => this.receiptActions.findReceiptItems(receipt));

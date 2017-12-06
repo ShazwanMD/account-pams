@@ -711,7 +711,7 @@ public class BillingServiceImpl implements BillingService {
 	public void post(AcDebitNote debitNote) {
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(debitNote.getInvoice().getSession());
-		tx.setChargeCode(debitNote.getChargeCode());
+		//tx.setChargeCode(debitNote.getChargeCode());
 		tx.setDescription(debitNote.getDescription());
 		tx.setPostedDate(new Date());
 		tx.setSourceNo(debitNote.getReferenceNo());
@@ -729,6 +729,87 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<AcDebitNote> findUnpaidDebitNotes(AcAccount account, Integer offset, Integer limit) {
 		return debitNoteDao.find(false, account, offset, limit);
+	}
+	
+	@Override
+	public void debitItemToReceiptItem(AcDebitNote debitNote, AcReceipt receipt) {
+		List<AcDebitNoteItem> debitNoteItems = billingService.findDebitNoteItems(debitNote);
+		for (AcDebitNoteItem debitNoteItem : debitNoteItems) {
+			
+			if (debitNote.getBalanceAmount().compareTo(receipt.getTotalPayment()) <= 0) {
+				AcReceiptItem receiptItem = new AcReceiptItemImpl();
+				receiptItem.setChargeCode(debitNoteItem.getChargeCode());
+				receiptItem.setDueAmount(debitNoteItem.getBalanceAmount());
+				receiptItem.setDescription(debitNoteItem.getChargeCode().getDescription());
+				receiptItem.setInvoice(debitNote.getInvoice());
+				receiptItem.setDebitNote(debitNote);
+				receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+				receiptItem.setAppliedAmount(debitNoteItem.getBalanceAmount());
+				receiptItem.setPrice(BigDecimal.ZERO);
+				receiptItem.setReceipt(receipt);
+				receiptItem.setTotalAmount(BigDecimal.ZERO);
+				receiptItem.setUnit(0);
+
+				billingService.addReceiptItem(receipt, receiptItem);
+			}
+
+			else if (debitNote.getBalanceAmount().compareTo(receipt.getTotalPayment()) > 0) {
+				
+				if (receipt.getTotalPayment().compareTo(debitNoteItem.getBalanceAmount()) > 0) {
+					AcReceiptItem receiptItem = new AcReceiptItemImpl();
+					receiptItem.setChargeCode(debitNoteItem.getChargeCode());
+					receiptItem.setDueAmount(debitNoteItem.getBalanceAmount());
+					receiptItem.setDescription(debitNoteItem.getChargeCode().getDescription());
+					receiptItem.setInvoice(debitNote.getInvoice());
+					receiptItem.setDebitNote(debitNote);
+					receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+					receiptItem.setAppliedAmount(debitNoteItem.getBalanceAmount());
+					receiptItem.setPrice(BigDecimal.ZERO);
+					receiptItem.setReceipt(receipt);
+					receiptItem.setTotalAmount(BigDecimal.ZERO);
+					receiptItem.setUnit(0);
+					billingService.addReceiptItem(receipt, receiptItem);
+				}
+
+				else if (receipt.getTotalPayment().compareTo(debitNoteItem.getBalanceAmount()) < 0) {
+					AcReceiptItem receiptItem = new AcReceiptItemImpl();
+					receiptItem.setChargeCode(debitNoteItem.getChargeCode());
+					receiptItem.setDueAmount(debitNoteItem.getBalanceAmount());
+					receiptItem.setDescription(debitNoteItem.getChargeCode().getDescription());
+					receiptItem.setInvoice(debitNote.getInvoice());
+					receiptItem.setDebitNote(debitNote);
+					receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+					receiptItem.setAppliedAmount(receipt.getTotalPayment());
+					receiptItem.setPrice(BigDecimal.ZERO);
+					receiptItem.setReceipt(receipt);
+					receiptItem.setTotalAmount(debitNoteItem.getBalanceAmount().subtract(receiptItem.getAppliedAmount()));
+					receiptItem.setUnit(0);
+					billingService.addReceiptItem(receipt, receiptItem);
+				
+					if (receipt.getTotalPayment().compareTo(BigDecimal.ZERO) <= 0 ) {
+						receiptItem.setChargeCode(debitNoteItem.getChargeCode());
+						receiptItem.setDueAmount(debitNoteItem.getBalanceAmount());
+						receiptItem.setDescription(debitNoteItem.getChargeCode().getDescription());
+						receiptItem.setInvoice(debitNote.getInvoice());
+						receiptItem.setDebitNote(debitNote);
+						receiptItem.setAdjustedAmount(BigDecimal.ZERO);
+						receiptItem.setAppliedAmount(BigDecimal.ZERO);
+						receiptItem.setPrice(BigDecimal.ZERO);
+						receiptItem.setReceipt(receipt);
+						receiptItem.setTotalAmount(debitNoteItem.getBalanceAmount());
+						receiptItem.setUnit(0);
+						billingService.addReceiptItem(receipt, receiptItem);
+					}
+				}
+				
+				receipt.setTotalPayment(receipt.getTotalPayment().subtract(debitNoteItem.getBalanceAmount()));
+				LOG.debug("value invoiceItem after looping {}", receipt.getTotalReceived());
+			}
+			
+			}
+		
+		receipt.setTotalPayment(receipt.getTotalReceived().subtract(receiptDao.sumAppliedAmount(receipt, securityService.getCurrentUser())));
+
 	}
 
 	// ====================================================================================================
@@ -1041,6 +1122,11 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcReceipt receipt) {
+		return receiptDao.findReceiptItemByChargeCode(chargeCode, invoice, debitNote, receipt);
+	}
+	
+	@Override
 	public AcReceiptItem findReceiptItemByCharge(AcAccountCharge charge, AcReceipt receipt) {
 		return receiptDao.findReceiptItemByCharge(charge, receipt);
 	}
@@ -1103,6 +1189,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public List<AcReceiptItem> findReceiptItems(AcReceipt receipt, AcInvoice invoice) {
 		return receiptDao.findItems(receipt, invoice);
+	}
+	
+	@Override
+	public List<AcReceiptItem> findReceiptItems(AcReceipt receipt, AcDebitNote debitNote) {
+		return receiptDao.findItems(receipt, debitNote);
 	}
 
 	@Override
@@ -1208,6 +1299,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public BigDecimal sumAppliedAmount(AcInvoice invoice, AcReceipt receipt) {
 		return receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser());
+	}
+	
+	@Override
+	public BigDecimal sumAppliedAmount(AcDebitNote debitNote, AcReceipt receipt) {
+		return receiptDao.sumTotalAmount(receipt, debitNote, securityService.getCurrentUser());
 	}
 	
 	@Override

@@ -108,6 +108,23 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
 	}
     
     @Override
+	public AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcReceipt receipt) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcReceiptItem ri where " +
+                "ri.chargeCode = :chargeCode " +
+    			"and ri.invoice = :invoice " +
+    			"and ri.debitNote = :debitNote " +
+                "and ri.receipt = :receipt " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("chargeCode", chargeCode);
+        query.setEntity("invoice", invoice);
+        query.setEntity("receipt", receipt);
+        query.setEntity("debitNote", debitNote);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcReceiptItem) query.setMaxResults(1).uniqueResult();
+    }
+    
+    @Override
 	public AcReceiptItem findReceiptItemByCharge(AcAccountCharge charge, AcReceipt receipt) {
     	Session session = sessionFactory.getCurrentSession();
     	Query query = session.createQuery("select ri from AcReceiptItem ri where " +
@@ -252,6 +269,20 @@ public class AcReceiptDaoImpl extends GenericDaoSupport<Long, AcReceipt> impleme
                 "and ri.metadata.state = :metaState");
         query.setEntity("receipt", receipt);
         query.setEntity("invoice", invoice);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcReceiptItem>) query.list();
+    }
+    
+    @Override
+    public List<AcReceiptItem> findItems(AcReceipt receipt, AcDebitNote debitNote) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcReceiptItem ri where " +
+                "ri.receipt = :receipt " +
+        		"and ri.debitNote = :debitNote " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("receipt", receipt);
+        query.setEntity("debitNote", debitNote);
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
         return (List<AcReceiptItem>) query.list();

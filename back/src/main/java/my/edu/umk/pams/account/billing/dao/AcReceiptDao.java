@@ -48,6 +48,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     
     AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcReceipt receipt);
     
+    AcReceiptItem findReceiptItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcReceipt receipt);
+    
     AcReceiptItem findReceiptItemByCharge(AcAccountCharge charge, AcReceipt receipt);
     
     AcReceiptItem findReceiptItemByDebitNote(AcDebitNote debitNote, AcReceipt receipt);
@@ -69,6 +71,8 @@ public interface AcReceiptDao extends GenericDao<Long, AcReceipt> {
     List<AcReceiptItem> findItems(AcReceipt receipt);
     
     List<AcReceiptItem> findItems(AcReceipt receipt, AcInvoice invoice);
+    
+    List<AcReceiptItem> findItems(AcReceipt receipt, AcDebitNote debitNote);
 
     List<AcReceiptItem> findItems(AcReceipt receipt, Integer offset, Integer limit);
     
