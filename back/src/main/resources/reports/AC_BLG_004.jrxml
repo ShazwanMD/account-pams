@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5270fd6a-534b-45bb-8407-2b40fe397a35">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="receipt_ref_no" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -37,7 +37,8 @@ left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id]]>
 	<field name="ac_account_id" class="java.lang.Long"/>
 	<field name="ac_ac_code" class="java.lang.String"/>
 	<field name="ac_actr_name" class="java.lang.String"/>
-	<field name="ac_payment_method" class="java.lang.Integer"/>
+	<field name="ac_payment_method" class="java.lang.String"/>
+
 	<field name="ac_description" class="java.lang.String"/>
 	<field name="ac_source_no" class="java.lang.String"/>
 	<field name="ac_receipt_no" class="java.lang.String"/>
@@ -154,7 +155,12 @@ left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id]]>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{ac_payment_method}.equals( "0" ) ? "CASH" : $F{ac_payment_method}.equals( "1" ) ? "CEK" : $F{ac_payment_method}.equals( "2" ) ? "KREDIT KE BANK" : "BANK DRAF" )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(
+$F{ac_payment_method}.equals( "0" ) ? "CASH" :
+$F{ac_payment_method}.equals( "1" ) ? "CEK" :
+$F{ac_payment_method}.equals( "2" ) ? "KREDIT KE BANK" :
+$F{ac_payment_method}.equals( "3" ) ? "BANK DRAF" : "OTHERS"
+)]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="161" y="50" width="76" height="20" uuid="43493e05-b413-4675-9c92-a578d2928163"/>
