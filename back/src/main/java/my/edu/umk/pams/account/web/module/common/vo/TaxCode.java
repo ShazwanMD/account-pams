@@ -5,8 +5,9 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 
-public class TaxCode {
+public class TaxCode extends MetaObject{
 
 	private Long id;
 	private String code;

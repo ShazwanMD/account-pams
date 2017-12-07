@@ -27,6 +27,8 @@ export class TaxCodesComponent implements OnChanges {
     {name: 'description', label: 'Description'},
     {name: 'taxRate', label: 'TaxRate'},
     {name: 'active', label: 'Active'},
+    {name: 'creatorUsername', label: 'Creator'},
+    {name: 'createdDate', label: 'Created Date'},
     {name: 'action', label: ''}
   ];
   filteredData: any[];
