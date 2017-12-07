@@ -462,6 +462,8 @@ public interface BillingService {
     
     BigDecimal sumAppliedAmount(AcInvoice invoice, AcKnockoff knockoff);
     
+    BigDecimal sumAppliedAmount(AcDebitNote debitNote, AcKnockoff knockoff);
+    
     //TASK
     
     AcKnockoff findKnockoffByTaskId(String taskId);
@@ -574,6 +576,8 @@ public interface BillingService {
     void addWaiverItem(AcWaiverFinanceApplication waiver, AcWaiverItem item);
     
 	void itemToWaiverItem(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+	
+	void debitToWaiverItem(AcWaiverFinanceApplication waiver, AcDebitNote debitNote);
 	
 	void updateWaiver(AcWaiverFinanceApplication waiver);
 	

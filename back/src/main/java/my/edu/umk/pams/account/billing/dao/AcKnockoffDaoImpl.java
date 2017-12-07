@@ -503,6 +503,21 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
     }
     
     @Override
+    public BigDecimal sumAmount(AcDebitNote debitNote, AcKnockoff knockoff, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +
+                "a.debitNote = :debitNote " +
+        		"and a.knockoff = :knockoff " +
+                "and a.metadata.state = :state ");
+        query.setEntity("debitNote", debitNote);
+        query.setEntity("knockoff", knockoff);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
     public BigDecimal sumTotalAmount(AcKnockoff knockoff, AcAccountCharge accountCharge, AcUser user) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.appliedAmount) from AcKnockoffItem a where " +

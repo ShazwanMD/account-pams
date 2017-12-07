@@ -23,6 +23,7 @@ import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
 import my.edu.umk.pams.account.billing.model.AcAdvancePaymentImpl;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
+import my.edu.umk.pams.account.billing.model.AcDebitNoteItem;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcKnockoff;
@@ -113,8 +114,21 @@ public class KnockoffListener implements ApplicationListener<KnockoffEvent> {
 			List<AcDebitNote> debitNotes = knockoff.getDebitNotes();
 			for (AcDebitNote debitNote : debitNotes) {
 
-				AcKnockoffItem knockoffItem = billingService.findKnockoffReceiptItemByDebitNote(debitNote, knockoff);
-				debitNote.setBalanceAmount(knockoffItem.getTotalAmount());
+				List<AcDebitNoteItem>  debitNoteItems = billingService.findDebitNoteItems(debitNote);
+				for (AcDebitNoteItem debitNoteItem : debitNoteItems) { 
+					
+					AcKnockoffItem knockoffItem = billingService.findKnockoffItemByChargeCode(debitNoteItem.getChargeCode(), 
+							debitNote.getInvoice(), debitNote, knockoff);
+				
+					if (knockoffItem != null) {
+						LOG.debug("Invoice Item ", debitNoteItem.getBalanceAmount());
+						debitNoteItem.setBalanceAmount(knockoffItem.getTotalAmount());
+						billingService.updateKnockoffItem(knockoff, knockoffItem);
+					}
+				}
+				
+				debitNote.setBalanceAmount(
+						debitNote.getBalanceAmount().subtract(billingService.sumAppliedAmount(debitNote, knockoff)));
 				billingService.updateDebitNote(debitNote);
 
 				if (debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {

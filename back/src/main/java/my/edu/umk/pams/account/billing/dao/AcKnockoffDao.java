@@ -99,6 +99,8 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
     
     BigDecimal sumAmount(AcInvoice invoice, AcKnockoff knockoff, AcUser user);
     
+    BigDecimal sumAmount(AcDebitNote debitNote, AcKnockoff knockoff, AcUser user);
+    
     BigDecimal sumTotalAmount(AcKnockoff knockoff, AcAccountCharge accountCharge, AcUser user);
     
     BigDecimal sumTotalAmount(AcDebitNote debitNote, AcKnockoff knockoff, AcUser user);
