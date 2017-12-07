@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45fc871c-c11e-422d-95ea-213569af8a10">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="81"/>
+	<subDataset name="dataset1" uuid="cbd3c2e6-fb7f-42a1-826a-aa657110b068"/>
+	<parameter name="IDENTITY_NO" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     ac_actr."email" AS ac_actr_email,
+     ac_actr."identity_no" AS ac_actr_identity_no,
+     ac_actr."mobile" AS ac_actr_mobile,
+     ac_actr."name" AS ac_actr_name,
+     ac_actr."phone" AS ac_actr_phone,
+     ac_stdn."student_status" AS ac_stdn_student_status,
+     ac_stdn."cohort_code_id" AS ac_stdn_cohort_code_id,
+     ac_stdn."id" AS ac_stdn_id,
+     ac_actr."id" AS ac_actr_id,
+     ac_chrt_code."id" AS ac_chrt_code_id,
+     ac_chrt_code."code" AS ac_chrt_code_code,
+     ac_chrt_code."description" AS ac_chrt_code_description,
+     ac_chrt_code."program_code_id" AS ac_chrt_code_program_code_id,
+     ac_acct."id" AS ac_acct_id,
+     ac_acct."code" AS ac_acct_code,
+     ac_acct."actor_id" AS ac_acct_actor_id,
+     ac_acct."description" AS ac_acct_description,
+     ac_advc_pymt."account_id" AS ac_advc_pymt_account_id,
+     ac_advc_pymt."balance_amount" AS ac_advc_pymt_balance_amount,
+     ac_advc_pymt."amount" AS ac_advc_pymt_amount,
+     ac_advc_pymt."description" AS ac_advc_pymt_description,
+     ac_advc_pymt."reference_no" AS ac_advc_pymt_reference_no,
+     ac_advc_pymt."id" AS ac_advc_pymt_id,
+     ac_advc_pymt."session_id" AS ac_advc_pymt_session_id,
+     ac_acdm_sesn."description" AS ac_acdm_sesn_description,
+     ac_acdm_sesn."code" AS ac_acdm_sesn_code,
+     ac_acdm_sesn."id" AS ac_acdm_sesn_id,
+     ac_rfnd_pymt."amount" AS ac_rfnd_pymt_amount,
+     ac_rfnd_pymt."id" AS ac_rfnd_pymt_id,
+     ac_rfnd_pymt."description" AS ac_rfnd_pymt_description,
+     ac_rfnd_pymt."reference_no" AS ac_rfnd_pymt_reference_no,
+     ac_rfnd_pymt."advance_payment_id" AS ac_rfnd_pymt_advance_payment_id,
+     ac_knof."amount" AS ac_knof_amount,
+     ac_knof."total_amount" AS ac_knof_total_amount,
+     ac_knof."balance_amount" AS ac_knof_balance_amount,
+     ac_knof."description" AS ac_knof_description,
+     ac_knof."id" AS ac_knof_id,
+     ac_knof."advance_payment_id" AS ac_knof_advance_payment_id,
+     ac_knof."reference_no" AS ac_knof_reference_no,
+     ac_knof_item."description" AS ac_knof_item_description,
+     ac_knof_item."knockoff_item_type" AS ac_knof_item_knockoff_item_type,
+     ac_knof_item."knockoff_id" AS ac_knof_item_knockoff_id,
+     ac_invc."balance_amount" AS ac_invc_balance_amount,
+     ac_invc."description" AS ac_invc_description,
+     ac_invc."account_id" AS ac_invc_account_id,
+     ac_invc."total_amount" AS ac_invc_total_amount,
+     ac_invc."id" AS ac_invc_id,
+     ac_invc_item."id" AS ac_invc_item_id,
+     ac_invc_item."invoice_id" AS ac_invc_item_invoice_id,
+     ac_invc_item."net_amount" AS ac_invc_item_net_amount,
+     ac_invc_item."amount" AS ac_invc_item_amount,
+     ac_invc_item."tax_amount" AS ac_invc_item_tax_amount,
+     ac_invc_item."inclusive" AS ac_invc_item_inclusive,
+     ac_invc_item."balance_amount" AS ac_invc_item_balance_amount,
+     ac_invc_item."description" AS ac_invc_item_description,
+     ac_dbit_note."id" AS ac_dbit_note_id,
+     ac_dbit_note."invoice_id" AS ac_dbit_note_invoice_id,
+     ac_dbit_note."total_amount" AS ac_dbit_note_total_amount,
+     ac_dbit_note."reference_no" AS ac_dbit_note_reference_no,
+     ac_dbit_note."balance_amount" AS ac_dbit_note_balance_amount,
+     ac_dbit_note."description" AS ac_dbit_note_description,
+     ac_dbit_note."debitnote_date" AS ac_dbit_note_debitnote_date,
+     ac_dbit_note."paid" AS ac_dbit_note_paid,
+     ac_acct_chrg_trsn."id" AS ac_acct_chrg_trsn_id,
+     ac_acct_chrg_trsn."amount" AS ac_acct_chrg_trsn_amount,
+     ac_acct_chrg_trsn."description" AS ac_acct_chrg_trsn_description,
+     ac_acct_chrg_trsn."account_id" AS ac_acct_chrg_trsn_account_id,
+     ac_actr."address" AS ac_actr_address,
+     ac_actr."actor_type" AS ac_actr_actor_type,
+     ac_invc."issued_date" AS ac_invc_issued_date,
+     ac_acct_chrg_trsn."posted_date" AS ac_acct_chrg_trsn_posted_date,
+     ac_knof."issued_date" AS ac_knof_issued_date,
+     ac_rfnd_pymt."issued_date" AS ac_rfnd_pymt_issued_date,
+     ac_knof_item."due_amount" AS ac_knof_item_due_amount,
+     ac_knof_item."applied_amount" AS ac_knof_item_applied_amount,
+     ac_knof_item."total_amount" AS ac_knof_item_total_amount
+FROM
+     "public"."ac_actr" ac_actr INNER JOIN "public"."ac_stdn" ac_stdn ON ac_actr."id" = ac_stdn."id"
+     INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_stdn."cohort_code_id" = ac_chrt_code."id"
+     INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
+     left outer join "public"."ac_advc_pymt" ac_advc_pymt ON ac_acct."id" = ac_advc_pymt."account_id"
+     INNER JOIN "public"."ac_invc" ac_invc ON ac_acct."id" = ac_invc."account_id"
+     INNER JOIN "public"."ac_acct_chrg_trsn" ac_acct_chrg_trsn ON ac_acct."id" = ac_acct_chrg_trsn."account_id"
+     INNER JOIN "public"."ac_acdm_sesn" ac_acdm_sesn ON ac_invc."session_id" = ac_acdm_sesn."id"
+     INNER JOIN "public"."ac_invc_item" ac_invc_item ON ac_invc."id" = ac_invc_item."invoice_id"
+     INNER JOIN "public"."ac_dbit_note" ac_dbit_note ON ac_invc."id" = ac_dbit_note."invoice_id"
+     AND ac_advc_pymt."session_id" = ac_acdm_sesn."id"
+     INNER JOIN "public"."ac_knof" ac_knof ON ac_advc_pymt."id" = ac_knof."advance_payment_id"
+     INNER JOIN "public"."ac_rfnd_pymt" ac_rfnd_pymt ON ac_advc_pymt."id" = ac_rfnd_pymt."advance_payment_id"
+     INNER JOIN "public"."ac_knof_item" ac_knof_item ON ac_knof."id" = ac_knof_item."knockoff_id"]]>
+	</queryString>
+	<field name="ac_actr_email" class="java.lang.String"/>
+	<field name="ac_actr_identity_no" class="java.lang.String"/>
+	<field name="ac_actr_mobile" class="java.lang.String"/>
+	<field name="ac_actr_name" class="java.lang.String"/>
+	<field name="ac_actr_phone" class="java.lang.String"/>
+	<field name="ac_stdn_student_status" class="java.lang.Integer"/>
+	<field name="ac_stdn_cohort_code_id" class="java.lang.Long"/>
+	<field name="ac_stdn_id" class="java.lang.Long"/>
+	<field name="ac_actr_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_code" class="java.lang.String"/>
+	<field name="ac_chrt_code_description" class="java.lang.String"/>
+	<field name="ac_chrt_code_program_code_id" class="java.lang.Long"/>
+	<field name="ac_acct_id" class="java.lang.Long"/>
+	<field name="ac_acct_code" class="java.lang.String"/>
+	<field name="ac_acct_actor_id" class="java.lang.Long"/>
+	<field name="ac_acct_description" class="java.lang.String"/>
+	<field name="ac_advc_pymt_account_id" class="java.lang.Long"/>
+	<field name="ac_advc_pymt_balance_amount" class="java.math.BigDecimal"/>
+	<field name="ac_advc_pymt_amount" class="java.math.BigDecimal"/>
+	<field name="ac_advc_pymt_description" class="java.lang.String"/>
+	<field name="ac_advc_pymt_reference_no" class="java.lang.String"/>
+	<field name="ac_advc_pymt_id" class="java.lang.Long"/>
+	<field name="ac_advc_pymt_session_id" class="java.lang.Long"/>
+	<field name="ac_acdm_sesn_description" class="java.lang.String"/>
+	<field name="ac_acdm_sesn_code" class="java.lang.String"/>
+	<field name="ac_acdm_sesn_id" class="java.lang.Long"/>
+	<field name="ac_rfnd_pymt_amount" class="java.math.BigDecimal"/>
+	<field name="ac_rfnd_pymt_id" class="java.lang.Long"/>
+	<field name="ac_rfnd_pymt_description" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_reference_no" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_advance_payment_id" class="java.lang.Long"/>
+	<field name="ac_knof_amount" class="java.math.BigDecimal"/>
+	<field name="ac_knof_total_amount" class="java.math.BigDecimal"/>
+	<field name="ac_knof_balance_amount" class="java.math.BigDecimal"/>
+	<field name="ac_knof_description" class="java.lang.String"/>
+	<field name="ac_knof_id" class="java.lang.Long"/>
+	<field name="ac_knof_advance_payment_id" class="java.lang.Long"/>
+	<field name="ac_knof_reference_no" class="java.lang.String"/>
+	<field name="ac_knof_item_description" class="java.lang.String"/>
+	<field name="ac_knof_item_knockoff_item_type" class="java.lang.Integer"/>
+	<field name="ac_knof_item_knockoff_id" class="java.lang.Long"/>
+	<field name="ac_invc_balance_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_description" class="java.lang.String"/>
+	<field name="ac_invc_account_id" class="java.lang.Long"/>
+	<field name="ac_invc_total_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_invoice_id" class="java.lang.Long"/>
+	<field name="ac_invc_item_net_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_item_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_item_tax_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_item_inclusive" class="java.lang.Boolean"/>
+	<field name="ac_invc_item_balance_amount" class="java.math.BigDecimal"/>
+	<field name="ac_invc_item_description" class="java.lang.String"/>
+	<field name="ac_dbit_note_id" class="java.lang.Long"/>
+	<field name="ac_dbit_note_invoice_id" class="java.lang.Long"/>
+	<field name="ac_dbit_note_total_amount" class="java.math.BigDecimal"/>
+	<field name="ac_dbit_note_reference_no" class="java.lang.String"/>
+	<field name="ac_dbit_note_balance_amount" class="java.math.BigDecimal"/>
+	<field name="ac_dbit_note_description" class="java.lang.String"/>
+	<field name="ac_dbit_note_debitnote_date" class="java.sql.Timestamp"/>
+	<field name="ac_dbit_note_paid" class="java.lang.Boolean"/>
+	<field name="ac_acct_chrg_trsn_id" class="java.lang.Long"/>
+	<field name="ac_acct_chrg_trsn_amount" class="java.math.BigDecimal"/>
+	<field name="ac_acct_chrg_trsn_description" class="java.lang.String"/>
+	<field name="ac_acct_chrg_trsn_account_id" class="java.lang.Long"/>
+	<field name="ac_actr_address" class="java.lang.String"/>
+	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
+	<field name="ac_invc_issued_date" class="java.sql.Timestamp"/>
+	<field name="ac_acct_chrg_trsn_posted_date" class="java.sql.Timestamp"/>
+	<field name="ac_knof_issued_date" class="java.sql.Date"/>
+	<field name="ac_rfnd_pymt_issued_date" class="java.sql.Timestamp"/>
+	<field name="ac_knof_item_due_amount" class="java.math.BigDecimal"/>
+	<field name="ac_knof_item_applied_amount" class="java.math.BigDecimal"/>
+	<field name="ac_knof_item_total_amount" class="java.math.BigDecimal"/>
+	<variable name="Balance_amount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_acct_chrg_trsn_amount}]]></variableExpression>
+	</variable>
+	<filterExpression><![CDATA[$F{ac_actr_identity_no}.equals( $P{IDENTITY_NO} )]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="350" y="2" width="149" height="20" uuid="d8c7434f-4236-44c3-a228-c9d31e74dc2a"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADVANCE PAYMENT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="117" splitType="Stretch">
+			<textField>
+				<reportElement x="76" y="3" width="274" height="20" uuid="1251f6a8-1f1b-4df5-8a4a-a388ba10a9d4"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="3" width="100" height="20" uuid="6167f570-f00a-4f62-b50d-2d7136c5340e"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="3" width="76" height="20" uuid="84c1cf90-e511-4673-9040-1aea3c4384e5"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Student Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="3" width="38" height="20" uuid="9ea5d075-f04d-4356-a090-7463d0125f4e"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[ID No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="23" width="38" height="20" uuid="c6a1a69a-29c8-4b80-940c-a30141bf1094"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="40" width="38" height="20" uuid="04a0e5dc-fd7f-45fb-8230-a0fc2466fb7a"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Status :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="76" height="20" uuid="78081c34-b027-4ed8-835d-d5378e89adaf"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Address :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="44" width="87" height="20" uuid="e2dd2ca2-d477-47b1-a179-da92efc69901"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Parent/Guardian :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="74" width="115" height="15" uuid="c299acba-0cf0-40e5-a464-9e8d1fb9f492"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Sponsor Reference No :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="92" width="198" height="15" uuid="352e923c-da69-4701-a9cf-ec8c80846e2d"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_acct_description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="198" y="74" width="45" height="15" uuid="d31041b4-fe10-4169-93e5-f9fcd6052336"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Course :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="74" width="33" height="15" uuid="ddb04609-900c-46b9-850d-38abbe25e43f"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[IC No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="74" width="86" height="17" uuid="2bc11cc5-9fa7-44d1-b689-7763e97b8cb9"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Intake Semester :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="92" width="86" height="15" uuid="f2db7765-4e99-4a4c-996b-972810759af6"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_acdm_sesn_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="23" width="313" height="20" uuid="2e2800ef-1792-429e-a2bc-d9a8e142d766"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{ac_actr_address}==null)? "-": $F{ac_actr_address})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="40" width="86" height="20" uuid="6e8ba411-37cd-4158-8db8-4d8bb5aa360f"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{ac_stdn_student_status}==null)? "-": $F{ac_stdn_student_status})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="92" width="60" height="15" uuid="772539f6-14a1-4a80-9180-6bc107642e2d"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="455" y="20" width="100" height="20" uuid="03e1e825-5b81-411e-bbd4-4a6a07f08291"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="8" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="155" splitType="Stretch">
+			<frame>
+				<reportElement x="210" y="2" width="179" height="66" uuid="1d18aef6-0773-418d-9f17-a488991b5677"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField>
+					<reportElement x="15" y="0" width="139" height="20" uuid="cbb2afb0-ebbb-4c26-8443-591add934683"/>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_description}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="389" y="2" width="85" height="66" uuid="7e26fdbe-031b-4134-9ad4-50961f51ce0e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField>
+					<reportElement x="10" y="1" width="56" height="14" uuid="c546ea54-f215-4597-b3f8-7aeb01bd2b1c"/>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_amount}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="30" y="2" width="180" height="66" uuid="f924b94d-c93a-433b-b5de-821bb5ec77c9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField>
+					<reportElement x="12" y="5" width="146" height="15" uuid="43a1906d-c7d0-4e4c-875d-9418f65c6469"/>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField>
+				<reportElement x="42" y="23" width="156" height="20" uuid="9edafdec-63b9-4027-beb7-50c8dfc510d2"/>
+				<textFieldExpression><![CDATA[$F{ac_knof_reference_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="23" width="125" height="20" uuid="040a7886-8c99-412e-a69b-c107994cdf28"/>
+				<textFieldExpression><![CDATA[$F{ac_knof_item_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="23" width="56" height="20" uuid="d19fef79-6cec-48a2-b2fa-98d8bf692298"/>
+				<textFieldExpression><![CDATA[$F{ac_knof_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="43" width="156" height="20" uuid="0afcc426-da9f-4c41-b15b-0a6556d6cf84"/>
+				<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="43" width="156" height="20" uuid="840a87d3-e6c7-474d-863f-0be693b9f174"/>
+				<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_reference_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="43" width="56" height="20" uuid="6c9d0e31-6a35-4f94-96bd-add93e5962c7"/>
+				<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
