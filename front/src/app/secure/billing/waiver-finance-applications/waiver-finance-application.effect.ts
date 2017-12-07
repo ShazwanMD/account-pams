@@ -179,6 +179,15 @@ export class WaiverFinanceApplicationEffects {
   .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
   .map((state) => state[1])
   .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication));  
+
+  @Effect() debitToWaiverItem$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.ITEM_TO_WAIVER_DEBIT)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.debitToWaiverItem(payload.debitNote, payload.waiverFinanceApplication))
+  .map((message) => this.waiverFinanceApplicationActions.debitToWaiverItemSuccess(message))
+  .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
+  .map((state) => state[1])
+  .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication));  
   
   @Effect() findWaiversByInvoice$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE)
@@ -191,6 +200,12 @@ export class WaiverFinanceApplicationEffects {
   .map((action) => action.payload)
   .switchMap((payload) => this.billingService.findInvoiceWaiverItems(payload.waiverFinanceApplication, payload.invoice))
   .map((message) => this.waiverFinanceApplicationActions.findInvoiceWaiverItemsSuccess(message));
+  
+  @Effect() findDebitWaiverItems$ = this.actions$
+  .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_DEBIT_ITEMS)
+  .map((action) => action.payload)
+  .switchMap((payload) => this.billingService.findDebitWaiverItems(payload.waiverFinanceApplication, payload.debitNote))
+  .map((message) => this.waiverFinanceApplicationActions.findDebitWaiverItemsSuccess(message));
   
   @Effect() findWaiverByDebitNote$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.FIND_WAIVER_DEBIT_NOTE)

@@ -1639,6 +1639,18 @@ public class BillingController {
         }
     }
     
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/debitNotes/{id}", method = RequestMethod.POST)
+    public void debitToWaiverItem(@PathVariable Long id, @PathVariable String referenceNo) {
+    	
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+    	AcDebitNote debitNote = billingService.findDebitNoteById(id);
+        Boolean wvrItem = billingService.hasDebitWaiverItem(debitNote, waiverApplication);
+        
+        if(wvrItem == false) {
+        	billingService.debitToWaiverItem(waiverApplication, debitNote);
+        }
+    }
+    
     @RequestMapping(value = "/waiverFinanceApplications/waiverItems/{referenceNo}", method = RequestMethod.GET)
     public ResponseEntity<List<WaiverItem>> findWaiverItems(@PathVariable String referenceNo) {
     	AcWaiverFinanceApplication waiverApplication = (AcWaiverFinanceApplication) billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
@@ -1692,6 +1704,15 @@ public class BillingController {
         AcInvoice invoice = billingService.findInvoiceById(id);
         return new ResponseEntity<List<WaiverItem>>(billingTransformer
                 .toWaiverItemVos(billingService.findWaiverItems(waiverApplication, invoice)), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/items/debitNotes/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<WaiverItem>> findDebitWaiverItems(@PathVariable String referenceNo, @PathVariable Long id) {
+        
+    	AcWaiverFinanceApplication waiverApplication = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+    	AcDebitNote debitNote = billingService.findDebitNoteById(id);
+        return new ResponseEntity<List<WaiverItem>>(billingTransformer
+                .toWaiverItemVos(billingService.findWaiverItems(waiverApplication, debitNote)), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/waiverDebitNotes/{id}", method = RequestMethod.DELETE)

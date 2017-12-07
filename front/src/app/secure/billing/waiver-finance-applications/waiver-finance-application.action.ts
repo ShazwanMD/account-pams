@@ -386,6 +386,24 @@ export class WaiverFinanceApplicationActions {
     };
   }
   
+  static ITEM_TO_WAIVER_DEBIT = '[WaiverFinanceApplication] Debit Note to Waiver Item';
+
+  debitToWaiverItem(debitNote, waiverFinanceApplication): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ITEM_TO_WAIVER_DEBIT,
+      payload: {debitNote, waiverFinanceApplication}
+    };
+  }
+
+  static ITEM_TO_WAIVER_DEBIT_SUCCESS = '[WaiverFinanceApplication] Debit Note to Waiver Item Success';
+
+  debitToWaiverItemSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.ITEM_TO_WAIVER_DEBIT_SUCCESS,
+      payload: message
+    };
+  }
+  
   static FIND_WAIVER_INVOICE = '[WaiverFinanceApplication] Find Waiver Invoice';
 
   findWaiversByInvoice(waiverFinanceApplication): Action {
@@ -488,6 +506,24 @@ export class WaiverFinanceApplicationActions {
   findInvoiceWaiverItemsSuccess(message): Action {
     return {
       type: WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE_ITEMS_SUCCESS,
+      payload: message
+    };
+  }
+  
+  static FIND_WAIVER_DEBIT_ITEMS = '[WaiverFinanceApplication] Find Waiver Debit Note Items';
+  
+  findDebitWaiverItems(waiverFinanceApplication, debitNote): Action {
+      return {
+          type: WaiverFinanceApplicationActions.FIND_WAIVER_DEBIT_ITEMS,
+          payload: {waiverFinanceApplication:waiverFinanceApplication, debitNote:debitNote}
+        };
+      }
+  
+  static FIND_WAIVER_DEBIT_ITEMS_SUCCESS = '[WaiverFinanceApplication] Find Waiver Debit Note Items Success';
+
+  findDebitWaiverItemsSuccess(message): Action {
+    return {
+      type: WaiverFinanceApplicationActions.FIND_WAIVER_DEBIT_ITEMS_SUCCESS,
       payload: message
     };
   }

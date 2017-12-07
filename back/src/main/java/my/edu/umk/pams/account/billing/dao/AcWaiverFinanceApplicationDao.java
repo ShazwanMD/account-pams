@@ -44,6 +44,8 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
 	
 	AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcWaiverFinanceApplication waiver);
 	
+	AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcWaiverFinanceApplication waiver);
+	
 	AcWaiverItem findWaiverItemByCharge(AcAccountCharge accountCharge, AcWaiverFinanceApplication waiver);
 	
 	AcWaiverItem findWaiverItemByDebitNote(AcDebitNote debitNote, AcWaiverFinanceApplication waiver);
@@ -57,6 +59,8 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
     List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver);
     
     List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+    
+    List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver, AcDebitNote debitNote);
     
     List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
     
@@ -85,6 +89,8 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
 	BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver, AcUser user);
 	
 	BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver, AcUser user);
+	
+	BigDecimal sumAppliedAmount(AcDebitNote debitNote, AcWaiverFinanceApplication waiver, AcUser user);
 	
 	boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice);
 

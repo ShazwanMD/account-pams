@@ -2065,6 +2065,11 @@ public class BillingServiceImpl implements BillingService {
 	public AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcWaiverFinanceApplication waiver) {
 		return waiverFinanceApplicationDao.findWaiverItemByChargeCode(chargeCode, invoice, waiver);
 	}
+	
+	@Override
+	public AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcWaiverFinanceApplication waiver) {
+		return waiverFinanceApplicationDao.findWaiverItemByChargeCode(chargeCode, invoice, debitNote, waiver);
+	}
 
 	@Override
 	public AcWaiverItem findWaiverItemByCharge(AcAccountCharge charge, AcWaiverFinanceApplication waiver) {
@@ -2323,6 +2328,11 @@ public class BillingServiceImpl implements BillingService {
     }
     
     @Override
+    public List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcDebitNote debitNote) {
+    	return waiverFinanceApplicationDao.findItems(waiver, debitNote);
+    }
+    
+    @Override
     public List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver) {
     	return waiverFinanceApplicationDao.findWaivers(waiver);
     }
@@ -2345,6 +2355,11 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver) {
     	return waiverFinanceApplicationDao.sumAppliedAmount(invoice, waiver, securityService.getCurrentUser());
+    }
+    
+    @Override
+    public BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver, AcDebitNote debitNote) {
+    	return waiverFinanceApplicationDao.sumAppliedAmount(debitNote, waiver, securityService.getCurrentUser());
     }
     
     @Override

@@ -551,6 +551,8 @@ public interface BillingService {
 	
 	AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcWaiverFinanceApplication waiver);
 
+	AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcWaiverFinanceApplication waiver);
+	
 	AcWaiverItem findWaiverItemByCharge(AcAccountCharge charge, AcWaiverFinanceApplication waiver);
 	
 	AcWaiverItem findWaiverItemByDebitNote(AcDebitNote debitNote, AcWaiverFinanceApplication waiver);
@@ -595,6 +597,8 @@ public interface BillingService {
     
     List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcInvoice invoice);
     
+    List<AcWaiverItem> findWaiverItems(AcWaiverFinanceApplication waiver, AcDebitNote debitNote);
+    
     List<AcWaiverInvoice> findWaivers(AcWaiverFinanceApplication waiver);
 
     List<AcWaiverAccountCharge> findWaiverAccountCharge(AcWaiverFinanceApplication waiver);
@@ -604,6 +608,8 @@ public interface BillingService {
     BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver);
 
     BigDecimal sumAppliedAmount(AcInvoice invoice, AcWaiverFinanceApplication waiver);
+    
+    BigDecimal sumAppliedAmount(AcWaiverFinanceApplication waiver, AcDebitNote debitNote);
     
     boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice);
 

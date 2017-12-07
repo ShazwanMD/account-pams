@@ -117,6 +117,23 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         return (AcWaiverItem) query.uniqueResult();
     }
+    
+    @Override
+    public AcWaiverItem findWaiverItemByChargeCode(AcChargeCode chargeCode, AcInvoice invoice, AcDebitNote debitNote, AcWaiverFinanceApplication waiver) {
+    	Session session = sessionFactory.getCurrentSession();
+    	Query query = session.createQuery("select ri from AcWaiverItem ri where " +
+                "ri.chargeCode = :chargeCode " +
+    			"and ri.invoice = :invoice " +
+    			"and ri.debitNote = :debitNote " +
+                "and ri.waiverFinanceApplication = :waiver " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("chargeCode", chargeCode);
+        query.setEntity("invoice", invoice);
+        query.setEntity("debitNote", debitNote);
+        query.setEntity("waiver", waiver);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        return (AcWaiverItem) query.uniqueResult();
+    }
 	
     @Override
     public AcWaiverItem findWaiverItemByCharge(AcAccountCharge accountCharge, AcWaiverFinanceApplication waiver) {
@@ -200,6 +217,20 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
                 "and ri.metadata.state = :metaState");
         query.setEntity("waiver", waiver);
         query.setEntity("invoice", invoice);
+        query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (List<AcWaiverItem>) query.list();
+    }
+    
+    @Override
+    public List<AcWaiverItem> findItems(AcWaiverFinanceApplication waiver, AcDebitNote debitNote) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select ri from AcWaiverItem ri where " +
+                "ri.waiverFinanceApplication = :waiver " +
+        		"and ri.debitNote = :debitNote " +
+                "and ri.metadata.state = :metaState");
+        query.setEntity("waiver", waiver);
+        query.setEntity("debitNote", debitNote);
         query.setInteger("metaState", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
         return (List<AcWaiverItem>) query.list();
@@ -403,6 +434,21 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
                 "and a.metadata.state = :state ");
         query.setEntity("waiver", waiver);
         query.setEntity("invoice", invoice);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumAppliedAmount(AcDebitNote debitNote, AcWaiverFinanceApplication waiver, AcUser user) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.appliedAmount) from AcWaiverItem a where " +
+                "a.waiverFinanceApplication = :waiver " +
+        		"and a.debitNote = :debitNote " +
+                "and a.metadata.state = :state ");
+        query.setEntity("waiver", waiver);
+        query.setEntity("debitNote", debitNote);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         Object result = query.uniqueResult();
         if (null == result) return BigDecimal.ZERO;

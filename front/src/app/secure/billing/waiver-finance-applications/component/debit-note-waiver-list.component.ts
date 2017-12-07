@@ -18,6 +18,7 @@ import { AccountActions } from '../../../account/accounts/account.action';
 import { AccountModuleState } from '../../../account/index';
 import { DebitNoteWaiverDialog } from "../dialog/debit-note-waiver.dialog";
 import { DebitNoteWaiverCreatorDialog } from "../dialog/debit-note-waiver-creator.dialog";
+import { DebitNoteApplicatorDialog } from "../dialog/debit-note-applicator.dialog";
 
 @Component({
   selector: 'pams-debit-note-waiver-list',
@@ -85,7 +86,7 @@ export class DebitNoteWaiverListComponent {
         config.width = '70%';
         config.height = '60%';
         config.position = {top: '0px'};
-        let editorDialogRef = this.dialog.open(DebitNoteWaiverCreatorDialog, config);
+        let editorDialogRef = this.dialog.open(DebitNoteApplicatorDialog, config);
         editorDialogRef.componentInstance.waiverFinanceApplication = this.waiverFinanceApplication;
         editorDialogRef.componentInstance.debitNote = waiverDebitNote.debitNote;
       }

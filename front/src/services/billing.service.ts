@@ -847,7 +847,7 @@ export class BillingService {
           .flatMap((res: Response) => Observable.of(res.text()));
   }
 
-updateWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplication): Observable<String> {
+  updateWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplication): Observable<String> {
     console.log('updateWaiverFinanceApplication' + waiverFinanceApplication.referenceNo);
     return this._http.put(this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/updateWaivers', JSON.stringify(waiverFinanceApplication))
     .flatMap((res: Response) => Observable.of(res.text()));
@@ -882,6 +882,11 @@ updateWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplicatio
       return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/invoices/' + invoice.id, JSON.stringify( invoice ) )
           .flatMap(( res: Response ) => Observable.of( res.text() ) );
   }
+  
+  debitToWaiverItem( debitNote: DebitNote, waiverFinanceApplication: WaiverFinanceApplication  ): Observable<String> {
+      return this._http.post( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/debitNotes/' + debitNote.id, JSON.stringify( debitNote ) )
+          .flatMap(( res: Response ) => Observable.of( res.text() ) );
+  }
 
   findWaiversByInvoice( waiverFinanceApplication: WaiverFinanceApplication ): Observable<WaiverInvoice[]> {
       return this._http.get( this.BILLING_API + '/waiverFinanceApplications/waiverInvoices/' + waiverFinanceApplication.referenceNo )
@@ -912,6 +917,12 @@ updateWaiverFinanceApplication(waiverFinanceApplication: WaiverFinanceApplicatio
       return this._http.get( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/items/invoices/' + invoice.id )
           .map(( res: Response ) => <WaiverItem[]>res.json() );
   } 
+  
+  findDebitWaiverItems( waiverFinanceApplication: WaiverFinanceApplication, debitNote:DebitNote ): Observable<KnockoffItem[]> {
+      console.log( 'findReceiptItems' );
+      return this._http.get( this.BILLING_API + '/waiverFinanceApplications/' + waiverFinanceApplication.referenceNo + '/items/debitNotes/' + debitNote.id )
+          .map(( res: Response ) => <KnockoffItem[]>res.json() );
+  }
   
   deleteWaiverDebitNotes( waiverDebitNote: WaiverDebitNote ): Observable<String> {
       return this._http.delete( this.BILLING_API + '/waiverDebitNotes/' + waiverDebitNote.id )

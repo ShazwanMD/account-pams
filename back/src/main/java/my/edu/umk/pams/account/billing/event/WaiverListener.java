@@ -22,9 +22,11 @@ import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.dao.AcReceiptDao;
 import my.edu.umk.pams.account.billing.dao.AcWaiverFinanceApplicationDao;
 import my.edu.umk.pams.account.billing.model.AcDebitNote;
+import my.edu.umk.pams.account.billing.model.AcDebitNoteItem;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
 import my.edu.umk.pams.account.billing.model.AcWaiverItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
@@ -119,16 +121,31 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 			List<AcDebitNote> debitNotes = waiver.getDebitNotes();
 			for (AcDebitNote debitNote : debitNotes) {
 
-				AcWaiverItem waiverItem = billingService.findWaiverItemByDebitNote(debitNote, waiver);
-				debitNote.setBalanceAmount(waiverItem.getTotalAmount());
+				List<AcDebitNoteItem>  debitNoteItems = billingService.findDebitNoteItems(debitNote);
+				for (AcDebitNoteItem debitNoteItem : debitNoteItems) {
+					AcWaiverItem waiverItem = billingService.findWaiverItemByChargeCode(debitNoteItem.getChargeCode(),
+							debitNote.getInvoice(), debitNote, waiver);
+					
+					if (waiverItem != null) {
+						LOG.debug("Invoice Item {}", debitNoteItem.getBalanceAmount());
+						debitNoteItem.setBalanceAmount(waiverItem.getTotalAmount());
+						billingService.updateDebitNoteItem(debitNote, debitNoteItem);;
+					}
+					
+				}
+				
+				debitNote.setBalanceAmount(
+						debitNote.getBalanceAmount().subtract(billingService.sumAppliedAmount(waiver, debitNote)));
+				LOG.debug("Invoice Balance Amount after subtract {}", debitNote.getBalanceAmount());
 				billingService.updateDebitNote(debitNote);
-
+				
 				if (debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
 					debitNote.setPaid(true);
 					billingService.updateDebitNote(debitNote);
 				}
 				
-				totaldebit = totaldebit.add(waiverDao.sumTotalAmount(waiver, debitNote, securityService.getCurrentUser()));
+				totaldebit = totaldebit
+						.add(waiverDao.sumTotalAmount(waiver, debitNote, securityService.getCurrentUser()));
 			}
 			
 			BigDecimal Amount = total.add(totaldebit);

@@ -11,6 +11,12 @@ export function waiverItemListReducer(state = initialState, action: Action): Wai
     case WaiverFinanceApplicationActions.FIND_WAIVER_ITEMS_SUCCESS: {
       return action.payload;
     }
+    case WaiverFinanceApplicationActions.FIND_WAIVER_DEBIT_ITEMS_SUCCESS: {
+        return action.payload;
+      }
+    case WaiverFinanceApplicationActions.FIND_WAIVER_INVOICE_ITEMS_SUCCESS: {
+        return action.payload;
+      }
     default: {
       return state;
     }
