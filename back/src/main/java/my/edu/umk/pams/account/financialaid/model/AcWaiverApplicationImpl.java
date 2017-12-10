@@ -52,6 +52,10 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
     @Column(name = "WAIVER_TYPE", nullable = false)
     private AcWaiverApplicationType waiverType;
 
+    @Enumerated(value = EnumType.ORDINAL)
+    @Column(name = "GRADUATE_CENTER_TYPE", nullable = true)
+    private AcGraduateCenterType graduateCenterType;
+    
     @Column(name = "SOURCE_NO")
     private String sourceNo;
 
@@ -199,7 +203,17 @@ public class AcWaiverApplicationImpl implements AcWaiverApplication {
         this.reason = reason;
     }
 
+    @Override    
+    public AcGraduateCenterType getGraduateCenterType() {
+		return graduateCenterType;
+	}
+
     @Override
+    public void setGraduateCenterType(AcGraduateCenterType graduateCenterType) {
+		this.graduateCenterType = graduateCenterType;
+	}
+
+	@Override
     public String getCancelComment() {
         return cancelComment;
     }

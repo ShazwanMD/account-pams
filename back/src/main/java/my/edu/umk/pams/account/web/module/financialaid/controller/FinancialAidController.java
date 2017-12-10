@@ -15,9 +15,12 @@ import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.financialaid.model.*;
 import my.edu.umk.pams.account.financialaid.service.FinancialAidService;
+import my.edu.umk.pams.account.identity.model.AcGroup;
 import my.edu.umk.pams.account.identity.model.AcSponsor;
+import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
+import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.billing.vo.DebitNote;
 import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
@@ -85,6 +88,9 @@ public class FinancialAidController {
 
     @Autowired
     private IdentityService identityService;
+    
+    @Autowired
+    private SecurityService securityService;
 
     @Autowired
     private SystemService systemService;
@@ -113,6 +119,7 @@ public class FinancialAidController {
         return new ResponseEntity<Settlement>(financialAidTransformer.toSettlementVo(settlement), HttpStatus.OK);
     }
 
+    
     @RequestMapping(value = "/settlements/{referenceNo}/settlementItems", method = RequestMethod.GET)
     public ResponseEntity<List<SettlementItem>> findSettlementItems(@PathVariable String referenceNo) {
         
@@ -328,12 +335,26 @@ public class FinancialAidController {
         AcWaiverApplication waiverApplication = new AcWaiverApplicationImpl();
         waiverApplication.setDescription(vo.getDescription());
         waiverApplication.setWaivedAmount(vo.getWaivedAmount());
+        waiverApplication.setReason(vo.getReason());
         waiverApplication.setGracedAmount(BigDecimal.ZERO);
         waiverApplication.setEffectiveBalance(accountService.sumEffectiveBalanceAmount(account, academicSession));
         waiverApplication.setBalance(accountService.sumBalanceAmount(account));
         waiverApplication.setAccount(account);
         waiverApplication.setSession(academicSession);
         waiverApplication.setWaiverType(AcWaiverApplicationType.get(vo.getWaiverType().ordinal()));
+        
+        AcUser user = securityService.getCurrentUser();
+        LOG.debug("user : {}",user.getName());
+        
+        AcGroup group = identityService.findGroupByUser(user);
+        LOG.debug("group : {}",group.getName());
+        if (group.getName().equals("GRP_KRN_PTJ_CPS") || group.getName().equals("GRP_PEN_PGW_PTJ_CPS")
+                || group.getName().equals("GRP_PGW_PTJ_CPS")) {
+            waiverApplication.setGraduateCenterType(AcGraduateCenterType.CPS);
+        } else {
+            waiverApplication.setGraduateCenterType(AcGraduateCenterType.MGSEB);
+        }
+  
         return new ResponseEntity<String>(financialAidService.startWaiverApplicationTask(waiverApplication), HttpStatus.OK);
     }
 

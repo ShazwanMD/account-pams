@@ -50,4 +50,8 @@ public interface AcWaiverApplication extends AcDocument {
 	AcWaiverApplicationType getWaiverType();
 	
 	void setWaiverType(AcWaiverApplicationType type);
+
+	AcGraduateCenterType getGraduateCenterType();
+
+	void setGraduateCenterType(AcGraduateCenterType graduateCenterType);
 }

@@ -60,13 +60,14 @@ public class WaiverApplicationApproveTask extends BpmnActivityBehavior
         waiver.setSession(application.getSession());
         waiver.setAccount(application.getAccount());
         waiver.setWaiverType(application.getWaiverType());
+        
 
         // save waiver
         accountService.addAccountWaiver(application.getAccount(), application.getSession(), waiver);
         
         //setup account waiver finance
         AcWaiverFinanceApplication waiverFinanceApplication = new AcWaiverFinanceApplicationImpl();
-        waiverFinanceApplication.setDescription("Waiver for " + waiver.getAccount().getCode() + " "+ waiver.getSession().getCode());
+        waiverFinanceApplication.setDescription("Waiver for " + waiver.getAccount().getCode() + " "+ waiver.getSession().getCode() + " " + "Created By" + " " + application.getGraduateCenterType().name());
         waiverFinanceApplication.setWaivedAmount(waiver.getAmount());
         waiverFinanceApplication.setGracedAmount(waiver.getAmount());
         waiverFinanceApplication.setEffectiveBalance(waiver.getAmount());
