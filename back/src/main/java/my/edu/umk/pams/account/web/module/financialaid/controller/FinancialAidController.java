@@ -320,12 +320,26 @@ public class FinancialAidController {
 
     @RequestMapping(value = "/waiverApplications/archived", method = RequestMethod.GET)
     public ResponseEntity<List<WaiverApplication>> findArchivedWaiverApplications() {
+    	 	
+        AcUser user = securityService.getCurrentUser();      
+        AcGroup group = identityService.findGroupByUser(user);
+
+        if (group.getName().equals("GRP_KRN_PTJ_CPS") || group.getName().equals("GRP_PEN_PGW_PTJ_CPS")
+                || group.getName().equals("GRP_PGW_PTJ_CPS")) {
+    	
         List<AcWaiverApplication> waiverApplications = financialAidService
-                .findWaiverApplicationsByFlowStates(AcFlowState.COMPLETED, AcFlowState.CANCELLED, AcFlowState.REMOVED);
+                .findWaiverApplicationsByFlowStates(AcGraduateCenterType.CPS, AcFlowState.COMPLETED, AcFlowState.CANCELLED, AcFlowState.REMOVED);
         return new ResponseEntity<List<WaiverApplication>>(financialAidTransformer
                 .toWaiverApplicationVos(waiverApplications), HttpStatus.OK);
     }
-
+        else{
+            List<AcWaiverApplication> waiverApplications = financialAidService
+                    .findWaiverApplicationsByFlowStates(AcGraduateCenterType.MGSEB, AcFlowState.COMPLETED, AcFlowState.CANCELLED, AcFlowState.REMOVED);
+            return new ResponseEntity<List<WaiverApplication>>(financialAidTransformer
+                    .toWaiverApplicationVos(waiverApplications), HttpStatus.OK);
+        }    	
+    }
+    
     @RequestMapping(value = "/waiverApplications/startTask", method = RequestMethod.POST)
     public ResponseEntity<String> startWaiverApplicationTask(@RequestBody WaiverApplication vo) throws Exception {
         

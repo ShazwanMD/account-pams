@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcFacultyCode;
 import my.edu.umk.pams.account.core.AcFlowState;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 import my.edu.umk.pams.account.financialaid.model.AcSettlement;
 import my.edu.umk.pams.account.financialaid.model.AcSettlementItem;
 import my.edu.umk.pams.account.financialaid.model.AcShortTermLoan;
@@ -93,7 +94,8 @@ public interface FinancialAidService {
 
     List<AcWaiverApplication> findWaiverApplicationsByFlowState(AcFlowState acFlowState);
 
-    List<AcWaiverApplication> findWaiverApplicationsByFlowStates(AcFlowState... acFlowState);
+	List<AcWaiverApplication> findWaiverApplicationsByFlowStates(AcGraduateCenterType graduateCenterType,
+			AcFlowState... acFlowState);
 
     List<AcWaiverApplication> findWaiverApplications(String filter, Integer offset, Integer limit);
 
@@ -137,4 +139,6 @@ public interface FinancialAidService {
     void updateShortTermLoan(AcShortTermLoan shortTermLoan);
 
     void deleteShortTermLoan(AcShortTermLoan shortTermLoan);
+
+
 }

@@ -26,6 +26,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class AssignedWaiverFinanceApplicationTaskListComponent implements OnChanges{
 
   private columns: any[] = [
+    {name: 'graduateCenterType', label: 'Graduate Center'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},

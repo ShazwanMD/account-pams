@@ -23,6 +23,7 @@ public class WaiverApplication extends Document {
     private Account account;
     private AcademicSession academicSession;
     private WaiverApplicationType waiverType;
+    private GraduateCenterType graduateCenterType;
 
     public String getReason() {
         return reason;
@@ -94,6 +95,14 @@ public class WaiverApplication extends Document {
 
 	public void setWaiverType(WaiverApplicationType waiverType) {
 		this.waiverType = waiverType;
+	}
+	
+	public GraduateCenterType getGraduateCenterType() {
+		return graduateCenterType;
+	}
+
+	public void setGraduateCenterType(GraduateCenterType graduateCenterType) {
+		this.graduateCenterType = graduateCenterType;
 	}
 
 	@JsonCreator

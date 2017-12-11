@@ -4,6 +4,7 @@ import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.GenericDao;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface AcWaiverApplicationDao extends GenericDao<Long, AcWaiverApplica
     
     List<AcWaiverApplication> findByFlowState(AcFlowState acFlowState);
 
-    List<AcWaiverApplication> findByFlowStates(AcFlowState... acFlowState);
+    List<AcWaiverApplication> findByFlowStates(AcGraduateCenterType graduateCenterType, AcFlowState... acFlowState);
 
     List<AcWaiverApplication> find(AcAcademicSession academicSession, Integer offset, Integer limit);
 

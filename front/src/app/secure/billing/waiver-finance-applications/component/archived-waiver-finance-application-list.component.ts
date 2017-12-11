@@ -28,6 +28,7 @@ export class ArchivedWaiverFinanceApplicationListComponent implements OnChanges{
   @Output() view = new EventEmitter<WaiverFinanceApplication>();
 
   private columns: any[] = [
+    {name: 'graduateCenterType', label: 'Graduate Center'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},

@@ -15,6 +15,7 @@ public class WaiverApplicationTask extends Task {
     private Account account;
     private WaiverApplication application;
     private WaiverApplicationType waiverType;
+    private GraduateCenterType graduateCenterType;
 
     public Account getAccount() {
         return account;
@@ -39,8 +40,16 @@ public class WaiverApplicationTask extends Task {
 	public void setWaiverType(WaiverApplicationType waiverType) {
 		this.waiverType = waiverType;
 	}
+	
+	public GraduateCenterType getGraduateCenterType() {
+		return graduateCenterType;
+	}
 
-    @JsonCreator
+	public void setGraduateCenterType(GraduateCenterType graduateCenterType) {
+		this.graduateCenterType = graduateCenterType;
+	}
+
+	@JsonCreator
     public static WaiverApplicationTask create(String jsonString) {
         WaiverApplicationTask o = null;
         try {

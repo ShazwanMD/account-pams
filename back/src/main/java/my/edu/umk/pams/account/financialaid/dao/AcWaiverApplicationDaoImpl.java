@@ -5,6 +5,7 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.GenericDaoSupport;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationImpl;
 
@@ -72,13 +73,15 @@ public class AcWaiverApplicationDaoImpl extends GenericDaoSupport<Long, AcWaiver
     }
 
     @Override
-    public List<AcWaiverApplication> findByFlowStates(AcFlowState... flowState) {
+    public List<AcWaiverApplication> findByFlowStates(AcGraduateCenterType graduateCenterType, AcFlowState... flowState) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select a from AcWaiverApplication a where " +
                 "a.metadata.state = :state " +
+                "and a.graduateCenterType = :graduateCenterType " +
                 "and a.flowdata.state in (:flowStates)");
         query.setCacheable(true);
         query.setInteger("state", ACTIVE.ordinal());
+        query.setInteger("graduateCenterType", graduateCenterType.ordinal());
         query.setParameterList("flowStates", flowState);
         return (List<AcWaiverApplication>) query.list();
     }

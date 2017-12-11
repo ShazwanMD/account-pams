@@ -28,6 +28,7 @@ export class PooledWaiverFinanceApplicationTaskListComponent implements OnChange
   @Output() claim = new EventEmitter<WaiverFinanceApplicationTask>();
 
   private columns: any[] = [
+    {name: 'graduateCenterType', label: 'Graduate Center'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'account.code', label: 'Account'},
     {name: 'description', label: 'Description'},
