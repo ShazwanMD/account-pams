@@ -8,6 +8,7 @@ import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountWaiver;
 import my.edu.umk.pams.account.core.model.AcDocument;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
 public interface AcWaiverFinanceApplication extends AcDocument {
@@ -47,6 +48,10 @@ public interface AcWaiverFinanceApplication extends AcDocument {
 	AcWaiverApplicationType getWaiverType();
 	
 	void setWaiverType(AcWaiverApplicationType waiverType);
+	
+	AcGraduateCenterType getGraduateCenterType();
+	
+	void setGraduateCenterType(AcGraduateCenterType waiverType);
 	
 	List<AcInvoice> getInvoices();
 	

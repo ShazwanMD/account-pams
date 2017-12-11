@@ -12,6 +12,7 @@ import my.edu.umk.pams.account.web.module.common.controller.CommonTransformer;
 import my.edu.umk.pams.account.web.module.common.vo.PaymentMethod;
 import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
+import my.edu.umk.pams.account.web.module.financialaid.vo.GraduateCenterType;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
 import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationType;
@@ -539,6 +540,7 @@ public class BillingTransformer {
         task.setFlowState(FlowState.get(application.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(application.getMetadata().getState().ordinal()));
         task.setWaiverType(WaiverApplicationType.get(application.getWaiverType().ordinal()));
+        task.setGraduateCenterType(GraduateCenterType.get(application.getGraduateCenterType().ordinal()));
         return task;
     }
 
@@ -556,6 +558,7 @@ public class BillingTransformer {
         vo.setAcademicSession(accountTransformer.toAcademicSessionVo(e.getSession()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setGraduateCenterType(GraduateCenterType.get(e.getGraduateCenterType().ordinal()));
         vo.setWaiverType(WaiverApplicationType.get(e.getWaiverType().ordinal()));
         commonTransformer.decorateMeta(e,vo);
         return vo;

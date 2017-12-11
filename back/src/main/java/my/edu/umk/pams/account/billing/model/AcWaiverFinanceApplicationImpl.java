@@ -33,6 +33,7 @@ import my.edu.umk.pams.account.account.model.AcAccountWaiver;
 import my.edu.umk.pams.account.account.model.AcAccountWaiverImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationType;
 
 @Entity(name = "AcWaiverFinanceApplication")
@@ -69,6 +70,10 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
     @Enumerated(value = EnumType.ORDINAL)
     @Column(name = "WAIVER_TYPE", nullable = false)
     private AcWaiverApplicationType waiverType;
+    
+    @Enumerated(value = EnumType.ORDINAL)
+    @Column(name = "GRADUATE_CENTER_TYPE", nullable = false)
+    private AcGraduateCenterType graduateCenterType;
 
     @Column(name = "SOURCE_NO")
     private String sourceNo;
@@ -327,12 +332,24 @@ public class AcWaiverFinanceApplicationImpl implements AcWaiverFinanceApplicatio
 		return debitNotes;
 	}
     
-	public AcAccountWaiver getAccWaiver() {
+	@Override
+    public AcAccountWaiver getAccWaiver() {
 		return accWaiver;
 	}
 
+	@Override
 	public void setAccWaiver(AcAccountWaiver accWaiver) {
 		this.accWaiver = accWaiver;
+	}
+	
+	@Override
+	public AcGraduateCenterType getGraduateCenterType() {
+		return graduateCenterType;
+	}
+
+	@Override
+	public void setGraduateCenterType(AcGraduateCenterType graduateCenterType) {
+		this.graduateCenterType = graduateCenterType;
 	}
 
 	@Override
