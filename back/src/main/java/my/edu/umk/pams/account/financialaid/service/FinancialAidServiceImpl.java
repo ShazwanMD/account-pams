@@ -369,8 +369,8 @@ public class FinancialAidServiceImpl implements FinancialAidService {
     }
 
     @Override
-    public List<AcWaiverApplication> findWaiverApplicationsByFlowStates(AcFlowState... acFlowState) {
-    	return waiverApplicationDao.findByFlowStates(acFlowState);
+    public List<AcWaiverApplication> findWaiverApplicationsByFlowStates(AcGraduateCenterType graduateCenterType, AcFlowState... acFlowState) {
+    	return waiverApplicationDao.findByFlowStates(graduateCenterType, acFlowState);
     }
 
     @Override
