@@ -303,7 +303,7 @@ public class BillingServiceImpl implements BillingService {
 
 			else if (invoice.getBalanceAmount().compareTo(receipt.getTotalPayment()) > 0) {
 				
-				if (receipt.getTotalPayment().compareTo(invoiceItem.getBalanceAmount()) > 0) {
+				if (receipt.getTotalPayment().compareTo(invoiceItem.getBalanceAmount()) >= 0) {
 					AcReceiptItem receiptItem = new AcReceiptItemImpl();
 					receiptItem.setChargeCode(invoiceItem.getChargeCode());
 					receiptItem.setDueAmount(invoiceItem.getBalanceAmount());
@@ -755,7 +755,7 @@ public class BillingServiceImpl implements BillingService {
 
 			else if (debitNote.getBalanceAmount().compareTo(receipt.getTotalPayment()) > 0) {
 				
-				if (receipt.getTotalPayment().compareTo(debitNoteItem.getBalanceAmount()) > 0) {
+				if (receipt.getTotalPayment().compareTo(debitNoteItem.getBalanceAmount()) >= 0) {
 					AcReceiptItem receiptItem = new AcReceiptItemImpl();
 					receiptItem.setChargeCode(debitNoteItem.getChargeCode());
 					receiptItem.setDueAmount(debitNoteItem.getBalanceAmount());
@@ -1642,7 +1642,7 @@ public class BillingServiceImpl implements BillingService {
 
 			else if (invoice.getBalanceAmount().compareTo(knockoff.getTotalAmount()) > 0) {
 				
-				if (knockoff.getTotalAmount().compareTo(invoiceItem.getBalanceAmount()) > 0) {
+				if (knockoff.getTotalAmount().compareTo(invoiceItem.getBalanceAmount()) >= 0) {
 					AcKnockoffItem knockoffItem = new AcKnockoffItemImpl();
 					knockoffItem.setChargeCode(invoiceItem.getChargeCode());
 					knockoffItem.setDescription(invoiceItem.getChargeCode().getDescription());
@@ -1706,7 +1706,7 @@ public class BillingServiceImpl implements BillingService {
 
 			else if (debitNote.getBalanceAmount().compareTo(knockoff.getTotalAmount()) > 0) {
 				
-				if (knockoff.getTotalAmount().compareTo(debitNoteItem.getBalanceAmount()) > 0) {
+				if (knockoff.getTotalAmount().compareTo(debitNoteItem.getBalanceAmount()) >= 0) {
 					AcKnockoffItem knockoffItem = new AcKnockoffItemImpl();
 					knockoffItem.setChargeCode(debitNoteItem.getChargeCode());
 					knockoffItem.setDescription(debitNoteItem.getChargeCode().getDescription());
@@ -2202,7 +2202,7 @@ public class BillingServiceImpl implements BillingService {
 
 			else if (invoice.getBalanceAmount().compareTo(waiver.getGracedAmount()) > 0) {
 				
-				if (waiver.getGracedAmount().compareTo(invoiceItem.getBalanceAmount()) > 0) {
+				if (waiver.getGracedAmount().compareTo(invoiceItem.getBalanceAmount()) >= 0) {
 					AcWaiverItem waiverItem = new AcWaiverItemImpl();
 					waiverItem.setAppliedAmount(invoiceItem.getBalanceAmount());
 					waiverItem.setDueAmount(invoiceItem.getBalanceAmount());
@@ -2255,12 +2255,12 @@ public class BillingServiceImpl implements BillingService {
 			
 			if (debitNote.getBalanceAmount().compareTo(waiver.getGracedAmount()) <= 0) {
 				AcWaiverItem waiverItem = new AcWaiverItemImpl();
-				waiverItem.setAppliedAmount(debitNoteItem.getBalanceAmount());
-				waiverItem.setDueAmount(debitNoteItem.getBalanceAmount());
 				waiverItem.setChargeCode(debitNoteItem.getChargeCode());
+				waiverItem.setDueAmount(debitNoteItem.getBalanceAmount());
 				waiverItem.setDescription(debitNoteItem.getChargeCode().getDescription());
 				waiverItem.setInvoice(debitNote.getInvoice());
 				waiverItem.setDebitNote(debitNote);
+				waiverItem.setAppliedAmount(debitNoteItem.getBalanceAmount());
 				waiverItem.setTotalAmount(BigDecimal.ZERO);
 				waiverItem.setWaiverFinanceApplication(waiver);
 				billingService.addWaiverItem(waiver, waiverItem);
@@ -2268,50 +2268,50 @@ public class BillingServiceImpl implements BillingService {
 
 			else if (debitNote.getBalanceAmount().compareTo(waiver.getGracedAmount()) > 0) {
 				
-				if (waiver.getGracedAmount().compareTo(debitNoteItem.getBalanceAmount()) > 0) {
+				if (waiver.getGracedAmount().compareTo(debitNoteItem.getBalanceAmount()) >= 0) {
 					AcWaiverItem waiverItem = new AcWaiverItemImpl();
-					waiverItem.setAppliedAmount(debitNoteItem.getBalanceAmount());
-					waiverItem.setDueAmount(debitNoteItem.getBalanceAmount());
 					waiverItem.setChargeCode(debitNoteItem.getChargeCode());
+					waiverItem.setDueAmount(debitNoteItem.getBalanceAmount());
 					waiverItem.setDescription(debitNoteItem.getChargeCode().getDescription());
 					waiverItem.setInvoice(debitNote.getInvoice());
 					waiverItem.setDebitNote(debitNote);
-					waiverItem.setTotalAmount(BigDecimal.ZERO);
+					waiverItem.setAppliedAmount(debitNoteItem.getBalanceAmount());
 					waiverItem.setWaiverFinanceApplication(waiver);
+					waiverItem.setTotalAmount(BigDecimal.ZERO);
 					billingService.addWaiverItem(waiver, waiverItem);
 				}
 
 				else if (waiver.getGracedAmount().compareTo(debitNoteItem.getBalanceAmount()) < 0) {
 					AcWaiverItem waiverItem = new AcWaiverItemImpl();
-					waiverItem.setAppliedAmount(waiver.getGracedAmount());
-					waiverItem.setDueAmount(debitNoteItem.getBalanceAmount());
 					waiverItem.setChargeCode(debitNoteItem.getChargeCode());
+					waiverItem.setDueAmount(debitNoteItem.getBalanceAmount());
 					waiverItem.setDescription(debitNoteItem.getChargeCode().getDescription());
 					waiverItem.setInvoice(debitNote.getInvoice());
 					waiverItem.setDebitNote(debitNote);
+					waiverItem.setAppliedAmount(waiver.getGracedAmount());
 					waiverItem.setTotalAmount(debitNoteItem.getBalanceAmount().subtract(waiverItem.getAppliedAmount()));
 					waiverItem.setWaiverFinanceApplication(waiver);
 					billingService.addWaiverItem(waiver, waiverItem);
-
 				
 					if (waiver.getGracedAmount().compareTo(BigDecimal.ZERO) <= 0 ) {
-						waiverItem.setAppliedAmount(BigDecimal.ZERO);
-						waiverItem.setDueAmount(debitNoteItem.getBalanceAmount());
 						waiverItem.setChargeCode(debitNoteItem.getChargeCode());
+						waiverItem.setDueAmount(debitNoteItem.getBalanceAmount());
 						waiverItem.setDescription(debitNoteItem.getChargeCode().getDescription());
 						waiverItem.setInvoice(debitNote.getInvoice());
 						waiverItem.setDebitNote(debitNote);
-						waiverItem.setTotalAmount(debitNoteItem.getBalanceAmount());
+						waiverItem.setAppliedAmount(BigDecimal.ZERO);
 						waiverItem.setWaiverFinanceApplication(waiver);
+						waiverItem.setTotalAmount(debitNoteItem.getBalanceAmount());
 						billingService.addWaiverItem(waiver, waiverItem);
-
 					}
 				}
 				
+				LOG.debug("debitNoteItem after looping {}", waiver.getGracedAmount());
 				waiver.setGracedAmount(waiver.getGracedAmount().subtract(debitNoteItem.getBalanceAmount()));
+				LOG.debug("value debitNoteItem after looping {}", waiver.getGracedAmount());
 			}
 			
-		}
+			}
 		
 		waiver.setGracedAmount(waiver.getWaivedAmount().subtract(waiverFinanceApplicationDao.sumAppliedAmount(waiver, securityService.getCurrentUser())));
 

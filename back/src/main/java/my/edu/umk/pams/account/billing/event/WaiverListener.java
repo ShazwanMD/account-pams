@@ -127,7 +127,7 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 							debitNote.getInvoice(), debitNote, waiver);
 					
 					if (waiverItem != null) {
-						LOG.debug("Invoice Item {}", debitNoteItem.getBalanceAmount());
+						LOG.debug("debit Item {}", debitNoteItem.getBalanceAmount());
 						debitNoteItem.setBalanceAmount(waiverItem.getTotalAmount());
 						billingService.updateDebitNoteItem(debitNote, debitNoteItem);;
 					}
@@ -136,7 +136,7 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 				
 				debitNote.setBalanceAmount(
 						debitNote.getBalanceAmount().subtract(billingService.sumAppliedAmount(waiver, debitNote)));
-				LOG.debug("Invoice Balance Amount after subtract {}", debitNote.getBalanceAmount());
+				LOG.debug("Debit Balance Amount after subtract {}", debitNote.getBalanceAmount());
 				billingService.updateDebitNote(debitNote);
 				
 				if (debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
