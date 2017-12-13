@@ -214,6 +214,19 @@ public class AcDebitNoteDaoImpl extends GenericDaoSupport<Long, AcDebitNote> imp
     @Override
     public BigDecimal sumTotalAmount(AcDebitNote debitNote, AcUser user) {
     	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.amount) from AcDebitNoteItem a where " +
+                "a.debitNote = :debitNote " +
+                "and a.metadata.state = :state ");
+        query.setEntity("debitNote", debitNote);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
+    
+    @Override
+    public BigDecimal sumBalanceAmount(AcDebitNote debitNote, AcUser user) {
+    	Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select sum(a.balanceAmount) from AcDebitNoteItem a where " +
                 "a.debitNote = :debitNote " +
                 "and a.metadata.state = :state ");

@@ -56,6 +56,8 @@ public interface AcDebitNoteDao extends GenericDao<Long, AcDebitNote> {
     void deleteItem(AcDebitNote debitNote, AcDebitNoteItem item, AcUser user);
 
     BigDecimal sumTotalAmount(AcDebitNote debitNote, AcUser user);
+    
+    BigDecimal sumBalanceAmount(AcDebitNote debitNote, AcUser user);
 
 
 }

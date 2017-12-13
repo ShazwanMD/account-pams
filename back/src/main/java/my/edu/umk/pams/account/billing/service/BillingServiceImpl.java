@@ -659,6 +659,16 @@ public class BillingServiceImpl implements BillingService {
 		debitNoteDao.deleteItem(debitNote, debitNoteItem, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
+	
+	@Override
+	public BigDecimal sumTotalAmount(AcDebitNote debitNote) {
+		return debitNoteDao.sumTotalAmount(debitNote, securityService.getCurrentUser());
+	}
+    
+	@Override
+	public BigDecimal sumBalanceAmount(AcDebitNote debitNote) {
+		return debitNoteDao.sumBalanceAmount(debitNote, securityService.getCurrentUser());
+	}
 
 	// finder
 
