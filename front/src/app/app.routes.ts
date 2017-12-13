@@ -3,6 +3,7 @@ import {AccountModuleRoutes} from './secure/account/account-module.routes';
 import {BillingModuleRoutes} from './secure/billing/billing-module.routes';
 import {FinancialaidModuleRoutes} from './secure/financialaid/financialaid-module.routes';
 import {MarketingModuleRoutes} from './secure/marketing/marketing-module.routes';
+import {ListingModuleRoutes} from './secure/listing/listing-module.routes';
 import {SetupModuleRoutes} from './secure/setup/setup-module.routes';
 import {SecurePage} from './secure/secure.page';
 import {ForgetPasswordPage} from './login/forget-password.page';
@@ -23,6 +24,7 @@ const routes: Routes = [
       ...BillingModuleRoutes,
       ...FinancialaidModuleRoutes,
       ...MarketingModuleRoutes,
+      ...ListingModuleRoutes,
       ...SetupModuleRoutes,
     ],
   },
