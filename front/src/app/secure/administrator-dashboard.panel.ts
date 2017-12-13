@@ -43,7 +43,7 @@ export class AdministratorDashboardPanel implements OnInit {
         },
         {
           title: 'Listing',
-          route: '/secure',
+          route: '/secure/listing',
           icon: 'assignment',
           color: 'blue-700',
           description: '',

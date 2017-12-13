@@ -59,6 +59,7 @@ import {AuthorizedShowDirective} from './secure/identity/directive/authorized-sh
 import {AuthenticatedShowDirective} from './secure/identity/directive/authenticated-show.directive';
 import {NotAuthenticatedShowDirective} from './secure/identity/directive/not-authenticated-show.directive';
 import { BursaryDashboardPanel } from './secure/bursary-dashboard.panel';
+import { ListingModule } from './secure/listing/index';
 
 const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
@@ -146,6 +147,7 @@ export function applicationReducer(applicationState: any = INITIAL_APPLICATION_S
     AccountModule.forRoot(),
     BillingModule.forRoot(),
     FinancialaidModule.forRoot(),
+    ListingModule.forRoot(),
     MarketingModule.forRoot(),
     SetupModule.forRoot(),
     DashboardModule.forRoot(),

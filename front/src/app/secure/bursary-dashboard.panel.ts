@@ -20,6 +20,13 @@ export class BursaryDashboardPanel implements OnInit {
     {
       this.items = [
         {
+          title: 'Dashboard',
+          route: '/secure',
+          icon: 'assignment',
+          color: 'blue-700',
+          description: '',
+        },
+        {
           title: 'Account',
           route: '/secure/account',
           icon: 'assignment',
@@ -36,7 +43,7 @@ export class BursaryDashboardPanel implements OnInit {
         },
         {
             title: 'Listing',
-            route: '/secure',
+            route: '/secure/listing',
             icon: 'assignment',
             color: 'blue-700',
             description: '',
