@@ -21,4 +21,8 @@ public interface AcProgramCode extends AcMetaObject {
     List<AcCohortCode> getCohortCode();
     
     void setCohortCode(List<AcCohortCode> cohortCode);
+    
+    AcStudyCenterCode getStudyCenterCode();
+
+	void setStudyCenterCode(AcStudyCenterCode studyCenterCode);
 }

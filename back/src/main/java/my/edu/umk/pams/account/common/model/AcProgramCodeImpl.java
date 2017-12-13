@@ -33,6 +33,10 @@ public class AcProgramCodeImpl implements AcProgramCode {
     @OneToMany(targetEntity = AcCohortCodeImpl.class, mappedBy = "programCode", fetch = FetchType.LAZY)
     private List<AcCohortCode> cohortCode;
     
+    @ManyToOne(targetEntity = AcStudyCenterCodeImpl.class)
+    @JoinColumn(name = "STUDY_CENTER_ID")
+    private AcStudyCenterCode studyCenterCode;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -99,4 +103,16 @@ public class AcProgramCodeImpl implements AcProgramCode {
 	public void setCohortCode(List<AcCohortCode> cohortCode) {
 		this.cohortCode=cohortCode;
 	}
+
+	@Override
+	public AcStudyCenterCode getStudyCenterCode() {
+		return studyCenterCode;
+	} 
+
+	@Override
+	public void setStudyCenterCode(AcStudyCenterCode studyCenterCode) {
+		this.studyCenterCode = studyCenterCode;
+	}
+	
+	
 }

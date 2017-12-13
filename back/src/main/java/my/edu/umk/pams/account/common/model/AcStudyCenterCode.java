@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.common.model;
 
+import java.util.List;
+
 public interface AcStudyCenterCode extends my.edu.umk.pams.account.core.AcMetaObject {
 
     String getCode();
@@ -9,5 +11,9 @@ public interface AcStudyCenterCode extends my.edu.umk.pams.account.core.AcMetaOb
     String getDescription();
 
     void setDescription(String description);
+    
+    List<AcProgramCode> getProgramCode();
+    
+    void setProgramCode(List<AcProgramCode> programCode);
 
 }

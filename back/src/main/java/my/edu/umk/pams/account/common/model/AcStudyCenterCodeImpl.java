@@ -2,6 +2,8 @@ package my.edu.umk.pams.account.common.model;
 
 import my.edu.umk.pams.account.core.AcMetadata;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +27,9 @@ public class AcStudyCenterCodeImpl implements AcStudyCenterCode {
 
     @Embedded
     private AcMetadata metadata;
+    
+    @OneToMany(targetEntity = AcProgramCodeImpl.class, mappedBy = "studyCenterCode", fetch = FetchType.LAZY)
+    private List<AcProgramCode> programCode;
 
     @Override
     public Long getId() {
@@ -64,6 +69,16 @@ public class AcStudyCenterCodeImpl implements AcStudyCenterCode {
     }
 
     @Override
+    public List<AcProgramCode> getProgramCode() {
+		return programCode;
+	}
+
+    @Override
+	public void setProgramCode(List<AcProgramCode> programCode) {
+		this.programCode = programCode;
+	}
+
+	@Override
     public Class<?> getInterfaceClass() {
         return AcStudyCenterCode.class;
     }
