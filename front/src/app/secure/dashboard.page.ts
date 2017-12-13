@@ -15,6 +15,7 @@ import {
 import {Router} from '@angular/router';
 import {AuthorizationService} from '../../services/authorization.service';
 import {AdministratorDashboardPanel} from './administrator-dashboard.panel';
+import { BursaryDashboardPanel } from './bursary-dashboard.panel';
 
 @Component({
   selector: 'pams-dashboard',
@@ -43,6 +44,8 @@ export class DashboardPage implements OnInit, OnDestroy {
       componentFactory = this.cfr.resolveComponentFactory(ManagementDashboardPanel);
     } else if (this.authzService.hasRole('ROLE_STDN') && this.authzService.hasRole('ROLE_USER')) {
       componentFactory = this.cfr.resolveComponentFactory(StudentDashboardPanel);     
+    } else if (this.authzService.hasRole('ROLE_BRSY') && this.authzService.hasRole('ROLE_USER')) {
+       componentFactory = this.cfr.resolveComponentFactory(BursaryDashboardPanel);     
     } 
 
     // handle null factory

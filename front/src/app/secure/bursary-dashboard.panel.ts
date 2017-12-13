@@ -3,11 +3,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthorizationService} from '../../services/authorization.service';
 
 @Component({
-  selector: 'pams-administrator-dashboard-panel',
-  templateUrl: './administrator-dashboard.panel.html',
+  selector: 'pams-bursary-dashboard-panel',
+  templateUrl: './bursary-dashboard.panel.html',
 })
 
-export class AdministratorDashboardPanel implements OnInit {
+export class BursaryDashboardPanel implements OnInit {
 
   private items: Object[];
 
@@ -35,19 +35,12 @@ export class AdministratorDashboardPanel implements OnInit {
           description: '',
         },
         {
-          title: 'Financial Aid',
-          route: '/secure/financialaid',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: '',
-        },
-        {
-          title: 'Listing',
-          route: '/secure',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: '',
-        },
+            title: 'Listing',
+            route: '/secure',
+            icon: 'assignment',
+            color: 'blue-700',
+            description: '',
+          },
         {
           title: 'Marketing',
           route: '/secure/marketing',
@@ -55,20 +48,6 @@ export class AdministratorDashboardPanel implements OnInit {
           color: 'blue-700',
           description: '',
         },
-/*        {
-          title: 'Identities',
-          route: '/secure/identity',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: ' ',
-        },
-        {
-          title: 'System',
-          route: '/secure/system',
-          icon: 'assignment',
-          color: 'blue-700',
-          description: ' ',
-        },*/
         {
           title: 'Setup',
           route: '/secure/setup',

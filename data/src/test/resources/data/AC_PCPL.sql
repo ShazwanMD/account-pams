@@ -128,16 +128,16 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
 --ADMIN BENDAHARI
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_ADM_BEND', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
-INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM'), 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'), 10, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
-                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM'),
+                                                                                 (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_USR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'), 1, 1, CURRENT_TIMESTAMP); 
                                                                                  
                                                                                 
 -- KERANI ADMIN BENDAHARI
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_KRN_ADM_BEND', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
-INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_ADM_BEND'), 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_ADM_BEND'), 10, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_KRN_ADM_BEND'), 1, 1, CURRENT_TIMESTAMP);
@@ -145,7 +145,7 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
 -- PENOLONG PEGAWAI ADMIN BENDAHARI
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PEN_PGW_ADM_BEND', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
-INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_ADM_BEND'), 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_ADM_BEND'), 10, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PEN_PGW_ADM_BEND'), 1, 1, CURRENT_TIMESTAMP);                                                                                 
@@ -153,7 +153,7 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
 -- PEGAWAI ADMIN BENDAHARI                                                                                 
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_PGW_ADM_BEND', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
-INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_ADM_BEND'), 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_ADM_BEND'), 10, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_PGW_ADM_BEND'), 1, 1, CURRENT_TIMESTAMP);                                                                                 
@@ -161,7 +161,7 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
 -- HO ADMIN BENDAHARI                                                                               
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_HO_ADM_BEND', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
-INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_HO_ADM_BEND'), 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_HO_ADM_BEND'), 10, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_HO_ADM_BEND'), 1, 1, CURRENT_TIMESTAMP);      
@@ -169,7 +169,7 @@ INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (
 -- AHO ADMIN BENDAHARI                                                                                
 INSERT INTO AC_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL'), 'GRP_AHO_ADM_BEND', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP (ID) VALUES (currval('SQ_AC_PCPL'));
-INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_AHO_ADM_BEND'), 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO AC_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_PCPL_ROLE'), (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_AHO_ADM_BEND'), 10, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO AC_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_AC_GROP_MMBR'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_ADM_BEND'),
                                                                                  (SELECT ID FROM AC_PCPL WHERE NAME = 'GRP_AHO_ADM_BEND'), 1, 1, CURRENT_TIMESTAMP);                                                                                    
