@@ -158,6 +158,9 @@ public interface BillingService {
 
     void deleteDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem);
 
+    BigDecimal sumTotalAmount(AcDebitNote debitNote);
+    
+    BigDecimal sumBalanceAmount(AcDebitNote debitNote);
 
     // ==================================================================================================== //
     // DEBIT NOTE

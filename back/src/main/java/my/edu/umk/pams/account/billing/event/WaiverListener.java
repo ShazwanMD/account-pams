@@ -117,33 +117,38 @@ public class WaiverListener implements ApplicationListener<WaiverEvent> {
 			}
 			
 			BigDecimal totaldebit = BigDecimal.ZERO;
-
 			List<AcDebitNote> debitNotes = waiver.getDebitNotes();
 			for (AcDebitNote debitNote : debitNotes) {
-
+				
 				List<AcDebitNoteItem>  debitNoteItems = billingService.findDebitNoteItems(debitNote);
 				for (AcDebitNoteItem debitNoteItem : debitNoteItems) {
 					AcWaiverItem waiverItem = billingService.findWaiverItemByChargeCode(debitNoteItem.getChargeCode(),
 							debitNote.getInvoice(), debitNote, waiver);
-					
+
 					if (waiverItem != null) {
-						LOG.debug("debit Item {}", debitNoteItem.getBalanceAmount());
+						LOG.debug("waiverItem Item {} ", debitNoteItem.getChargeCode().getDescription() + debitNoteItem.getBalanceAmount());
 						debitNoteItem.setBalanceAmount(waiverItem.getTotalAmount());
 						billingService.updateDebitNoteItem(debitNote, debitNoteItem);;
 					}
-					
+
 				}
+				LOG.debug("Debit Note Balance Amount {}", debitNote.getBalanceAmount());
+				LOG.debug("Debit Note Total Amount {}", debitNote.getTotalAmount());
 				
-				debitNote.setBalanceAmount(
-						debitNote.getBalanceAmount().subtract(billingService.sumAppliedAmount(waiver, debitNote)));
-				LOG.debug("Debit Balance Amount after subtract {}", debitNote.getBalanceAmount());
+				BigDecimal balance = billingService.sumBalanceAmount(debitNote);
+				BigDecimal totalAmount = billingService.sumTotalAmount(debitNote);
+				
+				debitNote.setBalanceAmount(balance);
+				debitNote.setTotalAmount(totalAmount);
+				LOG.debug("Debit Note Balance Amount after subtract {}", debitNote.getBalanceAmount());
+				LOG.debug("Debit Note Total Amount after subtract {}", debitNote.getTotalAmount());
 				billingService.updateDebitNote(debitNote);
 				
 				if (debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
 					debitNote.setPaid(true);
 					billingService.updateDebitNote(debitNote);
 				}
-				
+
 				totaldebit = totaldebit
 						.add(waiverDao.sumTotalAmount(waiver, debitNote, securityService.getCurrentUser()));
 			}
