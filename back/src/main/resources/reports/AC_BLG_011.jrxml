@@ -2,13 +2,14 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8182e7c0-4099-4435-8753-d2ee5256c963">
 	<property name="ireport.zoom" value="1.9487171000000016"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="142"/>
+	<property name="ireport.y" value="363"/>
 	<subDataset name="knockoff" uuid="34b4ddd9-8207-41f6-a95b-e59c080fa1a4">
 		<parameter name="account_id" class="java.lang.Long"/>
 		<parameter name="advc_paymt_id" class="java.lang.String"/>
 		<parameter name="knockoff_id" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[SELECT
+
      ac_knof."id" AS ac_knof_id,
      ac_knof."amount" AS ac_knof_amount,
      ac_knof."total_amount" AS ac_knof_total_amount,
@@ -241,7 +242,9 @@ ac_actr."id",
 	<parameter name="IDENTITY_NO" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-SUM(ac_knof_item."applied_amount") + SUM(ac_rfnd_pymt."amount") AS total_amt,
+
+SUM(ac_knof_item."applied_amount") + SUM(ac_rfnd_pymt."amount") AS total_amount,
+(SUM(ac_knof_item."applied_amount") + (SUM(ac_rfnd_pymt."amount")))-(ac_advc_pymt."amount") AS total_amt,
      ac_actr."id" AS ac_actr_id,
      ac_actr."actor_type" AS ac_actr_actor_type,
      ac_actr."address" AS ac_actr_address,
@@ -316,8 +319,8 @@ FROM
      INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
      INNER JOIN "public"."ac_advc_pymt" ac_advc_pymt ON ac_acct."id" = ac_advc_pymt."account_id"
      INNER JOIN "public"."ac_acdm_sesn" ac_acdm_sesn ON ac_advc_pymt."session_id" = ac_acdm_sesn."id"
-     INNER JOIN "public"."ac_rfnd_pymt" ac_rfnd_pymt ON ac_advc_pymt."id" = ac_rfnd_pymt."advance_payment_id"
-     INNER JOIN "public"."ac_knof" ac_knof ON ac_advc_pymt."id" = ac_knof."advance_payment_id"
+     LEFT OUTER JOIN "public"."ac_rfnd_pymt" ac_rfnd_pymt ON ac_advc_pymt."id" = ac_rfnd_pymt."advance_payment_id"
+     LEFT OUTER JOIN "public"."ac_knof" ac_knof ON ac_advc_pymt."id" = ac_knof."advance_payment_id"
      INNER JOIN "public"."ac_knof_item" ac_knof_item ON ac_knof."id" = ac_knof_item."knockoff_id"
 
 
@@ -337,6 +340,7 @@ FROM
      ac_knof."id",
      ac_knof_item."id"]]>
 	</queryString>
+	<field name="total_amount" class="java.math.BigDecimal"/>
 	<field name="total_amt" class="java.math.BigDecimal"/>
 	<field name="ac_actr_id" class="java.lang.Long"/>
 	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
@@ -405,6 +409,12 @@ FROM
 	<field name="ac_knof_item_knockoff_id" class="java.lang.Long"/>
 	<field name="ac_knof_item_account_charge_id" class="java.lang.Long"/>
 	<field name="ac_knof_item_debit_note_id" class="java.lang.Long"/>
+	<variable name="ttl-knf" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_knof_item_applied_amount}]]></variableExpression>
+	</variable>
+	<variable name="total_rfdn" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></variableExpression>
+	</variable>
 	<filterExpression><![CDATA[$F{ac_actr_identity_no}.equals( $P{IDENTITY_NO} )]]></filterExpression>
 	<background>
 		<band splitType="Stretch"/>
@@ -558,7 +568,7 @@ FROM
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="153" splitType="Stretch">
+		<band height="181" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="366" y="0" width="100" height="20" backcolor="#CCCCCC" uuid="80d58e9d-fafd-4e4c-9fba-537a63a4f4d0"/>
 				<box>
@@ -640,20 +650,20 @@ FROM
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:listContents height="30" width="554">
-						<textField>
+						<textField isBlankWhenNull="true">
 							<reportElement x="0" y="5" width="176" height="20" uuid="5c66419f-501b-42ac-8f02-248f6aa6f29a"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$F{ac_knof_reference_no}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[(( $F{ac_knof_reference_no} == null)? "-" : $F{ac_knof_reference_no} )]]></textFieldExpression>
 						</textField>
-						<textField>
+						<textField isBlankWhenNull="true">
 							<reportElement x="175" y="5" width="189" height="20" uuid="a2b5a137-3d78-41f6-b485-241161ab76ca"/>
 							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$F{ac_knof_item_description}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[(( $F{ac_knof_item_description}== null)? "-" : $F{ac_knof_item_description} )]]></textFieldExpression>
 						</textField>
-						<textField>
+						<textField isBlankWhenNull="true">
 							<reportElement x="462" y="5" width="92" height="20" uuid="aa2707ad-c241-4555-8ff7-821db6c2b607"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$F{ac_knof_item_applied_amount}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[(( $F{ac_knof_item_applied_amount} == null)? "-" : $F{ac_knof_item_applied_amount} )]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
 				</jr:list>
@@ -668,13 +678,13 @@ FROM
 		</band>
 	</columnHeader>
 	<summary>
-		<band height="116" splitType="Stretch">
+		<band height="209" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="63" y="14" width="189" height="16" backcolor="#CCCCCC" uuid="d19e92e0-b98f-4265-ab8b-1fe81735e0e8"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[REFAUND PAYMENT INFORMATION :]]></text>
+				<text><![CDATA[REFUND PAYMENT INFORMATION :]]></text>
 			</staticText>
 			<componentElement>
 				<reportElement x="0" y="41" width="555" height="38" uuid="65c67498-4177-47ae-a80e-cfcdac539bd8"/>
@@ -686,37 +696,37 @@ FROM
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:listContents height="38" width="555">
-						<textField>
-							<reportElement x="177" y="9" width="188" height="20" uuid="b561ac30-a451-41dd-b039-eda3c1c35302"/>
+						<textField isBlankWhenNull="true">
+							<reportElement x="177" y="9" width="198" height="20" uuid="b561ac30-a451-41dd-b039-eda3c1c35302"/>
 							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_description}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[(( $F{ac_rfnd_pymt_description} == null)? "-" : $F{ac_rfnd_pymt_description} )]]></textFieldExpression>
 						</textField>
-						<textField>
+						<textField isBlankWhenNull="true">
 							<reportElement x="0" y="9" width="177" height="20" uuid="595bca87-757d-4734-aa90-ef66106263a3"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_reference_no}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[($F{ac_rfnd_pymt_reference_no} ==null)? "-" : $F{ac_rfnd_pymt_reference_no}]]></textFieldExpression>
 						</textField>
-						<textField>
+						<textField isBlankWhenNull="true">
 							<reportElement x="463" y="9" width="92" height="20" uuid="3a8617f2-00df-4fb2-a6fd-838d95724cf8"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[(( $F{ac_rfnd_pymt_amount} == null)? "-" : $F{ac_rfnd_pymt_amount} )]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
-			<textField>
-				<reportElement mode="Opaque" x="463" y="96" width="93" height="20" backcolor="#CCCCCC" uuid="8d3d2e54-1dcb-4e24-b48b-c80c51bd9803"/>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="457" y="184" width="98" height="20" backcolor="#CCCCCC" uuid="8d3d2e54-1dcb-4e24-b48b-c80c51bd9803"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total_amt}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="336" y="96" width="127" height="20" backcolor="#CCCCCC" uuid="66b3d424-b848-4972-bb73-dfe1efb9903d"/>
+				<reportElement mode="Opaque" x="331" y="184" width="126" height="20" backcolor="#CCCCCC" uuid="d0949737-5855-472c-b172-f9dc236a9216"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Amount    :]]></text>
+				<text><![CDATA[Total Balance    :]]></text>
 			</staticText>
 		</band>
 	</summary>
