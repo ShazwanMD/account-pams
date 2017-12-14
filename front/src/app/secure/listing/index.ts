@@ -8,6 +8,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import { ListingInvoiceSubModule } from './listing-invoice/index';
 import { ListingReceiptSubModule } from './listing-receipt/index';
 import { ListingDebitNoteSubModule } from './listing-debit-note/index';
+import { ListingCreditNoteSubModule } from './listing-credit-note/index';
 
 export interface ListingModuleState {
 }
@@ -21,7 +22,7 @@ export interface ListingModuleState {
     ListingInvoiceSubModule.forRoot(),
     ListingReceiptSubModule.forRoot(),
     ListingDebitNoteSubModule.forRoot(),
-
+    ListingCreditNoteSubModule.forRoot(),
   ],
   declarations: [
     // page
