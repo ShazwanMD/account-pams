@@ -7,6 +7,7 @@ import {ListingPage} from './listing.page';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import { ListingInvoiceSubModule } from './listing-invoice/index';
 import { ListingReceiptSubModule } from './listing-receipt/index';
+import { ListingDebitNoteSubModule } from './listing-debit-note/index';
 
 export interface ListingModuleState {
 }
@@ -19,6 +20,8 @@ export interface ListingModuleState {
     CovalentCoreModule.forRoot(),
     ListingInvoiceSubModule.forRoot(),
     ListingReceiptSubModule.forRoot(),
+    ListingDebitNoteSubModule.forRoot(),
+
   ],
   declarations: [
     // page
