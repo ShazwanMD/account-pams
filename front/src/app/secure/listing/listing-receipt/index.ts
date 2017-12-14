@@ -1,15 +1,11 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
-import {appRoutes, appRoutingProviders} from '../../app.routes';
+import {appRoutes, appRoutingProviders} from '../../../app.routes';
 import {CovalentCoreModule} from '@covalent/core';
-import {CommonService, IdentityService} from '../../../services';
-import {ListingPage} from './listing.page';
+import {CommonService, IdentityService} from '../../../../services';
+import {ListingReceiptCenterPage} from './listing-receipt-center.page';
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import { ListingInvoiceSubModule } from './listing-invoice/index';
-import { ListingReceiptSubModule } from './listing-receipt/index';
-
-export interface ListingModuleState {
-}
+import { AccountSubModule } from '../../account/accounts/index';
 
 @NgModule({
   imports: [
@@ -17,19 +13,20 @@ export interface ListingModuleState {
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    ListingInvoiceSubModule.forRoot(),
-    ListingReceiptSubModule.forRoot(),
+    AccountSubModule.forRoot(),
   ],
   declarations: [
     // page
-    ListingPage,
+    ListingReceiptCenterPage,
   ],
   exports: [],
+  entryComponents: [
+  ],
 })
-export class ListingModule {
+export class ListingReceiptSubModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: ListingModule,
+      ngModule: ListingReceiptSubModule,
       providers: [
         appRoutingProviders,
         IdentityService,
