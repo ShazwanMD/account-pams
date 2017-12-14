@@ -1,14 +1,11 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
-import {appRoutes, appRoutingProviders} from '../../app.routes';
+import {appRoutes, appRoutingProviders} from '../../../app.routes';
 import {CovalentCoreModule} from '@covalent/core';
-import {CommonService, IdentityService} from '../../../services';
-import {ListingPage} from './listing.page';
+import {CommonService, IdentityService} from '../../../../services';
+import {ListingInvoiceCenterPage} from './listing-invoice-center.page';
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import { ListingInvoiceSubModule } from './listing-invoice/index';
-
-export interface ListingModuleState {
-}
+import { AccountSubModule } from '../../account/accounts/index';
 
 @NgModule({
   imports: [
@@ -16,18 +13,20 @@ export interface ListingModuleState {
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
-    ListingInvoiceSubModule.forRoot(),
+    AccountSubModule.forRoot(),
   ],
   declarations: [
     // page
-    ListingPage,
+    ListingInvoiceCenterPage,
   ],
   exports: [],
+  entryComponents: [
+  ],
 })
-export class ListingModule {
+export class ListingInvoiceSubModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: ListingModule,
+      ngModule: ListingInvoiceSubModule,
       providers: [
         appRoutingProviders,
         IdentityService,
