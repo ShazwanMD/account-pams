@@ -78,6 +78,7 @@
      this.editorDialogRef.componentInstance.creditNote = this.creditNote;
      if (creditNoteItem) this.editorDialogRef.componentInstance.creditNoteItem = creditNoteItem; // set
      this.editorDialogRef.afterClosed().subscribe((res) => {
+       this.selectedRows = [];
        console.log('close dialog');
      });
    }
