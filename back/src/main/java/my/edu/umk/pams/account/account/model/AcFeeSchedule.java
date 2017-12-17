@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.account.model;
 
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
+import my.edu.umk.pams.account.common.model.AcStudyCenterCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.core.AcMetaObject;
 
@@ -39,4 +40,8 @@ public interface AcFeeSchedule extends AcMetaObject{
     Boolean getStatus();
 
     void setStatus(Boolean status);
+    
+    AcStudyCenterCode getStudyCenterCode();
+
+    void setStudyCenterCode(AcStudyCenterCode studyCenterCode);
 }

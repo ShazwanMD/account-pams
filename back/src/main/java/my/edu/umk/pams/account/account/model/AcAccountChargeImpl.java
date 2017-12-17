@@ -6,12 +6,15 @@ import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
 import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
 import my.edu.umk.pams.account.common.model.AcSecurityChargeCodeImpl;
+import my.edu.umk.pams.account.common.model.AcStudyCenterCode;
+import my.edu.umk.pams.account.common.model.AcStudyCenterCodeImpl;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.model.AcStudyModeImpl;
 import my.edu.umk.pams.account.common.model.AcTaxCode;
 import my.edu.umk.pams.account.common.model.AcTaxCodeImpl;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetadata;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author PAMS
@@ -93,11 +97,19 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     @OneToOne(targetEntity = AcStudyModeImpl.class)
     @JoinColumn(name = "STUDY_MODE_ID")
     private AcStudyMode studyMode;
+    
+    @ManyToOne(targetEntity = AcStudyCenterCodeImpl.class)
+    @JoinColumn(name = "STUDY_CENTER_ID")
+    private AcStudyCenterCode studyCenterCode;
 
     @NotNull
     @OneToOne(targetEntity = AcCohortCodeImpl.class)
     @JoinColumn(name = "COHORT_CODE_ID")
     private AcCohortCode cohortCode;
+    
+    @Enumerated(value = EnumType.ORDINAL)
+    @Column(name = "GRADUATE_CENTER_TYPE", nullable = true)
+    private AcGraduateCenterType graduateCenterType;
     
     @NotNull
     @OneToOne(targetEntity = AcSecurityChargeCodeImpl.class)
@@ -334,7 +346,17 @@ public class AcAccountChargeImpl implements AcAccountCharge {
         return metadata;
     }
 
-    @Override
+	@Override
+    public AcStudyCenterCode getStudyCenterCode() {
+		return studyCenterCode;
+	}
+
+	@Override
+	public void setStudyCenterCode(AcStudyCenterCode studyCenterCode) {
+		this.studyCenterCode = studyCenterCode;
+	}
+
+	@Override
     public void setMetadata(AcMetadata metadata) {
         this.metadata = metadata;
     }
@@ -350,6 +372,16 @@ public class AcAccountChargeImpl implements AcAccountCharge {
     }
 
     @Override
+    public AcGraduateCenterType getGraduateCenterType() {
+		return graduateCenterType;
+	}
+
+    @Override
+	public void setGraduateCenterType(AcGraduateCenterType graduateCenterType) {
+		this.graduateCenterType = graduateCenterType;
+	}
+
+	@Override
     public Class<?> getInterfaceClass() {
         return AcAccountCharge.class;
     }

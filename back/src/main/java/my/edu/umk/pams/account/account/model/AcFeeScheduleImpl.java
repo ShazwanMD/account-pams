@@ -48,6 +48,10 @@ public class AcFeeScheduleImpl implements AcFeeSchedule {
     @OneToOne(targetEntity = AcStudyModeImpl.class)
     @JoinColumn(name = "STUDY_MODE_ID", nullable = false)
     private AcStudyMode studyMode;
+    
+    @OneToOne(targetEntity = AcStudyCenterCodeImpl.class)
+    @JoinColumn(name = "STUDY_CENTER_ID", nullable = true)
+    private AcStudyCenterCode studyCenterCode;
 
     @Embedded
     private AcMetadata metadata;
@@ -142,6 +146,16 @@ public class AcFeeScheduleImpl implements AcFeeSchedule {
 	}
 
     @Override
+    public AcStudyCenterCode getStudyCenterCode() {
+		return studyCenterCode;
+	}
+
+    @Override
+	public void setStudyCenterCode(AcStudyCenterCode studyCenterCode) {
+		this.studyCenterCode = studyCenterCode;
+	}
+
+	@Override
     public Class<?> getInterfaceClass() {
         return AcFeeSchedule.class;
     }
