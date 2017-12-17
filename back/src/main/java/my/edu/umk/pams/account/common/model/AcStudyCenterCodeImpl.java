@@ -1,5 +1,7 @@
 package my.edu.umk.pams.account.common.model;
 
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.core.AcMetadata;
 
 import java.util.List;
@@ -30,6 +32,9 @@ public class AcStudyCenterCodeImpl implements AcStudyCenterCode {
     
     @OneToMany(targetEntity = AcProgramCodeImpl.class, mappedBy = "studyCenterCode", fetch = FetchType.LAZY)
     private List<AcProgramCode> programCode;
+    
+    @OneToMany(targetEntity = AcAccountChargeImpl.class, mappedBy = "studyCenterCode", fetch = FetchType.LAZY)
+    private List<AcAccountCharge> accountChargeCode;
 
     @Override
     public Long getId() {
@@ -76,6 +81,16 @@ public class AcStudyCenterCodeImpl implements AcStudyCenterCode {
     @Override
 	public void setProgramCode(List<AcProgramCode> programCode) {
 		this.programCode = programCode;
+	}
+
+    @Override
+	public List<AcAccountCharge> getAccountChargeCode() {
+		return accountChargeCode;
+	}
+
+    @Override
+	public void setAccountChargeCode(List<AcAccountCharge> accountChargeCode) {
+		this.accountChargeCode = accountChargeCode;
 	}
 
 	@Override

@@ -3,14 +3,17 @@ package my.edu.umk.pams.account.account.model;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcSecurityChargeCode;
+import my.edu.umk.pams.account.common.model.AcStudyCenterCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.model.AcTaxCode;
 import my.edu.umk.pams.account.core.AcFlowdata;
 import my.edu.umk.pams.account.core.AcMetaObject;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 import my.edu.umk.pams.account.web.module.account.vo.AccountChargeType;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author PAMS
@@ -100,5 +103,13 @@ public interface AcAccountCharge extends AcMetaObject {
 	AcFlowdata getFlowdata();
 
 	void setFlowdata(AcFlowdata flowdata);
+
+	AcGraduateCenterType getGraduateCenterType();
+    
+	void setGraduateCenterType(AcGraduateCenterType graduateCenterType);
+    
+    AcStudyCenterCode getStudyCenterCode();
+
+	void setStudyCenterCode(AcStudyCenterCode studyCenterCode);
 
 }

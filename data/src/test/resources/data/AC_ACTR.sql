@@ -22,7 +22,7 @@ VALUES
 INSERT INTO AC_STDN (ID, COHORT_CODE_ID, RESIDENCY_CODE_ID) VALUES (
 currval('SQ_AC_ACTR'),
 (SELECT ID from AC_CHRT_CODE where code = 'FIAT-PHD-0001-CHRT-201720181'),
-(SELECT ID from AC_RSCY_CODE where code = 'X'));
+(SELECT ID from AC_RSCY_CODE where code = 'M'));
 
 UPDATE AC_USER
 SET actor_id = currval('SQ_AC_ACTR')
@@ -37,7 +37,7 @@ VALUES
 INSERT INTO AC_STDN (ID, COHORT_CODE_ID, RESIDENCY_CODE_ID) VALUES (
 currval('SQ_AC_ACTR'),
 (SELECT ID from AC_CHRT_CODE where code = 'FIAT-PHD-0002-CHRT-201720181'),
-(SELECT ID from AC_RSCY_CODE where code = 'M'));
+(SELECT ID from AC_RSCY_CODE where code = 'X'));
 
 UPDATE AC_USER
 SET actor_id = currval('SQ_AC_ACTR')

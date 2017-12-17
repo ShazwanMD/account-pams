@@ -38,6 +38,8 @@
         SOURCE_NO varchar(255) not null,
         ACCOUNT_ID int8,
         COHORT_CODE_ID int8,
+        STUDY_CENTER_ID int8,
+        GRADUATE_CENTER_TYPE int8,
         INVOICE_ID int8,
         SESSION_ID int8,
         STUDY_MODE_ID int8,

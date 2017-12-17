@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import my.edu.umk.pams.account.AccountConstants;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAcademicSessionImpl;
@@ -41,6 +40,7 @@ import my.edu.umk.pams.account.common.model.AcProgramCodeImpl;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCodeImpl;
 import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 import my.edu.umk.pams.account.identity.dao.RecursiveGroupException;
 import my.edu.umk.pams.account.identity.model.AcActorType;
 import my.edu.umk.pams.account.identity.model.AcGroup;
@@ -337,6 +337,40 @@ public class IntegrationController {
 		user.setActor(student);
 		identityService.saveUser(user);
 
+		// admission
+		AcAcademicSession academicSession = accountService.findCurrentAcademicSession();
+		LOG.debug("AcademicSession:{}", academicSession.getCode());
+
+		student = identityService.findStudentByMatricNo(payload.getMatricNo());
+		account = accountService.findAccountByActor(student);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("academicSession", accountService.findCurrentAcademicSession());
+		String referenceNo = systemService.generateFormattedReferenceNo(AccountConstants.ACCOUNT_CHARGE_REFRENCE_NO,
+				map);
+
+		AcAccountCharge charge = new AcAccountChargeImpl();
+		charge.setChargeType(AcAccountChargeType.ADMISSION);
+		charge.setAccount(account);
+		charge.setSession(academicSession);
+		charge.setChargeDate(new Date());
+		charge.setReferenceNo(referenceNo);
+		charge.setSourceNo("SN"); // todo:
+		charge.setDescription("DESCRIPTION"); // todo:
+		charge.setAmount(BigDecimal.ZERO); // todo
+		charge.setOrdinal(1);
+		if (payload.getFacultyCode().equals("A10")) {
+			charge.setGraduateCenterType(AcGraduateCenterType.MGSEB);
+		} else {
+			charge.setGraduateCenterType(AcGraduateCenterType.CPS);
+		}
+		if (null != payload.getStudyCenter())
+			charge.setStudyCenterCode(commonService.findStudyCenterCodeByCode(payload.getStudyCenter().getCode()));
+		if (null != payload.getCohortCode())
+			charge.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode()));
+		if (null != payload.getStudyMode())
+			charge.setStudyMode(commonService.findStudyModeByCode(payload.getStudyMode().getCode()));
+		accountService.addAccountCharge(account, charge);
+
 		LOG.info("Finish Receive Candidates");
 		logoutAsSystem(ctx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
@@ -384,288 +418,246 @@ public class IntegrationController {
 		logoutAsSystem(ctx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
-	
-/*	// ====================================================================================================
-	// STAFF
-	// ====================================================================================================
-	@RequestMapping(value = "/staff/nonAcademicActive", method = RequestMethod.POST)
-	public ResponseEntity<String> saveStaff(@RequestBody List<StaffPayload> staffPayload)
-			throws RecursiveGroupException {
-		SecurityContext ctx = loginAsSystem();
 
-		LOG.info("Start Receive Staff From IMS");
-		for (StaffPayload payload : staffPayload) {
-
-			boolean staffReceive = identityService.isStaffNoExists(payload.getStaffId());
-
-			if (staffReceive) {
-
-				LOG.info("Staff already exists");
-				LOG.debug("Staff Staff_No:{}", payload.getStaffId());
-				LOG.debug("Staff Name:{}", payload.getStaffName());
-				// Find Staff
-				AcStaff staff = identityService.findStaffByNricNo(payload.getStaffId());
-
-				// Find Department Code
-				if (commonService.isFacultyExists(payload.getStaffDepartmentCode())) {
-
-					LOG.debug("Has Faculty");
-					AcFacultyCode departmentCode = commonService.findFacultyCodeByCode(staff.getStaffDeptCode());
-					// Find User
-					AcUser user = identityService.findUserByUsername(staff.getIdentityNo());
-					// Find Group
-					AcGroup group = identityService.findGroupByUser(user);
-
-					if (departmentCode.equals(payload.getStaffDepartmentCode())
-							&& identityService.isGroupExists(group.getName())) {
-
-						AcFacultyCode faculty = commonService.findFacultyCodeByCode(payload.getStaffDepartmentCode());
-
-						AcStaff staffUpdate = identityService.findStaffByStaffNo(payload.getStaffId());
-						staffUpdate.setIdentityNo(payload.getStaffId());
-						staffUpdate.setName(payload.getStaffName());
-						staffUpdate.setActorType(AcActorType.STAFF);
-						staff.setStaffType(AcStaffType.NON_ACADEMIC);
-						staffUpdate.setPhone(payload.getStaffPhoneNo());
-						staffUpdate.setFacultyCode(faculty);
-						staffUpdate.setStaffCategory(payload.getStaffCategory());
-						staffUpdate.setEmail(payload.getStaffEmail());
-						identityService.updateStaff(staffUpdate);
-
-					} else if ((!departmentCode.equals(payload.getStaffDepartmentCode()))) {
-						
-						AcFacultyCode faculty = commonService.findFacultyCodeByCode(payload.getStaffDepartmentCode());
-
-						AcStaff staffUpdate = identityService.findStaffByStaffNo(payload.getStaffId());
-						staffUpdate.setIdentityNo(payload.getStaffId());
-						staffUpdate.setName(payload.getStaffName());
-						staffUpdate.setActorType(AcActorType.STAFF);
-						staffUpdate.setStaffType(AcStaffType.NON_ACADEMIC);
-						staffUpdate.setPhone(payload.getStaffPhoneNo());
-						staffUpdate.setFacultyCode(faculty);
-						staffUpdate.setStaffCategory(payload.getStaffCategory());
-						staffUpdate.setEmail(payload.getStaffEmail());
-						
-						AcUser updateUser = new AcUserImpl();
-						user.setActor(staffUpdate);
-						user.setEmail(staffUpdate.getEmail());
-						user.setUsername(staffUpdate.getEmail());
-						user.setPassword(staffUpdate.getStaffNo());
-						user.setRealName(staffUpdate.getName());
-						user.setName(staffUpdate.getIdentityNo());
-						user.setEnabled(true);
-						user.setLocked(true);
-						user.setPrincipalType(AcPrincipalType.USER);
-						identityService.saveUser(updateUser);
-					
-						AcPrincipal principal = identityService.findPrincipalByName(payload.getStaffId());
-						
-						//Check Group Existence
-						if (identityService.isGroupExists(group.getName())) {
-							
-							//setting roles of MGSEB
-							if (payload.getStaffDepartmentCode().equals("A10")) {
-								
-								if(payload.getStaffCategory().equals("A")){
-									
-									// Principal Role
-									AcPrincipalRole roleA10 = new AcPrincipalRoleImpl();
-									roleA10.setPrincipal(principal);
-									roleA10.setRole(AcRoleType.ROLE_MGSEB);
-									identityService.addPrincipalRole(principal, roleA10);
-
-									try{
-									// Group
-									AcGroup groupPegawaiA10 = identityService.findGroupByName("GRP_PGW_ADM_A10");
-									// GroupMember
-									AcGroupMember memberA10 = new AcGroupMemberImpl();
-									memberA10.setGroup(groupPegawaiA10);
-									memberA10.setPrincipal(principal);
-									identityService.addGroupMember(groupPegawaiA10, principal);
-									} catch (RecursiveGroupException e) {
-										
-										e.printStackTrace();
-									}
-									
-								}else{
-									
-									// Principal Role
-									AcPrincipalRole roleKRNA10 = new AcPrincipalRoleImpl();
-									roleKRNA10.setPrincipal(principal);
-									roleKRNA10.setRole(AcRoleType.ROLE_MGSEB);
-									identityService.addPrincipalRole(principal, roleKRNA10);
-
-									try{
-									// Group
-									AcGroup groupKRNA10 = identityService.findGroupByName("GRP_KRN_ADM_A10");
-									// GroupMember
-									AcGroupMember memberKRNA10 = new AcGroupMemberImpl();
-									memberKRNA10.setGroup(groupKRNA10);
-									memberKRNA10.setPrincipal(principal);
-									identityService.addGroupMember(groupKRNA10, principal);
-									} catch (RecursiveGroupException e) {
-										
-										e.printStackTrace();
-									}	
-									
-								}
-							}
-							//Setting roles of CPS
-							else if (payload.getStaffDepartmentCode().equals("A09")) {
-								
-								if(payload.getStaffCategory().equals("A")){
-									
-									// Principal Role
-									AcPrincipalRole roleA09 = new AcPrincipalRoleImpl();
-									roleA09.setPrincipal(principal);
-									roleA09.setRole(AcRoleType.ROLE_ADMINISTRATOR);
-									identityService.addPrincipalRole(principal, roleA09);
-
-									try{
-									// Group
-									AcGroup groupPegawaiA09 = identityService.findGroupByName("GRP_PGW_ADM_A09");
-									// GroupMember
-									AcGroupMember memberPegawaiA09 = new AcGroupMemberImpl();
-									memberPegawaiA09.setGroup(groupPegawaiA09);
-									memberPegawaiA09.setPrincipal(principal);
-									identityService.addGroupMember(groupPegawaiA09, principal);
-									} catch (RecursiveGroupException e) {
-										
-										e.printStackTrace();
-									}
-									
-								}else{
-									
-									// Principal Role
-									AcPrincipalRole roleKRNA09 = new AcPrincipalRoleImpl();
-									roleKRNA09.setPrincipal(principal);
-									roleKRNA09.setRole(AcRoleType.ROLE_ADMINISTRATOR);
-									identityService.addPrincipalRole(principal, roleKRNA09);
-
-									try{
-									// Group
-									AcGroup groupKRNA09 = identityService.findGroupByName("GRP_KRN_ADM_A09");
-									// GroupMember
-									AcGroupMember memberKRNA09 = new AcGroupMemberImpl();
-									memberKRNA09.setGroup(groupKRNA09);
-									memberKRNA09.setPrincipal(principal);
-									identityService.addGroupMember(groupKRNA09, principal);
-									} catch (RecursiveGroupException e) {
-										
-										e.printStackTrace();
-									}	
-									
-								}
-							}
-							//Setting roles of Others Faculty
-							else {
-								if(payload.getStaffCategory().equals("A")){
-									LOG.info("If All Faculty and Category A Only");
-									
-									// Principal Role
-									AcPrincipalRole roleAllFac = new AcPrincipalRoleImpl();
-									roleAllFac.setPrincipal(principal);
-									roleAllFac.setRole(AcRoleType.ROLE_FACULTY);
-									identityService.addPrincipalRole(principal, roleAllFac);
-
-									try{
-									// Group
-									AcGroup groupAllFac = identityService.findGroupByName("GRP_PGW_FCTY_"+ payload.getStaffDepartmentCode());
-									// GroupMember
-									
-									AcGroupMember memberAllFac = new AcGroupMemberImpl();
-									memberAllFac.setGroup(groupAllFac);
-									memberAllFac.setPrincipal(principal);
-									identityService.addGroupMember(groupAllFac, principal);
-									} catch (RecursiveGroupException e) {
-										
-										e.printStackTrace();
-									}
-								}else{
-									LOG.info("If All Faculty Only");
-									
-									// Principal Role
-									AcPrincipalRole roleAllFaculty = new AcPrincipalRoleImpl();
-									roleAllFaculty.setPrincipal(principal);
-									roleAllFaculty.setRole(AcRoleType.ROLE_FACULTY);
-									identityService.addPrincipalRole(principal, roleAllFaculty);
-
-									try{
-									// Group
-									AcGroup groupAllFaculty = identityService.findGroupByName("GRP_KRN_FCTY_"+ payload.getStaffDepartmentCode());
-									// GroupMember
-									AcGroupMember memberAllFaculty = new AcGroupMemberImpl();
-									memberAllFaculty.setGroup(groupAllFaculty);
-									memberAllFaculty.setPrincipal(principal);
-									identityService.addGroupMember(groupAllFaculty, principal);
-									} catch (RecursiveGroupException e) {
-										
-										e.printStackTrace();
-									}
-								}      
-							}
-						}
-
-						identityService.updateStaff(staffUpdate);
-					}
-
-				} else {
-
-					LOG.debug("NoFaculty");
-					AcFacultyCode faculty = commonService.findFacultyCodeByCode(payload.getStaffDepartmentCode());
-
-					AcStaff staffUpdate = identityService.findStaffByStaffNo(payload.getStaffId());
-					staffUpdate.setIdentityNo(payload.getStaffId());
-					staffUpdate.setName(payload.getStaffName());
-					staffUpdate.setActorType(AcActorType.STAFF);
-					staff.setStaffType(AcStaffType.NON_ACADEMIC);
-					staffUpdate.setPhone(payload.getStaffPhoneNo());
-					staffUpdate.setFacultyCode(faculty);
-					staffUpdate.setStaffCategory(payload.getStaffCategory());
-					staffUpdate.setEmail(payload.getStaffEmail());
-					identityService.updateStaff(staffUpdate);
-				}
-
-			} else {
-
-				LOG.info("Staff not exists");
-				LOG.debug("Staff Staff_No:{}", payload.getStaffId());
-				LOG.debug("Staff Name:{}", payload.getStaffName());
-				LOG.debug("Staff Department_Code:{}", payload.getStaffDepartmentCode());
-				LOG.debug("Staff Category:{}", payload.getStaffCategory());
-
-				String facultyCode = payload.getStaffDepartmentCode();
-				AcFacultyCode faculty = commonService.findFacultyCodeByCode(facultyCode);
-
-				AcStaff staff = new AcStaffImpl();
-				staff.setIdentityNo(payload.getStaffId());
-				staff.setStaffType(AcStaffType.NON_ACADEMIC);
-				staff.setName(payload.getStaffName());
-				staff.setActorType(AcActorType.STAFF);
-				staff.setPhone(payload.getStaffPhoneNo());
-				staff.setFacultyCode(faculty);
-				staff.setStaffCategory(payload.getStaffCategory());
-				staff.setEmail(payload.getStaffEmail());
-				if (commonService.isFacultyExists(payload.getStaffDepartmentCode())) {
-					LOG.info("if faculty exists");
-					identityService.saveStaffIMSNonAcademicActive(staff);
-
-				} else {
-					LOG.info("if faculty not exists");
-					identityService.saveStaff(staff);
-
-				}
-			}
-		}
-		LOG.info("Finish Receive Staff From IMS");
-
-		logoutAsSystem(ctx);
-		return new ResponseEntity<String>("success", HttpStatus.OK);
-	}
-*/
-	
-	
-	
+	/*
+	 * //
+	 * =========================================================================
+	 * =========================== // STAFF //
+	 * =========================================================================
+	 * ===========================
+	 * 
+	 * @RequestMapping(value = "/staff/nonAcademicActive", method =
+	 * RequestMethod.POST) public ResponseEntity<String> saveStaff(@RequestBody
+	 * List<StaffPayload> staffPayload) throws RecursiveGroupException {
+	 * SecurityContext ctx = loginAsSystem();
+	 * 
+	 * LOG.info("Start Receive Staff From IMS"); for (StaffPayload payload :
+	 * staffPayload) {
+	 * 
+	 * boolean staffReceive =
+	 * identityService.isStaffNoExists(payload.getStaffId());
+	 * 
+	 * if (staffReceive) {
+	 * 
+	 * LOG.info("Staff already exists"); LOG.debug("Staff Staff_No:{}",
+	 * payload.getStaffId()); LOG.debug("Staff Name:{}",
+	 * payload.getStaffName()); // Find Staff AcStaff staff =
+	 * identityService.findStaffByNricNo(payload.getStaffId());
+	 * 
+	 * // Find Department Code if
+	 * (commonService.isFacultyExists(payload.getStaffDepartmentCode())) {
+	 * 
+	 * LOG.debug("Has Faculty"); AcFacultyCode departmentCode =
+	 * commonService.findFacultyCodeByCode(staff.getStaffDeptCode()); // Find
+	 * User AcUser user =
+	 * identityService.findUserByUsername(staff.getIdentityNo()); // Find Group
+	 * AcGroup group = identityService.findGroupByUser(user);
+	 * 
+	 * if (departmentCode.equals(payload.getStaffDepartmentCode()) &&
+	 * identityService.isGroupExists(group.getName())) {
+	 * 
+	 * AcFacultyCode faculty =
+	 * commonService.findFacultyCodeByCode(payload.getStaffDepartmentCode());
+	 * 
+	 * AcStaff staffUpdate =
+	 * identityService.findStaffByStaffNo(payload.getStaffId());
+	 * staffUpdate.setIdentityNo(payload.getStaffId());
+	 * staffUpdate.setName(payload.getStaffName());
+	 * staffUpdate.setActorType(AcActorType.STAFF);
+	 * staff.setStaffType(AcStaffType.NON_ACADEMIC);
+	 * staffUpdate.setPhone(payload.getStaffPhoneNo());
+	 * staffUpdate.setFacultyCode(faculty);
+	 * staffUpdate.setStaffCategory(payload.getStaffCategory());
+	 * staffUpdate.setEmail(payload.getStaffEmail());
+	 * identityService.updateStaff(staffUpdate);
+	 * 
+	 * } else if ((!departmentCode.equals(payload.getStaffDepartmentCode()))) {
+	 * 
+	 * AcFacultyCode faculty =
+	 * commonService.findFacultyCodeByCode(payload.getStaffDepartmentCode());
+	 * 
+	 * AcStaff staffUpdate =
+	 * identityService.findStaffByStaffNo(payload.getStaffId());
+	 * staffUpdate.setIdentityNo(payload.getStaffId());
+	 * staffUpdate.setName(payload.getStaffName());
+	 * staffUpdate.setActorType(AcActorType.STAFF);
+	 * staffUpdate.setStaffType(AcStaffType.NON_ACADEMIC);
+	 * staffUpdate.setPhone(payload.getStaffPhoneNo());
+	 * staffUpdate.setFacultyCode(faculty);
+	 * staffUpdate.setStaffCategory(payload.getStaffCategory());
+	 * staffUpdate.setEmail(payload.getStaffEmail());
+	 * 
+	 * AcUser updateUser = new AcUserImpl(); user.setActor(staffUpdate);
+	 * user.setEmail(staffUpdate.getEmail());
+	 * user.setUsername(staffUpdate.getEmail());
+	 * user.setPassword(staffUpdate.getStaffNo());
+	 * user.setRealName(staffUpdate.getName());
+	 * user.setName(staffUpdate.getIdentityNo()); user.setEnabled(true);
+	 * user.setLocked(true); user.setPrincipalType(AcPrincipalType.USER);
+	 * identityService.saveUser(updateUser);
+	 * 
+	 * AcPrincipal principal =
+	 * identityService.findPrincipalByName(payload.getStaffId());
+	 * 
+	 * //Check Group Existence if
+	 * (identityService.isGroupExists(group.getName())) {
+	 * 
+	 * //setting roles of MGSEB if
+	 * (payload.getStaffDepartmentCode().equals("A10")) {
+	 * 
+	 * if(payload.getStaffCategory().equals("A")){
+	 * 
+	 * // Principal Role AcPrincipalRole roleA10 = new AcPrincipalRoleImpl();
+	 * roleA10.setPrincipal(principal); roleA10.setRole(AcRoleType.ROLE_MGSEB);
+	 * identityService.addPrincipalRole(principal, roleA10);
+	 * 
+	 * try{ // Group AcGroup groupPegawaiA10 =
+	 * identityService.findGroupByName("GRP_PGW_ADM_A10"); // GroupMember
+	 * AcGroupMember memberA10 = new AcGroupMemberImpl();
+	 * memberA10.setGroup(groupPegawaiA10); memberA10.setPrincipal(principal);
+	 * identityService.addGroupMember(groupPegawaiA10, principal); } catch
+	 * (RecursiveGroupException e) {
+	 * 
+	 * e.printStackTrace(); }
+	 * 
+	 * }else{
+	 * 
+	 * // Principal Role AcPrincipalRole roleKRNA10 = new AcPrincipalRoleImpl();
+	 * roleKRNA10.setPrincipal(principal);
+	 * roleKRNA10.setRole(AcRoleType.ROLE_MGSEB);
+	 * identityService.addPrincipalRole(principal, roleKRNA10);
+	 * 
+	 * try{ // Group AcGroup groupKRNA10 =
+	 * identityService.findGroupByName("GRP_KRN_ADM_A10"); // GroupMember
+	 * AcGroupMember memberKRNA10 = new AcGroupMemberImpl();
+	 * memberKRNA10.setGroup(groupKRNA10); memberKRNA10.setPrincipal(principal);
+	 * identityService.addGroupMember(groupKRNA10, principal); } catch
+	 * (RecursiveGroupException e) {
+	 * 
+	 * e.printStackTrace(); }
+	 * 
+	 * } } //Setting roles of CPS else if
+	 * (payload.getStaffDepartmentCode().equals("A09")) {
+	 * 
+	 * if(payload.getStaffCategory().equals("A")){
+	 * 
+	 * // Principal Role AcPrincipalRole roleA09 = new AcPrincipalRoleImpl();
+	 * roleA09.setPrincipal(principal);
+	 * roleA09.setRole(AcRoleType.ROLE_ADMINISTRATOR);
+	 * identityService.addPrincipalRole(principal, roleA09);
+	 * 
+	 * try{ // Group AcGroup groupPegawaiA09 =
+	 * identityService.findGroupByName("GRP_PGW_ADM_A09"); // GroupMember
+	 * AcGroupMember memberPegawaiA09 = new AcGroupMemberImpl();
+	 * memberPegawaiA09.setGroup(groupPegawaiA09);
+	 * memberPegawaiA09.setPrincipal(principal);
+	 * identityService.addGroupMember(groupPegawaiA09, principal); } catch
+	 * (RecursiveGroupException e) {
+	 * 
+	 * e.printStackTrace(); }
+	 * 
+	 * }else{
+	 * 
+	 * // Principal Role AcPrincipalRole roleKRNA09 = new AcPrincipalRoleImpl();
+	 * roleKRNA09.setPrincipal(principal);
+	 * roleKRNA09.setRole(AcRoleType.ROLE_ADMINISTRATOR);
+	 * identityService.addPrincipalRole(principal, roleKRNA09);
+	 * 
+	 * try{ // Group AcGroup groupKRNA09 =
+	 * identityService.findGroupByName("GRP_KRN_ADM_A09"); // GroupMember
+	 * AcGroupMember memberKRNA09 = new AcGroupMemberImpl();
+	 * memberKRNA09.setGroup(groupKRNA09); memberKRNA09.setPrincipal(principal);
+	 * identityService.addGroupMember(groupKRNA09, principal); } catch
+	 * (RecursiveGroupException e) {
+	 * 
+	 * e.printStackTrace(); }
+	 * 
+	 * } } //Setting roles of Others Faculty else {
+	 * if(payload.getStaffCategory().equals("A")){
+	 * LOG.info("If All Faculty and Category A Only");
+	 * 
+	 * // Principal Role AcPrincipalRole roleAllFac = new AcPrincipalRoleImpl();
+	 * roleAllFac.setPrincipal(principal);
+	 * roleAllFac.setRole(AcRoleType.ROLE_FACULTY);
+	 * identityService.addPrincipalRole(principal, roleAllFac);
+	 * 
+	 * try{ // Group AcGroup groupAllFac =
+	 * identityService.findGroupByName("GRP_PGW_FCTY_"+
+	 * payload.getStaffDepartmentCode()); // GroupMember
+	 * 
+	 * AcGroupMember memberAllFac = new AcGroupMemberImpl();
+	 * memberAllFac.setGroup(groupAllFac); memberAllFac.setPrincipal(principal);
+	 * identityService.addGroupMember(groupAllFac, principal); } catch
+	 * (RecursiveGroupException e) {
+	 * 
+	 * e.printStackTrace(); } }else{ LOG.info("If All Faculty Only");
+	 * 
+	 * // Principal Role AcPrincipalRole roleAllFaculty = new
+	 * AcPrincipalRoleImpl(); roleAllFaculty.setPrincipal(principal);
+	 * roleAllFaculty.setRole(AcRoleType.ROLE_FACULTY);
+	 * identityService.addPrincipalRole(principal, roleAllFaculty);
+	 * 
+	 * try{ // Group AcGroup groupAllFaculty =
+	 * identityService.findGroupByName("GRP_KRN_FCTY_"+
+	 * payload.getStaffDepartmentCode()); // GroupMember AcGroupMember
+	 * memberAllFaculty = new AcGroupMemberImpl();
+	 * memberAllFaculty.setGroup(groupAllFaculty);
+	 * memberAllFaculty.setPrincipal(principal);
+	 * identityService.addGroupMember(groupAllFaculty, principal); } catch
+	 * (RecursiveGroupException e) {
+	 * 
+	 * e.printStackTrace(); } } } }
+	 * 
+	 * identityService.updateStaff(staffUpdate); }
+	 * 
+	 * } else {
+	 * 
+	 * LOG.debug("NoFaculty"); AcFacultyCode faculty =
+	 * commonService.findFacultyCodeByCode(payload.getStaffDepartmentCode());
+	 * 
+	 * AcStaff staffUpdate =
+	 * identityService.findStaffByStaffNo(payload.getStaffId());
+	 * staffUpdate.setIdentityNo(payload.getStaffId());
+	 * staffUpdate.setName(payload.getStaffName());
+	 * staffUpdate.setActorType(AcActorType.STAFF);
+	 * staff.setStaffType(AcStaffType.NON_ACADEMIC);
+	 * staffUpdate.setPhone(payload.getStaffPhoneNo());
+	 * staffUpdate.setFacultyCode(faculty);
+	 * staffUpdate.setStaffCategory(payload.getStaffCategory());
+	 * staffUpdate.setEmail(payload.getStaffEmail());
+	 * identityService.updateStaff(staffUpdate); }
+	 * 
+	 * } else {
+	 * 
+	 * LOG.info("Staff not exists"); LOG.debug("Staff Staff_No:{}",
+	 * payload.getStaffId()); LOG.debug("Staff Name:{}",
+	 * payload.getStaffName()); LOG.debug("Staff Department_Code:{}",
+	 * payload.getStaffDepartmentCode()); LOG.debug("Staff Category:{}",
+	 * payload.getStaffCategory());
+	 * 
+	 * String facultyCode = payload.getStaffDepartmentCode(); AcFacultyCode
+	 * faculty = commonService.findFacultyCodeByCode(facultyCode);
+	 * 
+	 * AcStaff staff = new AcStaffImpl();
+	 * staff.setIdentityNo(payload.getStaffId());
+	 * staff.setStaffType(AcStaffType.NON_ACADEMIC);
+	 * staff.setName(payload.getStaffName());
+	 * staff.setActorType(AcActorType.STAFF);
+	 * staff.setPhone(payload.getStaffPhoneNo()); staff.setFacultyCode(faculty);
+	 * staff.setStaffCategory(payload.getStaffCategory());
+	 * staff.setEmail(payload.getStaffEmail()); if
+	 * (commonService.isFacultyExists(payload.getStaffDepartmentCode())) {
+	 * LOG.info("if faculty exists");
+	 * identityService.saveStaffIMSNonAcademicActive(staff);
+	 * 
+	 * } else { LOG.info("if faculty not exists");
+	 * identityService.saveStaff(staff);
+	 * 
+	 * } } } LOG.info("Finish Receive Staff From IMS");
+	 * 
+	 * logoutAsSystem(ctx); return new ResponseEntity<String>("success",
+	 * HttpStatus.OK); }
+	 */
 
 	// ====================================================================================================
 	// STAFF
@@ -695,7 +687,8 @@ public class IntegrationController {
 					LOG.info("Faculty Already Exists");
 
 					// Find Department Code
-					AcFacultyCode departmentCode = commonService.findFacultyCodeByCode(staff.getFacultyCode().getCode());
+					AcFacultyCode departmentCode = commonService
+							.findFacultyCodeByCode(staff.getFacultyCode().getCode());
 
 					// Find User
 					AcUser user = identityService.findUserByUsername(staff.getEmail());
@@ -770,7 +763,7 @@ public class IntegrationController {
 
 											identityService.addGroupMember(groupPegawaiA10, principal);
 										}
-										
+
 									} catch (RecursiveGroupException e) {
 
 										e.printStackTrace();
@@ -792,7 +785,7 @@ public class IntegrationController {
 
 											identityService.addGroupMember(groupKRNA10, principal);
 										}
-										
+
 									} catch (RecursiveGroupException e) {
 
 										e.printStackTrace();
@@ -840,7 +833,7 @@ public class IntegrationController {
 
 											identityService.addGroupMember(groupKRNA09, principal);
 										}
-										
+
 									} catch (RecursiveGroupException e) {
 
 										e.printStackTrace();
@@ -893,7 +886,7 @@ public class IntegrationController {
 
 											identityService.addGroupMember(groupAllFaculty, principal);
 										}
-										
+
 									} catch (RecursiveGroupException e) {
 
 										e.printStackTrace();
@@ -956,7 +949,6 @@ public class IntegrationController {
 		logoutAsSystem(ctx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
-
 
 	// ====================================================================================================
 	// PRIVATE METHODS
