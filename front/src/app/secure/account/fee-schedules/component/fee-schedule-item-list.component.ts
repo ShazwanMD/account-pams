@@ -77,6 +77,7 @@ export class FeeScheduleItemListComponent implements OnInit {
     this.editorDialogRef.componentInstance.feeSchedule = this.feeSchedule;
     if (scheduleItem) this.editorDialogRef.componentInstance.feeScheduleItem = scheduleItem; // set
     this.editorDialogRef.afterClosed().subscribe((res) => {
+      this.selectedRows = [];
       console.log('close dialog');
     });
   }

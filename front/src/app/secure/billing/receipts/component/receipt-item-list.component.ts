@@ -59,7 +59,10 @@ export class ReceiptItemListComponent implements OnInit {
       config.position = {top: '65px'};
       this.editorDialogRef = this.dialog.open(ReceiptItemEditorDialog, config);
       this.editorDialogRef.componentInstance.receipt = this.receipt;
-      this.editorDialogRef.componentInstance.receiptItem = receiptItem;
+      if (receiptItem) this.editorDialogRef.componentInstance.receiptItem=receiptItem;
+      this.editorDialogRef.afterClosed().subscribe((res) => {
+        this.selectedRows = [];
+      });
     }
 
   delete(): void {
