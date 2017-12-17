@@ -302,7 +302,7 @@ public class IntegrationController {
 			AcCohortCode cohortCode = new AcCohortCodeImpl();
 			cohortCode.setCode(payload.getCohortCode());
 			cohortCode.setDescription(payload.getCohortCode());
-			cohortCode.setProgramCode(commonService.findProgramCodeByCode(payload.getProgramCode()));
+			cohortCode.setProgramCode(commonService.findProgramCodeByCode(payload.getProgramCode().getCode()));
 			commonService.saveCohortCode(cohortCode);
 		}
 
