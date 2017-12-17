@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ChargeCode} from '../../../../shared/model/account/charge-code.interface';
 import {MdDialogRef} from '@angular/material';
@@ -9,6 +9,7 @@ import {CreditNoteItem} from '../../../../shared/model/billing/credit-note-item.
 import {CreditNote} from '../../../../shared/model/billing/credit-note.interface';
 import {CreditNoteActions} from '../credit-note.action';
 import { InvoiceItem } from "../../../../shared/model/billing/invoice-item.interface";
+import { AmountValidation } from '../../../../shared/component/amount-validation';
 
 @Component({
   selector: 'pams-credit-note-item-editor',
@@ -45,26 +46,28 @@ export class CreditNoteItemEditorDialog implements OnInit {
     this.chargeCodeForm = this.formBuilder.group({
        invoiceItem: <InvoiceItem>{}, 
     });
-    this.editForm = this.formBuilder.group(<CreditNoteItem>{
-      id: null,
-      description: '',
-      amount: 0,
-      balanceAmount: 0,
-      creditNoteItemDate: undefined,
+    this.editForm = this.formBuilder.group({
+      id: [null],
+      description: [''],
+      amount: [0,Validators.required],
+      balanceAmount: [0,Validators.required],
+      creditNoteItemDate: [undefined],
       chargeCode: <ChargeCode>{},
       creditNote: <CreditNote>{},
+    },
+    {
+      validator: AmountValidation.CheckAmount2 // validation method
     });
     if (this.edit) this.editForm.patchValue(this._creditNoteItem);
   }
 
   submit(item: CreditNoteItem, isValid: boolean) {
     item.creditNoteItemDate = this._creditNote.creditNoteDate;
-    
     if (!item.id) this.store.dispatch(this.actions.addCreditNoteItem(this._creditNote, item));
     else  this.store.dispatch(this.actions.updateCreditNoteItem(this._creditNote, item));
     this.dialog.close();
   }
-  
+
   show() {
       this.editForm.patchValue( { description: this.chargeCodeForm.get('invoiceItem').value.description } );
       this.editForm.patchValue( { amount: this.chargeCodeForm.get('invoiceItem').value.balanceAmount } );
