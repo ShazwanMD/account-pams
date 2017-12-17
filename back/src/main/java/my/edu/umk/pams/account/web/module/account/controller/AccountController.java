@@ -127,6 +127,7 @@ public class AccountController {
         feeSchedule.setResidencyCode(commonService.findResidencyCodeById(vo.getResidencyCode().getId()));
         feeSchedule.setCohortCode(commonService.findCohortCodeById(vo.getCohortCode().getId()));
         feeSchedule.setStudyMode(commonService.findStudyModeById(vo.getStudyMode().getId()));
+        feeSchedule.setStudyCenterCode(commonService.findStudyCenterCodeByCode(vo.getStudyCenterCode().getCode()));
         accountService.saveFeeSchedule(feeSchedule);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

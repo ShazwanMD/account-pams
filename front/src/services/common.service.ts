@@ -12,6 +12,7 @@ import {StudyMode} from '../app/shared/model/common/study-mode.interface';
 import {StateCode} from '../app/shared/model/common/state-code.interface';
 import {BankCode} from '../app/shared/model/common/bank-code.interface';
 import {ResidencyCode} from '../app/shared/model/common/residency-code.interface';
+import {StudyCenterCode} from '../app/shared/model/common/study-center-code.interface';
 import {TaxCode} from '../app/shared/model/common/tax-code.interface';
 
 @Injectable()
@@ -136,6 +137,16 @@ export class CommonService {
   removeProgramCode(code: ProgramCode) {
     return this._http.delete(this.COMMON_API + '/programCodes/' + code.code)
       .flatMap((res: Response) => Observable.of(res.text()));
+  }
+  
+  // ====================================================================================================
+  // STUDY CENTER CODES
+  // ====================================================================================================
+
+  findStudyCenterCodes(): Observable<StudyCenterCode[]> {
+    console.log('findStudyCenterCodes');
+    return this._http.get(this.COMMON_API + '/studyCenterCodes')
+      .map((res: Response) => <StudyCenterCode[]>res.json());
   }
 
   // ====================================================================================================

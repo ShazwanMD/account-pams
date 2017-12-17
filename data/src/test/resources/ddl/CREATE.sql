@@ -550,6 +550,7 @@
         COHORT_CODE_ID int8 not null,
         RESIDENCY_CODE_ID int8 not null,
         STUDY_MODE_ID int8 not null,
+        STUDY_CENTER_ID int8,
         STATUS boolean,
         primary key (ID)
     );

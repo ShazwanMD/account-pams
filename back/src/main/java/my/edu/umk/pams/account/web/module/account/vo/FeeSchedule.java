@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import my.edu.umk.pams.account.web.module.common.vo.CohortCode;
 import my.edu.umk.pams.account.web.module.common.vo.ResidencyCode;
+import my.edu.umk.pams.account.web.module.common.vo.StudyCenterCode;
 import my.edu.umk.pams.account.web.module.common.vo.StudyMode;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class FeeSchedule {
     private ResidencyCode residencyCode;
     private CohortCode cohortCode;
     private StudyMode studyMode;
+    private StudyCenterCode studyCenterCode;
     private BigDecimal totalAmount;
     private Boolean status;
 
@@ -82,6 +84,14 @@ public class FeeSchedule {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public StudyCenterCode getStudyCenterCode() {
+		return studyCenterCode;
+	}
+
+	public void setStudyCenterCode(StudyCenterCode studyCenterCode) {
+		this.studyCenterCode = studyCenterCode;
 	}
 
 	@JsonCreator
