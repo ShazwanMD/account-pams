@@ -9,6 +9,7 @@ import {CohortCode} from '../../../../shared/model/common/cohort-code.interface'
 import {StudyMode} from '../../../../shared/model/common/study-mode.interface';
 import {ResidencyCode} from '../../../../shared/model/common/residency-code.interface';
 import {FeeSchedule} from '../../../../shared/model/account/fee-schedule.interface';
+import { StudyCenterCode } from "../../../../shared/model/common/study-center-code.interface";
 
 @Component({
   selector: 'pams-fee-schedule-creator',
@@ -36,6 +37,7 @@ export class FeeScheduleCreatorDialog implements OnInit {
       residencyCode: [<ResidencyCode>{}],
       cohortCode: [<CohortCode>{}],
       studyMode: [<StudyMode>{}],
+      studyCenterCode: [<StudyCenterCode>{}],
     });
   }
 

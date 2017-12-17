@@ -81,8 +81,22 @@ public class CommonController {
         commonService.removeCohortCode(cohortCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+    
+    //====================================================================================================
+    // RESIDENCY_CODE
+    //====================================================================================================
 
+    @RequestMapping(value = "/studyCenterCodes", method = RequestMethod.GET)
+    public ResponseEntity<List<StudyCenterCode>> findStudyCenterCodes() {
+        return new ResponseEntity<List<StudyCenterCode>>(commonTransformer.toStudyCenterCodeVos(
+                commonService.findStudyCenterCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/studyCenterCodes/{code}", method = RequestMethod.GET)
+    public ResponseEntity<StudyCenterCode> findStudyCenterCodeByCode(@PathVariable String code) {
+        return new ResponseEntity<StudyCenterCode>(commonTransformer.toStudyCenterCodeVo(
+                commonService.findStudyCenterCodeByCode(code)), HttpStatus.OK);
+    }
 
     //====================================================================================================
     // RESIDENCY_CODE

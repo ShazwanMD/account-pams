@@ -33,6 +33,16 @@
         </div>
     </div>
     <div layout="row" class="pad-bottom pad-top">
+      <pams-study-center-code-select
+        [placeholder]="'Select Study Center'"
+        [innerFormControl]="createForm.controls.studyCenterCode" fxFlex="calc(100%-25px)">
+      </pams-study-center-code-select>
+       <div class="error" class="tc-red-600"
+                 *ngIf="createForm.get('studyCenterCode').invalid && createForm.get('studyCenterCode').touched">
+             Study Center is required!
+        </div>
+    </div>
+    <div layout="row" class="pad-bottom pad-top">
       <md-input-container fxFlex="calc(50%-25px)">
         <input mdInput
                type="text"

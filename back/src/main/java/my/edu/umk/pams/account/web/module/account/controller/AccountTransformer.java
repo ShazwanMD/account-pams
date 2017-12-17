@@ -59,6 +59,7 @@ public class AccountTransformer {
         m.setStudyMode(commonTransformer.toStudyModeVo(e.getStudyMode()));
         m.setTotalAmount(e.getTotalAmount());
         m.setStatus(e.getStatus());
+        m.setStudyCenterCode(commonTransformer.toStudyCenterCodeVo(e.getStudyCenterCode()));
         return m;
     }
 
