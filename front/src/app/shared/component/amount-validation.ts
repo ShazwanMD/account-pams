@@ -12,4 +12,18 @@ export class AmountValidation {
             return null
         }
     }
+
+    static CheckAmount2(AC: AbstractControl) {
+        let balanceAmount = AC.get('balanceAmount').value; // to get value in input tag
+        let amount = AC.get('amount').value; // to get value in input tag
+        console.log('amount :'+amount);
+        console.log('balanceAmount :'+balanceAmount);
+         if(balanceAmount > amount) {
+             console.log('false');
+             AC.get('balanceAmount').setErrors( {CheckAmount2: true} )
+         } else {
+             console.log('true');
+             return null
+         }
+     }
 }
