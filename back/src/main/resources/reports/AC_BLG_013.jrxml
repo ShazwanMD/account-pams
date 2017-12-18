@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credit_note_listing" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d739550e-cbb0-4625-986c-01d60042c1f0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Sun Dec 17 11:58:22 SGT 2017"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="month" uuid="8595e530-e313-43eb-898b-3b1d1323d44b">
+		<queryString>
+			<![CDATA[select
+
+     ac_cdit_note."creditnote_date" AS ac_cdit_note_creditnote_date,
+     extract (year from ac_cdit_note."creditnote_date") as OrderYear,
+     to_char (ac_cdit_note."creditnote_date", 'Mon') as OrderMonth
+
+FROM
+     "ac_cdit_note" ac_cdit_note
+
+GROUP BY 1, extract (month from ac_cdit_note."creditnote_date")
+
+ORDER BY
+     extract (month from ac_cdit_note."creditnote_date")]]>
+		</queryString>
+		<field name="ac_cdit_note_creditnote_date" class="java.sql.Timestamp"/>
+		<field name="orderyear" class="java.lang.Double"/>
+		<field name="ordermonth" class="java.lang.String"/>
+		<group name="orderyear">
+			<groupExpression><![CDATA[$F{orderyear}]]></groupExpression>
+		</group>
+		<group name="ordermonth">
+			<groupExpression><![CDATA[$F{ordermonth}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="Start_date" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="End_date" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     ac_invc."reference_no" AS ac_invc_reference_no,
+     ac_invc."id" AS ac_invc_id,
+     ac_invc."account_id" AS ac_invc_account_id,
+     ac_chrg_code."id" AS ac_chrg_code_id,
+     ac_chrg_code."code" AS ac_chrg_code_code,
+     ac_cdit_note."creditnote_date" AS ac_cdit_note_creditnote_date,
+     ac_cdit_note."id" AS ac_cdit_note_id,
+     ac_cdit_note."invoice_id" AS ac_cdit_note_invoice_id,
+     ac_cdit_note."reference_no" AS ac_cdit_note_reference_no,
+     ac_cdit_note."description" AS ac_cdit_note__description,
+     ac_cdit_note_item."id" AS ac_cdit_note_item_id,
+     ac_cdit_note_item."description" AS ac_cdit_note_item_description,
+     ac_cdit_note_item."amount" AS ac_cdit_note_item_amount,
+     ac_cdit_note_item."charge_code_id" AS ac_cdit_note_item_charge_code_id,
+     ac_acct."code" AS ac_acct_code,
+     ac_acct."description" AS ac_acct_description,
+     ac_cdit_note."fd_st" AS ac_cdit_note_fd_st,
+extract (year from ac_cdit_note."creditnote_date") as OrderYear,
+     to_char (ac_cdit_note."creditnote_date", 'Mon') as OrderMonth
+FROM
+     "ac_cdit_note" ac_cdit_note INNER JOIN "ac_invc" ac_invc ON ac_cdit_note."invoice_id" = ac_invc."id"
+     INNER JOIN "ac_acct" ac_acct ON ac_invc."account_id" = ac_acct."id"
+     INNER JOIN "ac_cdit_note_item" ac_cdit_note_item ON ac_cdit_note."id" = ac_cdit_note_item."credit_note_id"
+     INNER JOIN "ac_chrg_code" ac_chrg_code ON ac_cdit_note_item."charge_code_id" = ac_chrg_code."id"
+
+WHERE ac_cdit_note."fd_st" ='16' AND
+to_char(ac_cdit_note."creditnote_date",'DD-MM-YYYY') BETWEEN $P{Start_date} AND $P{End_date}
+
+ORDER BY
+     extract (year from ac_cdit_note."creditnote_date") ASC]]>
+	</queryString>
+	<field name="ac_invc_reference_no" class="java.lang.String"/>
+	<field name="ac_invc_id" class="java.lang.Long"/>
+	<field name="ac_invc_account_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_id" class="java.lang.Long"/>
+	<field name="ac_chrg_code_code" class="java.lang.String"/>
+	<field name="ac_cdit_note_creditnote_date" class="java.sql.Timestamp"/>
+	<field name="ac_cdit_note_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_invoice_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_reference_no" class="java.lang.String"/>
+	<field name="ac_cdit_note__description" class="java.lang.String"/>
+	<field name="ac_cdit_note_item_id" class="java.lang.Long"/>
+	<field name="ac_cdit_note_item_description" class="java.lang.String"/>
+	<field name="ac_cdit_note_item_amount" class="java.math.BigDecimal"/>
+	<field name="ac_cdit_note_item_charge_code_id" class="java.lang.Long"/>
+	<field name="ac_acct_code" class="java.lang.String"/>
+	<field name="ac_acct_description" class="java.lang.String"/>
+	<field name="ac_cdit_note_fd_st" class="java.lang.Integer"/>
+	<field name="orderyear" class="java.lang.Double"/>
+	<field name="ordermonth" class="java.lang.String"/>
+	<variable name="ac_cdit_note_item_amount_1" class="java.math.BigDecimal" resetType="Group" resetGroup="group by customer" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_cdit_note_item_amount}]]></variableExpression>
+	</variable>
+	<variable name="ac_cdit_note_item_amount_2" class="java.math.BigDecimal" resetType="Group" resetGroup="group by customer" calculation="Sum">
+		<variableExpression><![CDATA[$V{ac_cdit_note_item_amount_2}]]></variableExpression>
+	</variable>
+	<variable name="ac_cdit_note_item_amount_3" class="java.math.BigDecimal" resetType="Group" resetGroup="group by month" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_cdit_note_item_amount}]]></variableExpression>
+	</variable>
+	<variable name="group_count" class="java.lang.Integer" resetType="None" incrementType="Group" incrementGroup="group by month" calculation="Count">
+		<variableExpression><![CDATA[$V{COLUMN_NUMBER}]]></variableExpression>
+	</variable>
+	<variable name="ac_cdit_note_reference_no_1" class="java.lang.Integer" resetType="Group" resetGroup="group by customer" calculation="Count">
+		<variableExpression><![CDATA[$F{ac_cdit_note_reference_no}]]></variableExpression>
+	</variable>
+	<variable name="ac_cdit_note_id_1" class="java.lang.Integer" resetType="Group" resetGroup="group by customer">
+		<variableExpression><![CDATA[$F{ac_cdit_note_id}]]></variableExpression>
+	</variable>
+	<group name="group by month">
+		<groupExpression><![CDATA[$F{ordermonth}]]></groupExpression>
+		<groupHeader>
+			<band height="29">
+				<staticText>
+					<reportElement x="0" y="5" width="36" height="20" uuid="494e4c41-2de7-4906-8c9a-5270b0e888ef"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Year :]]></text>
+				</staticText>
+				<break>
+					<reportElement x="0" y="2" width="554" height="1" uuid="b6ff5982-96b6-466c-a105-d4b5726ebae9"/>
+				</break>
+				<textField pattern="YYYY">
+					<reportElement x="36" y="5" width="29" height="20" uuid="b1b11270-4cdf-4bdc-89a0-e2966c6e0a73"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_cdit_note_creditnote_date}]]></textFieldExpression>
+				</textField>
+				<textField pattern="MM">
+					<reportElement x="59" y="5" width="51" height="20" uuid="90e7671e-fc2b-4cef-8e10-7949f35db7b9"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_cdit_note_creditnote_date}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="34" splitType="Prevent">
+				<rectangle>
+					<reportElement x="0" y="10" width="555" height="16" backcolor="#99FF66" uuid="52f85ffc-b599-492b-bf48-174d34fd318a"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="4" y="9" width="100" height="16" uuid="ee5f065b-f510-470c-b205-3b9b65da1ff9"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total By Month (RM) :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="447" y="10" width="100" height="16" uuid="ef3f44a1-8142-4f59-9471-60d938ce8976"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[-$V{ac_cdit_note_item_amount_3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="group by customer">
+		<groupExpression><![CDATA[$F{ac_cdit_note_reference_no}]]></groupExpression>
+		<groupHeader>
+			<band height="77">
+				<rectangle>
+					<reportElement x="0" y="57" width="554" height="20" backcolor="#CCCCCC" uuid="0430cd0f-fe44-47ad-8dfa-1139a3a6e8da"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="48" y="57" width="126" height="20" uuid="2a35f7d2-abbd-4b01-9a42-b071fb3ae42a"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Account Code]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="181" y="57" width="173" height="20" uuid="4578d885-ec18-4f36-a91c-1e54e1a4e42c"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Description]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="360" y="57" width="95" height="20" uuid="7461fda7-41ee-41d7-acc9-b0192a693e30"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Invoice No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="460" y="57" width="90" height="20" uuid="16ecceb0-83cb-413e-89cd-6dddc8756bfc"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Amount]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="57" width="36" height="20" uuid="0cc25a4a-be34-4fd0-a7b3-4d810644a0d7"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="26" y="1" width="60" height="13" uuid="13b11654-7643-4e55-b9fc-35431232b269"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Doc No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="26" y="16" width="60" height="16" uuid="398521dc-240a-433d-ae67-2e53b777580a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Customer ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="26" y="31" width="60" height="19" uuid="76eee810-8a3d-4a1a-be67-4ea4d765975b"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Description]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="85" y="1" width="100" height="13" uuid="7fcc7c4a-5c91-4b26-83d2-854ca5a8936d"/>
+					<textFieldExpression><![CDATA[$F{ac_cdit_note_reference_no}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="85" y="16" width="50" height="16" uuid="8bbdc715-c649-4d8a-b707-2d68eb73f791"/>
+					<textFieldExpression><![CDATA[$F{ac_acct_code}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="142" y="16" width="272" height="16" uuid="5ecaab84-d17e-4428-ae6c-4e2afa768fd6"/>
+					<textFieldExpression><![CDATA[$F{ac_acct_description}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="85" y="31" width="329" height="27" uuid="2677e3d7-ca8a-4c5f-bee3-42e26682bf7e"/>
+					<textFieldExpression><![CDATA[$F{ac_cdit_note__description}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="427" y="18" width="28" height="16" uuid="f1b4fcdf-2fc8-45e8-8f07-78ebbe8efe96"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="427" y="34" width="27" height="20" uuid="2fe1c034-0632-47ec-b5e8-13dfee6c5076"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="135" y="16" width="12" height="16" uuid="6410812a-3552-4b71-8d77-4b7939c36c6a"/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+				<textField pattern="dd-MM-yyyy">
+					<reportElement x="465" y="16" width="89" height="15" uuid="966a9d81-fb2c-4ee1-9d09-385d94be93b9"/>
+					<textFieldExpression><![CDATA[$F{ac_cdit_note_creditnote_date}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group by customer">
+					<reportElement x="465" y="34" width="89" height="20" uuid="2d051c49-98b5-488c-8fb8-4abe9e1c1132"/>
+					<textFieldExpression><![CDATA[-$V{ac_cdit_note_item_amount_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group by customer" pattern="">
+					<reportElement x="4" y="1" width="22" height="20" uuid="0158df26-abf3-435f-a806-69b43df4f31c"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ac_cdit_note_id_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Prevent"/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band height="57">
+			<staticText>
+				<reportElement x="0" y="39" width="119" height="14" uuid="08537247-ce6f-4850-8cfe-7a07d37ee199"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Credit Note Listing from]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="66" height="13" uuid="2761f838-ae1e-47e6-bb71-6c0b86b0546b"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORT ID :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="22" width="40" height="20" uuid="779bf754-268b-4d25-ab7a-86d1f5ee06ee"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Page :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="454" y="22" width="11" height="20" uuid="d078b04b-0601-4d84-a304-0a910e3e7397"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="464" y="22" width="18" height="20" uuid="aa771300-b398-4e5b-9b86-7a86b7190f7d"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="1" width="273" height="20" uuid="dbcc08e3-350e-4089-9b55-c564e07b889c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN]]></text>
+			</staticText>
+			<textField pattern="dd-MM-yyyy hh.mm a">
+				<reportElement x="455" y="1" width="100" height="20" uuid="0eb098c1-23a4-4a55-b12e-06091cddb1ac"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="414" y="1" width="41" height="20" uuid="558ac7ba-89b8-4b8f-8fd8-623fba8c7e70"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="482" y="21" width="73" height="20" uuid="219c6f02-9e7f-4694-b7bd-7c165ac0cde5"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="176" y="38" width="13" height="14" uuid="e7ae9a2a-57e8-4191-a725-6f53eedaa341"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[to]]></text>
+			</staticText>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="118" y="38" width="59" height="14" uuid="47d52300-8962-46af-b01a-d1b9b9be7f50"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Start_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="194" y="38" width="100" height="14" uuid="e644820a-c4e6-4d20-bed6-22c8326d8e43"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{End_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Prevent"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Prevent">
+			<rectangle>
+				<reportElement x="36" y="-1" width="137" height="20" uuid="38c47872-8874-4fa7-988c-97f1921f780d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="459" y="-1" width="95" height="20" uuid="6356d85a-fb38-4295-b259-141907ef3ce6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="359" y="-1" width="100" height="20" uuid="f0469f9e-a35c-4cd3-96a0-f2c77fc4aa03"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="173" y="-1" width="186" height="20" uuid="6ff11ed0-9079-44d1-a5d2-e7d4c0f99c87"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="-1" width="36" height="20" uuid="cc217eb1-5d85-48cd-816c-c19efe4c6746"/>
+			</rectangle>
+			<textField>
+				<reportElement x="42" y="3" width="126" height="16" uuid="a879ea02-1f89-4ec6-be24-8e80bb26e8db"/>
+				<textFieldExpression><![CDATA[$F{ac_chrg_code_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="0" width="90" height="20" uuid="1439c214-8c4f-4c79-aa4c-3bd7eddf0787"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[-$F{ac_cdit_note_item_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="3" width="100" height="16" uuid="1d10f562-cb1a-482d-97e5-b249173fb6be"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ac_invc_reference_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="3" width="180" height="16" uuid="ceba4ad3-2261-48c1-ba09-3bb56124f7be"/>
+				<textFieldExpression><![CDATA[$F{ac_cdit_note_item_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="37" height="20" uuid="2a053b85-2015-4a93-8300-7f41d5ef03c8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{group by customer_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Prevent"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Prevent"/>
+	</pageFooter>
+	<summary>
+		<band height="4" splitType="Prevent"/>
+	</summary>
+</jasperReport>
