@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.account.dao;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
+import my.edu.umk.pams.account.common.model.AcStudyCenterCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.core.AcMetaState;
 import my.edu.umk.pams.account.core.AcMetadata;
@@ -55,6 +56,25 @@ public class AcFeeScheduleDaoImpl extends GenericDaoSupport<Long, AcFeeSchedule>
         query.setEntity("cohortCode", cohortCode);
         query.setEntity("residencyCode", residencyCode);
         query.setEntity("studyMode", studyMode);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        query.setCacheable(true);
+        return (AcFeeSchedule) query.uniqueResult();
+    }
+    
+    @Override
+    public AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyModeAndStudyCenterCode(AcCohortCode cohortCode, AcResidencyCode residencyCode, AcStudyMode studyMode, AcStudyCenterCode studyCenter) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sa from AcFeeSchedule sa where " +
+                "sa.cohortCode = :cohortCode " +
+                "and sa.residencyCode = :residencyCode " +
+                "and sa.studyMode = :studyMode " +
+                "and sa.studyCenterCode = :studyCenterCode " +
+                "and sa.status = true " +
+                "and sa.metadata.state = :state");
+        query.setEntity("cohortCode", cohortCode);
+        query.setEntity("residencyCode", residencyCode);
+        query.setEntity("studyMode", studyMode);
+        query.setEntity("studyCenterCode", studyCenter);
         query.setInteger("state", AcMetaState.ACTIVE.ordinal());
         query.setCacheable(true);
         return (AcFeeSchedule) query.uniqueResult();

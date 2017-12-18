@@ -44,6 +44,7 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
+import my.edu.umk.pams.account.common.model.AcStudyCenterCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -247,6 +248,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode,AcResidencyCode residencyCode, AcStudyMode studyMode) {
         return feeScheduleDao.findByCohortCodeAndResidencyCodeAndStudyMode(cohortCode, residencyCode, studyMode);
+    }
+    
+    @Override
+    public AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyModeAndStudyCenterCode(AcCohortCode cohortCode, AcResidencyCode residencyCode, AcStudyMode studyMode, AcStudyCenterCode studyCenter) {
+        return feeScheduleDao.findFeeScheduleByCohortCodeAndResidencyCodeAndStudyModeAndStudyCenterCode(cohortCode, residencyCode, studyMode, studyCenter);
     }
 
     @Override

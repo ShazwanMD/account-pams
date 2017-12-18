@@ -3,6 +3,7 @@ package my.edu.umk.pams.account.account.service;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcResidencyCode;
+import my.edu.umk.pams.account.common.model.AcStudyCenterCode;
 import my.edu.umk.pams.account.common.model.AcStudyMode;
 import my.edu.umk.pams.account.identity.model.AcActor;
 import my.edu.umk.pams.account.identity.model.AcActorType;
@@ -80,6 +81,8 @@ public interface AccountService {
 
     AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(AcCohortCode cohortCode, AcResidencyCode residencyCode, AcStudyMode studyMode);
 
+    AcFeeSchedule findFeeScheduleByCohortCodeAndResidencyCodeAndStudyModeAndStudyCenterCode(AcCohortCode cohortCode, AcResidencyCode residencyCode, AcStudyMode studyMode, AcStudyCenterCode studyCenter);
+    
     AcFeeScheduleItem findFeeScheduleItemById(Long id);
 
     List<AcFeeSchedule> findFeeSchedules(Integer offset, Integer limit);

@@ -6,6 +6,7 @@ import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.financialaid.model.AcGraduateCenterType;
 import my.edu.umk.pams.account.identity.model.AcStudent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,52 +24,84 @@ import static java.math.BigDecimal.ZERO;
 @Component("admissionChargeAttachChain")
 public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdmissionChargeAttachChain.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AdmissionChargeAttachChain.class);
 
-    @Autowired
-    private AccountService accountService;
-    
-    @Autowired
-    private BillingService billingService;    
+	@Autowired
+	private AccountService accountService;
 
-    // TODO: update invoice total amount
-    @Override
-    public boolean process(ChargeContext context) throws Exception {
-        // unwrap
-        AcInvoice invoice = context.getInvoice();
-        AcAccountCharge charge = context.getCharge();
+	@Autowired
+	private BillingService billingService;
 
-        if (!AcAccountChargeType.ADMISSION.equals(charge.getChargeType()))
-            return false;
+	// TODO: update invoice total amount
+	@Override
+	public boolean process(ChargeContext context) throws Exception {
+		// unwrap
+		AcInvoice invoice = context.getInvoice();
+		AcAccountCharge charge = context.getCharge();
 
-        AcAccountCharge admissionCharge = charge;
-        AcFeeSchedule feeSchedule = accountService
-                .findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(
-                        admissionCharge.getCohortCode(),
-                        ((AcStudent) invoice.getAccount().getActor()).getResidencyCode(),
-                        admissionCharge.getStudyMode());
+		if (!AcAccountChargeType.ADMISSION.equals(charge.getChargeType()))
+			return false;
 
-        List<AcFeeScheduleItem> scheduleItems = accountService.findFeeScheduleItems(feeSchedule);
-        LOG.debug("found {} schedule items ", scheduleItems.size());
-        BigDecimal totalAmount = ZERO;
-        for (AcFeeScheduleItem scheduleItem : scheduleItems) {
-        	
-        	if(scheduleItem.getOrdinal() == admissionCharge.getOrdinal()){
-            AcInvoiceItem item = new AcInvoiceItemImpl();
-            item.setDescription(scheduleItem.getChargeCode().getDescription());
-            item.setAmount(scheduleItem.getAmount());
-            item.setChargeCode(scheduleItem.getChargeCode());
-            item.setInvoice(invoice);
-            billingService.calculateNetAmount(item);
-            invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
-            sessionFactory.getCurrentSession().flush();
-        	}
-        }
-        invoice.setTotalAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
-        invoice.setBalanceAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
-        admissionCharge.setInvoice(invoice);
-        accountChargeDao.update(admissionCharge, securityService.getCurrentUser());
-        sessionFactory.getCurrentSession().flush();
-        return true;
-    }
+		AcAccountCharge admissionCharge = charge;
+
+		if (AcGraduateCenterType.CPS.equals(charge.getGraduateCenterType())) {
+			AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCohortCodeAndResidencyCodeAndStudyMode(
+					admissionCharge.getCohortCode(), ((AcStudent) invoice.getAccount().getActor()).getResidencyCode(),
+					admissionCharge.getStudyMode());
+
+			List<AcFeeScheduleItem> scheduleItems = accountService.findFeeScheduleItems(feeSchedule);
+			LOG.debug("found {} schedule items ", scheduleItems.size());
+			BigDecimal totalAmount = ZERO;
+			for (AcFeeScheduleItem scheduleItem : scheduleItems) {
+
+				if (scheduleItem.getOrdinal() == admissionCharge.getOrdinal()) {
+					AcInvoiceItem item = new AcInvoiceItemImpl();
+					item.setDescription(scheduleItem.getChargeCode().getDescription());
+					item.setAmount(scheduleItem.getAmount());
+					item.setChargeCode(scheduleItem.getChargeCode());
+					item.setInvoice(invoice);
+					billingService.calculateNetAmount(item);
+					invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
+					sessionFactory.getCurrentSession().flush();
+				}
+			}
+			invoice.setTotalAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
+			invoice.setBalanceAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
+			admissionCharge.setInvoice(invoice);
+			accountChargeDao.update(admissionCharge, securityService.getCurrentUser());
+			sessionFactory.getCurrentSession().flush();
+		} 
+		
+		else {
+			
+			AcFeeSchedule feeSchedule = accountService.findFeeScheduleByCohortCodeAndResidencyCodeAndStudyModeAndStudyCenterCode(
+					admissionCharge.getCohortCode(), ((AcStudent) invoice.getAccount().getActor()).getResidencyCode(),
+					admissionCharge.getStudyMode(), admissionCharge.getStudyCenterCode());
+			
+			List<AcFeeScheduleItem> scheduleItems = accountService.findFeeScheduleItems(feeSchedule);
+			LOG.debug("found {} schedule items for MGSEB ", scheduleItems.size());
+			BigDecimal totalAmount = ZERO;
+			for (AcFeeScheduleItem scheduleItem : scheduleItems) {
+
+				if (scheduleItem.getOrdinal() == admissionCharge.getOrdinal()) {
+					AcInvoiceItem item = new AcInvoiceItemImpl();
+					item.setDescription(scheduleItem.getChargeCode().getDescription());
+					item.setAmount(scheduleItem.getAmount());
+					item.setChargeCode(scheduleItem.getChargeCode());
+					item.setInvoice(invoice);
+					billingService.calculateNetAmount(item);
+					invoiceDao.addItem(invoice, item, securityService.getCurrentUser());
+					sessionFactory.getCurrentSession().flush();
+				}
+			}
+			invoice.setTotalAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
+			invoice.setBalanceAmount(invoiceDao.sumTotalAmount(invoice, securityService.getCurrentUser()));
+			admissionCharge.setInvoice(invoice);
+			accountChargeDao.update(admissionCharge, securityService.getCurrentUser());
+			sessionFactory.getCurrentSession().flush();
+		}
+
+		return true;
+
+	}
 }
