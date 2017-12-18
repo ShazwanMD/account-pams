@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="list_of_receipt" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0666eed6-f366-4997-99be-41016e3a8815">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="a64273e4-2249-46d0-b2ec-ce379835c223"/>
+	<parameter name="Start_date" class="java.lang.String"/>
+	<parameter name="End_date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     ac_rcpt."receipt_no" AS ac_rcpt_receipt_no,
+     ac_rcpt."received_date" AS ac_rcpt_received_date,
+     ac_rcpt."total_received" AS ac_rcpt_total_received,
+     ac_rcpt."vf_id" AS ac_rcpt_vf_id,
+     ac_rcpt."payment_method" AS ac_rcpt_payment_method,
+     ac_rcpt."source_no" AS ac_rcpt_source_no,
+     ac_acct."code" AS ac_acct_code,
+     ac_acct."description" AS ac_acct_description,
+     ac_rcpt."fd_st" AS ac_rcpt_fd_st,
+ ac_rcpt."reference_no" AS ac_rcpt_reference_no
+FROM
+     "ac_rcpt" ac_rcpt INNER JOIN "ac_acct" ac_acct ON ac_rcpt."account_id" = ac_acct."id"
+
+WHERE ac_rcpt."fd_st" ='16'
+
+ORDER BY ac_rcpt."reference_no" ASC]]>
+	</queryString>
+	<field name="ac_rcpt_receipt_no" class="java.lang.String"/>
+	<field name="ac_rcpt_received_date" class="java.sql.Timestamp"/>
+	<field name="ac_rcpt_total_received" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_vf_id" class="java.lang.Long"/>
+	<field name="ac_rcpt_payment_method" class="java.lang.String"/>
+	<field name="ac_rcpt_source_no" class="java.lang.String"/>
+	<field name="ac_acct_code" class="java.lang.String"/>
+	<field name="ac_acct_description" class="java.lang.String"/>
+	<field name="ac_rcpt_fd_st" class="java.lang.String"/>
+	<field name="ac_rcpt_reference_no" class="java.lang.String"/>
+	<variable name="TOTAL_RECEIVED" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_rcpt_total_received}]]></variableExpression>
+	</variable>
+	<variable name="ac_rcpt_total_received_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_rcpt_total_received}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="199" y="0" width="141" height="25" uuid="a3b78621-9fcc-447f-a388-50e7b7779370"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[List of Receipt]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="338" y="0" width="148" height="21" uuid="50036a10-861a-40b5-bd8f-724d83e4720b"/>
+				<text><![CDATA[Total Receipt Amount (RM) :]]></text>
+			</staticText>
+			<textField evaluationTime="Column">
+				<reportElement x="485" y="0" width="65" height="20" uuid="eec63551-46b2-464c-84f4-9a1a2bd5dc87"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ac_rcpt_total_received_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="13" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="25" height="13" uuid="19ab8fd7-2b01-44fb-882d-cb7a4ce04841"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-2" y="0" width="25" height="13" uuid="cb7114d6-6adc-44cd-9ef1-8a4e28f1bf44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="489" y="0" width="66" height="13" uuid="b5539072-4219-4003-8079-d436e1a21539"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="307" y="0" width="57" height="13" uuid="29a1f176-fc7f-468f-b487-8e46d63a20a4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="183" y="0" width="124" height="13" uuid="e41d00ed-c923-4461-8a48-78215d16381a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="428" y="0" width="61" height="13" uuid="1936f7cd-137b-41d4-bfd7-b7e3a111067d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="364" y="0" width="64" height="13" uuid="4fe38297-6369-4239-9512-137a5501f9cc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="122" y="0" width="61" height="13" uuid="7006ea4a-ff4c-4c6b-95ad-f943ba54d51f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="79" y="0" width="43" height="13" uuid="85524638-0622-4d46-82da-8db6083b8b74"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="0" width="54" height="13" uuid="1e70b260-b763-42c1-90a5-b584a49f50ac"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="79" y="0" width="43" height="13" uuid="c07bd054-c923-403f-a9fb-e86d529c3a8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="0" width="124" height="13" uuid="c2e73290-86b9-4088-ab2a-a664e9fa59a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Student Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="0" width="56" height="13" uuid="9e2b5334-fac2-4411-8627-810af910eeca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="0" width="61" height="13" uuid="ef492dc4-d40e-4f22-a02c-8658e258f56c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="0" width="61" height="13" uuid="c1b45687-b03c-4df1-9f7d-bd471d73984b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pymnt Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="491" y="0" width="64" height="13" uuid="45720a67-ea16-481a-97a9-6c88d36c5d17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bank Slip No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="0" width="53" height="13" uuid="87cb9adb-d1aa-4d4c-97b1-668845cf3082"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Receipt No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="0" width="59" height="13" uuid="065aa317-bdd6-42da-8b64-0b065103f01a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Student ID]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<rectangle>
+				<reportElement x="25" y="0" width="54" height="26" uuid="009177e6-8ce6-4f93-b3e9-dd38408c4e26"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="364" y="0" width="64" height="26" uuid="7aaff27d-b032-4471-bbf7-1a6c3395e97a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="183" y="0" width="124" height="26" uuid="4fa4ae96-45c0-40f2-9b1a-5b261a031a7f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="307" y="0" width="57" height="26" uuid="3635accd-8a67-447a-a844-d514f00ec4e1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="122" y="0" width="61" height="26" uuid="178b9bcb-74b5-44c6-81fe-161c6fef0fed"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="79" y="0" width="43" height="26" uuid="235f7d7d-f778-42a2-b5a6-cc8c46bc9aeb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="490" y="0" width="65" height="26" uuid="2093eec4-5618-4069-bb0f-00ef2d22531a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="428" y="0" width="61" height="26" uuid="c302b325-67b7-4d56-ae64-5072bd448908"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="25" height="26" uuid="c8a5ca05-df84-46d0-81e2-1554542d66cc"/>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="0" width="19" height="26" uuid="bcb43acf-ffce-4d3f-a998-7624a52f9255"/>
+				<textElement textAlignment="Right" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="43" height="26" uuid="0a8393b9-785d-45bc-b25c-094a756513da"/>
+				<textFieldExpression><![CDATA[$F{ac_rcpt_received_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="117" height="26" uuid="5e7904ac-1f26-4d4e-910d-1058d5481e1b"/>
+				<textFieldExpression><![CDATA[$F{ac_acct_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="0" width="61" height="26" uuid="52b3a815-090c-4f29-8c32-e9e250b55b73"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ac_acct_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="0" width="53" height="26" uuid="f7740999-02c6-436b-873b-861f0219524f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ac_rcpt_reference_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="0" width="46" height="26" uuid="636af35b-2d7f-4e97-b7fc-883cf72793b6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ac_rcpt_total_received}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="0" width="60" height="26" uuid="540741f0-1e62-48f5-a0fd-edceaa6e9dbc"/>
+				<textFieldExpression><![CDATA[(
+$F{ac_rcpt_fd_st}.equals( "0" ) ? "NEW" :
+$F{ac_rcpt_fd_st}.equals( "1" ) ? "DRAFTED" :
+$F{ac_rcpt_fd_st}.equals( "2" ) ? "REQUESTED" :
+$F{ac_rcpt_fd_st}.equals( "3" ) ? "REGISTERED" :
+$F{ac_rcpt_fd_st}.equals( "4" ) ? "PREPARED" :
+$F{ac_rcpt_fd_st}.equals( "5" ) ? "VERIFIED" :
+$F{ac_rcpt_fd_st}.equals( "6" ) ? "UPPER VERIFIED" :
+$F{ac_rcpt_fd_st}.equals( "7" ) ? "CHECKED" :
+$F{ac_rcpt_fd_st}.equals( "8" ) ? "APPROVED" :
+$F{ac_rcpt_fd_st}.equals( "9" ) ? "UPPER APPROVED" :
+$F{ac_rcpt_fd_st}.equals( "10" ) ? "SELECTED" :
+$F{ac_rcpt_fd_st}.equals( "11" ) ? "EVALUATED" :
+$F{ac_rcpt_fd_st}.equals( "12" ) ? "CANCELLED" :
+$F{ac_rcpt_fd_st}.equals( "13" ) ? "REJECTED" :
+$F{ac_rcpt_fd_st}.equals( "14" ) ? "REMOVED" :
+$F{ac_rcpt_fd_st}.equals( "15" ) ? "COMPLETED" :
+$F{ac_rcpt_fd_st}.equals( "16" ) ? "ARCHIVED" : "OTHERS"
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="0" width="61" height="26" uuid="f83abe13-f80f-477e-8248-94f37c1b7606"/>
+				<textFieldExpression><![CDATA[$F{ac_rcpt_source_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="0" width="58" height="26" uuid="4f17e636-6c11-4f85-aed9-0a9c6546f7c7"/>
+				<textFieldExpression><![CDATA[(
+$F{ac_rcpt_payment_method}.equals( "0" ) ? "CASH" :
+$F{ac_rcpt_payment_method}.equals( "1" ) ? "CHEQUE" :
+$F{ac_rcpt_payment_method}.equals( "2" ) ? "EFT" :
+$F{ac_rcpt_payment_method}.equals( "3" ) ? "BANK DRAFT" :
+$F{ac_rcpt_payment_method}.equals( "4" ) ? "PO MO" :
+$F{ac_rcpt_payment_method}.equals( "5" ) ? "BANKERS CHEQUE" :
+$F{ac_rcpt_payment_method}.equals( "6" ) ? "TELEGRAPHIC TRANSFER" : "OTHERS"
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="46" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="488" y="34" width="28" height="20" uuid="0362ae57-62fe-4b6e-aca9-a6ba5564ac40"/>
+				<text><![CDATA[Page:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="516" y="34" width="34" height="20" uuid="233ec753-9085-4409-9c77-489e5e03acea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
