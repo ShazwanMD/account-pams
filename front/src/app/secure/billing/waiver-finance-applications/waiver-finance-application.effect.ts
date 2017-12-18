@@ -169,7 +169,7 @@ export class WaiverFinanceApplicationEffects {
     .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
   .map((state) => state[1])
   .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication))
-  .do((action) => this.router.navigate(['/secure/billing/waiver-finance-applications/view-task/:taskId', action.payload])).ignoreElements();
+ // .do((action) => this.router.navigate(['/secure/billing/waiver-finance-applications/view-task/:taskId', action.payload])).ignoreElements();
   
   @Effect() itemToWaiverItem$ = this.actions$
   .ofType(WaiverFinanceApplicationActions.ITEM_TO_WAIVER_INVOICE)
@@ -260,5 +260,7 @@ export class WaiverFinanceApplicationEffects {
   .withLatestFrom(this.store$.select(...this.WAIVER_FINANCE_APPLICATION_TASK))
   .map((state) => state[1])
   .map((waiverFinanceApplication) => this.waiverFinanceApplicationActions.findWaiverItems(waiverFinanceApplication))
-  .do((action) => this.router.navigate(['/secure/billing/waiver-finance-applications/view-task/:taskId', action.payload])).ignoreElements();
+  //.do((action) => this.router.navigate(['/secure/billing/waiver-finance-applications/view-task/:taskId', action.payload])).ignoreElements();
+
+
 }

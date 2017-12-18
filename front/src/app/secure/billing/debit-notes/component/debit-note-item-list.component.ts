@@ -78,7 +78,8 @@
      this.editorDialogRef.componentInstance.debitNote = this.debitNote;
      if (debitNoteItem) this.editorDialogRef.componentInstance.debitNoteItem = debitNoteItem; // set
      this.editorDialogRef.afterClosed().subscribe((res) => {
-       console.log('close dialog');
+      this.selectedRows = []; 
+      console.log('close dialog');
      });
    }
  }

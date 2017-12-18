@@ -46,7 +46,7 @@
   </form>
 </md-dialog-content>
 <md-dialog-actions align="end">
-  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)">
+  <button md-raised-button color="accent" (click)="submit(editForm.value, editForm.valid)" [disabled]="!editForm.valid">
     {{edit ? 'Update' : 'Save'}}
   </button>
 </md-dialog-actions>
