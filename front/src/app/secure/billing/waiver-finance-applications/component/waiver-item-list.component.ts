@@ -57,14 +57,17 @@ export class WaiverItemListComponent implements OnInit {
       config.position = {top: '65px'};
       this.editorDialogRef = this.dialog.open(WaiverItemEditorDialog, config);
       this.editorDialogRef.componentInstance.waiverFinanceApplication = this.waiverFinanceApplication;
-      this.editorDialogRef.componentInstance.waiverItem = waiverItem;
+      //this.editorDialogRef.componentInstance.waiverItem = waiverItem;
+      if (waiverItem) this.editorDialogRef.componentInstance.waiverItem=waiverItem;
+      this.editorDialogRef.afterClosed().subscribe((res) => {
+        this.selectedRows = [];
+      });
     }
 
   delete(): void {
       console.log('length: ' + this.selectedRows.length);
       for (let i: number = 0; i < this.selectedRows.length; i++) {
         this.store.dispatch(this.actions.deleteWaiverItem(this.waiverFinanceApplication, this.selectedRows[i]));
-        console.log("selected rows receipt invoice" + this.selectedRows[i].invoice.referenceNo)
       }
       this.selectedRows = [];
     }
