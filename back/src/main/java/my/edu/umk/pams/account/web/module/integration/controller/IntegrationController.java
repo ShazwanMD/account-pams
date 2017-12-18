@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import static java.math.BigDecimal.ZERO;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,7 +31,14 @@ import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeImpl;
 import my.edu.umk.pams.account.account.model.AcAccountChargeType;
 import my.edu.umk.pams.account.account.model.AcAccountImpl;
+import my.edu.umk.pams.account.account.model.AcFeeSchedule;
+import my.edu.umk.pams.account.account.model.AcFeeScheduleItem;
 import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.chain.AdmissionChargeAttachChain;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
 import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.common.model.AcCohortCode;
 import my.edu.umk.pams.account.common.model.AcCohortCodeImpl;
@@ -102,6 +111,9 @@ public class IntegrationController {
 
 	@Autowired
 	private SystemService systemService;
+	
+	@Autowired
+	private AdmissionChargeAttachChain chain;
 
 	// ====================================================================================================
 	// CODES
@@ -370,7 +382,18 @@ public class IntegrationController {
 		if (null != payload.getStudyMode())
 			charge.setStudyMode(commonService.findStudyModeByCode(payload.getStudyMode().getCode()));
 		accountService.addAccountCharge(account, charge);
-
+		
+		//Auto Generate Invoice
+		AcInvoice invoice = new AcInvoiceImpl();
+        invoice.setDescription("Registration Invoice for " + academicSession.getCode());
+        invoice.setTotalAmount(BigDecimal.ZERO);
+        invoice.setBalanceAmount(BigDecimal.ZERO);
+        invoice.setIssuedDate(charge.getChargeDate());
+        invoice.setPaid(false);
+        invoice.setSession(accountService.findCurrentAcademicSession());
+        invoice.setAccount(account);
+        billingService.startInvoiceTask(invoice);
+		
 		LOG.info("Finish Receive Candidates");
 		logoutAsSystem(ctx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);

@@ -21,6 +21,7 @@ import static java.math.BigDecimal.ZERO;
 /**
  * @author PAMS
  */
+
 @Component("admissionChargeAttachChain")
 public class AdmissionChargeAttachChain extends ChainSupport<ChargeContext> {
 
