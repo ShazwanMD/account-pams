@@ -31,4 +31,13 @@ export class ReportEffects {
       window.open(url);
     }).ignoreElements();
 
+    @Effect() downloadReportListing = this.actions$
+    .ofType(ReportActions.DOWNLOAD_REPORT_LISTING)
+    .map((action) => action.payload)
+    .switchMap((repParam, repParam2) => this.reportService.downloadReportListing(repParam, repParam2))
+    .map((file) => {
+        let url = URL.createObjectURL(file);
+        window.open(url);
+      }).ignoreElements();
+
 }

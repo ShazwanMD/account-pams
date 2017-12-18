@@ -33,6 +33,16 @@ export class ReportService {
         })
         .catch((error) => this.handleError(error));
     }
+
+    downloadReportListing(repParam, repParam2): Observable<Blob> {
+      console.log('downloadReportListing');
+      let options: RequestOptions = new RequestOptions({responseType: ResponseContentType.Blob});
+      return this._http.get(this.REPORT_API +repParam.repParam + repParam2.repParam2, options)
+        .map((res: Response) => {
+          return new Blob([res.blob()], {type: "application/pdf"})
+        })
+        .catch((error) => this.handleError(error));
+    }
   
 //====================================================================================================
   // PRIVATE METHODS
