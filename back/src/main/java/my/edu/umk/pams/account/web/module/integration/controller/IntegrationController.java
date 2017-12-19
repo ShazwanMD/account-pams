@@ -366,11 +366,11 @@ public class IntegrationController {
 		charge.setSession(academicSession);
 		charge.setChargeDate(new Date());
 		charge.setReferenceNo(referenceNo);
-		charge.setSourceNo("SN"); // todo:
+		charge.setSourceNo(account.getCode()); // todo:
 		charge.setDescription("DESCRIPTION"); // todo:
 		charge.setAmount(BigDecimal.ZERO); // todo
 		charge.setOrdinal(1);
-		if (payload.getFacultyCode().equals("A10")) {
+		if (payload.getFacultyCode().getCode().equals("A10")) {
 			charge.setGraduateCenterType(AcGraduateCenterType.MGSEB);
 		} else {
 			charge.setGraduateCenterType(AcGraduateCenterType.CPS);
@@ -384,15 +384,15 @@ public class IntegrationController {
 		accountService.addAccountCharge(account, charge);
 		
 		//Auto Generate Invoice
-		AcInvoice invoice = new AcInvoiceImpl();
-        invoice.setDescription("Registration Invoice for " + academicSession.getCode());
-        invoice.setTotalAmount(BigDecimal.ZERO);
-        invoice.setBalanceAmount(BigDecimal.ZERO);
-        invoice.setIssuedDate(charge.getChargeDate());
-        invoice.setPaid(false);
-        invoice.setSession(accountService.findCurrentAcademicSession());
-        invoice.setAccount(account);
-        billingService.startInvoiceTask(invoice);
+//		AcInvoice invoice = new AcInvoiceImpl();
+//        invoice.setDescription("Registration Invoice for " + academicSession.getCode());
+//        invoice.setTotalAmount(BigDecimal.ZERO);
+//        invoice.setBalanceAmount(BigDecimal.ZERO);
+//        invoice.setIssuedDate(charge.getChargeDate());
+//        invoice.setPaid(false);
+//        invoice.setSession(accountService.findCurrentAcademicSession());
+//        invoice.setAccount(account);
+//        billingService.startInvoiceTask(invoice);
 		
 		LOG.info("Finish Receive Candidates");
 		logoutAsSystem(ctx);

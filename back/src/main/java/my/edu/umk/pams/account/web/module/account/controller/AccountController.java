@@ -1,6 +1,7 @@
 package my.edu.umk.pams.account.web.module.account.controller;
 
 import my.edu.umk.pams.account.AccountConstants;
+import my.edu.umk.pams.account.account.event.AccountClosedEvent;
 import my.edu.umk.pams.account.account.model.*;
 import my.edu.umk.pams.account.account.service.AccountService;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
@@ -18,13 +19,15 @@ import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.web.module.account.vo.*;
 import my.edu.umk.pams.account.web.module.identity.controller.IdentityTransformer;
 import my.edu.umk.pams.account.web.module.identity.vo.ActorType;
+import my.edu.umk.pams.connector.payload.AccountPayload;
+import my.edu.umk.pams.connector.payload.StudentStatus;
 import my.edu.umk.pams.account.web.module.account.vo.Sponsorship;
 import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
 import my.edu.umk.pams.account.web.module.billing.vo.InvoiceItem;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,6 +78,9 @@ public class AccountController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     // ====================================================================================================
     // ADMISSION SESSION
@@ -777,6 +783,7 @@ public class AccountController {
         account.setEffectiveBalance(
                 accountService.sumEffectiveBalanceAmount(account, accountService.findCurrentAcademicSession()));
                 //accountService.sumInvoiceBalanceAmount(account, accountService.findCurrentAcademicSession());
+
         return account;
     }
     

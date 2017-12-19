@@ -1,5 +1,6 @@
 package my.edu.umk.pams.account.billing.workflow.task;
 
+import my.edu.umk.pams.account.account.event.AccountClosedEvent;
 import my.edu.umk.pams.account.account.event.AccountRevisedEvent;
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.service.AccountService;
@@ -9,6 +10,7 @@ import my.edu.umk.pams.account.billing.service.BillingService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.connector.payload.AccountPayload;
+import my.edu.umk.pams.connector.payload.StudentStatus;
 
 import org.activiti.engine.impl.bpmn.behavior.BpmnActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
@@ -26,36 +28,60 @@ import java.math.BigDecimal;
 @Component("receipt_complete_ST")
 public class ReceiptCompleteTask extends BpmnActivityBehavior implements ActivityBehavior {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ReceiptCompleteTask.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ReceiptCompleteTask.class);
 
-    @Autowired
-    private BillingService billingService;
+	@Autowired
+	private BillingService billingService;
 
-    @Autowired
-    private SecurityService securityService;
-    
-    @Autowired
-    private ApplicationContext applicationContext;
-    
-    @Autowired
-    private AccountService accountService;
-    
-    
+	@Autowired
+	private SecurityService securityService;
 
-    public void execute(ActivityExecution execution) throws Exception {
+	@Autowired
+	private ApplicationContext applicationContext;
 
-        // retrieve receipt from variable
-        Long receiptId = (Long) execution.getVariable(RECEIPT_ID);
-        AcReceipt receipt = billingService.findReceiptById(receiptId);
+	@Autowired
+	private AccountService accountService;
 
-        LOG.debug("completing bendahari receipt {}", receipt.getReferenceNo());
+	public void execute(ActivityExecution execution) throws Exception {
 
-        // update flow state
-        receipt.getFlowdata().setState(AcFlowState.COMPLETED);
-        billingService.updateReceipt(receipt);
+		// retrieve receipt from variable
+		Long receiptId = (Long) execution.getVariable(RECEIPT_ID);
+		AcReceipt receipt = billingService.findReceiptById(receiptId);
 
-        // Mintak TOLONG jangan buat apa-apa pada complete task, complete hanya 
-        // untuk pergi next task. 
-        // Task yang last baru send ke event (untuk buat calculation) iaitu approve task
-    }
+		LOG.debug("completing bendahari receipt {}", receipt.getReferenceNo());
+
+		// update flow state
+		receipt.getFlowdata().setState(AcFlowState.COMPLETED);
+		billingService.updateReceipt(receipt);
+
+		// Mintak TOLONG jangan buat apa-apa pada complete task, complete hanya
+		// untuk pergi next task.
+		// Task yang last baru send ke event (untuk buat calculation) iaitu
+		// approve task
+
+		AcAccount account = accountService.findAccountByCode(receipt.getAccount().getCode());
+
+		LOG.info("Start Broadcast Account Payload");
+		AccountPayload payload = new AccountPayload();
+		payload.setMatricNo(account.getActor().getIdentityNo());
+		payload.setCode(account.getCode());
+
+		BigDecimal total = accountService.sumBalanceAmount(account);
+
+		payload.setBalance(total);
+		LOG.debug("Total:{}", total);
+		if (total.signum() > 0) {
+			if (receipt != null) {
+				payload.setOutstanding(false);
+				payload.setStudentStatus(StudentStatus.ACTIVE);
+			}
+		} else {
+			payload.setOutstanding(false);
+			payload.setStudentStatus(StudentStatus.ACTIVE);
+		}
+
+		AccountClosedEvent event = new AccountClosedEvent(payload);
+		applicationContext.publishEvent(event);
+		LOG.info("Finish Broadcast Account Payload");
+	}
 }

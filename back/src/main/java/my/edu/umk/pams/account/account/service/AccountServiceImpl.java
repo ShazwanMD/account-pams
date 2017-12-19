@@ -25,6 +25,7 @@ import my.edu.umk.pams.account.account.dao.AcAccountDao;
 import my.edu.umk.pams.account.account.dao.AcAccountWaiverDao;
 import my.edu.umk.pams.account.account.dao.AcChargeCodeDao;
 import my.edu.umk.pams.account.account.dao.AcFeeScheduleDao;
+import my.edu.umk.pams.account.account.event.AccountClosedEvent;
 import my.edu.umk.pams.account.account.event.AccountRevisedEvent;
 import my.edu.umk.pams.account.account.model.AcAcademicSession;
 import my.edu.umk.pams.account.account.model.AcAccount;
@@ -59,6 +60,7 @@ import my.edu.umk.pams.account.identity.model.AcStudent;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.web.module.account.vo.AccountActivityHolder;
 import my.edu.umk.pams.connector.payload.AccountPayload;
+import my.edu.umk.pams.connector.payload.StudentStatus;
 
 /**
  * @author PAMS
@@ -491,8 +493,10 @@ public class AccountServiceImpl implements AccountService {
     	
     	if(totalAdvancePayment.compareTo(BigDecimal.ZERO) > 0) {
     		return totalAdvancePayment.negate();
-    	}
+    	}    	
     	return total;
+    	
+    	
     }
     
     @Override
