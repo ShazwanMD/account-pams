@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8182e7c0-4099-4435-8753-d2ee5256c963">
 	<property name="ireport.zoom" value="1.9487171000000016"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="363"/>
+	<property name="ireport.y" value="27"/>
 	<subDataset name="knockoff" uuid="34b4ddd9-8207-41f6-a95b-e59c080fa1a4">
 		<parameter name="account_id" class="java.lang.Long"/>
 		<parameter name="advc_paymt_id" class="java.lang.String"/>
@@ -245,6 +245,8 @@ ac_actr."id",
 
 SUM(ac_knof_item."applied_amount") + SUM(ac_rfnd_pymt."amount") AS total_amount,
 (SUM(ac_knof_item."applied_amount") + (SUM(ac_rfnd_pymt."amount")))-(ac_advc_pymt."amount") AS total_amt,
+SUM (ac_advc_pymt."amount") - (ac_knof_item."applied_amount") AS total_knof_blnce,
+SUM (ac_advc_pymt."amount")-(ac_rfnd_pymt."amount") AS ttl_rfnd_amt,
      ac_actr."id" AS ac_actr_id,
      ac_actr."actor_type" AS ac_actr_actor_type,
      ac_actr."address" AS ac_actr_address,
@@ -342,6 +344,8 @@ FROM
 	</queryString>
 	<field name="total_amount" class="java.math.BigDecimal"/>
 	<field name="total_amt" class="java.math.BigDecimal"/>
+	<field name="total_knof_blnce" class="java.math.BigDecimal"/>
+	<field name="ttl_rfnd_amt" class="java.math.BigDecimal"/>
 	<field name="ac_actr_id" class="java.lang.Long"/>
 	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
 	<field name="ac_actr_address" class="java.lang.String"/>
@@ -422,7 +426,7 @@ FROM
 	<title>
 		<band height="24" splitType="Stretch">
 			<staticText>
-				<reportElement x="331" y="0" width="201" height="24" uuid="58fb632f-616b-42f0-8581-232f22e544cd"/>
+				<reportElement x="334" y="0" width="201" height="24" uuid="58fb632f-616b-42f0-8581-232f22e544cd"/>
 				<textElement>
 					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
@@ -568,7 +572,7 @@ FROM
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="181" splitType="Stretch">
+		<band height="175" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="366" y="0" width="100" height="20" backcolor="#CCCCCC" uuid="80d58e9d-fafd-4e4c-9fba-537a63a4f4d0"/>
 				<box>
@@ -669,7 +673,7 @@ FROM
 				</jr:list>
 			</componentElement>
 			<staticText>
-				<reportElement mode="Opaque" x="64" y="79" width="144" height="16" backcolor="#CCCCCC" uuid="ce152af1-6497-465e-986b-fbf8b44ab13c"/>
+				<reportElement mode="Transparent" x="64" y="79" width="144" height="16" backcolor="#CCCCCC" uuid="ce152af1-6497-465e-986b-fbf8b44ab13c"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -678,9 +682,9 @@ FROM
 		</band>
 	</columnHeader>
 	<summary>
-		<band height="209" splitType="Stretch">
+		<band height="282" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="63" y="14" width="189" height="16" backcolor="#CCCCCC" uuid="d19e92e0-b98f-4265-ab8b-1fe81735e0e8"/>
+				<reportElement mode="Transparent" x="63" y="14" width="189" height="16" backcolor="#CCCCCC" uuid="d19e92e0-b98f-4265-ab8b-1fe81735e0e8"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -715,18 +719,67 @@ FROM
 				</jr:list>
 			</componentElement>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="457" y="184" width="98" height="20" backcolor="#CCCCCC" uuid="8d3d2e54-1dcb-4e24-b48b-c80c51bd9803"/>
+				<reportElement mode="Opaque" x="459" y="188" width="96" height="20" backcolor="#CCCCCC" uuid="8d3d2e54-1dcb-4e24-b48b-c80c51bd9803"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total_amt}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="331" y="184" width="126" height="20" backcolor="#CCCCCC" uuid="d0949737-5855-472c-b172-f9dc236a9216"/>
+				<reportElement mode="Opaque" x="177" y="188" width="268" height="20" backcolor="#CCCCCC" uuid="d0949737-5855-472c-b172-f9dc236a9216"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Balance    ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="176" y="223" width="256" height="20" backcolor="#CCCCCC" uuid="c42dfcaf-7a84-4a74-85c9-564c2e0715e6"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Balance Advance Payment/Knockoff   ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="459" y="223" width="96" height="20" backcolor="#CCCCCC" uuid="38761300-a478-4edc-ba9c-5e01f80ed921"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Balance    :]]></text>
+				<textFieldExpression><![CDATA[$F{total_knof_blnce}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="459" y="255" width="97" height="20" backcolor="#CCCCCC" uuid="524350c7-ea9a-4a3b-b94b-d4f52903f3bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ttl_rfnd_amt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="176" y="255" width="269" height="20" backcolor="#CCCCCC" uuid="293149f8-b7bc-48af-96a2-797479a29bf3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Balance Advance Payment / Refund Payment  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="427" y="188" width="32" height="20" backcolor="#CCCCCC" uuid="ad107fd2-3d65-4df6-9f16-fe9a9bba4c57"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="427" y="223" width="32" height="20" backcolor="#CCCCCC" uuid="5cc1475c-d791-4bab-a994-759a7f801a91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="427" y="255" width="32" height="20" backcolor="#CCCCCC" uuid="998af370-0f59-4d78-8664-e335c897c88b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
 			</staticText>
 		</band>
 	</summary>
