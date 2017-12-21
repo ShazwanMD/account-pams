@@ -36,6 +36,9 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
 
     @Column(name = "SOURCE_NO")
     private String sourceNo;
+    
+    @Column(name = "VOUCHER_NO")
+    private String voucherNo;
 
     @Column(name = "AUDIT_NO")
     private String auditNo;
@@ -104,6 +107,16 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
 	@Override
 	public void setAuditNo(String auditNo) {
 		this.auditNo = auditNo;
+	}
+
+	@Override
+	public String getVoucherNo() {
+		return voucherNo;
+	}
+
+	@Override
+	public void setVoucherNo(String voucherNo) {
+		this.voucherNo = voucherNo;
 	}
 
 	@Override

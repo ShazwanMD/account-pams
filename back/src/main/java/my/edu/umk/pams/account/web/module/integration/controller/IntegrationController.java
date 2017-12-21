@@ -326,7 +326,7 @@ public class IntegrationController {
 		student.setFax(payload.getFax());
 		student.setPhone(payload.getPhone());
 		student.setMobile(payload.getMobile());
-
+		student.setIcNo(payload.getUserPayload().getNric());
 		student.setStudentStatus(AcStudentStatus.ACTIVE);
 		student.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode()));
 		student.setResidencyCode(commonService.findResidencyCodeByCode(payload.getNationalityCode().getCode()));

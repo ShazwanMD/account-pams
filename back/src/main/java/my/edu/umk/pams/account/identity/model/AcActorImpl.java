@@ -24,6 +24,12 @@ public abstract class AcActorImpl implements AcActor {
 	@Column(name = "IDENTITY_NO", unique = true, nullable = false)
 	private String identityNo;
 
+	@Column(name = "IC_NO", unique = true, nullable = false)
+	private String icNo;
+	
+	@Column(name = "ACC_NO", unique = true, nullable = false)
+	private String accNo;
+	
 	@NotNull
 	@Column(name = "NAME", nullable = false)
 	private String name;
@@ -132,4 +138,21 @@ public abstract class AcActorImpl implements AcActor {
 	public void setMetadata(AcMetadata metadata) {
 		this.metadata = metadata;
 	}
+
+	public String getIcNo() {
+		return icNo;
+	}
+
+	public void setIcNo(String icNo) {
+		this.icNo = icNo;
+	}
+
+	public String getAccNo() {
+		return accNo;
+	}
+
+	public void setAccNo(String accNo) {
+		this.accNo = accNo;
+	}
+	
 }

@@ -39,4 +39,12 @@ public interface AcActor extends AcMetaObject {
     AcActorType getActorType();
 
     void setActorType(AcActorType actorType);
+    
+	String getIcNo();
+
+	void setIcNo(String icNo);
+
+	String getAccNo();
+
+	void setAccNo(String accNo);
 }

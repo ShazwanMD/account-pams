@@ -19,6 +19,7 @@ public class RefundPayment extends Document {
 	private BigDecimal amount;
 	private Date issuedDate;
 	private AdvancePayment payments;
+	private String voucherNo;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -76,7 +77,15 @@ public class RefundPayment extends Document {
 		this.payments = payments;
 	}
 
-    @JsonCreator
+    public String getVoucherNo() {
+		return voucherNo;
+	}
+
+	public void setVoucherNo(String voucherNo) {
+		this.voucherNo = voucherNo;
+	}
+
+	@JsonCreator
     public static RefundPayment create(String jsonString) {
     	RefundPayment o = null;
         try {

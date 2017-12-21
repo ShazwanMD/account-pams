@@ -5,6 +5,7 @@ import { AdvancePayment } from './advance-payment.interface';
 export interface RefundPayment extends MetaObject {
     referenceNo: string;
     sourceNo: string;
+    voucherNo: string;
     auditNo: string;
     description: string;
     amount: number;

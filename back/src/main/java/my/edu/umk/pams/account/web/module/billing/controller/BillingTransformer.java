@@ -469,6 +469,7 @@ public class BillingTransformer {
         vo.setReferenceNo(e.getReferenceNo());
         vo.setSourceNo(e.getSourceNo());
         vo.setAuditNo(e.getAuditNo());
+        vo.setVoucherNo(e.getVoucherNo());
         vo.setDescription(e.getDescription());
         vo.setAmount(e.getAmount());
         vo.setIssuedDate(e.getIssuedDate());
