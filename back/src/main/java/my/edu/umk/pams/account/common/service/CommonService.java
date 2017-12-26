@@ -5,6 +5,29 @@ import my.edu.umk.pams.account.common.model.*;
 import java.util.List;
 
 public interface CommonService {
+    //====================================================================================================
+    // AC PROGRAM LEVEL
+    //====================================================================================================
+
+    AcProgramLevel findProgramLevelById(Long id);
+
+    AcProgramLevel findProgramLevelByCode(String code);
+
+    List<AcProgramLevel> findProgramLevels();
+
+    List<AcProgramLevel> findProgramLevels(Integer offset, Integer limit);
+
+    List<AcProgramLevel> findProgramLevels(String filter, Integer offset, Integer limit);
+
+    Integer countProgramLevel();
+
+    Integer countProgramLevel(String filter);
+
+    void saveProgramLevel(AcProgramLevel programLevel);
+
+    void updateProgramLevel(AcProgramLevel programLevel);
+
+    void removeProgramLevel(AcProgramLevel programLevel);
 
     //====================================================================================================
     // COUNTRY CODE

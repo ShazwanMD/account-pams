@@ -64,6 +64,67 @@ public class CommonServiceImpl implements CommonService {
     
     @Autowired
     private SecurityService securityService;
+    
+    @Autowired
+    private AcProgramLevelDao programLevelDao;
+    
+    //====================================================================================================
+    // PROGRAM LEVEL
+    //====================================================================================================
+
+    @Override
+    public AcProgramLevel findProgramLevelById(Long id) {
+        return programLevelDao.findById(id);
+    }
+
+    @Override
+    public AcProgramLevel findProgramLevelByCode(String code) {
+        return programLevelDao.findByCode(code);
+    }
+
+    @Override
+    public List<AcProgramLevel> findProgramLevels() {
+        return programLevelDao.find();
+    }
+
+    @Override
+    public List<AcProgramLevel> findProgramLevels(Integer offset, Integer limit) {
+        return programLevelDao.find(offset, limit);
+    }
+
+    @Override
+    public List<AcProgramLevel> findProgramLevels(String filter, Integer offset, Integer limit) {
+        return programLevelDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public Integer countProgramLevel() {
+        return programLevelDao.count();
+    }
+
+    @Override
+    public Integer countProgramLevel(String filter) {
+        return programLevelDao.count(filter);
+    }
+
+    @Override
+    public void saveProgramLevel(AcProgramLevel programLevel) {
+        programLevelDao.save(programLevel, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void updateProgramLevel(AcProgramLevel programLevel) {
+        programLevelDao.update(programLevel, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    @Override
+    public void removeProgramLevel(AcProgramLevel programLevel) {
+        programLevelDao.remove(programLevel, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
+
 
     //====================================================================================================
     // COUNTRY CODE

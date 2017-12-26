@@ -37,6 +37,10 @@ public class AcProgramCodeImpl implements AcProgramCode {
     @JoinColumn(name = "STUDY_CENTER_ID")
     private AcStudyCenterCode studyCenterCode;
     
+    @OneToOne(targetEntity = AcProgramLevelImpl.class)
+    @JoinColumn(name = "PROGRAM_LEVEL_ID", nullable = true)
+    private AcProgramLevel programLevel;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -113,6 +117,15 @@ public class AcProgramCodeImpl implements AcProgramCode {
 	public void setStudyCenterCode(AcStudyCenterCode studyCenterCode) {
 		this.studyCenterCode = studyCenterCode;
 	}
+
+	public AcProgramLevel getProgramLevel() {
+		return programLevel;
+	}
+
+	public void setProgramLevel(AcProgramLevel programLevel) {
+		this.programLevel = programLevel;
+	}
+	
 	
 	
 }

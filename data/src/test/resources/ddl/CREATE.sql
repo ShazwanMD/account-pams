@@ -13,6 +13,21 @@
         ACTOR_ID int8,
         primary key (ID)
     );
+    
+    CREATE TABLE AC_PRGM_LEVEL (
+        ID INT8 NOT NULL,
+        CODE VARCHAR(255) NOT NULL,
+        DESCRIPTION VARCHAR(255),
+        C_TS TIMESTAMP,
+        C_ID INT8,
+        D_TS TIMESTAMP,
+        D_ID INT8,
+        M_TS TIMESTAMP,
+        M_ID INT8,
+        M_ST INT4,
+        PREFIX VARCHAR(255),
+        PRIMARY KEY (ID)
+    );
 
      create table AC_ACCT_CHRG (
         ID int8 not null,
@@ -875,6 +890,7 @@
         M_ID int8,
         M_ST int4,
         FACULTY_CODE_ID int8,
+        PROGRAM_LEVEL_ID INT8,
         primary key (ID)
     );
 
@@ -2144,6 +2160,11 @@
         foreign key (WAIVER_FINANCE_ID)
         references AC_WAVR_FNCE_APLN;
         
+    ALTER TABLE AC_PRGM_CODE
+        ADD CONSTRAINT FK6B49ECAACAEA1D7
+        FOREIGN KEY (PROGRAM_LEVEL_ID)
+        REFERENCES AC_PRGM_LEVEL;    
+        
     create sequence SEQ_ACCT_CHRG;
 
     create sequence SQ_AC_ACCT;
@@ -2279,3 +2300,5 @@
     create sequence SQ_AC_WAVR_ITEM;
     
     create sequence SQ_AC_WTCH;
+    
+    CREATE SEQUENCE SQ_AC_PRGM_LEVEL;

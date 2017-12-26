@@ -313,6 +313,7 @@
                                 <srcFile>src/test/resources/data/AC_STDY_MODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_SCTY_CHRG_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/AC_STDY_CNTR_CODE.sql</srcFile>
+                                <srcFile>src/test/resources/data/AC_PRGM_LEVEL.sql</srcFile>
 
                                 <!--IDENTITY-->
                                 <srcFile>src/test/resources/data/AC_PCPL.sql</srcFile>

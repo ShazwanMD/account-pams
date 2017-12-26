@@ -25,4 +25,8 @@ public interface AcProgramCode extends AcMetaObject {
     AcStudyCenterCode getStudyCenterCode();
 
 	void setStudyCenterCode(AcStudyCenterCode studyCenterCode);
+	
+	AcProgramLevel getProgramLevel();
+
+	void setProgramLevel(AcProgramLevel programLevel);
 }
