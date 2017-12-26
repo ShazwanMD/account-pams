@@ -145,6 +145,7 @@ public class IntegrationController {
 		programCode.setCode(payload.getCode());
 		programCode.setDescription(payload.getDescriptionMs());
 		programCode.setFacultyCode(commonService.findFacultyCodeByCode(payload.getFacultyCode().getCode()));
+		programCode.setProgramLevel(commonService.findProgramLevelByCode(payload.getProgramLevel().getCode()));
 		commonService.saveProgramCode(programCode);
 
 		LOG.info("Finish Receive program code");
