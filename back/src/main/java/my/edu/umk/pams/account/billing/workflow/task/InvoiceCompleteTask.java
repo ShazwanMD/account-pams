@@ -55,28 +55,28 @@ public class InvoiceCompleteTask extends BpmnActivityBehavior
         // untuk pergi next task. 
         // Task yang last baru send ke event (untuk buat calculation) iaitu approve task
         
-    	AcAccount account = accountService.findAccountByCode(invoice.getAccount().getCode());
-        
-        LOG.info("Start Broadcast Account Payload");
-        AccountPayload payload = new AccountPayload();
-        payload.setMatricNo(account.getActor().getIdentityNo());
-        payload.setCode(account.getCode());
-       
-        BigDecimal total = accountService.sumBalanceAmount(account);
-        
-        payload.setBalance(total);
-        LOG.debug("Total:{}",total);
-        if(total.signum() > 0){
-        	payload.setOutstanding(true);
-        	payload.setStudentStatus(StudentStatus.BARRED);
-        }else{
-        	payload.setOutstanding(false);
-        	payload.setStudentStatus(StudentStatus.ACTIVE);
-        }
-        
-        AccountClosedEvent event = new AccountClosedEvent(payload);
-        applicationContext.publishEvent(event);
-        LOG.info("Finish Broadcast Account Payload");
+//    	AcAccount account = accountService.findAccountByCode(invoice.getAccount().getCode());
+//        
+//        LOG.info("Start Broadcast Account Payload");
+//        AccountPayload payload = new AccountPayload();
+//        payload.setMatricNo(account.getActor().getIdentityNo());
+//        payload.setCode(account.getCode());
+//       
+//        BigDecimal total = accountService.sumBalanceAmount(account);
+//        
+//        payload.setBalance(total);
+//        LOG.debug("Total:{}",total);
+//        if(total.signum() > 0){
+//        	payload.setOutstanding(true);
+//        	payload.setStudentStatus(StudentStatus.BARRED);
+//        }else{
+//        	payload.setOutstanding(false);
+//        	payload.setStudentStatus(StudentStatus.ACTIVE);
+//        }
+//        
+//        AccountClosedEvent event = new AccountClosedEvent(payload);
+//        applicationContext.publishEvent(event);
+//        LOG.info("Finish Broadcast Account Payload");
 
     }
 }

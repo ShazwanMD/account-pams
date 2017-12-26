@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import my.edu.umk.pams.account.core.AcMetadata;
-import my.edu.umk.pams.intake.policy.model.InProgramLevel;
 
 
 @Entity(name = "AcProgramLevel")

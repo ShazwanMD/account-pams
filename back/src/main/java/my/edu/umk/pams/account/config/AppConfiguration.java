@@ -52,9 +52,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         CacheConfig.class,
         SwaggerConfig.class,
         ChargeChainConfig.class,
-        IntegrationConfig.class,
-		JmsConfig.class,
-        EmailConfig.class,
+//        IntegrationConfig.class,
+//		JmsConfig.class,
+//        EmailConfig.class,
 //        VelocityConfig.class,
 //        ThreadingConfig.class,
 })
