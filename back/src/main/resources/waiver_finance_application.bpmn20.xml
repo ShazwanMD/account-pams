@@ -48,7 +48,7 @@
             <conditionExpression>${removeDecision}</conditionExpression>
         </sequenceFlow>
 
-        <sequenceFlow id="flow1.3" sourceRef="waiverFinanceApplication_draft_UT" targetRef="waiverFinanceApplication_register_ST">
+        <sequenceFlow id="flow1.3" sourceRef="waiverFinanceApplication_draft_UT" targetRef="waiverFinanceApplication_verify_ST">
             <conditionExpression>${!removeDecision}</conditionExpression>
         </sequenceFlow>
         <!--
