@@ -42,7 +42,7 @@ public class RefundPaymentApproveTask extends BpmnActivityBehavior implements Ac
         refund.getFlowdata().setVerifiedDate(new Timestamp(System.currentTimeMillis()));
         refund.getFlowdata().setVerifierId(securityService.getCurrentUser().getId());
         billingService.updateRefundPayment(refund);
-        //billingService.post(refund);
+        billingService.post(refund);
         applicationContext.publishEvent(new RefundApprovedEvent(refund));
         
         // Approve Task hok ni hantar ko event nak buat calculation
