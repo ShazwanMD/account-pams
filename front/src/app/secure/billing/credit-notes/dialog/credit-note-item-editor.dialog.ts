@@ -63,14 +63,11 @@ export class CreditNoteItemEditorDialog implements OnInit {
 
   submit(item: CreditNoteItem, isValid: boolean) {
     item.creditNoteItemDate = this._creditNote.creditNoteDate;
+    item.description = item.chargeCode.description;
+    item.balanceAmount = item.amount;
     if (!item.id) this.store.dispatch(this.actions.addCreditNoteItem(this._creditNote, item));
     else  this.store.dispatch(this.actions.updateCreditNoteItem(this._creditNote, item));
     this.dialog.close();
   }
 
-  show() {
-      this.editForm.patchValue( { description: this.chargeCodeForm.get('invoiceItem').value.description } );
-      this.editForm.patchValue( { amount: this.chargeCodeForm.get('invoiceItem').value.balanceAmount } );
-      this.editForm.patchValue( { chargeCode: this.chargeCodeForm.get('invoiceItem').value.chargeCode } );
-  }
 }
