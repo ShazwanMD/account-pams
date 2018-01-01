@@ -37,8 +37,10 @@ export class ListingReceiptCenterPage implements OnInit {
   
 
 downloadReportListing(reportId: Receipt,parameterReport:DateRange): void {
-  let repParam = reportId+'&Start_date=';  
-  let repParam2 = reportId+'&End_date=';  
+  let repParam = reportId+'&Start_date=' +  this.editForm.value.Start_date;
+  console.log("Start Date" + this.editForm.value.Start_date);
+  let repParam2 = reportId+'&End_date='+ this.editForm.value.End_date;
+  console.log("End Date" + this.editForm.value.End_date);
   this.store.dispatch(this.reportActions.downloadReportListing(repParam, repParam2));
 }
 
