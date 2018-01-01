@@ -1,0 +1,28 @@
+<md-card>
+  <div toolbar-buttons layout="row" layout-align="start center" flex>
+    <md-card-title>Debit Note Items
+    </md-card-title>
+    <md-chip-list *ngIf="debitNoteItems?.length > 0">
+      <md-chip color="accent">{{debitNoteItems?.length}}</md-chip>
+    </md-chip-list>
+    <span flex></span>
+  </div>
+  <md-divider></md-divider>
+
+  <td-data-table
+    #dataTable
+    [data]="debitNoteItems"
+    [columns]="columns"
+    [sortBy]="summary"
+    [sortOrder]="ASC"
+    [sortable]="false"
+    dense>
+    <template tdDataTableTemplate="key" let-value="value" let-row="row" let-column="column">
+      <div layout="row">
+        <span flex="40">{{value}}</span>
+      </div>
+    </template>
+  <template tdDataTableTemplate="debitNoteItemDate" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['debitNoteItemDate'] | date: 'dd-MMM-yyyy'}}</div>
+  </template>
+  </td-data-table>

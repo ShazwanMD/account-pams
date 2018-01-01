@@ -28,11 +28,13 @@
                   <p md-line>Description</p>
                 </md-list-item>
               </md-list>
+            </div>
+            <div layout="column" flex>
               <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(debitNotes$|async)?.chargeCode?.description}}</h4>
-                  <p md-line>Charge Code</p>
+                  <h4 md-line>{{(debitNotes$|async)?.debitNoteDate| date: 'dd-MMM-yyyy'}}</h4>
+                  <p md-line>Date</p>
                 </md-list-item>
               </md-list>
               <md-list dense>
@@ -43,48 +45,21 @@
                 </md-list-item>
               </md-list>
             </div>
-            <div layout="column" flex>
-              <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(debitNotes$|async)?.debitNoteDate| date: 'dd-MMM-yyyy'}}</h4>
-                  <p md-line>Date</p>
-                </md-list-item>
-                <!--<md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(debitNotes$|async)?.accountCode}}</h4>
-                  <p md-line>Account</p>
-                </md-list-item>-->
-              </md-list>
-              <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(debitNotes$|async)?.totalAmount|currency:'MYR':true:'1.2-2'}}</h4>
-                  <p md-line>Total Amount</p>
-                </md-list-item>
-              </md-list>
-              <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(debitNotes$|async)?.flowState}}</h4>
-                  <p md-line>Status</p>
-                </md-list-item>
-              </md-list>
-            </div>
           </div>
           <md-card-actions>
 
           </md-card-actions>
         </md-card>
 
-        <!--<pams-debit-note-item-list
+        <pams-debit-note-item-list-only
           [debitNote]="debitNotes$ | async"
           [debitNoteItems]="debitNoteItems$ | async">
-        </pams-debit-note-item-list>-->
+        </pams-debit-note-item-list-only>
 
       </div>
       <div flex-gt-md="30">
         <pams-debit-note-status [debitNote]="debitNotes$ | async"></pams-debit-note-status>
+        <pams-debit-note-detail-action [debitNote]="debitNotes$ | async"></pams-debit-note-detail-action>
       </div>
     </div>
   </div>

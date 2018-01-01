@@ -29,6 +29,8 @@ import {ChargeCodeSubModule} from '../../account/charge-codes/index';
 import {DebitNoteActionComponent} from './component/debit-note-action.component';
 import {PipeModule} from '../../../app.pipe.module';
 import { DebitNoteItemListComponent } from "./component/debit-note-item-list.component";
+import { DebitNoteItemListOnlyComponent } from "./component/debit-note-item-list-only.component";
+import { DebitNoteDetailActionComponent } from "./component/debit-note-detail-action.component";
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import { DebitNoteItemListComponent } from "./component/debit-note-item-list.com
     DebitNoteStatusComponent,
     DebitNoteItemListComponent,
     DebitNoteActionComponent,
-
+    DebitNoteItemListOnlyComponent,
+    DebitNoteDetailActionComponent,
 
   ],
   exports: [
@@ -78,6 +81,7 @@ import { DebitNoteItemListComponent } from "./component/debit-note-item-list.com
     DebitNoteVerifyTaskPanel,
     DebitNoteItemListComponent,
     DebitNoteActionComponent,
+    DebitNoteDetailActionComponent,
 
   ],
 
