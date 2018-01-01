@@ -29,6 +29,8 @@ import {PipeModule} from '../../../app.pipe.module';
 import {CreditNoteActionComponent} from './component/credit-note-action.component';
 import { CreditNoteItemListComponent } from "./component/credit-note-item-list.component";
 import { InvoiceItemSelectComponent } from "./component/invoice-items-select.component";
+import { CreditNoteItemListOnlyComponent } from "./component/credit-note-item-list-only.component";
+import { CreditNoteDetailActionComponent } from "./component/credit-note-detail-action.component";
 
 @NgModule({
   imports: [
@@ -61,7 +63,8 @@ import { InvoiceItemSelectComponent } from "./component/invoice-items-select.com
     CreditNoteItemEditorDialog,
     CreditNoteActionComponent,
     InvoiceItemSelectComponent,
-
+    CreditNoteItemListOnlyComponent,
+    CreditNoteDetailActionComponent,
   ],
   exports: [
     CreditNoteCreatorDialog,
@@ -75,7 +78,7 @@ import { InvoiceItemSelectComponent } from "./component/invoice-items-select.com
     CreditNoteStatusComponent,
     InvoiceItemSelectComponent,
     CreditNoteActionComponent,
-
+    CreditNoteDetailActionComponent,
   ],
 
 })
