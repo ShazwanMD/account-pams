@@ -29,20 +29,6 @@
                   <p md-line>Description</p>
                 </md-list-item>
               </md-list>
-              <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(creditNotes$|async)?.chargeCode?.description}}</h4>
-                  <p md-line>Charge Code</p>
-                </md-list-item>
-              </md-list>
-              <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(creditNotes$|async)?.sourceNo}}</h4>
-                  <p md-line>Invoice No</p>
-                </md-list-item>
-              </md-list>
             </div>
             <div layout="column" flex>
               <md-list dense>
@@ -55,15 +41,8 @@
               <md-list dense>
                 <md-list-item>
                   <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(creditNotes$|async)?.totalAmount|currency:'MYR':true:'1.2-2'}}</h4>
-                  <p md-line>Total Amount</p>
-                </md-list-item>
-              </md-list>
-                 <md-list dense>
-                <md-list-item>
-                  <md-icon md-list-icon>local_offer</md-icon>
-                  <h4 md-line>{{(creditNotes$|async)?.flowState}}</h4>
-                  <p md-line>Status</p>
+                  <h4 md-line>{{(creditNotes$|async)?.sourceNo}}</h4>
+                  <p md-line>Invoice No</p>
                 </md-list-item>
               </md-list>
             </div>
@@ -72,9 +51,16 @@
 
           </md-card-actions>
         </md-card>
+        
+      <pams-credit-note-item-list-only
+        [creditNote]="creditNotes$ | async"
+        [creditNoteItems]="creditNoteItems$ | async">
+      </pams-credit-note-item-list-only>
+      
       </div>
       <div flex-gt-md="30">
         <pams-credit-note-status [creditNote]="creditNotes$ | async"></pams-credit-note-status>
+        <pams-credit-note-detail-action [creditNote]="creditNotes$ | async"></pams-credit-note-detail-action>
       </div>
     </div>
   </div>
