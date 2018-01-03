@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AC_BLG_010_2_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="129dd382-b6ae-4947-b906-46493d251734">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<subDataset name="dataset1" uuid="e1b22186-0a08-4c8e-9b59-4c6a7b8ccf77">
 		<parameter name="Start_date" class="java.lang.String"/>
 		<parameter name="End_date" class="java.lang.String"/>
@@ -403,8 +403,8 @@ ac_dbit_note."debitnote_date"]]>
 					<reportElement x="461" y="81" width="93" height="20" uuid="309ff607-ddc4-43ea-b95d-065708873320"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[(
-$F{ac_dbit_note_fd_st}.equals( "0" )? "DRAFTED":
-$F{ac_dbit_note_fd_st}.equals( "1" )? "AFTER_DRAFTED":
+$F{ac_dbit_note_fd_st}.equals( "0" )? "NEW":
+$F{ac_dbit_note_fd_st}.equals( "1" )? "DRAFTED":
 $F{ac_dbit_note_fd_st}.equals( "2" )? "REQUESTED":
 $F{ac_dbit_note_fd_st}.equals( "3" )? "REGISTERED":
 $F{ac_dbit_note_fd_st}.equals( "4" )? "PREPARED":
