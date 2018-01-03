@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { BillingModuleState } from '../../billing/index';
 import { InvoiceActions } from '../../billing/invoices/invoice.action';
 import { ReportActions } from '../../../shared/report/report.action';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DateRange } from '../../../shared/model/billing/date-range.interface';
 
 @Component({
   selector: 'pams-listing-invoice-center-page',
@@ -14,22 +16,28 @@ import { ReportActions } from '../../../shared/report/report.action';
 export class ListingInvoiceCenterPage implements OnInit {
 
   @Input() invoice: Invoice;
+  private editForm: FormGroup;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private store: Store<BillingModuleState>,
     private reportActions: ReportActions,
+    private formBuilder: FormBuilder,
     private actions: InvoiceActions) {
 }
 
-  ngOnInit(): void {
-    this.route.params.subscribe(() => {
-    });
-  }
+ngOnInit(): void {
+  this.editForm = this.formBuilder.group(<DateRange>{
+    Start_date: undefined,
+    End_date: undefined,
+  });
+}
 
-  downloadReportListing(reportId,parameterReport, parameterReport2:Invoice): void {
-    let repParam = reportId+'&Start_date='+ parameterReport.issuedDate;  
-    let repParam2 = reportId+'&End_date='+ parameterReport2.issuedDate;  
-    this.store.dispatch(this.reportActions.downloadReportListing(repParam, repParam2));
+  downloadReport(reportId: Invoice,parameterReport:DateRange): void {
+    let repParam = reportId+'&Start_date=' +  this.editForm.value.Start_date;
+
+    let repParam2 = reportId+'&End_date='+ this.editForm.value.End_date;
+    console.log("End Date" + this.editForm.value.End_date);
+    this.store.dispatch(this.reportActions.downloadReport(repParam));
   }
 }

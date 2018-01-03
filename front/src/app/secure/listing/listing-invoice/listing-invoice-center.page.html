@@ -11,32 +11,33 @@
       <span flex></span>
     </div>
     <div md-content flex md-scroll-y>
+    <form [formGroup]="editForm">
       <div layout="column" layout-gt-md="row" class="inset">
         <div flex-gt-md="70">
           <md-card>
               <md-card-title>Listing Invoice</md-card-title>
-              <md-card-subtitle>Insert start and end date</md-card-subtitle>
               <md-card>
                   <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
                     <md-input-container fxFlex="calc(100%-25px)">
-                      <input mdInput type="date" placeholder="Start Date"/>
+                      <input mdInput type="date" placeholder="Start Date" formControlName="Start_date"/>
                     </md-input-container>
                   </div>
-                  
+
                   <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
                     <md-input-container fxFlex="calc(100%-25px)">
-                      <input mdInput type="date" placeholder="End Date"/>
+                      <input mdInput type="date" placeholder="End Date" formControlName="End_date"/>
                   </md-input-container>
                   </div>
                   
-                  <!-- <a md-button color="accent" class="text-upper" (click)="downloadReportListing('AC_BLG_011.jrxml&report.pdf', invoice)" [target]="'_blank'">
+                  <a md-button color="accent" class="text-upper" (click)="downloadReportListing('AC_BLG_014.jrxml&report.pdf', invoice)" [target]="'_blank'">
                       <span>View Listing Invoice</span>
-                  </a> -->
+                  </a>
 
               </md-card>
           </md-card>
         </div>
       </div>
+    </form>
     </div>
   </td-layout-manage-list>
 </td-layout-nav>
