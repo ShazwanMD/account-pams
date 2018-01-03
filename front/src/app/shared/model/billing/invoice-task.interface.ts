@@ -9,6 +9,7 @@ export interface InvoiceTask extends Document {
   referenceNo: string;
   sourceNo: string;
   accountCode: string;
+  accountName: string;
   description: string;
   totalAmount: number;
   balanceAmount: number;
