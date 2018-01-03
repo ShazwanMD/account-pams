@@ -6,16 +6,36 @@ import {appRoutes, appRoutingProviders} from '../../../app.routes';
 import {IdentityService} from '../../../../services/identity.service';
 import {CommonService} from '../../../../services/common.service';
 import {BillingService} from '../../../../services/billing.service';
+import { VoucherCenterPage } from "./voucher-center.page";
+import { RefundPaymentActions } from "../refund-payments/refund-payment.action";
+import { AccountSubModule } from "../../account/accounts/index";
+import { AcademicSessionSubModule } from "../../account/academic-sessions/index";
+import { ChargeCodeSubModule } from "../../account/charge-codes/index";
+import { CreditNoteSubModule } from "../credit-notes/index";
+import { DebitNoteSubModule } from "../debit-notes/index";
+import { RefundPaymentListComponent } from "./component/refund-payment-list.component";
+import { VoucherListComponent } from "./component/voucher-list.component";
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
+    AccountSubModule.forRoot(),
+    AcademicSessionSubModule.forRoot(),
+    ChargeCodeSubModule.forRoot(),
+    CreditNoteSubModule.forRoot(),
+    DebitNoteSubModule.forRoot(),
     appRoutes,
   ],
   declarations: [
-    // page, component, dialog
+    // page, 
+    VoucherCenterPage,
+    
+    //component, 
+    VoucherListComponent,
+    RefundPaymentListComponent,
+    //dialog
   ],
   exports: [],
   entryComponents: [
@@ -23,15 +43,16 @@ import {BillingService} from '../../../../services/billing.service';
   ],
 
 })
-export class InvoiceModule {
+export class VoucherModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: InvoiceModule,
+      ngModule: VoucherModule,
       providers: [
         appRoutingProviders,
         IdentityService,
         CommonService,
         BillingService,
+        RefundPaymentActions,
       ],
     };
   }

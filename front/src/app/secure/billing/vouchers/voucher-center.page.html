@@ -1,0 +1,36 @@
+<td-layout-nav>
+  <div toolbar-content layout="row" layout-align="center center" flex>
+    <span>PAMS: Postgraduate Management System</span>
+    <span flex></span>
+  </div>
+
+  <td-layout-manage-list #list>
+    <md-nav-list list-items>
+<!--     <md-nav-list list-items>
+      <a md-list-item (click)="showDialog()">
+        <md-icon>create</md-icon>
+        Voucher
+      </a>
+    </md-nav-list> -->
+    </md-nav-list>
+    <div toolbar-buttons layout="row" layout-align="start center" flex>
+      <span flex>Voucher Center</span>
+    </div>
+
+    <md-card>
+      <md-tab-group [selectedIndex]="0">
+        <md-tab label="Refund">
+          <pams-voucher-list
+            [refundPayments]="refundPayment$ | async"></pams-voucher-list>
+        </md-tab>
+<!--         <md-tab label="Voucher">
+        <pams-pooled-refund-payment-task-list
+            [refundPaymentTask]="pooledRefundPaymentTasks$ | async"
+            (claim)="claimTask($event)"></pams-pooled-refund-payment-task-list> 
+        </md-tab> -->
+      </md-tab-group> 
+    </md-card>
+
+  </td-layout-manage-list>
+</td-layout-nav>
+

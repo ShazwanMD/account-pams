@@ -1383,6 +1383,13 @@ public class BillingController {
         return new ResponseEntity<List<RefundPayment>>(billingTransformer.toRefundPaymentVos(refundPayments), HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/refundPayments/state/COMPLETED", method = RequestMethod.GET)
+    public ResponseEntity<List<RefundPayment>> findCompletedRefundPayments() {
+    	
+        List<AcRefundPayment> refundPayments = billingService.findRefundPaymentsByFlowStates(AcFlowState.COMPLETED);
+        return new ResponseEntity<List<RefundPayment>>(billingTransformer.toRefundPaymentVos(refundPayments), HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/refundPayments/startTask/{referenceNo}", method = RequestMethod.POST)
     public ResponseEntity<String> startRefundPaymentTask(@PathVariable String referenceNo, @RequestBody RefundPayment vo) throws Exception {
 

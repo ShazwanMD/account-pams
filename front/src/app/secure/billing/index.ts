@@ -95,6 +95,7 @@ import { AccountCharge } from '../../shared/model/account/account-charge.interfa
 import { KnockoffDebitNoteListState, knockoffDebitNoteListReducer } from "./knockoffs/knockoff-debit-note.reducer";
 import { WaiverDebitNoteState, waiverDebitNoteReducer } from "./waiver-finance-applications/waiver-debit-note.reducer";
 import { WaiverAccountChargeState, waiverAccountChargeReducer } from "./waiver-finance-applications/waiver-account-charge.reducer";
+import { VoucherModule } from "./vouchers/index";
 
 export interface BillingModuleState {
   assignedInvoiceTasks: InvoiceTaskListState;
@@ -307,6 +308,7 @@ export const billingModuleReducers = {
     AdvancePaymentSubModule.forRoot(),
     WaiverFinanceApplicationSubModule.forRoot(),
     RefundPaymentSubModule.forRoot(),
+    VoucherModule.forRoot(),
     PipeModule,
   ],
   declarations: [
