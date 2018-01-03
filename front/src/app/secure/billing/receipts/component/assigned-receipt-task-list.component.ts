@@ -27,6 +27,8 @@ export class AssignedReceiptTaskListComponent implements OnChanges{
   private columns: any[] = [
     {name: 'receivedDate', label: 'Date'},
     {name: 'referenceNo', label: 'Reference No'},
+    {name: 'account.code', label: 'Account'},
+    {name: 'account.name', label: 'Name'},
     {name: 'description', label: 'Description'},
     {name: 'receiptType', label: 'Receipt Type'},
     {name: 'paymentMethod', label: 'Payment Method'},

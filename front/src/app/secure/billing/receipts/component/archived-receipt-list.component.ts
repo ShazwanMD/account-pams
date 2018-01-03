@@ -28,6 +28,7 @@ export class ArchivedReceiptListComponent  implements OnChanges{
     {name: 'receivedDate', label: 'Date'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'account.code', label: 'Account'},
+    {name: 'account.name', label: 'Name'},
     {name: 'description', label: 'Description'},
     {name: 'receiptType', label: 'Receipt Type'},
     {name: 'paymentMethod', label: 'Payment Method'},

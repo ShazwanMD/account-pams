@@ -28,6 +28,7 @@ export class ArchivedInvoiceListComponent implements OnChanges {
     { name: 'issuedDate', label: 'Date' },
     { name: 'referenceNo', label: 'ReferenceNo' },
     { name: 'account.code', label: 'Account' },
+    { name: 'account.name', label: 'Name' },
     { name: 'description', label: 'Description' },
     { name: 'totalAmount', label: 'Total Amount' },
     { name: 'flowState', label: 'Status' },

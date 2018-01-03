@@ -28,6 +28,7 @@ export class PooledInvoiceTaskListComponent implements OnChanges{
     {name: 'issuedDate', label: 'Date'},
     {name: 'referenceNo', label: 'ReferenceNo'},
     {name: 'accountCode', label: 'Account'},
+    {name: 'accountName', label: 'Name'},
     {name: 'description', label: 'Description'},
     {name: 'totalAmount', label: 'Total Amount'},
     {name: 'flowState', label: 'Status'},

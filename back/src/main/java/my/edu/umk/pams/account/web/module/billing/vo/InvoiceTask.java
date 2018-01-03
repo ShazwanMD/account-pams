@@ -19,6 +19,7 @@ public class InvoiceTask extends Task {
     private BigDecimal balanceAmount;
     private Date issuedDate;
     private Invoice invoice;
+    private String accountName;
 
     public String getAccountCode() {
         return accountCode;
@@ -27,8 +28,16 @@ public class InvoiceTask extends Task {
     public void setAccountCode(String accountCode) {
         this.accountCode = accountCode;
     }
+    
+    public String getAccountName() {
+		return accountName;
+	}
 
-    public BigDecimal getTotalAmount() {
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+	public BigDecimal getTotalAmount() {
         return totalAmount;
     }
 
