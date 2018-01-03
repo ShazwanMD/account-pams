@@ -403,8 +403,8 @@ ac_dbit_note."debitnote_date"]]>
 					<reportElement x="461" y="81" width="93" height="20" uuid="309ff607-ddc4-43ea-b95d-065708873320"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[(
-$F{ac_dbit_note_fd_st}.equals( "0" )? "DRAFTED":
-$F{ac_dbit_note_fd_st}.equals( "1" )? "AFTER_DRAFTED":
+$F{ac_dbit_note_fd_st}.equals( "0" )? "NEW":
+$F{ac_dbit_note_fd_st}.equals( "1" )? "DRAFTED":
 $F{ac_dbit_note_fd_st}.equals( "2" )? "REQUESTED":
 $F{ac_dbit_note_fd_st}.equals( "3" )? "REGISTERED":
 $F{ac_dbit_note_fd_st}.equals( "4" )? "PREPARED":
