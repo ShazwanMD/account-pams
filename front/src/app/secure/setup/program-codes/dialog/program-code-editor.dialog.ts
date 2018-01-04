@@ -37,8 +37,7 @@ export class ProgramCodeEditorDialog implements OnInit {
     this.editorForm = this.formBuilder.group(<ProgramCode>{
       id: null,
       code: '',
-      descriptionMs: '',
-      descriptionEn: '',
+      description: '',
     });
 
     if (this.edit) this.editorForm.patchValue(this._programCode);

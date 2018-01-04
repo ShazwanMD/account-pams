@@ -24,9 +24,15 @@ import {studyCenterCodeListReducer, StudyCenterCodeListState} from './study-cent
 import {StudyCenterCodeSelectComponent} from './study-center-codes/component/study-center-code-select.component';
 import { SecurityChargeCodeSelectComponent } from "./security-charges-code/component/security-charge-code-select.component";
 import { SetupModule } from "../secure/setup/index";
+import { ProgramCodeListState, programCodeListReducer } from './program-codes/program-code-list.reducer';
+import { ProgramLevelListState, programLevelListReducer } from './program-levels/program-level-list.reducer';
+import { ProgramLevelSelectComponent } from './program-levels/component/program-level-select.component';
+import { ProgramCodeSelectComponent } from './program-codes/component/program-code-select.component';
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
+  programCodes: ProgramCodeListState;
+  programLevels: ProgramLevelListState;
   facultyCodes: CohortCodeListState;
   studyModes: StudyModeListState;
   residencyCodes: ResidencyCodeListState;
@@ -37,6 +43,8 @@ export interface CommonModuleState {
 export const INITIAL_COMMON_STATE: CommonModuleState =
   <CommonModuleState>{
     cohortCodes: [],
+    programCodes: [],
+    programLevels: [],
     facultyCodes: [],
     studyModes: [],
     residencyCodes: [],
@@ -46,6 +54,8 @@ export const INITIAL_COMMON_STATE: CommonModuleState =
 
 export const commonModuleReducers = {
   cohortCodes: cohortCodeListReducer,
+  programCodes: programCodeListReducer,
+  programLevels: programLevelListReducer,
   facultyCodes: facultyCodeListReducer,
   studyModes: studyModeListReducer,
   residencyCodes: residencyCodeListReducer,
@@ -63,6 +73,8 @@ export const commonModuleReducers = {
   ],
   declarations: [
     CohortCodeSelectComponent,
+    ProgramCodeSelectComponent,
+    ProgramLevelSelectComponent,
     FacultyCodeSelectComponent,
     StudyModeSelectComponent,
     ResidencyCodeSelectComponent,
@@ -72,6 +84,8 @@ export const commonModuleReducers = {
   ],
   exports: [
     CohortCodeSelectComponent,
+    ProgramCodeSelectComponent,
+    ProgramLevelSelectComponent,
     FacultyCodeSelectComponent,
     StudyModeSelectComponent,
     ResidencyCodeSelectComponent,

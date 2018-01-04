@@ -17,7 +17,6 @@
           <div flex-gt-md="70">
             <md-card>
                 <md-card-title>Listing Debit Note</md-card-title>
-                <md-card-subtitle>Insert start and end date</md-card-subtitle>
                 <md-card>
                     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
                       <md-input-container fxFlex="calc(100%-25px)">
@@ -30,10 +29,20 @@
                         <input mdInput type="date" placeholder="End Date" formControlName="End_date"/>
                     </md-input-container>
                     </div>
-                    
-                    
+                     
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-program-code-select [placeholder]="'Select Program Code'" [innerFormControl]="editForm.controls['programCode']" fxFlex="calc(100%-25px)"
+                        class="pad-bottom">
+                      </pams-program-code-select>
+                    </div>
 
-                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_015.jrxml&report.pdf', debitNote)" [target]="'_blank'">
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-program-level-select [placeholder]="'Select Program Level'" [innerFormControl]="editForm.controls['programLevel']" fxFlex="calc(100%-25px)"
+                        class="pad-bottom">
+                      </pams-program-level-select>
+                    </div>
+
+                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_015.jrxml&report.pdf', debitNote + editForm)" [target]="'_blank'">
                         <span>View Listing Debit Note</span>
                     </a>
   
