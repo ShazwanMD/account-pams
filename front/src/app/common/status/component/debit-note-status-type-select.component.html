@@ -1,0 +1,7 @@
+<md-select
+  [placeholder]="placeholder"
+  (change)="selectChangeEvent($event.value)" flex>
+  <md-option *ngFor="let flowState of flowStates" [value]="flowState">
+    {{flowState}}
+  </md-option>
+</md-select>

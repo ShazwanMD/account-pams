@@ -28,6 +28,7 @@ import { ProgramCodeListState, programCodeListReducer } from './program-codes/pr
 import { ProgramLevelListState, programLevelListReducer } from './program-levels/program-level-list.reducer';
 import { ProgramLevelSelectComponent } from './program-levels/component/program-level-select.component';
 import { ProgramCodeSelectComponent } from './program-codes/component/program-code-select.component';
+import { DebitNoteStatusTypeSelectComponent } from './status/component/debit-note-status-type-select.component';
 
 export interface CommonModuleState {
   cohortCodes: CohortCodeListState;
@@ -81,6 +82,7 @@ export const commonModuleReducers = {
     TaxCodeSelectComponent,
     SecurityChargeCodeSelectComponent,
     StudyCenterCodeSelectComponent,
+    DebitNoteStatusTypeSelectComponent,
   ],
   exports: [
     CohortCodeSelectComponent,
@@ -92,6 +94,7 @@ export const commonModuleReducers = {
     TaxCodeSelectComponent,
     SecurityChargeCodeSelectComponent,
     StudyCenterCodeSelectComponent,
+    DebitNoteStatusTypeSelectComponent,
   ],
 })
 export class CommonModule {
