@@ -208,4 +208,41 @@ public class CommonTransformer {
         vo.setModifierUsername(userCreator.getRealName());  
         
     }
+    
+  //====================================================================================================
+    // PROGRAM LEVEL
+    //====================================================================================================
+    public ProgramLevel toProgramLevelVo(AcProgramLevel e) {
+        ProgramLevel vo = new ProgramLevel();
+        vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setPrefix(e.getPrefix());
+        vo.setDescription(e.getDescription());
+        return vo;
+    }
+    public List<ProgramLevel> toProgramLevelVos(List<AcProgramLevel> e) {
+        List<ProgramLevel> vos = e.stream()
+                .map((e1) -> toProgramLevelVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }    
+    
+    //====================================================================================================
+    // PROGRAM CODE
+    //====================================================================================================
+    public ProgramCode toProgramCodeVo(AcProgramCode e) {
+        if(null == e) return null;
+        ProgramCode vo = new ProgramCode();
+        vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setDescription(e.getDescription());
+        vo.setProgramLevel(toProgramLevelVo(e.getProgramLevel()));
+        return vo;
+    }
+    public List<ProgramCode> toProgramCodeVos(List<AcProgramCode> e) {
+        List<ProgramCode> vos = e.stream()
+                .map((e1) -> toProgramCodeVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
 }

@@ -14,6 +14,7 @@ import {BankCode} from '../app/shared/model/common/bank-code.interface';
 import {ResidencyCode} from '../app/shared/model/common/residency-code.interface';
 import {StudyCenterCode} from '../app/shared/model/common/study-center-code.interface';
 import {TaxCode} from '../app/shared/model/common/tax-code.interface';
+import { ProgramLevel } from '../app/shared/model/common/program-level.interface';
 
 @Injectable()
 export class CommonService {
@@ -287,5 +288,15 @@ export class CommonService {
   removeSecurityChargeCode(code: SecurityChargeCode) {
     return this._http.delete(this.COMMON_API + '/securityChargeCode/' + code.id)
       .flatMap((res: Response) => Observable.of(res.text()));
+  }
+
+    // ====================================================================================================
+  // PROGRAM LEVELS
+  // ====================================================================================================
+
+  findProgramLevels(): Observable<ProgramLevel[]> {
+    console.log('findProgramLevels');
+    return this._http.get(this.COMMON_API + '/programLevels')
+      .map((res: Response) => <ProgramLevel[]>res.json());
   }
 }

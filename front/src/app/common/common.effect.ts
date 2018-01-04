@@ -33,4 +33,16 @@ export class CommonEffects {
   .map((action) => action.payload)
   .switchMap(() => this.commonService.findStudyCenterCodes())
   .map((codes) => this.commonActions.findStudyCenterCodesSuccess(codes));
+
+  @Effect() findProgramCodes$ = this.actions$
+  .ofType(CommonActions.FIND_PROGRAM_CODES)
+  .map((action) => action.payload)
+  .switchMap(() => this.commonService.findProgramCodes())
+  .map((codes) => this.commonActions.findProgramCodesSuccess(codes));
+
+  @Effect() findProgramLevels$ = this.actions$
+  .ofType(CommonActions.FIND_PROGRAM_LEVELS)
+  .map((action) => action.payload)
+  .switchMap(() => this.commonService.findProgramLevels())
+  .map((codes) => this.commonActions.findProgramLevelsSuccess(codes));
 }

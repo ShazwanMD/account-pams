@@ -212,4 +212,27 @@ export class CommonActions {
     };
   }
 
+    // ====================================================================================================
+  // PROGRAM LEVELS
+  // ====================================================================================================
+
+  static FIND_PROGRAM_LEVELS = '[Common] Find Program Levels';
+
+  findProgramLevels(): Action {
+    console.log('findProgramLevels');
+    return {
+      type: CommonActions.FIND_PROGRAM_LEVELS,
+    };
+  }
+
+  static FIND_PROGRAM_LEVELS_SUCCESS = '[Common] Find Program Levels Success';
+
+  findProgramLevelsSuccess(codes): Action {
+    console.log('findProgramLevelsSuccess');
+    return {
+      type: CommonActions.FIND_PROGRAM_LEVELS_SUCCESS,
+      payload: codes,
+    };
+  }
+
 }

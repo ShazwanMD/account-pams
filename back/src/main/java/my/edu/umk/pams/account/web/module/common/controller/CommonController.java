@@ -427,4 +427,21 @@ public class CommonController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
+    //====================================================================================================
+    // PROGRAM_CODE
+    //====================================================================================================
+    @RequestMapping(value = "/programCodes", method = RequestMethod.GET)
+    public ResponseEntity<List<ProgramCode>> findProgramCodes() {
+        return new ResponseEntity<List<ProgramCode>>(commonTransformer.toProgramCodeVos(
+                commonService.findProgramCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
+    
+    //====================================================================================================
+    // PROGRAM_LEVEL
+    //====================================================================================================
+    @RequestMapping(value = "/programLevels", method = RequestMethod.GET)
+    public ResponseEntity<List<ProgramLevel>> findProgramLevels() {
+        return new ResponseEntity<List<ProgramLevel>>(commonTransformer.toProgramLevelVos(
+                commonService.findProgramLevels("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
 }
