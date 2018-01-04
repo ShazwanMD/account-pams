@@ -20,6 +20,7 @@ public class RefundPayment extends Document {
 	private Date issuedDate;
 	private AdvancePayment payments;
 	private String voucherNo;
+	private Long state;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -83,6 +84,14 @@ public class RefundPayment extends Document {
 
 	public void setVoucherNo(String voucherNo) {
 		this.voucherNo = voucherNo;
+	}
+
+	public Long getState() {
+		return state;
+	}
+
+	public void setState(Long state) {
+		this.state = state;
 	}
 
 	@JsonCreator

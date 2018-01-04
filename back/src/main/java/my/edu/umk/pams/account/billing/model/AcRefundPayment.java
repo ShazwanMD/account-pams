@@ -26,4 +26,8 @@ public interface AcRefundPayment extends AcDocument {
 	String getVoucherNo();
 
 	void setVoucherNo(String voucherNo);
+	
+	Long getState();
+	
+    void setState(Long state);
 }

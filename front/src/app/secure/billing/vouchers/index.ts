@@ -15,6 +15,7 @@ import { CreditNoteSubModule } from "../credit-notes/index";
 import { DebitNoteSubModule } from "../debit-notes/index";
 import { RefundPaymentListComponent } from "./component/refund-payment-list.component";
 import { VoucherListComponent } from "./component/voucher-list.component";
+import { VoucherCreatorDialog } from "./dialog/voucher-creator.dialog";
 
 @NgModule({
   imports: [
@@ -35,11 +36,14 @@ import { VoucherListComponent } from "./component/voucher-list.component";
     //component, 
     VoucherListComponent,
     RefundPaymentListComponent,
+    
     //dialog
+    VoucherCreatorDialog,
   ],
   exports: [],
   entryComponents: [
     // dialog
+    VoucherCreatorDialog,
   ],
 
 })

@@ -64,6 +64,9 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
     @Column(name = "REMOVE_COMMENT")
     private String removeComment;
     
+    @Column(name = "STATE")
+    private Long state;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -199,6 +202,16 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
     }
 	
     @Override
+    public Long getState() {
+		return state;
+	}
+
+    @Override
+	public void setState(Long state) {
+		this.state = state;
+	}
+
+	@Override
     public Class<?> getInterfaceClass() {
         return AcRefundPayment.class;
     }
