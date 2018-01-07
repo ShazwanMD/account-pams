@@ -9,6 +9,8 @@ import { DateRange } from '../../../shared/model/billing/date-range.interface';
 import { DebitNote } from '../../../shared/model/billing/debit-note.interface';
 import { ProgramLevel } from '../../../shared/model/common/program-level.interface';
 import { ProgramCode } from '../../../shared/model/common/program-code.interface';
+import { FlowState } from '../../../core/flow-state.enum';
+import { DebitNoteStatusType } from '../../../shared/model/common/debit-note-status-type.enum';
 
 @Component({
   selector: 'pams-listing-debit-note-center-page',
@@ -20,6 +22,7 @@ export class ListingDebitNoteCenterPage implements OnInit {
   @Input() debitNote: DebitNote;
   @Input() programCode: ProgramCode;
   @Input() programLevel: ProgramLevel;
+  @Input() debitNoteStatusType: DebitNoteStatusType;
   private editForm: FormGroup;
 
   constructor(private router: Router,
@@ -36,15 +39,13 @@ export class ListingDebitNoteCenterPage implements OnInit {
       End_date: undefined,
       programLevel: [<ProgramLevel>{}],
       programCode: [<ProgramCode>{}],
+      debitNoteStatusType: DebitNoteStatusType,
     });
   }
-
-downloadReport(reportId: DebitNote, editForm: FormGroup): void {
-let repParam = reportId+'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date +
- '&Program_code=' + this.editForm.value.programCode.description + '&Study_level=' + this.editForm.value.programLevel.code;
-console.log("Test Output" + this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date +
-'&Program_code=' + this.editForm.value.programCode.description + '&Study_level=' + this.editForm.value.programLevel.code);
-//console.log("Study Level" + '&Program_Level=' + parameter2.code);
-this.store.dispatch(this.reportActions.downloadReport(repParam));
-}
+  downloadReport(editForm: FormGroup): void {
+    let repParam =editForm +'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
+    +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code;
+    // + '&Status='+ this.editForm.value.debitNoteStatusType;
+    this.store.dispatch(this.reportActions.downloadReport(repParam));
+    }   
 }
