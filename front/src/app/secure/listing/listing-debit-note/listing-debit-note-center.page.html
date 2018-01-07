@@ -44,14 +44,14 @@
 
                     <div layout="row" class="pad-bottom" flex>
                       <pams-debit-note-status-type-select
-                        [placeholder]="'Status'"
-                        [innerFormControl]="editForm.controls.flowState">
+                          [placeholder]="'Debit Note Status Type'" 
+                          [innerFormControl]="editForm.controls.debitNoteStatusType" fxFlex="calc(100%-25px)">
                       </pams-debit-note-status-type-select>
-                    </div>
+                   </div>
 
-                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_015.jrxml&report.pdf', debitNote + editForm)" [target]="'_blank'">
-                        <span>View Listing Debit Note</span>
-                    </a>
+                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_020.jrxml', editForm)" [target]="'_blank'">
+                      <span>View Listing Debit Note</span>
+                  </a>
   
                 </md-card>
             </md-card>

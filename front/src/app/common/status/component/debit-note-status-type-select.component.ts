@@ -1,28 +1,23 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import { FlowState } from '../../../core/flow-state.enum';
-
+import { DebitNoteStatusType } from '../../../shared/model/common/debit-note-status-type.enum';
 @Component({
  selector: 'pams-debit-note-status-type-select',
  templateUrl: './debit-note-status-type-select.component.html',
 })
 export class DebitNoteStatusTypeSelectComponent implements OnInit {
-
- private flowState: FlowState[] = <FlowState[]>[];
+ private debitNoteStatusTypes: DebitNoteStatusType[] = <DebitNoteStatusType[]>[];
  @Input() placeholder: string;
  @Input() innerFormControl: FormControl;
-
  constructor() {
-   for (let n in FlowState) {
-     if (typeof FlowState[n] === 'string')
-       this.flowState.push(FlowState[n.toString()]);
-   }
- }
-
+  for (let n in DebitNoteStatusType) {
+    if (typeof DebitNoteStatusType[n] === 'string')
+      this.debitNoteStatusTypes.push(DebitNoteStatusType[n.toString()]);
+  }
+}
  ngOnInit() {
  }
-
- selectChangeEvent(event: FlowState) {
+ selectChangeEvent(event: DebitNoteStatusType) {
    this.innerFormControl.setValue(event, {emitEvent: false});
  }
 }
