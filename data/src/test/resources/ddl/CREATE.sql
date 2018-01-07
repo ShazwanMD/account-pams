@@ -1096,7 +1096,6 @@
         M_TS timestamp,
         M_ID int8,
         M_ST int4,
-        STATE int4,
         REFERENCE_NO varchar(255),
         REMOVE_COMMENT varchar(255),
         SOURCE_NO varchar(255),

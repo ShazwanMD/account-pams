@@ -15,7 +15,7 @@ import {
     IPageChangeEvent
 } from '@covalent/core';
 import { MdSnackBar } from '@angular/material';
-import { AdvancePayment } from '../../../../shared/model/billing/advance-payment.interface';
+import { RefundPayment } from '../../../../shared/model/billing/refund-payment.interface';
 
 @Component( {
     selector: 'pams-refund-payment-list',
@@ -25,13 +25,13 @@ import { AdvancePayment } from '../../../../shared/model/billing/advance-payment
 export class RefundPaymentListComponent implements OnChanges {
 
     private columns: any[] = [
-        { name: 'referenceNo', label: 'ReferenceNo' },
-        { name: 'account.code', label: 'Account' },
-        { name: 'description', label: 'Description' },
-        { name: 'amount', label: 'Total Amount' },
-        { name: 'balanceAmount', label: 'Balance Amount' },
-        { name: 'receipt.referenceNo', label: 'Receipt' },
-        { name: 'action', label: '' },
+{ name: 'issuedDate', label: 'Date' },
+{ name: 'referenceNo', label: 'Reference No' },
+{ name: 'advancePayment.account.code', label: 'Account' },
+{ name: 'advancePayment.account.name', label: 'Name' },
+{ name: 'description', label: 'Description' },
+{ name: 'amount', label: 'Total Amount' },
+{ name: 'action', label: '' },
     ];
     filteredData: any[];
     filteredTotal: number;
@@ -42,9 +42,9 @@ export class RefundPaymentListComponent implements OnChanges {
     sortBy: string = 'referenceNo';
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    @Input() advancePayments: AdvancePayment[];
-    @Output() knockoffCreateDialog: EventEmitter<AdvancePayment> = new EventEmitter<AdvancePayment>();
-    @Output() refundPaymentCreateDialog: EventEmitter<AdvancePayment> = new EventEmitter<AdvancePayment>();
+    @Input() refundPayments: RefundPayment[];
+    @Output() VoucherCreatorDialog: EventEmitter<RefundPayment> = new EventEmitter<RefundPayment>();
+    //@Output() refundPaymentCreateDialog: EventEmitter<AdvancePayment> = new EventEmitter<AdvancePayment>();
 
     constructor( private _dataTableService: TdDataTableService,
         private snackBar: MdSnackBar ) {
@@ -72,7 +72,7 @@ export class RefundPaymentListComponent implements OnChanges {
         this.filter();
     }
     filter(): void {
-        let newData: any[] = this.advancePayments;
+        let newData: any[] = this.refundPayments;
         newData = this._dataTableService.filterData( newData, this.searchTerm, true );
         this.filteredTotal = newData.length;
         newData = this._dataTableService.sortData( newData, this.sortBy, this.sortOrder );

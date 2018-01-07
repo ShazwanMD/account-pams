@@ -31,14 +31,14 @@ export class VoucherCreatorDialog implements OnInit {
 
     ngOnInit(): void {
         this.createForm = this.formBuilder.group( {
-            id: [null],
+            id: [undefined],
             voucherNo: [''],
         } );
     }
 
     save( refundPayment: RefundPayment, isValid: boolean ) {
-        if ( isValid )
-            //this.store.dispatch( this.actions.startRefundPaymentTask( refundPayment, this._advancePayment ) )
+        console.log('payment ref no' + this._refundPayment.referenceNo);
+        this.store.dispatch( this.actions.updateRefundPayments(this._refundPayment) );
         this.dialog.close();
     }
 }

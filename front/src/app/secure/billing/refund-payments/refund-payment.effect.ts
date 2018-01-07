@@ -57,6 +57,12 @@ export class RefundPaymentEffects {
         .switchMap(( taskId ) => this.billingService.findRefundPaymentTaskByTaskId(taskId))
         .map(( task ) => this.refundPaymentActions.findRefundPaymentTaskByTaskIdSuccess(task) );
     
+    @Effect() updateRefundPayments$ = this.actions$
+    .ofType( RefundPaymentActions.UPDATE_REFUND_PAYMENT_VOUCHER )
+    .map(( action ) => action.payload )
+    .switchMap(( refundPayment ) => this.billingService.updateRefundPayments(refundPayment))
+    .map(( message ) => this.refundPaymentActions.updateRefundPaymentsSuccess(message) )
+    
     @Effect() startRefundPaymentTask$ = this.actions$
     .ofType(RefundPaymentActions.START_REFUND_PAYMENT_TASK)
     .map((action) => action.payload)

@@ -8,6 +8,7 @@ import {BillingModuleState} from '../index';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import { RefundPayment } from "../../../shared/model/billing/refund-payment.interface";
 import { RefundPaymentActions } from "../refund-payments/refund-payment.action";
+import { VoucherCreatorDialog } from "./dialog/voucher-creator.dialog";
 
 @Component({
   selector: 'pams-voucher-center',
@@ -19,6 +20,8 @@ export class VoucherCenterPage implements OnInit {
   private REFUND_PAYMENT = 'billingModuleState.refundPayments'.split('.');
   private refundPayment$: Observable<RefundPayment[]>;
 
+  private creatorDialogRef: MdDialogRef<VoucherCreatorDialog>;
+  
   constructor(private router: Router,
               private route: ActivatedRoute,
               private actions: RefundPaymentActions,
@@ -35,6 +38,27 @@ export class VoucherCenterPage implements OnInit {
   ngOnInit(): void {
     console.log('find assigned refund payment tasks');
     this.store.dispatch(this.actions.findCompletedRefundPayments());
+  }
+  
+  VoucherCreatorDialog(payment:RefundPayment): void {
+      this.showDialog(payment);
+    }
+  
+  showDialog(payment:RefundPayment): void {
+      console.log( 'showDialog' );
+      console.log('payment' + payment.referenceNo);
+      let config = new MdDialogConfig();
+      config.viewContainerRef = this.vcf;
+      config.role = 'dialog';
+      config.width = '50%';
+      config.height = '90%';
+      config.position = { top: '0px' };
+      this.creatorDialogRef = this.dialog.open( VoucherCreatorDialog, config );
+      if(payment) this.creatorDialogRef.componentInstance.refundPayment = payment;
+      this.creatorDialogRef.afterClosed().subscribe(( res ) => {
+          console.log( 'close dialog' );
+          // load something here
+      } );
   }
 }
 

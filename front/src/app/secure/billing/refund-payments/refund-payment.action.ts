@@ -220,4 +220,21 @@ export class RefundPaymentActions {
             payload: task,
       };
     }
+    
+    static UPDATE_REFUND_PAYMENT_VOUCHER = '[RefundPayment] Update Refund Payment for voucher';
+    updateRefundPayments(refundPayment): Action {
+        console.log('RefundPaymentsVoucherSuccess');
+        return {
+            type: RefundPaymentActions.UPDATE_REFUND_PAYMENT_VOUCHER,
+            payload: refundPayment,
+      };
+    }
+
+    static UPDATE_REFUND_PAYMENT_VOUCHER_SUCCESS = '[RefundPayment] Remove RefundPayment Task Success';
+    updateRefundPaymentsSuccess(message): Action {
+        return {
+            type: RefundPaymentActions.UPDATE_REFUND_PAYMENT_VOUCHER_SUCCESS,
+            payload: message,
+      };
+    }
 }

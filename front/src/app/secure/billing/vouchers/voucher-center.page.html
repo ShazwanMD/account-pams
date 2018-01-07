@@ -20,8 +20,10 @@
     <md-card>
       <md-tab-group [selectedIndex]="0">
         <md-tab label="Refund">
-          <pams-voucher-list
-            [refundPayments]="refundPayment$ | async"></pams-voucher-list>
+          <pams-refund-payment-list
+            [refundPayments]="refundPayment$ | async"
+            (VoucherCreatorDialog)="VoucherCreatorDialog($event)" 
+            ></pams-refund-payment-list>
         </md-tab>
 <!--         <md-tab label="Voucher">
         <pams-pooled-refund-payment-task-list

@@ -1,35 +1,13 @@
 package my.edu.umk.pams.account.web.module.billing.controller;
 
-import my.edu.umk.pams.account.AccountConstants;
-import my.edu.umk.pams.account.account.model.AcAcademicSession;
-import my.edu.umk.pams.account.account.model.AcAccount;
-import my.edu.umk.pams.account.account.model.AcAccountCharge;
-import my.edu.umk.pams.account.account.model.AcAccountChargeType;
-import my.edu.umk.pams.account.account.model.AcAccountImpl;
-import my.edu.umk.pams.account.account.model.AcChargeCode;
-import my.edu.umk.pams.account.account.model.AcFeeSchedule;
-import my.edu.umk.pams.account.account.model.AcFeeScheduleImpl;
-import my.edu.umk.pams.account.account.service.AccountService;
-import my.edu.umk.pams.account.billing.model.*;
-import my.edu.umk.pams.account.billing.service.BillingService;
-import my.edu.umk.pams.account.common.model.AcPaymentMethod;
-import my.edu.umk.pams.account.common.service.CommonService;
-import my.edu.umk.pams.account.core.AcFlowState;
-import my.edu.umk.pams.account.financialaid.model.AcSettlement;
-import my.edu.umk.pams.account.financialaid.model.AcWaiverApplication;
-import my.edu.umk.pams.account.financialaid.model.AcWaiverApplicationImpl;
-import my.edu.umk.pams.account.identity.model.AcActorType;
-import my.edu.umk.pams.account.identity.service.IdentityService;
-import my.edu.umk.pams.account.security.integration.AcAutoLoginToken;
-import my.edu.umk.pams.account.system.service.SystemService;
-import my.edu.umk.pams.account.util.DaoQuery;
-import my.edu.umk.pams.account.web.module.account.vo.Account;
-import my.edu.umk.pams.account.web.module.account.vo.FeeSchedule;
-import my.edu.umk.pams.account.web.module.billing.vo.*;
-import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplication;
-import my.edu.umk.pams.account.web.module.financialaid.vo.WaiverApplicationTask;
-import my.edu.umk.pams.account.web.module.util.vo.CovalentDtQuery;
-import my.edu.umk.pams.account.workflow.service.WorkflowService;
+import static java.lang.Boolean.TRUE;
+import static my.edu.umk.pams.account.AccountConstants.RECEIPT_REFERENCE_NO;
+import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_DECISION;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
@@ -38,20 +16,104 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static my.edu.umk.pams.account.AccountConstants.RECEIPT_REFERENCE_NO;
-import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_DECISION;
-import static java.lang.Boolean.TRUE;
+import my.edu.umk.pams.account.AccountConstants;
+import my.edu.umk.pams.account.account.model.AcAcademicSession;
+import my.edu.umk.pams.account.account.model.AcAccount;
+import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
+import my.edu.umk.pams.account.account.service.AccountService;
+import my.edu.umk.pams.account.billing.model.AcAdvancePayment;
+import my.edu.umk.pams.account.billing.model.AcCreditNote;
+import my.edu.umk.pams.account.billing.model.AcCreditNoteImpl;
+import my.edu.umk.pams.account.billing.model.AcCreditNoteItem;
+import my.edu.umk.pams.account.billing.model.AcCreditNoteItemImpl;
+import my.edu.umk.pams.account.billing.model.AcDebitNote;
+import my.edu.umk.pams.account.billing.model.AcDebitNoteImpl;
+import my.edu.umk.pams.account.billing.model.AcDebitNoteItem;
+import my.edu.umk.pams.account.billing.model.AcDebitNoteItemImpl;
+import my.edu.umk.pams.account.billing.model.AcInvoice;
+import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
+import my.edu.umk.pams.account.billing.model.AcInvoiceItemImpl;
+import my.edu.umk.pams.account.billing.model.AcKnockoff;
+import my.edu.umk.pams.account.billing.model.AcKnockoffAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcKnockoffAccountChargeImpl;
+import my.edu.umk.pams.account.billing.model.AcKnockoffDebitNote;
+import my.edu.umk.pams.account.billing.model.AcKnockoffDebitNoteImpl;
+import my.edu.umk.pams.account.billing.model.AcKnockoffImpl;
+import my.edu.umk.pams.account.billing.model.AcKnockoffInvoice;
+import my.edu.umk.pams.account.billing.model.AcKnockoffItem;
+import my.edu.umk.pams.account.billing.model.AcKnockoffItemImpl;
+import my.edu.umk.pams.account.billing.model.AcReceipt;
+import my.edu.umk.pams.account.billing.model.AcReceiptAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcReceiptAccountChargeImpl;
+import my.edu.umk.pams.account.billing.model.AcReceiptDebitNote;
+import my.edu.umk.pams.account.billing.model.AcReceiptDebitNoteImpl;
+import my.edu.umk.pams.account.billing.model.AcReceiptImpl;
+import my.edu.umk.pams.account.billing.model.AcReceiptInvoice;
+import my.edu.umk.pams.account.billing.model.AcReceiptInvoiceImpl;
+import my.edu.umk.pams.account.billing.model.AcReceiptItem;
+import my.edu.umk.pams.account.billing.model.AcReceiptItemImpl;
+import my.edu.umk.pams.account.billing.model.AcReceiptType;
+import my.edu.umk.pams.account.billing.model.AcRefundPayment;
+import my.edu.umk.pams.account.billing.model.AcRefundPaymentImpl;
+import my.edu.umk.pams.account.billing.model.AcWaiverAccountCharge;
+import my.edu.umk.pams.account.billing.model.AcWaiverAccountChargeImpl;
+import my.edu.umk.pams.account.billing.model.AcWaiverDebitNote;
+import my.edu.umk.pams.account.billing.model.AcWaiverDebitNoteImpl;
+import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplication;
+import my.edu.umk.pams.account.billing.model.AcWaiverFinanceApplicationImpl;
+import my.edu.umk.pams.account.billing.model.AcWaiverInvoice;
+import my.edu.umk.pams.account.billing.model.AcWaiverInvoiceImpl;
+import my.edu.umk.pams.account.billing.model.AcWaiverItem;
+import my.edu.umk.pams.account.billing.model.AcWaiverItemImpl;
+import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.common.model.AcPaymentMethod;
+import my.edu.umk.pams.account.common.service.CommonService;
+import my.edu.umk.pams.account.core.AcFlowState;
+import my.edu.umk.pams.account.identity.service.IdentityService;
+import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.account.util.DaoQuery;
+import my.edu.umk.pams.account.web.module.account.vo.Account;
+import my.edu.umk.pams.account.web.module.billing.vo.AdvancePayment;
+import my.edu.umk.pams.account.web.module.billing.vo.CreditNote;
+import my.edu.umk.pams.account.web.module.billing.vo.CreditNoteItem;
+import my.edu.umk.pams.account.web.module.billing.vo.CreditNoteTask;
+import my.edu.umk.pams.account.web.module.billing.vo.DebitNote;
+import my.edu.umk.pams.account.web.module.billing.vo.DebitNoteItem;
+import my.edu.umk.pams.account.web.module.billing.vo.DebitNoteTask;
+import my.edu.umk.pams.account.web.module.billing.vo.Invoice;
+import my.edu.umk.pams.account.web.module.billing.vo.InvoiceItem;
+import my.edu.umk.pams.account.web.module.billing.vo.InvoiceTask;
+import my.edu.umk.pams.account.web.module.billing.vo.Knockoff;
+import my.edu.umk.pams.account.web.module.billing.vo.KnockoffAccountCharge;
+import my.edu.umk.pams.account.web.module.billing.vo.KnockoffDebitNote;
+import my.edu.umk.pams.account.web.module.billing.vo.KnockoffInvoice;
+import my.edu.umk.pams.account.web.module.billing.vo.KnockoffItem;
+import my.edu.umk.pams.account.web.module.billing.vo.KnockoffTask;
+import my.edu.umk.pams.account.web.module.billing.vo.Receipt;
+import my.edu.umk.pams.account.web.module.billing.vo.ReceiptAccountCharge;
+import my.edu.umk.pams.account.web.module.billing.vo.ReceiptDebitNote;
+import my.edu.umk.pams.account.web.module.billing.vo.ReceiptInvoice;
+import my.edu.umk.pams.account.web.module.billing.vo.ReceiptItem;
+import my.edu.umk.pams.account.web.module.billing.vo.ReceiptTask;
+import my.edu.umk.pams.account.web.module.billing.vo.RefundPayment;
+import my.edu.umk.pams.account.web.module.billing.vo.RefundPaymentTask;
+import my.edu.umk.pams.account.web.module.billing.vo.WaiverAccountCharge;
+import my.edu.umk.pams.account.web.module.billing.vo.WaiverDebitNote;
+import my.edu.umk.pams.account.web.module.billing.vo.WaiverFinanceApplication;
+import my.edu.umk.pams.account.web.module.billing.vo.WaiverFinanceApplicationTask;
+import my.edu.umk.pams.account.web.module.billing.vo.WaiverInvoice;
+import my.edu.umk.pams.account.web.module.billing.vo.WaiverItem;
+import my.edu.umk.pams.account.web.module.util.vo.CovalentDtQuery;
+import my.edu.umk.pams.account.workflow.service.WorkflowService;
 
 @Transactional
 @RestController
@@ -1448,6 +1510,14 @@ public class BillingController {
        Map<String, Object> variables = new HashMap<String, Object>();
        variables.put(REMOVE_DECISION, TRUE);
        workflowService.completeTask(task, variables);
+    }
+    
+    @RequestMapping(value = "/refundPayments/vouchers/{referenceNo}", method = RequestMethod.PUT)
+ 	public void updateRefundPayments(@PathVariable String referenceNo, @RequestBody RefundPayment vo) {
+
+       AcRefundPayment refundPayment = billingService.findRefundPaymentByReferenceNo(referenceNo);
+       refundPayment.setVoucherNo(vo.getVoucherNo());
+       billingService.updateRefundPayment(refundPayment);
     }
 
     // ====================================================================================================

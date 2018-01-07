@@ -1020,6 +1020,12 @@ export class BillingService {
         return this._http.get( this.BILLING_API + '/refundPayments/viewTask/' + taskId )
             .map(( res: Response ) => <RefundPaymentTask>res.json() );
     }
+    
+    updateRefundPayments(refundPayment: RefundPayment): Observable<String> {
+        console.log( 'update Refund Payment for voucher' );
+        return this._http.put( this.BILLING_API + '/refundPayments/vouchers/' + refundPayment.referenceNo, JSON.stringify( refundPayment ))
+        .flatMap(( res: Response ) => Observable.of( res.text() ) );
+    }
 
 }
 
