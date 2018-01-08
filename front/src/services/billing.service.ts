@@ -1022,7 +1022,8 @@ export class BillingService {
     }
     
     updateRefundPayments(refundPayment: RefundPayment): Observable<String> {
-        console.log( 'update Refund Payment for voucher' );
+        console.log( 'update Refund Payment for voucher' + refundPayment.referenceNo );
+        console.log( 'update voucher' + refundPayment.voucherNo );
         return this._http.put( this.BILLING_API + '/refundPayments/vouchers/' + refundPayment.referenceNo, JSON.stringify( refundPayment ))
         .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }

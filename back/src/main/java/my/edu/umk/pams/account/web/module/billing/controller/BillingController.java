@@ -1516,6 +1516,8 @@ public class BillingController {
  	public void updateRefundPayments(@PathVariable String referenceNo, @RequestBody RefundPayment vo) {
 
        AcRefundPayment refundPayment = billingService.findRefundPaymentByReferenceNo(referenceNo);
+	       LOG.debug("refundPayment controller {}", refundPayment.getReferenceNo());
+       LOG.debug("refundPayment voucher controller {}", vo.getVoucherNo());
        refundPayment.setVoucherNo(vo.getVoucherNo());
        billingService.updateRefundPayment(refundPayment);
     }

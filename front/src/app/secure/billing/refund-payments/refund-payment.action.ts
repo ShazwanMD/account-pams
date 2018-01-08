@@ -230,7 +230,7 @@ export class RefundPaymentActions {
       };
     }
 
-    static UPDATE_REFUND_PAYMENT_VOUCHER_SUCCESS = '[RefundPayment] Remove RefundPayment Task Success';
+    static UPDATE_REFUND_PAYMENT_VOUCHER_SUCCESS = '[RefundPayment] Update Refund Payment Success';
     updateRefundPaymentsSuccess(message): Action {
         return {
             type: RefundPaymentActions.UPDATE_REFUND_PAYMENT_VOUCHER_SUCCESS,

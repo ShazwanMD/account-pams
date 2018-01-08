@@ -18,6 +18,7 @@ export class VoucherCreatorDialog implements OnInit {
 
     private _refundPayment : RefundPayment;
     private createForm: FormGroup;
+private edit: boolean = false;
 
     constructor( private formBuilder: FormBuilder,
         private store: Store<BillingModuleState>,
@@ -27,18 +28,22 @@ export class VoucherCreatorDialog implements OnInit {
 
     set refundPayment( value: RefundPayment ) {
         this._refundPayment = value;
+        this.edit = true;
     }
 
     ngOnInit(): void {
         this.createForm = this.formBuilder.group( {
             id: [undefined],
             voucherNo: [''],
+            referenceNo: [''],
         } );
+        
+        if (this.edit) this.createForm.patchValue(this._refundPayment);
     }
 
     save( refundPayment: RefundPayment, isValid: boolean ) {
         console.log('payment ref no' + this._refundPayment.referenceNo);
-        this.store.dispatch( this.actions.updateRefundPayments(this._refundPayment) );
+        this.store.dispatch( this.actions.updateRefundPayments(refundPayment) );
         this.dialog.close();
     }
 }

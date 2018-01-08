@@ -61,7 +61,7 @@ export class RefundPaymentEffects {
     .ofType( RefundPaymentActions.UPDATE_REFUND_PAYMENT_VOUCHER )
     .map(( action ) => action.payload )
     .switchMap(( refundPayment ) => this.billingService.updateRefundPayments(refundPayment))
-    .map(( message ) => this.refundPaymentActions.updateRefundPaymentsSuccess(message) )
+    .map(( message ) => this.refundPaymentActions.updateRefundPaymentsSuccess(message) );
     
     @Effect() startRefundPaymentTask$ = this.actions$
     .ofType(RefundPaymentActions.START_REFUND_PAYMENT_TASK)
