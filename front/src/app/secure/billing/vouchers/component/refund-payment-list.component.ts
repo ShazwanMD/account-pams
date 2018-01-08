@@ -29,8 +29,11 @@ export class RefundPaymentListComponent implements OnChanges {
 { name: 'referenceNo', label: 'Reference No' },
 { name: 'advancePayment.account.code', label: 'Account' },
 { name: 'advancePayment.account.name', label: 'Name' },
+{ name: 'voucherNo', label: 'Voucher No' },
 { name: 'description', label: 'Description' },
 { name: 'amount', label: 'Total Amount' },
+{name: 'refundPayment.approvedId', label: 'Creator'},
+{name: 'refundPayment.approvedDate', label: 'Created Date'},
 { name: 'action', label: '' },
     ];
     filteredData: any[];

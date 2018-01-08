@@ -12,7 +12,7 @@ import {appRoutes, appRoutingProviders} from '../../../app.routes';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService, IdentityService} from '../../../../services';
+import {CommonService, IdentityService, NotificationService} from '../../../../services';
 import {BillingService} from '../../../../services/billing.service';
 import {ReceiptCenterPage} from './receipt-center.page';
 import {ReceiptTaskWorkflowPanel} from './panel/receipt-task-workflow.panel';
@@ -151,6 +151,7 @@ export class ReceiptSubModule {
         AccountService,
         ReceiptActions,
         ReportActions,
+        NotificationService,
       ],
     };
   }

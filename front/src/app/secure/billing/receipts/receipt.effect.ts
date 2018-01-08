@@ -11,6 +11,7 @@ import { AccountService } from '../../../../services/account.service';
 import { Router } from "@angular/router";
 import { Receipt } from './../../../shared/model/billing/receipt.interface';
 import {Account} from '../../../shared/model/account/account.interface';
+import { NotificationService } from "../../../../services/notification.service";
 
 @Injectable()
 export class ReceiptEffects {
@@ -25,6 +26,7 @@ export class ReceiptEffects {
               private accountActions: AccountActions,                   
               private billingService: BillingService,
               private accountService: AccountService,
+              private notificationService: NotificationService,
               private router: Router,
               private store$: Store<BillingModuleState>) {
   }
@@ -128,7 +130,8 @@ export class ReceiptEffects {
         this.receiptActions.findPooledReceiptTasks(),
         this.receiptActions.findArchivedReceipts(),
       ],
-    ));
+    ))
+    .catch((error) => this.notificationService.showError(error));
 
   @Effect() claimReceiptTask$ = this.actions$
     .ofType(ReceiptActions.CLAIM_RECEIPT_TASK)

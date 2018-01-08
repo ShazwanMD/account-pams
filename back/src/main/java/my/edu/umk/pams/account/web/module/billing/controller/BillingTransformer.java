@@ -477,6 +477,8 @@ public class BillingTransformer {
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setApprovedDate(e.getFlowdata().getUpperApprovedDate());
+        vo.setApprovedId(e.getFlowdata().getUpperApproverId());
         commonTransformer.decorateMeta(e,vo);
         return vo;
     }

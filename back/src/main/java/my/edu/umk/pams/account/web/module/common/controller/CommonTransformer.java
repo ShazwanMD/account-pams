@@ -1,10 +1,13 @@
 package my.edu.umk.pams.account.web.module.common.controller;
 
 import my.edu.umk.pams.account.common.model.*;
+import my.edu.umk.pams.account.core.AcFlowObject;
 import my.edu.umk.pams.account.core.AcMetaObject;
 import my.edu.umk.pams.account.identity.model.AcUser;
 import my.edu.umk.pams.account.identity.service.IdentityService;
 import my.edu.umk.pams.account.web.module.common.vo.*;
+import my.edu.umk.pams.account.web.module.core.vo.FlowObject;
+import my.edu.umk.pams.account.web.module.core.vo.FlowState;
 import my.edu.umk.pams.account.web.module.core.vo.MetaObject;
 import my.edu.umk.pams.account.web.module.core.vo.MetaState;
 

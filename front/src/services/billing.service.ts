@@ -241,7 +241,8 @@ export class BillingService {
     completeReceiptTask( receiptTask: ReceiptTask ): Observable<String> {
         console.log( 'TaskId: ' + receiptTask.taskId );
         return this._http.post( this.BILLING_API + '/receipts/completeTask', JSON.stringify( receiptTask ) )
-            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+        .flatMap(( res: Response ) => Observable.of( res.text() ) )
+        .catch(this.handleError);
     }
 
     claimReceiptTask( receiptTask: ReceiptTask ): Observable<String> {
@@ -1027,6 +1028,14 @@ export class BillingService {
         return this._http.put( this.BILLING_API + '/refundPayments/vouchers/' + refundPayment.referenceNo, JSON.stringify( refundPayment ))
         .flatMap(( res: Response ) => Observable.of( res.text() ) );
     }
+    
+    //====================================================================
+    // Throw Exception
+    //====================================================================
+    private handleError(error: Response | any) {
+        let body: any = error.json();
+        return Observable.throw(body);
+      }
 
 }
 

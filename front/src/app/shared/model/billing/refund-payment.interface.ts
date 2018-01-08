@@ -10,5 +10,7 @@ export interface RefundPayment extends MetaObject {
     description: string;
     amount: number;
     issuedDate: Date;
+    approvedId: string;
+    approvedDate: Date;
     advancePayment: AdvancePayment;
 }

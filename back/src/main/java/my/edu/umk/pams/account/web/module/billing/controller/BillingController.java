@@ -5,6 +5,7 @@ import static my.edu.umk.pams.account.AccountConstants.RECEIPT_REFERENCE_NO;
 import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_DECISION;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,7 @@ import my.edu.umk.pams.account.common.model.AcPaymentMethod;
 import my.edu.umk.pams.account.common.service.CommonService;
 import my.edu.umk.pams.account.core.AcFlowState;
 import my.edu.umk.pams.account.identity.service.IdentityService;
+import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
 import my.edu.umk.pams.account.util.DaoQuery;
 import my.edu.umk.pams.account.web.module.account.vo.Account;
@@ -124,6 +126,9 @@ public class BillingController {
 
     @Autowired
     private BillingService billingService;
+    
+    @Autowired
+    private SecurityService securityService;
 
     @Autowired
     private AccountService accountService;
@@ -597,6 +602,10 @@ public class BillingController {
     @RequestMapping(value = "/receipts/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeReceiptTask(@RequestBody ReceiptTask vo) {
         
+    	AcReceiptItem receiptItem = null;
+    	if(null == receiptItem)
+    		throw new IllegalArgumentException("Please enter receipt item");
+    	
         Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -1516,9 +1525,11 @@ public class BillingController {
  	public void updateRefundPayments(@PathVariable String referenceNo, @RequestBody RefundPayment vo) {
 
        AcRefundPayment refundPayment = billingService.findRefundPaymentByReferenceNo(referenceNo);
-	       LOG.debug("refundPayment controller {}", refundPayment.getReferenceNo());
+	   LOG.debug("refundPayment controller {}", refundPayment.getReferenceNo());
        LOG.debug("refundPayment voucher controller {}", vo.getVoucherNo());
        refundPayment.setVoucherNo(vo.getVoucherNo());
+       refundPayment.getFlowdata().setUpperApprovedDate(new Timestamp(System.currentTimeMillis()));
+       refundPayment.getFlowdata().setUpperApproverId(securityService.getCurrentUser().getId());
        billingService.updateRefundPayment(refundPayment);
     }
 

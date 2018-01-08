@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.web.module.billing.vo;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,6 +21,8 @@ public class RefundPayment extends Document {
 	private Date issuedDate;
 	private AdvancePayment payments;
 	private String voucherNo;
+	private Timestamp approvedDate;
+	private Long approvedId;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -83,6 +86,22 @@ public class RefundPayment extends Document {
 
 	public void setVoucherNo(String voucherNo) {
 		this.voucherNo = voucherNo;
+	}
+
+	public Timestamp getApprovedDate() {
+		return approvedDate;
+	}
+
+	public void setApprovedDate(Timestamp approvedDate) {
+		this.approvedDate = approvedDate;
+	}
+
+	public Long getApprovedId() {
+		return approvedId;
+	}
+
+	public void setApprovedId(Long approvedId) {
+		this.approvedId = approvedId;
 	}
 
 	@JsonCreator

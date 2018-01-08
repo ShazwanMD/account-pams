@@ -16,9 +16,9 @@ export class NotificationService {
   }
 
   showError(error: ApplicationError): Observable<any> {
-    let config: MdSnackBarConfig = new MdSnackBarConfig();
-    config.duration = 5000;
-    this.snackBar.open(error.error, undefined, config);
+//    let config: MdSnackBarConfig = new MdSnackBarConfig();
+//    config.duration = 5000;
+//    this.snackBar.open(error.error, undefined, config);
     return Observable.empty();
   }
 }
