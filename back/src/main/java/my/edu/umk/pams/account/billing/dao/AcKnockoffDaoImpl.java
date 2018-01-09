@@ -573,4 +573,13 @@ public class AcKnockoffDaoImpl extends GenericDaoSupport<Long, AcKnockoff> imple
 		return count.intValue() > 0; // > 0 = true, <=0 false
     }   
     
+    @Override
+    public Integer countItem(AcKnockoff knockoff) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(ri) from AcKnockoffItem ri where " +
+                "ri.knockoff = :knockoff");
+        query.setEntity("knockoff", knockoff);
+        return ((Long) query.uniqueResult()).intValue();
+    }
+    
 }

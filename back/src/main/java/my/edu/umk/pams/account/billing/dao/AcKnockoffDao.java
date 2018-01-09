@@ -108,4 +108,6 @@ public interface AcKnockoffDao extends GenericDao<Long, AcKnockoff> {
 	boolean hasChargeKnockoffItem(AcAccountCharge accountCharge, AcKnockoff knockoff);
 
 	boolean hasDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff);
+	
+	Integer countItem(AcKnockoff knockoff);
 }

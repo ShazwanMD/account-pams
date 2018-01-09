@@ -116,10 +116,7 @@ export class ReceiptDraftTaskPanel implements OnInit {
   register() {
     this.store.dispatch(this.actions.completeReceiptTask(this.receiptTask));
     this.goBack();
-    
-    let snackBarRef = this.snackBar.open( 'Receipt Item has not been inserted', 'OK' );
-    snackBarRef.afterDismissed().subscribe(() => {
-    } );
+
   }
 
   goBack(): void {

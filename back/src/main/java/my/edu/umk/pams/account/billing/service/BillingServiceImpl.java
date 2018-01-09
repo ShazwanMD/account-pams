@@ -1837,6 +1837,11 @@ public class BillingServiceImpl implements BillingService {
 	public BigDecimal sumAppliedAmount(AcDebitNote debitNote, AcKnockoff knockoff) {
 		return knockoffDao.sumAmount(debitNote, knockoff, securityService.getCurrentUser());
 	}
+	
+	@Override
+	public Integer countKnockoffItem(AcKnockoff knockoff) {
+		return knockoffDao.countItem(knockoff);
+	}
 
 	// TASK
 

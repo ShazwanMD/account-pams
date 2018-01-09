@@ -467,6 +467,8 @@ public interface BillingService {
     
     BigDecimal sumAppliedAmount(AcDebitNote debitNote, AcKnockoff knockoff);
     
+    Integer countKnockoffItem(AcKnockoff knockoff);
+    
     //TASK
     
     AcKnockoff findKnockoffByTaskId(String taskId);

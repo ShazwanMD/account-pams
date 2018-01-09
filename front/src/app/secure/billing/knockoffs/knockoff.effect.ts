@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { BillingService } from '../../../../services/billing.service';
 import { BillingModuleState } from '../index';
 import { KnockoffActions } from './knockoff.action';
+import { NotificationService } from "../../../../services/notification.service";
 
 @Injectable()
 export class KnockoffEffects {
@@ -15,6 +16,7 @@ export class KnockoffEffects {
     constructor( private actions$: Actions,
         private knockoffActions: KnockoffActions,
         private billingService: BillingService,
+        private notificationService: NotificationService,
         private store$: Store<BillingModuleState> ) {
     }
 
@@ -125,6 +127,7 @@ export class KnockoffEffects {
         .map(( action ) => action.payload )
         .switchMap(( knockoffTask ) => this.billingService.completeKnockoffTask( knockoffTask ) )
         .map(( message ) => this.knockoffActions.completeKnockoffTaskSuccess( message ) )
+        .catch((error) => this.notificationService.showError(error))
         .mergeMap(( action ) => from( [action,
             this.knockoffActions.findAssignedKnockoffTasks(),
             this.knockoffActions.findPooledKnockoffTasks(),

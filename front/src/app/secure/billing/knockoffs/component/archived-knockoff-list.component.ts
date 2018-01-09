@@ -27,6 +27,8 @@ export class ArchivedKnockoffListComponent {
   private columns: any[] = [
     { name: 'issuedDate', label: 'Date' },
     { name: 'referenceNo', label: 'Reference No' },
+    {name: 'knockoff.payments.account.code', label: 'Account'},
+    {name: 'knockoff.payments.account.name', label: 'Name'},
     { name: 'description', label: 'Description' },
     { name: 'totalAmount', label: 'Total Amount' },
     { name: 'creatorUsername', label: 'Creator' },
