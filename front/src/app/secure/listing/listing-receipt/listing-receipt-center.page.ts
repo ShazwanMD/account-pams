@@ -8,6 +8,8 @@ import { ReceiptActions } from '../../billing/receipts/receipt.action';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {Observable} from 'rxjs';
 import { DateRange } from '../../../shared/model/billing/date-range.interface';
+import { ProgramLevel } from '../../../shared/model/common/program-level.interface';
+import { ProgramCode } from '../../../shared/model/common/program-code.interface';
 
 @Component({
   selector: 'pams-listing-receipt-center-page',
@@ -16,8 +18,9 @@ import { DateRange } from '../../../shared/model/billing/date-range.interface';
 
 export class ListingReceiptCenterPage implements OnInit {
 
+  @Input() programCode: ProgramCode;
+  @Input() programLevel: ProgramLevel;
   @Input() receipt: Receipt;
-
   private editForm: FormGroup;
   
   constructor(private router: Router,
@@ -29,19 +32,20 @@ export class ListingReceiptCenterPage implements OnInit {
   }
   
     ngOnInit(): void {
-      this.editForm = this.formBuilder.group(<DateRange>{
+      this.editForm = this.formBuilder.group({
         Start_date: undefined,
         End_date: undefined,
+        programLevel: [<ProgramLevel>{}],
+        programCode: [<ProgramCode>{}],
       });
     }
   
 
-downloadReportListing(reportId: Receipt,parameterReport:DateRange): void {
-  let repParam = reportId+'&Start_date=' +  this.editForm.value.Start_date;
-  console.log("Start Date" + this.editForm.value.Start_date);
-  let repParam2 = reportId+'&End_date='+ this.editForm.value.End_date;
-  console.log("End Date" + this.editForm.value.End_date);
-  this.store.dispatch(this.reportActions.downloadReportListing(repParam, repParam2));
-}
+    downloadReport(editForm: FormGroup): void {
+      let repParam =editForm +'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
+      +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code;
+      // + '&Status='+ this.editForm.value.debitNoteStatusType;
+      this.store.dispatch(this.reportActions.downloadReport(repParam));
+      }
 
 }
