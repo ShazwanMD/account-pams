@@ -3,6 +3,7 @@ import {ReceiptType} from './receipt-type.enum';
 import {FlowState} from '../../../core/flow-state.enum';
 import {Document} from '../../../core/document.interface';
 import {PaymentMethod} from '../common/payment-method.enum';
+import {Account} from '../account/account.interface';
 
 export interface ReceiptTask extends Document {
   taskId: string;
@@ -19,4 +20,5 @@ export interface ReceiptTask extends Document {
   paymentMethod: PaymentMethod;
   totalReceived: number;
   totalPayment: number;
+  account: Account;
 }
