@@ -625,7 +625,8 @@ export class BillingService {
     completeKnockoffTask( knockoffTask: KnockoffTask ): Observable<String> {
         console.log( 'TaskId: ' + knockoffTask.taskId );
         return this._http.post( this.BILLING_API + '/knockoffs/completeTask', JSON.stringify( knockoffTask ) )
-            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+            .flatMap(( res: Response ) => Observable.of( res.text() ) )
+            .catch(this.handleError);
     }
 
     claimKnockoffTask( knockoffTask: KnockoffTask ): Observable<String> {

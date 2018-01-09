@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { appRoutes, appRoutingProviders } from '../../../app.routes';
 import { CovalentCoreModule } from '@covalent/core';
-import { CommonService, IdentityService } from '../../../../services';
+import { CommonService, IdentityService, NotificationService } from '../../../../services';
 import { BillingService } from '../../../../services/billing.service';
 import { EffectsModule } from '@ngrx/effects';
 import { AccountSubModule } from '../../account/accounts/index';
@@ -134,6 +134,7 @@ export class KnockoffSubModule {
                 AccountService,
                 BillingService,
                 KnockoffActions,
+                NotificationService,
             ],
         };
     }

@@ -39,6 +39,10 @@ export class KnockoffVerifyTaskPanel implements OnInit {
   register() {
     this.store.dispatch(this.actions.completeKnockoffTask(this.knockoffTask));
     this.goBack();
+    
+    let snackBarRef = this.snackBar.open( 'Knockoff Item has not been inserted', 'OK' );
+    snackBarRef.afterDismissed().subscribe(() => {
+    } );
   }
 
   goBack(): void {

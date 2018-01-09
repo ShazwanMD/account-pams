@@ -601,14 +601,22 @@ public class BillingController {
 
     @RequestMapping(value = "/receipts/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeReceiptTask(@RequestBody ReceiptTask vo) {
-        
-    	AcReceiptItem receiptItem = null;
-    	if(null == receiptItem)
-    		throw new IllegalArgumentException("Please enter receipt item");
+
+    	String referenceNo = vo.getReceipt().getReferenceNo();
+    	AcReceipt receipt = billingService.findReceiptByReferenceNo(referenceNo);
+  
+    	int receiptItem = billingService.countReceiptItem(receipt);
     	
-        Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
-        workflowService.completeTask(task);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    	LOG.debug("receiptItem {}", receiptItem);
+    	
+    	if (receiptItem == 0) {
+    		throw new IllegalArgumentException("Please Enter Receipt Item");
+    	}
+    	else if (receiptItem > 0) {
+    		LOG.debug("receiptItem {}", receiptItem);
+    		Task task = billingService.findReceiptTaskByTaskId(vo.getTaskId());
+    		workflowService.completeTask(task);   	}
+    		return new ResponseEntity<String>("Success", HttpStatus.OK); 
     }
     
     @RequestMapping(value = "/receipts/{referenceNo}/account", method = RequestMethod.POST)
@@ -1180,9 +1188,14 @@ public class BillingController {
     @RequestMapping(value = "/knockoffs/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeKnockoffTask(@RequestBody KnockoffTask vo) {
         
-        Task task = billingService.findKnockoffTaskByTaskId(vo.getTaskId());
-        workflowService.completeTask(task);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    	AcKnockoffItem knockoffItem = null;
+    	if(null == knockoffItem) {
+    		throw new IllegalArgumentException("Please enter knockoff item"); }
+    	else {
+	        Task task = billingService.findKnockoffTaskByTaskId(vo.getTaskId());
+	        workflowService.completeTask(task);
+	        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    	}
     }
     
     @RequestMapping(value = "/knockoffs/removeTask", method = RequestMethod.POST)
