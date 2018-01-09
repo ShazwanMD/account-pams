@@ -300,6 +300,7 @@ public class BillingTransformer {
         task.setMetaState(MetaState.get(receipt.getMetadata().getState().ordinal()));
         task.setTotalReceived(receipt.getTotalReceived());
         task.setTotalPayment(receipt.getTotalPayment());
+        task.setAccount(accountTransformer.toAccountVo(receipt.getAccount()));
         return task;
         
     }
