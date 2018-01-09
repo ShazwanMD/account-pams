@@ -10,34 +10,55 @@
     <div toolbar-buttons layout="row" layout-align="start center" flex>
       <span flex></span>
     </div>
-    <div md-content flex md-scroll-y>
-    <form [formGroup]="editForm">
-      <div layout="column" layout-gt-md="row" class="inset">
-        <div flex-gt-md="70">
-          <md-card>
-              <md-card-title>Listing Invoice</md-card-title>
-              <md-card>
-                  <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-                    <md-input-container fxFlex="calc(100%-25px)">
-                      <input mdInput type="date" placeholder="Start Date" formControlName="Start_date"/>
-                    </md-input-container>
-                  </div>
 
-                  <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-                    <md-input-container fxFlex="calc(100%-25px)">
-                      <input mdInput type="date" placeholder="End Date" formControlName="End_date"/>
-                  </md-input-container>
-                  </div>
-                  
-                  <a md-button color="accent" class="text-upper" (click)="downloadReportListing('AC_BLG_014.jrxml&report.pdf', invoice)" [target]="'_blank'">
+    <div md-content flex md-scroll-y>
+        <form [formGroup]="editForm">
+        <div layout="column" layout-gt-md="row" class="inset">
+          <div flex-gt-md="70">
+            <md-card>
+                <md-card-title>Listing Debit Note</md-card-title>
+                <md-card>
+                    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+                      <md-input-container fxFlex="calc(100%-25px)">
+                        <input mdInput type="date" placeholder="Start Date" formControlName="Start_date"/>
+                      </md-input-container>
+                    </div>
+                    
+                    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+                      <md-input-container fxFlex="calc(100%-25px)">
+                        <input mdInput type="date" placeholder="End Date" formControlName="End_date"/>
+                    </md-input-container>
+                    </div>
+                     
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-program-code-select [placeholder]="'Select Program Code'" [innerFormControl]="editForm.controls['programCode']" fxFlex="calc(100%-25px)"
+                        class="pad-bottom">
+                      </pams-program-code-select>
+                    </div>
+
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-program-level-select [placeholder]="'Select Program Level'" [innerFormControl]="editForm.controls['programLevel']" fxFlex="calc(100%-25px)"
+                        class="pad-bottom">
+                      </pams-program-level-select>
+                    </div>
+
+                    <!-- <div layout="row" class="pad-bottom" flex>
+                      <pams-debit-note-status-type-select
+                          [placeholder]="'Debit Note Status Type'" 
+                          [innerFormControl]="editForm.controls.debitNoteStatusType" fxFlex="calc(100%-25px)">
+                      </pams-debit-note-status-type-select>
+                   </div> -->
+
+                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_021.jrxml', editForm)" [target]="'_blank'">
                       <span>View Listing Invoice</span>
                   </a>
-
-              </md-card>
-          </md-card>
+  
+                </md-card>
+            </md-card>
+          </div>
         </div>
+      </form>
       </div>
-    </form>
-    </div>
+
   </td-layout-manage-list>
 </td-layout-nav>
