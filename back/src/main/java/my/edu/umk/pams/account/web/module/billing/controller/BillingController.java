@@ -1188,14 +1188,17 @@ public class BillingController {
     @RequestMapping(value = "/knockoffs/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeKnockoffTask(@RequestBody KnockoffTask vo) {
         
-    	AcKnockoffItem knockoffItem = null;
-    	if(null == knockoffItem) {
+    	String referenceNo = vo.getKnockoff().getReferenceNo();
+    	AcKnockoff knockoff = billingService.findKnockoffByReferenceNo(referenceNo);
+    	
+    	int knockoffItem = billingService.countKnockoffItem(knockoff);
+    	
+    	if(knockoffItem == 0) {
     		throw new IllegalArgumentException("Please enter knockoff item"); }
-    	else {
+    	else if (knockoffItem > 0) {
 	        Task task = billingService.findKnockoffTaskByTaskId(vo.getTaskId());
-	        workflowService.completeTask(task);
+	        workflowService.completeTask(task); }
 	        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    	}
     }
     
     @RequestMapping(value = "/knockoffs/removeTask", method = RequestMethod.POST)
