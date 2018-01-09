@@ -7,6 +7,8 @@ import { ReportActions } from '../../../shared/report/report.action';
 import { CreditNoteActions } from '../../billing/credit-notes/credit-note.action';
 import { DateRange } from '../../../shared/model/billing/date-range.interface';
 import { CreditNote } from '../../../shared/model/billing/credit-note.interface';
+import { ProgramLevel } from '../../../shared/model/common/program-level.interface';
+import { ProgramCode } from '../../../shared/model/common/program-code.interface';
 
 @Component({
   selector: 'pams-listing-credit-note-center-page',
@@ -16,6 +18,8 @@ import { CreditNote } from '../../../shared/model/billing/credit-note.interface'
 export class ListingCreditNoteCenterPage implements OnInit {
 
   @Input() creditNote: CreditNote;
+  @Input() programCode: ProgramCode;
+  @Input() programLevel: ProgramLevel;
   private editForm: FormGroup;
 
     constructor(private router: Router,
@@ -27,18 +31,19 @@ export class ListingCreditNoteCenterPage implements OnInit {
     }
   
     ngOnInit(): void {
-      this.editForm = this.formBuilder.group(<DateRange>{
+      this.editForm = this.formBuilder.group({
         Start_date: undefined,
         End_date: undefined,
+        programLevel: [<ProgramLevel>{}],
+        programCode: [<ProgramCode>{}],
       });
     }
-  
-  downloadReportListing(reportId: CreditNote,parameterReport:DateRange): void {
-  let repParam = reportId+'&Start_date=' +  this.editForm.value.Start_date;
-  console.log("Start Date" + this.editForm.value.Start_date);
-  let repParam2 = reportId+'&End_date='+ this.editForm.value.End_date;
-  console.log("End Date" + this.editForm.value.End_date);
-  this.store.dispatch(this.reportActions.downloadReportListing(repParam, repParam2));
-  }
+
+    downloadReport(editForm: FormGroup): void {
+      let repParam =editForm +'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
+      +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code;
+      // + '&Status='+ this.editForm.value.debitNoteStatusType;
+      this.store.dispatch(this.reportActions.downloadReport(repParam));
+      }  
   }
   

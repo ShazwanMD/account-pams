@@ -6,6 +6,7 @@ import {CommonService, IdentityService} from '../../../../services';
 import {ListingCreditNoteCenterPage} from './listing-credit-note-center.page';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import { AccountSubModule } from '../../account/accounts/index';
+import { CommonModule } from '../../../common/index';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { AccountSubModule } from '../../account/accounts/index';
     ReactiveFormsModule,
     CovalentCoreModule.forRoot(),
     AccountSubModule.forRoot(),
+    CommonModule.forRoot(),
   ],
   declarations: [
     // page

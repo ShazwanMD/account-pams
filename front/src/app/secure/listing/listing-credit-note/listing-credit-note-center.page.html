@@ -30,8 +30,20 @@
                         <input mdInput type="date" placeholder="End Date" formControlName="End_date"/>
                     </md-input-container>
                     </div>
+
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-program-code-select [placeholder]="'Select Program Code'" [innerFormControl]="editForm.controls['programCode']" fxFlex="calc(100%-25px)"
+                        class="pad-bottom">
+                      </pams-program-code-select>
+                    </div>
+
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-program-level-select [placeholder]="'Select Program Level'" [innerFormControl]="editForm.controls['programLevel']" fxFlex="calc(100%-25px)"
+                        class="pad-bottom">
+                      </pams-program-level-select>
+                    </div>
   
-                    <a md-button color="accent" class="text-upper" (click)="downloadReportListing('AC_BLG_013.jrxml&report.pdf', creditNote)" [target]="'_blank'">
+                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_013.jrxml', editForm)" [target]="'_blank'">
                         <span>View Listing Credit Note</span>
                     </a>
   
