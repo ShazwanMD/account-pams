@@ -1521,7 +1521,7 @@ public class BillingController {
 
     @RequestMapping(value = "/refundPayments/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeRefundPaymentTask(@RequestBody RefundPaymentTask vo) {
-        
+    	
         Task task = billingService.findRefundPaymentTaskByTaskId(vo.getTaskId());
         workflowService.completeTask(task);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
