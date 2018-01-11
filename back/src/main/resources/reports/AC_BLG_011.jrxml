@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8182e7c0-4099-4435-8753-d2ee5256c963">
 	<property name="ireport.zoom" value="1.9487171000000016"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="27"/>
+	<property name="ireport.y" value="272"/>
 	<subDataset name="knockoff" uuid="34b4ddd9-8207-41f6-a95b-e59c080fa1a4">
 		<parameter name="account_id" class="java.lang.Long"/>
 		<parameter name="advc_paymt_id" class="java.lang.String"/>
@@ -135,6 +135,7 @@ GROUP BY
 		<parameter name="account_id" class="java.lang.Long"/>
 		<queryString>
 			<![CDATA[SELECT
+ac_advc_pymt."amount" -SUM(ac_rfnd_pymt."amount") AS ttl_rfnd_amt,
      ac_actr."id" AS ac_rfd_actr_id,
      ac_actr."actor_type" AS ac_actr_actor_type,
      ac_actr."address" AS ac_actr_address,
@@ -206,6 +207,7 @@ ac_actr."id",
      ac_rfnd_pymt."source_no",
      ac_rfnd_pymt."advance_payment_id"]]>
 		</queryString>
+		<field name="ttl_rfnd_amt" class="java.math.BigDecimal"/>
 		<field name="ac_rfd_actr_id" class="java.lang.Long"/>
 		<field name="ac_actr_actor_type" class="java.lang.Integer"/>
 		<field name="ac_actr_address" class="java.lang.String"/>
@@ -242,11 +244,6 @@ ac_actr."id",
 	<parameter name="IDENTITY_NO" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-
-SUM(ac_knof_item."applied_amount") + SUM(ac_rfnd_pymt."amount") AS total_amount,
-(SUM(ac_knof_item."applied_amount") + (SUM(ac_rfnd_pymt."amount")))-(ac_advc_pymt."amount") AS total_amt,
-SUM (ac_advc_pymt."amount") - (ac_knof_item."applied_amount") AS total_knof_blnce,
-SUM (ac_advc_pymt."amount")-(ac_rfnd_pymt."amount") AS ttl_rfnd_amt,
      ac_actr."id" AS ac_actr_id,
      ac_actr."actor_type" AS ac_actr_actor_type,
      ac_actr."address" AS ac_actr_address,
@@ -323,29 +320,8 @@ FROM
      INNER JOIN "public"."ac_acdm_sesn" ac_acdm_sesn ON ac_advc_pymt."session_id" = ac_acdm_sesn."id"
      LEFT OUTER JOIN "public"."ac_rfnd_pymt" ac_rfnd_pymt ON ac_advc_pymt."id" = ac_rfnd_pymt."advance_payment_id"
      LEFT OUTER JOIN "public"."ac_knof" ac_knof ON ac_advc_pymt."id" = ac_knof."advance_payment_id"
-     INNER JOIN "public"."ac_knof_item" ac_knof_item ON ac_knof."id" = ac_knof_item."knockoff_id"
-
-
-
-     group by
-
-     ac_actr."id",
-     ac_stdn."student_status",
-     ac_stdn."id" ,
-     ac_chrt_code."id",
-     ac_prgm_code."code" ,
-     ac_prgm_code."id" ,
-     ac_acct."id",
-     ac_advc_pymt."id",
-     ac_acdm_sesn."id",
-     ac_rfnd_pymt."id",
-     ac_knof."id",
-     ac_knof_item."id"]]>
+    LEFT OUTER JOIN "public"."ac_knof_item" ac_knof_item ON ac_knof."id" = ac_knof_item."knockoff_id"]]>
 	</queryString>
-	<field name="total_amount" class="java.math.BigDecimal"/>
-	<field name="total_amt" class="java.math.BigDecimal"/>
-	<field name="total_knof_blnce" class="java.math.BigDecimal"/>
-	<field name="ttl_rfnd_amt" class="java.math.BigDecimal"/>
 	<field name="ac_actr_id" class="java.lang.Long"/>
 	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
 	<field name="ac_actr_address" class="java.lang.String"/>
@@ -451,14 +427,14 @@ FROM
 				<text><![CDATA[Status :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="51" width="87" height="20" uuid="a1ae1007-122c-4c5a-9b3c-4e734538f681"/>
+				<reportElement x="11" y="86" width="90" height="20" uuid="a1ae1007-122c-4c5a-9b3c-4e734538f681"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Parent/Guardian :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="208" y="81" width="45" height="15" uuid="4c6c2c42-6292-433c-a92f-0285aba14047"/>
+				<reportElement x="11" y="68" width="45" height="15" uuid="4c6c2c42-6292-433c-a92f-0285aba14047"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -470,20 +446,6 @@ FROM
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="10" y="81" width="115" height="15" uuid="c5cd2a4d-d374-440d-a634-3fa779ad3d6a"/>
-				<textElement>
-					<font fontName="SansSerif"/>
-				</textElement>
-				<text><![CDATA[Sponsor Reference No :]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="10" y="99" width="198" height="15" uuid="82863163-59f1-47c5-a38d-571a5d259828"/>
-				<textElement>
-					<font fontName="SansSerif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{ac_acct_description}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="10" y="10" width="76" height="20" uuid="5105eca3-3bf8-402c-b646-0d534af6ef68"/>
@@ -507,7 +469,7 @@ FROM
 				<text><![CDATA[Address :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="465" y="81" width="86" height="17" uuid="22885707-f132-4592-8a01-cfc58cfe7358"/>
+				<reportElement x="427" y="72" width="86" height="17" uuid="22885707-f132-4592-8a01-cfc58cfe7358"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -535,7 +497,7 @@ FROM
 				<text><![CDATA[ID No :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="208" y="99" width="167" height="15" uuid="0cdffb14-c69b-41e0-8829-81342ea39e5f"/>
+				<reportElement x="56" y="68" width="167" height="15" uuid="0cdffb14-c69b-41e0-8829-81342ea39e5f"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -549,21 +511,21 @@ FROM
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="399" y="81" width="33" height="15" uuid="c772172f-2fc2-42e8-8299-7bed7a02fe3d"/>
+				<reportElement x="11" y="50" width="60" height="15" uuid="c772172f-2fc2-42e8-8299-7bed7a02fe3d"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
-				<text><![CDATA[IC No :]]></text>
+				<text><![CDATA[Matric No :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="399" y="99" width="60" height="15" uuid="07b621c5-baf2-4393-862f-25c7a4b0667d"/>
+				<reportElement x="71" y="50" width="60" height="15" uuid="07b621c5-baf2-4393-862f-25c7a4b0667d"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="465" y="99" width="86" height="15" uuid="eed59f52-eb7f-4ed3-8d52-0e4ee975645b"/>
+				<reportElement x="427" y="90" width="86" height="15" uuid="eed59f52-eb7f-4ed3-8d52-0e4ee975645b"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -572,7 +534,7 @@ FROM
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="175" splitType="Stretch">
+		<band height="249" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="366" y="0" width="100" height="20" backcolor="#CCCCCC" uuid="80d58e9d-fafd-4e4c-9fba-537a63a4f4d0"/>
 				<box>
@@ -629,23 +591,8 @@ FROM
 				</textElement>
 				<text><![CDATA[Reference No]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="1" y="30" width="176" height="20" uuid="c89affa6-9bb4-418c-821e-8d71ece0c5ad"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="177" y="30" width="189" height="20" uuid="41c110f7-b8b1-4773-8c79-e21630b7d138"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{ac_advc_pymt_description}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="366" y="30" width="100" height="20" uuid="57b5bc9a-2fde-42c1-b0ed-19a69b1ba313"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{ac_advc_pymt_amount}]]></textFieldExpression>
-			</textField>
 			<componentElement>
-				<reportElement x="1" y="110" width="554" height="30" uuid="68bc5df2-9fc7-47f6-8e8e-afe4c4d4147f"/>
+				<reportElement x="0" y="140" width="554" height="26" uuid="68bc5df2-9fc7-47f6-8e8e-afe4c4d4147f"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="knockoff" uuid="198958c7-8478-4fd8-9ae8-097639ee634c">
 						<datasetParameter name="account_id">
@@ -653,19 +600,19 @@ FROM
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:listContents height="30" width="554">
+					<jr:listContents height="26" width="554">
 						<textField isBlankWhenNull="true">
 							<reportElement x="0" y="5" width="176" height="20" uuid="5c66419f-501b-42ac-8f02-248f6aa6f29a"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[(( $F{ac_knof_reference_no} == null)? "-" : $F{ac_knof_reference_no} )]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement x="175" y="5" width="189" height="20" uuid="a2b5a137-3d78-41f6-b485-241161ab76ca"/>
+							<reportElement x="186" y="5" width="189" height="20" uuid="a2b5a137-3d78-41f6-b485-241161ab76ca"/>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[(( $F{ac_knof_item_description}== null)? "-" : $F{ac_knof_item_description} )]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement x="462" y="5" width="92" height="20" uuid="aa2707ad-c241-4555-8ff7-821db6c2b607"/>
+							<reportElement x="374" y="5" width="92" height="20" uuid="aa2707ad-c241-4555-8ff7-821db6c2b607"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[(( $F{ac_knof_item_applied_amount} == null)? "-" : $F{ac_knof_item_applied_amount} )]]></textFieldExpression>
 						</textField>
@@ -673,25 +620,40 @@ FROM
 				</jr:list>
 			</componentElement>
 			<staticText>
-				<reportElement mode="Transparent" x="64" y="79" width="144" height="16" backcolor="#CCCCCC" uuid="ce152af1-6497-465e-986b-fbf8b44ab13c"/>
+				<reportElement mode="Transparent" x="46" y="109" width="144" height="16" backcolor="#CCCCCC" uuid="ce152af1-6497-465e-986b-fbf8b44ab13c"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[KNOCKOFF INFORMATION :]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="38" width="177" height="20" uuid="d2bd2d9a-ebdf-42d0-ad19-591d7e007d4c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="38" width="190" height="20" uuid="db9fccc0-cf57-41e1-a0e4-7ef35a4a1b78"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ac_advc_pymt_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="38" width="90" height="20" uuid="8c89722e-713c-4a4c-8f43-cda3346368d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ac_advc_pymt_amount}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<summary>
-		<band height="282" splitType="Stretch">
+		<band height="246" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="63" y="14" width="189" height="16" backcolor="#CCCCCC" uuid="d19e92e0-b98f-4265-ab8b-1fe81735e0e8"/>
+				<reportElement mode="Transparent" x="47" y="11" width="189" height="16" backcolor="#CCCCCC" uuid="d19e92e0-b98f-4265-ab8b-1fe81735e0e8"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[REFUND PAYMENT INFORMATION :]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="0" y="41" width="555" height="38" uuid="65c67498-4177-47ae-a80e-cfcdac539bd8"/>
+				<reportElement x="0" y="41" width="555" height="24" uuid="65c67498-4177-47ae-a80e-cfcdac539bd8"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="refundPayment" uuid="5fb19462-8e58-48b4-95f1-ee4702938048">
 						<datasetParameter name="account_id">
@@ -699,19 +661,19 @@ FROM
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:listContents height="38" width="555">
+					<jr:listContents height="24" width="555">
 						<textField isBlankWhenNull="true">
-							<reportElement x="177" y="9" width="198" height="20" uuid="b561ac30-a451-41dd-b039-eda3c1c35302"/>
+							<reportElement x="186" y="2" width="198" height="20" uuid="b561ac30-a451-41dd-b039-eda3c1c35302"/>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[(( $F{ac_rfnd_pymt_description} == null)? "-" : $F{ac_rfnd_pymt_description} )]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="9" width="177" height="20" uuid="595bca87-757d-4734-aa90-ef66106263a3"/>
+							<reportElement x="0" y="2" width="177" height="20" uuid="595bca87-757d-4734-aa90-ef66106263a3"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[($F{ac_rfnd_pymt_reference_no} ==null)? "-" : $F{ac_rfnd_pymt_reference_no}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement x="463" y="9" width="92" height="20" uuid="3a8617f2-00df-4fb2-a6fd-838d95724cf8"/>
+							<reportElement x="382" y="2" width="84" height="20" uuid="3a8617f2-00df-4fb2-a6fd-838d95724cf8"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[(( $F{ac_rfnd_pymt_amount} == null)? "-" : $F{ac_rfnd_pymt_amount} )]]></textFieldExpression>
 						</textField>
@@ -719,67 +681,29 @@ FROM
 				</jr:list>
 			</componentElement>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="459" y="188" width="96" height="20" backcolor="#CCCCCC" uuid="8d3d2e54-1dcb-4e24-b48b-c80c51bd9803"/>
+				<reportElement mode="Opaque" x="453" y="226" width="101" height="20" backcolor="#CCCCCC" uuid="3c1abde2-6298-45f0-96a0-06d5fd4eaea5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{total_amt}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ac_advc_pymt_balance_amount}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="177" y="188" width="268" height="20" backcolor="#CCCCCC" uuid="d0949737-5855-472c-b172-f9dc236a9216"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Balance    ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="176" y="223" width="256" height="20" backcolor="#CCCCCC" uuid="c42dfcaf-7a84-4a74-85c9-564c2e0715e6"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Balance Advance Payment/Knockoff   ]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="459" y="223" width="96" height="20" backcolor="#CCCCCC" uuid="38761300-a478-4edc-ba9c-5e01f80ed921"/>
+				<reportElement mode="Opaque" x="222" y="226" width="213" height="20" backcolor="#CCCCCC" uuid="50d2deb0-25a6-4418-9bf5-f28331621e88"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{total_knof_blnce}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="459" y="255" width="97" height="20" backcolor="#CCCCCC" uuid="524350c7-ea9a-4a3b-b94b-d4f52903f3bf"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{ttl_rfnd_amt}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement mode="Opaque" x="176" y="255" width="269" height="20" backcolor="#CCCCCC" uuid="293149f8-b7bc-48af-96a2-797479a29bf3"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Balance Advance Payment / Refund Payment  ]]></text>
+				<text><![CDATA[Total Balance Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="427" y="188" width="32" height="20" backcolor="#CCCCCC" uuid="ad107fd2-3d65-4df6-9f16-fe9a9bba4c57"/>
+				<reportElement mode="Opaque" x="428" y="226" width="32" height="20" backcolor="#CCCCCC" uuid="29792e73-2ed3-4e3a-a26e-1304b5df26ad"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="427" y="223" width="32" height="20" backcolor="#CCCCCC" uuid="5cc1475c-d791-4bab-a994-759a7f801a91"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="427" y="255" width="32" height="20" backcolor="#CCCCCC" uuid="998af370-0f59-4d78-8664-e335c897c88b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[:]]></text>
+				<reportElement mode="Opaque" x="-1" y="226" width="223" height="20" backcolor="#CCCCCC" uuid="300d90e8-2a43-4cca-ba0e-060f2f87d722"/>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 	</summary>
