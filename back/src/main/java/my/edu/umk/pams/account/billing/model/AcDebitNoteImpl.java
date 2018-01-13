@@ -68,6 +68,9 @@ public class AcDebitNoteImpl implements AcDebitNote {
     
     @Column(name = "PAID")
     private Boolean paid = false;
+    
+    @Column(name = "REPORT_STATUS")
+    private String reportStatus;
 
     @Embedded
     private AcMetadata metadata;
@@ -225,6 +228,16 @@ public class AcDebitNoteImpl implements AcDebitNote {
 	}
 
     @Override
+    public String getReportStatus() {
+		return reportStatus;
+	}
+
+    @Override
+    public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
+	}
+
+	@Override
 	public Boolean getPaid() {
 		return paid;
 	}

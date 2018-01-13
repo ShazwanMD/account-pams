@@ -635,12 +635,14 @@ public class BillingServiceImpl implements BillingService {
 		debitNoteDao.save(debitNote, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
-
-	@Override
-	public void updateDebitNote(AcDebitNote debitNote) {
-		debitNoteDao.update(debitNote, securityService.getCurrentUser());
-		sessionFactory.getCurrentSession().flush();
-	}
+	
+    @Override
+    public void updateDebitNote(AcDebitNote debitNote) {
+        String status = debitNote.getFlowdata().getState().toString();
+        debitNote.setReportStatus(status);
+        debitNoteDao.update(debitNote, securityService.getCurrentUser());
+        sessionFactory.getCurrentSession().flush();
+    }
 
 	@Override
 	public void addDebitNoteItem(AcDebitNote debitNote, AcDebitNoteItem debitNoteItem) {

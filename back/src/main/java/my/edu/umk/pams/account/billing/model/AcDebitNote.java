@@ -40,4 +40,8 @@ public interface AcDebitNote extends AcDocument{
 
     void setPaid(Boolean paid);
 
+	String getReportStatus();
+
+	void setReportStatus(String reportStatus);
+
 }
