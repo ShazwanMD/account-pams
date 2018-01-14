@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credit_note_listing" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d739550e-cbb0-4625-986c-01d60042c1f0">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="13"/>
 	<property name="ireport.callouts" value="##Sun Dec 17 11:58:22 SGT 2017"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="month" uuid="8595e530-e313-43eb-898b-3b1d1323d44b">
@@ -244,7 +244,7 @@ ORDER BY
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="94" splitType="Prevent">
+			<band height="103" splitType="Prevent">
 				<rectangle>
 					<reportElement x="0" y="10" width="555" height="16" backcolor="#99FF66" uuid="52f85ffc-b599-492b-bf48-174d34fd318a"/>
 				</rectangle>
@@ -260,7 +260,7 @@ ORDER BY
 					<textElement textAlignment="Right">
 						<font isBold="true" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[-$V{ac_cdit_note_item_amount_3}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{ac_cdit_note_item_amount_3}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -308,7 +308,7 @@ ORDER BY
 					<text><![CDATA[No]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="26" y="1" width="60" height="13" uuid="13b11654-7643-4e55-b9fc-35431232b269"/>
+					<reportElement x="26" y="2" width="60" height="15" uuid="13b11654-7643-4e55-b9fc-35431232b269"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
@@ -322,26 +322,26 @@ ORDER BY
 					<text><![CDATA[Customer ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="26" y="94" width="60" height="19" uuid="76eee810-8a3d-4a1a-be67-4ea4d765975b"/>
+					<reportElement x="26" y="65" width="92" height="19" uuid="76eee810-8a3d-4a1a-be67-4ea4d765975b"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Description]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="85" y="1" width="100" height="13" uuid="7fcc7c4a-5c91-4b26-83d2-854ca5a8936d"/>
+					<reportElement x="136" y="3" width="100" height="14" uuid="7fcc7c4a-5c91-4b26-83d2-854ca5a8936d"/>
 					<textFieldExpression><![CDATA[$F{ac_cdit_note_reference_no}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="85" y="16" width="50" height="16" uuid="8bbdc715-c649-4d8a-b707-2d68eb73f791"/>
+					<reportElement x="136" y="16" width="50" height="16" uuid="8bbdc715-c649-4d8a-b707-2d68eb73f791"/>
 					<textFieldExpression><![CDATA[$F{ac_acct_code}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="142" y="16" width="272" height="16" uuid="5ecaab84-d17e-4428-ae6c-4e2afa768fd6"/>
+					<reportElement x="197" y="16" width="217" height="16" uuid="5ecaab84-d17e-4428-ae6c-4e2afa768fd6"/>
 					<textFieldExpression><![CDATA[$F{ac_acct_description}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="85" y="94" width="329" height="27" uuid="2677e3d7-ca8a-4c5f-bee3-42e26682bf7e"/>
+					<reportElement x="135" y="65" width="279" height="19" uuid="2677e3d7-ca8a-4c5f-bee3-42e26682bf7e"/>
 					<textFieldExpression><![CDATA[$F{ac_cdit_note__description}]]></textFieldExpression>
 				</textField>
 				<staticText>
@@ -352,45 +352,45 @@ ORDER BY
 					<text><![CDATA[Date]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="427" y="34" width="27" height="20" uuid="2fe1c034-0632-47ec-b5e8-13dfee6c5076"/>
+					<reportElement x="427" y="34" width="28" height="16" uuid="2fe1c034-0632-47ec-b5e8-13dfee6c5076"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="135" y="16" width="12" height="16" uuid="6410812a-3552-4b71-8d77-4b7939c36c6a"/>
+					<reportElement x="185" y="16" width="12" height="16" uuid="6410812a-3552-4b71-8d77-4b7939c36c6a"/>
 					<text><![CDATA[-]]></text>
 				</staticText>
 				<textField pattern="dd-MM-yyyy">
-					<reportElement x="465" y="16" width="89" height="15" uuid="966a9d81-fb2c-4ee1-9d09-385d94be93b9"/>
+					<reportElement x="465" y="18" width="89" height="15" uuid="966a9d81-fb2c-4ee1-9d09-385d94be93b9"/>
 					<textFieldExpression><![CDATA[$F{ac_cdit_note_creditnote_date}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group by customer">
-					<reportElement x="465" y="34" width="89" height="20" uuid="2d051c49-98b5-488c-8fb8-4abe9e1c1132"/>
-					<textFieldExpression><![CDATA[-$V{ac_cdit_note_item_amount_1}]]></textFieldExpression>
+					<reportElement x="465" y="33" width="89" height="17" uuid="2d051c49-98b5-488c-8fb8-4abe9e1c1132"/>
+					<textFieldExpression><![CDATA[$V{ac_cdit_note_item_amount_1}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="26" y="34" width="60" height="30" uuid="2d33c0b9-8165-4bb2-a84f-f740b54659e0"/>
+					<reportElement x="26" y="31" width="92" height="19" uuid="2d33c0b9-8165-4bb2-a84f-f740b54659e0"/>
 					<textElement verticalAlignment="Top">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Level of Study]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="26" y="64" width="60" height="30" uuid="2bd88a4c-0000-4d0d-93be-7d82f36aaf21"/>
+					<reportElement x="26" y="50" width="92" height="16" uuid="2bd88a4c-0000-4d0d-93be-7d82f36aaf21"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Program Code]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="86" y="34" width="328" height="30" uuid="09f3aa36-6887-4ce7-90f0-bda102ed6cbc"/>
+					<reportElement x="135" y="31" width="279" height="20" uuid="09f3aa36-6887-4ce7-90f0-bda102ed6cbc"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{ac_prgm_level_code}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="86" y="64" width="328" height="30" uuid="d2598ece-cd28-4e49-bb21-7af9c580ca51"/>
+					<reportElement x="135" y="50" width="279" height="16" uuid="d2598ece-cd28-4e49-bb21-7af9c580ca51"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{ac_prgm_code_description}]]></textFieldExpression>
 				</textField>
@@ -518,7 +518,7 @@ $F{ac_cdit_note_fd_st}.equals( "17" )? "ARCHIVED":
 				<textFieldExpression><![CDATA[$P{Start_date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MM-yyyy">
-				<reportElement x="194" y="38" width="100" height="14" uuid="e644820a-c4e6-4d20-bed6-22c8326d8e43"/>
+				<reportElement x="189" y="38" width="100" height="14" uuid="e644820a-c4e6-4d20-bed6-22c8326d8e43"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -530,7 +530,7 @@ $F{ac_cdit_note_fd_st}.equals( "17" )? "ARCHIVED":
 		<band splitType="Prevent"/>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Prevent">
+		<band height="21" splitType="Prevent">
 			<rectangle>
 				<reportElement x="36" y="-1" width="137" height="20" uuid="38c47872-8874-4fa7-988c-97f1921f780d"/>
 			</rectangle>
@@ -553,7 +553,7 @@ $F{ac_cdit_note_fd_st}.equals( "17" )? "ARCHIVED":
 			<textField>
 				<reportElement x="461" y="0" width="90" height="20" uuid="1439c214-8c4f-4c79-aa4c-3bd7eddf0787"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[-$F{ac_cdit_note_item_amount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ac_cdit_note_item_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="359" y="3" width="100" height="16" uuid="1d10f562-cb1a-482d-97e5-b249173fb6be"/>
@@ -575,7 +575,7 @@ $F{ac_cdit_note_fd_st}.equals( "17" )? "ARCHIVED":
 		<band splitType="Prevent"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="19" splitType="Prevent"/>
+		<band height="55" splitType="Prevent"/>
 	</pageFooter>
 	<summary>
 		<band height="294" splitType="Prevent">
