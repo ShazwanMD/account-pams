@@ -205,8 +205,12 @@ public class IntegrationController {
 		AcAcademicSession academicSession = accountService
 				.findAcademicSessionByCode(payload.getAcademicSession().getCode());
 		LOG.debug("AcademicSession:{}", academicSession.getCode());
-
+		
+		//Find and set Student Status
 		AcStudent student = identityService.findStudentByMatricNo(payload.getStudent().getMatricNo());
+		student.setStudentStatus(AcStudentStatus.get(payload.getStudent().getStudentStatus().ordinal()));
+		identityService.updateStudent(student);
+		
 		AcAccount account = accountService.findAccountByActor(student);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("academicSession", accountService.findCurrentAcademicSession());
