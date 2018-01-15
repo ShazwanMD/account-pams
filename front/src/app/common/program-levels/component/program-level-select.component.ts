@@ -9,6 +9,7 @@ import {ProgramLevel} from '../../../shared/model/common/program-level.interface
 @Component({
   selector: 'pams-program-level-select',
   templateUrl: './program-level-select.component.html',
+  styleUrls: ['./program-level-select.scss'],
 })
 export class ProgramLevelSelectComponent implements OnInit {
 
