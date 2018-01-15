@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8182e7c0-4099-4435-8753-d2ee5256c963">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="101"/>
+	<property name="ireport.y" value="15"/>
 	<subDataset name="knockoff" uuid="34b4ddd9-8207-41f6-a95b-e59c080fa1a4">
 		<parameter name="account_id" class="java.lang.Long"/>
 		<parameter name="Start_date" class="java.lang.String"/>
@@ -399,7 +399,10 @@ FROM
 WHERE  (to_char ( ac_advc_pymt."c_ts", 'YYYY-MM-DD' )>= $P{Start_date}
 AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
  AND ac_prgm_code."description" = $P{Program_code}
- AND  ac_prgm_level."code" = $P{Study_level}]]>
+ AND  ac_prgm_level."code" = $P{Study_level}
+
+order by
+ac_advc_pymt."reference_no"]]>
 	</queryString>
 	<field name="total_balance" class="java.math.BigDecimal"/>
 	<field name="ac_actr_id" class="java.lang.Long"/>
@@ -500,21 +503,24 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 	<variable name="total_rfdn" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></variableExpression>
 	</variable>
+	<variable name="ac_knof_item_applied_amount_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ADV LIST" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_knof_item_applied_amount}]]></variableExpression>
+	</variable>
 	<group name="group by month">
 		<groupExpression><![CDATA[$F{ordermonth}]]></groupExpression>
 	</group>
 	<group name="ADV LIST">
 		<groupExpression><![CDATA[$F{ac_actr_identity_no}]]></groupExpression>
 		<groupHeader>
-			<band height="208">
+			<band height="176">
 				<rectangle>
-					<reportElement x="113" y="168" width="66" height="20" uuid="c162df11-8eeb-41ce-891c-f5a7893b07f2"/>
+					<reportElement x="113" y="136" width="66" height="20" uuid="c162df11-8eeb-41ce-891c-f5a7893b07f2"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
 				</rectangle>
 				<componentElement>
-					<reportElement x="0" y="188" width="555" height="20" uuid="68bc5df2-9fc7-47f6-8e8e-afe4c4d4147f"/>
+					<reportElement x="0" y="156" width="555" height="20" uuid="68bc5df2-9fc7-47f6-8e8e-afe4c4d4147f"/>
 					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 						<datasetRun subDataset="knockoff" uuid="697b3617-1be7-498b-af4b-0b89f541877e">
 							<datasetParameter name="account_id">
@@ -544,7 +550,9 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{ac_knof_reference_no}]]></textFieldExpression>
 							</textField>
 							<textField>
@@ -556,7 +564,9 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
 							</textField>
 							<textField>
@@ -568,7 +578,9 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 									<bottomPen lineWidth="0.0"/>
 									<rightPen lineWidth="0.0"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{ac_knof_issued_date}]]></textFieldExpression>
 							</textField>
 							<textField>
@@ -580,7 +592,9 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{ac_knof_item_applied_amount}]]></textFieldExpression>
 							</textField>
 							<rectangle>
@@ -604,13 +618,16 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
+								<textElement>
+									<font size="8"/>
+								</textElement>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</jr:listContents>
 					</jr:list>
 				</componentElement>
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="148" width="113" height="20" backcolor="#CCCCCC" uuid="fee32fa3-d0cb-49c6-820a-903ba7e9230c"/>
+					<reportElement mode="Transparent" x="0" y="116" width="113" height="20" backcolor="#CCCCCC" uuid="fee32fa3-d0cb-49c6-820a-903ba7e9230c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -619,12 +636,12 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Ref Code]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="384" y="148" width="92" height="20" backcolor="#CCCCCC" uuid="7d651c1b-1dbb-47df-bb73-bea625abb5cb"/>
+					<reportElement mode="Transparent" x="384" y="116" width="92" height="20" backcolor="#CCCCCC" uuid="7d651c1b-1dbb-47df-bb73-bea625abb5cb"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -633,18 +650,18 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Credit]]></text>
 				</staticText>
 				<rectangle>
-					<reportElement x="476" y="168" width="79" height="20" uuid="44b158f2-c71e-4682-8488-0b6fe7601a02"/>
+					<reportElement x="476" y="136" width="79" height="20" uuid="44b158f2-c71e-4682-8488-0b6fe7601a02"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
 				</rectangle>
 				<textField>
-					<reportElement x="384" y="168" width="92" height="20" uuid="1cc210e9-e270-4a09-b4aa-e371b8900e8e"/>
+					<reportElement x="384" y="136" width="92" height="20" uuid="1cc210e9-e270-4a09-b4aa-e371b8900e8e"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -653,12 +670,12 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font size="8" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_advc_pymt_amount}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement mode="Opaque" x="476" y="148" width="79" height="20" backcolor="#CCCCCC" uuid="369ef6c2-a700-4cb3-82da-7f6b77c30a8e"/>
+					<reportElement mode="Transparent" x="476" y="116" width="79" height="20" backcolor="#CCCCCC" uuid="369ef6c2-a700-4cb3-82da-7f6b77c30a8e"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -667,12 +684,12 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Balance Total]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="179" y="168" width="113" height="20" uuid="0225ef91-de73-4873-bfe3-93a1b448d5ea"/>
+					<reportElement x="179" y="136" width="113" height="20" uuid="0225ef91-de73-4873-bfe3-93a1b448d5ea"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -681,12 +698,12 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10"/>
+						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement mode="Opaque" x="179" y="148" width="113" height="20" backcolor="#CCCCCC" uuid="4566a311-c966-4a5c-a775-c3cf021e0373"/>
+					<reportElement mode="Transparent" x="179" y="116" width="113" height="20" backcolor="#CCCCCC" uuid="4566a311-c966-4a5c-a775-c3cf021e0373"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -695,18 +712,18 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Doc No]]></text>
 				</staticText>
 				<rectangle>
-					<reportElement x="292" y="168" width="92" height="20" uuid="f4b43f45-401f-4d31-ae50-bd92a5f7261e"/>
+					<reportElement x="292" y="136" width="92" height="20" uuid="f4b43f45-401f-4d31-ae50-bd92a5f7261e"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
 				</rectangle>
 				<textField>
-					<reportElement x="0" y="168" width="113" height="20" uuid="4712c432-bda9-4b66-82f4-5b5ac8de3e26"/>
+					<reportElement x="0" y="136" width="113" height="20" uuid="4712c432-bda9-4b66-82f4-5b5ac8de3e26"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -715,12 +732,12 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10"/>
+						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement mode="Opaque" x="292" y="148" width="92" height="20" backcolor="#CCCCCC" uuid="2d263b47-1a19-4ed6-8441-6b79556b89c3"/>
+					<reportElement mode="Transparent" x="292" y="116" width="92" height="20" backcolor="#CCCCCC" uuid="2d263b47-1a19-4ed6-8441-6b79556b89c3"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -729,27 +746,29 @@ AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Debit]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="2" y="92" width="67" height="21" uuid="c4b8f913-83f1-4f7b-a4b9-0f26fe7f1ee7"/>
+					<reportElement x="2" y="71" width="67" height="21" uuid="c4b8f913-83f1-4f7b-a4b9-0f26fe7f1ee7"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Study Level]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="2" y="113" width="67" height="20" uuid="80f0fe81-5233-4046-babb-94b266fbea42"/>
+					<reportElement x="2" y="85" width="67" height="20" uuid="80f0fe81-5233-4046-babb-94b266fbea42"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Intake]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="456" y="13" width="85" height="19" uuid="bb74d7bf-598c-449d-811d-363ac16816d5"/>
-					<textElement verticalAlignment="Middle"/>
+					<reportElement x="477" y="13" width="85" height="19" uuid="bb74d7bf-598c-449d-811d-363ac16816d5"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[(
 $F{ac_knof_fd_st}.equals( "0" )? "NEW":
 $F{ac_knof_fd_st}.equals( "1" )? "DRAFTED":
@@ -773,76 +792,91 @@ $F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
 )]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="2" y="72" width="67" height="20" uuid="ee627815-7278-4981-9162-40b762aac9a1"/>
+					<reportElement x="2" y="58" width="67" height="20" uuid="ee627815-7278-4981-9162-40b762aac9a1"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Course]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="98" y="113" width="201" height="20" uuid="b63ff953-082d-48a4-9037-f121784abcc2"/>
+					<reportElement x="97" y="86" width="201" height="20" uuid="b63ff953-082d-48a4-9037-f121784abcc2"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_acdm_sesn_description}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="98" y="89" width="100" height="24" uuid="710e7d7d-4274-4d46-a71f-1b8cae7af329"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<reportElement x="97" y="68" width="100" height="24" uuid="710e7d7d-4274-4d46-a71f-1b8cae7af329"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_prgm_level_code}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="2" y="52" width="67" height="20" uuid="c6631a4d-5872-4608-a1db-e80188c04eb0"/>
+					<reportElement x="2" y="43" width="67" height="20" uuid="c6631a4d-5872-4608-a1db-e80188c04eb0"/>
 					<textElement verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Name]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="97" y="29" width="147" height="20" uuid="41bb667d-90da-4f07-a27f-5390349ec4fc"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<reportElement x="97" y="25" width="147" height="20" uuid="41bb667d-90da-4f07-a27f-5390349ec4fc"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="97" y="69" width="100" height="20" uuid="8d4ee0a4-b731-4c1c-9fec-c957a53bb0e3"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<reportElement x="97" y="55" width="100" height="20" uuid="8d4ee0a4-b731-4c1c-9fec-c957a53bb0e3"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_prgm_code_code}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="2" y="32" width="67" height="20" uuid="5e0be9de-0ccf-468a-bb7c-a497d2ec538c"/>
+					<reportElement x="2" y="28" width="67" height="20" uuid="5e0be9de-0ccf-468a-bb7c-a497d2ec538c"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Student ID]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="198" y="69" width="311" height="20" uuid="62209355-29a6-45c2-837f-b7b66833e7d6"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<reportElement x="177" y="55" width="311" height="20" uuid="62209355-29a6-45c2-837f-b7b66833e7d6"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_prgm_code_description}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="97" y="49" width="319" height="20" uuid="39ab5e01-5bea-4de5-92b9-6bd126dd5551"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<reportElement x="97" y="40" width="319" height="20" uuid="39ab5e01-5bea-4de5-92b9-6bd126dd5551"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="2" y="12" width="46" height="20" uuid="8ce2dc21-e083-450a-a5c8-1133a7d4c948"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Ref Code ]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="98" y="11" width="145" height="20" uuid="fe4f6072-0c77-4976-a6cb-85658d8746d9"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<reportElement x="97" y="11" width="145" height="20" uuid="fe4f6072-0c77-4976-a6cb-85658d8746d9"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="410" y="13" width="40" height="19" uuid="a9d14588-ded5-41c4-87da-f7825c712400"/>
+					<reportElement x="429" y="13" width="40" height="19" uuid="a9d14588-ded5-41c4-87da-f7825c712400"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Status]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="113" y="148" width="66" height="20" backcolor="#CCCCCC" uuid="3ba5beb5-706f-419a-8f4b-1884f879b4d8"/>
+					<reportElement mode="Transparent" x="113" y="116" width="66" height="20" backcolor="#CCCCCC" uuid="3ba5beb5-706f-419a-8f4b-1884f879b4d8"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -851,12 +885,12 @@ $F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Date]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="128" y="168" width="35" height="20" uuid="cc446b2d-e15d-4ac9-bfff-080de35a1a8c"/>
+					<reportElement x="128" y="136" width="35" height="20" uuid="cc446b2d-e15d-4ac9-bfff-080de35a1a8c"/>
 					<box>
 						<pen lineWidth="0.0"/>
 						<topPen lineWidth="0.0"/>
@@ -865,16 +899,16 @@ $F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
 						<rightPen lineWidth="0.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10"/>
+						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_advc_pymt_c_ts}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="27">
+			<band height="20">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="aceeab23-9b14-4ea2-a5d2-3044c431d566"/>
+					<reportElement mode="Transparent" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="aceeab23-9b14-4ea2-a5d2-3044c431d566"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -882,19 +916,22 @@ $F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
 						<bottomPen lineWidth="0.5"/>
 						<rightPen lineWidth="0.5"/>
 					</box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
 					<text><![CDATA[]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="476" y="0" width="79" height="20" uuid="9b3e913a-670f-4f45-a9c5-1b91f7b65a10"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{total_balance}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="-1" y="0" width="100" height="20" uuid="07c935ea-13a7-491e-83fd-db1dcb1d7ec4"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total :]]></text>
 				</staticText>
@@ -916,74 +953,74 @@ $F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
 		</band>
 	</title>
 	<pageHeader>
-		<band height="65">
+		<band height="61">
 			<staticText>
 				<reportElement x="1" y="20" width="67" height="20" uuid="fbacd99e-ca5f-411f-9e87-e30f05e35f3d"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REPORT ID]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="2" y="0" width="185" height="20" uuid="447e01d7-78a3-41cb-aea2-8f0d94be8980"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="416" y="20" width="81" height="19" uuid="7767e7da-6fed-4732-a54f-2a9c1fc2f6de"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page :  "+$V{PAGE_NUMBER}+"   of"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MM-yyyy h.mm a">
 				<reportElement x="442" y="1" width="113" height="19" uuid="0e61d05c-2179-464b-9a4c-441056029c96"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="486" y="20" width="40" height="19" uuid="d0ca5a25-cdf3-4c84-ae0a-e8e194b4bbe2"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="416" y="1" width="46" height="19" uuid="fabd43ac-4bac-48ac-b4f1-14f62bef1d8d"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<textField pattern="dd-MM-yyyy">
 				<reportElement x="237" y="40" width="100" height="20" uuid="83ee2072-223b-448c-bc70-2fe2a3b42923"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{End_date}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="214" y="40" width="23" height="20" uuid="9791ef2e-f7c7-4362-956b-32abbe8d4629"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[to]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1" y="40" width="161" height="20" uuid="fee2e27f-fbbb-4836-9c4a-705b641fdd1f"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Advance Payment Listing from ]]></text>
 			</staticText>
 			<textField pattern="dd-MM-yyyy">
 				<reportElement x="162" y="40" width="63" height="20" uuid="58c90ee3-a13b-4c5e-88c0-1f326cfdeb8e"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Start_date}]]></textFieldExpression>
 			</textField>
