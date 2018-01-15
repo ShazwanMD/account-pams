@@ -9,6 +9,7 @@ import { DateRange } from '../../../shared/model/billing/date-range.interface';
 import { CreditNote } from '../../../shared/model/billing/credit-note.interface';
 import { ProgramLevel } from '../../../shared/model/common/program-level.interface';
 import { ProgramCode } from '../../../shared/model/common/program-code.interface';
+import { CreditNoteStatusType } from '../../../shared/model/common/credit-note-status-type';
 
 @Component({
   selector: 'pams-listing-credit-note-center-page',
@@ -29,21 +30,20 @@ export class ListingCreditNoteCenterPage implements OnInit {
       private reportActions: ReportActions,
       private actions: CreditNoteActions) {
     }
-  
     ngOnInit(): void {
       this.editForm = this.formBuilder.group({
         Start_date: undefined,
         End_date: undefined,
         programLevel: [<ProgramLevel>{}],
         programCode: [<ProgramCode>{}],
+        creditNoteStatusType: CreditNoteStatusType,
       });
     }
-
     downloadReport(editForm: FormGroup): void {
-      let repParam =editForm +'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
-      +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code;
-      // + '&Status='+ this.editForm.value.debitNoteStatusType;
+      let repParam = editForm+'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
+      +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code
+      +'&Status='+ this.editForm.value.creditNoteStatusType;
       this.store.dispatch(this.reportActions.downloadReport(repParam));
-      }  
+      }
   }
   

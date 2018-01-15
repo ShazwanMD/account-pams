@@ -61,6 +61,9 @@ public class AcCreditNoteImpl implements AcCreditNote {
     @ManyToOne(targetEntity = AcInvoiceImpl.class)
     @JoinColumn(name = "INVOICE_ID")
     private AcInvoice invoice;
+    
+    @Column(name = "REPORT_STATUS")
+    private String reportStatus;
 
     @Embedded
     private AcMetadata metadata;
@@ -167,6 +170,16 @@ public class AcCreditNoteImpl implements AcCreditNote {
         this.removeComment = removeComment;
     }
 
+    @Override
+    public String getReportStatus() {
+		return reportStatus;
+	}
+
+    @Override
+    public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
+	}
+    
     @Override
     public List<AcCreditNoteItem> getItems() {
         return items;

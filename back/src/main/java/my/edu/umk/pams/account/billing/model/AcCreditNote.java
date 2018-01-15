@@ -31,5 +31,9 @@ public interface AcCreditNote extends AcDocument {
     Date getCreditNoteDate();
     
     void setCreditNoteDate(Date creditNoteDate);
+    
+	String getReportStatus();
+
+	void setReportStatus(String reportStatus);
 
 }
