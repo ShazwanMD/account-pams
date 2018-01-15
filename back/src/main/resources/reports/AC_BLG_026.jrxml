@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8182e7c0-4099-4435-8753-d2ee5256c963">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="17"/>
+	<subDataset name="refundPayment" uuid="d6520e4c-254d-4cde-803b-d59d3a4f7d65">
+		<parameter name="account_id" class="java.lang.Long"/>
+		<parameter name="Start_date" class="java.lang.String"/>
+		<parameter name="End_date" class="java.lang.String"/>
+		<parameter name="Program_code" class="java.lang.String"/>
+		<parameter name="Study_level" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     ac_advc_pymt."amount"-SUM(ac_rfnd_pymt."amount") AS ttl_rfnd_amt,
+     ac_actr."id" AS ac_rfd_actr_id,
+     ac_actr."actor_type" AS ac_actr_actor_type,
+     ac_actr."address" AS ac_actr_address,
+     ac_actr."email" AS ac_actr_email,
+     ac_actr."identity_no" AS ac_actr_identity_no,
+     ac_actr."mobile" AS ac_actr_mobile,
+     ac_actr."name" AS ac_actr_name,
+     ac_actr."phone" AS ac_actr_phone,
+     ac_acct."id" AS ac_acct_id,
+     ac_acct."code" AS ac_acct_code,
+     ac_acct."description" AS ac_acct_description,
+     ac_acct."actor_id" AS ac_acct_actor_id,
+     ac_advc_pymt."id" AS ac_advc_pymt_id,
+     ac_advc_pymt."reference_no" AS ac_advc_pymt_reference_no,
+     ac_advc_pymt."description" AS ac_advc_pymt_description,
+     ac_advc_pymt."amount" AS ac_advc_pymt_amount,
+     ac_advc_pymt."balance_amount" AS ac_advc_pymt_balance_amount,
+     ac_advc_pymt."status" AS ac_advc_pymt_status,
+     ac_advc_pymt."receipt_id" AS ac_advc_pymt_receipt_id,
+     ac_advc_pymt."account_id" AS ac_advc_pymt_account_id,
+     ac_advc_pymt."session_id" AS ac_advc_pymt_session_id,
+     ac_rfnd_pymt."id" AS ac_rfnd_pymt_id,
+     ac_rfnd_pymt."amount" AS ac_rfnd_pymt_amount,
+     ac_rfnd_pymt."audit_no" AS ac_rfnd_pymt_audit_no,
+     ac_rfnd_pymt."cancel_comment" AS ac_rfnd_pymt_cancel_comment,
+     ac_rfnd_pymt."description" AS ac_rfnd_pymt_description,
+     ac_rfnd_pymt."issued_date" AS ac_rfnd_pymt_issued_date,
+     ac_rfnd_pymt."reference_no" AS ac_rfnd_pymt_reference_no,
+     ac_rfnd_pymt."remove_comment" AS ac_rfnd_pymt_remove_comment,
+     ac_rfnd_pymt."source_no" AS ac_rfnd_pymt_source_no,
+     ac_rfnd_pymt."advance_payment_id" AS ac_rfnd_pymt_advance_payment_id,
+     ac_rfnd_pymt."voucher_no" AS ac_rfnd_pymt_voucher_no,
+     ac_stdn."student_status" AS ac_stdn_student_status,
+     ac_stdn."id" AS ac_stdn_id,
+     ac_stdn."cohort_code_id" AS ac_stdn_cohort_code_id,
+     ac_stdn."residency_code_id" AS ac_stdn_residency_code_id,
+     ac_chrt_code."id" AS ac_chrt_code_id,
+     ac_chrt_code."code" AS ac_chrt_code_code,
+     ac_chrt_code."description" AS ac_chrt_code_description,
+     ac_chrt_code."program_code_id" AS ac_chrt_code_program_code_id,
+     ac_prgm_code."id" AS ac_prgm_code_id,
+     ac_prgm_code."code" AS ac_prgm_code_code,
+     ac_prgm_code."description" AS ac_prgm_code_description,
+     ac_prgm_code."faculty_code_id" AS ac_prgm_code_faculty_code_id,
+     ac_prgm_code."program_level_id" AS ac_prgm_code_program_level_id,
+     ac_prgm_code."study_center_id" AS ac_prgm_code_study_center_id,
+     ac_prgm_level."id" AS ac_prgm_level_id,
+     ac_prgm_level."code" AS ac_prgm_level_code,
+     ac_prgm_level."description" AS ac_prgm_level_description,
+     ac_prgm_level."prefix" AS ac_prgm_level_prefix
+FROM
+     "public"."ac_actr" ac_actr INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
+      INNER JOIN "public"."ac_advc_pymt" ac_advc_pymt ON ac_acct."id" = ac_advc_pymt."account_id"
+     LEFT OUTER JOIN "public"."ac_rfnd_pymt" ac_rfnd_pymt ON ac_advc_pymt."id" = ac_rfnd_pymt."advance_payment_id"
+     INNER JOIN "public"."ac_stdn" ac_stdn ON ac_actr."id" = ac_stdn."id"
+     INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_stdn."cohort_code_id" = ac_chrt_code."id"
+     INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."program_code_id" = ac_prgm_code."id"
+     INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"
+
+GROUP BY
+     ac_actr."id",
+     ac_actr."actor_type",
+     ac_actr."address",
+     ac_actr."email",
+     ac_actr."identity_no",
+     ac_actr."mobile",
+     ac_actr."name",
+     ac_actr."phone",
+     ac_acct."id",
+     ac_acct."code",
+     ac_acct."description",
+     ac_acct."actor_id",
+     ac_advc_pymt."id",
+     ac_advc_pymt."reference_no",
+     ac_advc_pymt."description",
+     ac_advc_pymt."amount",
+     ac_advc_pymt."balance_amount",
+     ac_advc_pymt."status",
+     ac_advc_pymt."receipt_id",
+     ac_advc_pymt."account_id",
+     ac_advc_pymt."session_id",
+     ac_rfnd_pymt."id",
+     ac_rfnd_pymt."amount",
+     ac_rfnd_pymt."audit_no",
+     ac_rfnd_pymt."cancel_comment",
+     ac_rfnd_pymt."description",
+     ac_rfnd_pymt."issued_date",
+     ac_rfnd_pymt."reference_no",
+     ac_rfnd_pymt."remove_comment",
+     ac_rfnd_pymt."source_no",
+     ac_rfnd_pymt."advance_payment_id",
+  ac_stdn."student_status",
+ac_stdn."id",
+  ac_chrt_code."id",
+ ac_prgm_code."id",
+  ac_prgm_level."id"]]>
+		</queryString>
+		<field name="ttl_rfnd_amt" class="java.math.BigDecimal"/>
+		<field name="ac_rfd_actr_id" class="java.lang.Long"/>
+		<field name="ac_actr_actor_type" class="java.lang.Integer"/>
+		<field name="ac_actr_address" class="java.lang.String"/>
+		<field name="ac_actr_email" class="java.lang.String"/>
+		<field name="ac_actr_identity_no" class="java.lang.String"/>
+		<field name="ac_actr_mobile" class="java.lang.String"/>
+		<field name="ac_actr_name" class="java.lang.String"/>
+		<field name="ac_actr_phone" class="java.lang.String"/>
+		<field name="ac_acct_id" class="java.lang.Long"/>
+		<field name="ac_acct_code" class="java.lang.String"/>
+		<field name="ac_acct_description" class="java.lang.String"/>
+		<field name="ac_acct_actor_id" class="java.lang.Long"/>
+		<field name="ac_advc_pymt_id" class="java.lang.Long"/>
+		<field name="ac_advc_pymt_reference_no" class="java.lang.String"/>
+		<field name="ac_advc_pymt_description" class="java.lang.String"/>
+		<field name="ac_advc_pymt_amount" class="java.math.BigDecimal"/>
+		<field name="ac_advc_pymt_balance_amount" class="java.math.BigDecimal"/>
+		<field name="ac_advc_pymt_status" class="java.lang.Boolean"/>
+		<field name="ac_advc_pymt_receipt_id" class="java.lang.Long"/>
+		<field name="ac_advc_pymt_account_id" class="java.lang.Long"/>
+		<field name="ac_advc_pymt_session_id" class="java.lang.Long"/>
+		<field name="ac_rfnd_pymt_id" class="java.lang.Long"/>
+		<field name="ac_rfnd_pymt_amount" class="java.math.BigDecimal"/>
+		<field name="ac_rfnd_pymt_audit_no" class="java.lang.String"/>
+		<field name="ac_rfnd_pymt_cancel_comment" class="java.lang.String"/>
+		<field name="ac_rfnd_pymt_description" class="java.lang.String"/>
+		<field name="ac_rfnd_pymt_issued_date" class="java.sql.Timestamp"/>
+		<field name="ac_rfnd_pymt_reference_no" class="java.lang.String"/>
+		<field name="ac_rfnd_pymt_remove_comment" class="java.lang.String"/>
+		<field name="ac_rfnd_pymt_source_no" class="java.lang.String"/>
+		<field name="ac_rfnd_pymt_advance_payment_id" class="java.lang.Long"/>
+		<field name="ac_rfnd_pymt_voucher_no" class="java.lang.String"/>
+		<field name="ac_stdn_student_status" class="java.lang.Integer"/>
+		<field name="ac_stdn_id" class="java.lang.Long"/>
+		<field name="ac_stdn_cohort_code_id" class="java.lang.Long"/>
+		<field name="ac_stdn_residency_code_id" class="java.lang.Long"/>
+		<field name="ac_chrt_code_id" class="java.lang.Long"/>
+		<field name="ac_chrt_code_code" class="java.lang.String"/>
+		<field name="ac_chrt_code_description" class="java.lang.String"/>
+		<field name="ac_chrt_code_program_code_id" class="java.lang.Long"/>
+		<field name="ac_prgm_code_id" class="java.lang.Long"/>
+		<field name="ac_prgm_code_code" class="java.lang.String"/>
+		<field name="ac_prgm_code_description" class="java.lang.String"/>
+		<field name="ac_prgm_code_faculty_code_id" class="java.lang.Long"/>
+		<field name="ac_prgm_code_program_level_id" class="java.lang.Long"/>
+		<field name="ac_prgm_code_study_center_id" class="java.lang.Long"/>
+		<field name="ac_prgm_level_id" class="java.lang.Long"/>
+		<field name="ac_prgm_level_code" class="java.lang.String"/>
+		<field name="ac_prgm_level_description" class="java.lang.String"/>
+		<field name="ac_prgm_level_prefix" class="java.lang.String"/>
+		<filterExpression><![CDATA[$P{account_id}.equals( $F{ac_rfd_actr_id} )]]></filterExpression>
+	</subDataset>
+	<parameter name="Start_date" class="java.lang.String"/>
+	<parameter name="End_date" class="java.lang.String"/>
+	<parameter name="Program_code" class="java.lang.String"/>
+	<parameter name="Study_level" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     ac_advc_pymt."amount"- ac_rfnd_pymt."amount" AS total_balance,
+     ac_actr."id" AS ac_actr_id,
+     ac_actr."actor_type" AS ac_actr_actor_type,
+     ac_actr."address" AS ac_actr_address,
+     ac_actr."email" AS ac_actr_email,
+     ac_actr."identity_no" AS ac_actr_identity_no,
+     ac_actr."mobile" AS ac_actr_mobile,
+     ac_actr."name" AS ac_actr_name,
+     ac_actr."phone" AS ac_actr_phone,
+     ac_stdn."student_status" AS ac_stdn_student_status,
+     ac_stdn."id" AS ac_stdn_id,
+     ac_stdn."cohort_code_id" AS ac_stdn_cohort_code_id,
+     ac_chrt_code."id" AS ac_chrt_code_id,
+     ac_chrt_code."code" AS ac_chrt_code_code,
+     ac_chrt_code."description" AS ac_chrt_code_description,
+     ac_chrt_code."program_code_id" AS ac_chrt_code_program_code_id,
+     ac_prgm_code."id" AS ac_prgm_code_id,
+     ac_prgm_code."code" AS ac_prgm_code_code,
+     ac_prgm_code."description" AS ac_prgm_code_description,
+     ac_prgm_level."id" AS ac_prgm_level_id,
+     ac_prgm_level."code" AS ac_prgm_level_code,
+     ac_prgm_code."program_level_id" AS ac_prgm_code_program_level_id,
+     ac_acct."id" AS ac_acct_id,
+     ac_acct."code" AS ac_acct_code,
+     ac_acct."description" AS ac_acct_description,
+     ac_acct."actor_id" AS ac_acct_actor_id,
+     ac_advc_pymt."id" AS ac_advc_pymt_id,
+     ac_advc_pymt."reference_no" AS ac_advc_pymt_reference_no,
+     ac_advc_pymt."description" AS ac_advc_pymt_description,
+     ac_advc_pymt."amount" AS ac_advc_pymt_amount,
+     ac_advc_pymt."balance_amount" AS ac_advc_pymt_balance_amount,
+     ac_advc_pymt."status" AS ac_advc_pymt_status,
+     ac_advc_pymt."account_id" AS ac_advc_pymt_account_id,
+     ac_acdm_sesn."id" AS ac_acdm_sesn_id,
+     ac_acdm_sesn."code" AS ac_acdm_sesn_code,
+     ac_acdm_sesn."current_" AS ac_acdm_sesn_current_,
+     ac_acdm_sesn."description" AS ac_acdm_sesn_description,
+     ac_acdm_sesn."end_date" AS ac_acdm_sesn_end_date,
+     ac_acdm_sesn."start_date" AS ac_acdm_sesn_start_date,
+     ac_chrt_code."program_code_id" AS ac_chrt_code_program_code_id,
+     ac_prgm_code."id" AS ac_prgm_code_id,
+     ac_prgm_code."code" AS ac_prgm_code_code,
+     ac_prgm_code."description" AS ac_prgm_code_description,
+     ac_prgm_code."faculty_code_id" AS ac_prgm_code_faculty_code_id,
+     ac_fcty_code."id" AS ac_fcty_code_id,
+     ac_fcty_code."code" AS ac_fcty_code_code,
+     ac_fcty_code."description" AS ac_fcty_code_description,
+     ac_advc_pymt."receipt_id" AS ac_advc_pymt_receipt_id,
+     ac_advc_pymt."c_ts" AS ac_advc_pymt_c_ts,
+     ac_advc_pymt."session_id" AS ac_advc_pymt_session_id,
+     ac_rfnd_pymt."id" AS ac_rfnd_pymt_id,
+     ac_rfnd_pymt."amount" AS ac_rfnd_pymt_amount,
+     ac_rfnd_pymt."audit_no" AS ac_rfnd_pymt_audit_no,
+     ac_rfnd_pymt."voucher_no" AS ac_rfnd_pymt_voucher_no,
+     ac_rfnd_pymt."cancel_comment" AS ac_rfnd_pymt_cancel_comment,
+     ac_rfnd_pymt."description" AS ac_rfnd_pymt_description,
+     ac_rfnd_pymt."issued_date" AS ac_rfnd_pymt_issued_date,
+     ac_rfnd_pymt."reference_no" AS ac_rfnd_pymt_reference_no,
+     ac_rfnd_pymt."remove_comment" AS ac_rfnd_pymt_remove_comment,
+     ac_rfnd_pymt."source_no" AS ac_rfnd_pymt_source_no,
+     ac_rfnd_pymt."advance_payment_id" AS ac_rfnd_pymt_advance_payment_id,
+     ac_rfnd_pymt."fd_st" AS ac_rfnd_pymt_fd_st
+
+FROM
+     "public"."ac_actr" ac_actr INNER JOIN "public"."ac_stdn" ac_stdn ON ac_actr."id" = ac_stdn."id"
+     INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_stdn."cohort_code_id" = ac_chrt_code."id"
+     INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."program_code_id" = ac_prgm_code."id"
+     INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"
+     INNER JOIN "public"."ac_fcty_code" ac_fcty_code ON ac_prgm_code."faculty_code_id" = ac_fcty_code."id"
+     INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
+      INNER JOIN  "public"."ac_advc_pymt" ac_advc_pymt ON ac_acct."id" = ac_advc_pymt."account_id"
+     INNER JOIN "public"."ac_acdm_sesn" ac_acdm_sesn ON ac_advc_pymt."session_id" = ac_acdm_sesn."id"
+     LEFT OUTER JOIN "public"."ac_rfnd_pymt" ac_rfnd_pymt ON ac_advc_pymt."id" = ac_rfnd_pymt."advance_payment_id"
+
+WHERE  (to_char ( ac_advc_pymt."c_ts", 'YYYY-MM-DD' )>= $P{Start_date}
+AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
+ AND ac_prgm_code."description" = $P{Program_code}
+ AND  ac_prgm_level."code" = $P{Study_level}
+
+GROUP BY
+     ac_actr."id",
+     ac_stdn."id",
+     ac_chrt_code."id",
+     ac_prgm_code."id",
+     ac_prgm_level."id",
+     ac_acct."id",
+     ac_advc_pymt."id",
+     ac_acdm_sesn."id",
+     ac_prgm_code."id",
+     ac_fcty_code."id",
+     ac_advc_pymt."receipt_id",
+     ac_rfnd_pymt."id"
+
+order by
+ac_advc_pymt."reference_no"]]>
+	</queryString>
+	<field name="total_balance" class="java.math.BigDecimal"/>
+	<field name="ac_actr_id" class="java.lang.Long"/>
+	<field name="ac_actr_actor_type" class="java.lang.Integer"/>
+	<field name="ac_actr_address" class="java.lang.String"/>
+	<field name="ac_actr_email" class="java.lang.String"/>
+	<field name="ac_actr_identity_no" class="java.lang.String"/>
+	<field name="ac_actr_mobile" class="java.lang.String"/>
+	<field name="ac_actr_name" class="java.lang.String"/>
+	<field name="ac_actr_phone" class="java.lang.String"/>
+	<field name="ac_stdn_student_status" class="java.lang.Integer"/>
+	<field name="ac_stdn_id" class="java.lang.Long"/>
+	<field name="ac_stdn_cohort_code_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_id" class="java.lang.Long"/>
+	<field name="ac_chrt_code_code" class="java.lang.String"/>
+	<field name="ac_chrt_code_description" class="java.lang.String"/>
+	<field name="ac_chrt_code_program_code_id" class="java.lang.Long"/>
+	<field name="ac_prgm_code_id" class="java.lang.Long"/>
+	<field name="ac_prgm_code_code" class="java.lang.String"/>
+	<field name="ac_prgm_code_description" class="java.lang.String"/>
+	<field name="ac_prgm_level_id" class="java.lang.Long"/>
+	<field name="ac_prgm_level_code" class="java.lang.String"/>
+	<field name="ac_prgm_code_program_level_id" class="java.lang.Long"/>
+	<field name="ac_acct_id" class="java.lang.Long"/>
+	<field name="ac_acct_code" class="java.lang.String"/>
+	<field name="ac_acct_description" class="java.lang.String"/>
+	<field name="ac_acct_actor_id" class="java.lang.Long"/>
+	<field name="ac_advc_pymt_id" class="java.lang.Long"/>
+	<field name="ac_advc_pymt_reference_no" class="java.lang.String"/>
+	<field name="ac_advc_pymt_description" class="java.lang.String"/>
+	<field name="ac_advc_pymt_amount" class="java.math.BigDecimal"/>
+	<field name="ac_advc_pymt_balance_amount" class="java.math.BigDecimal"/>
+	<field name="ac_advc_pymt_status" class="java.lang.Boolean"/>
+	<field name="ac_advc_pymt_account_id" class="java.lang.Long"/>
+	<field name="ac_acdm_sesn_id" class="java.lang.Long"/>
+	<field name="ac_acdm_sesn_code" class="java.lang.String"/>
+	<field name="ac_acdm_sesn_current_" class="java.lang.Boolean"/>
+	<field name="ac_acdm_sesn_description" class="java.lang.String"/>
+	<field name="ac_acdm_sesn_end_date" class="java.sql.Timestamp"/>
+	<field name="ac_acdm_sesn_start_date" class="java.sql.Timestamp"/>
+	<field name="ac_prgm_code_faculty_code_id" class="java.lang.Long"/>
+	<field name="ac_fcty_code_id" class="java.lang.Long"/>
+	<field name="ac_fcty_code_code" class="java.lang.String"/>
+	<field name="ac_fcty_code_description" class="java.lang.String"/>
+	<field name="ac_advc_pymt_receipt_id" class="java.lang.Long"/>
+	<field name="ac_advc_pymt_c_ts" class="java.sql.Timestamp"/>
+	<field name="ac_advc_pymt_session_id" class="java.lang.Long"/>
+	<field name="ac_rfnd_pymt_id" class="java.lang.Long"/>
+	<field name="ac_rfnd_pymt_amount" class="java.math.BigDecimal"/>
+	<field name="ac_rfnd_pymt_audit_no" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_voucher_no" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_cancel_comment" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_description" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_issued_date" class="java.sql.Timestamp"/>
+	<field name="ac_rfnd_pymt_reference_no" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_remove_comment" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_source_no" class="java.lang.String"/>
+	<field name="ac_rfnd_pymt_advance_payment_id" class="java.lang.Long"/>
+	<field name="ac_rfnd_pymt_fd_st" class="java.lang.String"/>
+	<variable name="ttl-knf" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></variableExpression>
+	</variable>
+	<variable name="ac_rfnd_pymt_amount_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ADV LIST" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></variableExpression>
+	</variable>
+	<variable name="total_balance_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ADV LIST" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_balance}]]></variableExpression>
+	</variable>
+	<variable name="ac_rfnd_pymt_amount_2" class="java.math.BigDecimal" resetType="Group" resetGroup="ADV LIST" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></variableExpression>
+	</variable>
+	<group name="ADV LIST">
+		<groupExpression><![CDATA[$F{ac_actr_identity_no}]]></groupExpression>
+		<groupHeader>
+			<band height="182">
+				<rectangle>
+					<reportElement x="113" y="143" width="66" height="20" uuid="c162df11-8eeb-41ce-891c-f5a7893b07f2"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</rectangle>
+				<componentElement>
+					<reportElement x="0" y="163" width="555" height="19" uuid="68bc5df2-9fc7-47f6-8e8e-afe4c4d4147f"/>
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+						<datasetRun subDataset="refundPayment" uuid="9a7ad5ae-2a8e-4982-8278-aa0cb08e413d">
+							<datasetParameter name="account_id">
+								<datasetParameterExpression><![CDATA[$F{ac_actr_id}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:listContents height="19" width="555">
+							<rectangle>
+								<reportElement x="441" y="0" width="63" height="19" uuid="8d60241f-26a4-4818-82d0-743947dd5139"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="504" y="0" width="51" height="19" uuid="c1e7852c-917a-4c01-af72-fc3aeda7b8c0"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="113" y="0" width="66" height="19" uuid="3aa6b283-be2a-4ba7-a6c1-790455f2acda"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<text><![CDATA[]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="0" y="0" width="113" height="19" uuid="e57b9553-2071-49fa-b5aa-043cb3e97773"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_reference_no}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="128" y="0" width="35" height="19" uuid="7205ec1f-2a59-4874-a8bb-d7783a1ebcb5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_issued_date}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="179" y="0" width="113" height="19" uuid="07b6379e-fe6c-4148-a7a3-a7b24387b9e8"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="375" y="0" width="66" height="19" uuid="00f1c014-0ec9-4a03-94a7-108b21367d65"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></textFieldExpression>
+							</textField>
+							<textField isBlankWhenNull="true">
+								<reportElement x="292" y="0" width="83" height="19" uuid="2c60eed4-1d9a-4ae4-87a5-8fb3c9818946"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ac_rfnd_pymt_voucher_no}]]></textFieldExpression>
+							</textField>
+						</jr:listContents>
+					</jr:list>
+				</componentElement>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="123" width="113" height="20" backcolor="#CCCCCC" uuid="fee32fa3-d0cb-49c6-820a-903ba7e9230c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ref Code]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="441" y="123" width="63" height="20" backcolor="#CCCCCC" uuid="7d651c1b-1dbb-47df-bb73-bea625abb5cb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Credit]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="504" y="143" width="51" height="20" uuid="44b158f2-c71e-4682-8488-0b6fe7601a02"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement x="441" y="143" width="63" height="20" uuid="1cc210e9-e270-4a09-b4aa-e371b8900e8e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_amount}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="504" y="123" width="51" height="20" backcolor="#CCCCCC" uuid="369ef6c2-a700-4cb3-82da-7f6b77c30a8e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Balance Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="179" y="143" width="113" height="20" uuid="0225ef91-de73-4873-bfe3-93a1b448d5ea"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="179" y="123" width="113" height="20" backcolor="#CCCCCC" uuid="4566a311-c966-4a5c-a775-c3cf021e0373"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Doc No]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="375" y="143" width="66" height="20" uuid="f4b43f45-401f-4d31-ae50-bd92a5f7261e"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement x="0" y="143" width="113" height="20" uuid="4712c432-bda9-4b66-82f4-5b5ac8de3e26"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="375" y="123" width="66" height="20" backcolor="#CCCCCC" uuid="2d263b47-1a19-4ed6-8441-6b79556b89c3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Debit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="72" width="67" height="21" uuid="c4b8f913-83f1-4f7b-a4b9-0f26fe7f1ee7"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Study Level]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="87" width="67" height="20" uuid="80f0fe81-5233-4046-babb-94b266fbea42"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Intake]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="58" width="67" height="20" uuid="ee627815-7278-4981-9162-40b762aac9a1"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Course]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="97" y="87" width="201" height="20" uuid="b63ff953-082d-48a4-9037-f121784abcc2"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_acdm_sesn_description}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="97" y="69" width="100" height="24" uuid="710e7d7d-4274-4d46-a71f-1b8cae7af329"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_prgm_level_code}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="42" width="67" height="20" uuid="c6631a4d-5872-4608-a1db-e80188c04eb0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Name]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="97" y="24" width="146" height="20" uuid="41bb667d-90da-4f07-a27f-5390349ec4fc"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_actr_identity_no}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="97" y="55" width="100" height="20" uuid="8d4ee0a4-b731-4c1c-9fec-c957a53bb0e3"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_prgm_code_code}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="27" width="67" height="20" uuid="5e0be9de-0ccf-468a-bb7c-a497d2ec538c"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Student ID]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="176" y="55" width="199" height="20" uuid="62209355-29a6-45c2-837f-b7b66833e7d6"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_prgm_code_description}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="97" y="39" width="147" height="20" uuid="39ab5e01-5bea-4de5-92b9-6bd126dd5551"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_actr_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="12" width="46" height="20" uuid="8ce2dc21-e083-450a-a5c8-1133a7d4c948"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ref Code ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="97" y="11" width="145" height="20" uuid="fe4f6072-0c77-4976-a6cb-85658d8746d9"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="410" y="13" width="46" height="20" uuid="a9d14588-ded5-41c4-87da-f7825c712400"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Status]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="113" y="123" width="66" height="20" backcolor="#CCCCCC" uuid="3ba5beb5-706f-419a-8f4b-1884f879b4d8"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Date]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="128" y="143" width="35" height="20" uuid="cc446b2d-e15d-4ac9-bfff-080de35a1a8c"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_c_ts}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="462" y="14" width="100" height="20" uuid="7b1f5bd2-818f-49cf-a31a-e605e30c845e"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(
+$F{ac_rfnd_pymt_fd_st}.equals( "0" )? "NEW":
+$F{ac_rfnd_pymt_fd_st}.equals( "1" )? "DRAFTED":
+$F{ac_rfnd_pymt_fd_st}.equals( "2" )? "REQUESTED":
+$F{ac_rfnd_pymt_fd_st}.equals( "3" )? "REGISTERED":
+$F{ac_rfnd_pymt_fd_st}.equals( "4" )? "PREPARED":
+$F{ac_rfnd_pymt_fd_st}.equals( "5" )? "REVIEWER":
+$F{ac_rfnd_pymt_fd_st}.equals( "6" )? "UPPER_VERIFIED":
+$F{ac_rfnd_pymt_fd_st}.equals( "7" )? "CHECKED":
+$F{ac_rfnd_pymt_fd_st}.equals( "8" )? "APPROVED":
+$F{ac_rfnd_pymt_fd_st}.equals( "9" )? "UPPER_APPROVED":
+$F{ac_rfnd_pymt_fd_st}.equals( "10" )? "SELECTED":
+$F{ac_rfnd_pymt_fd_st}.equals( "11" )? "EVALUATED":
+$F{ac_rfnd_pymt_fd_st}.equals( "12" )? "PUBLISHED":
+$F{ac_rfnd_pymt_fd_st}.equals( "13" )? "CANCELLED":
+$F{ac_rfnd_pymt_fd_st}.equals( "14" )? "REJECTED":
+$F{ac_rfnd_pymt_fd_st}.equals( "15" )? "REMOVED":
+$F{ac_rfnd_pymt_fd_st}.equals( "16" )? "FINAL":
+$F{ac_rfnd_pymt_fd_st}.equals( "17" )? "ARCHIVED":
+"OTHER"
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="292" y="123" width="83" height="20" backcolor="#CCCCCC" uuid="1aa6e664-cdea-4c1f-a816-cd949db1eb2a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Voucher No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="292" y="143" width="83" height="20" uuid="224bac9a-efda-4f57-aef9-378c3221498e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="a22fc795-af02-4b1c-abb5-de368f7687cb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="-1" y="0" width="100" height="20" uuid="07c935ea-13a7-491e-83fd-db1dcb1d7ec4"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="504" y="0" width="51" height="20" uuid="1fedd5ae-9038-4d3e-aacb-579542721698"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_advc_pymt_amount}.subtract( $V{ac_rfnd_pymt_amount_2} )]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="309" y="0" width="243" height="24" uuid="58fb632f-616b-42f0-8581-232f22e544cd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REFUND PAYMENT LISTING]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70">
+			<textField pattern="dd-MM-yyyy h.mm a">
+				<reportElement x="424" y="8" width="113" height="19" uuid="93fdc8f6-aa8d-4bd5-9328-1ecbac1a0249"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="213" y="47" width="100" height="20" uuid="fa705b09-8135-4c9a-aebc-244dd07e505f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{End_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="27" width="67" height="20" uuid="18f35981-52c9-43b0-b065-de6ad84fcd3a"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORT ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="27" width="81" height="19" uuid="40ae9ac7-0154-4e5b-b742-781d290c14f1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page :  "+$V{PAGE_NUMBER}+"   of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="47" width="161" height="20" uuid="91abbc57-265d-49ee-a361-0c331428c9e3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Advance Payment Listing from ]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="465" y="27" width="40" height="19" uuid="a1ac12db-20d3-4324-8692-c485c45b6f05"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="138" y="47" width="63" height="20" uuid="2cd1dda4-5bf9-426a-a73b-7d301e0a2954"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Start_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="7" width="185" height="20" uuid="64f3d5e7-2c25-4be6-b947-b3f4a8e59204"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="8" width="46" height="19" uuid="9ff50976-7bf8-492a-a5a3-522924ec4f9c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="47" width="23" height="20" uuid="b10644b1-3b80-4516-b1f5-777e2c4cc4c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[to]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="43" splitType="Stretch"/>
+	</summary>
+</jasperReport>
