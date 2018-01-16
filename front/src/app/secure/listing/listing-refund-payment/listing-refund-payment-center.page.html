@@ -3,26 +3,24 @@
     <div toolbar-buttons layout="row" layout-align="start center" flex>
       <span flex></span>
     </div>
-
     <div md-content flex md-scroll-y>
-        <form [formGroup]="editForm">
         <div layout="column" layout-gt-md="row" class="inset">
           <div flex-gt-md="70">
             <md-card>
-                <md-card-title>Listing Invoice</md-card-title>
+                <md-card-title>Listing Refund Payment</md-card-title>
                 <md-card>
                     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
                       <md-input-container fxFlex="calc(100%-25px)">
-                        <input mdInput type="date" placeholder="Start Date" formControlName="Start_date"/>
+                        <input mdInput type="date" placeholder="Start Date"/>
                       </md-input-container>
                     </div>
                     
                     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
                       <md-input-container fxFlex="calc(100%-25px)">
-                        <input mdInput type="date" placeholder="End Date" formControlName="End_date"/>
+                        <input mdInput type="date" placeholder="End Date" />
                     </md-input-container>
                     </div>
-                     
+
                     <div layout="row" class="pad-bottom" flex>
                       <pams-program-code-select [placeholder]="'Select Program Code'" [innerFormControl]="editForm.controls['programCode']" fxFlex="calc(100%-25px)"
                         class="pad-bottom">
@@ -34,34 +32,35 @@
                         class="pad-bottom">
                       </pams-program-level-select>
                     </div>
+
                     <div layout="row" class="pad-bottom" flex>
-                      <pams-invoice-status-type-select [placeholder]="'Invoice Note Status Type'" [innerFormControl]="editForm.controls.invoiceNoteStatusType"
+                      <pams-refund-payment-status-type-select [placeholder]="'Refund Payment Status'" [innerFormControl]="editForm.controls.refundPaymentStatusType"
                         fxFlex="calc(100%-25px)">
-                      </pams-invoice-status-type-select>
+                      </pams-refund-payment-status-type-select>
                     </div>
                     <md-card-subtitle>
-                      <a *ngIf="this.editForm.value.invoiceNoteStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_024.jrxml', editForm)"
+                      <a *ngIf="this.editForm.value.refundPaymentStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_026.jrxml', editForm)"
                         [target]="'_blank'">
-                        <span>View Listing Invoice</span>
+                        <span>View Listing Refund Payment</span>
                       </a>
-                      <a *ngIf="this.editForm.value.invoiceNoteStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_021.jrxml', editForm)"
+                      <a *ngIf="this.editForm.value.refundPaymentStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_026.jrxml', editForm)"
                         [target]="'_blank'">
-                        <span>View Listing Invoice</span>
+                        <span>View Listing Refund Payment</span>
                       </a>
-                      <a *ngIf="this.editForm.value.invoiceNoteStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_021.jrxml', editForm)"
+                      <a *ngIf="this.editForm.value.refundPaymentStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_026.jrxml', editForm)"
                         [target]="'_blank'">
-                        <span>View Listing Invoice</span>
+                        <span>View Listing Refund Payment</span>
                       </a>
-                      <a *ngIf="this.editForm.value.invoiceNoteStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_021.jrxml', editForm)"
+                      <a *ngIf="this.editForm.value.refundPaymentStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_026.jrxml', editForm)"
                         [target]="'_blank'">
-                        <span>View Listing Invoice</span>
+                        <span>View Listing Refund Payment</span>
                       </a>
                     </md-card-subtitle>
+  
                 </md-card>
             </md-card>
           </div>
         </div>
-      </form>
       </div>
 
   </td-layout-manage-list>

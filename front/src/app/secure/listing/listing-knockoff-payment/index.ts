@@ -3,10 +3,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {appRoutes, appRoutingProviders} from '../../../app.routes';
 import {CovalentCoreModule} from '@covalent/core';
 import {CommonService, IdentityService} from '../../../../services';
-import {ListingAdvancePaymentStatementCenterPage} from './listing-advance-payment-statement-center.page';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import { AccountSubModule } from '../../account/accounts/index';
 import { CommonModule } from '../../../common/index';
+import { ListingKnockoffPaymentCenterPage } from './listing-knockoff-payment-center.page';
 
 @NgModule({
   imports: [
@@ -19,16 +19,16 @@ import { CommonModule } from '../../../common/index';
   ],
   declarations: [
     // page
-    ListingAdvancePaymentStatementCenterPage,
+    ListingKnockoffPaymentCenterPage,
   ],
   exports: [],
   entryComponents: [
   ],
 })
-export class ListingAdvancePaymentStatementSubModule {
+export class ListingKnockoffPaymentSubModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: ListingAdvancePaymentStatementSubModule,
+      ngModule: ListingKnockoffPaymentSubModule,
       providers: [
         appRoutingProviders,
         IdentityService,

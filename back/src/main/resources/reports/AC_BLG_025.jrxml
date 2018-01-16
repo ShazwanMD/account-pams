@@ -71,9 +71,7 @@ FROM
      INNER JOIN "public"."ac_stdn" ac_stdn ON ac_actr."id" = ac_stdn."id"
      INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_stdn."cohort_code_id" = ac_chrt_code."id"
      INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."program_code_id" = ac_prgm_code."id"
-     INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"
-
-]]>
+     INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"]]>
 		</queryString>
 		<field name="amt_ko" class="java.math.BigDecimal"/>
 		<field name="ac_knof_id" class="java.lang.Long"/>
@@ -133,6 +131,7 @@ FROM
 	<parameter name="End_date" class="java.lang.String"/>
 	<parameter name="Program_code" class="java.lang.String"/>
 	<parameter name="Study_level" class="java.lang.String"/>
+	<parameter name="Status" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
      ac_advc_pymt."amount"-(ac_knof."amount"-ac_knof."total_amount") AS total_balance,
@@ -222,6 +221,7 @@ WHERE  (to_char (  ac_knof."issued_date", 'YYYY-MM-DD' )>= $P{Start_date}
 AND to_char (  ac_knof."issued_date", 'YYY-MM-DD') <= $P{End_date})
  AND ac_prgm_code."description" = $P{Program_code}
  AND  ac_prgm_level."code" = $P{Study_level}
+AND ac_knof."fd_st" = $P{Status}
 
 ORDER BY
      ac_advc_pymt."reference_no" ASC]]>
@@ -290,7 +290,7 @@ ORDER BY
 	<field name="ac_knof_item_knockoff_id" class="java.lang.Long"/>
 	<field name="ac_knof_item_account_charge_id" class="java.lang.Long"/>
 	<field name="ac_knof_item_debit_note_id" class="java.lang.Long"/>
-	<field name="ac_knof_fd_st" class="java.lang.Integer"/>
+	<field name="ac_knof_fd_st" class="java.lang.String"/>
 	<field name="ac_advc_pymt_receipt_id" class="java.lang.Long"/>
 	<field name="ac_advc_pymt_c_ts" class="java.sql.Timestamp"/>
 	<variable name="ttl-knf" class="java.math.BigDecimal" calculation="Sum">

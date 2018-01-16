@@ -7,15 +7,17 @@ import { BillingModuleState } from '../../billing/index';
 import { Store } from '@ngrx/store';
 import { ProgramLevel } from '../../../shared/model/common/program-level.interface';
 import { ProgramCode } from '../../../shared/model/common/program-code.interface';
+import { RefundPayment } from '../../../shared/model/billing/refund-payment.interface';
+import { RefundPaymentStatusType } from '../../../shared/model/common/refund-status-type';
 
 @Component({
-  selector: 'pams-listing-advance-payment-statement-center-page',
-  templateUrl: './listing-advance-payment-statement-center.page.html',
+  selector: 'pams-listing-refund-payment-center-page',
+  templateUrl: './listing-refund-payment-center.page.html',
 })
 
-export class ListingAdvancePaymentStatementCenterPage implements OnInit {
+export class ListingRefundPaymentCenterPage implements OnInit {
 
-  @Input() advancePayment: AdvancePayment;
+  @Input() refundPayment: RefundPayment;
   @Input() programCode: ProgramCode;
   @Input() programLevel: ProgramLevel;
   private editForm: FormGroup;
@@ -33,13 +35,13 @@ export class ListingAdvancePaymentStatementCenterPage implements OnInit {
       End_date: undefined,
       programLevel: [<ProgramLevel>{}],
       programCode: [<ProgramCode>{}],
+      refundPaymentStatusType: RefundPaymentStatusType,
     });
   }
-
-  downloadReport(editForm: FormGroup): void {
-    let repParam =editForm +'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
-    +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code;
-    // + '&Status='+ this.editForm.value.debitNoteStatusType;
-    this.store.dispatch(this.reportActions.downloadReport(repParam));
-    }   
+downloadReport(editForm: FormGroup): void {
+let repParam = editForm+'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
++'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code
++'&Status='+ this.editForm.value.refundPaymentStatusType;
+this.store.dispatch(this.reportActions.downloadReport(repParam));
+}
 }

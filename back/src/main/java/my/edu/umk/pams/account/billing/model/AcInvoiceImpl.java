@@ -59,6 +59,9 @@ public class AcInvoiceImpl implements AcInvoice {
 
     @Column(name = "REMOVE_COMMENT")
     private String removeComment;
+    
+    @Column(name = "REPORT_STATUS")
+    private String reportStatus;
 
     @ManyToOne(targetEntity = AcAccountImpl.class)
     @JoinColumn(name = "ACCOUNT_ID")
@@ -215,6 +218,16 @@ public class AcInvoiceImpl implements AcInvoice {
         this.removeComment = removeComment;
     }
 
+    @Override
+    public String getReportStatus() {
+		return reportStatus;
+	}
+
+    @Override
+    public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
+	}
+    
     @Override
     public List<AcInvoiceItem> getItems() {
         return items;

@@ -7,7 +7,7 @@
         <div layout="column" layout-gt-md="row" class="inset">
           <div flex-gt-md="70">
             <md-card>
-                <md-card-title>Listing Advance Payment Statement</md-card-title>
+                <md-card-title>Listing Knockoff Payment</md-card-title>
                 <md-card>
                     <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
                       <md-input-container fxFlex="calc(100%-25px)">
@@ -33,9 +33,29 @@
                       </pams-program-level-select>
                     </div>
 
-                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)" [target]="'_blank'">
-                      <span>View Listing Debit Note</span>
-                  </a>
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-knockoff-status-type-select [placeholder]="'Knockoff Status Type'" [innerFormControl]="editForm.controls.knockoffStatusType"
+                        fxFlex="calc(100%-25px)">
+                      </pams-knockoff-status-type-select>
+                    </div>
+                    <md-card-subtitle>
+                      <a *ngIf="this.editForm.value.knockoffStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Knockoff Payment</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.knockoffStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Knockoff Payment</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.knockoffStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Knockoff Payment</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.knockoffStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Knockoff Payment</span>
+                      </a>
+                    </md-card-subtitle>
   
                 </md-card>
             </md-card>

@@ -34,10 +34,29 @@
                       class="pad-bottom">
                     </pams-program-level-select>
                   </div>
-                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_012.jrxml', editForm)" [target]="'_blank'">
-                        <span>View Listing Receipt</span>
+                  <div layout="row" class="pad-bottom" flex>
+                    <pams-receipt-status-type-select [placeholder]="'Receipt Status Type'" [innerFormControl]="editForm.controls.receiptStatusType"
+                      fxFlex="calc(100%-25px)">
+                    </pams-receipt-status-type-select>
+                  </div>
+                  <md-card-subtitle>
+                    <a *ngIf="this.editForm.value.receiptStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_016.jrxml', editForm)"
+                      [target]="'_blank'">
+                      <span>View Listing Receipt Note</span>
                     </a>
-  
+                    <a *ngIf="this.editForm.value.receiptStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_012.jrxml', editForm)"
+                      [target]="'_blank'">
+                      <span>View Listing Receipt Note</span>
+                    </a>
+                    <a *ngIf="this.editForm.value.receiptStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_012.jrxml', editForm)"
+                      [target]="'_blank'">
+                      <span>View Listing Receipt Note</span>
+                    </a>
+                    <a *ngIf="this.editForm.value.receiptStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_012.jrxml', editForm)"
+                      [target]="'_blank'">
+                      <span>View Listing Receipt Note</span>
+                    </a>
+                  </md-card-subtitle>
                 </md-card>
             </md-card>
           </div>

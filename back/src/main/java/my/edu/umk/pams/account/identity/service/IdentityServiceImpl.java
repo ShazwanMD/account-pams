@@ -758,9 +758,30 @@ public class IdentityServiceImpl implements IdentityService {
 
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			LOG.debug("Others");
 		}
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public void saveStaffIMSNonAcademicInActive(AcStaff staff) {
+		staffDao.save(staff, securityService.getCurrentUser());
+		LOG.info("IdentityService Save Non Academic InActive Staff From IMS");
+
+		LOG.debug("Staff Email In Service:{}", staff.getEmail());
+
+		if (isUserExists(staff.getEmail())) {
+
+			AcUser userInActive = findUserByUsername(staff.getEmail());
+			userInActive.setEnabled(false);
+			userInActive.setLocked(false);
+			updateUser(userInActive);
+
+		} else {
+			LOG.info("User Not Exists");
+		}
+
 		sessionFactory.getCurrentSession().flush();
 	}
 

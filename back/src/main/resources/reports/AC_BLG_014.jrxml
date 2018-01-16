@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credit_note_listing" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d739550e-cbb0-4625-986c-01d60042c1f0">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="411"/>
+	<property name="ireport.y" value="97"/>
 	<property name="ireport.callouts" value="##Sun Dec 17 11:58:22 SGT 2017"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="month" uuid="8595e530-e313-43eb-898b-3b1d1323d44b">
@@ -34,7 +34,6 @@ ORDER BY
 	<subDataset name="dataset3" uuid="d43379da-dedf-4712-b62d-11d1b27be61d">
 		<parameter name="Start_date" class="java.lang.String"/>
 		<parameter name="End_date" class="java.lang.String"/>
-		<parameter name="Status" class="java.lang.String"/>
 		<parameter name="Program_code" class="java.lang.String"/>
 		<parameter name="Study_level" class="java.lang.String"/>
 		<queryString>
@@ -68,7 +67,6 @@ where
 
 to_char(ac_cdit_note."creditnote_date",'YYYY-MM-DD') BETWEEN $P{Start_date} AND $P{End_date}
 AND $P{Program_code} = ac_prgm_code."description"
-AND $P{Status} =  ac_cdit_note."report_status"
 AND $P{Study_level} = ac_prgm_level."code"
 
 group by
@@ -102,9 +100,6 @@ ac_prgm_code."program_level_id"]]>
 	</parameter>
 	<parameter name="End_date" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="Status" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Program_code" class="java.lang.String"/>
@@ -163,7 +158,6 @@ INNER JOIN "public"."ac_chrg_code" ac_chrg_code ON ac_cdit_note_item."charge_cod
 WHERE
 to_char(ac_cdit_note."creditnote_date",'YYYY-MM-DD') BETWEEN $P{Start_date} AND $P{End_date}
  AND $P{Program_code} = ac_prgm_code."description"
- AND $P{Status} =  ac_cdit_note."report_status"
  AND $P{Study_level} = ac_prgm_level."code"
 
 ORDER BY
@@ -250,7 +244,7 @@ ORDER BY
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="30" splitType="Prevent">
+			<band height="32" splitType="Prevent">
 				<rectangle>
 					<reportElement x="0" y="10" width="555" height="16" backcolor="#99FF66" uuid="52f85ffc-b599-492b-bf48-174d34fd318a"/>
 				</rectangle>
@@ -563,17 +557,17 @@ ORDER BY
 	<summary>
 		<band height="294" splitType="Prevent">
 			<rectangle>
-				<reportElement x="1" y="112" width="555" height="20" backcolor="#CCCCCC" uuid="7c69081d-8c49-433c-9bed-35c4b8b28e58"/>
+				<reportElement x="1" y="140" width="554" height="20" backcolor="#CCCCCC" uuid="7c69081d-8c49-433c-9bed-35c4b8b28e58"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="1" y="1" width="100" height="20" uuid="a3b67fb4-89db-4d5b-9876-15a1fc44e07c"/>
+				<reportElement x="1" y="34" width="100" height="20" uuid="a3b67fb4-89db-4d5b-9876-15a1fc44e07c"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grand Total]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="0" y="32" width="555" height="56" uuid="512d9333-4db7-4ce7-9ff4-18dfd3936b88"/>
+				<reportElement x="0" y="68" width="555" height="45" uuid="512d9333-4db7-4ce7-9ff4-18dfd3936b88"/>
 				<componentElement>
 					<reportElement x="0" y="23" width="554" height="21" uuid="ed28735c-cd02-4665-842d-e07a57f51dfc"/>
 					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
@@ -583,9 +577,6 @@ ORDER BY
 							</datasetParameter>
 							<datasetParameter name="End_date">
 								<datasetParameterExpression><![CDATA[$P{End_date}]]></datasetParameterExpression>
-							</datasetParameter>
-							<datasetParameter name="Status">
-								<datasetParameterExpression><![CDATA[$P{Status}]]></datasetParameterExpression>
 							</datasetParameter>
 							<datasetParameter name="Program_code">
 								<datasetParameterExpression><![CDATA[$P{Program_code}]]></datasetParameterExpression>
@@ -647,7 +638,7 @@ ORDER BY
 				</componentElement>
 			</frame>
 			<staticText>
-				<reportElement x="33" y="35" width="178" height="20" uuid="fcf8eb96-fa11-49ea-92c0-8281e44b349b"/>
+				<reportElement x="33" y="70" width="178" height="20" uuid="fcf8eb96-fa11-49ea-92c0-8281e44b349b"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -661,7 +652,7 @@ ORDER BY
 				<text><![CDATA[Charge Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="211" y="35" width="234" height="20" uuid="9e901c39-4955-4fa7-bcfb-1558b03620a9"/>
+				<reportElement x="211" y="70" width="234" height="20" uuid="9e901c39-4955-4fa7-bcfb-1558b03620a9"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -675,7 +666,7 @@ ORDER BY
 				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="445" y="35" width="109" height="20" uuid="d091cd59-14fc-4710-944b-6cbb71dce14e"/>
+				<reportElement x="445" y="70" width="109" height="20" uuid="d091cd59-14fc-4710-944b-6cbb71dce14e"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -689,7 +680,7 @@ ORDER BY
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="35" width="32" height="20" uuid="c07afefc-4792-41eb-b036-aa95cc9c7258"/>
+				<reportElement x="1" y="70" width="32" height="20" uuid="c07afefc-4792-41eb-b036-aa95cc9c7258"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -703,12 +694,12 @@ ORDER BY
 				<text><![CDATA[No]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="450" y="112" width="100" height="19" uuid="f9e81a7a-c791-4a52-89ac-b4a4df58db55"/>
+				<reportElement x="454" y="141" width="100" height="19" uuid="f9e81a7a-c791-4a52-89ac-b4a4df58db55"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{ac_cdit_note_item_amount_7}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="4" y="113" width="115" height="19" uuid="e574bfa4-5760-46d8-82f9-be20714d285e"/>
+				<reportElement x="6" y="140" width="115" height="19" uuid="e574bfa4-5760-46d8-82f9-be20714d285e"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false" isItalic="false"/>
 				</textElement>

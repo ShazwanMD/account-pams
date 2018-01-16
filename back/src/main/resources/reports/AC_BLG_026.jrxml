@@ -238,28 +238,14 @@ FROM
      INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"
      INNER JOIN "public"."ac_fcty_code" ac_fcty_code ON ac_prgm_code."faculty_code_id" = ac_fcty_code."id"
      INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
-      INNER JOIN  "public"."ac_advc_pymt" ac_advc_pymt ON ac_acct."id" = ac_advc_pymt."account_id"
+     LEFT OUTER JOIN "public"."ac_advc_pymt" ac_advc_pymt ON ac_acct."id" = ac_advc_pymt."account_id"
      INNER JOIN "public"."ac_acdm_sesn" ac_acdm_sesn ON ac_advc_pymt."session_id" = ac_acdm_sesn."id"
-     LEFT OUTER JOIN "public"."ac_rfnd_pymt" ac_rfnd_pymt ON ac_advc_pymt."id" = ac_rfnd_pymt."advance_payment_id"
+     INNER JOIN  "public"."ac_rfnd_pymt" ac_rfnd_pymt ON ac_advc_pymt."id" = ac_rfnd_pymt."advance_payment_id"
 
-WHERE  (to_char ( ac_advc_pymt."c_ts", 'YYYY-MM-DD' )>= $P{Start_date}
-AND to_char ( ac_advc_pymt."c_ts", 'YYY-MM-DD') <= $P{End_date})
+WHERE  (to_char ( ac_rfnd_pymt."issued_date", 'YYYY-MM-DD' )>= $P{Start_date}
+AND to_char ( ac_rfnd_pymt."issued_date", 'YYY-MM-DD') <= $P{End_date})
  AND ac_prgm_code."description" = $P{Program_code}
  AND  ac_prgm_level."code" = $P{Study_level}
-
-GROUP BY
-     ac_actr."id",
-     ac_stdn."id",
-     ac_chrt_code."id",
-     ac_prgm_code."id",
-     ac_prgm_level."id",
-     ac_acct."id",
-     ac_advc_pymt."id",
-     ac_acdm_sesn."id",
-     ac_prgm_code."id",
-     ac_fcty_code."id",
-     ac_advc_pymt."receipt_id",
-     ac_rfnd_pymt."id"
 
 order by
 ac_advc_pymt."reference_no"]]>
@@ -320,7 +306,7 @@ ac_advc_pymt."reference_no"]]>
 	<field name="ac_rfnd_pymt_reference_no" class="java.lang.String"/>
 	<field name="ac_rfnd_pymt_remove_comment" class="java.lang.String"/>
 	<field name="ac_rfnd_pymt_source_no" class="java.lang.String"/>
-	<field name="ac_rfnd_pymt_advance_payment_id" class="java.lang.Long"/>
+	<field name="ac_rfnd_pymt_advance_payment_id" class="java.lang.String"/>
 	<field name="ac_rfnd_pymt_fd_st" class="java.lang.String"/>
 	<variable name="ttl-knf" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></variableExpression>
@@ -347,9 +333,21 @@ ac_advc_pymt."reference_no"]]>
 				<componentElement>
 					<reportElement x="0" y="163" width="555" height="19" uuid="68bc5df2-9fc7-47f6-8e8e-afe4c4d4147f"/>
 					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
-						<datasetRun subDataset="refundPayment" uuid="9a7ad5ae-2a8e-4982-8278-aa0cb08e413d">
+						<datasetRun subDataset="refundPayment" uuid="77424b49-4628-4aae-a51a-3759b8097709">
 							<datasetParameter name="account_id">
 								<datasetParameterExpression><![CDATA[$F{ac_actr_id}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="Start_date">
+								<datasetParameterExpression><![CDATA[$F{ac_rfnd_pymt_issued_date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End_date">
+								<datasetParameterExpression><![CDATA[$F{ac_rfnd_pymt_issued_date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="Program_code">
+								<datasetParameterExpression><![CDATA[$F{ac_prgm_code_description}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="Study_level">
+								<datasetParameterExpression><![CDATA[$F{ac_prgm_level_code}]]></datasetParameterExpression>
 							</datasetParameter>
 							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>
