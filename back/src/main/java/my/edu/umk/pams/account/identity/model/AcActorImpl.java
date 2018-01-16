@@ -24,10 +24,10 @@ public abstract class AcActorImpl implements AcActor {
 	@Column(name = "IDENTITY_NO", unique = true, nullable = false)
 	private String identityNo;
 
-	@Column(name = "IC_NO", unique = true, nullable = false)
+	@Column(name = "IC_NO", unique = true, nullable = true)
 	private String icNo;
 	
-	@Column(name = "ACC_NO", unique = true, nullable = false)
+	@Column(name = "ACC_NO", unique = true, nullable = true)
 	private String accNo;
 	
 	@NotNull
