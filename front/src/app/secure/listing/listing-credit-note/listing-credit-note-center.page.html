@@ -31,12 +31,12 @@
                   </pams-program-level-select>
                 </div>
                 <div layout="row" class="pad-bottom" flex>
-                  <pams-credit-note-status-type-select [placeholder]="'Credit Note Status Type'" [innerFormControl]="editForm.controls.creditNoteStatusType"
+                  <pams-credit-note-status-type-select pams-credit-note-status-type-select [placeholder]="'Credit Note Status Type'" [innerFormControl]="editForm.controls.creditNoteStatusType"
                     fxFlex="calc(100%-25px)">
                   </pams-credit-note-status-type-select>
                 </div>
                 <md-card-subtitle>
-                  <a *ngIf="this.editForm.value.creditNoteStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_013.jrxml', editForm)"
+                  <a *ngIf="this.editForm.value.creditNoteStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_014.jrxml', editForm)"
                     [target]="'_blank'">
                     <span>View Listing Credit Note</span>
                   </a>
