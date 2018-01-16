@@ -84,6 +84,9 @@ public class AcReceiptImpl implements AcReceipt {
 	@Column(name = "REMOVE_COMMENT")
 	private String removeComment;
 	
+	@Column(name = "REPORT_STATUS")
+    private String reportStatus;
+	
 	@ManyToOne(targetEntity = AcAcademicSessionImpl.class)
     @JoinColumn(name = "SESSION_ID", nullable = true)
     private AcAcademicSession session;
@@ -263,6 +266,16 @@ public class AcReceiptImpl implements AcReceipt {
 		this.removeComment = removeComment;
 	}
 
+	 @Override
+	 public String getReportStatus() {
+		return reportStatus;
+	}
+
+	 @Override
+	 public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
+	}
+	    
 	@Override
 	public List<AcReceiptItem> getItems() {
 		return items;

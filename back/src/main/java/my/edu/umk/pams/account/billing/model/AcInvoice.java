@@ -52,4 +52,8 @@ public interface AcInvoice extends AcDocument{
     List<AcCreditNote> getCreditNotes();
 
     void setCreditNotes(List<AcCreditNote> notes);
+    
+	String getReportStatus();
+
+	void setReportStatus(String reportStatus);
 }

@@ -65,4 +65,8 @@ public interface AcReceipt extends AcDocument{
 	void setTotalPayment(BigDecimal totalPayment);
 
 	BigDecimal getTotalPayment();
+	
+	String getReportStatus();
+
+	void setReportStatus(String reportStatus);
 }

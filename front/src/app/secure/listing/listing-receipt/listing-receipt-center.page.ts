@@ -42,7 +42,6 @@ export class ListingReceiptCenterPage implements OnInit {
     });
     }
   
-
     downloadReport(editForm: FormGroup): void {
       let repParam = editForm+'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
       +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code

@@ -1018,6 +1018,8 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void updateReceipt(AcReceipt receipt) {
+		String status = receipt.getFlowdata().getState().toString();
+		receipt.setReportStatus(status);
 		receiptDao.update(receipt, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
