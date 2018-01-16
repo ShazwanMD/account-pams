@@ -46,6 +46,10 @@ public interface AcKnockoff extends AcDocument {
 
 	void setBalanceAmount(BigDecimal balanceAmount);
 	
+	String getReportStatus();
+
+	void setReportStatus(String reportStatus);
+	
     List<AcInvoice> getInvoices();
     
     List<AcAccountCharge> getAccountCharges();

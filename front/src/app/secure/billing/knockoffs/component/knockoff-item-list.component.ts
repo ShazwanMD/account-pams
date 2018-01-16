@@ -66,7 +66,10 @@ export class KnockoffItemListComponent implements OnInit {
         config.position = {top: '65px'};
         this.editorDialogRef = this.dialog.open(KnockoffItemEditorDialog, config);
         this.editorDialogRef.componentInstance.knockoff = this.knockoff;
-        this.editorDialogRef.componentInstance.knockoffItem = knockoffItem;
+        if (knockoffItem) this.editorDialogRef.componentInstance.knockoffItem=knockoffItem;
+        this.editorDialogRef.afterClosed().subscribe((res) => {
+          this.selectedRows = [];
+        });
       }
     
     delete(): void {

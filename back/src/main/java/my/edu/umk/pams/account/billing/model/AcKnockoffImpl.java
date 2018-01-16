@@ -76,6 +76,9 @@ public class AcKnockoffImpl implements AcKnockoff {
     @JoinColumn(name = "ADVANCE_PAYMENT_ID")
     private AcAdvancePayment payments;
     
+    @Column(name = "REPORT_STATUS")
+    private String reportStatus;
+    
     @Embedded
     private AcMetadata metadata;
     
@@ -236,6 +239,16 @@ public class AcKnockoffImpl implements AcKnockoff {
 
 	public void setBalanceAmount(BigDecimal balanceAmount) {
 		this.balanceAmount = balanceAmount;
+	}
+	
+	@Override
+    public String getReportStatus() {
+		return reportStatus;
+	}
+
+    @Override
+    public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
 	}
 	
 	@Override

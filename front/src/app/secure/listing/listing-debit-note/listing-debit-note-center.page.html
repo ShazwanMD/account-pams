@@ -36,19 +36,19 @@
                   </pams-debit-note-status-type-select>
                 </div>
                 <md-card-subtitle>
-                  <a *ngIf="this.editForm.value.debitNoteStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_024.jrxml', editForm)"
+                  <a *ngIf="this.editForm.value.debitNoteStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_024.jrxml&report.pdf', editForm)"
                     [target]="'_blank'">
                     <span>View Listing Debit Note</span>
                   </a>
-                  <a *ngIf="this.editForm.value.debitNoteStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_023.jrxml', editForm)"
+                  <a *ngIf="this.editForm.value.debitNoteStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_023.jrxml&report.pdf', editForm)"
                     [target]="'_blank'">
                     <span>View Listing Debit Note</span>
                   </a>
-                  <a *ngIf="this.editForm.value.debitNoteStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_023.jrxml', editForm)"
+                  <a *ngIf="this.editForm.value.debitNoteStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_023.jrxml&report.pdf', editForm)"
                     [target]="'_blank'">
                     <span>View Listing Debit Note</span>
                   </a>
-                  <a *ngIf="this.editForm.value.debitNoteStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_023.jrxml', editForm)"
+                  <a *ngIf="this.editForm.value.debitNoteStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_023.jrxml&report.pdf', editForm)"
                     [target]="'_blank'">
                     <span>View Listing Debit Note</span>
                   </a>

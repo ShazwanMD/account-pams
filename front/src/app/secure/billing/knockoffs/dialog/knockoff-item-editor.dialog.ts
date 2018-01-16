@@ -51,7 +51,7 @@ export class KnockoffItemEditorDialog implements OnInit {
       chargeCode: <ChargeCode>{},
       invoice: <Invoice>{},
     },{
-      validator: AmountValidation.CheckAmount // validation method
+      //validator: AmountValidation.CheckAmount // validation method
    });
     if (this.edit) this.editForm.patchValue(this._knockoffItem);
   }

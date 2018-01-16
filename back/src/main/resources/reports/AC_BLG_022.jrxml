@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8182e7c0-4099-4435-8753-d2ee5256c963">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="13"/>
+	<property name="ireport.x" value="204"/>
+	<property name="ireport.y" value="15"/>
 	<subDataset name="knockoff" uuid="34b4ddd9-8207-41f6-a95b-e59c080fa1a4">
 		<parameter name="account_id" class="java.lang.Long"/>
 		<parameter name="Start_date" class="java.lang.String"/>
@@ -71,9 +71,7 @@ FROM
      INNER JOIN "public"."ac_stdn" ac_stdn ON ac_actr."id" = ac_stdn."id"
      INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_stdn."cohort_code_id" = ac_chrt_code."id"
      INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."program_code_id" = ac_prgm_code."id"
-     INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"
-
-]]>
+     INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"]]>
 		</queryString>
 		<field name="amt_ko" class="java.math.BigDecimal"/>
 		<field name="ac_knof_id" class="java.lang.Long"/>
@@ -181,6 +179,7 @@ FROM
      ac_knof."audit_no" AS ac_knof_audit_no,
      ac_knof."description" AS ac_knof_description,
      ac_knof."reference_no" AS ac_knof_reference_no,
+     ac_knof."report_status" AS ac_knof_report_status,
      ac_knof."issued_date" AS ac_knof_issued_date,
      ac_knof."source_no" AS ac_knof_source_no,
      ac_knof."advance_payment_id" AS ac_knof_advance_payment_id,
@@ -272,6 +271,7 @@ ORDER BY
 	<field name="ac_knof_audit_no" class="java.lang.String"/>
 	<field name="ac_knof_description" class="java.lang.String"/>
 	<field name="ac_knof_reference_no" class="java.lang.String"/>
+	<field name="ac_knof_report_status" class="java.lang.String"/>
 	<field name="ac_knof_issued_date" class="java.sql.Date"/>
 	<field name="ac_knof_source_no" class="java.lang.String"/>
 	<field name="ac_knof_advance_payment_id" class="java.lang.Long"/>
@@ -596,33 +596,6 @@ ORDER BY
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="478" y="14" width="85" height="19" uuid="ce503929-b4a6-463e-aa34-94415e39dbd3"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[(
-$F{ac_knof_fd_st}.equals( "0" )? "NEW":
-$F{ac_knof_fd_st}.equals( "1" )? "DRAFTED":
-$F{ac_knof_fd_st}.equals( "2" )? "REQUESTED":
-$F{ac_knof_fd_st}.equals( "3" )? "REGISTERED":
-$F{ac_knof_fd_st}.equals( "4" )? "PREPARED":
-$F{ac_knof_fd_st}.equals( "5" )? "REVIEWER":
-$F{ac_knof_fd_st}.equals( "6" )? "UPPER_VERIFIED":
-$F{ac_knof_fd_st}.equals( "7" )? "CHECKED":
-$F{ac_knof_fd_st}.equals( "8" )? "APPROVED":
-$F{ac_knof_fd_st}.equals( "9" )? "UPPER_APPROVED":
-$F{ac_knof_fd_st}.equals( "10" )? "SELECTED":
-$F{ac_knof_fd_st}.equals( "11" )? "EVALUATED":
-$F{ac_knof_fd_st}.equals( "12" )? "PUBLISHED":
-$F{ac_knof_fd_st}.equals( "13" )? "CANCELLED":
-$F{ac_knof_fd_st}.equals( "14" )? "REJECTED":
-$F{ac_knof_fd_st}.equals( "15" )? "REMOVED":
-$F{ac_knof_fd_st}.equals( "16" )? "FINAL":
-$F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
-"OTHER"
-)]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement x="3" y="13" width="46" height="20" uuid="f3d131f9-3b18-48ac-99f6-60657fa17bd1"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
@@ -692,6 +665,13 @@ $F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_acdm_sesn_description}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="471" y="19" width="100" height="20" uuid="f97d3a7f-5715-4b07-adfb-5a0cfa9cb741"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_knof_report_status}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

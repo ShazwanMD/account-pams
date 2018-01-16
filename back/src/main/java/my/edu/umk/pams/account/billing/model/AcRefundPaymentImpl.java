@@ -64,6 +64,9 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
     @Column(name = "REMOVE_COMMENT")
     private String removeComment;
     
+    @Column(name = "REPORT_STATUS")
+    private String reportStatus;
+    
     @Embedded
     private AcMetadata metadata;
 
@@ -186,6 +189,16 @@ public class AcRefundPaymentImpl implements AcRefundPayment {
     @Override
 	public void setPayments(AcAdvancePayment payments) {
 		this.payments = payments;
+	}
+    
+	@Override
+    public String getReportStatus() {
+		return reportStatus;
+	}
+
+    @Override
+    public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
 	}
 	
     @Override

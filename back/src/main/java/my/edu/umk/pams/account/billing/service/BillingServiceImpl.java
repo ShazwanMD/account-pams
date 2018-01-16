@@ -1639,6 +1639,8 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void updateKnockoff(AcKnockoff knockoff) {
+        String status = knockoff.getFlowdata().getState().toString();
+        knockoff.setReportStatus(status);
 		knockoffDao.update(knockoff, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
@@ -1943,6 +1945,8 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void updateRefundPayment(AcRefundPayment refund) {
+        String status = refund.getFlowdata().getState().toString();
+        refund.setReportStatus(status);
 		refundPaymentDao.update(refund, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}

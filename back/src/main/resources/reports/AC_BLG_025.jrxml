@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8182e7c0-4099-4435-8753-d2ee5256c963">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="13"/>
+	<property name="ireport.x" value="204"/>
+	<property name="ireport.y" value="259"/>
 	<subDataset name="knockoff" uuid="34b4ddd9-8207-41f6-a95b-e59c080fa1a4">
 		<parameter name="account_id" class="java.lang.Long"/>
 		<parameter name="Start_date" class="java.lang.String"/>
@@ -131,7 +131,7 @@ FROM
 	<parameter name="End_date" class="java.lang.String"/>
 	<parameter name="Program_code" class="java.lang.String"/>
 	<parameter name="Study_level" class="java.lang.String"/>
-	<parameter name="Status" class="java.lang.Integer"/>
+	<parameter name="Status" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      ac_advc_pymt."amount"-(ac_knof."amount"-ac_knof."total_amount") AS total_balance,
@@ -179,6 +179,7 @@ FROM
      ac_knof."balance_amount" AS ac_knof_balance_amount,
      ac_knof."audit_no" AS ac_knof_audit_no,
      ac_knof."description" AS ac_knof_description,
+     ac_knof."report_status" AS ac_knof_report_status,
      ac_knof."reference_no" AS ac_knof_reference_no,
      ac_knof."issued_date" AS ac_knof_issued_date,
      ac_knof."source_no" AS ac_knof_source_no,
@@ -221,7 +222,7 @@ WHERE  (to_char (  ac_knof."issued_date", 'YYYY-MM-DD' )>= $P{Start_date}
 AND to_char (  ac_knof."issued_date", 'YYY-MM-DD') <= $P{End_date})
  AND ac_prgm_code."description" = $P{Program_code}
  AND  ac_prgm_level."code" = $P{Study_level}
-AND ac_knof."fd_st" = $P{Status}
+AND ac_knof."report_status" = $P{Status}
 
 ORDER BY
      ac_advc_pymt."reference_no" ASC]]>
@@ -271,6 +272,7 @@ ORDER BY
 	<field name="ac_knof_balance_amount" class="java.math.BigDecimal"/>
 	<field name="ac_knof_audit_no" class="java.lang.String"/>
 	<field name="ac_knof_description" class="java.lang.String"/>
+	<field name="ac_knof_report_status" class="java.lang.String"/>
 	<field name="ac_knof_reference_no" class="java.lang.String"/>
 	<field name="ac_knof_issued_date" class="java.sql.Date"/>
 	<field name="ac_knof_source_no" class="java.lang.String"/>
@@ -290,7 +292,7 @@ ORDER BY
 	<field name="ac_knof_item_knockoff_id" class="java.lang.Long"/>
 	<field name="ac_knof_item_account_charge_id" class="java.lang.Long"/>
 	<field name="ac_knof_item_debit_note_id" class="java.lang.Long"/>
-	<field name="ac_knof_fd_st" class="java.lang.String"/>
+	<field name="ac_knof_fd_st" class="java.lang.Integer"/>
 	<field name="ac_advc_pymt_receipt_id" class="java.lang.Long"/>
 	<field name="ac_advc_pymt_c_ts" class="java.sql.Timestamp"/>
 	<variable name="ttl-knf" class="java.math.BigDecimal" calculation="Sum">
@@ -596,33 +598,6 @@ ORDER BY
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_advc_pymt_reference_no}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="478" y="14" width="85" height="19" uuid="ce503929-b4a6-463e-aa34-94415e39dbd3"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[(
-$F{ac_knof_fd_st}.equals( "0" )? "NEW":
-$F{ac_knof_fd_st}.equals( "1" )? "DRAFTED":
-$F{ac_knof_fd_st}.equals( "2" )? "REQUESTED":
-$F{ac_knof_fd_st}.equals( "3" )? "REGISTERED":
-$F{ac_knof_fd_st}.equals( "4" )? "PREPARED":
-$F{ac_knof_fd_st}.equals( "5" )? "REVIEWER":
-$F{ac_knof_fd_st}.equals( "6" )? "UPPER_VERIFIED":
-$F{ac_knof_fd_st}.equals( "7" )? "CHECKED":
-$F{ac_knof_fd_st}.equals( "8" )? "APPROVED":
-$F{ac_knof_fd_st}.equals( "9" )? "UPPER_APPROVED":
-$F{ac_knof_fd_st}.equals( "10" )? "SELECTED":
-$F{ac_knof_fd_st}.equals( "11" )? "EVALUATED":
-$F{ac_knof_fd_st}.equals( "12" )? "PUBLISHED":
-$F{ac_knof_fd_st}.equals( "13" )? "CANCELLED":
-$F{ac_knof_fd_st}.equals( "14" )? "REJECTED":
-$F{ac_knof_fd_st}.equals( "15" )? "REMOVED":
-$F{ac_knof_fd_st}.equals( "16" )? "FINAL":
-$F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
-"OTHER"
-)]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement x="3" y="13" width="46" height="20" uuid="f3d131f9-3b18-48ac-99f6-60657fa17bd1"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
@@ -692,6 +667,13 @@ $F{ac_knof_fd_st}.equals( "17" )? "ARCHIVED":
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_acdm_sesn_description}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="471" y="17" width="100" height="20" uuid="80b4108b-b9d2-40cc-a9fc-741be4ae5355"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ac_knof_report_status}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
