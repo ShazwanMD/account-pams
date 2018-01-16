@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credit_note_listing" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d739550e-cbb0-4625-986c-01d60042c1f0">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="13"/>
+	<property name="ireport.y" value="112"/>
 	<property name="ireport.callouts" value="##Sun Dec 17 11:58:22 SGT 2017"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="month" uuid="8595e530-e313-43eb-898b-3b1d1323d44b">
@@ -137,6 +137,7 @@ ac_acct."actor_id" AS ac_acct_actor_id,
      ac_chrt_code."program_code_id" AS ac_chrt_code_program_code_id,
 
      ac_prgm_code."description" AS ac_prgm_code_description,
+     ac_prgm_code."code" AS ac_prgm_code_code,
      ac_prgm_code."program_level_id" AS ac_prgm_code_program_level_id,
 
      ac_prgm_level."code" AS ac_prgm_level_code,
@@ -145,22 +146,24 @@ ac_acct."actor_id" AS ac_acct_actor_id,
 
 extract (year from ac_cdit_note."creditnote_date") as OrderYear,
      to_char (ac_cdit_note."creditnote_date", 'Mon') as OrderMonth
+
 FROM
-"public"."ac_cdit_note" ac_cdit_note INNER JOIN "ac_invc" ac_invc ON ac_cdit_note."invoice_id" = ac_invc."id"
-INNER JOIN "public"."ac_acct" ac_acct ON ac_invc."account_id" = ac_acct."id"
-INNER JOIN "ac_cdit_note_item" ac_cdit_note_item ON ac_cdit_note."id" = ac_cdit_note_item."credit_note_id"
-INNER JOIN "public"."ac_chrg_code" ac_chrg_code ON ac_cdit_note_item."charge_code_id" = ac_chrg_code."id"
-INNER JOIN "public"."ac_actr" ac_actr ON ac_acct."id" = ac_actr."id"
+
+"public"."ac_actr" ac_actr INNER JOIN "public"."ac_acct" ac_acct ON ac_actr."id" = ac_acct."actor_id"
 INNER JOIN "public"."ac_stdn" ac_stdn ON ac_actr."id" = ac_stdn."id"
-INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_stdn."id" = ac_chrt_code."id"
-INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."id" = ac_prgm_code."id"
+INNER JOIN "public"."ac_chrt_code" ac_chrt_code ON ac_stdn."cohort_code_id" = ac_chrt_code."id"
+INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."program_code_id" = ac_prgm_code."id"
 INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"
+INNER JOIN "public"."ac_invc" ac_invc ON ac_acct."id" = ac_invc."account_id"
+INNER JOIN "public"."ac_cdit_note" ac_cdit_note ON ac_invc."id" = ac_cdit_note."invoice_id"
+INNER JOIN "public"."ac_cdit_note_item" ac_cdit_note_item ON ac_cdit_note."id" = ac_cdit_note_item."credit_note_id"
+INNER JOIN "public"."ac_chrg_code" ac_chrg_code ON ac_cdit_note_item."charge_code_id" = ac_chrg_code."id"
 
 WHERE
 to_char(ac_cdit_note."creditnote_date",'YYYY-MM-DD') BETWEEN $P{Start_date} AND $P{End_date}
-AND $P{Program_code} = ac_prgm_code."description"
-AND $P{Status} =  ac_cdit_note."fd_st"
-AND $P{Study_level} = ac_prgm_level."code"
+ AND $P{Program_code} = ac_prgm_code."description"
+ AND $P{Status} =  ac_cdit_note."fd_st"
+ AND $P{Study_level} = ac_prgm_level."code"
 
 ORDER BY
      extract (year from ac_cdit_note."creditnote_date") ASC]]>
@@ -181,12 +184,13 @@ ORDER BY
 	<field name="ac_cdit_note_item_charge_code_id" class="java.lang.Long"/>
 	<field name="ac_acct_code" class="java.lang.String"/>
 	<field name="ac_acct_description" class="java.lang.String"/>
-	<field name="ac_cdit_note_fd_st" class="java.lang.String"/>
+	<field name="ac_cdit_note_fd_st" class="java.lang.Integer"/>
 	<field name="ac_acct_actor_id" class="java.lang.Long"/>
 	<field name="ac_stdn_id" class="java.lang.Long"/>
 	<field name="ac_stdn_cohort_code_id" class="java.lang.Long"/>
 	<field name="ac_chrt_code_program_code_id" class="java.lang.Long"/>
 	<field name="ac_prgm_code_description" class="java.lang.String"/>
+	<field name="ac_prgm_code_code" class="java.lang.String"/>
 	<field name="ac_prgm_code_program_level_id" class="java.lang.Long"/>
 	<field name="ac_prgm_level_code" class="java.lang.String"/>
 	<field name="orderyear" class="java.lang.Double"/>
@@ -329,7 +333,7 @@ ORDER BY
 					<text><![CDATA[Description]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="136" y="3" width="100" height="14" uuid="7fcc7c4a-5c91-4b26-83d2-854ca5a8936d"/>
+					<reportElement x="136" y="3" width="167" height="14" uuid="7fcc7c4a-5c91-4b26-83d2-854ca5a8936d"/>
 					<textFieldExpression><![CDATA[$F{ac_cdit_note_reference_no}]]></textFieldExpression>
 				</textField>
 				<textField>
