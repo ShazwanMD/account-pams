@@ -891,6 +891,8 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void updateCreditNote(AcCreditNote creditNote) {
+        String status = creditNote.getFlowdata().getState().toString();
+        creditNote.setReportStatus(status);
 		creditNoteDao.update(creditNote, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
