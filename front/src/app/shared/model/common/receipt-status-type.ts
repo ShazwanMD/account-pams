@@ -1,6 +1,5 @@
 export enum ReceiptStatusType {
   ALL,
-  REGISTERED,
-  VERIFIED,
+  DRAFTED,
   COMPLETED,
 }

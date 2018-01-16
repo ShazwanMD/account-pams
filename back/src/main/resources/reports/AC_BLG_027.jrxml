@@ -166,7 +166,7 @@ ac_stdn."id",
 	<parameter name="End_date" class="java.lang.String"/>
 	<parameter name="Program_code" class="java.lang.String"/>
 	<parameter name="Study_level" class="java.lang.String"/>
-	<parameter name="Status" class="java.lang.Integer"/>
+	<parameter name="Status" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      ac_advc_pymt."amount"- ac_rfnd_pymt."amount" AS total_balance,
@@ -247,7 +247,7 @@ WHERE  (to_char ( ac_rfnd_pymt."issued_date", 'YYYY-MM-DD' )>= $P{Start_date}
 AND to_char ( ac_rfnd_pymt."issued_date", 'YYY-MM-DD') <= $P{End_date})
 AND ac_prgm_code."description" = $P{Program_code}
 AND  ac_prgm_level."code" = $P{Study_level}
-AND ac_rfnd_pymt."fd_st" = $P{Status}
+AND ac_rfnd_pymt."report_status" = $P{Status}
 
 order by
 ac_advc_pymt."reference_no"]]>
