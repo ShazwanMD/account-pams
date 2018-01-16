@@ -30,7 +30,7 @@ import { ProgramLevelSelectComponent } from './program-levels/component/program-
 import { ProgramCodeSelectComponent } from './program-codes/component/program-code-select.component';
 import { DebitNoteStatusTypeSelectComponent } from './status/component/debit-note-status-type-select.component';
 import { CreditNoteStatusTypeSelectComponent } from './status/component/credit-note-status-type-select.component';
-import { RefundStatusTypeSelectComponent } from './status/component/refund-status-type-select.component';
+import { RefundPaymentStatusTypeSelectComponent } from './status/component/refund-payment-status-type-select.component';
 import { KnockoffStatusTypeSelectComponent } from './status/component/knockoff-status-type-select.component';
 import { ReceiptStatusTypeSelectComponent } from './status/component/receipt-status-type-select.component';
 import { InvoiceStatusTypeSelectComponent } from './status/component/invoice-status-type-select.component';
@@ -89,7 +89,7 @@ export const commonModuleReducers = {
     StudyCenterCodeSelectComponent,
     DebitNoteStatusTypeSelectComponent,
     CreditNoteStatusTypeSelectComponent,
-    RefundStatusTypeSelectComponent,
+    RefundPaymentStatusTypeSelectComponent,
     KnockoffStatusTypeSelectComponent,
     ReceiptStatusTypeSelectComponent,
     InvoiceStatusTypeSelectComponent,
@@ -107,7 +107,7 @@ export const commonModuleReducers = {
     StudyCenterCodeSelectComponent,
     DebitNoteStatusTypeSelectComponent,
     CreditNoteStatusTypeSelectComponent,
-    RefundStatusTypeSelectComponent,
+    RefundPaymentStatusTypeSelectComponent,
     KnockoffStatusTypeSelectComponent,
     ReceiptStatusTypeSelectComponent,
     InvoiceStatusTypeSelectComponent,

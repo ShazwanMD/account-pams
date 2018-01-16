@@ -34,9 +34,9 @@
                     </div>
 
                     <div layout="row" class="pad-bottom" flex>
-                      <pams-refund-status-type-select [placeholder]="'Refund Status Type'" [innerFormControl]="editForm.controls.debitNoteStatusType"
+                      <pams-refund-payment-status-type-select [placeholder]="'Refund Payment Status'" [innerFormControl]="editForm.controls.refundPaymentStatusType"
                         fxFlex="calc(100%-25px)">
-                      </pams-refund-status-type-select>
+                      </pams-refund-payment-status-type-select>
                     </div>
                     <md-card-subtitle>
                       <a *ngIf="this.editForm.value.refundPaymentStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_026.jrxml', editForm)"

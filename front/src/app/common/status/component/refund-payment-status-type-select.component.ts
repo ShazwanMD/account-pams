@@ -3,10 +3,10 @@ import {FormControl} from '@angular/forms';
 import { RefundPaymentStatusType } from '../../../shared/model/common/refund-status-type';
 
 @Component({
- selector: 'pams-refund-status-type-select',
- templateUrl: './refund-status-type-select.component.html',
+ selector: 'pams-refund-payment-status-type-select',
+ templateUrl: './refund-payment-status-type-select.component.html',
 })
-export class RefundStatusTypeSelectComponent implements OnInit {
+export class RefundPaymentStatusTypeSelectComponent implements OnInit {
  private refundPaymentStatusTypes: RefundPaymentStatusType[] = <RefundPaymentStatusType[]>[];
  @Input() placeholder: string;
  @Input() innerFormControl: FormControl;
