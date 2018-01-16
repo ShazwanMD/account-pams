@@ -9,7 +9,8 @@ import { ListingInvoiceSubModule } from './listing-invoice/index';
 import { ListingReceiptSubModule } from './listing-receipt/index';
 import { ListingDebitNoteSubModule } from './listing-debit-note/index';
 import { ListingCreditNoteSubModule } from './listing-credit-note/index';
-import { ListingAdvancePaymentStatementSubModule } from './listing-advance-payment-statement/index';
+import { ListingRefundPaymentSubModule } from './listing-refund-payment/index';
+import { ListingKnockoffPaymentSubModule } from './listing-knockoff-payment/index';
 
 export interface ListingModuleState {
 }
@@ -24,7 +25,8 @@ export interface ListingModuleState {
     ListingReceiptSubModule.forRoot(),
     ListingDebitNoteSubModule.forRoot(),
     ListingCreditNoteSubModule.forRoot(),
-    ListingAdvancePaymentStatementSubModule.forRoot(),
+    ListingRefundPaymentSubModule.forRoot(),
+    ListingKnockoffPaymentSubModule.forRoot(),
   ],
   declarations: [
     // page
