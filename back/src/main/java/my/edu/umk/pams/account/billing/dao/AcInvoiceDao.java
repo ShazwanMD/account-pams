@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.dao;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.core.AcFlowState;
@@ -67,6 +68,8 @@ public interface AcInvoiceDao extends GenericDao<Long, AcInvoice> {
     boolean isOverdue(AcAccount account);
 
     boolean hasInvoice(AcAccount account);
+    
+    boolean hasInvoiceItem(AcChargeCode chargeCode);
 
     boolean hasInvoice(boolean paid, AcAccount account);
 
