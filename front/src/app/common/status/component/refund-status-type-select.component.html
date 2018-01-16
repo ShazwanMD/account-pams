@@ -1,0 +1,7 @@
+<md-select
+[placeholder]="placeholder"
+(change)="selectChangeEvent($event.value)" flex>
+<md-option *ngFor="let refundStatusType of refundStatusTypes" [value]="refundStatusType">
+  {{refundStatusType}}
+</md-option>
+</md-select>
