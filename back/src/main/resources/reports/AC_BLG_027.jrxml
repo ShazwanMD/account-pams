@@ -309,7 +309,7 @@ ac_advc_pymt."reference_no"]]>
 	<field name="ac_rfnd_pymt_remove_comment" class="java.lang.String"/>
 	<field name="ac_rfnd_pymt_source_no" class="java.lang.String"/>
 	<field name="ac_rfnd_pymt_advance_payment_id" class="java.lang.Long"/>
-	<field name="ac_rfnd_pymt_fd_st" class="java.lang.Integer"/>
+	<field name="ac_rfnd_pymt_fd_st" class="java.lang.String"/>
 	<variable name="ttl-knf" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_rfnd_pymt_amount}]]></variableExpression>
 	</variable>
