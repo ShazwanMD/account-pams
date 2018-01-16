@@ -196,6 +196,8 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void updateInvoice(AcInvoice invoice) {
+        String status = invoice.getFlowdata().getState().toString();
+        invoice.setReportStatus(status);
 		invoiceDao.update(invoice, securityService.getCurrentUser());
 		sessionFactory.getCurrentSession().flush();
 	}
