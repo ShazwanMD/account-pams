@@ -455,6 +455,11 @@ public class BillingServiceImpl implements BillingService {
 	public boolean hasInvoice(AcAccount account) {
 		return invoiceDao.hasInvoice(account);
 	}
+	
+	@Override
+	public boolean hasInvoiceItem(AcChargeCode chargeCode) {
+		return invoiceDao.hasInvoiceItem(chargeCode);
+	}
 
 	@Override
 	public boolean hasUnpaidInvoice(AcAccount account) {
@@ -474,6 +479,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public BigDecimal sumUnpaidInvoice(AcAccountCharge charge) {
 		return null; // TODO: ???
+	}
+	
+	@Override
+	public BigDecimal sumBalanceAmount(AcInvoice invoice, AcInvoiceItem item) {
+		return invoiceDao.sumBalanceAmount(invoice, item, securityService.getCurrentUser());
 	}
 
 	@Override
