@@ -182,6 +182,7 @@
         AMOUNT numeric(19, 2),
         BALANCE_AMOUNT numeric(19, 2),
         STATUS boolean,
+        SOURCE_NO varchar(255),
         C_TS timestamp,
         C_ID int8,
         D_TS timestamp,

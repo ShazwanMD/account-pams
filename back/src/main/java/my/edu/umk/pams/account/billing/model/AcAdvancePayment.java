@@ -48,4 +48,8 @@ public interface AcAdvancePayment extends AcMetaObject {
     AcAcademicSession getSession();
 
     void setSession(AcAcademicSession session);
+    
+    String getSourceNo();
+
+    void setSourceNo(String sourceNo);
 }

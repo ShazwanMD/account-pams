@@ -156,7 +156,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				trx.setSourceNo(receipt.getReferenceNo());
 				trx.setTransactionCode(AcAccountTransactionCode.RECEIPT);
 				trx.setAccount(receipt.getAccount());
-				trx.setAmount(Amount.negate());
+				trx.setAmount(receipt.getTotalReceived().negate());
 				accountService.addAccountTransaction(receipt.getAccount(), trx);
 			}
 			
@@ -168,7 +168,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				tx.setSourceNo(receipt.getReferenceNo());
 				tx.setTransactionCode(AcAccountChargeType.RECEIPT);
 				tx.setAccount(receipt.getAccount());
-				tx.setAmount(totalCharge.negate());
+				tx.setAmount(receipt.getTotalReceived().negate());
 				accountService.addAccountChargeTransaction(receipt.getAccount(), tx);
 			}
 
@@ -185,6 +185,7 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				advancePayment.setBalanceAmount(balance);
 				advancePayment.setDescription("Advance Payment " + referenceNo);
 				advancePayment.setReceipt(receipt);
+				advancePayment.setSourceNo(receipt.getReferenceNo());
 				advancePayment.setStatus(false);
 				advancePayment.setAccount(receipt.getAccount());
 				advancePayment.setSession(receipt.getSession());

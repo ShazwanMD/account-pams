@@ -206,7 +206,7 @@ public class CreditNoteListener implements ApplicationListener<CreditNoteEvent> 
 					advancePayment.setAmount(sumBalanceAmount.abs());
 					advancePayment.setBalanceAmount(sumBalanceAmount.abs());
 					advancePayment.setDescription("Advance Payment " + referenceNo);
-					// advancePayment.setReceipt(receipt);
+					advancePayment.setSourceNo(creditNote.getReferenceNo());
 					advancePayment.setStatus(false);
 					advancePayment.setAccount(invoice.getAccount());
 					advancePayment.setSession(invoice.getSession());

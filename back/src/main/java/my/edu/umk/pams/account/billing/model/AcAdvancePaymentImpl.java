@@ -38,6 +38,9 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
 
 	@Column(name = "DESCRIPTION")
     private String description;
+	
+	@Column(name = "SOURCE_NO")
+    private String sourceNo;
 
     @Column(name = "AMOUNT")
     private BigDecimal amount = BigDecimal.ZERO;
@@ -194,4 +197,15 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
     public void setSession(AcAcademicSession session) {
         this.session = session;
     }
+
+    @Override
+	public String getSourceNo() {
+		return sourceNo;
+	}
+
+    @Override
+	public void setSourceNo(String sourceNo) {
+		this.sourceNo = sourceNo;
+	}
+    
 }
