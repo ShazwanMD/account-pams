@@ -23,11 +23,18 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Table Dataset 1" uuid="a64273e4-2249-46d0-b2ec-ce379835c223"/>
-	<parameter name="Start_date" class="java.lang.String"/>
-	<parameter name="End_date" class="java.lang.String"/>
-	<parameter name="Program_code" class="java.lang.String"/>
-	<parameter name="Study_level" class="java.lang.String"/>
+	<parameter name="Start_date" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="End_date" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Program_code" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Study_level" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      ac_rcpt."receipt_no" AS ac_rcpt_receipt_no,
@@ -63,6 +70,11 @@ INNER JOIN "public"."ac_prgm_code" ac_prgm_code ON ac_chrt_code."id" = ac_prgm_c
 INNER JOIN "public"."ac_prgm_level" ac_prgm_level ON ac_prgm_code."program_level_id" = ac_prgm_level."id"
 
 
+WHERE  (to_char (  ac_rcpt."received_date", 'YYYY-MM-DD' )>= $P{Start_date}
+AND to_char (  ac_rcpt."received_date", 'YYY-MM-DD') <= $P{End_date})
+AND ac_prgm_code."description" = $P{Program_code}
+AND ac_prgm_level."code" = $P{Study_level}
+
 
 ORDER BY ac_rcpt."reference_no" ASC]]>
 	</queryString>
@@ -70,7 +82,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 	<field name="ac_rcpt_received_date" class="java.sql.Timestamp"/>
 	<field name="ac_rcpt_total_received" class="java.math.BigDecimal"/>
 	<field name="ac_rcpt_vf_id" class="java.lang.Long"/>
-	<field name="ac_rcpt_payment_method" class="java.lang.String"/>
+	<field name="ac_rcpt_payment_method" class="java.lang.Integer"/>
 	<field name="ac_rcpt_source_no" class="java.lang.String"/>
 	<field name="ac_rcpt_fd_st" class="java.lang.Integer"/>
 	<field name="ac_rcpt_report_status" class="java.lang.String"/>
@@ -124,7 +136,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 	<columnHeader>
 		<band height="49" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="21" width="30" height="28" uuid="cb7114d6-6adc-44cd-9ef1-8a4e28f1bf44"/>
+				<reportElement mode="Opaque" x="0" y="21" width="30" height="28" backcolor="#CCCCCC" uuid="cb7114d6-6adc-44cd-9ef1-8a4e28f1bf44"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -137,7 +149,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[No.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="102" y="21" width="78" height="28" uuid="c07bd054-c923-403f-a9fb-e86d529c3a8f"/>
+				<reportElement mode="Opaque" x="102" y="21" width="78" height="28" backcolor="#CCCCCC" uuid="c07bd054-c923-403f-a9fb-e86d529c3a8f"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -150,7 +162,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="21" width="56" height="28" uuid="065aa317-bdd6-42da-8b64-0b065103f01a"/>
+				<reportElement mode="Opaque" x="180" y="21" width="56" height="28" backcolor="#CCCCCC" uuid="065aa317-bdd6-42da-8b64-0b065103f01a"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -163,7 +175,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Student ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="236" y="21" width="128" height="28" uuid="c2e73290-86b9-4088-ab2a-a664e9fa59a2"/>
+				<reportElement mode="Opaque" x="236" y="21" width="128" height="28" backcolor="#CCCCCC" uuid="c2e73290-86b9-4088-ab2a-a664e9fa59a2"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -176,7 +188,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Student Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="364" y="21" width="76" height="28" uuid="6b4f075e-7a70-4835-9f13-99e49665e901"/>
+				<reportElement mode="Opaque" x="364" y="21" width="76" height="28" backcolor="#CCCCCC" uuid="6b4f075e-7a70-4835-9f13-99e49665e901"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -189,7 +201,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Level of Study]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="440" y="21" width="96" height="28" uuid="09eaa857-c59a-4da8-817d-36a99d92030d"/>
+				<reportElement mode="Opaque" x="440" y="21" width="96" height="28" backcolor="#CCCCCC" uuid="09eaa857-c59a-4da8-817d-36a99d92030d"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -202,7 +214,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Program Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="536" y="21" width="54" height="28" uuid="9e2b5334-fac2-4411-8627-810af910eeca"/>
+				<reportElement mode="Opaque" x="536" y="21" width="54" height="28" backcolor="#CCCCCC" uuid="9e2b5334-fac2-4411-8627-810af910eeca"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -215,7 +227,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="590" y="21" width="65" height="28" uuid="ef492dc4-d40e-4f22-a02c-8658e258f56c"/>
+				<reportElement mode="Opaque" x="590" y="21" width="65" height="28" backcolor="#CCCCCC" uuid="ef492dc4-d40e-4f22-a02c-8658e258f56c"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -228,7 +240,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="655" y="21" width="72" height="28" uuid="c1b45687-b03c-4df1-9f7d-bd471d73984b"/>
+				<reportElement mode="Opaque" x="655" y="21" width="72" height="28" backcolor="#CCCCCC" uuid="c1b45687-b03c-4df1-9f7d-bd471d73984b"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -241,7 +253,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Payment Type]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="727" y="21" width="75" height="28" uuid="45720a67-ea16-481a-97a9-6c88d36c5d17"/>
+				<reportElement mode="Opaque" x="727" y="21" width="75" height="28" backcolor="#CCCCCC" uuid="45720a67-ea16-481a-97a9-6c88d36c5d17"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -254,7 +266,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 				<text><![CDATA[Bank Slip No]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="21" width="72" height="28" uuid="87cb9adb-d1aa-4d4c-97b1-668845cf3082"/>
+				<reportElement mode="Opaque" x="30" y="21" width="72" height="28" backcolor="#CCCCCC" uuid="87cb9adb-d1aa-4d4c-97b1-668845cf3082"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -345,32 +357,6 @@ $F{ac_rcpt_payment_method}.equals( "6" ) ? "TELEGRAPHIC TRANSFER" :
 				<textFieldExpression><![CDATA[$F{ac_rcpt_source_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="364" y="0" width="76" height="62" uuid="fd8e917b-68b8-4905-97ed-938ec1d293e3"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{Study_level}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="440" y="0" width="96" height="62" uuid="f6dbfb61-ee73-44c2-a6f6-b70c919cd02b"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{Program_code}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="180" y="0" width="56" height="62" uuid="52b3a815-090c-4f29-8c32-e9e250b55b73"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -419,6 +405,28 @@ $F{ac_rcpt_payment_method}.equals( "6" ) ? "TELEGRAPHIC TRANSFER" :
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{ac_rcpt_report_status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="0" width="76" height="62" uuid="79cb81ea-6d38-4372-a6a9-6b1690b90953"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ac_prgm_level_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="96" height="62" uuid="209d7acb-83b0-4f1f-becf-b46200aeb7a9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ac_prgm_code_description}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
