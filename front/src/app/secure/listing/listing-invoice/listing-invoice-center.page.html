@@ -34,18 +34,29 @@
                         class="pad-bottom">
                       </pams-program-level-select>
                     </div>
-
-                    <!-- <div layout="row" class="pad-bottom" flex>
-                      <pams-debit-note-status-type-select
-                          [placeholder]="'Debit Note Status Type'" 
-                          [innerFormControl]="editForm.controls.debitNoteStatusType" fxFlex="calc(100%-25px)">
-                      </pams-debit-note-status-type-select>
-                   </div> -->
-
-                    <a md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_021.jrxml', editForm)" [target]="'_blank'">
-                      <span>View Listing Invoice</span>
-                  </a>
-  
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-invoice-status-type-select [placeholder]="'Invoice Note Status Type'" [innerFormControl]="editForm.controls.invoiceNoteStatusType"
+                        fxFlex="calc(100%-25px)">
+                      </pams-invoice-status-type-select>
+                    </div>
+                    <md-card-subtitle>
+                      <a *ngIf="this.editForm.value.invoiceNoteStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_024.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Invoice</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.invoiceNoteStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_021.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Invoice</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.invoiceNoteStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_021.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Invoice</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.invoiceNoteStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_021.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Invoice</span>
+                      </a>
+                    </md-card-subtitle>
                 </md-card>
             </md-card>
           </div>

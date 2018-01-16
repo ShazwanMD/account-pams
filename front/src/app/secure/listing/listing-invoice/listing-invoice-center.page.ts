@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateRange } from '../../../shared/model/billing/date-range.interface';
 import { ProgramLevel } from '../../../shared/model/common/program-level.interface';
 import { ProgramCode } from '../../../shared/model/common/program-code.interface';
+import { InvoiceStatusType } from '../../../shared/model/common/invoice-status-type';
 
 @Component({
   selector: 'pams-listing-invoice-center-page',
@@ -36,14 +37,14 @@ ngOnInit(): void {
     End_date: undefined,
     programLevel: [<ProgramLevel>{}],
     programCode: [<ProgramCode>{}],
+    invoiceStatusType: InvoiceStatusType,
   });
 }
 
-  downloadReport(editForm: FormGroup): void {
-    let repParam =editForm +'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
-    +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code;
-    console.log(editForm +'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
-    +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code);
-    this.store.dispatch(this.reportActions.downloadReport(repParam));
-  } 
+downloadReport(editForm: FormGroup): void {
+  let repParam = editForm+'&Start_date=' +  this.editForm.value.Start_date +'&End_date='+ this.editForm.value.End_date
+  +'&Program_code='+ this.editForm.value.programCode.description +'&Study_level='+ this.editForm.value.programLevel.code
+  +'&Status='+ this.editForm.value.invoiceStatusType;
+  this.store.dispatch(this.reportActions.downloadReport(repParam));
+  }
 }
