@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AC_BLG_014" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8cb9a0d7-72b0-41f3-b2ee-96f7ec942d4e">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="158"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="calculate nett amt" uuid="27137c10-134f-4f42-8512-055a7e76f5cb">
 		<queryString>
 			<![CDATA[select
@@ -46,6 +46,9 @@ ac_invc."fd_st"]]>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Program_code" class="java.lang.String"/>
+	<parameter name="Status" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<parameter name="Study_level" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -99,6 +102,7 @@ FROM
 WHERE
      to_char(ac_invc."issued_date",'YYYY-MM-DD') BETWEEN $P{Start_date} AND $P{End_date}
  AND $P{Program_code} = ac_prgm_code."description"
+ AND $P{Status} = ac_invc."report_status"
  AND $P{Study_level} = ac_prgm_level."code"
 GROUP BY
      ac_invc_item."invoice_id",
