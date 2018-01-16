@@ -1,0 +1,67 @@
+<td-layout-nav toolbarTitle="Listing Center">
+  <td-layout-manage-list #list title="Manage" logo="path/to/toolbar-logo.svg">
+    <div toolbar-buttons layout="row" layout-align="start center" flex>
+      <span flex></span>
+    </div>
+    <div md-content flex md-scroll-y>
+        <div layout="column" layout-gt-md="row" class="inset">
+          <div flex-gt-md="70">
+            <md-card>
+                <md-card-title>Listing Knockoff Payment</md-card-title>
+                <md-card>
+                    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+                      <md-input-container fxFlex="calc(100%-25px)">
+                        <input mdInput type="date" placeholder="Start Date"/>
+                      </md-input-container>
+                    </div>
+                    
+                    <div fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+                      <md-input-container fxFlex="calc(100%-25px)">
+                        <input mdInput type="date" placeholder="End Date" />
+                    </md-input-container>
+                    </div>
+
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-program-code-select [placeholder]="'Select Program Code'" [innerFormControl]="editForm.controls['programCode']" fxFlex="calc(100%-25px)"
+                        class="pad-bottom">
+                      </pams-program-code-select>
+                    </div>
+
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-program-level-select [placeholder]="'Select Program Level'" [innerFormControl]="editForm.controls['programLevel']" fxFlex="calc(100%-25px)"
+                        class="pad-bottom">
+                      </pams-program-level-select>
+                    </div>
+
+                    <div layout="row" class="pad-bottom" flex>
+                      <pams-knockoff-status-type-select [placeholder]="'Knockoff Status Type'" [innerFormControl]="editForm.controls.knockoffStatusType"
+                        fxFlex="calc(100%-25px)">
+                      </pams-knockoff-status-type-select>
+                    </div>
+                    <md-card-subtitle>
+                      <a *ngIf="this.editForm.value.knockoffStatusType === 'ALL'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Knockoff Payment</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.knockoffStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Knockoff Payment</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.knockoffStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Knockoff Payment</span>
+                      </a>
+                      <a *ngIf="this.editForm.value.knockoffStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_022.jrxml', editForm)"
+                        [target]="'_blank'">
+                        <span>View Listing Knockoff Payment</span>
+                      </a>
+                    </md-card-subtitle>
+  
+                </md-card>
+            </md-card>
+          </div>
+        </div>
+      </div>
+
+  </td-layout-manage-list>
+</td-layout-nav>
