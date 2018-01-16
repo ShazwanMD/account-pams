@@ -77,12 +77,11 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 						billingService.updateInvoiceItem(invoice, invoiceItem);
 					}
 
+					invoice.setBalanceAmount(billingService.sumBalanceAmount(invoice, invoiceItem));					
+					LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
+					billingService.updateInvoice(invoice);
 				}
-				invoice.setBalanceAmount(
-						invoice.getBalanceAmount().subtract(billingService.sumAppliedAmount(invoice, receipt)));
-				LOG.debug("Invoice Balance Amount after subtract ", invoice.getBalanceAmount());
-				billingService.updateInvoice(invoice);
-
+				
 				if (invoice.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
 					invoice.setPaid(true);
 					billingService.updateInvoice(invoice);

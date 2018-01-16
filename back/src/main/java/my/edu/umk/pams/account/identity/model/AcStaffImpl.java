@@ -31,6 +31,9 @@ public class AcStaffImpl extends AcActorImpl implements AcStaff {
     
 	@Column(name = "STAFF_CATEGORY")
 	private String staffCategory;
+	
+	@Column(name = "DEPT_CODE")
+	private String staffDeptCode;
     
     @Override
 	public AcFacultyCode getFacultyCode() {
@@ -67,15 +70,7 @@ public class AcStaffImpl extends AcActorImpl implements AcStaff {
         return AcStaff.class;
     }
 
-	@Override
-	public String getStaffDeptCode() {
-		return getStaffDeptCode();
-	}
 
-	@Override
-	public void setStaffDeptCode(String staffDeptCode) {
-		setStaffDeptCode(staffDeptCode);
-	}
 	@Override
 	public String getStaffCategory() {
 		return staffCategory;
@@ -84,6 +79,16 @@ public class AcStaffImpl extends AcActorImpl implements AcStaff {
 	public void setStaffCategory(String staffCategory) {
 		this.staffCategory = staffCategory;
 	}
+
+	public String getStaffDeptCode() {
+		return staffDeptCode;
+	}
+
+	public void setStaffDeptCode(String staffDeptCode) {
+		this.staffDeptCode = staffDeptCode;
+	}
+	
+	
 
 	
 }

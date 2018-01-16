@@ -2,6 +2,7 @@ package my.edu.umk.pams.account.billing.dao;
 
 import my.edu.umk.pams.account.account.model.AcAccount;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
+import my.edu.umk.pams.account.account.model.AcChargeCode;
 import my.edu.umk.pams.account.account.model.AcFeeSchedule;
 import my.edu.umk.pams.account.billing.model.AcInvoice;
 import my.edu.umk.pams.account.billing.model.AcInvoiceImpl;
@@ -330,6 +331,18 @@ public class AcInvoiceDaoImpl extends GenericDaoSupport<Long, AcInvoice> impleme
                 "where a.account = :account " +
                 "and a.metadata.state = :state ");
         query.setEntity("account", account);
+        query.setInteger("state", ACTIVE.ordinal());
+        Long count = (Long) query.uniqueResult();
+        return count.intValue() > 0; // > 0 = true, <=0  false
+    }
+    
+    @Override
+    public boolean hasInvoiceItem(AcChargeCode chargeCode) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(*) from AcInvoiceItem a " +
+                "where a.chargeCode = :chargeCode " +
+                "and a.metadata.state = :state ");
+        query.setEntity("chargeCode", chargeCode);
         query.setInteger("state", ACTIVE.ordinal());
         Long count = (Long) query.uniqueResult();
         return count.intValue() > 0; // > 0 = true, <=0  false

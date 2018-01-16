@@ -48,7 +48,6 @@ public class AcAdvancePaymentImpl implements AcAdvancePayment {
     @Column(name = "STATUS")
     private Boolean status = false;
 
-    @NotNull
     @ManyToOne(targetEntity = AcReceiptImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "RECEIPT_ID")
     private AcReceipt receipt;

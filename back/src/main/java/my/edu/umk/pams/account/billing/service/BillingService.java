@@ -107,6 +107,8 @@ public interface BillingService {
     Integer countUnpaidInvoice(AcAccount account);
 
     boolean hasInvoice(AcAccount account);
+    
+    boolean hasInvoiceItem(AcChargeCode chargeCode);
 
     boolean hasUnpaidInvoice(AcAccount account);
 
@@ -115,6 +117,8 @@ public interface BillingService {
     boolean isInvoiceOverdue(AcAccountCharge charge);
 
     BigDecimal sumUnpaidInvoice(AcAccountCharge charge);
+    
+    BigDecimal sumBalanceAmount(AcInvoice invoice, AcInvoiceItem item);
 
     boolean hasBalance(AcAcademicSession academicSession, AcActor actor);
 

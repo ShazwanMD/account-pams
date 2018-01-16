@@ -21,6 +21,9 @@ public class AdvancePayment extends MetaObject {
 	private Boolean status;
 	private Receipt receipt;
 	private Account account;
+	
+	// transient
+	private boolean receipted;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -76,6 +79,14 @@ public class AdvancePayment extends MetaObject {
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	public boolean isReceipted() {
+		return receipted;
+	}
+
+	public void setReceipted(boolean receipted) {
+		this.receipted = receipted;
 	}
 
 	@JsonCreator
