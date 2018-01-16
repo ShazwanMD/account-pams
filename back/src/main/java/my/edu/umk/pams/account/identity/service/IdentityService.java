@@ -168,6 +168,9 @@ public interface IdentityService {
     void saveStaff(AcStaff Staff);
     
     void saveStaffIMSNonAcademicActive(AcStaff staff);
+    
+    void saveStaffIMSNonAcademicInActive(AcStaff staff);
+
 
     void updateStaff(AcStaff Staff);
 
