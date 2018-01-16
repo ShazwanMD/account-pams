@@ -46,7 +46,7 @@ ac_invc."fd_st"]]>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Program_code" class="java.lang.String"/>
-	<parameter name="Status" class="java.lang.Integer">
+	<parameter name="Status" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Study_level" class="java.lang.String">
@@ -102,7 +102,7 @@ FROM
 WHERE
      to_char(ac_invc."issued_date",'YYYY-MM-DD') BETWEEN $P{Start_date} AND $P{End_date}
  AND $P{Program_code} = ac_prgm_code."description"
- AND $P{Status} = ac_invc."fd_st"
+ AND $P{Status} = ac_invc."report_status"
  AND $P{Study_level} = ac_prgm_level."code"
 GROUP BY
      ac_invc_item."invoice_id",
