@@ -326,8 +326,8 @@ public class IntegrationController {
 
 		if (commonService.findResidencyCodeByCode(payload.getNationalityCode().getCode()) == null) {
 			AcResidencyCode residencyCode = new AcResidencyCodeImpl();
-			residencyCode.setCode(payload.getNationalityCode().getCode());
-			residencyCode.setDescription(payload.getNationalityCode().getDescriptionEn());
+			residencyCode.setCode(payload.getResidencyCode().getCode());
+			residencyCode.setDescription(payload.getResidencyCode().getDescriptionEn());
 			commonService.saveResidencyCode(residencyCode);
 		}
 
@@ -351,7 +351,7 @@ public class IntegrationController {
 		student.setIcNo(payload.getUserPayload().getNric());
 		student.setStudentStatus(AcStudentStatus.ACTIVE);
 		student.setCohortCode(commonService.findCohortCodeByCode(payload.getCohortCode()));
-		student.setResidencyCode(commonService.findResidencyCodeByCode(payload.getNationalityCode().getCode()));
+		student.setResidencyCode(commonService.findResidencyCodeByCode(payload.getResidencyCode().getCode()));
 		identityService.saveStudent(student);
 
 		// account
