@@ -416,6 +416,7 @@ public class BillingTransformer {
         vo.setBalanceAmount(e.getBalanceAmount());
         vo.setStatus(e.getStatus());
         //vo.setReceipt(billingTransformer.toReceiptVo(e.getReceipt()));
+        vo.setSourceNo(e.getSourceNo());
         vo.setReceipted(null != e.getReceipt());
         vo.setAccount(accountTransformer.toAccountVo(e.getAccount()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));

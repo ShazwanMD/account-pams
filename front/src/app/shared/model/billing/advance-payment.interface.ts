@@ -11,4 +11,5 @@ export interface AdvancePayment extends MetaObject {
     receipt: Receipt;
     status: boolean;
     account: Account;
+    sourceNo: string;
 }
