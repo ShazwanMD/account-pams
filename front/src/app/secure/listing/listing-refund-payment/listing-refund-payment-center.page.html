@@ -40,10 +40,6 @@
                     [target]="'_blank'">
                     <span>View All Refund Payment</span>
                   </a>
-                  <a *ngIf="this.editForm.value.refundPaymentStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_027.jrxml&report.pdf', editForm)"
-                    [target]="'_blank'">
-                    <span>View Listing Refund Payment</span>
-                  </a>
                   <a *ngIf="this.editForm.value.refundPaymentStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_027.jrxml&report.pdf', editForm)"
                     [target]="'_blank'">
                     <span>View Listing Refund Payment</span>

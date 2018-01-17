@@ -82,7 +82,7 @@ ORDER BY ac_rcpt."reference_no" ASC]]>
 	<field name="ac_rcpt_received_date" class="java.sql.Timestamp"/>
 	<field name="ac_rcpt_total_received" class="java.math.BigDecimal"/>
 	<field name="ac_rcpt_vf_id" class="java.lang.Long"/>
-	<field name="ac_rcpt_payment_method" class="java.lang.Integer"/>
+	<field name="ac_rcpt_payment_method" class="java.lang.String"/>
 	<field name="ac_rcpt_source_no" class="java.lang.String"/>
 	<field name="ac_rcpt_fd_st" class="java.lang.Integer"/>
 	<field name="ac_rcpt_report_status" class="java.lang.String"/>
@@ -414,7 +414,7 @@ $F{ac_rcpt_payment_method}.equals( "6" ) ? "TELEGRAPHIC TRANSFER" :
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{ac_prgm_level_code}]]></textFieldExpression>
 			</textField>
 			<textField>

@@ -40,10 +40,6 @@
                       [target]="'_blank'">
                       <span>View All Knockoff Payment</span>
                     </a>
-                    <a *ngIf="this.editForm.value.knockoffStatusType === 'REGISTERED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_025.jrxml&report.pdf', editForm)"
-                      [target]="'_blank'">
-                      <span>View Listing Knockoff Payment</span>
-                    </a>
                     <a *ngIf="this.editForm.value.knockoffStatusType === 'VERIFIED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_025.jrxml&report.pdf', editForm)"
                       [target]="'_blank'">
                       <span>View Listing Knockoff Payment</span>
