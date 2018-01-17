@@ -5,6 +5,7 @@ import { CreditNoteStatusType } from '../../../shared/model/common/credit-note-s
 @Component({
  selector: 'pams-credit-note-status-type-select',
  templateUrl: './credit-note-status-type-select.component.html',
+ styleUrls: ['./credit-note-status-type-select.component.scss'],
 })
 export class CreditNoteStatusTypeSelectComponent implements OnInit {
  private creditNoteStatusTypes: CreditNoteStatusType[] = <CreditNoteStatusType[]>[];
