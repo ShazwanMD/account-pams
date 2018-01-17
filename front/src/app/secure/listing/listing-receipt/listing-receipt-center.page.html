@@ -44,14 +44,14 @@
                       [target]="'_blank'">
                       <span>View Listing Receipt Note</span>
                     </a>
-                    <a *ngIf="this.editForm.value.receiptStatusType === 'DRAFTED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_012.jrxml&report.pdf', editForm)"
-                      [target]="'_blank'">
-                      <span>View Listing Receipt Note</span>
-                    </a>
                     <a *ngIf="this.editForm.value.receiptStatusType === 'COMPLETED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_012.jrxml&report.pdf', editForm)"
                       [target]="'_blank'">
                       <span>View Listing Receipt Note</span>
                     </a>
+                    <a *ngIf="this.editForm.value.receiptStatusType === 'REMOVED'" md-button color="accent" class="text-upper" (click)="downloadReport('AC_BLG_012.jrxml&report.pdf', editForm)"
+                    [target]="'_blank'">
+                    <span>View Listing Receipt Note</span>
+                  </a>
                   </md-card-subtitle>
                 </md-card>
             </md-card>
