@@ -173,8 +173,7 @@ export class FinancialaidService {
   completeWaiverApplicationTask(waiverApplicationTask: WaiverApplicationTask): Observable<String> {
     console.log('TaskId: ' + waiverApplicationTask.taskId);
     return this._http.post(this.FINANCIALAID_API + '/waiverApplications/completeTask', JSON.stringify(waiverApplicationTask))
-      .flatMap((res: Response) => Observable.of(res.text()))
-      .catch(this.handleError);
+      .flatMap((res: Response) => Observable.of(res.text()));
   }
 
   claimWaiverApplicationTask(waiverApplicationTask: WaiverApplicationTask): Observable<String> {
@@ -197,12 +196,5 @@ export class FinancialaidService {
       return this._http.post(this.FINANCIALAID_API + '/waiverApplications/removeTask', JSON.stringify(waiverApplicationTask))
           .flatMap((res: Response) => Observable.of(res.text()));
   }
-  
-  //====================================================================
-  // Throw Exception
-  //====================================================================
-  private handleError(error: Response | any) {
-      let body: any = error.json();
-      return Observable.throw(body);
-    }
+
 }
