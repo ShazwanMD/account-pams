@@ -5,6 +5,7 @@ import { RefundPaymentStatusType } from '../../../shared/model/common/refund-sta
 @Component({
  selector: 'pams-refund-payment-status-type-select',
  templateUrl: './refund-payment-status-type-select.component.html',
+ styleUrls: ['./refund-payment-status-type-select.component.scss'],
 })
 export class RefundPaymentStatusTypeSelectComponent implements OnInit {
  private refundPaymentStatusTypes: RefundPaymentStatusType[] = <RefundPaymentStatusType[]>[];

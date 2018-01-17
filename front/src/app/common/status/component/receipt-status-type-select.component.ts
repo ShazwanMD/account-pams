@@ -5,6 +5,7 @@ import { ReceiptStatusType } from '../../../shared/model/common/receipt-status-t
 @Component({
  selector: 'pams-receipt-status-type-select',
  templateUrl: './receipt-status-type-select.component.html',
+ styleUrls: ['./receipt-status-type-select.component.scss'],
 })
 export class ReceiptStatusTypeSelectComponent implements OnInit {
  private receiptStatusTypes: ReceiptStatusType[] = <ReceiptStatusType[]>[];

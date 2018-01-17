@@ -5,6 +5,7 @@ import { InvoiceStatusType } from '../../../shared/model/common/invoice-status-t
 @Component({
  selector: 'pams-invoice-status-type-select',
  templateUrl: './invoice-status-type-select.component.html',
+ styleUrls: ['./invoice-status-type-select.component.scss'],
 })
 export class InvoiceStatusTypeSelectComponent implements OnInit {
  private invoiceStatusTypes: InvoiceStatusType[] = <InvoiceStatusType[]>[];

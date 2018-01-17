@@ -5,6 +5,7 @@ import { KnockoffStatusType } from '../../../shared/model/common/knockoff-status
 @Component({
  selector: 'pams-knockoff-status-type-select',
  templateUrl: './knockoff-status-type-select.component.html',
+ styleUrls: ['./knockoff-status-type-select.component.scss'],
 })
 export class KnockoffStatusTypeSelectComponent implements OnInit {
  private knockoffStatusTypes: KnockoffStatusType[] = <KnockoffStatusType[]>[];
