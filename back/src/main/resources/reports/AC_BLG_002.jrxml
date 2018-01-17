@@ -44,8 +44,7 @@ inner join ac_acct_chrg on ac_acct_chrg_trsn.charge_id = ac_acct_chrg.id
 left outer join ac_chrt_code on ac_acct_chrg.id =  ac_chrt_code.id
 and ac_acct.id = ac_acct_chrg.account_id
 
-inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id
-]]>
+inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id]]>
 	</queryString>
 	<field name="ac_acct_chrg_trsn_amount" class="java.math.BigDecimal"/>
 	<field name="ac_acct_chrg_trsn_description" class="java.lang.String"/>
@@ -72,7 +71,7 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="22" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<staticText>
 				<reportElement x="350" y="2" width="149" height="20" uuid="d8c7434f-4236-44c3-a228-c9d31e74dc2a"/>
 				<textElement>
@@ -141,49 +140,49 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id
 				<text><![CDATA[Parent/Guardian :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="74" width="115" height="15" uuid="c299acba-0cf0-40e5-a464-9e8d1fb9f492"/>
+				<reportElement x="0" y="64" width="115" height="15" uuid="c299acba-0cf0-40e5-a464-9e8d1fb9f492"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Sponsor Reference No :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="92" width="198" height="15" uuid="352e923c-da69-4701-a9cf-ec8c80846e2d"/>
+				<reportElement x="0" y="79" width="198" height="28" uuid="352e923c-da69-4701-a9cf-ec8c80846e2d"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_acct_description}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="198" y="74" width="45" height="15" uuid="d31041b4-fe10-4169-93e5-f9fcd6052336"/>
+				<reportElement x="198" y="64" width="45" height="15" uuid="d31041b4-fe10-4169-93e5-f9fcd6052336"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Course :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="198" y="92" width="167" height="15" uuid="338e69b2-2340-47a6-8897-12f4a13edc53"/>
+				<reportElement x="198" y="81" width="179" height="26" uuid="338e69b2-2340-47a6-8897-12f4a13edc53"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_prgm_code_description}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="389" y="74" width="33" height="15" uuid="ddb04609-900c-46b9-850d-38abbe25e43f"/>
+				<reportElement x="389" y="64" width="33" height="15" uuid="ddb04609-900c-46b9-850d-38abbe25e43f"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[IC No :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="455" y="74" width="86" height="17" uuid="2bc11cc5-9fa7-44d1-b689-7763e97b8cb9"/>
+				<reportElement x="455" y="64" width="86" height="17" uuid="2bc11cc5-9fa7-44d1-b689-7763e97b8cb9"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Intake Semester :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="455" y="92" width="86" height="15" uuid="f2db7765-4e99-4a4c-996b-972810759af6"/>
+				<reportElement x="458" y="81" width="86" height="26" uuid="f2db7765-4e99-4a4c-996b-972810759af6"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -204,7 +203,7 @@ inner join ac_prgm_code on ac_chrt_code.program_code_id = ac_prgm_code.id
 				<textFieldExpression><![CDATA[(($F{ac_stdn_student_status}==null)? "-": $F{ac_stdn_student_status})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="389" y="92" width="60" height="15" uuid="772539f6-14a1-4a80-9180-6bc107642e2d"/>
+				<reportElement x="389" y="81" width="60" height="26" uuid="772539f6-14a1-4a80-9180-6bc107642e2d"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
