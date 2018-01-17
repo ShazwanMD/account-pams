@@ -6,6 +6,7 @@ import {BillingService} from '../../../../services/billing.service';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
 import { Router } from "@angular/router";
+import { NotificationService } from "../../../../services/notification.service";
 
 @Injectable()
 export class CreditNoteEffects {
@@ -15,6 +16,7 @@ export class CreditNoteEffects {
   constructor(private actions$: Actions,
               private creditNoteActions: CreditNoteActions,
               private billingService: BillingService,
+              private notificationService: NotificationService,
               private router: Router,
               private store$: Store<BillingModuleState>) {
   }
@@ -93,6 +95,7 @@ export class CreditNoteEffects {
     .map((action) => action.payload)
     .switchMap((creditNoteTask) => this.billingService.completeCreditNoteTask(creditNoteTask))
     .map((message) => this.creditNoteActions.completeCreditNoteTaskSuccess(message))
+    .catch((error) => this.notificationService.showError(error))
     .mergeMap((action) => from([action,
         this.creditNoteActions.findAssignedCreditNoteTasks(),
         this.creditNoteActions.findPooledCreditNoteTasks(),

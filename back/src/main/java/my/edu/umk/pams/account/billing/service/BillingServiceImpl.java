@@ -751,6 +751,11 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
+	public Integer countDebitNoteItem(AcDebitNote debitNote) {
+		return debitNoteDao.countItem(debitNote);
+	}
+	
+	@Override
 	public List<AcDebitNote> findUnpaidDebitNotes(AcAccount account, Integer offset, Integer limit) {
 		return debitNoteDao.find(false, account, offset, limit);
 	}
@@ -976,6 +981,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public Integer countCreditNote(AcInvoice invoice) {
 		return creditNoteDao.count(invoice);
+	}
+	
+	@Override
+	public Integer countCreditNoteItem(AcCreditNote creditNote) {
+		return creditNoteDao.countItem(creditNote);
 	}
 
 	// ====================================================================================================
@@ -1367,6 +1377,11 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public boolean hasDebitKnockoffItem(AcDebitNote debitNote, AcKnockoff knockoff) {
 		return knockoffDao.hasDebitKnockoffItem(debitNote, knockoff);
+	}
+	
+	@Override
+	public Integer countWaiverItem(AcWaiverFinanceApplication waiver) {
+		return waiverFinanceApplicationDao.countItem(waiver);
 	}
 
 	// ====================================================================================================

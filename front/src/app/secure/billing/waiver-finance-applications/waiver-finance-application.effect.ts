@@ -7,6 +7,7 @@ import {from} from 'rxjs/observable/from';
 import {FinancialaidService} from '../../../../services/financialaid.service';
 import { WaiverFinanceApplicationActions } from "./waiver-finance-application.action";
 import { Router } from "@angular/router";
+import { NotificationService } from "../../../../services/notification.service";
 
 @Injectable()
 export class WaiverFinanceApplicationEffects {
@@ -16,6 +17,7 @@ export class WaiverFinanceApplicationEffects {
   constructor(private actions$: Actions,
               private waiverFinanceApplicationActions: WaiverFinanceApplicationActions,
               private billingService: BillingService,
+              private notificationService: NotificationService,
               private router: Router,
               private store$: Store<BillingModuleState>) {
   }
@@ -84,6 +86,7 @@ export class WaiverFinanceApplicationEffects {
     .map((action) => action.payload)
     .switchMap((applicationTask) => this.billingService.completeWaiverFinanceApplicationTask(applicationTask))
     .map((message) => this.waiverFinanceApplicationActions.completeWaiverFinanceApplicationTaskSuccess(message))
+    .catch((error) => this.notificationService.showError(error))
     .mergeMap((action) => from([action,
         this.waiverFinanceApplicationActions.findAssignedWaiverFinanceApplicationTasks(),
         this.waiverFinanceApplicationActions.findPooledWaiverFinanceApplicationTasks(),

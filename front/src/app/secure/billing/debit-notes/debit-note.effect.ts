@@ -5,6 +5,7 @@ import {from} from 'rxjs/observable/from';
 import {BillingService} from '../../../../services/billing.service';
 import {BillingModuleState} from '../index';
 import {Store} from '@ngrx/store';
+import { NotificationService } from "../../../../services/notification.service";
 
 @Injectable()
 export class DebitNoteEffects {
@@ -14,6 +15,7 @@ export class DebitNoteEffects {
   constructor(private actions$: Actions,
               private debitNoteActions: DebitNoteActions,
               private billingService: BillingService,
+              private notificationService: NotificationService,
               private store$: Store<BillingModuleState>) {
   }
 
@@ -90,6 +92,7 @@ export class DebitNoteEffects {
     .map((action) => action.payload)
     .switchMap((debitNoteTask) => this.billingService.completeDebitNoteTask(debitNoteTask))
     .map((message) => this.debitNoteActions.completeDebitNoteTaskSuccess(message))
+    .catch((error) => this.notificationService.showError(error))
     .mergeMap((action) => from([action,
         this.debitNoteActions.findAssignedDebitNoteTasks(),
         this.debitNoteActions.findPooledDebitNoteTasks(),

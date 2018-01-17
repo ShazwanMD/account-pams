@@ -362,9 +362,18 @@ public class BillingController {
     @RequestMapping(value = "/invoices/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeInvoiceTask(@RequestBody InvoiceTask vo) {
         
-        Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
-        workflowService.completeTask(task);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    	String referenceNo = vo.getInvoice().getReferenceNo();
+    	AcInvoice invoice = billingService.findInvoiceByReferenceNo(referenceNo);
+    	
+    	int invoiceItem = billingService.countInvoiceItem(invoice);
+    	
+    	if(invoiceItem == 0) {
+    		throw new IllegalArgumentException("Please enter invoice item"); }
+    	else if (invoiceItem > 0) {
+    		Task task = billingService.findInvoiceTaskByTaskId(vo.getTaskId());
+            workflowService.completeTask(task);}
+            return new ResponseEntity<String>("Success", HttpStatus.OK);
+    	
     }
 
     // ==================================================================================================== //
@@ -869,9 +878,17 @@ public class BillingController {
     @RequestMapping(value = "/debitNotes/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeDebitNoteTask(@RequestBody DebitNoteTask vo) {
         
-        Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
-        workflowService.completeTask(task);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    	String referenceNo = vo.getDebitNote().getReferenceNo();
+    	AcDebitNote dbtNote = billingService.findDebitNoteByReferenceNo(referenceNo);
+    	
+    	int debitNoteItem = billingService.countDebitNoteItem(dbtNote);
+    	
+    	if(debitNoteItem == 0) {
+    		throw new IllegalArgumentException("Please enter debit note item"); }
+    	else if (debitNoteItem > 0) {
+    		Task task = billingService.findDebitNoteTaskByTaskId(vo.getTaskId());
+            workflowService.completeTask(task);}
+            return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/debitNotes/{referenceNo}", method = RequestMethod.PUT)
@@ -1036,9 +1053,20 @@ public class BillingController {
 
     @RequestMapping(value = "/creditNotes/completeTask", method = RequestMethod.POST)
     public ResponseEntity<String> completeCreditNoteTask(@RequestBody CreditNoteTask vo) {
-        Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
-        workflowService.completeTask(task);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    	
+    	String referenceNo = vo.getCreditNote().getReferenceNo();
+    	AcCreditNote creditNote = billingService.findCreditNoteByReferenceNo(referenceNo);
+    	
+    	int creditNoteItem = billingService.countCreditNoteItem(creditNote);
+    	
+    	if (creditNoteItem == 0) {
+    		throw new IllegalArgumentException("Please Enter Credit Note Item");
+    	}
+    	else if (creditNoteItem > 0) {
+    		Task task = billingService.findCreditNoteTaskByTaskId(vo.getTaskId());
+            workflowService.completeTask(task);   	}
+    		return new ResponseEntity<String>("Success", HttpStatus.OK); 
+
     }
 
 
@@ -1633,8 +1661,17 @@ public class BillingController {
     @RequestMapping(value = "/waiverFinanceApplications/completeTask", method = RequestMethod.POST)
     public void completeWaiverFinanceApplicationTask(@RequestBody WaiverFinanceApplicationTask vo) {
         
-        Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
-        workflowService.completeTask(task);
+    	String referenceNo = vo.getApplication().getReferenceNo();
+    	AcWaiverFinanceApplication waiver = billingService.findWaiverFinanceApplicationByReferenceNo(referenceNo);
+    	
+    	int waiverItem = billingService.countWaiverItem(waiver);
+    	
+    	if(waiverItem == 0) {
+    		throw new IllegalArgumentException("Please enter waiver item"); }
+    	else if (waiverItem > 0) {
+    		Task task = billingService.findWaiverFinanceApplicationTaskByTaskId(vo.getTaskId());
+            workflowService.completeTask(task);}       
+        
     }
         
     @RequestMapping(value = "/waiverFinanceApplications/{referenceNo}/waiverFinanceApplicationItems", method = RequestMethod.POST)

@@ -120,7 +120,8 @@ export class BillingService {
     completeInvoiceTask( invoiceTask: InvoiceTask ): Observable<String> {
         console.log( 'TaskId: ' + invoiceTask.taskId );
         return this._http.post( this.BILLING_API + '/invoices/completeTask', JSON.stringify( invoiceTask ) )
-            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+            .flatMap(( res: Response ) => Observable.of( res.text() ) )
+            .catch(this.handleError);
     }
 
     claimInvoiceTask( invoiceTask: InvoiceTask ): Observable<String> {
@@ -423,7 +424,8 @@ export class BillingService {
     completeCreditNoteTask( creditNoteTask: CreditNoteTask ): Observable<String> {
         console.log( 'TaskId: ' + creditNoteTask.taskId );
         return this._http.post( this.BILLING_API + '/creditNotes/completeTask', JSON.stringify( creditNoteTask ) )
-            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+            .flatMap(( res: Response ) => Observable.of( res.text() ) )
+            .catch(this.handleError);
     }
 
     claimCreditNoteTask( creditNoteTask: CreditNoteTask ): Observable<String> {
@@ -540,7 +542,8 @@ export class BillingService {
     completeDebitNoteTask( debitNoteTask: DebitNoteTask ): Observable<String> {
         console.log( 'TaskId: ' + debitNoteTask.taskId );
         return this._http.post( this.BILLING_API + '/debitNotes/completeTask', JSON.stringify( debitNoteTask ) )
-            .flatMap(( res: Response ) => Observable.of( res.text() ) );
+            .flatMap(( res: Response ) => Observable.of( res.text() ) )
+            .catch(this.handleError);
     }
 
     claimDebitNoteTask( debitNoteTask: DebitNoteTask ): Observable<String> {
@@ -831,7 +834,8 @@ export class BillingService {
   completeWaiverFinanceApplicationTask(waiverFinanceApplicationTask: WaiverFinanceApplicationTask): Observable<String> {
     console.log('TaskId: ' + waiverFinanceApplicationTask.taskId);
     return this._http.post(this.BILLING_API + '/waiverFinanceApplications/completeTask', JSON.stringify(waiverFinanceApplicationTask))
-      .flatMap((res: Response) => Observable.of(res.text()));
+      .flatMap((res: Response) => Observable.of(res.text()))
+      .catch(this.handleError);
   }
 
   claimWaiverFinanceApplicationTask(waiverFinanceApplicationTask: WaiverFinanceApplicationTask): Observable<String> {

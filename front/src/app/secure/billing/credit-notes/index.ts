@@ -6,7 +6,7 @@ import {EffectsModule} from '@ngrx/effects';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {AccountService, CommonService, IdentityService} from '../../../../services';
+import {AccountService, CommonService, IdentityService, NotificationService} from '../../../../services';
 import {IdentityModule} from '../../identity/index';
 import {CreditNoteCenterPage} from './credit-note-center.page';
 import {CreditNoteCreatorDialog} from './dialog/credit-note-creator.dialog';
@@ -92,6 +92,7 @@ export class CreditNoteSubModule {
         CommonService,
         AccountService,
         CreditNoteActions,
+        NotificationService,
       ],
     };
   }

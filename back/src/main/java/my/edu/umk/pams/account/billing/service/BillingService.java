@@ -187,6 +187,8 @@ public interface BillingService {
     List<AcDebitNoteItem> findDebitNoteItems(AcDebitNote debitNote);
 
     Integer countDebitNote(AcInvoice invoice);
+    
+    Integer countDebitNoteItem(AcDebitNote debitNote);
 
     boolean hasDebitNote(AcInvoice invoice);
 
@@ -242,6 +244,8 @@ public interface BillingService {
     List<AcCreditNoteItem> findCreditNoteItems(AcCreditNote creditNote);
 
     Integer countCreditNote(AcInvoice invoice);
+    
+    Integer countCreditNoteItem(AcCreditNote creditNote);
 
     boolean hasCreditNote(AcInvoice invoice);
     
@@ -633,5 +637,7 @@ public interface BillingService {
 	boolean hasDebitWaiverItem(AcDebitNote debitNote, AcWaiverFinanceApplication waiverApplication);
 
 	boolean hasChargeKnockoffItem(AcAccountCharge accountCharge, AcKnockoff knockoff);
+	
+	Integer countWaiverItem(AcWaiverFinanceApplication waiver);
 
 }

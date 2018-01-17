@@ -93,6 +93,8 @@ public interface AcWaiverFinanceApplicationDao extends GenericDao<Long, AcWaiver
 	BigDecimal sumAppliedAmount(AcDebitNote debitNote, AcWaiverFinanceApplication waiver, AcUser user);
 	
 	boolean hasWaiver(AcWaiverFinanceApplication waiver, AcInvoice invoice);
+	
+	Integer countItem(AcWaiverFinanceApplication waiver);
 
     // ====================================================================================================
     // HELPER

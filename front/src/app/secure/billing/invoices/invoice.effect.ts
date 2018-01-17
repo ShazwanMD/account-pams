@@ -8,6 +8,7 @@ import {Store} from '@ngrx/store';
 import 'rxjs/add/operator/withLatestFrom';
 import {DebitNoteActions} from '../debit-notes/debit-note.action';
 import { Router } from "@angular/router";
+import { NotificationService } from "../../../../services/notification.service";
 
 @Injectable()
 export class InvoiceEffects {
@@ -19,6 +20,7 @@ export class InvoiceEffects {
               private invoiceActions: InvoiceActions,
               private debitNoteActions: DebitNoteActions,
               private billingService: BillingService,
+              private notificationService: NotificationService,
               private router: Router,
               private store$: Store<BillingModuleState>) {
   }
@@ -101,6 +103,7 @@ export class InvoiceEffects {
     .map((action) => action.payload)
     .switchMap((invoiceTask) => this.billingService.completeInvoiceTask(invoiceTask))
     .map((message) => this.invoiceActions.completeInvoiceTaskSuccess(message))
+    .catch((error) => this.notificationService.showError(error))
     .mergeMap((action) => from([action,
         this.invoiceActions.findAssignedInvoiceTasks(),
         this.invoiceActions.findPooledInvoiceTasks(),

@@ -5,7 +5,7 @@ import {appRoutes, appRoutingProviders} from '../../../app.routes';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService, IdentityService} from '../../../../services';
+import {CommonService, IdentityService, NotificationService} from '../../../../services';
 import {BillingService} from '../../../../services/billing.service';
 import {InvoiceEffects} from './invoice.effect';
 import {EffectsModule} from '@ngrx/effects';
@@ -123,6 +123,7 @@ export class InvoiceSubModule {
         BillingService,
         InvoiceActions,
         ReportActions,
+        NotificationService,
       ],
     };
   }

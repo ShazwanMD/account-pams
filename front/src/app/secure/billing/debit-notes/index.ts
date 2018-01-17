@@ -6,7 +6,7 @@ import {EffectsModule} from '@ngrx/effects';
 
 import {CovalentCoreModule} from '@covalent/core';
 
-import {CommonService, IdentityService} from '../../../../services';
+import {CommonService, IdentityService, NotificationService} from '../../../../services';
 import {AccountService} from '../../../../services/account.service';
 import {IdentityModule} from '../../identity/index';
 import {DebitNoteCenterPage} from './debit-note-center.page';
@@ -96,6 +96,7 @@ export class DebitNoteSubModule {
         CommonService,
         AccountService,
         DebitNoteActions,
+        NotificationService,
       ],
     };
   }

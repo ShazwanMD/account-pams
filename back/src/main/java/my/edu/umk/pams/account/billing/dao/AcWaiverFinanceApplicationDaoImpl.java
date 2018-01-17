@@ -472,6 +472,16 @@ public class AcWaiverFinanceApplicationDaoImpl extends GenericDaoSupport<Long, A
     // HELPER
     // ====================================================================================================
 
+    @Override
+    public Integer countItem(AcWaiverFinanceApplication waiver) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(ii) from AcWaiverItem ii where " +
+                "ii.waiverFinanceApplication=:waiver " +
+                "and ii.metadata.state = :state ");
+        query.setEntity("waiver", waiver);
+        query.setInteger("state", ACTIVE.ordinal());
+        return ((Long) query.uniqueResult()).intValue();
+    }
 
     @Override
     public Integer count(AcAcademicSession academicSession) {
