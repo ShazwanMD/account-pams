@@ -30,7 +30,7 @@ export class AdvancePaymentListComponent implements OnChanges{
     {name: 'description', label: 'Description'},
     {name: 'amount', label: 'Total Amount'},
     {name: 'balanceAmount', label: 'Balance Amount'},
-    {name: 'receipt.referenceNo', label: 'Receipt'},
+    {name: 'sourceNo', label: 'Source No'},
     {name: 'action', label: ''},
   ];
   filteredData: any[];
