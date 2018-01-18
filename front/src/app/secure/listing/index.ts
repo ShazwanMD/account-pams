@@ -11,6 +11,9 @@ import { ListingDebitNoteSubModule } from './listing-debit-note/index';
 import { ListingCreditNoteSubModule } from './listing-credit-note/index';
 import { ListingRefundPaymentSubModule } from './listing-refund-payment/index';
 import { ListingKnockoffPaymentSubModule } from './listing-knockoff-payment/index';
+import { AgeingModuleRoutes } from './ageing/ageing-module.routes';
+import { AgeingSubModule } from './ageing/index';
+import { DebtorsSubModule } from './debtors/index';
 
 export interface ListingModuleState {
 }
@@ -27,6 +30,8 @@ export interface ListingModuleState {
     ListingCreditNoteSubModule.forRoot(),
     ListingRefundPaymentSubModule.forRoot(),
     ListingKnockoffPaymentSubModule.forRoot(),
+    AgeingSubModule.forRoot(),
+    DebtorsSubModule.forRoot(),
   ],
   declarations: [
     // page
