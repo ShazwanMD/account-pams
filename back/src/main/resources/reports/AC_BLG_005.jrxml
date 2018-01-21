@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5270fd6a-534b-45bb-8407-2b40fe397a35">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="417"/>
 	<queryString>
 		<![CDATA[select ac_rcpt.account_id as "ac_account_id",
 ac_acct.code as "ac_ac_code",
@@ -18,6 +18,7 @@ ac_rcpt.received_date as "ac_received_date",
 ac_rcpt.total_received as "ac_total_received",
 ac_rcpt_item.invoice_id as "ac_invoice_id",
 ac_invc.reference_no as "ac_invc_reference_no",
+ac_invc_item.tax_amount as "ac_invc_item_tax_amount",
 ac_rcpt_item.account_charge_id as "ac_account_charge_id",
 ac_acct_chrg.reference_no as "ac_account_charge_reference_no",
 ac_rcpt_item.debit_note_id as "ac_debit_note_id",
@@ -29,6 +30,7 @@ inner join ac_rcpt_item on ac_rcpt.id = ac_rcpt_item.receipt_id
 inner join ac_acct on ac_rcpt.account_id = ac_acct.id
 inner join ac_actr on ac_acct.id = ac_actr.id
 left outer join ac_invc on ac_rcpt_item.invoice_id = ac_invc.id
+inner join ac_invc_item on ac_invc.id = ac_invc_item.invoice_id
 left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id
 left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id
 
@@ -48,6 +50,7 @@ where ac_rcpt.fd_st = 16]]>
 	<field name="ac_total_received" class="java.math.BigDecimal"/>
 	<field name="ac_invoice_id" class="java.lang.Long"/>
 	<field name="ac_invc_reference_no" class="java.lang.String"/>
+	<field name="ac_invc_item_tax_amount" class="java.math.BigDecimal"/>
 	<field name="ac_account_charge_id" class="java.lang.Long"/>
 	<field name="ac_account_charge_reference_no" class="java.lang.String"/>
 	<field name="ac_debit_note_id" class="java.lang.Long"/>
@@ -186,6 +189,13 @@ where ac_rcpt.fd_st = 16]]>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="338" y="245" width="100" height="13" uuid="8feca340-c1f4-4f72-8627-cfd050715edc"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[AMAUN GST (RM)]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -295,9 +305,14 @@ where ac_rcpt.fd_st = 16]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></textFieldExpression>
 				</textField>
+				<textField>
+					<reportElement x="338" y="2" width="100" height="18" uuid="e6ed5c1f-6205-419f-8011-a687e15d8a79"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{ac_invc_item_tax_amount}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<textField>
-				<reportElement x="125" y="0" width="328" height="20" uuid="f9f7fb90-4b0b-412e-87da-e86815f1f17c"/>
+				<reportElement x="125" y="0" width="208" height="20" uuid="f9f7fb90-4b0b-412e-87da-e86815f1f17c"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>

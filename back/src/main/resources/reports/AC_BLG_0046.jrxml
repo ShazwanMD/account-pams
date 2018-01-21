@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5270fd6a-534b-45bb-8407-2b40fe397a35">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="44"/>
 	<parameter name="receipt_ref_no" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -197,8 +197,8 @@ $F{ac_rcpt_payment_method}.equals( "3" ) ? "BANK DRAF" : "OTHERS"
 			<frame>
 				<reportElement x="5" y="1" width="548" height="23" uuid="d7de7ac2-ad47-4042-abe1-e5e3483e8d11"/>
 				<staticText>
-					<reportElement x="329" y="7" width="100" height="16" uuid="31cb7ea5-d6dd-41eb-b22e-8f02f2f0e491"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<reportElement x="329" y="5" width="100" height="18" uuid="31cb7ea5-d6dd-41eb-b22e-8f02f2f0e491"/>
+					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[AMAUN GST (RM)]]></text>
@@ -238,8 +238,7 @@ $F{ac_rcpt_payment_method}.equals( "3" ) ? "BANK DRAF" : "OTHERS"
 					<textFieldExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="334" y="3" width="100" height="17" uuid="867edf93-c312-4088-bcb7-d94f409f102b"/>
-					<textElement textAlignment="Right"/>
+					<reportElement x="334" y="0" width="100" height="20" uuid="867edf93-c312-4088-bcb7-d94f409f102b"/>
 					<textFieldExpression><![CDATA[$F{ac_invc_item_tax_amount}]]></textFieldExpression>
 				</textField>
 			</frame>
