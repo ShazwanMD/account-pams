@@ -220,4 +220,17 @@ public class AcCreditNoteDaoImpl extends GenericDaoSupport<Long, AcCreditNote> i
         if (null == result) return BigDecimal.ZERO;
         else return (BigDecimal) result;
     }
+    
+    @Override
+    public BigDecimal sumAmount(AcCreditNote creditNote, AcUser user) {
+    	Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select sum(a.amount) from AcCreditNoteItem a where " +
+                "a.creditNote = :creditNote " +
+                "and a.metadata.state = :state ");
+        query.setEntity("creditNote", creditNote);
+        query.setInteger("state", AcMetaState.ACTIVE.ordinal());
+        Object result = query.uniqueResult();
+        if (null == result) return BigDecimal.ZERO;
+        else return (BigDecimal) result;
+    }
 }

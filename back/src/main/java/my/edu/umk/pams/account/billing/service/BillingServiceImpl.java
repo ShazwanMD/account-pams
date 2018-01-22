@@ -966,6 +966,9 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public void post(AcCreditNote creditNote) {
+		
+		BigDecimal amount = billingService.sumAmount(creditNote);
+		
 		AcAccountTransaction tx = new AcAccountTransactionImpl();
 		tx.setSession(creditNote.getInvoice().getSession());
 		//tx.setChargeCode(creditNote.getChargeCode());
@@ -974,8 +977,13 @@ public class BillingServiceImpl implements BillingService {
 		tx.setSourceNo(creditNote.getReferenceNo());
 		tx.setTransactionCode(AcAccountTransactionCode.CREDIT_NOTE);
 		tx.setAccount(creditNote.getInvoice().getAccount());
-		tx.setAmount(creditNote.getTotalAmount().negate());
+		tx.setAmount(amount.negate());
 		accountService.addAccountTransaction(creditNote.getInvoice().getAccount(), tx);
+	}
+	
+	@Override
+	public BigDecimal sumAmount(AcCreditNote creditNote) {
+		return creditNoteDao.sumAmount(creditNote, securityService.getCurrentUser());
 	}
 
 	@Override

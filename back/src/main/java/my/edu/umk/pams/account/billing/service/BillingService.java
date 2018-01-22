@@ -250,6 +250,8 @@ public interface BillingService {
     boolean hasCreditNote(AcInvoice invoice);
     
     void post(AcCreditNote creditNote);
+    
+    BigDecimal sumAmount(AcCreditNote creditNote);
 
     // ==================================================================================================== //
     // RECEIPT

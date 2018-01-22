@@ -82,6 +82,6 @@ public class AcAcademicSessionDaoImpl extends GenericDaoSupport<Long, AcAcademic
                 "and s.metadata.state = :state ");
         query.setString("code", code);
         query.setInteger("state", ACTIVE.ordinal());
-        return ((Integer) query.uniqueResult() > 0);
+        return ((Long) query.uniqueResult() > 0);
     }
 }
