@@ -6,6 +6,8 @@ import { ListingDebitNoteModuleRoutes } from './listing-debit-note/listing-debit
 import { ListingCreditNoteModuleRoutes } from './listing-credit-note/listing-credit-note-module.routes';
 import { ListingRefundPaymentModuleRoutes } from './listing-refund-payment/listing-refund-payment-module.routes';
 import { ListingKnockoffPaymentModuleRoutes } from './listing-knockoff-payment/listing-knockoff-payment-module.routes';
+import { AgeingModuleRoutes } from './ageing/ageing-module.routes';
+import { DebtorsModuleRoutes } from './debtors/debtors-module.routes';
 
 export const ListingModuleRoutes: Routes = [
   {path: 'listing', component: ListingPage},
@@ -15,4 +17,6 @@ export const ListingModuleRoutes: Routes = [
    ...ListingCreditNoteModuleRoutes,
    ...ListingRefundPaymentModuleRoutes,
    ...ListingKnockoffPaymentModuleRoutes,
+   ...AgeingModuleRoutes,
+   ...DebtorsModuleRoutes,
 ];

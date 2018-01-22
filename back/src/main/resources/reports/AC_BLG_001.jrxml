@@ -435,7 +435,7 @@ FROM
 				<text><![CDATA[TELEFAX : (+609)-7717102]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="239" y="66" width="100" height="47" uuid="286b5eec-08b5-430a-b9ae-8268561d856e"/>
+				<reportElement x="239" y="69" width="114" height="46" uuid="286b5eec-08b5-430a-b9ae-8268561d856e"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
@@ -455,11 +455,18 @@ FROM
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="214" y="110" width="146" height="22" uuid="60b6f7e5-4e75-470a-a34b-7366d7ad049c"/>
+				<reportElement x="215" y="107" width="146" height="22" uuid="60b6f7e5-4e75-470a-a34b-7366d7ad049c"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<text><![CDATA[GST ID no : 000546836480]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="53" width="252" height="20" uuid="cbe77f05-8ce3-40e3-b262-b9425a51b05e"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN (UMK)]]></text>
 			</staticText>
 		</band>
 	</title>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5270fd6a-534b-45bb-8407-2b40fe397a35">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="44"/>
 	<parameter name="receipt_ref_no" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -75,7 +75,7 @@ left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="122" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<staticText>
 				<reportElement x="224" y="14" width="116" height="20" uuid="2dd71bcc-cf2d-407f-a255-aed22b2de864"/>
 				<textElement textAlignment="Center">
@@ -84,43 +84,23 @@ left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id
 				<text><![CDATA[RESIT RASMI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="157" y="34" width="252" height="20" uuid="92822a5f-45f8-412d-872c-2c3ff5a7dd40"/>
+				<reportElement x="151" y="34" width="252" height="20" uuid="92822a5f-45f8-412d-872c-2c3ff5a7dd40"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[UNIVERSITI MALAYSIA KELANTAN (UMK)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="136" y="49" width="292" height="20" uuid="95307303-d210-4a35-82bf-3ac56f767bc0"/>
+				<reportElement x="131" y="54" width="289" height="20" uuid="95307303-d210-4a35-82bf-3ac56f767bc0"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Karung Berkunci 36, 16100 Pengkalan Chepa, Kelantan]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="428" y="103" width="119" height="15" uuid="7b2b31be-cd88-47df-8bda-7a39a5431d0a"/>
-				<text><![CDATA[Telefax : (+609)-7717102]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="6" y="103" width="146" height="16" uuid="250e6c66-2ef5-4446-905f-e707ab1b681c"/>
-				<text><![CDATA[Telefon: (+609)-7717111
-]]></text>
-			</staticText>
-			<line>
-				<reportElement x="0" y="118" width="551" height="1" uuid="463ec3b1-96b8-42f6-b9c1-e18a1f4db71c"/>
-			</line>
-			<staticText>
-				<reportElement x="223" y="65" width="131" height="16" uuid="92cb0841-ae23-4e1a-900a-9c348c79b703"/>
-				<text><![CDATA[GST ID no : 000546836480]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="215" y="78" width="150" height="13" uuid="c9e8c9a5-fe92-42b0-8972-39d966988192"/>
-				<text><![CDATA[Email :kew.pelajar@umk.edu.my]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="88" splitType="Stretch">
+		<band height="71" splitType="Stretch">
 			<staticText>
 				<reportElement x="10" y="30" width="61" height="20" uuid="a21c0f9a-c86b-4316-aec7-c8801e48c089"/>
 				<textElement>
@@ -217,8 +197,8 @@ $F{ac_rcpt_payment_method}.equals( "3" ) ? "BANK DRAF" : "OTHERS"
 			<frame>
 				<reportElement x="5" y="1" width="548" height="23" uuid="d7de7ac2-ad47-4042-abe1-e5e3483e8d11"/>
 				<staticText>
-					<reportElement x="329" y="7" width="100" height="16" uuid="31cb7ea5-d6dd-41eb-b22e-8f02f2f0e491"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<reportElement x="329" y="5" width="100" height="18" uuid="31cb7ea5-d6dd-41eb-b22e-8f02f2f0e491"/>
+					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[AMAUN GST (RM)]]></text>
@@ -258,8 +238,7 @@ $F{ac_rcpt_payment_method}.equals( "3" ) ? "BANK DRAF" : "OTHERS"
 					<textFieldExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="334" y="3" width="100" height="17" uuid="867edf93-c312-4088-bcb7-d94f409f102b"/>
-					<textElement textAlignment="Right"/>
+					<reportElement x="334" y="0" width="100" height="20" uuid="867edf93-c312-4088-bcb7-d94f409f102b"/>
 					<textFieldExpression><![CDATA[$F{ac_invc_item_tax_amount}]]></textFieldExpression>
 				</textField>
 			</frame>
