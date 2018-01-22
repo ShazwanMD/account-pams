@@ -13,7 +13,7 @@ import {HomePage} from './home/home.page';
 import {DashboardPage} from './secure/dashboard.page';
 
 const routes: Routes = [
-  {path: '', component: HomePage},
+  {path: '', component: LoginPage},
   {path: 'login', component: LoginPage},
   {path: 'forget-password', component: ForgetPasswordPage},
   {
