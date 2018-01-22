@@ -1,7 +1,7 @@
 ----FIAT-PHD-0001-CHRT-201720181, M, Full Time, Study Center 1
 INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts, status, study_center_id)
 VALUES (nextval('SQ_AC_FEE_SCDL'),
-         (SELECT ID from AC_RSCY_CODE where code = 'P'),
+         (SELECT ID from AC_RSCY_CODE where code = 'C'),
         (SELECT ID
          FROM ac_chrt_code
          WHERE code = 'FIAT-PHD-0001-CHRT-201720181'),
@@ -40,7 +40,7 @@ values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
 ----FIAT-PHD-0001-CHRT-201720181, M, Full Time, Study Center 2
 INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts, status, study_center_id)
 VALUES (nextval('SQ_AC_FEE_SCDL'),
-         (SELECT ID from AC_RSCY_CODE where code = 'P'),
+         (SELECT ID from AC_RSCY_CODE where code = 'C'),
         (SELECT ID
          FROM ac_chrt_code
          WHERE code = 'FIAT-PHD-0001-CHRT-201720181'),
@@ -70,7 +70,7 @@ values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
 ----FIAT-PHD-0001-CHRT-201720181, X, Full Time, Study Center 3
 INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts, status, study_center_id)
 VALUES (nextval('SQ_AC_FEE_SCDL'),
-         (SELECT ID from AC_RSCY_CODE where code = '2'),
+         (SELECT ID from AC_RSCY_CODE where code = 'C'),
         (SELECT ID
          FROM ac_chrt_code
          WHERE code = 'FIAT-PHD-0001-CHRT-201720181'),
@@ -100,7 +100,7 @@ values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
 ----FIAT-PHD-0001-CHRT-201720181, X, Part Time, Study Center 1
 INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts, status, study_center_id)
 VALUES (nextval('SQ_AC_FEE_SCDL'),
-         (SELECT ID from AC_RSCY_CODE where code = '2'),
+         (SELECT ID from AC_RSCY_CODE where code = 'C'),
         (SELECT ID
          FROM ac_chrt_code
          WHERE code = 'FIAT-PHD-0002-CHRT-201720181'),
@@ -164,7 +164,7 @@ values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
 ----FIAT-PHD-0001-CHRT-201720181, M, Full Time, Study Center 1
 INSERT INTO AC_FEE_SCDL (id, RESIDENCY_CODE_ID, cohort_code_id, study_mode_id, code, description, total_amount, m_st, c_id, c_ts, status, study_center_id)
 VALUES (nextval('SQ_AC_FEE_SCDL'),
-         (SELECT ID from AC_RSCY_CODE where code = 'P'),
+         (SELECT ID from AC_RSCY_CODE where code = 'C'),
         (SELECT ID
          FROM ac_chrt_code
          WHERE code = 'FIAT-PHD-0002-CHRT-201720181'),
