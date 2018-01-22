@@ -324,7 +324,7 @@ public class IntegrationController {
 
 		LOG.info("Start Receive Candidate");
 
-		if (commonService.findResidencyCodeByCode(payload.getNationalityCode().getCode()) == null) {
+		if (commonService.findResidencyCodeByCode(payload.getResidencyCode().getCode()) == null) {
 			AcResidencyCode residencyCode = new AcResidencyCodeImpl();
 			residencyCode.setCode(payload.getResidencyCode().getCode());
 			residencyCode.setDescription(payload.getResidencyCode().getDescriptionEn());
