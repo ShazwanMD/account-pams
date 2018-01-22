@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AC_BLG_014" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8cb9a0d7-72b0-41f3-b2ee-96f7ec942d4e">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="158"/>
+	<property name="ireport.y" value="48"/>
 	<subDataset name="calculate nett amt" uuid="27137c10-134f-4f42-8512-055a7e76f5cb">
 		<queryString>
 			<![CDATA[select
@@ -429,12 +429,12 @@ ORDER BY
 					<font size="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[(
-$F{ac_invc_fd_st}.equals( "0" )? "DRAFTED":
-$F{ac_invc_fd_st}.equals( "1" )? "AFTER_DRAFTED":
+$F{ac_invc_fd_st}.equals( "0" )? "NEW":
+$F{ac_invc_fd_st}.equals( "1" )? "DRAFTED":
 $F{ac_invc_fd_st}.equals( "2" )? "REQUESTED":
 $F{ac_invc_fd_st}.equals( "3" )? "REGISTERED":
 $F{ac_invc_fd_st}.equals( "4" )? "PREPARED":
-$F{ac_invc_fd_st}.equals( "5" )? "REVIEWER":
+$F{ac_invc_fd_st}.equals( "5" )? " VERIFIED":
 $F{ac_invc_fd_st}.equals( "6" )? "UPPER_VERIFIED":
 $F{ac_invc_fd_st}.equals( "7" )? "CHECKED":
 $F{ac_invc_fd_st}.equals( "8" )? "APPROVED":
@@ -445,10 +445,11 @@ $F{ac_invc_fd_st}.equals( "12" )? "PUBLISHED":
 $F{ac_invc_fd_st}.equals( "13" )? "CANCELLED":
 $F{ac_invc_fd_st}.equals( "14" )? "REJECTED":
 $F{ac_invc_fd_st}.equals( "15" )? "REMOVED":
-$F{ac_invc_fd_st}.equals( "16" )? "FINAL":
+$F{ac_invc_fd_st}.equals( "16" )? " COMPLETED":
 $F{ac_invc_fd_st}.equals( "17" )? "ARCHIVED":
 "OTHERS"
-)]]></textFieldExpression>
+)
+]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="258" y="1" width="54" height="30" uuid="c55a1bc5-05c2-4366-aeec-e38aa875eef0"/>
