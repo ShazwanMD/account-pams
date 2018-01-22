@@ -182,6 +182,8 @@ public class CreditNoteListener implements ApplicationListener<CreditNoteEvent> 
 							securityService.getCurrentUser());
 
 				} // d
+				
+				billingService.post(creditNote);
 
 				// Hantar total (berjaya)
 				if (invoice.isPaid() == false) {// ii
@@ -191,6 +193,8 @@ public class CreditNoteListener implements ApplicationListener<CreditNoteEvent> 
 						invoice.setPaid(true);
 						billingService.updateInvoice(invoice);
 					}
+					
+					
 				} // ii
 
 				else {// i
