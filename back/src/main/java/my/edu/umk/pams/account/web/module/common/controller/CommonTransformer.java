@@ -51,6 +51,7 @@ public class CommonTransformer {
     //====================================================================================================
 
     public ResidencyCode toResidencyCodeVo(AcResidencyCode e) {
+    	if(null == e) return null;
         ResidencyCode vo = new ResidencyCode();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
