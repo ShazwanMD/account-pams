@@ -85,6 +85,12 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				if (invoice.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
 					invoice.setPaid(true);
 					billingService.updateInvoice(invoice);
+					
+					//hantar payload tidak berhutang ke akademik
+				}
+				else
+				{
+					//hantar payload berhutang ke akademik
 				}
 
 				total = total.add(receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser()));
@@ -106,6 +112,12 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				if (accountCharge.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
 					accountCharge.setPaid(true);
 					accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
+					
+					//hantar payload tidak berhutang ke akademik
+				}
+				else
+				{
+					//hantar payload berhutang ke akademik
 				}
 
 				totalCharge = totalCharge
@@ -139,6 +151,11 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				if (debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
 					debitNote.setPaid(true);
 					billingService.updateDebitNote(debitNote);
+					//hantar payload tidak berhutang ke akademik
+				}
+				else
+				{
+					//hantar payload berhutang ke akademik
 				}
 
 				totaldebit = totaldebit
