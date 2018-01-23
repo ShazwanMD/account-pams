@@ -58,10 +58,12 @@ public class BillingTransformer {
 
 
     public InvoiceTask toInvoiceTaskVo(Task t) {
+    	
         Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
         AcInvoice invoice = billingService.findInvoiceById((Long) vars.get(AccountConstants.INVOICE_ID));
-
+        if (null == t) return null;
         InvoiceTask task = new InvoiceTask();
+        
         task.setId(invoice.getId());
         task.setTaskId(t.getId());
         task.setReferenceNo(invoice.getReferenceNo());
