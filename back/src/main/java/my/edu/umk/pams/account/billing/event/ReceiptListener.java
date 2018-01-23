@@ -7,10 +7,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import my.edu.umk.pams.account.AccountConstants;
+import my.edu.umk.pams.account.account.event.AccountEvent;
 import my.edu.umk.pams.account.account.model.AcAccountCharge;
 import my.edu.umk.pams.account.account.model.AcAccountChargeTransaction;
 import my.edu.umk.pams.account.account.model.AcAccountChargeTransactionImpl;
@@ -29,9 +31,12 @@ import my.edu.umk.pams.account.billing.model.AcInvoiceItem;
 import my.edu.umk.pams.account.billing.model.AcReceipt;
 import my.edu.umk.pams.account.billing.model.AcReceiptItem;
 import my.edu.umk.pams.account.billing.service.BillingService;
+import my.edu.umk.pams.account.identity.model.AcStudentStatus;
 import my.edu.umk.pams.account.security.event.AccessListener;
 import my.edu.umk.pams.account.security.service.SecurityService;
 import my.edu.umk.pams.account.system.service.SystemService;
+import my.edu.umk.pams.connector.payload.AccountPayload;
+import my.edu.umk.pams.connector.payload.StudentStatus;
 
 /**
  * @author PAMS
@@ -55,6 +60,9 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 
 	@Autowired
 	private AcReceiptDao receiptDao;
+	
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	@Override
 	public void onApplicationEvent(ReceiptEvent event) {
@@ -87,10 +95,33 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					billingService.updateInvoice(invoice);
 					
 					//hantar payload tidak berhutang ke akademik
+					
+					LOG.info("Start Send Invoice Receipt Listener No Debt");
+					AccountPayload invoicePayload = new AccountPayload();
+					invoicePayload.setOutstanding(false);
+					invoicePayload.setStudentStatus(StudentStatus.ACTIVE);
+					invoicePayload.setMatricNo(invoice.getAccount().getActor().getIdentityNo());
+					invoicePayload.setBalance(invoice.getBalanceAmount());
+					
+					AccountEvent invoiceEvent = new AccountEvent(invoicePayload);
+					applicationContext.publishEvent(invoiceEvent);
+					LOG.info("Finish Send Invoice Receipt Listener No Debt");
+					
 				}
 				else
 				{
 					//hantar payload berhutang ke akademik
+					
+					LOG.info("Start Send Invoice Receipt Listener Has Debt");
+					AccountPayload invoicePayload = new AccountPayload();
+					invoicePayload.setOutstanding(true);
+					invoicePayload.setStudentStatus(StudentStatus.BARRED);
+					invoicePayload.setMatricNo(invoice.getAccount().getActor().getIdentityNo());
+					invoicePayload.setBalance(invoice.getBalanceAmount());
+					
+					AccountEvent invoiceEvent = new AccountEvent(invoicePayload);
+					applicationContext.publishEvent(invoiceEvent);
+					LOG.info("Finish Send Invoice Receipt Listener Has Debt");
 				}
 
 				total = total.add(receiptDao.sumAmount(invoice, receipt, securityService.getCurrentUser()));
@@ -114,10 +145,32 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 					accountService.updateAccountCharge(receipt.getAccount(), accountCharge);
 					
 					//hantar payload tidak berhutang ke akademik
+					
+					LOG.info("Start Send accChargeEvent Listener No Debt");
+					AccountPayload accChargePayload = new AccountPayload();
+					accChargePayload.setOutstanding(false);
+					accChargePayload.setStudentStatus(StudentStatus.ACTIVE);
+					accChargePayload.setMatricNo(accountCharge.getAccount().getActor().getIdentityNo());
+					accChargePayload.setBalance(accountCharge.getBalanceAmount());
+					
+					AccountEvent accChargeEvent = new AccountEvent(accChargePayload);
+					applicationContext.publishEvent(accChargeEvent);
+					LOG.info("Finish Send accChargeEvent Listener No Debt");
 				}
 				else
 				{
 					//hantar payload berhutang ke akademik
+					
+					LOG.info("Start Send accChargeEvent Listener Has Debt");
+					AccountPayload accChargePayload = new AccountPayload();
+					accChargePayload.setOutstanding(true);
+					accChargePayload.setStudentStatus(StudentStatus.BARRED);
+					accChargePayload.setMatricNo(accountCharge.getAccount().getActor().getIdentityNo());
+					accChargePayload.setBalance(accountCharge.getBalanceAmount());
+					
+					AccountEvent accChargeEvent = new AccountEvent(accChargePayload);
+					applicationContext.publishEvent(accChargeEvent);
+					LOG.info("Finish Send accChargeEvent Listener Has Debt");
 				}
 
 				totalCharge = totalCharge
@@ -151,11 +204,34 @@ public class ReceiptListener implements ApplicationListener<ReceiptEvent> {
 				if (debitNote.getBalanceAmount().compareTo(BigDecimal.ZERO) == 0) {
 					debitNote.setPaid(true);
 					billingService.updateDebitNote(debitNote);
+					
 					//hantar payload tidak berhutang ke akademik
+					
+					LOG.info("Start Send debitNotePayloadEvent Listener No Debt");
+					AccountPayload debitNotePayload = new AccountPayload();
+					debitNotePayload.setOutstanding(false);
+					debitNotePayload.setStudentStatus(StudentStatus.ACTIVE);
+					debitNotePayload.setMatricNo(debitNote.getInvoice().getAccount().getActor().getIdentityNo());
+					debitNotePayload.setBalance(debitNote.getBalanceAmount());
+					
+					AccountEvent debitNotePayloadEvent = new AccountEvent(debitNotePayload);
+					applicationContext.publishEvent(debitNotePayloadEvent);
+					LOG.info("Finish Send debitNotePayloadEvent Listener No Debt");
 				}
 				else
 				{
 					//hantar payload berhutang ke akademik
+					
+					LOG.info("Start Send debitNotePayloadEvent Listener Has Debt");
+					AccountPayload debitNotePayload = new AccountPayload();
+					debitNotePayload.setOutstanding(true);
+					debitNotePayload.setStudentStatus(StudentStatus.BARRED);
+					debitNotePayload.setMatricNo(debitNote.getInvoice().getAccount().getActor().getIdentityNo());
+					debitNotePayload.setBalance(debitNote.getBalanceAmount());
+					
+					AccountEvent debitNotePayloadEvent = new AccountEvent(debitNotePayload);
+					applicationContext.publishEvent(debitNotePayloadEvent);
+					LOG.info("Finish Send debitNotePayloadEvent Listener Has Debt");
 				}
 
 				totaldebit = totaldebit
