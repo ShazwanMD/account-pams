@@ -77,7 +77,9 @@ left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id
 		<variableExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></variableExpression>
 	</variable>
 	<variable name="tax_amount" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{ac_rcpt_item_applied_amount}.multiply( $F{ac_tax_rate} )]]></variableExpression>
+		<variableExpression><![CDATA[$F{ac_rcpt_item_applied_amount}.multiply( $F{ac_tax_rate} )
+
+]]></variableExpression>
 		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
 	</variable>
 	<filterExpression><![CDATA[$F{ac_rcpt_reference_no}.equals( $P{receipt_ref_no} )]]></filterExpression>
