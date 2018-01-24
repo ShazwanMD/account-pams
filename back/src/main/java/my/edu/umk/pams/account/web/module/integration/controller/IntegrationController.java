@@ -215,7 +215,7 @@ public class IntegrationController {
 
 	@RequestMapping(value = "/admissions", method = RequestMethod.POST)
 	public ResponseEntity<String> saveAdmission(@RequestBody AdmissionPayload payload) {
-		LOG.info("incoming admission");
+		LOG.info("Start incoming admission");
 		SecurityContext ctx = loginAsSystem();
 
 		// this is admission
@@ -239,8 +239,8 @@ public class IntegrationController {
 		charge.setSession(academicSession);
 		charge.setChargeDate(new Date());
 		charge.setReferenceNo(referenceNo);
-		charge.setSourceNo("SN"); // todo:
-		charge.setDescription("DESCRIPTION"); // todo:
+		charge.setSourceNo(student.getIdentityNo()); // todo:
+		charge.setDescription("DESCRIPTION_ADMISSION"); // todo:
 		charge.setAmount(BigDecimal.ZERO); // todo
 		charge.setOrdinal(payload.getOrdinal());
 		if (null != payload.getCohortCode())
@@ -250,6 +250,8 @@ public class IntegrationController {
 		accountService.addAccountCharge(account, charge);
 
 		LOG.debug("AfterAddAccountCharge:{}", charge.getAccount().getActor().getIdentityNo());
+		
+		LOG.info("Finish Receive admission");
 		logoutAsSystem(ctx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
