@@ -123,7 +123,7 @@ values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
         
 INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, ordinal, description, amount, m_st, c_id, c_ts)
 values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
-        (select ID FROM ac_chrg_code where code = 'TABPPS-PCA-00-H79999'), 1, 'my description 2', 1500.00,
+        (select ID FROM ac_chrg_code where code = 'TABPPS-PCA-00-H79311'), 1, 'my description 2', 1500.00,
         1, 1, CURRENT_TIMESTAMP);
         
 INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, ordinal, description, amount, m_st, c_id, c_ts)
@@ -183,5 +183,5 @@ values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
                 
 INSERT INTO ac_fee_scdl_item(id, schedule_id, charge_code_id, ordinal, description, amount, m_st, c_id, c_ts)
 values (nextval('SQ_AC_FEE_SCDL_ITEM'), currval('SQ_AC_FEE_SCDL'),
-        (select ID FROM ac_chrg_code where code = 'TABPPS-PCA-00-H79999'), 2, 'my description 2', 500.00,
+        (select ID FROM ac_chrg_code where code = 'TABPPS-PCA-00-H79335'), 2, 'my description 2', 500.00,
         1, 1, CURRENT_TIMESTAMP);
