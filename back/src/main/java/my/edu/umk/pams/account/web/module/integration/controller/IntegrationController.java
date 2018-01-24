@@ -240,7 +240,7 @@ public class IntegrationController {
 		charge.setChargeDate(new Date());
 		charge.setReferenceNo(referenceNo);
 		charge.setSourceNo(student.getIdentityNo()); // todo:
-		charge.setDescription("DESCRIPTION_ADMISSION"); // todo:
+		charge.setDescription("DESCRIPTION_ADMISSION;" + payload.getStudent().getMatricNo() ); // todo:
 		charge.setAmount(BigDecimal.ZERO); // todo
 		charge.setOrdinal(payload.getOrdinal());
 		if (null != payload.getCohortCode())
@@ -391,7 +391,7 @@ public class IntegrationController {
 		charge.setChargeDate(new Date());
 		charge.setReferenceNo(referenceNo);
 		charge.setSourceNo(account.getCode()); // todo:
-		charge.setDescription("DESCRIPTION"); // todo:
+		charge.setDescription("DESCRIPTION; " + payload.getMatricNo()); // todo:
 		charge.setAmount(BigDecimal.ZERO); // todo
 		charge.setOrdinal(1);
 		if (payload.getFacultyCode().getCode().equals("A10")) {
