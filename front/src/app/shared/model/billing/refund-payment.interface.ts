@@ -15,4 +15,7 @@ export interface RefundPayment extends MetaObject {
     advancePayment: AdvancePayment;
 accountCode: string;
 accountName: string;
+
+upperApproverId: string;
+upperApprovedDate: Date;
 }

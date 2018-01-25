@@ -19,6 +19,9 @@
   <template tdDataTableTemplate="issuedDate" let-value="value" let-row="row" let-column="column">
     <div layout="row">{{row['issuedDate'] | date: 'dd-MMM-yyyy'}}</div>
   </template>
+    <template tdDataTableTemplate="upperApprovedDate" let-value="value" let-row="row" let-column="column">
+    <div layout="row">{{row['upperApprovedDate'] | date: 'dd-MMM-yyyy'}}</div>
+  </template>
   <template tdDataTableTemplate="action" let-value="value" let-row="row" let-column="column">
     <div layout="row">
       <button md-icon-button [md-menu-trigger-for]="menu">

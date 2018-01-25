@@ -488,6 +488,8 @@ public class BillingTransformer {
         vo.setApprovedId(e.getFlowdata().getUpperApproverId());
         vo.setAccountCode(e.getPayments().getAccount().getCode());
         vo.setAccountName(e.getPayments().getAccount().getActor().getName());
+        vo.setUpperApprovedDate(e.getFlowdata().getUpperApprovedDate());
+        vo.setUpperApproverId(e.getFlowdata().getUpperApproverId());
         commonTransformer.decorateMeta(e,vo);
         return vo;
     }

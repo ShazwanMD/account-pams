@@ -24,6 +24,9 @@ public class RefundPayment extends Document {
 	private Timestamp approvedDate;
 	private Long approvedId;
 	
+	private Timestamp upperApprovedDate;
+	private Long upperApproverId;
+	
 	private String accountCode;
 	private String accountName;
 
@@ -121,6 +124,22 @@ public class RefundPayment extends Document {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	public Timestamp getUpperApprovedDate() {
+		return upperApprovedDate;
+	}
+
+	public void setUpperApprovedDate(Timestamp upperApprovedDate) {
+		this.upperApprovedDate = upperApprovedDate;
+	}
+
+	public Long getUpperApproverId() {
+		return upperApproverId;
+	}
+
+	public void setUpperApproverId(Long upperApproverId) {
+		this.upperApproverId = upperApproverId;
 	}
 
 	@JsonCreator

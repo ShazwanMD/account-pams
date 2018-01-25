@@ -32,8 +32,8 @@ export class RefundPaymentListComponent implements OnChanges {
 { name: 'voucherNo', label: 'Voucher No' },
 { name: 'description', label: 'Description' },
 { name: 'amount', label: 'Total Amount' },
-{name: 'refundPayment.approvedId', label: 'Creator'},
-{name: 'refundPayment.approvedDate', label: 'Created Date'},
+{name: 'upperApproverId', label: 'Creator'},
+{name: 'upperApprovedDate', label: 'Created Date'},
 { name: 'action', label: '' },
     ];
     filteredData: any[];
