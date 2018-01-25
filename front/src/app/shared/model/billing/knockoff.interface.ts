@@ -13,4 +13,6 @@ export interface Knockoff extends MetaObject {
     totalAmount: number;
     issuedDate: Date;
     payments?: AdvancePayment;
+    accountCode: string;
+    accountName: string;
 }

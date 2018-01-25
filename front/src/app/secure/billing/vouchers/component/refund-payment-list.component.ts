@@ -27,8 +27,8 @@ export class RefundPaymentListComponent implements OnChanges {
     private columns: any[] = [
 { name: 'issuedDate', label: 'Date' },
 { name: 'referenceNo', label: 'Reference No' },
-{ name: 'advancePayment.account.code', label: 'Account' },
-{ name: 'advancePayment.account.name', label: 'Name' },
+{name: 'accountCode', label: 'Account'},
+{name: 'accountName', label: 'Name'},
 { name: 'voucherNo', label: 'Voucher No' },
 { name: 'description', label: 'Description' },
 { name: 'amount', label: 'Total Amount' },

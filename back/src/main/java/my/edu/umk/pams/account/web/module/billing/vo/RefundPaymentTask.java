@@ -16,6 +16,9 @@ public class RefundPaymentTask extends Task {
 	private BigDecimal amount;
 	private String description;
 	private String paymentNo;
+	
+	private String accountCode;
+	private String accountName;
 
 	public RefundPayment getRefundPayment() {
 		return refundPayment;
@@ -57,8 +60,23 @@ public class RefundPaymentTask extends Task {
 		this.paymentNo = paymentNo;
 	}
 	
-	
-    @JsonCreator
+    public String getAccountCode() {
+		return accountCode;
+	}
+
+	public void setAccountCode(String accountCode) {
+		this.accountCode = accountCode;
+	}
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+	@JsonCreator
     public static RefundPaymentTask create(String jsonString) {
     	RefundPaymentTask o = null;
         try {

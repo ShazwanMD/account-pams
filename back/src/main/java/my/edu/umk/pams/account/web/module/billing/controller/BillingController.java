@@ -1,7 +1,9 @@
 package my.edu.umk.pams.account.web.module.billing.controller;
 
 import static java.lang.Boolean.TRUE;
+import static java.lang.System.currentTimeMillis;
 import static my.edu.umk.pams.account.AccountConstants.RECEIPT_REFERENCE_NO;
+import static my.edu.umk.pams.account.core.AcFlowState.CANCELLED;
 import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_DECISION;
 
 import java.math.BigDecimal;
@@ -694,6 +696,17 @@ public class BillingController {
        Map<String, Object> variables = new HashMap<String, Object>();
        variables.put(REMOVE_DECISION, TRUE);
        workflowService.completeTask(task, variables);
+    }
+    
+    @RequestMapping(value = "/receipts/remove", method = RequestMethod.POST)
+ 	public void removeReceipt(@RequestBody Receipt vo) {
+
+       AcReceipt receipt = billingService.findReceiptByReferenceNo(vo.getReferenceNo());
+       
+       receipt.getFlowdata().setState(CANCELLED);
+       receipt.getFlowdata().setCancelledDate(new Timestamp(currentTimeMillis()));
+       receipt.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+       billingService.updateReceipt(receipt);
     }
     
     @RequestMapping(value = "/receiptInvoices/{id}", method = RequestMethod.DELETE)

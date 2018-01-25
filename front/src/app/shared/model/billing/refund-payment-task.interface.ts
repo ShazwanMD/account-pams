@@ -16,4 +16,6 @@ export interface RefundPaymentTask extends Document {
     candidate: string;
     refundPayment: RefundPayment;
     flowState: FlowState;
+accountCode: string;
+accountName: string;
 }

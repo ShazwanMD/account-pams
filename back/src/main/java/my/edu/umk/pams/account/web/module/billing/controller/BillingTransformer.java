@@ -438,6 +438,8 @@ public class BillingTransformer {
         vo.setPayments(billingTransformer.toAdvancePaymentVo(e.getPayments()));
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
+        vo.setAccountCode(e.getPayments().getAccount().getCode());
+        vo.setAccountName(e.getPayments().getAccount().getActor().getName());
         commonTransformer.decorateMeta(e,vo);
         return vo;
     }
@@ -484,6 +486,8 @@ public class BillingTransformer {
         vo.setMetaState(MetaState.get(e.getMetadata().getState().ordinal()));
         vo.setApprovedDate(e.getFlowdata().getUpperApprovedDate());
         vo.setApprovedId(e.getFlowdata().getUpperApproverId());
+        vo.setAccountCode(e.getPayments().getAccount().getCode());
+        vo.setAccountName(e.getPayments().getAccount().getActor().getName());
         commonTransformer.decorateMeta(e,vo);
         return vo;
     }
@@ -638,6 +642,8 @@ public class BillingTransformer {
         task.setRefundPayment(toRefundPaymentVo(refundPayment));
         task.setFlowState(FlowState.get(refundPayment.getFlowdata().getState().ordinal()));
         task.setMetaState(MetaState.get(refundPayment.getMetadata().getState().ordinal()));
+        task.setAccountCode(refundPayment.getPayments().getAccount().getCode());
+        task.setAccountName(refundPayment.getPayments().getAccount().getActor().getName());
         return task;
     }
     

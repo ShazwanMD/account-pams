@@ -27,6 +27,8 @@ export class AssignedRefundPaymentTaskListComponent implements OnChanges {
   private columns: any[] = [
     { name: 'issuedDate', label: 'Date' },
     { name: 'referenceNo', label: 'Reference No' },
+    {name: 'accountCode', label: 'Account'},
+    {name: 'accountName', label: 'Name'},
     { name: 'description', label: 'Description' },
     { name: 'amount', label: 'Total Amount' },
     { name: 'refundPayment.creatorUsername', label: 'Creator' },

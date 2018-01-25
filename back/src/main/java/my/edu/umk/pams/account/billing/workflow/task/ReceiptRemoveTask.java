@@ -10,6 +10,7 @@ import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.test.annotation.Rollback;
 
 import java.sql.Timestamp;
 
@@ -19,6 +20,7 @@ import static my.edu.umk.pams.account.workflow.service.WorkflowConstants.REMOVE_
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Component("receipt_remove_ST")
+@Rollback(true)
 public class ReceiptRemoveTask extends BpmnActivityBehavior implements ActivityBehavior {
 
     private static final Logger LOG = getLogger(ReceiptRemoveTask.class);
@@ -43,5 +45,7 @@ public class ReceiptRemoveTask extends BpmnActivityBehavior implements ActivityB
         receipt.getFlowdata().setRemovedDate(new Timestamp(currentTimeMillis()));
         receipt.getFlowdata().setRemoverId(securityService.getCurrentUser().getId());
         billingService.updateReceipt(receipt);
+        
+        
     }
 }

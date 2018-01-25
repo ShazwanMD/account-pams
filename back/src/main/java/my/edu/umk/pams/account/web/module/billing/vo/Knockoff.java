@@ -22,6 +22,8 @@ public class Knockoff extends Document {
 	private BigDecimal totalAmount;
 	private Date issuedDate;
 	private AdvancePayment payments;
+	private String accountCode;
+	private String accountName;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -106,4 +108,22 @@ public class Knockoff extends Document {
 	public void setBalanceAmount(BigDecimal balanceAmount) {
 		this.balanceAmount = balanceAmount;
 	}
+
+	public String getAccountCode() {
+		return accountCode;
+	}
+
+	public void setAccountCode(String accountCode) {
+		this.accountCode = accountCode;
+	}
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+	
+	
 }
