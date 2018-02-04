@@ -30,20 +30,27 @@ ac_chrg_code.tax_code_id as "ac_charge_code_tax_code_id",
 ac_dbit_note.reference_no as "ac_debit_note_reference_no",
 ac_acct_chrg.reference_no as "ac_account_charge_reference_no",
 ac_tax_code.id as "ac_tax_code_id",
-ac_tax_code.tax_rate as "ac_tax_rate"
+ac_tax_code.tax_rate as "ac_tax_rate",
+ac_rcpt.id as "ac_rcpt_id",
+ac_scty_chrg_code.id as "ac_scty_chrg_code_id",
+ac_scty_chrg_code.tax_amount as "ac_scty_chrg_code_tax_amount",
+ac_scty_chrg_code.net_amount as "ac_scty_chrg_code_net_amount",
+ac_acct_chrg.tax_amount as "ac_acct_chrg_tax_amount"
 
 from
 
 ac_rcpt_item
 
 inner join ac_rcpt on ac_rcpt_item.receipt_id = ac_rcpt.id
+
 inner join ac_acct on ac_rcpt.account_id = ac_acct.id
 inner join ac_actr on ac_acct.id = ac_actr.id
-inner join ac_invc on ac_rcpt_item.invoice_id = ac_invc.id
+left outer join ac_invc on ac_rcpt_item.invoice_id = ac_invc.id
 left outer join ac_dbit_note on ac_rcpt_item.debit_note_id = ac_dbit_note.id
 left outer join ac_chrg_code on ac_rcpt_item.charge_code_id = ac_chrg_code.id
 left outer join ac_tax_code on  ac_chrg_code.tax_code_id = ac_tax_code.id
-left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id]]>
+left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id
+left outer join ac_scty_chrg_code on ac_acct_chrg.security_charge_code_id = ac_scty_chrg_code.id]]>
 	</queryString>
 	<field name="ac_rcpt_item_id" class="java.lang.Long"/>
 	<field name="ac_rcpt_item_invoice_id" class="java.lang.Long"/>
@@ -57,7 +64,7 @@ left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id
 	<field name="ac_rcpt_source_no" class="java.lang.String"/>
 	<field name="ac_rcpt_report_status" class="java.lang.String"/>
 	<field name="ac_rcpt_received_date" class="java.sql.Timestamp"/>
-	<field name="ac_rcpt_payment_method" class="java.lang.String"/>
+	<field name="ac_rcpt_payment_method" class="java.lang.Integer"/>
 	<field name="ac_invc_reference_no" class="java.lang.String"/>
 	<field name="ac_ac_code" class="java.lang.String"/>
 	<field name="ac_actr_name" class="java.lang.String"/>
@@ -66,6 +73,11 @@ left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id
 	<field name="ac_account_charge_reference_no" class="java.lang.String"/>
 	<field name="ac_tax_code_id" class="java.lang.Long"/>
 	<field name="ac_tax_rate" class="java.math.BigDecimal"/>
+	<field name="ac_rcpt_id" class="java.lang.Long"/>
+	<field name="ac_scty_chrg_code_id" class="java.lang.Long"/>
+	<field name="ac_scty_chrg_code_tax_amount" class="java.math.BigDecimal"/>
+	<field name="ac_scty_chrg_code_net_amount" class="java.math.BigDecimal"/>
+	<field name="ac_acct_chrg_tax_amount" class="java.math.BigDecimal"/>
 	<variable name="sumOfTotal" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[]]></variableExpression>
 		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
@@ -76,9 +88,12 @@ left outer join ac_acct_chrg on ac_rcpt_item.account_charge_id = ac_acct_chrg.id
 	<variable name="ac_rcpt_item_applied_amount_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></variableExpression>
 	</variable>
-	<variable name="tax_amount" class="java.math.BigDecimal" calculation="Sum">
+	<variable name="tax_amount" class="java.math.BigDecimal">
 		<variableExpression><![CDATA[$F{ac_rcpt_item_applied_amount}.multiply( $F{ac_tax_rate} )]]></variableExpression>
 		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+	</variable>
+	<variable name="totalAmount1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ac_rcpt_item_applied_amount}.add( $V{tax_amount} )]]></variableExpression>
 	</variable>
 	<filterExpression><![CDATA[$F{ac_rcpt_reference_no}.equals( $P{receipt_ref_no} )]]></filterExpression>
 	<background>
@@ -260,7 +275,7 @@ $F{ac_rcpt_payment_method}.equals( "3" ) ? "BANK DRAF" : "OTHERS"
 		<band height="21" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="0" width="553" height="20" uuid="06621a08-850a-4a11-929a-443430e229fa"/>
-				<textField>
+				<textField pattern="###0.00">
 					<reportElement x="453" y="3" width="98" height="17" uuid="f7b2dfa6-5f93-44fe-8501-27570bbe6cac"/>
 					<textElement textAlignment="Right">
 						<font fontName="SansSerif"/>
@@ -268,9 +283,11 @@ $F{ac_rcpt_payment_method}.equals( "3" ) ? "BANK DRAF" : "OTHERS"
 					<textFieldExpression><![CDATA[$F{ac_rcpt_item_applied_amount}]]></textFieldExpression>
 				</textField>
 				<textField pattern="###0.00">
-					<reportElement x="341" y="1" width="100" height="19" uuid="61ec9432-d8e7-48c6-bee6-5a258d607521"/>
+					<reportElement x="344" y="0" width="99" height="20" uuid="61ec9432-d8e7-48c6-bee6-5a258d607521"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$V{tax_amount}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($V{tax_amount} != null ? $V{tax_amount} : "" +
+$F{ac_acct_chrg_tax_amount} != null ? $F{ac_acct_chrg_tax_amount} : ""  +
+$F{ac_scty_chrg_code_tax_amount} != null ? $F{ac_scty_chrg_code_tax_amount} : "" )]]></textFieldExpression>
 				</textField>
 			</frame>
 			<textField>
